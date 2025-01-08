@@ -1842,6 +1842,18 @@ def alterKey [BEq α] [LawfulBEq α] (k : α) (f : Option (β k) → Option (β 
   --   | none => l
   --   | some v => ⟨k, v⟩ :: l
 
+theorem length_alterKey [BEq α] [LawfulBEq α] {k : α} {f : Option (β k) → Option (β k)}
+    {l : List ((a : α) × β a)} :
+    (alterKey k f l).length = if h : containsKey k l then if f (getValueCast k l h) |>.isSome then l.length else l.length - 1 else if f none |>.isSome then l.length + 1 else l.length := by
+  rw [alterKey]
+  cases h : getValueCast? k l with
+  | none =>
+      simp [containsKey_eq_isSome_getValueCast?, h]
+      split <;> simp_all [length_eraseKey, length_insertEntry, containsKey_eq_isSome_getValueCast?, h]
+  | some v =>
+      simp [containsKey_eq_isSome_getValueCast?, h]
+      split <;> simp_all [length_eraseKey, length_insertEntry, containsKey_eq_isSome_getValueCast?, h, ← getValueCast?_eq_some_getValueCast]
+
 theorem alterKey_of_perm [BEq α] [LawfulBEq α] {a : α} {f : Option (β a) → Option (β a)}
     {l l' : List ((a : α) × β a)} (hl : DistinctKeys l) (hp : Perm l l') :
     Perm (alterKey a f l) (alterKey a f l') := sorry

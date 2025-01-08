@@ -490,15 +490,17 @@ structure IsHashSelf [BEq α] [Hashable α] (m : Array (AssocList α β)) : Prop
 
 namespace Raw
 
-/-- This is the actual well-formedness predicate for hash maps. Users should never need to interact
-with this and should use `WF` instead. -/
-structure WFImp [BEq α] [Hashable α] (m : Raw α β) : Prop where
+structure WFImp.Buckets [BEq α] [Hashable α] (m : Raw α β) : Prop where
   /-- Internal implementation detail of the hash map -/
   buckets_hash_self : IsHashSelf m.buckets
   /-- Internal implementation detail of the hash map -/
-  size_eq : m.size = (toListModel m.buckets).length
-  /-- Internal implementation detail of the hash map -/
   distinct : List.DistinctKeys (toListModel m.buckets)
+
+/-- This is the actual well-formedness predicate for hash maps. Users should never need to interact
+with this and should use `WF` instead. -/
+structure WFImp [BEq α] [Hashable α] (m : Raw α β) extends WFImp.Buckets m : Prop where
+  /-- Internal implementation detail of the hash map -/
+  size_eq : m.size = (toListModel m.buckets).length
 
 end Raw
 

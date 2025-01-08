@@ -136,7 +136,7 @@ theorem exists_bucket [BEq α] [Hashable α]
 
 /-- This is the general theorem used to show that access operations are correct. -/
 theorem apply_bucket [BEq α] [Hashable α] [PartialEquivBEq α] [LawfulHashable α] {m : Raw₀ α β}
-    (hm : Raw.WFImp m.1) {a : α} {f : AssocList α β → γ} {g : List ((a : α) × β a) → γ}
+    (hm : Raw.WFImp.Buckets m.1) {a : α} {f : AssocList α β → γ} {g : List ((a : α) × β a) → γ}
     (hfg : ∀ {l}, f l = g l.toList) (hg₁ : ∀ {l l'}, DistinctKeys l → Perm l l' → g l = g l')
     (hg₂ : ∀ {l l'}, containsKey a l' = false → g (l ++ l') = g l) :
     f (bucket m.1.buckets m.2 a) = g (toListModel m.1.buckets) := by
@@ -316,7 +316,7 @@ def alterₘ [BEq α] [Hashable α] [LawfulBEq α] (m : Raw₀ α β) (a : α)
     Raw₀ α β :=
   if h : m.containsₘ a then
     let buckets' := updateBucket m.1.buckets m.2 a (fun l => l.alter a f)
-    let size' := if (bucket buckets' (by simpa [buckets'] using m.2) a).contains a then
+    let size' := if Raw₀.containsₘ ⟨⟨computeSize buckets', buckets'⟩, by simpa [buckets'] using m.2⟩ a then
       m.1.size else m.1.size - 1
     ⟨⟨size', buckets'⟩, by simpa [buckets'] using m.2⟩
   else
@@ -418,15 +418,23 @@ theorem bucket_updateBucket [Hashable α] (self : Array (AssocList α β)) (h : 
   unfold bucket updateBucket mkIdx
   simp
 
+theorem mkIdx_congr {sz sz' : Nat} (hsz : sz = sz') {h h'} {hash : UInt64} :
+    (mkIdx sz h hash).val = (mkIdx sz' h' hash).val := by
+  cases hsz; rfl
+
 theorem alter_eq_alterₘ [BEq α] [Hashable α] [LawfulBEq α] (m : Raw₀ α β) (a : α)
     (f : Option (β a) → Option (β a)) :
     m.alter a f = m.alterₘ a f := by
-  dsimp only [alter, alterₘ]
-  simp only [← bucket_eq, ← containsₘ.eq_1]
+  dsimp only [alter, alterₘ, containsₘ, bucket]
   split
-  · simp only [AssocList.contains_eq, Array.uset, Array.set_set, bucket_updateBucket,
-      Subtype.mk.injEq, Raw.mk.injEq, true_and]
-    rfl
+  · congr 2
+    · congr
+      simp [updateBucket]
+      rw [Array.getElem_set_self]
+      congr 1
+      apply mkIdx_congr
+      simp
+    · simp [updateBucket]
   · congr
 
 theorem containsThenInsert_eq_insertₘ [BEq α] [Hashable α] (m : Raw₀ α β) (a : α) (b : β a) :
