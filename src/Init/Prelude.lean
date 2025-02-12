@@ -1939,7 +1939,7 @@ Pack a `Nat` less than `2^8` into a `UInt8`.
 This function is overridden with a native implementation.
 -/
 @[extern "lean_uint8_of_nat"]
-def UInt8.ofNatCore (n : @& Nat) (h : LT.lt n UInt8.size) : UInt8 where
+def UInt8.ofNatLT (n : @& Nat) (h : LT.lt n UInt8.size) : UInt8 where
   toBitVec := BitVec.ofNatLt n h
 
 set_option bootstrap.genMatcherCode false in
@@ -1958,7 +1958,7 @@ def UInt8.decEq (a b : UInt8) : Decidable (Eq a b) :=
 instance : DecidableEq UInt8 := UInt8.decEq
 
 instance : Inhabited UInt8 where
-  default := UInt8.ofNatCore 0 (of_decide_eq_true rfl)
+  default := UInt8.ofNatLT 0 (of_decide_eq_true rfl)
 
 /-- The size of type `UInt16`, that is, `2^16 = 65536`. -/
 abbrev UInt16.size : Nat := 65536
@@ -1980,7 +1980,7 @@ Pack a `Nat` less than `2^16` into a `UInt16`.
 This function is overridden with a native implementation.
 -/
 @[extern "lean_uint16_of_nat"]
-def UInt16.ofNatCore (n : @& Nat) (h : LT.lt n UInt16.size) : UInt16 where
+def UInt16.ofNatLT (n : @& Nat) (h : LT.lt n UInt16.size) : UInt16 where
   toBitVec := BitVec.ofNatLt n h
 
 set_option bootstrap.genMatcherCode false in
@@ -1999,7 +1999,7 @@ def UInt16.decEq (a b : UInt16) : Decidable (Eq a b) :=
 instance : DecidableEq UInt16 := UInt16.decEq
 
 instance : Inhabited UInt16 where
-  default := UInt16.ofNatCore 0 (of_decide_eq_true rfl)
+  default := UInt16.ofNatLT 0 (of_decide_eq_true rfl)
 
 /-- The size of type `UInt32`, that is, `2^32 = 4294967296`. -/
 abbrev UInt32.size : Nat := 4294967296
@@ -2021,7 +2021,7 @@ Pack a `Nat` less than `2^32` into a `UInt32`.
 This function is overridden with a native implementation.
 -/
 @[extern "lean_uint32_of_nat"]
-def UInt32.ofNatCore (n : @& Nat) (h : LT.lt n UInt32.size) : UInt32 where
+def UInt32.ofNatLT (n : @& Nat) (h : LT.lt n UInt32.size) : UInt32 where
   toBitVec := BitVec.ofNatLt n h
 
 /--
@@ -2045,7 +2045,7 @@ def UInt32.decEq (a b : UInt32) : Decidable (Eq a b) :=
 instance : DecidableEq UInt32 := UInt32.decEq
 
 instance : Inhabited UInt32 where
-  default := UInt32.ofNatCore 0 (of_decide_eq_true rfl)
+  default := UInt32.ofNatLT 0 (of_decide_eq_true rfl)
 
 instance : LT UInt32 where
   lt a b := LT.lt a.toBitVec b.toBitVec
@@ -2093,7 +2093,7 @@ Pack a `Nat` less than `2^64` into a `UInt64`.
 This function is overridden with a native implementation.
 -/
 @[extern "lean_uint64_of_nat"]
-def UInt64.ofNatCore (n : @& Nat) (h : LT.lt n UInt64.size) : UInt64 where
+def UInt64.ofNatLT (n : @& Nat) (h : LT.lt n UInt64.size) : UInt64 where
   toBitVec := BitVec.ofNatLt n h
 
 set_option bootstrap.genMatcherCode false in
@@ -2112,7 +2112,7 @@ def UInt64.decEq (a b : UInt64) : Decidable (Eq a b) :=
 instance : DecidableEq UInt64 := UInt64.decEq
 
 instance : Inhabited UInt64 where
-  default := UInt64.ofNatCore 0 (of_decide_eq_true rfl)
+  default := UInt64.ofNatLT 0 (of_decide_eq_true rfl)
 
 /-- The size of type `USize`, that is, `2^System.Platform.numBits`. -/
 abbrev USize.size : Nat := (hPow 2 System.Platform.numBits)
@@ -2148,7 +2148,7 @@ Pack a `Nat` less than `USize.size` into a `USize`.
 This function is overridden with a native implementation.
 -/
 @[extern "lean_usize_of_nat"]
-def USize.ofNatCore (n : @& Nat) (h : LT.lt n USize.size) : USize where
+def USize.ofNatLT (n : @& Nat) (h : LT.lt n USize.size) : USize where
   toBitVec := BitVec.ofNatLt n h
 
 set_option bootstrap.genMatcherCode false in
@@ -2167,7 +2167,7 @@ def USize.decEq (a b : USize) : Decidable (Eq a b) :=
 instance : DecidableEq USize := USize.decEq
 
 instance : Inhabited USize where
-  default := USize.ofNatCore 0 usize_size_pos
+  default := USize.ofNatLT 0 usize_size_pos
 /--
 A `Nat` denotes a valid unicode codepoint if it is less than `0x110000`, and
 it is also not a "surrogate" character (the range `0xd800` to `0xdfff` inclusive).
@@ -2234,9 +2234,9 @@ instance : DecidableEq Char :=
 /-- Returns the number of bytes required to encode this `Char` in UTF-8. -/
 def Char.utf8Size (c : Char) : Nat :=
   let v := c.val
-  ite (LE.le v (UInt32.ofNatCore 0x7F (of_decide_eq_true rfl))) 1
-    (ite (LE.le v (UInt32.ofNatCore 0x7FF (of_decide_eq_true rfl))) 2
-      (ite (LE.le v (UInt32.ofNatCore 0xFFFF (of_decide_eq_true rfl))) 3 4))
+  ite (LE.le v (UInt32.ofNatLT 0x7F (of_decide_eq_true rfl))) 1
+    (ite (LE.le v (UInt32.ofNatLT 0x7FF (of_decide_eq_true rfl))) 2
+      (ite (LE.le v (UInt32.ofNatLT 0xFFFF (of_decide_eq_true rfl))) 3 4))
 
 /--
 `Option α` is the type of values which are either `some a` for some `a : α`,
@@ -3501,9 +3501,9 @@ with
   /-- A hash function for names, which is stored inside the name itself as a
   computed field. -/
   @[computed_field] hash : Name → UInt64
-    | .anonymous => .ofNatCore 1723 (of_decide_eq_true rfl)
+    | .anonymous => .ofNatLT 1723 (of_decide_eq_true rfl)
     | .str p s => mixHash p.hash s.hash
-    | .num p v => mixHash p.hash (dite (LT.lt v UInt64.size) (fun h => UInt64.ofNatCore v h) (fun _ => UInt64.ofNatCore 17 (of_decide_eq_true rfl)))
+    | .num p v => mixHash p.hash (dite (LT.lt v UInt64.size) (fun h => UInt64.ofNatLT v h) (fun _ => UInt64.ofNatLT 17 (of_decide_eq_true rfl)))
 
 instance : Inhabited Name where
   default := Name.anonymous

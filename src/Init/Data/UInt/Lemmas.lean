@@ -26,7 +26,9 @@ macro "declare_uint_theorems" typeName:ident bits:term:arg : command => do
 
   @[simp] theorem toNat_ofNat {n : Nat} : (ofNat n).toNat = n % 2 ^ $bits := BitVec.toNat_ofNat ..
 
-  @[simp] theorem toNat_ofNatCore {n : Nat} {h : n < size} : (ofNatCore n h).toNat = n := BitVec.toNat_ofNatLt ..
+  @[simp] theorem toNat_ofNatLT {n : Nat} {h : n < size} : (ofNatLT n h).toNat = n := BitVec.toNat_ofNatLt ..
+  @[deprecated toNat_ofNatLT (since := "2025-02-12")]
+  theorem toNat_ofNatCore {n : Nat} {h : n < size} : (ofNatLT n h).toNat = n := BitVec.toNat_ofNatLt ..
 
   @[simp] theorem val_val_eq_toNat (x : $typeName) : x.val.val = x.toNat := rfl
 
