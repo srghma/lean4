@@ -104,28 +104,28 @@ theorem foldRev_cons {l : Raw α β} {acc : List ((a : α) × β a)} :
     l.foldRev (fun acc k v => ⟨k, v⟩ :: acc) acc = toListModel l.buckets ++ acc := by
   simp [foldRev_cons_apply]
 
+theorem foldRev_cons_mk {β : Type v} {l : Raw α (fun _ => β)} {acc : List (α × β)} :
+    l.foldRev (fun acc k v => (k, v) :: acc) acc =
+      (toListModel l.buckets).map (fun ⟨k, v⟩ => (k, v)) ++ acc := by
+  simp [foldRev_cons_apply]
+
 theorem foldRev_cons_key {l : Raw α β} {acc : List α} :
     l.foldRev (fun acc k _ => k :: acc) acc = List.keys (toListModel l.buckets) ++ acc := by
   rw [foldRev_cons_apply, keys_eq_map]
 
 theorem toList_eq_toListModel {m : Raw α β} : m.toList = toListModel m.buckets := by
-  simp only [Raw.toList, Raw.foldRev, Raw.foldRevM, Array.id_run_foldrM, ← Array.foldr_toList,
-    toListModel]
-  apply AssocList.foldr_foldr_cons_eq_flatMap_toList
+  simp [Raw.toList, foldRev_cons]
 
 theorem Const.toList_eq_toListModel_map {β : Type v} {m : Raw α (fun _ => β)} :
     Raw.Const.toList m = (toListModel m.buckets).map (fun ⟨k, v⟩ => ⟨k, v⟩) := by
-  simp[Raw.Const.toList, Raw.foldRev, Raw.foldRevM, toListModel, ← Array.foldr_toList]
-  apply AssocList.foldr_foldr_toProd_eq_map_toProd_flatMap_toList
+  simp [Raw.Const.toList, foldRev_cons_mk]
 
 theorem toList_perm_toListModel {m : Raw α β} : Perm m.toList (toListModel m.buckets) := by
   simp [Raw.toList, foldRev_cons]
 
 theorem keys_eq_keys_toListModel {m : Raw α β }:
     m.keys = List.keys (toListModel m.buckets) := by
-  simp only [Raw.keys, Raw.foldRev, Raw.foldRevM, Array.id_run_foldrM, ← Array.foldr_toList,
-    toListModel, keys_eq_map]
-  apply AssocList.foldr_foldr_eq_sigma_fst_flatMap_toList
+  simp [Raw.keys, foldRev_cons_key, keys_eq_map]
 
 theorem keys_perm_keys_toListModel {m : Raw α β} :
     Perm m.keys (List.keys (toListModel m.buckets)) := by
