@@ -8,7 +8,6 @@ LAKE=${LAKE:-../../.lake/build/bin/lake}
 
 # Test `env` with no command
 $LAKE env | grep ".*=.*"
-
 # Test installation variables are set
 # NOTE: `printenv` exits with code 1 if the variable is not set
 $LAKE env printenv LAKE

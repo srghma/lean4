@@ -240,6 +240,16 @@ structure Environment where
   header                  : EnvironmentHeader := {}
 deriving Nonempty
 
+instance : ToFormat Environment where
+  format env := Id.run do
+    let mut fmt := Format.nil
+    -- fmt := fmt ++ format "imports: " ++ env.header.imports ++ Format.line
+    -- fmt := fmt ++ format "number of direct imports: " ++ env.header.imports.size ++ Format.line
+    -- fmt := fmt ++ format "number of transitive imports: " ++ env.header.moduleNames.size ++ Format.line
+    fmt := fmt ++ format "constants: " ++ repr env.constants ++ Format.line
+    -- fmt := fmt ++ format "trust level: " ++ env.header.trustLevel ++ Format.line
+    fmt
+
 /-- Exceptions that can be raised by the kernel when type checking new declarations. -/
 inductive Exception where
   | unknownConstant  (env : Environment) (name : Name)
@@ -525,6 +535,19 @@ structure Environment where
   -/
   private allRealizations : Task (NameMap AsyncConst) := .pure {}
 deriving Nonempty
+
+instance : ToFormat Environment where
+  format env := Id.run do
+    let mut fmt := Format.nil
+    -- fmt := fmt ++ format "imports: " ++ env.header.imports ++ Format.line
+    -- fmt := fmt ++ format "number of direct imports: " ++ env.header.imports.size ++ Format.line
+    -- fmt := fmt ++ format "number of transitive imports: " ++ env.header.moduleNames.size ++ Format.line
+    fmt := fmt ++ format "base: " ++ format env.base ++ Format.line
+    -- fmt := fmt ++ format "trust level: " ++ env.header.trustLevel ++ Format.line
+    fmt
+
+instance : ToString Environment where
+  toString env := Format.pretty (format env)
 
 namespace Environment
 

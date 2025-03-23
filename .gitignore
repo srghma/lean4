@@ -31,3 +31,6 @@ fwOut.txt
 wdErr.txt
 wdIn.txt
 wdOut.txt
+Testing/
+CMakeFiles/
+CMakeCache.txt

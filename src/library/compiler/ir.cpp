@@ -590,6 +590,21 @@ extern "C" LEAN_EXPORT object* lean_add_extern(object * env, object * fn) {
     }
 }
 
+extern "C" object * lean_ir_emit_mjs(object * env, object * mod_name);
+
+string_ref emit_mjs(elab_environment const & env, name const & mod_name) {
+    std::cout << "\nemit_mjs" << std::flush;
+    object * r = lean_ir_emit_mjs(env.to_obj_arg(), mod_name.to_obj_arg());
+    string_ref s(cnstr_get(r, 0), true);
+    if (cnstr_tag(r) == 0) {
+        dec_ref(r);
+        throw exception(s.to_std_string());
+    } else {
+        dec_ref(r);
+        return s;
+    }
+}
+
 extern "C" object * lean_ir_emit_c(object * env, object * mod_name);
 
 string_ref emit_c(elab_environment const & env, name const & mod_name) {
