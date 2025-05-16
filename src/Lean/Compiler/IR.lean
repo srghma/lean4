@@ -20,6 +20,7 @@ import Lean.Compiler.IR.ExpandResetReuse
 import Lean.Compiler.IR.UnboxResult
 import Lean.Compiler.IR.ElimDeadBranches
 import Lean.Compiler.IR.EmitC
+import Lean.Compiler.IR.EmitMjs
 import Lean.Compiler.IR.CtorLayout
 import Lean.Compiler.IR.Sorry
 import Lean.Compiler.IR.ToIR

@@ -202,6 +202,7 @@ static void display_help(std::ostream & out) {
     std::cout << "      --run <file>       call the 'main' definition in the given file with the remaining arguments\n";
     std::cout << "  -o, --o=oname          create olean file\n";
     std::cout << "  -i, --i=iname          create ilean file\n";
+    std::cout << "  -A, --javascript=fname name of the Javascript output file\n";
     std::cout << "  -c, --c=fname          name of the C output file\n";
     std::cout << "  -b, --bc=fname         name of the LLVM bitcode file\n";
     std::cout << "      --stdin            take input from stdin\n";
@@ -262,6 +263,7 @@ static struct option g_long_options[] = {
     {"src-deps",     no_argument,       &only_src_deps, 1},
     {"deps-json",    no_argument,       0, 'J'},
     {"timeout",      optional_argument, 0, 'T'},
+    {"javascript",   optional_argument, 0, 'A'},
     {"c",            optional_argument, 0, 'c'},
     {"bc",           optional_argument, 0, 'b'},
     {"features",     optional_argument, 0, 'f'},
@@ -517,6 +519,7 @@ extern "C" LEAN_EXPORT int lean_main(int argc, char ** argv) {
     options opts = get_default_options();
     optional<std::string> server_in;
     std::string native_output;
+    optional<std::string> javascript_output;
     optional<std::string> c_output;
     optional<std::string> llvm_output;
     optional<std::string> root_dir;
@@ -552,6 +555,10 @@ extern "C" LEAN_EXPORT int lean_main(int argc, char ** argv) {
             case 'f':
                 display_features(std::cout);
                 return 0;
+            case 'A':
+                check_optarg("javascript");
+                javascript_output = optarg;
+                break;
             case 'c':
                 check_optarg("c");
                 c_output = optarg;
@@ -775,6 +782,17 @@ extern "C" LEAN_EXPORT int lean_main(int argc, char ** argv) {
             if (run) {
                 uint32 ret = ir::run_main(env, opts, argc - optind, argv + optind);
                 return ret;
+            }
+            if (javascript_output) {
+                std::ofstream out(*javascript_output, std::ios_base::binary);
+                if (out.fail()) {
+                    std::cerr << "failed to create '" << *c_output << "'\n";
+                    return 1;
+                }
+                time_task _("Javascript code generation", opts);
+                out << lean::ir::emit_mjs(env, *main_module_name).data();
+                // std::cout << "OUTPUT DONEHEHE2" << std::flush;
+                out.close();
             }
             if (c_output) {
                 std::ofstream out(*c_output, std::ios_base::binary);
