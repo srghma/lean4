@@ -443,6 +443,7 @@ def failIfSucceeds (x : CommandElabM Unit) : CommandElabM Unit := do
     (if System.Platform.isWindows then [" Windows"] else [])
     ++ (if System.Platform.isOSX then [" macOS"] else [])
     ++ (if System.Platform.isEmscripten then [" Emscripten"] else [])
+    ++ (if System.Platform.isJavascript then [" Javascript"] else [])
   logInfo m!"Lean {Lean.versionString}\nTarget: {target}{String.join platforms}"
 
 @[builtin_command_elab Parser.Command.exit] def elabExit : CommandElab := fun _ =>

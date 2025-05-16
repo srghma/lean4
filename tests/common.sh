@@ -24,6 +24,14 @@ function lean_has_llvm_support {
     lean --features | grep -q "LLVM"
 }
 
+function compile_lean_node_backend {
+    which lean
+    realpath $(which lean)
+    realpath "$f.js"
+    echo lean --javascript="$f.js" "$f"
+    lean --javascript="$f.js" "$f" || fail "Failed to compile $f into NODE file"
+}
+
 function compile_lean_c_backend {
     lean --c="$f.c" "$f" || fail "Failed to compile $f into C file"
     leanc ${LEANC_OPTS-} -O3 -DNDEBUG -o "$f.out" "$@" "$f.c" || fail "Failed to compile C file $f.c"
@@ -54,6 +62,10 @@ function exec_capture {
       | perl -pe 's/https:\/\/lean-lang\.org\/doc\/reference\/(v?[0-9.]+(-rc[0-9]+)?|latest)/REFERENCE/g'  > "$f.produced.out"
 }
 
+# produces filtered output intended for usage with `diff_produced`
+function exec_check__using_node {
+    node "$@" 2>&1 | perl -pe 's/(\?(\w|_\w+))\.[0-9]+/\1/g' > "$f.produced.out"
+}
 
 # Remark: `${var+x}` is a parameter expansion which evaluates to nothing if `var` is unset, and substitutes the string `x` otherwise.
 function check_ret {
