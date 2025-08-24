@@ -391,3 +391,140 @@ def RecursiveMutex.new (a : α) : BaseIO (RecursiveMutex α) :=
 def RecursiveMutex.atomically [Monad m] [MonadLiftT BaseIO m] [MonadFinally m]
 def RecursiveMutex.tryAtomically [Monad m] [MonadLiftT BaseIO m] [MonadFinally m]
 ```
+
+src/Std/Internal/IO/Async.lean
+
+```purescript
+namespace Std
+  namespace Internal
+    namespace IO
+      namespace Async
+        class MonadAwait (t : Type → Type) (m : Type → Type) extends Monad m where
+        class MonadAsync (t : Type → Type) (m : Type → Type) extends Monad m where
+        instance [Monad m] [MonadAwait t m] : MonadAwait t (StateT n m) where
+        instance [Monad m] [MonadAwait t m] : MonadAwait t (ExceptT n m) where
+        instance [Monad m] [MonadAwait t m] : MonadAwait t (ReaderT n m) where
+        instance [MonadAwait t m] : MonadAwait t (StateRefT' s n m) where
+        instance [MonadAwait t m] : MonadAwait t (StateT s m) where
+        instance [MonadAsync t m] : MonadAsync t (ReaderT n m) where
+        instance [MonadAsync t m] : MonadAsync t (StateRefT' s n m) where
+        instance [Functor t] [inst : MonadAsync t m] : MonadAsync t (StateT s m) where
+
+        abbrev ETask (ε : Type) (α : Type) : Type := ExceptT ε Task α
+        namespace ETask
+          protected def pure (x : α) : ETask ε α :=
+          protected def map (f : α → β) (x : ETask ε α) (prio := Task.Priority.default) (sync := false) : ETask ε β :=
+          protected def bind (x : ETask ε α) (f : α → ETask ε β) (prio := Task.Priority.default) (sync := false) : ETask ε β :=
+          protected def bindEIO (x : ETask ε α) (f : α → EIO ε (ETask ε β)) (prio := Task.Priority.default) (sync := false) : EIO ε (ETask ε β) :=
+          protected def mapEIO (f : α → EIO ε β) (x : ETask ε α) (prio := Task.Priority.default) (sync := false) : BaseIO (ETask ε β) :=
+          def block (x : ETask ε α) : EIO ε α := do
+          def ofPromise (x : IO.Promise (Except ε α)) : ETask ε α :=
+          def ofPurePromise (x : IO.Promise α) : ETask ε α :=
+          def getState (x : ETask ε α) : BaseIO IO.TaskState :=
+          instance : Functor (ETask ε) where
+          instance : Monad (ETask ε) where
+        end ETask
+
+        abbrev AsyncTask := ETask IO.Error
+        namespace AsyncTask
+          protected def mapIO (f : α → IO β) (x : AsyncTask α) (prio := Task.Priority.default) (sync := false) : BaseIO (AsyncTask β) :=
+          protected def pure (x : α) : AsyncTask α :=
+          protected def bind (x : AsyncTask α) (f : α → AsyncTask β) (prio := Task.Priority.default) (sync := false) : AsyncTask β :=
+          def map (f : α → β) (x : AsyncTask α) (prio := Task.Priority.default) (sync := false) : AsyncTask β :=
+          def bindIO (x : AsyncTask α) (f : α → IO (AsyncTask β)) (prio := Task.Priority.default) (sync := false) : BaseIO (AsyncTask β) :=
+          def mapTaskIO (f : α → IO β) (x : AsyncTask α) (prio := Task.Priority.default) (sync := false) : BaseIO (AsyncTask β) :=
+          def block (x : AsyncTask α) : IO α :=
+          def ofPromise (x : IO.Promise (Except IO.Error α)) : AsyncTask α :=
+          def ofPurePromise (x : IO.Promise α) : AsyncTask α :=
+          def getState (x : AsyncTask α) : BaseIO IO.TaskState :=
+        end AsyncTask
+
+        inductive MaybeTask (α : Type)
+        namespace MaybeTask
+          def toTask : MaybeTask α → Task α
+          def get {α : Type} : MaybeTask α → α
+          def map (f : α → β) (prio := Task.Priority.default) (sync := false) : MaybeTask α → MaybeTask β
+          protected def bind (t : MaybeTask α) (f : α → MaybeTask β) (prio := Task.Priority.default) (sync := false) : MaybeTask β :=
+          def joinTask (t : Task (MaybeTask α)) : Task α :=
+          instance : Functor (MaybeTask) where
+          instance : Monad (MaybeTask) where
+        end MaybeTask
+
+        @[expose] def BaseAsync (α : Type) := BaseIO (MaybeTask α)
+        namespace BaseAsync
+          def mk (x : BaseIO (MaybeTask α)) : BaseAsync α :=
+          def toRawBaseIO (x : BaseAsync α) : BaseIO (MaybeTask α) :=
+          protected def toBaseIO (x : BaseAsync α) : BaseIO (Task α) :=
+          protected def ofTask (x : Task α) : BaseAsync α :=
+          protected def pure (a : α) : BaseAsync α :=
+          protected def map (f : α → β) (self : BaseAsync α) (prio := Task.Priority.default) (sync := false) : BaseAsync β :=
+          protected def bind (self : BaseAsync α) (f : α → BaseAsync β) (prio := Task.Priority.default) (sync := false) : BaseAsync β :=
+          protected def lift (x : BaseIO α) : BaseAsync α :=
+          protected def wait (self : BaseAsync α) : BaseIO α :=
+          protected def asTask (x : BaseAsync α) (prio := Task.Priority.default) : BaseIO (Task α) := do
+          def await (t : Task α) : BaseAsync α :=
+          def async (self : BaseAsync α) (prio := Task.Priority.default) : BaseAsync (Task α) :=
+          instance : Functor BaseAsync where
+          instance : Monad BaseAsync where
+          instance : MonadLift BaseIO BaseAsync where
+          instance : MonadAwait Task BaseAsync where
+          instance : MonadAsync Task BaseAsync where
+          instance [Inhabited α] : Inhabited (BaseAsync α) where
+        end BaseAsync
+
+        @[expose] def EAsync (ε : Type) (α : Type) := BaseAsync (Except ε α)
+        namespace EAsync
+          protected def toBaseIO (x : EAsync ε α) : BaseIO (ETask ε α) :=
+          protected def ofTask (x : ETask ε α) : EAsync ε α :=
+          protected def toEIO (x : EAsync ε α) : EIO ε (ETask ε α) :=
+          protected def ofETask (x : ETask ε α) : EAsync ε α :=
+          protected def pure (a : α) : EAsync ε α :=
+          protected def map (f : α → β) (self : EAsync ε α) : EAsync ε β :=
+          protected def bind (self : EAsync ε α) (f : α → EAsync ε β) : EAsync ε β :=
+          protected def lift (x : EIO ε α) : EAsync ε α :=
+          protected def wait (self : EAsync ε α) : EIO ε α := do
+          protected def asTask (x : EAsync ε α) (prio := Task.Priority.default) : EIO ε (ETask ε α) :=
+          protected def throw (e : ε) : EAsync ε α :=
+          protected def tryCatch (x : EAsync ε α) (f : ε → EAsync ε α) (prio := Task.Priority.default) (sync := false) : EAsync ε α :=
+          protected def tryFinally'
+          def await (x : ETask ε α) : EAsync ε α :=
+          def async (self : EAsync ε α) (prio := Task.Priority.default) : EAsync ε (ETask ε α) :=
+          instance : Functor (EAsync ε) where
+          instance : Monad (EAsync ε) where
+          instance : MonadLift (EIO ε) (EAsync ε) where
+          instance : MonadExcept ε (EAsync ε) where
+          instance : MonadExceptOf ε (EAsync ε) where
+          instance : MonadFinally (EAsync ε) where
+          instance : OrElse (EAsync ε α) where
+          instance [Inhabited ε] : Inhabited (EAsync ε α) where
+          instance : MonadAwait (ETask ε) (EAsync ε) where
+          instance : MonadAwait Task (EAsync ε) where
+          instance : MonadAwait AsyncTask (EAsync IO.Error) where
+          instance : MonadAwait IO.Promise (EAsync ε) where
+          instance : MonadAsync (ETask ε) (EAsync ε) where
+          instance : MonadAsync AsyncTask (EAsync IO.Error) where
+          instance : MonadLift BaseIO (EAsync ε) where
+          instance : MonadLift (EIO ε) (EAsync ε) where
+          instance : MonadLift BaseAsync (EAsync ε) where
+          protected partial def forIn
+          instance [Inhabited ε] : ForIn (EAsync ε) Lean.Loop Unit where
+        end EAsync
+
+        abbrev Async (α : Type) := EAsync IO.Error α
+        namespace Async
+          protected def toIO (x : Async α) : IO (AsyncTask α) :=
+          instance : MonadAsync AsyncTask Async :=
+          instance : MonadAwait AsyncTask Async :=
+          instance : MonadAwait IO.Promise Async :=
+        end Async
+
+        def background [Monad m] [MonadAsync t m] (prio := Task.Priority.default) : m α → m Unit :=
+        def concurrently
+        def race
+        def concurrentlyAll
+        def raceAll
+      end Async
+    end IO
+  end Internal
+end Std
+```
