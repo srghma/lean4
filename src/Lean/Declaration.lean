@@ -88,11 +88,11 @@ structure ConstantVal where
   name : Name
   levelParams : List Name
   type : Expr
-  deriving Inhabited, BEq
+  deriving Inhabited, BEq, Repr
 
 structure AxiomVal extends ConstantVal where
   isUnsafe : Bool
-  deriving Inhabited, BEq
+  deriving Inhabited, BEq, Repr
 
 @[export lean_mk_axiom_val]
 def mkAxiomValEx (name : Name) (levelParams : List Name) (type : Expr) (isUnsafe : Bool) : AxiomVal := {
@@ -123,6 +123,9 @@ structure DefinitionVal extends ConstantVal where
   all : List Name := [name]
   deriving Inhabited, BEq
 
+instance : Repr DefinitionVal where
+  reprPrec x n := "TODO DefinitionVal"
+
 @[export lean_mk_definition_val]
 def mkDefinitionValEx (name : Name) (levelParams : List Name) (type : Expr) (value : Expr) (hints : ReducibilityHints) (safety : DefinitionSafety) (all : List Name) : DefinitionVal := {
   name, levelParams, type, hints, safety, value, all
@@ -139,6 +142,9 @@ structure TheoremVal extends ConstantVal where
   all : List Name := [name]
   deriving Inhabited, BEq
 
+instance : Repr TheoremVal where
+  reprPrec x n := "TODO TheoremVal"
+
 @[export lean_mk_theorem_val]
 def mkTheoremValEx (name : Name) (levelParams : List Name) (type : Expr) (value : Expr) (all : List Name) : TheoremVal := {
   name, levelParams, type, value, all
@@ -153,6 +159,9 @@ structure OpaqueVal extends ConstantVal where
     See comment at `DefinitionVal.all`. -/
   all : List Name := [name]
   deriving Inhabited, BEq
+
+instance : Repr OpaqueVal where
+  reprPrec x n := "TODO OpaqueVal"
 
 @[export lean_mk_opaque_val]
 def mkOpaqueValEx (name : Name) (levelParams : List Name) (type : Expr) (value : Expr) (isUnsafe : Bool) (all : List Name) : OpaqueVal := {
@@ -404,11 +413,11 @@ inductive QuotKind where
   | ctor  -- `Quot.mk`
   | lift  -- `Quot.lift`
   | ind   -- `Quot.ind`
-  deriving Inhabited
+  deriving Inhabited, Repr
 
 structure QuotVal extends ConstantVal where
   kind : QuotKind
-  deriving Inhabited
+  deriving Inhabited, Repr
 
 @[export lean_mk_quot_val]
 def mkQuotValEx (name : Name) (levelParams : List Name) (type : Expr) (kind : QuotKind) : QuotVal := {
@@ -416,6 +425,18 @@ def mkQuotValEx (name : Name) (levelParams : List Name) (type : Expr) (kind : Qu
 }
 
 @[export lean_quot_val_kind] def QuotVal.kindEx (v : QuotVal) : QuotKind := v.kind
+
+instance : Repr QuotVal where
+  reprPrec x n := "TODO QuotVal"
+
+instance : Repr InductiveVal where
+  reprPrec x n := "TODO InductiveVal"
+
+instance : Repr ConstructorVal where
+  reprPrec x n := "TODO ConstructorVal"
+
+instance : Repr RecursorVal where
+  reprPrec x n := "TODO RecursorVal"
 
 /-- Information associated with constant declarations. -/
 inductive ConstantInfo where
@@ -427,7 +448,7 @@ inductive ConstantInfo where
   | inductInfo   (val : InductiveVal)
   | ctorInfo     (val : ConstructorVal)
   | recInfo      (val : RecursorVal)
-  deriving Inhabited
+  deriving Inhabited, Repr
 
 namespace ConstantInfo
 

@@ -267,6 +267,16 @@ structure Environment where
   header                  : EnvironmentHeader := {}
 deriving Nonempty
 
+instance : ToFormat Environment where
+  format env := Id.run do
+    let mut fmt := Format.nil
+    -- fmt := fmt ++ format "imports: " ++ env.header.imports ++ Format.line
+    -- fmt := fmt ++ format "number of direct imports: " ++ env.header.imports.size ++ Format.line
+    -- fmt := fmt ++ format "number of transitive imports: " ++ env.header.moduleNames.size ++ Format.line
+    fmt := fmt ++ format "constants: " ++ repr env.constants ++ Format.line
+    -- fmt := fmt ++ format "trust level: " ++ env.header.trustLevel ++ Format.line
+    fmt
+
 /-- Exceptions that can be raised by the kernel when type checking new declarations. -/
 inductive Exception where
   | unknownConstant  (env : Environment) (name : Name)
@@ -527,7 +537,14 @@ private inductive Visibility where
 private structure VisibilityMap (α : Type) where
   «private» : α
   «public»  : α
-deriving Inhabited, Nonempty
+deriving Inhabited, Nonempty, Repr
+
+instance [ToFormat α] : ToFormat (VisibilityMap α) where
+  format env := Id.run do
+    let mut fmt := Format.nil
+    fmt := fmt ++ format "«private»: " ++ format env.«private» ++ Format.line
+    fmt := fmt ++ format "«public»: " ++ format env.«public» ++ Format.line
+    fmt
 
 /-- Context for `realizeConst` established by `enableRealizationsForConst`. -/
 private structure RealizationContext where
@@ -621,6 +638,19 @@ private def VisibilityMap.map (m : VisibilityMap α) (f : α → β) : Visibilit
 
 private def VisibilityMap.const (a : α) : VisibilityMap α :=
   { «private» := a, «public» := a }
+
+instance : ToFormat Environment where
+  format env := Id.run do
+    let mut fmt := Format.nil
+    -- fmt := fmt ++ format "imports: " ++ env.header.imports ++ Format.line
+    -- fmt := fmt ++ format "number of direct imports: " ++ env.header.imports.size ++ Format.line
+    -- fmt := fmt ++ format "number of transitive imports: " ++ env.header.moduleNames.size ++ Format.line
+    fmt := fmt ++ format "base: " ++ format env.base ++ Format.line
+    -- fmt := fmt ++ format "trust level: " ++ env.header.trustLevel ++ Format.line
+    fmt
+
+instance : ToString Environment where
+  toString env := Format.pretty (format env)
 
 namespace Environment
 

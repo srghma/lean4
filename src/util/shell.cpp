@@ -203,6 +203,7 @@ static struct option g_long_options[] = {
     {"src-deps",     no_argument,       &only_src_deps, 1},
     {"deps-json",    no_argument,       0, 'J'},
     {"timeout",      optional_argument, 0, 'T'},
+    {"javascript",   optional_argument, 0, 'A'},
     {"c",            optional_argument, 0, 'c'},
     {"bc",           optional_argument, 0, 'b'},
     {"features",     optional_argument, 0, 'f'},
@@ -289,6 +290,7 @@ extern "C" obj_res lean_shell_main(
     obj_arg  ilean_filename,
     obj_arg  c_filename,
     obj_arg  bc_filename,
+    obj_arg  javascript_filename,
     uint8    json_output,
     obj_arg  error_kinds,
     uint8    print_stats,
@@ -313,6 +315,7 @@ uint32 run_shell_main(
     optional<std::string> const & ilean_file_name,
     optional<std::string> const & c_file_name,
     optional<std::string> const & bc_file_name,
+    optional<std::string> const & javascript_file_name,
     bool json_output,
     array_ref<name> const & error_kinds,
     bool print_stats,
@@ -339,6 +342,7 @@ uint32 run_shell_main(
         ilean_file_name ? mk_option_some(mk_string(*ilean_file_name)) : mk_option_none(),
         c_file_name ? mk_option_some(mk_string(*c_file_name)) : mk_option_none(),
         bc_file_name ? mk_option_some(mk_string(*bc_file_name)) : mk_option_none(),
+        javascript_file_name ? mk_option_some(mk_string(*javascript_file_name)) : mk_option_none(),
         json_output,
         error_kinds.to_obj_arg(),
         print_stats,
@@ -440,6 +444,7 @@ extern "C" LEAN_EXPORT int lean_main(int argc, char ** argv) {
     consume_io_result(lean_enable_initializer_execution(io_mk_world()));
 
     options opts = get_default_options();
+    optional<std::string> javascript_output;
     optional<std::string> c_output;
     optional<std::string> llvm_output;
     optional<std::string> root_dir;
@@ -475,6 +480,10 @@ extern "C" LEAN_EXPORT int lean_main(int argc, char ** argv) {
             case 'f':
                 display_features(std::cout);
                 return 0;
+            case 'A':
+                check_optarg("javascript");
+                javascript_output = optarg;
+                break;
             case 'c':
                 check_optarg("c");
                 c_output = optarg;
@@ -597,7 +606,7 @@ extern "C" LEAN_EXPORT int lean_main(int argc, char ** argv) {
             forwarded_args, run_server, print_prefix, print_libdir,
             use_stdin, only_deps, only_src_deps, deps_json,
             opts, trust_lvl, root_dir, setup_fn,
-            olean_fn, ilean_fn, c_output, llvm_output,
+            olean_fn, ilean_fn, c_output, llvm_output, javascript_output,
             json_output, error_kinds, stats, run
         );
     } catch (lean::throwable & ex) {
