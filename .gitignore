@@ -32,3 +32,17 @@ wdErr.txt
 wdIn.txt
 wdOut.txt
 downstream_releases/
+stage0/
+stage1/
+stage2/
+stage3/
+stage0-prefix/
+stage1-prefix/
+stage2-prefix/
+stage3-prefix/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cadical/
+cmake_install.cmake
+mimalloc/
