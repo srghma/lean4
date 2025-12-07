@@ -41,6 +41,11 @@ extern "C" LEAN_EXPORT uint8 lean_system_platform_emscripten(obj_arg) {
 #endif
 }
 
+// TODO
+extern "C" LEAN_EXPORT uint8 lean_system_platform_javascript(obj_arg) {
+    return 1;
+}
+
 extern "C" object * lean_get_githash(obj_arg) { return lean_mk_string(LEAN_GITHASH); }
 
 extern "C" LEAN_EXPORT uint8 lean_internal_has_llvm_backend(obj_arg) {

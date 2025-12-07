@@ -12,6 +12,8 @@ public import Lean.Compiler.IR.CompilerM
 public import Lean.Compiler.IR.NormIds
 public import Lean.Compiler.IR.Checker
 public import Lean.Compiler.IR.UnboxResult
+public import Lean.Compiler.LCNF.EmitC
+-- public import Lean.Compiler.IR.EmitJavascript
 public import Lean.Compiler.IR.Sorry
 public import Lean.Compiler.IR.ToIR
 public import Lean.Compiler.IR.ToIRType

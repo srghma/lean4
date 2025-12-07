@@ -175,6 +175,7 @@ static struct option g_long_options[] = {
     {"src-deps",     no_argument,       0, 'O'},
     {"deps-json",    no_argument,       0, 'N'},
     {"timeout",      optional_argument, 0, 'T'},
+    {"javascript",   optional_argument, 0, 'A'},
     {"c",            optional_argument, 0, 'c'},
     {"bc",           optional_argument, 0, 'b'},
     {"features",     no_argument,       0, 'f'},

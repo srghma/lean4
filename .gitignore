@@ -35,3 +35,16 @@ wdIn.txt
 wdOut.txt
 downstream_releases/
 .claude/worktrees/
+Testing/
+CMakeFiles/
+CMakeCache.txt
+stage0-prefix/
+stage1-prefix/
+stage2-prefix/
+stage3-prefix/
+mimalloc/
+cmake_install.cmake
+cadical/
+stage0/
+stage1/
+tests/compiler/*.lean.js
