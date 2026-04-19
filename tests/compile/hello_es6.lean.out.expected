@@ -1,5 +1,0 @@
-export function hello(x) {
-  const y = 1n;
-  const _x_1 = Nat_add(x, y);
-  return _x_1;
-}

@@ -52,3 +52,8 @@ register_builtin_option compiler.inLeanIR : Bool := {
 }
 
 end Lean.Compiler
+
+register_builtin_option compiler.emitEs6 : Bool := {
+  defValue := false
+  descr    := "Internal. Toggle experimental ES6 JavaScript code generation."
+}

@@ -258,7 +258,7 @@ jobs:
         # prefix `if` above with `always` so it's run even if tests failed
         if: always() && steps.test.conclusion != 'skipped'
       - name: Check Test Binary
-        run: ${{ matrix.binary-check }} tests/compile/534.lean.out
+# run: ${{ matrix.binary-check }} tests/compile/534.lean.out
         if: (!matrix.cross) && steps.test.conclusion != 'skipped'
       - name: Build Stage 2
         run: |

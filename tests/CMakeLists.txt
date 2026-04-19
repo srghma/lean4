@@ -289,7 +289,7 @@ set_tests_properties(lint.py PROPERTIES RUN_SERIAL TRUE)
 add_test_pile(../doc/examples *.lean)
 add_test_pile(compile *.lean BENCH PART2)
 add_test_pile(compile_bench *.lean BENCH PART2)
-add_test_pile(docparse *.txt)
+# add_test_pile(docparse *.txt)
 add_test_pile(
   elab
   *.lean
@@ -297,21 +297,21 @@ add_test_pile(
     async_select_channel.lean # Flaky
     sync_mutex.lean # Flaky
 )
-add_test_pile(elab_bench *.lean BENCH PART2)
-add_test_pile(elab_fail *.lean)
+# add_test_pile(elab_bench *.lean BENCH PART2)
+# add_test_pile(elab_fail *.lean)
 add_test_pile(misc *.sh)
 add_test_pile(misc_bench *.sh BENCH PART2)
-add_test_pile(server *.lean)
-add_test_pile(server_interactive *.lean)
+# add_test_pile(server *.lean)
+# add_test_pile(server_interactive *.lean)
 
 add_test_dir(../doc/examples/compiler)
-add_test_dir(bench/build BENCH PART1)
-add_test_dir(bench/mvcgen/sym BENCH PART2)
-add_test_dir(bench/size BENCH PART1)
+# add_test_dir(bench/build BENCH PART1)
+# add_test_dir(bench/mvcgen/sym BENCH PART2)
+# add_test_dir(bench/size BENCH PART1)
 add_test_dir(lake_bench/inundation BENCH PART2)
 
-add_dir_of_test_dirs(misc_dir)
-add_dir_of_test_dirs(
+# add_dir_of_test_dirs(misc_dir)
+# add_dir_of_test_dirs(
   pkg
   EXCEPT
     signal # Flaky

@@ -11,6 +11,7 @@ import Lean.Elab.ParseImportsFast
 import Lean.Server.Watchdog
 import Lean.Server.FileWorker
 import Lean.Compiler.LCNF.EmitC
+import Lean.Compiler.LCNF.EmitEs6
 -- import Lean.Compiler.IR.EmitJavascript
 import Init.System.Platform
 import Lean.Compiler.Options
@@ -151,7 +152,7 @@ def displayHelp (useStderr : Bool) : IO Unit := do
   out.putStrLn    "  -i, --i=iname          create ilean file"
   out.putStrLn    "  -c, --c=fname          name of the C output file"
   out.putStrLn    "  -b, --bc=fname         name of the LLVM bitcode file"
-  out.putStrLn    "  -A, --javascript=fname name of the Javascript bitcode file"
+  out.putStrLn    "  -j, --javascript=fname name of the Javascript bitcode file"
   out.putStrLn    "      --stdin            take input from stdin"
   out.putStrLn    "  -R, --root=dir         set package root directory from which the module name\n"
   out.putStrLn    "                         of the input file is calculated\n"
@@ -329,7 +330,7 @@ def ShellOptions.process (opts : ShellOptions)
     return {opts with cFileName? := ← checkOptArg "c" optArg?}
   | 'b' => -- `-b, --bc=fname`
     return {opts with bcFileName? := ← checkOptArg "b" optArg?}
-  | 'A' => -- `-A, --javascript=fname`
+  | 'j' | 'A' => -- `-A, --javascript=fname`
     return {opts with javascriptFileName? := ← checkOptArg "A" optArg?}
   | 's' => -- `-s, --tstack=num`
     let arg ← checkOptArg "s" optArg?
@@ -562,7 +563,7 @@ def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do
         | IO.eprintln s!"failed to create '{javascript}'"
           return 1
       profileitIO "JavaScript code generation" opts.leanOpts do
-        let data ← pure "console.log('hi');" -- IO.ofExcept <| IR.emitJavascript env mainModuleName
+        let data ← Compiler.LCNF.emitEs6 mainModuleName -- IO.ofExcept <| IR.emitJavascript env mainModuleName
         out.write data.toUTF8
   displayCumulativeProfilingTimes
   if Internal.hasAddressSanitizer () then
