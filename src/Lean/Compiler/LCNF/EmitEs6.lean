@@ -136,7 +136,8 @@ partial def emitCode (code : Code pu) : EmitM Unit := do
   | .cases c =>
     let discr := c.discr.name.toString.replace "." "_"
     if c.typeName == ``Bool then
-      for alt in c.alts do
+      for i in [:c.alts.size] do
+        let alt := c.alts[i]!
         match alt with
         | .ctorAlt i k _ =>
           if i.name == ``Bool.true then
