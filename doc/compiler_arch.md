@@ -4,52 +4,143 @@ This document provides a comprehensive overview of the Lean 4 compiler's interna
 
 ## Compiler File Graph
 
-All files are located under `src/Lean/Compiler`.
+The following is a complete list of all source files in `src/Lean/Compiler` and their roles.
 
-### Core Structure
+### Root Directory (`src/Lean/Compiler/`)
 
-```text
-src/Lean/Compiler/
-├── LCNF/                   # Lean Compiler Normal Form (Modern IR)
-│   ├── Simp/               # LCNF Simplifier (Optimization engine)
-│   ├── Basic.lean          # Core LCNF data structures (Code, Decl, LetDecl, Param)
-│   ├── EmitC.lean          # Modern C++ code generator
-│   ├── Main.lean           # LCNF driver and pass management
-│   ├── Passes.lean         # The actual pipeline (Base -> Mono -> Impure)
-│   └── ...                 # See "LCNF Modules" for details
-├── IR/                     # Low-level IR (Explicit RC and Unboxing)
-│   ├── Basic.lean          # IR data structures (inductive IRType, Decl, etc.)
-│   ├── EmitLLVM.lean       # LLVM bitcode generation
-│   └── ToIR.lean           # Conversion from LCNF to IR
-├── Main.lean               # Overall entry point for the compiler
-├── IR.lean                 # Entry point for the IR module
-└── LCNF.lean               # Entry point for the LCNF module
-```
+- **`BorrowedAnnotation.lean`**: Handles `@[borrowed]` annotations for tracking parameter ownership.
+- **`CSimpAttr.lean`**: Implementation of the `@[csimp]` attribute for compiler simplification rules.
+- **`ClosedTermCache.lean`**: Cache for closed terms to avoid redundant processing.
+- **`EmitEs6.lean_`**: (Experimental) Preliminary work on an ES6 JavaScript emitter.
+- **`ExportAttr.lean`**: Handles the `@[export]` attribute for making Lean functions visible to C/C++.
+- **`ExternAttr.lean`**: Logic for the `@[extern]` attribute, linking Lean declarations to external code.
+- **`FFI.lean`**: Foreign Function Interface utilities.
+- **`IR.lean`**: Main entry point for the low-level IR module.
+- **`ImplementedByAttr.lean`**: Implementation of `@[implemented_by]`.
+- **`InitAttr.lean`**: Logic for the `@[init]` attribute (module initialization).
+- **`InlineAttrs.lean`**: Logic for `@[inline]`, `@[always_inline]`, `@[macro_inline]`, and `@[noinline]`.
+- **`LCNF.lean`**: Main entry point for the Lean Compiler Normal Form module.
+- **`Main.lean`**: High-level driver for the compiler.
+- **`MetaAttr.lean`**: Support for `@[meta]` declarations.
+- **`ModPkgExt.lean`**: Module and package level extensions for the compiler.
+- **`NameDemangling.lean`**: Converts mangled C names back to Lean names.
+- **`NameMangling.lean`**: Converts Lean names into valid C identifiers.
+- **`NeverExtractAttr.lean`**: Implementation of `@[never_extract]`.
+- **`NoncomputableAttr.lean`**: Tracking of `noncomputable` declarations.
+- **`Old.lean`**: Legacy compiler code or compatibility layers.
+- **`Options.lean`**: Configuration options for the compiler (e.g., `compiler.check`).
+- **`Specialize.lean`**: Logic for the `@[specialize]` attribute.
 
-### LCNF Modules
+### LCNF (`src/Lean/Compiler/LCNF/`)
 
-The `src/Lean/Compiler/LCNF` directory contains over 70 modules. Key modules include:
+LCNF is the primary IR for optimizations.
 
-- **Analysis & Utilities**: `AlphaEqv`, `Check`, `CompilerM`, `FVarUtil`, `InferType`, `LCtx`, `LiveVars`, `PrettyPrinter`, `Types`.
-- **Transformations**:
-  - `CSE`: Common Subexpression Elimination.
-  - `ElimDead`: Dead code elimination.
-  - `LambdaLifting`: Flattens nested functions.
-  - `Monomorphization`: `ToMono`, `MonoTypes`.
-  - `Simp`: The main optimization engine (`Simp/`, `SimpCase`).
-  - `Specialization`: `Specialize`, `SpecInfo`.
-- **Lowering & Emission**:
-  - `ToImpure`, `ToImpureType`: Prepares LCNF for code generation by making side effects explicit.
-  - `EmitC`, `EmitUtil`: Generates C++ code.
-- **Structural**: `Bind`, `Closure`, `JoinPoints`, `PullLetDecls`, `PushProj`.
+- **`AlphaEqv.lean`**: Alpha-equivalence for LCNF expressions.
+- **`AuxDeclCache.lean`**: Cache for auxiliary declarations.
+- **`BaseTypes.lean`**: Identification of "base" types in LCNF.
+- **`Basic.lean`**: Core LCNF data structures: `Code`, `Decl`, `LetDecl`, `Param`, `Expr`.
+- **`Bind.lean`**: Monadic binding utilities for LCNF code.
+- **`CSE.lean`**: Common Sub-expression Elimination.
+- **`Check.lean`**: Structural and type consistency checker for LCNF.
+- **`Closure.lean`**: Utilities for handling closures.
+- **`CoalesceRC.lean`**: Optimization to reduce redundant reference counting operations.
+- **`CompatibleTypes.lean`**: Type compatibility checks within LCNF.
+- **`CompilerM.lean`**: The `CompilerM` monad for LCNF passes.
+- **`ConfigOptions.lean`**: Configuration specific to LCNF passes.
+- **`DeclHash.lean`**: Hashing for LCNF declarations.
+- **`DependsOn.lean`**: Dependency analysis for variables and declarations.
+- **`ElimDead.lean`**: Dead code elimination (variables and expressions).
+- **`ElimDeadBranches.lean`**: Removes unreachable branches in `case` expressions.
+- **`EmitC.lean`**: Generates C++ code from LCNF.
+- **`EmitUtil.lean`**: Utilities used by `EmitC`.
+- **`ExpandResetReuse.lean`**: Lowers `reset` and `reuse` operations.
+- **`ExplicitBoxing.lean`**: Inserts explicit boxing/unboxing operations for scalar types.
+- **`ExplicitRC.lean`**: Inserts explicit reference counting (`inc`/`dec`) operations.
+- **`ExtractClosed.lean`**: Pulls closed expressions out into top-level constants.
+- **`FVarUtil.lean`**: Utilities for working with free variables.
+- **`FixedParams.lean`**: Static analysis to identify fixed parameters in recursive functions.
+- **`FloatLetIn.lean`**: Optimization to "float" let-bindings closer to their use sites.
+- **`InferBorrow.lean`**: Analysis to infer which parameters can be borrowed.
+- **`InferType.lean`**: Type inference for LCNF expressions.
+- **`Internalize.lean`**: Converts external declarations into an internal LCNF format.
+- **`Irrelevant.lean`**: Identification and removal of computationally irrelevant terms.
+- **`JoinPoints.lean`**: Optimization and management of join points (continuations).
+- **`LCtx.lean`**: Local context management for LCNF variables.
+- **`LambdaLifting.lean`**: Converts nested lambdas into top-level declarations.
+- **`Level.lean`**: Universe level management in LCNF.
+- **`LiveVars.lean`**: Liveness analysis for variables.
+- **`Main.lean`**: LCNF pass manager driver.
+- **`MonadScope.lean`**: Monadic scope tracking for LCNF.
+- **`MonoTypes.lean`**: Type representation for monomorphization.
+- **`OtherDecl.lean`**: Handling of non-function declarations.
+- **`PassManager.lean`**: Framework for defining and running LCNF pass pipelines.
+- **`Passes.lean`**: The standard LCNF pass pipeline definition.
+- **`PhaseExt.lean`**: Support for different compiler phases (Base, Mono, Impure).
+- **`PrettyPrinter.lean`**: Human-readable output for LCNF.
+- **`Probing.lean`**: Utilities for inspecting LCNF code during compilation.
+- **`PropagateBorrow.lean`**: Propagates borrowed annotations through the call graph.
+- **`PublicDeclsExt.lean`**: Tracks which declarations are visible outside the module.
+- **`PullFunDecls.lean`**: Lifts function declarations.
+- **`PullLetDecls.lean`**: Lifts let-bindings.
+- **`PushProj.lean`**: Pushes projections into `case` branches.
+- **`ReduceArity.lean`**: Optimization to reduce the number of arguments in functions.
+- **`ReduceJpArity.lean`**: Specifically reduces arity for join points.
+- **`Renaming.lean`**: Variable renaming utilities.
+- **`ResetReuse.lean`**: Optimization to reuse memory cells.
+- **`ScopeM.lean`**: Monad for tracking variable scope.
+- **`Simp.lean`**: Entry point for the LCNF simplifier.
+- **`SimpCase.lean`**: Simplification of `case` expressions.
+- **`SimpleGroundExpr.lean`**: Identification of ground (no free variables) expressions.
+- **`SpecInfo.lean`**: Information tracking for specialization.
+- **`Specialize.lean`**: Monomorphization and function specialization.
+- **`SplitSCC.lean`**: Splits strongly connected components in the call graph.
+- **`StructProjCases.lean`**: Optimizes `case` expressions over structure projections.
+- **`ToDecl.lean`**: High-level conversion of `Expr` to LCNF declarations.
+- **`ToExpr.lean`**: Conversion of LCNF back to `Expr` (mostly for debugging).
+- **`ToImpure.lean`**: Transition from pure LCNF to impure LCNF.
+- **`ToImpureType.lean`**: Type conversion for the impure phase.
+- **`ToLCNF.lean`**: The main `Expr -> LCNF` conversion logic.
+- **`ToMono.lean`**: Monomorphization pass.
+- **`Toposort.lean`**: Topologically sorts declarations based on dependencies.
+- **`Types.lean`**: Primitive types and type utilities for LCNF.
+- **`Util.lean`**: General utilities for LCNF.
+- **`Visibility.lean`**: Logic for declaration visibility.
 
-### Module Roles
+#### LCNF Simplifier (`src/Lean/Compiler/LCNF/Simp/`)
 
-- **LCNF (Lean Compiler Normal Form)**: The modern heart of the compiler. It uses an A-normal form to make every intermediate value explicit, which is crucial for optimizations like inlining and CSE.
-- **Simp**: A highly iterative pass that repeatedly applies local transformations to shrink and speed up the code.
-- **Monomorphization (`ToMono`)**: Replaces polymorphic functions with specialized versions for concrete types (e.g., `List α` -> `List Nat`).
-- **Lambda Lifting**: Flattens nested functions, turning them into top-level declarations and explicitly passing captured variables.
-- **IR**: The final stop before machine code or LLVM. It adds low-level details like `inc`/`dec` for reference counting.
+- **`Basic.lean`**: Core state and types for the simplifier.
+- **`Config.lean`**: Configuration options for `Simp`.
+- **`ConstantFold.lean`**: Constant folding rules.
+- **`DefaultAlt.lean`**: Handling of default alternatives in `case`.
+- **`DiscrM.lean`**: Monad for tracking discriminants in `case` expressions.
+- **`FunDeclInfo.lean`**: Tracking information about function declarations (e.g., usage count).
+- **`InlineCandidate.lean`**: Heuristics for determining when to inline.
+- **`InlineProj.lean`**: Inlining for structure projections.
+- **`JpCases.lean`**: Join point specific case optimizations.
+- **`Main.lean`**: The main simplification loop.
+- **`SimpM.lean`**: The simplifier monad.
+- **`SimpValue.lean`**: Simplified value representation.
+- **`Used.lean`**: Tracking of used variables.
+
+### Low-Level IR (`src/Lean/Compiler/IR/`)
+
+IR is used for reference counting and unboxing.
+
+- **`Basic.lean`**: Core IR data structures.
+- **`Checker.lean`**: Consistency checker for IR.
+- **`CompilerM.lean`**: The IR compiler monad.
+- **`EmitJavascript.lean_`**: (Experimental) Preliminary JS emitter from IR.
+- **`EmitLLVM.lean`**: Generates LLVM IR.
+- **`EmitUtil.lean`**: Shared utilities for IR emitters.
+- **`Format.lean`**: Pretty printer for IR.
+- **`JsBasic.lean_`**: (Experimental) Basic JS IR definitions.
+- **`LLVMBindings.lean`**: Bindings to the LLVM API.
+- **`Meta.lean`**: Metadata for IR declarations.
+- **`NormIds.lean`**: Normalization of variable identifiers.
+- **`Sorry.lean`**: Handling of `sorry` in IR.
+- **`ToIR.lean`**: Lowering from LCNF to IR.
+- **`ToIRType.lean`**: Type conversion for IR.
+- **`UnboxResult.lean`**: Optimization to return scalar results without boxing.
 
 ---
 
@@ -59,78 +150,30 @@ The `src/Lean/Compiler/LCNF` directory contains over 70 modules. Key modules inc
 
 **Path**: `Source -> Expr -> Decl -> Code (LCNF) -> IR -> LLVM IR -> Machine Code`
 
-This path is designed for maximum performance, leveraging LLVM's optimization passes.
+Designed for maximum performance using LLVM.
 
-### 2. C++ Path (Runtime-Based)
+### 2. C++ Path (Modern Default)
 
 **Path**: `Source -> Expr -> Decl -> Code (LCNF) -> C++ Source`
 
-This is the most common path. It translates LCNF (after the `impure` phase) directly into C++ code that calls the Lean runtime.
-
-### Datatype Transformations and Examples
-
-| Phase | Datatype | Why | Example (Conceptual) |
-| :--- | :--- | :--- | :--- |
-| **Front-end** | `Expr` | High-level, dependently typed. | `fun x => x + 1` |
-| **LCNF** | `LCNF.Code` | Flat structure (ANF), easy to optimize. | `let _x.1 := 1; let _x.2 := Nat.add x _x.1; _x.2` |
-| **IR** | `IR.Decl` | Low-level, explicit RC and unboxing. | `inc x; let y := unbox(x) + 1; ret box(y)` |
-| **Output** | `String` | Source code for C++ or JS. | `lean_object* f(lean_object* x) { ... }` |
+The modern backend generates C++ directly from LCNF (Impure phase).
 
 ---
 
 ## Proposal: `EmitEs6` (JavaScript Backend)
 
-To implement a JavaScript backend, I recommend the following path:
-**`Source -> Expr -> Decl -> Code (LCNF) -> JS Source`**
+**Recommended Path**: `Source -> Expr -> Decl -> Code (LCNF) -> JS Source`
 
-### Path Options for JS
+### Rationale
 
-1. **`Expr -> JS`**:
-   - **Pros**: Easy to write.
-   - **Cons**: No optimizations. Closures and join points are hard to handle. Very slow.
-2. **`LCNF -> JS`** (Recommended):
-   - **Pros**: Leverages all of Lean's modern optimizations (inlining, CSE, lambda lifting). LCNF structure maps naturally to JS `const` bindings.
-   - **Cons**: Requires handling the LCNF `Code` tree.
-3. **`IR -> JS`**:
-   - **Pros**: Very low level.
-   - **Cons**: Reference counting is unnecessary in JS (which has its own GC). Unboxing logic is complex to map to JS.
-
-### JS Example (from LCNF)
-
-**Input LCNF**:
-
-```lean
-def myFun (x : Nat) : Nat :=
-  let _x.1 := 1
-  let _x.2 := Nat.add x _x.1
-  _x.2
-```
-
-**Output JS**:
-
-```javascript
-export function myFun(x) {
-  const _x_1 = 1n;
-  const _x_2 = lean_nat_add(x, _x_1);
-  return _x_2;
-}
-```
+LCNF provides the best balance of high-level optimization (inlining, CSE) and low-level lowering (lambda lifting, join point handling). Targetting LCNF ensures a performant and clean JS output without the burden of manual reference counting required by the `IR` path.
 
 ---
 
-## Learning and Implementation Plan for `EmitEs6`
+## Implementation Plan for `EmitEs6`
 
-### 1. Learning Plan
-
-- **LCNF Structures**: Study `src/Lean/Compiler/LCNF/Basic.lean`. Focus on `inductive Code` and `structure LetDecl`.
-- **The Pipeline**: Examine `src/Lean/Compiler/LCNF/Passes.lean`. This is where you will eventually hook in the JS emitter.
-- **Prior Art**: Read `src/Lean/Compiler/LCNF/EmitC.lean`. It is the "gold standard" for emitting code from LCNF.
-
-### 2. Implementation Plan
-
-- **Step 1: The Emitter Monad**: Define `EmitM` with state for the output buffer and indentation level.
-- **Step 2: Name Mangling**: Create a utility to convert Lean `Name` to valid JS identifiers.
-- **Step 3: Expression Emission**: Write a function to emit `LCNF.Expr` (literals, constants, apps).
-- **Step 4: Code Emission**: Implement a recursive `emitCode` that handles `let` bindings, `case` blocks, and `jmp`.
-- **Step 5: Runtime library**: Create a small `lean-runtime.js` that provides `lean_nat_add`, `lean_string_append`, etc.
-- **Step 6: Integration**: Register the new emitter as a compiler pass or a command-line option.
+1. **Learning**: Study `LCNF/Basic.lean` and `LCNF/EmitC.lean`.
+2. **Emitter**: Build `EmitM` for indentation/buffering.
+3. **Mangling**: Map Lean names to JS.
+4. **Code Gen**: Implement `emitCode` for LCNF `let`, `case`, and `jmp`.
+5. **Runtime**: Provide a small JS library for core Lean types.
