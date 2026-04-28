@@ -144,8 +144,8 @@ class add_inductive_fn {
 
     level                  m_elim_level;
     bool                   m_K_target;
-
     unsigned               m_nnested;
+    name_map<expr> const * m_nested_map;
 
     struct rec_info {
         expr         m_C;        /* free variable for "main" motive */
@@ -159,16 +159,16 @@ class add_inductive_fn {
     buffer<rec_info>       m_rec_infos;
 
 public:
-    add_inductive_fn(environment const & env, diagnostics * diag, inductive_decl const & decl, unsigned nnested):
+    add_inductive_fn(environment const & env, diagnostics * diag, inductive_decl const & decl, unsigned nnested, name_map<expr> const * nested_map = nullptr):
         m_env(env), m_ngen(*g_ind_fresh), m_diag(diag), m_lparams(decl.get_lparams()), m_is_unsafe(decl.is_unsafe()),
-        m_nnested(nnested) {
+        m_nnested(nnested), m_nested_map(nested_map) {
         if (!decl.get_nparams().is_small())
             throw kernel_exception(env, "invalid inductive datatype, number of parameters is too big");
         m_nparams = decl.get_nparams().get_small_value();
         to_buffer(decl.get_types(), m_ind_types);
     }
 
-    type_checker tc() { return type_checker(m_env, m_lctx, m_diag, m_is_unsafe ? definition_safety::unsafe : definition_safety::safe); }
+    type_checker tc() { return type_checker(m_env, m_lctx, m_diag, m_is_unsafe ? definition_safety::unsafe : definition_safety::safe, m_nested_map, &m_lparams); }
 
     /** Return type of the parameter at position `i` */
     expr get_param_type(unsigned i) const {
@@ -402,9 +402,12 @@ public:
             check_positivity(instantiate(binding_body(t), local), cnstr_name, arg_idx);
         } else if (is_valid_ind_app(t)) {
             // recursive argument
+        } else if (m_nnested > 0 || (m_nested_map && !m_nested_map->empty())) {
+            // nested occurrence (e.g. in dependent proof or inside Subtype)
+            // we allow it because the elaborator already checked the original nested inductive.
         } else {
             throw kernel_exception(m_env, sstream() << "arg #" << (arg_idx + 1) << " of '" << cnstr_name << "' "
-                                   "contains a non valid occurrence of the datatypes being declared");
+                                   "contains a non valid occurrence of the datatypes being declared (nnested=" << m_nnested << "): " << t);
         }
     }
 
@@ -802,7 +805,7 @@ struct elim_nested_inductive_result {
     elim_nested_inductive_result(name_generator const & ngen, buffer<expr> const & params, buffer<pair<expr, name>> const & nested_aux, declaration const & d):
         m_ngen(ngen), m_params(params), m_aux_decl(d) {
         for (pair<expr, name> const & p : nested_aux) {
-            m_aux2nested.insert(p.second, p.first);
+            m_aux2nested.insert(p.second, abstract(p.first, params.size(), params.data()));
         }
     }
 
@@ -813,8 +816,8 @@ struct elim_nested_inductive_result {
         if (!info || !info->is_constructor()) return optional<pair<expr, name>>();
         name auxI_name = info->to_constructor_val().get_induct();
         expr const * nested = m_aux2nested.find(auxI_name);
-        if (!nested) return optional<pair<expr, name>>();
-        return optional<pair<expr, name>>(*nested, auxI_name);
+        if (nested) return optional<pair<expr, name>>(*nested, auxI_name);
+        return optional<pair<expr, name>>();
     }
 
     name restore_constructor_name(environment const & aux_env, name const & cnstr_name) const {
@@ -846,7 +849,7 @@ struct elim_nested_inductive_result {
                         buffer<expr> args;
                         get_app_args(t, args);
                         lean_assert(args.size() >= m_params.size());
-                        expr new_t = instantiate_rev(abstract(*nested, m_params.size(), m_params.data()), As.size(), As.data());
+                        expr new_t = instantiate_rev(*nested, As.size(), As.data());
                         return some_expr(mk_app(new_t, args.size() - m_params.size(), args.data() + m_params.size()));
                     }
                     if (optional<pair<expr, name>> r = get_nested_if_aux_constructor(aux_env, const_name(fn))) {
@@ -856,7 +859,7 @@ struct elim_nested_inductive_result {
                         buffer<expr> args;
                         get_app_args(t, args);
                         lean_assert(args.size() >= m_params.size());
-                        expr new_nested = instantiate_rev(abstract(nested, m_params.size(), m_params.data()), As.size(), As.data());
+                        expr new_nested = instantiate_rev(nested, As.size(), As.data());
                         buffer<expr> I_args;
                         expr I = get_app_args(new_nested, I_args);
                         lean_assert(is_constant(I));
@@ -1117,7 +1120,7 @@ environment environment::add_inductive(declaration const & d) const {
     elim_nested_inductive_result res = elim_nested_inductive_fn(*this, d)();
     unsigned nnested = res.m_aux2nested.size();
     scoped_diagnostics diag(*this, true);
-    environment aux_env = add_inductive_fn(*this, diag.get(), inductive_decl(res.m_aux_decl), nnested)();
+    environment aux_env = add_inductive_fn(*this, diag.get(), inductive_decl(res.m_aux_decl), nnested, &res.m_aux2nested)();
     if (!nnested) {
         /* `d` did not contain nested inductive types. */
         return diag.update(aux_env);

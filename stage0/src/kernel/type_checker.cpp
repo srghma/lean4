@@ -1079,6 +1079,13 @@ bool type_checker::is_def_eq_core(expr const & t, expr const & s) {
     expr t_n = whnf_core(t, false, true);
     expr s_n = whnf_core(s, false, true);
 
+    if (m_nested_map) {
+        if (auto t_ext = unfold_nested_aux(t_n))
+            return is_def_eq_core(*t_ext, s_n);
+        if (auto s_ext = unfold_nested_aux(s_n))
+            return is_def_eq_core(t_n, *s_ext);
+    }
+
     if (!is_eqp(t_n, t) || !is_eqp(s_n, s)) {
         r = quick_is_def_eq(t_n, s_n);
         if (r != l_undef) return r == l_true;
@@ -1160,19 +1167,19 @@ expr type_checker::eta_expand(expr const & e) {
     return m_lctx.mk_lambda(fvars, r);
 }
 
-type_checker::type_checker(environment const & env, local_ctx const & lctx, diagnostics * diag, definition_safety ds):
+type_checker::type_checker(environment const & env, local_ctx const & lctx, diagnostics * diag, definition_safety ds, name_map<expr> const * nested_map, names const * nested_map_lparams):
     m_st_owner(true), m_st(new state(env)), m_diag(diag),
-    m_lctx(lctx), m_definition_safety(ds), m_lparams(nullptr) {
+    m_lctx(lctx), m_definition_safety(ds), m_nested_map(nested_map), m_nested_map_lparams(nested_map_lparams), m_lparams(nullptr) {
 }
 
 type_checker::type_checker(state & st, local_ctx const & lctx, definition_safety ds):
     m_st_owner(false), m_st(&st), m_diag(nullptr), m_lctx(lctx),
-    m_definition_safety(ds), m_lparams(nullptr) {
+    m_definition_safety(ds), m_nested_map(nullptr), m_nested_map_lparams(nullptr), m_lparams(nullptr) {
 }
 
 type_checker::type_checker(type_checker && src):
     m_st_owner(src.m_st_owner), m_st(src.m_st), m_diag(src.m_diag), m_lctx(std::move(src.m_lctx)),
-    m_definition_safety(src.m_definition_safety), m_lparams(src.m_lparams) {
+    m_definition_safety(src.m_definition_safety), m_nested_map(src.m_nested_map), m_nested_map_lparams(src.m_nested_map_lparams), m_lparams(src.m_lparams) {
     src.m_st_owner = false;
 }
 
@@ -1185,6 +1192,21 @@ inline static expr * new_persistent_expr_const(name const & n) {
     expr * e = new expr(mk_const(n));
     mark_persistent(e->raw());
     return e;
+}
+
+optional<expr> type_checker::unfold_nested_aux(expr const & e) {
+    if (m_nested_map && m_nested_map_lparams) {
+        expr const & fn = get_app_fn(e);
+        if (is_constant(fn)) {
+            if (expr const * nested = m_nested_map->find(const_name(fn))) {
+                buffer<expr> args;
+                get_app_args(e, args);
+                expr r = instantiate_rev(instantiate_lparams(*nested, *m_nested_map_lparams, const_levels(fn)), args.size(), args.data());
+                return some_expr(r);
+            }
+        }
+    }
+    return none_expr();
 }
 
 void initialize_type_checker() {

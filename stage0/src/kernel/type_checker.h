@@ -47,6 +47,8 @@ private:
     diagnostics *             m_diag;
     local_ctx                 m_lctx;
     definition_safety         m_definition_safety;
+    name_map<expr> const *    m_nested_map = nullptr;
+    names const *             m_nested_map_lparams = nullptr;
     /*
     `m_eager_reduce` is set to true whenever we are type checking an application argument that has been
     wrapped with `eagerReduce`.
@@ -93,6 +95,7 @@ private:
     }
     lbool try_string_lit_expansion_core(expr const & t, expr const & s);
     lbool try_string_lit_expansion(expr const & t, expr const & s);
+    optional<expr> unfold_nested_aux(expr const & e);
     bool is_def_eq_app(expr const & t, expr const & s);
     lbool is_def_eq_proof_irrel(expr const & t, expr const & s);
     bool is_def_eq_unit_like(expr const & t, expr const & s);
@@ -114,7 +117,7 @@ public:
     // The following two constructor are used only by the old compiler and should be deleted with it
     type_checker(state & st, local_ctx const & lctx, definition_safety ds = definition_safety::safe);
     type_checker(state & st, definition_safety ds = definition_safety::safe):type_checker(st, local_ctx(), ds) {}
-    type_checker(environment const & env, local_ctx const & lctx, diagnostics * diag = nullptr, definition_safety ds = definition_safety::safe);
+    type_checker(environment const & env, local_ctx const & lctx, diagnostics * diag = nullptr, definition_safety ds = definition_safety::safe, name_map<expr> const * nested_map = nullptr, names const * nested_map_lparams = nullptr);
     type_checker(environment const & env, diagnostics * diag = nullptr, definition_safety ds = definition_safety::safe):type_checker(env, local_ctx(), diag, ds) {}
     type_checker(type_checker &&);
     type_checker(type_checker const &) = delete;
