@@ -1140,39 +1140,54 @@ Creates a local context suitable for creating the constructor.
 
 Does not do any reductions.
 -/
-private def mkCtorLCtx : StructElabM LocalContext := do
+private def mkCtorLCtx (indFVar : Expr) : StructElabM LocalContext := do
   let fieldInfos := (← get).fields
   -- A map of all field fvars to eliminate
-  let mut fvarMap : ExprMap Expr := {}
+  let mut fvarIds : Array FVarId := #[]
+  let mut replacements : Array Expr := #[]
   let mut lctx ← instantiateLCtxMVars (← getLCtx)
-  let replace (fvarMap : ExprMap Expr) (e : Expr) : Expr := e.replace fun e' => fvarMap[e']?
-  -- As we build the map, we eagerly do the replacements. We go through the local context in order, so replacements do not need to be recursive.
-  let insert (fvarMap : ExprMap Expr) (field : StructFieldInfo) (e : Expr) : MetaM (ExprMap Expr) := do
-    let e ← instantiateMVars e
-    return fvarMap.insert field.fvar (replace fvarMap e)
+
   for field in fieldInfos do
     let fvarId := field.fvar.fvarId!
+    let fvars := fvarIds.map .fvar
     if !field.kind.isInCtor then
       lctx := lctx.erase fvarId
       let some e ← pure field.projExpr? <||> fvarId.getValue?
         | throwError "Internal error in mkCtorLCtx: Non-constructor field has no value"
-      fvarMap ← insert fvarMap field e
+      let e ← instantiateMVars e
+      let e := e.replaceFVars fvars replacements
+      fvarIds := fvarIds.push fvarId
+      replacements := replacements.push e
     else
       -- Do replacements.
       -- If it is a subobject field, change the ldecl to be a cdecl
       lctx := lctx.modifyLocalDecl fvarId fun decl =>
-        .cdecl decl.index decl.fvarId decl.userName (replace fvarMap decl.type) field.binfo decl.kind
+        .cdecl decl.index decl.fvarId decl.userName (decl.type.replaceFVars fvars replacements) field.binfo decl.kind
       match field.resolvedDefault? with
       | some (.autoParam tactic) =>
+        trace[Elab.structure] "mkCtorLCtx: {field.name} is autoParam"
         let u ← getLevel (← inferType field.fvar)
-        lctx := lctx.modifyLocalDecl fvarId fun decl => decl.setType (mkApp2 (.const ``autoParam [u]) decl.type tactic)
+        let tactic ← instantiateMVars tactic
+        let tactic := tactic.replaceFVars fvars replacements
+        lctx := lctx.modifyLocalDecl fvarId fun decl =>
+          decl.setType (mkApp2 (.const ``autoParam [u]) decl.type tactic)
       | some (.optParam value) =>
-        if field.kind == .newField then
-          let u ← getLevel (← inferType field.fvar)
-          lctx := lctx.modifyLocalDecl fvarId fun decl => decl.setType (mkApp2 (.const ``optParam [u]) decl.type value)
+        let type ← inferType field.fvar
+        if type.containsFVar indFVar.fvarId! then
+          trace[Elab.structure] "mkCtorLCtx: {field.name} is recursive optParam"
+          pure ()
+        else
+          trace[Elab.structure] "mkCtorLCtx: {field.name} is optParam"
+          let u ← getLevel type
+          let value ← instantiateMVars value
+          let value := value.replaceFVars fvars replacements
+          lctx := lctx.modifyLocalDecl fvarId fun decl =>
+            decl.setType (mkApp2 (.const ``optParam [u]) decl.type value)
       | none =>
+        trace[Elab.structure] "mkCtorLCtx: {field.name} is regular"
         pure ()
   return lctx
+
 
 /--
 Builds a constructor for the type, for adding the inductive type to the environment.
@@ -1184,7 +1199,7 @@ private def mkCtor (view : StructView) (r : ElabHeaderResult) (params : Array Ex
   unless binders.isEmpty do
     throwErrorAt (mkNullNode binders) "Expecting binders that update binder kinds of type parameters."
   trace[Elab.structure] "constructor param overrides {view.ctor.binders}"
-  let lctx ← mkCtorLCtx
+  let lctx ← mkCtorLCtx r.indFVar
   let type ← instantiateMVars <| mkAppN r.indFVar params
   let fieldInfos := (← get).fields
   let fieldCtorFVars := fieldInfos |>.filter (·.kind.isInCtor) |>.map (·.fvar)
