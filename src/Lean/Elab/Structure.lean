@@ -1135,7 +1135,8 @@ private def collectUsedFVars (lctx : LocalContext) (localInsts : LocalInstances)
 Creates a local context suitable for creating the constructor.
 - Eliminates fields with a `projExpr?` field
 - Eliminates non-subobject parent fields
-- Adds autoParam for default values (not used by structure elaborator or structure instance elaborator)
+- Adds autoParams for default values
+- Encodes optParams for new fields only
 
 Does not do any reductions.
 -/
@@ -1161,10 +1162,16 @@ private def mkCtorLCtx : StructElabM LocalContext := do
       -- If it is a subobject field, change the ldecl to be a cdecl
       lctx := lctx.modifyLocalDecl fvarId fun decl =>
         .cdecl decl.index decl.fvarId decl.userName (replace fvarMap decl.type) field.binfo decl.kind
-      -- Add autoParams
-      if let some (.autoParam tactic) := field.resolvedDefault? then
+      match field.resolvedDefault? with
+      | some (.autoParam tactic) =>
         let u ← getLevel (← inferType field.fvar)
         lctx := lctx.modifyLocalDecl fvarId fun decl => decl.setType (mkApp2 (.const ``autoParam [u]) decl.type tactic)
+      | some (.optParam value) =>
+        if field.kind == .newField then
+          let u ← getLevel (← inferType field.fvar)
+          lctx := lctx.modifyLocalDecl fvarId fun decl => decl.setType (mkApp2 (.const ``optParam [u]) decl.type value)
+      | none =>
+        pure ()
   return lctx
 
 /--
