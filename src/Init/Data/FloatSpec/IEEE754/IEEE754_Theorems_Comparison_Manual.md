@@ -1,0 +1,499 @@
+# IEEE754 Theorems Comparison (content-reviewed)
+
+This file lists theorem-like declarations per file (Coq vs Lean) and records correspondences judged by statement intent. Names may differ; mapping is by content where appropriate.
+
+## File: Bits.v → Bits.lean
+
+### Coq Declarations
+- Lemma: `join_bits_range`
+- Theorem: `split_join_bits`
+- Theorem: `join_split_bits`
+- Theorem: `split_bits_inj`
+- Theorem: `split_bits_of_binary_float_correct`
+- Theorem: `bits_of_binary_float_range`
+- Lemma: `binary_float_of_bits_aux_correct`
+- Theorem: `binary_float_of_bits_of_binary_float`
+- Theorem: `bits_of_binary_float_of_bits`
+
+### Lean Declarations
+- theorem: `join_bits_range` (FloatSpec/src/IEEE754/Bits.lean:20)
+- theorem: `split_join_bits` (FloatSpec/src/IEEE754/Bits.lean:33)
+- theorem: `join_split_bits` (FloatSpec/src/IEEE754/Bits.lean:39)
+- theorem: `binary_bits_roundtrip` (FloatSpec/src/IEEE754/Bits.lean:66)
+- theorem: `bits_binary_roundtrip` (FloatSpec/src/IEEE754/Bits.lean:70)
+
+### Mapping (Coq → Lean)
+- `join_bits_range` → `join_bits_range [FloatSpec/src/IEEE754/Bits.lean:20]` (exact)
+- `split_join_bits` → `split_join_bits [FloatSpec/src/IEEE754/Bits.lean:33]` (exact)
+- `join_split_bits` → `join_split_bits [FloatSpec/src/IEEE754/Bits.lean:39]` (exact)
+- `split_bits_inj` → `split_bits_inj [FloatSpec/src/IEEE754/Bits.lean:148]` (exact)
+- `split_bits_of_binary_float_correct` → `split_bits_of_binary_float_correct [FloatSpec/src/IEEE754/Bits.lean:110]` (exact)
+- `bits_of_binary_float_range` → `bits_of_binary_float_range [FloatSpec/src/IEEE754/Bits.lean:122]` (exact)
+- `binary_float_of_bits_aux_correct` → `binary_float_of_bits_aux_correct [FloatSpec/src/IEEE754/Bits.lean:86]` (spec-variant)
+- `binary_float_of_bits_of_binary_float` → `binary_float_of_bits_of_binary_float [FloatSpec/src/IEEE754/Bits.lean:131]` (exact)
+- `bits_of_binary_float_of_bits` → `bits_of_binary_float_of_bits [FloatSpec/src/IEEE754/Bits.lean:139]` (exact)
+
+## File: Binary.v → Binary.lean
+
+### Coq Declarations
+- Lemma: `SF2R_FF2SF`
+- Lemma: `FF2SF_SF2FF`
+- Lemma: `FF2R_SF2FF`
+- Lemma: `is_nan_SF2FF`
+- Lemma: `is_nan_FF2SF`
+- Lemma: `SF2FF_FF2SF`
+- Lemma: `is_finite_SF2FF`
+- Lemma: `sign_SF2FF`
+- Lemma: `valid_binary_SF2FF`
+- Lemma: `B2SF_B2BSN`
+- Lemma: `B2SF_FF2B`
+- Lemma: `B2R_B2BSN`
+- Lemma: `FF2SF_B2FF`
+- Theorem: `FF2R_B2FF`
+- Theorem: `B2FF_FF2B`
+- Theorem: `valid_binary_B2FF`
+- Theorem: `FF2B_B2FF`
+- Theorem: `FF2B_B2FF_valid`
+- Theorem: `B2R_FF2B`
+- Theorem: `match_FF2B`
+- Theorem: `canonical_canonical_mantissa`
+- Theorem: `generic_format_B2R`
+- Theorem: `FLT_format_B2R`
+- Theorem: `B2FF_inj`
+- Lemma: `is_finite_strict_B2BSN`
+- Theorem: `B2R_inj`
+- Theorem: `Bsign_FF2B`
+- Lemma: `is_finite_B2BSN`
+- Theorem: `is_finite_FF2B`
+- Theorem: `is_finite_B2FF`
+- Theorem: `B2R_Bsign_inj`
+- Lemma: `is_nan_B2BSN`
+- Theorem: `is_nan_FF2B`
+- Theorem: `is_nan_B2FF`
+- Theorem: `build_nan_correct`
+- Theorem: `B2R_build_nan`
+- Theorem: `is_finite_build_nan`
+- Theorem: `is_nan_build_nan`
+- Lemma: `B2BSN_BSN2B`
+- Lemma: `B2R_BSN2B`
+- Lemma: `is_finite_BSN2B`
+- Lemma: `is_nan_BSN2B`
+- Lemma: `Bsign_B2BSN`
+- Lemma: `Bsign_BSN2B`
+- Lemma: `B2BSN_BSN2B'`
+- Lemma: `B2R_BSN2B'`
+- Lemma: `B2FF_BSN2B'`
+- Lemma: `Bsign_BSN2B'`
+- Lemma: `is_finite_BSN2B'`
+- Lemma: `is_nan_BSN2B'`
+- Theorem: `erase_correct`
+- Theorem: `Bopp_involutive`
+- Theorem: `B2R_Bopp`
+- Theorem: `is_finite_Bopp`
+- Lemma: `Bsign_Bopp`
+- Theorem: `B2R_Babs`
+- Theorem: `is_finite_Babs`
+- Theorem: `Bsign_Babs`
+- Theorem: `Babs_idempotent`
+- Theorem: `Babs_Bopp`
+- Theorem: `Bcompare_correct`
+- Theorem: `Bcompare_swap`
+- Theorem: `bounded_le_emax_minus_prec`
+- Theorem: `bounded_lt_emax`
+- Theorem: `bounded_ge_emin`
+- Theorem: `abs_B2R_le_emax_minus_prec`
+- Theorem: `abs_B2R_lt_emax`
+- Theorem: `abs_B2R_ge_emin`
+- Theorem: `bounded_canonical_lt_emax`
+- Theorem: `shr_fexp_truncate`
+- Lemma: `eq_binary_overflow_FF2SF`
+- Theorem: `binary_round_aux_correct'`
+- Theorem: `binary_round_aux_correct`
+- Theorem: `Bmult_correct`
+- Lemma: `shl_align_fexp_correct`
+- Theorem: `binary_round_correct`
+- Theorem: `binary_normalize_correct`
+- Theorem: `Bplus_correct`
+- Theorem: `Bminus_correct`
+- Theorem: `Bfma_correct`
+- Theorem: `Bdiv_correct`
+- Theorem: `Bsqrt_correct`
+- Theorem: `Bnearbyint_correct`
+- Theorem: `Btrunc_correct`
+- Theorem: `Bone_correct`
+- Lemma: `is_finite_Bone`
+- Lemma: `Bsign_Bone`
+- Lemma: `B2BSN_lift`
+- Theorem: `Bldexp_correct`
+- Theorem: `Bfrexp_correct`
+- Theorem: `Bulp_correct`
+- Lemma: `Bsucc_correct`
+- Lemma: `Bpred_correct`
+
+### Lean Declarations
+- theorem: `SF2R_FF2SF` (FloatSpec/src/IEEE754/Binary.lean:48)
+- theorem: `FF2SF_SF2FF` (FloatSpec/src/IEEE754/Binary.lean:61)
+- theorem: `FF2R_SF2FF` (FloatSpec/src/IEEE754/Binary.lean:66)
+- theorem: `is_nan_SF2FF` (FloatSpec/src/IEEE754/Binary.lean:83)
+- theorem: `is_nan_FF2SF` (FloatSpec/src/IEEE754/Binary.lean:88)
+- theorem: `is_finite_SF2FF` (FloatSpec/src/IEEE754/Binary.lean:123)
+- theorem: `is_finite_FF2SF` (FloatSpec/src/IEEE754/Binary.lean:128)
+- theorem: `sign_SF2FF` (FloatSpec/src/IEEE754/Binary.lean:133)
+- theorem: `sign_FF2SF` (FloatSpec/src/IEEE754/Binary.lean:138)
+- theorem: `binary_add_correct` (FloatSpec/src/IEEE754/Binary.lean:189)
+- theorem: `binary_mul_correct` (FloatSpec/src/IEEE754/Binary.lean:195)
+
+### Mapping (Coq → Lean)
+- `SF2R_FF2SF` → `SF2R_FF2SF [FloatSpec/src/IEEE754/Binary.lean:48]` (exact)
+- `FF2SF_SF2FF` → `FF2SF_SF2FF [FloatSpec/src/IEEE754/Binary.lean:61]` (exact)
+- `FF2R_SF2FF` → `FF2R_SF2FF [FloatSpec/src/IEEE754/Binary.lean:66]` (exact)
+- `is_nan_SF2FF` → `is_nan_SF2FF [FloatSpec/src/IEEE754/Binary.lean:78]` (exact)
+- `is_nan_FF2SF` → `is_nan_FF2SF [FloatSpec/src/IEEE754/Binary.lean:88]` (exact)
+- `SF2FF_FF2SF` → `SF2FF_FF2SF [FloatSpec/src/IEEE754/Binary.lean:93]` (exact)
+- `SF2FF_FF2SF` → (Completed Import)
+- `is_finite_FF2SF` → `is_finite_FF2SF [FloatSpec/src/IEEE754/Binary.lean:128]` (exact)
+- `sign_FF2SF` → `sign_FF2SF [FloatSpec/src/IEEE754/Binary.lean:138]` (exact)
+- `valid_binary_SF2FF` → `valid_binary_SF2FF [FloatSpec/src/IEEE754/Binary.lean:291]` (spec-variant, hoare)
+- `B2SF_B2BSN` → `B2SF_B2BSN [FloatSpec/src/IEEE754/BinarySingleNaN.lean:52]` (exact)
+- `B2SF_FF2B` → `B2SF_FF2B [FloatSpec/src/IEEE754/Binary.lean:204]` (exact)
+- `B2R_B2BSN` → `B2R_B2BSN [FloatSpec/src/IEEE754/BinarySingleNaN.lean:63]` (exact)
+- `FF2SF_B2FF` → (Completed Import)
+ - `FF2SF_B2FF` → `FF2SF_B2FF [FloatSpec/src/IEEE754/Binary.lean:190]` (exact)
+ - `FF2R_B2FF` → `FF2R_B2FF [FloatSpec/src/IEEE754/Binary.lean:186]` (exact)
+ - `B2FF_FF2B` → `B2FF_FF2B [FloatSpec/src/IEEE754/Binary.lean:170]` (exact)
+ - `B2FF_FF2B` → `B2FF_FF2B [FloatSpec/src/IEEE754/Binary.lean:170]` (exact)
+- `valid_binary_B2FF` → `valid_binary_B2FF [FloatSpec/src/IEEE754/Binary.lean:273]` (spec-variant, hoare)
+ - `FF2B_B2FF` → `FF2B_B2FF [FloatSpec/src/IEEE754/Binary.lean:175]` (exact)
+- `FF2B_B2FF_valid` → `FF2B_B2FF_valid [FloatSpec/src/IEEE754/Binary.lean:305]` (spec-variant, hoare)
+ - `B2R_FF2B` → `B2R_FF2B [FloatSpec/src/IEEE754/Binary.lean:208]` (spec-variant)
+- `match_FF2B` → `match_FF2B [FloatSpec/src/IEEE754/Binary.lean:333]` (exact)
+- `canonical_canonical_mantissa` → `canonical_canonical_mantissa [FloatSpec/src/IEEE754/Binary.lean:611]` (spec-variant, hoare)
+- `generic_format_B2R` → `generic_format_B2R [FloatSpec/src/IEEE754/Binary.lean:627]` (spec-variant, hoare)
+ - `FLT_format_B2R` → `FLT_format_B2R [FloatSpec/src/IEEE754/Binary.lean:642]` (spec-variant, hoare)
+ - `B2FF_inj` → `B2FF_inj [FloatSpec/src/IEEE754/Binary.lean:181]` (exact)
+- `is_finite_strict_B2BSN` → `is_finite_strict_B2BSN [FloatSpec/src/IEEE754/BinarySingleNaN.lean:124]` (spec-variant, hoare)
+- `B2R_inj` → `B2R_inj [FloatSpec/src/IEEE754/Binary.lean:262]` (spec-variant)
+- `Bsign_FF2B` → (Completed Import)
+ - `Bsign_FF2B` → `Bsign_FF2B [FloatSpec/src/IEEE754/Binary.lean:216]` (exact)
+- `is_finite_B2BSN` → `is_finite_B2BSN [FloatSpec/src/IEEE754/BinarySingleNaN.lean:102]` (spec-variant, hoare)
+- `is_finite_FF2B` → (Completed Import)
+ - `is_finite_FF2B` → `is_finite_FF2B [FloatSpec/src/IEEE754/Binary.lean:221]` (exact)
+ - `is_finite_B2FF` → `is_finite_B2FF [FloatSpec/src/IEEE754/Binary.lean:195]` (exact)
+- `B2R_Bsign_inj` → `B2R_Bsign_inj [FloatSpec/src/IEEE754/Binary.lean:270]` (spec-variant)
+- `is_nan_B2BSN` → `is_nan_B2BSN [FloatSpec/src/IEEE754/BinarySingleNaN.lean:136]` (spec-variant, hoare)
+- `is_nan_FF2B` → (Completed Import)
+ - `is_nan_FF2B` → `is_nan_FF2B [FloatSpec/src/IEEE754/Binary.lean:226]` (exact)
+ - `is_nan_B2FF` → `is_nan_B2FF [FloatSpec/src/IEEE754/Binary.lean:203]` (exact)
+ - `build_nan_correct` → `build_nan_correct [FloatSpec/src/IEEE754/Binary.lean:156]` (spec-variant, hoare)
+ - `B2R_build_nan` → `B2R_build_nan [FloatSpec/src/IEEE754/Binary.lean:122]` (spec-variant, hoare)
+ - `is_finite_build_nan` → `is_finite_build_nan [FloatSpec/src/IEEE754/Binary.lean:136]` (spec-variant, hoare)
+ - `is_nan_build_nan` → `is_nan_build_nan [FloatSpec/src/IEEE754/Binary.lean:110]` (exact)
+- `B2BSN_BSN2B` → `B2BSN_BSN2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:148]` (exact)
+- `B2R_BSN2B` → `B2R_BSN2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:160]` (spec-variant, hoare)
+- `is_finite_BSN2B` → `is_finite_BSN2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:172]` (spec-variant, hoare)
+- `is_nan_BSN2B` → `is_nan_BSN2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:184]` (spec-variant, hoare)
+- `Bsign_B2BSN` → `Bsign_B2BSN [FloatSpec/src/IEEE754/BinarySingleNaN.lean:147]` (spec-variant, hoare)
+ - `Bsign_BSN2B` → `Bsign_BSN2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:317]` (spec-variant, hoare)
+ -- `B2BSN_BSN2B'` → `B2BSN_BSN2B' [FloatSpec/src/IEEE754/BinarySingleNaN.lean:318]` (exact)
+ -- `B2R_BSN2B'` → `B2R_BSN2B' [FloatSpec/src/IEEE754/BinarySingleNaN.lean:332]` (exact)
+ -- `B2FF_BSN2B'` → `B2FF_BSN2B' [FloatSpec/src/IEEE754/BinarySingleNaN.lean:346]` (exact)
+ -- `Bsign_BSN2B'` → `Bsign_BSN2B' [FloatSpec/src/IEEE754/BinarySingleNaN.lean:360]` (exact)
+ -- `is_finite_BSN2B'` → `is_finite_BSN2B' [FloatSpec/src/IEEE754/BinarySingleNaN.lean:374]` (exact)
+ -- `is_nan_BSN2B'` → `is_nan_BSN2B' [FloatSpec/src/IEEE754/BinarySingleNaN.lean:388]` (exact)
+- `erase_correct` → `erase_correct [FloatSpec/src/IEEE754/Binary.lean:171]` (exact)
+- `Bopp_involutive` → `Bopp_involutive [FloatSpec/src/IEEE754/Binary.lean:190]` (spec-variant, hoare)
+- `B2R_Bopp` → `B2R_Bopp [FloatSpec/src/IEEE754/Binary.lean:202]` (spec-variant, hoare)
+- `is_finite_Bopp` → `is_finite_Bopp [FloatSpec/src/IEEE754/Binary.lean:213]` (spec-variant, hoare)
+- `Bsign_Bopp` → `Bsign_Bopp [FloatSpec/src/IEEE754/Binary.lean:224]` (spec-variant, hoare)
+- `B2R_Babs` → `B2R_Babs [FloatSpec/src/IEEE754/Binary.lean:243]` (spec-variant, hoare)
+- `is_finite_Babs` → `is_finite_Babs [FloatSpec/src/IEEE754/Binary.lean:254]` (spec-variant, hoare)
+- `Bsign_Babs` → `Bsign_Babs [FloatSpec/src/IEEE754/Binary.lean:265]` (spec-variant, hoare)
+- `Babs_idempotent` → `Babs_idempotent [FloatSpec/src/IEEE754/Binary.lean:276]` (spec-variant, hoare)
+- `Babs_Bopp` → `Babs_Bopp [FloatSpec/src/IEEE754/Binary.lean:287]` (spec-variant, hoare)
+- `Bcompare_correct` → `Bcompare_correct [FloatSpec/src/IEEE754/Binary.lean:706]` (spec-variant, hoare)
+- `Bcompare_swap` → `Bcompare_swap [FloatSpec/src/IEEE754/Binary.lean:718]` (spec-variant, hoare)
+- `bounded_le_emax_minus_prec` → `bounded_le_emax_minus_prec [FloatSpec/src/IEEE754/Binary.lean:875]` (spec-variant, hoare)
+- `bounded_lt_emax` → `bounded_lt_emax [FloatSpec/src/IEEE754/Binary.lean:892]` (spec-variant, hoare)
+- `bounded_ge_emin` → `bounded_ge_emin [FloatSpec/src/IEEE754/Binary.lean:908]` (spec-variant, hoare)
+- `abs_B2R_le_emax_minus_prec` → `abs_B2R_le_emax_minus_prec [FloatSpec/src/IEEE754/Binary.lean:927]` (spec-variant, hoare)
+- `abs_B2R_lt_emax` → `abs_B2R_lt_emax [FloatSpec/src/IEEE754/Binary.lean:944]` (spec-variant, hoare)
+- `abs_B2R_ge_emin` → `abs_B2R_ge_emin [FloatSpec/src/IEEE754/Binary.lean:968]` (spec-variant, hoare)
+- `bounded_canonical_lt_emax` → `bounded_canonical_lt_emax [FloatSpec/src/IEEE754/Binary.lean:988]` (spec-variant, hoare)
+- `shr_fexp_truncate` → `shr_fexp_truncate [FloatSpec/src/IEEE754/Binary.lean:1054]` (spec-variant, hoare)
+- `eq_binary_overflow_FF2SF` → `eq_binary_overflow_FF2SF [FloatSpec/src/IEEE754/Binary.lean:591]` (spec-variant, hoare)
+-- `binary_round_aux_correct'` → `binary_round_aux_correct' [FloatSpec/src/IEEE754/Binary.lean:1087]` (spec-variant, hoare)
+-- `binary_round_aux_correct` → `binary_round_aux_correct [FloatSpec/src/IEEE754/Binary.lean:1142]` (spec-variant, hoare)
+- `Bmult_correct` → `binary_mul_correct [FloatSpec/src/IEEE754/Binary.lean:170]` (content-equivalent)
+-- `shl_align_fexp_correct` → `shl_align_fexp_correct [FloatSpec/src/IEEE754/Binary.lean:1019]` (spec-variant, hoare)
+- `binary_round_aux_correct'` → `binary_round_aux_correct' [FloatSpec/src/IEEE754/Binary.lean:1087]` (spec-variant, hoare)
+- `binary_round_aux_correct` → `binary_round_aux_correct [FloatSpec/src/IEEE754/Binary.lean:1142]` (spec-variant, hoare)
+- `binary_round_correct` → `binary_round_correct [FloatSpec/src/IEEE754/Binary.lean:1107]` (spec-variant, hoare)
+- `binary_normalize_correct` → `binary_normalize_correct [FloatSpec/src/IEEE754/Binary.lean:1127]` (spec-variant, hoare)
+-- `Bplus_correct` → `binary_add_correct [FloatSpec/src/IEEE754/Binary.lean:579]` (content-equivalent)
+-- `Bminus_correct` → `Bminus_correct [FloatSpec/src/IEEE754/Binary.lean:597]` (spec-variant, hoare)
+-- `Bdiv_correct` → `Bdiv_correct [FloatSpec/src/IEEE754/Binary.lean:612]` (spec-variant, hoare)
+ -- `Bsqrt_correct` → `Bsqrt_correct [FloatSpec/src/IEEE754/Binary.lean:627]` (spec-variant, hoare)
+ - `Bfma_correct` → `Bfma_correct [FloatSpec/src/IEEE754/Binary.lean:601]` (spec-variant, hoare)
+- `Bdiv_correct` → `Bdiv_correct [FloatSpec/src/IEEE754/Binary.lean:612]` (spec-variant, hoare)
+- `Bsqrt_correct` → `Bsqrt_correct [FloatSpec/src/IEEE754/Binary.lean:627]` (spec-variant, hoare)
+- `Btrunc_correct` → `Btrunc_correct [FloatSpec/src/IEEE754/Binary.lean:733]` (spec-variant, hoare)
+- `Bone_correct` → `Bone_correct [FloatSpec/src/IEEE754/Binary.lean:686]` (spec-variant, hoare)
+- `is_finite_Bone` → `is_finite_Bone [FloatSpec/src/IEEE754/Binary.lean:698]` (spec-variant, hoare)
+- `Bsign_Bone` → `Bsign_Bone [FloatSpec/src/IEEE754/Binary.lean:710]` (spec-variant, hoare)
+- `B2BSN_lift` → `B2BSN_lift [FloatSpec/src/IEEE754/BinarySingleNaN.lean:359]` (exact)
+- `Bldexp_correct` → `Bldexp_correct [FloatSpec/src/IEEE754/Binary.lean:712]` (spec-variant, hoare)
+- `Bfrexp_correct` → `Bfrexp_correct [FloatSpec/src/IEEE754/Binary.lean:578]` (spec-variant, hoare)
+- `Bulp_correct` → `Bulp_correct [FloatSpec/src/IEEE754/Binary.lean:732]` (spec-variant, hoare)
+- `Bsucc_correct` → `Bsucc_correct [FloatSpec/src/IEEE754/Binary.lean:767]` (spec-variant, hoare)
+- `Bpred_correct` → `Bpred_correct [FloatSpec/src/IEEE754/Binary.lean:787]` (spec-variant, hoare)
+
+## File: BinarySingleNaN.v → BinarySingleNaN.lean
+
+### Coq Declarations
+- Theorem: `SF2R_B2SF`
+- Theorem: `B2SF_SF2B`
+- Theorem: `valid_binary_B2SF`
+- Theorem: `SF2B_B2SF`
+- Theorem: `SF2B_B2SF_valid`
+- Theorem: `B2R_SF2B`
+- Theorem: `match_SF2B`
+- Theorem: `canonical_canonical_mantissa`
+- Theorem: `canonical_bounded`
+- Lemma: `emin_lt_emax`
+- Lemma: `fexp_emax`
+- Theorem: `generic_format_B2R`
+- Theorem: `FLT_format_B2R`
+- Theorem: `B2SF_inj`
+- Theorem: `SF2B'_B2SF`
+- Theorem: `is_finite_strict_B2R`
+- Theorem: `is_finite_strict_SF2B`
+- Theorem: `B2R_inj`
+- Theorem: `Bsign_SF2B`
+- Theorem: `is_finite_SF2B`
+- Theorem: `is_finite_SF_B2SF`
+- Theorem: `B2R_Bsign_inj`
+- Theorem: `is_nan_SF2B`
+- Theorem: `is_nan_SF_B2SF`
+- Theorem: `erase_correct`
+- Theorem: `Bopp_involutive`
+- Theorem: `B2R_Bopp`
+- Theorem: `is_nan_Bopp`
+- Theorem: `is_finite_Bopp`
+- Theorem: `is_finite_strict_Bopp`
+- Lemma: `Bsign_Bopp`
+- Theorem: `B2R_Babs`
+- Theorem: `is_nan_Babs`
+- Theorem: `is_finite_Babs`
+- Theorem: `is_finite_strict_Babs`
+- Theorem: `Bsign_Babs`
+- Theorem: `Babs_idempotent`
+- Theorem: `Babs_Bopp`
+- Theorem: `Bcompare_correct`
+- Theorem: `Bcompare_swap`
+- Theorem: `Beqb_correct`
+- Theorem: `Beqb_refl`
+- Theorem: `Bltb_correct`
+- Theorem: `Bleb_correct`
+- Theorem: `bounded_le_emax_minus_prec`
+- Theorem: `bounded_lt_emax`
+- Theorem: `bounded_le_emax_minus_prec`
+- Theorem: `bounded_ge_emin`
+- Theorem: `abs_B2R_le_emax_minus_prec`
+- Theorem: `abs_B2R_lt_emax`
+- Theorem: `abs_B2R_ge_emin`
+- Theorem: `bounded_canonical_lt_emax`
+- Theorem: `shr_m_shr_record_of_loc`
+- Theorem: `loc_of_shr_record_of_loc`
+- Lemma: `inbetween_shr_1`
+- Lemma: `shr_nat`
+- Lemma: `le_shr1_le`
+- Theorem: `inbetween_shr`
+- Lemma: `le_shr_le`
+- Lemma: `shr_limit`
+- Theorem: `shr_truncate`
+- Theorem: `shr_fexp_truncate`
+- Lemma: `le_choice_mode_le`
+- Lemma: `round_mode_choice_mode`
+- Theorem: `is_nan_binary_overflow`
+- Theorem: `binary_overflow_correct`
+- Theorem: `binary_fit_aux_correct`
+- Theorem: `binary_round_aux_correct'`
+- Theorem: `binary_round_aux_correct`
+- Theorem: `Bmult_correct_aux`
+- Theorem: `Bmult_correct`
+- Theorem: `shl_align_correct'`
+- Theorem: `shl_align_correct`
+- Lemma: `snd_shl_align`
+- Lemma: `shl_align_fexp_correct`
+- Theorem: `binary_round_correct`
+- Theorem: `is_nan_binary_round`
+- Theorem: `binary_normalize_correct`
+- Theorem: `is_nan_binary_normalize`
+- Theorem: `Fplus_naive_correct`
+- Theorem: `sign_plus_overflow`
+- Theorem: `Bplus_correct`
+- Theorem: `Bminus_correct`
+- Theorem: `Bfma_correct`
+- Theorem: `Bdiv_correct_aux`
+- Theorem: `Bdiv_correct`
+- Theorem: `Bsqrt_correct_aux`
+- Theorem: `Bsqrt_correct`
+- Theorem: `Bnearbyint_correct_aux`
+- Theorem: `Bnearbyint_correct`
+- Theorem: `Btrunc_correct`
+- Theorem: `Bone_correct`
+- Theorem: `is_finite_strict_Bone`
+- Theorem: `is_nan_Bone`
+- Theorem: `is_finite_Bone`
+- Theorem: `Bsign_Bone`
+- Theorem: `Bmax_float_proof`
+- Theorem: `Bnormfr_mantissa_correct`
+- Theorem: `is_nan_Bldexp`
+- Theorem: `Bldexp_correct`
+- Theorem: `Bldexp_Bopp_NE`
+- Theorem: `Bfrexp_correct_aux`
+- Theorem: `is_nan_Bfrexp`
+- Theorem: `Bfrexp_correct`
+- Theorem: `Bulp_correct_aux`
+- Theorem: `is_nan_Bulp`
+- Theorem: `Bulp_correct`
+- Theorem: `is_finite_strict_Bulp`
+- Theorem: `Bulp'_correct`
+- Theorem: `is_nan_Bsucc`
+- Theorem: `Bsucc_correct`
+- Theorem: `is_nan_Bpred`
+- Theorem: `Bpred_correct`
+- Theorem: `Bpred_pos'_correct`
+- Theorem: `Bsucc'_correct`
+
+### Lean Declarations
+- theorem: `B754_plus_correct` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:71)
+- theorem: `B754_mult_correct` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:81)
+- theorem: `SF2R_B2SF` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:147)
+- theorem: `B2SF_SF2B` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:60)
+- theorem: `B2SF_inj` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:157)
+- theorem: `SF2B_B2SF` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:160)
+- theorem: `B2R_SF2B` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:196)
+- theorem: `valid_binary_B2SF` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:169)
+- theorem: `SF2B_B2SF_valid` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:182)
+- theorem: `is_nan_Bldexp` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:631)
+- theorem: `Bldexp_Bopp_NE` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:654)
+- theorem: `Bfrexp_correct_aux` (FloatSpec/src/IEEE754/BinarySingleNaN.lean:705)
+
+### Mapping (Coq → Lean)
+ - `Bplus_correct` → `B754_plus_correct [FloatSpec/src/IEEE754/BinarySingleNaN.lean:71]` (content-equivalent)
+ - `Bmult_correct` → `B754_mult_correct [FloatSpec/src/IEEE754/BinarySingleNaN.lean:81]` (content-equivalent)
+ - `Bdiv_correct_aux` → `Bdiv_correct_aux [FloatSpec/src/IEEE754/BinarySingleNaN.lean:636]` (spec-variant, hoare)
+ - `Bsqrt_correct_aux` → `Bsqrt_correct_aux [FloatSpec/src/IEEE754/BinarySingleNaN.lean:669]` (spec-variant, hoare)
+ - `is_nan_Bldexp` → `is_nan_Bldexp [FloatSpec/src/IEEE754/BinarySingleNaN.lean:631]` (spec-variant, hoare)
+ - `Bldexp_Bopp_NE` → `Bldexp_Bopp_NE [FloatSpec/src/IEEE754/BinarySingleNaN.lean:654]` (spec-variant, hoare)
+ - `Bfrexp_correct_aux` → `Bfrexp_correct_aux [FloatSpec/src/IEEE754/BinarySingleNaN.lean:705]` (spec-variant, hoare)
+ - `is_nan_Bfrexp` → `is_nan_Bfrexp [FloatSpec/src/IEEE754/BinarySingleNaN.lean:671]` (spec-variant, hoare)
+ - All other Coq declarations above → (Completed Import)
+- `B2SF_SF2B` → `B2SF_SF2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:60]` (exact)
+ - `B2SF_inj` → `B2SF_inj [FloatSpec/src/IEEE754/BinarySingleNaN.lean:157]` (exact)
+ - `SF2B_B2SF` → `SF2B_B2SF [FloatSpec/src/IEEE754/BinarySingleNaN.lean:160]` (exact)
+ - `B2R_SF2B` → `B2R_SF2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:196]` (exact)
+ - `valid_binary_B2SF` → `valid_binary_B2SF [FloatSpec/src/IEEE754/BinarySingleNaN.lean:169]` (spec-variant, hoare)
+ - `SF2B_B2SF_valid` → `SF2B_B2SF_valid [FloatSpec/src/IEEE754/BinarySingleNaN.lean:182]` (spec-variant, hoare)
+  - `SF2R_B2SF` → `SF2R_B2SF [FloatSpec/src/IEEE754/BinarySingleNaN.lean:184]` (exact)
+  - `emin_lt_emax` → `emin_lt_emax [FloatSpec/src/IEEE754/BinarySingleNaN.lean:219]` (spec-variant, hoare)
+  - `fexp_emax` → `fexp_emax [FloatSpec/src/IEEE754/Binary.lean:654]` (spec-variant, hoare)
+  - `is_finite_strict_B2R` → `is_finite_strict_B2R [FloatSpec/src/IEEE754/BinarySingleNaN.lean:172]` (spec-variant, hoare)
+  - `is_finite_strict_SF2B` → `is_finite_strict_SF2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:242]` (spec-variant, hoare)
+  - `match_SF2B` → `match_SF2B [FloatSpec/src/IEEE754/BinarySingleNaN.lean:67]` (exact)
+  - `is_nan_SF_B2SF` → `is_nan_SF_B2SF [FloatSpec/src/IEEE754/BinarySingleNaN.lean:464]` (exact)
+  - `is_finite_SF_B2SF` → `is_finite_SF_B2SF [FloatSpec/src/IEEE754/BinarySingleNaN.lean:476]` (exact)
+
+## File: PrimFloat.v → PrimFloat.lean
+
+### Coq Declarations
+- Lemma: `B2Prim_Prim2B`
+- Lemma: `Prim2B_B2Prim`
+- Lemma: `Prim2B_inj`
+- Lemma: `B2Prim_inj`
+- Lemma: `B2SF_Prim2B`
+- Lemma: `Prim2SF_B2Prim`
+- Theorem: `opp_equiv`
+- Theorem: `abs_equiv`
+- Theorem: `compare_equiv`
+- Lemma: `round_nearest_even_equiv`
+- Lemma: `binary_round_aux_equiv`
+- Theorem: `mul_equiv`
+- Lemma: `binary_round_equiv`
+- Lemma: `binary_normalize_equiv`
+- Theorem: `add_equiv`
+- Theorem: `sub_equiv`
+- Theorem: `div_equiv`
+- Theorem: `sqrt_equiv`
+- Theorem: `normfr_mantissa_equiv`
+- Theorem: `ldexp_equiv`
+- Theorem: `ldshiftexp_equiv`
+- Theorem: `frexp_equiv`
+- Theorem: `frshiftexp_equiv`
+- Theorem: `infinity_equiv`
+- Theorem: `neg_infinity_equiv`
+- Theorem: `nan_equiv`
+- Theorem: `zero_equiv`
+- Theorem: `neg_zero_equiv`
+- Theorem: `one_equiv`
+- Theorem: `two_equiv`
+- Theorem: `ulp_equiv`
+- Theorem: `next_up_equiv`
+- Theorem: `next_down_equiv`
+- Theorem: `is_nan_equiv`
+- Theorem: `is_zero_equiv`
+- Theorem: `is_infinity_equiv`
+- Theorem: `get_sign_equiv`
+- Theorem: `is_finite_equiv`
+- Theorem: `of_int63_equiv`
+- Theorem: `eqb_equiv`
+- Theorem: `ltb_equiv`
+- Theorem: `leb_equiv`
+
+### Lean Declarations
+- theorem: `prim_add_correct` (FloatSpec/src/IEEE754/PrimFloat.lean:52)
+- theorem: `prim_mul_correct` (FloatSpec/src/IEEE754/PrimFloat.lean:58)
+- theorem: `compare_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:75)
+- theorem: `opp_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:86)
+- theorem: `abs_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:114)
+- theorem: `div_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:128)
+- theorem: `sub_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:145)
+- theorem: `sqrt_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:162)
+- theorem: `is_nan_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:353)
+- theorem: `eqb_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:383)
+- theorem: `ltb_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:400)
+- theorem: `leb_equiv` (FloatSpec/src/IEEE754/PrimFloat.lean:417)
+
+### Mapping (Coq → Lean)
+- `add_equiv` → `prim_add_correct [FloatSpec/src/IEEE754/PrimFloat.lean:52]` (content-equivalent)
+- `mul_equiv` → `prim_mul_correct [FloatSpec/src/IEEE754/PrimFloat.lean:58]` (content-equivalent)
+- `opp_equiv` → `opp_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:86]` (spec-variant, hoare)
+- `abs_equiv` → `abs_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:114]` (spec-variant, hoare)
+- `div_equiv` → `div_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:128]` (spec-variant, hoare)
+- `sub_equiv` → `sub_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:145]` (spec-variant, hoare)
+- `sqrt_equiv` → `sqrt_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:162]` (spec-variant, hoare)
+ - `B2Prim_Prim2B` → `B2Prim_Prim2B [FloatSpec/src/IEEE754/PrimFloat.lean:69]` (spec-variant, hoare)
+ - `Prim2B_B2Prim` → `Prim2B_B2Prim [FloatSpec/src/IEEE754/PrimFloat.lean:100]` (spec-variant, hoare)
+ - `compare_equiv` → `compare_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:75]` (spec-variant, hoare)
+ - `B2SF_Prim2B` → `B2SF_Prim2B [FloatSpec/src/IEEE754/PrimFloat.lean:77]` (spec-variant, hoare)
+ - `Prim2SF_B2Prim` → `Prim2SF_B2Prim [FloatSpec/src/IEEE754/PrimFloat.lean:91]` (spec-variant, hoare)
+ - `ldexp_equiv` → `ldexp_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:83]` (spec-variant, hoare)
+ - `ldshiftexp_equiv` → `ldshiftexp_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:251]` (spec-variant, hoare)
+ - `frexp_equiv` → `frexp_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:269]` (spec-variant, hoare)
+ - `frshiftexp_equiv` → (Completed Import)
+ - `infinity_equiv` → `infinity_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:260]` (spec-variant, hoare)
+ - `neg_infinity_equiv` → `neg_infinity_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:273]` (spec-variant, hoare)
+ - `nan_equiv` → `nan_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:286]` (spec-variant, hoare)
+ - `zero_equiv` → `zero_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:299]` (spec-variant, hoare)
+ - `neg_zero_equiv` → `neg_zero_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:312]` (spec-variant, hoare)
+ - `one_equiv` → `one_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:325]` (spec-variant, hoare)
+  - `two_equiv` → `two_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:341]` (spec-variant, hoare)
+  - `eqb_equiv` → `eqb_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:383]` (spec-variant, hoare)
+  - `ltb_equiv` → `ltb_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:400]` (spec-variant, hoare)
+  - `leb_equiv` → `leb_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:417]` (spec-variant, hoare)
+  - `get_sign_equiv` → `get_sign_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:437]` (spec-variant, hoare)
+  - `is_zero_equiv` → `is_zero_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:371]` (spec-variant, hoare)
+  - `is_infinity_equiv` → `is_infinity_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:405]` (spec-variant, hoare)
+  - `is_finite_equiv` → `is_finite_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:421]` (spec-variant, hoare)
+  - `of_int63_equiv` → `of_int63_equiv [FloatSpec/src/IEEE754/PrimFloat.lean:388]` (spec-variant, hoare)

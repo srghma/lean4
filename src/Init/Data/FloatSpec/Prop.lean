@@ -1,0 +1,7 @@
+-- import FloatSpec.Prop.Relative
+-- import FloatSpec.Prop.Plus_error
+-- import FloatSpec.Prop.Mult_error
+-- import FloatSpec.Prop.Div_sqrt_error
+-- import FloatSpec.Prop.Sterbenz
+-- import FloatSpec.Prop.Double_rounding
+-- import FloatSpec.Prop.Round_odd
