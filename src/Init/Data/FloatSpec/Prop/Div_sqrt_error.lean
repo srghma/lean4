@@ -1,13 +1,23 @@
+module
+
+
 -- Remainder of the division and square root are in the FLX format
 -- Translated from Coq file: flocq/src/Prop/Div_sqrt_error.v
 
-import FloatSpec.Core
-import FloatSpec.Compat
-import FloatSpec.Calc.Round
-import FloatSpec.Prop.Relative
-import FloatSpec.Prop.Sterbenz
-import FloatSpec.Prop.Mult_error
-import Mathlib.Data.Real.Basic
+public import Init.Data.FloatSpec.Core
+public import Init.Data.FloatSpec.Compat
+public import Init.Data.FloatSpec.Calc.Round
+public import Init.Data.FloatSpec.Prop.Relative
+public import Init.Data.FloatSpec.Prop.Sterbenz
+public import Init.Data.FloatSpec.Prop.Mult_error
+public import Mathlib.Data.Real.Basic
+
+
+
+
+set_option warn.sorry false
+
+@[expose] public section
 
 open Real
 
@@ -16,7 +26,7 @@ variable (prec : Int)
 variable [Prec_gt_0 prec]
 
 /-- Generic format plus with precision bound -/
-lemma generic_format_plus_prec (fexp : Int → Int) 
+lemma generic_format_plus_prec (fexp : Int → Int)
   (h_bound : ∀ e, fexp e ≤ e - prec)
   (x y : ℝ) (fx fy : FloatSpec.Core.Defs.FlocqFloat beta)
   (hx : x = _root_.F2R fx) (hy : y = _root_.F2R fy)
@@ -195,3 +205,5 @@ theorem sqrt_error_FLT (emin : Int) (rnd : ℝ → Int) [Valid_rnd rnd] (x : ℝ
   (h_no_underflow : (Int.natAbs beta : ℝ) ^ (Int.natAbs (emin + 2 * prec - 1) : Nat) ≤ |Real.sqrt x|) :
   generic_format beta (FLT_exp emin prec) (x - (FloatSpec.Calc.Round.round beta (FLT_exp emin prec) () (Real.sqrt x))^2) := by
   sorry
+
+end

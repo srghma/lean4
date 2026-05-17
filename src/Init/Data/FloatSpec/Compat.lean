@@ -1,12 +1,23 @@
+module
+
+
 -- Compatibility layer to bridge Core defs to simpler signatures
 
-import FloatSpec.Core
-import FloatSpec.Core.FLX
-import FloatSpec.Core.FLT
-import FloatSpec.Core.Generic_fmt
-import FloatSpec.Core.Ulp
-import FloatSpec.Calc.Round
-import Mathlib.Data.Real.Basic
+public import Init.Data.FloatSpec.Core
+public import Init.Data.FloatSpec.Core.FLX
+public import Init.Data.FloatSpec.Core.FLT
+public import Init.Data.FloatSpec.Core.Generic_fmt
+public import Init.Data.FloatSpec.Core.Ulp
+public import Init.Data.FloatSpec.Calc.Round
+public import Mathlib.Data.Real.Basic
+
+
+
+
+set_option linter.deprecated false
+set_option linter.unusedVariables false
+
+@[expose] public section
 
 open FloatSpec.Core
 open FloatSpec.Core.Defs
@@ -136,3 +147,5 @@ noncomputable def round_float (beta : Int) (fexp : Int → Int) (rnd : ℝ → I
 
 /-- Helper: a trivial nearest-ties mode to satisfy signatures that use it -/
 def Znearest (_choice : Int → Bool) : FloatSpec.Calc.Round.Mode := ()
+
+end

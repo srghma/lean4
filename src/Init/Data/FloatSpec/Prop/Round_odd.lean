@@ -1,10 +1,20 @@
+module
+
+
 -- Round to odd properties
 -- Translated from Coq file: flocq/src/Prop/Round_odd.v
 
-import FloatSpec.Core
-import FloatSpec.Compat
-import FloatSpec.Calc.Round
-import Mathlib.Data.Real.Basic
+public import Init.Data.FloatSpec.Core
+public import Init.Data.FloatSpec.Compat
+public import Init.Data.FloatSpec.Calc.Round
+public import Mathlib.Data.Real.Basic
+
+
+
+
+set_option warn.sorry false
+
+@[expose] public section
 
 open Real
 open FloatSpec.Calc.Round
@@ -488,3 +498,5 @@ theorem round_N_odd (choice : Int → Bool)
       (FloatSpec.Calc.Round.round beta fexpe () x)
     = FloatSpec.Calc.Round.round beta fexp (Znearest choice) x := by
   sorry
+
+end

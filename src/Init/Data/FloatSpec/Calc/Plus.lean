@@ -1,3 +1,6 @@
+module
+
+
 /-
 This file is part of the Flocq formalization of floating-point
 arithmetic in Lean 4, ported from Coq: https://flocq.gitlabpages.inria.fr/
@@ -6,16 +9,25 @@ Helper function and theorem for computing the rounded sum of two floating-point 
 Translated from Coq file: flocq/src/Calc/Plus.v
 -/
 
-import FloatSpec.Core
-import FloatSpec.Calc.Bracket
+public import Init.Data.FloatSpec.Core
+public import Init.Data.FloatSpec.Calc.Bracket
 -- Note: avoid importing Operations here to reduce dependencies for building this module
-import FloatSpec.Calc.Round
-import FloatSpec.Core.Digits
-import FloatSpec.Core.Generic_fmt
-import Mathlib.Data.Real.Basic
-import Std.Do.Triple
-import Std.Tactic.Do
-import FloatSpec.SimprocWP
+public import Init.Data.FloatSpec.Calc.Round
+public import Init.Data.FloatSpec.Core.Digits
+public import Init.Data.FloatSpec.Core.Generic_fmt
+public import Mathlib.Data.Real.Basic
+public import Std.Do.Triple
+public import Std.Tactic.Do
+public import Init.Data.FloatSpec.SimprocWP
+
+
+
+
+set_option linter.unnecessarySimpa false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedVariables false
+
+@[expose] public section
 
 open Real FloatSpec.Calc.Bracket FloatSpec.Core.Digits FloatSpec.Core.Defs FloatSpec.Core.Generic_fmt
 open FloatSpec.Core.Generic_fmt
@@ -239,3 +251,5 @@ theorem Fplus_correct (x y : FlocqFloat beta) :
 end MainAddition
 
 end FloatSpec.Calc.Plus
+
+end

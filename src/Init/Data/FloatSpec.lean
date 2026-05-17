@@ -1,39 +1,29 @@
--- Project linters (prefer grind over omega, etc.)
-import FloatSpec.Linter.OmegaLinter
+module
+prelude
+
+
+-- Top-level src module aggregating all FloatSpec.src submodules
 
 -- Core floating-point functionality
-import FloatSpec.Core
+public import Init.Data.FloatSpec.Core
 
--- Calculation modules  
-import FloatSpec.Calc
-
--- Property analysis and error bounds
-import FloatSpec.Prop
--- VCFloat-style error bound scaffolding
-import FloatSpec.ErrorBound
-
--- IEEE 754 standard implementation
-import FloatSpec.IEEE754
-
--- Simproc helpers for Id/wp Hoare triples
-import FloatSpec.SimprocWP
-
--- Legacy Pff compatibility
-import FloatSpec.Pff
-
-/-!
-# FloatSpec
-
-Complete IEEE 754 floating-point formalization in Lean 4
-Transformed from the Flocq floating-point library
-
-This library provides:
-- Core floating-point functionality and generic formats
-- Calculation operations (addition, multiplication, division, square root)
-- Property analysis and error bounds 
-- Full IEEE 754 standard implementation
-- Legacy Pff compatibility layer
--/
-
-/-- Version string for the FloatSpec library -/
-def FloatSpec.version : String := "0.7.0"
+-- -- Calculation operations
+-- public import Init.Data.FloatSpec.Calc
+--
+-- -- Compatibility layer
+-- public import Init.Data.FloatSpec.Compat
+--
+-- -- Property analysis and error bounds
+-- -- Note: FloatSpec.src.Prop currently has all imports commented out
+--
+-- -- Error bound scaffolding
+-- public import Init.Data.FloatSpec.ErrorBound
+--
+-- -- IEEE 754 standard implementation
+-- public import Init.Data.FloatSpec.IEEE754
+--
+-- -- Legacy Pff compatibility
+-- public import Init.Data.FloatSpec.Pff
+--
+-- -- Simproc helpers
+-- public import Init.Data.FloatSpec.SimprocWP

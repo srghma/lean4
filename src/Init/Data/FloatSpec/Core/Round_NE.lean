@@ -1,3 +1,6 @@
+module
+
+
 /-
 This file is part of the Flocq formalization of floating-point
 arithmetic in Lean 4, ported from Coq: https://flocq.gitlabpages.inria.fr/
@@ -19,19 +22,29 @@ Rounding to nearest, ties to even: existence, unicity...
 Based on flocq/src/Core/Round_NE.v
 -/
 
-import FloatSpec.Core.Zaux
-import FloatSpecRoles
-import FloatSpec.Core.Raux
-import FloatSpec.Core.Defs
-import FloatSpec.Core.Round_pred
-import FloatSpec.Core.Generic_fmt
-import FloatSpec.Core.Float_prop
-import FloatSpec.Core.Ulp
-import FloatSpec.VersoExt
+public import Init.Data.FloatSpec.Core.Zaux
+public import FloatSpecRoles
+public import Init.Data.FloatSpec.Core.Raux
+public import Init.Data.FloatSpec.Core.Defs
+public import Init.Data.FloatSpec.Core.Round_pred
+public import Init.Data.FloatSpec.Core.Generic_fmt
+public import Init.Data.FloatSpec.Core.Float_prop
+public import Init.Data.FloatSpec.Core.Ulp
+public import FloatSpec.VersoExt
 -- import Mathlib.Data.Real.Basic
-import Std.Do.Triple
-import Std.Tactic.Do
-import FloatSpec.SimprocWP
+public import Std.Do.Triple
+public import Std.Tactic.Do
+public import Init.Data.FloatSpec.SimprocWP
+
+
+
+
+set_option linter.unnecessarySimpa false
+set_option linter.unusedSectionVars false
+set_option linter.unusedSimpArgs false
+set_option linter.unusedVariables false
+
+@[expose] public section
 
 open Real
 open Std.Do
@@ -1658,3 +1671,5 @@ theorem Rnd_NE_pt_minimal_error (x f : ℝ) :
 end ErrorBounds
 
 end FloatSpec.Core.RoundNE
+
+end
