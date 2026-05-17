@@ -12,6 +12,7 @@ import all Init.Data.Array.Basic
 import all Init.Data.Array.Bootstrap
 public import Init.Data.Nat.Lemmas
 public import Init.Data.Nat.MinMax
+public import Init.Data.Function
 import Init.ByCases
 import Init.Data.Array.DecidableEq
 import Init.Data.Bool
@@ -46,6 +47,28 @@ namespace Array
 
 @[simp] theorem toList_inj {xs ys : Array α} : xs.toList = ys.toList ↔ xs = ys := by
   cases xs; cases ys; simp
+
+theorem toList_injective : Function.Injective (toList : Array α → List α) := by
+  intro xs ys h
+  exact toList_inj.mp h
+
+theorem toList_surjective : Function.Surjective (toList : Array α → List α) := by
+  intro l
+  exact ⟨List.toArray l, rfl⟩
+
+theorem toArray_injective : Function.Injective (List.toArray : List α → Array α) := by
+  intro xs ys h
+  exact congrArg toList h
+
+theorem toArray_surjective : Function.Surjective (List.toArray : List α → Array α) := by
+  intro xs
+  exact ⟨xs.toList, by cases xs; rfl⟩
+
+theorem toList_bijective : Function.Bijective (toList : Array α → List α) :=
+  ⟨toList_injective, toList_surjective⟩
+
+theorem toArray_bijective : Function.Bijective (List.toArray : List α → Array α) :=
+  ⟨toArray_injective, toArray_surjective⟩
 
 @[simp] theorem toList_eq_nil_iff {xs : Array α} : xs.toList = [] ↔ xs = #[] := by
   cases xs <;> simp

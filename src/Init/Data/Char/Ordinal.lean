@@ -164,6 +164,12 @@ theorem ordinal_inj {c d : Char} : c.ordinal = d.ordinal ↔ c = d :=
 theorem ordinal_injective : Function.Injective Char.ordinal :=
   fun _ _ => ordinal_inj.1
 
+theorem ordinal_surjective : Function.Surjective Char.ordinal :=
+  fun f => ⟨Char.ofOrdinal f, ordinal_ofOrdinal⟩
+
+theorem ordinal_bijective : Function.Bijective Char.ordinal :=
+  ⟨ordinal_injective, ordinal_surjective⟩
+
 @[simp]
 theorem ofOrdinal_inj {f g : Fin Char.numCodePoints} :
     Char.ofOrdinal f = Char.ofOrdinal g ↔ f = g :=
@@ -171,6 +177,12 @@ theorem ofOrdinal_inj {f g : Fin Char.numCodePoints} :
 
 theorem ofOrdinal_injective : Function.Injective Char.ofOrdinal :=
    fun _ _ => ofOrdinal_inj.1
+
+theorem ofOrdinal_surjective : Function.Surjective Char.ofOrdinal :=
+  fun c => ⟨c.ordinal, ofOrdinal_ordinal⟩
+
+theorem ofOrdinal_bijective : Function.Bijective Char.ofOrdinal :=
+  ⟨ofOrdinal_injective, ofOrdinal_surjective⟩
 
 theorem ordinal_le_of_le {c d : Char} (h : c ≤ d) : c.ordinal ≤ d.ordinal := by
   simp only [le_def, UInt32.le_iff_toNat_le] at h

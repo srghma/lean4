@@ -65,6 +65,15 @@ theorem Surjective.comp {α β γ} {g : β → γ} {f : α → β} (hg : Surject
     Exists.elim (hf b) fun a ha =>
       Exists.intro a (show g (f a) = c from Eq.trans (congrArg g ha) hb)
 
+/-- A function `f : α → β` is called bijective if it is both injective and surjective. -/
+@[expose]
+def Bijective (f : α → β) : Prop :=
+  Injective f ∧ Surjective f
+
+theorem Bijective.comp {α β γ} {g : β → γ} {f : α → β} (hg : Bijective g) (hf : Bijective f) :
+    Bijective (g ∘ f) :=
+  ⟨hg.1.comp hf.1, hg.2.comp hf.2⟩
+
 /-- `LeftInverse g f` means that `g` is a left inverse to `f`. That is, `g ∘ f = id`. -/
 @[expose, grind]
 def LeftInverse {α β} (g : β → α) (f : α → β) : Prop :=

@@ -1,6 +1,8 @@
-import Init.Data.Float.HashableFloat
-import Init.Data.Float32.HashableFloat32
-import Std.Data.HashMap
+module
+public import Init.Data.Float.HashableFloat
+public import Init.Data.Float32.HashableFloat32
+public import Std.Data.HashMap
+public import Init.Data.FloatSpec
 
 /-! Regression test for hashable wrappers around `Float` and `Float32`.
 

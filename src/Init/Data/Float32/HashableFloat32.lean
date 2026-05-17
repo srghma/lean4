@@ -9,6 +9,7 @@ prelude
 public import Init.Prelude
 public import Init.Core
 public import Init.Coe
+public import Init.Data.OfScientific
 public import Init.Data.Float32
 public import Init.Data.Float.Bridge
 public import Init.Data.Hashable
@@ -29,7 +30,7 @@ negative zero. The coercion back to `Float32` is the corresponding `ofBits`.
 structure HashableFloat32 where
   toFloat : Float32
   noNaN : toFloat.isNaN = false
-  noNegZero : Float32.toBits toFloat ≠ Float32.negZeroBits
+  noNegZero : toFloat ≠ (-0.0 : Float32)
 
 namespace HashableFloat32
 
@@ -46,7 +47,12 @@ def ofFloat (f : Float32) : Option HashableFloat32 :=
       some
         { toFloat := f
           noNaN := hNaN
-          noNegZero := hZero }
+          noNegZero := by
+            intro hneg
+            have hbits : Float32.toBits f = Float32.negZeroBits := by
+              rw [hneg]
+              simpa [Float32.negZeroBits] using FloatSpec.IEEE754.toBits_negZero32
+            simpa [Float32.negZeroBits] using hZero hbits }
   else
     none
 

@@ -18,6 +18,7 @@ public import Init.Data.Array
 public import Init.Data.Array.Subarray.Split
 public import Init.Data.ByteArray
 public import Init.Data.FloatArray
+-- public import Init.Data.FloatSpec
 public import Init.Data.Fin
 public import Init.Data.UInt
 public import Init.Data.SInt
