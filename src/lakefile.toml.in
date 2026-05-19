@@ -8,7 +8,7 @@
 name = "lean4"
 bootstrap = true
 
-defaultTargets = ["Init", "Std", "Lean", "Lake", "LakeMain", "LeanIR", "Leanc", "LeanChecker"]
+defaultTargets = ["Init", "Std", "Lean", "Lake", "LakeMain", "LeanIR", "Leanc"]
 
 # Have Lake use CMake's build type (e.g., `Release`, `Debug`) where possible
 buildType = "${CMAKE_BUILD_TYPE_TOML}"
@@ -64,6 +64,9 @@ defaultFacets = ["static", "static.export"]
 globs = [
   # Library root
   "Lean",
+  # Kernel replacement modules that are not imported from `Lean`
+  "Lean.Kernel",
+  "Lean.Kernel.*",
   # Deliberate orphan file so `import Lean` does not induce an LLVM dependency
   "Lean.Compiler.IR.EmitLLVM",
   # New compiler orphan file used in tests
@@ -93,8 +96,4 @@ defaultFacets = ["static"]
 [[lean_lib]]
 name = "Leanc"
 srcDir = "${CMAKE_BINARY_DIR}/leanc"
-defaultFacets = ["static"]
-
-[[lean_lib]]
-name = "LeanChecker"
 defaultFacets = ["static"]

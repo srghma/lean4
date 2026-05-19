@@ -68,7 +68,7 @@ def computeOrphanedModules (importGraph : ImportGraph) :
     IO (Array String) := do
   let searchPath ← Lean.getSrcSearchPath
   let onFS ← collectModulesOnFileSystem searchPath #["Init", "Std", "Lean"]
-  let imported : HashSet String := #["Init", "Std", "Lean"].foldl (init := ∅)
+  let imported : HashSet String := #["Init", "Std", "Lean", "Lean.Kernel"].foldl (init := ∅)
     (fun sofar root => sofar.insertMany (dfs root importGraph.imports ∅))
   return onFS.filter (fun module => !imported.contains module)
 
@@ -85,7 +85,7 @@ where
 def test : MetaM Unit := do
   let sysroot ← findSysroot
   initSearchPath sysroot
-  let env ← importModules #[`Init, `Std, `Lean] {}
+  let env ← importModules #[`Init, `Std, `Lean, `Lean.Kernel] {}
   let importGraph := analyzeModuleData (env.header.moduleNames.zip env.header.moduleData)
 
   let orphanedModules ← computeOrphanedModules importGraph

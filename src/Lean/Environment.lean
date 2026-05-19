@@ -24,6 +24,7 @@ public import Lean.CompactedRegion
 public import Init.Dynamic
 import Init.Data.Slice
 import Init.Data.String.TakeDrop
+import Init.Data.Nat.Gcd
 import Init.Data.Range.Polymorphic.Iterators
 import Init.While
 
@@ -285,11 +286,11 @@ def find? (env : Environment) (n : Name) : Option ConstantInfo :=
   env.constants.find?' n
 
 @[export lean_environment_mark_quot_init]
-private def markQuotInit (env : Environment) : Environment :=
+def markQuotInit (env : Environment) : Environment :=
   { env with quotInit := true }
 
 @[export lean_environment_quot_init]
-private def isQuotInit (env : Environment) : Bool :=
+def isQuotInit (env : Environment) : Bool :=
   env.quotInit
 
 /-- Type check given declaration and add it to the environment -/
@@ -308,8 +309,81 @@ and the kernel will not catch it if the new option is set to true.
 opaque addDeclWithoutChecking (env : Environment) (decl : @& Declaration) : Except Exception Environment
 
 @[export lean_environment_add]
-private def add (env : Environment) (cinfo : ConstantInfo) : Environment :=
+def add (env : Environment) (cinfo : ConstantInfo) : Environment :=
   { env with constants := env.constants.insert cinfo.name cinfo }
+
+def contains (env : Environment) (n : Name) : Bool :=
+  env.constants.contains n
+
+def get (env : Environment) (n : Name) : Except Exception ConstantInfo :=
+  match env.find? n with
+  | some ci => pure ci
+  | none => throw <| .unknownConstant env n
+
+def checkDuplicatedUnivParams : List Name → Except Exception Unit
+  | [] => pure ()
+  | p :: ps => do
+    if p ∈ ps then
+      throw <| .other
+        s!"failed to add declaration to environment, duplicate universe level parameter: '{p}'"
+    checkDuplicatedUnivParams ps
+
+def checkNoMVar (env : Environment) (n : Name) (e : Expr) : Except Exception Unit := do
+  if e.hasMVar then
+    throw <| .declHasMVars env n e
+
+def checkNoFVar (env : Environment) (n : Name) (e : Expr) : Except Exception Unit := do
+  if e.hasFVar then
+    throw <| .declHasFVars env n e
+
+def checkNoMVarNoFVar (env : Environment) (n : Name) (e : Expr) : Except Exception Unit := do
+  checkNoMVar env n e
+  checkNoFVar env n e
+
+def primitives : NameSet := .ofList [
+  ``Bool, ``Bool.false, ``Bool.true,
+  ``Nat, ``Nat.zero, ``Nat.succ,
+  ``Nat.add, ``Nat.pred, ``Nat.sub, ``Nat.mul, ``Nat.pow,
+  ``Nat.gcd, ``Nat.mod, ``Nat.div, ``Nat.beq, ``Nat.ble,
+  ``Nat.bitwise, ``Nat.land, ``Nat.lor, ``Nat.xor,
+  ``Nat.shiftLeft, ``Nat.shiftRight,
+  ``String.ofList, ``Char.ofNat]
+
+/--
+Returns true iff `constName` is a non-recursive inductive datatype that has only one constructor and
+no indices.
+
+Such types have special kernel support. This must be in sync with `is_structure_like`.
+-/
+def isStructureLike (env : Environment) (constName : Name) : Bool :=
+  match env.find? constName with
+  | some (.inductInfo { isRec := false, ctors := [_], numIndices := 0, .. }) => true
+  | _ => false
+
+def checkName (env : Environment) (n : Name)
+    (allowPrimitive := false) : Except Exception Unit := do
+  if env.contains n then
+    throw <| .alreadyDeclared env n
+  unless allowPrimitive do
+    if primitives.contains n then
+      throw <| .other s!"unexpected use of primitive name {n}"
+
+def empty (mainModule : Name) (trustLevel : UInt32 := 0) : Environment :=
+  Kernel.Environment.mk
+    (constants := {})
+    (quotInit := false)
+    (diagnostics := {})
+    (const2ModIdx := {})
+    (extensions := #[])
+    (irBaseExts := #[])
+    (header := {
+      mainModule := mainModule
+      trustLevel := trustLevel
+      isModule := false
+      imports := #[]
+      regions := #[]
+      modules := #[]
+      moduleData := #[] })
 
 @[export lean_kernel_diag_is_enabled]
 def Diagnostics.isEnabled (d : Diagnostics) : Bool :=
@@ -2536,15 +2610,14 @@ where
         continue
       -- for panics
       let _ : Inhabited Kernel.Environment := ⟨kenv⟩
-      let decl ← match info with
-        | .thmInfo thm   => pure <| .thmDecl thm
-        | .defnInfo defn => pure <| .defnDecl defn
-        | .axiomInfo ax  => pure <| .axiomDecl ax
-        | _              =>
+      -- These declarations were already kernel-checked when produced in `newEnv.checked`.
+      -- Replaying them onto another kernel environment derived from the same `oldEnv`
+      -- only needs to rebuild the constant map, not repeat kernel checking.
+      match info with
+        | .thmInfo _ | .defnInfo _ | .axiomInfo _ =>
+          kenv := kenv.add info
+        | _ =>
           return panic! s!"{c.constInfo.name} must be definition/theorem"
-      -- realized kernel additions cannot be interrupted - which would be bad anyway as they can be
-      -- reused between snapshots
-      kenv ← ofExcept <| kenv.addDeclCore 0 decl none
     return kenv
 
 /-- Like `evalConst`, but first check that `constName` indeed is a declaration of type `typeName`.

@@ -702,6 +702,7 @@ configure_file(${LEAN_SOURCE_DIR}/lean.mk.in ${LEAN_BINARY_DIR}/share/lean/lean.
 install(DIRECTORY ${LEAN_BINARY_DIR}/share/ DESTINATION share)
 
 include_directories(${LEAN_SOURCE_DIR})
+include_directories(${LEAN_SOURCE_DIR}/include)
 include_directories(${CMAKE_BINARY_DIR}) # version.h etc., "private" headers
 include_directories(${CMAKE_BINARY_DIR}/include) # config.h etc., "public" headers
 
@@ -783,7 +784,7 @@ else()
 
   add_subdirectory(util)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:util>)
-  add_subdirectory(kernel)
+  add_subdirectory(kernel_support)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:kernel>)
   add_subdirectory(library)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:library>)
@@ -852,7 +853,7 @@ set(
   LeanIR
 )
 if(NOT CMAKE_SYSTEM_NAME MATCHES "Emscripten")
-  list(APPEND STDLIBS Lake LeanChecker)
+  list(APPEND STDLIBS Lake)
 endif()
 
 add_custom_target(
@@ -936,14 +937,6 @@ if(NOT CMAKE_SYSTEM_NAME MATCHES "Emscripten")
     VERBATIM
   )
 
-  add_custom_target(
-    leanchecker
-    ALL
-    WORKING_DIRECTORY ${LEAN_SOURCE_DIR}
-    DEPENDS lake_shared
-    COMMAND $(MAKE) -f ${CMAKE_BINARY_DIR}/stdlib.make leanchecker
-    VERBATIM
-  )
 endif()
 
 if(PREV_STAGE)

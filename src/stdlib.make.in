@@ -48,7 +48,7 @@ ifeq "${STAGE}" "0"
 endif
 
 # These can be phony since the inner Makefile/Lake will have the correct dependencies and avoid rebuilds
-.PHONY: Init Std Lean leanshared Lake libLake_shared lake lean LeanChecker leanchecker LeanIR
+.PHONY: Init Std Lean leanshared Lake libLake_shared lake lean LeanIR
 
 ifeq "${USE_LAKE}" "ON"
 
@@ -56,7 +56,7 @@ ifeq "${USE_LAKE}" "ON"
 Init:
 	${PREV_STAGE}/bin/lake build -f ${CMAKE_BINARY_DIR}/lakefile.toml ${LEAN_EXTRA_LAKE_OPTS} $(LAKE_EXTRA_ARGS)
 
-Std Lean Lake Leanc LeanChecker LeanIR: Init
+Std Lean Lake Leanc LeanIR: Init
 
 else
 
@@ -71,7 +71,7 @@ Std: Init
 	+"${LEAN_BIN}/leanmake" lib lib.export PKG=Std $(LEANMAKE_OPTS)
 
 Lean: Std
-	+"${LEAN_BIN}/leanmake" lib lib.export PKG=Lean $(LEANMAKE_OPTS)
+	+"${LEAN_BIN}/leanmake" lib lib.export PKG=Lean $(LEANMAKE_OPTS) EXTRA_SRC_ROOTS="Lean/Kernel Lean/Kernel.lean"
 
 Leanc: Lean
 ifneq "${STAGE}" "0"
@@ -81,9 +81,6 @@ endif
 Lake: Lean
 # lake is in its own subdirectory, so must adjust relative paths...
 	+"${LEAN_BIN}/leanmake" -C lake lib lib.export ../${LIB}/temp/LakeMain.o.export  PKG=Lake $(LEANMAKE_OPTS) OUT="../${LIB}" LIB_OUT="../${LIB}/lean" TEMP_OUT="../${LIB}/temp" OLEAN_OUT="../${LIB}/lean" EXTRA_SRC_ROOTS=LakeMain.lean
-
-LeanChecker: Lake
-	+"${LEAN_BIN}/leanmake" lib PKG=LeanChecker $(LEANMAKE_OPTS) OUT="$(OUTARC)" LIB_OUT="$(OUTARC)" TEMP_OUT="${LIB}/temp" OLEAN_OUT="$(OUTARC)"
 
 LeanIR: Lean
 	+"${LEAN_BIN}/leanmake" lib PKG=LeanIR $(LEANMAKE_OPTS) OUT="${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}" LIB_OUT="${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}" OLEAN_OUT="${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}"
@@ -103,7 +100,6 @@ $(OUTLIB)/libLake_shared$(SO): ${LIB}/lean/libLean.a.export.trace ${LIB}/lean/li
 $(OUTBIN)/lake$(EXE): ${LIB}/temp/LakeMain.c.o.export.trace
 $(OUTBIN)/leanc$(EXE): $(OUTARC)/libLeanc.a.trace
 $(OUTBIN)/leanir$(EXE): $(OUTARC)/libLeanIR.a.trace
-$(OUTBIN)/leanchecker$(EXE): $(OUTARC)/libLeanChecker.a.trace
 endif
 
 # we specify the precise file names here to avoid rebuilds
@@ -204,9 +200,3 @@ $(OUTBIN)/leanir$(EXE): $(OUTARC)/libLeanIR.a
 	"${CMAKE_BINARY_DIR}/leanc.sh" $< ${CMAKE_EXE_LINKER_FLAGS_MAKE} ${LEAN_EXE_LINKER_FLAGS} -o $@
 
 leanir: $(OUTBIN)/leanir$(EXE)
-
-$(OUTBIN)/leanchecker$(EXE): $(OUTARC)/libLeanChecker.a $(OUTLIB)/libLake_shared$(SO)
-	$(link-preamble)
-	$(LEANC_SH) $< -lLake_shared ${CMAKE_EXE_LINKER_FLAGS_MAKE} ${LEAN_EXE_LINKER_FLAGS} ${LEANC_OPTS} -o $@
-
-leanchecker: $(OUTBIN)/leanchecker$(EXE)

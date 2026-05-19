@@ -4,7 +4,8 @@ set -euo pipefail
 rm -rf stage0 || true
 # don't copy untracked files
 # `:!` is git glob flavor for exclude patterns
-for f in $(git ls-files src ':!:src/lake/*' ':!:src/Leanc.lean'); do
+for f in $(git ls-files --cached --others --exclude-standard src ':!:src/lake/*' ':!:src/Leanc.lean' ':!:src/Lean4Lean.lean' ':!:src/Lean4LeanMain.lean' ':!:src/Lean4Lean/*'); do
+    [[ -e $f ]] || continue
     if [[ $f == *.lean ]]; then
         f=${f#src/}
         f=${f%.lean}.c
@@ -18,7 +19,8 @@ done
 
 # special handling for Lake files due to its nested directory
 # copy the README to ensure the `stage0/src/lake` directory is committed
-for f in $(git ls-files 'src/lake/Lake/*' src/lake/Lake.lean src/lake/LakeMain.lean src/lake/README.md ':!:src/lakefile.toml'); do
+for f in $(git ls-files --cached --others --exclude-standard 'src/lake/Lake/*' src/lake/Lake.lean src/lake/LakeMain.lean src/lake/README.md ':!:src/lakefile.toml'); do
+    [[ -e $f ]] || continue
     if [[ $f == *.lean ]]; then
         f=${f#src/lake}
         f=${f%.lean}.c

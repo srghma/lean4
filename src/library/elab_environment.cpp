@@ -10,6 +10,18 @@ Authors: Leonardo de Moura, Sebastian Ullrich
 #include "library/elab_environment.h"
 
 namespace lean {
+extern "C" obj_res initialize_Lean_Kernel(uint8_t builtin);
+
+static void ensure_lean_kernel_initialized() {
+    static bool initialized = false;
+    if (initialized)
+        return;
+    object * res = initialize_Lean_Kernel(/*builtin*/ false);
+    lean_assert(lean_io_result_is_ok(res));
+    dec_ref(res);
+    initialized = true;
+}
+
 /* updateBaseAfterKernelAdd (env : Environment) (base : Kernel.Environment) (decl : Declaration) : Environment
 
    Updates an elab environment with a given kernel environment.
@@ -44,25 +56,22 @@ environment elab_environment::to_kernel_env() const {
     return environment(lean_elab_environment_to_kernel_env(to_obj_arg()));
 }
 
+extern "C" object * lean_kernel_is_def_eq_impl(object * obj_env, object * lctx, object * a, object * b);
 extern "C" LEAN_EXPORT lean_object * lean_kernel_is_def_eq(lean_object * obj_env, lean_object * lctx, lean_object * a, lean_object * b) {
-    elab_environment env(obj_env);
-    return catch_kernel_exceptions<object*>([&]() {
-        return lean_box(type_checker(env.to_kernel_env(), local_ctx(lctx)).is_def_eq(expr(a), expr(b)));
-    });
+    ensure_lean_kernel_initialized();
+    return lean_kernel_is_def_eq_impl(obj_env, lctx, a, b);
 }
 
+extern "C" object * lean_kernel_whnf_impl(object * obj_env, object * lctx, object * a);
 extern "C" LEAN_EXPORT lean_object * lean_kernel_whnf(lean_object * obj_env, lean_object * lctx, lean_object * a) {
-    elab_environment env(obj_env);
-    return catch_kernel_exceptions<object*>([&]() {
-        return type_checker(env.to_kernel_env(), local_ctx(lctx)).whnf(expr(a)).steal();
-    });
+    ensure_lean_kernel_initialized();
+    return lean_kernel_whnf_impl(obj_env, lctx, a);
 }
 
+extern "C" object * lean_kernel_check_impl(object * obj_env, object * lctx, object * a);
 extern "C" LEAN_EXPORT lean_object * lean_kernel_check(lean_object * obj_env, lean_object * lctx, lean_object * a) {
-    elab_environment env(obj_env);
-    return catch_kernel_exceptions<object*>([&]() {
-        return type_checker(env.to_kernel_env(), local_ctx(lctx)).check(expr(a)).steal();
-    });
+    ensure_lean_kernel_initialized();
+    return lean_kernel_check_impl(obj_env, lctx, a);
 }
 
 /* getBelieverTrustLevel (_ : Unit) : UInt32 */
