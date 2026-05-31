@@ -1159,21 +1159,21 @@ public def Module.bcoFacetConfig : ModuleFacetConfig bcoFacet :=
 public def Module.oExportFacetConfig : ModuleFacetConfig oExportFacet :=
   mkFacetJobConfig (memoize := false) fun mod =>
     match mod.backend with
-    | .default | .c => mod.coExport.fetch
+    | .default | .c | .es6 => mod.coExport.fetch
     | .llvm => mod.bco.fetch
 
 /-- The `ModuleFacetConfig` for the builtin `oNoExportFacet`. -/
 public def Module.oNoExportFacetConfig : ModuleFacetConfig oNoExportFacet :=
   mkFacetJobConfig (memoize := false) fun mod =>
     match mod.backend with
-    | .default | .c => mod.coNoExport.fetch
+    | .default | .c | .es6 => mod.coNoExport.fetch
     | .llvm => error "the LLVM backend only supports exporting Lean symbols"
 
 /-- The `ModuleFacetConfig` for the builtin `oFacet`. -/
 public def Module.oFacetConfig : ModuleFacetConfig oFacet :=
   mkFacetJobConfig (memoize := false) fun mod =>
     match mod.backend with
-    | .default | .c => mod.co.fetch
+    | .default | .c | .es6 => mod.co.fetch
     | .llvm => mod.bco.fetch
 
 /--

@@ -10,6 +10,7 @@ public import Lean.Compiler.LCNF.PullFunDecls
 public import Lean.Compiler.LCNF.FVarUtil
 public import Lean.Compiler.LCNF.ScopeM
 public import Lean.Compiler.LCNF.InferType
+import Lean.Compiler.LCNF.Internalize
 
 public section
 
@@ -630,6 +631,79 @@ where
 
 end JoinPointCommonArgs
 
+namespace TrivialJoinPointCollapser
+
+structure Info (pu : Purity) where
+  params : Array (Param pu)
+  value  : Code pu
+
+abbrev M (pu : Purity) := ReaderT (FVarIdMap (Info pu)) CompilerM
+
+def LetValue.isTrivialJpBinding : LetValue pu → Bool
+  | .fvar _ #[] | .proj .. | .sproj .. | .uproj .. | .oproj .. | .box .. | .unbox .. | .reset .. => true
+  | .lit .. | .erased | .isShared .. => true
+  | .const _ _ #[] _ => true
+  | _ => false
+
+partial def isTrivialJpBody (self : FVarId) : Code pu → Bool
+  | .let decl k => LetValue.isTrivialJpBinding decl.value && isTrivialJpBody self k
+  | .return .. => true
+  | .jmp jp _ => jp != self
+  | .cases .. | .fun .. | .jp .. | .unreach ..
+  | .oset .. | .uset .. | .sset .. | .setTag .. | .inc .. | .dec .. | .del .. => false
+
+def mkSubst (params : Array (Param pu)) (args : Array (Arg pu)) : FVarSubst pu :=
+  Id.run do
+    let mut subst := {}
+    for param in params, arg in args do
+      subst := subst.insert param.fvarId arg
+    return subst
+
+partial def visit (code : Code pu) : M pu (Code pu) := do
+  match code with
+  | .let decl k =>
+    return code.updateLet! decl (← visit k)
+  | .fun decl k _ =>
+    let decl ← decl.updateValue (← visit decl.value)
+    return code.updateFun! decl (← visit k)
+  | .jp decl k =>
+    let value ← visit decl.value
+    let decl ← decl.updateValue value
+    if isTrivialJpBody decl.fvarId decl.value then
+      let info := { params := decl.params, value := decl.value }
+      withReader (·.insert decl.fvarId info) do
+        visit k
+    else
+      return code.updateFun! decl (← visit k)
+  | .jmp jp args =>
+    let some info := (← read).get? jp | return code
+    visit (← info.value.internalize (mkSubst info.params args))
+  | .cases c =>
+    let alts ← c.alts.mapMonoM (·.mapCodeM visit)
+    return Code.updateCases! code c.resultType c.discr alts
+  | .return .. | .unreach .. =>
+    return code
+  | .oset f i y k h =>
+    return .oset f i y (← visit k) h
+  | .uset f i y k h =>
+    return .uset f i y (← visit k) h
+  | .sset f i n y t k h =>
+    return .sset f i n y t (← visit k) h
+  | .setTag f cidx k h =>
+    return .setTag f cidx (← visit k) h
+  | .inc x n p q k h =>
+    return .inc x n p q (← visit k) h
+  | .dec x n p q k h =>
+    return .dec x n p q (← visit k) h
+  | .del x k h =>
+    return .del x (← visit k) h
+
+def collapse (decl : Decl pu) : CompilerM (Decl pu) := do
+  let value ← decl.value.mapCodeM visit |>.run {}
+  return { decl with value }
+
+end TrivialJoinPointCollapser
+
 def Decl.findJoinPoints? (decl : Decl .pure) : CompilerM (Option (Decl .pure)) := do
   let findResult ← JoinPointFinder.find decl
   trace[Compiler.findJoinPoints] "Found {findResult.candidates.size} jp candidates for {decl.name}"
@@ -671,5 +745,15 @@ def commonJoinPointArgs : Pass :=
 
 builtin_initialize
   registerTraceClass `Compiler.commonJoinPointArgs (inherited := true)
+
+def Decl.collapseTrivialJoinPoints (decl : Decl pu) : CompilerM (Decl pu) := do
+  TrivialJoinPointCollapser.collapse decl
+
+def collapseTrivialJoinPoints (phase := Phase.mono) : Pass :=
+  phase.withPurityCheck phase.toPurity fun h =>
+    .mkPerDeclaration `collapseTrivialJoinPoints phase (h ▸ Decl.collapseTrivialJoinPoints)
+
+builtin_initialize
+  registerTraceClass `Compiler.collapseTrivialJoinPoints (inherited := true)
 
 end Lean.Compiler.LCNF

@@ -31,8 +31,8 @@ where
       if (← get).visited.contains name then return
       modify fun s => { s with visited := s.visited.insert name }
       if let some decl ← getLocalImpureDecl? name then
-        modify fun s => { s with localDecls := s.localDecls.push decl }
         decl.value.forCodeM (·.forM visitCode)
+        modify fun s => { s with localDecls := s.localDecls.push decl }
         let env ← getEnv
         if let some initializer := getBuiltinInitFnNameFor? env decl.name <|> getInitFnNameFor? env decl.name then
           go #[initializer]
@@ -43,12 +43,21 @@ where
 
   visitCode (code : Code .impure) : StateRefT CollectUsedDeclsState CoreM Unit := do
     match code with
-    | .let decl _ =>
+    | .let decl k =>
       match decl.value with
       | .const declName .. | .fap declName .. | .pap declName .. =>
         go #[declName]
-      | _ => return ()
-    | _ => return ()
+      | _ => pure ()
+      visitCode k
+    | .fun decl k .. | .jp decl k =>
+      visitCode decl.value
+      visitCode k
+    | .cases c =>
+      c.alts.forM fun alt => visitCode alt.getCode
+    | .oset _ _ _ k .. | .uset _ _ _ k .. | .sset _ _ _ _ _ k .. | .setTag _ _ k ..
+    | .inc _ _ _ _ k .. | .dec _ _ _ _ k .. | .del _ k .. =>
+      visitCode k
+    | .return .. | .jmp .. | .unreach .. => return ()
 
 public def usesModuleFrom (env : Environment) (modulePrefix : Name) : Bool :=
   env.header.modules.any fun mod => mod.irPhases != .comptime && modulePrefix.isPrefixOf mod.module

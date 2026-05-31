@@ -202,6 +202,7 @@ add_custom_target(update-stage0 COMMAND $(MAKE) -C stage1 update-stage0 DEPENDS 
 add_custom_target(update-stage0-commit COMMAND $(MAKE) -C stage1 update-stage0-commit DEPENDS stage1)
 
 add_custom_target(test COMMAND $(MAKE) -C stage1 test DEPENDS stage1)
+add_custom_target(test-es6 COMMAND $(MAKE) -C stage1 test-es6 DEPENDS stage1)
 
 add_custom_target(
   bench

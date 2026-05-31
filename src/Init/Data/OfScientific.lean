@@ -45,6 +45,8 @@ Constructs a `Float` from the given mantissa, sign, and exponent values.
 This function is part of the implementation of the `OfScientific Float` instance that is used to
 interpret floating-point literals.
 -/
+ 
+@[js_extern_inlined Lean.Compiler.JS.Impl.floatOfScientific]
 protected opaque Float.ofScientific (m : Nat) (s : Bool) (e : Nat) : Float :=
   if s then
     let s := 64 - m.log2 -- ensure we have 64 bits of mantissa left after division

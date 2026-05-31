@@ -353,10 +353,10 @@ def isInductiveWithNoCtors (type : Expr) : CoreM Bool := do
   let some (.inductInfo info) := (← getEnv).find? declName | return false
   return info.numCtors == 0
 
-def mkBoxedName (n : Name) : Name :=
+public def mkBoxedName (n : Name) : Name :=
   Name.mkStr n "_boxed"
 
-def isBoxedName (name : Name) : Bool :=
+public def isBoxedName (name : Name) : Bool :=
   name matches .str _ "_boxed"
 
 namespace ImpureType

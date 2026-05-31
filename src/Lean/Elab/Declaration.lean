@@ -9,6 +9,7 @@ prelude
 public import Lean.Elab.MutualDef
 public import Lean.Elab.MutualInductive
 import Lean.Compiler.ExternAttr
+import Lean.Compiler.JsExternInlinedAttr
 
 public section
 namespace Lean.Elab.Command

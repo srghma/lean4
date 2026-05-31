@@ -19,7 +19,7 @@ Mark `fvarId` as an used free variable.
 This is information is used to eliminate dead local declarations.
 -/
 def markUsedFVar (fvarId : FVarId) : SimpM Unit :=
-  modify fun s => { s with used := s.used.insert fvarId }
+  modify fun s => { s with used := s.used.insert fvarId ((s.used[fvarId]?).getD 0 + 1) }
 
 /--
 Mark all free variables occurring in `arg` as used.
@@ -71,7 +71,7 @@ end
 Return `true` if `fvarId` is in the `used` set.
 -/
 def isUsed (fvarId : FVarId) : SimpM Bool :=
-  return (← get).used.contains fvarId
+  return ((← get).used[fvarId]?).getD 0 > 0
 
 /--
 Attach the given `decls` to `code`. For example, assume `decls` is `#[.let _x.1 := 10, .let _x.2 := true]`,

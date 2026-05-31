@@ -27,7 +27,7 @@ namespace Lean.Compiler.LCNF
 
 open ImpureType
 
-def requiresBoxedVersion (sig : Signature .impure) : CompilerM Bool := do
+public def requiresBoxedVersion (sig : Signature .impure) : CompilerM Bool := do
   let ps := sig.params
   let env ← getEnv
   return (ps.size > 0

@@ -7,6 +7,7 @@ module
 
 prelude
 public import Lean.Compiler.LCNF.PassManager
+import Lean.Compiler.LCNF.CompilerM
 
 /-!
 This module implements a pass that does a syntactic use-def check for all let/fun/jp bindings and
@@ -16,7 +17,13 @@ so we opt for a safe subset.
 
 namespace Lean.Compiler.LCNF
 
-public abbrev UsedLocalDecls := FVarIdHashSet
+public abbrev UsedLocalDecls := Std.HashMap FVarId Nat
+
+def incUsedLocalDecls (s : UsedLocalDecls) (fvarId : FVarId) (n : Nat := 1) : UsedLocalDecls :=
+  s.insert fvarId ((s[fvarId]?).getD 0 + n)
+
+def getUsedLocalDeclCount (s : UsedLocalDecls) (fvarId : FVarId) : Nat :=
+  (s[fvarId]?).getD 0
 
 /--
 Collect set of (let) free variables in a LCNF value.
@@ -24,7 +31,7 @@ This code exploits the LCNF property that local declarations do not occur in typ
 -/
 def collectLocalDeclsArg (s : UsedLocalDecls) (arg : Arg pu) : UsedLocalDecls :=
   match arg with
-  | .fvar fvarId => s.insert fvarId
+  | .fvar fvarId => incUsedLocalDecls s fvarId
   -- Locally declared variables do not occur in types.
   | .type _ _ | .erased => s
 
@@ -35,9 +42,9 @@ def collectLocalDeclsLetValue (s : UsedLocalDecls) (e : LetValue pu) : UsedLocal
   match e with
   | .erased  | .lit .. => s
   | .proj _ _ fvarId _ | .reset _ fvarId _ | .sproj _ _ fvarId _ | .uproj _ fvarId _
-  | .oproj _ fvarId _ | .box _ fvarId _ | .unbox fvarId _ | .isShared fvarId _ => s.insert fvarId
+  | .oproj _ fvarId _ | .box _ fvarId _ | .unbox fvarId _ | .isShared fvarId _ => incUsedLocalDecls s fvarId
   | .const _ _ args _ => collectLocalDeclsArgs s args
-  | .fvar fvarId args | .reuse fvarId _ _ args _   => collectLocalDeclsArgs (s.insert fvarId) args
+  | .fvar fvarId args | .reuse fvarId _ _ args _   => collectLocalDeclsArgs (incUsedLocalDecls s fvarId) args
   | .fap _ args _ | .pap _ args _ | .ctor _ args _ => collectLocalDeclsArgs s args
 
 abbrev M := StateRefT UsedLocalDecls CompilerM
@@ -49,7 +56,10 @@ abbrev collectLetValueM (e : LetValue pu) : M Unit :=
   modify (collectLocalDeclsLetValue · e)
 
 abbrev collectFVarM (fvarId : FVarId) : M Unit :=
-  modify (·.insert fvarId)
+  modify (incUsedLocalDecls · fvarId)
+
+abbrev collectFVarNTimesM (fvarId : FVarId) (n : Nat) : M Unit :=
+  modify (fun s => incUsedLocalDecls s fvarId n)
 
 def LetValue.safeToElim (val : LetValue pu) : Bool :=
   match pu with
@@ -72,7 +82,22 @@ partial def Code.elimDead (code : Code pu) : M (Code pu) := do
   match code with
   | .let decl k =>
     let k ← k.elimDead
-    if (← get).contains decl.fvarId || !decl.value.safeToElim then
+    let useCount := getUsedLocalDeclCount (← get) decl.fvarId
+    if let .fvar fvarId #[] := decl.value then
+      if useCount > 0 then
+        eraseLetDecl decl
+        modify (·.erase decl.fvarId)
+        collectFVarNTimesM fvarId useCount
+        let subst : FVarSubst pu := {}
+        let subst := subst.insert decl.fvarId (.fvar fvarId)
+        return ← replaceFVars k subst false
+      else if !decl.value.safeToElim then
+        collectLetValueM decl.value
+        return code.updateCont! k
+      else
+        eraseLetDecl decl
+        return k
+    else if useCount > 0 || !decl.value.safeToElim then
       /- Remark: we don't need to collect `decl.type` because LCNF local declarations do not occur in types. -/
       collectLetValueM decl.value
       return code.updateCont! k
@@ -81,7 +106,7 @@ partial def Code.elimDead (code : Code pu) : M (Code pu) := do
       return k
   | .fun decl k _ | .jp decl k =>
     let k ← k.elimDead
-    if (← get).contains decl.fvarId then
+    if getUsedLocalDeclCount (← get) decl.fvarId > 0 then
       let decl ← visitFunDecl decl
       return code.updateFun! decl k
     else
@@ -96,14 +121,14 @@ partial def Code.elimDead (code : Code pu) : M (Code pu) := do
   | .unreach .. => return code
   | .oset fvarId _ y k _ =>
     let k ← k.elimDead
-    if (← get).contains fvarId then
+    if getUsedLocalDeclCount (← get) fvarId > 0 then
       collectArgM y
       return code.updateCont! k
     else
       return k
   | .uset fvarId _ y k _ | .sset fvarId _ _ y _ k _ =>
     let k ← k.elimDead
-    if (← get).contains fvarId then
+    if getUsedLocalDeclCount (← get) fvarId > 0 then
       collectFVarM y
       return code.updateCont! k
     else

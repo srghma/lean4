@@ -1113,6 +1113,13 @@ def mdataDiagnostic := leading_parser
 
 end Term
 
+namespace Attr
+
+@[builtin_attr_parser] def js_extern_inlined := leading_parser
+  nonReservedSymbol "js_extern_inlined" >> ppSpace >> termParser
+
+end Attr
+
 @[builtin_term_parser default+1] def Tactic.quot : Parser := leading_parser
   "`(tactic| " >> withoutPosition (incQuotDepth tacticParser) >> ")"
 @[builtin_term_parser] def Tactic.quotSeq : Parser := leading_parser
