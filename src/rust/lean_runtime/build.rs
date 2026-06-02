@@ -19,6 +19,7 @@ fn main() {
         "LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS",
         "LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS",
         "LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE",
+        "LEAN_RUST_IS_STAGE0",
     ] {
         println!("cargo:rerun-if-env-changed={key}");
         println!(

@@ -42,6 +42,11 @@ set(LEAN_RUST_HAS_ADDRESS_SANITIZER 0)
 if(CMAKE_CXX_FLAGS MATCHES "fsanitize=address" OR LEAN_EXTRA_CXX_FLAGS MATCHES "fsanitize=address")
   set(LEAN_RUST_HAS_ADDRESS_SANITIZER 1)
 endif()
+if(STAGE EQUAL 0)
+  set(LEAN_RUST_IS_STAGE0 1)
+else()
+  set(LEAN_RUST_IS_STAGE0 0)
+endif()
 
 set(LEAN_RUNTIME_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.a)
 set(LEAN_RUNTIME_RUST_OBJECT_DIR ${CMAKE_CURRENT_BINARY_DIR}/rust/lean_runtime)
@@ -65,6 +70,7 @@ add_custom_command(
     LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS=${LEAN_EXTRA_LINKER_FLAGS}
     LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS=${LEANC_INTERNAL_LINKER_FLAGS}
     LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE=${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a
+    LEAN_RUST_IS_STAGE0=${LEAN_RUST_IS_STAGE0}
     ${CARGO_EXECUTABLE} build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml --package lean_runtime --features export-runtime-ffi ${LEAN_RUST_CARGO_ARGS}
   COMMAND ${CMAKE_COMMAND} -E rm -rf ${LEAN_RUNTIME_RUST_OBJECT_DIR}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${LEAN_RUNTIME_RUST_OBJECT_DIR}
@@ -75,7 +81,6 @@ add_custom_command(
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})
-set_source_files_properties(${LEAN_RUNTIME_RUST_OBJECT} PROPERTIES GENERATED TRUE EXTERNAL_OBJECT TRUE)
 if(USE_MIMALLOC)
   list(APPEND RUNTIME_OBJS ${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/src/static.c)
   # Lean code includes it as `lean/mimalloc.h` but for compiling `static.c` itself, add original dir
@@ -97,7 +102,6 @@ endif()
 add_library(leanrt_initial-exec STATIC ${RUNTIME_OBJS})
 set_target_properties(leanrt_initial-exec PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 add_dependencies(leanrt_initial-exec lean_runtime_rust)
-target_sources(leanrt_initial-exec PRIVATE ${LEAN_RUNTIME_RUST_OBJECT})
 target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_ARCHIVE})
 
 # The above library, like all other C++ code, is built using `-ftls-model=initial-exec`, which is necessary for linking it into `leanshared`,
@@ -106,7 +110,6 @@ target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_ARCHIVE})
 add_library(leanrt STATIC ${RUNTIME_OBJS})
 set_target_properties(leanrt PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
 add_dependencies(leanrt lean_runtime_rust)
-target_sources(leanrt PRIVATE ${LEAN_RUNTIME_RUST_OBJECT})
 target_link_libraries(leanrt PUBLIC ${LEAN_RUNTIME_RUST_ARCHIVE})
 if(NOT MSVC)
   target_compile_options(leanrt PRIVATE -ftls-model=local-exec)

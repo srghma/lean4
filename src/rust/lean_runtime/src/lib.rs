@@ -15,8 +15,11 @@ type Size = usize;
 
 extern "C" {
     pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
+    fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
+    fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     fn lean_alloc_ctor_memory_export(size: Size) -> *mut LeanObject;
     fn lean_dec_ref_cold(obj: *mut LeanObject);
+    fn lean_mark_persistent(obj: *mut LeanObject);
     fn lean_big_int64_to_int(n: i64) -> *mut LeanObject;
     fn lean_big_uint64_to_nat(n: u64) -> *mut LeanObject;
     fn lean_uint64_of_big_nat(n: *mut LeanObject) -> u64;
@@ -25,6 +28,17 @@ extern "C" {
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_apply_1(f: *mut LeanObject, a1: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
+    fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
+    fn lean_options_get_bool(
+        opts: *mut LeanObject,
+        name: *mut LeanObject,
+        default_value: bool,
+    ) -> bool;
+    fn lean_options_update_bool(
+        opts: *mut LeanObject,
+        name: *mut LeanObject,
+        value: bool,
+    ) -> *mut LeanObject;
     #[link_name = "_ZN4lean15save_stack_infoEb"]
     fn save_stack_info_impl(main: bool);
     #[link_name = "_ZN4lean16initialize_allocEv"]
@@ -64,18 +78,6 @@ extern "C" {
     // fn initialize_ascii_impl();
     // #[link_name = "_ZN4lean14finalize_asciiEv"]
     // fn finalize_ascii_impl();
-    #[link_name = "_ZN4lean15initialize_nameEv"]
-    fn initialize_name();
-    #[link_name = "_ZN4lean13finalize_nameEv"]
-    fn finalize_name();
-    #[link_name = "_ZN4lean25initialize_name_generatorEv"]
-    fn initialize_name_generator();
-    #[link_name = "_ZN4lean23finalize_name_generatorEv"]
-    fn finalize_name_generator();
-    #[link_name = "_ZN4lean18initialize_optionsEv"]
-    fn initialize_options();
-    #[link_name = "_ZN4lean16finalize_optionsEv"]
-    fn finalize_options();
     #[link_name = "_ZN4lean20initialize_formatterEv"]
     fn initialize_formatter();
     #[link_name = "_ZN4lean18finalize_formatterEv"]
@@ -213,6 +215,34 @@ struct LeanCtorObject {
     objs: [*mut LeanObject; 0],
 }
 
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct LeanName {
+    obj: *mut LeanObject,
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct LeanOptions {
+    obj: *mut LeanObject,
+}
+
+static mut VERBOSE_OPT: LeanName = LeanName { obj: ptr::null_mut() };
+static mut MAX_MEMORY_OPT: LeanName = LeanName { obj: ptr::null_mut() };
+static mut TIMEOUT_OPT: LeanName = LeanName { obj: ptr::null_mut() };
+static INTERNAL_UNIQUE_NAME_ID: std::sync::atomic::AtomicU32 =
+    std::sync::atomic::AtomicU32::new(0);
+
+struct NameGeneratorState {
+    tmp_prefix: *mut LeanObject,
+    prefixes: Vec<*mut LeanObject>,
+}
+
+unsafe impl Send for NameGeneratorState {}
+
+static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
+    std::sync::Mutex::new(None);
+
 pub unsafe fn lean_unbox(obj: *mut LeanObject) -> Size {
     (obj as Size) >> 1
 }
@@ -331,6 +361,24 @@ fn env_flag(value: &str) -> u8 {
     } else {
         0
     }
+}
+
+unsafe fn mk_name(text: &str) -> LeanName {
+    let c_text = std::ffi::CString::new(text).expect("option names never contain NUL");
+    let raw_text = lean_mk_string(c_text.as_ptr());
+    let raw_name = lean_name_mk_string(lean_box(0), raw_text);
+    LeanName { obj: raw_name }
+}
+
+unsafe fn mk_name_path(components: &[&str]) -> LeanName {
+    let mut name = mk_name(components[0]);
+    for component in &components[1..] {
+        let c_text = std::ffi::CString::new(*component).expect("option names never contain NUL");
+        let raw_text = lean_mk_string(c_text.as_ptr());
+        let raw_name = lean_name_mk_string(name.obj, raw_text);
+        name = LeanName { obj: raw_name };
+    }
+    name
 }
 
 fn utf8_size(byte: c_uchar) -> Size {
@@ -478,6 +526,33 @@ pub extern "C" fn lean_util_mk_list_range(from: c_uint, to: c_uint) -> *mut c_vo
         }));
     }
     list.cast()
+}
+
+unsafe fn name_is_anonymous(obj: *mut LeanObject) -> bool {
+    lean_is_scalar(obj)
+}
+
+unsafe fn name_prefix(obj: *mut LeanObject) -> *mut LeanObject {
+    debug_assert!(!lean_is_scalar(obj));
+    lean_ctor_get(obj, 0)
+}
+
+unsafe fn name_contains_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
+    state
+        .prefixes
+        .iter()
+        .copied()
+        .any(|p| lean_name_eq(p, n) != 0)
+}
+
+unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
+    if name_is_anonymous(n) {
+        return false;
+    }
+    if name_contains_registered_prefix(state, n) {
+        return true;
+    }
+    name_uses_registered_prefix(state, name_prefix(n))
 }
 
 extern "C" {
@@ -730,13 +805,196 @@ pub extern "C" fn lean_initialize() {
     }
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18initialize_optionsEv")]
+pub extern "C" fn initialize_options() {
+    unsafe {
+        VERBOSE_OPT = mk_name("verbose");
+        MAX_MEMORY_OPT = mk_name("max_memory");
+        TIMEOUT_OPT = mk_name("timeout");
+        lean_mark_persistent(VERBOSE_OPT.obj);
+        lean_mark_persistent(MAX_MEMORY_OPT.obj);
+        lean_mark_persistent(TIMEOUT_OPT.obj);
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16finalize_optionsEv")]
+pub extern "C" fn finalize_options() {
+    unsafe {
+        if !VERBOSE_OPT.obj.is_null() {
+            lean_dec(VERBOSE_OPT.obj);
+            VERBOSE_OPT.obj = ptr::null_mut();
+        }
+        if !MAX_MEMORY_OPT.obj.is_null() {
+            lean_dec(MAX_MEMORY_OPT.obj);
+            MAX_MEMORY_OPT.obj = ptr::null_mut();
+        }
+        if !TIMEOUT_OPT.obj.is_null() {
+            lean_dec(TIMEOUT_OPT.obj);
+            TIMEOUT_OPT.obj = ptr::null_mut();
+        }
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
+    let guard = NAME_GENERATOR_STATE.lock().unwrap();
+    guard.as_ref().map_or(ptr::null_mut(), |state| {
+        unsafe {
+            lean_inc(state.tmp_prefix);
+        }
+        state.tmp_prefix
+    })
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_register_name_generator_prefix(n: *mut LeanObject) {
+    let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
+    let state = guard.as_mut().expect("name generator registry is not initialized");
+    assert!(!name_contains_registered_prefix(state, n));
+    lean_inc(n);
+    state.prefixes.push(n);
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
+    let guard = NAME_GENERATOR_STATE.lock().unwrap();
+    let Some(state) = guard.as_ref() else {
+        return false;
+    };
+    name_uses_registered_prefix(state, n)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25initialize_name_generatorEv")]
+pub extern "C" fn initialize_name_generator() {
+    unsafe {
+        let c_str = std::ffi::CString::new("_uniq").expect("static string has no NULs");
+        let string = lean_mk_string(c_str.as_ptr());
+        let tmp = lean_name_mk_string(lean_box(0), string);
+        lean_mark_persistent(tmp);
+        let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
+        let state = NameGeneratorState {
+            tmp_prefix: tmp,
+            prefixes: vec![tmp],
+        };
+        *guard = Some(state);
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15initialize_nameEv")]
+pub extern "C" fn initialize_name() {
+    INTERNAL_UNIQUE_NAME_ID.store(0, Ordering::Relaxed);
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13finalize_nameEv")]
+pub extern "C" fn finalize_name() {}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_name_next_internal_unique_id() -> c_uint {
+    INTERNAL_UNIQUE_NAME_ID.fetch_add(1, Ordering::Relaxed)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23finalize_name_generatorEv")]
+pub extern "C" fn finalize_name_generator() {
+    let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
+    if let Some(state) = guard.take() {
+        for prefix in state.prefixes {
+            unsafe { lean_dec(prefix) };
+        }
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20get_verbose_opt_nameEv")]
+pub extern "C" fn get_verbose_opt_name() -> *const LeanName {
+    core::ptr::addr_of!(VERBOSE_OPT)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23get_max_memory_opt_nameEv")]
+pub extern "C" fn get_max_memory_opt_name() -> *const LeanName {
+    core::ptr::addr_of!(MAX_MEMORY_OPT)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20get_timeout_opt_nameEv")]
+pub extern "C" fn get_timeout_opt_name() -> *const LeanName {
+    core::ptr::addr_of!(TIMEOUT_OPT)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11get_verboseERKNS_7optionsE")]
+pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
+    let opts = (*opts).obj;
+    let name = (*get_verbose_opt_name()).obj;
+    lean_inc(opts);
+    lean_inc(name);
+    lean_options_get_bool(opts, name, true)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC1Ev")]
+pub unsafe extern "C" fn options_ctor_c1(this: *mut LeanOptions) {
+    (*this).obj = lean_options_get_empty(lean_box(0));
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC2Ev")]
+pub unsafe extern "C" fn options_ctor_c2(this: *mut LeanOptions) {
+    options_ctor_c1(this);
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZNK4lean7options8get_boolERKNS_4nameEb")]
+pub unsafe extern "C" fn options_get_bool(
+    this: *const LeanOptions,
+    name: *const LeanName,
+    default_value: bool,
+) -> bool {
+    let opts = (*this).obj;
+    let name = (*name).obj;
+    lean_inc(opts);
+    lean_inc(name);
+    lean_options_get_bool(opts, name, default_value)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZNK4lean7options6updateERKNS_4nameEb")]
+pub unsafe extern "C" fn options_update(
+    this: *const LeanOptions,
+    name: *const LeanName,
+    value: bool,
+) -> LeanOptions {
+    let opts = (*this).obj;
+    let name = (*name).obj;
+    lean_inc(opts);
+    lean_inc(name);
+    LeanOptions {
+        obj: lean_options_update_bool(opts, name, value),
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
+    true as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut LeanObject {
+    let mut opts = lean_options_get_empty(lean_box(0));
+    if env_flag(env!("LEAN_RUST_IS_STAGE0")) != 0 {
+        let updates = [
+            (["debug", "proofAsSorry"].as_slice(), false),
+            (["debug", "terminalTacticsAsSorry"].as_slice(), false),
+            (["interpreter", "prefer_native"].as_slice(), false),
+            (["internal", "parseQuotWithCurrentStage"].as_slice(), true),
+            (["quotPrecheck"].as_slice(), true),
+            (["pp", "rawOnError"].as_slice(), true),
+        ];
+        for (components, value) in updates {
+            let name = mk_name_path(components);
+            opts = lean_options_update_bool(opts, name.obj, value);
+        }
+    }
+    opts
+}
+
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_finalize() {
-    unsafe {
-        run_thread_finalizers();
-        run_post_thread_finalizers();
-        delete_thread_finalizer_manager();
-    }
+    run_thread_finalizers();
+    run_post_thread_finalizers();
+    delete_thread_finalizer_manager();
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

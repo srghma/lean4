@@ -81,18 +81,20 @@ void register_name_generator_prefix(name const & n);
 /* Return true if \c n was generated using a prefix registered using \c register_name_generator_prefix */
 bool uses_name_generator_prefix(name const & n);
 
+extern "C" object * lean_name_generator_tmp_prefix();
+extern "C" void lean_register_name_generator_prefix(obj_arg n);
+extern "C" bool lean_uses_name_generator_prefix(obj_arg n);
+
 /* If \c n was generated using a name_generator with a registered prefix, then
    make sure the result is a valid Lean name (i.e., it does not have numeric parts).
    Example: `sanitize_name_generator_name(_fresh.1.4)` returns `_fresh_1_4`. */
-inline name_set * g_ngen_prefixes = nullptr;
-inline name * g_tmp_prefix = nullptr;
 
 inline name_generator::name_generator(name const & prefix):m_prefix(prefix), m_next_idx(0) {
     lean_assert(!prefix.is_anonymous());
     lean_assert(uses_name_generator_prefix(prefix));
 }
 
-inline name_generator::name_generator():name_generator(*g_tmp_prefix) {}
+inline name_generator::name_generator():name_generator(name(lean_name_generator_tmp_prefix())) {}
 
 inline name name_generator::next() {
     if (m_next_idx == std::numeric_limits<unsigned>::max()) {
@@ -106,7 +108,7 @@ inline name name_generator::next() {
 }
 
 inline name replace_base_prefix(name const & p, name const & new_base) {
-    if (g_ngen_prefixes->contains(p)) {
+    if (lean_uses_name_generator_prefix(p.raw())) {
         return new_base;
     } else if (p.is_numeral()) {
         return name(replace_base_prefix(p.get_prefix(), new_base), p.get_numeral());
@@ -118,7 +120,7 @@ inline name replace_base_prefix(name const & p, name const & new_base) {
 }
 
 inline name name_generator::next_with(name const & base_prefix) {
-    lean_assert(g_ngen_prefixes->contains(base_prefix));
+    lean_assert(lean_uses_name_generator_prefix(base_prefix.raw()));
     return replace_base_prefix(next(), base_prefix);
 }
 
@@ -128,17 +130,11 @@ inline void swap(name_generator & a, name_generator & b) noexcept {
 }
 
 inline void register_name_generator_prefix(name const & n) {
-    lean_assert(!g_ngen_prefixes->contains(n));
-    g_ngen_prefixes->insert(n);
+    lean_register_name_generator_prefix(n.raw());
 }
 
 inline bool uses_name_generator_prefix(name const & n) {
-    if (n.is_anonymous())
-        return false;
-    else if (g_ngen_prefixes->contains(n))
-        return true;
-    else
-        return uses_name_generator_prefix(n.get_prefix());
+    return lean_uses_name_generator_prefix(n.raw());
 }
 
 inline void sanitize_name_generator_name(sstream & strm, name const & n) {

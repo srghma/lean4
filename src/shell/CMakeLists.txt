@@ -14,6 +14,11 @@ set(LEAN_RUST_HAS_ADDRESS_SANITIZER 0)
 if(CMAKE_CXX_FLAGS MATCHES "fsanitize=address" OR LEAN_EXTRA_CXX_FLAGS MATCHES "fsanitize=address")
   set(LEAN_RUST_HAS_ADDRESS_SANITIZER 1)
 endif()
+if(STAGE EQUAL 0)
+  set(LEAN_RUST_IS_STAGE0 1)
+else()
+  set(LEAN_RUST_IS_STAGE0 0)
+endif()
 
 set(LEANMAIN_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanmain.a)
 set(LEANSHELL_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanshell.a)
@@ -36,6 +41,7 @@ add_custom_command(
     LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS=${LEAN_EXTRA_LINKER_FLAGS}
     LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS=${LEANC_INTERNAL_LINKER_FLAGS}
     LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE=${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a
+    LEAN_RUST_IS_STAGE0=${LEAN_RUST_IS_STAGE0}
     ${CARGO_EXECUTABLE} build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml --package lean_shell ${LEAN_RUST_CARGO_ARGS}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib/temp
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEAN_RUST_TARGET_DIR}/liblean_shell.a ${LEANMAIN_ARCHIVE}

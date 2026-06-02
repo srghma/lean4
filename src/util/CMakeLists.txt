@@ -1,7 +1,6 @@
+file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/empty.c CONTENT "")
 add_library(
   util
   OBJECT
-  name.cpp
-  name_generator.cpp
-  options.cpp
+  ${CMAKE_CURRENT_BINARY_DIR}/empty.c
 )
