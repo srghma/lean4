@@ -10,7 +10,16 @@ Author: Leonardo de Moura
 namespace lean {
 typedef rb_tree<name, name_quick_cmp> name_set;
 /** \brief Make a name that does not occur in \c s, based on the given suggestion. */
-name mk_unique(name_set const & s, name const & suggestion);
+inline name mk_unique(name_set const & s, name const & suggestion) {
+    name n = suggestion;
+    int i  = 1;
+    while (true) {
+        if (!s.contains(n))
+            return n;
+        n = name(suggestion, i);
+        i++;
+    }
+}
 
 template<typename C>
 name_set to_name_set(C const & ns) {

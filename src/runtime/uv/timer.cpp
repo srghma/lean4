@@ -31,7 +31,7 @@ void lean_uv_timer_finalizer(void* ptr) {
     free(timer);
 }
 
-void initialize_libuv_timer() {
+LEAN_EXPORT void initialize_libuv_timer() {
     g_uv_timer_external_class = lean_register_external_class(lean_uv_timer_finalizer, [](void* obj, lean_object* f) {
         if (((lean_uv_timer_object*)obj)->m_promise != NULL) {
             lean_inc(f);

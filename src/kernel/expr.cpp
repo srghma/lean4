@@ -502,7 +502,7 @@ expr infer_implicit(expr const & t, bool strict) {
 // =======================================
 // Initialization & Finalization
 
-void initialize_expr() {
+LEAN_EXPORT void initialize_expr() {
     get_dummy();
     g_default_name = new name("a");
     mark_persistent(g_default_name->raw());
@@ -514,7 +514,7 @@ void initialize_expr() {
        Something similar to what we have in the library directory. */
 }
 
-void finalize_expr() {
+LEAN_EXPORT void finalize_expr() {
     delete g_Prop;
     delete g_Type0;
     delete g_dummy;

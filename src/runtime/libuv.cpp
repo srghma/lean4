@@ -16,7 +16,7 @@ namespace lean {
 
 #ifndef LEAN_EMSCRIPTEN
 
-extern "C" void initialize_libuv() {
+extern "C" LEAN_EXPORT void initialize_libuv() {
     initialize_libuv_timer();
     initialize_libuv_tcp_socket();
     initialize_libuv_udp_socket();
@@ -37,7 +37,7 @@ extern "C" LEAN_EXPORT lean_obj_res lean_libuv_version(lean_obj_arg o) {
 
 #else
 
-extern "C" void initialize_libuv() {}
+extern "C" LEAN_EXPORT void initialize_libuv() {}
 
 extern "C" LEAN_EXPORT lean_obj_res lean_libuv_version(lean_obj_arg o) {
     return lean_box(0);

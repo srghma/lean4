@@ -294,9 +294,9 @@ void environment::for_each_constant(std::function<void(constant_info const & d)>
         });
 }
 
-void initialize_environment() {
+LEAN_EXPORT void initialize_environment() {
 }
 
-void finalize_environment() {
+LEAN_EXPORT void finalize_environment() {
 }
 }

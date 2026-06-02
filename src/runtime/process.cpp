@@ -308,10 +308,10 @@ extern "C" LEAN_EXPORT obj_res lean_io_process_child_take_stdin(b_obj_arg, obj_a
     return lean_io_result_mk_ok(r.steal());
 }
 
-void initialize_process() {
+LEAN_EXPORT void initialize_process() {
     g_win_handle_external_class = lean_register_external_class(win_handle_finalizer, win_handle_foreach);
 }
-void finalize_process() {}
+LEAN_EXPORT void finalize_process() {}
 
 #else
 
@@ -555,8 +555,8 @@ extern "C" LEAN_EXPORT obj_res lean_io_process_child_take_stdin(b_obj_arg, obj_a
     return lean_io_result_mk_ok(r.steal());
 }
 
-void initialize_process() {}
-void finalize_process() {}
+LEAN_EXPORT void initialize_process() {}
+LEAN_EXPORT void finalize_process() {}
 
 #endif
 

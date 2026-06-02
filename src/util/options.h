@@ -9,6 +9,10 @@ Author: Leonardo de Moura
 #include "util/name.h"
 #include "util/kvmap.h"
 
+#ifndef LEAN_DEFAULT_VERBOSE
+#define LEAN_DEFAULT_VERBOSE true
+#endif
+
 namespace lean {
 /** \brief Configuration options. */
 class options : public object_ref {
@@ -19,6 +23,10 @@ public:
     options update(name const & n, bool v) const;
     friend bool is_eqp(options const & a, options const & b) { return a.raw() == b.raw(); }
 };
+
+extern "C" LEAN_EXPORT obj_res lean_options_get_empty(obj_arg u);
+extern "C" LEAN_EXPORT bool lean_options_get_bool(obj_arg opts, obj_arg n, bool default_value);
+extern "C" LEAN_EXPORT obj_res lean_options_update_bool(obj_arg opts, obj_arg n, bool v);
 
 LEAN_EXPORT bool get_verbose(options const & opts);
 LEAN_EXPORT name const & get_verbose_opt_name();

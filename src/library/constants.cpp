@@ -109,7 +109,7 @@ name const * g_uint16 = nullptr;
 name const * g_uint32 = nullptr;
 name const * g_uint64 = nullptr;
 name const * g_usize = nullptr;
-void initialize_constants() {
+LEAN_EXPORT void initialize_constants() {
     g_absurd = new name{"absurd"};
     mark_persistent(g_absurd->raw());
     g_and = new name{"And"};
@@ -323,7 +323,7 @@ void initialize_constants() {
     g_usize = new name{"USize"};
     mark_persistent(g_usize->raw());
 }
-void finalize_constants() {
+LEAN_EXPORT void finalize_constants() {
     delete g_absurd;
     delete g_and;
     delete g_and_left;

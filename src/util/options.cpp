@@ -20,7 +20,7 @@ static name * g_verbose    = nullptr;
 static name * g_max_memory = nullptr;
 static name * g_timeout    = nullptr;
 
-void initialize_options() {
+LEAN_EXPORT void initialize_options() {
     g_verbose    = new name("verbose");
     mark_persistent(g_verbose->raw());
     g_max_memory = new name("max_memory");
@@ -29,7 +29,7 @@ void initialize_options() {
     mark_persistent(g_timeout->raw());
 }
 
-void finalize_options() {
+LEAN_EXPORT void finalize_options() {
     delete g_verbose;
     delete g_max_memory;
     delete g_timeout;

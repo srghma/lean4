@@ -144,6 +144,6 @@ expr to_nat_expr(mpz const & n) {
         return to_nat_expr_core(n);
 }
 
-void initialize_num() {}
-void finalize_num() {}
+LEAN_EXPORT void initialize_num() {}
+LEAN_EXPORT void finalize_num() {}
 }

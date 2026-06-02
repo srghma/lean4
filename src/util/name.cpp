@@ -419,13 +419,13 @@ name name::mk_internal_unique_name() {
     return name(name(), id);
 }
 
-void initialize_name() {
+LEAN_EXPORT void initialize_name() {
     g_anonymous = new name();
     mark_persistent(g_anonymous->raw());
     g_next_id   = new atomic<unsigned>(0);
 }
 
-void finalize_name() {
+LEAN_EXPORT void finalize_name() {
     delete g_next_id;
     delete g_anonymous;
 }

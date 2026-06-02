@@ -134,7 +134,7 @@ extern "C" LEAN_EXPORT uint8_t lean_uv_event_loop_alive() {
     return is_alive;
 }
 
-void initialize_libuv_loop() {
+LEAN_EXPORT void initialize_libuv_loop() {
     event_loop_init(&global_ev);
 }
 

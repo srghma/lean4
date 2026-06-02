@@ -375,6 +375,10 @@ extern "C" LEAN_EXPORT lean_object * lean_alloc_object(size_t sz) {
 #endif
 }
 
+extern "C" LEAN_EXPORT lean_object * lean_alloc_ctor_memory_export(size_t sz) {
+    return lean_alloc_ctor_memory(sz);
+}
+
 static void deactivate_task(lean_task_object * t);
 static void deactivate_promise(lean_promise_object * t);
 
@@ -2810,7 +2814,7 @@ extern "C" LEAN_EXPORT lean_external_class * lean_register_external_class(lean_e
     return cls;
 }
 
-void initialize_object() {
+LEAN_EXPORT void initialize_object() {
     g_saved_stderr = stderr;  // Save original pointer early
     g_ext_classes       = new std::vector<external_object_class*>();
     g_ext_classes_mutex = new mutex();
@@ -2818,7 +2822,7 @@ void initialize_object() {
     mark_persistent(g_array_empty);
 }
 
-void finalize_object() {
+LEAN_EXPORT void finalize_object() {
     for (external_object_class * cls : *g_ext_classes) delete cls;
     delete g_ext_classes;
     delete g_ext_classes_mutex;

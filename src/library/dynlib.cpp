@@ -38,7 +38,7 @@ static void noop_foreach(void * /* val */, b_obj_arg /* fn */) {
 static void noop_finalizer(void * h) {
 }
 
-void initialize_dynlib() {
+LEAN_EXPORT void initialize_dynlib() {
     g_dynlib_external_class = lean_register_external_class(dynlib_finalizer, noop_foreach);
     g_dynlib_symbol_external_class = lean_register_external_class(noop_finalizer, noop_foreach);
 }

@@ -145,14 +145,14 @@ extern "C" LEAN_EXPORT obj_res lean_io_basesharedmutex_unlock_read(b_obj_arg mtx
     return box(0);
 }
 
-void initialize_mutex() {
+LEAN_EXPORT void initialize_mutex() {
     g_basemutex_external_class = lean_register_external_class(basemutex_finalizer, basemutex_foreach);
     g_condvar_external_class = lean_register_external_class(condvar_finalizer, condvar_foreach);
     g_baserecmutex_external_class = lean_register_external_class(baserecmutex_finalizer, baserecmutex_foreach);
     g_basesharedmutex_external_class = lean_register_external_class(basesharedmutex_finalizer, basesharedmutex_foreach);
 }
 
-void finalize_mutex() {
+LEAN_EXPORT void finalize_mutex() {
 }
 
 }

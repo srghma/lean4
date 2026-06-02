@@ -51,7 +51,7 @@ void lean_uv_tcp_socket_finalizer(void* ptr) {
     event_loop_unlock(&global_ev);
 }
 
-void initialize_libuv_tcp_socket() {
+LEAN_EXPORT void initialize_libuv_tcp_socket() {
     g_uv_tcp_socket_external_class = lean_register_external_class(lean_uv_tcp_socket_finalizer, [](void* obj, lean_object* f) {
         lean_uv_tcp_socket_object* tcp_socket = (lean_uv_tcp_socket_object*)obj;
 

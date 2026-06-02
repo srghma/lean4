@@ -537,14 +537,14 @@ levels lparams_to_levels(names const & ps) {
 level::level():level(*g_level_zero) {
 }
 
-void initialize_level() {
+LEAN_EXPORT void initialize_level() {
     g_level_zero = new level(lean_level_mk_zero(box(0)));
     mark_persistent(g_level_zero->raw());
     g_level_one  = new level(mk_succ(*g_level_zero));
     mark_persistent(g_level_one->raw());
 }
 
-void finalize_level() {
+LEAN_EXPORT void finalize_level() {
     delete g_level_one;
     delete g_level_zero;
 }

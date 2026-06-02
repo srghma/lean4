@@ -54,12 +54,12 @@ public:
 static lean::initializer * g_init = nullptr;
 static lean::emscripten_shell * g_shell = nullptr;
 
-void initialize_emscripten() {
+LEAN_EXPORT void initialize_emscripten() {
     g_init  = new lean::initializer();
     g_shell = new lean::emscripten_shell();
 }
 
-void finalize_emscripten() {
+LEAN_EXPORT void finalize_emscripten() {
     delete g_shell;
     delete g_init;
 }

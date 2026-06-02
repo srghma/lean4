@@ -10,7 +10,11 @@ Author: Leonardo de Moura
 
 namespace lean {
 
-uint64 hash_str(size_t len, unsigned char const * str, uint64 init_value);
+extern "C" uint64 lean_runtime_hash_str(size_t len, unsigned char const * str, uint64 init_value);
+
+inline uint64 hash_str(size_t len, unsigned char const * str, uint64 init_value) {
+    return lean_runtime_hash_str(len, str, init_value);
+}
 
 inline uint64 hash(uint64 h, uint64 k) {
     uint64 m = 0xc6a4a7935bd1e995;

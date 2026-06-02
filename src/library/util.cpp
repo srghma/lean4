@@ -776,7 +776,7 @@ static expr * g_bool = nullptr;
 static expr * g_bool_true = nullptr;
 static expr * g_bool_false = nullptr;
 
-void initialize_bool() {
+LEAN_EXPORT void initialize_bool() {
     g_bool = new expr(mk_constant(get_bool_name()));
     mark_persistent(g_bool->raw());
     g_bool_false = new expr(mk_constant(get_bool_false_name()));
@@ -785,7 +785,7 @@ void initialize_bool() {
     mark_persistent(g_bool_true->raw());
 }
 
-void finalize_bool() {
+LEAN_EXPORT void finalize_bool() {
     delete g_bool;
     delete g_bool_false;
     delete g_bool_true;
@@ -822,7 +822,7 @@ optional<expr> to_optional_expr(obj_arg o) {
     return r;
 }
 
-void initialize_library_util() {
+LEAN_EXPORT void initialize_library_util() {
     g_unit           = new expr(mk_constant(get_unit_name()));
     mark_persistent(g_unit->raw());
     g_unit_mk        = new expr(mk_constant(get_unit_unit_name()));
@@ -851,7 +851,7 @@ void initialize_library_util() {
     register_name_generator_prefix(*g_util_fresh);
 }
 
-void finalize_library_util() {
+LEAN_EXPORT void finalize_library_util() {
     delete g_util_fresh;
     finalize_bool();
     finalize_int();

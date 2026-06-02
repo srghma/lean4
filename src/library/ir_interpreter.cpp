@@ -1213,7 +1213,7 @@ extern "C" LEAN_EXPORT object * lean_run_init(object * env, object * opts, objec
 }
 }
 
-void initialize_ir_interpreter() {
+LEAN_EXPORT void initialize_ir_interpreter() {
     ir::g_interpreter_prefer_native = new name({"interpreter", "prefer_native"});
     ir::g_init_globals = new name_hash_map<object *>();
     register_bool_option(*ir::g_interpreter_prefer_native, LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE, "(interpreter) whether to use precompiled code where available");
@@ -1227,7 +1227,7 @@ void initialize_ir_interpreter() {
     ir::g_native_symbol_cache_mutex = new std::shared_mutex();
 }
 
-void finalize_ir_interpreter() {
+LEAN_EXPORT void finalize_ir_interpreter() {
     delete ir::g_native_symbol_cache_mutex;
     delete ir::g_native_symbol_cache;
     DEBUG_CODE({

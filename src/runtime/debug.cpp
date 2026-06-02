@@ -25,11 +25,11 @@ static volatile bool           g_has_violations     = false;
 static volatile bool           g_enable_assertions  = true;
 static std::set<std::string> * g_enabled_debug_tags = nullptr;
 
-void initialize_debug() {
+LEAN_EXPORT void initialize_debug() {
     // lazy initialization
 }
 
-void finalize_debug() {
+LEAN_EXPORT void finalize_debug() {
     delete g_enabled_debug_tags;
 }
 

@@ -98,7 +98,7 @@ stack_guard::~stack_guard() {
 }
 #endif
 
-void initialize_stack_overflow() {
+LEAN_EXPORT void initialize_stack_overflow() {
     g_stack_guard = new stack_guard();
 #ifdef LEAN_WINDOWS
     AddVectoredExceptionHandler(0, stack_overflow_handler);
@@ -117,7 +117,7 @@ void initialize_stack_overflow() {
 #endif
 }
 
-void finalize_stack_overflow() {
+LEAN_EXPORT void finalize_stack_overflow() {
     delete g_stack_guard;
 }
 }

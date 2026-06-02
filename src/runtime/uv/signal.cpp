@@ -29,7 +29,7 @@ void lean_uv_signal_finalizer(void* ptr) {
     free(signal);
 }
 
-void initialize_libuv_signal() {
+LEAN_EXPORT void initialize_libuv_signal() {
     g_uv_signal_external_class = lean_register_external_class(lean_uv_signal_finalizer, [](void* obj, lean_object* f) {
         if (((lean_uv_signal_object*)obj)->m_promise != NULL) {
             lean_inc(f);

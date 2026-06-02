@@ -312,14 +312,14 @@ bool constant_info::is_unsafe() const {
     lean_unreachable();
 }
 
-void initialize_declaration() {
+LEAN_EXPORT void initialize_declaration() {
     g_opaque = new reducibility_hints(reducibility_hints::mk_opaque());
     mark_persistent(g_opaque->raw());
     g_dummy  = new declaration(mk_axiom(name(), names(), expr()));
     mark_persistent(g_dummy->raw());
 }
 
-void finalize_declaration() {
+LEAN_EXPORT void finalize_declaration() {
     delete g_dummy;
     delete g_opaque;
 }

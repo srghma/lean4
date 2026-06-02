@@ -458,14 +458,14 @@ extern "C" LEAN_EXPORT unsigned lean_small_mem_size(void * o) {
 
 #endif
 
-void initialize_alloc() {
+LEAN_EXPORT void initialize_alloc() {
 #ifdef LEAN_SMALL_ALLOCATOR
     g_heap_manager = new heap_manager();
     init_heap(true);
 #endif
 }
 
-void finalize_alloc() {
+LEAN_EXPORT void finalize_alloc() {
 }
 
 #ifndef LEAN_SMALL_ALLOCATOR
@@ -504,6 +504,14 @@ uint64_t get_num_heartbeats() {
 #else
     return g_heartbeat;
 #endif
+}
+
+extern "C" LEAN_EXPORT uint64_t lean_get_num_heartbeats() {
+    return get_num_heartbeats();
+}
+
+extern "C" LEAN_EXPORT void lean_set_heartbeats(uint64_t count) {
+    set_heartbeats(count);
 }
 
 }

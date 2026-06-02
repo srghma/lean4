@@ -40,7 +40,7 @@ void lean_uv_udp_socket_finalizer(void* ptr) {
     event_loop_unlock(&global_ev);
 }
 
-void initialize_libuv_udp_socket() {
+LEAN_EXPORT void initialize_libuv_udp_socket() {
     g_uv_udp_socket_external_class = lean_register_external_class(lean_uv_udp_socket_finalizer, [](void* obj, lean_object* f) {
         lean_uv_udp_socket_object* udp_socket = (lean_uv_udp_socket_object*)obj;
 

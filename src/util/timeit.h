@@ -8,6 +8,7 @@ Author: Leonardo de Moura
 #include <functional>
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <chrono>
 
 namespace lean {
@@ -17,7 +18,15 @@ struct display_profiling_time {
     second_duration m_time;
 };
 
-std::ostream & operator<<(std::ostream & out, display_profiling_time const & time);
+inline std::ostream & operator<<(std::ostream & out, display_profiling_time const & time) {
+    out << std::setprecision(3);
+    if (time.m_time < second_duration(1)) {
+        out << std::chrono::duration<double, std::milli>(time.m_time).count() << "ms";
+    } else {
+        out << time.m_time.count() << "s";
+    }
+    return out;
+}
 
 /** \brief Low tech timer. */
 class timeit {

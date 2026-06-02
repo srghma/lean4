@@ -26,10 +26,10 @@ std::ostream & operator<<(std::ostream & out, expr const & e) {
 
 void print(lean::expr const & a) { std::cout << a << std::endl; }
 
-void initialize_formatter() {
+LEAN_EXPORT void initialize_formatter() {
 }
 
-void finalize_formatter() {
+LEAN_EXPORT void finalize_formatter() {
     delete g_print;
 }
 }

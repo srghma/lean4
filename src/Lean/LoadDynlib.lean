@@ -103,6 +103,8 @@ def loadPlugin (path : System.FilePath) (initFn? : Option String := none) : IO U
     let name := name.dropPrefix "lib" |>.dropSuffix "_shared"
     return s!"initialize_{name}"
   let dynlib ← Dynlib.load path
+  if let some init := dynlib.get? "lean_initialize_runtime_for_plugin" then
+    unsafe init.runAsInit
   let some sym := dynlib.get? name
     | throw <| IO.userError s!"error loading plugin, initializer not found '{name}'"
   -- Lean never unloads plugins (once initialized).

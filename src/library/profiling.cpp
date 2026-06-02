@@ -20,10 +20,10 @@ second_duration get_profiling_threshold(options const & opts) {
     return second_duration(ms);
 }
 
-void initialize_profiling() {
+LEAN_EXPORT void initialize_profiling() {
 }
 
-void finalize_profiling() {
+LEAN_EXPORT void finalize_profiling() {
 }
 
 }

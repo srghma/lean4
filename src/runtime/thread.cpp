@@ -247,10 +247,10 @@ void run_post_thread_finalizers() {
     g_post_finalizers = nullptr;
 }
 
-void initialize_thread() {
+LEAN_EXPORT void initialize_thread() {
     initialize_thread_local_reset_fns();
 }
-void finalize_thread() {
+LEAN_EXPORT void finalize_thread() {
     finalize_thread_local_reset_fns();
 }
 }
