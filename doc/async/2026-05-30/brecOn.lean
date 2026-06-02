@@ -50,13 +50,15 @@ open MyNat
 --         (∀ (n : MyNat), motive n → motive (succ n)) →
 --         ∀ (n : MyNat), motive n
 
-def double (n : MyNat) : MyNat :=
+-- TODO: rn insupported
+--
+noncomputable def double (n : MyNat) : MyNat :=
   MyNat.rec (motive := fun _ => MyNat)
     zero                                         -- Base Case
     (fun _prev accum => succ (succ accum))       -- Step Case (accum is the IH)
     n                                            -- Major Premise
 
-#eval double (succ (succ zero)) -- Returns: 4 (represented as 4 succs)
+#reduce double (succ (succ zero)) -- Returns: 4 (represented as 4 succs)
 
 
 -- -------------------------------------------------------------------------
@@ -66,14 +68,16 @@ def double (n : MyNat) : MyNat :=
 -- This is designed for dot notation (`x.recOn`).
 -- -------------------------------------------------------------------------
 
+#check MyNat.recOn
+#check MyNat.recOn
 #check @MyNat.recOn
 
-def doubleOn (n : MyNat) : MyNat :=
+noncomputable def doubleOn (n : MyNat) : MyNat :=
   n.recOn (motive := fun _ => MyNat)
     zero                                         -- Base Case
     (fun _prev accum => succ (succ accum))       -- Step Case
 
-#eval doubleOn (succ zero) -- Returns: 2
+#reduce doubleOn (succ zero) -- Returns: 2
 
 
 -- -------------------------------------------------------------------------
@@ -101,6 +105,20 @@ def isZero (n : MyNat) : Bool :=
 
 #check @MyNat.brecOn
 
+noncomputable def doubleBrec (n : MyNat) : MyNat :=
+  n.brecOn (motive := fun _ => MyNat) fun x tbl =>
+    match x, tbl with
+    | zero, _ =>
+      zero                                       -- Base case: no history needed
+    | succ _prev, tbl_succ =>
+      -- tbl_succ has type: PProd MyNat (MyNat.below motive _prev)
+      -- tbl_succ.fst contains the already-computed result for `_prev`
+      let prev_doubled := tbl_succ.fst
+      succ (succ prev_doubled)
+
+-- Test the implementation
+#reduce doubleBrec (succ (succ zero))
+-- Returns: succ (succ (succ (succ zero))) (which represents 4)
 
 -- -------------------------------------------------------------------------
 -- 1.5 T.binductionOn (Simultaneous Induction for Nested/Mutual Types)
@@ -126,6 +144,12 @@ def isZero (n : MyNat) : Bool :=
 -- -------------------------------------------------------------------------
 
 #check @MyNat.below
+#print MyNat.below
+#reduce MyNat.zero.below
+#reduce (MyNat.succ MyNat.zero).below
+#reduce (MyNat.succ (MyNat.succ MyNat.zero)).below
+#reduce (MyNat.succ (MyNat.succ (MyNat.succ MyNat.zero))).below
+
 -- Motive-dependent type that packages the results of smaller terms.
 
 -- Let's inspect the type of `.below` for zero and succ:
