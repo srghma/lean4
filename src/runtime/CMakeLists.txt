@@ -89,6 +89,8 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_memory.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_sharecommon.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_thread.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_once.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_float.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})

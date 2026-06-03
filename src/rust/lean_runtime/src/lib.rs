@@ -522,6 +522,8 @@ include!("runtime_alloc.rs");
 include!("runtime_memory.rs");
 include!("runtime_sharecommon.rs");
 include!("runtime_thread.rs");
+include!("runtime_once.rs");
+include!("runtime_float.rs");
 
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
