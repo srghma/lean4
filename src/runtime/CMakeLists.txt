@@ -1,6 +1,5 @@
 set(
   RUNTIME_OBJS
-  debug.cpp
   thread.cpp
   mpz.cpp
   object.cpp
@@ -12,16 +11,8 @@ set(
   compact.cpp
   io.cpp
   alloc.cpp
-  allocprof.cpp
   sharecommon.cpp
-  stack_overflow.cpp
   process.cpp
-  mpn.cpp
-  mutex.cpp
-  libuv.cpp
-  uv/net_addr.cpp
-  uv/event_loop.cpp
-  uv/timer.cpp
   uv/tcp.cpp
   uv/udp.cpp
   uv/dns.cpp
@@ -77,10 +68,25 @@ add_custom_command(
   COMMAND
     bash -ec
     "cd '${LEAN_RUNTIME_RUST_OBJECT_DIR}' && obj=`'${CMAKE_AR}' t '${LEAN_RUNTIME_RUST_ARCHIVE}' | grep '^lean_runtime-.*\\.o$' | head -n 1` && '${CMAKE_AR}' x '${LEAN_RUNTIME_RUST_ARCHIVE}' \"$obj\" && mv \"$obj\" lean_runtime.o"
-  DEPENDS ${LEAN_SOURCE_DIR}/rust/Cargo.toml ${LEAN_SOURCE_DIR}/rust/lean_runtime/Cargo.toml ${LEAN_SOURCE_DIR}/rust/lean_runtime/build.rs ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/lib.rs
+  DEPENDS
+    ${LEAN_SOURCE_DIR}/rust/Cargo.toml
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/Cargo.toml
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/build.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/lib.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_constants.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_dynlib.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_debug.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_event_loop.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_libuv.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mpn.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mutex.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_net_addr.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_overflow.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_timer.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})
+list(APPEND RUNTIME_OBJS ${LEAN_RUNTIME_RUST_OBJECT})
 if(USE_MIMALLOC)
   list(APPEND RUNTIME_OBJS ${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/src/static.c)
   # Lean code includes it as `lean/mimalloc.h` but for compiling `static.c` itself, add original dir

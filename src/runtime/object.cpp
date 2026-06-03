@@ -2814,6 +2814,22 @@ extern "C" LEAN_EXPORT lean_external_class * lean_register_external_class(lean_e
     return cls;
 }
 
+extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_external(lean_external_class * cls, void * data) {
+    return lean_alloc_external(cls, data);
+}
+
+extern "C" LEAN_EXPORT void * lean_runtime_get_external_data(lean_object * o) {
+    return lean_get_external_data(o);
+}
+
+extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_ctor(unsigned tag, unsigned num_objs, unsigned scalar_sz) {
+    return lean_alloc_ctor(tag, num_objs, scalar_sz);
+}
+
+extern "C" LEAN_EXPORT void lean_runtime_ctor_set(lean_object * o, unsigned i, lean_object * v) {
+    lean_ctor_set(o, i, v);
+}
+
 LEAN_EXPORT void initialize_object() {
     g_saved_stderr = stderr;  // Save original pointer early
     g_ext_classes       = new std::vector<external_object_class*>();

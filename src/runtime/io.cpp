@@ -47,7 +47,6 @@ Authors: Leonardo de Moura, Sebastian Ullrich
 #include "runtime/utf8.h"
 #include "runtime/object.h"
 #include "runtime/thread.h"
-#include "runtime/allocprof.h"
 #include "runtime/option_ref.h"
 
 #ifdef _MSC_VER
@@ -877,18 +876,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_get_random_bytes (size_t nbytes) {
 #endif
     lean_sarray_set_size(res, nbytes);
     return io_result_mk_ok(res);
-}
-
-/* allocprof {α : Type} (msg : @& String) (fn : IO α) : IO α */
-extern "C" LEAN_EXPORT obj_res lean_io_allocprof(b_obj_arg msg, obj_arg fn) {
-    std::ostringstream out;
-    obj_res res;
-    {
-        allocprof prof(out, string_cstr(msg));
-        res = apply_1(fn, lean_io_mk_world());
-    }
-    io_eprintln(mk_string(out.str()));
-    return res;
 }
 
 extern "C" LEAN_EXPORT obj_res lean_io_realpath(obj_arg filename) {
