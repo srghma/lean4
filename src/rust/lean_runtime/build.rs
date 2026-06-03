@@ -10,6 +10,7 @@ fn main() {
         "LEAN_RUST_HAS_LLVM",
         "LEAN_RUST_HAS_ADDRESS_SANITIZER",
         "LEAN_RUST_HAS_MIMALLOC",
+        "LEAN_RUST_SMALL_ALLOCATOR",
         "LEAN_RUST_MULTI_THREAD",
         "LEAN_RUST_DEBUG",
         "LEAN_RUST_LEANC_EXTRA_CC_FLAGS",
@@ -31,5 +32,9 @@ fn main() {
         if !archive.is_empty() {
             println!("cargo:rustc-link-arg={archive}");
         }
+    }
+    println!("cargo:rustc-check-cfg=cfg(lean_small_allocator)");
+    if std::env::var("LEAN_RUST_SMALL_ALLOCATOR").as_deref() == Ok("1") {
+        println!("cargo:rustc-cfg=lean_small_allocator");
     }
 }

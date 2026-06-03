@@ -7,8 +7,11 @@ set(
   exception.cpp
   compact.cpp
   io.cpp
-  alloc.cpp
 )
+
+if(SMALL_ALLOCATOR)
+  list(APPEND RUNTIME_OBJS alloc.cpp)
+endif()
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
 
@@ -42,6 +45,7 @@ add_custom_command(
     LEAN_RUST_HAS_LLVM=$<IF:$<BOOL:${LLVM}>,1,0>
     LEAN_RUST_HAS_ADDRESS_SANITIZER=${LEAN_RUST_HAS_ADDRESS_SANITIZER}
     LEAN_RUST_HAS_MIMALLOC=$<IF:$<BOOL:${USE_MIMALLOC}>,1,0>
+    LEAN_RUST_SMALL_ALLOCATOR=$<IF:$<BOOL:${SMALL_ALLOCATOR}>,1,0>
     LEAN_RUST_MULTI_THREAD=$<IF:$<BOOL:${MULTI_THREAD}>,1,0>
     LEAN_RUST_DEBUG=$<IF:$<CONFIG:Debug>,1,$<IF:$<CONFIG:RelWithAssert>,1,0>>
     LEAN_RUST_LEANC_EXTRA_CC_FLAGS=${LEANC_EXTRA_CC_FLAGS}
@@ -81,8 +85,10 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_tcp.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_timer.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_udp.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_alloc.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_memory.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_sharecommon.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_thread.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})

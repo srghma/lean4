@@ -468,26 +468,15 @@ LEAN_EXPORT void initialize_alloc() {
 LEAN_EXPORT void finalize_alloc() {
 }
 
-#ifndef LEAN_SMALL_ALLOCATOR
-LEAN_THREAD_VALUE(uint64_t, g_heartbeat, 0);
-#endif
-
-void set_heartbeats(uint64_t count) {
 #ifdef LEAN_SMALL_ALLOCATOR
+void set_heartbeats(uint64_t count) {
     if (g_heap)
         g_heap->m_heartbeat = count;
-#else
-    g_heartbeat = count;
-#endif
 }
 
 void add_heartbeats(uint64_t count) {
-#ifdef LEAN_SMALL_ALLOCATOR
     if (g_heap)
         g_heap->m_heartbeat += count;
-#else
-    g_heartbeat += count;
-#endif
 }
 
 /* Helper function for increasing heartbeat even when LEAN_SMALL_ALLOCATOR is not defined */
@@ -496,14 +485,10 @@ extern "C" LEAN_EXPORT void lean_inc_heartbeat() {
 }
 
 uint64_t get_num_heartbeats() {
-#ifdef LEAN_SMALL_ALLOCATOR
     if (g_heap)
         return g_heap->m_heartbeat;
     else
         return 0;
-#else
-    return g_heartbeat;
-#endif
 }
 
 extern "C" LEAN_EXPORT uint64_t lean_get_num_heartbeats() {
@@ -513,5 +498,6 @@ extern "C" LEAN_EXPORT uint64_t lean_get_num_heartbeats() {
 extern "C" LEAN_EXPORT void lean_set_heartbeats(uint64_t count) {
     set_heartbeats(count);
 }
+#endif
 
 }

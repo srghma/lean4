@@ -43,8 +43,6 @@ extern "C" {
     fn lean_big_uint64_to_nat(n: u64) -> *mut LeanObject;
     fn lean_uint64_of_big_nat(n: *mut LeanObject) -> u64;
     fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    fn lean_get_num_heartbeats() -> u64;
-    fn lean_set_heartbeats(count: u64);
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_apply_1(f: *mut LeanObject, a1: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_promise_new() -> *mut LeanObject;
@@ -156,12 +154,6 @@ extern "C" {
     fn finalize_trace();
     #[link_name = "_ZN4lean21init_default_print_fnEv"]
     fn init_default_print_fn_impl();
-    #[link_name = "_ZN4lean21run_thread_finalizersEv"]
-    fn run_thread_finalizers_impl();
-    #[link_name = "_ZN4lean26run_post_thread_finalizersEv"]
-    fn run_post_thread_finalizers_impl();
-    #[link_name = "_ZN4lean31delete_thread_finalizer_managerEv"]
-    fn delete_thread_finalizer_manager_impl();
     fn initialize_Init(builtin: u8) -> *mut LeanObject;
     fn initialize_Std(builtin: u8) -> *mut LeanObject;
     fn initialize_Lean(builtin: u8) -> *mut LeanObject;
@@ -526,8 +518,10 @@ include!("runtime_system.rs");
 include!("runtime_tcp.rs");
 include!("runtime_timer.rs");
 include!("runtime_udp.rs");
+include!("runtime_alloc.rs");
 include!("runtime_memory.rs");
 include!("runtime_sharecommon.rs");
+include!("runtime_thread.rs");
 
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -942,17 +936,17 @@ pub extern "C" fn init_default_print_fn() {
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn run_thread_finalizers() {
-    unsafe { run_thread_finalizers_impl() }
+    unsafe { run_thread_finalizers_internal() }
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn run_post_thread_finalizers() {
-    unsafe { run_post_thread_finalizers_impl() }
+    unsafe { run_post_thread_finalizers_internal() }
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn delete_thread_finalizer_manager() {
-    unsafe { delete_thread_finalizer_manager_impl() }
+    unsafe { delete_thread_finalizer_manager_internal() }
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
