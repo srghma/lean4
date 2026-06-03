@@ -5,9 +5,7 @@ set(
   object.cpp
   apply.cpp
   exception.cpp
-  interrupt.cpp
   memory.cpp
-  stackinfo.cpp
   compact.cpp
   io.cpp
   alloc.cpp
@@ -78,6 +76,8 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_net_addr.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_signal.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_overflow.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_info.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_interrupt.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_system.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_process.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_tcp.rs

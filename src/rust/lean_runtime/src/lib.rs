@@ -69,8 +69,7 @@ extern "C" {
     ) -> *mut LeanObject;
     fn lean_get_profiler(opts: *mut LeanObject) -> u8;
     fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
-    #[link_name = "_ZN4lean15save_stack_infoEb"]
-    fn save_stack_info_impl(main: bool);
+
     #[link_name = "_ZN4lean16initialize_allocEv"]
     fn initialize_alloc();
     #[link_name = "_ZN4lean14finalize_allocEv"]
@@ -501,6 +500,8 @@ include!("runtime_net_addr.rs");
 include!("runtime_signal.rs");
 include!("runtime_process.rs");
 include!("runtime_stack_overflow.rs");
+include!("runtime_stack_info.rs");
+include!("runtime_interrupt.rs");
 include!("runtime_system.rs");
 include!("runtime_tcp.rs");
 include!("runtime_timer.rs");
@@ -829,10 +830,7 @@ unsafe fn finalize_constructions_module_body() {
     finalize_constructions_util();
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn save_stack_info(main: bool) {
-    unsafe { save_stack_info_impl(main) }
-}
+
 
 // initialize_ascii / finalize_ascii are no-ops: the original C++ ascii.h had them as empty
 // inline functions. The actual ASCII utility functions are ported to Rust above.

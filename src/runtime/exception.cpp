@@ -29,4 +29,26 @@ memory_exception::memory_exception(char const * component_name):
 char const * heartbeat_exception::what() const noexcept {
     return "(deterministic) timeout";
 }
+
+extern "C" LEAN_EXPORT void throw_get_stack_size_failed() {
+    throw exception("failed to retrieve thread stack size");
 }
+
+extern "C" LEAN_EXPORT void throw_stack_space_exception(char const * component_name) {
+    throw stack_space_exception(component_name);
+}
+
+extern "C" LEAN_EXPORT void throw_heartbeat_exception() {
+    throw heartbeat_exception();
+}
+
+extern "C" LEAN_EXPORT void lean_throw_interrupted() {
+    throw interrupted();
+}
+
+extern "C" LEAN_EXPORT bool lean_uncaught_exceptions() {
+    return std::uncaught_exceptions() > 0;
+}
+}
+
+
