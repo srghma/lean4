@@ -14,8 +14,8 @@ mod runtime_net_addr_impl {
 
     #[repr(C)]
     pub union InAddrStorage {
-        ipv4: libc::in_addr,
-        ipv6: libc::in6_addr,
+        pub ipv4: libc::in_addr,
+        pub ipv6: libc::in6_addr,
     }
 
     #[repr(C)]

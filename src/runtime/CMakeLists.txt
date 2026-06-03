@@ -12,10 +12,6 @@ set(
   io.cpp
   alloc.cpp
   sharecommon.cpp
-  process.cpp
-  uv/tcp.cpp
-  uv/udp.cpp
-  uv/dns.cpp
 )
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
@@ -74,6 +70,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_constants.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_dynlib.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_debug.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_dns.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_event_loop.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_libuv.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mpn.rs
@@ -82,7 +79,10 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_signal.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_overflow.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_system.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_process.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_tcp.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_timer.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_udp.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})

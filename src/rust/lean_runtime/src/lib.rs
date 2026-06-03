@@ -87,10 +87,6 @@ extern "C" {
     fn initialize_thread();
     #[link_name = "_ZN4lean15finalize_threadEv"]
     fn finalize_thread();
-    #[link_name = "_ZN4lean18initialize_processEv"]
-    fn initialize_process();
-    #[link_name = "_ZN4lean16finalize_processEv"]
-    fn finalize_process();
     // #[link_name = "_ZN4lean16initialize_asciiEv"]
     // fn initialize_ascii_impl();
     // #[link_name = "_ZN4lean14finalize_asciiEv"]
@@ -339,6 +335,25 @@ unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) 
     (obj.add(1) as *mut u8).add(offset).cast::<u16>().write(value);
 }
 
+unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
+    (obj.add(1) as *mut u8).add(offset).cast::<u64>().read()
+}
+
+unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
+    (obj.add(1) as *mut u8).add(offset).cast::<u64>().write(value);
+}
+
+pub unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject {
+    let r = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<u64>() as c_uint);
+    lean_ctor_set_uint64(r, 0, v);
+    r
+}
+
+pub unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 {
+    lean_ctor_get_uint64(o, 0)
+}
+
+
 unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
     let array = obj as *const LeanArrayObject;
     (*array).data.as_ptr().add(idx).read()
@@ -373,7 +388,7 @@ unsafe fn lean_mk_empty_array() -> *mut LeanObject {
 }
 
 unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: Size) -> *mut LeanObject {
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 247;
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
     let byte_size = core::mem::size_of::<LeanScalarArray>()
         .checked_add(
             (elem_size as usize)
@@ -396,6 +411,17 @@ unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
     (*sarray).size = size;
 }
 
+unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size {
+    let sarray = obj as *const LeanScalarArray;
+    (*sarray).size
+}
+
+unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
+    let sarray = obj as *const LeanScalarArray;
+    (*sarray).capacity
+}
+
+
 pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
     lean_ptr_tag(obj) == 0
 }
@@ -413,6 +439,15 @@ pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject 
     debug_assert!(lean_io_result_is_error(obj));
     lean_ctor_get(obj, 0)
 }
+
+pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject {
+    debug_assert!(lean_io_result_is_ok(obj));
+    let v = lean_ctor_get(obj, 0);
+    lean_inc(v);
+    lean_dec(obj);
+    v
+}
+
 
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     let array = obj as *const LeanScalarArray;
@@ -457,15 +492,20 @@ unsafe fn mk_name_path(components: &[&str]) -> LeanName {
 include!("library_constants.rs");
 include!("library_dynlib.rs");
 include!("runtime_debug.rs");
+include!("runtime_dns.rs");
 include!("runtime_event_loop.rs");
 include!("runtime_libuv.rs");
 include!("runtime_mpn.rs");
 include!("runtime_mutex.rs");
 include!("runtime_net_addr.rs");
 include!("runtime_signal.rs");
+include!("runtime_process.rs");
 include!("runtime_stack_overflow.rs");
 include!("runtime_system.rs");
+include!("runtime_tcp.rs");
 include!("runtime_timer.rs");
+include!("runtime_udp.rs");
+
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
@@ -1583,7 +1623,8 @@ pub unsafe extern "C" fn lean_runtime_mk_cnstr(
 ) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(tag, num_objs, scalar_size);
     for index in 0..num_objs as Size {
-        lean_runtime_ctor_set(obj, index as c_uint, objs.add(index).read());
+        let val = objs.add(index).read();
+        lean_runtime_ctor_set(obj, index as c_uint, val);
     }
     obj
 }

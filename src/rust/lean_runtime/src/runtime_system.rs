@@ -13,6 +13,9 @@ mod runtime_system_impl {
     const INET_ADDRSTRLEN: usize = 16;
     const INET6_ADDRSTRLEN: usize = 46;
 
+    const UV_ENOENT: c_int = -2;
+    const UV_ENOBUFS: c_int = -105;
+
     #[repr(C)]
     struct UvCpuTimes {
         user: u64,
@@ -169,9 +172,6 @@ mod runtime_system_impl {
         (*array).data.as_mut_ptr().add(idx).write(value);
     }
 
-    unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
-        (obj.add(1) as *mut u8).add(offset).cast::<u64>().write(value);
-    }
 
     unsafe fn timeval_to_millis(t: UvTimeval) -> u64 {
         (t.tv_sec as u64) * 1000 + (t.tv_usec as u64) / 1000
@@ -206,29 +206,45 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
+    extern "C" {
+        fn printf(format: *const c_char, ...) -> c_int;
+        fn fflush(stream: *mut c_void) -> c_int;
+    }
+
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_uptime() -> *mut LeanObject {
+        printf(c"lean_uv_uptime entry\n".as_ptr());
+        fflush(null_mut());
         let mut uptime = 0.0;
         let result = uv_uptime(&mut uptime);
+        printf(c"uv_uptime result = %d, uptime = %f\n".as_ptr(), result, uptime);
+        fflush(null_mut());
 
         if result < 0 {
+            printf(c"uv_uptime error\n".as_ptr());
+            fflush(null_mut());
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        let lean_uptime = lean_uint64_to_nat_rust(uptime as u64);
-        lean_io_result_mk_ok(lean_uptime)
+        let lean_uptime = lean_box_uint64(uptime as u64);
+        printf(c"lean_uptime = %p\n".as_ptr(), lean_uptime);
+        fflush(null_mut());
+        let res = lean_io_result_mk_ok(lean_uptime);
+        printf(c"lean_io_result_mk_ok = %p\n".as_ptr(), res);
+        fflush(null_mut());
+        res
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_os_getpid() -> *mut LeanObject {
         let pid = uv_os_getpid();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(pid as u64))
+        lean_io_result_mk_ok(lean_box_uint64(pid as u64))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_os_getppid() -> *mut LeanObject {
         let ppid = uv_os_getppid();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(ppid as u64))
+        lean_io_result_mk_ok(lean_box_uint64(ppid as u64))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -343,12 +359,12 @@ mod runtime_system_impl {
         let passwd = passwd.assume_init();
         let username = lean_mk_string(passwd.username);
         let uid = if passwd.uid != -1 {
-            option_some(lean_uint64_to_nat_rust(passwd.uid as u64))
+            option_some(lean_box_uint64(passwd.uid as u64))
         } else {
             option_none()
         };
         let gid = if passwd.gid != -1 {
-            option_some(lean_uint64_to_nat_rust(passwd.gid as u64))
+            option_some(lean_box_uint64(passwd.gid as u64))
         } else {
             option_none()
         };
@@ -380,7 +396,7 @@ mod runtime_system_impl {
         let mut group = MaybeUninit::<UvGroup>::uninit();
         let result = uv_os_get_group(group.as_mut_ptr(), gid);
 
-        if result == libc::ENOENT {
+        if result == UV_ENOENT {
             return lean_io_result_mk_ok(option_none());
         }
 
@@ -465,9 +481,9 @@ mod runtime_system_impl {
 
         let mut result = uv_os_getenv(name_str, stack_buffer.as_mut_ptr(), &mut size);
 
-        if result == libc::ENOENT {
+        if result == UV_ENOENT {
             return lean_io_result_mk_ok(option_none());
-        } else if result == libc::ENOBUFS {
+        } else if result == UV_ENOBUFS {
             let heap_buffer = libc::malloc(size).cast::<c_char>();
             if heap_buffer.is_null() {
                 return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -475,7 +491,7 @@ mod runtime_system_impl {
 
             result = uv_os_getenv(name_str, heap_buffer, &mut size);
 
-            if result == libc::ENOENT {
+            if result == UV_ENOENT {
                 libc::free(heap_buffer.cast());
                 return lean_io_result_mk_ok(option_none());
             } else if result < 0 {
@@ -559,7 +575,7 @@ mod runtime_system_impl {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(priority as u64))
+        lean_io_result_mk_ok(lean_box_uint64(priority as u64))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -600,7 +616,7 @@ mod runtime_system_impl {
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_hrtime() -> *mut LeanObject {
         let time = uv_hrtime();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(time))
+        lean_io_result_mk_ok(lean_box_uint64(time))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -722,25 +738,25 @@ mod runtime_system_impl {
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_get_free_memory() -> *mut LeanObject {
         let mem = uv_get_free_memory();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(mem))
+        lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_get_total_memory() -> *mut LeanObject {
         let mem = uv_get_total_memory();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(mem))
+        lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_get_constrained_memory() -> *mut LeanObject {
         let mem = uv_get_constrained_memory();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(mem))
+        lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_get_available_memory() -> *mut LeanObject {
         let mem = uv_get_available_memory();
-        lean_io_result_mk_ok(lean_uint64_to_nat_rust(mem))
+        lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 }
 
