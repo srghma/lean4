@@ -13,13 +13,6 @@ mod runtime_timer_impl {
     const TIMER_STATE_FINISHED: c_int = 2;
     const LEAN_TASK_STATE_FINISHED: u8 = 2;
 
-    #[repr(C)]
-    struct UvHandle {
-        data: *mut c_void,
-        loop_: *mut c_void,
-        rest: [u8; 80],
-    }
-
     #[repr(C, align(8))]
     pub struct UvTimer {
         handle: UvHandle,
@@ -38,7 +31,7 @@ mod runtime_timer_impl {
     static mut UV_TIMER_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
 
     extern "C" {
-        fn uv_close(handle: *mut c_void, close_cb: Option<unsafe extern "C" fn(*mut c_void)>);
+        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
         fn uv_timer_init(loop_: *mut UvLoop, handle: *mut UvTimer) -> c_int;
         fn uv_timer_start(
             handle: *mut UvTimer,
@@ -58,8 +51,8 @@ mod runtime_timer_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe extern "C" fn close_free_handle(handle: *mut c_void) {
-        libc::free(handle);
+    unsafe extern "C" fn close_free_handle(handle: *mut UvHandle) {
+        libc::free(handle.cast());
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23lean_uv_timer_finalizerEPv")]
@@ -71,7 +64,7 @@ mod runtime_timer_impl {
         }
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        uv_close((*timer).uv_timer.cast::<c_void>(), Some(close_free_handle));
+        uv_close((*timer).uv_timer.cast::<UvHandle>(), Some(close_free_handle));
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
 
         libc::free(timer.cast());

@@ -16,7 +16,6 @@ set(
   uv/tcp.cpp
   uv/udp.cpp
   uv/dns.cpp
-  uv/system.cpp
 )
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
@@ -82,6 +81,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_net_addr.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_signal.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_overflow.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_system.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_timer.rs
   VERBATIM
 )

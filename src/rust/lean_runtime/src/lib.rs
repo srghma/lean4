@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
-use core::ffi::{c_char, c_int, c_uchar, c_uint, c_void, CStr};
+use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicU32, Ordering};
 use core::ptr;
 #[cfg(not(feature = "std"))]
@@ -22,6 +22,8 @@ extern "C" {
     fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
     fn lean_alloc_object(size: Size) -> *mut LeanObject;
+    #[link_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"]
+    fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject;
     fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     fn lean_register_external_class(
         finalize: Option<unsafe extern "C" fn(*mut c_void)>,
@@ -217,6 +219,13 @@ struct LeanPromiseObject {
 }
 
 #[repr(C)]
+pub struct UvHandle {
+    pub data: *mut c_void,
+    pub loop_: *mut c_void,
+    pub rest: [u8; 80],
+}
+
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct LeanName {
     obj: *mut LeanObject,
@@ -359,6 +368,34 @@ unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
     obj as *mut LeanObject
 }
 
+unsafe fn lean_mk_empty_array() -> *mut LeanObject {
+    lean_alloc_array(0, 0)
+}
+
+unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: Size) -> *mut LeanObject {
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 247;
+    let byte_size = core::mem::size_of::<LeanScalarArray>()
+        .checked_add(
+            (elem_size as usize)
+                .checked_mul(capacity)
+                .expect("sarray allocation overflow"),
+        )
+        .expect("sarray allocation overflow");
+    let obj = lean_alloc_object(byte_size) as *mut LeanScalarArray;
+    (*obj).header.rc = 1;
+    (*obj).header.cs_size = 0;
+    (*obj).header.other = elem_size as u8;
+    (*obj).header.tag = LEAN_SCALAR_ARRAY_TAG;
+    (*obj).size = size;
+    (*obj).capacity = capacity;
+    obj as *mut LeanObject
+}
+
+unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
+    let sarray = obj as *mut LeanScalarArray;
+    (*sarray).size = size;
+}
+
 pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
     lean_ptr_tag(obj) == 0
 }
@@ -427,6 +464,7 @@ include!("runtime_mutex.rs");
 include!("runtime_net_addr.rs");
 include!("runtime_signal.rs");
 include!("runtime_stack_overflow.rs");
+include!("runtime_system.rs");
 include!("runtime_timer.rs");
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
