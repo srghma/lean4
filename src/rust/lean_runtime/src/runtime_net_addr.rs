@@ -64,7 +64,7 @@ mod runtime_net_addr_impl {
         result
     }
 
-    #[export_name = "_ZN4lean25lean_ipv4_addr_to_in_addrEP11lean_objectP7in_addr"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25lean_ipv4_addr_to_in_addrEP11lean_objectP7in_addr")]
     pub unsafe extern "C" fn lean_ipv4_addr_to_in_addr(
         ipv4_addr: *mut LeanObject,
         out: *mut libc::in_addr,
@@ -77,7 +77,7 @@ mod runtime_net_addr_impl {
         (*out).s_addr = host_addr.to_be();
     }
 
-    #[export_name = "_ZN4lean26lean_ipv6_addr_to_in6_addrEP11lean_objectP8in6_addr"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean26lean_ipv6_addr_to_in6_addrEP11lean_objectP8in6_addr")]
     pub unsafe extern "C" fn lean_ipv6_addr_to_in6_addr(
         ipv6_addr: *mut LeanObject,
         out: *mut libc::in6_addr,
@@ -90,7 +90,7 @@ mod runtime_net_addr_impl {
         }
     }
 
-    #[export_name = "_ZN4lean31lean_ip_addr_to_in_addr_storageEP11lean_objectPiPNS_15in_addr_storageE"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean31lean_ip_addr_to_in_addr_storageEP11lean_objectPiPNS_15in_addr_storageE")]
     pub unsafe extern "C" fn lean_ip_addr_to_in_addr_storage(
         ip_addr: *mut LeanObject,
         ip_type: *mut c_int,
@@ -106,7 +106,7 @@ mod runtime_net_addr_impl {
         }
     }
 
-    #[export_name = "_ZN4lean17lean_ip_addr_ntopEP11lean_objectPcm"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17lean_ip_addr_ntopEP11lean_objectPcm")]
     pub unsafe extern "C" fn lean_ip_addr_ntop(
         ip_addr: *mut LeanObject,
         buffer: *mut c_char,
@@ -123,7 +123,7 @@ mod runtime_net_addr_impl {
         ));
     }
 
-    #[export_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage")]
     pub unsafe extern "C" fn lean_socket_address_to_sockaddr_storage(
         ip_addr: *mut LeanObject,
         out: *mut libc::sockaddr_storage,
@@ -146,7 +146,7 @@ mod runtime_net_addr_impl {
         }
     }
 
-    #[export_name = "_ZN4lean25lean_in_addr_to_ipv4_addrEPK7in_addr"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25lean_in_addr_to_ipv4_addrEPK7in_addr")]
     pub unsafe extern "C" fn lean_in_addr_to_ipv4_addr(
         ipv4_addr: *const libc::in_addr,
     ) -> *mut LeanObject {
@@ -161,7 +161,7 @@ mod runtime_net_addr_impl {
         array
     }
 
-    #[export_name = "_ZN4lean26lean_in6_addr_to_ipv6_addrEPK8in6_addr"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean26lean_in6_addr_to_ipv6_addrEPK8in6_addr")]
     pub unsafe extern "C" fn lean_in6_addr_to_ipv6_addr(
         ipv6_addr: *const libc::in6_addr,
     ) -> *mut LeanObject {
@@ -177,7 +177,7 @@ mod runtime_net_addr_impl {
         array
     }
 
-    #[export_name = "_ZN4lean26lean_phys_addr_to_mac_addrEPc"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean26lean_phys_addr_to_mac_addrEPc")]
     pub unsafe extern "C" fn lean_phys_addr_to_mac_addr(phys_addr: *mut c_char) -> *mut LeanObject {
         let result = lean_alloc_array(0, 6);
         let mut array = result;
@@ -188,7 +188,7 @@ mod runtime_net_addr_impl {
         array
     }
 
-    #[export_name = "_ZN4lean21lean_mk_socketaddressEP11lean_objectt"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean21lean_mk_socketaddressEP11lean_objectt")]
     pub unsafe extern "C" fn lean_mk_socketaddress(
         ip_addr: *mut LeanObject,
         port: u16,
@@ -199,7 +199,7 @@ mod runtime_net_addr_impl {
         socket_addr
     }
 
-    #[export_name = "_ZN4lean31lean_in_addr_storage_to_ip_addrEsPNS_15in_addr_storageE"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean31lean_in_addr_storage_to_ip_addrEsPNS_15in_addr_storageE")]
     pub unsafe extern "C" fn lean_in_addr_storage_to_ip_addr(
         family: i16,
         ip_addr: *mut InAddrStorage,
@@ -217,7 +217,7 @@ mod runtime_net_addr_impl {
         ctor
     }
 
-    #[export_name = "_ZN4lean30lean_sockaddr_to_socketaddressEPK8sockaddr"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean30lean_sockaddr_to_socketaddressEPK8sockaddr")]
     pub unsafe extern "C" fn lean_sockaddr_to_socketaddress(
         sockaddr: *const libc::sockaddr,
     ) -> *mut LeanObject {

@@ -425,6 +425,7 @@ include!("runtime_libuv.rs");
 include!("runtime_mpn.rs");
 include!("runtime_mutex.rs");
 include!("runtime_net_addr.rs");
+include!("runtime_signal.rs");
 include!("runtime_stack_overflow.rs");
 include!("runtime_timer.rs");
 

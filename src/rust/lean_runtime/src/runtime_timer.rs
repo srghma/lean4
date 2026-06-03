@@ -38,7 +38,7 @@ mod runtime_timer_impl {
     static mut UV_TIMER_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
 
     extern "C" {
-        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
+        fn uv_close(handle: *mut c_void, close_cb: Option<unsafe extern "C" fn(*mut c_void)>);
         fn uv_timer_init(loop_: *mut UvLoop, handle: *mut UvTimer) -> c_int;
         fn uv_timer_start(
             handle: *mut UvTimer,
@@ -58,11 +58,11 @@ mod runtime_timer_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe extern "C" fn close_free_handle(handle: *mut UvHandle) {
-        libc::free(handle.cast());
+    unsafe extern "C" fn close_free_handle(handle: *mut c_void) {
+        libc::free(handle);
     }
 
-    #[export_name = "_ZN4lean23lean_uv_timer_finalizerEPv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23lean_uv_timer_finalizerEPv")]
     pub unsafe extern "C" fn lean_uv_timer_finalizer(ptr: *mut c_void) {
         let timer = ptr.cast::<LeanUvTimerObject>();
 
@@ -71,7 +71,7 @@ mod runtime_timer_impl {
         }
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        uv_close((*timer).uv_timer.cast::<UvHandle>(), Some(close_free_handle));
+        uv_close((*timer).uv_timer.cast::<c_void>(), Some(close_free_handle));
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
 
         libc::free(timer.cast());
@@ -85,13 +85,13 @@ mod runtime_timer_impl {
         }
     }
 
-    #[export_name = "_ZN4lean22initialize_libuv_timerEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean22initialize_libuv_timerEv")]
     pub unsafe extern "C" fn initialize_libuv_timer() {
         UV_TIMER_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_timer_finalizer), Some(timer_foreach));
     }
 
-    #[export_name = "_ZN4lean18handle_timer_eventEP10uv_timer_s"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18handle_timer_eventEP10uv_timer_s")]
     pub unsafe extern "C" fn handle_timer_event(handle: *mut UvTimer) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);
