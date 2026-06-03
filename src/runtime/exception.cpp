@@ -42,6 +42,10 @@ extern "C" LEAN_EXPORT void throw_heartbeat_exception() {
     throw heartbeat_exception();
 }
 
+extern "C" LEAN_EXPORT void throw_memory_exception(char const * component_name) {
+    throw memory_exception(component_name);
+}
+
 extern "C" LEAN_EXPORT void lean_throw_interrupted() {
     throw interrupted();
 }

@@ -168,8 +168,8 @@ mod runtime_system_impl {
     }
 
     unsafe fn lean_array_set(obj: *mut LeanObject, idx: usize, value: *mut LeanObject) {
-        let array = obj as *mut LeanArrayObject;
-        (*array).data.as_mut_ptr().add(idx).write(value);
+        let array_data_ptr = (obj as *mut u8).add(24) as *mut *mut LeanObject;
+        array_data_ptr.add(idx).write(value);
     }
 
 

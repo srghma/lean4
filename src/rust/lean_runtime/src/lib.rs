@@ -281,7 +281,7 @@ pub unsafe fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
     lean_ptr_tag(obj)
 }
 
-unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
+pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
     if (*obj).rc > 0 {
         (*obj).rc += n as i32;
     } else if (*obj).rc != 0 {
@@ -305,6 +305,12 @@ unsafe fn lean_dec_ref(obj: *mut LeanObject) {
 pub unsafe fn lean_inc(obj: *mut LeanObject) {
     if !lean_is_scalar(obj) {
         lean_inc_ref(obj);
+    }
+}
+
+pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
+    if !lean_is_scalar(obj) {
+        lean_inc_ref_n(obj, n);
     }
 }
 
@@ -354,8 +360,8 @@ pub unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 {
 
 
 unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
-    let array = obj as *const LeanArrayObject;
-    (*array).data.as_ptr().add(idx).read()
+    let array_data_ptr = (obj as *const u8).add(24) as *const *mut LeanObject;
+    array_data_ptr.add(idx).read()
 }
 
 unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
@@ -363,7 +369,7 @@ unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
     (*array).size
 }
 
-unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
     const LEAN_ARRAY_TAG: u8 = 246;
     let byte_size = core::mem::size_of::<LeanArrayObject>()
         .checked_add(
@@ -386,7 +392,7 @@ unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
-unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: Size) -> *mut LeanObject {
+pub(crate) unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: Size) -> *mut LeanObject {
     const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
     let byte_size = core::mem::size_of::<LeanScalarArray>()
         .checked_add(
@@ -402,6 +408,22 @@ unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: Size) -> *m
     (*obj).header.tag = LEAN_SCALAR_ARRAY_TAG;
     (*obj).size = size;
     (*obj).capacity = capacity;
+    obj as *mut LeanObject
+}
+
+pub(crate) unsafe fn lean_alloc_string(size: usize, capacity: usize, len: usize) -> *mut LeanObject {
+    const LEAN_STRING_TAG: u8 = 249;
+    let byte_size = core::mem::size_of::<LeanStringObject>()
+        .checked_add(capacity)
+        .expect("string allocation overflow");
+    let obj = lean_alloc_object(byte_size) as *mut LeanStringObject;
+    (*obj).header.rc = 1;
+    (*obj).header.cs_size = 0;
+    (*obj).header.other = 0;
+    (*obj).header.tag = LEAN_STRING_TAG;
+    (*obj).size = size;
+    (*obj).capacity = capacity;
+    (*obj).len = len;
     obj as *mut LeanObject
 }
 
@@ -449,13 +471,11 @@ pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject
 
 
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
-    let array = obj as *const LeanScalarArray;
-    (*array).data.as_ptr()
+    (obj as *const u8).add(24)
 }
 
 pub unsafe fn lean_string_cstr(obj: *mut LeanObject) -> *const c_char {
-    let string = obj as *const LeanStringObject;
-    (*string).data.as_ptr()
+    (obj as *const u8).add(32) as *const c_char
 }
 
 pub unsafe fn lean_box(value: Size) -> *mut LeanObject {
@@ -506,6 +526,8 @@ include!("runtime_system.rs");
 include!("runtime_tcp.rs");
 include!("runtime_timer.rs");
 include!("runtime_udp.rs");
+include!("runtime_memory.rs");
+include!("runtime_sharecommon.rs");
 
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -1657,9 +1679,14 @@ unsafe fn lean_uint64_of_nat_rust(value: *mut LeanObject) -> u64 {
     }
 }
 
-unsafe fn lean_string_size(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_string_size(obj: *mut LeanObject) -> usize {
     let string = obj as *const LeanStringObject;
     (*string).size
+}
+
+pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {
+    let string = obj as *const LeanStringObject;
+    (*string).len
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

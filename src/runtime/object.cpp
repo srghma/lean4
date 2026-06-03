@@ -1348,6 +1348,18 @@ extern "C" LEAN_EXPORT void lean_extract_mpz_value(lean_object * o, mpz_t v) {
 }
 #endif
 
+extern "C" LEAN_EXPORT unsigned lean_mpz_hash(lean_object * o) {
+    return to_mpz(o)->m_value.hash();
+}
+
+extern "C" LEAN_EXPORT uint8_t lean_mpz_eq(lean_object * o1, lean_object * o2) {
+    return to_mpz(o1)->m_value == to_mpz(o2)->m_value;
+}
+
+extern "C" LEAN_EXPORT lean_object * lean_alloc_mpz_from_mpz(lean_object * o) {
+    return alloc_mpz(to_mpz(o)->m_value);
+}
+
 object * mpz_to_nat_core(mpz const & m) {
     lean_assert(!m.is_size_t() || m.get_size_t() > LEAN_MAX_SMALL_NAT);
     return alloc_mpz(m);

@@ -5,11 +5,9 @@ set(
   object.cpp
   apply.cpp
   exception.cpp
-  memory.cpp
   compact.cpp
   io.cpp
   alloc.cpp
-  sharecommon.cpp
 )
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
@@ -83,6 +81,8 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_tcp.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_timer.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_udp.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_memory.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_sharecommon.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})
