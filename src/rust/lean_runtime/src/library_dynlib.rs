@@ -38,7 +38,7 @@ unsafe fn dynlib_error(prefix: &str, detail: *const c_char) -> *mut LeanObject {
     let detail = if detail.is_null() {
         "unknown error".into()
     } else {
-        core::ffi::CStr::from_ptr(detail).to_string_lossy()
+        crate::cstr_lossy_to_string(detail)
     };
     let message =
         std::ffi::CString::new(format!("{prefix}{detail}")).expect("dynamic loader error has no NUL");

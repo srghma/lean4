@@ -1,55 +1,18 @@
-// runtime_compact.rs — port of runtime/compact.cpp
-// Ported to Rust. Uses extern "C" shims for the C++ std::unordered_set,
-// std::vector, and mmap/dlopen APIs that are platform-specific.
-// The object_compactor and compacted_region types are exported as opaque
-// pointers since they own C++ heap state through the shim layer.
-//
-// Integration: add `include!("runtime_compact.rs");` in lib.rs after
-// the other runtime includes. Remove compact.cpp from CMakeLists RUNTIME_OBJS
-// once compact_shims.cpp is added.
-
 mod runtime_compact_impl {
     use super::*;
-    use core::ffi::{c_char, c_int, c_void};
-    use core::ptr::null_mut;
+    use core::ffi::c_void;
 
-    // ---------------------------------------------------------------------------
-    // FFI shims implemented in compact_shims.cpp
-    // ---------------------------------------------------------------------------
-    extern "C" {
-        // object_compactor lifecycle
-        fn lean_compact_compactor_new(
-            base_addr: *mut c_void,
-            allow_closures: u8,
-        ) -> *mut c_void /* object_compactor* */;
-        fn lean_compact_compactor_free(c: *mut c_void);
-        fn lean_compact_compactor_insert(c: *mut c_void, o: *mut LeanObject);
-        fn lean_compact_compactor_size(c: *const c_void) -> usize;
-        fn lean_compact_compactor_data(c: *const c_void) -> *const c_void;
-        fn lean_compact_compactor_base_addr(c: *const c_void) -> *const c_void;
+    #[repr(C)]
+    pub(crate) struct RustCompactedRegion {
+        pub size: usize,
+        pub is_memory_mapped: bool,
+        pub objects: Vec<*mut LeanObject>,
+    }
 
-        // compacted_region lifecycle
-        fn lean_compact_region_new(
-            sz: usize,
-            data: *mut c_void,
-            base_addr: *mut c_void,
-            is_mmap: u8,
-        ) -> *mut c_void /* compacted_region* */;
-        #[link_name = "lean_compact_region_free"]
-        fn lean_compact_region_free_cxx(r: *mut c_void);
-        fn lean_compact_region_read(r: *mut c_void) -> *mut LeanObject;
-        #[link_name = "lean_compact_region_is_mmap"]
-        fn lean_compact_region_is_mmap_cxx(r: *const c_void) -> u8;
-        #[link_name = "lean_compact_region_size"]
-        fn lean_compact_region_size_cxx(r: *const c_void) -> usize;
-
-        // get_loaded_libs (returns malloc-allocated array, caller frees)
-        fn lean_compact_get_loaded_libs_count() -> usize;
-
-        // malloc / free passthrough (for the compactor buffer)
-        fn lean_compact_malloc(sz: usize) -> *mut c_void;
-        fn lean_compact_free(p: *mut c_void);
-        fn lean_compact_memcpy(dst: *mut c_void, src: *const c_void, n: usize);
+    impl RustCompactedRegion {
+        pub(crate) fn new(size: usize, objects: Vec<*mut LeanObject>) -> Self {
+            Self { size, is_memory_mapped: false, objects }
+        }
     }
 
     // ---------------------------------------------------------------------------
@@ -58,7 +21,11 @@ mod runtime_compact_impl {
     // ---------------------------------------------------------------------------
     #[no_mangle]
     pub unsafe extern "C" fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
-        lean_compact_region_is_mmap_cxx(region as *const c_void)
+        if region == 0 {
+            return 0;
+        }
+        let region = &*(region as *const RustCompactedRegion);
+        region.is_memory_mapped as u8
     }
 
     // ---------------------------------------------------------------------------
@@ -67,7 +34,11 @@ mod runtime_compact_impl {
     // ---------------------------------------------------------------------------
     #[no_mangle]
     pub unsafe extern "C" fn lean_compacted_region_size(region: usize) -> usize {
-        lean_compact_region_size_cxx(region as *const c_void)
+        if region == 0 {
+            return 0;
+        }
+        let region = &*(region as *const RustCompactedRegion);
+        region.size
     }
 
     // ---------------------------------------------------------------------------
@@ -79,22 +50,14 @@ mod runtime_compact_impl {
         region: usize,
         _world: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_compact_region_free_cxx(region as *mut c_void);
+        if region != 0 {
+            let region = Box::from_raw(region as *mut RustCompactedRegion);
+            for obj in region.objects {
+                if !obj.is_null() {
+                    super::lean_dealloc_export(obj as *mut u8, super::lean_object_byte_size(obj));
+                }
+            }
+        }
         lean_io_result_mk_ok(lean_box(0))
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_compact_region_is_mmap(region: *const c_void) -> u8 {
-        lean_compact_region_is_mmap_cxx(region)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_compact_region_size(region: *const c_void) -> usize {
-        lean_compact_region_size_cxx(region)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_compact_region_free(region: *mut c_void) {
-        lean_compact_region_free_cxx(region)
     }
 }

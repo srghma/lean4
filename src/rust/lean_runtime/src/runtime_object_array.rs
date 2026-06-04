@@ -194,6 +194,75 @@ mod runtime_object_array_impl {
     }
 
     #[no_mangle]
+    pub unsafe extern "C" fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanObject {
+        if !lean_is_scalar(capacity) {
+            lean_internal_panic_out_of_memory();
+        }
+        lean_alloc_sarray(1, 0, lean_unbox(capacity))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_size(a: *mut LeanObject) -> *mut LeanObject {
+        lean_box(lean_sarray_size(a))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_uget(a: *mut LeanObject, i: usize) -> u8 {
+        *lean_sarray_cptr(a).add(i)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> u8 {
+        lean_byte_array_uget(a, lean_unbox(i))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_get(a: *mut LeanObject, i: *mut LeanObject) -> u8 {
+        if lean_is_scalar(i) {
+            let idx = lean_unbox(i);
+            if idx < lean_sarray_size(a) {
+                return lean_byte_array_uget(a, idx);
+            }
+        }
+        0
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_uset(
+        a: *mut LeanObject,
+        i: usize,
+        b: u8,
+    ) -> *mut LeanObject {
+        let r = lean_sarray_ensure_exclusive(a);
+        *lean_sarray_cptr(r).add(i) = b;
+        r
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_fset(
+        a: *mut LeanObject,
+        i: *mut LeanObject,
+        b: u8,
+    ) -> *mut LeanObject {
+        lean_byte_array_uset(a, lean_unbox(i), b)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_byte_array_set(
+        a: *mut LeanObject,
+        i: *mut LeanObject,
+        b: u8,
+    ) -> *mut LeanObject {
+        if lean_is_scalar(i) {
+            let idx = lean_unbox(i);
+            if idx < lean_sarray_size(a) {
+                return lean_byte_array_uset(a, idx, b);
+            }
+        }
+        a
+    }
+
+    #[no_mangle]
     pub unsafe extern "C" fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject {
         let sz   = lean_array_size(a);
         let r    = lean_alloc_sarray(1, sz, sz);
@@ -272,6 +341,75 @@ mod runtime_object_array_impl {
     #[no_mangle]
     pub unsafe extern "C" fn lean_copy_float_array(a: *mut LeanObject) -> *mut LeanObject {
         lean_copy_sarray(a, lean_sarray_capacity(a))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_mk_empty_float_array(capacity: *mut LeanObject) -> *mut LeanObject {
+        if !lean_is_scalar(capacity) {
+            lean_internal_panic_out_of_memory();
+        }
+        lean_alloc_sarray(core::mem::size_of::<f64>() as c_uint, 0, lean_unbox(capacity))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_size(a: *mut LeanObject) -> *mut LeanObject {
+        lean_box(lean_sarray_size(a))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_uget(a: *mut LeanObject, i: usize) -> f64 {
+        *((lean_sarray_cptr(a) as *const f64).add(i))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> f64 {
+        lean_float_array_uget(a, lean_unbox(i))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_get(a: *mut LeanObject, i: *mut LeanObject) -> f64 {
+        if lean_is_scalar(i) {
+            let idx = lean_unbox(i);
+            if idx < lean_sarray_size(a) {
+                return lean_float_array_uget(a, idx);
+            }
+        }
+        0.0
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_uset(
+        a: *mut LeanObject,
+        i: usize,
+        d: f64,
+    ) -> *mut LeanObject {
+        let r = lean_sarray_ensure_exclusive(a);
+        *((lean_sarray_cptr(r) as *mut f64).add(i)) = d;
+        r
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_fset(
+        a: *mut LeanObject,
+        i: *mut LeanObject,
+        d: f64,
+    ) -> *mut LeanObject {
+        lean_float_array_uset(a, lean_unbox(i), d)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_float_array_set(
+        a: *mut LeanObject,
+        i: *mut LeanObject,
+        d: f64,
+    ) -> *mut LeanObject {
+        if lean_is_scalar(i) {
+            let idx = lean_unbox(i);
+            if idx < lean_sarray_size(a) {
+                return lean_float_array_uset(a, idx, d);
+            }
+        }
+        a
     }
 
     #[no_mangle]

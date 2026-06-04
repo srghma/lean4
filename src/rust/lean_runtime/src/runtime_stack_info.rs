@@ -113,8 +113,7 @@ mod runtime_stack_info_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7lthread21get_thread_stack_sizeEv")]
+    #[cfg_attr(any(feature = "export-runtime-ffi", test), export_name = "_ZN4lean7lthread21get_thread_stack_sizeEv")]
     pub unsafe extern "C" fn lthread_get_thread_stack_size_export() -> usize {
         #[cfg(target_os = "linux")]
         {

@@ -90,10 +90,10 @@ mod runtime_event_loop_impl {
 
     unsafe fn check_uv(result: c_int, msg: &'static [u8]) {
         if result != 0 {
-            let err = CStr::from_ptr(uv_strerror(result)).to_string_lossy();
+            let err = crate::cstr_lossy_to_string(uv_strerror(result));
+            let msg = crate::cstr_lossy_to_string(msg.as_ptr() as *const c_char);
             let text = std::ffi::CString::new(format!(
-                "{}: {err}",
-                CStr::from_bytes_with_nul(msg).unwrap().to_string_lossy()
+                "{msg}: {err}",
             ))
             .expect("libuv error message has no NUL");
             lean_internal_panic(text.as_ptr());

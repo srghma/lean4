@@ -21,13 +21,50 @@ use core::panic::PanicInfo;
 
 type Size = usize;
 
+pub(crate) unsafe fn cstr_lossy_to_string(ptr: *const c_char) -> String {
+    if ptr.is_null() {
+        return String::new();
+    }
+    let bytes = CStr::from_ptr(ptr).to_bytes();
+    let mut out = String::with_capacity(bytes.len());
+    for &b in bytes {
+        if b.is_ascii() {
+            out.push(b as char);
+        } else {
+            out.push('\u{FFFD}');
+        }
+    }
+    out
+}
+
+#[cfg(feature = "std")]
+pub(crate) fn runtime_trace_enabled(name: &'static str) -> bool {
+    use std::collections::HashMap;
+    use std::sync::{Mutex, OnceLock};
+
+    static FLAGS: OnceLock<Mutex<HashMap<&'static str, bool>>> = OnceLock::new();
+    let flags = FLAGS.get_or_init(|| Mutex::new(HashMap::new()));
+    let mut flags = flags.lock().unwrap();
+    *flags
+        .entry(name)
+        .or_insert_with(|| std::env::var_os(name).is_some())
+}
+
+#[cfg(not(feature = "std"))]
+pub(crate) fn runtime_trace_enabled(_: &'static str) -> bool {
+    false
+}
+
 extern "C" {
     #[link_name = "_ZN4lean5allocEm"]
     fn lean_alloc_export(size: Size) -> *mut u8;
     #[link_name = "_ZN4lean7deallocEPvm"]
     fn lean_dealloc_export(obj: *mut u8, size: Size);
     pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
+    #[cfg(not(test))]
     fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
+    #[cfg(not(test))]
+    fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
     fn lean_alloc_object(size: Size) -> *mut LeanObject;
@@ -49,6 +86,7 @@ extern "C" {
     fn lean_big_uint64_to_nat(n: u64) -> *mut LeanObject;
     fn lean_uint64_of_big_nat(n: *mut LeanObject) -> u64;
     fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
+    #[cfg(not(test))]
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_wrap_handle_c(fp: *mut c_void) -> *mut LeanObject;
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
@@ -56,12 +94,12 @@ extern "C" {
     fn lean_options_get_bool(
         opts: *mut LeanObject,
         name: *mut LeanObject,
-        default_value: bool,
-    ) -> bool;
+        default_value: u8,
+    ) -> u8;
     fn lean_options_update_bool(
         opts: *mut LeanObject,
         name: *mut LeanObject,
-        value: bool,
+        value: u8,
     ) -> *mut LeanObject;
     fn lean_get_init_fn_name_for(
         env: *mut LeanObject,
@@ -599,6 +637,18 @@ unsafe fn lean_unbox_float_rust(obj: *mut LeanObject) -> f64 {
     data.read_unaligned()
 }
 
+unsafe fn lean_box_float32_rust(v: f32) -> *mut LeanObject {
+    let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
+    let data = (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32;
+    data.write_unaligned(v);
+    obj
+}
+
+unsafe fn lean_unbox_float32_rust(obj: *mut LeanObject) -> f32 {
+    let data = (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *const f32;
+    data.read_unaligned()
+}
+
 unsafe fn lean_usize_to_nat_rust(value: usize) -> *mut LeanObject {
     if value <= usize::MAX >> 1 {
         lean_box(value)
@@ -630,8 +680,8 @@ unsafe fn lean_char_default_value_rust() -> u32 {
 }
 
 #[export_name = "lean_is_scalar"]
-pub unsafe extern "C" fn lean_is_scalar_export(obj: *const LeanObject) -> bool {
-    lean_is_scalar(obj)
+pub unsafe extern "C" fn lean_is_scalar_export(obj: *mut LeanObject) -> u8 {
+    lean_is_scalar(obj) as u8
 }
 
 #[export_name = "lean_inc"]
@@ -667,6 +717,16 @@ pub unsafe extern "C" fn lean_box_float_export(v: f64) -> *mut LeanObject {
 #[export_name = "lean_unbox_float"]
 pub unsafe extern "C" fn lean_unbox_float_export(obj: *mut LeanObject) -> f64 {
     lean_unbox_float_rust(obj)
+}
+
+#[export_name = "lean_box_float32"]
+pub unsafe extern "C" fn lean_box_float32_export(v: f32) -> *mut LeanObject {
+    lean_box_float32_rust(v)
+}
+
+#[export_name = "lean_unbox_float32"]
+pub unsafe extern "C" fn lean_unbox_float32_export(obj: *mut LeanObject) -> f32 {
+    lean_unbox_float32_rust(obj)
 }
 
 #[export_name = "lean_int64_to_int"]
@@ -953,7 +1013,7 @@ pub unsafe extern "C" fn lean_runtime_alloc_ctor_export(tag: c_uint, num_objs: c
     let obj = lean_alloc_object(total);
     core::ptr::write_bytes(obj as *mut u8, 0, total);
     (*obj).m_rc = 1;
-    (*obj).m_cs_sz = total as u16;
+    (*obj).m_cs_sz = scalar_size as u16;
     (*obj).m_other = num_objs as u8;
     (*obj).m_tag = tag as u8;
     obj
@@ -1140,29 +1200,116 @@ pub unsafe extern "C" fn lean_string_cstr(obj: *mut LeanObject) -> *const c_char
 #[inline]
 unsafe fn lean_name_hash_ptr_rs(n: *mut LeanObject) -> u64 {
     debug_assert!(!lean_is_scalar(n));
-    *((n as *const u8).add(core::mem::size_of::<LeanObject>() + 2 * core::mem::size_of::<*mut LeanObject>()) as *const u64)
+    #[cfg(target_pointer_width = "64")]
+    {
+        let addr = n as usize;
+        let hi = addr >> 47;
+        if hi != 0 && hi != 0x1ffff {
+            return 0;
+        }
+    }
+    lean_ctor_get_uint64(n, 2 * core::mem::size_of::<*mut LeanObject>())
 }
 
 #[inline]
 unsafe fn lean_string_bytes_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
-    let len1 = core::ffi::CStr::from_ptr(lean_string_cstr(s1)).to_bytes();
-    let len2 = core::ffi::CStr::from_ptr(lean_string_cstr(s2)).to_bytes();
+    let len1 = lean_string_size(s1);
+    let len2 = lean_string_size(s2);
     len1 == len2
+        && core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, len1)
+            == core::slice::from_raw_parts(lean_string_cstr(s2) as *const u8, len2)
+}
+
+#[inline]
+fn name_mix_hash(mut h: u64, mut k: u64) -> u64 {
+    let m: u64 = 0xc6a4_a793_5bd1_e995;
+    let r = 47;
+    k = k.wrapping_mul(m);
+    k ^= k >> r;
+    k ^= m;
+    h ^= k;
+    h.wrapping_mul(m)
+}
+
+#[cfg(test)]
+#[no_mangle]
+pub unsafe extern "C" fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject {
+    let obj = lean_alloc_ctor(1, 2, core::mem::size_of::<u64>() as c_uint);
+    lean_ctor_set(obj, 0, prefix);
+    lean_ctor_set(obj, 1, s);
+    let hash = if lean_is_scalar(prefix) {
+        name_mix_hash(1723, lean_string_hash_export(s))
+    } else {
+        name_mix_hash(lean_name_hash_ptr_rs(prefix), lean_string_hash_export(s))
+    };
+    lean_ctor_set_uint64(obj, 2 * core::mem::size_of::<*mut LeanObject>(), hash);
+    obj
+}
+
+#[cfg(test)]
+#[no_mangle]
+pub unsafe extern "C" fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject {
+    let obj = lean_alloc_ctor(2, 2, core::mem::size_of::<u64>() as c_uint);
+    lean_ctor_set(obj, 0, prefix);
+    lean_ctor_set(obj, 1, n);
+    let hash = if lean_is_scalar(prefix) {
+        name_mix_hash(1723, lean_uint64_of_big_nat(n))
+    } else {
+        name_mix_hash(lean_name_hash_ptr_rs(prefix), lean_uint64_of_big_nat(n))
+    };
+    lean_ctor_set_uint64(obj, 2 * core::mem::size_of::<*mut LeanObject>(), hash);
+    obj
 }
 
 #[export_name = "lean_string_hash"]
 pub unsafe extern "C" fn lean_string_hash_export(s: *mut LeanObject) -> u64 {
-    let len = core::ffi::CStr::from_ptr(lean_string_cstr(s)).to_bytes().len();
+    let len = lean_string_size(s).saturating_sub(1);
     lean_runtime_hash_str(len, lean_string_cstr(s) as *const c_uchar, 11)
 }
 
 #[export_name = "lean_name_eq"]
 pub unsafe extern "C" fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut LeanObject) -> u8 {
+    #[cfg(feature = "std")]
+    let trace = runtime_trace_enabled("LEAN_TRACE_NAME_EQ");
+    #[cfg(not(feature = "std"))]
+    let trace = false;
+    if trace {
+        let mut err = std::io::stderr();
+        use std::io::Write;
+        let _ = writeln!(
+            err,
+            "lean_name_eq: n1={:p} scalar={} n2={:p} scalar={}",
+            n1,
+            lean_is_scalar(n1),
+            n2,
+            lean_is_scalar(n2),
+        );
+        if !lean_is_scalar(n1) {
+            let _ = writeln!(err, "  n1 tag={} hash={}", lean_ptr_tag(n1), lean_name_hash_ptr_rs(n1));
+        }
+        if !lean_is_scalar(n2) {
+            let _ = writeln!(err, "  n2 tag={} hash={}", lean_ptr_tag(n2), lean_name_hash_ptr_rs(n2));
+        }
+    }
     if n1 == n2 {
         return 1;
     }
     if lean_is_scalar(n1) != lean_is_scalar(n2) {
         return 0;
+    }
+    #[cfg(target_pointer_width = "64")]
+    {
+        let valid = |n: *mut LeanObject| {
+            let addr = n as usize;
+            let hi = addr >> 47;
+            hi == 0 || hi == 0x1ffff
+        };
+        if !lean_is_scalar(n1) && !valid(n1) {
+            return 0;
+        }
+        if !lean_is_scalar(n2) && !valid(n2) {
+            return 0;
+        }
     }
     if !lean_is_scalar(n1) && lean_name_hash_ptr_rs(n1) != lean_name_hash_ptr_rs(n2) {
         return 0;
@@ -1177,7 +1324,7 @@ pub unsafe extern "C" fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut Lean
             if !lean_string_bytes_eq(lean_ctor_get(n1, 1), lean_ctor_get(n2, 1)) {
                 return 0;
             }
-        } else if !crate::runtime_object_nat_int_impl::lean_nat_big_eq(lean_ctor_get(n1, 1), lean_ctor_get(n2, 1)) {
+        } else if !crate::runtime_object_nat_int_impl::lean_nat_eq(lean_ctor_get(n1, 1), lean_ctor_get(n2, 1)) {
             return 0;
         }
         n1 = lean_ctor_get(n1, 0);
@@ -1187,6 +1334,20 @@ pub unsafe extern "C" fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut Lean
         }
         if lean_is_scalar(n1) != lean_is_scalar(n2) {
             return 0;
+        }
+        #[cfg(target_pointer_width = "64")]
+        {
+            let valid = |n: *mut LeanObject| {
+                let addr = n as usize;
+                let hi = addr >> 47;
+                hi == 0 || hi == 0x1ffff
+            };
+            if !lean_is_scalar(n1) && !valid(n1) {
+                return 0;
+            }
+            if !lean_is_scalar(n2) && !valid(n2) {
+                return 0;
+            }
         }
         if !lean_is_scalar(n1) && !lean_is_scalar(n2) && lean_name_hash_ptr_rs(n1) != lean_name_hash_ptr_rs(n2) {
             return 0;
@@ -1226,6 +1387,17 @@ pub unsafe extern "C" fn lean_io_result_get_value_export(obj: *mut LeanObject) -
 #[export_name = "lean_io_result_get_error"]
 pub unsafe extern "C" fn lean_io_result_get_error_export(obj: *mut LeanObject) -> *mut LeanObject {
     lean_io_result_get_error(obj)
+}
+
+#[cfg(test)]
+#[no_mangle]
+pub unsafe extern "C" fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject {
+    use std::io::Write;
+    let size = lean_string_size(msg).saturating_sub(1);
+    let bytes = core::slice::from_raw_parts(lean_string_cstr(msg) as *const u8, size);
+    let _ = std::io::stderr().write_all(bytes);
+    let _ = std::io::stderr().write_all(b"\n");
+    lean_io_result_mk_ok(lean_box(0))
 }
 
 #[export_name = "lean_box"]
@@ -1334,7 +1506,7 @@ pub unsafe extern "C" fn lean_io_allocprof(
     msg: *mut LeanObject,
     fn_obj: *mut LeanObject,
 ) -> *mut LeanObject {
-    let label = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
+    let label = cstr_lossy_to_string(lean_string_cstr(msg));
     let result = lean_apply_1(fn_obj, lean_box(0));
     let output = std::ffi::CString::new(format!(
         "{label}\nAllocation profiling data is not available, compile lean using `-D RUNTIME_STATS=ON`\n"
@@ -1943,6 +2115,11 @@ pub extern "C" fn initialize_options() {
         VERBOSE_OPT = mk_name("verbose");
         MAX_MEMORY_OPT = mk_name("max_memory");
         TIMEOUT_OPT = mk_name("timeout");
+        if runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT") {
+            eprintln!("initialize_options mark verbose={:p}", VERBOSE_OPT.obj);
+            eprintln!("initialize_options mark max_memory={:p}", MAX_MEMORY_OPT.obj);
+            eprintln!("initialize_options mark timeout={:p}", TIMEOUT_OPT.obj);
+        }
         lean_mark_persistent(VERBOSE_OPT.obj);
         lean_mark_persistent(MAX_MEMORY_OPT.obj);
         lean_mark_persistent(TIMEOUT_OPT.obj);
@@ -1989,6 +2166,12 @@ pub unsafe extern "C" fn mk_constructions_name_generator(
 pub extern "C" fn initialize_constructions_util() {
     unsafe {
         CONSTRUCTIONS_FRESH = mk_name("_cnstr_fresh");
+        if runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT") {
+            eprintln!(
+                "initialize_constructions_util mark constructions_fresh={:p}",
+                CONSTRUCTIONS_FRESH.obj
+            );
+        }
         lean_mark_persistent(CONSTRUCTIONS_FRESH.obj);
         lean_register_name_generator_prefix(CONSTRUCTIONS_FRESH.obj);
     }
@@ -2073,6 +2256,9 @@ pub extern "C" fn initialize_name_generator() {
         let c_str = std::ffi::CString::new("_uniq").expect("static string has no NULs");
         let string = lean_mk_string(c_str.as_ptr());
         let tmp = lean_name_mk_string(lean_box(0), string);
+        if runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT") {
+            eprintln!("initialize_name_generator mark tmp={:p}", tmp);
+        }
         lean_mark_persistent(tmp);
         let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
         let state = NameGeneratorState {
@@ -2127,7 +2313,7 @@ pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
     let name = (*get_verbose_opt_name()).obj;
     lean_inc(opts);
     lean_inc(name);
-    lean_options_get_bool(opts, name, true)
+    lean_options_get_bool(opts, name, 1) != 0
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC1Ev")]
@@ -2150,7 +2336,7 @@ pub unsafe extern "C" fn options_get_bool(
     let name = (*name).obj;
     lean_inc(opts);
     lean_inc(name);
-    lean_options_get_bool(opts, name, default_value)
+    lean_options_get_bool(opts, name, default_value as u8) != 0
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZNK4lean7options6updateERKNS_4nameEb")]
@@ -2164,7 +2350,7 @@ pub unsafe extern "C" fn options_update(
     lean_inc(opts);
     lean_inc(name);
     LeanOptions {
-        obj: lean_options_update_bool(opts, name, value),
+        obj: lean_options_update_bool(opts, name, value as u8),
     }
 }
 
@@ -2210,7 +2396,7 @@ pub unsafe extern "C" fn lean_internal_get_default_options(_: *mut LeanObject) -
         ];
         for (components, value) in updates {
             let name = mk_name_path(components);
-            opts = lean_options_update_bool(opts, name.obj, value);
+            opts = lean_options_update_bool(opts, name.obj, value as u8);
         }
     }
     opts
@@ -2254,6 +2440,31 @@ pub extern "C" fn lean_io_mark_end_initialization() {
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_initializing() -> u8 {
     INITIALIZING.load(Ordering::Relaxed) as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_version_get_major(_: *mut LeanObject) -> *mut LeanObject {
+    lean_box(4)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_version_get_minor(_: *mut LeanObject) -> *mut LeanObject {
+    lean_box(32)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_version_get_patch(_: *mut LeanObject) -> *mut LeanObject {
+    lean_box(0)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_version_get_is_release(_: *mut LeanObject) -> u8 {
+    0
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_version_get_special_desc(_: *mut LeanObject) -> *mut LeanObject {
+    lean_mk_string(b"\0".as_ptr() as *const c_char)
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -2468,7 +2679,6 @@ pub unsafe extern "C" fn lean_io_timeit(
     msg: *mut LeanObject,
     fn_obj: *mut LeanObject,
 ) -> *mut LeanObject {
-    use std::ffi::CStr;
     use std::io::{self, Write};
     use std::time::Instant;
 
@@ -2476,7 +2686,7 @@ pub unsafe extern "C" fn lean_io_timeit(
     let result = lean_apply_1(fn_obj, lean_box(0));
     let elapsed = start.elapsed().as_secs_f64();
 
-    let prefix = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
+    let prefix = cstr_lossy_to_string(lean_string_cstr(msg));
     let mut stderr = io::stderr().lock();
     let _ = if elapsed < 1.0 {
         stderr.write_fmt(format_args!("{prefix} {:.3}ms\n", elapsed * 1000.0))
@@ -2553,9 +2763,7 @@ pub unsafe extern "C" fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanOb
         return lean_box(0);
     }
 
-    let Ok(name) = CStr::from_ptr(name_ptr).to_str() else {
-        return lean_box(0);
-    };
+    let name = cstr_lossy_to_string(name_ptr);
 
     match std::env::var(name) {
         Ok(value) => {
@@ -3040,6 +3248,30 @@ fn panic(_: &PanicInfo<'_>) -> ! {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::ffi::CString;
+
+    unsafe fn mk_test_string(text: &str) -> *mut LeanObject {
+        let c_text = CString::new(text).unwrap();
+        lean_mk_string(c_text.as_ptr())
+    }
+
+    unsafe fn mk_test_name(parts: &[&str]) -> *mut LeanObject {
+        let mut prefix = lean_box(0);
+        for part in parts {
+            let string = mk_test_string(part);
+            prefix = lean_name_mk_string(prefix, string);
+        }
+        prefix
+    }
+
+    unsafe fn mk_test_numeral_name(parts: &[u64]) -> *mut LeanObject {
+        let mut prefix = lean_box(0);
+        for part in parts {
+            let n = lean_big_uint64_to_nat(*part);
+            prefix = lean_name_mk_numeral(prefix, n);
+        }
+        prefix
+    }
 
     #[test]
     fn flexible_array_tails_match_c_layout_offsets() {
@@ -3068,5 +3300,62 @@ mod tests {
         assert_eq!(core::mem::offset_of!(LeanScalarArray, m_data), 24);
         assert_eq!(core::mem::offset_of!(LeanStringObject, m_data), 32);
         assert_eq!(core::mem::offset_of!(LeanClosureObject, m_objs), 24);
+    }
+
+    #[test]
+    fn name_equality_uses_stable_layout() {
+        unsafe {
+            let n1 = mk_test_name(&["Lean", "Meta", "Expr"]);
+            let n2 = mk_test_name(&["Lean", "Meta", "Expr"]);
+            let n3 = mk_test_name(&["Lean", "Meta", "Decl"]);
+            let n4 = mk_test_numeral_name(&[1, 2, 3]);
+            let n5 = mk_test_numeral_name(&[1, 2, 3]);
+            let n6 = mk_test_numeral_name(&[1, 2, 4]);
+            assert_eq!(lean_name_eq(n1, n2), 1);
+            assert_eq!(lean_name_eq(n1, n3), 0);
+            assert_eq!(lean_name_eq(n4, n5), 1);
+            assert_eq!(lean_name_eq(n4, n6), 0);
+        }
+    }
+
+    #[test]
+    fn string_hash_is_deterministic() {
+        unsafe {
+            let s = mk_test_string("builtin");
+            assert_eq!(lean_string_hash_export(s), lean_string_hash_export(s));
+        }
+    }
+
+    #[test]
+    fn array_pop_updates_size_field_not_payload() {
+        unsafe {
+            let a = lean_alloc_array(2, 2);
+            let data = lean_array_cptr(a);
+            data.write(lean_box(11));
+            data.add(1).write(lean_box(22));
+
+            let a = lean_array_pop_export(a);
+            assert_eq!(lean_array_size(a), 1);
+            assert_eq!(lean_unbox(*lean_array_cptr(a)) as usize, 11);
+        }
+    }
+
+    #[test]
+    fn compat_size_exports_return_boxed_nats() {
+        unsafe {
+            let s = mk_test_string("Lean");
+            let a = lean_alloc_array(3, 3);
+
+            let string_len = lean_string_length_export(s);
+            let string_bytes = lean_string_utf8_byte_size_export(s);
+            let array_size = lean_array_get_size_export(a);
+
+            assert!(lean_is_scalar(string_len));
+            assert!(lean_is_scalar(string_bytes));
+            assert!(lean_is_scalar(array_size));
+            assert_eq!(lean_unbox(string_len) as usize, 4);
+            assert_eq!(lean_unbox(string_bytes) as usize, 4);
+            assert_eq!(lean_unbox(array_size) as usize, 3);
+        }
     }
 }

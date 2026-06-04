@@ -20,6 +20,33 @@
 
       llvmPackages = pkgs.llvmPackages_19;
 
+      scip-clang = pkgs.stdenv.mkDerivation rec {
+        pname = "scip-clang";
+        version = "0.4.0";
+
+        src = pkgs.fetchurl {
+          url = "https://github.com/sourcegraph/scip-clang/releases/download/v${version}/scip-clang-x86_64-${
+            if pkgs.stdenv.isDarwin then "darwin" else "linux"
+          }";
+          hash = "sha256-Bv0YxXb5eacmxlFZRkTsSjXbT0cfIWCz9y64n6YAF4Q=";
+        };
+
+        dontUnpack = true;
+
+        installPhase = ''
+          mkdir -p $out/bin
+          cp $src $out/bin/scip-clang
+          chmod +x $out/bin/scip-clang
+        '';
+
+        meta = with pkgs.lib; {
+          description = "SCIP indexer for C/C++/Objective-C";
+          homepage = "https://github.com/sourcegraph/scip-clang";
+          license = licenses.asl20;
+          platforms = platforms.unix;
+        };
+      };
+
       devShellWithDist = pkgsDist: pkgs.mkShell.override {
           stdenv = pkgs.overrideCC pkgs.stdenv llvmPackages.clang;
         } ({
@@ -32,6 +59,15 @@
             llvmPackages.libcxxClang
             gdb
             tree  # for CI
+
+            # CKB / indexing deps
+            scip-clang
+            rustc
+            cargo
+            rust-analyzer
+            clang-tools
+            bear
+            jq
           ];
           LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
           # https://github.com/NixOS/nixpkgs/issues/60919

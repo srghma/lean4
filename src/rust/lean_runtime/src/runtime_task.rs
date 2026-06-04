@@ -1065,3 +1065,22 @@ pub extern "C" fn lean_scoped_task_manager_finalize() {
 pub(crate) unsafe fn lean_task_get_own_internal(t: *mut LeanObject) -> *mut LeanObject {
     lean_task_get_own(t)
 }
+
+#[export_name = "lean_task_get_own"]
+pub unsafe extern "C" fn lean_task_get_own_export(t: *mut LeanObject) -> *mut LeanObject {
+    lean_task_get_own(t)
+}
+
+#[cfg(test)]
+mod runtime_task_tests {
+    use super::*;
+
+    #[test]
+    fn task_get_own_returns_resolved_value() {
+        unsafe {
+            let task = alloc_resolved_task(lean_box(7));
+            let value = lean_task_get_own_export(task as *mut LeanObject);
+            assert_eq!(value, lean_box(7));
+        }
+    }
+}

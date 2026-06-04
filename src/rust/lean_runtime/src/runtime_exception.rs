@@ -84,7 +84,7 @@ pub extern "C" fn throw_get_stack_size_failed() -> ! {
 
 #[no_mangle]
 pub extern "C" fn throw_stack_space_exception(component_name: *const c_char) -> ! {
-    let component_name = unsafe { core::ffi::CStr::from_ptr(component_name) }.to_string_lossy();
+    let component_name = unsafe { crate::cstr_lossy_to_string(component_name) };
     abort_with_message(&format!("stack space exception: {component_name}"))
 }
 
@@ -95,7 +95,7 @@ pub extern "C" fn throw_heartbeat_exception() -> ! {
 
 #[no_mangle]
 pub extern "C" fn throw_memory_exception(component_name: *const c_char) -> ! {
-    let component_name = unsafe { core::ffi::CStr::from_ptr(component_name) }.to_string_lossy();
+    let component_name = unsafe { crate::cstr_lossy_to_string(component_name) };
     abort_with_message(&format!("memory exception: {component_name}"))
 }
 

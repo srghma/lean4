@@ -240,15 +240,15 @@ mod runtime_object_nat_int_impl {
         ($name:literal) => {{
             #[cfg(feature = "std")]
             {
-                use core::sync::atomic::{AtomicUsize, Ordering};
-                use std::io::Write;
-                static COUNT: AtomicUsize = AtomicUsize::new(0);
-                if std::env::var_os("LEAN_TRACE_NAT_INT").is_some() {
-                    let n = COUNT.fetch_add(1, Ordering::Relaxed) + 1;
-                    if n <= 8 || n.is_power_of_two() {
-                        if let Ok(mut f) = std::fs::OpenOptions::new()
-                            .create(true)
-                            .append(true)
+            use core::sync::atomic::{AtomicUsize, Ordering};
+            use std::io::Write;
+            static COUNT: AtomicUsize = AtomicUsize::new(0);
+            if crate::runtime_trace_enabled("LEAN_TRACE_NAT_INT") {
+                let n = COUNT.fetch_add(1, Ordering::Relaxed) + 1;
+                if n <= 8 || n.is_power_of_two() {
+                    if let Ok(mut f) = std::fs::OpenOptions::new()
+                        .create(true)
+                        .append(true)
                             .open("/tmp/lean_nat_trace.log")
                         {
                             let _ = writeln!(f, "[nat-int] {} {}", $name, n);
@@ -465,6 +465,19 @@ mod runtime_object_nat_int_impl {
             mpz_from_u128(mpz_to_u128(a1) % rhs)
         }
     }
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_nat_eq(
+        a1: *mut LeanObject, a2: *mut LeanObject,
+    ) -> bool {
+        if a1 == a2 {
+            return true;
+        }
+        if lean_is_scalar(a1) || lean_is_scalar(a2) {
+            return false;
+        }
+        lean_nat_big_eq(a1, a2)
+    }
+
     #[no_mangle]
     pub unsafe extern "C" fn lean_nat_big_eq(
         a1: *mut LeanObject, a2: *mut LeanObject,

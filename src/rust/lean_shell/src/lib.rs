@@ -86,7 +86,7 @@ fn bootstrap_num_threads() -> c_uint {
     }
 }
 
-fn long_option(name: &str) -> Option<(c_char, ArgMode)> {
+fn long_option(name: &[u8]) -> Option<(c_char, ArgMode)> {
     let candidates = [
         ("version", b'v' as c_char, ArgMode::None, true),
         ("help", b'h' as c_char, ArgMode::None, true),
@@ -129,6 +129,7 @@ fn long_option(name: &str) -> Option<(c_char, ArgMode)> {
         if !enabled {
             continue;
         }
+        let candidate = candidate.as_bytes();
         if candidate == name {
             exact = Some((ch, mode));
             break;
@@ -284,16 +285,7 @@ unsafe fn parse_and_process_options(
                 Some(pos) => (&payload[..pos], Some(&payload[pos + 1..])),
                 None => (payload, None),
             };
-            let name = match core::str::from_utf8(name_bytes) {
-                Ok(name) => name,
-                Err(_) => {
-                    opt_char = 0;
-                    shell_opts = process_option(shell_opts, opt_char, None)?;
-                    idx += 1;
-                    continue;
-                }
-            };
-            if let Some((ch, mode)) = long_option(name) {
+            if let Some((ch, mode)) = long_option(name_bytes) {
                 opt_char = ch;
                 match (mode, arg_bytes) {
                     (ArgMode::None, _) => {}
@@ -421,11 +413,6 @@ fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
             1
         }
     }
-}
-
-#[cfg_attr(not(test), no_mangle)]
-pub extern "C" fn main(argc: c_int, argv: *mut *mut c_char) -> c_int {
-    main_impl(argc, argv)
 }
 
 #[no_mangle]

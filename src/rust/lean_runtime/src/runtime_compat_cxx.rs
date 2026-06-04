@@ -145,6 +145,72 @@ macro_rules! define_uint_dec_cmp {
     };
 }
 
+macro_rules! define_uint_of_nat {
+    ($of_fn:ident, $mk_fn:ident, $ty:ty, $big_fn:path, $name:literal) => {
+        #[export_name = concat!("lean_", $name, "_of_nat")]
+        pub unsafe extern "C" fn $of_fn(a: *mut LeanObject) -> $ty {
+            trace_compat!(concat!("lean_", $name, "_of_nat"));
+            if lean_is_scalar(a) {
+                lean_unbox(a) as $ty
+            } else {
+                $big_fn(a)
+            }
+        }
+
+        #[export_name = concat!("lean_", $name, "_of_nat_mk")]
+        pub unsafe extern "C" fn $mk_fn(a: *mut LeanObject) -> $ty {
+            trace_compat!(concat!("lean_", $name, "_of_nat_mk"));
+            let r = if lean_is_scalar(a) {
+                lean_unbox(a) as $ty
+            } else {
+                $big_fn(a)
+            };
+            lean_dec(a);
+            r
+        }
+    };
+}
+
+#[inline]
+unsafe fn lean_scalar_to_int64_obj(a: *mut LeanObject) -> i64 {
+    #[cfg(target_pointer_width = "64")]
+    {
+        lean_unbox(a) as u32 as i32 as i64
+    }
+    #[cfg(not(target_pointer_width = "64"))]
+    {
+        (a as isize >> 1) as i64
+    }
+}
+
+#[inline]
+unsafe fn lean_scalar_to_int_obj(a: *mut LeanObject) -> i32 {
+    lean_scalar_to_int64_obj(a) as i32
+}
+
+#[inline]
+unsafe fn lean_int_to_nat_obj(a: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) {
+        a
+    } else {
+        crate::runtime_object_nat_int_impl::lean_big_int_to_nat(a)
+    }
+}
+
+#[inline]
+unsafe fn lean_int_lt_obj(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_scalar_to_int_obj(a) < lean_scalar_to_int_obj(b)
+    } else {
+        crate::runtime_object_nat_int_impl::lean_int_big_lt(a, b)
+    }
+}
+
+#[inline]
+unsafe fn lean_int64_to_int_obj(v: i64) -> *mut LeanObject {
+    crate::lean_int64_to_int_export(v)
+}
+
 unsafe fn array_elem_ptr(a: *mut LeanObject, idx: usize) -> *mut *mut LeanObject {
     lean_array_cptr(a).add(idx)
 }
@@ -195,7 +261,7 @@ unsafe fn array_pop_obj(a: *mut LeanObject) -> *mut LeanObject {
     if !old.is_null() {
         lean_dec(old);
     }
-    (*((r as *mut u8).add(core::mem::size_of::<LeanArrayObject>()) as *mut usize)) = size - 1;
+    (*(r as *mut LeanArrayObject)).m_size = size - 1;
     r
 }
 
@@ -277,7 +343,7 @@ macro_rules! trace_compat {
             use core::sync::atomic::{AtomicUsize, Ordering};
             use std::io::Write;
             static COUNT: AtomicUsize = AtomicUsize::new(0);
-            if std::env::var_os("LEAN_TRACE_NAT_INT").is_some() {
+            if crate::runtime_trace_enabled("LEAN_TRACE_NAT_INT") {
                 let n = COUNT.fetch_add(1, Ordering::Relaxed) + 1;
                 if n <= 8 || n.is_power_of_two() {
                     if let Ok(mut f) = std::fs::OpenOptions::new()
@@ -352,6 +418,28 @@ forward_ptr_to_ptr!(
     lean_thunk_get_core_impl_cxx,
     crate::runtime_object_array_impl::lean_thunk_get_core,
     *mut LeanObject
+);
+
+define_uint_of_nat!(
+    lean_uint8_of_nat_export,
+    lean_uint8_of_nat_mk_export,
+    u8,
+    crate::runtime_object_nat_int_impl::lean_uint8_of_big_nat,
+    "uint8"
+);
+define_uint_of_nat!(
+    lean_uint16_of_nat_export,
+    lean_uint16_of_nat_mk_export,
+    u16,
+    crate::runtime_object_nat_int_impl::lean_uint16_of_big_nat,
+    "uint16"
+);
+define_uint_of_nat!(
+    lean_uint32_of_nat_export,
+    lean_uint32_of_nat_mk_export,
+    u32,
+    crate::runtime_object_nat_int_impl::lean_uint32_of_big_nat,
+    "uint32"
 );
 
 #[export_name = "lean_mk_embedded_nul_error_c"]
@@ -581,13 +669,13 @@ pub unsafe extern "C" fn lean_cxx_profileit_export(
 }
 
 #[export_name = "lean_string_length"]
-pub unsafe extern "C" fn lean_string_length_export(s: *mut LeanObject) -> usize {
-    lean_string_len(s)
+pub unsafe extern "C" fn lean_string_length_export(s: *mut LeanObject) -> *mut LeanObject {
+    lean_box(lean_string_len(s))
 }
 
 #[export_name = "lean_string_utf8_byte_size"]
-pub unsafe extern "C" fn lean_string_utf8_byte_size_export(s: *mut LeanObject) -> usize {
-    lean_string_size(s).saturating_sub(1)
+pub unsafe extern "C" fn lean_string_utf8_byte_size_export(s: *mut LeanObject) -> *mut LeanObject {
+    lean_box(lean_string_size(s).saturating_sub(1))
 }
 
 #[export_name = "lean_string_dec_eq"]
@@ -665,6 +753,68 @@ pub unsafe extern "C" fn lean_nat_shiftr_export(
     lean_nat_big_shiftr(a, b)
 }
 
+#[export_name = "lean_nat_to_int"]
+pub unsafe extern "C" fn lean_nat_to_int_export(a: *mut LeanObject) -> *mut LeanObject {
+    trace_compat!("lean_nat_to_int");
+    if lean_is_scalar(a) {
+        let v = lean_unbox(a);
+        if v <= (usize::MAX >> 1) {
+            a
+        } else {
+            crate::runtime_object_nat_int_impl::lean_big_size_t_to_int(v)
+        }
+    } else {
+        a
+    }
+}
+
+#[export_name = "lean_nat_abs"]
+pub unsafe extern "C" fn lean_nat_abs_export(i: *mut LeanObject) -> *mut LeanObject {
+    trace_compat!("lean_nat_abs");
+    if lean_int_lt_obj(i, lean_box(0)) {
+        let neg = lean_int_neg_export(i);
+        let r = lean_int_to_nat_obj(neg);
+        r
+    } else {
+        lean_inc(i);
+        lean_int_to_nat_obj(i)
+    }
+}
+
+#[export_name = "lean_int_neg"]
+pub unsafe extern "C" fn lean_int_neg_export(a: *mut LeanObject) -> *mut LeanObject {
+    trace_compat!("lean_int_neg");
+    if lean_is_scalar(a) {
+        lean_int64_to_int_obj(-lean_scalar_to_int64_obj(a))
+    } else {
+        crate::runtime_object_nat_int_impl::lean_int_big_neg(a)
+    }
+}
+
+#[export_name = "lean_int_neg_succ_of_nat"]
+pub unsafe extern "C" fn lean_int_neg_succ_of_nat_export(a: *mut LeanObject) -> *mut LeanObject {
+    trace_compat!("lean_int_neg_succ_of_nat");
+    let s = crate::lean_nat_add_export(a, lean_box(1));
+    lean_dec(a);
+    let i = lean_nat_to_int_export(s);
+    let r = lean_int_neg_export(i);
+    lean_dec(i);
+    r
+}
+
+#[export_name = "lean_int_add"]
+pub unsafe extern "C" fn lean_int_add_export(
+    a1: *mut LeanObject,
+    a2: *mut LeanObject,
+) -> *mut LeanObject {
+    trace_compat!("lean_int_add");
+    if lean_is_scalar(a1) && lean_is_scalar(a2) {
+        lean_int64_to_int_obj(lean_scalar_to_int64_obj(a1) + lean_scalar_to_int64_obj(a2))
+    } else {
+        crate::runtime_object_nat_int_impl::lean_int_big_add(a1, a2)
+    }
+}
+
 #[export_name = "lean_string_utf8_get_fast"]
 pub unsafe extern "C" fn lean_string_utf8_get_fast_export(
     s: *mut LeanObject,
@@ -682,8 +832,8 @@ pub unsafe extern "C" fn lean_string_utf8_next_fast_export(
 }
 
 #[export_name = "lean_array_get_size"]
-pub unsafe extern "C" fn lean_array_get_size_export(obj: *mut LeanObject) -> Size {
-    lean_array_size(obj)
+pub unsafe extern "C" fn lean_array_get_size_export(obj: *mut LeanObject) -> *mut LeanObject {
+    lean_box(lean_array_size(obj))
 }
 
 #[export_name = "lean_array_fget_borrowed"]
@@ -752,6 +902,21 @@ pub unsafe extern "C" fn lean_array_fset_export(
     array_set_obj(a, lean_unbox(i), v)
 }
 
+#[export_name = "lean_array_set"]
+pub unsafe extern "C" fn lean_array_set_export(
+    a: *mut LeanObject,
+    i: *mut LeanObject,
+    v: *mut LeanObject,
+) -> *mut LeanObject {
+    if lean_is_scalar(i) {
+        let idx = lean_unbox(i);
+        if idx < lean_array_size(a) {
+            return array_set_obj(a, idx, v);
+        }
+    }
+    crate::runtime_object_array_impl::lean_array_set_panic(a, v)
+}
+
 #[export_name = "lean_array_pop"]
 pub unsafe extern "C" fn lean_array_pop_export(a: *mut LeanObject) -> *mut LeanObject {
     array_pop_obj(a)
@@ -764,6 +929,23 @@ pub unsafe extern "C" fn lean_array_fswap_export(
     j: *mut LeanObject,
 ) -> *mut LeanObject {
     array_swap_obj(a, lean_unbox(i), lean_unbox(j))
+}
+
+#[export_name = "lean_array_swap"]
+pub unsafe extern "C" fn lean_array_swap_export(
+    a: *mut LeanObject,
+    i: *mut LeanObject,
+    j: *mut LeanObject,
+) -> *mut LeanObject {
+    if !lean_is_scalar(i) || !lean_is_scalar(j) {
+        return a;
+    }
+    let ui = lean_unbox(i);
+    let uj = lean_unbox(j);
+    if ui >= lean_array_size(a) || uj >= lean_array_size(a) {
+        return a;
+    }
+    array_swap_obj(a, ui, uj)
 }
 
 #[export_name = "lean_uint8_to_nat"]
@@ -802,6 +984,14 @@ pub unsafe extern "C" fn lean_uint64_of_nat_export(n: *mut LeanObject) -> u64 {
     lean_uint64_of_nat_rust(n)
 }
 
+#[export_name = "lean_uint64_of_nat_mk"]
+pub unsafe extern "C" fn lean_uint64_of_nat_mk_export(n: *mut LeanObject) -> u64 {
+    trace_compat!("lean_uint64_of_nat_mk");
+    let r = lean_uint64_of_nat_rust(n);
+    lean_dec(n);
+    r
+}
+
 #[export_name = "lean_uint64_to_nat"]
 pub unsafe extern "C" fn lean_uint64_to_nat_export(n: u64) -> *mut LeanObject {
     trace_compat!("lean_uint64_to_nat");
@@ -837,6 +1027,14 @@ pub unsafe extern "C" fn lean_uint64_shift_right_export(a: u64, b: u64) -> u64 {
 pub unsafe extern "C" fn lean_usize_of_nat_export(n: *mut LeanObject) -> usize {
     trace_compat!("lean_usize_of_nat");
     lean_uint64_of_nat_rust(n) as usize
+}
+
+#[export_name = "lean_usize_of_nat_mk"]
+pub unsafe extern "C" fn lean_usize_of_nat_mk_export(n: *mut LeanObject) -> usize {
+    trace_compat!("lean_usize_of_nat_mk");
+    let r = lean_uint64_of_nat_rust(n) as usize;
+    lean_dec(n);
+    r
 }
 
 #[export_name = "lean_usize_dec_eq"]

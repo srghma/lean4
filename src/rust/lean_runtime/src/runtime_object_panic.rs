@@ -28,7 +28,15 @@ static G_PANIC_MESSAGES: AtomicBool = AtomicBool::new(true);
 // When the Lean demangler is linked in it overrides this stub (mirrors the C++
 // `__attribute__((weak))` declaration).
 extern "C" {
+    #[cfg(not(test))]
     fn lean_demangle_bt_line_cstr(s: *mut LeanObject) -> *mut LeanObject;
+}
+
+#[cfg(test)]
+#[no_mangle]
+pub unsafe extern "C" fn lean_demangle_bt_line_cstr(msg: *mut LeanObject) -> *mut LeanObject {
+    lean_dec(msg);
+    lean_mk_string(c"".as_ptr())
 }
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
@@ -68,14 +76,14 @@ mod backtrace_impl {
                 let result = lean_demangle_bt_line_cstr(sym_str);
                 let result_cstr = lean_string_cstr(result);
                 if !result_cstr.is_null() && *result_cstr != 0 {
-                    let s = std::ffi::CStr::from_ptr(result_cstr).to_string_lossy();
+                    let s = crate::cstr_lossy_to_string(result_cstr);
                     panic_eprintln(s.as_ref(), force_stderr);
                     lean_dec(result);
                     continue;
                 }
                 lean_dec(result);
             }
-            let s = std::ffi::CStr::from_ptr(sym_ptr).to_string_lossy();
+            let s = crate::cstr_lossy_to_string(sym_ptr);
             panic_eprintln(s.as_ref(), force_stderr);
         }
         // `backtrace_symbols` says the outer array must be freed but NOT each string.
@@ -153,7 +161,7 @@ unsafe fn lean_panic_impl(msg: &str, force_stderr: bool) {
 
 #[no_mangle]
 pub unsafe extern "C" fn lean_internal_panic(msg: *const c_char) -> ! {
-    let s = std::ffi::CStr::from_ptr(msg).to_string_lossy();
+    let s = crate::cstr_lossy_to_string(msg);
     let _ = writeln!(std::io::stderr(), "INTERNAL PANIC: {s}");
     abort_on_panic();
     std::process::exit(1);
@@ -198,7 +206,7 @@ pub extern "C" fn lean_set_panic_messages(flag: bool) {
 
 #[no_mangle]
 pub unsafe extern "C" fn lean_panic(msg: *const c_char) {
-    let s = std::ffi::CStr::from_ptr(msg).to_string_lossy();
+    let s = crate::cstr_lossy_to_string(msg);
     lean_panic_impl(s.as_ref(), false);
 }
 
@@ -213,7 +221,11 @@ pub unsafe extern "C" fn lean_panic_fn(
     let ptr = lean_string_cstr(msg);
     let s = if sz > 0 && !ptr.is_null() {
         let bytes = core::slice::from_raw_parts(ptr as *const u8, sz);
-        String::from_utf8_lossy(bytes).into_owned()
+        let mut out = String::with_capacity(bytes.len());
+        for &b in bytes {
+            out.push(if b.is_ascii() { b as char } else { '\u{FFFD}' });
+        }
+        out
     } else {
         String::new()
     };

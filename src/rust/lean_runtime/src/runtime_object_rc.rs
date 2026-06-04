@@ -14,6 +14,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 //   lean_alloc_ctor_memory_export
 //   lean_object_byte_size / lean_free_object dealloc helpers
 
+use std::cell::Cell;
+
+thread_local! {
+    static TRACE_MARK_PERSISTENT_EXTERNAL_PARENT: Cell<*mut LeanObject> = Cell::new(core::ptr::null_mut());
+}
 
 
 // ─── External C++ helpers we still depend on ─────────────────────────────────
@@ -119,6 +124,20 @@ unsafe fn set_next(o: *mut LeanObject, next: *mut LeanObject) {
 unsafe fn push_back(todo: &mut *mut LeanObject, v: *mut LeanObject) {
     set_next(v, *todo);
     *todo = v;
+}
+
+#[inline(always)]
+fn trace_mark_persistent_parent_set(parent: *mut LeanObject) -> *mut LeanObject {
+    TRACE_MARK_PERSISTENT_EXTERNAL_PARENT.with(|cell| {
+        let prev = cell.get();
+        cell.set(parent);
+        prev
+    })
+}
+
+#[inline(always)]
+fn trace_mark_persistent_parent_get() -> *mut LeanObject {
+    TRACE_MARK_PERSISTENT_EXTERNAL_PARENT.with(Cell::get)
 }
 
 #[inline(always)]
@@ -293,12 +312,16 @@ pub unsafe extern "C" fn lean_alloc_ctor_memory_export(sz: usize) -> *mut LeanOb
 
 #[no_mangle]
 pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
+    let trace = runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT");
     // Use a Vec as the worklist — simpler than the pointer-packing trick used
     // in the deletion loop, because we are not freeing these objects.
     let mut todo: Vec<*mut LeanObject> = Vec::new();
     todo.push(o);
 
     while let Some(o) = todo.pop() {
+        if trace && !lean_is_scalar(o) && (o as usize) < 0x1000 {
+            eprintln!("lean_mark_persistent pop suspicious o={:p}", o);
+        }
         if lean_is_scalar(o) || !lean_has_rc(o) {
             continue;
         }
@@ -310,59 +333,129 @@ pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
         // needed.)
 
         let tag = lean_ptr_tag(o);
+        if trace {
+            eprintln!("  tag={} rc=0", tag);
+        }
         if tag <= LEAN_MAX_CTOR_TAG {
             let n = lean_ctor_num_objs(o) as usize;
             let it = lean_ctor_obj_cptr(o);
+            if trace {
+                eprintln!("  ctor n={}", n);
+            }
             for i in 0..n {
-                todo.push(*it.add(i));
+                let child = *it.add(i);
+                if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                    eprintln!("    push ctor child[{}]={:p}", i, child);
+                }
+                todo.push(child);
             }
         } else {
             match tag {
-                LEAN_SCALAR_ARRAY_TAG | LEAN_STRING_TAG | LEAN_MPZ_TAG => {}
+                LEAN_SCALAR_ARRAY_TAG | LEAN_STRING_TAG | LEAN_MPZ_TAG => {
+                    if trace {
+                        eprintln!("  terminal array/string/mpz");
+                    }
+                }
                 LEAN_EXTERNAL_TAG => {
                     // Allocate a transient closure to drive m_foreach.
+                    if trace {
+                        let e = o as *mut LeanExternalObject;
+                        eprintln!(
+                            "  external class={:p} data={:p}",
+                            (*e).m_class,
+                            (*e).m_data
+                        );
+                    }
                     let fn_obj = lean_alloc_closure(
                         mark_persistent_fn as *mut c_void,
                         1,
                         0,
                     );
                     let e = o as *mut LeanExternalObject;
+                    let prev = trace_mark_persistent_parent_set(o);
                     ((*(*e).m_class).m_foreach)((*e).m_data, fn_obj);
+                    trace_mark_persistent_parent_set(prev);
                     lean_dec(fn_obj);
                 }
                 LEAN_TASK_TAG => {
-                    todo.push(lean_task_get(o));
+                    if trace {
+                        eprintln!("  task");
+                    }
+                    let child = lean_task_get(o);
+                    if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                        eprintln!("    push task child={:p}", child);
+                    }
+                    todo.push(child);
                 }
                 LEAN_PROMISE_TAG => {
-                    todo.push((*(o as *mut LeanPromiseObject)).result as *mut LeanObject);
+                    if trace {
+                        eprintln!("  promise");
+                    }
+                    let child = (*(o as *mut LeanPromiseObject)).result as *mut LeanObject;
+                    if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                        eprintln!("    push promise child={:p}", child);
+                    }
+                    todo.push(child);
                 }
                 LEAN_CLOSURE_TAG => {
                     let n = lean_closure_num_fixed(o) as usize;
                     let it = lean_closure_arg_cptr(o);
+                    if trace {
+                        eprintln!("  closure n={}", n);
+                    }
                     for i in 0..n {
-                        todo.push(*it.add(i));
+                        let child = *it.add(i);
+                        if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                            eprintln!("    push closure child[{}]={:p}", i, child);
+                        }
+                        todo.push(child);
                     }
                 }
                 LEAN_ARRAY_TAG => {
                     let n = lean_array_size(o);
                     let it = lean_array_cptr(o);
+                    if trace {
+                        eprintln!("  array n={}", n);
+                    }
                     for i in 0..n {
-                        todo.push(*it.add(i));
+                        let child = *it.add(i);
+                        if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                            eprintln!("    push array child[{}]={:p}", i, child);
+                        }
+                        todo.push(child);
                     }
                 }
                 LEAN_THUNK_TAG => {
                     let t = o as *mut LeanThunkObject;
+                    if trace {
+                        eprintln!("  thunk");
+                    }
                     if !(*t).m_closure.is_null() {
-                        todo.push((*t).m_closure);
+                        let child = (*t).m_closure;
+                        if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                            eprintln!("    push thunk closure={:p}", child);
+                        }
+                        todo.push(child);
                     }
                     if !(*t).m_value.is_null() {
-                        todo.push((*t).m_value);
+                        let child = (*t).m_value;
+                        if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                            eprintln!("    push thunk value={:p}", child);
+                        }
+                        todo.push(child);
                     }
                 }
                 LEAN_REF_TAG => {
                     let r = o as *mut LeanRefObject;
+                    if trace {
+                        eprintln!("  ref");
+                    }
                     if !(*r).m_value.is_null() {
-                        todo.push((*r).m_value);
+                        let child = (*r).m_value;
+                        if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                            eprintln!("    push ref value={:p}", child);
+                        }
+                        todo.push(child);
                     }
                 }
                 _ => {
@@ -375,6 +468,11 @@ pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
 
 // Closure function handed to external objects during lean_mark_persistent.
 unsafe extern "C" fn mark_persistent_fn(o: *mut LeanObject) -> *mut LeanObject {
+    let trace = runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT");
+    if trace {
+        let parent = trace_mark_persistent_parent_get();
+        eprintln!("mark_persistent_fn parent={:p} arg={:p}", parent, o);
+    }
     lean_mark_persistent(o);
     lean_box(0)
 }

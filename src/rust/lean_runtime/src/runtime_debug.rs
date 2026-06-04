@@ -7,7 +7,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_debug_impl {
     use super::*;
     use std::collections::HashSet;
-    use std::ffi::CStr;
     use std::io::{self, Read, Write};
     use std::process;
     use std::sync::{Mutex, OnceLock};
@@ -22,11 +21,7 @@ mod runtime_debug_impl {
     }
 
     unsafe fn cstr_to_string(value: *const c_char) -> String {
-        if value.is_null() {
-            String::new()
-        } else {
-            CStr::from_ptr(value).to_string_lossy().into_owned()
-        }
+        crate::cstr_lossy_to_string(value)
     }
 
     fn write_stderr(text: &str) {
@@ -184,15 +179,15 @@ pub unsafe extern "C" fn lean_dbg_sleep(ms: u32, action: *mut LeanObject) -> *mu
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dbg_trace_if_shared(
-    msg: *mut LeanObject,
-    value: *mut LeanObject,
-) -> *mut LeanObject {
-    if lean_is_shared_obj(value) {
-        let suffix = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
-        let text = std::ffi::CString::new(format!("shared RC {suffix}"))
-            .expect("debug trace message has embedded NUL");
-        io_eprintln_checked(lean_mk_string(text.as_ptr()));
-    }
+    pub unsafe extern "C" fn lean_dbg_trace_if_shared(
+        msg: *mut LeanObject,
+        value: *mut LeanObject,
+    ) -> *mut LeanObject {
+        if lean_is_shared_obj(value) {
+        let suffix = crate::cstr_lossy_to_string(lean_string_cstr(msg));
+            let text = std::ffi::CString::new(format!("shared RC {suffix}"))
+                .expect("debug trace message has embedded NUL");
+            io_eprintln_checked(lean_mk_string(text.as_ptr()));
+        }
     value
 }

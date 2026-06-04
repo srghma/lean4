@@ -399,27 +399,22 @@ else()
   set(LEAN_RUST_CARGO_PROFILE_ARGS --release)
 endif()
 set(LEAN_SHELL_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanshell.a)
+set(LEAN_SHELL_MAIN_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanmain.a)
 set(LEAN_RUNTIME_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.a)
 file(GLOB_RECURSE LEAN_RUST_SOURCES CONFIGURE_DEPENDS ${LEAN_SOURCE_DIR}/rust/*.rs ${LEAN_SOURCE_DIR}/rust/Cargo.toml)
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
-  string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE}")
-  string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE}")
+  set(LEAN_SHELL_RUST_ARCHIVE_LINKER_FLAGS "-Wl,-force_load,${LEAN_SHELL_RUST_ARCHIVE}")
 else()
-  string(
-    APPEND TOOLCHAIN_STATIC_LINKER_FLAGS
-    " ${LEAN_SHELL_RUST_ARCHIVE}"
-  )
-  string(
-    APPEND TOOLCHAIN_SHARED_LINKER_FLAGS
-    " ${LEAN_SHELL_RUST_ARCHIVE}"
-  )
+  set(LEAN_SHELL_RUST_ARCHIVE_LINKER_FLAGS "-Wl,--whole-archive ${LEAN_SHELL_RUST_ARCHIVE} -Wl,--no-whole-archive")
 endif()
+string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE_LINKER_FLAGS}")
+string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE_LINKER_FLAGS}")
 string(
   APPEND TOOLCHAIN_SHARED_LINKER_FLAGS
   " ${CMAKE_BINARY_DIR}/library/CMakeFiles/library.dir/module.cpp.o ${CMAKE_BINARY_DIR}/library/CMakeFiles/library.dir/module_shims.cpp.o"
 )
 
-string(APPEND LEAN_EXE_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE}")
+string(APPEND LEAN_EXE_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE_LINKER_FLAGS}")
 
 set(LEAN_RUNTIME_INITIAL_EXEC_ARCHIVE ${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a)
 
@@ -672,6 +667,22 @@ add_custom_command(
 )
 add_custom_target(leanshell ALL DEPENDS ${LEAN_SHELL_RUST_ARCHIVE})
 
+add_custom_command(
+  OUTPUT ${LEAN_SHELL_MAIN_RUST_ARCHIVE}
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib/temp
+  COMMAND
+    ${CMAKE_COMMAND} -E env CARGO_TARGET_DIR=${CMAKE_BINARY_DIR}/rust
+    cargo build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml -p lean_shell_main ${LEAN_RUST_CARGO_PROFILE_ARGS}
+  COMMAND
+    ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_shell_main.a
+    ${LEAN_SHELL_MAIN_RUST_ARCHIVE}
+  WORKING_DIRECTORY ${LEAN_SOURCE_DIR}/rust
+  DEPENDS ${LEAN_RUST_SOURCES}
+  VERBATIM
+)
+add_custom_target(leanshellmain ALL DEPENDS ${LEAN_SHELL_MAIN_RUST_ARCHIVE})
+
 # The relative path doesn't work once the CMakeLists.txt files have been copied into the stage0 dir.
 # Since stage0 needs no tests, we just ignore them instead of fixing the path.
 if(NOT STAGE EQUAL 0)
@@ -755,6 +766,7 @@ add_custom_target(
   make_stdlib
   ALL
   WORKING_DIRECTORY ${LEAN_SOURCE_DIR}
+  DEPENDS leanshell leanshellmain
   # The actual rule is in a separate makefile because we want to prefix it with '+' to use the Make job server
   # for a parallelized nested build, but CMake doesn't let us do that.
   # We use `lean` from the previous stage, but `leanc`, headers, etc. from the current stage

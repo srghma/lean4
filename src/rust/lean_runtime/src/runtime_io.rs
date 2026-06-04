@@ -970,7 +970,8 @@ mod runtime_io_impl {
             if path.len() >= 2 && path.as_bytes()[1] == b':' {
                 let mut bytes = path.into_bytes();
                 bytes[0] = bytes[0].to_ascii_lowercase();
-                path = String::from_utf8(bytes).unwrap();
+                let cpath = std::ffi::CString::new(bytes).unwrap();
+                return io_result_mk_ok(lean_mk_string(cpath.as_ptr()));
             }
             let cpath = std::ffi::CString::new(path).unwrap();
             return io_result_mk_ok(lean_mk_string(cpath.as_ptr()));
@@ -1186,6 +1187,9 @@ mod runtime_io_impl {
 
     #[no_mangle]
     pub unsafe extern "C" fn lean_runtime_mark_persistent(a: *mut LeanObject) -> *mut LeanObject {
+        if runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT") {
+            eprintln!("lean_runtime_mark_persistent arg={:p}", a);
+        }
         lean_mark_persistent(a);
         a
     }
@@ -1390,8 +1394,13 @@ mod runtime_io_impl {
         sz: *mut usize,
     ) -> c_int {
         let tmp = std::env::temp_dir();
-        let tmp = tmp.to_string_lossy();
-        let bytes = tmp.as_bytes();
+        #[cfg(unix)]
+        let bytes = std::os::unix::ffi::OsStrExt::as_bytes(tmp.as_os_str());
+        #[cfg(not(unix))]
+        let bytes = {
+            let tmp = tmp.to_string_lossy();
+            tmp.as_bytes()
+        };
         if bytes.len() >= *sz {
             return -(*libc::__errno_location());
         }

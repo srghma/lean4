@@ -16,6 +16,13 @@
 #  define LEAN_EXPORT
 #endif
 
+#if defined(_MSC_VER)
+#  define LEAN_NORETURN __declspec(noreturn)
+#elif defined(__GNUC__) || defined(__clang__)
+#  define LEAN_NORETURN __attribute__((noreturn))
+#else
+#  define LEAN_NORETURN
+#endif
 
 
 typedef uintptr_t Size;
@@ -39,7 +46,7 @@ typedef struct LeanMpzGmp LeanMpzRepr[1];
 typedef struct LeanMpzNonGmp LeanMpzRepr;
 #endif
 
-bool lean_is_scalar(const struct lean_object *obj);
+uint8_t lean_is_scalar(struct lean_object *obj);
 struct lean_object *lean_box(Size value);
 struct lean_object *lean_alloc_ctor(unsigned int tag, unsigned int num_objs, unsigned int scalar_sz);
 void lean_dec_ref(struct lean_object *obj);
@@ -341,6 +348,12 @@ extern struct lean_object *lean_mk_io_user_error(struct lean_object *msg);
 extern struct lean_object *lean_mk_io_error_invalid_argument(uint32_t errnum,
                                                              struct lean_object *details);
 
+LEAN_NORETURN void lean_internal_panic(const char *msg);
+LEAN_NORETURN void lean_internal_panic_out_of_memory(void);
+LEAN_NORETURN void lean_internal_panic_unreachable(void);
+LEAN_NORETURN void lean_internal_panic_rc_overflow(void);
+LEAN_NORETURN void lean_internal_panic_overflow(void);
+
 extern struct lean_object *lean_alloc_object(Size size);
 
 extern struct lean_object *lean_mk_embedded_nul_error_c(struct lean_object *str);
@@ -382,13 +395,13 @@ extern struct lean_object *lean_io_error_to_string(struct lean_object *err);
 
 extern struct lean_object *lean_options_get_empty(struct lean_object*);
 
-extern bool lean_options_get_bool(struct lean_object *opts,
-                                  struct lean_object *name,
-                                  bool default_value);
+extern uint8_t lean_options_get_bool(struct lean_object *opts,
+                                     struct lean_object *name,
+                                     uint8_t default_value);
 
 extern struct lean_object *lean_options_update_bool(struct lean_object *opts,
                                                     struct lean_object *name,
-                                                    bool value);
+                                                    uint8_t value);
 
 extern struct lean_object *lean_get_init_fn_name_for(struct lean_object *env,
                                                      struct lean_object *name);
@@ -502,7 +515,7 @@ const uint8_t *lean_sarray_cptr(struct lean_object *obj);
 
 uint64_t hash_str(Size len, const uint8_t *text, uint64_t seed);
 
-bool lean_is_scalar(const struct lean_object *obj);
+uint8_t lean_is_scalar(struct lean_object *obj);
 
 void lean_inc(struct lean_object *obj);
 
@@ -517,6 +530,10 @@ uint32_t lean_unbox_uint32(struct lean_object *obj);
 struct lean_object *lean_box_float(double v);
 
 double lean_unbox_float(struct lean_object *obj);
+
+struct lean_object *lean_box_float32(float v);
+
+float lean_unbox_float32(struct lean_object *obj);
 
 struct lean_object *lean_int64_to_int(int64_t value);
 
