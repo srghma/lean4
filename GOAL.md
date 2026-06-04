@@ -623,7 +623,7 @@ I have made make sh script to get all undefined symbols check_symbols.sh. can mo
 
 ---
 
-dont run CMAKE tests after `make -C build/release/stage1 clean-stdlib` and dont run all cmake tests at once. They take lot of time (10-20 min) and You will spend lots of tokens for watching for background task. Tell me. I will run myself
+if You want to run CMAKE tests after `make -C build/release/stage1 clean-stdlib` or all cmake tests at once - dont run it as background task - run in foreground. Why? Because they take lot of time (10-20 min) and You will spend lots of tokens for watching for background task.
 
 continue. very good job. You make rs files more pure by rewriting unsafe cpp-like code to rust-style while still preserving old cpp behavior, rc counting, memory model.
 
