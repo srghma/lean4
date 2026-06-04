@@ -8,21 +8,56 @@ import Lean.Compiler.FFI
 open Lean.Compiler.FFI
 
 def main (args : List String) : IO UInt32 := do
+  let hasRs := args.any (·.endsWith ".rs")
+  if hasRs then
+    let mut outfile? := none
+    let mut sourcefile? := none
+    let mut optLevel := "0"
+    let mut debug := #[]
+    let mut iter := args
+    while !iter.isEmpty do
+      match iter with
+      | "-o" :: out :: rest =>
+        outfile? := some out
+        iter := rest
+      | arg :: rest =>
+        if arg.endsWith ".rs" then
+          sourcefile? := some arg
+        else if arg == "-g" then
+          debug := #["-g"]
+        else if arg == "-O3" || arg == "-O2" || arg == "-O" then
+          optLevel := "3"
+        iter := rest
+      | [] => break
+
+    if let some sourcefile := sourcefile? then
+      let outfile := match outfile? with
+        | some out => out
+        | none => (System.FilePath.mk sourcefile).withExtension "o" |>.toString
+      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "-C", s!"opt-level={optLevel}"] ++ debug ++ #["-o", outfile, sourcefile]
+      if args.contains "-v" then
+        IO.eprintln s!"rustc {" ".intercalate rustcArgs.toList}"
+      let child ← IO.Process.spawn { cmd := "rustc", args := rustcArgs }
+      return ← child.wait
+    else
+      IO.eprintln "leanc: no input rust files"
+      return 1
+
   let root ← match (← IO.getEnv "LEAN_SYSROOT") with
     | some root => pure <| System.FilePath.mk root
     | none      => pure <| (← IO.appDir).parent.get!
   let mut cc := "@LEANC_CC@".replace "ROOT" root.toString
 
   if args.isEmpty then
-    IO.println s!"Lean C compiler
+    IO.println s!"Lean compiler wrapper
 
-A simple wrapper around a C compiler. Defaults to `{cc}`,
+A simple wrapper around a compiler (rustc or linker). Defaults to `{cc}`,
 which can be overridden with the environment variable `LEAN_CC`. All parameters are passed
 as-is to the wrapped compiler.
 
 Interesting options:
-* `--print-cflags`: print C compiler flags necessary for building against the Lean runtime and exit
-* `--print-ldflags`: print C compiler flags necessary for statically linking against the Lean library and exit"
+* `--print-cflags`: print compiler flags necessary for building against the Lean runtime and exit
+* `--print-ldflags`: print compiler flags necessary for statically linking against the Lean library and exit"
     return 1
 
   -- It is difficult to identify the correct minor version here, leading to linking warnings like:

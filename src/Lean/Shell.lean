@@ -10,7 +10,7 @@ import Lean.Elab.Frontend
 import Lean.Elab.ParseImportsFast
 import Lean.Server.Watchdog
 import Lean.Server.FileWorker
-import Lean.Compiler.LCNF.EmitC
+import Lean.Compiler.LCNF.EmitRust
 import Init.System.Platform
 import Lean.Compiler.Options
 
@@ -149,6 +149,7 @@ def displayHelp (useStderr : Bool) : IO Unit := do
   out.putStrLn    "  -o, --o=oname          create olean file"
   out.putStrLn    "  -i, --i=iname          create ilean file"
   out.putStrLn    "  -c, --c=fname          name of the C output file"
+  out.putStrLn    "      --rust=fname       name of the Rust output file"
   out.putStrLn    "  -b, --bc=fname         name of the LLVM bitcode file"
   out.putStrLn    "      --stdin            take input from stdin"
   out.putStrLn    "  -R, --root=dir         set package root directory from which the module name\n"
@@ -242,7 +243,7 @@ structure ShellOptions where
   setupFileName? : Option System.FilePath := none
   oleanFileName? : Option System.FilePath := none
   ileanFileName? : Option System.FilePath := none
-  cFileName? : Option System.FilePath := none
+  rustFileName? : Option System.FilePath := none
   bcFileName? : Option System.FilePath := none
   jsonOutput : Bool := false
   errorOnKinds : Array Name := #[]
@@ -323,7 +324,7 @@ def ShellOptions.process (opts : ShellOptions)
     IO.println Lean.featuresString
     throw 0
   | 'c' => -- `-c, --c=fname`
-    return {opts with cFileName? := ← checkOptArg "c" optArg?}
+    return {opts with rustFileName? := ← checkOptArg "c" optArg?}
   | 'b' => -- `-b, --bc=fname`
     return {opts with bcFileName? := ← checkOptArg "b" optArg?}
   | 's' => -- `-s, --tstack=num`
@@ -536,7 +537,7 @@ def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do
       pure setup.name
     else if let some fileName := fileName? then
       try moduleNameOfFileName fileName opts.rootDir? catch e =>
-        if opts.oleanFileName?.isNone && opts.cFileName?.isNone then
+        if opts.oleanFileName?.isNone && opts.rustFileName?.isNone then
           pure `_stdin
         else
           throw e
@@ -548,12 +549,12 @@ def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do
   if let some env := env? then
     if opts.run then
       return ← runMain env opts.leanOpts args
-    if let some c := opts.cFileName? then
-      let .ok out ← IO.FS.Handle.mk c .write |>.toBaseIO
-        | IO.eprintln s!"failed to create '{c}'"
+    if let some rust := opts.rustFileName? then
+      let .ok out ← IO.FS.Handle.mk rust .write |>.toBaseIO
+        | IO.eprintln s!"failed to create '{rust}'"
           return 1
-      profileitIO "C code generation" opts.leanOpts do
-        let data ← Compiler.LCNF.emitC mainModuleName
+      profileitIO "Rust code generation" opts.leanOpts do
+        let data ← Compiler.LCNF.emitRust mainModuleName
           |>.toIO' { fileName, fileMap := default } { env }
         out.write data.toUTF8
     if let some bc := opts.bcFileName? then

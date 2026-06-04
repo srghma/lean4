@@ -27,9 +27,13 @@
             cmake gmp libuv ccache pkg-config
             llvmPackages.bintools  # wrapped lld
             llvmPackages.llvm  # llvm-symbolizer for asan/lsan
+            llvmPackages.libclang.lib
+            llvmPackages.libcxx
+            llvmPackages.libcxxClang
             gdb
             tree  # for CI
           ];
+          LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
           # https://github.com/NixOS/nixpkgs/issues/60919
           hardeningDisable = [ "all" ];
           # more convenient `ctest` output

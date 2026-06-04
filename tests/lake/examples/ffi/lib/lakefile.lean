@@ -29,25 +29,46 @@ target libleanffi_static pkg : FilePath := do
 lean_lib FFI.Static where
   moreLinkObjs := #[libleanffi_static]
 
-/-! ## Shared C++ FFI Library -/
+/-! ## Shared Rust FFI Library -/
 
-input_file ffi_shared.cpp where
-  path := "c" / "ffi_shared.cpp"
+input_file ffi_shared_cargo where
+  path := "c" / "ffi_shared" / "Cargo.toml"
   text := true
 
-target ffi_shared.o pkg : FilePath := do
-  let srcJob ← ffi_shared.cpp.fetch
-  let oFile := pkg.buildDir / "c" / "ffi_shared.o"
-  let weakArgs := #["-I", (← getLeanIncludeDir).toString]
-  buildO oFile srcJob weakArgs #["-fPIC"] "c++" getLeanTrace
+input_file ffi_shared.rs where
+  path := "c" / "ffi_shared" / "src" / "lib.rs"
+  text := true
+
+target ffi_shared.a pkg : FilePath := do
+  let cargoJob ← ffi_shared_cargo.fetch
+  let srcJob ← ffi_shared.rs.fetch
+  (Job.collectArray #[cargoJob, srcJob] "ffi_shared Rust sources").mapM fun _ => do
+    addLeanTrace
+    addPlatformTrace
+    let aFile := pkg.buildDir / "c" / "libffi_shared.a"
+    let cargoTargetDir := pkg.buildDir / "rust"
+    let cargoOut := cargoTargetDir / "release" / "libffi_shared.a"
+    let art ← buildArtifactUnlessUpToDate aFile (ext := "a") do
+      createParentDirs aFile
+      proc {
+        cmd := "cargo"
+        args := #[
+          "build",
+          "--release",
+          "--manifest-path", (pkg.srcDir / "c" / "ffi_shared" / "Cargo.toml").toString,
+          "--target-dir", cargoTargetDir.toString
+        ]
+      }
+      copyFile cargoOut aFile
+    return art.path
 
 target libleanffi_shared pkg : Dynlib := do
   let libName := "leanffi"
-  let ffiO ← ffi_shared.o.fetch
+  let ffiA ← ffi_shared.a.fetch
   let weakArgs := #["-L", (← getLeanLibDir).toString]
   let leanArgs ← getLeanLinkSharedFlags
   buildSharedLib libName (pkg.sharedLibDir / nameToSharedLib libName)
-    #[ffiO] #[] weakArgs leanArgs "c++" getLeanTrace
+    #[ffiA] #[] weakArgs leanArgs "cc" getLeanTrace
 
 lean_lib FFI.Shared where
   moreLinkLibs := #[libleanffi_shared]

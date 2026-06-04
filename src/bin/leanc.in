@@ -1,6 +1,57 @@
 #!/usr/bin/env bash
 # used only for building Lean itself
 root=$(dirname $0)
+
+has_rs=0
+v=0
+for arg in "$@"; do
+    if [[ "$arg" == *.rs ]]; then
+        has_rs=1
+    fi
+    if [[ "$arg" == "-v" ]]; then
+        v=1
+    fi
+done
+
+if [[ $has_rs == 1 ]]; then
+    outfile=""
+    sourcefile=""
+    opt_level="0"
+    debug=""
+    
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -o)
+                outfile="$2"
+                shift 2
+                ;;
+            *.rs)
+                sourcefile="$1"
+                shift
+                ;;
+            -g)
+                debug="-g"
+                shift
+                ;;
+            -O3|-O2|-O)
+                opt_level="3"
+                shift
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+    
+    if [[ -z "$outfile" ]]; then
+        outfile="${sourcefile%.rs}.o"
+    fi
+    
+    cmd=("rustc" "--crate-type=staticlib" "--emit=obj" "-C" "opt-level=$opt_level" ${debug} "-o" "$outfile" "$sourcefile")
+    [[ $v == 1 ]] && echo "${cmd[@]}"
+    exec "${cmd[@]}"
+fi
+
 ldflags=(@LEANC_INTERNAL_LINKER_FLAGS@ "-L$root/lib/lean" @LEAN_EXTRA_LINKER_FLAGS@)
 for arg in "$@"; do
     # ccache doesn't like linker flags being passed here

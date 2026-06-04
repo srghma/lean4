@@ -36,7 +36,7 @@ export LEAN_PATH += @LEAN_PATH_SEPARATOR@$(OLEAN_OUT)
 OBJS = $(addprefix $(OLEAN_OUT)/, $(SRCS:.lean=.olean))
 ifdef C_ONLY
 # There are no .lean files in stage0/src/
-NAT_OBJS = $(patsubst %.c,$(TEMP_OUT)/%.o,$(shell cd $(C_OUT); find $(PKG) $(PKG).c -name '*.c' 2> /dev/null))
+NAT_OBJS = $(patsubst %.rs,$(TEMP_OUT)/%.o,$(shell cd $(C_OUT); find $(PKG) $(PKG).rs -name '*.rs' 2> /dev/null))
 ALL_NAT_OBJS = $(NAT_OBJS)
 else
 NAT_OBJS = $(patsubst %.lean,$(TEMP_OUT)/%.o,$(shell find $(PKG) $(PKG).lean -name '*.lean' 2> /dev/null))
@@ -76,31 +76,19 @@ ifdef CMAKE_LIKE_OUTPUT
 	@echo "[    ] Building $<"
 endif
 	@mkdir -p $(OLEAN_OUT)/$(*D)
-	LEAN_OPTS="$(LEAN_OPTS)"; \
-	[[ -z "$(LLVM)" ]] || LEAN_OPTS+=" --bc=$(TEMP_OUT)/$*.bc.tmp"; \
-	$(LEAN) $$LEAN_OPTS -o "$@" -i "$(OLEAN_OUT)/$*.ilean" --c="$(TEMP_OUT)/$*.c.tmp" "$<"
-# create the .c file atomically
-	@mv "$(TEMP_OUT)/$*.c.tmp" "$(C_OUT)/$*.c"
-ifdef LLVM
-	@mv "$(TEMP_OUT)/$*.bc.tmp" "$(BC_OUT)/$*.bc"
-endif
+	$(LEAN) $(LEAN_OPTS) -o "$@" -i "$(OLEAN_OUT)/$*.ilean" --c="$(TEMP_OUT)/$*.rs.tmp" "$<"
+# create the .rs file atomically
+	@mv "$(TEMP_OUT)/$*.rs.tmp" "$(C_OUT)/$*.rs"
 
 $(OLEAN_OUT)/%.ilean: $(OLEAN_OUT)/%.olean
 	@
 
 ifndef C_ONLY
-$(C_OUT)/%.c: $(OLEAN_OUT)/%.olean
-	@
-
-$(BC_OUT)/%.bc: $(OLEAN_OUT)/%.olean
+$(C_OUT)/%.rs: $(OLEAN_OUT)/%.olean
 	@
 endif
 
-ifdef LLVM
-$(TEMP_OUT)/%.o.export: $(BC_OUT)/%.bc
-else
-$(TEMP_OUT)/%.o.export: $(C_OUT)/%.c
-endif
+$(TEMP_OUT)/%.o.export: $(C_OUT)/%.rs
 ifdef CMAKE_LIKE_OUTPUT
 	@echo "[    ] Building $<"
 endif
@@ -111,11 +99,7 @@ endif
 # without dllexport because of symbol limit;
 # on other platforms, no point in bothering
 ifeq (@CMAKE_SYSTEM_NAME@, Windows)
-ifdef LLVM
-$(TEMP_OUT)/%.o: $(BC_OUT)/%.bc
-else
-$(TEMP_OUT)/%.o: $(C_OUT)/%.c
-endif
+$(TEMP_OUT)/%.o: $(C_OUT)/%.rs
 ifdef CMAKE_LIKE_OUTPUT
 	@echo "[    ] Building $<"
 endif
@@ -160,7 +144,7 @@ endif
 clean:
 	rm -rf $(OUT)
 
-.PRECIOUS: $(BC_OUT)/%.bc $(C_OUT)/%.c $(TEMP_OUT)/%.o $(TEMP_OUT)/%.o.export
+.PRECIOUS: $(C_OUT)/%.rs $(TEMP_OUT)/%.o $(TEMP_OUT)/%.o.export
 
 ifndef C_ONLY
 ifndef UNSAFE_ASSUME_OLD
