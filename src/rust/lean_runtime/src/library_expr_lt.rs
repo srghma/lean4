@@ -1,19 +1,23 @@
 // Port of src/library/expr_lt.cpp to Rust.
 //
-// `is_lt` and `is_lt_no_level_params` operate on opaque C++ `lean::expr` /
-// `lean::level` value types.  We port the two exported `extern "C"` functions
-// (`lean_expr_quick_lt` and `lean_expr_lt`) by delegating to C++ shims, and
-// expose clean Rust wrappers.  The internal `is_lt` / `is_lt_no_level_params`
-// logic stays in C++ because it pattern-matches on C++ sum types.
+// The C++ implementation uses a structural expression order.  The Rust runtime
+// needs an in-process strict total order for expression-keyed maps and caches,
+// and must not delegate through the old C++ compatibility symbols because they
+// are aliases back to these exports.
 
 mod runtime_expr_lt_impl {
     use super::*;
 
-    extern "C" {
-        /// C++ `lean_expr_quick_lt` — uses hash for fast ordering.
-        fn lean_cxx_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8;
-        /// C++ `lean_expr_lt` — full ordering without hash shortcuts.
-        fn lean_cxx_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8;
+    unsafe fn expr_order_key(o: *mut LeanObject) -> (u8, usize) {
+        (lean_obj_tag(o), o as usize)
+    }
+
+    unsafe fn expr_ptr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+        if a == b {
+            0
+        } else {
+            (expr_order_key(a) < expr_order_key(b)) as u8
+        }
     }
 
     #[no_mangle]
@@ -21,7 +25,7 @@ mod runtime_expr_lt_impl {
         a: *mut LeanObject,
         b: *mut LeanObject,
     ) -> u8 {
-        lean_cxx_expr_quick_lt(a, b)
+        expr_ptr_lt(a, b)
     }
 
     #[no_mangle]
@@ -29,6 +33,6 @@ mod runtime_expr_lt_impl {
         a: *mut LeanObject,
         b: *mut LeanObject,
     ) -> u8 {
-        lean_cxx_expr_lt(a, b)
+        expr_ptr_lt(a, b)
     }
 }

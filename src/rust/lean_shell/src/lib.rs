@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use core::ffi::{c_char, c_int, c_uint};
+use core::ffi::{c_char, c_int, c_uint, c_void};
 use core::ptr;
 use core::slice;
 
@@ -52,7 +52,10 @@ struct TaskManagerGuard;
 
 impl Drop for TaskManagerGuard {
     fn drop(&mut self) {
-        unsafe { lean_finalize_task_manager() }
+        unsafe {
+            lean_finalize_task_manager();
+            call_next_finalize_task_manager();
+        }
     }
 }
 
@@ -83,6 +86,37 @@ fn bootstrap_num_threads() -> c_uint {
     unsafe {
         let n = libc::sysconf(libc::_SC_NPROCESSORS_ONLN);
         if n > 0 { n as c_uint } else { 1 }
+    }
+}
+
+#[cfg(unix)]
+unsafe fn lookup_shared_runtime_symbol(name: &[u8]) -> *mut c_void {
+    let handle = libc::dlopen(b"libleanshared.so\0".as_ptr().cast(), libc::RTLD_NOW);
+    if handle.is_null() {
+        ptr::null_mut()
+    } else {
+        libc::dlsym(handle, name.as_ptr().cast())
+    }
+}
+
+#[cfg(not(unix))]
+unsafe fn lookup_shared_runtime_symbol(_name: &[u8]) -> *mut c_void {
+    ptr::null_mut()
+}
+
+unsafe fn call_next_init_task_manager(num_threads: c_uint) {
+    let addr = lookup_shared_runtime_symbol(b"lean_init_task_manager_using\0");
+    if !addr.is_null() && addr != lean_init_task_manager_using as *mut c_void {
+        let f: unsafe extern "C" fn(c_uint) = core::mem::transmute(addr);
+        f(num_threads);
+    }
+}
+
+unsafe fn call_next_finalize_task_manager() {
+    let addr = lookup_shared_runtime_symbol(b"lean_finalize_task_manager\0");
+    if !addr.is_null() && addr != lean_finalize_task_manager as *mut c_void {
+        let f: unsafe extern "C" fn() = core::mem::transmute(addr);
+        f();
     }
 }
 
@@ -268,8 +302,7 @@ unsafe fn parse_and_process_options(
         }
         let token = slice::from_raw_parts(raw.cast::<u8>(), c_strlen(raw));
         if token.is_empty() || token[0] != b'-' {
-            idx += 1;
-            continue;
+            return Ok((shell_opts, idx));
         }
         if token == b"--" {
             return Ok((shell_opts, idx + 1));
@@ -369,6 +402,10 @@ unsafe fn make_args_list(argc: c_int, argv: *mut *mut c_char, start_idx: usize) 
     list
 }
 
+fn shell_trace_enabled() -> bool {
+    matches!(std::env::var("LEAN_TRACE_SHELL").as_deref(), Ok("1" | "true" | "yes"))
+}
+
 fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
     unsafe {
         lean_initialize();
@@ -386,6 +423,17 @@ fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
             Ok(v) => v,
             Err(code) => return code,
         };
+        if shell_trace_enabled() {
+            eprintln!("lean_shell argc={} start_idx={}", argc, start_idx);
+            for (idx, raw) in slice::from_raw_parts(argv, argc as usize).iter().enumerate() {
+                if raw.is_null() {
+                    eprintln!("  argv[{}]=<null>", idx);
+                } else {
+                    let bytes = slice::from_raw_parts((*raw).cast::<u8>(), c_strlen(*raw));
+                    eprintln!("  argv[{}]={}", idx, String::from_utf8_lossy(bytes));
+                }
+            }
+        }
 
         lean_io_mark_end_initialization();
 
@@ -396,6 +444,7 @@ fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
             bootstrap_num_threads()
         };
         lean_init_task_manager_using(num_threads);
+        call_next_init_task_manager(num_threads);
         let _task_manager_guard = TaskManagerGuard;
 
         let args = make_args_list(argc, argv, start_idx);

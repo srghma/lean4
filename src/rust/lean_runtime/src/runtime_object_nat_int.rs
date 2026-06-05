@@ -243,7 +243,7 @@ mod runtime_object_nat_int_impl {
             use core::sync::atomic::{AtomicUsize, Ordering};
             use std::io::Write;
             static COUNT: AtomicUsize = AtomicUsize::new(0);
-            if crate::runtime_trace_enabled("LEAN_TRACE_NAT_INT") {
+            if get_env_var_cached!("LEAN_TRACE_NAT_INT") {
                 let n = COUNT.fetch_add(1, Ordering::Relaxed) + 1;
                 if n <= 8 || n.is_power_of_two() {
                     if let Ok(mut f) = std::fs::OpenOptions::new()

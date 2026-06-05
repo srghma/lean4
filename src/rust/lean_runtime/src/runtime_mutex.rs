@@ -247,8 +247,15 @@ mod runtime_mutex_impl {
         lean_runtime_alloc_external(class, Box::into_raw(Box::new(value)).cast())
     }
 
+    unsafe fn ensure_mutex_classes_initialized() {
+        if BASEMUTEX_EXTERNAL_CLASS.is_null() {
+            initialize_mutex();
+        }
+    }
+
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_io_basemutex_new() -> *mut LeanObject {
+        ensure_mutex_classes_initialized();
         alloc_external(BASEMUTEX_EXTERNAL_CLASS, BaseMutex::new())
     }
 
@@ -271,6 +278,7 @@ mod runtime_mutex_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_io_condvar_new() -> *mut LeanObject {
+        ensure_mutex_classes_initialized();
         alloc_external(CONDVAR_EXTERNAL_CLASS, RuntimeCondvar::new())
     }
 
@@ -297,6 +305,7 @@ mod runtime_mutex_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_io_baserecmutex_new() -> *mut LeanObject {
+        ensure_mutex_classes_initialized();
         alloc_external(BASERECMUTEX_EXTERNAL_CLASS, BaseRecMutex::new())
     }
 
@@ -319,6 +328,7 @@ mod runtime_mutex_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_io_basesharedmutex_new() -> *mut LeanObject {
+        ensure_mutex_classes_initialized();
         alloc_external(BASESHAREDMUTEX_EXTERNAL_CLASS, BaseSharedMutex::new())
     }
 
@@ -363,14 +373,22 @@ mod runtime_mutex_impl {
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_mutexEv")]
     pub extern "C" fn initialize_mutex() {
         unsafe {
-            BASEMUTEX_EXTERNAL_CLASS =
-                lean_register_external_class(Some(basemutex_finalizer), Some(noop_foreach));
-            CONDVAR_EXTERNAL_CLASS =
-                lean_register_external_class(Some(condvar_finalizer), Some(noop_foreach));
-            BASERECMUTEX_EXTERNAL_CLASS =
-                lean_register_external_class(Some(baserecmutex_finalizer), Some(noop_foreach));
-            BASESHAREDMUTEX_EXTERNAL_CLASS =
-                lean_register_external_class(Some(basesharedmutex_finalizer), Some(noop_foreach));
+            if BASEMUTEX_EXTERNAL_CLASS.is_null() {
+                BASEMUTEX_EXTERNAL_CLASS =
+                    lean_register_external_class(Some(basemutex_finalizer), Some(noop_foreach));
+            }
+            if CONDVAR_EXTERNAL_CLASS.is_null() {
+                CONDVAR_EXTERNAL_CLASS =
+                    lean_register_external_class(Some(condvar_finalizer), Some(noop_foreach));
+            }
+            if BASERECMUTEX_EXTERNAL_CLASS.is_null() {
+                BASERECMUTEX_EXTERNAL_CLASS =
+                    lean_register_external_class(Some(baserecmutex_finalizer), Some(noop_foreach));
+            }
+            if BASESHAREDMUTEX_EXTERNAL_CLASS.is_null() {
+                BASESHAREDMUTEX_EXTERNAL_CLASS =
+                    lean_register_external_class(Some(basesharedmutex_finalizer), Some(noop_foreach));
+            }
         }
     }
 

@@ -57,7 +57,7 @@ extern "C" {
 
 // ─── Lean object-tag constants (must match lean.h) ───────────────────────────
 
-const LEAN_MAX_CTOR_TAG: u8 = 244;
+const LEAN_MAX_CTOR_TAG: u8 = 243;
 const LEAN_PROMISE_TAG: u8 = 244;
 const LEAN_CLOSURE_TAG: u8 = 245;
 const LEAN_ARRAY_TAG: u8 = 246;
@@ -312,7 +312,7 @@ pub unsafe extern "C" fn lean_alloc_ctor_memory_export(sz: usize) -> *mut LeanOb
 
 #[no_mangle]
 pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
-    let trace = runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT");
+    let trace = get_env_var_cached!("LEAN_TRACE_MARK_PERSISTENT");
     // Use a Vec as the worklist — simpler than the pointer-packing trick used
     // in the deletion loop, because we are not freeing these objects.
     let mut todo: Vec<*mut LeanObject> = Vec::new();
@@ -334,17 +334,24 @@ pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
 
         let tag = lean_ptr_tag(o);
         if trace {
-            eprintln!("  tag={} rc=0", tag);
+            eprintln!(
+                "  tag={} raw_rc={} cs_sz={} other={}",
+                tag,
+                (*o).m_rc,
+                (*o).m_cs_sz,
+                (*o).m_other,
+            );
+            eprintln!("  size={}", lean_object_byte_size(o));
         }
         if tag <= LEAN_MAX_CTOR_TAG {
             let n = lean_ctor_num_objs(o) as usize;
-            let it = lean_ctor_obj_cptr(o);
             if trace {
                 eprintln!("  ctor n={}", n);
             }
+            let it = lean_ctor_obj_cptr(o);
             for i in 0..n {
                 let child = *it.add(i);
-                if trace && !lean_is_scalar(child) && (child as usize) < 0x1000 {
+                if trace {
                     eprintln!("    push ctor child[{}]={:p}", i, child);
                 }
                 todo.push(child);
@@ -468,7 +475,7 @@ pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
 
 // Closure function handed to external objects during lean_mark_persistent.
 unsafe extern "C" fn mark_persistent_fn(o: *mut LeanObject) -> *mut LeanObject {
-    let trace = runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT");
+    let trace = get_env_var_cached!("LEAN_TRACE_MARK_PERSISTENT");
     if trace {
         let parent = trace_mark_persistent_parent_get();
         eprintln!("mark_persistent_fn parent={:p} arg={:p}", parent, o);
@@ -486,14 +493,18 @@ unsafe extern "C" fn mark_persistent_fn(o: *mut LeanObject) -> *mut LeanObject {
 
 #[no_mangle]
 pub unsafe extern "C" fn lean_mark_mt(o: *mut LeanObject) {
+    let trace = get_env_var_cached!("LEAN_TRACE_MARK_MT");
     if lean_is_scalar(o) || !lean_is_st(o) {
         return;
     }
 
-    let mut todo: Vec<*mut LeanObject> = Vec::new();
-    todo.push(o);
+    let mut todo: Vec<(*mut LeanObject, *mut LeanObject, usize)> = Vec::new();
+    todo.push((o, core::ptr::null_mut(), usize::MAX));
 
-    while let Some(o) = todo.pop() {
+    while let Some((o, parent, parent_idx)) = todo.pop() {
+        if trace && !lean_is_scalar(o) && (o as usize) < 0x1000 {
+            eprintln!("lean_mark_mt suspicious child={:p} parent={:p} idx={}", o, parent, parent_idx);
+        }
         if lean_is_scalar(o) || !lean_is_st(o) {
             continue;
         }
@@ -501,11 +512,23 @@ pub unsafe extern "C" fn lean_mark_mt(o: *mut LeanObject) {
         (*o).m_rc = -(*o).m_rc;
 
         let tag = lean_ptr_tag(o);
+        if trace {
+            eprintln!(
+                "lean_mark_mt pop={:p} parent={:p} idx={} tag={} rc={} cs_sz={} other={}",
+                o,
+                parent,
+                parent_idx,
+                tag,
+                (*o).m_rc,
+                (*o).m_cs_sz,
+                (*o).m_other,
+            );
+        }
         if tag <= LEAN_MAX_CTOR_TAG {
             let n = lean_ctor_num_objs(o) as usize;
             let it = lean_ctor_obj_cptr(o);
             for i in 0..n {
-                todo.push(*it.add(i));
+                todo.push((*it.add(i), o, i));
             }
         } else {
             match tag {
@@ -517,42 +540,82 @@ pub unsafe extern "C" fn lean_mark_mt(o: *mut LeanObject) {
                         0,
                     );
                     let e = o as *mut LeanExternalObject;
+                    if trace {
+                        eprintln!(
+                            "lean_mark_mt external={:p} class={:p} data={:p} parent={:p} idx={}",
+                            o,
+                            (*e).m_class,
+                            (*e).m_data,
+                            parent,
+                            parent_idx,
+                        );
+                        if (*e).m_class.is_null() && !parent.is_null() && !lean_is_scalar(parent) {
+                            let parent_tag = lean_ptr_tag(parent);
+                            eprintln!(
+                                "lean_mark_mt null external parent tag={} rc={} cs_sz={} other={}",
+                                parent_tag,
+                                (*parent).m_rc,
+                                (*parent).m_cs_sz,
+                                (*parent).m_other,
+                            );
+                            if parent_tag <= LEAN_MAX_CTOR_TAG {
+                                let n = lean_ctor_num_objs(parent) as usize;
+                                let it = lean_ctor_obj_cptr(parent);
+                                for i in 0..n {
+                                    let child = *it.add(i);
+                                    if lean_is_scalar(child) {
+                                        eprintln!("  parent child[{}]={:p} scalar={}", i, child, lean_unbox(child));
+                                    } else {
+                                        eprintln!(
+                                            "  parent child[{}]={:p} tag={} rc={} cs_sz={} other={}",
+                                            i,
+                                            child,
+                                            lean_ptr_tag(child),
+                                            (*child).m_rc,
+                                            (*child).m_cs_sz,
+                                            (*child).m_other,
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    }
                     ((*(*e).m_class).m_foreach)((*e).m_data, fn_obj);
                     lean_dec(fn_obj);
                 }
                 LEAN_TASK_TAG => {
-                    todo.push(lean_task_get(o));
+                    todo.push((lean_task_get(o), o, 0));
                 }
                 LEAN_PROMISE_TAG => {
-                    todo.push((*(o as *mut LeanPromiseObject)).result as *mut LeanObject);
+                    todo.push(((*(o as *mut LeanPromiseObject)).result as *mut LeanObject, o, 0));
                 }
                 LEAN_CLOSURE_TAG => {
                     let n = lean_closure_num_fixed(o) as usize;
                     let it = lean_closure_arg_cptr(o);
                     for i in 0..n {
-                        todo.push(*it.add(i));
+                        todo.push((*it.add(i), o, i));
                     }
                 }
                 LEAN_ARRAY_TAG => {
                     let n = lean_array_size(o);
                     let it = lean_array_cptr(o);
                     for i in 0..n {
-                        todo.push(*it.add(i));
+                        todo.push((*it.add(i), o, i));
                     }
                 }
                 LEAN_THUNK_TAG => {
                     let t = o as *mut LeanThunkObject;
                     if !(*t).m_closure.is_null() {
-                        todo.push((*t).m_closure);
+                        todo.push(((*t).m_closure, o, 0));
                     }
                     if !(*t).m_value.is_null() {
-                        todo.push((*t).m_value);
+                        todo.push(((*t).m_value, o, 1));
                     }
                 }
                 LEAN_REF_TAG => {
                     let r = o as *mut LeanRefObject;
                     if !(*r).m_value.is_null() {
-                        todo.push((*r).m_value);
+                        todo.push(((*r).m_value, o, 0));
                     }
                 }
                 _ => {

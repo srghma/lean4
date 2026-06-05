@@ -115,7 +115,7 @@ unsafe fn curry_raw(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *
 unsafe fn call_exact_exclusive(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject {
     let arity = closure_arity(f);
     let fixed = closure_num_fixed(f);
-    let mut args = [core::ptr::null_mut::<LeanObject>(); 32];
+    let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
     for i in 0..fixed as usize {
         args[i] = fx(f, i as u32);
     }
@@ -130,7 +130,7 @@ unsafe fn call_exact_exclusive(f: *mut LeanObject, new_args: &[*mut LeanObject])
 unsafe fn call_exact_shared(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject {
     let arity = closure_arity(f);
     let fixed = closure_num_fixed(f);
-    let mut args = [core::ptr::null_mut::<LeanObject>(); 32];
+    let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
     for i in 0..fixed as usize {
         let v = fx(f, i as u32);
         lean_inc(v);
@@ -165,7 +165,7 @@ unsafe fn apply_generic(
 
     if arity == fixed + n {
         // Exact application
-        if lean_is_exclusive(f) {
+        if arity <= 16 && lean_is_exclusive(f) {
             call_exact_exclusive(f, new_args)
         } else {
             call_exact_shared(f, new_args)
@@ -173,7 +173,7 @@ unsafe fn apply_generic(
     } else if arity < fixed + n {
         // Over-application: call with exactly (arity - fixed) args, then apply remainder
         let take = (arity - fixed) as usize;
-        let mut args = [core::ptr::null_mut::<LeanObject>(); 32];
+        let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
         for i in 0..fixed as usize {
             let v = fx(f, i as u32);
             lean_inc(v);
@@ -309,7 +309,26 @@ pub unsafe extern "C" fn lean_apply_n(
     n: u32,
     as_ptr: *mut *mut LeanObject,
 ) -> *mut LeanObject {
-    apply_generic(f, n, as_ptr)
+    match n {
+        0 => core::hint::unreachable_unchecked(),
+        1 => lean_apply_1(f, *as_ptr.add(0)),
+        2 => lean_apply_2(f, *as_ptr.add(0), *as_ptr.add(1)),
+        3 => lean_apply_3(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2)),
+        4 => lean_apply_4(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3)),
+        5 => lean_apply_5(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4)),
+        6 => lean_apply_6(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5)),
+        7 => lean_apply_7(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6)),
+        8 => lean_apply_8(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7)),
+        9 => lean_apply_9(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8)),
+        10 => lean_apply_10(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9)),
+        11 => lean_apply_11(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9), *as_ptr.add(10)),
+        12 => lean_apply_12(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9), *as_ptr.add(10), *as_ptr.add(11)),
+        13 => lean_apply_13(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9), *as_ptr.add(10), *as_ptr.add(11), *as_ptr.add(12)),
+        14 => lean_apply_14(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9), *as_ptr.add(10), *as_ptr.add(11), *as_ptr.add(12), *as_ptr.add(13)),
+        15 => lean_apply_15(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9), *as_ptr.add(10), *as_ptr.add(11), *as_ptr.add(12), *as_ptr.add(13), *as_ptr.add(14)),
+        16 => lean_apply_16(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2), *as_ptr.add(3), *as_ptr.add(4), *as_ptr.add(5), *as_ptr.add(6), *as_ptr.add(7), *as_ptr.add(8), *as_ptr.add(9), *as_ptr.add(10), *as_ptr.add(11), *as_ptr.add(12), *as_ptr.add(13), *as_ptr.add(14), *as_ptr.add(15)),
+        _ => lean_apply_m(f, n, as_ptr),
+    }
 }
 
 /// lean_curry: called from C++ (apply.h), takes a raw function pointer + args
@@ -320,4 +339,72 @@ pub unsafe extern "C" fn lean_runtime_curry(
     as_ptr: *mut *mut LeanObject,
 ) -> *mut LeanObject {
     curry_raw(fun, n, as_ptr)
+}
+
+#[cfg(test)]
+mod runtime_apply_tests {
+    use super::*;
+
+    unsafe extern "C" fn fnn_observe_first_arg_rc(args: *mut *mut LeanObject) -> *mut LeanObject {
+        let first = *args;
+        let rc = (*first).m_rc as usize;
+        for i in 0..17 {
+            lean_dec(*args.add(i));
+        }
+        lean_box(rc)
+    }
+
+    unsafe extern "C" fn fnn_sum_forty(args: *mut *mut LeanObject) -> *mut LeanObject {
+        let mut sum = 0;
+        for i in 0..40 {
+            let arg = *args.add(i);
+            sum += lean_unbox(arg);
+        }
+        lean_box(sum)
+    }
+
+    #[test]
+    fn exact_application_above_sixteen_uses_shared_fixed_args() {
+        unsafe {
+            let captured = lean_alloc_ctor(0, 0, 0);
+            let closure = lean_alloc_closure(
+                fnn_observe_first_arg_rc as *mut c_void,
+                17,
+                10,
+            );
+            let fixed = closure_arg_cptr(closure);
+            fixed.write(captured);
+            for i in 1..10 {
+                fixed.add(i).write(lean_box(i));
+            }
+
+            let result = lean_apply_7(
+                closure,
+                lean_box(10),
+                lean_box(11),
+                lean_box(12),
+                lean_box(13),
+                lean_box(14),
+                lean_box(15),
+                lean_box(16),
+            );
+
+            assert_eq!(lean_unbox(result), 2);
+        }
+    }
+
+    #[test]
+    fn exact_application_above_stack_buffer_size_uses_arity_sized_args() {
+        unsafe {
+            let closure = lean_alloc_closure(fnn_sum_forty as *mut c_void, 40, 37);
+            let fixed = closure_arg_cptr(closure);
+            for i in 0..37 {
+                fixed.add(i).write(lean_box(i));
+            }
+
+            let result = lean_apply_3(closure, lean_box(37), lean_box(38), lean_box(39));
+
+            assert_eq!(lean_unbox(result), (0..40).sum::<usize>());
+        }
+    }
 }

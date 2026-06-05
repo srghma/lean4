@@ -7,11 +7,23 @@ mod runtime_compact_impl {
         pub size: usize,
         pub is_memory_mapped: bool,
         pub objects: Vec<*mut LeanObject>,
+        pub mmap_ptr: *mut u8,
+        pub mmap_size: usize,
+        pub m_begin: usize,
+        pub m_base_addr: usize,
     }
 
     impl RustCompactedRegion {
         pub(crate) fn new(size: usize, objects: Vec<*mut LeanObject>) -> Self {
-            Self { size, is_memory_mapped: false, objects }
+            Self {
+                size,
+                is_memory_mapped: false,
+                objects,
+                mmap_ptr: core::ptr::null_mut(),
+                mmap_size: 0,
+                m_begin: 0,
+                m_base_addr: 0,
+            }
         }
     }
 
@@ -52,9 +64,18 @@ mod runtime_compact_impl {
     ) -> *mut LeanObject {
         if region != 0 {
             let region = Box::from_raw(region as *mut RustCompactedRegion);
-            for obj in region.objects {
-                if !obj.is_null() {
-                    super::lean_dealloc_export(obj as *mut u8, super::lean_object_byte_size(obj));
+            if !region.mmap_ptr.is_null() {
+                if region.is_memory_mapped {
+                    #[cfg(any(target_os = "linux", target_os = "macos"))]
+                    libc::munmap(region.mmap_ptr as *mut _, region.mmap_size);
+                } else {
+                    libc::free(region.mmap_ptr as *mut _);
+                }
+            } else {
+                for obj in region.objects {
+                    if !obj.is_null() {
+                        super::lean_dealloc_export(obj as *mut u8, super::lean_object_byte_size(obj));
+                    }
                 }
             }
         }

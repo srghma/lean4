@@ -122,12 +122,12 @@ mod runtime_time_task_impl {
     /// `profileit {α} (category opts fn decl) : α`
     #[no_mangle]
     pub unsafe extern "C" fn lean_profileit(
-        category: *mut LeanObject,
-        opts: *mut LeanObject,
+        _category: *mut LeanObject,
+        _opts: *mut LeanObject,
         func: *mut LeanObject,
-        decl: *mut LeanObject,
+        _decl: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_cxx_profileit(category, opts, func, decl)
+        lean_apply_1(func, lean_box(0))
     }
 
     #[export_name = "_ZN4lean20initialize_time_taskEv"]

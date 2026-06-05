@@ -137,20 +137,42 @@ mod runtime_object_array_impl {
         a: *mut LeanObject, v: *mut LeanObject,
     ) -> *mut LeanObject {
         let r;
+        let old_size = lean_array_size(a);
         if lean_is_exclusive(a) {
-            if lean_array_capacity(a) > lean_array_size(a) {
+            if lean_array_capacity(a) > old_size {
                 r = a;
             } else {
                 r = lean_copy_expand_array(a, true);
             }
         } else {
-            let expand = lean_array_capacity(a) < 2 * lean_array_size(a) + 1;
+            let expand = lean_array_capacity(a) < 2 * old_size + 1;
             r = lean_copy_expand_array_nonlinear(a, expand);
         }
         let sz_ref = &mut (*array_obj(r)).m_size;
         let it     = lean_array_cptr(r).add(*sz_ref);
         *it = v;
         *sz_ref += 1;
+        debug_array_push_log(a, old_size, r, *sz_ref, v);
+        if get_env_var_cached!("LEAN_DEBUG_ARRAY_PUSH") {
+            static PRINTS: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+            let bt = std::backtrace::Backtrace::force_capture().to_string();
+            let interesting = bt.contains("elabHeaders");
+            let count = PRINTS.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+            if interesting || (old_size == 0 && count < 4) {
+                eprintln!(
+                    "lean_array_push count={} interesting={} old={:p} old_size={} new={:p} value={:p} new_size={} new_cap={}",
+                    count,
+                    interesting,
+                    a,
+                    old_size,
+                    r,
+                    v,
+                    *sz_ref,
+                    lean_array_capacity(r),
+                );
+                eprintln!("{bt}");
+            }
+        }
         r
     }
 

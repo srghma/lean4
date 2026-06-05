@@ -255,7 +255,7 @@ pub unsafe extern "C" fn lean_sorry(_: u8) -> *mut LeanObject {
 const LEAN_ARRAY: u8 = 246;
 const LEAN_SCALAR_ARRAY: u8 = 248;
 const LEAN_STRING: u8 = 249;
-const LEAN_CLOSURE: u8 = 250;
+const LEAN_CLOSURE: u8 = 245;
 
 
 

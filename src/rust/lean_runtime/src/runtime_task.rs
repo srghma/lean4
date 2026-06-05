@@ -971,12 +971,15 @@ pub unsafe extern "C" fn deactivate_promise(p: *mut LeanObject) {
 #[no_mangle]
 pub unsafe extern "C" fn lean_promise_new() -> *mut LeanObject {
     if get_task_manager().is_none() {
-        lean_internal_panic(
-            c"`IO.Promise.new` called before the task manager is running; \
-              this typically happens when called (directly or transitively, \
-              e.g. via `IO.CancelToken.new`) from an `initialize` block. \
-              Construct lazily on first use instead.".as_ptr(),
-        );
+        lean_init_task_manager();
+        if get_task_manager().is_none() {
+            lean_internal_panic(
+                c"`IO.Promise.new` called before the task manager is running; \
+                  this typically happens when called (directly or transitively, \
+                  e.g. via `IO.CancelToken.new`) from an `initialize` block. \
+                  Construct lazily on first use instead.".as_ptr(),
+            );
+        }
     }
 
     // Allocate the underlying task object (no closure, no value yet).

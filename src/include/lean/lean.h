@@ -50,6 +50,9 @@ uint8_t lean_is_scalar(struct lean_object *obj);
 struct lean_object *lean_box(Size value);
 struct lean_object *lean_alloc_ctor(unsigned int tag, unsigned int num_objs, unsigned int scalar_sz);
 void lean_dec_ref(struct lean_object *obj);
+bool lean_is_exclusive(struct lean_object *o);
+void lean_dec(struct lean_object *obj);
+struct lean_object *lean_ctor_get(struct lean_object *obj, unsigned int idx);
 Size lean_unbox(const struct lean_object *obj);
 bool lean_io_result_is_ok(struct lean_object *obj);
 void lean_io_result_show_error(struct lean_object *r);
@@ -181,26 +184,36 @@ static inline void lean_inc_ref(lean_object *obj) {
 if (obj->m_rc > 0) {
 obj->m_rc += 1;
 } else if (obj->m_rc < 0) {
-__atomic_fetch_add(&obj->m_rc, 1, __ATOMIC_RELAXED);
+__atomic_fetch_sub(&obj->m_rc, 1, __ATOMIC_RELAXED);
 }
 }
 
 static inline void lean_inc_ref_n(lean_object *obj, uintptr_t n) {
-for (uintptr_t i = 0; i < n; ++i) {
-lean_inc_ref(obj);
+if (obj->m_rc > 0) {
+obj->m_rc += n;
+} else if (obj->m_rc < 0) {
+__atomic_fetch_sub(&obj->m_rc, n, __ATOMIC_RELAXED);
+}
+}
+
+extern void lean_free_object(struct lean_object *obj);
+
+static inline void lean_del_object(lean_object *obj) {
+if (!lean_is_scalar(obj)) {
+lean_free_object(obj);
 }
 }
 
 static inline void lean_dec_ref_known(lean_object *obj, uintptr_t n) {
+if (lean_is_exclusive(obj)) {
 for (uintptr_t i = 0; i < n; ++i) {
+lean_dec(lean_ctor_get(obj, i));
+}
+lean_del_object(obj);
+} else {
 lean_dec_ref(obj);
 }
 }
-
-static inline void lean_del_object(lean_object *obj) {
-lean_dec_ref(obj);
-}
-
 static inline void lean_ctor_set_tag(lean_object *o, uint8_t tag) {
 o->m_tag = tag;
 }
@@ -221,8 +234,8 @@ static inline uint64_t lean_ctor_get_uint64(lean_object *obj, uintptr_t offset) 
 return *((uint64_t *)((uint8_t *)(obj + 1) + offset));
 }
 
-static inline uintptr_t lean_ctor_get_usize(lean_object *obj, uintptr_t offset) {
-return *((uintptr_t *)((uint8_t *)(obj + 1) + offset));
+static inline uintptr_t lean_ctor_get_usize(lean_object *obj, uintptr_t index) {
+return *((uintptr_t *)(obj + 1) + index);
 }
 
 static inline float lean_ctor_get_float32(lean_object *obj, uintptr_t offset) {
@@ -249,8 +262,8 @@ static inline void lean_ctor_set_uint64(lean_object *obj, uintptr_t offset, uint
 *((uint64_t *)((uint8_t *)(obj + 1) + offset)) = value;
 }
 
-static inline void lean_ctor_set_usize(lean_object *obj, uintptr_t offset, uintptr_t value) {
-*((uintptr_t *)((uint8_t *)(obj + 1) + offset)) = value;
+static inline void lean_ctor_set_usize(lean_object *obj, uintptr_t index, uintptr_t value) {
+*((uintptr_t *)(obj + 1) + index) = value;
 }
 
 static inline void lean_ctor_set_float32(lean_object *obj, uintptr_t offset, float value) {
@@ -272,11 +285,13 @@ return lean_ctor_get_uint64(obj, 0);
 }
 
 static inline struct lean_object *lean_box_usize(uintptr_t v) {
-return lean_box((Size)v);
+struct lean_object *r = lean_alloc_ctor(0, 0, sizeof(uintptr_t));
+lean_ctor_set_usize(r, 0, v);
+return r;
 }
 
 static inline uintptr_t lean_unbox_usize(struct lean_object *obj) {
-return lean_unbox(obj);
+return lean_ctor_get_usize(obj, 0);
 }
 
 static inline bool lean_io_result_is_error(struct lean_object *obj) {
@@ -291,8 +306,8 @@ typedef struct lean_external_object {
 
 typedef struct lean_thunk_object {
   struct lean_object m_header;
-  struct lean_object *m_closure;
   struct lean_object *m_value;
+  struct lean_object *m_closure;
 } lean_thunk_object;
 
 typedef struct lean_ref_object {

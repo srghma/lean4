@@ -40,9 +40,7 @@ mod runtime_io_impl {
 
         // stream_of_handle (Lean function implemented in Lean)
         fn lean_stream_of_handle(h: *mut LeanObject) -> *mut LeanObject;
-
-        // option_ref helpers
-        fn lean_io_option_get_or_block_c(o_opt: *mut LeanObject) -> *mut LeanObject;
+        fn lean_mark_persistent(o: *mut LeanObject);
 
         // task helpers (already in runtime_task.rs / object_shims.cpp)
         fn lean_io_as_task_core(act: *mut LeanObject, prio: usize) -> *mut LeanObject;
@@ -246,23 +244,23 @@ mod runtime_io_impl {
         if IO_SHIM_INIT.swap(true, Ordering::AcqRel) {
             return;
         }
-        libc::write(2, b"io: wrap stdin\n".as_ptr().cast(), 15);
-        IO_SHIM_STDIN = lean_io_wrap_handle_c(libc_stdin);
-        libc::write(2, b"io: wrap stdout\n".as_ptr().cast(), 16);
-        IO_SHIM_STDOUT = lean_io_wrap_handle_c(libc_stdout);
-        libc::write(2, b"io: wrap stderr\n".as_ptr().cast(), 16);
-        IO_SHIM_STDERR = lean_io_wrap_handle_c(libc_stderr);
-        libc::write(2, b"io: persist stdin\n".as_ptr().cast(), 18);
+        trace_runtime_init(b"io: wrap stdin\n");
+        IO_SHIM_STDIN = lean_stream_of_handle(lean_io_wrap_handle_c(libc_stdin));
+        trace_runtime_init(b"io: wrap stdout\n");
+        IO_SHIM_STDOUT = lean_stream_of_handle(lean_io_wrap_handle_c(libc_stdout));
+        trace_runtime_init(b"io: wrap stderr\n");
+        IO_SHIM_STDERR = lean_stream_of_handle(lean_io_wrap_handle_c(libc_stderr));
+        trace_runtime_init(b"io: persist stdin\n");
         mark_io_handle_persistent(IO_SHIM_STDIN);
-        libc::write(2, b"io: persist stdout\n".as_ptr().cast(), 19);
+        trace_runtime_init(b"io: persist stdout\n");
         mark_io_handle_persistent(IO_SHIM_STDOUT);
-        libc::write(2, b"io: persist stderr\n".as_ptr().cast(), 19);
+        trace_runtime_init(b"io: persist stderr\n");
         mark_io_handle_persistent(IO_SHIM_STDERR);
-        libc::write(2, b"io: done\n".as_ptr().cast(), 9);
+        trace_runtime_init(b"io: done\n");
     }
     unsafe fn mark_io_handle_persistent(h: *mut LeanObject) {
         if !lean_is_scalar(h) {
-            (*h).m_rc = 0;
+            lean_mark_persistent(h);
         }
     }
     unsafe fn decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject {
@@ -1108,9 +1106,15 @@ mod runtime_io_impl {
     // -----------------------------------------------------------------------
     // Task / IO task combinators
     // -----------------------------------------------------------------------
+    unsafe extern "C" fn lean_io_as_task_fn(act: *mut LeanObject, _world: *mut LeanObject) -> *mut LeanObject {
+        lean_apply_1(act, lean_box(0))
+    }
+
     #[no_mangle]
     pub unsafe extern "C" fn lean_io_as_task(act: *mut LeanObject, prio: *mut LeanObject) -> *mut LeanObject {
-        lean_io_as_task_core(act, lean_unbox(prio))
+        let closure = lean_alloc_closure_export(lean_io_as_task_fn as *mut c_void, 2, 1);
+        lean_closure_set(closure, 0, act);
+        lean_task_spawn_core(closure, lean_unbox(prio) as u32, true)
     }
 
     #[no_mangle]
@@ -1187,7 +1191,7 @@ mod runtime_io_impl {
 
     #[no_mangle]
     pub unsafe extern "C" fn lean_runtime_mark_persistent(a: *mut LeanObject) -> *mut LeanObject {
-        if runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT") {
+        if get_env_var_cached!("LEAN_TRACE_MARK_PERSISTENT") {
             eprintln!("lean_runtime_mark_persistent arg={:p}", a);
         }
         lean_mark_persistent(a);
@@ -1214,7 +1218,18 @@ mod runtime_io_impl {
     // -----------------------------------------------------------------------
     #[no_mangle]
     pub unsafe extern "C" fn lean_option_get_or_block(o_opt: *mut LeanObject) -> *mut LeanObject {
-        lean_io_option_get_or_block_c(o_opt)
+        if lean_is_scalar(o_opt) || lean_obj_tag(o_opt) == 0 {
+            lean_dec(o_opt);
+            lean_internal_panic(
+                b"PANIC: Promise.result!: promise has been dropped without ever being resolved\0"
+                    .as_ptr()
+                    .cast(),
+            );
+        }
+        let value = lean_ctor_get_export(o_opt, 0);
+        lean_inc(value);
+        lean_dec(o_opt);
+        value
     }
 
     // -----------------------------------------------------------------------

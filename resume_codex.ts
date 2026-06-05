@@ -15,7 +15,7 @@ type TaskConfig = {
 };
 
 type AppConfig = {
-    readonly sessionId: string;
+    readonly sessionId: string | undefined;
     readonly codexMessage: string;
     readonly geminiMessage: string;
     readonly codexIntervalMs: number;
@@ -38,9 +38,10 @@ type Lock = {
 // ==========================================
 
 const CONFIG: AppConfig = {
-    sessionId: "019e926d-d08e-7641-b5b6-3cd26b91f03a",
-    codexMessage: "/goal continue fixing. To see goal - read GOAL.md. You are allowed to run long tasks, because I am right now away from keyboard. I have already done some work, so run git diff to verify the current changes; adjust if needed. To see goal - read GOAL.md.",
-    geminiMessage: "/goal continue fixing",
+    // sessionId: "019e926d-d08e-7641-b5b6-3cd26b91f03a",
+    sessionId: undefined,
+    codexMessage: "/goal continue fixing. To see goal - read GOAL.md. You are allowed to run long tasks, because I am right now away from keyboard. I have already done some work, so run git diff to verify the current changes; adjust if needed.",
+    geminiMessage: "/goal continue fixing. To see goal - read GOAL.md. You are allowed to run long tasks, because I am right now away from keyboard.",
     codexIntervalMs: (5 * 60 + 10) * 60 * 1000, // 5h 10m
     geminiIntervalMs: 5 * 60 * 60 * 1000,       // 5h
     retryDelayMs: 5 * 60 * 1000,                // 5m
@@ -56,11 +57,9 @@ const sleep = (ms: number): Promise<void> =>
 
 const getCodexStartTime = (): Date => {
     const target = new Date();
-    target.setHours(23, 42, 0, 0);
-    target.setSeconds(target.getSeconds() + 60); // 23:43 Buffer
-    return target.getTime() < Date.now()
-        ? new Date(target.getTime() + 24 * 60 * 60 * 1000)
-        : target;
+    target.setHours(5, 0, 0, 0);
+    target.setSeconds(target.getSeconds() + 60);
+    return target
 };
 
 const getGeminiStartTime = (): Date => {
@@ -98,8 +97,8 @@ const makeLock = (): Lock => {
 // IO EFFECT HANDLERS (Shell Execution)
 // ==========================================
 
-const runCodexCommand = (sessionId: string) => async (message: string): Promise<boolean> => {
-    const process = spawn(["codex", "resume", sessionId, "-m", message], {
+const runCodexCommand = (sessionId: string | undefined) => async (message: string): Promise<boolean> => {
+    const process = spawn(["codex", ...(sessionId ? ["resume", sessionId] : []), "-m", message], {
         stdout: "pipe",
         stderr: "pipe",
     });
@@ -227,13 +226,13 @@ const runWorkerLoop = async (task: TaskConfig, state: WorkerState, lock: Lock): 
             getMessage: () => (CONFIG.codexMessage),
             runner: runCodexCommand(CONFIG.sessionId),
         },
-        {
-            name: "Gemini Queue (3.1 Pro Low)",
-            getStartTime: getGeminiStartTime,
-            intervalMs: CONFIG.geminiIntervalMs,
-            getMessage: () => CONFIG.geminiMessage,
-            runner: runAgyCommand,
-        },
+        // {
+        //     name: "Gemini Queue (3.1 Pro Low)",
+        //     getStartTime: getGeminiStartTime,
+        //     intervalMs: CONFIG.geminiIntervalMs,
+        //     getMessage: () => CONFIG.geminiMessage,
+        //     runner: runAgyCommand,
+        // },
     ];
 
     console.log("Initializing Serialized Schedulers...");

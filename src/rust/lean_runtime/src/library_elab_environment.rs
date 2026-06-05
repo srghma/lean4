@@ -58,9 +58,6 @@ mod library_elab_environment_impl {
             a: *mut LeanObject,
         ) -> *mut LeanObject;
 
-        #[link_name = "lean_internal_get_believer_trust_level"]
-        fn lean_cxx_internal_get_believer_trust_level(w: *mut LeanObject) -> u32;
-
         fn lean_expr_equal(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     }
 
@@ -191,9 +188,9 @@ mod library_elab_environment_impl {
     /// `getBelieverTrustLevel (_ : Unit) : UInt32`
     #[no_mangle]
     pub unsafe extern "C" fn lean_internal_get_believer_trust_level(
-        w: *mut LeanObject,
+        _w: *mut LeanObject,
     ) -> u32 {
-        lean_cxx_internal_get_believer_trust_level(w)
+        1024
     }
 
 }

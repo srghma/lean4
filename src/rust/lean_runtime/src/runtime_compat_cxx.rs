@@ -15,6 +15,93 @@ static mut IO_SHIM_STDIN: *mut LeanObject = null_mut();
 static mut IO_SHIM_STDOUT: *mut LeanObject = null_mut();
 static mut IO_SHIM_STDERR: *mut LeanObject = null_mut();
 static mut IO_HANDLE_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
+static DEBUG_ARRAY_SIZES: std::sync::OnceLock<std::sync::Mutex<std::collections::VecDeque<(usize, usize)>>> = std::sync::OnceLock::new();
+static DEBUG_NAT_LTS: std::sync::OnceLock<std::sync::Mutex<std::collections::VecDeque<(usize, usize, u8)>>> = std::sync::OnceLock::new();
+static DEBUG_ARRAY_PUSHES: std::sync::OnceLock<std::sync::Mutex<std::collections::VecDeque<(usize, usize, usize, usize, usize)>>> = std::sync::OnceLock::new();
+
+fn debug_array_size_log(obj: *mut LeanObject, size: usize) {
+    if !get_env_var_cached!("LEAN_DEBUG_ARRAY_SIZES") {
+        return;
+    }
+    let log = DEBUG_ARRAY_SIZES.get_or_init(|| std::sync::Mutex::new(std::collections::VecDeque::with_capacity(128)));
+    let Ok(mut log) = log.lock() else {
+        return;
+    };
+    if log.len() == 128 {
+        log.pop_front();
+    }
+    log.push_back((obj as usize, size));
+}
+
+fn debug_array_size_dump() {
+    if !get_env_var_cached!("LEAN_DEBUG_ARRAY_SIZES") {
+        return;
+    }
+    if let Some(log) = DEBUG_ARRAY_SIZES.get() {
+        if let Ok(log) = log.lock() {
+            eprintln!("recent lean_array_get_size calls:");
+            for (idx, (obj, size)) in log.iter().enumerate() {
+                eprintln!("  {idx:03}: array=0x{obj:x} size={size}");
+            }
+        }
+    }
+}
+
+fn debug_nat_lt_log(a: usize, b: usize, result: u8) {
+    if !get_env_var_cached!("LEAN_DEBUG_NAT_DEC") {
+        return;
+    }
+    let log = DEBUG_NAT_LTS.get_or_init(|| std::sync::Mutex::new(std::collections::VecDeque::with_capacity(128)));
+    let Ok(mut log) = log.lock() else {
+        return;
+    };
+    if log.len() == 128 {
+        log.pop_front();
+    }
+    log.push_back((a, b, result));
+}
+
+fn debug_nat_lt_dump() {
+    if !get_env_var_cached!("LEAN_DEBUG_NAT_DEC") {
+        return;
+    }
+    if let Some(log) = DEBUG_NAT_LTS.get() {
+        if let Ok(log) = log.lock() {
+            eprintln!("recent lean_nat_dec_lt scalar calls:");
+            for (idx, (a, b, result)) in log.iter().enumerate() {
+                eprintln!("  {idx:03}: {a} < {b} => {result}");
+            }
+        }
+    }
+}
+
+fn debug_array_push_log(old: *mut LeanObject, old_size: usize, new: *mut LeanObject, new_size: usize, value: *mut LeanObject) {
+    if !get_env_var_cached!("LEAN_DEBUG_ARRAY_PUSH_RING") {
+        return;
+    }
+    let log = DEBUG_ARRAY_PUSHES.get_or_init(|| std::sync::Mutex::new(std::collections::VecDeque::with_capacity(128)));
+    let Ok(mut log) = log.lock() else {
+        return;
+    };
+    if log.len() == 128 {
+        log.pop_front();
+    }
+    log.push_back((old as usize, old_size, new as usize, new_size, value as usize));
+}
+
+fn debug_array_push_dump() {
+    if !get_env_var_cached!("LEAN_DEBUG_ARRAY_PUSH_RING") {
+        return;
+    }
+    if let Some(log) = DEBUG_ARRAY_PUSHES.get() {
+        if let Ok(log) = log.lock() {
+            eprintln!("recent lean_array_push calls:");
+            for (idx, (old, old_size, new, new_size, value)) in log.iter().enumerate() {
+                eprintln!("  {idx:03}: old=0x{old:x} old_size={old_size} new=0x{new:x} new_size={new_size} value=0x{value:x}");
+            }
+        }
+    }
+}
 
 unsafe extern "C" fn io_handle_noop_finalize(_: *mut c_void) {}
 unsafe extern "C" fn io_handle_noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
@@ -230,7 +317,13 @@ unsafe fn array_clone(a: *mut LeanObject) -> *mut LeanObject {
 }
 
 unsafe fn array_ensure_writable(a: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_exclusive(a) { a } else { array_clone(a) }
+    if lean_is_exclusive(a) {
+        a
+    } else {
+        let r = array_clone(a);
+        lean_dec(a);
+        r
+    }
 }
 
 unsafe fn array_get_obj(a: *mut LeanObject, idx: usize, inc: bool) -> *mut LeanObject {
@@ -239,7 +332,47 @@ unsafe fn array_get_obj(a: *mut LeanObject, idx: usize, inc: bool) -> *mut LeanO
     v
 }
 
+unsafe fn array_get_checked_obj(
+    def_val: *mut LeanObject,
+    a: *mut LeanObject,
+    i: *mut LeanObject,
+    inc_result: bool,
+) -> *mut LeanObject {
+    if lean_is_scalar(i) {
+        let idx = lean_unbox(i);
+        let size = lean_array_size(a);
+        if idx < size {
+            return array_get_obj(a, idx, inc_result);
+        }
+        if get_env_var_cached!("LEAN_DEBUG_ARRAY_GET") {
+            eprintln!(
+                "lean_array_get_checked_oob def={:p} array={:p} size={} idx={} caller={:p}",
+                def_val,
+                a,
+                size,
+                idx,
+                std::panic::Location::caller() as *const _,
+            );
+            eprintln!("{}", std::backtrace::Backtrace::force_capture());
+        }
+        debug_array_size_dump();
+        debug_nat_lt_dump();
+        debug_array_push_dump();
+    } else if get_env_var_cached!("LEAN_DEBUG_ARRAY_GET") {
+        eprintln!(
+            "lean_array_get_checked_non_scalar_index def={:p} array={:p} index={:p}",
+            def_val,
+            a,
+            i,
+        );
+        eprintln!("{}", std::backtrace::Backtrace::force_capture());
+    }
+    lean_inc(def_val);
+    crate::runtime_object_array_impl::lean_array_get_panic(def_val)
+}
+
 unsafe fn array_set_obj(a: *mut LeanObject, idx: usize, v: *mut LeanObject) -> *mut LeanObject {
+    let old_size = lean_array_size(a);
     let r = array_ensure_writable(a);
     let slot = array_elem_ptr(r, idx);
     let old = *slot;
@@ -247,6 +380,21 @@ unsafe fn array_set_obj(a: *mut LeanObject, idx: usize, v: *mut LeanObject) -> *
         lean_dec(old);
     }
     *slot = v;
+    if get_env_var_cached!("LEAN_DEBUG_ARRAY_USET") {
+        let bt = std::backtrace::Backtrace::force_capture().to_string();
+        if bt.contains("elabMutualDef_go_spec__1") || bt.contains("elabMutualDef_go_spec__2") || bt.contains("elabHeaders") {
+            eprintln!(
+                "lean_array_uset old={:p} old_size={} idx={} new={:p} new_size={} value={:p}",
+                a,
+                old_size,
+                idx,
+                r,
+                lean_array_size(r),
+                v,
+            );
+            eprintln!("{bt}");
+        }
+    }
     r
 }
 
@@ -343,7 +491,7 @@ macro_rules! trace_compat {
             use core::sync::atomic::{AtomicUsize, Ordering};
             use std::io::Write;
             static COUNT: AtomicUsize = AtomicUsize::new(0);
-            if crate::runtime_trace_enabled("LEAN_TRACE_NAT_INT") {
+            if get_env_var_cached!("LEAN_TRACE_NAT_INT") {
                 let n = COUNT.fetch_add(1, Ordering::Relaxed) + 1;
                 if n <= 8 || n.is_power_of_two() {
                     if let Ok(mut f) = std::fs::OpenOptions::new()
@@ -700,7 +848,11 @@ pub unsafe extern "C" fn lean_nat_dec_eq_export(
     b: *mut LeanObject,
 ) -> u8 {
     trace_compat!("lean_nat_dec_eq");
-    lean_nat_big_eq(a, b) as u8
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        (a == b) as u8
+    } else {
+        lean_nat_big_eq(a, b) as u8
+    }
 }
 
 #[export_name = "lean_nat_dec_le"]
@@ -709,7 +861,11 @@ pub unsafe extern "C" fn lean_nat_dec_le_export(
     b: *mut LeanObject,
 ) -> u8 {
     trace_compat!("lean_nat_dec_le");
-    lean_nat_big_le(a, b) as u8
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        (lean_unbox(a) <= lean_unbox(b)) as u8
+    } else {
+        lean_nat_big_le(a, b) as u8
+    }
 }
 
 #[export_name = "lean_nat_dec_lt"]
@@ -718,7 +874,16 @@ pub unsafe extern "C" fn lean_nat_dec_lt_export(
     b: *mut LeanObject,
 ) -> u8 {
     trace_compat!("lean_nat_dec_lt");
-    lean_nat_big_lt(a, b) as u8
+    let result = if lean_is_scalar(a) && lean_is_scalar(b) {
+        let a = lean_unbox(a);
+        let b = lean_unbox(b);
+        let result = (a < b) as u8;
+        debug_nat_lt_log(a, b, result);
+        result
+    } else {
+        lean_nat_big_lt(a, b) as u8
+    };
+    result
 }
 
 #[export_name = "lean_nat_mul"]
@@ -833,7 +998,16 @@ pub unsafe extern "C" fn lean_string_utf8_next_fast_export(
 
 #[export_name = "lean_array_get_size"]
 pub unsafe extern "C" fn lean_array_get_size_export(obj: *mut LeanObject) -> *mut LeanObject {
-    lean_box(lean_array_size(obj))
+    let size = lean_array_size(obj);
+    debug_array_size_log(obj, size);
+    if get_env_var_cached!("LEAN_DEBUG_ARRAY_GET_SIZE_STACK") {
+        let bt = std::backtrace::Backtrace::force_capture().to_string();
+        if bt.contains("elabHeaders") {
+            eprintln!("lean_array_get_size obj={:p} size={}", obj, size);
+            eprintln!("{bt}");
+        }
+    }
+    lean_box(size)
 }
 
 #[export_name = "lean_array_fget_borrowed"]
@@ -854,18 +1028,20 @@ pub unsafe extern "C" fn lean_array_fget_export(
 
 #[export_name = "lean_array_get_borrowed"]
 pub unsafe extern "C" fn lean_array_get_borrowed_export(
+    def_val: *mut LeanObject,
     a: *mut LeanObject,
     i: *mut LeanObject,
 ) -> *mut LeanObject {
-    array_get_obj(a, lean_unbox(i), false)
+    array_get_checked_obj(def_val, a, i, false)
 }
 
 #[export_name = "lean_array_get"]
 pub unsafe extern "C" fn lean_array_get_export(
+    def_val: *mut LeanObject,
     a: *mut LeanObject,
     i: *mut LeanObject,
 ) -> *mut LeanObject {
-    array_get_obj(a, lean_unbox(i), true)
+    array_get_checked_obj(def_val, a, i, true)
 }
 
 #[export_name = "lean_array_uget"]
@@ -1141,4 +1317,63 @@ pub unsafe extern "C" fn lean_decode_uv_error_c_export(
     fname: *mut LeanObject,
 ) -> *mut LeanObject {
     crate::runtime_io_impl::lean_decode_uv_error(errnum, fname)
+}
+
+#[cfg(test)]
+mod runtime_compat_cxx_tests {
+    use super::*;
+    use core::ffi::c_uint;
+
+    #[test]
+    fn shared_array_uset_consumes_input_reference() {
+        unsafe {
+            let value = lean_alloc_ctor(0, 0, 0);
+            let replacement = lean_box(2);
+            let array = lean_alloc_array(1, 1);
+            *lean_array_cptr(array) = value;
+            lean_inc(array);
+
+            let updated = lean_array_uset_export(array, 0, replacement);
+
+            assert_ne!(updated, array);
+            assert_eq!((*array).m_rc, 1);
+            assert_eq!((*value).m_rc, 1);
+            assert_eq!(lean_unbox(*lean_array_cptr(updated)), 2);
+
+            lean_dec(updated);
+            lean_dec(array);
+        }
+    }
+
+    #[test]
+    fn ctor_layout_handles_many_fields_and_odd_scalar_tail() {
+        unsafe {
+            let fields = 8usize;
+            let scalar_size = 11usize;
+            let obj = lean_alloc_ctor(0, fields as c_uint, scalar_size as c_uint);
+
+            for i in 0..fields {
+                lean_ctor_set(obj, i, lean_box(100 + i));
+            }
+            for i in 0..scalar_size {
+                lean_ctor_set_uint8(obj, fields * core::mem::size_of::<*mut LeanObject>() + i, (17 + i) as u8);
+            }
+
+            for i in 0..fields {
+                assert_eq!(lean_unbox(lean_ctor_get(obj, i)), 100 + i);
+            }
+            for i in 0..scalar_size {
+                assert_eq!(
+                    lean_ctor_get_uint8(obj, fields * core::mem::size_of::<*mut LeanObject>() + i),
+                    (17 + i) as u8,
+                );
+            }
+            assert_eq!(
+                lean_object_byte_size(obj),
+                (core::mem::size_of::<LeanObject>() + fields * core::mem::size_of::<*mut LeanObject>() + scalar_size + 7) & !7,
+            );
+
+            lean_dec(obj);
+        }
+    }
 }

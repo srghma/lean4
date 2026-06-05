@@ -96,26 +96,17 @@ pub unsafe extern "C" fn lean_obj_once_cold(
     init: ObjInitFn,
 ) -> *mut LeanObject {
     let tok_ref = &*tok;
-    let trace = runtime_trace_enabled("LEAN_TRACE_OBJ_ONCE");
+    let trace = get_env_var_cached!("LEAN_TRACE_OBJ_ONCE");
     if trace {
         eprintln!("lean_obj_once_cold enter tok={:p} loc={:p} state={}", tok, loc, tok_ref.state.load(Ordering::Relaxed));
     }
     lock_once_cell(&tok_ref.lock);
     if tok_ref.state.load(Ordering::Acquire) != 1 {
         *loc = init();
-        if runtime_trace_enabled("LEAN_TRACE_MARK_PERSISTENT") {
-            eprintln!("lean_obj_once_cold mark loc={:p} value={:p}", loc, *loc);
-            if (*loc as usize) < 0x1000 {
-                eprintln!(
-                    "lean_obj_once_cold suspicious init={:p} loc={:p} value={:p}",
-                    init as *const (),
-                    loc,
-                    *loc
-                );
-                #[cfg(target_family = "unix")]
-                trace_dladdr(init as *const core::ffi::c_void);
-                eprintln!("{:?}", std::backtrace::Backtrace::force_capture());
-            }
+        if get_env_var_cached!("LEAN_TRACE_MARK_PERSISTENT") {
+            eprintln!("lean_obj_once_cold mark loc={:p} value={:p} init={:p}", loc, *loc, init as *const ());
+            #[cfg(target_family = "unix")]
+            trace_dladdr(init as *const core::ffi::c_void);
         }
         lean_mark_persistent(*loc);
         tok_ref.state.store(1, Ordering::Release);

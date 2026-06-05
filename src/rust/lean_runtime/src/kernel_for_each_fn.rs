@@ -4,21 +4,108 @@
 // Author: Leonardo de Moura
 // Ported to Rust.
 //
-// NOTE: for_each_fn<> is a C++ template that pattern-matches on lean::expr.
-// The two LEAN_EXPORT entry points (`lean_find_expr`, `lean_find_ext_expr`)
-// delegate to C++ shims.  The traversal logic stays in C++.
-
 mod kernel_for_each_fn_impl {
     use super::*;
+    use std::collections::HashSet;
 
-    extern "C" {
-        /// Calls for_each_fn<true> with predicate `p` over expression `e`.
-        /// Returns `some(e')` (a ctor-1 object) if found, or `none` (box(0)).
-        fn lean_cxx_find_expr(p: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
+    unsafe fn mk_option_some(value: *mut LeanObject) -> *mut LeanObject {
+        lean_inc(value);
+        let r = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(r, 0, value);
+        r
+    }
 
-        /// Like lean_cxx_find_expr but uses the three-valued FindStep predicate
-        /// (found=0 / visit=1 / done=2) and for_each_fn<false> (no partial apps).
-        fn lean_cxx_find_ext_expr(p: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
+    unsafe fn should_visit_bool(p: *mut LeanObject, e: *mut LeanObject) -> bool {
+        lean_inc(p);
+        lean_inc(e);
+        let r = lean_apply_1(p, e);
+        lean_unbox(r) != 0
+    }
+
+    unsafe fn find_step(p: *mut LeanObject, e: *mut LeanObject) -> usize {
+        lean_inc(p);
+        lean_inc(e);
+        let r = lean_apply_1(p, e);
+        lean_unbox(r)
+    }
+
+    unsafe fn mark_visited(cache: &mut HashSet<usize>, e: *mut LeanObject) -> bool {
+        !cache.insert(e as usize)
+    }
+
+    unsafe fn find_expr_go(
+        p: *mut LeanObject,
+        e: *mut LeanObject,
+        cache: &mut HashSet<usize>,
+        partial_apps: bool,
+        ext: bool,
+    ) -> Option<*mut LeanObject> {
+        let tag = lean_obj_tag(e);
+        match tag {
+            0 | 3 | 4 => {
+                if ext {
+                    return (find_step(p, e) == 0).then_some(e);
+                }
+                return should_visit_bool(p, e).then_some(e);
+            }
+            _ => {}
+        }
+
+        if mark_visited(cache, e) {
+            return None;
+        }
+
+        if ext {
+            match find_step(p, e) {
+                0 => return Some(e),
+                1 => {}
+                2 => return None,
+                _ => lean_internal_panic(c"invalid FindStep value".as_ptr()),
+            }
+        } else if should_visit_bool(p, e) {
+            return Some(e);
+        }
+
+        match tag {
+            0 | 1 | 2 | 3 | 4 | 9 => None,
+            5 => {
+                let f = lean_ctor_get(e, 0);
+                let a = lean_ctor_get(e, 1);
+                if partial_apps {
+                    find_expr_go(p, f, cache, partial_apps, ext)
+                        .or_else(|| find_expr_go(p, a, cache, partial_apps, ext))
+                } else {
+                    find_expr_app_fn(p, f, cache, ext)
+                        .or_else(|| find_expr_go(p, a, cache, partial_apps, ext))
+                }
+            }
+            6 | 7 => {
+                find_expr_go(p, lean_ctor_get(e, 1), cache, partial_apps, ext)
+                    .or_else(|| find_expr_go(p, lean_ctor_get(e, 2), cache, partial_apps, ext))
+            }
+            8 => {
+                find_expr_go(p, lean_ctor_get(e, 1), cache, partial_apps, ext)
+                    .or_else(|| find_expr_go(p, lean_ctor_get(e, 2), cache, partial_apps, ext))
+                    .or_else(|| find_expr_go(p, lean_ctor_get(e, 3), cache, partial_apps, ext))
+            }
+            10 => find_expr_go(p, lean_ctor_get(e, 1), cache, partial_apps, ext),
+            11 => find_expr_go(p, lean_ctor_get(e, 2), cache, partial_apps, ext),
+            _ => None,
+        }
+    }
+
+    unsafe fn find_expr_app_fn(
+        p: *mut LeanObject,
+        e: *mut LeanObject,
+        cache: &mut HashSet<usize>,
+        ext: bool,
+    ) -> Option<*mut LeanObject> {
+        if lean_obj_tag(e) == 5 {
+            find_expr_app_fn(p, lean_ctor_get(e, 0), cache, ext)
+                .or_else(|| find_expr_go(p, lean_ctor_get(e, 1), cache, false, ext))
+        } else {
+            find_expr_go(p, e, cache, false, ext)
+        }
     }
 
     /// `findExpr? (p : Expr → Bool) (e : Expr) : Option Expr`
@@ -30,7 +117,12 @@ mod kernel_for_each_fn_impl {
         p: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_cxx_find_expr(p, e)
+        let mut cache = HashSet::new();
+        if let Some(found) = find_expr_go(p, e, &mut cache, true, false) {
+            mk_option_some(found)
+        } else {
+            lean_box(0)
+        }
     }
 
     /// `findExtExpr? (p : Expr → FindStep) (e : Expr) : Option Expr`
@@ -45,7 +137,12 @@ mod kernel_for_each_fn_impl {
         p: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_cxx_find_ext_expr(p, e)
+        let mut cache = HashSet::new();
+        if let Some(found) = find_expr_go(p, e, &mut cache, false, true) {
+            mk_option_some(found)
+        } else {
+            lean_box(0)
+        }
     }
 
 }
