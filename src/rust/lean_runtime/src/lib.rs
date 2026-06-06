@@ -426,7 +426,8 @@ pub unsafe fn lean_obj_tag(obj: *const LeanObject) -> u8 {
     lean_ptr_tag(obj)
 }
 
-pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
     if lean_is_scalar(obj) {
         return;
     }
@@ -438,7 +439,8 @@ pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
     }
 }
 
-pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_inc_ref(obj: *mut LeanObject) {
     lean_inc_ref_n(obj, 1);
 }
 
@@ -459,7 +461,8 @@ pub unsafe fn lean_inc(obj: *mut LeanObject) {
     }
 }
 
-pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_inc_n(obj: *mut LeanObject, n: usize) {
     if !lean_is_scalar(obj) {
         lean_inc_ref_n(obj, n);
     }
@@ -770,6 +773,7 @@ pub unsafe extern "C" fn lean_inc_export(obj: *mut LeanObject) {
     lean_inc(obj)
 }
 
+#[cfg(not(feature = "export-runtime-ffi"))]
 #[export_name = "lean_inc_n"]
 pub unsafe extern "C" fn lean_inc_n_export(obj: *mut LeanObject, n: usize) {
     lean_inc_n(obj, n)
