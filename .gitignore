@@ -34,3 +34,6 @@ wdErr.txt
 wdIn.txt
 wdOut.txt
 .claude/worktrees/
+.ckb/
+!.ckb/config.json
+*.scip

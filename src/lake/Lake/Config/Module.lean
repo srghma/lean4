@@ -126,13 +126,13 @@ public abbrev pkg (self : Module) : Package :=
   self.irPath "setup.json"
 
 @[inline] public def cFile (self : Module) : FilePath :=
-  self.irPath "c"
+  self.irPath "rs"
 
 @[inline] public def coExportFile (self : Module) : FilePath :=
-  self.irPath "c.o.export"
+  self.irPath "rs.o.export"
 
 @[inline] public def coNoExportFile (self : Module) : FilePath :=
-  self.irPath "c.o.noexport"
+  self.irPath "rs.o.noexport"
 
 @[inline] public def bcFile (self : Module) : FilePath :=
   self.irPath "bc"

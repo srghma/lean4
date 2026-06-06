@@ -1,0 +1,7 @@
+[mcp_servers.ckb]
+command = "ckb"
+args = ["mcp"]
+
+[mcp_servers.lip]
+command = "lip"
+args = ["mcp"]
