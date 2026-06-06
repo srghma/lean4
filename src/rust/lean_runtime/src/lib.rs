@@ -19,6 +19,8 @@ use core::ptr;
 #[cfg(not(feature = "std"))]
 use core::panic::PanicInfo;
 
+pub mod generated_abi;
+
 type Size = usize;
 
 pub(crate) unsafe fn cstr_lossy_to_string(ptr: *const c_char) -> String {

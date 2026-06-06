@@ -37,3 +37,8 @@ wdOut.txt
 .ckb/
 !.ckb/config.json
 *.scip
+
+
+/tests/lake/tests/updateToolchain/known-projects
+/tests/lake/tests/updateToolchain/settings.toml
+/tests/lake/tests/updateToolchain/toolchains/

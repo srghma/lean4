@@ -272,147 +272,7 @@ def emitFileHeader : EmitM Unit := do
   emit "// Imports:"
   env.imports.forM fun m => emit (" " ++ toString m)
   emitLn ""
-  emitLns [
-    "#[repr(C)]",
-    "pub struct lean_object {",
-    "  pub m_rc: i32,",
-    "  pub m_cs_sz: u16,",
-    "  pub m_other: u8,",
-    "  pub m_tag: u8,",
-    "}",
-    "#[repr(C)]",
-    "pub struct lean_once_cell {",
-    "  pub state: i32,",
-    "  pub lock: i32,",
-    "}",
-    "extern \"C\" {",
-    "  fn lean_box(n: usize) -> *mut lean_object;",
-    "  fn lean_unbox(o: *mut lean_object) -> usize;",
-    "  fn lean_dec(o: *mut lean_object);",
-    "  fn lean_inc(o: *mut lean_object);",
-    "  fn lean_alloc_ctor(tag: core::ffi::c_uint, num_objs: core::ffi::c_uint, scalar_size: core::ffi::c_uint) -> *mut lean_object;",
-    "  fn lean_ctor_set(obj: *mut lean_object, index: core::ffi::c_uint, value: *mut lean_object);",
-    "  fn lean_ctor_get(obj: *mut lean_object, index: core::ffi::c_uint) -> *mut lean_object;",
-    "  fn lean_ctor_release(obj: *mut lean_object, index: core::ffi::c_uint);",
-    "  fn lean_ctor_set_tag(obj: *mut lean_object, tag: core::ffi::c_uint);",
-    "  fn lean_is_exclusive(o: *mut lean_object) -> bool;",
-    "  fn lean_is_scalar(obj: *const lean_object) -> u8;",
-    "  fn lean_alloc_closure(fun_ptr: *mut core::ffi::c_void, arity: core::ffi::c_uint, num_fixed: core::ffi::c_uint) -> *mut lean_object;",
-    "  fn lean_closure_set(obj: *mut lean_object, index: core::ffi::c_uint, value: *mut lean_object);",
-    "  fn lean_apply_m(obj: *mut lean_object, nargs: usize, args: *mut *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_1(obj: *mut lean_object, a1: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_2(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_3(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_4(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_5(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_6(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_7(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_8(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_9(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_10(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_11(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object, a11: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_12(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object, a11: *mut lean_object, a12: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_13(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object, a11: *mut lean_object, a12: *mut lean_object, a13: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_14(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object, a11: *mut lean_object, a12: *mut lean_object, a13: *mut lean_object, a14: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_15(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object, a11: *mut lean_object, a12: *mut lean_object, a13: *mut lean_object, a14: *mut lean_object, a15: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_apply_16(obj: *mut lean_object, a1: *mut lean_object, a2: *mut lean_object, a3: *mut lean_object, a4: *mut lean_object, a5: *mut lean_object, a6: *mut lean_object, a7: *mut lean_object, a8: *mut lean_object, a9: *mut lean_object, a10: *mut lean_object, a11: *mut lean_object, a12: *mut lean_object, a13: *mut lean_object, a14: *mut lean_object, a15: *mut lean_object, a16: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_ctor_set_usize(obj: *mut lean_object, index: core::ffi::c_uint, value: usize);",
-    "  fn lean_ctor_get_usize(obj: *mut lean_object, index: core::ffi::c_uint) -> usize;",
-    "  fn lean_ctor_set_float(obj: *mut lean_object, offset: core::ffi::c_uint, value: f64);",
-    "  fn lean_ctor_set_float32(obj: *mut lean_object, offset: core::ffi::c_uint, value: f32);",
-    "  fn lean_ctor_set_uint8(obj: *mut lean_object, offset: core::ffi::c_uint, value: u8);",
-    "  fn lean_ctor_set_uint16(obj: *mut lean_object, offset: core::ffi::c_uint, value: u16);",
-    "  fn lean_ctor_set_uint32(obj: *mut lean_object, offset: core::ffi::c_uint, value: u32);",
-    "  fn lean_ctor_set_uint64(obj: *mut lean_object, offset: core::ffi::c_uint, value: u64);",
-    "  fn lean_ctor_get_float(obj: *mut lean_object, offset: core::ffi::c_uint) -> f64;",
-    "  fn lean_ctor_get_float32(obj: *mut lean_object, offset: core::ffi::c_uint) -> f32;",
-    "  fn lean_ctor_get_uint8(obj: *mut lean_object, offset: core::ffi::c_uint) -> u8;",
-    "  fn lean_ctor_get_uint16(obj: *mut lean_object, offset: core::ffi::c_uint) -> u16;",
-    "  fn lean_ctor_get_uint32(obj: *mut lean_object, offset: core::ffi::c_uint) -> u32;",
-    "  fn lean_ctor_get_uint64(obj: *mut lean_object, offset: core::ffi::c_uint) -> u64;",
-    "  fn lean_mk_string_unchecked(s: *const core::ffi::c_char, sz: usize, len: usize) -> *mut lean_object;",
-    "  fn lean_mk_string(s: *const core::ffi::c_char) -> *mut lean_object;",
-    "  fn lean_unsigned_to_nat(v: core::ffi::c_uint) -> *mut lean_object;",
-    "  fn lean_cstr_to_nat(s: *const core::ffi::c_char) -> *mut lean_object;",
-    "  fn lean_unbox_uint32(o: *mut lean_object) -> u32;",
-    "  fn lean_unbox_uint64(o: *mut lean_object) -> u64;",
-    "  fn lean_unbox_usize(o: *mut lean_object) -> usize;",
-    "  fn lean_unbox_float(o: *mut lean_object) -> f64;",
-    "  fn lean_unbox_float32(o: *mut lean_object) -> f32;",
-    "  fn lean_box_uint32(v: u32) -> *mut lean_object;",
-    "  fn lean_box_uint64(v: u64) -> *mut lean_object;",
-    "  fn lean_box_usize(v: usize) -> *mut lean_object;",
-    "  fn lean_box_float(v: f64) -> *mut lean_object;",
-    "  fn lean_box_float32(v: f32) -> *mut lean_object;",
-    "  fn lean_mark_persistent(o: *mut lean_object);",
-    "  fn lean_io_result_mk_ok(o: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_obj_tag(o: *mut lean_object) -> core::ffi::c_uint;",
-    "  fn lean_del_object(o: *mut lean_object);",
-    "  fn lean_dec_ref(o: *mut lean_object);",
-    "  fn lean_dec_ref_known(o: *mut lean_object, n: usize);",
-    "  fn lean_float_once(v: *mut f64, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> f64) -> f64;",
-    "  fn lean_float32_once(v: *mut f32, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> f32) -> f32;",
-    "  fn lean_uint8_once(v: *mut u8, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> u8) -> u8;",
-    "  fn lean_uint16_once(v: *mut u16, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> u16) -> u16;",
-    "  fn lean_uint32_once(v: *mut u32, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> u32) -> u32;",
-    "  fn lean_uint64_once(v: *mut u64, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> u64) -> u64;",
-    "  fn lean_usize_once(v: *mut usize, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> usize) -> usize;",
-    "  fn lean_obj_once(v: *mut *mut lean_object, t: *mut lean_once_cell, f: unsafe extern \"C\" fn() -> *mut lean_object) -> *mut lean_object;",
-    "  fn lean_setup_args(argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> *mut *mut core::ffi::c_char;",
-    "  fn lean_initialize();",
-    "  fn lean_initialize_runtime_module();",
-    "  fn lean_init_task_manager();",
-    "  fn lean_finalize_task_manager();",
-    "  fn lean_run_main(f: unsafe extern \"C\" fn(core::ffi::c_int, *mut *mut core::ffi::c_char) -> *mut lean_object, argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> *mut lean_object;",
-    "  fn lean_io_mark_end_initialization();",
-    "  fn lean_io_result_is_error(res: *mut lean_object) -> bool;",
-    "  fn lean_io_result_is_ok(res: *mut lean_object) -> bool;",
-    "  fn lean_io_result_get_value(res: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_io_result_get_error(res: *mut lean_object) -> *mut lean_object;",
-    "  fn lean_io_result_show_error(res: *mut lean_object);",
-    "  fn lean_inc_ref(o: *mut lean_object);",
-    "  fn lean_inc_ref_n(o: *mut lean_object, n: usize);",
-    "  fn lean_inc_n(o: *mut lean_object, n: usize);",
-    "}",
-    "#[repr(C)]",
-    "struct lean_ctor_object<const N: usize> {",
-    "  m_header: lean_object,",
-    "  m_objs: [*mut lean_object; N],",
-    "}",
-    "#[repr(C)]",
-    "struct lean_closure_object<const N: usize> {",
-    "  m_header: lean_object,",
-    "  m_fun: *const core::ffi::c_void,",
-    "  m_arity: u16,",
-    "  m_num_fixed: u16,",
-    "  m_objs: [*mut lean_object; N],",
-    "}",
-    "#[repr(C)]",
-    "struct lean_array_object<const N: usize> {",
-    "  m_header: lean_object,",
-    "  m_size: usize,",
-    "  m_capacity: usize,",
-    "  m_data: [*mut lean_object; N],",
-    "}",
-    "#[repr(C)]",
-    "struct lean_sarray_object<const N: usize> {",
-    "  m_header: lean_object,",
-    "  m_size: usize,",
-    "  m_capacity: usize,",
-    "  m_data: [u8; N],",
-    "}",
-    "#[repr(C)]",
-    "struct lean_string_object<const N: usize> {",
-    "  m_header: lean_object,",
-    "  m_size: usize,",
-    "  m_capacity: usize,",
-    "  m_length: usize,",
-    "  m_data: [u8; N],",
-    "}",
-    "unsafe impl<const N: usize> Sync for lean_ctor_object<N> {}",
-    "unsafe impl<const N: usize> Sync for lean_closure_object<N> {}",
-    "unsafe impl<const N: usize> Sync for lean_array_object<N> {}"
-  ]
+  emitLn "use lean_runtime::generated_abi::*;"
 
 def ctorScalarSizeExpression (usize : Nat) (ssize : Nat) : String :=
   if usize == 0 then
@@ -439,15 +299,15 @@ where
     mkHeader size numObjs tag
 
   compileGround (e : SimpleGroundExpr) : GroundM Unit := do
-    let valueName ← compileGroundToValue e
+    let valueName ← compileGroundToValue e (root := true)
     let declPrefix := if isClosedTermName (← getEnv) decl.name then "static mut" else "#[no_mangle] pub static mut"
     emitLn <| s!"{declPrefix} {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
 
-  compileGroundToValue (e : SimpleGroundExpr) : GroundM String := do
+  compileGroundToValue (e : SimpleGroundExpr) (root := false) : GroundM String := do
     match e with
     | .ctor cidx objArgs usizeArgs scalarArgs =>
       let (n, val) ← compileCtor cidx objArgs usizeArgs scalarArgs
-      mkValueCLit s!"lean_ctor_object<{n}>" val
+      mkValueCLit s!"lean_ctor_object<{n}>" val root
     | .string data =>
       let leanStringTag := 249
       let header := mkHeader 0 0 leanStringTag
@@ -460,6 +320,7 @@ where
       mkValueCLit
         type
         value
+        root
     | .pap func args =>
       let numFixed := args.size
       let leanClosureTag := 245
@@ -471,9 +332,10 @@ where
       mkValueCLit
         s!"lean_closure_object<{numFixed}>"
         s!"lean_closure_object \{ m_header: {header}, m_fun: {funPtr}, m_arity: {arity}, m_num_fixed: {numFixed}, m_objs: [{argArray}] }"
+        root
     | .nameMkStr args =>
       let (n, obj) ← groundNameMkStrToCLit args
-      mkValueCLit s!"lean_ctor_object<{n}>" obj
+      mkValueCLit s!"lean_ctor_object<{n}>" obj root
     | .array elems =>
       let leanArrayTag := 246
       let header := mkHeader s!"core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*{elems.size}" 0 leanArrayTag
@@ -482,6 +344,7 @@ where
       mkValueCLit
         s!"lean_array_object<{elems.size}>"
         s!"lean_array_object \{ m_header: {header}, m_size: {elems.size}, m_capacity: {elems.size}, m_data: [{dataArray}] }"
+        root
     | .byteArray data =>
       let leanScalarArrayTag := 248
       let elemSize : Nat := 1
@@ -491,6 +354,7 @@ where
       mkValueCLit
         s!"lean_sarray_object<{data.size}>"
         s!"lean_sarray_object \{ m_header: {header}, m_size: {data.size}, m_capacity: {data.size}, m_data: [{dataArray}] }"
+        root
     | .reference refDecl => findValueDecl refDecl
 
   mkValueName (name : String) : String :=
@@ -505,10 +369,13 @@ where
     emitLn <| s!"static {name}: {type} = {value};"
     return name
 
-  mkValueCLit (type value : String) : GroundM String := do
-    let valueName := mkValueName cppBaseName
-    emitLn <| s!"#[no_mangle] pub static {valueName}: {type} = {value};"
-    return valueName
+  mkValueCLit (type value : String) (root : Bool) : GroundM String := do
+    if root then
+      let valueName := mkValueName cppBaseName
+      emitLn <| s!"#[no_mangle] pub static {valueName}: {type} = {value};"
+      return valueName
+    else
+      mkAuxDecl type value
 
   groundNameMkStrToCLit (args : Array (Name × UInt64)) : GroundM (Nat × String) := do
     assert! args.size > 0

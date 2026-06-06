@@ -64,6 +64,7 @@
             scip-clang
             rustc
             cargo
+            rustfmt
             rust-analyzer
             clang-tools
             bear

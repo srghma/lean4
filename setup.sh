@@ -27,20 +27,19 @@ echo "=== Cleaning build ==="
 rm -rdf "$PROJECT/build"
 
 # ── 2. Check / update stage0 against upstream/master ─────────────────────────
-echo "=== Checking stage0 against upstream/master ==="
+echo "=== Checking stage0 against origin/master ==="
 cd "$PROJECT"
-if ! git remote get-url upstream &>/dev/null; then
-  echo "WARNING: remote 'upstream' not found; skipping stage0 check."
-  echo "  Add it: git remote add upstream https://github.com/leanprover/lean4.git"
+if ! git remote get-url origin &>/dev/null; then
+  echo "WARNING: remote 'origin' not found; skipping stage0 check."
+  echo "  Add it: git remote add origin https://github.com/leanprover/lean4.git"
 else
-  git fetch upstream master --quiet
-  STAGE0_DIFF="$(git diff upstream/master -- stage0/ 2>&1)"
+  STAGE0_DIFF="$(git diff origin/master -- stage0/ 2>&1)"
   if [ -n "$STAGE0_DIFF" ]; then
-    echo "  stage0/ differs from upstream/master — updating..."
-    git checkout upstream/master -- stage0/
+    echo "  stage0/ differs from origin/master — updating..."
+    git checkout origin/master -- stage0/
     echo "  stage0/ updated."
   else
-    echo "  stage0/ matches upstream/master. OK."
+    echo "  stage0/ matches origin/master. OK."
   fi
 fi
 
