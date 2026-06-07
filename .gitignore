@@ -42,3 +42,7 @@ wdOut.txt
 /tests/lake/tests/updateToolchain/known-projects
 /tests/lake/tests/updateToolchain/settings.toml
 /tests/lake/tests/updateToolchain/toolchains/
+
+/srghmascripts/*.html
+/srghmascripts/*.dot
+/srghmascripts/*.svg

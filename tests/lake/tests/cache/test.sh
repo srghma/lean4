@@ -166,7 +166,7 @@ test_out "Reused Test:c.o" build +Test:o -v --no-build
 
 # Verify that if the input cache is missing,
 # the cached artifact is still used via the output hash in the trace
-test_cmd rm -rf "$CACHE_DIR/outputs" .lake/build/ir/Test.c
+test_cmd rm -rf "$CACHE_DIR/outputs" .lake/build/ir/Test.rs
 test_run -v build +Test:c --no-build
 
 # Verify that Lake does not attempt overwrite an existing artifact
@@ -256,12 +256,12 @@ test_restored() {
 test_restored test:exe
 test_restored Test:static
 test_restored Test:shared
-test_restored +Test:o.export Test.c.o.export
-test_restored +Test:o.noexport Test.c.o.noexport
+test_restored +Test:o.export Test.rs.o.export
+test_restored +Test:o.noexport Test.rs.o.noexport
 test_restored +Test:dynlib
 test_restored +Test:olean Test.olean
 test_restored +Test:ilean Test.ilean
-test_restored +Test:c Test.c
+test_restored +Test:c Test.rs
 test_restored +Module:olean Module.olean
 test_restored +Module:olean.server Module.olean.server
 test_restored +Module:olean.private Module.olean.private

@@ -1,30 +1,35 @@
 import Std.Data.HashMap
 import Std.Data.HashSet
-import System.FilePath
+import Init.System.FilePath
 
 /-!
-  DepGraph.lean — generate order_of_review.md + dep_graph.dot
-
-  Walk src/removed_cpp/** for C++ files, parse #include lines,
-  build a stem-level dependency graph, topo-sort (Kahn's algorithm),
-  build a rose tree for display, and render both a Markdown review
-  order and a Graphviz DOT file.
-
-  As a Lake script (add `script depGraph { run := DepGraph.main }` to
-  your lakefile.lean after importing this file, or just use lake run):
-
-    lake run depGraph [--rust-only | --cpp-only] [--out graph.dot]
-
-  As a standalone Lean script:
-
-    elan run --install leanprover/lean4:v4.30.0 lean --run DepGraph.lean
+  DepGraph.lean — generate order_of_review.md + interactive Force-Directed DAG HTML pages
 -/
 
 open System (FilePath)
 
+def String.containsSubstr (haystack needle : String) : Bool :=
+  if needle.isEmpty then true
+  else (haystack.splitOn needle).length > 1
+
+-- Pure, fast path normalizer to replace slow external `realpath` processes
+def normalizePath (p : FilePath) : FilePath := Id.run do
+  let isAbsolute := p.toString.startsWith "/"
+  let components := p.toString.splitOn "/"
+  let mut norm : Array String := #[]
+  for c in components do
+    if c == "" || c == "." then continue
+    else if c == ".." then
+      norm := norm.pop
+    else
+      norm := norm.push c
+  let res := String.intercalate "/" norm.toList
+  if isAbsolute then ⟨"/" ++ res⟩ else ⟨res⟩
+
+def realpathSafe (p : FilePath) : IO FilePath :=
+  pure (normalizePath p)
+
 -- ─── Known external dependency groups ────────────────────────────────────────
--- Each entry: (label, patterns).  If any pattern is a substring of an #include
--- target, the include is classified as that external.
 
 def knownExternals : Array (String × Array String) := #[
   ("cadical",          #["cadical"]),
@@ -70,30 +75,42 @@ abbrev Stem := FilePath
 
 structure FilePair where
   stem : Stem
-  name : FilePath        -- relative to cppRoot, no extension
-  h    : Option FilePath -- relative .h or .hpp
-  cpp  : Option FilePath -- relative .cpp
-  deriving Repr
+  name : FilePath
+  h    : Option FilePath
+  cpp  : Option FilePath
+  deriving Repr, Inhabited
+
+def collapsedLabel (pair : FilePair) : String :=
+  let base := pair.stem.fileName.getD ""
+  match pair.h, pair.cpp with
+  | some h, some cpp =>
+    let hExt := h.extension.getD "h"
+    let cppExt := cpp.extension.getD "cpp"
+    base ++ ".{" ++ cppExt ++ "," ++ hExt ++ "}"
+  | some h, none => base ++ "." ++ h.extension.getD "h"
+  | none, some cpp => base ++ "." ++ cpp.extension.getD "cpp"
+  | none, none => base
 
 inductive TaskTree where
   | node : FilePair → Array TaskTree → TaskTree
-  deriving Repr
+  deriving Repr, Inhabited
 
 -- ─── File system helpers ──────────────────────────────────────────────────────
 
 def isFile (p : FilePath) : IO Bool :=
-  (IO.FS.metadata p).map (·.type == IO.FS.FileType.file) |>.catchExceptions (fun _ => pure false)
+  (p.metadata).map (·.type == .file) |>.catchExceptions (fun _ => pure false)
 
 def isDir (p : FilePath) : IO Bool :=
-  (IO.FS.metadata p).map (·.type == IO.FS.FileType.dir) |>.catchExceptions (fun _ => pure false)
+  (p.metadata).map (·.type == .dir) |>.catchExceptions (fun _ => pure false)
 
 partial def walkDir (dir : FilePath) (exts : Array String) : IO (Array FilePath) := do
   unless ← isDir dir do return #[]
-  let entries ← IO.FS.readDir dir
-  let names := entries.toArray.map (·.fileName) |>.qsort (· < ·)
+  let entries ← System.FilePath.readDir dir
+  let names := entries.map (·.fileName) |>.qsort (· < ·)
   let mut result : Array FilePath := #[]
   for name in names do
     if name.startsWith "." then continue
+    if name == "target" || name == "build" || name == "node_modules" then continue
     let full := dir / name
     if ← isDir full then
       result := result ++ (← walkDir full exts)
@@ -101,36 +118,27 @@ partial def walkDir (dir : FilePath) (exts : Array String) : IO (Array FilePath)
       result := result.push full
   return result
 
-/-- Drop the extension: "/foo/bar.cpp" → "/foo/bar" -/
 def stemOf (p : FilePath) : Stem :=
   match p.extension with
   | none     => p
-  | some ext => ⟨p.toString.dropRight (ext.length + 1)⟩
+  | some ext => ⟨(p.toString.dropEnd (ext.length + 1)).toString⟩
 
-/-- Make a DOT-safe identifier from an absolute path relative to `root`. -/
 def nodeId (root : FilePath) (p : FilePath) : String :=
   let b := root.toString
   let t := p.toString
-  let rel := if t.startsWith (b ++ "/") then t.drop (b.length + 1) else t
+  let rel := if t.startsWith (b ++ "/") then (t.drop (b.length + 1)).toString else t
   rel.map fun c => if c.isAlphanum || c == '_' then c else '_'
 
-/-- Simple relative-path computation (string prefix strip). -/
 def relPath (base : FilePath) (target : FilePath) : FilePath :=
   let b := base.toString ++ "/"
   let t := target.toString
-  if t.startsWith b then ⟨t.drop b.length⟩ else target
-
-/-- Safely canonicalise a path via `realpath`. -/
-def realpathSafe (p : FilePath) : IO FilePath :=
-  (IO.Process.run { cmd := "realpath", args := #[p.toString] }).map
-    (fun s => ⟨s.trimRight⟩)
-  |>.catchExceptions (fun _ => pure p)
+  if t.startsWith b then ⟨(t.drop b.length).toString⟩ else target
 
 -- ─── Review status ────────────────────────────────────────────────────────────
 
 def isReviewed (srcPath : FilePath) : IO Bool := do
   let ext := srcPath.extension.getD ""
-  let mdPath : FilePath := ⟨srcPath.toString.dropRight (ext.length + 1) ++ "md"⟩
+  let mdPath : FilePath := ⟨(srcPath.toString.dropEnd (ext.length + 1)).toString ++ "md"⟩
   unless ← isFile mdPath do return false
   let text ← IO.FS.readFile mdPath
   if text.containsSubstr "- [ ]" then return false
@@ -139,108 +147,21 @@ def isReviewed (srcPath : FilePath) : IO Bool := do
 
 -- ─── Include parsing ──────────────────────────────────────────────────────────
 
-/-- Parse `#include "foo.h"` or `#include <foo.h>` → some "foo.h".
-    Returns none for non-include lines. -/
 def parseInclude (line : String) : Option String :=
-  let s := line.trimLeft
-  guard (s.startsWith "#include") |>.map fun () =>
-    let rest := (s.drop 8).trimLeft
-    let (open', close') := if rest.startsWith "\"" then ('"', '"') else ('<', '>')
-    let inner := rest.drop 1
-    let endIdx := inner.indexOf close'
-    inner.take endIdx
-  |>.join
+  let s := line.trimAsciiStart.toString
+  if !s.startsWith "#include" then none
+  else
+    let rest := (s.drop 8).trimAsciiStart.toString
+    let (_, close') := if rest.startsWith "\"" then ('\"', '\"') else ('<', '>')
+    let inner := (rest.drop 1).toString
+    (inner.splitOn (toString close')).head?
 
-/-- Match `target` against known externals; return label if matched. -/
 def matchExternal (target : String) : Option String :=
-  knownExternals.findSome? fun (lbl, pats) =>
-    if pats.any (target.containsSubstr ·) then some lbl else none
-
--- ─── C++ dependency graph ─────────────────────────────────────────────────────
-
-structure CppDeps where
-  allStems      : Array Stem
-  stemDepsOn    : Std.HashMap Stem (Std.HashSet Stem)
-  dotEdges      : Array (String × String × String)  -- (from, to, color)
-  dotMissing    : Array (String × String × String)  -- (from, misId, label)
-  externalEdges : Array (String × String)           -- (from, extLabel)
-
-def buildCppDeps (root cppRoot cppIncludeRoot : FilePath)
-    (cppFiles : Array FilePath) : IO CppDeps := do
-  -- Build resolved-path → stem lookup (raw path + realpath → stem)
-  let mut resolvedToStem : Std.HashMap String Stem := {}
-  for f in cppFiles do
-    let s := stemOf f
-    resolvedToStem := resolvedToStem.insert f.toString s
-    resolvedToStem := resolvedToStem.insert s.toString s
-    let rp ← realpathSafe f
-    resolvedToStem := resolvedToStem.insert rp.toString s
-
-  let allStemsArr := cppFiles.map stemOf
-  let allStemsSet : Std.HashSet Stem :=
-    allStemsArr.foldl (·.insert ·) {}
-
-  let mut stemDepsOn : Std.HashMap Stem (Std.HashSet Stem) := {}
-  for s in allStemsArr do
-    stemDepsOn := stemDepsOn.insert s {}
-
-  let mut dotEdges      : Array (String × String × String) := #[]
-  let mut dotMissing    : Array (String × String × String) := #[]
-  let mut externalEdges : Array (String × String) := #[]
-
-  for f in cppFiles do
-    let fromStem := stemOf f
-    let fId      := nodeId root f
-    let src      ← IO.FS.readFile f
-    let baseDir  := f.parent.getD cppRoot
-
-    for line in src.splitOn "\n" do
-      let some target := parseInclude line | continue
-
-      if let some extLabel := matchExternal target then
-        externalEdges := externalEdges.push (fId, extLabel)
-        continue
-
-      -- Try three resolution strategies in order
-      let candidates := #[baseDir / target, cppRoot / target, cppIncludeRoot / target]
-      let mut resolved : Option FilePath := none
-      for c in candidates do
-        if ← isFile c then resolved := some c; break
-
-      if let some res := resolved then
-        let toId := nodeId root res
-        dotEdges := dotEdges.push (fId, toId, "#882288")
-
-        let rp ← realpathSafe res
-        let toStem : Option Stem :=
-          resolvedToStem.get? res.toString
-          |>.orElse (fun _ => resolvedToStem.get? rp.toString)
-          |>.orElse (fun _ =>
-            let s := stemOf res
-            if allStemsSet.contains s then some s else none)
-
-        match toStem with
-        | some ts =>
-          if ts != fromStem then
-            let cur := stemDepsOn.getD fromStem {}
-            stemDepsOn := stemDepsOn.insert fromStem (cur.insert ts)
-        | none =>
-          IO.eprintln s!"  ⚠ include outside CPP_ROOT: {res} (from {relPath cppRoot f})"
-      else
-        -- not angle-bracket and not a known std header
-        let isAngle := target.startsWith "<"
-        let bare    := !target.contains '/'
-        if !isAngle && !(bare && stdHeaders.contains target) then
-          let misId := "missing_" ++
-            target.map fun c => if c.isAlphanum || c == '_' then c else '_'
-          dotMissing := dotMissing.push (fId, misId, target)
-
-  return { allStems := allStemsArr, stemDepsOn, dotEdges, dotMissing, externalEdges }
+  knownExternals.findSome? fun ⟨lbl, pats⟩ =>
+    if pats.any (fun pat => target.containsSubstr pat) then some lbl else none
 
 -- ─── Kahn's topological sort ──────────────────────────────────────────────────
 
-/-- Returns stems in deps-first order (leaves of the include graph first).
-    Cycle members are appended alphabetically. -/
 def kahnSort (allStems : Array Stem)
     (stemDepsOn : Std.HashMap Stem (Std.HashSet Stem)) : Array Stem := Id.run do
   let mut inDegree : Std.HashMap Stem Nat := {}
@@ -270,7 +191,6 @@ def kahnSort (allStems : Array Stem)
       inDegree := inDegree.insert nb d
       if d == 0 then queue := queue.push nb
 
-  -- Append any cycle members alphabetically
   let sortedSet : Std.HashSet Stem := sorted.foldl (·.insert ·) {}
   let remaining := allStems.filter (fun s => !sortedSet.contains s)
     |>.qsort (·.toString < ·.toString)
@@ -290,69 +210,65 @@ def makePair (cppRoot : FilePath) (stem : Stem) : IO FilePair := do
       return none
     cpp  := ← do
       if ← isFile (dir / (base ++ ".cpp")) then return some (relPath cppRoot (dir / (base ++ ".cpp")))
+      if ← isFile (dir / (base ++ ".c"))   then return some (relPath cppRoot (dir / (base ++ ".c")))
       return none
   }
 
-/-- Build the display rose tree.
-
-    Parent selection: for each stem, its parent is the eligible dependency
-    (idx < curIdx) with the HIGHEST index.  Only strictly-earlier deps are
-    eligible — later-appearing ones are due to dep-graph cycles and would
-    create cycles in the rose tree, causing DFS to silently drop nodes. -/
 def buildRoseTree (cppRoot : FilePath) (sortedStems : Array Stem)
     (stemDepsOn : Std.HashMap Stem (Std.HashSet Stem)) : IO (Array TaskTree) := do
-  -- Index each stem
   let mut stemToIdx : Std.HashMap Stem Nat := {}
   for i in [:sortedStems.size] do
     stemToIdx := stemToIdx.insert sortedStems[i]! i
 
-  -- Build FilePairs
   let pairs ← sortedStems.mapM (makePair cppRoot)
 
-  -- For each node: which child indices?
   let n := sortedStems.size
-  let mut childrenOf : Array (Array Nat) := Array.mkArray n #[]
-  let mut parentOf   : Array (Option Nat) := Array.mkArray n none
+  let mut childrenOf : Array (Array Nat) := Array.replicate n #[]
+  let mut parentOf   : Array (Option Nat) := Array.replicate n none
 
   for i in [:n] do
     let stem := sortedStems[i]!
-    -- Eligible deps: those with index strictly < i
     let eligible := (stemDepsOn.getD stem {}).toList.filterMap fun dep =>
       stemToIdx.get? dep |>.bind fun j => if j < i then some j else none
     match eligible with
-    | [] => pure ()  -- root
+    | [] => pure ()
     | _  =>
-      -- Highest index wins; tie-break: prefer lower index (deterministic)
       let bestJ := eligible.foldl (init := eligible.head!) fun best j =>
         if j > best then j else best
       parentOf   := parentOf.set! i (some bestJ)
       childrenOf := childrenOf.set! bestJ (childrenOf[bestJ]!.push i)
 
-  -- Assemble immutable rose tree via DFS
-  let rec build (i : Nat) : TaskTree :=
-    .node pairs[i]! (childrenOf[i]!.map build)
+  -- We build all nodes upfront, then assemble the tree
+  let mut nodes : Array TaskTree := Array.replicate n (.node default #[])
+  -- Build leaves first (no children), then parents bottom-up
+  -- Since children always have higher indices than parents (j < i constraint above),
+  -- iterating in reverse order guarantees children are built before parents.
+  for i in [:n] do
+    let ri := n - 1 - i  -- reverse index
+    let childTrees := childrenOf[ri]!.map fun ci => nodes[ci]!
+    nodes := nodes.set! ri (.node pairs[ri]! childTrees)
 
   let roots := (Array.range n).filter (fun i => parentOf[i]! == none)
-  return roots.map build
+  return roots.map fun i => nodes[i]!
 
 -- ─── Rose tree → Markdown ────────────────────────────────────────────────────
 
 def renderTree (cppRoot : FilePath) (roots : Array TaskTree) : IO (Array String) := do
   let mut lines : Array String := #[]
-  let rec visit (t : TaskTree) (depth : Nat) : IO Unit := do
+  let rec visit (t : TaskTree) (depth : Nat) (acc : Array String) : IO (Array String) := do
     let .node pair children := t
     let files : Array FilePath := (pair.h.toList ++ pair.cpp.toList).toArray
     let fileStr := (files.map fun f => s!"`{f}`").toList |> ", ".intercalate
-    -- rewrite "a.h, b.cpp" → "a.h and b.cpp"
     let fileStr := fileStr.replace ", " " and "
     let allDone ← files.allM fun f => isReviewed (cppRoot / f)
     let checkbox := if allDone then "[x]" else "[ ]"
-    let indent   := String.mk (List.replicate (depth * 2) ' ')
-    lines := lines.push s!"{indent}- {checkbox} {pair.name} ({fileStr})"
+    let indent   := String.ofList (List.replicate (depth * 2) ' ')
+    let mut acc := acc.push s!"{indent}- {checkbox} {pair.name} ({fileStr})"
     for child in children do
-      visit child (depth + 1)
+      acc ← visit child (depth + 1) acc
+    return acc
   for root in roots do
-    visit root 0
+    lines ← visit root 0 lines
   return lines
 
 -- ─── MD validation ───────────────────────────────────────────────────────────
@@ -361,7 +277,7 @@ def validateMd (lines : Array String) : Except String Unit := do
   let mut prevIndent := 0
   for i in [:lines.size] do
     let line    := lines[i]!
-    let trimmed := line.trimLeft
+    let trimmed := line.trimAsciiStart.toString
     unless trimmed.startsWith "- " do
       prevIndent := 0; continue
     let indent := line.length - trimmed.length
@@ -373,16 +289,14 @@ def validateMd (lines : Array String) : Except String Unit := do
 
 -- ─── Markdown file writer ────────────────────────────────────────────────────
 
-def buildOrderMd (cppRoot : FilePath) (sortedStems : Array Stem)
+def buildOrderMd (root : FilePath) (sortedStems : Array Stem)
     (stemDepsOn : Std.HashMap Stem (Std.HashSet Stem)) : IO Unit := do
-  let roots  ← buildRoseTree cppRoot sortedStems stemDepsOn
-  let body   ← renderTree cppRoot roots
+  let roots  ← buildRoseTree root sortedStems stemDepsOn
+  let body   ← renderTree root roots
 
-  -- Completeness check
-  let count := body.filter (·.trimLeft.startsWith "- ") |>.size
+  let count := body.filter (·.trimAsciiStart.toString.startsWith "- ") |>.size
   if count != sortedStems.size then
-    throw <| .userError s!"Rose tree completeness failure: {count} items rendered, expected {sortedStems.size}.\
-      \nCycle in rose tree — check buildRoseTree."
+    throw <| .userError s!"Rose tree completeness failure: {count} items rendered, expected {sortedStems.size}.\nCycle in rose tree — check buildRoseTree."
 
   let header : Array String := #[
     "# C++ to Rust Porting Review Order", "",
@@ -396,17 +310,21 @@ def buildOrderMd (cppRoot : FilePath) (sortedStems : Array Stem)
   | .error msg => throw <| .userError msg
   | .ok ()     => pure ()
 
-  let mdPath := cppRoot / "order_of_review.md"
+  let mdPath := root / "srghmascripts" / "order_of_review.md"
   IO.FS.writeFile mdPath (String.intercalate "\n" allLines.toList ++ "\n")
   IO.println s!"✅  Written {mdPath}"
 
 -- ─── DOT state monad ─────────────────────────────────────────────────────────
 
 structure DotSt where
-  lines       : Array String             := #[]
-  addedNodes  : Std.HashSet String       := {}
-  addedEdges  : Std.HashSet String       := {}
+  lines       : Array String              := #[]
+  addedNodes  : Std.HashSet String        := {}
+  addedEdges  : Std.HashSet String        := {}
   externalIds : Std.HashMap String String := {}
+  -- JS data collection for force-graph simulation
+  jsNodes     : Array String              := #[]
+  jsLinks     : Array String              := #[]
+  deriving Repr, Inhabited
 
 abbrev DotM := StateT DotSt IO
 
@@ -417,10 +335,33 @@ def dotAddNode (id label : String) (attrs : Array (String × String)) : DotM Uni
   let st ← get
   if st.addedNodes.contains id then return
   modify fun s => { s with addedNodes := s.addedNodes.insert id }
-  let attrList := (#[("label", label)] ++ attrs)
-    .map (fun (k, v) => s!"{k}=\"{v}\"")
-    .toList |> ", ".intercalate
+  let allAttrs := #[("label", label)] ++ attrs
+  let attrList := allAttrs.map (fun (k, v) => s!"{k}=\"{v}\"") |>.toList
+    |> ", ".intercalate
   emitLine s!"  {id} [{attrList}];"
+
+  -- Determine Node category details for the JS Force Simulation Graph
+  let type :=
+    if id.startsWith "ext_" then "external"
+    else if id.startsWith "missing_" then "missing"
+    else if id.startsWith "cpp_" || id.contains "src_kernel" || id.contains "src_library" || id.contains "src_util" || id.contains "src_runtime" || id.contains "src_shell" || id.contains "src_initialize" then "cpp"
+    else "rust"
+
+  let group :=
+    if id.startsWith "ext_" then "external"
+    else if id.startsWith "missing_" then "missing"
+    else
+      let parts := id.splitOn "_"
+      if parts.length > 2 then parts[1]! else "main"
+
+  let escapedLabel := label.replace "\\" "\\\\" |>.replace "\"" "\\\""
+  let jsNode := "{" ++
+    " id: \"" ++ id ++ "\"," ++
+    " label: \"" ++ escapedLabel ++ "\"," ++
+    " type: \"" ++ type ++ "\"," ++
+    " group: \"" ++ group ++ "\"" ++
+    " }"
+  modify fun s => { s with jsNodes := s.jsNodes.push jsNode }
 
 def dotAddEdge (from' to' : String) (attrs : Array (String × String)) : DotM Unit := do
   let key := s!"{from'}->{to'}"
@@ -431,6 +372,17 @@ def dotAddEdge (from' to' : String) (attrs : Array (String × String)) : DotM Un
   let line := if attrStr.isEmpty then s!"  {from'} -> {to'};"
     else s!"  {from'} -> {to'} [{attrStr}];"
   emitLine line
+
+  -- Output edge link representation for JS Force Simulation Graph
+  let style := attrs.findSome? (fun (k,v) => if k == "style" then some v else none) |>.getD "solid"
+  let color := attrs.findSome? (fun (k,v) => if k == "color" then some v else none) |>.getD ""
+  let jsLink := "{" ++
+    " source: \"" ++ from' ++ "\"," ++
+    " target: \"" ++ to' ++ "\"," ++
+    " style: \"" ++ style ++ "\"," ++
+    " color: \"" ++ color ++ "\"" ++
+    " }"
+  modify fun s => { s with jsLinks := s.jsLinks.push jsLink }
 
 def ensureExt (label : String) : DotM String := do
   let st ← get
@@ -445,37 +397,40 @@ def ensureExt (label : String) : DotM String := do
 
 -- ─── Rust subgraph ───────────────────────────────────────────────────────────
 
-/-- Crude TOML value extraction: find `key = "value"` in a section. -/
-def tomlStr (src key : String) : Option String := do
-  let idx ← src.findSubstr? key
-  let after := (src.drop (idx + key.length)).trimLeft
-  guard (after.startsWith "=")
-  let after := (after.drop 1).trimLeft
-  guard (after.startsWith "\"")
-  let inner := after.drop 1
-  let end' ← inner.findSubstr? "\""
-  return inner.take end'
+def findSubstrIdx? (haystack needle : String) : Option Nat :=
+  if needle.isEmpty then some 0
+  else
+    let parts := haystack.splitOn needle
+    if parts.length <= 1 then none
+    else some parts[0]!.length
 
-/-- Parse `members = [...]` from workspace Cargo.toml. -/
+def tomlStr (src key : String) : Option String := do
+  let idx ← findSubstrIdx? src key
+  let after := (src.drop (idx + key.length)).trimAsciiStart.toString
+  guard (after.startsWith "=")
+  let after := (after.drop 1).trimAsciiStart.toString
+  guard (after.startsWith "\"")
+  let inner := (after.drop 1).toString
+  (inner.splitOn "\"").head?
+
 def cargoMembers (src : String) : Array String :=
-  let go := do
-    let idx ← src.findSubstr? "members"
-    let after := (src.drop (idx + 7)).trimLeft
+  let go : Option String := do
+    let idx ← findSubstrIdx? src "members"
+    let after := (src.drop (idx + 7)).trimAsciiStart.toString
     guard (after.startsWith "=")
-    let after := (after.drop 1).trimLeft
+    let after := (after.drop 1).trimAsciiStart.toString
     guard (after.startsWith "[")
-    let inner := after.drop 1
-    let end' ← inner.findSubstr? "]"
-    return inner.take end'
+    let inner := (after.drop 1).toString
+    (inner.splitOn "]").head?
   match go with
   | none => #[]
   | some content =>
     content.splitOn ","
       |>.toArray
-      |>.map (·.trim.replace "\"" "" |>.trim)
+      |>.map (fun s => s.trimAscii.toString.replace "\"" "" |>.trimAscii.toString)
       |>.filter (· != "")
 
-def buildRustGraph (root rustRoot : FilePath) : DotM Unit := do
+def buildRustGraph (root rustRoot : FilePath) (collapsed : Bool) : DotM Unit := do
   let wsPath := rustRoot / "Cargo.toml"
   unless ← isFile wsPath do return
   let wsToml  ← IO.FS.readFile wsPath
@@ -491,18 +446,17 @@ def buildRustGraph (root rustRoot : FilePath) : DotM Unit := do
     unless ← isFile mCargo do continue
     let cargo ← IO.FS.readFile mCargo
 
-    -- Find package name after [package]
     let pkgName :=
-      match cargo.findSubstr? "[package]" with
+      match findSubstrIdx? cargo "[package]" with
       | none => member
       | some pi =>
-        let after := cargo.drop (pi + 9)
+        let after := (cargo.drop (pi + 9)).toString
         tomlStr after "name" |>.getD member
 
     let rsFiles ← walkDir (mDir / "src") #["rs"]
 
     let clusterId := nodeId root mDir
-    emitLine s!"    subgraph cluster_{clusterId} {{"
+    emitLine s!"    subgraph cluster_{clusterId} {"{"}"
     emitLine s!"      label=\"{pkgName}\"; style=filled; fillcolor=\"#d0ecd0\";"
     for rs in rsFiles do
       let id := nodeId root rs
@@ -515,20 +469,27 @@ def buildRustGraph (root rustRoot : FilePath) : DotM Unit := do
     for rs in rsFiles do
       let id  := nodeId root rs
       let src ← IO.FS.readFile rs
-      -- External deps used in source
       for (extLabel, pats) in knownExternals do
-        if pats.any (src.containsSubstr ·) then
+        if pats.any (fun pat => src.containsSubstr pat) then
           let extId ← ensureExt extLabel
           dotAddEdge id extId #[("style", "dashed"), ("color", "#cc4400")]
-      -- Port-of annotation
       for line in src.splitOn "\n" do
-        let t := line.trimLeft
+        let t := line.trimAsciiStart.toString
         if (t.startsWith "// Port" || t.startsWith "// port") then
-          if let some oi := t.findSubstr? " of " then
-            let cppRel := (t.drop (oi + 4)).trim |>.replace "src/" ""
-            let cppId  := "cpp_" ++ cppRel.map fun c =>
-              if c.isAlphanum || c == '_' then c else '_'
-            dotAddNode cppId cppRel #[
+          match findSubstrIdx? t " of " with
+          | none => pure ()
+          | some oi =>
+            let cppRel := (t.drop (oi + 4)).trimAsciiEnd.toString.replace "src/" ""
+            let cppStem := stemOf ⟨cppRel⟩
+            let cppId := if collapsed then
+              "cpp_" ++ cppStem.toString.map (fun c => if c.isAlphanum || c == '_' then c else '_')
+            else
+              "cpp_" ++ cppRel.map (fun c => if c.isAlphanum || c == '_' then c else '_')
+
+            let pair ← makePair (root / "src") cppStem
+            let label := if collapsed then collapsedLabel pair else cppRel
+
+            dotAddNode cppId label #[
               ("shape", "note"), ("style", "filled"), ("fillcolor", "#fff0cc"),
               ("fontsize", "9"), ("fontcolor", "#664400"),
             ]
@@ -539,39 +500,167 @@ def buildRustGraph (root rustRoot : FilePath) : DotM Unit := do
 
   emitLine "  }"
 
+-- ─── C++ dependency graph helpers ─────────────────────────────────────────────
+
+structure CppDeps where
+  allStems      : Array Stem
+  stemDepsOn    : Std.HashMap Stem (Std.HashSet Stem)
+  dotEdges      : Array (String × String × String)
+  dotMissing    : Array (String × String × String)
+  externalEdges : Array (String × String)
+  deriving Repr, Inhabited
+
+def buildCppDeps (root cppRoot cppIncludeRoot : FilePath)
+    (cppFiles : Array FilePath) (collapsed : Bool) : IO CppDeps := do
+  let mut resolvedToStem : Std.HashMap String Stem := {}
+  for f in cppFiles do
+    let s := stemOf f
+    resolvedToStem := resolvedToStem.insert f.toString s
+    resolvedToStem := resolvedToStem.insert s.toString s
+    let rp ← realpathSafe f
+    resolvedToStem := resolvedToStem.insert rp.toString s
+
+  let allStemsArr := cppFiles.map stemOf
+  let allStemsSet : Std.HashSet Stem :=
+    allStemsArr.foldl (·.insert ·) {}
+
+  let mut stemDepsOn : Std.HashMap Stem (Std.HashSet Stem) := {}
+  for s in allStemsArr do
+    stemDepsOn := stemDepsOn.insert s {}
+
+  let mut dotEdges      : Array (String × String × String) := #[]
+  let mut dotMissing    : Array (String × String × String) := #[]
+  let mut externalEdges : Array (String × String) := #[]
+  let mut addedEdgesSet : Std.HashSet (String × String) := {}
+
+  for f in cppFiles do
+    let fromStem := stemOf f
+    let fId      := if collapsed then nodeId root fromStem else nodeId root f
+    let src      ← IO.FS.readFile f
+    let baseDir  := f.parent.getD cppRoot
+
+    for line in src.splitOn "\n" do
+      let some target := parseInclude line | continue
+
+      if let some extLabel := matchExternal target then
+        let edgeKey := (fId, extLabel)
+        unless addedEdgesSet.contains edgeKey do
+          externalEdges := externalEdges.push (fId, extLabel)
+          addedEdgesSet := addedEdgesSet.insert edgeKey
+        continue
+
+      let candidates := #[baseDir / target, cppRoot / target, cppIncludeRoot / target]
+      let mut resolved : Option FilePath := none
+      for c in candidates do
+        if ← isFile c then resolved := some c; break
+
+      if let some res := resolved then
+        let rp ← realpathSafe res
+        let toStem : Option Stem :=
+          resolvedToStem.get? res.toString
+          |>.orElse (fun _ => resolvedToStem.get? rp.toString)
+          |>.orElse (fun _ =>
+            let s := stemOf res
+            if allStemsSet.contains s then some s else none)
+
+        match toStem with
+        | some ts =>
+          let toId := if collapsed then nodeId root ts else nodeId root res
+          if !collapsed || ts != fromStem then
+            let edgeKey := (fId, toId)
+            unless addedEdgesSet.contains edgeKey do
+              dotEdges := dotEdges.push (fId, toId, "#882288")
+              addedEdgesSet := addedEdgesSet.insert edgeKey
+          if ts != fromStem then
+            let cur := stemDepsOn.getD fromStem {}
+            stemDepsOn := stemDepsOn.insert fromStem (cur.insert ts)
+        | none =>
+          IO.eprintln s!"  ⚠ include outside CPP_ROOT: {res} (from {relPath cppRoot f})"
+      else
+        let isAngle := target.startsWith "<"
+        let bare    := !target.contains '/'
+        if !isAngle && !(bare && stdHeaders.contains target) then
+          let misId := "missing_" ++
+            target.map fun c => if c.isAlphanum || c == '_' then c else '_'
+          let edgeKey := (fId, misId)
+          unless addedEdgesSet.contains edgeKey do
+            dotMissing := dotMissing.push (fId, misId, target)
+            addedEdgesSet := addedEdgesSet.insert edgeKey
+
+  let result : CppDeps := {
+    allStems := allStemsArr
+    stemDepsOn := stemDepsOn
+    dotEdges := dotEdges
+    dotMissing := dotMissing
+    externalEdges := externalEdges
+  }
+  return result
+
 -- ─── C++ subgraph ────────────────────────────────────────────────────────────
 
-def buildCppGraph (root cppRoot cppIncludeRoot : FilePath) : DotM Unit := do
-  let cppFiles ← walkDir cppRoot #["cpp", "h", "hpp"]
+def buildCppGraph (root cppRoot cppIncludeRoot : FilePath) (collapsed : Bool) : DotM Unit := do
+  -- Exclude src/rust and focus only on the target C++ folders in src/
+  let subdirs := ["include", "initialize", "kernel", "library", "runtime", "shell", "util"]
+  let mut cppFiles : Array FilePath := #[]
+  for subdir in subdirs do
+    let subdirPath := cppRoot / subdir
+    if ← isDir subdirPath then
+      cppFiles := cppFiles ++ (← walkDir subdirPath #["cpp", "c", "h", "hpp"])
 
   emitLine "  subgraph cluster_cpp {"
-  emitLine "    label=\"C++ source (src/removed_cpp)\"; style=filled; fillcolor=\"#f0e8ff\"; color=\"#882288\";"
+  if collapsed then
+    emitLine "    label=\"C++ source (src) [Collapsed]\"; style=filled; fillcolor=\"#f0e8ff\"; color=\"#882288\";"
+  else
+    emitLine "    label=\"C++ source (src)\"; style=filled; fillcolor=\"#f0e8ff\"; color=\"#882288\";"
 
-  -- Group by first path component
-  let mut groups : Std.HashMap String (Array FilePath) := {}
-  for f in cppFiles do
-    let rel   := relPath cppRoot f
-    let group := rel.components.head?.getD "(root)"
-    groups := groups.insert group ((groups.getD group #[]).push f)
+  if collapsed then
+    let mut groups : Std.HashMap String (Array Stem) := {}
+    let mut addedStems : Std.HashSet Stem := {}
+    for f in cppFiles do
+      let s := stemOf f
+      if addedStems.contains s then continue
+      addedStems := addedStems.insert s
+      let rel   := relPath cppRoot s
+      let group := rel.components.head?.getD "(root)"
+      groups := groups.insert group ((groups.getD group #[]).push s)
 
-  for (group, files) in groups.toList.toArray.qsort (·.1 < ·.1) do
-    let gid := "cpp_grp_" ++ group.map fun c => if c.isAlphanum || c == '_' then c else '_'
-    emitLine s!"    subgraph cluster_{gid} {{"
-    emitLine s!"      label=\"{group}\"; style=filled; fillcolor=\"#e8d8ff\";"
-    for f in files do
-      let id    := nodeId root f
-      let color := if f.extension == some "cpp" then "#fff8ff" else "#f8f0ff"
-      dotAddNode id (f.fileName.getD f.toString) #[
-        ("shape", "box"), ("style", "filled"), ("fillcolor", color), ("fontsize", "9"),
-      ]
-      emitLine s!"      {id};"
-    emitLine "    }"
+    for (group, stems) in groups.toList.toArray.qsort (·.1 < ·.1) do
+      let gid := "cpp_grp_" ++ group.map fun c => if c.isAlphanum || c == '_' then c else '_'
+      emitLine s!"    subgraph cluster_{gid} {"{"}"
+      emitLine s!"      label=\"{group}\"; style=filled; fillcolor=\"#e8d8ff\";"
+      for s in stems do
+        let id := nodeId root s
+        let pair ← makePair cppRoot s
+        let lbl := collapsedLabel pair
+        dotAddNode id lbl #[
+          ("shape", "box"), ("style", "filled"), ("fillcolor", "#fff8ff"), ("fontsize", "9"),
+        ]
+        emitLine s!"      {id};"
+      emitLine "    }"
+  else
+    let mut groups : Std.HashMap String (Array FilePath) := {}
+    for f in cppFiles do
+      let rel   := relPath cppRoot f
+      let group := rel.components.head?.getD "(root)"
+      groups := groups.insert group ((groups.getD group #[]).push f)
+
+    for (group, files) in groups.toList.toArray.qsort (·.1 < ·.1) do
+      let gid := "cpp_grp_" ++ group.map fun c => if c.isAlphanum || c == '_' then c else '_'
+      emitLine s!"    subgraph cluster_{gid} {"{"}"
+      emitLine s!"      label=\"{group}\"; style=filled; fillcolor=\"#e8d8ff\";"
+      for f in files do
+        let id    := nodeId root f
+        let color := if f.extension == some "cpp" then "#fff8ff" else "#f8f0ff"
+        dotAddNode id (f.fileName.getD f.toString) #[
+          ("shape", "box"), ("style", "filled"), ("fillcolor", color), ("fontsize", "9"),
+        ]
+        emitLine s!"      {id};"
+      emitLine "    }"
+
   emitLine "  }"
 
-  -- Build dependency graph
-  let deps ← buildCppDeps root cppRoot cppIncludeRoot cppFiles
+  let deps ← buildCppDeps root cppRoot cppIncludeRoot cppFiles collapsed
 
-  -- Emit DOT edges
   let mut missingAdded : Std.HashSet String := {}
   for (f, t, color) in deps.dotEdges do
     dotAddEdge f t #[("color", color)]
@@ -584,9 +673,189 @@ def buildCppGraph (root cppRoot cppIncludeRoot : FilePath) : DotM Unit := do
     let extId ← ensureExt extLabel
     dotAddEdge f extId #[("style", "dashed"), ("color", "#cc00cc")]
 
-  -- order_of_review.md
   let sorted := kahnSort deps.allStems deps.stemDepsOn
-  buildOrderMd cppRoot sorted deps.stemDepsOn
+  buildOrderMd root sorted deps.stemDepsOn
+
+-- ─── Force-Directed Interactive HTML Builder ─────────────────────────────────
+
+def buildHtmlPage (nodesJs linksJs title : String) : String :=
+  "<!DOCTYPE html>\n" ++
+  "<html lang=\"en\">\n" ++
+  "<head>\n" ++
+  "  <meta charset=\"UTF-8\">\n" ++
+  "  <title>" ++ title ++ "</title>\n" ++
+  "  <style>\n" ++
+  "    body { margin: 0; background: #0d0e15; font-family: system-ui, sans-serif; overflow: hidden; }\n" ++
+  "    #search-box {\n" ++
+  "      position: absolute; top: 20px; left: 20px; z-index: 100;\n" ++
+  "      background: rgba(20, 22, 33, 0.95); border: 1px solid #2d3142;\n" ++
+  "      border-radius: 8px; padding: 12px; width: 280px;\n" ++
+  "      box-shadow: 0 4px 20px rgba(0,0,0,0.4);\n" ++
+  "    }\n" ++
+  "    #search-box input {\n" ++
+  "      width: calc(100% - 16px); padding: 8px; background: #181b28; border: 1px solid #3c4257;\n" ++
+  "      border-radius: 4px; color: #fff; outline: none; font-size: 0.9rem;\n" ++
+  "    }\n" ++
+  "    #search-box input:focus { border-color: #5856d6; }\n" ++
+  "    #search-results {\n" ++
+  "      max-height: 200px; overflow-y: auto; margin-top: 8px;\n" ++
+  "    }\n" ++
+  "    .search-item {\n" ++
+  "      padding: 6px 8px; cursor: pointer; color: #a0aec0; font-size: 0.85rem; border-radius: 4px;\n" ++
+  "    }\n" ++
+  "    .search-item:hover { background: #5856d6; color: #fff; }\n" ++
+  "    #legend {\n" ++
+  "      position: absolute; bottom: 20px; left: 20px; z-index: 100;\n" ++
+  "      background: rgba(20, 22, 33, 0.95); border: 1px solid #2d3142;\n" ++
+  "      border-radius: 8px; padding: 12px; color: #a0aec0; font-size: 0.8rem;\n" ++
+  "    }\n" ++
+  "    .legend-item { display: flex; align-items: center; margin-bottom: 6px; }\n" ++
+  "    .legend-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }\n" ++
+  "    #header {\n" ++
+  "      position: absolute; top: 20px; right: 20px; z-index: 100; text-align: right; color: #fff;\n" ++
+  "      pointer-events: none;\n" ++
+  "    }\n" ++
+  "    #header h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }\n" ++
+  "    #header p { margin: 4px 0 0 0; font-size: 0.8rem; color: #718096; }\n" ++
+  "  </style>\n" ++
+  "  <script src=\"https://cdn.jsdelivr.net/npm/force-graph\"></script>\n" ++
+  "</head>\n" ++
+  "<body>\n" ++
+  "  <div id=\"header\">\n" ++
+  "    <h1>" ++ title ++ "</h1>\n" ++
+  "    <p>Hover nodes to highlight paths. Click nodes to focus & zoom.</p>\n" ++
+  "  </div>\n" ++
+  "  <div id=\"search-box\">\n" ++
+  "    <input type=\"text\" id=\"search-input\" placeholder=\"Search file or module...\" oninput=\"onSearchInput()\">\n" ++
+  "    <div id=\"search-results\"></div>\n" ++
+  "  </div>\n" ++
+  "  <div id=\"legend\">\n" ++
+  "    <div style=\"font-weight:600; margin-bottom: 8px; color: #fff;\">Legend</div>\n" ++
+  "    <div class=\"legend-item\"><div class=\"legend-color\" style=\"background: #9c27b0;\"></div>C++ Stems/Files</div>\n" ++
+  "    <div class=\"legend-item\"><div class=\"legend-color\" style=\"background: #4caf50;\"></div>Rust Sources</div>\n" ++
+  "    <div class=\"legend-item\"><div class=\"legend-color\" style=\"background: #2196f3;\"></div>Externals (Libs)</div>\n" ++
+  "    <div class=\"legend-item\"><div class=\"legend-color\" style=\"background: #9e9e9e;\"></div>Unresolved Stems</div>\n" ++
+  "  </div>\n" ++
+  "  <div id=\"graph\"></div>\n" ++
+  "\n" ++
+  "  <script type=\"module\">\n" ++
+  "    import { GUI } from 'https://esm.sh/dat.gui';\n" ++
+  "    const gData = {\n" ++
+  "      nodes: [\n" ++ nodesJs ++ "\n      ],\n" ++
+  "      links: [\n" ++ linksJs ++ "\n      ]\n" ++
+  "    };\n" ++
+  "\n" ++
+  "    const highlightNodes = new Set();\n" ++
+  "    const highlightLinks = new Set();\n" ++
+  "    let hoverNode = null;\n" ++
+  "\n" ++
+  "    // Cross-link nodes dynamically\n" ++
+  "    const nodeMap = {};\n" ++
+  "    gData.nodes.forEach(n => nodeMap[n.id] = n);\n" ++
+  "\n" ++
+  "    gData.links.forEach(link => {\n" ++
+  "      const a = nodeMap[link.source];\n" ++
+  "      const b = nodeMap[link.target];\n" ++
+  "      if (a && b) {\n" ++
+  "        !a.neighbors && (a.neighbors = []);\n" ++
+  "        !b.neighbors && (b.neighbors = []);\n" ++
+  "        a.neighbors.push(b);\n" ++
+  "        b.neighbors.push(a);\n" ++
+  "\n" ++
+  "        !a.links && (a.links = []);\n" ++
+  "        !b.links && (b.links = []);\n" ++
+  "        a.links.push(link);\n" ++
+  "        b.links.push(link);\n" ++
+  "      }\n" ++
+  "    });\n" ++
+  "\n" ++
+  "    const elem = document.getElementById('graph');\n" ++
+  "    const Graph = ForceGraph()(elem)\n" ++
+  "      .graphData(gData)\n" ++
+  "      .dagMode('td')\n" ++
+  "      .dagLevelDistance(100)\n" ++
+  "      .backgroundColor('#0d0e15')\n" ++
+  "      .nodeId('id')\n" ++
+  "      .nodeRelSize(5)\n" ++
+  "      .nodeLabel(node => `${node.label} [${node.group}]`)\n" ++
+  "      .nodeColor(node => {\n" ++
+  "        if (node === hoverNode) return '#ff3b30';\n" ++
+  "        if (highlightNodes.has(node)) return '#ff9500';\n" ++
+  "        if (node.type === 'cpp') return '#9c27b0';\n" ++
+  "        if (node.type === 'rust') return '#4caf50';\n" ++
+  "        if (node.type === 'external') return '#2196f3';\n" ++
+  "        return '#9e9e9e';\n" ++
+  "      })\n" ++
+  "      .linkWidth(link => highlightLinks.has(link) ? 3 : 1)\n" ++
+  "      .linkColor(link => highlightLinks.has(link) ? '#ff9500' : 'rgba(255,255,255,0.15)')\n" ++
+  "      .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)\n" ++
+  "      .linkDirectionalParticleWidth(2.5)\n" ++
+  "      .onNodeHover(node => {\n" ++
+  "        highlightNodes.clear();\n" ++
+  "        highlightLinks.clear();\n" ++
+  "        if (node) {\n" ++
+  "          highlightNodes.add(node);\n" ++
+  "          node.neighbors?.forEach(neighbor => highlightNodes.add(neighbor));\n" ++
+  "          node.links?.forEach(link => highlightLinks.add(link));\n" ++
+  "        }\n" ++
+  "        hoverNode = node || null;\n" ++
+  "        updateStyle();\n" ++
+  "      })\n" ++
+  "      .onNodeClick(node => {\n" ++
+  "        Graph.centerAt(node.x, node.y, 800);\n" ++
+  "        Graph.zoom(3.5, 800);\n" ++
+  "      });\n" ++
+  "\n" ++
+  "    function updateStyle() {\n" ++
+  "      Graph.nodeColor(Graph.nodeColor())\n" ++
+  "           .linkWidth(Graph.linkWidth())\n" ++
+  "           .linkColor(Graph.linkColor());\n" ++
+  "    }\n" ++
+  "\n" ++
+  "    // Search autocomplete logic\n" ++
+  "    window.onSearchInput = function() {\n" ++
+  "      const query = document.getElementById('search-input').value.toLowerCase();\n" ++
+  "      const resultsDiv = document.getElementById('search-results');\n" ++
+  "      resultsDiv.innerHTML = '';\n" ++
+  "      if (!query) return;\n" ++
+  "\n" ++
+  "      const matches = gData.nodes.filter(n => n.label.toLowerCase().includes(query)).slice(0, 10);\n" ++
+  "      matches.forEach(node => {\n" ++
+  "        const item = document.createElement('div');\n" ++
+  "        item.className = 'search-item';\n" ++
+  "        item.textContent = node.label;\n" ++
+  "        item.onclick = () => {\n" ++
+  "          Graph.centerAt(node.x, node.y, 800);\n" ++
+  "          Graph.zoom(3.5, 800);\n" ++
+  "\n" ++
+  "          highlightNodes.clear();\n" ++
+  "          highlightLinks.clear();\n" ++
+  "          highlightNodes.add(node);\n" ++
+  "          node.neighbors?.forEach(neigh => highlightNodes.add(neigh));\n" ++
+  "          node.links?.forEach(l => highlightLinks.add(l));\n" ++
+  "          hoverNode = node;\n" ++
+  "          updateStyle();\n" ++
+  "\n" ++
+  "          resultsDiv.innerHTML = '';\n" ++
+  "          document.getElementById('search-input').value = node.label;\n" ++
+  "        };\n" ++
+  "        resultsDiv.appendChild(item);\n" ++
+  "      });\n" ++
+  "    };\n" ++
+  "\n" ++
+  "    // GUI Controls for Dag Orientation\n" ++
+  "    const controls = { 'DAG Orientation': 'td' };\n" ++
+  "    const gui = new GUI({ autoPlace: true });\n" ++
+  "    gui.domElement.style.position = 'absolute';\n" ++
+  "    gui.domElement.style.top = '20px';\n" ++
+  "    gui.domElement.style.right = '20px';\n" ++
+  "    gui.domElement.style.zIndex = '100';\n" ++
+  "    gui.add(controls, 'DAG Orientation', ['td', 'bu', 'lr', 'rl', 'radialout', 'radialin', null])\n" ++
+  "       .onChange(orientation => Graph.dagMode(orientation));\n" ++
+  "    document.body.appendChild(gui.domElement);\n" ++
+  "  </script>\n" ++
+  "</body>\n" ++
+  "</html>\n"
 
 -- ─── Main ────────────────────────────────────────────────────────────────────
 
@@ -595,34 +864,27 @@ def main (args : List String) : IO UInt32 := do
   let rustOnly := args.contains "--rust-only"
   let cppOnly  := args.contains "--cpp-only"
 
-  -- Parse --out <file>
   let outFile : FilePath :=
     match args.findIdx? (· == "--out") with
-    | some i => args.get? (i + 1) |>.map (⟨·⟩) |>.getD "dep_graph.dot"
+    | some i => args[i + 1]? |>.map (⟨·⟩) |>.getD "dep_graph.dot"
     | none   => "dep_graph.dot"
 
-  -- Determine project root: walk upward from cwd until lean-toolchain is found
   let cwd ← IO.currentDir
   let root : FilePath ← do
     let mut dir := cwd
     let mut found := false
     for _ in [:10] do
-      if ← isFile (dir / "lean-toolchain") do
+      if ← isFile (dir / "lean-toolchain") then
         found := true; break
-      if let some p := dir.parent then dir := p else break
+      match dir.parent with
+      | some p => dir := p
+      | none => break
     if found then pure dir else pure cwd
 
   let rustRoot       := root / "src" / "rust"
-  let cppRoot        := root / "src" / "removed_cpp"
+  let cppRoot        := root / "src"
   let cppIncludeRoot := cppRoot / "include"
 
-  -- Run DOT builder
-  let (_, dotSt) ← (do
-    unless cppOnly do buildRustGraph root rustRoot
-    unless rustOnly do buildCppGraph root cppRoot cppIncludeRoot
-    : DotM Unit).run {}
-
-  -- Write DOT file
   let preamble := [
     "digraph lean_deps {",
     "  rankdir=LR;", "  overlap=false;", "  splines=true;",
@@ -633,33 +895,61 @@ def main (args : List String) : IO UInt32 := do
     "    label=\"External dependencies\"; style=filled; fillcolor=\"#fff0f0\"; color=\"#aa0000\";",
     "  }", "",
   ]
+
+  -- Generate uncollapsed Graph Data
+  let (_, dotSt) ← (do
+    unless cppOnly do buildRustGraph root rustRoot false
+    unless rustOnly do buildCppGraph root cppRoot cppIncludeRoot false
+    : DotM Unit).run {}
   let dotContent :=
     String.intercalate "\n" (preamble ++ dotSt.lines.toList ++ ["}"]) ++ "\n"
   IO.FS.writeFile outFile dotContent
+  IO.println s!"✅  Written uncollapsed DOT to {outFile}  ({dotContent.length} bytes)"
 
-  IO.println s!"✅  Written {outFile}  ({dotContent.length} bytes)"
-  IO.println s!"   Nodes: {dotSt.addedNodes.size}   Edges: {dotSt.addedEdges.size}"
+  -- Generate collapsed Graph Data
+  let outFileColl : FilePath := ⟨outFile.toString.replace ".dot" "_collapsed.dot"⟩
+  let (_, dotStColl) ← (do
+    unless cppOnly do buildRustGraph root rustRoot true
+    unless rustOnly do buildCppGraph root cppRoot cppIncludeRoot true
+    : DotM Unit).run {}
+  let dotContentColl :=
+    String.intercalate "\n" (preamble ++ dotStColl.lines.toList ++ ["}"]) ++ "\n"
+  IO.FS.writeFile outFileColl dotContentColl
+  IO.println s!"✅  Written collapsed DOT to {outFileColl}  ({dotContentColl.length} bytes)"
 
-  -- Auto-render SVG
-  let svgFile : FilePath := ⟨outFile.toString.replace ".dot" "" ++ ".svg"⟩
-  let dotBin ←
-    (IO.Process.run { cmd := "which", args := #["dot"] }).map (fun _ => true)
-    |>.catchExceptions (fun _ => pure false)
+  -- Write interactive Uncollapsed HTML Page (Force-Directed DAG)
+  let htmlFile1 : FilePath := ⟨outFile.toString.replace ".dot" ".html"⟩
+  let nodesJsStr1 := ",\n".intercalate dotSt.jsNodes.toList
+  let linksJsStr1 := ",\n".intercalate dotSt.jsLinks.toList
+  IO.FS.writeFile htmlFile1 (buildHtmlPage nodesJsStr1 linksJsStr1 "Lean4 Dependencies (Uncollapsed)")
+  IO.println s!"✅  Written interactive uncollapsed page to {htmlFile1}"
+
+  -- Write interactive Collapsed HTML Page (Force-Directed DAG)
+  let htmlFile2 : FilePath := ⟨outFileColl.toString.replace ".dot" ".html"⟩
+  let nodesJsStr2 := ",\n".intercalate dotStColl.jsNodes.toList
+  let linksJsStr2 := ",\n".intercalate dotStColl.jsLinks.toList
+  IO.FS.writeFile htmlFile2 (buildHtmlPage nodesJsStr2 linksJsStr2 "Lean4 Dependencies (Collapsed)")
+  IO.println s!"✅  Written interactive collapsed page to {htmlFile2}"
+
+  IO.println s!"Open uncollapsed interactive graph: xdg-open \"{htmlFile1}\""
+  IO.println s!"Open collapsed interactive graph: xdg-open \"{htmlFile2}\""
+
+  let mut dotBin := false
+  try
+    let _ ← IO.Process.run { cmd := "which", args := #["dot"] }
+    dotBin := true
+  catch _ =>
+    pure ()
 
   if dotBin then
     try
-      IO.println "🔄  Rendering SVG with dot…"
+      IO.println "🔄  Rendering SVGs with dot…"
+      let svgFile : FilePath := ⟨outFile.toString.replace ".dot" "" ++ ".svg"⟩
+      let svgFileColl : FilePath := ⟨outFileColl.toString.replace ".dot" "" ++ ".svg"⟩
       let _ ← IO.Process.run { cmd := "dot", args := #["-Tsvg", outFile.toString, "-o", svgFile.toString] }
       IO.println s!"✅  Written {svgFile}"
-      IO.println s!"\nOpen: xdg-open \"{svgFile}\""
+      let _ ← IO.Process.run { cmd := "dot", args := #["-Tsvg", outFileColl.toString, "-o", svgFileColl.toString] }
+      IO.println s!"✅  Written {svgFileColl}"
     catch e =>
       IO.eprintln s!"⚠️  dot render failed: {e}"
-      printManual outFile svgFile
-  else
-    printManual outFile svgFile
   return 0
-where
-  printManual (outFile svgFile : FilePath) : IO Unit := do
-    IO.println s!"Render with:"
-    IO.println s!"   dot -Tsvg {outFile} -o {svgFile}"
-    IO.println s!"   dot -Tpng {outFile} -o {⟨outFile.toString.replace \".dot\" \".png\"⟩}"

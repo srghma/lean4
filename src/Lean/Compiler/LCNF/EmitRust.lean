@@ -116,6 +116,7 @@ structure Context where
   modName : Name
   currFn : Name := default
   currParams : Array (Param .impure) := #[]
+  inStateMachineLoop : Bool := false
 
 structure State where
   buf : String := ""
@@ -446,6 +447,8 @@ def paramsWithoutErased (ps : Array (Param .impure)) :=
   ps.filter (!·.type.isErased)
 
 -- Names already declared in emitFileHeader's extern "C" block; must not be re-declared.
+-- This list covers both the low-level functions imported via `use lean_runtime::generated_abi::*;`
+-- and any other names that should not appear in per-module extern "C" blocks.
 private def headerExternNames : Array String := #[
   "lean_box", "lean_unbox", "lean_dec", "lean_inc",
   "lean_alloc_ctor", "lean_ctor_set", "lean_ctor_get", "lean_ctor_release", "lean_ctor_set_tag",
@@ -474,7 +477,79 @@ private def headerExternNames : Array String := #[
   "lean_io_mark_end_initialization",
   "lean_io_result_is_error", "lean_io_result_is_ok",
   "lean_io_result_get_value", "lean_io_result_get_error", "lean_io_result_show_error",
-  "lean_inc_ref", "lean_inc_ref_n", "lean_inc_n"
+  "lean_inc_ref", "lean_inc_ref_n", "lean_inc_n",
+  -- Additional static-inline functions provided by lean_runtime rlib (generated_abi.rs)
+  -- Array functions
+  "lean_alloc_array", "lean_mk_empty_array", "lean_mk_empty_array_with_capacity",
+  "lean_array_get_size", "lean_array_size", "lean_array_size_raw",
+  "lean_array_fget", "lean_array_fget_borrowed", "lean_array_fset", "lean_array_fswap",
+  "lean_array_get", "lean_array_get_borrowed",
+  "lean_array_uget", "lean_array_uget_borrowed", "lean_array_uset", "lean_array_uswap",
+  "lean_array_pop",
+  -- Nat arithmetic
+  "lean_nat_add", "lean_nat_sub", "lean_nat_mul", "lean_nat_div", "lean_nat_mod",
+  "lean_nat_succ", "lean_nat_eq", "lean_nat_le",
+  "lean_nat_dec_eq", "lean_nat_dec_le", "lean_nat_dec_lt",
+  "lean_nat_land", "lean_nat_lor", "lean_nat_lxor", "lean_nat_shiftr",
+  "lean_nat_to_int",
+  -- Int arithmetic
+  "lean_int_add", "lean_int_sub", "lean_int_mul",
+  "lean_int_eq", "lean_int_le", "lean_int_lt",
+  "lean_int_dec_eq", "lean_int_dec_le", "lean_int_dec_lt", "lean_int_dec_nonneg",
+  "lean_int_neg", "lean_int_neg_succ_of_nat",
+  "lean_scalar_to_int", "lean_scalar_to_int64", "lean_int64_to_int",
+  -- UInt8
+  "lean_uint8_add", "lean_uint8_sub", "lean_uint8_mul", "lean_uint8_div", "lean_uint8_mod",
+  "lean_uint8_neg", "lean_uint8_complement",
+  "lean_uint8_land", "lean_uint8_lor", "lean_uint8_xor",
+  "lean_uint8_shift_left", "lean_uint8_shift_right",
+  "lean_uint8_dec_eq", "lean_uint8_dec_le", "lean_uint8_dec_lt",
+  "lean_uint8_of_nat", "lean_uint8_to_nat",
+  "lean_uint8_to_uint32", "lean_uint8_to_uint64", "lean_uint8_to_usize",
+  -- UInt32
+  "lean_uint32_add", "lean_uint32_sub", "lean_uint32_mul", "lean_uint32_div", "lean_uint32_mod",
+  "lean_uint32_neg", "lean_uint32_complement",
+  "lean_uint32_land", "lean_uint32_lor", "lean_uint32_xor",
+  "lean_uint32_shift_left", "lean_uint32_shift_right",
+  "lean_uint32_dec_eq", "lean_uint32_dec_le", "lean_uint32_dec_lt",
+  "lean_uint32_of_nat", "lean_uint32_to_nat",
+  "lean_uint32_to_uint64", "lean_uint32_to_uint8", "lean_uint32_to_usize",
+  -- UInt64
+  "lean_uint64_add", "lean_uint64_sub", "lean_uint64_mul", "lean_uint64_div", "lean_uint64_mod",
+  "lean_uint64_neg", "lean_uint64_complement",
+  "lean_uint64_land", "lean_uint64_lor", "lean_uint64_xor",
+  "lean_uint64_shift_left", "lean_uint64_shift_right",
+  "lean_uint64_dec_eq", "lean_uint64_dec_le", "lean_uint64_dec_lt",
+  "lean_uint64_of_nat", "lean_uint64_to_nat",
+  "lean_uint64_to_uint32", "lean_uint64_to_uint8", "lean_uint64_to_usize",
+  "lean_uint64_mix_hash",
+  -- USize
+  "lean_usize_add", "lean_usize_sub", "lean_usize_dec_eq", "lean_usize_dec_le", "lean_usize_dec_lt",
+  "lean_usize_land", "lean_usize_lor", "lean_usize_lxor",
+  "lean_usize_shift_left", "lean_usize_shift_right",
+  "lean_usize_of_nat", "lean_usize_to_nat",
+  -- Float
+  "lean_float_add", "lean_float_sub", "lean_float_mul", "lean_float_div",
+  "lean_float_negate", "lean_float_beq", "lean_float_dec",
+  -- String
+  "lean_string_dec_eq", "lean_string_dec_lt",
+  "lean_string_length", "lean_string_utf8_byte_size",
+  "lean_string_utf8_at_end",
+  "lean_string_utf8_get_fast", "lean_string_utf8_next_fast",
+  "lean_string_get_byte_fast",
+  -- IO
+  "lean_io_result_mk_error",
+  -- Misc
+  "lean_ptr_tag", "lean_ptr_addr",
+  "lean_is_st",
+  "lean_strict_and", "lean_strict_or",
+  "lean_hashmap_mk_idx", "lean_hashset_mk_idx",
+  -- Task wrappers (static-inline in lean.h)
+  "lean_task_spawn", "lean_task_bind", "lean_task_map", "lean_task_get_own",
+  -- Sarray / byte-array
+  "lean_alloc_sarray", "lean_mk_empty_byte_array",
+  -- Int/Nat conversion
+  "lean_int_to_nat", "lean_nat_abs"
 ]
 
 def emitFnDecls : EmitM Unit := do
@@ -489,9 +564,17 @@ def emitFnDecls : EmitM Unit := do
         emitFnDeclAux sig externName true
     | none => emitFnDeclStandard sig true
   -- Local functions with @[extern "name"] need a declaration (they won't be defined here).
-  for decl in (← getLocalDecls) do
-    if let some externName := getExternNameFor (← getEnv) `c decl.name then
-      if !decl.params.isEmpty && !seenExterns.contains externName then
+  -- Skip if the name is also locally exported (via @[export]): the definition is in this file.
+  let localDecls ← getLocalDecls
+  let env ← getEnv
+  let localExportedNames := localDecls.foldl (init := #[]) fun acc d =>
+    match getExportNameFor? env d.name with
+    | some (.str .anonymous s) => acc.push s
+    | _ => acc
+  for decl in localDecls do
+    if let some externName := getExternNameFor env `c decl.name then
+      if !decl.params.isEmpty && !seenExterns.contains externName
+         && !localExportedNames.contains externName then
         seenExterns := seenExterns.push externName
         emitFnDeclAux decl.toSignature externName true
   emitLn "}"
@@ -1025,8 +1108,9 @@ partial def emitJoinPointsBody (code : Code .impure) : EmitM Unit := do
   | .return .. | .jmp .. | .unreach .. => return ()
 
 partial def emitCode (code : Code .impure) : EmitM Unit := do
-  let declared ← declareVars code
-  if declared then emitLn ""
+  unless (← read).inStateMachineLoop do
+    let declared ← declareVars code
+    if declared then emitLn ""
   emitBasicBlock code
 
 end
@@ -1041,9 +1125,10 @@ def emitDeclBody (code : Code .impure) : EmitM Unit := do
     emitLn "loop {";
     emitLn "match state {"
     emitLn "0 => {"
-    emitBasicBlock code
-    emitLn "}"
-    emitJoinPointsBody code
+    withReader (fun ctx => { ctx with inStateMachineLoop := true }) do
+      emitBasicBlock code
+      emitLn "}"
+      emitJoinPointsBody code
     emitLn "_ => {}"
     emitLn "}"
     emitLn "}"

@@ -38,7 +38,7 @@ goal is:
 
 these tests should pass:
 1. cd ./src/rust/lean_runtime/ && echo "cargo test -p lean_runtime" && cargo test -p lean_runtime && echo "cargo test -p lean_shell" && cargo test -p lean_shell && echo "cargo build -p lean_runtime" && cargo build -p lean_runtime && echo "cargo build -p lean_shell" && cargo build -p lean_shell
-2. CTEST_PARALLEL_LEVEL="$(nproc)" CTEST_OUTPUT_ON_FAILURE=1 make -C build/release -j "$(nproc)" test ARGS='-E bench/mvcgen/sym -R "elab/1921|elab/4306"' (I excluded bench/mvcgen/sym bc its olean files are stale, and selected two random tests) (Is this command runs stage3? fix if no)
+2. CTEST_PARALLEL_LEVEL="$(nproc)" CTEST_OUTPUT_ON_FAILURE=1 make -C build/release/stage2 -j "$(nproc)" test ARGS='-E bench/mvcgen/sym -R "elab/1921|elab/4306"' (I excluded bench/mvcgen/sym bc its olean files are stale, and selected two random tests) (Is this command runs stage3? fix if no)
 
 When fixing issues in rust implementation - add rust unit tests.
 

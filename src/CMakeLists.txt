@@ -61,7 +61,7 @@ set(
 )
 set(
   LEAN_TEST_VARS
-  "LEAN_CC=${CMAKE_C_COMPILER}"
+  ""
   CACHE STRING
   "Additional environment variables used when running tests"
 )
@@ -970,6 +970,26 @@ if(STAGE GREATER 0 AND NOT CMAKE_SYSTEM_NAME MATCHES "Emscripten")
     COMMAND $(MAKE) -f ${CMAKE_BINARY_DIR}/stdlib.make leanc
     VERBATIM
   )
+
+  # Build a minimal lean_runtime rlib (ABI stub only) so leanc can compile
+  # generated .rs files.  The stub re-exports generated_abi.rs which has no
+  # external crate deps (only core::ffi), so no cargo/deps-dir is needed.
+  # leanc invokes rustc with --extern lean_runtime= pointing to this file.
+  find_program(RUSTC rustc)
+  if(RUSTC)
+    add_custom_target(
+      lean_runtime_rlib
+      ALL
+      COMMAND cmake -E make_directory "${CMAKE_BINARY_DIR}/lib/lean"
+      COMMAND ${RUSTC} --edition=2021 --crate-type=rlib --crate-name=lean_runtime
+        -C debug-assertions=no
+        "${CMAKE_SOURCE_DIR}/rust/lean_runtime_abi_stub.rs"
+        -o "${CMAKE_BINARY_DIR}/lib/lean/liblean_runtime.rlib"
+      WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/rust"
+      COMMENT "Building lean_runtime ABI stub rlib"
+    )
+    add_dependencies(leanc lean_runtime_rlib)
+  endif()
 endif()
 
 file(COPY ${LEAN_SOURCE_DIR}/bin/leanmake DESTINATION ${CMAKE_BINARY_DIR}/bin)

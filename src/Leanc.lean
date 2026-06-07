@@ -8,13 +8,17 @@ import Lean.Compiler.FFI
 open Lean.Compiler.FFI
 
 def main (args : List String) : IO UInt32 := do
+  let mut args := args.toArray
+  let root ← match (← IO.getEnv "LEAN_SYSROOT") with
+    | some root => pure <| System.FilePath.mk root
+    | none      => pure <| (← IO.appDir).parent.get!
   let hasRs := args.any (·.endsWith ".rs")
   if hasRs then
     let mut outfile? := none
     let mut sourcefile? := none
     let mut optLevel := "0"
     let mut debug := #[]
-    let mut iter := args
+    let mut iter := args.toList
     while !iter.isEmpty do
       match iter with
       | "-o" :: out :: rest =>
@@ -34,18 +38,34 @@ def main (args : List String) : IO UInt32 := do
       let outfile := match outfile? with
         | some out => out
         | none => (System.FilePath.mk sourcefile).withExtension "o" |>.toString
-      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "-C", s!"opt-level={optLevel}"] ++ debug ++ #["-o", outfile, sourcefile]
+      let sysroot := root.toString
+      let rlib := s!"{sysroot}/lib/lean/liblean_runtime.rlib"
+      -- Derive a valid crate name from the filename stem: replace non-identifier chars with `_`,
+      -- drop leading digits. This avoids rustc errors like "invalid character '.' in crate name".
+      let rawStem := (System.FilePath.mk sourcefile).fileStem.getD "module"
+      let sanitized := rawStem.map fun c => if c.isAlphanum || c == '_' then c else '_'
+      let crateName := if sanitized.isEmpty then "module"
+                       else if sanitized.front.isDigit then "_" ++ sanitized
+                       else sanitized
+      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "--edition=2021", s!"--crate-name={crateName}", "-C", s!"opt-level={optLevel}", "-C", "debug-assertions=no"] ++ debug ++ #["--extern", s!"lean_runtime={rlib}", "-o", outfile, sourcefile]
       if args.contains "-v" then
         IO.eprintln s!"rustc {" ".intercalate rustcArgs.toList}"
       let child ← IO.Process.spawn { cmd := "rustc", args := rustcArgs }
-      return ← child.wait
+      let exitCode ← child.wait
+      if exitCode != 0 then return exitCode
+      if args.contains "-c" then return 0
+      -- Continue to link with clang
+      let mut newArgs := #[]
+      for arg in args do
+        if arg == sourcefile then
+          newArgs := newArgs.push outfile
+        else
+          newArgs := newArgs.push arg
+      args := newArgs
     else
       IO.eprintln "leanc: no input rust files"
       return 1
 
-  let root ← match (← IO.getEnv "LEAN_SYSROOT") with
-    | some root => pure <| System.FilePath.mk root
-    | none      => pure <| (← IO.appDir).parent.get!
   let mut cc := "@LEANC_CC@".replace "ROOT" root.toString
 
   if args.isEmpty then
@@ -69,7 +89,7 @@ Interesting options:
 
   -- let compileOnly := args.contains "-c"
   let linkStatic := !(args.contains "-shared" || args.contains "-leanshared")
-  let args := args.erase "-leanshared"
+  args := args.erase "-leanshared"
 
   -- We assume that the CMake variables do not contain escaped spaces
   let cflags := getCFlags root
@@ -94,8 +114,8 @@ Interesting options:
     -- these are intended for the bundled compiler only
     cflagsInternal := #[]
     ldflagsInternal := #[]
-  let args := cflags ++ cflagsInternal ++ args ++ ldflagsInternal ++ ldflags ++ ["-Wno-unused-command-line-argument"]
-  let args := args.filter (!·.isEmpty)
+  args := cflags ++ cflagsInternal ++ args ++ ldflagsInternal ++ ldflags ++ ["-Wno-unused-command-line-argument"]
+  args := args.filter (!·.isEmpty)
   if args.contains "-v" then
     IO.eprintln s!"{cc} {" ".intercalate args.toList}"
   let child ← IO.Process.spawn { cmd := cc, args, env }

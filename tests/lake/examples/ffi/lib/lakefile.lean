@@ -55,7 +55,7 @@ target ffi_shared.a pkg : FilePath := do
         args := #[
           "build",
           "--release",
-          "--manifest-path", (pkg.srcDir / "c" / "ffi_shared" / "Cargo.toml").toString,
+          "--manifest-path", (pkg.dir / "c" / "ffi_shared" / "Cargo.toml").toString,
           "--target-dir", cargoTargetDir.toString
         ]
       }
@@ -64,11 +64,18 @@ target ffi_shared.a pkg : FilePath := do
 
 target libleanffi_shared pkg : Dynlib := do
   let libName := "leanffi"
-  let ffiA ← ffi_shared.a.fetch
-  let weakArgs := #["-L", (← getLeanLibDir).toString]
-  let leanArgs ← getLeanLinkSharedFlags
-  buildSharedLib libName (pkg.sharedLibDir / nameToSharedLib libName)
-    #[ffiA] #[] weakArgs leanArgs "cc" getLeanTrace
+  let ffiAJob ← ffi_shared.a.fetch
+  -- Use --whole-archive so all symbols from the Rust static archive are exported.
+  ffiAJob.mapM fun aPath => do
+    addLeanTrace
+    addPlatformTrace
+    let leanArgs ← getLeanLinkSharedFlags
+    let libFile := pkg.sharedLibDir / nameToSharedLib libName
+    let linkArgs := #["-Wl,--whole-archive", aPath.toString, "-Wl,--no-whole-archive",
+                      "-L", (← getLeanLibDir).toString] ++ leanArgs
+    let art ← buildArtifactUnlessUpToDate libFile (ext := sharedLibExt) (restore := true) do
+      compileSharedLib libFile linkArgs "cc"
+    return {name := libName, path := art.path, deps := #[], plugin := false}
 
 lean_lib FFI.Shared where
   moreLinkLibs := #[libleanffi_shared]

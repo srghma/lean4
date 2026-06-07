@@ -860,7 +860,7 @@ public def buildLeanO
       let lean ← getLeanInstall
       let includeDir := leanIncludeDir?.getD lean.includeDir
       let args := #["-I", includeDir.toString] ++ lean.ccFlags ++ weakArgs ++ traceArgs
-      compileO oFile srcFile args lean.cc
+      compileO oFile srcFile args (if srcFile.extension == some "rs" then lean.leanc else lean.cc)
     return art.path
 
 /-- Build a static library from object file jobs using the Lean toolchain's `ar`. -/

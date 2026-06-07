@@ -22,9 +22,9 @@ test_run setup-file ImportTest.lean --no-build
 echo "# TEST: --no-build file"
 test_status $NO_BUILD_CODE build +Test:c.o.export --no-build
 test_err "Building Test:c.o" build +Test:c.o.export --no-build
-test_exp ! -f .lake/build/ir/Test.c.o.export
+test_exp ! -f .lake/build/ir/Test.rs.o.export
 test_run build +Test:c.o.export
-test_exp -f .lake/build/ir/Test.c.o.export
+test_exp -f .lake/build/ir/Test.rs.o.export
 test_out "All targets up-to-date" build +Test:c.o.export --no-build
 
 # cleanup

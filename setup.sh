@@ -18,20 +18,51 @@
 
 set -euo pipefail
 
+for cmd in cmake cargo rustc make; do
+  if ! command -v "$cmd" &> /dev/null; then
+    echo "ERROR: '$cmd' is not installed or not in PATH. Are you inside the Nix shell?" >&2
+    exit 1
+  fi
+done
+
 PROJECT="$(cd "$(dirname "$0")" && pwd)"
 BUILD="$PROJECT/build/release"
 NPROC=$(nproc)
+
+# Default value for the test flag
+RUN_TESTS=false
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --run-tests)
+      RUN_TESTS=true
+      shift
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      echo "Usage: $0 [--run-tests]" >&2
+      exit 1
+      ;;
+  esac
+done
 
 # ── 1. Clean ─────────────────────────────────────────────────────────────────
 echo "=== Cleaning build ==="
 rm -rdf "$PROJECT/build"
 
+git clean -xn \
+  -e ".direnv/" \
+  -e ".envrc" \
+  -e ".gemini/"
+
 # ── 2. Check / update stage0 against upstream/master ─────────────────────────
 echo "=== Checking stage0 against origin/master ==="
 cd "$PROJECT"
 if ! git remote get-url origin &>/dev/null; then
-  echo "WARNING: remote 'origin' not found; skipping stage0 check."
+  echo "ERROR: remote 'origin' not found; skipping stage0 check."
   echo "  Add it: git remote add origin https://github.com/leanprover/lean4.git"
+  exit 1
 else
   STAGE0_DIFF="$(git diff origin/master -- stage0/ 2>&1)"
   if [ -n "$STAGE0_DIFF" ]; then
@@ -50,7 +81,28 @@ echo "=== Configuring cmake ==="
 cmake -S "$PROJECT" -B "$BUILD" -DCMAKE_BUILD_TYPE=Release
 
 echo "=== Building stage0 (cmake) ==="
+# The ExternalProject build for stage0 uses BUILD_ALWAYS=ON, so cmake always
+# re-runs the build. With USE_LAKE=OFF and C_ONLY=1 the leanmake invocation
+# should only compile pre-existing .c files in stage0/stdlib/ to .o files and
+# must not regenerate them. If stage0/ files are nonetheless dirtied (observed
+# on some NixOS setups — root cause not yet determined), restore them.
 make -C "$BUILD" -j"$NPROC" stage0
+
+# Check if stage0/ has dirty files or untracked changes
+if ! git -C "$PROJECT" diff --quiet -- stage0/ || [ -n "$(git -C "$PROJECT" status --porcelain stage0/)" ]; then
+  echo -e "\n\e[1;31m⚠️  WARNING: Local modifications or untracked files detected in stage0/ !\e[0m"
+  echo -e "\e[31mThese files will be permanently reset/overwritten to match the clean upstream stage0 state.\e[0m"
+  echo -e "\e[31mPress Ctrl+C within 3 seconds to abort this script...\e[0m"
+
+  # Pause for 3 seconds to let the user read and optionally abort
+  sleep 3
+
+  echo "  Resetting stage0/..."
+  git -C "$PROJECT" checkout -- stage0/
+  git -C "$PROJECT" clean -fd -- stage0/
+else
+  echo "  stage0/ is clean. No reset necessary."
+fi
 
 # ── 4. Build stage1 ───────────────────────────────────────────────────────────
 # cmake configure generates the stage1 build environment:
@@ -124,10 +176,11 @@ export -f compile_one
 export STAGE1_OLEAN STAGE1_LEAN PROJECT
 
 printf '%s\n' "${COMPILE_LIST[@]}" | xargs -P "$NPROC" -I{} bash -c '
-  IFS="|" read -r src rs_out olean_out <<< "{}"
+  IFS="|" read -r src rs_out olean_out <<< "$1"
   compile_one "$src" "$rs_out" "$olean_out"
-'
+' _ {}
 
+shopt -s globstar
 RS_FILES=("$STAGE2_RS"/**/*.rs "$STAGE2_RS"/*.rs)
 echo "  Generated $(find "$STAGE2_RS" -name "*.rs" | wc -l) .rs files"
 
@@ -171,19 +224,33 @@ TOML
 
 echo "  Generated lean_stdlib crate with $(grep -c '^mod ' "$LEAN_STDLIB_DIR/src/lib.rs") modules"
 
-# ── 5c. Add lean_stdlib to workspace and build ──────────────────────────────
+# ── 5c. Build lean_stdlib ───────────────────────────────────────────────────
+# lean_stdlib lives outside src/rust/ so it cannot be a workspace member.
+# Build it as a standalone crate using --manifest-path.
 echo "=== Stage2: building lean_stdlib with cargo ==="
+cargo build --release --manifest-path "$LEAN_STDLIB_DIR/Cargo.toml" 2>&1 | tail -5
 
-# Add lean_stdlib to the workspace if not already present
-WORKSPACE_TOML="$PROJECT/src/rust/Cargo.toml"
-if ! grep -q "lean_stdlib" "$WORKSPACE_TOML" 2>/dev/null; then
-  # The workspace member path must be relative to src/rust/
-  STDLIB_REL="$(python3 -c "import os; print(os.path.relpath('$LEAN_STDLIB_DIR', '$PROJECT/src/rust'))")"
-  sed -i "s|members = \[|members = [\"$STDLIB_REL\", |" "$WORKSPACE_TOML"
+if [ "$RUN_TESTS" = "true" ]; then
+  echo "=== Running cargo tests ==="
+  (
+    cd ./src/rust/lean_runtime/
+    echo "cargo test -p lean_runtime"
+    cargo test -p lean_runtime
+    echo "cargo test -p lean_shell"
+    cargo test -p lean_shell
+    echo "cargo build -p lean_runtime"
+    cargo build -p lean_runtime
+    echo "cargo build -p lean_shell"
+    cargo build -p lean_shell
+  )
+
+  echo "=== Running CTest ==="
+
+  CTEST_PARALLEL_LEVEL="$(nproc)" CTEST_OUTPUT_ON_FAILURE=1 make -C build/release/stage2 -j "$(nproc)" test ARGS='-E bench/mvcgen/sym'
+  # CTEST_PARALLEL_LEVEL="$(nproc)" CTEST_OUTPUT_ON_FAILURE=1 make -C build/release/stage2 -j "$(nproc)" test ARGS='-E bench/mvcgen/sym -R "elab/1921|elab/4306"'
+else
+  echo "=== Skipping tests. Use --run-tests to execute them. ==="
 fi
-
-cd "$PROJECT/src/rust"
-cargo build --release -p lean_stdlib 2>&1 | tail -5
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 echo ""

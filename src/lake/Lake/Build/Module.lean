@@ -704,13 +704,13 @@ def Module.cacheOutputArtifacts
     oleanPrivate? := ← cacheIf? isModule mod.oleanPrivateFile "olean.private"
     ir? := ← cacheIf? isModule mod.irFile "ir"
     ilean := ← cache mod.ileanFile "ilean"
-    c := ← cache mod.cFile "c"
+    c := ← cache mod.cFile "rs"
     bc? := ← cacheIf? (Lean.Internal.hasLLVMBackend ()) mod.bcFile "bc"
     ltar? := ← cacheIf? (← mod.ltarFile.pathExists) mod.ltarFile "ltar"
   }
 where
   @[inline] cache file ext := do
-    -- `text` is always `false` because Lean produces LF-only `.ir` and `.c`
+    -- `text` is always `false` because Lean produces LF-only `.ir` and `.rs`
     cacheArtifact file ext (useLocalFile := useLocalFile)
   @[inline] cacheIf? c art ext := do
     if c then return some (← cache art ext) else return none
@@ -808,12 +808,12 @@ def Module.computeArtifacts (mod : Module) (isModule : Bool) : FetchM ModuleOutp
     oleanPrivate? := ← computeIf isModule mod.oleanPrivateFile "olean.private"
     ilean := ← compute mod.ileanFile "ilean"
     ir? := ← computeIf isModule mod.irFile "ir"
-    c := ← compute mod.cFile "c"
+    c := ← compute mod.cFile "rs"
     bc? := ← computeIf (Lean.Internal.hasLLVMBackend ()) mod.bcFile "bc"
   }
 where
   @[inline] compute file ext := do
-    -- Note: Lean produces LF-only line endings for `.c` and `.ilean`, so no normalization.
+    -- Note: Lean produces LF-only line endings for `.rs` and `.ilean`, so no normalization.
     computeArtifact file ext (text := false)
   computeIf c file ext := do
      if c then return some (← compute file ext) else return none

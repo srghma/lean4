@@ -54,9 +54,9 @@ $LAKE build +Foo.Baz
 test -f ./.lake/build/lib/lean/Foo/Baz.olean
 
 # Test an object file specifier
-test ! -f ./.lake/build/ir/Bar.c.o.export
+test ! -f ./.lake/build/ir/Bar.rs.o.export
 $LAKE build +Bar:c.o.export
-test -f ./.lake/build/ir/Bar.c.o.export
+test -f ./.lake/build/ir/Bar.rs.o.export
 
 # Test default targets
 test ! -f ./.lake/build/bin/c
@@ -109,10 +109,10 @@ $LAKE build bark | grep Bark!
 rm -f .lake/build/bin/a
 rm -f .lake/build/lib/lean/a.olean
 rm -f .lake/build/lib/lean/Foo/Baz.olean
-rm -f  .lake/build/ir/Bar.c.o.export
+rm -f  .lake/build/ir/Bar.rs.o.export
 $LAKE build -v src/Foo/Baz.lean src/Bar.lean:c.o.export
 test -f .lake/build/lib/lean/Foo/Baz.olean
-test -f .lake/build/ir/Bar.c.o.export
+test -f .lake/build/ir/Bar.rs.o.export
 $LAKE build -v src/a.lean
 test -f .lake/build/lib/lean/a.olean
 test ! -f .lake/build/bin/a
