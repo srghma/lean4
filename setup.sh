@@ -13,8 +13,10 @@
 #             When stage1's lean binary runs on user code, it uses EmitRust → .rs files.
 #   stage2 — Rust runtime + EmitRust.
 #             stage1's lean binary compiles all lean stdlib .lean → .rs files.
-#             A generated Rust crate (lean_stdlib) includes all .rs files via mod/include!.
-#             cargo builds lean_stdlib + lean_runtime → pure-Rust lean binary.
+#             lean_lean (~503 MB of .rs source) is topo-sorted and split into N
+#             sub-crates (~130 MB each) so each rustc invocation fits in RAM.
+#             cargo builds lean_init → lean_std → lean_lean_0..N → lean_lean
+#             (umbrella) → lean_lake → lean_binary.
 
 set -euo pipefail
 
@@ -153,12 +155,9 @@ fi
 # to .rs files, then builds a pure-Rust lean binary with cargo.
 #
 # Generated .rs files go into build/release/stage2/src/generated/.
-# A generated lean_stdlib crate wraps them all with mod { include!(...) }.
-# lean_shell_main depends on lean_stdlib + lean_runtime → stage2/bin/lean.
-#
-# Note: lean_runtime still links stdc++ for runtime_exception.rs (C++ RTTI shim).
-# That is the only remaining C++ dependency.  Removing it requires porting
-# lean_throwable to a pure-Rust panic mechanism.
+# lean_lean (~503 MB) is topologically split into N sub-crates (~130 MB each)
+# so each rustc invocation fits within 15 GB RAM.
+# lean_shell_main depends on lean_binary → lean_shell → all stdlib packages.
 STAGE1_LEAN="$BUILD/stage1/bin/lean"
 STAGE1_OLEAN="$BUILD/stage1/lib/lean"
 STAGE2_DIR="$BUILD/stage2"
@@ -219,17 +218,18 @@ fi  # end SKIP_RS gate
 
 if [[ "$SKIP_CARGO" != "true" ]]; then
 
-# ── 5b. Generate lean_stdlib workspace (4 per-package rlibs) ─────────────────
-# Each Lean package (Init, Std, Lean, Lake) becomes its own rlib crate.
-# Cargo builds them sequentially by dependency order, so only one rustc process
-# runs at a time.  Generated .rs files use `use crate::Mod::Path::*` and
-# `use lean_PACKAGE::Mod::Path::*` instead of extern "C" blocks.
-echo "=== Stage2: generating lean_stdlib workspace (4 packages) ==="
+# ── 5b. Generate lean_stdlib workspace ────────────────────────────────────────
+# lean_lean (~503 MB) is too large for a single rustc invocation on 15 GB RAM.
+# Solution: topological sort of Lean/* modules → split into N sub-crates (~130 MB).
+# Each sub-crate includes its own files and re-exports modules from lower groups.
+# lean_lean umbrella crate (pub use lean_lean_{N-1}::*) keeps the public API stable.
+# lean_lake files use `use lean_lake::...` (self-reference) so we add
+# `extern crate self as lean_lake;` to lean_lake's lib.rs.
+echo "=== Stage2: generating lean_stdlib workspace ==="
 
 mkdir -p "$LEAN_STDLIB_DIR"
 
-# Write the Python tree-builder script used to generate nested pub mod trees
-# from flat lists of .rs file paths.
+# ── Python: simple pub mod tree generator (lean_init, lean_std, lean_lake)
 cat > /tmp/lean_gen_lib_rs.py << 'PYEOF'
 import sys
 from collections import OrderedDict
@@ -266,29 +266,194 @@ def emit(node, prefix, indent):
 emit(root, '', 0)
 PYEOF
 
-# Package order follows the dependency DAG: init → std → lean → lake
-# Each package only includes .rs files under its top-level prefix directory.
-declare -A PKG_PREFIX PKG_DEPS
-PKG_PREFIX=([lean_init]="Init/" [lean_std]="Std/" [lean_lean]="Lean/" [lean_lake]="Lake/")
-# Paths relative to lean_PACKAGE/Cargo.toml (= lean_stdlib/lean_PACKAGE/):
-#   lean_runtime: ../../../../../src/rust/lean_runtime
-#   (lean_PACKAGE → lean_stdlib → stage2 → release → build → project)
-PKG_DEPS[lean_init]='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }'
-PKG_DEPS[lean_std]='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }
+# ── Python: topological sort of lean_lean modules → group assignments
+cat > /tmp/lean_lean_topo_split.py << 'PYEOF'
+import sys, os, re
+from collections import defaultdict, deque
+
+base_dir = sys.argv[1]
+target = int(sys.argv[2]) if len(sys.argv) > 2 else 130_000_000
+
+lean_dir = os.path.join(base_dir, 'Lean')
+modules = {}  # key: "Lean/Meta/Basic", value: file size
+
+for dirpath, _, filenames in os.walk(lean_dir):
+    for fn in filenames:
+        if fn.endswith('.rs'):
+            full = os.path.join(dirpath, fn)
+            rel = os.path.relpath(full, base_dir)  # "Lean/Meta/Basic.rs"
+            modules[rel[:-3]] = os.path.getsize(full)
+
+top = os.path.join(base_dir, 'Lean.rs')
+if os.path.exists(top):
+    modules['Lean'] = os.path.getsize(top)
+
+# Parse use crate::Lean::... dependencies from each file
+use_re = re.compile(r'\buse crate::(Lean(?:::[A-Za-z_][A-Za-z0-9_]*)+)')
+
+deps = defaultdict(set)   # mod_key -> set of mod_keys it depends on
+rdeps = defaultdict(set)  # reverse: mod_key -> set that depend on it
+
+for mod_key in modules:
+    rs = os.path.join(base_dir, mod_key + '.rs')
+    try:
+        content = open(rs, errors='replace').read()
+        seen = set()
+        for m in use_re.finditer(content):
+            parts = m.group(1).split('::')
+            # Find longest prefix that is a module in our dict
+            dep = None
+            for i in range(len(parts), 0, -1):
+                k = '/'.join(parts[:i])
+                if k in modules and k != mod_key:
+                    dep = k
+                    break
+            if dep and dep not in seen:
+                seen.add(dep)
+                deps[mod_key].add(dep)
+    except:
+        pass
+
+for m, ds in deps.items():
+    for d in ds:
+        rdeps[d].add(m)
+
+# Kahn's topological sort (deps-first ordering)
+in_deg = {k: len(deps.get(k, set())) for k in modules}
+q = deque(sorted(k for k in modules if in_deg[k] == 0))
+order = []
+while q:
+    k = q.popleft()
+    order.append(k)
+    for d in sorted(rdeps.get(k, set())):
+        in_deg[d] -= 1
+        if in_deg[d] == 0:
+            q.append(d)
+# Append any remaining (cycles shouldn't happen in valid Lean code)
+order.extend(sorted(set(modules) - set(order)))
+
+# Split into groups by cumulative file size
+groups = [[]]
+cur_sz = 0
+for k in order:
+    sz = modules[k]
+    if cur_sz + sz > target and groups[-1]:
+        groups.append([])
+        cur_sz = 0
+    groups[-1].append(k)
+    cur_sz += sz
+
+for gi, grp in enumerate(groups):
+    for k in grp:
+        print(f'{gi}\t{k}')
+PYEOF
+
+# ── Python: lib.rs generator for lean_lean sub-packages (split with re-exports)
+# For group G's lib.rs:
+#   - modules in group G: use include!()
+#   - modules in groups < G: use `pub use lean_lean_M::path::*;` (re-export)
+# When a file node emits a wildcard re-export, its children in groups <= that file's
+# group are already covered by the wildcard, so we skip them (min_emit_group tracks this).
+cat > /tmp/lean_lean_gen_lib_rs.py << 'PYEOF'
+import sys
+from collections import OrderedDict
+
+tsv_file = sys.argv[1]
+cur_grp = int(sys.argv[2])
+
+# Load assignments for groups 0..cur_grp
+assignments = {}
+with open(tsv_file) as f:
+    for line in f:
+        parts = line.rstrip('\n').split('\t', 1)
+        if len(parts) == 2:
+            g, k = int(parts[0]), parts[1]
+            if g <= cur_grp:
+                assignments[k] = g
+
+class Node:
+    def __init__(self):
+        self.grp = None  # group of .rs file for this node (None if no file)
+        self.children = OrderedDict()
+
+root = Node()
+for k in sorted(assignments):
+    parts = k.split('/')
+    node = root
+    for part in parts:
+        if part not in node.children:
+            node.children[part] = Node()
+        node = node.children[part]
+    node.grp = assignments[k]
+
+LIB = '../../../src/generated'
+
+def has_in_range(node, lo, hi):
+    """True if this subtree has any .rs file with group in [lo, hi]."""
+    if node.grp is not None and lo <= node.grp <= hi:
+        return True
+    return any(has_in_range(c, lo, hi) for c in node.children.values())
+
+def emit(node, path, indent, lo):
+    """
+    Emit pub mod tree for lean_lean_{cur_grp}.
+    lo: minimum group index to emit (modules in groups < lo are covered by parent wildcard).
+    """
+    pad = '    ' * indent
+    for name, child in node.children.items():
+        cp = path + name
+        if not has_in_range(child, lo, cur_grp):
+            continue
+        print(f'{pad}pub mod {name} {{')
+        nxt_lo = lo
+        if child.grp is not None and lo <= child.grp <= cur_grp:
+            if child.grp == cur_grp:
+                # Include this file's content directly
+                print(f'{pad}    include!("{LIB}/{cp}.rs");')
+                # include!() doesn't cover sub-modules, keep lo unchanged
+            else:
+                # Re-export from lower group crate (wildcard covers all of that crate's
+                # sub-modules too, so advance lo to avoid re-defining those sub-modules)
+                g = child.grp
+                rp = cp.replace('/', '::')
+                print(f'{pad}    pub use lean_lean_{g}::{rp}::*;')
+                nxt_lo = g + 1
+        if child.children:
+            emit(child, cp + '/', indent + 1, nxt_lo)
+        print(f'{pad}}}')
+
+emit(root, '', 0, 0)
+PYEOF
+
+# ── Run topo-split to determine lean_lean group assignments
+echo "  Topo-sorting lean_lean modules (target 130 MB per group)..."
+python3 /tmp/lean_lean_topo_split.py "$STAGE2_RS" 130000000 > /tmp/lean_lean_groups.tsv
+NUM_LEAN_GROUPS=$(awk -F'\t' 'BEGIN{m=-1}{n=$1+0; if(n>m)m=n}END{print m+1}' /tmp/lean_lean_groups.tsv)
+echo "  lean_lean split into $NUM_LEAN_GROUPS groups:"
+for ((G=0; G<NUM_LEAN_GROUPS; G++)); do
+  cnt=$(grep -c "^${G}	" /tmp/lean_lean_groups.tsv 2>/dev/null || echo 0)
+  sz=$(awk -F'\t' -v g="$G" '$1==g{s+=1}END{print s+0}' /tmp/lean_lean_groups.tsv)
+  echo "    lean_lean_${G}: ${cnt} modules"
+done
+
+# ── Package generation helpers
+PKG_DEPS_lean_init='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }'
+PKG_DEPS_lean_std='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }
 lean_init = { path = "../lean_init" }'
-PKG_DEPS[lean_lean]='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }
-lean_init = { path = "../lean_init" }
-lean_std = { path = "../lean_std" }'
-PKG_DEPS[lean_lake]='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }
+PKG_DEPS_lean_lake='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }
 lean_init = { path = "../lean_init" }
 lean_std = { path = "../lean_std" }
 lean_lean = { path = "../lean_lean" }'
 
-PACKAGES=(lean_init lean_std lean_lean lean_lake)
-WORKSPACE_MEMBERS=""
+declare -a PACKAGES=()
 
-for pkg in "${PACKAGES[@]}"; do
-  prefix="${PKG_PREFIX[$pkg]}"
+# ── Generate lean_init and lean_std (simple include!-based packages)
+for pkg in lean_init lean_std; do
+  case "$pkg" in
+    lean_init) prefix="Init/"  ; pkg_deps="$PKG_DEPS_lean_init" ;;
+    lean_std)  prefix="Std/"   ; pkg_deps="$PKG_DEPS_lean_std"  ;;
+  esac
+  PACKAGES+=("$pkg")
   pkg_dir="$LEAN_STDLIB_DIR/$pkg"
   mkdir -p "$pkg_dir/src"
 
@@ -302,43 +467,140 @@ edition = "2021"
 crate-type = ["rlib"]
 
 [dependencies]
-${PKG_DEPS[$pkg]}
+${pkg_deps}
 PKG_TOML
 
-  # Collect .rs files for this package.
-  # Includes the top-level package file (e.g. Init.rs) AND all files under the prefix dir.
-  local_prefix="${prefix%/}"   # "Init" from "Init/"
+  local_prefix="${prefix%/}"
   mapfile -t pkg_files < <({
     [[ -f "$STAGE2_RS/${local_prefix}.rs" ]] && echo "${local_prefix}.rs"
     { find "$STAGE2_RS/$prefix" -name "*.rs" 2>/dev/null || true; } | sed "s|$STAGE2_RS/||"
   } | sort)
-  total_pkg="${#pkg_files[@]}"
-
-  # Generate lib.rs with nested pub mod tree via the Python helper.
-  # The tree handles both leaf modules and directory+file collisions (e.g.
-  # Init/Data.rs exists alongside Init/Data/List.rs).
   {
     echo "#![allow(warnings, non_upper_case_globals, non_snake_case, non_camel_case_types, dead_code, unused_imports, clashing_extern_declarations)]"
-    if [[ ${#pkg_files[@]} -gt 0 ]]; then
-      printf '%s\n' "${pkg_files[@]}" | python3 /tmp/lean_gen_lib_rs.py
-    fi
+    [[ ${#pkg_files[@]} -gt 0 ]] && printf '%s\n' "${pkg_files[@]}" | python3 /tmp/lean_gen_lib_rs.py
   } > "$pkg_dir/src/lib.rs"
-
-  echo "  Package $pkg: $total_pkg modules"
-
-  WORKSPACE_MEMBERS+="  \"${pkg}\","$'\n'
+  echo "  Package $pkg: ${#pkg_files[@]} modules"
 done
 
-# Root lean_stdlib crate: workspace root + staticlib that links all packages.
-# Paths relative to lean_stdlib/Cargo.toml (= lean_stdlib/):
-#   lean_runtime: ../../../../src/rust/lean_runtime
-#   (lean_stdlib → stage2 → release → build → project)
-mkdir -p "$LEAN_STDLIB_DIR/src"
+# ── Generate lean_lean_0..N-1 (topological split sub-packages)
+LEAN_SUB_PKGS=()
+for ((G=0; G<NUM_LEAN_GROUPS; G++)); do
+  pkg="lean_lean_${G}"
+  LEAN_SUB_PKGS+=("$pkg")
+  PACKAGES+=("$pkg")
+  pkg_dir="$LEAN_STDLIB_DIR/$pkg"
+  mkdir -p "$pkg_dir/src"
 
-# lean_binary: the stage2 lean executable.
-# Depends on lean_shell (rlib, provides lean_main) + all stdlib rlibs.
-# lean_shell calls lean_shell_main() which lives in lean_lean (Lean.Shell).
+  # Deps: lean_runtime + lean_init + lean_std + all lower lean_lean_G sub-packages
+  dep_lines='lean_runtime = { path = "../../../../../src/rust/lean_runtime" }
+lean_init = { path = "../lean_init" }
+lean_std = { path = "../lean_std" }'
+  for ((H=0; H<G; H++)); do
+    dep_lines+="
+lean_lean_${H} = { path = \"../lean_lean_${H}\" }"
+  done
+
+  cat > "$pkg_dir/Cargo.toml" << PKG_TOML
+[package]
+name = "${pkg}"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+${dep_lines}
+PKG_TOML
+
+  cnt=$(grep -c "^${G}	" /tmp/lean_lean_groups.tsv 2>/dev/null || echo 0)
+  {
+    echo "#![allow(warnings, non_upper_case_globals, non_snake_case, non_camel_case_types, dead_code, unused_imports, clashing_extern_declarations)]"
+    python3 /tmp/lean_lean_gen_lib_rs.py /tmp/lean_lean_groups.tsv "$G"
+  } > "$pkg_dir/src/lib.rs"
+  echo "  Package $pkg: ${cnt} modules"
+done
+
+# ── Generate lean_lean umbrella (re-exports the top sub-package chain)
+# lean_lake files use `use lean_lean::Lean::...` so they need this umbrella.
+LAST_G=$((NUM_LEAN_GROUPS - 1))
+pkg="lean_lean"
+PACKAGES+=("$pkg")
+pkg_dir="$LEAN_STDLIB_DIR/$pkg"
+mkdir -p "$pkg_dir/src"
+
+cat > "$pkg_dir/Cargo.toml" << UMBRELLA_TOML
+[package]
+name = "lean_lean"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+lean_lean_${LAST_G} = { path = "../lean_lean_${LAST_G}" }
+UMBRELLA_TOML
+
+printf '%s\n' \
+  '#![allow(warnings)]' \
+  "pub use lean_lean_${LAST_G}::*;" \
+  > "$pkg_dir/src/lib.rs"
+echo "  Package lean_lean: umbrella → lean_lean_${LAST_G}"
+
+# ── Generate lean_lake
+# Lake .rs files are compiled with module name "lake.Lake.*" which EmitRust maps to
+# the cross-package form `use lean_lake::Lake::...` even for intra-lake deps.
+# `extern crate self as lean_lake;` aliases the current crate so those use paths work.
+pkg="lean_lake"
+PACKAGES+=("$pkg")
+pkg_dir="$LEAN_STDLIB_DIR/$pkg"
+mkdir -p "$pkg_dir/src"
+
+cat > "$pkg_dir/Cargo.toml" << PKG_TOML
+[package]
+name = "lean_lake"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+${PKG_DEPS_lean_lake}
+PKG_TOML
+
+mapfile -t pkg_files < <({
+  [[ -f "$STAGE2_RS/Lake.rs" ]] && echo "Lake.rs"
+  { find "$STAGE2_RS/Lake/" -name "*.rs" 2>/dev/null || true; } | sed "s|$STAGE2_RS/||"
+} | sort)
+{
+  echo "#![allow(warnings, non_upper_case_globals, non_snake_case, non_camel_case_types, dead_code, unused_imports, clashing_extern_declarations)]"
+  echo "extern crate self as lean_lake;"
+  [[ ${#pkg_files[@]} -gt 0 ]] && printf '%s\n' "${pkg_files[@]}" | python3 /tmp/lean_gen_lib_rs.py
+} > "$pkg_dir/src/lib.rs"
+echo "  Package lean_lake: ${#pkg_files[@]} modules"
+
+# ── Root workspace Cargo.toml + lean_stdlib staticlib + lean_binary
+mkdir -p "$LEAN_STDLIB_DIR/src"
 mkdir -p "$LEAN_STDLIB_DIR/lean_binary/src"
+
+WORKSPACE_MEMBERS=""
+for pkg in "${PACKAGES[@]}"; do
+  WORKSPACE_MEMBERS+="  \"${pkg}\","$'\n'
+done
+WORKSPACE_MEMBERS+='  "lean_binary",'$'\n'
+
+# Profile overrides: lean_lean sub-packages get opt-level=0 + codegen-units=1
+# to minimize peak RAM per rustc invocation (type checking + codegen).
+PROFILE_OVERRIDES=""
+for pkg in "${LEAN_SUB_PKGS[@]}"; do
+  PROFILE_OVERRIDES+="
+[profile.release.package.${pkg}]
+opt-level = 0
+codegen-units = 1
+"
+done
 
 cat > "$LEAN_STDLIB_DIR/lean_binary/Cargo.toml" << 'BINARY_TOML'
 [package]
@@ -377,8 +639,7 @@ MAIN_RS
 cat > "$LEAN_STDLIB_DIR/Cargo.toml" << ROOT_TOML
 [workspace]
 members = [
-${WORKSPACE_MEMBERS}  "lean_binary",
-]
+${WORKSPACE_MEMBERS}]
 
 [package]
 name = "lean_stdlib"
@@ -399,16 +660,7 @@ lean_lake  = { path = "lean_lake" }
 opt-level = 1
 codegen-units = 1
 lto = false
-
-# lean_lean has ~1189 modules.  Even codegen-units=16 OOMs because Rayon runs
-# all units in parallel across CPU cores.  opt-level=0 skips most LLVM passes
-# (memory drops ~10×); RAYON_NUM_THREADS=1 is passed in the build step below to
-# run codegen units sequentially.  Trade-off: lean stdlib runs slower, but that
-# is acceptable for a correctness-testing build.
-[profile.release.package.lean_lean]
-opt-level = 0
-codegen-units = 16
-incremental = true
+${PROFILE_OVERRIDES}
 ROOT_TOML
 
 printf '%s\n' \
@@ -420,35 +672,27 @@ printf '%s\n' \
   "extern crate lean_lake;" \
   > "$LEAN_STDLIB_DIR/src/lib.rs"
 
-echo "  Generated lean_stdlib workspace"
+echo "  Generated lean_stdlib workspace (${#PACKAGES[@]} packages)"
 
-# ── 5c. Build lean_stdlib (sequential by dependency order) ─────────────────
-# Build packages in DAG order so Cargo never tries to run two large rustc
-# invocations at the same time.  lean_lean (~900 modules) is the memory peak.
+# ── 5c. Build lean_stdlib (sequential by dependency order) ─────────────────────
+# lean_lean sub-packages (~130 MB each) use opt-level=0 + codegen-units=1.
+# Building sequentially ensures only one rustc invocation at a time.
 echo "=== Stage2: building lean_stdlib with cargo (sequential packages) ==="
 for pkg in "${PACKAGES[@]}"; do
   echo "  cargo build $pkg..."
-  # lean_lean: opt-level=0 + RAYON_NUM_THREADS=1 runs 16 codegen units
-  # sequentially with no optimization passes — peak RAM stays manageable.
-  if [[ "$pkg" == "lean_lean" ]]; then
-    RAYON_NUM_THREADS=1 RUSTFLAGS="-C link-arg=-fuse-ld=lld" cargo build --release -p "$pkg" \
-      --jobs 1 \
-      --manifest-path "$LEAN_STDLIB_DIR/Cargo.toml"
-  else
-    cargo build --release -p "$pkg" \
-      --manifest-path "$LEAN_STDLIB_DIR/Cargo.toml"
-  fi
+  cargo build --release -p "$pkg" \
+    --future-incompat-report \
+    --manifest-path "$LEAN_STDLIB_DIR/Cargo.toml"
 done
 echo "  cargo build final lean_stdlib staticlib..."
 cargo build --release -p lean_stdlib \
+  --future-incompat-report \
   --manifest-path "$LEAN_STDLIB_DIR/Cargo.toml"
 
 # ── 5d. Build the stage2 lean binary ──────────────────────────────────────────
-# lean_binary depends on lean_shell (rlib) + all 4 stdlib packages.
-# lean_shell.lean_main → lean_shell_main (from Lean.Shell in lean_lean).
 echo "=== Stage2: building lean binary ==="
-echo "  cargo build lean_binary..."
 cargo build --release -p lean_binary \
+  --future-incompat-report \
   --manifest-path "$LEAN_STDLIB_DIR/Cargo.toml"
 
 mkdir -p "$STAGE2_DIR/bin"
