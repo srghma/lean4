@@ -911,9 +911,12 @@ pub unsafe extern "C" fn lean_alloc_string_export(size: usize, capacity: usize, 
     lean_alloc_string(size, capacity, len)
 }
 
+#[inline(never)]
 #[export_name = "lean_free_small_object"]
 pub unsafe extern "C" fn lean_free_small_object_export(obj: *mut LeanObject) {
-    lean_dealloc_export(obj as *mut u8, lean_object_byte_size(obj))
+    // All Lean objects are allocated via malloc (lean_alloc_object → libc::malloc).
+    // Call free() directly to avoid linker symbol resolution issues in pure-Rust builds.
+    libc::free(obj as *mut _);
 }
 
 pub(crate) unsafe fn lean_small_object_size(obj: *mut LeanObject) -> usize {
