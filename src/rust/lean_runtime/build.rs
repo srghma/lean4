@@ -54,4 +54,15 @@ fn main() {
     } else {
         println!("cargo:rustc-link-lib=stdc++");
     }
+
+    // Ensure libuv is linked. libuv-sys2 emits this via its build script, but
+    // when its bindgen step fails (missing dev headers in the pkg-config path)
+    // the entire build script is discarded. Probing here makes linking reliable
+    // regardless of how libuv-sys2's build script fares.
+    if pkg_config::probe_library("libuv").is_err() {
+        // pkg-config not available or libuv not found; fall back to bare -l uv
+        // and rely on the linker's default search path (or LD_LIBRARY_PATH).
+        println!("cargo:rustc-link-lib=uv");
+    }
+    // If pkg_config succeeds it emits rustc-link-search and rustc-link-lib itself.
 }

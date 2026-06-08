@@ -1295,7 +1295,8 @@ def emitInitFn (phases : IRPhases) (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_{mkModuleInitializationPrefix phases}initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    s!"pub unsafe fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut lean_object \{",
+    "#[no_mangle]",
+    s!"pub unsafe extern \"C\" fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut lean_object \{",
     "let mut res: *mut lean_object = core::ptr::null_mut();",
     s!"if {initialized} \{ return lean_io_result_mk_ok(lean_box(0)); }",
     s!"{initialized} = true;"
@@ -1314,7 +1315,8 @@ def emitLegacyInitFn (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    s!"pub unsafe fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut lean_object \{",
+    "#[no_mangle]",
+    s!"pub unsafe extern \"C\" fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut lean_object \{",
     "let mut res: *mut lean_object = core::ptr::null_mut();",
     s!"if {initialized} \{ return lean_io_result_mk_ok(lean_box(0)); }",
     s!"{initialized} = true;"

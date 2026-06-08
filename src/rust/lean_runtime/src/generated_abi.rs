@@ -346,13 +346,11 @@ extern "C" {
 
     // Float
     pub fn lean_float_to_string(a: f64) -> *mut lean_object;
-    pub fn lean_float_of_nat(a: *mut lean_object) -> f64;
 
     // IO / runtime
     pub fn lean_mark_persistent(o: *mut lean_object);
     pub fn lean_io_result_show_error(r: *mut lean_object);
     pub fn lean_io_mark_end_initialization();
-    pub fn lean_io_error_to_string(err: *mut lean_object) -> *mut lean_object;
     pub fn lean_io_metadata(filename: *mut lean_object) -> *mut lean_object;
     pub fn lean_panic_fn(default_val: *mut lean_object, msg: *mut lean_object) -> *mut lean_object;
     pub fn lean_panic_fn_borrowed(
@@ -403,14 +401,12 @@ extern "C" {
     // Misc
     pub fn lean_get_set_stderr(h: *mut lean_object) -> *mut lean_object;
     pub fn lean_compacted_region_free(region: usize, unit: *mut lean_object) -> *mut lean_object;
-    pub fn lean_enable_initializer_execution(unit: *mut lean_object) -> *mut lean_object;
-    pub fn lean_erase_macro_scopes(n: *mut lean_object) -> *mut lean_object;
+    pub fn lean_enable_initializer_execution() -> *mut lean_object;
     pub fn lean_substring_tostring(
         s: *mut lean_object,
         b: *mut lean_object,
         e: *mut lean_object,
     ) -> *mut lean_object;
-    pub fn lean_stream_of_handle(h: *mut lean_object) -> *mut lean_object;
     pub fn lean_byte_array_hash(a: *mut lean_object) -> u64;
 }
 
@@ -564,7 +560,7 @@ pub unsafe fn lean_alloc_ctor(
         + scalar_sz as usize;
     let o = lean_alloc_object(sz);
     core::ptr::write(o as *mut i32, 1i32);
-    core::ptr::write((o as *mut u8).add(4) as *mut u16, scalar_sz as u16); // m_cs_sz
+    core::ptr::write((o as *mut u8).add(4) as *mut u16, sz as u16); // m_cs_sz = total allocation size
     core::ptr::write((o as *mut u8).add(6), num_objs as u8); // m_other
     core::ptr::write((o as *mut u8).add(7), tag as u8); // m_tag
     o

@@ -17,6 +17,9 @@ default-max-memory = []
 use_gmp = []
 lsan = []
 
+[build-dependencies]
+pkg-config = "0.3"
+
 [dependencies]
 libc = "0.2"
 libuv-sys2 = "1.52.2"
