@@ -39,7 +39,8 @@ def main (args : List String) : IO UInt32 := do
         | some out => out
         | none => (System.FilePath.mk sourcefile).withExtension "o" |>.toString
       let sysroot := root.toString
-      let rlib := s!"{sysroot}/lib/lean/liblean_runtime.rlib"
+      let libDir := s!"{sysroot}/lib/lean"
+      let rlib := s!"{libDir}/liblean_runtime.rlib"
       -- Derive a valid crate name from the filename stem: replace non-identifier chars with `_`,
       -- drop leading digits. This avoids rustc errors like "invalid character '.' in crate name".
       let rawStem := (System.FilePath.mk sourcefile).fileStem.getD "module"
@@ -47,7 +48,13 @@ def main (args : List String) : IO UInt32 := do
       let crateName := if sanitized.isEmpty then "module"
                        else if sanitized.front.isDigit then "_" ++ sanitized
                        else sanitized
-      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "--edition=2021", s!"--crate-name={crateName}", "-C", s!"opt-level={optLevel}", "-C", "debug-assertions=no"] ++ debug ++ #["--extern", s!"lean_runtime={rlib}", "-o", outfile, sourcefile]
+      -- Add --extern flags for lean_* package rlibs when present (generated .rs files use them).
+      let mut pkgExterns : Array String := #[]
+      for pkg in #["lean_init", "lean_std", "lean_lean", "lean_lake"] do
+        let pkgRlib := s!"{libDir}/lib{pkg}.rlib"
+        if ← (System.FilePath.mk pkgRlib).pathExists then
+          pkgExterns := pkgExterns ++ #["--extern", s!"{pkg}={pkgRlib}"]
+      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "--edition=2021", s!"--crate-name={crateName}", "-C", s!"opt-level={optLevel}", "-C", "debug-assertions=no"] ++ debug ++ #["--extern", s!"lean_runtime={rlib}", "-L", libDir] ++ pkgExterns ++ #["-o", outfile, sourcefile]
       if args.contains "-v" then
         IO.eprintln s!"rustc {" ".intercalate rustcArgs.toList}"
       let child ← IO.Process.spawn { cmd := "rustc", args := rustcArgs }

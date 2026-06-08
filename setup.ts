@@ -23,7 +23,7 @@ import { parseArgs } from "util";
 import * as path from "path";
 import * as fs from "fs/promises";
 import * as os from "os";
-import { processReports } from "./parse_errors_lib";
+import { processReports, extractReportsFromText, generateRawReport } from "./parse_errors_lib";
 
 // ============================================================================
 // Initialization & Argument Parsing
@@ -48,29 +48,94 @@ const { values: args } = parseArgs({
   },
 });
 
-const RUN_TESTS = args["no-run-tests"] ?? true;
+const RUN_TESTS = args["no-run-tests"] ? false : true;
 const FROM_STAGE = args.from ?? "clean";
 
-const stages = ["clean", "stage0", "stage1", "rs", "cargo", "setup"];
+const stages = [
+  "clean",
+  "stage0",
+  "stage1",
+  "stage2-rs",
+  "stage2-cargo-gen",
+  "stage2-cargo-build-pkgs",
+  "stage2-cargo-build-stdlib",
+  "stage2-cargo-build-bin",
+  "stage2-setup"
+];
+
 const startIdx = stages.indexOf(FROM_STAGE);
 if (startIdx === -1) {
-  console.error(`Unknown stage '${FROM_STAGE}'; valid: clean stage0 stage1 rs cargo setup`);
+  console.error(`Unknown stage '${FROM_STAGE}'; valid: ${stages.join(" ")}`);
   console.error(`
 Usage: setup.ts [--from=STAGE] [--no-run-tests]
 
-  --from=clean   (default) full rebuild from scratch
-  --from=stage0  skip clean
-  --from=stage1  skip clean + stage0
-  --from=rs      skip clean + stage0 + stage1  (reuse stage1 binary, regen .rs)
-  --from=cargo   skip clean + stage0 + stage1 + .rs gen  (reuse .rs, rebuild cargo)
-  --from=setup   skip all builds, just cmake-configure stage2 + tests
+  --from=clean                     (default) full rebuild from scratch
+  --from=stage0                    skip clean
+  --from=stage1                    skip clean + stage0
+  --from=stage2-rs                 skip clean + stage0 + stage1 (reuse stage1 binary, regen .rs)
+  --from=stage2-cargo-gen          skip up to cargo workspace generation
+  --from=stage2-cargo-build-pkgs   skip generation, reuse workspace, build sequential pkgs
+  --from=stage2-cargo-build-stdlib skip to building the final lean_stdlib staticlib
+  --from=stage2-cargo-build-bin    skip to building the final lean_binary
+  --from=stage2-setup              skip all builds, just cmake-configure stage2 + tests
 
-  --no-run-tests    run ctest against stage2 after setup
+  --no-run-tests                   run ctest against stage2 after setup
 `);
   process.exit(1);
 }
 
 const shouldRun = (stage: string) => stages.indexOf(stage) >= startIdx;
+
+// ============================================================================
+// Generic Utilities & Extracted Functions
+// ============================================================================
+
+const teeStreamToString = async (stream: ReadableStream, out: NodeJS.WriteStream): Promise<string> => {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let accumulated = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    const chunk = decoder.decode(value, { stream: true });
+    out.write(chunk);
+    accumulated += chunk;
+  }
+  return accumulated;
+};
+
+const runCargoWithReportExtraction = async (
+  cargoArgs: string[],
+  seenReportIds: Set<string>,
+  rawDir: string,
+): Promise<void> => {
+  const proc = Bun.spawn(["cargo", ...cargoArgs], {
+    stdout: "pipe",
+    stderr: "pipe"
+  });
+
+  const [stdoutStr, stderrStr] = await Promise.all([
+    teeStreamToString(proc.stdout, process.stdout),
+    teeStreamToString(proc.stderr, process.stderr)
+  ]);
+
+  const exitCode = await proc.exited;
+  if (exitCode !== 0) {
+    console.error(`\nCargo command failed with exit code ${exitCode}`);
+    process.exit(exitCode);
+  }
+
+  const combinedOutput = stdoutStr + "\n" + stderrStr;
+  const reports = extractReportsFromText(combinedOutput);
+
+  for (const { dir, id } of reports) {
+    if (!seenReportIds.has(id)) {
+      seenReportIds.add(id);
+      console.log(`\n  => Extracted new future-incompat report ID ${id} from dir ${dir}`);
+      await generateRawReport(dir, id, path.join(rawDir, `${id}.txt`));
+    }
+  }
+};
 
 // ============================================================================
 // Tree Generators & Utilities
@@ -173,6 +238,15 @@ const buildTree = (files: string[], assignments: Map<string, number>, useAssignm
   return root;
 };
 
+// Returns ordered package lists for substages that jump past code generation
+const getPackagesOrder = async (LEAN_STDLIB_DIR: string) => {
+  const dirs: string[] = await fs.readdir(LEAN_STDLIB_DIR).catch(() => []);
+  const leanGroups = dirs.filter(d => d.startsWith("lean_lean_")).sort((a, b) => {
+    return parseInt(a.replace("lean_lean_", "")) - parseInt(b.replace("lean_lean_", ""));
+  });
+  return ["lean_init", "lean_std", ...leanGroups, "lean_lean", "lean_lake"].filter(d => dirs.includes(d));
+};
+
 // ============================================================================
 // Stage Runners
 // ============================================================================
@@ -183,8 +257,8 @@ const runClean = async () => {
     console.log(`=== Skipping clean (--from=${FROM_STAGE}) ===`);
     const STAGE2_RS = `${BUILD}/stage2/src/generated/`;
     const LEAN_STDLIB_DIR = `${BUILD}/stage2/lean_stdlib/`;
-    if (shouldRun("rs")) await $`rm -rf ${STAGE2_RS}`;
-    if (shouldRun("cargo")) await $`rm -rf ${LEAN_STDLIB_DIR}`;
+    if (shouldRun("stage2-rs")) await $`rm -rf ${STAGE2_RS}`;
+    if (shouldRun("stage2-cargo-gen")) await $`rm -rf ${LEAN_STDLIB_DIR}`;
     return;
   }
   console.log("=== Cleaning build ===");
@@ -193,8 +267,7 @@ const runClean = async () => {
   await $`pnpm i --save-dev @types/bun @types/node`;
 };
 
-// 2. Check / update stage0 against upstream/master
-// 3. Build stage0 via cmake
+// 2. & 3. Build stage0 via cmake
 const runStage0 = async () => {
   if (!shouldRun("stage0")) {
     console.log(`=== Skipping stage0 check (--from=${FROM_STAGE}) ===`);
@@ -218,14 +291,12 @@ const runStage0 = async () => {
     console.log("  stage0/ matches origin/master. OK.");
   }
 
-  // ── 3. Build stage0 via cmake ──
   console.log("=== Configuring cmake ===");
   await $`cmake -S ${PROJECT} -B ${BUILD} -DCMAKE_BUILD_TYPE=Release`;
 
   console.log("=== Building stage0 (cmake) ===");
   await $`make -C ${BUILD} -j${NPROC} stage0`;
 
-  // Check if stage0/ has dirty files or untracked changes
   const { exitCode: dirtyState } = await $`git -C ${PROJECT} diff --quiet -- stage0/`.quiet().nothrow();
   const { stdout: untrackedFiles } = await $`git -C ${PROJECT} status --porcelain stage0/`.quiet();
 
@@ -266,7 +337,7 @@ const runStage1 = async () => {
   await $`make -C ${BUILD} -j${NPROC} stage1`;
 };
 
-// 5. Build stage2
+// 5a. Build stage2 (RS Files)
 // Uses stage1's lean binary (with EmitRust) to compile all lean stdlib .lean files
 // to .rs files, then builds a pure-Rust lean binary with cargo.
 //
@@ -275,12 +346,12 @@ const runStage1 = async () => {
 // so each rustc invocation fits within 15 GB RAM.
 // lean_shell_main depends on lean_binary → lean_shell → all stdlib packages.
 const runStage2Rs = async () => {
+  if (!shouldRun("stage2-rs")) return;
+
   const STAGE1_LEAN = `${BUILD}/stage1/bin/lean`;
   const STAGE1_OLEAN = `${BUILD}/stage1/lib/lean`;
   const STAGE2_RS = `${BUILD}/stage2/src/generated`;
   const STAGE2_OLEAN = `${BUILD}/stage2/olean`;
-
-  if (!shouldRun("rs")) return;
 
   console.log("\n=== Stage2: generating .rs files from lean stdlib ===");
   await fs.mkdir(STAGE2_RS, { recursive: true });
@@ -338,13 +409,35 @@ const runStage2Rs = async () => {
   console.log(`  Generated ${genCount} .rs files`);
 };
 
-// ── 5b. Generate lean_stdlib workspace
-const runStage2Cargo = async () => {
+// ============================================================================
+// Stage 2: Cargo Sub-stages (Extracted)
+// ============================================================================
+
+const REPORT_RAW_DIR = "/tmp/reports";
+const REPORT_SHORT_DIR = "/tmp/reports-short";
+const seenReportIds = new Set<string>();
+let reportsDirsCreated = false;
+
+const buildPackage = async (pkgName: string, LEAN_STDLIB_DIR: string) => {
+  if (!reportsDirsCreated) {
+    await fs.mkdir(REPORT_RAW_DIR, { recursive: true });
+    reportsDirsCreated = true;
+  }
+  console.log(`  cargo build ${pkgName}...`);
+  await runCargoWithReportExtraction(
+    ["build", "--release", "-p", pkgName, "--future-incompat-report", "--manifest-path", `${LEAN_STDLIB_DIR}/Cargo.toml`],
+    seenReportIds,
+    REPORT_RAW_DIR,
+  );
+};
+
+// 5b. Generate lean_stdlib workspace
+const runStage2CargoGen = async () => {
+  if (!shouldRun("stage2-cargo-gen")) return;
+
   const STAGE2_DIR = `${BUILD}/stage2`;
   const STAGE2_RS = `${STAGE2_DIR}/src/generated`;
   const LEAN_STDLIB_DIR = `${STAGE2_DIR}/lean_stdlib`;
-
-  if (!shouldRun("cargo")) return;
 
   console.log("=== Stage2: generating lean_stdlib workspace ===");
   await fs.mkdir(LEAN_STDLIB_DIR, { recursive: true });
@@ -438,7 +531,7 @@ lean_init = { path = "../lean_init" }
 lean_std = { path = "../lean_std" }
 lean_lean = { path = "../lean_lean" }`;
 
-  // ── Generate lean_init and lean_std
+  // Init and Std
   await Promise.all(
     (["lean_init", "lean_std"] as const).map(async pkg => {
       const prefix = pkg === "lean_init" ? "Init/" : "Std/";
@@ -465,7 +558,7 @@ lean_lean = { path = "../lean_lean" }`;
     })
   );
 
-  // ── Generate lean_lean_0..N-1
+  // lean_lean_0..N-1
   const leanRootNode = buildTree(leanFiles, assignments, true);
   for (let G = 0; G < NUM_LEAN_GROUPS; G++) {
     const pkg = `lean_lean_${G}`;
@@ -498,7 +591,7 @@ lean_lean = { path = "../lean_lean" }`;
     console.log(`  Package ${pkg}: ${groups[G].length} modules`);
   }
 
-  // ── Generate lean_lean umbrella
+  // lean_lean umbrella
   const LAST_G = NUM_LEAN_GROUPS - 1;
   PACKAGES.push("lean_lean");
   const umbrellaDir = path.join(LEAN_STDLIB_DIR, "lean_lean");
@@ -511,7 +604,7 @@ lean_lean = { path = "../lean_lean" }`;
   await Bun.write(path.join(umbrellaDir, "src/lib.rs"), `#![allow(warnings)]\npub use lean_lean_${LAST_G}::*;`);
   console.log(`  Package lean_lean: umbrella → lean_lean_${LAST_G}`);
 
-  // ── Generate lean_lake
+  // lean_lake
   PACKAGES.push("lean_lake");
   const lakeDir = path.join(LEAN_STDLIB_DIR, "lean_lake");
   await fs.mkdir(path.join(lakeDir, "src"), { recursive: true });
@@ -531,7 +624,7 @@ lean_lean = { path = "../lean_lean" }`;
   );
   console.log(`  Package lean_lake: ${lakeFiles.length} modules`);
 
-  // ── Root workspace Cargo.toml + lean_stdlib staticlib + lean_binary
+  // Root workspace Cargo.toml + lean_stdlib staticlib + lean_binary
   await fs.mkdir(path.join(LEAN_STDLIB_DIR, "src"), { recursive: true });
   await fs.mkdir(path.join(LEAN_STDLIB_DIR, "lean_binary/src"), { recursive: true });
 
@@ -625,101 +718,58 @@ extern crate lean_lake;
   );
 
   console.log(`  Generated lean_stdlib workspace (${PACKAGES.length} packages)`);
+};
 
-  // ── Setup future-incompatibilities collector ──
-  const collectedReportIds = new Set<string>();
+// 5c. Build package dependency sequence
+const runStage2CargoBuildPkgs = async () => {
+  if (!shouldRun("stage2-cargo-build-pkgs")) return;
 
-  const runCargoWithCapture = async (cargoArgs: string[]): Promise<void> => {
-    const proc = Bun.spawn(["cargo", ...cargoArgs], {
-      stdout: "inherit", // stdout goes directly to terminal
-      stderr: "pipe"     // stderr piped so we can scrape it real-time
-    });
+  const STAGE2_DIR = `${BUILD}/stage2`;
+  const LEAN_STDLIB_DIR = `${STAGE2_DIR}/lean_stdlib`;
 
-    const decoder = new TextDecoder();
-    let stderrAccumulator = "";
+  console.log("=== Stage2: building lean_stdlib cargo packages (sequential by dependency order) ===");
 
-    const reader = proc.stderr.getReader();
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value, { stream: true });
-      process.stderr.write(chunk);
-      stderrAccumulator += chunk;
-    }
+  await $`rm -rf ${REPORT_RAW_DIR} ${REPORT_SHORT_DIR}`.nothrow().quiet();
 
-    const exitCode = await proc.exited;
-    if (exitCode !== 0) {
-      console.error(`\nCargo command failed with exit code ${exitCode}`);
-      process.exit(exitCode);
-    }
-
-    // Capture the ID matches from output
-    for (const match of stderrAccumulator.matchAll(/--id\s+(\d+)/g)) {
-      collectedReportIds.add(match[1]);
-    }
-  };
-
-  // ── 5c. Build lean_stdlib (sequential by dependency order) ──
-  console.log("=== Stage2: building lean_stdlib with cargo (sequential packages) ===");
+  const PACKAGES = await getPackagesOrder(LEAN_STDLIB_DIR);
   for (const pkg of PACKAGES) {
-    console.log(`  cargo build ${pkg}...`);
-    await runCargoWithCapture([
-      "build", "--release", "-p", pkg,
-      "--future-incompat-report",
-      "--manifest-path", `${LEAN_STDLIB_DIR}/Cargo.toml`,
-    ]);
+    await buildPackage(pkg, LEAN_STDLIB_DIR);
   }
-  console.log("  cargo build final lean_stdlib staticlib...");
-  await runCargoWithCapture([
-    "build", "--release", "-p", "lean_stdlib",
-    "--future-incompat-report",
-    "--manifest-path", `${LEAN_STDLIB_DIR}/Cargo.toml`,
-  ]);
+};
 
-  // ── 5d. Build the stage2 lean binary ──
+// 5d. Build staticlib
+const runStage2CargoBuildStdlib = async () => {
+  if (!shouldRun("stage2-cargo-build-stdlib")) return;
+
+  const STAGE2_DIR = `${BUILD}/stage2`;
+  const LEAN_STDLIB_DIR = `${STAGE2_DIR}/lean_stdlib`;
+
+  console.log("=== Stage2: building final lean_stdlib staticlib ===");
+  await buildPackage("lean_stdlib", LEAN_STDLIB_DIR);
+};
+
+// 5e. Build final binary
+const runStage2CargoBuildBin = async () => {
+  if (!shouldRun("stage2-cargo-build-bin")) return;
+
+  const STAGE2_DIR = `${BUILD}/stage2`;
+  const LEAN_STDLIB_DIR = `${STAGE2_DIR}/lean_stdlib`;
+
   console.log("=== Stage2: building lean binary ===");
-  await runCargoWithCapture([
-    "build", "--release", "-p", "lean_binary",
-    "--future-incompat-report",
-    "--manifest-path", `${LEAN_STDLIB_DIR}/Cargo.toml`,
-  ]);
+  await buildPackage("lean_binary", LEAN_STDLIB_DIR);
 
   await fs.mkdir(path.join(STAGE2_DIR, "bin"), { recursive: true });
   await $`cp ${LEAN_STDLIB_DIR}/target/release/lean ${STAGE2_DIR}/bin/lean`;
   console.log(`  stage2 lean binary: ${STAGE2_DIR}/bin/lean`);
-
-  // ── Process collected future-incompatibility reports ──
-  if (collectedReportIds.size === 0) return;
-
-  console.log(`\n=== Found future-incompatibility reports: IDs ${Array.from(collectedReportIds).join(", ")} ===`);
-  const REPORT_RAW_DIR = "/tmp/reports";
-  const REPORT_SHORT_DIR = "/tmp/reports-short";
-
-  await $`rm -rf ${REPORT_RAW_DIR} ${REPORT_SHORT_DIR}`;
-  await fs.mkdir(REPORT_RAW_DIR, { recursive: true });
-  await fs.mkdir(REPORT_SHORT_DIR, { recursive: true });
-
-  await Promise.all(
-    Array.from(collectedReportIds).map(async id => {
-      console.log(`  Generating raw report for ID ${id}...`);
-      const reportProc = Bun.spawn(
-        ["cargo", "report", "future-incompatibilities", "--id", id, "--manifest-path", `${LEAN_STDLIB_DIR}/Cargo.toml`],
-        { stdout: "pipe", stderr: "inherit" }
-      );
-      const outputBytes = await Bun.readableStreamToArrayBuffer(reportProc.stdout);
-      await reportProc.exited;
-      await Bun.write(path.join(REPORT_RAW_DIR, `${id}.txt`), new TextDecoder().decode(outputBytes));
-    })
-  );
-
-  console.log(`  Processing and parsing reports...`);
-  await processReports(REPORT_RAW_DIR, REPORT_SHORT_DIR);
 };
 
 // ============================================================================
-// 5e. Populate stage2 layout for cmake test infrastructure
+// Stage 2 Setup / Tests
 // ============================================================================
+
 const runStage2Setup = async () => {
+  if (!shouldRun("stage2-setup")) return;
+
   const STAGE2_DIR = `${BUILD}/stage2`;
   const STAGE2_OLEAN = `${STAGE2_DIR}/olean`;
 
@@ -778,7 +828,16 @@ await (async () => {
   await runStage0();
   await runStage1();
   await runStage2Rs();
-  await runStage2Cargo();
+  await runStage2CargoGen();
+  await runStage2CargoBuildPkgs();
+  await runStage2CargoBuildStdlib();
+  await runStage2CargoBuildBin();
+
+  if (seenReportIds.size > 0) {
+    console.log("=== Processing future-incompat reports ===");
+    await processReports(REPORT_RAW_DIR, REPORT_SHORT_DIR);
+  }
+
   await runStage2Setup();
   await runTests();
 

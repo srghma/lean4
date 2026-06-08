@@ -707,6 +707,12 @@ echo "=== Stage2: setting up cmake test infrastructure ==="
 mkdir -p "$STAGE2_DIR/lib/lean" "$STAGE2_DIR/bin"
 # Oleans: use stage2-generated ones (identical content to stage1 since same sources)
 rsync -a --delete "$STAGE2_OLEAN/" "$STAGE2_DIR/lib/lean/"
+# Copy Rust rlibs so that leanc can pass --extern flags to rustc for generated .rs files.
+for _rlib in "$LEAN_STDLIB_DIR/target/release/"liblean_*.rlib; do
+  [[ -f "$_rlib" ]] && cp -f "$_rlib" "$STAGE2_DIR/lib/lean/"
+  [[ -f "$_rlib" ]] && cp -f "$_rlib" "$BUILD/stage1/lib/lean/"
+done
+unset _rlib
 # Tests also need cadical, leantar, and leanc.sh from stage1
 for f in cadical leantar leanc.sh; do
   [[ -e "$BUILD/stage1/bin/$f" ]] && cp -f "$BUILD/stage1/bin/$f" "$STAGE2_DIR/bin/$f"

@@ -254,6 +254,7 @@ version = "0.1.0"
 dependencies = [
  "libc",
  "libuv-sys2",
+ "pkg-config",
 ]
 
 [[package]]
