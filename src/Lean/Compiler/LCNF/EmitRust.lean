@@ -265,15 +265,52 @@ where
 def emitCInitName (n : Name) : EmitM Unit :=
   toCInitName n >>= emit
 
+def leanModuleToRustPackage (name : Name) : String :=
+  let s := name.toString
+  if s.startsWith "Init" then "lean_init"
+  else if s.startsWith "Std"  then "lean_std"
+  else if s.startsWith "Lean" then "lean_lean"
+  else if s.startsWith "Lake" then "lean_lake"
+  else "lean_runtime"
+
 def emitFileHeader : EmitM Unit := do
   let env ← getEnv
   let modName ← getModName
   emitLn "// Lean compiler output"
   emitLn s!"// Module: {modName}"
   emit "// Imports:"
-  env.imports.forM fun m => emit (" " ++ toString m)
+  env.imports.forM fun m => emit (" " ++ toString m.module)
   emitLn ""
   emitLn "use lean_runtime::generated_abi::*;"
+  -- Emit `use` imports for all modules whose symbols appear in this module.
+  -- Two sources:
+  --  1. env.imports (direct imports) — ensures dep init functions are in scope.
+  --  2. otherModuleDecls — covers LCNF-inlined refs from transitive deps.
+  let myPkg := leanModuleToRustPackage modName
+  let mut seenMods : Array Name := #[]
+  -- 1. Direct imports
+  for imp in env.imports do
+    let depMod := imp.module
+    if !seenMods.contains depMod then
+      seenMods := seenMods.push depMod
+      let impPkg := leanModuleToRustPackage depMod
+      let rustPath := (toString depMod).replace "." "::"
+      if impPkg == myPkg then
+        emitLn s!"use crate::{rustPath}::*;"
+      else if impPkg != "lean_runtime" then
+        emitLn s!"use {impPkg}::{rustPath}::*;"
+  -- 2. otherModuleDecls (handles inlined transitive refs)
+  for sig in (← getOtherModuleDecls) do
+    if let some idx := env.getModuleIdxFor? sig.name then
+      if let some depMod := env.header.moduleNames[idx]? then
+        if !seenMods.contains depMod then
+          seenMods := seenMods.push depMod
+          let impPkg := leanModuleToRustPackage depMod
+          let rustPath := (toString depMod).replace "." "::"
+          if impPkg == myPkg then
+            emitLn s!"use crate::{rustPath}::*;"
+          else if impPkg != "lean_runtime" then
+            emitLn s!"use {impPkg}::{rustPath}::*;"
 
 def ctorScalarSizeExpression (usize : Nat) (ssize : Nat) : String :=
   if usize == 0 then
@@ -301,7 +338,7 @@ where
 
   compileGround (e : SimpleGroundExpr) : GroundM Unit := do
     let valueName ← compileGroundToValue e (root := true)
-    let declPrefix := if isClosedTermName (← getEnv) decl.name then "static mut" else "#[no_mangle] pub static mut"
+    let declPrefix := if isClosedTermName (← getEnv) decl.name then "static mut" else "pub static mut"
     emitLn <| s!"{declPrefix} {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
 
   compileGroundToValue (e : SimpleGroundExpr) (root := false) : GroundM String := do
@@ -373,7 +410,7 @@ where
   mkValueCLit (type value : String) (root : Bool) : GroundM String := do
     if root then
       let valueName := mkValueName cppBaseName
-      emitLn <| s!"#[no_mangle] pub static {valueName}: {type} = {value};"
+      emitLn <| s!"pub static {valueName}: {type} = {value};"
       return valueName
     else
       mkAuxDecl type value
@@ -555,28 +592,33 @@ private def headerExternNames : Array String := #[
 def emitFnDecls : EmitM Unit := do
   -- Pre-seed with header names so we never re-declare them.
   let mut seenExterns : Array String := headerExternNames
-  emitLn "extern \"C\" {"
-  for sig in (← getOtherModuleDecls) do
-    match getExternNameFor (← getEnv) `c sig.name with
-    | some externName =>
-      if !seenExterns.contains externName then
-        seenExterns := seenExterns.push externName
-        emitFnDeclAux sig externName true
-    | none => emitFnDeclStandard sig true
-  -- Local functions with @[extern "name"] need a declaration (they won't be defined here).
-  -- Skip if the name is also locally exported (via @[export]): the definition is in this file.
+  -- Compute locally-exported names up front so we can skip extern declarations
+  -- for functions whose definitions appear in this same file.
   let localDecls ← getLocalDecls
   let env ← getEnv
   let localExportedNames := localDecls.foldl (init := #[]) fun acc d =>
     match getExportNameFor? env d.name with
     | some (.str .anonymous s) => acc.push s
     | _ => acc
+  emitLn "extern \"C\" {"
+  -- 1. Local functions with @[extern "name"] need a declaration (they won't be defined here).
+  -- Skip if the name is also locally exported (via @[export]): the definition is in this file.
   for decl in localDecls do
     if let some externName := getExternNameFor env `c decl.name then
       if !decl.params.isEmpty && !seenExterns.contains externName
          && !localExportedNames.contains externName then
         seenExterns := seenExterns.push externName
         emitFnDeclAux decl.toSignature externName true
+  -- 2. Other-module @[extern "name"] C functions still need explicit extern "C" declarations.
+  --    Regular Lean functions from other modules are in scope via the `use` imports above.
+  --    But C functions (extern "C") are module-private (not pub) and cannot be re-exported.
+  --    Skip if the name is locally exported (@[export]) — the definition is already in this file.
+  for sig in (← getOtherModuleDecls) do
+    if let some externName := getExternNameFor env `c sig.name then
+      if !sig.params.isEmpty && !seenExterns.contains externName
+         && !localExportedNames.contains externName then
+        seenExterns := seenExterns.push externName
+        emitFnDeclAux sig externName true
   emitLn "}"
 
   for decl in (← getLocalDecls) do
@@ -616,7 +658,7 @@ where
         if isSimpleGroundDecl env sig.name then
           emitLn s!"    static {cppBaseName}_value: lean_object;"
       else
-        let declPrefix := if isClosedTermName env sig.name then "static mut" else "#[no_mangle] pub static mut"
+        let declPrefix := if isClosedTermName env sig.name then "static mut" else "pub static mut"
         emitLn s!"{declPrefix} {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
     else
       if isExternal then
@@ -1101,6 +1143,8 @@ partial def emitJoinPointsBody (code : Code .impure) : EmitM Unit := do
     emit id; emitLn " => {"
     emitBasicBlock decl.value
     emitLn "}"
+    -- Also recurse into the jp body: it may contain nested jp definitions.
+    emitJoinPointsBody decl.value
     emitJoinPointsBody k
   | .let (k := k) .. | .del (k := k) .. | .dec (k := k) .. | .inc (k := k) .. | .setTag (k := k) ..
   | .sset (k := k) .. | .uset (k := k) .. | .oset (k := k) .. => emitJoinPointsBody k
@@ -1144,10 +1188,16 @@ def emitDecl (decl : Decl .impure) : EmitM Unit := do
   | .code code =>
     let baseName ← toCName decl.name
     let ps := decl.params
+    -- Zero-param functions are passed as `unsafe extern "C" fn()` pointers to lean_obj_once
+    -- and similar. They need `extern "C"` ABI for the function pointer type to match.
+    -- @[export] functions additionally need `#[no_mangle]` so C callers can find them by name.
+    let isExported := (getExportNameFor? (← getEnv) decl.name).isSome
     if ps.isEmpty then
-      emit "#[no_mangle] pub unsafe extern \"C\" fn "
+      if isExported then emit "#[no_mangle] pub unsafe extern \"C\" fn "
+      else emit "pub unsafe extern \"C\" fn "
     else
-      emit "#[no_mangle] pub unsafe extern \"C\" fn "
+      if isExported then emit "#[no_mangle] pub unsafe extern \"C\" fn "
+      else emit "pub unsafe fn "
 
     if ps.isEmpty then
       emitCInitName decl.name
@@ -1245,8 +1295,7 @@ def emitInitFn (phases : IRPhases) (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_{mkModuleInitializationPrefix phases}initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    s!"#[no_mangle]",
-    s!"pub unsafe extern \"C\" fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut lean_object \{",
+    s!"pub unsafe fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut lean_object \{",
     "let mut res: *mut lean_object = core::ptr::null_mut();",
     s!"if {initialized} \{ return lean_io_result_mk_ok(lean_box(0)); }",
     s!"{initialized} = true;"
@@ -1265,8 +1314,7 @@ def emitLegacyInitFn (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    s!"#[no_mangle]",
-    s!"pub unsafe extern \"C\" fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut lean_object \{",
+    s!"pub unsafe fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut lean_object \{",
     "let mut res: *mut lean_object = core::ptr::null_mut();",
     s!"if {initialized} \{ return lean_io_result_mk_ok(lean_box(0)); }",
     s!"{initialized} = true;"
@@ -1366,17 +1414,11 @@ def main : EmitM Unit := do
     let runtimeFns ← getInitFnNames .runtime
     let comptimeFns ← getInitFnNames .comptime
     let legacyFns ← getLegacyInitFnNames
-    -- Emit all extern declarations once, deduplicated across all phases.
-    let allExterns := (runtimeFns ++ comptimeFns ++ legacyFns).eraseDups
-    allExterns.forM fun fn =>
-      emitLn s!"extern \"C\" \{ fn {fn}(builtin: u8) -> *mut lean_object; }"
     emitInitFn .runtime runtimeFns
     emitInitFn .comptime comptimeFns
     emitLegacyInitFn legacyFns
   else
     let allFns ← getInitFnNames .all
-    allFns.forM fun fn =>
-      emitLn s!"extern \"C\" \{ fn {fn}(builtin: u8) -> *mut lean_object; }"
     emitInitFn .all allFns
   emitMainFnIfNeeded
   emitFileFooter
