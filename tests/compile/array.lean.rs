@@ -1,33 +1,36 @@
 // Lean compiler output
 // Module: array
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::String::Defs::*;
 extern "C" {
-    fn lean_mk_empty_array_with_capacity(_: *mut lean_object) -> *mut lean_object;
     fn lean_array_push(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_array_to_list(_: *mut lean_object) -> *mut lean_object;
-    fn l_List_lengthTR___redArg(_: *mut lean_object) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
     fn lean_string_append(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_array_mk(_: *mut lean_object) -> *mut lean_object;
 }
-#[no_mangle] pub static l_List_foldl___at___00List_toString___at___00IO_println___at___00main_spec__1_spec__2_spec__3___closed__0_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [44, 32, 0]};
+pub static l_List_foldl___at___00List_toString___at___00IO_println___at___00main_spec__1_spec__2_spec__3___closed__0_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [44, 32, 0]};
 static mut l_List_foldl___at___00List_toString___at___00IO_println___at___00main_spec__1_spec__2_spec__3___closed__0: *mut lean_object = core::ptr::addr_of!(l_List_foldl___at___00List_toString___at___00IO_println___at___00main_spec__1_spec__2_spec__3___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__0_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [91, 93, 0]};
+pub static l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__0_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [91, 93, 0]};
 static mut l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__0: *mut lean_object = core::ptr::addr_of!(l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__1_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [91, 0]};
+pub static l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__1_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [91, 0]};
 static mut l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__1: *mut lean_object = core::ptr::addr_of!(l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__2_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [93, 0]};
+pub static l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__2_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [93, 0]};
 static mut l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__2: *mut lean_object = core::ptr::addr_of!(l_List_toString___at___00IO_println___at___00main_spec__1_spec__2___closed__2_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__0_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 0) as u16, m_other: 2, m_tag: 1 }, m_objs: [((( 4 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object] };
+pub static l_main___closed__0_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 0) as u16, m_other: 2, m_tag: 1 }, m_objs: [((( 4 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object] };
 static mut l_main___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__1_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 0) as u16, m_other: 2, m_tag: 1 }, m_objs: [((( 3 as usize) << 1) | 1) as *mut lean_object,core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object] };
+pub static l_main___closed__1_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 0) as u16, m_other: 2, m_tag: 1 }, m_objs: [((( 3 as usize) << 1) | 1) as *mut lean_object,core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object] };
 static mut l_main___closed__1: *mut lean_object = core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__2_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 0) as u16, m_other: 2, m_tag: 1 }, m_objs: [((( 2 as usize) << 1) | 1) as *mut lean_object,core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object] };
+pub static l_main___closed__2_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 0) as u16, m_other: 2, m_tag: 1 }, m_objs: [((( 2 as usize) << 1) | 1) as *mut lean_object,core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object] };
 static mut l_main___closed__2: *mut lean_object = core::ptr::addr_of!(l_main___closed__2_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__3_value: lean_array_object<3> = lean_array_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*3) as u16, m_other: 0, m_tag: 246 }, m_size: 3, m_capacity: 3, m_data: [((( 2 as usize) << 1) | 1) as *mut lean_object,((( 3 as usize) << 1) | 1) as *mut lean_object,((( 4 as usize) << 1) | 1) as *mut lean_object] };
+pub static l_main___closed__3_value: lean_array_object<3> = lean_array_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*3) as u16, m_other: 0, m_tag: 246 }, m_size: 3, m_capacity: 3, m_data: [((( 2 as usize) << 1) | 1) as *mut lean_object,((( 3 as usize) << 1) | 1) as *mut lean_object,((( 4 as usize) << 1) | 1) as *mut lean_object] };
 static mut l_main___closed__3: *mut lean_object = core::ptr::addr_of!(l_main___closed__3_value) as *mut lean_object;
 static mut l_main___closed__4_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__4: *mut lean_object = core::ptr::null_mut();
@@ -62,7 +65,6 @@ match state {
 if lean_obj_tag(v_x_11_) == 0 {
 return v_x_10_;
 } else {
-let mut v_head_12_: *mut lean_object = core::ptr::null_mut(); let mut v_tail_13_: *mut lean_object = core::ptr::null_mut(); let mut v___x_14_: *mut lean_object = core::ptr::null_mut(); let mut v___x_15_: *mut lean_object = core::ptr::null_mut(); let mut v___x_16_: *mut lean_object = core::ptr::null_mut(); let mut v___x_17_: *mut lean_object = core::ptr::null_mut(); 
 v_head_12_ = lean_ctor_get(v_x_11_, 0);
 lean_inc(v_head_12_);
 v_tail_13_ = lean_ctor_get(v_x_11_, 1);
@@ -204,7 +206,6 @@ let mut v_res_94_: *mut lean_object = core::ptr::null_mut();
 v_res_94_ = _lean_main();
 return v_res_94_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_array(builtin: u8) -> *mut lean_object {

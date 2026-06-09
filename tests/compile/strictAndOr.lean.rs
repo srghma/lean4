@@ -1,16 +1,18 @@
 // Lean compiler output
 // Module: strictAndOr
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Core::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
-    fn lean_strict_or(_: u8, _: u8) -> u8;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
-    fn lean_strict_and(_: u8, _: u8) -> u8;
 }
-#[no_mangle] pub static l_IO_println___at___00main_spec__0___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 97, 108, 115, 101, 0]};
+pub static l_IO_println___at___00main_spec__0___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 97, 108, 115, 101, 0]};
 static mut l_IO_println___at___00main_spec__0___closed__0: *mut lean_object = core::ptr::addr_of!(l_IO_println___at___00main_spec__0___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_IO_println___at___00main_spec__0___closed__1_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [116, 114, 117, 101, 0]};
+pub static l_IO_println___at___00main_spec__0___closed__1_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [116, 114, 117, 101, 0]};
 static mut l_IO_println___at___00main_spec__0___closed__1: *mut lean_object = core::ptr::addr_of!(l_IO_println___at___00main_spec__0___closed__1_value) as *mut lean_object;
 static mut l_main___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__0: u8 = 0;
@@ -49,12 +51,10 @@ loop {
 match state {
 0 => {
 if v_s_11_ == 0 {
-let mut v___x_18_: *mut lean_object = core::ptr::null_mut(); 
 v___x_18_ = l_IO_println___at___00main_spec__0___closed__0;
 v___y_14_ = v___x_18_;
 state = 1; continue;
 } else {
-let mut v___x_19_: *mut lean_object = core::ptr::null_mut(); 
 v___x_19_ = l_IO_println___at___00main_spec__0___closed__1;
 v___y_14_ = v___x_19_;
 state = 1; continue;
@@ -138,7 +138,6 @@ match state {
 v___x_59_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__6), core::ptr::addr_of_mut!(l_main___closed__6_once), _init_l_main___closed__6);
 v___x_60_ = l_IO_println___at___00main_spec__0(v___x_59_);
 if lean_obj_tag(v___x_60_) == 0 {
-let mut v___x_61_: u8 = 0; let mut v___x_62_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_60_, 1);
 v___x_61_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__7), core::ptr::addr_of_mut!(l_main___closed__7_once), _init_l_main___closed__7);
 v___x_62_ = l_IO_println___at___00main_spec__0(v___x_61_);
@@ -151,32 +150,26 @@ state = 1; continue;
 }
 1 => {
 if lean_obj_tag(v___y_46_) == 0 {
-let mut v___x_47_: u8 = 0; let mut v___x_48_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___y_46_, 1);
 v___x_47_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__0), core::ptr::addr_of_mut!(l_main___closed__0_once), _init_l_main___closed__0);
 v___x_48_ = l_IO_println___at___00main_spec__0(v___x_47_);
 if lean_obj_tag(v___x_48_) == 0 {
-let mut v___x_49_: u8 = 0; let mut v___x_50_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_48_, 1);
 v___x_49_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__1), core::ptr::addr_of_mut!(l_main___closed__1_once), _init_l_main___closed__1);
 v___x_50_ = l_IO_println___at___00main_spec__0(v___x_49_);
 if lean_obj_tag(v___x_50_) == 0 {
-let mut v___x_51_: u8 = 0; let mut v___x_52_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_50_, 1);
 v___x_51_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__2), core::ptr::addr_of_mut!(l_main___closed__2_once), _init_l_main___closed__2);
 v___x_52_ = l_IO_println___at___00main_spec__0(v___x_51_);
 if lean_obj_tag(v___x_52_) == 0 {
-let mut v___x_53_: u8 = 0; let mut v___x_54_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_52_, 1);
 v___x_53_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__3), core::ptr::addr_of_mut!(l_main___closed__3_once), _init_l_main___closed__3);
 v___x_54_ = l_IO_println___at___00main_spec__0(v___x_53_);
 if lean_obj_tag(v___x_54_) == 0 {
-let mut v___x_55_: u8 = 0; let mut v___x_56_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_54_, 1);
 v___x_55_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__4), core::ptr::addr_of_mut!(l_main___closed__4_once), _init_l_main___closed__4);
 v___x_56_ = l_IO_println___at___00main_spec__0(v___x_55_);
 if lean_obj_tag(v___x_56_) == 0 {
-let mut v___x_57_: u8 = 0; let mut v___x_58_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_56_, 1);
 v___x_57_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__5), core::ptr::addr_of_mut!(l_main___closed__5_once), _init_l_main___closed__5);
 v___x_58_ = l_IO_println___at___00main_spec__0(v___x_57_);
@@ -209,7 +202,6 @@ let mut v_res_64_: *mut lean_object = core::ptr::null_mut();
 v_res_64_ = _lean_main();
 return v_res_64_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_strictAndOr(builtin: u8) -> *mut lean_object {

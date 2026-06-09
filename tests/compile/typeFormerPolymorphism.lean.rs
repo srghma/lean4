@@ -1,10 +1,13 @@
 // Lean compiler output
 // Module: typeFormerPolymorphism
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::Format::Basic::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
-    fn l_Std_Format_pretty(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
@@ -82,7 +85,6 @@ let mut v_res_40_: *mut lean_object = core::ptr::null_mut();
 v_res_40_ = _lean_main();
 return v_res_40_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_typeFormerPolymorphism(builtin: u8) -> *mut lean_object {

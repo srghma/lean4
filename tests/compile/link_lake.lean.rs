@@ -1,7 +1,9 @@
 // Lean compiler output
 // Module: link_lake
-// Imports: public import Init public meta import Init public import Lake
+// Imports: Init Init Lake
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_lake::Lake::*;
 extern "C" {
 }
 #[no_mangle] pub unsafe extern "C" fn _lean_main() -> *mut lean_object{
@@ -16,8 +18,6 @@ let mut v_res_5_: *mut lean_object = core::ptr::null_mut();
 v_res_5_ = _lean_main();
 return v_res_5_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
-extern "C" { fn initialize_Lake(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_link__lake(builtin: u8) -> *mut lean_object {

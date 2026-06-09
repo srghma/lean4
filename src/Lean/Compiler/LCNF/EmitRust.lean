@@ -265,13 +265,17 @@ where
 def emitCInitName (n : Name) : EmitM Unit :=
   toCInitName n >>= emit
 
+-- Returns the Rust crate name for well-known stdlib packages, or "" for user-defined packages.
+-- User packages are compiled as separate --emit=obj staticlib objects (not rlibs), so they
+-- cannot be referenced via `use crate::*` or `use pkg::Mod::*`. Callers use "" to detect
+-- user packages and emit `extern "C"` declarations instead.
 def leanModuleToRustPackage (name : Name) : String :=
   let s := name.toString
   if s.startsWith "Init" then "lean_init"
   else if s.startsWith "Std"  then "lean_std"
   else if s.startsWith "Lean" then "lean_lean"
   else if s.startsWith "Lake" then "lean_lake"
-  else "lean_runtime"
+  else ""  -- user-defined package: compiled as --emit=obj, not an rlib crate
 
 def emitFileHeader : EmitM Unit := do
   let env ← getEnv
@@ -295,10 +299,11 @@ def emitFileHeader : EmitM Unit := do
       seenMods := seenMods.push depMod
       let impPkg := leanModuleToRustPackage depMod
       let rustPath := (toString depMod).replace "." "::"
-      if impPkg == myPkg then
+      if impPkg == myPkg && !myPkg.isEmpty then
         emitLn s!"use crate::{rustPath}::*;"
-      else if impPkg != "lean_runtime" then
+      else if !impPkg.isEmpty then
         emitLn s!"use {impPkg}::{rustPath}::*;"
+      -- else: user package; extern "C" declarations emitted by emitFnDecls
   -- 2. otherModuleDecls (handles inlined transitive refs)
   for sig in (← getOtherModuleDecls) do
     if let some idx := env.getModuleIdxFor? sig.name then
@@ -307,10 +312,11 @@ def emitFileHeader : EmitM Unit := do
           seenMods := seenMods.push depMod
           let impPkg := leanModuleToRustPackage depMod
           let rustPath := (toString depMod).replace "." "::"
-          if impPkg == myPkg then
+          if impPkg == myPkg && !myPkg.isEmpty then
             emitLn s!"use crate::{rustPath}::*;"
-          else if impPkg != "lean_runtime" then
+          else if !impPkg.isEmpty then
             emitLn s!"use {impPkg}::{rustPath}::*;"
+          -- else: user package; extern "C" declarations emitted by emitFnDecls
 
 def ctorScalarSizeExpression (usize : Nat) (ssize : Nat) : String :=
   if usize == 0 then
@@ -338,8 +344,12 @@ where
 
   compileGround (e : SimpleGroundExpr) : GroundM Unit := do
     let valueName ← compileGroundToValue e (root := true)
-    let declPrefix := if isClosedTermName (← getEnv) decl.name then "static mut" else "pub static mut"
-    emitLn <| s!"{declPrefix} {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
+    if isClosedTermName (← getEnv) decl.name then
+      emitLn <| s!"static mut {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
+    else
+      emitLn "#[used]"
+      emitLn "#[no_mangle]"
+      emitLn <| s!"pub static mut {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
 
   compileGroundToValue (e : SimpleGroundExpr) (root := false) : GroundM String := do
     match e with
@@ -486,108 +496,262 @@ def paramsWithoutErased (ps : Array (Param .impure)) :=
 -- Names already declared in emitFileHeader's extern "C" block; must not be re-declared.
 -- This list covers both the low-level functions imported via `use lean_runtime::generated_abi::*;`
 -- and any other names that should not appear in per-module extern "C" blocks.
+-- BEGIN GENERATED headerExternNames
 private def headerExternNames : Array String := #[
-  "lean_box", "lean_unbox", "lean_dec", "lean_inc",
-  "lean_alloc_ctor", "lean_ctor_set", "lean_ctor_get", "lean_ctor_release", "lean_ctor_set_tag",
-  "lean_is_exclusive", "lean_is_scalar",
-  "lean_alloc_closure", "lean_closure_set",
-  "lean_apply_m",
-  "lean_apply_1", "lean_apply_2", "lean_apply_3", "lean_apply_4",
-  "lean_apply_5", "lean_apply_6", "lean_apply_7", "lean_apply_8",
-  "lean_apply_9", "lean_apply_10", "lean_apply_11", "lean_apply_12",
-  "lean_apply_13", "lean_apply_14", "lean_apply_15", "lean_apply_16",
-  "lean_ctor_set_usize", "lean_ctor_get_usize",
-  "lean_ctor_set_float", "lean_ctor_set_float32",
-  "lean_ctor_set_uint8", "lean_ctor_set_uint16", "lean_ctor_set_uint32", "lean_ctor_set_uint64",
-  "lean_ctor_get_float", "lean_ctor_get_float32",
-  "lean_ctor_get_uint8", "lean_ctor_get_uint16", "lean_ctor_get_uint32", "lean_ctor_get_uint64",
-  "lean_mk_string_unchecked", "lean_mk_string",
-  "lean_unsigned_to_nat", "lean_cstr_to_nat",
-  "lean_unbox_uint32", "lean_unbox_uint64", "lean_unbox_usize", "lean_unbox_float", "lean_unbox_float32",
-  "lean_box_uint32", "lean_box_uint64", "lean_box_usize", "lean_box_float", "lean_box_float32",
-  "lean_mark_persistent", "lean_io_result_mk_ok", "lean_obj_tag", "lean_del_object",
-  "lean_dec_ref", "lean_dec_ref_known",
-  "lean_float_once", "lean_float32_once", "lean_uint8_once", "lean_uint16_once",
-  "lean_uint32_once", "lean_uint64_once", "lean_usize_once", "lean_obj_once",
-  "lean_setup_args", "lean_initialize", "lean_initialize_runtime_module",
-  "lean_init_task_manager", "lean_finalize_task_manager", "lean_run_main",
-  "lean_io_mark_end_initialization",
-  "lean_io_result_is_error", "lean_io_result_is_ok",
-  "lean_io_result_get_value", "lean_io_result_get_error", "lean_io_result_show_error",
-  "lean_inc_ref", "lean_inc_ref_n", "lean_inc_n",
-  -- Additional static-inline functions provided by lean_runtime rlib (generated_abi.rs)
-  -- Array functions
-  "lean_alloc_array", "lean_mk_empty_array", "lean_mk_empty_array_with_capacity",
-  "lean_array_get_size", "lean_array_size", "lean_array_size_raw",
-  "lean_array_fget", "lean_array_fget_borrowed", "lean_array_fset", "lean_array_fswap",
-  "lean_array_get", "lean_array_get_borrowed",
-  "lean_array_uget", "lean_array_uget_borrowed", "lean_array_uset", "lean_array_uswap",
+  "lean_alloc_array",
+  "lean_alloc_closure",
+  "lean_alloc_ctor",
+  "lean_alloc_sarray",
+  "lean_apply_1",
+  "lean_apply_10",
+  "lean_apply_11",
+  "lean_apply_12",
+  "lean_apply_13",
+  "lean_apply_14",
+  "lean_apply_15",
+  "lean_apply_16",
+  "lean_apply_2",
+  "lean_apply_3",
+  "lean_apply_4",
+  "lean_apply_5",
+  "lean_apply_6",
+  "lean_apply_7",
+  "lean_apply_8",
+  "lean_apply_9",
+  "lean_array_fget",
+  "lean_array_fget_borrowed",
+  "lean_array_fset",
+  "lean_array_fswap",
+  "lean_array_get",
+  "lean_array_get_borrowed",
+  "lean_array_get_size",
   "lean_array_pop",
-  -- Nat arithmetic
-  "lean_nat_add", "lean_nat_sub", "lean_nat_mul", "lean_nat_div", "lean_nat_mod",
-  "lean_nat_succ", "lean_nat_eq", "lean_nat_le",
-  "lean_nat_dec_eq", "lean_nat_dec_le", "lean_nat_dec_lt",
-  "lean_nat_land", "lean_nat_lor", "lean_nat_lxor", "lean_nat_shiftr",
-  "lean_nat_to_int",
-  -- Int arithmetic
-  "lean_int_add", "lean_int_sub", "lean_int_mul",
-  "lean_int_eq", "lean_int_le", "lean_int_lt",
-  "lean_int_dec_eq", "lean_int_dec_le", "lean_int_dec_lt", "lean_int_dec_nonneg",
-  "lean_int_neg", "lean_int_neg_succ_of_nat",
-  "lean_scalar_to_int", "lean_scalar_to_int64", "lean_int64_to_int",
-  -- UInt8
-  "lean_uint8_add", "lean_uint8_sub", "lean_uint8_mul", "lean_uint8_div", "lean_uint8_mod",
-  "lean_uint8_neg", "lean_uint8_complement",
-  "lean_uint8_land", "lean_uint8_lor", "lean_uint8_xor",
-  "lean_uint8_shift_left", "lean_uint8_shift_right",
-  "lean_uint8_dec_eq", "lean_uint8_dec_le", "lean_uint8_dec_lt",
-  "lean_uint8_of_nat", "lean_uint8_to_nat",
-  "lean_uint8_to_uint32", "lean_uint8_to_uint64", "lean_uint8_to_usize",
-  -- UInt32
-  "lean_uint32_add", "lean_uint32_sub", "lean_uint32_mul", "lean_uint32_div", "lean_uint32_mod",
-  "lean_uint32_neg", "lean_uint32_complement",
-  "lean_uint32_land", "lean_uint32_lor", "lean_uint32_xor",
-  "lean_uint32_shift_left", "lean_uint32_shift_right",
-  "lean_uint32_dec_eq", "lean_uint32_dec_le", "lean_uint32_dec_lt",
-  "lean_uint32_of_nat", "lean_uint32_to_nat",
-  "lean_uint32_to_uint64", "lean_uint32_to_uint8", "lean_uint32_to_usize",
-  -- UInt64
-  "lean_uint64_add", "lean_uint64_sub", "lean_uint64_mul", "lean_uint64_div", "lean_uint64_mod",
-  "lean_uint64_neg", "lean_uint64_complement",
-  "lean_uint64_land", "lean_uint64_lor", "lean_uint64_xor",
-  "lean_uint64_shift_left", "lean_uint64_shift_right",
-  "lean_uint64_dec_eq", "lean_uint64_dec_le", "lean_uint64_dec_lt",
-  "lean_uint64_of_nat", "lean_uint64_to_nat",
-  "lean_uint64_to_uint32", "lean_uint64_to_uint8", "lean_uint64_to_usize",
-  "lean_uint64_mix_hash",
-  -- USize
-  "lean_usize_add", "lean_usize_sub", "lean_usize_dec_eq", "lean_usize_dec_le", "lean_usize_dec_lt",
-  "lean_usize_land", "lean_usize_lor", "lean_usize_lxor",
-  "lean_usize_shift_left", "lean_usize_shift_right",
-  "lean_usize_of_nat", "lean_usize_to_nat",
-  -- Float
-  "lean_float_add", "lean_float_sub", "lean_float_mul", "lean_float_div",
-  "lean_float_negate", "lean_float_beq", "lean_float_dec",
-  -- String
-  "lean_string_dec_eq", "lean_string_dec_lt",
-  "lean_string_length", "lean_string_utf8_byte_size",
-  "lean_string_utf8_at_end",
-  "lean_string_utf8_get_fast", "lean_string_utf8_next_fast",
-  "lean_string_get_byte_fast",
-  -- IO
+  "lean_array_set",
+  "lean_array_size",
+  "lean_array_size_raw",
+  "lean_array_uget",
+  "lean_array_uget_borrowed",
+  "lean_array_uset",
+  "lean_array_uswap",
+  "lean_box",
+  "lean_box_float",
+  "lean_box_float32",
+  "lean_box_uint32",
+  "lean_box_uint64",
+  "lean_box_usize",
+  "lean_byte_array_fget",
+  "lean_byte_array_size",
+  "lean_closure_set",
+  "lean_ctor_get",
+  "lean_ctor_get_float",
+  "lean_ctor_get_float32",
+  "lean_ctor_get_uint16",
+  "lean_ctor_get_uint32",
+  "lean_ctor_get_uint64",
+  "lean_ctor_get_uint8",
+  "lean_ctor_get_usize",
+  "lean_ctor_release",
+  "lean_ctor_set",
+  "lean_ctor_set_float",
+  "lean_ctor_set_float32",
+  "lean_ctor_set_tag",
+  "lean_ctor_set_uint16",
+  "lean_ctor_set_uint32",
+  "lean_ctor_set_uint64",
+  "lean_ctor_set_uint8",
+  "lean_ctor_set_usize",
+  "lean_dec",
+  "lean_dec_ref",
+  "lean_dec_ref_known",
+  "lean_del_object",
+  "lean_float32_once",
+  "lean_float32_once_cold",
+  "lean_float_add",
+  "lean_float_beq",
+  "lean_float_decLe",
+  "lean_float_decLt",
+  "lean_float_div",
+  "lean_float_mul",
+  "lean_float_negate",
+  "lean_float_once",
+  "lean_float_once_cold",
+  "lean_float_sub",
+  "lean_float_to_uint16",
+  "lean_float_to_uint32",
+  "lean_float_to_uint64",
+  "lean_float_to_uint8",
+  "lean_float_to_usize",
+  "lean_hashmap_mk_idx",
+  "lean_hashset_mk_idx",
+  "lean_inc",
+  "lean_inc_n",
+  "lean_inc_ref",
+  "lean_inc_ref_n",
+  "lean_int64_to_int",
+  "lean_int_add",
+  "lean_int_dec_eq",
+  "lean_int_dec_le",
+  "lean_int_dec_lt",
+  "lean_int_dec_nonneg",
+  "lean_int_ediv",
+  "lean_int_emod",
+  "lean_int_eq",
+  "lean_int_le",
+  "lean_int_lt",
+  "lean_int_mul",
+  "lean_int_neg",
+  "lean_int_neg_succ_of_nat",
+  "lean_int_sub",
+  "lean_int_to_nat",
+  "lean_io_result_get_error",
+  "lean_io_result_get_value",
+  "lean_io_result_is_error",
+  "lean_io_result_is_ok",
   "lean_io_result_mk_error",
-  -- Misc
-  "lean_ptr_tag", "lean_ptr_addr",
+  "lean_io_result_mk_ok",
+  "lean_is_exclusive",
+  "lean_is_scalar",
   "lean_is_st",
-  "lean_strict_and", "lean_strict_or",
-  "lean_hashmap_mk_idx", "lean_hashset_mk_idx",
-  -- Task wrappers (static-inline in lean.h)
-  "lean_task_spawn", "lean_task_bind", "lean_task_map", "lean_task_get_own",
-  -- Sarray / byte-array
-  "lean_alloc_sarray", "lean_mk_empty_byte_array",
-  -- Int/Nat conversion
-  "lean_int_to_nat", "lean_nat_abs"
+  "lean_mk_empty_array",
+  "lean_mk_empty_array_with_capacity",
+  "lean_mk_empty_byte_array",
+  "lean_mk_thunk",
+  "lean_nat_abs",
+  "lean_nat_add",
+  "lean_nat_dec_eq",
+  "lean_nat_dec_le",
+  "lean_nat_dec_lt",
+  "lean_nat_div",
+  "lean_nat_eq",
+  "lean_nat_land",
+  "lean_nat_le",
+  "lean_nat_lor",
+  "lean_nat_lxor",
+  "lean_nat_mod",
+  "lean_nat_mul",
+  "lean_nat_shiftr",
+  "lean_nat_sub",
+  "lean_nat_succ",
+  "lean_nat_to_int",
+  "lean_obj_once",
+  "lean_obj_tag",
+  "lean_ptr_addr",
+  "lean_ptr_tag",
+  "lean_scalar_to_int",
+  "lean_scalar_to_int64",
+  "lean_strict_and",
+  "lean_strict_or",
+  "lean_string_dec_eq",
+  "lean_string_dec_lt",
+  "lean_string_get_byte_fast",
+  "lean_string_length",
+  "lean_string_utf8_at_end",
+  "lean_string_utf8_byte_size",
+  "lean_string_utf8_get_fast",
+  "lean_string_utf8_next_fast",
+  "lean_task_bind",
+  "lean_task_get_own",
+  "lean_task_map",
+  "lean_task_spawn",
+  "lean_thunk_get_own",
+  "lean_uint16_once",
+  "lean_uint16_once_cold",
+  "lean_uint16_to_nat",
+  "lean_uint32_add",
+  "lean_uint32_complement",
+  "lean_uint32_dec_eq",
+  "lean_uint32_dec_le",
+  "lean_uint32_dec_lt",
+  "lean_uint32_div",
+  "lean_uint32_land",
+  "lean_uint32_lor",
+  "lean_uint32_mod",
+  "lean_uint32_mul",
+  "lean_uint32_neg",
+  "lean_uint32_of_big_nat",
+  "lean_uint32_of_nat",
+  "lean_uint32_once",
+  "lean_uint32_once_cold",
+  "lean_uint32_shift_left",
+  "lean_uint32_shift_right",
+  "lean_uint32_sub",
+  "lean_uint32_to_nat",
+  "lean_uint32_to_uint64",
+  "lean_uint32_to_uint8",
+  "lean_uint32_to_usize",
+  "lean_uint32_xor",
+  "lean_uint64_add",
+  "lean_uint64_complement",
+  "lean_uint64_dec_eq",
+  "lean_uint64_dec_le",
+  "lean_uint64_dec_lt",
+  "lean_uint64_div",
+  "lean_uint64_land",
+  "lean_uint64_lor",
+  "lean_uint64_mix_hash",
+  "lean_uint64_mod",
+  "lean_uint64_mul",
+  "lean_uint64_neg",
+  "lean_uint64_of_big_nat",
+  "lean_uint64_of_nat",
+  "lean_uint64_once",
+  "lean_uint64_once_cold",
+  "lean_uint64_shift_left",
+  "lean_uint64_shift_right",
+  "lean_uint64_sub",
+  "lean_uint64_to_float",
+  "lean_uint64_to_nat",
+  "lean_uint64_to_uint32",
+  "lean_uint64_to_uint8",
+  "lean_uint64_to_usize",
+  "lean_uint64_xor",
+  "lean_uint8_add",
+  "lean_uint8_complement",
+  "lean_uint8_dec_eq",
+  "lean_uint8_dec_le",
+  "lean_uint8_dec_lt",
+  "lean_uint8_div",
+  "lean_uint8_land",
+  "lean_uint8_lor",
+  "lean_uint8_mod",
+  "lean_uint8_mul",
+  "lean_uint8_neg",
+  "lean_uint8_of_big_nat",
+  "lean_uint8_of_nat",
+  "lean_uint8_once",
+  "lean_uint8_once_cold",
+  "lean_uint8_shift_left",
+  "lean_uint8_shift_right",
+  "lean_uint8_sub",
+  "lean_uint8_to_nat",
+  "lean_uint8_to_uint32",
+  "lean_uint8_to_uint64",
+  "lean_uint8_to_usize",
+  "lean_uint8_xor",
+  "lean_unbox",
+  "lean_unbox_float",
+  "lean_unbox_float32",
+  "lean_unbox_uint32",
+  "lean_unbox_uint64",
+  "lean_unbox_usize",
+  "lean_unsigned_to_nat",
+  "lean_usize_add",
+  "lean_usize_mul",
+  "lean_usize_dec_eq",
+  "lean_usize_dec_le",
+  "lean_usize_dec_lt",
+  "lean_usize_land",
+  "lean_usize_lor",
+  "lean_usize_lxor",
+  "lean_usize_of_nat",
+  "lean_usize_once",
+  "lean_usize_once_cold",
+  "lean_usize_shift_left",
+  "lean_usize_shift_right",
+  "lean_usize_sub",
+  "lean_usize_to_nat"
 ]
+-- END GENERATED headerExternNames
 
 def emitFnDecls : EmitM Unit := do
   -- Pre-seed with header names so we never re-declare them.
@@ -610,7 +774,7 @@ def emitFnDecls : EmitM Unit := do
         seenExterns := seenExterns.push externName
         emitFnDeclAux decl.toSignature externName true
   -- 2. Other-module @[extern "name"] C functions still need explicit extern "C" declarations.
-  --    Regular Lean functions from other modules are in scope via the `use` imports above.
+  --    Stdlib Lean functions are in scope via `use` imports; user-package ones via section 3/4.
   --    But C functions (extern "C") are module-private (not pub) and cannot be re-exported.
   --    Skip if the name is locally exported (@[export]) — the definition is already in this file.
   for sig in (← getOtherModuleDecls) do
@@ -619,6 +783,30 @@ def emitFnDecls : EmitM Unit := do
          && !localExportedNames.contains externName then
         seenExterns := seenExterns.push externName
         emitFnDeclAux sig externName true
+  -- 3. User-package init functions.
+  --    User packages are compiled as --emit=obj staticlib crates (not rlibs), so
+  --    `use crate::ModName::*` fails.  Declare init functions as extern "C" so the
+  --    linker resolves them from the linked .o file.
+  for imp in env.imports do
+    if let some idx := env.getModuleIdx? imp.module then
+      let pkg? := env.getModulePackageByIdx? idx
+      if (leanModuleToRustPackage imp.module).isEmpty then  -- user package
+        for phases in [IRPhases.runtime, IRPhases.comptime, IRPhases.all] do
+          let fnName := mkModuleInitializationFunctionName (phases := phases) imp.module pkg?
+          if !seenExterns.contains fnName then
+            seenExterns := seenExterns.push fnName
+            emitLn s!"    fn {fnName}(_: u8) -> *mut lean_object;"
+  -- 4. User-package lp_* statics and Lean functions from otherModuleDecls.
+  --    (Skip those that have @[extern "name"] — already declared in section 2.)
+  for sig in (← getOtherModuleDecls) do
+    if (getExternNameFor env `c sig.name).isNone then
+      if let some idx := env.getModuleIdxFor? sig.name then
+        if let some depMod := env.header.moduleNames[idx]? then
+          if (leanModuleToRustPackage depMod).isEmpty then  -- user package
+            let cppBaseName ← toCName sig.name
+            if !seenExterns.contains cppBaseName && !localExportedNames.contains cppBaseName then
+              seenExterns := seenExterns.push cppBaseName
+              emitFnDeclAux sig cppBaseName true
   emitLn "}"
 
   for decl in (← getLocalDecls) do
@@ -658,8 +846,12 @@ where
         if isSimpleGroundDecl env sig.name then
           emitLn s!"    static {cppBaseName}_value: lean_object;"
       else
-        let declPrefix := if isClosedTermName env sig.name then "static mut" else "pub static mut"
-        emitLn s!"{declPrefix} {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
+        if isClosedTermName env sig.name then
+          emitLn s!"static mut {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
+        else
+          emitLn "#[used]"
+          emitLn "#[no_mangle]"
+          emitLn s!"pub static mut {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
     else
       if isExternal then
         emit s!"    fn {cppBaseName}"
@@ -1120,7 +1312,7 @@ where
     emitLn s!"state = {id}; continue;"
 
   emitUnreach : EmitM Unit := do
-    emitLn "panic!(\"unreachable\");"
+    emitLn "core::hint::unreachable_unchecked();"
 
 partial def emitJoinPoints (code : Code .impure) : EmitM Unit := do
   match code with
@@ -1188,16 +1380,10 @@ def emitDecl (decl : Decl .impure) : EmitM Unit := do
   | .code code =>
     let baseName ← toCName decl.name
     let ps := decl.params
-    -- Zero-param functions are passed as `unsafe extern "C" fn()` pointers to lean_obj_once
-    -- and similar. They need `extern "C"` ABI for the function pointer type to match.
-    -- @[export] functions additionally need `#[no_mangle]` so C callers can find them by name.
-    let isExported := (getExportNameFor? (← getEnv) decl.name).isSome
-    if ps.isEmpty then
-      if isExported then emit "#[no_mangle] pub unsafe extern \"C\" fn "
-      else emit "pub unsafe extern \"C\" fn "
-    else
-      if isExported then emit "#[no_mangle] pub unsafe extern \"C\" fn "
-      else emit "pub unsafe fn "
+    -- All functions use `#[no_mangle] pub unsafe extern "C"` so that `lean_eval_const` can
+    -- find them via dlsym (needed for non-builtin attribute implementations loaded from oleans,
+    -- parser constants, and any evalConst/evalConstCheck call site).
+    emit "#[no_mangle] pub unsafe extern \"C\" fn "
 
     if ps.isEmpty then
       emitCInitName decl.name
@@ -1256,7 +1442,10 @@ def emitDeclInit (decl : Decl .impure) (isBuiltin : Bool) : EmitM Unit := do
         emitCName initFn; emit "()"
       emit s!"{← toCName decl.name}"
       if decl.type.isScalar then
-        emitLn <| " = " ++ decl.type.unboxOpName ++ "(lean_io_result_get_value(res));"
+        if decl.type == ImpureType.uint8 || decl.type == ImpureType.uint16 then
+          emitLn <| " = (" ++ decl.type.unboxOpName ++ "(lean_io_result_get_value(res)) as " ++ decl.type.toRustType ++ ");"
+        else
+          emitLn <| " = " ++ decl.type.unboxOpName ++ "(lean_io_result_get_value(res));"
       else
         emitLn " = lean_io_result_get_value(res);"
         emitMarkPersistent decl

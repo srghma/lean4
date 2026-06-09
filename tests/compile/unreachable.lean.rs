@@ -1,11 +1,12 @@
 // Lean compiler output
 // Module: unreachable
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
 extern "C" {
 }
 #[no_mangle] pub unsafe extern "C" fn l_False_elim_x27(mut v_C_1_: *mut lean_object, mut v_h_2_: *mut lean_object) -> *mut lean_object{
-panic!("unreachable");
+core::hint::unreachable_unchecked();
 }
 #[no_mangle] pub unsafe extern "C" fn _lean_main() -> *mut lean_object{
 let mut v___x_4_: *mut lean_object = core::ptr::null_mut(); let mut v___x_5_: *mut lean_object = core::ptr::null_mut(); 
@@ -19,7 +20,6 @@ let mut v_res_7_: *mut lean_object = core::ptr::null_mut();
 v_res_7_ = _lean_main();
 return v_res_7_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_unreachable(builtin: u8) -> *mut lean_object {

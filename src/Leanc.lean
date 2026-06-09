@@ -40,7 +40,13 @@ def main (args : List String) : IO UInt32 := do
         | none => (System.FilePath.mk sourcefile).withExtension "o" |>.toString
       let sysroot := root.toString
       let libDir := s!"{sysroot}/lib/lean"
-      let rlib := s!"{libDir}/liblean_runtime.rlib"
+      -- Prefer the cargo-built lean_runtime (same hash that lean_init etc. were compiled against).
+      -- Fall back to the CMake ABI stub (liblean_runtime.rlib) when running without setup.ts.
+      let cargoRlib := s!"{libDir}/liblean_runtime_from_cargo.rlib"
+      let rlib ← if ← (System.FilePath.mk cargoRlib).pathExists then
+                   pure cargoRlib
+                 else
+                   pure s!"{libDir}/liblean_runtime.rlib"
       -- Derive a valid crate name from the filename stem: replace non-identifier chars with `_`,
       -- drop leading digits. This avoids rustc errors like "invalid character '.' in crate name".
       let rawStem := (System.FilePath.mk sourcefile).fileStem.getD "module"
@@ -54,7 +60,13 @@ def main (args : List String) : IO UInt32 := do
         let pkgRlib := s!"{libDir}/lib{pkg}.rlib"
         if ← (System.FilePath.mk pkgRlib).pathExists then
           pkgExterns := pkgExterns ++ #["--extern", s!"{pkg}={pkgRlib}"]
-      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "--edition=2021", s!"--crate-name={crateName}", "-C", s!"opt-level={optLevel}", "-C", "debug-assertions=no"] ++ debug ++ #["--extern", s!"lean_runtime={rlib}", "-L", libDir] ++ pkgExterns ++ #["-o", outfile, sourcefile]
+      -- lean_runtime and lean_* rlibs were compiled against specific versions of libc etc.
+      -- that live in the cargo deps directory.  Without that -L path rustc reports
+      -- "found possibly newer version of crate `libc`" and refuses to link.
+      let depsDir := s!"{sysroot}/lean_stdlib/target/release/deps"
+      let depsDirArg : Array String :=
+        if ← (System.FilePath.mk depsDir).pathExists then #["-L", depsDir] else #[]
+      let rustcArgs := #["--crate-type=staticlib", "--emit=obj", "--edition=2021", s!"--crate-name={crateName}", "-C", s!"opt-level={optLevel}", "-C", "debug-assertions=no"] ++ debug ++ #["--extern", s!"lean_runtime={rlib}", "-L", libDir] ++ pkgExterns ++ depsDirArg ++ #["-o", outfile, sourcefile]
       if args.contains "-v" then
         IO.eprintln s!"rustc {" ".intercalate rustcArgs.toList}"
       let child ← IO.Process.spawn { cmd := "rustc", args := rustcArgs }

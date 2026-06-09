@@ -1,14 +1,19 @@
 // Lean compiler output
 // Module: t1
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
-#[no_mangle] pub static l_main___redArg___closed__0_value: lean_string_object<12> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 0]};
+pub static l_main___redArg___closed__0_value: lean_string_object<12> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 0]};
 static mut l_main___redArg___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___redArg___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static mut l_main___redArg___boxed__const__1: *mut lean_object = core::ptr::null_mut();
+#[used]
+#[no_mangle]
+pub static mut l_main___redArg___boxed__const__1: *mut lean_object = core::ptr::null_mut();
 #[no_mangle] pub unsafe extern "C" fn l_IO_print___at___00IO_println___at___00main_spec__0_spec__0(mut v_s_1_: *mut lean_object) -> *mut lean_object{
 let mut v___x_3_: *mut lean_object = core::ptr::null_mut(); let mut v_putStr_4_: *mut lean_object = core::ptr::null_mut(); let mut v___x_5_: *mut lean_object = core::ptr::null_mut(); 
 v___x_3_ = lean_get_stdout();
@@ -50,10 +55,8 @@ match state {
 v___x_21_ = l_main___redArg___closed__0;
 v___x_22_ = l_IO_println___at___00main_spec__0(v___x_21_);
 if lean_obj_tag(v___x_22_) == 0 {
-let mut v___x_24_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_25_: u8 = 0; let mut v_isSharedCheck_30_: u8 = 0; 
 v_isSharedCheck_30_ = (!lean_is_exclusive(v___x_22_)) as u8;
 if v_isSharedCheck_30_ == 0 {
-let mut v_unused_31_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_31_ = lean_ctor_get(v___x_22_, 0);
 lean_dec(v_unused_31_);
 v___x_24_ = v___x_22_;
@@ -66,7 +69,6 @@ v_isShared_25_ = v_isSharedCheck_30_;
 state = 1; continue;
 }
 } else {
-let mut v_a_32_: *mut lean_object = core::ptr::null_mut(); let mut v___x_34_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_35_: u8 = 0; let mut v_isSharedCheck_39_: u8 = 0; 
 v_a_32_ = lean_ctor_get(v___x_22_, 0);
 v_isSharedCheck_39_ = (!lean_is_exclusive(v___x_22_)) as u8;
 if v_isSharedCheck_39_ == 0 {
@@ -89,24 +91,28 @@ lean_ctor_set(v___x_24_, 0, v___x_26_);
 v___x_28_ = v___x_24_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_29_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_29_ = lean_alloc_ctor(0, 1, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_29_, 0, v___x_26_);
 v___x_28_ = v_reuseFailAlloc_29_;
 state = 2; continue;
 }
 }
+2 => {
+return v___x_28_;
+}
 3 => {
 if v_isShared_35_ == 0 {
 v___x_37_ = v___x_34_;
 state = 4; continue;
 } else {
-let mut v_reuseFailAlloc_38_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_38_ = lean_alloc_ctor(1, 1, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_38_, 0, v_a_32_);
 v___x_37_ = v_reuseFailAlloc_38_;
 state = 4; continue;
 }
+}
+4 => {
+return v___x_37_;
 }
 _ => {}
 }
@@ -128,7 +134,6 @@ let mut v_res_47_: *mut lean_object = core::ptr::null_mut();
 v_res_47_ = _lean_main(v_xs_45_);
 return v_res_47_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_t1(builtin: u8) -> *mut lean_object {

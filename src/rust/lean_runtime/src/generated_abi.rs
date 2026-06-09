@@ -63,11 +63,12 @@ macro_rules! lean_heap_boxing {
                 $set(r, 0, v);
                 r
             }
+            // Non-consuming read: the LCNF ExplicitRC pass emits an explicit lean_dec /
+            // lean_dec_ref for the boxed object when it is no longer live.  Calling
+            // lean_dec here too would cause a double-decrement (UAF + tcache corruption).
             #[inline(always)]
             pub unsafe fn $unbox(o: *mut lean_object) -> $t {
-                let r = $get(o, 0);
-                lean_dec(o);
-                r
+                $get(o, 0)
             }
         )*
     };
@@ -408,6 +409,7 @@ extern "C" {
         e: *mut lean_object,
     ) -> *mut lean_object;
     pub fn lean_byte_array_hash(a: *mut lean_object) -> u64;
+    pub fn lean_thunk_get_core(t: *mut lean_object) -> *mut lean_object;
 }
 
 lean_apply_fns! {
@@ -478,6 +480,12 @@ pub unsafe fn lean_is_exclusive(o: *mut lean_object) -> bool {
 
 #[inline(always)]
 pub unsafe fn lean_inc_ref_n(o: *mut lean_object, n: usize) {
+    // Scalars are not heap-allocated; skip ref-count update.
+    // lean_assert(!lean_is_scalar(o)) in C debug builds, but LCNF can emit
+    // lean_inc_ref for world-token (lean_box(0)) which is always scalar.
+    if lean_is_scalar(o as *const lean_object) != 0 {
+        return;
+    }
     let rc = core::ptr::read(o as *const i32);
     if rc > 0 {
         core::ptr::write(o as *mut i32, rc + n as i32);
@@ -644,9 +652,9 @@ pub unsafe fn lean_unbox_usize(o: *mut lean_object) -> usize {
     if lean_is_scalar(o as *const lean_object) != 0 {
         lean_unbox(o)
     } else {
-        let r = lean_ctor_get_usize(o, 0);
-        lean_dec(o);
-        r
+        // Non-consuming: LCNF emits an explicit lean_dec for the heap-allocated
+        // usize box when it becomes dead.  No lean_dec here to avoid double-dec.
+        lean_ctor_get_usize(o, 0)
     }
 }
 
@@ -821,6 +829,22 @@ pub unsafe fn lean_array_fset(
     v: *mut lean_object,
 ) -> *mut lean_object {
     lean_array_uset(a, lean_unbox(i), v)
+}
+#[inline(always)]
+pub unsafe fn lean_array_set(
+    a: *mut lean_object,
+    i: *mut lean_object,
+    v: *mut lean_object,
+) -> *mut lean_object {
+    // Mirror of lean.h: lean_array_set (bounds-checked, panics on out-of-bounds)
+    if lean_is_scalar(i as *const lean_object) != 0 {
+        let idx = lean_unbox(i);
+        if idx < lean_array_size_raw(a) {
+            return lean_array_uset(a, idx, v);
+        }
+    }
+    // lean_array_set_panic is declared in the extern "C" block above
+    lean_array_set_panic(a, v)
 }
 
 #[inline(always)]
@@ -1374,6 +1398,21 @@ pub unsafe fn lean_usize_dec_lt(a1: usize, a2: usize) -> u8 {
 pub unsafe fn lean_usize_dec_le(a1: usize, a2: usize) -> u8 {
     (a1 <= a2) as u8
 }
+#[inline(always)]
+pub unsafe fn lean_usize_mul(a: usize, b: usize) -> usize {
+    a.wrapping_mul(b)
+}
+
+// Thin wrappers that cast between lean_object (generated_abi) and LeanObject (runtime
+// internals) so generated .rs files can call these via `use lean_runtime::generated_abi::*`.
+#[inline(always)]
+pub unsafe fn lean_int_ediv(a1: *mut lean_object, a2: *mut lean_object) -> *mut lean_object {
+    crate::runtime_numeric_exports_int::lean_int_ediv(a1 as *mut _, a2 as *mut _) as *mut _
+}
+#[inline(always)]
+pub unsafe fn lean_int_emod(a1: *mut lean_object, a2: *mut lean_object) -> *mut lean_object {
+    crate::runtime_numeric_exports_int::lean_int_emod(a1 as *mut _, a2 as *mut _) as *mut _
+}
 
 // --- uint8 / uint32 / uint64 via macro ---
 
@@ -1522,6 +1561,32 @@ pub unsafe fn lean_float_decLe(a: f64, b: f64) -> u8 {
 pub unsafe fn lean_float_decLt(a: f64, b: f64) -> u8 {
     (a < b) as u8
 }
+#[inline(always)]
+pub unsafe fn lean_float_to_uint8(a: f64) -> u8 {
+    if 0.0 <= a { if a < 256.0 { a as u8 } else { u8::MAX } } else { 0 }
+}
+#[inline(always)]
+pub unsafe fn lean_float_to_uint16(a: f64) -> u16 {
+    if 0.0 <= a { if a < 65536.0 { a as u16 } else { u16::MAX } } else { 0 }
+}
+#[inline(always)]
+pub unsafe fn lean_float_to_uint32(a: f64) -> u32 {
+    if 0.0 <= a { if a < 4294967296.0 { a as u32 } else { u32::MAX } } else { 0 }
+}
+#[inline(always)]
+pub unsafe fn lean_float_to_uint64(a: f64) -> u64 {
+    if 0.0 <= a { if a < 18446744073709551616.0 { a as u64 } else { u64::MAX } } else { 0 }
+}
+#[inline(always)]
+pub unsafe fn lean_float_to_usize(a: f64) -> usize {
+    lean_float_to_uint64(a) as usize
+}
+#[inline(always)]
+pub unsafe fn lean_uint64_to_float(a: u64) -> f64 { a as f64 }
+#[inline(always)]
+pub unsafe fn lean_uint16_to_nat(a: u16) -> *mut lean_object {
+    lean_usize_to_nat(a as usize)
+}
 
 // --- Misc ---
 
@@ -1590,6 +1655,15 @@ pub unsafe fn lean_mk_empty_byte_array(capacity: *mut lean_object) -> *mut lean_
     }
     lean_alloc_sarray(1, 0, lean_unbox(capacity))
 }
+#[inline(always)]
+pub unsafe fn lean_byte_array_size(a: *mut lean_object) -> *mut lean_object {
+    lean_box((*(a as *mut lean_sarray_object<0>)).m_size)
+}
+#[inline(always)]
+pub unsafe fn lean_byte_array_fget(a: *mut lean_object, i: *mut lean_object) -> u8 {
+    let data_base = core::ptr::addr_of!((*(a as *mut lean_sarray_object<0>)).m_data) as *const u8;
+    *data_base.add(lean_unbox(i))
+}
 
 // --- Task wrappers ---
 
@@ -1623,6 +1697,38 @@ pub unsafe fn lean_task_get_own(t: *mut lean_object) -> *mut lean_object {
     let r = lean_task_get(t as *const lean_object);
     lean_inc(r);
     lean_dec(t);
+    r
+}
+
+// --- Thunks ---
+
+const LEAN_THUNK_TAG: u8 = 251;
+
+#[repr(C)]
+struct lean_thunk_object {
+    m_header: lean_object,
+    m_value: *mut lean_object,
+    m_closure: *mut lean_object,
+}
+
+#[inline(always)]
+pub unsafe fn lean_mk_thunk(c: *mut lean_object) -> *mut lean_object {
+    let o = lean_alloc_object(core::mem::size_of::<lean_thunk_object>()) as *mut lean_thunk_object;
+    (*o).m_header.m_rc = 1;
+    (*o).m_header.m_cs_sz = 0;
+    (*o).m_header.m_other = 0;
+    (*o).m_header.m_tag = LEAN_THUNK_TAG;
+    (*o).m_value = core::ptr::null_mut();
+    (*o).m_closure = c;
+    o as *mut lean_object
+}
+
+#[inline(always)]
+pub unsafe fn lean_thunk_get_own(t: *mut lean_object) -> *mut lean_object {
+    let o = t as *mut lean_thunk_object;
+    let r = (*o).m_value;
+    let r = if !r.is_null() { r } else { lean_thunk_get_core(t) };
+    lean_inc(r);
     r
 }
 

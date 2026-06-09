@@ -1,23 +1,24 @@
 // Lean compiler output
 // Module: utf8Path
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::System::IOError::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Util::*;
+use lean_init::Init::Prelude::*;
 extern "C" {
-    static mut l_instInhabitedError: *mut lean_object;
-    fn l_instInhabitedEIO___aux__1___boxed(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_System_FilePath_pathExists(_: *mut lean_object) -> u8;
-    fn l_mkPanicMessageWithDecl(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_panic_fn_borrowed(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
 }
 static mut l_panic___at___00main_spec__0___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_panic___at___00main_spec__0___closed__0: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static l_main___closed__0_value: lean_string_object<21> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 21, m_capacity: 21, m_length: 16, m_data: [117, 116, 102, 56, 80, 97, 116, 104, 46, 108, 101, 97, 110, 46, 232, 139, 177, 232, 170, 158, 0]};
+pub static l_main___closed__0_value: lean_string_object<21> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 21, m_capacity: 21, m_length: 16, m_data: [117, 116, 102, 56, 80, 97, 116, 104, 46, 108, 101, 97, 110, 46, 232, 139, 177, 232, 170, 158, 0]};
 static mut l_main___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__1_value: lean_string_object<9> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [117, 116, 102, 56, 80, 97, 116, 104, 0]};
+pub static l_main___closed__1_value: lean_string_object<9> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [117, 116, 102, 56, 80, 97, 116, 104, 0]};
 static mut l_main___closed__1: *mut lean_object = core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__2_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [109, 97, 105, 110, 0]};
+pub static l_main___closed__2_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [109, 97, 105, 110, 0]};
 static mut l_main___closed__2: *mut lean_object = core::ptr::addr_of!(l_main___closed__2_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__3_value: lean_string_object<75> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 75, m_capacity: 75, m_length: 74, m_data: [97, 115, 115, 101, 114, 116, 105, 111, 110, 32, 118, 105, 111, 108, 97, 116, 105, 111, 110, 58, 32, 40, 32, 95, 95, 100, 111, 95, 108, 105, 102, 116, 46, 95, 64, 46, 117, 116, 102, 56, 80, 97, 116, 104, 46, 56, 54, 56, 56, 50, 57, 55, 53, 56, 46, 95, 104, 121, 103, 67, 116, 120, 46, 95, 104, 121, 103, 46, 56, 46, 48, 32, 41, 10, 0]};
+pub static l_main___closed__3_value: lean_string_object<75> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 75, m_capacity: 75, m_length: 74, m_data: [97, 115, 115, 101, 114, 116, 105, 111, 110, 32, 118, 105, 111, 108, 97, 116, 105, 111, 110, 58, 32, 40, 32, 95, 95, 100, 111, 95, 108, 105, 102, 116, 46, 95, 64, 46, 117, 116, 102, 56, 80, 97, 116, 104, 46, 56, 54, 56, 56, 50, 57, 55, 53, 56, 46, 95, 104, 121, 103, 67, 116, 120, 46, 95, 104, 121, 103, 46, 56, 46, 48, 32, 41, 10, 0]};
 static mut l_main___closed__3: *mut lean_object = core::ptr::addr_of!(l_main___closed__3_value) as *mut lean_object;
 static mut l_main___closed__4_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__4: *mut lean_object = core::ptr::null_mut();
@@ -74,7 +75,6 @@ let mut v_res_29_: *mut lean_object = core::ptr::null_mut();
 v_res_29_ = _lean_main();
 return v_res_29_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_utf8Path(builtin: u8) -> *mut lean_object {

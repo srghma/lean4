@@ -1,33 +1,54 @@
 // Lean compiler output
 // Module: initUnboxed
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::Float::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::OfScientific::*;
+use lean_init::Init::Data::UInt::BasicAux::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Prelude::*;
 extern "C" {
     fn lean_float_to_string(_: f64) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
-    fn l_Float_ofScientific(_: *mut lean_object, _: u8, _: *mut lean_object) -> f64;
-    fn lean_uint64_to_nat(_: u64) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
-    fn lean_usize_to_nat(_: usize) -> *mut lean_object;
-    fn lean_uint32_to_nat(_: u32) -> *mut lean_object;
 }
-#[no_mangle] pub static l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2887224489____hygCtx___hyg_2__value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*0 + 8) as u16, m_other: 0, m_tag: 0 }, m_objs: [0 as *mut lean_object] };
-#[no_mangle] pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2887224489____hygCtx___hyg_2_: *mut lean_object = core::ptr::addr_of!(l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2887224489____hygCtx___hyg_2__value) as *mut lean_object;
-#[no_mangle] pub static mut l_test: u64 = 0;
-#[no_mangle] pub static mut l_testb: u8 = 0;
-#[no_mangle] pub static l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2016441482____hygCtx___hyg_2__value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + core::mem::size_of::<usize>()*1) as u16, m_other: 1, m_tag: 0 }, m_objs: [(1 as *mut lean_object)] };
-#[no_mangle] pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2016441482____hygCtx___hyg_2_: *mut lean_object = core::ptr::addr_of!(l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2016441482____hygCtx___hyg_2__value) as *mut lean_object;
-#[no_mangle] pub static mut l_testu: usize = 0;
+pub static l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2887224489____hygCtx___hyg_2__value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*0 + 8) as u16, m_other: 0, m_tag: 0 }, m_objs: [0 as *mut lean_object] };
+#[used]
+#[no_mangle]
+pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2887224489____hygCtx___hyg_2_: *mut lean_object = core::ptr::addr_of!(l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2887224489____hygCtx___hyg_2__value) as *mut lean_object;
+#[used]
+#[no_mangle]
+pub static mut l_test: u64 = 0;
+#[used]
+#[no_mangle]
+pub static mut l_testb: u8 = 0;
+pub static l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2016441482____hygCtx___hyg_2__value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + core::mem::size_of::<usize>()*1) as u16, m_other: 1, m_tag: 0 }, m_objs: [(1 as *mut lean_object)] };
+#[used]
+#[no_mangle]
+pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2016441482____hygCtx___hyg_2_: *mut lean_object = core::ptr::addr_of!(l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2016441482____hygCtx___hyg_2__value) as *mut lean_object;
+#[used]
+#[no_mangle]
+pub static mut l_testu: usize = 0;
 static mut l___private_initUnboxed_0__initFn___closed__0_00___x40_initUnboxed_744502646____hygCtx___hyg_2__once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l___private_initUnboxed_0__initFn___closed__0_00___x40_initUnboxed_744502646____hygCtx___hyg_2_: f64 = 0.0;
-#[no_mangle] pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_744502646____hygCtx___hyg_2_: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static mut l_testf: f64 = 0.0;
-#[no_mangle] pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2208129052____hygCtx___hyg_2_: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static mut l_test32: u32 = 0;
-#[no_mangle] pub static l_IO_println___at___00main_spec__1___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 97, 108, 115, 101, 0]};
+#[used]
+#[no_mangle]
+pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_744502646____hygCtx___hyg_2_: *mut lean_object = core::ptr::null_mut();
+#[used]
+#[no_mangle]
+pub static mut l_testf: f64 = 0.0;
+#[used]
+#[no_mangle]
+pub static mut l___private_initUnboxed_0__initFn___boxed__const__1_00___x40_initUnboxed_2208129052____hygCtx___hyg_2_: *mut lean_object = core::ptr::null_mut();
+#[used]
+#[no_mangle]
+pub static mut l_test32: u32 = 0;
+pub static l_IO_println___at___00main_spec__1___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 97, 108, 115, 101, 0]};
 static mut l_IO_println___at___00main_spec__1___closed__0: *mut lean_object = core::ptr::addr_of!(l_IO_println___at___00main_spec__1___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_IO_println___at___00main_spec__1___closed__1_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [116, 114, 117, 101, 0]};
+pub static l_IO_println___at___00main_spec__1___closed__1_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [116, 114, 117, 101, 0]};
 static mut l_IO_println___at___00main_spec__1___closed__1: *mut lean_object = core::ptr::addr_of!(l_IO_println___at___00main_spec__1___closed__1_value) as *mut lean_object;
 #[no_mangle] pub unsafe extern "C" fn l___private_initUnboxed_0__initFn_00___x40_initUnboxed_2887224489____hygCtx___hyg_2_() -> *mut lean_object{
 let mut v___x_4_: *mut lean_object = core::ptr::null_mut(); let mut v___x_5_: *mut lean_object = core::ptr::null_mut(); 
@@ -147,12 +168,10 @@ loop {
 match state {
 0 => {
 if v_s_60_ == 0 {
-let mut v___x_67_: *mut lean_object = core::ptr::null_mut(); 
 v___x_67_ = l_IO_println___at___00main_spec__1___closed__0;
 v___y_63_ = v___x_67_;
 state = 1; continue;
 } else {
-let mut v___x_68_: *mut lean_object = core::ptr::null_mut(); 
 v___x_68_ = l_IO_println___at___00main_spec__1___closed__1;
 v___y_63_ = v___x_68_;
 state = 1; continue;
@@ -265,7 +284,6 @@ let mut v_res_117_: *mut lean_object = core::ptr::null_mut();
 v_res_117_ = _lean_main();
 return v_res_117_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_initUnboxed(builtin: u8) -> *mut lean_object {
@@ -281,7 +299,7 @@ l_test = lean_unbox_uint64(lean_io_result_get_value(res));
 lean_dec_ref(res);
 res = l___private_initUnboxed_0__initFn_00___x40_initUnboxed_3445265930____hygCtx___hyg_2_();
 if lean_io_result_is_error(res) { return res; }
-l_testb = lean_unbox(lean_io_result_get_value(res));
+l_testb = (lean_unbox(lean_io_result_get_value(res)) as u8);
 lean_dec_ref(res);
 res = l___private_initUnboxed_0__initFn_00___x40_initUnboxed_2016441482____hygCtx___hyg_2_();
 if lean_io_result_is_error(res) { return res; }

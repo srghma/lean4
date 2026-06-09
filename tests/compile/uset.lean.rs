@@ -1,15 +1,17 @@
 // Lean compiler output
 // Module: uset
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::UInt::BasicAux::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
-    fn lean_usize_add(_: usize, _: usize) -> usize;
-    fn lean_usize_to_nat(_: usize) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
-#[no_mangle] pub static l_main___closed__0_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + core::mem::size_of::<usize>()*1 + 8) as u16, m_other: 1, m_tag: 0 }, m_objs: [(0 as *mut lean_object),0 as *mut lean_object] };
+pub static l_main___closed__0_value: lean_ctor_object<2> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + core::mem::size_of::<usize>()*1 + 8) as u16, m_other: 1, m_tag: 0 }, m_objs: [(0 as *mut lean_object),0 as *mut lean_object] };
 static mut l_main___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object;
 static mut l_main___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__1: *mut lean_object = core::ptr::null_mut();
@@ -40,12 +42,15 @@ if v_isShared_6_ == 0 {
 v___x_10_ = v___x_5_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_11_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_11_ = lean_alloc_ctor(0, 0, (core::mem::size_of::<usize>()*1 + 4) as u32);
 lean_ctor_set_uint32(v_reuseFailAlloc_11_, (core::mem::size_of::<*mut lean_object>()*1) as u32, v_y_3_);
 v___x_10_ = v_reuseFailAlloc_11_;
 state = 2; continue;
 }
+}
+2 => {
+lean_ctor_set_usize(v___x_10_, 0, v___x_8_);
+return v___x_10_;
 }
 _ => {}
 }
@@ -99,7 +104,6 @@ let mut v_res_42_: *mut lean_object = core::ptr::null_mut();
 v_res_42_ = _lean_main();
 return v_res_42_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_uset(builtin: u8) -> *mut lean_object {

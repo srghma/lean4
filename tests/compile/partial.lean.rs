@@ -1,20 +1,23 @@
 // Lean compiler output
 // Module: partial
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::String::Basic::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
-    fn lean_string_utf8_at_end(_: *mut lean_object, _: *mut lean_object) -> u8;
     fn lean_string_utf8_get(_: *mut lean_object, _: *mut lean_object) -> u32;
-    fn lean_uint32_dec_eq(_: u32, _: u32) -> u8;
     fn lean_string_utf8_next(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
-#[no_mangle] pub static l_IO_println___at___00main_spec__0___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 97, 108, 115, 101, 0]};
+pub static l_IO_println___at___00main_spec__0___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 97, 108, 115, 101, 0]};
 static mut l_IO_println___at___00main_spec__0___closed__0: *mut lean_object = core::ptr::addr_of!(l_IO_println___at___00main_spec__0___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_IO_println___at___00main_spec__0___closed__1_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [116, 114, 117, 101, 0]};
+pub static l_IO_println___at___00main_spec__0___closed__1_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [116, 114, 117, 101, 0]};
 static mut l_IO_println___at___00main_spec__0___closed__1: *mut lean_object = core::ptr::addr_of!(l_IO_println___at___00main_spec__0___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [104, 101, 108, 108, 111, 0]};
+pub static l_main___closed__0_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [104, 101, 108, 108, 111, 0]};
 static mut l_main___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object;
 static mut l_main___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__1: u8 = 0;
@@ -28,11 +31,9 @@ match state {
 0 => {
 v___x_4_ = lean_string_utf8_at_end(v_x_1_, v_x_3_);
 if v___x_4_ == 0 {
-let mut v___x_5_: u32 = 0; let mut v___x_6_: u8 = 0; 
 v___x_5_ = lean_string_utf8_get(v_x_1_, v_x_3_);
 v___x_6_ = lean_uint32_dec_eq(v___x_5_, v_x_2_);
 if v___x_6_ == 0 {
-let mut v___x_7_: *mut lean_object = core::ptr::null_mut(); 
 v___x_7_ = lean_string_utf8_next(v_x_1_, v_x_3_);
 lean_dec(v_x_3_);
 v_x_3_ = v___x_7_;
@@ -42,7 +43,6 @@ lean_dec(v_x_3_);
 return v___x_6_;
 }
 } else {
-let mut v___x_9_: u8 = 0; 
 lean_dec(v_x_3_);
 v___x_9_ = 0;
 return v___x_9_;
@@ -82,12 +82,10 @@ loop {
 match state {
 0 => {
 if v_s_26_ == 0 {
-let mut v___x_33_: *mut lean_object = core::ptr::null_mut(); 
 v___x_33_ = l_IO_println___at___00main_spec__0___closed__0;
 v___y_29_ = v___x_33_;
 state = 1; continue;
 } else {
-let mut v___x_34_: *mut lean_object = core::ptr::null_mut(); 
 v___x_34_ = l_IO_println___at___00main_spec__0___closed__1;
 v___y_29_ = v___x_34_;
 state = 1; continue;
@@ -145,7 +143,6 @@ let mut v_res_54_: *mut lean_object = core::ptr::null_mut();
 v_res_54_ = _lean_main();
 return v_res_54_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_partial(builtin: u8) -> *mut lean_object {

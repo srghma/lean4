@@ -1,20 +1,27 @@
 // Lean compiler output
 // Module: extractClosedMutualBlock
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
-#[no_mangle] pub static mut l_instInhabitedFoo_default: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static mut l_instInhabitedFoo: *mut lean_object = core::ptr::null_mut();
+#[used]
+#[no_mangle]
+pub static mut l_instInhabitedFoo_default: *mut lean_object = core::ptr::null_mut();
+#[used]
+#[no_mangle]
+pub static mut l_instInhabitedFoo: *mut lean_object = core::ptr::null_mut();
 static mut l_main___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__0: *mut lean_object = core::ptr::null_mut();
 static mut l_main___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__1: u8 = 0;
-#[no_mangle] pub static l_main___closed__2_value: lean_string_object<9> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [84, 69, 82, 77, 73, 78, 65, 76, 0]};
+pub static l_main___closed__2_value: lean_string_object<9> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [84, 69, 82, 77, 73, 78, 65, 76, 0]};
 static mut l_main___closed__2: *mut lean_object = core::ptr::addr_of!(l_main___closed__2_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__3_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [76, 65, 89, 69, 82, 0]};
+pub static l_main___closed__3_value: lean_string_object<6> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [76, 65, 89, 69, 82, 0]};
 static mut l_main___closed__3: *mut lean_object = core::ptr::addr_of!(l_main___closed__3_value) as *mut lean_object;
 #[no_mangle] pub unsafe extern "C" fn l_Foo_ctorIdx(mut v_x_1_: *mut lean_object) -> *mut lean_object{
 if lean_obj_tag(v_x_1_) == 0 {
@@ -189,12 +196,10 @@ match state {
 v___x_85_ = lean_box(0);
 v___x_97_ = lean_uint8_once(core::ptr::addr_of_mut!(l_main___closed__1), core::ptr::addr_of_mut!(l_main___closed__1_once), _init_l_main___closed__1);
 if v___x_97_ == 0 {
-let mut v___x_98_: *mut lean_object = core::ptr::null_mut(); 
 v___x_98_ = l_main___closed__2;
 v___y_87_ = v___x_98_;
 state = 1; continue;
 } else {
-let mut v___x_99_: *mut lean_object = core::ptr::null_mut(); 
 v___x_99_ = l_main___closed__3;
 v___y_87_ = v___x_99_;
 state = 1; continue;
@@ -204,10 +209,8 @@ state = 1; continue;
 lean_inc_ref(v___y_87_);
 v___x_88_ = l_IO_println___at___00main_spec__0(v___y_87_);
 if lean_obj_tag(v___x_88_) == 0 {
-let mut v___x_90_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_91_: u8 = 0; let mut v_isSharedCheck_95_: u8 = 0; 
 v_isSharedCheck_95_ = (!lean_is_exclusive(v___x_88_)) as u8;
 if v_isSharedCheck_95_ == 0 {
-let mut v_unused_96_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_96_ = lean_ctor_get(v___x_88_, 0);
 lean_dec(v_unused_96_);
 v___x_90_ = v___x_88_;
@@ -223,6 +226,21 @@ state = 2; continue;
 return v___x_88_;
 }
 }
+2 => {
+if v_isShared_91_ == 0 {
+lean_ctor_set(v___x_90_, 0, v___x_85_);
+v___x_93_ = v___x_90_;
+state = 3; continue;
+} else {
+v_reuseFailAlloc_94_ = lean_alloc_ctor(0, 1, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_94_, 0, v___x_85_);
+v___x_93_ = v_reuseFailAlloc_94_;
+state = 3; continue;
+}
+}
+3 => {
+return v___x_93_;
+}
 _ => {}
 }
 }
@@ -232,7 +250,6 @@ let mut v_res_101_: *mut lean_object = core::ptr::null_mut();
 v_res_101_ = _lean_main();
 return v_res_101_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_extractClosedMutualBlock(builtin: u8) -> *mut lean_object {

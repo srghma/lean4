@@ -3512,6 +3512,52 @@ mod tests {
             assert!(!lean_is_exclusive(lean_box(42)));
         }
     }
+
+    // Regression test: lean_unbox_uint64 must NOT call lean_dec internally.
+    // The LCNF ExplicitRC pass emits an explicit lean_dec_ref after each unbox
+    // when the boxed object is dead.  If the unbox function also calls lean_dec,
+    // the result is a double-decrement that corrupts glibc's tcache and causes
+    // a crash in the next 16-byte malloc.
+    #[test]
+    fn unbox_uint64_is_non_consuming() {
+        unsafe {
+            let boxed = lean_box_uint64(0xDEAD_BEEF_1234_5678u64);
+            // RC = 1 after allocation.
+            assert_eq!((*boxed).m_rc, 1);
+
+            // Simulates the LCNF pattern where the same boxed value is unboxed
+            // twice (e.g. once for a `<` comparison, once for a `==` comparison)
+            // before the explicit lean_dec_ref that the compiler emits.
+            let v1 = lean_unbox_uint64(boxed);
+            assert_eq!(v1, 0xDEAD_BEEF_1234_5678u64);
+            // RC must still be 1 — unbox must not consume/free.
+            assert_eq!((*boxed).m_rc, 1, "lean_unbox_uint64 must not decrement RC");
+
+            let v2 = lean_unbox_uint64(boxed);
+            assert_eq!(v2, 0xDEAD_BEEF_1234_5678u64);
+            assert_eq!((*boxed).m_rc, 1, "second unbox must not decrement RC either");
+
+            // Now simulate the explicit LCNF dec.
+            lean_dec_ref(boxed);
+            // The object is now freed.  We must NOT read (*boxed).m_rc here —
+            // that would be a UAF.  The test just verifies we get here without
+            // crashing (no double-free / tcache corruption).
+        }
+    }
+
+    // Regression test: lean_unbox_float must NOT call lean_dec internally.
+    #[test]
+    fn unbox_float_is_non_consuming() {
+        unsafe {
+            use crate::generated_abi::{lean_box_float, lean_unbox_float};
+            let boxed = lean_box_float(3.14f64);
+            assert_eq!((*boxed).m_rc, 1);
+            let v1 = lean_unbox_float(boxed);
+            assert_eq!(v1, 3.14f64);
+            assert_eq!((*boxed).m_rc, 1, "lean_unbox_float must not decrement RC");
+            lean_dec_ref(boxed as *mut LeanObject);
+        }
+    }
 }
 pub mod runtime_numeric_exports;
 pub mod runtime_numeric_exports_int;

@@ -1,89 +1,69 @@
 // Lean compiler output
 // Module: phashmap3
-// Imports: public import Init public meta import Init public import Lean.Data.PersistentHashMap public import Lean.Data.Format
+// Imports: Init Init Lean.Data.PersistentHashMap Lean.Data.Format
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_lean::Lean::Data::PersistentHashMap::*;
+use lean_lean::Lean::Data::Format::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::UInt::Basic::*;
+use lean_init::Init::Data::UInt::BasicAux::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::Data::Array::Set::*;
+use lean_init::Init::Data::Array::Basic::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::Data::Int::Basic::*;
 extern "C" {
     fn lean_get_stdout() -> *mut lean_object;
-    fn lean_usize_shift_left(_: usize, _: usize) -> usize;
-    fn lean_usize_sub(_: usize, _: usize) -> usize;
-    fn lean_usize_land(_: usize, _: usize) -> usize;
-    fn lean_usize_to_nat(_: usize) -> *mut lean_object;
-    fn lean_array_get(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_dec_eq(_: *mut lean_object, _: *mut lean_object) -> u8;
-    fn lean_array_set(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_usize_shift_right(_: usize, _: usize) -> usize;
-    fn l_Lean_PersistentHashMap_isUnaryNode___redArg(_: *mut lean_object) -> *mut lean_object;
-    fn lean_array_get_size(_: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_dec_lt(_: *mut lean_object, _: *mut lean_object) -> u8;
-    fn lean_array_fget_borrowed(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_add(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Array_eraseIdx___redArg(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_uint64_of_nat(_: *mut lean_object) -> u64;
-    fn lean_uint64_to_usize(_: u64) -> usize;
-    fn lean_usize_mul(_: usize, _: usize) -> usize;
-    fn lean_array_fget(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_array_fset(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Lean_PersistentHashMap_mkCollisionNode___redArg(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_usize_add(_: usize, _: usize) -> usize;
     fn lean_array_push(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Lean_PersistentHashMap_mkEmptyEntries(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_usize_dec_le(_: usize, _: usize) -> u8;
-    fn l_Lean_PersistentHashMap_getCollisionNodeSize___redArg(_: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_sub(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
-    fn lean_string_length(_: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_to_int(_: *mut lean_object) -> *mut lean_object;
-    fn lean_array_get_borrowed(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Lean_PersistentHashMap_mkEmptyEntriesArray(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
-    fn l_Lean_PersistentHashMap_collectStats___redArg(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Lean_PersistentHashMap_Stats_toString(_: *mut lean_object) -> *mut lean_object;
 }
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__0_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [99, 64, 0]};
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__0_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [99, 64, 0]};
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__0: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__1_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__0_value) as *mut lean_object] };
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__1_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__0_value) as *mut lean_object] };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__1: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__2_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [32, 61, 62, 32, 0]};
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__2_value: lean_string_object<5> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [32, 61, 62, 32, 0]};
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__2: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__2_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__3_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__2_value) as *mut lean_object] };
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__3_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__2_value) as *mut lean_object] };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__3: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__3_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__4_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [40, 0]};
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__4_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [40, 0]};
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__4: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__4_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__5_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [41, 0]};
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__5_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [41, 0]};
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__5: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__5_value) as *mut lean_object;
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__6_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__6: *mut lean_object = core::ptr::null_mut();
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__8_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__4_value) as *mut lean_object] };
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__8_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__4_value) as *mut lean_object] };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__8: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__8_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__9_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__5_value) as *mut lean_object] };
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__9_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__5_value) as *mut lean_object] };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__9: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__9_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__10_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [44, 0]};
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__10_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [44, 0]};
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__10: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__10_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__10_value) as *mut lean_object] };
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__10_value) as *mut lean_object] };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11_value) as *mut lean_object;
-#[no_mangle] pub static l_formatMap___closed__0_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [91, 0]};
+pub static l_formatMap___closed__0_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [91, 0]};
 static mut l_formatMap___closed__0: *mut lean_object = core::ptr::addr_of!(l_formatMap___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_formatMap___closed__1_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [93, 0]};
+pub static l_formatMap___closed__1_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [93, 0]};
 static mut l_formatMap___closed__1: *mut lean_object = core::ptr::addr_of!(l_formatMap___closed__1_value) as *mut lean_object;
 static mut l_formatMap___closed__2_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_formatMap___closed__2: *mut lean_object = core::ptr::null_mut();
 static mut l_formatMap___closed__3_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_formatMap___closed__3: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static l_formatMap___closed__4_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l_formatMap___closed__0_value) as *mut lean_object] };
+pub static l_formatMap___closed__4_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l_formatMap___closed__0_value) as *mut lean_object] };
 static mut l_formatMap___closed__4: *mut lean_object = core::ptr::addr_of!(l_formatMap___closed__4_value) as *mut lean_object;
-#[no_mangle] pub static l_formatMap___closed__5_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l_formatMap___closed__1_value) as *mut lean_object] };
+pub static l_formatMap___closed__5_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l_formatMap___closed__1_value) as *mut lean_object] };
 static mut l_formatMap___closed__5: *mut lean_object = core::ptr::addr_of!(l_formatMap___closed__5_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__0_value: lean_string_object<7> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [60, 110, 117, 108, 108, 62, 0]};
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__0_value: lean_string_object<7> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [60, 110, 117, 108, 108, 62, 0]};
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__0: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__1_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__0_value) as *mut lean_object] };
+pub static l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__1_value: lean_ctor_object<1> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*1 + 0) as u16, m_other: 1, m_tag: 3 }, m_objs: [core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__0_value) as *mut lean_object] };
 static mut l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__1: *mut lean_object = core::ptr::addr_of!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_Lean_PersistentHashMap_stats___at___00checkState_spec__0___redArg___closed__0_value: lean_ctor_object<4> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*4 + 0) as u16, m_other: 4, m_tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object] };
+pub static l_Lean_PersistentHashMap_stats___at___00checkState_spec__0___redArg___closed__0_value: lean_ctor_object<4> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*4 + 0) as u16, m_other: 4, m_tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object,((( 0 as usize) << 1) | 1) as *mut lean_object] };
 static mut l_Lean_PersistentHashMap_stats___at___00checkState_spec__0___redArg___closed__0: *mut lean_object = core::ptr::addr_of!(l_Lean_PersistentHashMap_stats___at___00checkState_spec__0___redArg___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_checkState___closed__0_value: lean_string_object<32> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 32, m_capacity: 32, m_length: 31, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 99, 111, 108, 108, 105, 115, 105, 111, 110, 115, 0]};
+pub static l_checkState___closed__0_value: lean_string_object<32> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 32, m_capacity: 32, m_length: 31, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 99, 111, 108, 108, 105, 115, 105, 111, 110, 115, 0]};
 static mut l_checkState___closed__0: *mut lean_object = core::ptr::addr_of!(l_checkState___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_checkState___closed__1_value: lean_string_object<21> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 109, 97, 120, 32, 100, 101, 112, 116, 104, 0]};
+pub static l_checkState___closed__1_value: lean_string_object<21> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 109, 97, 120, 32, 100, 101, 112, 116, 104, 0]};
 static mut l_checkState___closed__1: *mut lean_object = core::ptr::addr_of!(l_checkState___closed__1_value) as *mut lean_object;
 static mut l_Lean_PersistentHashMap_empty___at___00main_spec__0___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_Lean_PersistentHashMap_empty___at___00main_spec__0___closed__0: *mut lean_object = core::ptr::null_mut();
@@ -141,7 +121,6 @@ if v_isZero_26_ == 1 {
 lean_dec(v_j_23_);
 return v_a_24_;
 } else {
-let mut v_one_27_: *mut lean_object = core::ptr::null_mut(); let mut v_n_28_: *mut lean_object = core::ptr::null_mut(); let mut v___x_29_: *mut lean_object = core::ptr::null_mut(); let mut v_k_30_: *mut lean_object = core::ptr::null_mut(); let mut v_v_31_: *mut lean_object = core::ptr::null_mut(); let mut v___y_33_: *mut lean_object = core::ptr::null_mut(); let mut v___x_53_: u8 = 0; 
 v_one_27_ = lean_unsigned_to_nat(1);
 v_n_28_ = lean_nat_sub(v_j_23_, v_one_27_);
 v___x_29_ = lean_nat_sub(v_n_22_, v_j_23_);
@@ -154,7 +133,6 @@ if v___x_53_ == 0 {
 v___y_33_ = v_a_24_;
 state = 1; continue;
 } else {
-let mut v___x_54_: *mut lean_object = core::ptr::null_mut(); let mut v___x_55_: *mut lean_object = core::ptr::null_mut(); let mut v___x_56_: *mut lean_object = core::ptr::null_mut(); let mut v___x_57_: *mut lean_object = core::ptr::null_mut(); 
 v___x_54_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11;
 v___x_55_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v___x_55_, 0, v_a_24_);
@@ -234,7 +212,6 @@ v_isZero_70_ = lean_nat_dec_eq(v_j_67_, v_zero_69_);
 if v_isZero_70_ == 1 {
 return v_a_68_;
 } else {
-let mut v_one_71_: *mut lean_object = core::ptr::null_mut(); let mut v_n_72_: *mut lean_object = core::ptr::null_mut(); let mut v___x_73_: *mut lean_object = core::ptr::null_mut(); let mut v_k_74_: *mut lean_object = core::ptr::null_mut(); let mut v_v_75_: *mut lean_object = core::ptr::null_mut(); let mut v___y_77_: *mut lean_object = core::ptr::null_mut(); let mut v___x_97_: u8 = 0; 
 v_one_71_ = lean_unsigned_to_nat(1);
 v_n_72_ = lean_nat_sub(v_j_67_, v_one_71_);
 v___x_73_ = lean_nat_sub(v_n_66_, v_j_67_);
@@ -246,7 +223,6 @@ if v___x_97_ == 0 {
 v___y_77_ = v_a_68_;
 state = 1; continue;
 } else {
-let mut v___x_98_: *mut lean_object = core::ptr::null_mut(); let mut v___x_99_: *mut lean_object = core::ptr::null_mut(); let mut v___x_100_: *mut lean_object = core::ptr::null_mut(); let mut v___x_101_: *mut lean_object = core::ptr::null_mut(); 
 v___x_98_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11;
 v___x_99_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v___x_99_, 0, v_a_68_);
@@ -339,7 +315,6 @@ if v_isZero_126_ == 1 {
 lean_dec(v_j_123_);
 return v_a_124_;
 } else {
-let mut v_one_127_: *mut lean_object = core::ptr::null_mut(); let mut v_n_128_: *mut lean_object = core::ptr::null_mut(); let mut v___x_129_: *mut lean_object = core::ptr::null_mut(); let mut v_entry_130_: *mut lean_object = core::ptr::null_mut(); let mut v___y_132_: *mut lean_object = core::ptr::null_mut(); let mut v___x_165_: u8 = 0; 
 v_one_127_ = lean_unsigned_to_nat(1);
 v_n_128_ = lean_nat_sub(v_j_123_, v_one_127_);
 v___x_129_ = lean_nat_sub(v_n_122_, v_j_123_);
@@ -351,7 +326,6 @@ if v___x_165_ == 0 {
 v___y_132_ = v_a_124_;
 state = 1; continue;
 } else {
-let mut v___x_166_: *mut lean_object = core::ptr::null_mut(); let mut v___x_167_: *mut lean_object = core::ptr::null_mut(); let mut v___x_168_: *mut lean_object = core::ptr::null_mut(); let mut v___x_169_: *mut lean_object = core::ptr::null_mut(); 
 v___x_166_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11;
 v___x_167_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v___x_167_, 0, v_a_124_);
@@ -369,7 +343,6 @@ state = 1; continue;
 match lean_obj_tag(v_entry_130_)
 {
 0 => {
-let mut v_key_133_: *mut lean_object = core::ptr::null_mut(); let mut v_val_134_: *mut lean_object = core::ptr::null_mut(); let mut v___x_136_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_137_: u8 = 0; let mut v_isSharedCheck_157_: u8 = 0; 
 v_key_133_ = lean_ctor_get(v_entry_130_, 0);
 v_val_134_ = lean_ctor_get(v_entry_130_, 1);
 v_isSharedCheck_157_ = (!lean_is_exclusive(v_entry_130_)) as u8;
@@ -387,7 +360,6 @@ state = 2; continue;
 }
 }
 1 => {
-let mut v_node_158_: *mut lean_object = core::ptr::null_mut(); let mut v___x_159_: *mut lean_object = core::ptr::null_mut(); let mut v___x_160_: *mut lean_object = core::ptr::null_mut(); 
 v_node_158_ = lean_ctor_get(v_entry_130_, 0);
 lean_inc(v_node_158_);
 lean_dec_ref_known(v_entry_130_, 1);
@@ -400,7 +372,6 @@ v_a_124_ = v___x_160_;
 state = 0; continue;
 }
 _ => {
-let mut v___x_162_: *mut lean_object = core::ptr::null_mut(); let mut v___x_163_: *mut lean_object = core::ptr::null_mut(); 
 v___x_162_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__1;
 v___x_163_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v___x_163_, 0, v___y_132_);
@@ -410,6 +381,55 @@ v_a_124_ = v___x_163_;
 state = 0; continue;
 }
 }
+}
+2 => {
+v___x_138_ = l_Nat_reprFast(v_key_133_);
+v___x_139_ = lean_alloc_ctor(3, 1, (0) as u32);
+lean_ctor_set(v___x_139_, 0, v___x_138_);
+v___x_140_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__3;
+if v_isShared_137_ == 0 {
+lean_ctor_set_tag(v___x_136_, 5);
+lean_ctor_set(v___x_136_, 1, v___x_140_);
+lean_ctor_set(v___x_136_, 0, v___x_139_);
+v___x_142_ = v___x_136_;
+state = 3; continue;
+} else {
+v_reuseFailAlloc_156_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_156_, 0, v___x_139_);
+lean_ctor_set(v_reuseFailAlloc_156_, 1, v___x_140_);
+v___x_142_ = v_reuseFailAlloc_156_;
+state = 3; continue;
+}
+}
+3 => {
+v___x_143_ = l_Nat_reprFast(v_val_134_);
+v___x_144_ = lean_alloc_ctor(3, 1, (0) as u32);
+lean_ctor_set(v___x_144_, 0, v___x_143_);
+v___x_145_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_145_, 0, v___x_142_);
+lean_ctor_set(v___x_145_, 1, v___x_144_);
+v___x_146_ = lean_obj_once(core::ptr::addr_of_mut!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7), core::ptr::addr_of_mut!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7_once), _init_l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7);
+v___x_147_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__8;
+v___x_148_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_148_, 0, v___x_147_);
+lean_ctor_set(v___x_148_, 1, v___x_145_);
+v___x_149_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__9;
+v___x_150_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_150_, 0, v___x_148_);
+lean_ctor_set(v___x_150_, 1, v___x_149_);
+v___x_151_ = lean_alloc_ctor(4, 2, (0) as u32);
+lean_ctor_set(v___x_151_, 0, v___x_146_);
+lean_ctor_set(v___x_151_, 1, v___x_150_);
+v___x_152_ = 0;
+v___x_153_ = lean_alloc_ctor(6, 1, (1) as u32);
+lean_ctor_set(v___x_153_, 0, v___x_151_);
+lean_ctor_set_uint8(v___x_153_, (core::mem::size_of::<*mut lean_object>()*1) as u32, v___x_152_);
+v___x_154_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_154_, 0, v___y_132_);
+lean_ctor_set(v___x_154_, 1, v___x_153_);
+v_j_123_ = v_n_128_;
+v_a_124_ = v___x_154_;
+state = 0; continue;
 }
 _ => {}
 }
@@ -426,7 +446,6 @@ v_isZero_175_ = lean_nat_dec_eq(v_j_172_, v_zero_174_);
 if v_isZero_175_ == 1 {
 return v_a_173_;
 } else {
-let mut v_one_176_: *mut lean_object = core::ptr::null_mut(); let mut v_n_177_: *mut lean_object = core::ptr::null_mut(); let mut v___x_178_: *mut lean_object = core::ptr::null_mut(); let mut v_entry_179_: *mut lean_object = core::ptr::null_mut(); let mut v___y_181_: *mut lean_object = core::ptr::null_mut(); let mut v___x_214_: u8 = 0; 
 v_one_176_ = lean_unsigned_to_nat(1);
 v_n_177_ = lean_nat_sub(v_j_172_, v_one_176_);
 v___x_178_ = lean_nat_sub(v_n_171_, v_j_172_);
@@ -437,7 +456,6 @@ if v___x_214_ == 0 {
 v___y_181_ = v_a_173_;
 state = 1; continue;
 } else {
-let mut v___x_215_: *mut lean_object = core::ptr::null_mut(); let mut v___x_216_: *mut lean_object = core::ptr::null_mut(); let mut v___x_217_: *mut lean_object = core::ptr::null_mut(); let mut v___x_218_: *mut lean_object = core::ptr::null_mut(); 
 v___x_215_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__11;
 v___x_216_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v___x_216_, 0, v_a_173_);
@@ -455,7 +473,6 @@ state = 1; continue;
 match lean_obj_tag(v_entry_179_)
 {
 0 => {
-let mut v_key_182_: *mut lean_object = core::ptr::null_mut(); let mut v_val_183_: *mut lean_object = core::ptr::null_mut(); let mut v___x_185_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_186_: u8 = 0; let mut v_isSharedCheck_206_: u8 = 0; 
 v_key_182_ = lean_ctor_get(v_entry_179_, 0);
 v_val_183_ = lean_ctor_get(v_entry_179_, 1);
 v_isSharedCheck_206_ = (!lean_is_exclusive(v_entry_179_)) as u8;
@@ -473,7 +490,6 @@ state = 2; continue;
 }
 }
 1 => {
-let mut v_node_207_: *mut lean_object = core::ptr::null_mut(); let mut v___x_208_: *mut lean_object = core::ptr::null_mut(); let mut v___x_209_: *mut lean_object = core::ptr::null_mut(); let mut v___x_210_: *mut lean_object = core::ptr::null_mut(); 
 v_node_207_ = lean_ctor_get(v_entry_179_, 0);
 lean_inc(v_node_207_);
 lean_dec_ref_known(v_entry_179_, 1);
@@ -485,7 +501,6 @@ v___x_210_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__privat
 return v___x_210_;
 }
 _ => {
-let mut v___x_211_: *mut lean_object = core::ptr::null_mut(); let mut v___x_212_: *mut lean_object = core::ptr::null_mut(); let mut v___x_213_: *mut lean_object = core::ptr::null_mut(); 
 v___x_211_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg___closed__1;
 v___x_212_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v___x_212_, 0, v___y_181_);
@@ -494,6 +509,54 @@ v___x_213_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__privat
 return v___x_213_;
 }
 }
+}
+2 => {
+v___x_187_ = l_Nat_reprFast(v_key_182_);
+v___x_188_ = lean_alloc_ctor(3, 1, (0) as u32);
+lean_ctor_set(v___x_188_, 0, v___x_187_);
+v___x_189_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__3;
+if v_isShared_186_ == 0 {
+lean_ctor_set_tag(v___x_185_, 5);
+lean_ctor_set(v___x_185_, 1, v___x_189_);
+lean_ctor_set(v___x_185_, 0, v___x_188_);
+v___x_191_ = v___x_185_;
+state = 3; continue;
+} else {
+v_reuseFailAlloc_205_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_205_, 0, v___x_188_);
+lean_ctor_set(v_reuseFailAlloc_205_, 1, v___x_189_);
+v___x_191_ = v_reuseFailAlloc_205_;
+state = 3; continue;
+}
+}
+3 => {
+v___x_192_ = l_Nat_reprFast(v_val_183_);
+v___x_193_ = lean_alloc_ctor(3, 1, (0) as u32);
+lean_ctor_set(v___x_193_, 0, v___x_192_);
+v___x_194_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_194_, 0, v___x_191_);
+lean_ctor_set(v___x_194_, 1, v___x_193_);
+v___x_195_ = lean_obj_once(core::ptr::addr_of_mut!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7), core::ptr::addr_of_mut!(l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7_once), _init_l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__7);
+v___x_196_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__8;
+v___x_197_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_197_, 0, v___x_196_);
+lean_ctor_set(v___x_197_, 1, v___x_194_);
+v___x_198_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__1_spec__2___redArg___closed__9;
+v___x_199_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_199_, 0, v___x_197_);
+lean_ctor_set(v___x_199_, 1, v___x_198_);
+v___x_200_ = lean_alloc_ctor(4, 2, (0) as u32);
+lean_ctor_set(v___x_200_, 0, v___x_195_);
+lean_ctor_set(v___x_200_, 1, v___x_199_);
+v___x_201_ = 0;
+v___x_202_ = lean_alloc_ctor(6, 1, (1) as u32);
+lean_ctor_set(v___x_202_, 0, v___x_200_);
+lean_ctor_set_uint8(v___x_202_, (core::mem::size_of::<*mut lean_object>()*1) as u32, v___x_201_);
+v___x_203_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_203_, 0, v___y_181_);
+lean_ctor_set(v___x_203_, 1, v___x_202_);
+v___x_204_ = l___private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00__private_Init_Data_Nat_Fold_0__Nat_foldTR_loop___at___00formatMap_spec__0_spec__0___redArg(v_es_170_, v_n_171_, v_n_177_, v___x_203_);
+return v___x_204_;
 }
 _ => {}
 }
@@ -506,7 +569,6 @@ loop {
 match state {
 0 => {
 if lean_obj_tag(v_x_219_) == 0 {
-let mut v_es_220_: *mut lean_object = core::ptr::null_mut(); let mut v___x_221_: *mut lean_object = core::ptr::null_mut(); let mut v___x_222_: *mut lean_object = core::ptr::null_mut(); let mut v___x_223_: *mut lean_object = core::ptr::null_mut(); let mut v___x_224_: *mut lean_object = core::ptr::null_mut(); let mut v___x_225_: *mut lean_object = core::ptr::null_mut(); let mut v___x_226_: *mut lean_object = core::ptr::null_mut(); let mut v___x_227_: *mut lean_object = core::ptr::null_mut(); let mut v___x_228_: *mut lean_object = core::ptr::null_mut(); let mut v___x_229_: *mut lean_object = core::ptr::null_mut(); let mut v___x_230_: u8 = 0; let mut v___x_231_: *mut lean_object = core::ptr::null_mut(); 
 v_es_220_ = lean_ctor_get(v_x_219_, 0);
 lean_inc_ref(v_es_220_);
 lean_dec_ref_known(v_x_219_, 1);
@@ -532,7 +594,6 @@ lean_ctor_set(v___x_231_, 0, v___x_229_);
 lean_ctor_set_uint8(v___x_231_, (core::mem::size_of::<*mut lean_object>()*1) as u32, v___x_230_);
 return v___x_231_;
 } else {
-let mut v_ks_232_: *mut lean_object = core::ptr::null_mut(); let mut v_vs_233_: *mut lean_object = core::ptr::null_mut(); let mut v___x_235_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_236_: u8 = 0; let mut v_isSharedCheck_250_: u8 = 0; 
 v_ks_232_ = lean_ctor_get(v_x_219_, 0);
 v_vs_233_ = lean_ctor_get(v_x_219_, 1);
 v_isSharedCheck_250_ = (!lean_is_exclusive(v_x_219_)) as u8;
@@ -565,13 +626,26 @@ lean_ctor_set(v___x_235_, 0, v___x_241_);
 v___x_243_ = v___x_235_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_249_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_249_ = lean_alloc_ctor(5, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_249_, 0, v___x_241_);
 lean_ctor_set(v_reuseFailAlloc_249_, 1, v___x_239_);
 v___x_243_ = v_reuseFailAlloc_249_;
 state = 2; continue;
 }
+}
+2 => {
+v___x_244_ = l_formatMap___closed__5;
+v___x_245_ = lean_alloc_ctor(5, 2, (0) as u32);
+lean_ctor_set(v___x_245_, 0, v___x_243_);
+lean_ctor_set(v___x_245_, 1, v___x_244_);
+v___x_246_ = lean_alloc_ctor(4, 2, (0) as u32);
+lean_ctor_set(v___x_246_, 0, v___x_240_);
+lean_ctor_set(v___x_246_, 1, v___x_245_);
+v___x_247_ = 0;
+v___x_248_ = lean_alloc_ctor(6, 1, (1) as u32);
+lean_ctor_set(v___x_248_, 0, v___x_246_);
+lean_ctor_set_uint8(v___x_248_, (core::mem::size_of::<*mut lean_object>()*1) as u32, v___x_247_);
+return v___x_248_;
 }
 _ => {}
 }
@@ -708,7 +782,6 @@ v___x_358_ = lean_unsigned_to_nat(1);
 v___x_359_ = lean_nat_dec_eq(v_maxDepth_357_, v___x_358_);
 lean_dec(v_maxDepth_357_);
 if v___x_359_ == 0 {
-let mut v___x_360_: *mut lean_object = core::ptr::null_mut(); let mut v___x_361_: *mut lean_object = core::ptr::null_mut(); 
 v___x_360_ = l_checkState___closed__1;
 v___x_361_ = l_IO_println___at___00checkState_spec__1(v___x_360_);
 if lean_obj_tag(v___x_361_) == 0 {
@@ -730,12 +803,10 @@ v___x_350_ = lean_unsigned_to_nat(0);
 v___x_351_ = lean_nat_dec_eq(v_numCollisions_349_, v___x_350_);
 lean_dec(v_numCollisions_349_);
 if v___x_351_ == 0 {
-let mut v___x_352_: *mut lean_object = core::ptr::null_mut(); let mut v___x_353_: *mut lean_object = core::ptr::null_mut(); 
 v___x_352_ = l_checkState___closed__0;
 v___x_353_ = l_IO_println___at___00checkState_spec__1(v___x_352_);
 return v___x_353_;
 } else {
-let mut v___x_354_: *mut lean_object = core::ptr::null_mut(); let mut v___x_355_: *mut lean_object = core::ptr::null_mut(); 
 v___x_354_ = lean_box(0);
 v___x_355_ = lean_alloc_ctor(0, 1, (0) as u32);
 lean_ctor_set(v___x_355_, 0, v___x_354_);
@@ -795,7 +866,6 @@ state = 1; continue;
 v___x_379_ = lean_array_get_size(v_ks_374_);
 v___x_380_ = lean_nat_dec_lt(v_x_371_, v___x_379_);
 if v___x_380_ == 0 {
-let mut v___x_381_: *mut lean_object = core::ptr::null_mut(); let mut v___x_382_: *mut lean_object = core::ptr::null_mut(); let mut v___x_384_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec(v_x_371_);
 v___x_381_ = lean_array_push(v_ks_374_, v_x_372_);
 v___x_382_ = lean_array_push(v_vs_375_, v_x_373_);
@@ -805,7 +875,6 @@ lean_ctor_set(v___x_377_, 0, v___x_381_);
 v___x_384_ = v___x_377_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_385_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_385_ = lean_alloc_ctor(1, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_385_, 0, v___x_381_);
 lean_ctor_set(v_reuseFailAlloc_385_, 1, v___x_382_);
@@ -813,16 +882,13 @@ v___x_384_ = v_reuseFailAlloc_385_;
 state = 2; continue;
 }
 } else {
-let mut v_k_x27_386_: *mut lean_object = core::ptr::null_mut(); let mut v___x_387_: u8 = 0; 
 v_k_x27_386_ = lean_array_fget_borrowed(v_ks_374_, v_x_371_);
 v___x_387_ = lean_nat_dec_eq(v_x_372_, v_k_x27_386_);
 if v___x_387_ == 0 {
-let mut v___x_389_: *mut lean_object = core::ptr::null_mut(); 
 if v_isShared_378_ == 0 {
 v___x_389_ = v___x_377_;
 state = 3; continue;
 } else {
-let mut v_reuseFailAlloc_393_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_393_ = lean_alloc_ctor(1, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_393_, 0, v_ks_374_);
 lean_ctor_set(v_reuseFailAlloc_393_, 1, v_vs_375_);
@@ -830,7 +896,6 @@ v___x_389_ = v_reuseFailAlloc_393_;
 state = 3; continue;
 }
 } else {
-let mut v___x_394_: *mut lean_object = core::ptr::null_mut(); let mut v___x_395_: *mut lean_object = core::ptr::null_mut(); let mut v___x_397_: *mut lean_object = core::ptr::null_mut(); 
 v___x_394_ = lean_array_fset(v_ks_374_, v_x_371_, v_x_372_);
 v___x_395_ = lean_array_fset(v_vs_375_, v_x_371_, v_x_373_);
 lean_dec(v_x_371_);
@@ -840,7 +905,6 @@ lean_ctor_set(v___x_377_, 0, v___x_394_);
 v___x_397_ = v___x_377_;
 state = 4; continue;
 } else {
-let mut v_reuseFailAlloc_398_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_398_ = lean_alloc_ctor(1, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_398_, 0, v___x_394_);
 lean_ctor_set(v_reuseFailAlloc_398_, 1, v___x_395_);
@@ -849,6 +913,20 @@ state = 4; continue;
 }
 }
 }
+}
+2 => {
+return v___x_384_;
+}
+3 => {
+v___x_390_ = lean_unsigned_to_nat(1);
+v___x_391_ = lean_nat_add(v_x_371_, v___x_390_);
+lean_dec(v_x_371_);
+v_x_370_ = v___x_389_;
+v_x_371_ = v___x_391_;
+state = 0; continue;
+}
+4 => {
+return v___x_397_;
 }
 _ => {}
 }
@@ -886,7 +964,6 @@ loop {
 match state {
 0 => {
 if lean_obj_tag(v_x_412_) == 0 {
-let mut v_es_417_: *mut lean_object = core::ptr::null_mut(); let mut v___x_418_: usize = 0; let mut v___x_419_: usize = 0; let mut v___x_420_: usize = 0; let mut v___x_421_: usize = 0; let mut v_j_422_: *mut lean_object = core::ptr::null_mut(); let mut v___x_423_: *mut lean_object = core::ptr::null_mut(); let mut v___x_424_: u8 = 0; 
 v_es_417_ = lean_ctor_get(v_x_412_, 0);
 v___x_418_ = 5usize;
 v___x_419_ = 1usize;
@@ -901,11 +978,9 @@ lean_dec(v_x_416_);
 lean_dec(v_x_415_);
 return v_x_412_;
 } else {
-let mut v___x_426_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_427_: u8 = 0; let mut v_isSharedCheck_461_: u8 = 0; 
 lean_inc_ref(v_es_417_);
 v_isSharedCheck_461_ = (!lean_is_exclusive(v_x_412_)) as u8;
 if v_isSharedCheck_461_ == 0 {
-let mut v_unused_462_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_462_ = lean_ctor_get(v_x_412_, 0);
 lean_dec(v_unused_462_);
 v___x_426_ = v_x_412_;
@@ -919,7 +994,6 @@ state = 1; continue;
 }
 }
 } else {
-let mut v_ks_463_: *mut lean_object = core::ptr::null_mut(); let mut v_vs_464_: *mut lean_object = core::ptr::null_mut(); let mut v___x_466_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_467_: u8 = 0; let mut v_isSharedCheck_484_: u8 = 0; 
 v_ks_463_ = lean_ctor_get(v_x_412_, 0);
 v_vs_464_ = lean_ctor_get(v_x_412_, 1);
 v_isSharedCheck_484_ = (!lean_is_exclusive(v_x_412_)) as u8;
@@ -944,7 +1018,6 @@ v_xs_x27_430_ = lean_array_fset(v_es_417_, v_j_422_, v___x_429_);
 match lean_obj_tag(v_v_428_)
 {
 0 => {
-let mut v_key_437_: *mut lean_object = core::ptr::null_mut(); let mut v_val_438_: *mut lean_object = core::ptr::null_mut(); let mut v___x_440_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_441_: u8 = 0; let mut v_isSharedCheck_448_: u8 = 0; 
 v_key_437_ = lean_ctor_get(v_v_428_, 0);
 v_val_438_ = lean_ctor_get(v_v_428_, 1);
 v_isSharedCheck_448_ = (!lean_is_exclusive(v_v_428_)) as u8;
@@ -962,7 +1035,6 @@ state = 4; continue;
 }
 }
 1 => {
-let mut v_node_449_: *mut lean_object = core::ptr::null_mut(); let mut v___x_451_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_452_: u8 = 0; let mut v_isSharedCheck_459_: u8 = 0; 
 v_node_449_ = lean_ctor_get(v_v_428_, 0);
 v_isSharedCheck_459_ = (!lean_is_exclusive(v_v_428_)) as u8;
 if v_isSharedCheck_459_ == 0 {
@@ -978,7 +1050,6 @@ state = 6; continue;
 }
 }
 _ => {
-let mut v___x_460_: *mut lean_object = core::ptr::null_mut(); 
 v___x_460_ = lean_alloc_ctor(0, 2, (0) as u32);
 lean_ctor_set(v___x_460_, 0, v_x_415_);
 lean_ctor_set(v___x_460_, 1, v_x_416_);
@@ -987,17 +1058,115 @@ state = 2; continue;
 }
 }
 }
+2 => {
+v___x_433_ = lean_array_fset(v_xs_x27_430_, v_j_422_, v___y_432_);
+lean_dec(v_j_422_);
+if v_isShared_427_ == 0 {
+lean_ctor_set(v___x_426_, 0, v___x_433_);
+v___x_435_ = v___x_426_;
+state = 3; continue;
+} else {
+v_reuseFailAlloc_436_ = lean_alloc_ctor(0, 1, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_436_, 0, v___x_433_);
+v___x_435_ = v_reuseFailAlloc_436_;
+state = 3; continue;
+}
+}
+3 => {
+return v___x_435_;
+}
+4 => {
+v___x_442_ = lean_nat_dec_eq(v_x_415_, v_key_437_);
+if v___x_442_ == 0 {
+lean_del_object(v___x_440_);
+v___x_443_ = l_Lean_PersistentHashMap_mkCollisionNode___redArg(v_key_437_, v_val_438_, v_x_415_, v_x_416_);
+v___x_444_ = lean_alloc_ctor(1, 1, (0) as u32);
+lean_ctor_set(v___x_444_, 0, v___x_443_);
+v___y_432_ = v___x_444_;
+state = 2; continue;
+} else {
+lean_dec(v_val_438_);
+lean_dec(v_key_437_);
+if v_isShared_441_ == 0 {
+lean_ctor_set(v___x_440_, 1, v_x_416_);
+lean_ctor_set(v___x_440_, 0, v_x_415_);
+v___x_446_ = v___x_440_;
+state = 5; continue;
+} else {
+v_reuseFailAlloc_447_ = lean_alloc_ctor(0, 2, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_447_, 0, v_x_415_);
+lean_ctor_set(v_reuseFailAlloc_447_, 1, v_x_416_);
+v___x_446_ = v_reuseFailAlloc_447_;
+state = 5; continue;
+}
+}
+}
+5 => {
+v___y_432_ = v___x_446_;
+state = 2; continue;
+}
+6 => {
+v___x_453_ = lean_usize_shift_right(v_x_413_, v___x_418_);
+v___x_454_ = lean_usize_add(v_x_414_, v___x_419_);
+v___x_455_ = l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1___redArg(v_node_449_, v___x_453_, v___x_454_, v_x_415_, v_x_416_);
+if v_isShared_452_ == 0 {
+lean_ctor_set(v___x_451_, 0, v___x_455_);
+v___x_457_ = v___x_451_;
+state = 7; continue;
+} else {
+v_reuseFailAlloc_458_ = lean_alloc_ctor(1, 1, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_458_, 0, v___x_455_);
+v___x_457_ = v_reuseFailAlloc_458_;
+state = 7; continue;
+}
+}
+7 => {
+v___y_432_ = v___x_457_;
+state = 2; continue;
+}
 8 => {
 if v_isShared_467_ == 0 {
 v___x_469_ = v___x_466_;
 state = 9; continue;
 } else {
-let mut v_reuseFailAlloc_483_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_483_ = lean_alloc_ctor(1, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_483_, 0, v_ks_463_);
 lean_ctor_set(v_reuseFailAlloc_483_, 1, v_vs_464_);
 v___x_469_ = v_reuseFailAlloc_483_;
 state = 9; continue;
+}
+}
+9 => {
+v_newNode_470_ = l_Lean_PersistentHashMap_insertAtCollisionNode___at___00Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1_spec__2___redArg(v___x_469_, v_x_415_, v_x_416_);
+v___x_478_ = 7usize;
+v___x_479_ = lean_usize_dec_le(v___x_478_, v_x_414_);
+if v___x_479_ == 0 {
+v___x_480_ = l_Lean_PersistentHashMap_getCollisionNodeSize___redArg(v_newNode_470_);
+v___x_481_ = lean_unsigned_to_nat(4);
+v___x_482_ = lean_nat_dec_lt(v___x_480_, v___x_481_);
+lean_dec(v___x_480_);
+v___y_472_ = v___x_482_;
+state = 10; continue;
+} else {
+v___y_472_ = v___x_479_;
+state = 10; continue;
+}
+}
+10 => {
+if v___y_472_ == 0 {
+v_ks_473_ = lean_ctor_get(v_newNode_470_, 0);
+lean_inc_ref(v_ks_473_);
+v_vs_474_ = lean_ctor_get(v_newNode_470_, 1);
+lean_inc_ref(v_vs_474_);
+lean_dec_ref(v_newNode_470_);
+v___x_475_ = lean_unsigned_to_nat(0);
+v___x_476_ = lean_obj_once(core::ptr::addr_of_mut!(l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1___redArg___closed__2), core::ptr::addr_of_mut!(l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1___redArg___closed__2_once), _init_l_Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1___redArg___closed__2);
+v___x_477_ = l___private_Lean_Data_PersistentHashMap_0__Lean_PersistentHashMap_insertAux_traverse___at___00Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1_spec__3___redArg(v_x_414_, v_ks_473_, v_vs_474_, v___x_475_, v___x_476_);
+lean_dec_ref(v_vs_474_);
+lean_dec_ref(v_ks_473_);
+return v___x_477_;
+} else {
+return v_newNode_470_;
 }
 }
 _ => {}
@@ -1016,7 +1185,6 @@ if v___x_491_ == 0 {
 lean_dec(v_i_488_);
 return v_entries_489_;
 } else {
-let mut v_k_492_: *mut lean_object = core::ptr::null_mut(); let mut v_v_493_: *mut lean_object = core::ptr::null_mut(); let mut v___x_494_: u64 = 0; let mut v_h_495_: usize = 0; let mut v___x_496_: usize = 0; let mut v___x_497_: *mut lean_object = core::ptr::null_mut(); let mut v___x_498_: usize = 0; let mut v___x_499_: usize = 0; let mut v___x_500_: usize = 0; let mut v_h_501_: usize = 0; let mut v___x_502_: *mut lean_object = core::ptr::null_mut(); let mut v___x_503_: *mut lean_object = core::ptr::null_mut(); 
 v_k_492_ = lean_array_fget_borrowed(v_keys_486_, v_i_488_);
 v_v_493_ = lean_array_fget_borrowed(v_vals_487_, v_i_488_);
 v___x_494_ = lean_uint64_of_nat(v_k_492_);
@@ -1076,23 +1244,19 @@ match state {
 v___x_530_ = lean_array_get_size(v_xs_527_);
 v___x_531_ = lean_nat_dec_lt(v_i_529_, v___x_530_);
 if v___x_531_ == 0 {
-let mut v___x_532_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec(v_i_529_);
 v___x_532_ = lean_box(0);
 return v___x_532_;
 } else {
-let mut v___x_533_: *mut lean_object = core::ptr::null_mut(); let mut v___x_534_: u8 = 0; 
 v___x_533_ = lean_array_fget_borrowed(v_xs_527_, v_i_529_);
 v___x_534_ = lean_nat_dec_eq(v___x_533_, v_v_528_);
 if v___x_534_ == 0 {
-let mut v___x_535_: *mut lean_object = core::ptr::null_mut(); let mut v___x_536_: *mut lean_object = core::ptr::null_mut(); 
 v___x_535_ = lean_unsigned_to_nat(1);
 v___x_536_ = lean_nat_add(v_i_529_, v___x_535_);
 lean_dec(v_i_529_);
 v_i_529_ = v___x_536_;
 state = 0; continue;
 } else {
-let mut v___x_538_: *mut lean_object = core::ptr::null_mut(); 
 v___x_538_ = lean_alloc_ctor(1, 1, (0) as u32);
 lean_ctor_set(v___x_538_, 0, v_i_529_);
 return v___x_538_;
@@ -1130,7 +1294,6 @@ loop {
 match state {
 0 => {
 if lean_obj_tag(v_x_550_) == 0 {
-let mut v_es_553_: *mut lean_object = core::ptr::null_mut(); let mut v___x_554_: *mut lean_object = core::ptr::null_mut(); let mut v___x_555_: usize = 0; let mut v___x_556_: usize = 0; let mut v___x_557_: usize = 0; let mut v_j_558_: *mut lean_object = core::ptr::null_mut(); let mut v_entry_559_: *mut lean_object = core::ptr::null_mut(); 
 v_es_553_ = lean_ctor_get(v_x_550_, 0);
 v___x_554_ = lean_box(2);
 v___x_555_ = 5usize;
@@ -1141,7 +1304,6 @@ v_entry_559_ = lean_array_get(v___x_554_, v_es_553_, v_j_558_);
 match lean_obj_tag(v_entry_559_)
 {
 0 => {
-let mut v_key_560_: *mut lean_object = core::ptr::null_mut(); let mut v___x_561_: u8 = 0; 
 v_key_560_ = lean_ctor_get(v_entry_559_, 0);
 lean_inc(v_key_560_);
 lean_dec_ref_known(v_entry_559_, 2);
@@ -1151,11 +1313,9 @@ if v___x_561_ == 0 {
 lean_dec(v_j_558_);
 return v_x_550_;
 } else {
-let mut v___x_563_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_564_: u8 = 0; let mut v_isSharedCheck_569_: u8 = 0; 
 lean_inc_ref(v_es_553_);
 v_isSharedCheck_569_ = (!lean_is_exclusive(v_x_550_)) as u8;
 if v_isSharedCheck_569_ == 0 {
-let mut v_unused_570_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_570_ = lean_ctor_get(v_x_550_, 0);
 lean_dec(v_unused_570_);
 v___x_563_ = v_x_550_;
@@ -1170,11 +1330,9 @@ state = 1; continue;
 }
 }
 1 => {
-let mut v___x_572_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_573_: u8 = 0; let mut v_isSharedCheck_604_: u8 = 0; 
 lean_inc_ref(v_es_553_);
 v_isSharedCheck_604_ = (!lean_is_exclusive(v_x_550_)) as u8;
 if v_isSharedCheck_604_ == 0 {
-let mut v_unused_605_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_605_ = lean_ctor_get(v_x_550_, 0);
 lean_dec(v_unused_605_);
 v___x_572_ = v_x_550_;
@@ -1193,7 +1351,6 @@ return v_x_550_;
 }
 }
 } else {
-let mut v_ks_606_: *mut lean_object = core::ptr::null_mut(); let mut v_vs_607_: *mut lean_object = core::ptr::null_mut(); let mut v___x_609_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_610_: u8 = 0; let mut v_isSharedCheck_621_: u8 = 0; 
 v_ks_606_ = lean_ctor_get(v_x_550_, 0);
 v_vs_607_ = lean_ctor_get(v_x_550_, 1);
 v_isSharedCheck_621_ = (!lean_is_exclusive(v_x_550_)) as u8;
@@ -1219,12 +1376,14 @@ lean_ctor_set(v___x_563_, 0, v___x_565_);
 v___x_567_ = v___x_563_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_568_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_568_ = lean_alloc_ctor(0, 1, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_568_, 0, v___x_565_);
 v___x_567_ = v_reuseFailAlloc_568_;
 state = 2; continue;
 }
+}
+2 => {
+return v___x_567_;
 }
 3 => {
 v_node_574_ = lean_ctor_get(v_entry_559_, 0);
@@ -1241,15 +1400,99 @@ v_isShared_577_ = v_isSharedCheck_603_;
 state = 4; continue;
 }
 }
+4 => {
+v_entries_578_ = lean_array_set(v_es_553_, v_j_558_, v___x_554_);
+v___x_579_ = lean_usize_shift_right(v_x_551_, v___x_555_);
+v_newNode_580_ = l_Lean_PersistentHashMap_eraseAux___at___00Lean_PersistentHashMap_erase___at___00main_spec__3_spec__4___redArg(v_node_574_, v___x_579_, v_x_552_);
+lean_inc_ref(v_newNode_580_);
+v___x_581_ = l_Lean_PersistentHashMap_isUnaryNode___redArg(v_newNode_580_);
+if lean_obj_tag(v___x_581_) == 0 {
+if v_isShared_577_ == 0 {
+lean_ctor_set(v___x_576_, 0, v_newNode_580_);
+v___x_583_ = v___x_576_;
+state = 5; continue;
+} else {
+v_reuseFailAlloc_588_ = lean_alloc_ctor(1, 1, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_588_, 0, v_newNode_580_);
+v___x_583_ = v_reuseFailAlloc_588_;
+state = 5; continue;
+}
+} else {
+lean_dec_ref(v_newNode_580_);
+lean_del_object(v___x_576_);
+v_val_589_ = lean_ctor_get(v___x_581_, 0);
+lean_inc(v_val_589_);
+lean_dec_ref_known(v___x_581_, 1);
+v_fst_590_ = lean_ctor_get(v_val_589_, 0);
+v_snd_591_ = lean_ctor_get(v_val_589_, 1);
+v_isSharedCheck_602_ = (!lean_is_exclusive(v_val_589_)) as u8;
+if v_isSharedCheck_602_ == 0 {
+v___x_593_ = v_val_589_;
+v_isShared_594_ = v_isSharedCheck_602_;
+state = 7; continue;
+} else {
+lean_inc(v_snd_591_);
+lean_inc(v_fst_590_);
+lean_dec(v_val_589_);
+v___x_593_ = lean_box(0);
+v_isShared_594_ = v_isSharedCheck_602_;
+state = 7; continue;
+}
+}
+}
+5 => {
+v___x_584_ = lean_array_set(v_entries_578_, v_j_558_, v___x_583_);
+lean_dec(v_j_558_);
+if v_isShared_573_ == 0 {
+lean_ctor_set(v___x_572_, 0, v___x_584_);
+v___x_586_ = v___x_572_;
+state = 6; continue;
+} else {
+v_reuseFailAlloc_587_ = lean_alloc_ctor(0, 1, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_587_, 0, v___x_584_);
+v___x_586_ = v_reuseFailAlloc_587_;
+state = 6; continue;
+}
+}
+6 => {
+return v___x_586_;
+}
+7 => {
+if v_isShared_594_ == 0 {
+v___x_596_ = v___x_593_;
+state = 8; continue;
+} else {
+v_reuseFailAlloc_601_ = lean_alloc_ctor(0, 2, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_601_, 0, v_fst_590_);
+lean_ctor_set(v_reuseFailAlloc_601_, 1, v_snd_591_);
+v___x_596_ = v_reuseFailAlloc_601_;
+state = 8; continue;
+}
+}
+8 => {
+v___x_597_ = lean_array_set(v_entries_578_, v_j_558_, v___x_596_);
+lean_dec(v_j_558_);
+if v_isShared_573_ == 0 {
+lean_ctor_set(v___x_572_, 0, v___x_597_);
+v___x_599_ = v___x_572_;
+state = 9; continue;
+} else {
+v_reuseFailAlloc_600_ = lean_alloc_ctor(0, 1, (0) as u32);
+lean_ctor_set(v_reuseFailAlloc_600_, 0, v___x_597_);
+v___x_599_ = v_reuseFailAlloc_600_;
+state = 9; continue;
+}
+}
+9 => {
+return v___x_599_;
+}
 10 => {
 v___x_611_ = l_Array_finIdxOf_x3f___at___00Lean_PersistentHashMap_eraseAux___at___00Lean_PersistentHashMap_erase___at___00main_spec__3_spec__4_spec__7(v_ks_606_, v_x_552_);
 if lean_obj_tag(v___x_611_) == 0 {
-let mut v___x_613_: *mut lean_object = core::ptr::null_mut(); 
 if v_isShared_610_ == 0 {
 v___x_613_ = v___x_609_;
 state = 11; continue;
 } else {
-let mut v_reuseFailAlloc_614_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_614_ = lean_alloc_ctor(1, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_614_, 0, v_ks_606_);
 lean_ctor_set(v_reuseFailAlloc_614_, 1, v_vs_607_);
@@ -1257,7 +1500,6 @@ v___x_613_ = v_reuseFailAlloc_614_;
 state = 11; continue;
 }
 } else {
-let mut v_val_615_: *mut lean_object = core::ptr::null_mut(); let mut v_keys_x27_616_: *mut lean_object = core::ptr::null_mut(); let mut v_vals_x27_617_: *mut lean_object = core::ptr::null_mut(); let mut v___x_619_: *mut lean_object = core::ptr::null_mut(); 
 v_val_615_ = lean_ctor_get(v___x_611_, 0);
 lean_inc_n(v_val_615_, 2);
 lean_dec_ref_known(v___x_611_, 1);
@@ -1269,7 +1511,6 @@ lean_ctor_set(v___x_609_, 0, v_keys_x27_616_);
 v___x_619_ = v___x_609_;
 state = 12; continue;
 } else {
-let mut v_reuseFailAlloc_620_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_620_ = lean_alloc_ctor(1, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_620_, 0, v_keys_x27_616_);
 lean_ctor_set(v_reuseFailAlloc_620_, 1, v_vals_x27_617_);
@@ -1277,6 +1518,12 @@ v___x_619_ = v_reuseFailAlloc_620_;
 state = 12; continue;
 }
 }
+}
+11 => {
+return v___x_613_;
+}
+12 => {
+return v___x_619_;
 }
 _ => {}
 }
@@ -1406,7 +1653,6 @@ v_maxDepth_703_ = lean_ctor_get(v___x_702_, 3);
 v_max_704_ = lean_unsigned_to_nat(7);
 v___x_705_ = lean_nat_dec_eq(v_maxDepth_703_, v_max_704_);
 if v___x_705_ == 0 {
-let mut v___x_706_: *mut lean_object = core::ptr::null_mut(); let mut v___x_707_: *mut lean_object = core::ptr::null_mut(); 
 v___x_706_ = l_checkState___closed__1;
 v___x_707_ = l_IO_println___at___00checkState_spec__1(v___x_706_);
 if lean_obj_tag(v___x_707_) == 0 {
@@ -1424,7 +1670,6 @@ lean_inc_ref(v___y_680_);
 v___x_681_ = l_Lean_PersistentHashMap_erase___at___00main_spec__3___redArg(v___y_680_, v___x_678_);
 v___x_682_ = l_checkState(v___x_681_);
 if lean_obj_tag(v___x_682_) == 0 {
-let mut v___x_683_: *mut lean_object = core::ptr::null_mut(); let mut v___x_684_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref_known(v___x_682_, 1);
 v___x_683_ = l_Lean_PersistentHashMap_stats___at___00checkState_spec__0___redArg(v___x_681_);
 lean_dec_ref(v___x_681_);
@@ -1439,7 +1684,6 @@ return v___x_682_;
 v___x_687_ = lean_obj_once(core::ptr::addr_of_mut!(l_main___closed__6), core::ptr::addr_of_mut!(l_main___closed__6_once), _init_l_main___closed__6);
 v___x_688_ = l_IO_println___at___00main_spec__2(v___x_687_);
 if lean_obj_tag(v___x_688_) == 0 {
-let mut v___x_689_: *mut lean_object = core::ptr::null_mut(); let mut v___x_690_: *mut lean_object = core::ptr::null_mut(); let mut v_maxDepth_691_: *mut lean_object = core::ptr::null_mut(); let mut v___x_692_: *mut lean_object = core::ptr::null_mut(); let mut v___x_693_: u8 = 0; 
 lean_dec_ref_known(v___x_688_, 1);
 v___x_689_ = lean_obj_once(core::ptr::addr_of_mut!(l_main___closed__9), core::ptr::addr_of_mut!(l_main___closed__9_once), _init_l_main___closed__9);
 v___x_690_ = lean_obj_once(core::ptr::addr_of_mut!(l_main___closed__10), core::ptr::addr_of_mut!(l_main___closed__10_once), _init_l_main___closed__10);
@@ -1447,7 +1691,6 @@ v_maxDepth_691_ = lean_ctor_get(v___x_690_, 3);
 v___x_692_ = lean_unsigned_to_nat(6);
 v___x_693_ = lean_nat_dec_eq(v_maxDepth_691_, v___x_692_);
 if v___x_693_ == 0 {
-let mut v___x_694_: *mut lean_object = core::ptr::null_mut(); let mut v___x_695_: *mut lean_object = core::ptr::null_mut(); 
 v___x_694_ = l_checkState___closed__1;
 v___x_695_ = l_IO_println___at___00checkState_spec__1(v___x_694_);
 if lean_obj_tag(v___x_695_) == 0 {
@@ -1470,7 +1713,6 @@ v___x_697_ = lean_obj_once(core::ptr::addr_of_mut!(l_main___closed__6), core::pt
 v_numCollisions_698_ = lean_ctor_get(v___x_697_, 2);
 v___x_699_ = lean_nat_dec_eq(v_numCollisions_698_, v___x_685_);
 if v___x_699_ == 0 {
-let mut v___x_700_: *mut lean_object = core::ptr::null_mut(); let mut v___x_701_: *mut lean_object = core::ptr::null_mut(); 
 v___x_700_ = l_checkState___closed__0;
 v___x_701_ = l_IO_println___at___00checkState_spec__1(v___x_700_);
 if lean_obj_tag(v___x_701_) == 0 {
@@ -1559,9 +1801,6 @@ let mut v___x_777_: *mut lean_object = core::ptr::null_mut();
 v___x_777_ = l_Lean_PersistentHashMap_insertAtCollisionNodeAux___at___00Lean_PersistentHashMap_insertAtCollisionNode___at___00Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00main_spec__1_spec__1_spec__2_spec__5___redArg(v_x_773_, v_x_774_, v_x_775_, v_x_776_);
 return v___x_777_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
-extern "C" { fn initialize_Lean_Data_PersistentHashMap(builtin: u8) -> *mut lean_object; }
-extern "C" { fn initialize_Lean_Data_Format(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_phashmap3(builtin: u8) -> *mut lean_object {

@@ -326,21 +326,27 @@ mod runtime_io_impl {
 
     #[no_mangle]
     pub unsafe extern "C" fn lean_get_set_stdin(h: *mut LeanObject) -> *mut LeanObject {
+        ensure_io_shim_init();
+        let old = IO_SHIM_STDIN;
         IO_SHIM_STDIN = h;
         mark_io_handle_persistent(h);
-        lean_box(0)
+        old
     }
     #[no_mangle]
     pub unsafe extern "C" fn lean_get_set_stdout(h: *mut LeanObject) -> *mut LeanObject {
+        ensure_io_shim_init();
+        let old = IO_SHIM_STDOUT;
         IO_SHIM_STDOUT = h;
         mark_io_handle_persistent(h);
-        lean_box(0)
+        old
     }
     #[no_mangle]
     pub unsafe extern "C" fn lean_get_set_stderr(h: *mut LeanObject) -> *mut LeanObject {
+        ensure_io_shim_init();
+        let old = IO_SHIM_STDERR;
         IO_SHIM_STDERR = h;
         mark_io_handle_persistent(h);
-        lean_box(0)
+        old
     }
 
     // -----------------------------------------------------------------------

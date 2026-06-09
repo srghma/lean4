@@ -1,25 +1,30 @@
 // Lean compiler output
 // Module: arrayMk
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::List::Basic::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::String::Defs::*;
 extern "C" {
     fn lean_get_stdout() -> *mut lean_object;
-    fn l_List_range(_: *mut lean_object) -> *mut lean_object;
     fn lean_array_mk(_: *mut lean_object) -> *mut lean_object;
-    fn lean_array_get_size(_: *mut lean_object) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
     fn lean_string_append(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
 }
 static mut l_step___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_step___closed__0: *mut lean_object = core::ptr::null_mut();
 static mut l_step___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_step___closed__1: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static mut l_step: *mut lean_object = core::ptr::null_mut();
+#[used]
+#[no_mangle]
+pub static mut l_step: *mut lean_object = core::ptr::null_mut();
 static mut l_main___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__0: *mut lean_object = core::ptr::null_mut();
 static mut l_main___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__1: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static l_main___closed__2_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [10, 0]};
+pub static l_main___closed__2_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [10, 0]};
 static mut l_main___closed__2: *mut lean_object = core::ptr::addr_of!(l_main___closed__2_value) as *mut lean_object;
 static mut l_main___closed__3_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__3: *mut lean_object = core::ptr::null_mut();
@@ -84,7 +89,6 @@ let mut v_res_26_: *mut lean_object = core::ptr::null_mut();
 v_res_26_ = _lean_main();
 return v_res_26_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_arrayMk(builtin: u8) -> *mut lean_object {

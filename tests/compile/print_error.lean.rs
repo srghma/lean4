@@ -1,14 +1,15 @@
 // Lean compiler output
 // Module: print_error
-// Imports: public import Init.System.IO
+// Imports: Init.System.IO
 use lean_runtime::generated_abi::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
 }
-#[no_mangle] pub static l_main___closed__0_value: lean_string_object<9> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [102, 105, 108, 101, 46, 101, 120, 116, 0]};
+pub static l_main___closed__0_value: lean_string_object<9> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [102, 105, 108, 101, 46, 101, 120, 116, 0]};
 static mut l_main___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__1_value: lean_string_object<21> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [116, 104, 105, 115, 32, 105, 115, 32, 115, 111, 109, 101, 32, 99, 111, 110, 116, 101, 120, 116, 0]};
+pub static l_main___closed__1_value: lean_string_object<21> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [116, 104, 105, 115, 32, 105, 115, 32, 115, 111, 109, 101, 32, 99, 111, 110, 116, 101, 120, 116, 0]};
 static mut l_main___closed__1: *mut lean_object = core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__2_value: lean_ctor_object<3> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 8) as u16, m_other: 2, m_tag: 11 }, m_objs: [core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object,core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object,13 as *mut lean_object] };
+pub static l_main___closed__2_value: lean_ctor_object<3> = lean_ctor_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*2 + 8) as u16, m_other: 2, m_tag: 11 }, m_objs: [core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object,core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object,13 as *mut lean_object] };
 static mut l_main___closed__2: *mut lean_object = core::ptr::addr_of!(l_main___closed__2_value) as *mut lean_object;
 #[no_mangle] pub unsafe extern "C" fn _lean_main() -> *mut lean_object{
 let mut v___x_8_: *mut lean_object = core::ptr::null_mut(); let mut v___x_9_: *mut lean_object = core::ptr::null_mut(); 
@@ -22,7 +23,6 @@ let mut v_res_11_: *mut lean_object = core::ptr::null_mut();
 v_res_11_ = _lean_main();
 return v_res_11_;
 }
-extern "C" { fn initialize_Init_System_IO(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_print__error(builtin: u8) -> *mut lean_object {

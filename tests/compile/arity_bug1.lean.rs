@@ -1,19 +1,20 @@
 // Lean compiler output
 // Module: arity_bug1
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::String::Bootstrap::*;
 extern "C" {
-    fn l_Function_comp(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Function_const___boxed(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_instMonadEIO(_: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
-#[no_mangle] pub static l_Countdown_forM___redArg___closed__0_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Countdown_forM___redArg___lam__0___boxed as *const core::ffi::c_void, m_arity: 1, m_num_fixed: 0, m_objs: [] };
+pub static l_Countdown_forM___redArg___closed__0_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Countdown_forM___redArg___lam__0___boxed as *const core::ffi::c_void, m_arity: 1, m_num_fixed: 0, m_objs: [] };
 static mut l_Countdown_forM___redArg___closed__0: *mut lean_object = core::ptr::addr_of!(l_Countdown_forM___redArg___closed__0_value) as *mut lean_object;
 static mut l_main___closed__0_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__0: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static l_main___closed__1_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [111, 107, 0]};
+pub static l_main___closed__1_value: lean_string_object<3> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [111, 107, 0]};
 static mut l_main___closed__1: *mut lean_object = core::ptr::addr_of!(l_main___closed__1_value) as *mut lean_object;
 #[no_mangle] pub unsafe extern "C" fn l_Countdown_ctorIdx(mut v_x_1_: u8) -> *mut lean_object{
 if v_x_1_ == 0 {
@@ -126,7 +127,6 @@ match state {
 v_toApplicative_65_ = lean_ctor_get(v_inst_62_, 0);
 v_isSharedCheck_74_ = (!lean_is_exclusive(v_inst_62_)) as u8;
 if v_isSharedCheck_74_ == 0 {
-let mut v_unused_75_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_75_ = lean_ctor_get(v_inst_62_, 1);
 lean_dec(v_unused_75_);
 v___x_67_ = v_inst_62_;
@@ -150,13 +150,16 @@ lean_ctor_set(v___x_67_, 0, v_a_63_);
 v___x_71_ = v___x_67_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_73_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_73_ = lean_alloc_ctor(0, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_73_, 0, v_a_63_);
 lean_ctor_set(v_reuseFailAlloc_73_, 1, v_s_64_);
 v___x_71_ = v_reuseFailAlloc_73_;
 state = 2; continue;
 }
+}
+2 => {
+v___x_72_ = lean_apply_2(v_toPure_69_, lean_box(0), v___x_71_);
+return v___x_72_;
 }
 _ => {}
 }
@@ -460,7 +463,6 @@ let mut v_res_258_: *mut lean_object = core::ptr::null_mut();
 v_res_258_ = _lean_main();
 return v_res_258_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_arity__bug1(builtin: u8) -> *mut lean_object {

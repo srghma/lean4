@@ -1,61 +1,42 @@
 // Lean compiler output
 // Module: overflow1
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Control::Id::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::UInt::BasicAux::*;
+use lean_init::Init::Data::Array::Basic::*;
+use lean_init::Init::Control::State::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::String::Bootstrap::*;
 extern "C" {
-    fn l_Id_instMonad___lam__3(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Id_instMonad___lam__2___boxed(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_uint32_dec_eq(_: u32, _: u32) -> u8;
-    fn lean_nat_add(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_instInhabitedOfMonad___redArg(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_panic___redArg(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Id_instMonad___lam__0(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
-    fn lean_mk_empty_array_with_capacity(_: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_dec_eq(_: *mut lean_object, _: *mut lean_object) -> u8;
-    fn lean_nat_sub(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_array_push(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_array_get_size(_: *mut lean_object) -> *mut lean_object;
-    fn lean_nat_dec_lt(_: *mut lean_object, _: *mut lean_object) -> u8;
-    fn lean_nat_dec_le(_: *mut lean_object, _: *mut lean_object) -> u8;
-    fn lean_usize_of_nat(_: *mut lean_object) -> usize;
-    fn lean_usize_add(_: usize, _: usize) -> usize;
-    fn lean_usize_dec_eq(_: usize, _: usize) -> u8;
-    fn lean_array_uget_borrowed(_: *mut lean_object, _: usize) -> *mut lean_object;
-    fn l_Id_instMonad___lam__1___boxed(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Id_instMonad___lam__4___boxed(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Id_instMonad___lam__5___boxed(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Id_instMonad___lam__6(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_instMonad___redArg___lam__1(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_instMonad___redArg___lam__4(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_instMonad___redArg___lam__7(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_instMonad___redArg___lam__9(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_map(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_pure(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_StateT_bind(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_panic_fn_borrowed(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
-    fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___redArg(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: usize, _: usize, _: *mut lean_object) -> *mut lean_object;
 }
-#[no_mangle] pub static mut l_longArray___boxed__const__1: *mut lean_object = core::ptr::null_mut();
-#[no_mangle] pub static l_OverflowIte___redArg___lam__0___closed__0_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [122, 0]};
+#[used]
+#[no_mangle]
+pub static mut l_longArray___boxed__const__1: *mut lean_object = core::ptr::null_mut();
+pub static l_OverflowIte___redArg___lam__0___closed__0_value: lean_string_object<2> = lean_string_object { m_header: lean_object { m_rc: 0, m_cs_sz: (0) as u16, m_other: 0, m_tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [122, 0]};
 static mut l_OverflowIte___redArg___lam__0___closed__0: *mut lean_object = core::ptr::addr_of!(l_OverflowIte___redArg___lam__0___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__0_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__0 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__0_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__0 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__0: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__0_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__1_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__1___boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__1_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__1___boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__1: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__1_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__2_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__2___boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__2_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__2___boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__2: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__2_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__3_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__3 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__3_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__3 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__3: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__3_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__4_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__4___boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__4_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__4___boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__4: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__4_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__5_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__5___boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__5_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__5___boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__5: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__5_value) as *mut lean_object;
-#[no_mangle] pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__6_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__6 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
+pub static l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__6_value: lean_closure_object<0> = lean_closure_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 245 }, m_fun: l_Id_instMonad___lam__6 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__6: *mut lean_object = core::ptr::addr_of!(l_panic___at___00OverflowIte___at___00main_spec__0_spec__0___closed__6_value) as *mut lean_object;
-#[no_mangle] pub static l_main___closed__0_value: lean_array_object<0> = lean_array_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
+pub static l_main___closed__0_value: lean_array_object<0> = lean_array_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*0) as u16, m_other: 0, m_tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l_main___closed__0: *mut lean_object = core::ptr::addr_of!(l_main___closed__0_value) as *mut lean_object;
 static mut l_main___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_main___closed__1: *mut lean_object = core::ptr::null_mut();
@@ -79,7 +60,6 @@ if v_isZero_6_ == 1 {
 lean_dec(v_n_3_);
 return v_xs_4_;
 } else {
-let mut v_one_7_: *mut lean_object = core::ptr::null_mut(); let mut v_n_8_: *mut lean_object = core::ptr::null_mut(); let mut v___x_9_: *mut lean_object = core::ptr::null_mut(); let mut v___x_10_: *mut lean_object = core::ptr::null_mut(); 
 v_one_7_ = lean_unsigned_to_nat(1);
 v_n_8_ = lean_nat_sub(v_n_3_, v_one_7_);
 lean_dec(v_n_3_);
@@ -103,12 +83,10 @@ match state {
 v___x_18_ = 122;
 v___x_19_ = lean_uint32_dec_eq(v_s_16_, v___x_18_);
 if v___x_19_ == 0 {
-let mut v_toApplicative_20_: *mut lean_object = core::ptr::null_mut(); let mut v___x_22_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_23_: u8 = 0; let mut v_isSharedCheck_31_: u8 = 0; 
 lean_dec_ref(v___x_14_);
 v_toApplicative_20_ = lean_ctor_get(v_inst1_13_, 0);
 v_isSharedCheck_31_ = (!lean_is_exclusive(v_inst1_13_)) as u8;
 if v_isSharedCheck_31_ == 0 {
-let mut v_unused_32_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_32_ = lean_ctor_get(v_inst1_13_, 1);
 lean_dec(v_unused_32_);
 v___x_22_ = v_inst1_13_;
@@ -122,7 +100,6 @@ v_isShared_23_ = v_isSharedCheck_31_;
 state = 1; continue;
 }
 } else {
-let mut v___x_33_: *mut lean_object = core::ptr::null_mut(); let mut v___x_34_: *mut lean_object = core::ptr::null_mut(); let mut v___x_35_: *mut lean_object = core::ptr::null_mut(); let mut v___x_428__overap_36_: *mut lean_object = core::ptr::null_mut(); let mut v___x_37_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref(v_inst1_13_);
 v___x_33_ = lean_unsigned_to_nat(0);
 v___x_34_ = l_instInhabitedOfMonad___redArg(v___x_14_, v___x_33_);
@@ -145,13 +122,16 @@ lean_ctor_set(v___x_22_, 0, v___x_26_);
 v___x_28_ = v___x_22_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_30_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_30_ = lean_alloc_ctor(0, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_30_, 0, v___x_26_);
 lean_ctor_set(v_reuseFailAlloc_30_, 1, v___y_17_);
 v___x_28_ = v_reuseFailAlloc_30_;
 state = 2; continue;
 }
+}
+2 => {
+v___x_29_ = lean_apply_2(v_toPure_24_, lean_box(0), v___x_28_);
+return v___x_29_;
 }
 _ => {}
 }
@@ -208,13 +188,11 @@ v___x_58_ = lean_unsigned_to_nat(0);
 v___x_59_ = lean_array_get_size(v_xs_46_);
 v___x_60_ = lean_nat_dec_lt(v___x_58_, v___x_59_);
 if v___x_60_ == 0 {
-let mut v_toApplicative_61_: *mut lean_object = core::ptr::null_mut(); let mut v___x_63_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_64_: u8 = 0; let mut v_isSharedCheck_70_: u8 = 0; 
 lean_dec_ref_known(v___x_57_, 2);
 lean_dec_ref(v_xs_46_);
 v_toApplicative_61_ = lean_ctor_get(v_inst1_45_, 0);
 v_isSharedCheck_70_ = (!lean_is_exclusive(v_inst1_45_)) as u8;
 if v_isSharedCheck_70_ == 0 {
-let mut v_unused_71_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_71_ = lean_ctor_get(v_inst1_45_, 1);
 lean_dec(v_unused_71_);
 v___x_63_ = v_inst1_45_;
@@ -228,7 +206,6 @@ v_isShared_64_ = v_isSharedCheck_70_;
 state = 1; continue;
 }
 } else {
-let mut v___f_72_: *mut lean_object = core::ptr::null_mut(); let mut v___x_73_: u8 = 0; 
 lean_inc_ref(v___x_57_);
 lean_inc_ref(v_inst1_45_);
 v___f_72_ = lean_alloc_closure(l_OverflowIte___redArg___lam__0___boxed as *mut core::ffi::c_void, 5, 2);
@@ -237,14 +214,12 @@ lean_closure_set(v___f_72_, 1, v___x_57_);
 v___x_73_ = lean_nat_dec_le(v___x_59_, v___x_59_);
 if v___x_73_ == 0 {
 if v___x_60_ == 0 {
-let mut v_toApplicative_74_: *mut lean_object = core::ptr::null_mut(); let mut v___x_76_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_77_: u8 = 0; let mut v_isSharedCheck_83_: u8 = 0; 
 lean_dec_ref(v___f_72_);
 lean_dec_ref_known(v___x_57_, 2);
 lean_dec_ref(v_xs_46_);
 v_toApplicative_74_ = lean_ctor_get(v_inst1_45_, 0);
 v_isSharedCheck_83_ = (!lean_is_exclusive(v_inst1_45_)) as u8;
 if v_isSharedCheck_83_ == 0 {
-let mut v_unused_84_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_84_ = lean_ctor_get(v_inst1_45_, 1);
 lean_dec(v_unused_84_);
 v___x_76_ = v_inst1_45_;
@@ -258,7 +233,6 @@ v_isShared_77_ = v_isSharedCheck_83_;
 state = 3; continue;
 }
 } else {
-let mut v___x_85_: usize = 0; let mut v___x_86_: usize = 0; let mut v___x_387__overap_87_: *mut lean_object = core::ptr::null_mut(); let mut v___x_88_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref(v_inst1_45_);
 v___x_85_ = 0usize;
 v___x_86_ = lean_usize_of_nat(v___x_59_);
@@ -267,7 +241,6 @@ v___x_88_ = lean_apply_1(v___x_387__overap_87_, v_a_47_);
 return v___x_88_;
 }
 } else {
-let mut v___x_89_: usize = 0; let mut v___x_90_: usize = 0; let mut v___x_392__overap_91_: *mut lean_object = core::ptr::null_mut(); let mut v___x_92_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec_ref(v_inst1_45_);
 v___x_89_ = 0usize;
 v___x_90_ = lean_usize_of_nat(v___x_59_);
@@ -287,13 +260,16 @@ lean_ctor_set(v___x_63_, 0, v___x_58_);
 v___x_67_ = v___x_63_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_69_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_69_ = lean_alloc_ctor(0, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_69_, 0, v___x_58_);
 lean_ctor_set(v_reuseFailAlloc_69_, 1, v_a_47_);
 v___x_67_ = v_reuseFailAlloc_69_;
 state = 2; continue;
 }
+}
+2 => {
+v___x_68_ = lean_apply_2(v_toPure_65_, lean_box(0), v___x_67_);
+return v___x_68_;
 }
 3 => {
 v_toPure_78_ = lean_ctor_get(v_toApplicative_74_, 1);
@@ -305,13 +281,16 @@ lean_ctor_set(v___x_76_, 0, v___x_58_);
 v___x_80_ = v___x_76_;
 state = 4; continue;
 } else {
-let mut v_reuseFailAlloc_82_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_82_ = lean_alloc_ctor(0, 2, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_82_, 0, v___x_58_);
 lean_ctor_set(v_reuseFailAlloc_82_, 1, v_a_47_);
 v___x_80_ = v_reuseFailAlloc_82_;
 state = 4; continue;
 }
+}
+4 => {
+v___x_81_ = lean_apply_2(v_toPure_78_, lean_box(0), v___x_80_);
+return v___x_81_;
 }
 _ => {}
 }
@@ -418,13 +397,11 @@ match state {
 0 => {
 v___x_159_ = lean_usize_dec_eq(v_i_149_, v_stop_150_);
 if v___x_159_ == 0 {
-let mut v___x_160_: *mut lean_object = core::ptr::null_mut(); let mut v___x_161_: u32 = 0; let mut v___x_162_: u32 = 0; let mut v___x_163_: u8 = 0; 
 v___x_160_ = lean_array_uget_borrowed(v_as_148_, v_i_149_);
 v___x_161_ = 122;
 v___x_162_ = lean_unbox_uint32(v___x_160_);
 v___x_163_ = lean_uint32_dec_eq(v___x_162_, v___x_161_);
 if v___x_163_ == 0 {
-let mut v___x_164_: *mut lean_object = core::ptr::null_mut(); let mut v___x_165_: *mut lean_object = core::ptr::null_mut(); 
 v___x_164_ = lean_unsigned_to_nat(1);
 v___x_165_ = lean_nat_add(v_b_151_, v___x_164_);
 lean_dec(v_b_151_);
@@ -432,7 +409,6 @@ v_fst_154_ = v___x_165_;
 v_snd_155_ = v___y_152_;
 state = 1; continue;
 } else {
-let mut v___x_166_: *mut lean_object = core::ptr::null_mut(); let mut v___x_167_: *mut lean_object = core::ptr::null_mut(); let mut v_fst_168_: *mut lean_object = core::ptr::null_mut(); let mut v_snd_169_: *mut lean_object = core::ptr::null_mut(); 
 lean_dec(v_b_151_);
 v___x_166_ = l_OverflowIte___redArg___lam__0___closed__0;
 v___x_167_ = l_panic___at___00OverflowIte___at___00main_spec__0_spec__0(v___x_166_, v___y_152_);
@@ -446,7 +422,6 @@ v_snd_155_ = v_snd_169_;
 state = 1; continue;
 }
 } else {
-let mut v___x_170_: *mut lean_object = core::ptr::null_mut(); 
 v___x_170_ = lean_alloc_ctor(0, 2, (0) as u32);
 lean_ctor_set(v___x_170_, 0, v_b_151_);
 lean_ctor_set(v___x_170_, 1, v___y_152_);
@@ -545,7 +520,6 @@ let mut v_res_209_: *mut lean_object = core::ptr::null_mut();
 v_res_209_ = _lean_main();
 return v_res_209_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_overflow1(builtin: u8) -> *mut lean_object {

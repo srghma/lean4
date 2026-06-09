@@ -1,12 +1,14 @@
 // Lean compiler output
 // Module: append
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::Data::List::Basic::*;
+use lean_init::Init::Prelude::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::System::IO::*;
 extern "C" {
-    fn l_List_replicateTR___redArg(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_List_appendTR___redArg(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_List_lengthTR___redArg(_: *mut lean_object) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
     fn lean_get_stdout() -> *mut lean_object;
 }
@@ -101,7 +103,6 @@ let mut v_res_40_: *mut lean_object = core::ptr::null_mut();
 v_res_40_ = _lean_main(v_xs_38_);
 return v_res_40_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_append(builtin: u8) -> *mut lean_object {

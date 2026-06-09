@@ -1,21 +1,22 @@
 // Lean compiler output
 // Module: nat_shiftr
-// Imports: public import Init public meta import Init
+// Imports: Init Init
 use lean_runtime::generated_abi::*;
+use lean_init::Init::*;
+use lean_init::Init::System::IO::*;
+use lean_init::Init::Data::Format::Basic::*;
+use lean_init::Init::Data::String::Bootstrap::*;
+use lean_init::Init::Data::UInt::BasicAux::*;
+use lean_init::Init::Data::Array::Basic::*;
+use lean_init::Init::Data::Nat::Bitwise::Basic::*;
+use lean_init::Init::Data::Repr::*;
+use lean_init::Init::Prelude::*;
 extern "C" {
     fn lean_get_stdout() -> *mut lean_object;
-    fn l_Std_Format_pretty(_: *mut lean_object, _: *mut lean_object, _: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
     fn lean_string_push(_: *mut lean_object, _: u32) -> *mut lean_object;
-    fn lean_usize_dec_lt(_: usize, _: usize) -> u8;
-    fn lean_array_uget_borrowed(_: *mut lean_object, _: usize) -> *mut lean_object;
-    fn lean_nat_shiftr(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn l_Nat_reprFast(_: *mut lean_object) -> *mut lean_object;
-    fn lean_usize_add(_: usize, _: usize) -> usize;
-    fn lean_mk_empty_array_with_capacity(_: *mut lean_object) -> *mut lean_object;
     fn lean_array_push(_: *mut lean_object, _: *mut lean_object) -> *mut lean_object;
-    fn lean_array_size(_: *mut lean_object) -> usize;
 }
-#[no_mangle] pub static l_test___closed__0_value: lean_array_object<12> = lean_array_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*12) as u16, m_other: 0, m_tag: 246 }, m_size: 12, m_capacity: 12, m_data: [((( 0 as usize) << 1) | 1) as *mut lean_object,((( 1 as usize) << 1) | 1) as *mut lean_object,((( 14 as usize) << 1) | 1) as *mut lean_object,((( 15 as usize) << 1) | 1) as *mut lean_object,((( 16 as usize) << 1) | 1) as *mut lean_object,((( 17 as usize) << 1) | 1) as *mut lean_object,((( 31 as usize) << 1) | 1) as *mut lean_object,((( 32 as usize) << 1) | 1) as *mut lean_object,((( 33 as usize) << 1) | 1) as *mut lean_object,((( 63 as usize) << 1) | 1) as *mut lean_object,((( 64 as usize) << 1) | 1) as *mut lean_object,((( 65 as usize) << 1) | 1) as *mut lean_object] };
+pub static l_test___closed__0_value: lean_array_object<12> = lean_array_object { m_header: lean_object { m_rc: 0, m_cs_sz: (core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*12) as u16, m_other: 0, m_tag: 246 }, m_size: 12, m_capacity: 12, m_data: [((( 0 as usize) << 1) | 1) as *mut lean_object,((( 1 as usize) << 1) | 1) as *mut lean_object,((( 14 as usize) << 1) | 1) as *mut lean_object,((( 15 as usize) << 1) | 1) as *mut lean_object,((( 16 as usize) << 1) | 1) as *mut lean_object,((( 17 as usize) << 1) | 1) as *mut lean_object,((( 31 as usize) << 1) | 1) as *mut lean_object,((( 32 as usize) << 1) | 1) as *mut lean_object,((( 33 as usize) << 1) | 1) as *mut lean_object,((( 63 as usize) << 1) | 1) as *mut lean_object,((( 64 as usize) << 1) | 1) as *mut lean_object,((( 65 as usize) << 1) | 1) as *mut lean_object] };
 static mut l_test___closed__0: *mut lean_object = core::ptr::addr_of!(l_test___closed__0_value) as *mut lean_object;
 static mut l_test___closed__1_once: lean_once_cell = lean_once_cell { state: 0, lock: 0 };
 static mut l_test___closed__1: usize = 0;
@@ -62,12 +63,10 @@ match state {
 0 => {
 v___x_26_ = lean_usize_dec_lt(v_i_23_, v_sz_22_);
 if v___x_26_ == 0 {
-let mut v___x_27_: *mut lean_object = core::ptr::null_mut(); 
 v___x_27_ = lean_alloc_ctor(0, 1, (0) as u32);
 lean_ctor_set(v___x_27_, 0, v_b_24_);
 return v___x_27_;
 } else {
-let mut v_a_28_: *mut lean_object = core::ptr::null_mut(); let mut v___x_29_: *mut lean_object = core::ptr::null_mut(); let mut v___x_30_: *mut lean_object = core::ptr::null_mut(); let mut v___x_31_: *mut lean_object = core::ptr::null_mut(); let mut v___x_32_: *mut lean_object = core::ptr::null_mut(); 
 v_a_28_ = lean_array_uget_borrowed(v_as_21_, v_i_23_);
 v___x_29_ = lean_nat_shiftr(v_a_20_, v_a_28_);
 v___x_30_ = l_Nat_reprFast(v___x_29_);
@@ -75,7 +74,6 @@ v___x_31_ = lean_alloc_ctor(3, 1, (0) as u32);
 lean_ctor_set(v___x_31_, 0, v___x_30_);
 v___x_32_ = l_IO_println___at___00test_spec__0(v___x_31_);
 if lean_obj_tag(v___x_32_) == 0 {
-let mut v___x_33_: *mut lean_object = core::ptr::null_mut(); let mut v___x_34_: usize = 0; let mut v___x_35_: usize = 0; 
 lean_dec_ref_known(v___x_32_, 1);
 v___x_33_ = lean_box(0);
 v___x_34_ = 1usize;
@@ -121,10 +119,8 @@ v_sz_78_ = lean_usize_once(core::ptr::addr_of_mut!(l_test___closed__1), core::pt
 v___x_79_ = 0usize;
 v___x_80_ = l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00test_spec__1(v_a_74_, v___x_76_, v_sz_78_, v___x_79_, v___x_77_);
 if lean_obj_tag(v___x_80_) == 0 {
-let mut v___x_82_: *mut lean_object = core::ptr::null_mut(); let mut v_isShared_83_: u8 = 0; let mut v_isSharedCheck_87_: u8 = 0; 
 v_isSharedCheck_87_ = (!lean_is_exclusive(v___x_80_)) as u8;
 if v_isSharedCheck_87_ == 0 {
-let mut v_unused_88_: *mut lean_object = core::ptr::null_mut(); 
 v_unused_88_ = lean_ctor_get(v___x_80_, 0);
 lean_dec(v_unused_88_);
 v___x_82_ = v___x_80_;
@@ -146,12 +142,14 @@ lean_ctor_set(v___x_82_, 0, v___x_77_);
 v___x_85_ = v___x_82_;
 state = 2; continue;
 } else {
-let mut v_reuseFailAlloc_86_: *mut lean_object = core::ptr::null_mut(); 
 v_reuseFailAlloc_86_ = lean_alloc_ctor(0, 1, (0) as u32);
 lean_ctor_set(v_reuseFailAlloc_86_, 0, v___x_77_);
 v___x_85_ = v_reuseFailAlloc_86_;
 state = 2; continue;
 }
+}
+2 => {
+return v___x_85_;
 }
 _ => {}
 }
@@ -293,7 +291,6 @@ let mut v_res_125_: *mut lean_object = core::ptr::null_mut();
 v_res_125_ = _lean_main();
 return v_res_125_;
 }
-extern "C" { fn initialize_Init(builtin: u8) -> *mut lean_object; }
 static mut _G_initialized: bool = false;
 #[no_mangle]
 pub unsafe extern "C" fn initialize_nat__shiftr(builtin: u8) -> *mut lean_object {
