@@ -12,8 +12,6 @@ mod kernel_expr_impl {
     use super::*;
 
     extern "C" {
-        fn lean_cxx_initialize_expr();
-        fn lean_cxx_finalize_expr();
         fn lean_cxx_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> u8;
         fn lean_cxx_expr_lower_loose_bvars(
             e: *mut LeanObject,
@@ -135,16 +133,7 @@ mod kernel_expr_impl {
         lean_cxx_expr_lift_loose_bvars(e, s, d)
     }
 
-    // -----------------------------------------------------------------------
-    // Module init / finalize
-    // -----------------------------------------------------------------------
-    #[export_name = "_ZN4lean15initialize_exprEv"]
-    pub unsafe extern "C" fn initialize_expr() {
-        lean_cxx_initialize_expr();
-    }
-
-    #[export_name = "_ZN4lean13finalize_exprEv"]
-    pub unsafe extern "C" fn finalize_expr() {
-        lean_cxx_finalize_expr();
-    }
+    // initialize_expr / finalize_expr: when libleancpp.a is linked (lean_use_libleancpp),
+    // those symbols are provided by C++ directly; otherwise the no-op stubs in lib.rs
+    // satisfy the extern block.
 }

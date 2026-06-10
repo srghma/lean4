@@ -8,22 +8,6 @@
 // definition_val, constant_info, …) using C++ constructors and template
 // helpers. Rust owns initialize_declaration / finalize_declaration and
 // delegates to C++ shims.
-
-mod kernel_declaration_impl {
-    use super::*;
-
-    extern "C" {
-        fn lean_cxx_initialize_declaration();
-        fn lean_cxx_finalize_declaration();
-    }
-
-    #[export_name = "_ZN4lean22initialize_declarationEv"]
-    pub unsafe extern "C" fn initialize_declaration() {
-        lean_cxx_initialize_declaration();
-    }
-
-    #[export_name = "_ZN4lean20finalize_declarationEv"]
-    pub unsafe extern "C" fn finalize_declaration() {
-        lean_cxx_finalize_declaration();
-    }
-}
+// When libleancpp.a is linked (lean_use_libleancpp), those symbols are provided
+// by C++ directly; otherwise the no-op stubs in lib.rs satisfy the extern block.
+mod kernel_declaration_impl {}

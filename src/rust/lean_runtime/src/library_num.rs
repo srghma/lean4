@@ -4,20 +4,6 @@
 // exactly two LEAN_EXPORT symbols: initialize_num / finalize_num (both no-ops
 // in the original).  All other functions are internal C++ helpers called from
 // C++ submodules.
-
-mod library_num_impl {
-    extern "C" {
-        fn lean_cxx_initialize_num();
-        fn lean_cxx_finalize_num();
-    }
-
-    #[export_name = "_ZN4lean14initialize_numEv"]
-    pub extern "C" fn initialize_num() {
-        unsafe { lean_cxx_initialize_num() }
-    }
-
-    #[export_name = "_ZN4lean12finalize_numEv"]
-    pub extern "C" fn finalize_num() {
-        unsafe { lean_cxx_finalize_num() }
-    }
-}
+// When libleancpp.a is linked (lean_use_libleancpp), those symbols are provided
+// by C++ directly; otherwise the no-op stubs in lib.rs satisfy the extern block.
+mod library_num_impl {}

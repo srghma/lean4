@@ -17,11 +17,6 @@
 mod kernel_level_impl {
     use super::*;
 
-    extern "C" {
-        fn lean_cxx_initialize_level();
-        fn lean_cxx_finalize_level();
-    }
-
     unsafe fn level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> bool {
         if l1 == l2 {
             return true;
@@ -90,15 +85,7 @@ mod kernel_level_impl {
         level_eq(l1, l2) as u8
     }
 
-    /// Module initializer — allocates g_level_zero / g_level_one.
-    #[export_name = "_ZN4lean16initialize_levelEv"]
-    pub unsafe extern "C" fn initialize_level() {
-        lean_cxx_initialize_level();
-    }
-
-    /// Module finalizer — frees g_level_zero / g_level_one.
-    #[export_name = "_ZN4lean14finalize_levelEv"]
-    pub unsafe extern "C" fn finalize_level() {
-        lean_cxx_finalize_level();
-    }
+    // initialize_level / finalize_level: when libleancpp.a is linked (lean_use_libleancpp),
+    // those symbols are provided by C++ directly; otherwise the no-op stubs in lib.rs
+    // satisfy the extern block.
 }

@@ -35,10 +35,21 @@ fn main() {
     if let Ok(archive) = std::env::var("LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE") {
         if !archive.is_empty() {
             println!("cargo:rustc-link-arg={archive}");
+            if archive.contains("libleancpp") {
+                println!("cargo:rustc-cfg=lean_use_libleancpp");
+            }
+        } else {
+            // Empty archive → using libleanshared.so for C++ kernel init.
+            // Do NOT export the kernel C++ init/finalize stubs as their C++ mangled
+            // names; the linker will then resolve those calls to libleanshared.so's
+            // real implementations (initialize_inductive sets g_ind_fresh, etc.).
+            println!("cargo:rustc-cfg=lean_use_libleanshared");
         }
     }
 
     // ── cfg flags ───────────────────────────────────────────────────────────
+    println!("cargo:rustc-check-cfg=cfg(lean_use_libleancpp)");
+    println!("cargo:rustc-check-cfg=cfg(lean_use_libleanshared)");
     println!("cargo:rustc-check-cfg=cfg(lean_small_allocator)");
     if std::env::var("LEAN_RUST_SMALL_ALLOCATOR").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_small_allocator");

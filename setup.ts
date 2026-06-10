@@ -87,15 +87,17 @@ const warn = (msg: string) => console.log(`  ${c.yellow}⚠${c.reset}  ${msg}`);
 const CARGO_ENV: Record<string, string> = {
   ...process.env as Record<string, string>,
   CARGO_TERM_COLOR: "always",
+  // lean_add_decl and other C++ kernel symbols are provided by libleanshared.so (linked in
+  // lean_binary/build.rs), not libleancpp.a. Setting this to empty so lean_runtime/build.rs
+  // does not link any extra archive (and does not set lean_use_libleancpp cfg flag).
+  LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE: "",
 };
 
 const Bun_write_ifChanged = async (filePath: string, content: string) => {
-  try {
-    const existing = await Bun.file(filePath).text();
-    if (existing === content) return; // Unchanged! Don't touch the file.
-  } catch (e: any) {
-    // File doesn't exist, proceed to write
-    console.error(e.message)
+  const file = Bun.file(filePath);
+  if (await file.exists()) {
+    const existing = await file.text();
+    if (existing === content) return;
   }
   await Bun.write(filePath, content);
 };
@@ -789,6 +791,19 @@ lean_lake  = { path = "../lean_lake" }
     println!("cargo:rustc-link-arg=-Wl,--export-dynamic");
     #[cfg(target_os = "macos")]
     println!("cargo:rustc-link-arg=-Wl,-export_dynamic");
+    // libleanshared.so provides lean_add_decl and lean_add_decl_without_checking.
+    // Built with -Bsymbolic, so its own C++ globals (g_empty_name, g_lean_level_zero, etc.)
+    // are self-contained and properly initialized by the .so's constructor chain.
+    // We do NOT link libleancpp.a statically: doing so would place C++ kernel code in the
+    // binary where Rust's no-op initialize_name() would win via --allow-multiple-definition,
+    // leaving g_empty_name uninitialized and crashing lean::initialize_type_checker().
+    let stage1 = "${BUILD}/stage1/lib/lean";
+    let libleanshared = format!("{}/libleanshared.so", stage1);
+    if std::path::Path::new(&libleanshared).exists() {
+        println!("cargo:rustc-link-arg=-Wl,-rpath,{stage1}");
+        println!("cargo:rustc-link-arg=-L{stage1}");
+        println!("cargo:rustc-link-arg=-lleanshared");
+    }
 }
 `,
   );

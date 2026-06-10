@@ -249,6 +249,32 @@ extern "C" {
     fn lean_enable_initializer_execution() -> *mut LeanObject;
 }
 
+// When using libleanshared.so, individual C++ kernel/library init functions are not
+// exported. Use the module-level init functions instead (exported from libleanshared.so).
+#[cfg(lean_use_libleanshared)]
+extern "C" {
+    #[link_name = "_ZN4lean22initialize_util_moduleEv"]
+    fn cpp_initialize_util_module();
+    #[link_name = "_ZN4lean20finalize_util_moduleEv"]
+    fn cpp_finalize_util_module();
+    #[link_name = "_ZN4lean24initialize_kernel_moduleEv"]
+    fn cpp_initialize_kernel_module();
+    #[link_name = "_ZN4lean22finalize_kernel_moduleEv"]
+    fn cpp_finalize_kernel_module();
+    #[link_name = "_ZN4lean30initialize_library_core_moduleEv"]
+    fn cpp_initialize_library_core_module();
+    #[link_name = "_ZN4lean28finalize_library_core_moduleEv"]
+    fn cpp_finalize_library_core_module();
+    #[link_name = "_ZN4lean25initialize_library_moduleEv"]
+    fn cpp_initialize_library_module();
+    #[link_name = "_ZN4lean23finalize_library_moduleEv"]
+    fn cpp_finalize_library_module();
+    #[link_name = "_ZN4lean31initialize_constructions_moduleEv"]
+    fn cpp_initialize_constructions_module();
+    #[link_name = "_ZN4lean29finalize_constructions_moduleEv"]
+    fn cpp_finalize_constructions_module();
+}
+
 #[repr(C)]
 pub struct LeanObject {
     pub m_rc: i32,
@@ -1832,40 +1858,62 @@ unsafe fn finalize_util_module_body() {
 }
 
 unsafe fn initialize_kernel_module_body() {
-    trace_runtime_init(b"kernel: level\n");
-    initialize_level();
-    trace_runtime_init(b"kernel: expr\n");
-    initialize_expr();
-    trace_runtime_init(b"kernel: decl\n");
-    initialize_declaration();
-    trace_runtime_init(b"kernel: typechecker\n");
-    initialize_type_checker();
-    trace_runtime_init(b"kernel: env\n");
-    initialize_environment();
-    trace_runtime_init(b"kernel: lctx\n");
-    initialize_local_ctx();
-    trace_runtime_init(b"kernel: inductive\n");
-    initialize_inductive();
-    trace_runtime_init(b"kernel: quot\n");
-    initialize_quot();
-    trace_runtime_init(b"kernel: trace\n");
-    initialize_trace();
-    trace_runtime_init(b"kernel: done\n");
+    #[cfg(lean_use_libleanshared)]
+    {
+        // libleanshared.so does not export individual kernel init functions; use module-level
+        // ones. cpp_initialize_util_module() initializes C++ util globals (g_next_id,
+        // g_ngen_prefixes, etc.) required by cpp_initialize_kernel_module() (sets g_ind_fresh etc.).
+        cpp_initialize_util_module();
+        cpp_initialize_kernel_module();
+    }
+    #[cfg(not(lean_use_libleanshared))]
+    {
+        trace_runtime_init(b"kernel: level\n");
+        initialize_level();
+        trace_runtime_init(b"kernel: expr\n");
+        initialize_expr();
+        trace_runtime_init(b"kernel: decl\n");
+        initialize_declaration();
+        trace_runtime_init(b"kernel: typechecker\n");
+        initialize_type_checker();
+        trace_runtime_init(b"kernel: env\n");
+        initialize_environment();
+        trace_runtime_init(b"kernel: lctx\n");
+        initialize_local_ctx();
+        trace_runtime_init(b"kernel: inductive\n");
+        initialize_inductive();
+        trace_runtime_init(b"kernel: quot\n");
+        initialize_quot();
+        trace_runtime_init(b"kernel: trace\n");
+        initialize_trace();
+        trace_runtime_init(b"kernel: done\n");
+    }
 }
 
 unsafe fn finalize_kernel_module_body() {
-    finalize_trace();
-    finalize_quot();
-    finalize_inductive();
-    finalize_local_ctx();
-    finalize_environment();
-    finalize_type_checker();
-    finalize_declaration();
-    finalize_expr();
-    finalize_level();
+    #[cfg(lean_use_libleanshared)]
+    {
+        cpp_finalize_kernel_module();
+        cpp_finalize_util_module();
+    }
+    #[cfg(not(lean_use_libleanshared))]
+    {
+        finalize_trace();
+        finalize_quot();
+        finalize_inductive();
+        finalize_local_ctx();
+        finalize_environment();
+        finalize_type_checker();
+        finalize_declaration();
+        finalize_expr();
+        finalize_level();
+    }
 }
 
 unsafe fn initialize_library_core_module_body() {
+    #[cfg(lean_use_libleanshared)]
+    cpp_initialize_library_core_module();
+    #[cfg(not(lean_use_libleanshared))]
     initialize_formatter();
     initialize_constants();
     initialize_profiling();
@@ -1874,14 +1922,22 @@ unsafe fn initialize_library_core_module_body() {
 unsafe fn finalize_library_core_module_body() {
     finalize_profiling();
     finalize_constants();
+    #[cfg(lean_use_libleanshared)]
+    cpp_finalize_library_core_module();
+    #[cfg(not(lean_use_libleanshared))]
     finalize_formatter();
 }
 
 unsafe fn initialize_library_module_body() {
-    initialize_print();
-    initialize_num();
-    initialize_annotation();
-    initialize_library_util();
+    #[cfg(lean_use_libleanshared)]
+    cpp_initialize_library_module();
+    #[cfg(not(lean_use_libleanshared))]
+    {
+        initialize_print();
+        initialize_num();
+        initialize_annotation();
+        initialize_library_util();
+    }
     initialize_time_task();
     initialize_dynlib();
     initialize_ir_interpreter_export();
@@ -1890,18 +1946,27 @@ unsafe fn initialize_library_module_body() {
 unsafe fn finalize_library_module_body() {
     finalize_ir_interpreter_export();
     finalize_time_task();
-    finalize_library_util();
-    finalize_annotation();
-    finalize_num();
-    finalize_print();
+    #[cfg(lean_use_libleanshared)]
+    cpp_finalize_library_module();
+    #[cfg(not(lean_use_libleanshared))]
+    {
+        finalize_library_util();
+        finalize_annotation();
+        finalize_num();
+        finalize_print();
+    }
 }
 
 unsafe fn initialize_constructions_module_body() {
+    #[cfg(lean_use_libleanshared)]
+    cpp_initialize_constructions_module();
     initialize_constructions_util();
 }
 
 unsafe fn finalize_constructions_module_body() {
     finalize_constructions_util();
+    #[cfg(lean_use_libleanshared)]
+    cpp_finalize_constructions_module();
 }
 
 
@@ -1991,125 +2056,131 @@ pub extern "C" fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
 pub extern "C" fn init_default_print_fn() {
 }
 
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean15initialize_quotEv")]
 #[no_mangle]
-pub extern "C" fn lean_cxx_initialize_quot() {
-}
+pub extern "C" fn lean_cxx_initialize_quot() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean13finalize_quotEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_quot() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean20initialize_inductiveEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_inductive() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean18finalize_inductiveEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_inductive() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean20initialize_local_ctxEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_local_ctx() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean18finalize_local_ctxEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_local_ctx() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean22initialize_environmentEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_environment() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean20finalize_environmentEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_environment() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean23initialize_type_checkerEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_type_checker() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean21finalize_type_checkerEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_type_checker() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean22initialize_declarationEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_declaration() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean20finalize_declarationEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_declaration() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean15initialize_exprEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_expr() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean13finalize_exprEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_expr() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean16initialize_levelEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_level() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean14finalize_levelEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_level() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean20initialize_formatterEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_formatter() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean18finalize_formatterEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_formatter() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean23initialize_library_utilEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_library_util() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean21finalize_library_utilEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_library_util() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean15initialize_boolEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_bool() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean13finalize_boolEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_bool() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean21initialize_annotationEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_annotation() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean19finalize_annotationEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_annotation() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean14initialize_numEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_num() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean12finalize_numEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_num() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean16initialize_printEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_initialize_print() {}
+
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean14finalize_printEv")]
+#[no_mangle]
+pub extern "C" fn lean_cxx_finalize_print() {}
 
 #[no_mangle]
-pub extern "C" fn lean_cxx_finalize_quot() {
-}
+pub extern "C" fn lean_cxx_initialize_time_task() {}
 
 #[no_mangle]
-pub extern "C" fn lean_cxx_initialize_inductive() {
-}
+pub extern "C" fn lean_cxx_finalize_time_task() {}
 
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean16initialize_traceEv")]
 #[no_mangle]
-pub extern "C" fn lean_cxx_finalize_inductive() {
-}
+pub extern "C" fn lean_cxx_initialize_trace() {}
 
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean14finalize_traceEv")]
 #[no_mangle]
-pub extern "C" fn lean_cxx_initialize_local_ctx() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_local_ctx() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_environment() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_environment() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_type_checker() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_type_checker() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_declaration() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_declaration() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_expr() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_expr() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_level() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_level() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_formatter() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_formatter() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_library_util() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_library_util() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_bool() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_bool() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_annotation() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_annotation() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_num() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_num() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_print() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_print() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_initialize_time_task() {
-}
-
-#[no_mangle]
-pub extern "C" fn lean_cxx_finalize_time_task() {
-}
+pub extern "C" fn lean_cxx_finalize_trace() {}
 
 #[no_mangle]
 pub extern "C" fn lean_cxx_display_cumulative_profiling_times() {
@@ -2123,10 +2194,10 @@ pub extern "C" fn lean_cxx_initialize_ir_interpreter() {}
 #[no_mangle]
 pub extern "C" fn lean_cxx_finalize_ir_interpreter() {}
 
-#[export_name = "_ZN4lean25initialize_ir_interpreterEv"]
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean25initialize_ir_interpreterEv")]
 pub extern "C" fn initialize_ir_interpreter_export() {}
 
-#[export_name = "_ZN4lean23finalize_ir_interpreterEv"]
+#[cfg_attr(not(any(lean_use_libleancpp, lean_use_libleanshared)), export_name = "_ZN4lean23finalize_ir_interpreterEv")]
 pub extern "C" fn finalize_ir_interpreter_export() {}
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -2893,6 +2964,19 @@ pub unsafe extern "C" fn lean_runtime_mk_cnstr(
         lean_runtime_ctor_set(obj, index as c_uint, val);
     }
     obj
+}
+
+// C++ mangled lean::mk_cnstr(unsigned, unsigned, lean_object**, unsigned)
+// Referenced by libleancpp.a, originally defined in libleanrt_initial-exec.a.
+// In stage2 (pure Rust) libleanrt_initial-exec.a is not linked, so provide it here.
+#[export_name = "_ZN4lean8mk_cnstrEjjPP11lean_objectj"]
+pub unsafe extern "C" fn lean_cxx_mk_cnstr(
+    tag: c_uint,
+    num_objs: c_uint,
+    objs: *mut *mut LeanObject,
+    scalar_sz: c_uint,
+) -> *mut LeanObject {
+    lean_runtime_mk_cnstr(tag, num_objs, objs, scalar_sz)
 }
 
 unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {

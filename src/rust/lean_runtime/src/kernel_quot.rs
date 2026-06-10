@@ -7,22 +7,6 @@
 // NOTE: quot.cpp builds the Quot type axioms by constructing lean::expr / lean::level
 // objects using C++ constructors. Rust owns initialize_quot / finalize_quot and
 // delegates to C++ shims.
-
-mod kernel_quot_impl {
-    use super::*;
-
-    extern "C" {
-        fn lean_cxx_initialize_quot();
-        fn lean_cxx_finalize_quot();
-    }
-
-    #[export_name = "_ZN4lean15initialize_quotEv"]
-    pub unsafe extern "C" fn initialize_quot() {
-        lean_cxx_initialize_quot();
-    }
-
-    #[export_name = "_ZN4lean13finalize_quotEv"]
-    pub unsafe extern "C" fn finalize_quot() {
-        lean_cxx_finalize_quot();
-    }
-}
+// When libleancpp.a is linked (lean_use_libleancpp), those symbols are provided
+// by C++ directly; otherwise the no-op stubs in lib.rs satisfy the extern block.
+mod kernel_quot_impl {}

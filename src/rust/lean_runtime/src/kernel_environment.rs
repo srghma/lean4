@@ -3,96 +3,60 @@
 // Released under Apache 2.0 license as described in the file LICENSE.
 // Author: Leonardo de Moura
 // Ported to Rust.
-//
-// NOTE: environment.cpp contained the type-checker dispatch and kernel
-// exception plumbing. Rust now owns the public LEAN_EXPORT entry points and
-// delegates to the generated Lean kernel implementation functions.
 
 mod kernel_environment_impl {
     use super::*;
-    use core::ptr::null_mut;
 
     extern "C" {
-        #[link_name = "lean_kernel_add_decl_impl"]
-        fn lean_kernel_add_decl_impl_extern(
+        // C++ implementations in src/kernel/environment.cpp.
+        // They properly convert Declaration → ConstantInfo via the kernel type-checker.
+        // Aliased to avoid symbol conflicts: Rust #[no_mangle] lean_add_decl would
+        // create a circular reference if it called the same symbol name.
+        #[link_name = "lean_add_decl"]
+        fn lean_add_decl_cxx(
             env: *mut LeanObject,
             max_heartbeat: usize,
             decl: *mut LeanObject,
             opt_cancel_tk: *mut LeanObject,
         ) -> *mut LeanObject;
 
-        #[link_name = "lean_kernel_add_decl_without_checking_impl"]
-        fn lean_kernel_add_decl_without_checking_impl_extern(
+        #[link_name = "lean_add_decl_without_checking"]
+        fn lean_add_decl_without_checking_cxx(
             env: *mut LeanObject,
             decl: *mut LeanObject,
         ) -> *mut LeanObject;
-
-        fn lean_environment_add(env: *mut LeanObject, cinfo: *mut LeanObject) -> *mut LeanObject;
-        fn lean_cxx_initialize_environment();
-        fn lean_cxx_finalize_environment();
     }
 
+    /// Called from lean_elab_add_decl (library_elab_environment.rs) with a kernel env.
+    /// Delegates to C++ lean_add_decl which type-checks Declaration and returns
+    /// Except KernelException KernelEnvironment.
     #[no_mangle]
     pub unsafe extern "C" fn lean_kernel_add_decl_impl(
-        env: *mut LeanObject,
-        _max_heartbeat: usize,
-        decl: *mut LeanObject,
-        _opt_cancel_tk: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_kernel_add_decl_without_checking_impl(env, decl)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_add_decl_without_checking_impl(
-        env: *mut LeanObject,
-        decl: *mut LeanObject,
-    ) -> *mut LeanObject {
-        let env = lean_environment_add(env, decl);
-        let out = lean_alloc_ctor(0, 1, 0);
-        lean_ctor_set(out, 0, env);
-        out
-    }
-
-    /// `addDeclCore (env : Environment) (maxHeartbeats : USize) (decl : Declaration)
-    ///              (cancelTk? : Option IO.CancelToken) : Except Kernel.Exception Environment`
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_add_decl(
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
         opt_cancel_tk: *mut LeanObject,
     ) -> *mut LeanObject {
-        let old_max = get_max_heartbeat();
-        let old_cancel = g_cancel_tk_get();
-        set_max_heartbeat(max_heartbeat);
-        g_cancel_tk_set(if lean_is_scalar(opt_cancel_tk) {
-            null_mut()
-        } else {
-            lean_ctor_get(opt_cancel_tk, 0)
-        });
-        let res = lean_kernel_add_decl_impl_extern(env, max_heartbeat, decl, opt_cancel_tk);
-        set_max_heartbeat(old_max);
-        g_cancel_tk_set(old_cancel);
-        res
+        lean_add_decl_cxx(env, max_heartbeat, decl, opt_cancel_tk)
     }
 
-    /// `addDeclWithoutChecking (env : Environment) (decl : Declaration)
-    ///                          : Except Kernel.Exception Environment`
+    /// Called from lean_elab_add_decl_without_checking (library_elab_environment.rs).
+    /// Delegates to C++ lean_add_decl_without_checking which converts Declaration → ConstantInfo
+    /// without type-checking. Returns Except KernelException KernelEnvironment.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_add_decl_without_checking(
+    pub unsafe extern "C" fn lean_kernel_add_decl_without_checking_impl(
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_kernel_add_decl_without_checking_impl_extern(env, decl)
+        lean_add_decl_without_checking_cxx(env, decl)
     }
 
-    #[export_name = "_ZN4lean22initialize_environmentEv"]
-    pub unsafe extern "C" fn initialize_environment() {
-        lean_cxx_initialize_environment();
-    }
+    // lean_add_decl and lean_add_decl_without_checking are intentionally NOT defined here.
+    // The C++ implementations in src/kernel/environment.cpp provide these symbols.
+    // Defining Rust versions with #[no_mangle] would override the C++ ones and cause
+    // a circular reference (lean_add_decl_cxx → lean_add_decl → lean_add_decl_cxx).
 
-    #[export_name = "_ZN4lean20finalize_environmentEv"]
-    pub unsafe extern "C" fn finalize_environment() {
-        lean_cxx_finalize_environment();
-    }
+    // initialize_environment / finalize_environment are no-ops in C++ (environment.cpp).
+    // When libleancpp.a is linked (lean_use_libleancpp), those symbols are provided
+    // by C++ directly; otherwise the no-op stubs in lib.rs satisfy the extern block.
 }
