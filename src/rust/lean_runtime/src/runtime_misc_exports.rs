@@ -266,6 +266,32 @@ unsafe fn native_constant_arity(env: b_lean_obj_arg, const_name: b_lean_obj_arg)
     runtime_arity_from_type(env, ty, 0)
 }
 
+// Get the IR arity (number of native parameters) for a constant via lean_ir_find_env_decl.
+// This gives the real native arity (e.g. 1 for IO Unit functions), unlike
+// native_constant_arity which computes from the Lean TYPE and gives wrong results for IO.
+type IrFindEnvDeclFn = unsafe extern "C" fn(b_lean_obj_arg, b_lean_obj_arg) -> lean_obj_res;
+
+unsafe fn ir_decl_arity(env: b_lean_obj_arg, const_name: b_lean_obj_arg) -> Option<u32> {
+    let find_fn: IrFindEnvDeclFn = lookup_runtime_fn(c"lean_ir_find_env_decl")?;
+    // lean_ir_find_env_decl consumes its arguments (standard Lean @[export] convention)
+    crate::lean_inc_ref(env);
+    crate::lean_inc(const_name);
+    let opt_decl = find_fn(env, const_name);
+    if crate::lean_is_scalar(opt_decl) {
+        // none: lean_box(0), no dec needed for scalars
+        return None;
+    }
+    // some(decl): opt_decl is Option.some with tag 0, field 0 = decl
+    let decl = crate::lean_ctor_get_export(opt_decl, 0);
+    crate::lean_inc(decl);
+    crate::lean_dec(opt_decl);
+    // Lean.IR.Decl.fdecl/extern: field 1 is xs : Array Param
+    let xs = crate::lean_ctor_get_export(decl, 1);
+    let arity = crate::lean_array_size_export(xs) as u32;
+    crate::lean_dec(decl);
+    Some(arity)
+}
+
 #[no_mangle] pub unsafe extern "C" fn lean_mk_thunk(c: lean_obj_arg) -> lean_obj_res {
     let o = crate::lean_alloc_small_object_export(core::mem::size_of::<crate::LeanThunkObject>() as crate::Size) as *mut crate::LeanThunkObject;
     crate::lean_set_st_header(o as *mut LeanObject, LEAN_THUNK_TAG, 0);
@@ -393,8 +419,27 @@ unsafe fn native_constant_arity(env: b_lean_obj_arg, const_name: b_lean_obj_arg)
     crate::lean_io_result_mk_ok_export(crate::lean_box(0))
 }
 
-#[no_mangle] pub unsafe extern "C" fn lean_run_mod_init_core(_sym: b_lean_obj_arg) -> lean_obj_res {
-    crate::lean_io_result_mk_ok_export(crate::lean_box(0))
+// runModInitCore (sym : @& String) : IO Bool
+// Looks up the module initialization symbol and calls it (if found).
+// Returns true if found and called (so runInitAttrs skips re-running interpreted inits),
+// false if not found (so runInitAttrs falls through to evalConst for each init decl).
+// Matches C++ lean_run_mod_init_core in src/library/ir_interpreter.cpp.
+#[no_mangle] pub unsafe extern "C" fn lean_run_mod_init_core(sym: b_lean_obj_arg) -> lean_obj_res {
+    type InitFn = unsafe extern "C" fn(u8) -> *mut crate::LeanObject;
+    let s = crate::lean_string_cstr(sym) as *const core::ffi::c_char;
+    let cstr = core::ffi::CStr::from_ptr(s);
+    let ptr = lookup_current_process_symbol(cstr);
+    if ptr.is_null() {
+        return crate::lean_io_result_mk_ok_export(crate::lean_box(0)); // false: not found
+    }
+    let init_fn: InitFn = core::mem::transmute(ptr);
+    let r = init_fn(0); // builtin=0 (not a builtin library)
+    if crate::lean_io_result_is_ok(r) {
+        crate::lean_dec_ref(r);
+        crate::lean_io_result_mk_ok_export(crate::lean_box(1)) // true: found and ran
+    } else {
+        r // propagate error
+    }
 }
 
 #[no_mangle]
@@ -422,10 +467,15 @@ pub unsafe extern "C" fn lean_eval_const(
     if addr.is_null() {
         return mk_except_error(&format!("native symbol not found: {symbol}"));
     }
-    if let Some(arity) = native_constant_arity(env, const_name) {
-        if arity > 0 {
-            return mk_except_ok(crate::lean_alloc_closure_export(addr, arity, 0));
-        }
+    // Use IR arity (real native parameter count) if available.
+    // This correctly handles IO Unit functions which have 0 Lean-type Pi binders
+    // but 1 native parameter (the IO world). Fallback to type-based arity for
+    // constants without IR declarations (e.g. some extern decls).
+    let arity = ir_decl_arity(env, const_name)
+        .or_else(|| native_constant_arity(env, const_name))
+        .unwrap_or(0);
+    if arity > 0 {
+        return mk_except_ok(crate::lean_alloc_closure_export(addr, arity, 0));
     }
     mk_except_ok(read_native_constant_or_call(addr))
 }

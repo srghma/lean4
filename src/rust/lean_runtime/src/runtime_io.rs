@@ -1111,18 +1111,13 @@ mod runtime_io_impl {
         lean_task_spawn_core(closure, lean_unbox(prio) as u32, true)
     }
 
-    // Given captured f and task result a, calls f(a, world) and unwraps the
-    // IO.Result wrapper to return the inner Task β. This is the continuation
-    // closure for lean_io_bind_task: f : α → BaseIO (Task β).
+    // Given captured f and task result a, calls f(a, world) and returns the result
+    // directly (like C++ object_ref::steal). The caller (task_bind_fn1 / task_map_fn)
+    // reads offset+8 from the returned object, which aliases both
+    //   lean_task_object::m_value  and  lean_ctor_object::field[0],
+    // so it correctly handles both a bare Task β and an IO.Result (Task β) World.
     unsafe extern "C" fn lean_io_bind_task_fn(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject {
-        // f : α → World → IO.Result (Task β); call with a and unit world
-        let io_result = lean_apply_2(f, a, lean_box(0));
-        // io_result : EStateM.Result.ok (Task β) World  =  {tag=0, field[0]=Task β, field[1]=world}
-        // Extract the Task β before freeing the wrapper.
-        let task = lean_ctor_get_export(io_result, 0);
-        lean_inc_ref(task);
-        lean_dec(io_result);
-        task
+        lean_apply_2(f, a, lean_box(0))
     }
 
     #[no_mangle]
@@ -1132,8 +1127,10 @@ mod runtime_io_impl {
         prio: *mut LeanObject,
         sync: u8,
     ) -> *mut LeanObject {
-        // f : α → β (not IO-wrapped); task_map_fn calls lean_apply_1(f, v) directly.
-        lean_task_map_core(f, t, lean_unbox(prio) as u32, sync != 0, true)
+        // Wrap f in lean_io_bind_task_fn so the world argument is provided, matching C++.
+        let closure = lean_alloc_closure_export(lean_io_bind_task_fn as *mut c_void, 2, 1);
+        lean_closure_set(closure, 0, f);
+        lean_task_map_core(closure, t, lean_unbox(prio) as u32, sync != 0, true)
     }
 
     #[no_mangle]

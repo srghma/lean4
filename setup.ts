@@ -62,12 +62,14 @@ const { values: args } = parseArgs({
   options: {
     "dont-run-and-stop": { type: "string" },
     from: { type: "string", default: "clean" },
+    "only-tests": { type: "string" },
     help: { type: "boolean", default: false, short: "h" },
   },
 });
 
 const FROM_STAGE = args.from ?? "clean";
 const STOP_STAGE = args["dont-run-and-stop"] ?? null;
+const ONLY_TESTS = args["only-tests"] ?? null;
 const SHOW_HELP = args.help ?? false;
 
 // ============================================================================
@@ -182,6 +184,48 @@ const withReportTracker = async <T>(fn: (tracker: ReportTracker) => Promise<T>):
   };
 
   return fn(tracker);
+};
+
+// ============================================================================
+// Timing Measurer
+// ============================================================================
+
+interface Measurer {
+  readonly measure: <T>(name: string, fn: () => Promise<T>) => Promise<T>;
+}
+
+const withMeasurer = async <T>(fn: (measurer: Measurer) => Promise<T>): Promise<T> => {
+  const timings: { name: string; durationMs: number }[] = [];
+  const start = performance.now();
+
+  const measurer: Measurer = {
+    measure: async (name, callback) => {
+      const stepStart = performance.now();
+      try {
+        return await callback();
+      } finally {
+        const stepEnd = performance.now();
+        timings.push({ name, durationMs: stepEnd - stepStart });
+      }
+    },
+  };
+
+  try {
+    return await fn(measurer);
+  } finally {
+    const end = performance.now();
+    const totalSec = ((end - start) / 1000).toFixed(2);
+
+    console.log(`\n${c.bold}${c.cyan}${"═".repeat(60)}${c.reset}`);
+    console.log(`⏱  ${c.bold}Execution Summary${c.reset}`);
+    console.log(`${c.dim}${"─".repeat(60)}${c.reset}`);
+    for (const { name, durationMs } of timings) {
+      const sec = (durationMs / 1000).toFixed(2);
+      console.log(`  ${c.dim}▸${c.reset} ${name.padEnd(35)}: ${c.yellow}${sec}s${c.reset}`);
+    }
+    console.log(`${c.dim}${"─".repeat(60)}${c.reset}`);
+    console.log(`  ${c.bold}Overall Time${c.reset}${" ".repeat(23)}: ${c.boldGreen}${totalSec}s${c.reset}\n`);
+  }
 };
 
 // ============================================================================
@@ -1000,11 +1044,9 @@ const runTests = async () => {
     //   3 - tests/lake/examples/hello/test.sh (Failed)
     // `;
 
-    const rawFilter = `elab`;
+    if (!ONLY_TESTS) return []
 
-    const filter = parseTestFilter(rawFilter);
-
-    if (!filter) return []
+    const filter = parseTestFilter(ONLY_TESTS);
 
     step(`Running tests matching: ${c.bold}${filter}${c.reset}`);
     return ["-R", filter]
@@ -1058,28 +1100,34 @@ const buildPipeline = async (
 // Main
 // ============================================================================
 
-await withReportTracker(async tracker => {
-  const pipeline = await buildPipeline(tracker);
-  const stageNames = pipeline.map(([n]) => n);
-  const hasExpandedPkgs = stageNames.some(s => s.startsWith("stage2-cargo-build-pkgs-"));
+await withMeasurer(async measurer => {
+  await withReportTracker(async tracker => {
+    const pipeline = await buildPipeline(tracker);
+    const stageNames = pipeline.map(([n]) => n);
+    const hasExpandedPkgs = stageNames.some(s => s.startsWith("stage2-cargo-build-pkgs-"));
 
-  const resolveIdx = (name: string, preferLast = false): number => {
-    const i = stageNames.indexOf(name);
-    if (i !== -1) return i;
-    if (name === "stage2-cargo-build-pkgs") {
-      const idxs = stageNames
-        .map((s, j) => (s.startsWith("stage2-cargo-build-pkgs-") ? j : -1))
-        .filter(j => j !== -1);
-      if (idxs.length > 0) return preferLast ? idxs[idxs.length - 1]! : idxs[0];
-    }
-    return -1;
-  };
+    const resolveIdx = (name: string, preferLast = false): number => {
+      const i = stageNames.indexOf(name);
+      if (i !== -1) return i;
+      if (name === "stage2-cargo-build-pkgs") {
+        const idxs = stageNames
+          .map((s, j) => (s.startsWith("stage2-cargo-build-pkgs-") ? j : -1))
+          .filter(j => j !== -1);
+        if (idxs.length > 0) return preferLast ? idxs[idxs.length - 1]! : idxs[0];
+      }
+      return -1;
+    };
 
-  const printUsage = (exitCode = 1) => {
-    const stageList = stageNames.map(s => `  ${c.cyan}--from=${s}${c.reset}`).join("\n");
-    const out = exitCode === 0 ? console.log : console.error;
-    out(`
-${c.bold}Usage:${c.reset} setup.ts [--from=STAGE] [--dont-run-and-stop=STAGE] [--help|-h]
+    const printUsage = (exitCode = 1) => {
+      const stageList = stageNames.map(s => `  ${c.cyan}--from=${s}${c.reset}`).join("\n");
+      const out = exitCode === 0 ? console.log : console.error;
+      out(`
+${c.bold}Usage:${c.reset} setup.ts [--from=STAGE] [--dont-run-and-stop=STAGE] [--only-tests=FILTER] [--help|-h]
+
+${c.bold}Options:${c.reset}
+${c.cyan}--only-tests="FILTER"${c.reset}     run only tests matching the filter (regex, list of files, or ctest output)
+                     e.g. --only-tests="elab"
+                     e.g. --only-tests="tests/lake/examples/deps/test.sh"
 
 ${c.bold}Stages (in order):${c.reset}
 ${stageList}
@@ -1093,39 +1141,39 @@ ${c.dim}ℹ  Per-package stages (--from=stage2-cargo-build-pkgs-<pkg>) are not y
    Run stage2-cargo-gen first to generate the workspace, then re-run with --help
    to see the full expanded list.${c.reset}` : ""}
 `);
-    process.exit(exitCode);
-  };
+      process.exit(exitCode);
+    };
 
-  if (SHOW_HELP) printUsage(0);
+    if (SHOW_HELP) printUsage(0);
 
-  const startIdx = resolveIdx(FROM_STAGE, false);
-  if (startIdx === -1) printUsage();
+    const startIdx = resolveIdx(FROM_STAGE, false);
+    if (startIdx === -1) printUsage();
 
-  const endIdx = STOP_STAGE !== null ? resolveIdx(STOP_STAGE, true) : pipeline.length - 1;
-  if (STOP_STAGE !== null && endIdx === -1) printUsage();
+    const endIdx = STOP_STAGE !== null ? resolveIdx(STOP_STAGE, true) : pipeline.length - 1;
+    if (STOP_STAGE !== null && endIdx === -1) printUsage();
 
-  if (startIdx > endIdx) {
-    console.error(
-      `${c.boldRed}Error:${c.reset} --from=${FROM_STAGE} comes after ` +
-      `--dont-run-and-stop=${STOP_STAGE} in the pipeline.`,
+    if (startIdx > endIdx) {
+      console.error(
+        `${c.boldRed}Error:${c.reset} --from=${FROM_STAGE} comes after ` +
+        `--dont-run-and-stop=${STOP_STAGE} in the pipeline.`,
+      );
+      printUsage();
+    }
+
+    const toRun = pipeline.slice(startIdx, endIdx + 1);
+    console.log(
+      `\n${c.bold}Stages:${c.reset} ` +
+      toRun.map(([n]) => `${c.cyan}${n}${c.reset}`).join(` ${c.dim}→${c.reset} `) + "\n",
     );
-    printUsage();
-  }
 
-  const toRun = pipeline.slice(startIdx, endIdx + 1);
-  console.log(
-    `\n${c.bold}Stages:${c.reset} ` +
-    toRun.map(([n]) => `${c.cyan}${n}${c.reset}`).join(` ${c.dim}→${c.reset} `) + "\n",
-  );
+    for (const [name, fn] of toRun) {
+      await measurer.measure(name, fn);
+    }
 
-  for (const [, fn] of toRun) {
-    await fn();
-  }
+    const STAGE2_DIR = `${BUILD}/stage2`;
+    const LEAN_STDLIB_DIR = `${STAGE2_DIR}/lean_stdlib`;
 
-  const STAGE2_DIR = `${BUILD}/stage2`;
-  const LEAN_STDLIB_DIR = `${STAGE2_DIR}/lean_stdlib`;
-
-  console.log(`
+    console.log(`
 ${c.boldGreen}${"═".repeat(60)}${c.reset}
 ${c.bold}✅  Done!${c.reset}
 ${c.dim}${"─".repeat(60)}${c.reset}
@@ -1141,4 +1189,5 @@ ${c.bold}Run tests against stage2:${c.reset}
 ${c.bold}Run a single test manually:${c.reset}
   ${c.cyan}tests/with_stage2_test_env.sh tests/elab/run_test.sh grind_ematch.lean${c.reset}
 `);
+  });
 }).catch(console.error);

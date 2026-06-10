@@ -328,7 +328,9 @@ impl TaskManager {
         guard.total_std_workers += 1;
         let tm = Arc::clone(self);
 
-        thread::spawn(move || {
+        // Use the lean thread spawner (1 GB stack + lean_initialize/finalize_thread
+        // + SIGSEGV stack-overflow guard) to match the C++ lthread behaviour.
+        spawn_lean_worker(move || {
             unsafe { save_stack_info(false); }
             let mut guard = tm.inner.lock().unwrap();
             guard.idle_std_workers += 1;
@@ -359,7 +361,7 @@ impl TaskManager {
         guard.num_dedicated_workers += 1;
         let tm = Arc::clone(self);
         let t_send = SendPtr(t);
-        thread::spawn(move || {
+        spawn_lean_worker(move || {
             unsafe { save_stack_info(false); }
             let mut guard = tm.inner.lock().unwrap();
             tm.run_task_locked(&mut guard, t_send.get());
@@ -644,23 +646,37 @@ impl TaskManagerInner {
     }
 }
 
-impl Drop for TaskManager {
-    fn drop(&mut self) {
+impl TaskManager {
+    /// Signal all workers to shut down and wait for dedicated workers to finish.
+    /// Standard workers exit their loops asynchronously when they observe
+    /// `shutting_down == true`.  Mirrors the C++ `task_manager::finalize()`.
+    fn initiate_shutdown(&self) {
         {
             let mut guard = self.inner.lock().unwrap();
+            if guard.shutting_down {
+                return;
+            }
             guard.shutting_down = true;
         }
         self.queue_cv.notify_all();
-        // Wait for dedicated workers to finish.
-        let mut guard = self.inner.lock().unwrap();
-        guard = self
-            .dedicated_finished_cv
+        // Wait for dedicated workers.
+        let guard = self.inner.lock().unwrap();
+        self.dedicated_finished_cv
             .wait_while(guard, |g| g.num_dedicated_workers > 0)
             .unwrap();
-        drop(guard);
-        // Standard workers hold Arc<TaskManager> and will exit their loop when
-        // shutting_down is set and the queue is empty; they don't need explicit
-        // join (matching C++ lthread detach behaviour).
+    }
+}
+
+impl Drop for TaskManager {
+    fn drop(&mut self) {
+        // In production lean_finalize_task_manager calls initiate_shutdown before
+        // the global Arc is removed, so workers have already exited by the time
+        // we reach here.  In test code the TaskManager may be dropped directly;
+        // just ensure shutting_down is set so any hypothetical waiters unblock.
+        if !self.inner.lock().unwrap().shutting_down {
+            self.inner.lock().unwrap().shutting_down = true;
+            self.queue_cv.notify_all();
+        }
     }
 }
 
@@ -718,7 +734,15 @@ pub extern "C" fn lean_init_task_manager() {
 
 #[no_mangle]
 pub extern "C" fn lean_finalize_task_manager() {
-    // Dropping the Arc triggers TaskManager::drop which shuts down workers.
+    // First set shutting_down=true and wake idle workers, waiting for dedicated
+    // workers to finish.  Standard workers exit their loops asynchronously.
+    // This must happen BEFORE dropping the global Arc, otherwise workers holding
+    // their own Arc clones would never see shutting_down and would wait forever.
+    if let Some(tm) = get_task_manager() {
+        tm.initiate_shutdown();
+    }
+    // Now drop the global Arc.  Standard workers will drop their Arcs once they
+    // finish exiting; the TaskManager is freed when the last Arc disappears.
     set_task_manager(None);
 }
 

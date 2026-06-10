@@ -18,11 +18,14 @@ mod runtime_stack_overflow_impl {
     static MAIN_STACK_GUARD: AtomicPtr<StackGuard> = AtomicPtr::new(ptr::null_mut());
 
     unsafe fn install_signal_stack(signal_stack: *mut libc::stack_t) {
-        (*signal_stack).ss_sp = libc::malloc(libc::SIGSTKSZ);
+        // glibc 2.34+ requires a larger alternate signal stack than the old SIGSTKSZ=8192
+        // constant. Use a fixed generous size that works on all platforms.
+        let stksz = 65536usize;
+        (*signal_stack).ss_sp = libc::malloc(stksz);
         if (*signal_stack).ss_sp.is_null() {
             return;
         }
-        (*signal_stack).ss_size = libc::SIGSTKSZ;
+        (*signal_stack).ss_size = stksz;
         (*signal_stack).ss_flags = 0;
         libc::sigaltstack(signal_stack, ptr::null_mut());
     }

@@ -1403,15 +1403,15 @@ pub unsafe fn lean_usize_mul(a: usize, b: usize) -> usize {
     a.wrapping_mul(b)
 }
 
-// Thin wrappers that cast between lean_object (generated_abi) and LeanObject (runtime
-// internals) so generated .rs files can call these via `use lean_runtime::generated_abi::*`.
+// lean_int_ediv/emod delegate to lean_int_big_ediv/emod which are globally exported from
+// libleanrt.a (non-static non-inline C functions), so they resolve at link time.
 #[inline(always)]
 pub unsafe fn lean_int_ediv(a1: *mut lean_object, a2: *mut lean_object) -> *mut lean_object {
-    crate::runtime_numeric_exports_int::lean_int_ediv(a1 as *mut _, a2 as *mut _) as *mut _
+    lean_int_big_ediv(a1, a2)
 }
 #[inline(always)]
 pub unsafe fn lean_int_emod(a1: *mut lean_object, a2: *mut lean_object) -> *mut lean_object {
-    crate::runtime_numeric_exports_int::lean_int_emod(a1 as *mut _, a2 as *mut _) as *mut _
+    lean_int_big_emod(a1, a2)
 }
 
 // --- uint8 / uint32 / uint64 via macro ---

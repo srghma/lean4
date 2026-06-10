@@ -416,9 +416,21 @@ mod runtime_thread_impl {
         // Nothing to do: the OnceLock<Mutex<Vec>> leaks intentionally
         // (same as the C++ `delete g_thread_local_reset_fns`).
     }
+
+    /// Spawn a lean worker thread with the Lean thread stack size (1 GB on 64-bit),
+    /// the SIGSEGV stack-overflow guard, and the lean_initialize/finalize_thread
+    /// wrapper. The thread is detached (not joined) — matching the C++ lthread pattern
+    /// where standard worker threads are detached and exit when the task manager shuts
+    /// down.
+    pub(super) fn spawn_lean_worker<F: FnOnce() + Send + 'static>(f: F) {
+        drop(LThread::new(Box::new(f)));
+        // LThread::drop calls pthread_detach (or CloseHandle on Windows) because
+        // joined == false. The thread keeps itself alive via the closure captures
+        // (typically an Arc<TaskManager>).
+    }
 }
 
 pub(crate) use runtime_thread_impl::{
     delete_thread_finalizer_manager_internal, run_post_thread_finalizers_internal,
-    run_thread_finalizers_internal,
+    run_thread_finalizers_internal, spawn_lean_worker,
 };
