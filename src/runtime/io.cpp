@@ -355,11 +355,13 @@ extern "C" LEAN_EXPORT obj_res lean_decode_uv_error(int errnum, b_lean_obj_arg f
     }
 }
 
+#ifndef LEAN_RUST_IO_EMBEDDED_NUL_ERROR
 // Used for when you try to convert a string with NUL bytes into a C string
 obj_res mk_embedded_nul_error(b_obj_arg str) {
     lean_inc(str);
     return io_result_mk_error(lean_mk_io_error_invalid_argument_file(str, EINVAL, mk_string("string contains NUL bytes")));
 }
+#endif
 
 /* IO.setAccessRights (filename : @& String) (mode : UInt32) : IO Unit */
 extern "C" LEAN_EXPORT obj_res lean_chmod (b_obj_arg filename, uint32_t mode) {

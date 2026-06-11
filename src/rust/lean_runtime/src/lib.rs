@@ -22,8 +22,11 @@ extern "C" {
     fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
     fn lean_alloc_object(size: Size) -> *mut LeanObject;
-    #[link_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"]
-    fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject;
+    fn lean_mk_io_error_invalid_argument_file(
+        name: *mut LeanObject,
+        errnum: u32,
+        details: *mut LeanObject,
+    ) -> *mut LeanObject;
     fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
@@ -547,6 +550,20 @@ pub unsafe extern "C" fn lean_io_result_show_error(r: *mut LeanObject) {
     eprintln!("uncaught exception: {}", text.to_string_lossy());
     lean_dec(msg);
     lean_dec(err);
+}
+
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"
+)]
+pub unsafe extern "C" fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(str);
+    let details = lean_mk_string(c"string contains NUL bytes".as_ptr());
+    lean_io_result_mk_error(lean_mk_io_error_invalid_argument_file(
+        str,
+        libc::EINVAL as u32,
+        details,
+    ))
 }
 
 
