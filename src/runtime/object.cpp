@@ -1118,19 +1118,29 @@ extern "C" LEAN_EXPORT void lean_init_task_manager_using(unsigned num_workers) {
 #endif
 }
 
+#ifdef LEAN_RUST_OBJECT_TASK_NUM_THREADS
+extern "C" unsigned lean_runtime_get_lean_num_threads();
+#endif
+
 static unsigned get_lean_num_threads() {
+#ifdef LEAN_RUST_OBJECT_TASK_NUM_THREADS
+    return lean_runtime_get_lean_num_threads();
+#else
 #ifndef LEAN_EMSCRIPTEN
     if (char const * num_threads = std::getenv("LEAN_NUM_THREADS")) {
         return atoi(num_threads);
     }
 #endif
     return hardware_concurrency();
+#endif
 }
 
+#ifndef LEAN_RUST_OBJECT_TASK_HARDWARE
 /* getHardwareConcurrency (_ : Unit) : UInt32 */
 extern "C" LEAN_EXPORT uint32 lean_internal_get_hardware_concurrency(obj_arg) {
     return hardware_concurrency();
 }
+#endif
 
 extern "C" LEAN_EXPORT void lean_init_task_manager() {
     lean_init_task_manager_using(get_lean_num_threads());
@@ -1187,6 +1197,7 @@ static lean_task_object * alloc_task(obj_arg c, unsigned prio, bool keep_alive) 
     return o;
 }
 
+#ifndef LEAN_RUST_OBJECT_TASK_PURE
 static lean_task_object * alloc_task(obj_arg v) {
     lean_task_object * o = (lean_task_object*)lean_alloc_small_object(sizeof(lean_task_object));
     lean_set_st_header((lean_object*)o, LeanTask, 0);
@@ -1194,6 +1205,7 @@ static lean_task_object * alloc_task(obj_arg v) {
     o->m_imp   = nullptr;
     return o;
 }
+#endif
 
 
 extern "C" LEAN_EXPORT obj_res lean_task_spawn_core(obj_arg c, unsigned prio, bool keep_alive) {
@@ -1206,9 +1218,11 @@ extern "C" LEAN_EXPORT obj_res lean_task_spawn_core(obj_arg c, unsigned prio, bo
     }
 }
 
+#ifndef LEAN_RUST_OBJECT_TASK_PURE
 extern "C" LEAN_EXPORT obj_res lean_task_pure(obj_arg a) {
     return (lean_object*)alloc_task(a);
 }
+#endif
 
 static obj_res task_map_fn(obj_arg f, obj_arg t, obj_arg w) {
     b_obj_res v = lean_to_task(t)->m_value;
@@ -2773,6 +2787,7 @@ extern "C" LEAN_EXPORT object * lean_dbg_stack_trace(obj_arg fn) {
 // =======================================
 // Module initialization
 
+#ifndef LEAN_RUST_OBJECT_EXTERNAL_CLASS
 static std::vector<lean_external_class*> * g_ext_classes;
 static mutex                             * g_ext_classes_mutex;
 
@@ -2782,7 +2797,11 @@ extern "C" LEAN_EXPORT lean_external_class * lean_register_external_class(lean_e
     g_ext_classes->push_back(cls);
     return cls;
 }
+#else
+extern "C" void lean_finalize_external_classes();
+#endif
 
+#ifndef LEAN_RUST_OBJECT_EXTERNAL_RUNTIME
 extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_external(lean_external_class * cls, void * data) {
     return lean_alloc_external(cls, data);
 }
@@ -2790,7 +2809,9 @@ extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_external(lean_external_c
 extern "C" LEAN_EXPORT void * lean_runtime_get_external_data(lean_object * o) {
     return lean_get_external_data(o);
 }
+#endif
 
+#ifndef LEAN_RUST_OBJECT_CTOR_RUNTIME
 extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_ctor(unsigned tag, unsigned num_objs, unsigned scalar_sz) {
     return lean_alloc_ctor(tag, num_objs, scalar_sz);
 }
@@ -2798,21 +2819,28 @@ extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_ctor(unsigned tag, unsig
 extern "C" LEAN_EXPORT void lean_runtime_ctor_set(lean_object * o, unsigned i, lean_object * v) {
     lean_ctor_set(o, i, v);
 }
+#endif
 
 LEAN_EXPORT void initialize_object() {
 #ifndef LEAN_RUST_OBJECT_PANIC
     g_saved_stderr = stderr;  // Save original pointer early
 #endif
+#ifndef LEAN_RUST_OBJECT_EXTERNAL_CLASS
     g_ext_classes       = new std::vector<external_object_class*>();
     g_ext_classes_mutex = new mutex();
+#endif
     g_array_empty       = lean_alloc_array(0, 0);
     mark_persistent(g_array_empty);
 }
 
 LEAN_EXPORT void finalize_object() {
+#ifndef LEAN_RUST_OBJECT_EXTERNAL_CLASS
     for (external_object_class * cls : *g_ext_classes) delete cls;
     delete g_ext_classes;
     delete g_ext_classes_mutex;
+#else
+    lean_finalize_external_classes();
+#endif
 }
 
 }

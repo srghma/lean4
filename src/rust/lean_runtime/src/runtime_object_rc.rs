@@ -298,7 +298,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
         let sz1 = ((sz + 7) / 8) * 8;
         let r = lean_alloc_small_object(sz1);
         if sz1 > sz {

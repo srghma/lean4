@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #![cfg_attr(not(feature = "std"), no_std)]
 
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
-use core::sync::atomic::{AtomicBool, AtomicI32, AtomicU32, Ordering};
+use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 use core::ptr;
 #[cfg(not(feature = "std"))]
 use core::panic::PanicInfo;
@@ -25,17 +25,6 @@ extern "C" {
     #[link_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"]
     fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject;
     fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
-    fn lean_register_external_class(
-        finalize: Option<unsafe extern "C" fn(*mut c_void)>,
-        foreach: Option<unsafe extern "C" fn(*mut c_void, *mut LeanObject)>,
-    ) -> *mut LeanExternalClass;
-    fn lean_runtime_alloc_external(
-        class: *mut LeanExternalClass,
-        data: *mut c_void,
-    ) -> *mut LeanObject;
-    fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_void;
-    fn lean_runtime_alloc_ctor(tag: c_uint, num_objs: c_uint, scalar_size: c_uint) -> *mut LeanObject;
-    fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: *mut LeanObject);
     fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
     fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
@@ -164,6 +153,21 @@ pub struct LeanObject {
 }
 
 #[repr(C)]
+struct LeanCtorObject {
+    header: LeanObject,
+    data: [*mut LeanObject; 0],
+}
+
+type LeanExternalFinalizeProc = unsafe extern "C" fn(*mut c_void);
+type LeanExternalForeachProc = unsafe extern "C" fn(*mut c_void, *mut LeanObject);
+
+#[repr(C)]
+pub struct LeanExternalClass {
+    finalize: LeanExternalFinalizeProc,
+    foreach: LeanExternalForeachProc,
+}
+
+#[repr(C)]
 struct LeanListCell {
     rc: AtomicU32,
     head: c_uint,
@@ -208,6 +212,13 @@ struct LeanScalarArray {
 struct LeanPromiseObject {
     header: LeanObject,
     result: *mut LeanObject,
+}
+
+#[repr(C)]
+struct LeanTaskObject {
+    header: LeanObject,
+    value: AtomicPtr<LeanObject>,
+    imp: *mut c_void,
 }
 
 #[repr(C)]
@@ -345,6 +356,51 @@ unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) 
     (obj.add(1) as *mut u8).add(offset).cast::<u64>().write(value);
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_runtime_alloc_ctor(
+    tag: c_uint,
+    num_objs: c_uint,
+    scalar_size: c_uint,
+) -> *mut LeanObject {
+    const LEAN_MAX_CTOR_TAG: c_uint = 243;
+    const LEAN_MAX_CTOR_FIELDS: c_uint = 256;
+    const LEAN_MAX_CTOR_SCALARS_SIZE: c_uint = 1024;
+
+    debug_assert!(tag <= LEAN_MAX_CTOR_TAG);
+    debug_assert!(num_objs < LEAN_MAX_CTOR_FIELDS);
+    debug_assert!(scalar_size < LEAN_MAX_CTOR_SCALARS_SIZE);
+
+    let byte_size = core::mem::size_of::<LeanCtorObject>()
+        .checked_add(
+            core::mem::size_of::<*mut LeanObject>()
+                .checked_mul(num_objs as Size)
+                .expect("constructor allocation overflow"),
+        )
+        .and_then(|size| size.checked_add(scalar_size as Size))
+        .expect("constructor allocation overflow");
+    let obj = runtime_object_rc_impl::lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject;
+    (*obj).header.rc = 1;
+    #[cfg(not(lean_has_mimalloc))]
+    {
+        (*obj).header.cs_size = 0;
+    }
+    (*obj).header.other = num_objs as u8;
+    (*obj).header.tag = tag as u8;
+    obj as *mut LeanObject
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_runtime_ctor_set(
+    obj: *mut LeanObject,
+    index: c_uint,
+    value: *mut LeanObject,
+) {
+    debug_assert!(index < (*obj).other as c_uint);
+    let fields = (obj as *mut LeanCtorObject).cast::<u8>().add(core::mem::size_of::<LeanCtorObject>())
+        as *mut *mut LeanObject;
+    fields.add(index as Size).write(value);
+}
+
 pub unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject {
     let r = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<u64>() as c_uint);
     lean_ctor_set_uint64(r, 0, v);
@@ -440,25 +496,30 @@ unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
 }
 
 
-pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
     lean_ptr_tag(obj) == 0
 }
 
-pub unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
     lean_ptr_tag(obj) == 1
 }
 
-pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_ok(obj));
     lean_ctor_get(obj, 0)
 }
 
-pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_error(obj));
     lean_ctor_get(obj, 0)
 }
 
-pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_ok(obj));
     let v = lean_ctor_get(obj, 0);
     lean_inc(v);
@@ -542,6 +603,104 @@ include!("runtime_object_name.rs");
 #[cfg_attr(feature = "export-runtime-ffi", export_name = "lean_name_eq")]
 pub unsafe extern "C" fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
     runtime_object_name_impl::lean_name_eq(n1, n2)
+}
+
+#[repr(C)]
+struct LeanExternalObject {
+    header: LeanObject,
+    class: *mut LeanExternalClass,
+    data: *mut c_void,
+}
+
+static EXTERNAL_CLASSES: std::sync::Mutex<Vec<usize>> = std::sync::Mutex::new(Vec::new());
+
+unsafe extern "C" fn lean_external_noop_finalize(_: *mut c_void) {}
+
+unsafe extern "C" fn lean_external_noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_register_external_class(
+    finalize: Option<LeanExternalFinalizeProc>,
+    foreach: Option<LeanExternalForeachProc>,
+) -> *mut LeanExternalClass {
+    let class = Box::into_raw(Box::new(LeanExternalClass {
+        finalize: finalize.unwrap_or(lean_external_noop_finalize),
+        foreach: foreach.unwrap_or(lean_external_noop_foreach),
+    }));
+    EXTERNAL_CLASSES.lock().unwrap().push(class as usize);
+    class
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_finalize_external_classes() {
+    let mut classes = EXTERNAL_CLASSES.lock().unwrap();
+    for class in classes.drain(..) {
+        drop(Box::from_raw(class as *mut LeanExternalClass));
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_runtime_alloc_external(
+    class: *mut LeanExternalClass,
+    data: *mut c_void,
+) -> *mut LeanObject {
+    const LEAN_EXTERNAL_TAG: u8 = 254;
+    let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<LeanExternalObject>())
+        as *mut LeanExternalObject;
+    (*obj).header.rc = 1;
+    #[cfg(not(lean_has_mimalloc))]
+    {
+        (*obj).header.cs_size = 0;
+    }
+    (*obj).header.other = 0;
+    (*obj).header.tag = LEAN_EXTERNAL_TAG;
+    (*obj).class = class;
+    (*obj).data = data;
+    obj as *mut LeanObject
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_void {
+    (*(obj as *mut LeanExternalObject)).data
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
+    std::thread::available_parallelism()
+        .map(|count| count.get() as u32)
+        .unwrap_or(1)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_task_pure(value: *mut LeanObject) -> *mut LeanObject {
+    const LEAN_TASK_TAG: u8 = 252;
+    let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>())
+        as *mut LeanTaskObject;
+    (*obj).header.rc = 1;
+    #[cfg(not(lean_has_mimalloc))]
+    {
+        (*obj).header.cs_size = 0;
+    }
+    (*obj).header.other = 0;
+    (*obj).header.tag = LEAN_TASK_TAG;
+    (*obj).value = AtomicPtr::new(value);
+    (*obj).imp = ptr::null_mut();
+    obj as *mut LeanObject
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_runtime_get_lean_num_threads() -> c_uint {
+    #[cfg(not(target_os = "emscripten"))]
+    {
+        let name = b"LEAN_NUM_THREADS\0";
+        let value = libc::getenv(name.as_ptr().cast());
+        if !value.is_null() {
+            return libc::atoi(value) as c_uint;
+        }
+    }
+    std::thread::available_parallelism()
+        .map(|count| count.get() as c_uint)
+        .unwrap_or(1)
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -1663,12 +1822,14 @@ pub unsafe extern "C" fn lean_runtime_mk_cnstr(
     obj
 }
 
-unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
     let mut fields = [value];
     lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
 }
 
-unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
     let mut fields = [error];
     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 }
