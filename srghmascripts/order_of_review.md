@@ -5,22 +5,22 @@ Siblings at the same indentation level are independent and can be reviewed in an
 
 - [ ] src/include/lean/lean (`src/include/lean/lean.h`)
   - [ ] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`)
-  - [ ] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`)
+  - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ source removed
   - [ ] src/library/llvm (`src/library/llvm.cpp`)
   - [ ] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`)
   - [ ] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`)
-  - [ ] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`)
-  - [ ] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`)
-  - [ ] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`)
-  - [ ] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`)
-    - [ ] src/runtime/hash (`src/runtime/hash.h` and `src/runtime/hash.cpp`)
-    - [ ] src/runtime/hash (`src/runtime/hash.h` and `src/runtime/hash.cpp`)
+  - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+  - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+  - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
+  - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
+    - [x] src/runtime/hash (`src/runtime/hash.h` and `src/runtime/hash.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+    - [x] src/runtime/hash (`src/runtime/hash.h` and `src/runtime/hash.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
     - [ ] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`)
     - [ ] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`)
     - [ ] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`)
     - [ ] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`)
-      - [ ] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`)
-      - [ ] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`)
+      - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
+      - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
         - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: LEAN_RUST_OBJECT_PANIC, LEAN_RUST_OBJECT_SIZE, LEAN_RUST_OBJECT_ARRAY, LEAN_RUST_OBJECT_RC, LEAN_RUST_OBJECT_NAT_INT, LEAN_RUST_OBJECT_STRING, LEAN_RUST_OBJECT_NAME, LEAN_RUST_OBJECT_CTOR_RUNTIME, LEAN_RUST_OBJECT_EXTERNAL_RUNTIME, LEAN_RUST_OBJECT_EXTERNAL_CLASS, LEAN_RUST_OBJECT_TASK_HARDWARE, LEAN_RUST_OBJECT_TASK_NUM_THREADS, LEAN_RUST_OBJECT_TASK_PURE, lean_io_get_task_state_core, lean_io_promise_result_opt, lean_get_or_block done; remaining: task/io sections
         - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: LEAN_RUST_OBJECT_PANIC, LEAN_RUST_OBJECT_SIZE, LEAN_RUST_OBJECT_ARRAY, LEAN_RUST_OBJECT_RC, LEAN_RUST_OBJECT_NAT_INT, LEAN_RUST_OBJECT_STRING, LEAN_RUST_OBJECT_NAME, LEAN_RUST_OBJECT_CTOR_RUNTIME, LEAN_RUST_OBJECT_EXTERNAL_RUNTIME, LEAN_RUST_OBJECT_EXTERNAL_CLASS, LEAN_RUST_OBJECT_TASK_HARDWARE, LEAN_RUST_OBJECT_TASK_NUM_THREADS, LEAN_RUST_OBJECT_TASK_PURE, lean_io_get_task_state_core, lean_io_promise_result_opt, lean_get_or_block done; remaining: task/io sections
           - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
@@ -58,8 +58,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
           - [ ] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`)
           - [ ] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`)
     - [ ] src/runtime/optional (`src/runtime/optional.h`)
-      - [ ] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`)
-      - [ ] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`)
+      - [x] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+      - [x] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
         - [ ] src/util/name (`src/util/name.h` and `src/util/name.cpp`)
         - [ ] src/util/name (`src/util/name.h` and `src/util/name.cpp`)
           - [ ] src/util/name_generator (`src/util/name_generator.h` and `src/util/name_generator.cpp`)
@@ -92,8 +92,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [ ] src/runtime/int (`src/runtime/int.h`)
   - [ ] src/util/message_definitions (`src/util/message_definitions.h`)
 - [ ] src/runtime/sstream (`src/runtime/sstream.h`)
-  - [ ] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`)
-  - [ ] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`)
+  - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ source removed
+  - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ source removed
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
     - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
@@ -115,8 +115,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [ ] src/library/scope_cache (`src/library/scope_cache.h`)
   - [ ] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`)
   - [ ] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`)
-- [ ] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`)
-- [ ] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`)
+- [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+- [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [ ] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`)
 - [ ] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`)
 - [ ] src/util/freset (`src/util/freset.h`)
@@ -200,8 +200,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [ ] src/kernel/kernel_exception (`src/kernel/kernel_exception.h`)
     - [ ] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`)
     - [ ] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`)
-- [ ] src/library/constants (`src/library/constants.h` and `src/library/constants.cpp`)
-- [ ] src/library/constants (`src/library/constants.h` and `src/library/constants.cpp`)
+- [x] src/library/constants (`src/library/constants.h` and `src/library/constants.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_constants.rs`; C++ source removed
+- [x] src/library/constants (`src/library/constants.h` and `src/library/constants.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_constants.rs`; C++ source removed
   - [ ] src/library/constructions/cases_on (`src/library/constructions/cases_on.h` and `src/library/constructions/cases_on.cpp`)
   - [ ] src/library/constructions/cases_on (`src/library/constructions/cases_on.h` and `src/library/constructions/cases_on.cpp`)
   - [ ] src/library/constructions/util (`src/library/constructions/util.h` and `src/library/constructions/util.cpp`)
