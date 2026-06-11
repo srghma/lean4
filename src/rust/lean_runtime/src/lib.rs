@@ -590,6 +590,57 @@ pub unsafe extern "C" fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
     (libc::feof(fp) != 0) as u8
 }
 
+unsafe fn lean_runtime_errno() -> c_int {
+    #[cfg(target_os = "windows")]
+    {
+        *libc::_errno()
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        *libc::__errno_location()
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    if libc::fflush(fp) == 0 {
+        lean_io_result_mk_ok(lean_box(0))
+    } else {
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
+        lean_io_result_mk_ok(lean_box(0))
+    } else {
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    #[cfg(target_os = "windows")]
+    {
+        if libc::_chsize_s(libc::_fileno(fp), libc::_ftelli64(fp)) == 0 {
+            lean_io_result_mk_ok(lean_box(0))
+        } else {
+            lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        }
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
+            lean_io_result_mk_ok(lean_box(0))
+        } else {
+            lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        }
+    }
+}
 
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)
