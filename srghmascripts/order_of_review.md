@@ -223,8 +223,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [ ] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`)
     - [ ] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`)
     - [ ] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`)
-- [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`)
-- [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`)
+- [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_apply.rs`; unused generated C++ source removed
+- [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_apply.rs`; unused generated C++ source removed
 - [ ] src/runtime/array_ref (`src/runtime/array_ref.h`)
 - [ ] src/runtime/buffer (`src/runtime/buffer.h`)
   - [ ] src/runtime/list_ref (`src/runtime/list_ref.h`)
