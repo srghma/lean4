@@ -507,58 +507,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_unlock(b_obj_arg h) {
 
 #endif
 
-#if defined(LEAN_WINDOWS)
-
-#define LEAN_IO_LOCK_FILE(fp) _lock_file(fp)
-#define LEAN_IO_UNLOCK_FILE(fp) _unlock_file(fp)
-#define LEAN_IO_GETC_UNLOCKED(fp) _fgetc_nolock(fp)
-
-#else
-
-#define LEAN_IO_LOCK_FILE(fp) flockfile(fp)
-#define LEAN_IO_UNLOCK_FILE(fp) funlockfile(fp)
-#define LEAN_IO_GETC_UNLOCKED(fp) getc_unlocked(fp)
-
-#endif
-
-/* Handle.getLine : (@& Handle) → IO Unit */
-extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_get_line(b_obj_arg h) {
-    FILE * fp = io_get_handle(h);
-
-    std::string result;
-    int c; // Note: int, not char, required to handle EOF
-    LEAN_IO_LOCK_FILE(fp);
-    while ((c = LEAN_IO_GETC_UNLOCKED(fp)) != EOF) {
-        result.push_back(c);
-        if (c == '\n') {
-            break;
-        }
-    }
-    LEAN_IO_UNLOCK_FILE(fp);
-
-    if (std::ferror(fp)) {
-        return io_result_mk_error(decode_io_error(errno, nullptr));
-    } else if (std::feof(fp)) {
-        clearerr(fp);
-        return io_result_mk_ok(mk_string(result));
-    } else {
-        obj_res ret = io_result_mk_ok(mk_string(result));
-        return ret;
-    }
-}
-
-/* Handle.putStr : (@& Handle) → (@& String) → IO Unit */
-extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_put_str(b_obj_arg h, b_obj_arg s) {
-    FILE * fp = io_get_handle(h);
-    usize n = lean_string_size(s) - 1; // - 1 to ignore the terminal NULL byte.
-    usize m = std::fwrite(lean_string_cstr(s), 1, n, fp);
-    if (m == n) {
-        return io_result_mk_ok(box(0));
-    } else {
-        return io_result_mk_error(decode_io_error(errno, nullptr));
-    }
-}
-
 /* Std.Time.Database.Windows.getNextTransition : @&String -> Int64 -> Bool -> IO (Option (Int64 × TimeZone)) */
 extern "C" LEAN_EXPORT obj_res lean_windows_get_next_transition(b_obj_arg timezone_str, uint64_t tm_obj, uint8 default_time) {
 #if defined(LEAN_WINDOWS)

@@ -2,12 +2,13 @@ I am trying to rewrite lean4 cpp implementation to rust.
 
 we are rn at upstream/master + my changes
 
-goal is to rewrite all cpp (and maybe h files) files into rust, one file by one. after each rewritten to rust file we should check that tests pass using `CTEST_PARALLEL_LEVEL=$(nproc) CTEST_OUTPUT_ON_FAILURE=1 make -C build/release test -j$(nproc) ARGS='-E bench/mvcgen/sym --timeout 240' && gaa && gc -m 'feat: all tests pass'` (or with -R "..."' to focus on some test or group of tests, e.g. -R "elab"') (bench/mvcgen/sym is not running bc olean files are deprecated). Use flag --timeout, one test cannot run more that 4 minutes.
+goal is to rewrite all cpp (and maybe h files) files into rust, one file by one. after each rewritten to rust file we should check that tests pass using `CTEST_PARALLEL_LEVEL=$(nproc) make -C build/release test -j$(nproc) ARGS='-E bench/mvcgen/sym --timeout 240 --quiet --output-on-failure' && gaa && gc -m 'feat: all tests pass'` (or with -R "..."' to focus on some test or group of tests, e.g. -R "elab"') (bench/mvcgen/sym is not running bc olean files are deprecated). Use flag --timeout, one test cannot run more that 4 minutes.
 
 Can do `gaa && gc -m 'feat: all tests pass'` only if ALL tests have passed
 
-If want to run ALL tests - dont run, I will run myself (to preserve tokens).
-<!-- If want to run ALL tests - only in background to preserve tokens (bc it will notify You, no need to recheck all the time) (to preserve tokens). -->
+<!-- If want to run ALL tests - dont run, I will run myself (to preserve tokens). -->
+
+If want to run ALL tests - only in background to preserve tokens (bc it will notify You, no need to recheck all the time) (to preserve tokens).
 
 Instead of using flags like `#ifndef LEAN_RUST_IO_EMBEDDED_NUL_ERROR` - rust remove unused cpp code/file.
 
@@ -18,3 +19,5 @@ Can use `srghmascripts/check_symbols.sh` bc sometimes tests fail bc names are no
 NOTE that I already have `/home/srghma/projects/lean4/src/rust_/lean_runtime/src` + other `src/**/*.lean_` files (e.g. `EmitRust.lean_`), which has already all files rewritten to rust in one big swoop. This dir is from `rewrite-rust3` branch. I couldnt get tests pass, bc rewrite was in one big swoop, now I cannot find which files cause segmentation errors, so I decided to return to prev branches and do file by file + run tests after each file is rewritten. This dir `rust_` also uses different style: in this branch `rewrite-rust` we leave `.h` files (for now) and go file by file, there in `rewrite-rust3` - only rust is left.
 
 Try to add rust tests if needed.
+
+continue automatically to fullfill the goal without user input.

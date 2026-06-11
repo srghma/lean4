@@ -478,6 +478,15 @@ pub(crate) unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: 
     obj as *mut LeanObject
 }
 
+pub(crate) fn lean_alloc_sarray_would_overflow(elem_size: c_uint, capacity: Size) -> bool {
+    match (elem_size as usize).checked_mul(capacity) {
+        None => true,
+        Some(bytes) => core::mem::size_of::<LeanScalarArray>()
+            .checked_add(bytes)
+            .is_none(),
+    }
+}
+
 pub(crate) unsafe fn lean_alloc_string(size: usize, capacity: usize, len: usize) -> *mut LeanObject {
     const LEAN_STRING_TAG: u8 = 249;
     let byte_size = core::mem::size_of::<LeanStringObject>()
@@ -648,7 +657,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_read(
     nbytes: Size,
 ) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    if 1usize.checked_mul(nbytes).is_none() {
+    if lean_alloc_sarray_would_overflow(1, nbytes) {
         return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
     }
 
@@ -679,6 +688,77 @@ pub unsafe extern "C" fn lean_io_prim_handle_write(
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let n = lean_sarray_size(buf);
     let m = libc::fwrite(lean_sarray_cptr(buf).cast(), 1, n, fp);
+    if m == n {
+        lean_io_result_mk_ok(lean_box(0))
+    } else {
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let mut result = Vec::<u8>::new();
+    #[cfg(windows)]
+    unsafe {
+        extern "C" {
+            fn _lock_file(fp: *mut libc::FILE);
+            fn _unlock_file(fp: *mut libc::FILE);
+            fn _fgetc_nolock(fp: *mut libc::FILE) -> libc::c_int;
+        }
+        _lock_file(fp);
+        loop {
+            let c = _fgetc_nolock(fp);
+            if c == libc::EOF {
+                break;
+            }
+            result.push(c as u8);
+            if c == b'\n' as i32 {
+                break;
+            }
+        }
+        _unlock_file(fp);
+    }
+    #[cfg(not(windows))]
+    unsafe {
+        extern "C" {
+            fn flockfile(fp: *mut libc::FILE);
+            fn funlockfile(fp: *mut libc::FILE);
+            fn getc_unlocked(fp: *mut libc::FILE) -> libc::c_int;
+        }
+        flockfile(fp);
+        loop {
+            let c = getc_unlocked(fp);
+            if c == libc::EOF {
+                break;
+            }
+            result.push(c as u8);
+            if c == b'\n' as i32 {
+                break;
+            }
+        }
+        funlockfile(fp);
+    }
+
+    if libc::ferror(fp) != 0 {
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+    } else {
+        if libc::feof(fp) != 0 {
+            libc::clearerr(fp);
+        }
+        let s = lean_mk_string_from_bytes(result.as_ptr() as *const c_char, result.len());
+        lean_io_result_mk_ok(s)
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_put_str(
+    h: *mut LeanObject,
+    s: *mut LeanObject,
+) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let n = lean_string_size(s) - 1;
+    let m = libc::fwrite(lean_string_cstr(s).cast::<core::ffi::c_void>(), 1, n, fp);
     if m == n {
         lean_io_result_mk_ok(lean_box(0))
     } else {
