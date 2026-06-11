@@ -533,6 +533,7 @@ include!("runtime_memory.rs");
 include!("runtime_object_panic.rs");
 include!("runtime_object_size.rs");
 include!("runtime_object_array.rs");
+include!("runtime_object_rc.rs");
 include!("runtime_sharecommon.rs");
 include!("runtime_thread.rs");
 include!("runtime_once.rs");

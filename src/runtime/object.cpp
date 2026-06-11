@@ -264,6 +264,8 @@ extern "C" LEAN_EXPORT size_t lean_object_data_byte_size(lean_object * o) {
 }
 #endif
 
+#ifndef LEAN_RUST_OBJECT_RC
+
 static inline void lean_dealloc(lean_object * o, size_t sz) {
 #ifdef LEAN_SMALL_ALLOCATOR
     dealloc(o, sz);
@@ -703,6 +705,41 @@ extern "C" LEAN_EXPORT void lean_mark_mt(object * o) {
         }
     }
 }
+#endif // LEAN_RUST_OBJECT_RC
+
+#ifdef LEAN_RUST_OBJECT_RC
+static inline void lean_dealloc(lean_object * o, size_t sz) {
+#ifdef LEAN_SMALL_ALLOCATOR
+    dealloc(o, sz);
+#elif defined(LEAN_MIMALLOC)
+    mi_free_size(o, sz);
+#else
+    free_sized(o, sz);
+#endif
+}
+
+typedef object * (*lean_cfun2)(object *, object *); // NOLINT
+typedef object * (*lean_cfun3)(object *, object *, object *); // NOLINT
+
+static obj_res mk_closure_2_1(lean_cfun2 fn, obj_arg a) {
+    object * c = lean_alloc_closure((void*)fn, 2, 1);
+    lean_closure_set(c, 0, a);
+    return c;
+}
+
+static obj_res mk_closure_3_2(lean_cfun3 fn, obj_arg a1, obj_arg a2) {
+    object * c = lean_alloc_closure((void*)fn, 3, 2);
+    lean_closure_set(c, 0, a1);
+    lean_closure_set(c, 1, a2);
+    return c;
+}
+
+static object * g_array_empty = nullptr;
+
+object * array_mk_empty() {
+    return g_array_empty;
+}
+#endif
 
 // =======================================
 // Tasks
@@ -1325,6 +1362,14 @@ void deactivate_promise(lean_promise_object * promise) {
     g_task_manager->resolve(promise->m_result, mk_option_none());
     lean_dec_ref((lean_object *)promise->m_result);
     lean_free_small_object((lean_object *)promise);
+}
+
+extern "C" LEAN_EXPORT void lean_runtime_deactivate_task(lean_task_object * t) {
+    deactivate_task(t);
+}
+
+extern "C" LEAN_EXPORT void lean_runtime_deactivate_promise(lean_promise_object * promise) {
+    deactivate_promise(promise);
 }
 
 // =======================================

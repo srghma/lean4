@@ -12,7 +12,7 @@ if(SMALL_ALLOCATOR)
   list(APPEND RUNTIME_OBJS alloc.cpp)
 endif()
 
-set_source_files_properties(object.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_OBJECT_PANIC;LEAN_RUST_OBJECT_SIZE;LEAN_RUST_OBJECT_ARRAY")
+set_source_files_properties(object.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_OBJECT_PANIC;LEAN_RUST_OBJECT_SIZE;LEAN_RUST_OBJECT_ARRAY;LEAN_RUST_OBJECT_RC")
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
 
@@ -49,6 +49,7 @@ add_custom_command(
     LEAN_RUST_SMALL_ALLOCATOR=$<IF:$<BOOL:${SMALL_ALLOCATOR}>,1,0>
     LEAN_RUST_USE_GMP=$<IF:$<BOOL:${USE_GMP}>,1,0>
     LEAN_RUST_MULTI_THREAD=$<IF:$<BOOL:${MULTI_THREAD}>,1,0>
+    LEAN_RUST_LAZY_RC=$<IF:$<BOOL:${LAZY_RC}>,1,0>
     LEAN_RUST_DEBUG=$<IF:$<CONFIG:Debug>,1,$<IF:$<CONFIG:RelWithAssert>,1,0>>
     LEAN_RUST_LEANC_EXTRA_CC_FLAGS=${LEANC_EXTRA_CC_FLAGS}
     LEAN_RUST_LEANC_INTERNAL_FLAGS=${LEANC_INTERNAL_FLAGS}
@@ -93,6 +94,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_panic.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_size.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_array.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_rc.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_sharecommon.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_thread.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_once.rs

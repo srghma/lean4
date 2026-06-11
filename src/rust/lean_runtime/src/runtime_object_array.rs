@@ -28,11 +28,20 @@ mod runtime_object_array_impl {
         value: MpzT,
     }
 
+    #[repr(C)]
+    struct LeanThunkObject {
+        header: LeanObject,
+        value: core::sync::atomic::AtomicPtr<LeanObject>,
+        closure: core::sync::atomic::AtomicPtr<LeanObject>,
+    }
+
     extern "C" {
         fn __gmpz_size(op: *const MpzT) -> usize;
         fn __gmpz_getlimbn(op: *const MpzT, n: usize) -> c_ulong;
         fn lean_free_object(o: *mut LeanObject);
         fn lean_internal_panic_out_of_memory() -> !;
+        fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
+        fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
         fn lean_runtime_hash_str(len: usize, text: *const u8, seed: u64) -> u64;
     }
 
@@ -267,6 +276,80 @@ mod runtime_object_array_impl {
             lean_inc_n(v, sz - 1);
         }
         r
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
+        let mut sz = 0usize;
+        let mut it = lst;
+        while !lean_is_scalar(it) {
+            sz += 1;
+            it = lean_ctor_get(it, 1);
+        }
+        let r = lean_alloc_array(sz, sz);
+        let mut it = lst;
+        let dst = lean_array_cptr(r);
+        for i in 0..sz {
+            let v = lean_ctor_get(it, 0);
+            *dst.add(i) = v;
+            lean_inc(v);
+            it = lean_ctor_get(it, 1);
+        }
+        lean_dec(lst);
+        r
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
+        let mut i = lean_array_size(a);
+        let mut r = lean_box(0);
+        while i > 0 {
+            i -= 1;
+            let v = *lean_array_cptr(a).add(i);
+            let cell = lean_runtime_alloc_ctor(1, 2, 0);
+            lean_runtime_ctor_set(cell, 0, v);
+            lean_inc(v);
+            lean_runtime_ctor_set(cell, 1, r);
+            r = cell;
+        }
+        lean_dec(a);
+        r
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_array_get_panic(def_val: *mut LeanObject) -> *mut LeanObject {
+        lean_panic_fn(
+            def_val,
+            lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()),
+        )
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_array_set_panic(
+        a: *mut LeanObject,
+        v: *mut LeanObject,
+    ) -> *mut LeanObject {
+        lean_dec(v);
+        lean_panic_fn(a, lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()))
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_thunk_get_core(t: *mut LeanObject) -> *mut LeanObject {
+        let thunk = t as *mut LeanThunkObject;
+        let c = (*thunk).closure.swap(ptr::null_mut(), Ordering::AcqRel);
+        if !c.is_null() {
+            let r = lean_apply_1(c, lean_box(0));
+            debug_assert!(!r.is_null());
+            debug_assert!((*thunk).value.load(Ordering::Acquire).is_null());
+            lean_mark_mt(r);
+            (*thunk).value.store(r, Ordering::Release);
+            r
+        } else {
+            while (*thunk).value.load(Ordering::Acquire).is_null() {
+                std::thread::yield_now();
+            }
+            (*thunk).value.load(Ordering::Acquire)
+        }
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
