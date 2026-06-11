@@ -507,42 +507,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_unlock(b_obj_arg h) {
 
 #endif
 
-#ifndef LEAN_RUST_IO_HANDLE_PREDICATES
-/* Handle.isTty : (@& Handle) → BaseIO Bool */
-extern "C" LEAN_EXPORT uint8_t lean_io_prim_handle_is_tty(b_obj_arg h) {
-    FILE * fp = io_get_handle(h);
-#ifdef LEAN_WINDOWS
-    /*
-    On Windows, there are two approaches for detecting a console.
-    1)  _isatty(_fileno(fp)) != 0
-        This checks whether the file descriptor is a *character device*,
-        not just a terminal (unlike Unix's isatty). Thus, it produces a false
-        positive in some edge cases (such as NUL).
-        https://stackoverflow.com/q/3648711
-    2)  GetConsoleMode(win_handle(fp), &mode) != 0
-        Errors if the handle is not a console. Unfortunately, this produces
-        a false negative for a terminal emulator like MSYS/Cygwin's Mintty,
-        which is not implemented as a Windows-recognized console on
-        old Windows versions (e.g., pre-Windows 10, pre-ConPTY).
-        https://github.com/msys2/MINGW-packages/issues/14087
-    We choose to use GetConsoleMode as that seems like the more modern approach,
-    and Lean does not support pre-Windows 10.
-    */
-    DWORD mode;
-    return GetConsoleMode(win_handle(fp), &mode) != 0;
-#else
-    // We ignore errors for consistency with Windows.
-    return isatty(fileno(fp));
-#endif
-}
-
-/* Handle.isEof : (@& Handle) → BaseIO Bool */
-extern "C" LEAN_EXPORT uint8_t lean_io_prim_handle_is_eof(b_obj_arg h) {
-    FILE * fp = io_get_handle(h);
-    return std::feof(fp) != 0;
-}
-#endif
-
 /* Handle.flush : (@& Handle) → IO Unit */
 extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_flush(b_obj_arg h) {
     FILE * fp = io_get_handle(h);
