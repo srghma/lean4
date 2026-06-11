@@ -21,8 +21,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [ ] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`)
       - [ ] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`)
       - [ ] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`)
-        - [ ] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`)
-        - [ ] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`)
+        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: LEAN_RUST_OBJECT_PANIC, LEAN_RUST_OBJECT_SIZE, LEAN_RUST_OBJECT_ARRAY, LEAN_RUST_OBJECT_RC, LEAN_RUST_OBJECT_NAT_INT done; remaining: float/string/task/io sections
+        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: LEAN_RUST_OBJECT_PANIC, LEAN_RUST_OBJECT_SIZE, LEAN_RUST_OBJECT_ARRAY, LEAN_RUST_OBJECT_RC, LEAN_RUST_OBJECT_NAT_INT done; remaining: float/string/task/io sections
           - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
           - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
             - [ ] src/runtime/option_ref (`src/runtime/option_ref.h`)

@@ -12,7 +12,7 @@ if(SMALL_ALLOCATOR)
   list(APPEND RUNTIME_OBJS alloc.cpp)
 endif()
 
-set_source_files_properties(object.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_OBJECT_PANIC;LEAN_RUST_OBJECT_SIZE;LEAN_RUST_OBJECT_ARRAY;LEAN_RUST_OBJECT_RC")
+set_source_files_properties(object.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_OBJECT_PANIC;LEAN_RUST_OBJECT_SIZE;LEAN_RUST_OBJECT_ARRAY;LEAN_RUST_OBJECT_RC;LEAN_RUST_OBJECT_NAT_INT")
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
 
@@ -100,6 +100,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_once.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_float.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mpz.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_nat_int.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})

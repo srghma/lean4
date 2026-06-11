@@ -40,9 +40,6 @@ extern "C" {
     fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
     fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
-    fn lean_big_int64_to_int(n: i64) -> *mut LeanObject;
-    fn lean_big_uint64_to_nat(n: u64) -> *mut LeanObject;
-    fn lean_uint64_of_big_nat(n: *mut LeanObject) -> u64;
     fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_promise_new() -> *mut LeanObject;
@@ -539,7 +536,7 @@ include!("runtime_thread.rs");
 include!("runtime_once.rs");
 include!("runtime_float.rs");
 include!("runtime_mpz.rs");
-
+include!("runtime_object_nat_int.rs");
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
@@ -1674,19 +1671,19 @@ unsafe fn lean_uint64_to_nat_rust(value: u64) -> *mut LeanObject {
     if value <= usize::MAX as u64 >> 1 {
         lean_box(value as usize)
     } else {
-        lean_big_uint64_to_nat(value)
+        runtime_object_nat_int_impl::lean_big_uint64_to_nat(value)
     }
 }
 
 unsafe fn lean_int64_to_int_rust(value: i64) -> *mut LeanObject {
-    lean_big_int64_to_int(value)
+    runtime_object_nat_int_impl::lean_big_int64_to_int(value)
 }
 
 unsafe fn lean_uint64_of_nat_rust(value: *mut LeanObject) -> u64 {
     if lean_is_scalar(value) {
         lean_unbox(value) as u64
     } else {
-        lean_uint64_of_big_nat(value)
+        runtime_object_nat_int_impl::lean_uint64_of_big_nat(value)
     }
 }
 

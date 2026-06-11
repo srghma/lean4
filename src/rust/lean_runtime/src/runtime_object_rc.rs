@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Port of the RC / deallocation / object graph traversal section of
 // src/runtime/object.cpp.
 
-mod runtime_object_rc_impl {
+pub(crate) mod runtime_object_rc_impl {
     use super::*;
     use core::cell::Cell;
     use core::ffi::c_void;
@@ -251,7 +251,7 @@ mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
         let sz = ((sz + 7) / 8) * 8;
         #[cfg(lean_small_allocator)]
         {
@@ -279,7 +279,7 @@ mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_free_small_object(o: *mut LeanObject) {
+    pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) {
         #[cfg(lean_small_allocator)]
         {
             lean_free_small(o as *mut c_void);

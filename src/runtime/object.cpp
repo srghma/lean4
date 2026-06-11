@@ -1375,7 +1375,22 @@ extern "C" LEAN_EXPORT void lean_runtime_deactivate_promise(lean_promise_object 
 // =======================================
 // Natural numbers
 
+#ifdef LEAN_RUST_OBJECT_NAT_INT
+// lean_alloc_mpz is implemented in Rust (runtime_object_nat_int.rs)
+#ifdef LEAN_USE_GMP
+extern "C" lean_object * lean_alloc_mpz(mpz_t v);
+#endif
+#endif
+
 object * alloc_mpz(mpz const & m) {
+#ifdef LEAN_RUST_OBJECT_NAT_INT
+    mpz_t tmp;
+    mpz_init(tmp);
+    m.set(tmp);
+    lean_object * result = lean_alloc_mpz(tmp);
+    mpz_clear(tmp);
+    return result;
+#else
     void * mem = lean_alloc_small_object(sizeof(mpz_object));
 #ifdef LEAN_MIMALLOC
     // placement new is not guaranteed to preserve this field so store and restore it
@@ -1387,7 +1402,22 @@ object * alloc_mpz(mpz const & m) {
 #endif
     lean_set_st_header((lean_object*)o, LeanMPZ, 0);
     return (lean_object*)o;
+#endif
 }
+
+object * mpz_to_nat_core(mpz const & m) {
+    lean_assert(!m.is_size_t() || m.get_size_t() > LEAN_MAX_SMALL_NAT);
+    return alloc_mpz(m);
+}
+
+static inline obj_res mpz_to_nat(mpz const & m) {
+    if (m.is_size_t() && m.get_size_t() <= LEAN_MAX_SMALL_NAT)
+        return lean_box(m.get_size_t());
+    else
+        return mpz_to_nat_core(m);
+}
+
+#ifndef LEAN_RUST_OBJECT_NAT_INT
 
 #ifdef LEAN_USE_GMP
 extern "C" LEAN_EXPORT lean_object * lean_alloc_mpz(mpz_t v) {
@@ -1409,18 +1439,6 @@ extern "C" LEAN_EXPORT uint8_t lean_mpz_eq(lean_object * o1, lean_object * o2) {
 
 extern "C" LEAN_EXPORT lean_object * lean_alloc_mpz_from_mpz(lean_object * o) {
     return alloc_mpz(to_mpz(o)->m_value);
-}
-
-object * mpz_to_nat_core(mpz const & m) {
-    lean_assert(!m.is_size_t() || m.get_size_t() > LEAN_MAX_SMALL_NAT);
-    return alloc_mpz(m);
-}
-
-static inline obj_res mpz_to_nat(mpz const & m) {
-    if (m.is_size_t() && m.get_size_t() <= LEAN_MAX_SMALL_NAT)
-        return lean_box(m.get_size_t());
-    else
-        return mpz_to_nat_core(m);
 }
 
 extern "C" LEAN_EXPORT object * lean_cstr_to_nat(char const * n) {
@@ -1920,6 +1938,7 @@ extern "C" LEAN_EXPORT isize lean_isize_of_big_int(b_obj_arg a) {
         return static_cast<isize>(mpz_value(a).smod32());
     }
 }
+#endif // LEAN_RUST_OBJECT_NAT_INT
 
 // =======================================
 // Float
