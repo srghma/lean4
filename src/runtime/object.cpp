@@ -1949,6 +1949,22 @@ extern "C" LEAN_EXPORT isize lean_isize_of_big_int(b_obj_arg a) {
 // =======================================
 // Strings
 
+// C++ wrappers — always compiled (used by io.cpp, object_ref.h, etc.)
+object * mk_string(std::string const & s) {
+    return lean_mk_string_from_bytes(s.data(), s.size());
+}
+
+object * mk_ascii_string_unchecked(std::string const & s) {
+    return lean_mk_string_unchecked(s.data(), s.size(), s.size());
+}
+
+std::string string_to_std(b_obj_arg o) {
+    lean_assert(string_size(o) > 0);
+    return std::string(lean_to_string(o)->m_data, lean_string_size(o) - 1);
+}
+
+#ifndef LEAN_RUST_OBJECT_STRING
+
 static inline char * w_string_cstr(object * o) { lean_assert(lean_is_string(o)); return lean_to_string(o)->m_data; }
 
 static object * string_ensure_capacity(object * o, size_t extra) {
@@ -2032,19 +2048,6 @@ extern "C" LEAN_EXPORT obj_res lean_string_to_utf8(b_obj_arg s) {
     obj_res r = lean_alloc_sarray(1, sz, sz);
     memcpy(lean_sarray_cptr(r), lean_string_cstr(s), sz);
     return r;
-}
-
-object * mk_string(std::string const & s) {
-    return lean_mk_string_from_bytes(s.data(), s.size());
-}
-
-object * mk_ascii_string_unchecked(std::string const & s) {
-    return lean_mk_string_unchecked(s.data(), s.size(), s.size());
-}
-
-std::string string_to_std(b_obj_arg o) {
-    lean_assert(string_size(o) > 0);
-    return std::string(w_string_cstr(o), lean_string_size(o) - 1);
 }
 
 static size_t mk_capacity(size_t sz) {
@@ -2483,6 +2486,8 @@ extern "C" LEAN_EXPORT uint8_t lean_slice_dec_lt(object * s1, object * s2) {
     int r = std::memcmp(lean_slice_base(s1), lean_slice_base(s2), std::min(sz1, sz2));
     return r < 0 || (r == 0 && sz1 < sz2);
 }
+
+#endif // LEAN_RUST_OBJECT_STRING
 
 // =======================================
 // ByteArray & FloatArray

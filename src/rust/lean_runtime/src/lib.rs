@@ -537,6 +537,7 @@ include!("runtime_once.rs");
 include!("runtime_float.rs");
 include!("runtime_mpz.rs");
 include!("runtime_object_nat_int.rs");
+include!("runtime_object_string.rs");
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
