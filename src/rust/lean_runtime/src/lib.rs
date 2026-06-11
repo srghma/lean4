@@ -15,6 +15,7 @@ type Size = usize;
 
 extern "C" {
     pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
+    fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
     fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
     fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     fn lean_dec_ref_cold(obj: *mut LeanObject);
@@ -44,7 +45,6 @@ extern "C" {
     fn lean_uint64_of_big_nat(n: *mut LeanObject) -> u64;
     fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
-    fn lean_apply_1(f: *mut LeanObject, a1: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_promise_new() -> *mut LeanObject;
     fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_get_task_state_core(task: *mut LeanObject) -> u8;
@@ -189,6 +189,15 @@ struct LeanStringObject {
     capacity: Size,
     len: Size,
     data: [c_char; 0],
+}
+
+#[repr(C)]
+struct LeanClosureObject {
+    header: LeanObject,
+    fun: *mut c_void,
+    arity: u16,
+    num_fixed: u16,
+    data: [*mut LeanObject; 0],
 }
 
 #[repr(C)]
@@ -502,6 +511,7 @@ unsafe fn mk_name_path(components: &[&str]) -> LeanName {
 
 include!("library_constants.rs");
 include!("library_dynlib.rs");
+include!("runtime_apply.rs");
 include!("runtime_debug.rs");
 include!("runtime_dns.rs");
 include!("runtime_event_loop.rs");
@@ -520,10 +530,14 @@ include!("runtime_timer.rs");
 include!("runtime_udp.rs");
 include!("runtime_alloc.rs");
 include!("runtime_memory.rs");
+include!("runtime_object_panic.rs");
+include!("runtime_object_size.rs");
+include!("runtime_object_array.rs");
 include!("runtime_sharecommon.rs");
 include!("runtime_thread.rs");
 include!("runtime_once.rs");
 include!("runtime_float.rs");
+include!("runtime_mpz.rs");
 
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

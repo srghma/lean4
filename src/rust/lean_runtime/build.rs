@@ -37,4 +37,13 @@ fn main() {
     if std::env::var("LEAN_RUST_SMALL_ALLOCATOR").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_small_allocator");
     }
+    println!("cargo:rustc-check-cfg=cfg(lean_has_mimalloc)");
+    if std::env::var("LEAN_RUST_HAS_MIMALLOC").as_deref() == Ok("1") {
+        println!("cargo:rustc-cfg=lean_has_mimalloc");
+    }
+    println!("cargo:rerun-if-env-changed=LEAN_RUST_USE_GMP");
+    println!("cargo:rustc-check-cfg=cfg(lean_use_gmp)");
+    if std::env::var("LEAN_RUST_USE_GMP").as_deref() == Ok("1") {
+        println!("cargo:rustc-cfg=lean_use_gmp");
+    }
 }

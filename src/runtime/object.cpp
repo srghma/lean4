@@ -31,6 +31,7 @@ Author: Leonardo de Moura
 #if LEAN_SUPPORTS_BACKTRACE
 #include <execinfo.h>
 #include <unistd.h>
+#ifndef LEAN_RUST_OBJECT_PANIC
 // Lean-exported demangler from Lean.Compiler.NameDemangling.
 // Declared as a weak symbol so leanrt doesn't require libLean at link time.
 // When the Lean demangler is linked in, it overrides this stub.
@@ -38,6 +39,7 @@ extern "C" __attribute__((weak)) lean_obj_res lean_demangle_bt_line_cstr(lean_ob
     lean_dec(s);
     return lean_mk_string("");
 }
+#endif
 #endif
 
 // HACK: for unknown reasons, std::isnan(x) fails on msys64 because math.h
@@ -72,6 +74,7 @@ __attribute__((weak)) void free_sized(void *ptr, size_t) {
 
 namespace lean {
 
+#ifndef LEAN_RUST_OBJECT_PANIC
 static bool should_abort_on_panic() {
 #ifdef LEAN_EMSCRIPTEN
     return false;
@@ -209,7 +212,9 @@ extern "C" LEAN_EXPORT object * lean_sorry(uint8) {
     lean_internal_panic("executed 'sorry'");
     lean_unreachable();
 }
+#endif
 
+#ifndef LEAN_RUST_OBJECT_SIZE
 extern "C" LEAN_EXPORT size_t lean_object_byte_size(lean_object * o) {
     if (o->m_cs_sz == 0) {
         /* Recall that multi-threaded, single-threaded and persistent objects are stored in the heap.
@@ -257,6 +262,7 @@ extern "C" LEAN_EXPORT size_t lean_object_data_byte_size(lean_object * o) {
         }
     }
 }
+#endif
 
 static inline void lean_dealloc(lean_object * o, size_t sz) {
 #ifdef LEAN_SMALL_ALLOCATOR
@@ -1000,7 +1006,7 @@ public:
         // see `Task.get`
         bool in_pool = g_current_task_object && g_current_task_object->m_imp->m_prio <= LEAN_MAX_PRIO;
         if (g_current_task_object && g_current_task_object->m_imp->m_prio == LEAN_SYNC_PRIO) {
-            lean_panic("`Task.get` called from a `(sync := true)` task");
+            lean_panic("`Task.get` called from a `(sync := true)` task", false);
         }
         if (in_pool) {
             m_max_std_workers++;
@@ -2417,6 +2423,7 @@ extern "C" LEAN_EXPORT uint8_t lean_slice_dec_lt(object * s1, object * s2) {
 // =======================================
 // ByteArray & FloatArray
 
+#ifndef LEAN_RUST_OBJECT_ARRAY
 size_t lean_nat_to_size_t(obj_arg n) {
     if (lean_is_scalar(n)) {
         return lean_unbox(n);
@@ -2635,6 +2642,7 @@ extern "C" LEAN_EXPORT object * lean_array_push(obj_arg a, obj_arg v) {
     sz++;
     return r;
 }
+#endif
 
 // =======================================
 // Name primitives
@@ -2684,10 +2692,12 @@ void io_eprintln(obj_arg s) {
     lean_dec(r);
 }
 
+#ifndef LEAN_RUST_OBJECT_PANIC
 extern "C" LEAN_EXPORT object * lean_dbg_stack_trace(obj_arg fn) {
     print_backtrace(/* force_stderr */ false);
     return lean_apply_1(fn, lean_box(0));
 }
+#endif
 
 // =======================================
 // Module initialization
@@ -2719,7 +2729,9 @@ extern "C" LEAN_EXPORT void lean_runtime_ctor_set(lean_object * o, unsigned i, l
 }
 
 LEAN_EXPORT void initialize_object() {
+#ifndef LEAN_RUST_OBJECT_PANIC
     g_saved_stderr = stderr;  // Save original pointer early
+#endif
     g_ext_classes       = new std::vector<external_object_class*>();
     g_ext_classes_mutex = new mutex();
     g_array_empty       = lean_alloc_array(0, 0);

@@ -32,6 +32,8 @@ add_custom_command(
     LEAN_RUST_HAS_LLVM=$<IF:$<BOOL:${LLVM}>,1,0>
     LEAN_RUST_HAS_ADDRESS_SANITIZER=${LEAN_RUST_HAS_ADDRESS_SANITIZER}
     LEAN_RUST_HAS_MIMALLOC=$<IF:$<BOOL:${USE_MIMALLOC}>,1,0>
+    LEAN_RUST_SMALL_ALLOCATOR=$<IF:$<BOOL:${SMALL_ALLOCATOR}>,1,0>
+    LEAN_RUST_USE_GMP=$<IF:$<BOOL:${USE_GMP}>,1,0>
     LEAN_RUST_MULTI_THREAD=$<IF:$<BOOL:${MULTI_THREAD}>,1,0>
     LEAN_RUST_DEBUG=$<IF:$<CONFIG:Debug>,1,$<IF:$<CONFIG:RelWithAssert>,1,0>>
     LEAN_RUST_LEANC_EXTRA_CC_FLAGS=${LEANC_EXTRA_CC_FLAGS}
@@ -47,6 +49,10 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEAN_RUST_TARGET_DIR}/liblean_shell.a ${LEANMAIN_ARCHIVE}
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEANMAIN_ARCHIVE} ${LEANSHELL_ARCHIVE}
   DEPENDS ${LEAN_SOURCE_DIR}/rust/Cargo.toml ${LEAN_SOURCE_DIR}/rust/lean_shell/Cargo.toml ${LEAN_SOURCE_DIR}/rust/lean_shell/src/lib.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/Cargo.toml
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/build.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/lib.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mpz.rs
   VERBATIM
 )
 add_custom_target(leanmain DEPENDS ${LEANMAIN_ARCHIVE})
