@@ -54,5 +54,3 @@ extern "C" LEAN_EXPORT bool lean_uncaught_exceptions() {
     return std::uncaught_exceptions() > 0;
 }
 }
-
-
