@@ -1197,7 +1197,6 @@ static lean_task_object * alloc_task(obj_arg c, unsigned prio, bool keep_alive) 
     return o;
 }
 
-#ifndef LEAN_RUST_OBJECT_TASK_PURE
 static lean_task_object * alloc_task(obj_arg v) {
     lean_task_object * o = (lean_task_object*)lean_alloc_small_object(sizeof(lean_task_object));
     lean_set_st_header((lean_object*)o, LeanTask, 0);
@@ -1205,7 +1204,6 @@ static lean_task_object * alloc_task(obj_arg v) {
     o->m_imp   = nullptr;
     return o;
 }
-#endif
 
 
 extern "C" LEAN_EXPORT obj_res lean_task_spawn_core(obj_arg c, unsigned prio, bool keep_alive) {
@@ -1318,12 +1316,14 @@ extern "C" LEAN_EXPORT void lean_io_cancel_core(b_obj_arg t) {
     g_task_manager->cancel(lean_to_task(t));
 }
 
+#ifndef LEAN_RUST_OBJECT_TASK_IOSTATE
 extern "C" LEAN_EXPORT uint8_t lean_io_get_task_state_core(b_obj_arg t) {
     lean_task_object * o = lean_to_task(t);
     if (!o->m_imp)
         return 2; // finished
     return g_task_manager->get_task_state(o);
 }
+#endif
 
 extern "C" LEAN_EXPORT b_obj_res lean_io_wait_any_core(b_obj_arg task_list) {
     return g_task_manager->wait_any(task_list);
@@ -1366,11 +1366,13 @@ extern "C" LEAN_EXPORT obj_res lean_io_promise_resolve(obj_arg value, b_obj_arg 
     return box(0);
 }
 
+#ifndef LEAN_RUST_OBJECT_TASK_IOSTATE
 extern "C" LEAN_EXPORT obj_res lean_io_promise_result_opt(b_obj_arg promise) {
     lean_object * t = (lean_object *)lean_to_promise(promise)->m_result;
     lean_inc_ref(t);
     return t;
 }
+#endif
 
 void deactivate_promise(lean_promise_object * promise) {
     g_task_manager->resolve(promise->m_result, mk_option_none());

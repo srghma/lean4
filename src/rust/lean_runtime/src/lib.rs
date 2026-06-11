@@ -32,7 +32,7 @@ extern "C" {
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_promise_new() -> *mut LeanObject;
     fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject) -> *mut LeanObject;
-    fn lean_io_get_task_state_core(task: *mut LeanObject) -> u8;
+    fn lean_task_get(task: *mut LeanObject) -> *mut LeanObject;
     fn lean_mark_mt(obj: *mut LeanObject);
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
@@ -212,6 +212,17 @@ struct LeanScalarArray {
 struct LeanPromiseObject {
     header: LeanObject,
     result: *mut LeanObject,
+}
+
+#[repr(C)]
+struct LeanTaskImp {
+    m_closure: *mut LeanObject,
+    m_head_dep: *mut LeanTaskObject,
+    m_next_dep: *mut LeanTaskObject,
+    m_prio: u32,
+    m_canceled: bool,
+    m_keep_alive: bool,
+    m_deleted: bool,
 }
 
 #[repr(C)]
@@ -686,6 +697,42 @@ pub unsafe extern "C" fn lean_task_pure(value: *mut LeanObject) -> *mut LeanObje
     (*obj).value = AtomicPtr::new(value);
     (*obj).imp = ptr::null_mut();
     obj as *mut LeanObject
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_get_task_state_core(task: *mut LeanObject) -> u8 {
+    let task = task as *mut LeanTaskObject;
+    if (*task).imp.is_null() {
+        2
+    } else if (*( (*task).imp as *mut LeanTaskImp)).m_closure.is_null() {
+        1
+    } else {
+        0
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_promise_result_opt(promise: *mut LeanObject) -> *mut LeanObject {
+    let p = promise as *mut LeanPromiseObject;
+    let t = (*p).result;
+    lean_inc_ref(t);
+    t
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(opt) || (*opt).tag == 0 {
+        lean_dec(opt);
+        lean_box(0)
+    } else {
+        let task = lean_ctor_get(opt, 0);
+        lean_inc(task);
+        lean_dec(opt);
+        let v = lean_task_get(task);
+        lean_inc(v);
+        lean_dec_ref(task);
+        v
+    }
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
