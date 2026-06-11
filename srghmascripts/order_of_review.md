@@ -217,8 +217,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [ ] src/library/time_task (`src/library/time_task.h` and `src/library/time_task.cpp`)
 - [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
 - [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
-  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_is_tty, lean_io_prim_handle_is_eof, lean_io_prim_handle_flush, lean_io_prim_handle_rewind, lean_io_prim_handle_truncate done; remaining: handle and stream plumbing, error decoding
-  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_is_tty, lean_io_prim_handle_is_eof, lean_io_prim_handle_flush, lean_io_prim_handle_rewind, lean_io_prim_handle_truncate done; remaining: handle and stream plumbing, error decoding
+  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_is_tty, lean_io_prim_handle_is_eof, lean_io_prim_handle_flush, lean_io_prim_handle_rewind, lean_io_prim_handle_truncate, lean_io_prim_handle_read, lean_io_prim_handle_write done; remaining: handle and stream plumbing, error decoding
+  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_is_tty, lean_io_prim_handle_is_eof, lean_io_prim_handle_flush, lean_io_prim_handle_rewind, lean_io_prim_handle_truncate, lean_io_prim_handle_read, lean_io_prim_handle_write done; remaining: handle and stream plumbing, error decoding
     - [ ] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`)
     - [ ] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`)
     - [ ] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`)

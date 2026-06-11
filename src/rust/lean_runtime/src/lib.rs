@@ -642,6 +642,50 @@ pub unsafe extern "C" fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mu
     }
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_read(
+    h: *mut LeanObject,
+    nbytes: Size,
+) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    if 1usize.checked_mul(nbytes).is_none() {
+        return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
+    }
+
+    let res = lean_alloc_sarray(1, 0, nbytes);
+    if nbytes == 0 {
+        return lean_io_result_mk_ok(res);
+    }
+
+    let n = libc::fread(lean_sarray_cptr(res) as *mut core::ffi::c_void, 1, nbytes, fp);
+    if n > 0 {
+        lean_sarray_set_size(res, n);
+        lean_io_result_mk_ok(res)
+    } else if libc::feof(fp) != 0 {
+        libc::clearerr(fp);
+        lean_sarray_set_size(res, n);
+        lean_io_result_mk_ok(res)
+    } else {
+        lean_dec(res);
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_write(
+    h: *mut LeanObject,
+    buf: *mut LeanObject,
+) -> *mut LeanObject {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let n = lean_sarray_size(buf);
+    let m = libc::fwrite(lean_sarray_cptr(buf).cast(), 1, n, fp);
+    if m == n {
+        lean_io_result_mk_ok(lean_box(0))
+    } else {
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+    }
+}
+
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)
 }

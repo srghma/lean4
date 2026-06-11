@@ -507,43 +507,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_unlock(b_obj_arg h) {
 
 #endif
 
-/* Handle.read : (@& Handle) → USize → IO ByteArray */
-extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_read(b_obj_arg h, usize nbytes) {
-    FILE * fp = io_get_handle(h);
-    if (lean_alloc_sarray_would_overflow(1, nbytes)) {
-        return io_result_mk_error(decode_io_error(ENOMEM, NULL));
-    }
-    obj_res res = lean_alloc_sarray(1, 0, nbytes);
-    if (nbytes == 0) {
-        // std::fread doesn't handle 0 reads well, see https://github.com/leanprover/lean4/issues/12138
-        return io_result_mk_ok(res);
-    }
-    usize n = std::fread(lean_sarray_cptr(res), 1, nbytes, fp);
-    if (n > 0) {
-        lean_sarray_set_size(res, n);
-        return io_result_mk_ok(res);
-    } else if (feof(fp)) {
-        clearerr(fp);
-        lean_sarray_set_size(res, n);
-        return io_result_mk_ok(res);
-    } else {
-        dec_ref(res);
-        return io_result_mk_error(decode_io_error(errno, nullptr));
-    }
-}
-
-/* Handle.write : (@& Handle) → (@& ByteArray) → IO Unit */
-extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_write(b_obj_arg h, b_obj_arg buf) {
-    FILE * fp = io_get_handle(h);
-    usize n = lean_sarray_size(buf);
-    usize m = std::fwrite(lean_sarray_cptr(buf), 1, n, fp);
-    if (m == n) {
-        return io_result_mk_ok(box(0));
-    } else {
-        return io_result_mk_error(decode_io_error(errno, nullptr));
-    }
-}
-
 #if defined(LEAN_WINDOWS)
 
 #define LEAN_IO_LOCK_FILE(fp) _lock_file(fp)
