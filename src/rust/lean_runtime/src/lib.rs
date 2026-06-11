@@ -17,7 +17,6 @@ extern "C" {
     pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
     fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
     fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-    fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     fn lean_dec_ref_cold(obj: *mut LeanObject);
     fn lean_mark_persistent(obj: *mut LeanObject);
     fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
@@ -538,6 +537,12 @@ include!("runtime_float.rs");
 include!("runtime_mpz.rs");
 include!("runtime_object_nat_int.rs");
 include!("runtime_object_string.rs");
+include!("runtime_object_name.rs");
+
+#[cfg_attr(feature = "export-runtime-ffi", export_name = "lean_name_eq")]
+pub unsafe extern "C" fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
+    runtime_object_name_impl::lean_name_eq(n1, n2)
+}
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
@@ -721,7 +726,7 @@ unsafe fn name_contains_registered_prefix(state: &NameGeneratorState, n: *mut Le
         .prefixes
         .iter()
         .copied()
-        .any(|p| lean_name_eq(p, n) != 0)
+        .any(|p| runtime_object_name_impl::lean_name_eq(p, n) != 0)
 }
 
 unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {

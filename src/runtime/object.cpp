@@ -2716,6 +2716,7 @@ extern "C" LEAN_EXPORT object * lean_array_push(obj_arg a, obj_arg v) {
 // =======================================
 // Name primitives
 
+#ifndef LEAN_RUST_OBJECT_NAME
 extern "C" LEAN_EXPORT uint8 lean_name_eq(b_lean_obj_arg n1, b_lean_obj_arg n2) {
     if (n1 == n2)
         return true;
@@ -2747,6 +2748,7 @@ extern "C" LEAN_EXPORT uint8 lean_name_eq(b_lean_obj_arg n1, b_lean_obj_arg n2) 
         */
     }
 }
+#endif
 
 // =======================================
 // Runtime info
