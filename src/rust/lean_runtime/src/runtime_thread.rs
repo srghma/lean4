@@ -126,6 +126,12 @@ mod runtime_thread_impl {
     pub unsafe extern "C" fn delete_thread_finalizer_manager_export() {
         delete_thread_finalizer_manager_internal();
     }
+
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17initialize_threadEv")]
+    pub extern "C" fn initialize_thread() {}
+
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15finalize_threadEv")]
+    pub extern "C" fn finalize_thread() {}
 }
 
 pub(crate) use runtime_thread_impl::{

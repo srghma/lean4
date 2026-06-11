@@ -98,8 +98,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
     - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
     - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
-      - [ ] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`)
-      - [ ] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`)
+      - [~] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — PARTIAL: initialize_thread, finalize_thread done; remaining: lthread and thread-local reset registry
+      - [~] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — PARTIAL: initialize_thread, finalize_thread done; remaining: lthread and thread-local reset registry
         - [ ] src/util/rc (`src/util/rc.h`)
         - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)
         - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)

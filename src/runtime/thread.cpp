@@ -194,10 +194,12 @@ extern "C" LEAN_EXPORT lean_object * lean_run_main(lean_object * (*main_fn)(int,
 #endif
 }
 
+#ifndef LEAN_RUST_THREAD_INIT
 LEAN_EXPORT void initialize_thread() {
     initialize_thread_local_reset_fns();
 }
 LEAN_EXPORT void finalize_thread() {
     finalize_thread_local_reset_fns();
 }
+#endif
 }
