@@ -57,6 +57,7 @@ Authors: Leonardo de Moura, Sebastian Ullrich
 
 namespace lean {
 
+#ifndef LEAN_RUST_IO_RESULT_SHOW_ERROR
 extern "C" LEAN_EXPORT void lean_io_result_show_error(b_obj_arg r) {
     object * err = io_result_get_error(r);
     inc_ref(err);
@@ -64,6 +65,7 @@ extern "C" LEAN_EXPORT void lean_io_result_show_error(b_obj_arg r) {
     std::cerr << "uncaught exception: " << string_cstr(str) << std::endl;
     dec_ref(str);
 }
+#endif
 
 obj_res io_result_mk_error(char const * msg) {
     return io_result_mk_error(lean_mk_io_user_error(mk_string(msg)));

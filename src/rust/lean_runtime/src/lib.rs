@@ -538,6 +538,17 @@ pub unsafe extern "C" fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut
     v
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_result_show_error(r: *mut LeanObject) {
+    let err = lean_io_result_get_error(r);
+    lean_inc(err);
+    let msg = lean_io_error_to_string(err);
+    let text = CStr::from_ptr(lean_string_cstr(msg));
+    eprintln!("uncaught exception: {}", text.to_string_lossy());
+    lean_dec(msg);
+    lean_dec(err);
+}
+
 
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)
