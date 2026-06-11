@@ -6,13 +6,16 @@ Author: Leonardo de Moura
 */
 #pragma once
 
+extern "C" void lean_initialize();
+extern "C" void lean_finalize();
+
 namespace lean {
-void initialize();
-void finalize();
+inline void initialize() { lean_initialize(); }
+inline void finalize() { lean_finalize(); }
 /** \brief Helper object for initializing Lean */
 class initializer {
 public:
-    initializer();
-    ~initializer();
+    initializer() { lean_initialize(); }
+    ~initializer() { lean_finalize(); }
 };
 }

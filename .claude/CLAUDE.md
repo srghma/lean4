@@ -9,3 +9,5 @@ In what order rewrite - check srghmascripts/order_of_review.md (which was genera
 Can use `srghmascripts/check_symbols.sh` bc sometimes tests fail bc names are not found.
 
 NOTE that I already have `/home/srghma/projects/lean4/src/rust_/lean_runtime/src`, which has already all files rewritten. This dir is from `rewrite-rust3` branch. I couldnt get tests pass, bc rewrite was in one big swoop, now I cannot find which files cause segmentation errors, so I decided to return to prev branches and do file by file + run tests after each file is rewritten. This dir `rust_` also uses different style: in this branch `rewrite-rust` we leave `.h` files (for now) and go file by file, there in `rewrite-rust3` - only rust is left.
+
+You are in env there have valgrind, xxd, nm etc

@@ -1212,7 +1212,7 @@ expr string_lit_to_constructor(expr const & e) {
 }
 
 
-void initialize_inductive() {
+LEAN_EXPORT void initialize_inductive() {
     g_nested         = new name("_nested");
     mark_persistent(g_nested->raw());
     g_ind_fresh      = new name("_ind_fresh");
@@ -1236,7 +1236,7 @@ void initialize_inductive() {
     register_name_generator_prefix(*g_nested_fresh);
 }
 
-void finalize_inductive() {
+LEAN_EXPORT void finalize_inductive() {
     delete g_nested;
     delete g_ind_fresh;
     delete g_nested_fresh;

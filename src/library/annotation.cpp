@@ -110,7 +110,7 @@ bool is_show_annotation(expr const & e) { return is_annotation(e, *g_show); }
 bool is_suffices_annotation(expr const & e) { return is_annotation(e, *g_suffices); }
 bool is_checkpoint_annotation(expr const & e) { return is_annotation(e, *g_checkpoint); }
 
-void initialize_annotation() {
+LEAN_EXPORT void initialize_annotation() {
     g_annotation = new name("annotation");
     mark_persistent(g_annotation->raw());
     g_annotation_maps = new annotation_maps();
@@ -129,7 +129,7 @@ void initialize_annotation() {
     register_annotation(*g_checkpoint);
 }
 
-void finalize_annotation() {
+LEAN_EXPORT void finalize_annotation() {
     delete g_checkpoint;
     delete g_show;
     delete g_have;

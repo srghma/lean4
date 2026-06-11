@@ -102,7 +102,7 @@ bool has_univ_param(expr const & e) { return lean_expr_has_level_param(e.to_obj_
 extern "C" unsigned lean_expr_loose_bvar_range(object * e);
 unsigned get_loose_bvar_range(expr const & e) { return lean_expr_loose_bvar_range(e.to_obj_arg()); }
 
-extern "C" LEAN_EXPORT uint64_t lean_expr_mk_data(uint64_t hash, object * bvarRange, uint32_t approxDepth, uint8_t hasFVar, uint8_t hasExprMVar, uint8_t hasLevelMVar, uint8_t hasLevelParam) {
+extern "C" __attribute__((weak)) LEAN_EXPORT uint64_t lean_expr_mk_data(uint64_t hash, object * bvarRange, uint32_t approxDepth, uint8_t hasFVar, uint8_t hasExprMVar, uint8_t hasLevelMVar, uint8_t hasLevelParam) {
     if (approxDepth > 255) approxDepth = 255;
     if (!is_scalar(bvarRange)) lean_internal_panic("too many bound variables");
     size_t range = unbox(bvarRange);
@@ -117,7 +117,7 @@ extern "C" LEAN_EXPORT uint64_t lean_expr_mk_data(uint64_t hash, object * bvarRa
 inline uint16_t get_approx_depth(uint64_t data) { return (data >> 32) & 255; }
 inline uint32_t get_bvar_range(uint64_t data) { return data >> 44; }
 
-extern "C" LEAN_EXPORT uint64_t lean_expr_mk_app_data(uint64_t fData, uint64_t aData) {
+extern "C" __attribute__((weak)) LEAN_EXPORT uint64_t lean_expr_mk_app_data(uint64_t fData, uint64_t aData) {
   uint16_t depth = std::max(get_approx_depth(fData), get_approx_depth(aData)) + 1;
   if (depth > 255) depth = 255;
   uint32_t range = std::max(get_bvar_range(fData), get_bvar_range(aData));
@@ -408,7 +408,7 @@ bool has_loose_bvar(expr const & e, unsigned i) {
     return found;
 }
 
-extern "C" LEAN_EXPORT uint8 lean_expr_has_loose_bvar(b_obj_arg e, b_obj_arg i) {
+extern "C" __attribute__((weak)) LEAN_EXPORT uint8 lean_expr_has_loose_bvar(b_obj_arg e, b_obj_arg i) {
     if (!lean_is_scalar(i))
         return false;
     return has_loose_bvar(TO_REF(expr, e), lean_unbox(i));
@@ -437,7 +437,7 @@ expr lower_loose_bvars(expr const & e, unsigned d) {
     return lower_loose_bvars(e, d, d);
 }
 
-extern "C" LEAN_EXPORT object * lean_expr_lower_loose_bvars(b_obj_arg e, b_obj_arg s, b_obj_arg d) {
+extern "C" __attribute__((weak)) LEAN_EXPORT object * lean_expr_lower_loose_bvars(b_obj_arg e, b_obj_arg s, b_obj_arg d) {
     if (!lean_is_scalar(s) || !lean_is_scalar(d) || lean_unbox(s) < lean_unbox(d)) {
         lean_inc(e);
         return e;
@@ -466,7 +466,7 @@ expr lift_loose_bvars(expr const & e, unsigned d) {
     return lift_loose_bvars(e, 0, d);
 }
 
-extern "C" LEAN_EXPORT object * lean_expr_lift_loose_bvars(b_obj_arg e, b_obj_arg s, b_obj_arg d) {
+extern "C" __attribute__((weak)) LEAN_EXPORT object * lean_expr_lift_loose_bvars(b_obj_arg e, b_obj_arg s, b_obj_arg d) {
     if (!lean_is_scalar(s) || !lean_is_scalar(d)) {
         lean_inc(e);
         return e;
@@ -502,7 +502,7 @@ expr infer_implicit(expr const & t, bool strict) {
 // =======================================
 // Initialization & Finalization
 
-void initialize_expr() {
+extern "C" void lean_cxx_initialize_expr() {
     get_dummy();
     g_default_name = new name("a");
     mark_persistent(g_default_name->raw());
@@ -510,15 +510,21 @@ void initialize_expr() {
     mark_persistent(g_Type0->raw());
     g_Prop         = new expr(mk_sort(mk_level_zero()));
     mark_persistent(g_Prop->raw());
-    /* TODO(Leo): add support for builtin constants in the kernel.
-       Something similar to what we have in the library directory. */
 }
 
-void finalize_expr() {
+extern "C" void lean_cxx_finalize_expr() {
     delete g_Prop;
     delete g_Type0;
     delete g_dummy;
     delete g_default_name;
+}
+
+__attribute__((weak)) LEAN_EXPORT void initialize_expr() {
+    lean_cxx_initialize_expr();
+}
+
+__attribute__((weak)) LEAN_EXPORT void finalize_expr() {
+    lean_cxx_finalize_expr();
 }
 
 // =======================================

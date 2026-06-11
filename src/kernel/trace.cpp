@@ -52,10 +52,10 @@ std::ostream & operator<<(std::ostream & ios, tclass const & c) {
     return ios;
 }
 
-void initialize_trace() {
+__attribute__((weak)) LEAN_EXPORT void initialize_trace() {
 }
 
-void finalize_trace() {
+__attribute__((weak)) LEAN_EXPORT void finalize_trace() {
 }
 
 }

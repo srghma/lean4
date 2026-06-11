@@ -375,6 +375,10 @@ extern "C" LEAN_EXPORT lean_object * lean_alloc_object(size_t sz) {
 #endif
 }
 
+extern "C" LEAN_EXPORT lean_object * lean_alloc_ctor_memory_export(size_t sz) {
+    return lean_alloc_ctor_memory(sz);
+}
+
 static void deactivate_task(lean_task_object * t);
 static void deactivate_promise(lean_promise_object * t);
 
@@ -1344,6 +1348,18 @@ extern "C" LEAN_EXPORT void lean_extract_mpz_value(lean_object * o, mpz_t v) {
 }
 #endif
 
+extern "C" LEAN_EXPORT unsigned lean_mpz_hash(lean_object * o) {
+    return to_mpz(o)->m_value.hash();
+}
+
+extern "C" LEAN_EXPORT uint8_t lean_mpz_eq(lean_object * o1, lean_object * o2) {
+    return to_mpz(o1)->m_value == to_mpz(o2)->m_value;
+}
+
+extern "C" LEAN_EXPORT lean_object * lean_alloc_mpz_from_mpz(lean_object * o) {
+    return alloc_mpz(to_mpz(o)->m_value);
+}
+
 object * mpz_to_nat_core(mpz const & m) {
     lean_assert(!m.is_size_t() || m.get_size_t() > LEAN_MAX_SMALL_NAT);
     return alloc_mpz(m);
@@ -1857,106 +1873,8 @@ extern "C" LEAN_EXPORT isize lean_isize_of_big_int(b_obj_arg a) {
 // =======================================
 // Float
 
-extern "C" LEAN_EXPORT lean_obj_res lean_float_to_string(double a) {
-    if (isnan(a))
-        // override NaN because we don't want NaNs to be distinguishable
-        // because the sign bit / payload bits can be architecture-dependent
-        return mk_ascii_string_unchecked("NaN");
-    else
-        return mk_ascii_string_unchecked(std::to_string(a));
-}
-
-extern "C" LEAN_EXPORT double lean_float_scaleb(double a, b_lean_obj_arg b) {
-   if (lean_is_scalar(b)) {
-     return scalbn(a, lean_scalar_to_int(b));
-   } else if (a == 0 || mpz_value(b).is_neg()) {
-     return 0;
-   } else {
-     return a * (1.0 / 0.0);
-   }
-}
-
-extern "C" LEAN_EXPORT uint8_t lean_float_isnan(double a) { return (bool) isnan(a); }
-extern "C" LEAN_EXPORT uint8_t lean_float_isfinite(double a) { return (bool) isfinite(a); }
-extern "C" LEAN_EXPORT uint8_t lean_float_isinf(double a) { return (bool) isinf(a); }
-extern "C" LEAN_EXPORT obj_res lean_float_frexp(double a) {
-    object* r = lean_alloc_ctor(0, 2, 0);
-    int exp;
-    lean_ctor_set(r, 0, lean_box_float(frexp(a, &exp)));
-    lean_ctor_set(r, 1, isfinite(a) ? lean_int_to_int(exp) : lean_box(0));
-    return r;
-}
-
-extern "C" LEAN_EXPORT double lean_float_of_bits(uint64_t u)
-{
-    static_assert(sizeof(double) == sizeof(u), "`double` unexpected size.");
-    double ret;
-    std::memcpy(&ret, &u, sizeof(double));
-    if (isnan(ret))
-        ret = std::numeric_limits<double>::quiet_NaN();
-    return ret;
-}
-
-extern "C" LEAN_EXPORT uint64_t lean_float_to_bits(double d)
-{
-    uint64_t ret;
-    if (isnan(d))
-        d = std::numeric_limits<double>::quiet_NaN();
-    std::memcpy(&ret, &d, sizeof(double));
-    return ret;
-}
-
 // =======================================
 // Float32
-
-extern "C" LEAN_EXPORT lean_obj_res lean_float32_to_string(float a) {
-    if (isnan(a))
-        // override NaN because we don't want NaNs to be distinguishable
-        // because the sign bit / payload bits can be architecture-dependent
-        return mk_ascii_string_unchecked("NaN");
-    else
-        return mk_ascii_string_unchecked(std::to_string(a));
-}
-
-extern "C" LEAN_EXPORT float lean_float32_scaleb(float a, b_lean_obj_arg b) {
-   if (lean_is_scalar(b)) {
-     return scalbn(a, lean_scalar_to_int(b));
-   } else if (a == 0 || mpz_value(b).is_neg()) {
-     return 0;
-   } else {
-     return a * (1.0 / 0.0);
-   }
-}
-
-extern "C" LEAN_EXPORT uint8_t lean_float32_isnan(float a) { return (bool) isnan(a); }
-extern "C" LEAN_EXPORT uint8_t lean_float32_isfinite(float a) { return (bool) isfinite(a); }
-extern "C" LEAN_EXPORT uint8_t lean_float32_isinf(float a) { return (bool) isinf(a); }
-extern "C" LEAN_EXPORT obj_res lean_float32_frexp(float a) {
-    object* r = lean_alloc_ctor(0, 2, 0);
-    int exp;
-    lean_ctor_set(r, 0, lean_box_float32(frexp(a, &exp)));
-    lean_ctor_set(r, 1, isfinite(a) ? lean_int_to_int(exp) : lean_box(0));
-    return r;
-}
-
-extern "C" LEAN_EXPORT float lean_float32_of_bits(uint32_t u)
-{
-    static_assert(sizeof(float) == sizeof(u), "`float` unexpected size.");
-    float ret;
-    std::memcpy(&ret, &u, sizeof(float));
-    if (isnan(ret))
-        ret = std::numeric_limits<float>::quiet_NaN();
-    return ret;
-}
-
-extern "C" LEAN_EXPORT uint32_t lean_float32_to_bits(float d)
-{
-    uint32_t ret;
-    if (isnan(d))
-        d = std::numeric_limits<float>::quiet_NaN();
-    std::memcpy(&ret, &d, sizeof(float));
-    return ret;
-}
 
 // =======================================
 // Strings
@@ -2756,14 +2674,6 @@ extern "C" LEAN_EXPORT uint8 lean_name_eq(b_lean_obj_arg n1, b_lean_obj_arg n2) 
 // =======================================
 // Runtime info
 
-extern "C" LEAN_EXPORT object * lean_closure_max_args(object *) {
-    return lean_unsigned_to_nat((unsigned)LEAN_CLOSURE_MAX_ARGS);
-}
-
-extern "C" LEAN_EXPORT object * lean_max_small_nat(object *) {
-    return lean_usize_to_nat(LEAN_MAX_SMALL_NAT);
-}
-
 // =======================================
 // Debugging helper functions
 
@@ -2772,24 +2682,6 @@ void io_eprintln(obj_arg s) {
     object * r = lean_io_eprintln(s);
     lean_assert(lean_io_result_is_ok(r));
     lean_dec(r);
-}
-
-extern "C" LEAN_EXPORT object * lean_dbg_trace(obj_arg s, obj_arg fn) {
-    io_eprintln(s);
-    return lean_apply_1(fn, lean_box(0));
-}
-
-extern "C" LEAN_EXPORT object * lean_dbg_sleep(uint32 ms, obj_arg fn) {
-    chrono::milliseconds c(ms);
-    this_thread::sleep_for(c);
-    return lean_apply_1(fn, lean_box(0));
-}
-
-extern "C" LEAN_EXPORT object * lean_dbg_trace_if_shared(obj_arg s, obj_arg a) {
-    if (!lean_is_scalar(a) && lean_is_shared(a)) {
-        io_eprintln(mk_string(std::string("shared RC ") + lean_string_cstr(s)));
-    }
-    return a;
 }
 
 extern "C" LEAN_EXPORT object * lean_dbg_stack_trace(obj_arg fn) {
@@ -2810,7 +2702,23 @@ extern "C" LEAN_EXPORT lean_external_class * lean_register_external_class(lean_e
     return cls;
 }
 
-void initialize_object() {
+extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_external(lean_external_class * cls, void * data) {
+    return lean_alloc_external(cls, data);
+}
+
+extern "C" LEAN_EXPORT void * lean_runtime_get_external_data(lean_object * o) {
+    return lean_get_external_data(o);
+}
+
+extern "C" LEAN_EXPORT lean_object * lean_runtime_alloc_ctor(unsigned tag, unsigned num_objs, unsigned scalar_sz) {
+    return lean_alloc_ctor(tag, num_objs, scalar_sz);
+}
+
+extern "C" LEAN_EXPORT void lean_runtime_ctor_set(lean_object * o, unsigned i, lean_object * v) {
+    lean_ctor_set(o, i, v);
+}
+
+LEAN_EXPORT void initialize_object() {
     g_saved_stderr = stderr;  // Save original pointer early
     g_ext_classes       = new std::vector<external_object_class*>();
     g_ext_classes_mutex = new mutex();
@@ -2818,107 +2726,10 @@ void initialize_object() {
     mark_persistent(g_array_empty);
 }
 
-void finalize_object() {
+LEAN_EXPORT void finalize_object() {
     for (external_object_class * cls : *g_ext_classes) delete cls;
     delete g_ext_classes;
     delete g_ext_classes_mutex;
 }
-
-void lock_simple_atomic(std::atomic<int>& lock) {
-    while (true) {
-        lock.wait(1);
-        int should = 0;
-        if (lock.compare_exchange_strong(should, 1)) {
-            break;
-        }
-    }
-}
-
-void unlock_simple_atomic(std::atomic<int>& lock) {
-    lock.store(0);
-    lock.notify_one();
-}
-
-extern "C" LEAN_EXPORT lean_object* lean_obj_once_cold(lean_object** loc, lean_once_cell_t* tok, lean_object* (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        lean_mark_persistent(*loc);
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT uint8_t lean_uint8_once_cold(uint8_t* loc, lean_once_cell_t* tok, uint8_t (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT uint16_t lean_uint16_once_cold(uint16_t* loc, lean_once_cell_t* tok, uint16_t (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT uint32_t lean_uint32_once_cold(uint32_t* loc, lean_once_cell_t* tok, uint32_t (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT uint64_t lean_uint64_once_cold(uint64_t* loc, lean_once_cell_t* tok, uint64_t (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT size_t lean_usize_once_cold(size_t* loc, lean_once_cell_t* tok, size_t (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT float lean_float32_once_cold(float* loc, lean_once_cell_t* tok, float (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
-extern "C" LEAN_EXPORT double lean_float_once_cold(double* loc, lean_once_cell_t* tok, double (*init)(void)) {
-    lock_simple_atomic(tok->lock);
-    if (tok->state.load() != 1) {
-        *loc = init();
-        tok->state.store(1);
-    }
-    unlock_simple_atomic(tok->lock);
-    return *loc;
-}
-
 
 }

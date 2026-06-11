@@ -1,21 +1,12 @@
 add_library(
   kernel
   OBJECT
-  level.cpp
-  expr.cpp
-  expr_eq_fn.cpp
-  for_each_fn.cpp
-  replace_fn.cpp
-  abstract.cpp
-  instantiate.cpp
-  local_ctx.cpp
-  declaration.cpp
-  environment.cpp
-  type_checker.cpp
-  init_module.cpp
-  expr_cache.cpp
-  equiv_manager.cpp
-  quot.cpp
-  inductive.cpp
-  trace.cpp
+  abstract_shims.cpp
+  expr_eq_fn_shims.cpp
+  for_each_fn_shims.cpp
+  instantiate_shims.cpp
+  kernel_batch3_shims.cpp
+  kernel_misc_shims.cpp
+  level_shims.cpp
+  replace_fn_shims.cpp
 )

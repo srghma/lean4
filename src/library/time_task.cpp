@@ -44,12 +44,12 @@ extern "C" LEAN_EXPORT obj_res lean_display_cumulative_profiling_times() {
    return box(0);
 }
 
-void initialize_time_task() {
+LEAN_EXPORT void initialize_time_task() {
     g_cum_times_mutex = new mutex;
     g_cum_times = new std::map<std::string, second_duration>;
 }
 
-void finalize_time_task() {
+LEAN_EXPORT void finalize_time_task() {
     delete g_cum_times;
     delete g_cum_times_mutex;
 }

@@ -51,16 +51,16 @@ void reset_thread_local() {
 
 using runnable = std::function<void()>;
 
-extern "C" LEAN_EXPORT void lean_initialize_thread() {
 #ifdef LEAN_SMALL_ALLOCATOR
+extern "C" LEAN_EXPORT void lean_initialize_thread() {
     init_thread_heap();
-#endif
 }
 
 extern "C" LEAN_EXPORT void lean_finalize_thread() {
     run_thread_finalizers();
     run_post_thread_finalizers();
 }
+#endif
 
 static void thread_main(void * p) {
     lean_initialize_thread();
@@ -194,63 +194,10 @@ extern "C" LEAN_EXPORT lean_object * lean_run_main(lean_object * (*main_fn)(int,
 #endif
 }
 
-LEAN_THREAD_VALUE(bool, g_finalizing, false);
-
-bool in_thread_finalization() {
-    return g_finalizing;
-}
-
-typedef std::vector<std::pair<thread_finalizer, void*>> thread_finalizers;
-
-void run_thread_finalizers_core(thread_finalizers & fns) {
-    g_finalizing = true;
-    unsigned i = fns.size();
-    while (i > 0) {
-        --i;
-        auto fn = fns[i].first;
-        fn(fns[i].second);
-    }
-    fns.clear();
-}
-
-LEAN_THREAD_PTR(thread_finalizers, g_finalizers);
-LEAN_THREAD_PTR(thread_finalizers, g_post_finalizers);
-
-void delete_thread_finalizer_manager() {}
-
-void register_thread_finalizer(thread_finalizer fn, void * p) {
-    if (!g_finalizers)
-        g_finalizers = new thread_finalizers();
-    g_finalizers->emplace_back(fn, p);
-}
-
-void register_post_thread_finalizer(thread_finalizer fn, void * p) {
-    if (!g_post_finalizers)
-        g_post_finalizers = new thread_finalizers();
-    g_post_finalizers->emplace_back(fn, p);
-}
-
-void run_thread_finalizers(thread_finalizers * fns) {
-    if (fns) {
-        run_thread_finalizers_core(*fns);
-        delete fns;
-    }
-}
-
-void run_thread_finalizers() {
-    run_thread_finalizers(g_finalizers);
-    g_finalizers      = nullptr;
-}
-
-void run_post_thread_finalizers() {
-    run_thread_finalizers(g_post_finalizers);
-    g_post_finalizers = nullptr;
-}
-
-void initialize_thread() {
+LEAN_EXPORT void initialize_thread() {
     initialize_thread_local_reset_fns();
 }
-void finalize_thread() {
+LEAN_EXPORT void finalize_thread() {
     finalize_thread_local_reset_fns();
 }
 }

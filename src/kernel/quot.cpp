@@ -97,7 +97,7 @@ environment environment::add_quot() const {
     return new_env;
 }
 
-void initialize_quot() {
+LEAN_EXPORT void initialize_quot() {
     quot_consts::g_quot      = new name{"Quot"};
     mark_persistent(quot_consts::g_quot->raw());
     quot_consts::g_quot_lift = new name{"Quot", "lift"};
@@ -108,7 +108,7 @@ void initialize_quot() {
     mark_persistent(quot_consts::g_quot_mk->raw());
 }
 
-void finalize_quot() {
+LEAN_EXPORT void finalize_quot() {
     delete quot_consts::g_quot;
     delete quot_consts::g_quot_lift;
     delete quot_consts::g_quot_ind;

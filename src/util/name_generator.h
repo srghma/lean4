@@ -5,7 +5,10 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include <algorithm>
+#include <limits>
+#include "runtime/sstream.h"
 #include "util/name.h"
+#include "util/name_set.h"
 
 namespace lean {
 /**
@@ -78,10 +81,82 @@ void register_name_generator_prefix(name const & n);
 /* Return true if \c n was generated using a prefix registered using \c register_name_generator_prefix */
 bool uses_name_generator_prefix(name const & n);
 
+extern "C" object * lean_name_generator_tmp_prefix();
+extern "C" void lean_register_name_generator_prefix(obj_arg n);
+extern "C" bool lean_uses_name_generator_prefix(obj_arg n);
+
 /* If \c n was generated using a name_generator with a registered prefix, then
    make sure the result is a valid Lean name (i.e., it does not have numeric parts).
    Example: `sanitize_name_generator_name(_fresh.1.4)` returns `_fresh_1_4`. */
-name sanitize_name_generator_name(name const & n);
+
+inline name_generator::name_generator(name const & prefix):m_prefix(prefix), m_next_idx(0) {
+    lean_assert(!prefix.is_anonymous());
+    lean_assert(uses_name_generator_prefix(prefix));
+}
+
+inline name_generator::name_generator():name_generator(name(lean_name_generator_tmp_prefix())) {}
+
+inline name name_generator::next() {
+    if (m_next_idx == std::numeric_limits<unsigned>::max()) {
+        // avoid overflow
+        m_prefix   = name(m_prefix, m_next_idx);
+        m_next_idx = 0;
+    }
+    name r(m_prefix, m_next_idx);
+    m_next_idx++;
+    return r;
+}
+
+inline name replace_base_prefix(name const & p, name const & new_base) {
+    if (lean_uses_name_generator_prefix(p.raw())) {
+        return new_base;
+    } else if (p.is_numeral()) {
+        return name(replace_base_prefix(p.get_prefix(), new_base), p.get_numeral());
+    } else if (p.is_string()) {
+        return name(replace_base_prefix(p.get_prefix(), new_base), p.get_string());
+    } else {
+        lean_unreachable();
+    }
+}
+
+inline name name_generator::next_with(name const & base_prefix) {
+    lean_assert(lean_uses_name_generator_prefix(base_prefix.raw()));
+    return replace_base_prefix(next(), base_prefix);
+}
+
+inline void swap(name_generator & a, name_generator & b) noexcept {
+    swap(a.m_prefix, b.m_prefix);
+    std::swap(a.m_next_idx, b.m_next_idx);
+}
+
+inline void register_name_generator_prefix(name const & n) {
+    lean_register_name_generator_prefix(n.raw());
+}
+
+inline bool uses_name_generator_prefix(name const & n) {
+    return lean_uses_name_generator_prefix(n.raw());
+}
+
+inline void sanitize_name_generator_name(sstream & strm, name const & n) {
+    if (n.is_anonymous()) {
+        return;
+    } else if (n.is_numeral()) {
+        sanitize_name_generator_name(strm, n.get_prefix());
+        strm << "_" << n.get_numeral().to_std_string();
+    } else {
+        lean_assert(n.is_string());
+        sanitize_name_generator_name(strm, n.get_prefix());
+        strm << "_" << n.get_string().to_std_string();
+    }
+}
+
+inline name sanitize_name_generator_name(name const & n) {
+    if (!uses_name_generator_prefix(n))
+        return n;
+    sstream strm;
+    sanitize_name_generator_name(strm, n);
+    return name(strm.str().c_str());
+}
 
 void initialize_name_generator();
 void finalize_name_generator();

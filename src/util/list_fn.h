@@ -350,5 +350,8 @@ list<T> remove_ith(list<T> const & l, unsigned idx) {
         return idx == 0 ? tail(l) : cons(head(l), remove_ith(tail(l), idx-1));
 }
 
-list<unsigned> mk_list_range(unsigned from, unsigned to);
+extern "C" void * lean_util_mk_list_range(unsigned from, unsigned to);
+inline list<unsigned> mk_list_range(unsigned from, unsigned to) {
+    return list<unsigned>(reinterpret_cast<list<unsigned>::cell *>(lean_util_mk_list_range(from, to)));
+}
 }

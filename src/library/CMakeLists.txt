@@ -1,24 +1,16 @@
 add_library(
   library
   OBJECT
-  expr_lt.cpp
-  bin_app.cpp
-  constants.cpp
-  max_sharing.cpp
-  module.cpp
-  dynlib.cpp
-  replace_visitor.cpp
-  num.cpp
-  util.cpp
-  print.cpp
-  annotation.cpp
-  init_module.cpp
-  profiling.cpp
-  time_task.cpp
-  formatter.cpp
-  elab_environment.cpp
-  init_attribute.cpp
-  llvm.cpp
+  annotation_shims.cpp
+  elab_environment_shims.cpp
+  expr_lt_shims.cpp
+  formatter_shims.cpp
+  instantiate_mvars_shims.cpp
   ir_interpreter.cpp
-  instantiate_mvars.cpp
+  module_shims.cpp
+  llvm.cpp
+  num_shims.cpp
+  print_shims.cpp
+  time_task_shims.cpp
+  util_shims.cpp
 )

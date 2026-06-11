@@ -47,7 +47,6 @@ Authors: Leonardo de Moura, Sebastian Ullrich
 #include "runtime/utf8.h"
 #include "runtime/object.h"
 #include "runtime/thread.h"
-#include "runtime/allocprof.h"
 #include "runtime/option_ref.h"
 
 #ifdef _MSC_VER
@@ -72,14 +71,6 @@ obj_res io_result_mk_error(char const * msg) {
 
 obj_res io_result_mk_error(std::string const & msg) {
     return io_result_mk_error(lean_mk_io_user_error(mk_string(msg)));
-}
-
-static bool g_initializing = true;
-extern "C" LEAN_EXPORT void lean_io_mark_end_initialization() {
-    g_initializing = false;
-}
-extern "C" LEAN_EXPORT uint8_t lean_io_initializing() {
-    return g_initializing;
 }
 
 static obj_res mk_file_not_found_error(b_obj_arg fname) {
@@ -669,23 +660,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_put_str(b_obj_arg h, b_obj_ar
     }
 }
 
-/* Std.Time.Timestamp.now : IO Timestamp */
-extern "C" LEAN_EXPORT obj_res lean_get_current_time() {
-    using namespace std::chrono;
-
-    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-    long long timestamp = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch()).count();
-
-    long long secs = timestamp / 1000000000;
-    long long nano = timestamp % 1000000000;
-
-    lean_object *lean_ts = lean_alloc_ctor(0, 2, 0);
-    lean_ctor_set(lean_ts, 0, lean_int64_to_int(secs));
-    lean_ctor_set(lean_ts, 1, lean_int64_to_int(nano));
-
-    return lean_io_result_mk_ok(lean_ts);
-}
-
 /* Std.Time.Database.Windows.getNextTransition : @&String -> Int64 -> Bool -> IO (Option (Int64 × TimeZone)) */
 extern "C" LEAN_EXPORT obj_res lean_windows_get_next_transition(b_obj_arg timezone_str, uint64_t tm_obj, uint8 default_time) {
 #if defined(LEAN_WINDOWS)
@@ -840,22 +814,6 @@ extern "C" LEAN_EXPORT obj_res lean_get_windows_local_timezone_id_at(uint64_t tm
 #endif
 }
 
-/* monoMsNow : BaseIO Nat */
-extern "C" LEAN_EXPORT obj_res lean_io_mono_ms_now() {
-    static_assert(sizeof(std::chrono::milliseconds::rep) <= sizeof(uint64), "size of std::chrono::nanoseconds::rep may not exceed 64");
-    auto now = std::chrono::steady_clock::now();
-    auto tm = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch());
-    return uint64_to_nat(tm.count());
-}
-
-/* monoNanosNow : BaseIO Nat */
-extern "C" LEAN_EXPORT obj_res lean_io_mono_nanos_now() {
-    static_assert(sizeof(std::chrono::nanoseconds::rep) <= sizeof(uint64), "size of std::chrono::nanoseconds::rep may not exceed 64");
-    auto now = std::chrono::steady_clock::now();
-    auto tm = std::chrono::duration_cast<std::chrono::nanoseconds>(now.time_since_epoch());
-    return uint64_to_nat(tm.count());
-}
-
 /* getRandomBytes (nBytes : USize) : IO ByteArray */
 extern "C" LEAN_EXPORT obj_res lean_io_get_random_bytes (size_t nbytes) {
     // Adapted from https://github.com/rust-random/getrandom/blob/30308ae845b0bf3839e5a92120559eaf56048c28/src/
@@ -918,85 +876,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_get_random_bytes (size_t nbytes) {
 #endif
     lean_sarray_set_size(res, nbytes);
     return io_result_mk_ok(res);
-}
-
-/* timeit {α : Type} (msg : @& String) (fn : IO α) : IO α */
-extern "C" LEAN_EXPORT obj_res lean_io_timeit(b_obj_arg msg, obj_arg fn) {
-    auto start = std::chrono::steady_clock::now();
-    obj_arg w = apply_1(fn, lean_io_mk_world());
-    auto end   = std::chrono::steady_clock::now();
-    auto diff  = std::chrono::duration<double>(end - start);
-    sstream out;
-    out << std::setprecision(3);
-    if (diff < std::chrono::duration<double>(1)) {
-        out << string_cstr(msg) << " " << std::chrono::duration<double, std::milli>(diff).count() << "ms";
-    } else {
-        out << string_cstr(msg) << " " << diff.count() << "s";
-    }
-    io_eprintln(mk_string(out.str()));
-    return w;
-}
-
-/* allocprof {α : Type} (msg : @& String) (fn : IO α) : IO α */
-extern "C" LEAN_EXPORT obj_res lean_io_allocprof(b_obj_arg msg, obj_arg fn) {
-    std::ostringstream out;
-    obj_res res;
-    {
-        allocprof prof(out, string_cstr(msg));
-        res = apply_1(fn, lean_io_mk_world());
-    }
-    io_eprintln(mk_string(out.str()));
-    return res;
-}
-
-/* getNumHeartbeats : BaseIO Nat */
-extern "C" LEAN_EXPORT obj_res lean_io_get_num_heartbeats() {
-    return lean_uint64_to_nat(get_num_heartbeats());
-}
-
-/* setHeartbeats (count : Nat) : BaseIO Unit */
-extern "C" LEAN_EXPORT obj_res lean_io_set_heartbeats(obj_arg count) {
-    set_heartbeats(lean_uint64_of_nat(count));
-    lean_dec(count);
-    return box(0);
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_getenv(b_obj_arg env_var) {
-    const char* env_var_str = string_cstr(env_var);
-    if (strlen(env_var_str) != lean_string_size(env_var) - 1) {
-        return mk_option_none();
-    }
-#if defined(LEAN_EMSCRIPTEN)
-    // HACK(WN): getenv doesn't seem to work in Emscripten even though it should
-    // see https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html#interacting-with-code-environment-variables
-    char* val = reinterpret_cast<char*>(EM_ASM_INT({
-        var envVar = UTF8ToString($0);
-        var val = ENV[envVar];
-        if (val) {
-            var lengthBytes = lengthBytesUTF8(val)+1;
-            var valOnWasmHeap = _malloc(lengthBytes);
-            stringToUTF8(val, valOnWasmHeap, lengthBytes);
-            return valOnWasmHeap;
-        } else {
-            return 0;
-        }
-    }, env_var_str));
-
-    if (val) {
-        object * valLean = mk_string(val);
-        free(val);
-        return mk_option_some(valLean);
-    } else {
-        return mk_option_none();
-    }
-#else
-    char * val = std::getenv(env_var_str);
-    if (val) {
-        return mk_option_some(mk_string(val));
-    } else {
-        return mk_option_none();
-    }
-#endif
 }
 
 extern "C" LEAN_EXPORT obj_res lean_io_realpath(obj_arg filename) {
@@ -1638,7 +1517,7 @@ extern "C" LEAN_EXPORT obj_res lean_option_get_or_block(obj_arg o_opt) {
     }
 }
 
-void initialize_io() {
+LEAN_EXPORT void initialize_io() {
     g_io_handle_external_class = lean_register_external_class(io_handle_finalizer, io_handle_foreach);
 #if defined(LEAN_WINDOWS)
     _setmode(_fileno(stdout), _O_BINARY);
@@ -1657,6 +1536,6 @@ void initialize_io() {
 #endif
 }
 
-void finalize_io() {
+LEAN_EXPORT void finalize_io() {
 }
 }

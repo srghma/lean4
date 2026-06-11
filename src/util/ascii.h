@@ -7,16 +7,20 @@ Author: Leonardo de Moura
 #pragma once
 #include <cstring>
 namespace lean {
+extern "C" bool lean_util_is_safe_ascii_char(char c);
+extern "C" bool lean_util_is_safe_ascii(char const * str);
+extern "C" bool lean_util_is_safe_ascii_n(char const * str, size_t sz);
+
 /** \brief Return true iff \c c is a "safe" ASCII characters.
     It is a "keyboard" character. */
-bool is_safe_ascii(char c);
+inline bool is_safe_ascii(char c) { return lean_util_is_safe_ascii_char(c); }
 /** \brief Return true iff the given string contains only "safe"
     ASCII character. */
-bool is_safe_ascii(char const * str);
+inline bool is_safe_ascii(char const * str) { return lean_util_is_safe_ascii(str); }
 /** \brief Return true iff the given string of size sz contains only "safe"
     ASCII character. */
-bool is_safe_ascii(char const * str, size_t sz);
+inline bool is_safe_ascii(char const * str, size_t sz) { return lean_util_is_safe_ascii_n(str, sz); }
 
-void initialize_ascii();
-void finalize_ascii();
+inline void initialize_ascii() {}
+inline void finalize_ascii() {}
 }

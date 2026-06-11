@@ -449,7 +449,7 @@ else()
   message(WARNING "Disabling LLVM support")
 endif()
 
-# libleancpp/Lean as well as libleanrt/Init are cyclically dependent. This works by default on macOS, which also doesn't like
+# Lean and Init remain cyclically dependent. This works by default on macOS, which also doesn't like
 # the linker flags necessary on other platforms.
 # Furthermore, add LLVM flags into the list of flags we need when linking.
 # when using shared libraries, set the `rpath` to help the dynamic loader
@@ -460,13 +460,13 @@ if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     cmake_path(GET ZLIB_LIBRARY PARENT_PATH ZLIB_LIBRARY_PARENT_PATH)
     string(APPEND LEANSHARED_LINKER_FLAGS " -L ${ZLIB_LIBRARY_PARENT_PATH}")
   endif()
-  string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " -lleancpp -lInit -lStd -lLean -lleanrt")
+    string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " -lInit -lStd -lLean -lleanrt")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Emscripten")
-  string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " -lleancpp -lInit -lStd -lLean -lnodefs.js -lleanrt")
+    string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " -lInit -lStd -lLean -lnodefs.js -lleanrt")
 else()
   string(
     APPEND TOOLCHAIN_STATIC_LINKER_FLAGS
-    " -Wl,--start-group -lleancpp -lLean -Wl,--end-group -lStd -Wl,--start-group -lInit -lleanrt -Wl,--end-group"
+    " -Wl,--start-group -lLean -Wl,--end-group -lStd -Wl,--start-group -lInit -lleanrt -Wl,--end-group"
   )
 endif()
 
@@ -475,6 +475,34 @@ set(LEAN_CXX_STDLIB "-lstdc++" CACHE STRING "C++ stdlib linker flags")
 if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
   set(LEAN_CXX_STDLIB "-lc++")
 endif()
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+set(LEAN_RUST_PROFILE_DIR debug)
+else()
+  set(LEAN_RUST_PROFILE_DIR release)
+endif()
+set(LEAN_SHELL_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanshell.a)
+set(LEAN_RUNTIME_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.a)
+if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+  string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE}")
+  string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE}")
+else()
+  string(
+    APPEND TOOLCHAIN_STATIC_LINKER_FLAGS
+    " ${LEAN_SHELL_RUST_ARCHIVE}"
+  )
+  string(
+    APPEND TOOLCHAIN_SHARED_LINKER_FLAGS
+    " ${LEAN_SHELL_RUST_ARCHIVE}"
+  )
+endif()
+
+if(NOT CMAKE_SYSTEM_NAME MATCHES "Emscripten")
+  string(APPEND LEAN_EXE_LINKER_FLAGS " ${LEAN_SHELL_RUST_ARCHIVE}")
+endif()
+
+set(LEAN_RUNTIME_INITIAL_EXEC_ARCHIVE ${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a)
+string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_RUNTIME_INITIAL_EXEC_ARCHIVE}")
 
 string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " ${LEAN_CXX_STDLIB}")
 string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_CXX_STDLIB}")
@@ -731,8 +759,6 @@ set_target_properties(
   leaninitialize
   PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/temp OUTPUT_NAME leaninitialize
 )
-add_library(leanshell STATIC util/shell.cpp)
-set_target_properties(leanshell PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/temp OUTPUT_NAME leanshell)
 if(CMAKE_SYSTEM_NAME MATCHES "Windows")
   string(APPEND CMAKE_EXE_LINKER_FLAGS " -Wl,--whole-archive -lleanmanifest -Wl,--no-whole-archive")
 endif()
@@ -784,8 +810,6 @@ else()
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:kernel>)
   add_subdirectory(library)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:library>)
-  add_subdirectory(library/constructions)
-  set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:constructions>)
 
   # leancpp without `initialize` (see `leaninitialize` above)
   add_library(leancpp_1 STATIC ${LEAN_OBJS})
@@ -830,7 +854,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Emscripten")
   # in this file.
   string(
     APPEND LEAN_EXE_LINKER_FLAGS
-    " ${LIB}/temp/libleanshell.a ${TOOLCHAIN_STATIC_LINKER_FLAGS} ${EMSCRIPTEN_SETTINGS} -lnodefs.js -s EXIT_RUNTIME=1 -s MAIN_MODULE=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0"
+    " ${TOOLCHAIN_STATIC_LINKER_FLAGS} ${EMSCRIPTEN_SETTINGS} -lnodefs.js -s EXIT_RUNTIME=1 -s MAIN_MODULE=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0"
   )
 endif()
 

@@ -1,0 +1,156 @@
+======================================================================
+Changes needed in src/rust/lean_runtime/src/lib.rs
+======================================================================
+
+Find the block of include! lines near the bottom of lib.rs (currently):
+
+    include!("runtime_sharecommon.rs");
+    include!("runtime_thread.rs");
+    include!("runtime_once.rs");
+    include!("runtime_float.rs");
+    include!("runtime_apply.rs");
+
+Replace with:
+
+    include!("runtime_sharecommon.rs");
+    include!("runtime_thread.rs");
+    include!("runtime_once.rs");
+    include!("runtime_float.rs");
+    include!("runtime_apply.rs");
+    include!("runtime_exception.rs");
+    include!("runtime_object_panic.rs");
+    include!("runtime_object_rc.rs");
+    include!("runtime_task.rs");
+    include!("runtime_object_string.rs");
+    include!("runtime_object_array.rs");
+    include!("runtime_object_nat_int.rs");
+
+Also add the LeanClosureObject struct if not already present (it was added
+in the diff already, so it should be there).
+
+======================================================================
+Changes needed in src/runtime/CMakeLists.txt
+======================================================================
+
+Add object_shims.cpp to the RUNTIME_OBJS list.  Find the set() block
+at the top and add it after exception.cpp:
+
+    set(
+      RUNTIME_OBJS
+      thread.cpp
+      mpz.cpp
+      object.cpp          # <-- keep until fully ported
+      exception.cpp
+      object_shims.cpp    # <-- ADD THIS
+      compact.cpp
+      io.cpp
+      ...
+    )
+
+NOTE: object.cpp stays in the list for now because it still defines
+  - initialize_object() / finalize_object()
+  - alloc_mpz / mpz_to_nat_core (used by nat/int shims)
+  - lean_thunk_get_core (delegated via shim)
+  - lean_promise_new / lean_promise_resolve
+  - lean_name_eq
+  - lean_dbg_stack_trace
+  - lean_register_external_class / lean_runtime_alloc_external etc.
+
+The Rust files re-export the functions they own under their original
+LEAN_EXPORT names; as long as we do NOT also compile the C++ versions
+of those same symbols, there is no conflict.
+
+To avoid double-definition, wrap the C++ definitions that are now in
+Rust with a preprocessor guard, OR — easier for now — rely on link
+ordering (Rust staticlib listed before C++ objects so Rust wins).
+
+The simplest migration approach for this batch:
+
+1. In object.cpp, guard the ported functions with:
+     #ifndef LEAN_RUST_RUNTIME
+   and add -DLEAN_RUST_RUNTIME to COMPILE_DEFINITIONS when building
+   with the Rust runtime.
+
+Alternatively, delete the ported function bodies from object.cpp
+now that the Rust implementations are complete.  The following
+functions from object.cpp are now provided by Rust and should be
+removed or guarded:
+
+    lean_mk_string_unchecked
+    lean_mk_string_from_bytes
+    lean_mk_string_from_bytes_unchecked
+    lean_mk_string
+    lean_mk_ascii_string_unchecked
+    lean_decode_lossy_utf8
+    lean_string_from_utf8_unchecked
+    lean_string_validate_utf8
+    lean_string_to_utf8
+    lean_string_push
+    lean_string_append
+    lean_string_eq_cold
+    lean_sarray_eq_cold
+    lean_string_lt
+    lean_string_compare
+    lean_string_utf8_get
+    lean_string_utf8_get_fast_cold
+    lean_string_utf8_get_opt
+    lean_string_utf8_get_bang
+    lean_string_utf8_next
+    lean_string_utf8_next_fast_cold
+    lean_string_is_valid_pos
+    lean_string_utf8_extract
+    lean_string_utf8_prev
+    lean_string_utf8_set
+    lean_string_memcmp
+    lean_string_of_usize
+    lean_slice_hash
+    lean_slice_dec_lt
+    lean_string_mk
+    lean_string_data
+    lean_array_mk
+    lean_array_to_list
+    lean_array_get_panic
+    lean_array_set_panic
+    lean_mk_array
+    lean_copy_expand_array
+    lean_copy_expand_array_nonlinear
+    lean_array_push
+    lean_copy_sarray
+    lean_sarray_ensure_capacity
+    lean_copy_byte_array
+    lean_byte_array_mk
+    lean_byte_array_data
+    lean_byte_array_push
+    lean_byte_array_copy_slice
+    lean_byte_array_hash
+    lean_copy_float_array
+    lean_float_array_mk
+    lean_float_array_data
+    lean_float_array_push
+    lean_nat_big_succ  (+ all other nat/int big ops)
+    lean_cstr_to_nat
+    lean_big_usize_to_nat
+    lean_big_uint64_to_nat
+    lean_mpz_hash
+    lean_mpz_eq
+    lean_alloc_mpz_from_mpz
+    lean_uint8/16/32/64/usize_of_big_nat
+    lean_uint64_mix_hash
+    lean_int8/16/32/64/isize_of_big_int
+    (... all lean_int_big_* and lean_nat_big_* ...)
+
+======================================================================
+File placement
+======================================================================
+
+Copy the generated .rs files to:
+  src/rust/lean_runtime/src/runtime_object_string.rs
+  src/rust/lean_runtime/src/runtime_object_array.rs
+  src/rust/lean_runtime/src/runtime_object_nat_int.rs
+
+Copy object_shims.cpp to:
+  src/runtime/object_shims.cpp
+
+The three untracked files (runtime_object_panic.rs, runtime_object_rc.rs,
+runtime_task.rs) should be staged as-is; they were written in the previous
+session and just need to be added with `git add`.

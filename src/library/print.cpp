@@ -49,14 +49,14 @@ bool is_numerical_name(name n) {
 static name * g_M   = nullptr;
 static name * g_x   = nullptr;
 
-void initialize_print() {
+LEAN_EXPORT void initialize_print() {
     g_M = new name("M");
     mark_persistent(g_M->raw());
     g_x = new name("x");
     mark_persistent(g_x->raw());
 }
 
-void finalize_print() {
+LEAN_EXPORT void finalize_print() {
     delete g_M;
     delete g_x;
 }

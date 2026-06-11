@@ -9,62 +9,42 @@ Author: Leonardo de Moura
 #include "runtime/object_ref.h"
 #include "util/alloc.h"
 
+extern "C" void * lean_sharecommon_persistent_create(bool check_set);
+extern "C" void lean_sharecommon_persistent_free(void * state);
+extern "C" void lean_sharecommon_persistent_set_check_set(void * state, bool check_set);
+extern "C" lean_object * lean_sharecommon_persistent_run(void * state, lean_object * obj);
+extern "C" lean_object * lean_sharecommon_quick_with_check_set(lean_object * obj, bool check_set);
+
 namespace lean {
 extern "C" LEAN_EXPORT uint8 lean_sharecommon_eq(b_obj_arg o1, b_obj_arg o2);
 extern "C" LEAN_EXPORT uint64_t lean_sharecommon_hash(b_obj_arg o);
+extern "C" LEAN_EXPORT lean_object * lean_sharecommon_quick(lean_object * a);
 
-/*
-A faster version of `sharecommon_fn` which only uses a local state.
-It optimizes the number of RC operations, the strategy for caching results,
-and uses C++ hashmap.
-*/
 class LEAN_EXPORT sharecommon_quick_fn {
-protected:
-    struct set_hash {
-        std::size_t operator()(lean_object * o) const { return lean_sharecommon_hash(o); }
-    };
-    struct set_eq {
-        std::size_t operator()(lean_object * o1, lean_object * o2) const { return lean_sharecommon_eq(o1, o2); }
-    };
-
-    /*
-    We use `m_cache` to ensure we do **not** traverse a DAG as a tree.
-    We use pointer equality for this collection.
-    */
-    lean::unordered_map<lean_object *, lean_object *> m_cache;
-    /* Set of maximally shared terms. AKA hash-consing table. */
-    lean::unordered_set<lean_object *, set_hash, set_eq> m_set;
-    /*
-    If `true`, `check_cache` will also check `m_set`.
-    This is useful when the input term may contain terms that have already
-    been hashconsed.
-    */
     bool m_check_set;
-
-    lean_object * check_cache(lean_object * a);
-    lean_object * save(lean_object * a, lean_object * new_a);
-    lean_object * visit_terminal(lean_object * a);
-    lean_object * visit_array(lean_object * a);
-    lean_object * visit_ctor(lean_object * a);
-    lean_object * visit(lean_object * a);
 public:
-    sharecommon_quick_fn(bool s = false):m_check_set(s) {}
+    sharecommon_quick_fn(bool s = false): m_check_set(s) {}
     void set_check_set(bool f) { m_check_set = f; }
     lean_object * operator()(lean_object * a) {
-        return visit(a);
+        return lean_sharecommon_quick_with_check_set(a, m_check_set);
     }
 };
 
-/*
-Similar to `sharecommon_quick_fn`, but we save the entry points and result values to ensure
-they are not deleted.
-*/
-class LEAN_EXPORT sharecommon_persistent_fn : private sharecommon_quick_fn {
-    std::vector<object_ref> m_saved;
+class LEAN_EXPORT sharecommon_persistent_fn {
+    void * m_state;
 public:
-    sharecommon_persistent_fn(bool s = false):sharecommon_quick_fn(s) {}
-    void set_check_set(bool f) { m_check_set = f; }
-    lean_object * operator()(lean_object * e);
+    sharecommon_persistent_fn(bool s = false) {
+        m_state = lean_sharecommon_persistent_create(s);
+    }
+    ~sharecommon_persistent_fn() {
+        lean_sharecommon_persistent_free(m_state);
+    }
+    void set_check_set(bool f) {
+        lean_sharecommon_persistent_set_check_set(m_state, f);
+    }
+    lean_object * operator()(lean_object * e) {
+        return lean_sharecommon_persistent_run(m_state, e);
+    }
 };
 
 };

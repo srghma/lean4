@@ -124,7 +124,7 @@ expr local_ctx::mk_pi(unsigned num, expr const * fvars, expr const & e, bool rem
     return mk_binding<false>(num, fvars, e, remove_dead_let);
 }
 
-void initialize_local_ctx() {
+extern "C" void lean_cxx_initialize_local_ctx() {
     g_dummy_type   = new expr(mk_constant(name::mk_internal_unique_name()));
     mark_persistent(g_dummy_type->raw());
     g_dummy_decl   = new local_decl(std::numeric_limits<unsigned>::max(),
@@ -133,8 +133,16 @@ void initialize_local_ctx() {
     mark_persistent(g_dummy_decl->raw());
 }
 
-void finalize_local_ctx() {
+extern "C" void lean_cxx_finalize_local_ctx() {
     delete g_dummy_decl;
     delete g_dummy_type;
+}
+
+__attribute__((weak)) LEAN_EXPORT void initialize_local_ctx() {
+    lean_cxx_initialize_local_ctx();
+}
+
+__attribute__((weak)) LEAN_EXPORT void finalize_local_ctx() {
+    lean_cxx_finalize_local_ctx();
 }
 }

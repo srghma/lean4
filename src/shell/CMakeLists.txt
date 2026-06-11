@@ -1,5 +1,61 @@
-add_library(leanmain STATIC lean.cpp)
-set_target_properties(leanmain PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/temp OUTPUT_NAME leanmain)
+find_program(CARGO_EXECUTABLE cargo REQUIRED)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(LEAN_RUST_PROFILE dev)
+  set(LEAN_RUST_TARGET_DIR ${CMAKE_BINARY_DIR}/rust/debug)
+  set(LEAN_RUST_CARGO_ARGS)
+else()
+  set(LEAN_RUST_PROFILE release)
+  set(LEAN_RUST_TARGET_DIR ${CMAKE_BINARY_DIR}/rust/release)
+  set(LEAN_RUST_CARGO_ARGS --release)
+endif()
+
+set(LEAN_RUST_HAS_ADDRESS_SANITIZER 0)
+if(CMAKE_CXX_FLAGS MATCHES "fsanitize=address" OR LEAN_EXTRA_CXX_FLAGS MATCHES "fsanitize=address")
+  set(LEAN_RUST_HAS_ADDRESS_SANITIZER 1)
+endif()
+if(STAGE EQUAL 0)
+  set(LEAN_RUST_IS_STAGE0 1)
+else()
+  set(LEAN_RUST_IS_STAGE0 0)
+endif()
+
+set(LEANMAIN_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanmain.a)
+set(LEANSHELL_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanshell.a)
+set(LEAN_RUNTIME_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE}/liblean_runtime.a)
+add_custom_command(
+  OUTPUT ${LEANMAIN_ARCHIVE} ${LEANSHELL_ARCHIVE}
+  COMMAND
+    ${CMAKE_COMMAND} -E env
+    CARGO_TARGET_DIR=${CMAKE_BINARY_DIR}/rust
+    LEAN_RUST_GITHASH=${GIT_SHA1}
+    LEAN_RUST_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    LEAN_RUST_HAS_LLVM=$<IF:$<BOOL:${LLVM}>,1,0>
+    LEAN_RUST_HAS_ADDRESS_SANITIZER=${LEAN_RUST_HAS_ADDRESS_SANITIZER}
+    LEAN_RUST_HAS_MIMALLOC=$<IF:$<BOOL:${USE_MIMALLOC}>,1,0>
+    LEAN_RUST_MULTI_THREAD=$<IF:$<BOOL:${MULTI_THREAD}>,1,0>
+    LEAN_RUST_DEBUG=$<IF:$<CONFIG:Debug>,1,$<IF:$<CONFIG:RelWithAssert>,1,0>>
+    LEAN_RUST_LEANC_EXTRA_CC_FLAGS=${LEANC_EXTRA_CC_FLAGS}
+    LEAN_RUST_LEANC_INTERNAL_FLAGS=${LEANC_INTERNAL_FLAGS}
+    LEAN_RUST_LEANC_STATIC_LINKER_FLAGS=${LEANC_STATIC_LINKER_FLAGS}
+    LEAN_RUST_LEANC_SHARED_LINKER_FLAGS=${LEANC_SHARED_LINKER_FLAGS}
+    LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS=${LEAN_EXTRA_LINKER_FLAGS}
+    LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS=${LEANC_INTERNAL_LINKER_FLAGS}
+    LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE=${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a
+    LEAN_RUST_IS_STAGE0=${LEAN_RUST_IS_STAGE0}
+    ${CARGO_EXECUTABLE} build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml --package lean_shell ${LEAN_RUST_CARGO_ARGS}
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEAN_RUST_TARGET_DIR}/liblean_shell.a ${LEANMAIN_ARCHIVE}
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEANMAIN_ARCHIVE} ${LEANSHELL_ARCHIVE}
+  DEPENDS
+    ${LEAN_RUNTIME_RUST_ARCHIVE}
+    lean_runtime_rust
+    ${LEAN_SOURCE_DIR}/rust/Cargo.toml
+    ${LEAN_SOURCE_DIR}/rust/lean_shell/Cargo.toml
+    ${LEAN_SOURCE_DIR}/rust/lean_shell/src/lib.rs
+  VERBATIM
+)
+add_custom_target(leanmain DEPENDS ${LEANMAIN_ARCHIVE})
+add_custom_target(leanshell DEPENDS ${LEANSHELL_ARCHIVE})
 
 # library must contain at least one non-manifest file
 # We use `CONFIGURE` instead of `WRITE` so as to avoid touching the file on each run

@@ -45,8 +45,12 @@ public:
     static void swap(object_ref & a, object_ref & b) { std::swap(a.m_obj, b.m_obj); }
 };
 
+extern "C" object * lean_runtime_mk_cnstr(unsigned tag, unsigned num_objs, object ** objs, unsigned scalar_sz);
+
 /* Remark: this function doesn't increase the reference counter of objs */
-LEAN_EXPORT object_ref mk_cnstr(unsigned tag, unsigned num_objs, object ** objs, unsigned scalar_sz = 0);
+inline object_ref mk_cnstr(unsigned tag, unsigned num_objs, object ** objs, unsigned scalar_sz = 0) {
+    return object_ref(lean_runtime_mk_cnstr(tag, num_objs, objs, scalar_sz));
+}
 inline object_ref mk_cnstr(unsigned tag, object * o, unsigned scalar_sz = 0) { return mk_cnstr(tag, 1, &o, scalar_sz); }
 inline object_ref mk_cnstr(unsigned tag, object * o1, object * o2, unsigned scalar_sz = 0) {
     object * os[2] = { o1, o2 };
