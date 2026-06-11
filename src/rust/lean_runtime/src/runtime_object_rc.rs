@@ -118,7 +118,7 @@ pub(crate) mod runtime_object_rc_impl {
         #[cfg(lean_small_allocator)]
         #[link_name = "_ZN4lean7deallocEPvm"]
         fn lean_dealloc_raw(ptr: *mut u8, sz: usize);
-        fn lean_alloc_small(sz: usize, slot_idx: u32) -> *mut c_void;
+        fn lean_alloc_small(sz: u32, slot_idx: u32) -> *mut c_void;
         fn lean_free_small(ptr: *mut c_void);
         #[cfg(lean_small_allocator)]
         fn lean_inc_heartbeat();

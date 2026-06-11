@@ -1794,7 +1794,7 @@ pub unsafe extern "C" fn lean_get_linker_flags(link_static: u8) -> *mut LeanObje
             concat!(
                 env!("LEAN_RUST_LEANC_SHARED_LINKER_FLAGS"),
                 " ",
-                env!("LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS"),
+                env!("LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE"),
                 "\0"
             )
             .as_ptr() as *const c_char,
