@@ -566,6 +566,30 @@ pub unsafe extern "C" fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut Lea
     ))
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    #[cfg(target_os = "windows")]
+    {
+        use windows_sys::Win32::System::Console::GetConsoleMode;
+
+        let fd = libc::_fileno(fp);
+        let handle = libc::_get_osfhandle(fd) as isize;
+        let mut mode = 0u32;
+        GetConsoleMode(handle, &mut mode) as u8
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        libc::isatty(libc::fileno(fp)) as u8
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
+    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    (libc::feof(fp) != 0) as u8
+}
+
 
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)

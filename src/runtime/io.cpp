@@ -507,6 +507,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_unlock(b_obj_arg h) {
 
 #endif
 
+#ifndef LEAN_RUST_IO_HANDLE_PREDICATES
 /* Handle.isTty : (@& Handle) → BaseIO Bool */
 extern "C" LEAN_EXPORT uint8_t lean_io_prim_handle_is_tty(b_obj_arg h) {
     FILE * fp = io_get_handle(h);
@@ -540,6 +541,7 @@ extern "C" LEAN_EXPORT uint8_t lean_io_prim_handle_is_eof(b_obj_arg h) {
     FILE * fp = io_get_handle(h);
     return std::feof(fp) != 0;
 }
+#endif
 
 /* Handle.flush : (@& Handle) → IO Unit */
 extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_flush(b_obj_arg h) {
