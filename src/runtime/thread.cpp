@@ -76,6 +76,7 @@ static void thread_main(void * p) {
 #if defined(LEAN_MULTI_THREAD)
 size_t lthread::m_thread_stack_size = LEAN_DEFAULT_THREAD_STACK_SIZE;
 
+#ifndef LEAN_RUST_THREAD_LEAN_RUN_MAIN
 void lthread::set_thread_stack_size(size_t sz) {
     m_thread_stack_size = sz + LEAN_STACK_BUFFER_SPACE;
 }
@@ -83,6 +84,7 @@ void lthread::set_thread_stack_size(size_t sz) {
 size_t lthread::get_thread_stack_size() {
     return m_thread_stack_size;
 }
+#endif // LEAN_RUST_THREAD_LEAN_RUN_MAIN
 
 static runnable mk_thread_proc(runnable const & p, size_t max) {
     return [=]() { set_max_heartbeat(max); p(); }; // NOLINT
@@ -162,8 +164,9 @@ lthread::lthread(std::function<void(void)> const & p):m_imp(new imp(p)) {}
 lthread::~lthread() {}
 
 void lthread::join() { m_imp->join(); }
-#endif
+#endif // LEAN_MULTI_THREAD
 
+#ifndef LEAN_RUST_THREAD_LEAN_RUN_MAIN
 /* setThreadStackSize (sz : USize) : BaseIO Unit */
 extern "C" LEAN_EXPORT lean_obj_res lean_internal_set_thread_stack_size(size_t sz) {
     lthread::set_thread_stack_size(sz);
@@ -193,6 +196,7 @@ extern "C" LEAN_EXPORT lean_object * lean_run_main(lean_object * (*main_fn)(int,
     return main_fn(argc, argv);
 #endif
 }
+#endif // LEAN_RUST_THREAD_LEAN_RUN_MAIN
 
 #ifndef LEAN_RUST_THREAD_INIT
 LEAN_EXPORT void initialize_thread() {
