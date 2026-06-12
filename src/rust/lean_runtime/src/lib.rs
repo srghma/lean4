@@ -766,6 +766,109 @@ pub unsafe extern "C" fn lean_io_prim_handle_put_str(
     }
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_io_prim_handle_mk(
+    filename: *mut LeanObject,
+    mode: u8,
+) -> *mut LeanObject {
+    let fname = lean_string_cstr(filename);
+    if libc::strlen(fname) != lean_string_size(filename) - 1 {
+        return mk_embedded_nul_error(filename);
+    }
+
+    let mut flags: libc::c_int = 0;
+    #[cfg(target_os = "windows")]
+    {
+        const O_BINARY: libc::c_int = 0x8000;
+        const O_NOINHERIT: libc::c_int = 0x0080;
+        flags |= O_BINARY | O_NOINHERIT;
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        flags |= libc::O_CLOEXEC;
+    }
+
+    flags |= match mode {
+        0 => libc::O_RDONLY,
+        1 => libc::O_WRONLY | libc::O_CREAT | libc::O_TRUNC,
+        2 => libc::O_WRONLY | libc::O_CREAT | libc::O_TRUNC | libc::O_EXCL,
+        3 => libc::O_RDWR,
+        4 => libc::O_WRONLY | libc::O_CREAT | libc::O_APPEND,
+        _ => libc::O_RDONLY,
+    };
+
+    extern "C" {
+        fn open(path: *const libc::c_char, oflag: libc::c_int, mode: libc::mode_t) -> libc::c_int;
+    }
+    let fd = open(fname, flags, 0o666);
+    if fd == -1 {
+        return lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), filename));
+    }
+
+    let fp_mode: *const libc::c_char = match mode {
+        0 => c"r".as_ptr(),
+        1 | 2 => c"w".as_ptr(),
+        3 => c"r+".as_ptr(),
+        4 => c"a".as_ptr(),
+        _ => c"r".as_ptr(),
+    };
+
+    let fp = libc::fdopen(fd, fp_mode);
+    if fp.is_null() {
+        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), filename))
+    } else {
+        lean_io_result_mk_ok(runtime_io_stream_impl::io_wrap_handle(fp))
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_windows_get_next_transition(
+    timezone_str: *mut LeanObject,
+    tm_obj: u64,
+    default_time: u8,
+) -> *mut LeanObject {
+    #[cfg(target_os = "windows")]
+    {
+        extern "C" {
+            fn lean_windows_get_next_transition_cxx(
+                tz: *mut LeanObject,
+                tm: u64,
+                default_time: u8,
+            ) -> *mut LeanObject;
+        }
+        lean_windows_get_next_transition_cxx(timezone_str, tm_obj, default_time)
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = (timezone_str, tm_obj, default_time);
+        lean_io_result_mk_error(lean_mk_io_error_invalid_argument(
+            libc::EINVAL as u32,
+            lean_mk_string(c"failed to get timezone, its windows only.".as_ptr()),
+        ))
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_get_windows_local_timezone_id_at(
+    tm_obj: u64,
+) -> *mut LeanObject {
+    #[cfg(target_os = "windows")]
+    {
+        extern "C" {
+            fn lean_get_windows_local_timezone_id_at_cxx(tm: u64) -> *mut LeanObject;
+        }
+        lean_get_windows_local_timezone_id_at_cxx(tm_obj)
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let _ = tm_obj;
+        lean_io_result_mk_error(lean_mk_io_error_invalid_argument(
+            libc::EINVAL as u32,
+            lean_mk_string(c"timezone retrieval is Windows-only".as_ptr()),
+        ))
+    }
+}
+
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)
 }
