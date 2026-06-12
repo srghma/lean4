@@ -364,6 +364,7 @@ obj_res mk_embedded_nul_error(b_obj_arg str) {
 #endif
 
 /* IO.setAccessRights (filename : @& String) (mode : UInt32) : IO Unit */
+#ifndef LEAN_RUST_IO_FS
 extern "C" LEAN_EXPORT obj_res lean_chmod (b_obj_arg filename, uint32_t mode) {
     const char* fname = string_cstr(filename);
     if (strlen(fname) != lean_string_size(filename) - 1) {
@@ -375,6 +376,7 @@ extern "C" LEAN_EXPORT obj_res lean_chmod (b_obj_arg filename, uint32_t mode) {
         return io_result_mk_error(decode_io_error(errno, filename));
     }
 }
+#endif // LEAN_RUST_IO_FS
 
 /* Handle.mk (filename : @& String) (mode : FS.Mode) : IO Handle */
 extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_mk(b_obj_arg filename, uint8 mode) {
@@ -892,6 +894,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_symlink_metadata(b_obj_arg filename) {
 #endif
 }
 
+#ifndef LEAN_RUST_IO_FS
 extern "C" LEAN_EXPORT obj_res lean_io_create_dir(b_obj_arg p) {
     const char* str = string_cstr(p);
     if (strlen(str) != lean_string_size(p) - 1) {
@@ -919,6 +922,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_remove_dir(b_obj_arg p) {
         return io_result_mk_error(decode_io_error(errno, p));
     }
 }
+#endif // LEAN_RUST_IO_FS
 
 extern "C" LEAN_EXPORT obj_res lean_io_rename(b_obj_arg from, b_obj_arg to) {
     const char* from_str = string_cstr(from);
@@ -1077,6 +1081,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_remove_file(b_obj_arg filename) {
     }
 }
 
+#ifndef LEAN_RUST_IO_FS
 extern "C" LEAN_EXPORT obj_res lean_io_app_path() {
 #if defined(LEAN_WINDOWS)
     HMODULE hModule = GetModuleHandle(NULL);
@@ -1141,11 +1146,13 @@ extern "C" LEAN_EXPORT obj_res lean_io_current_dir() {
         return io_result_mk_error("failed to retrieve current working directory");
     }
 }
+#endif // LEAN_RUST_IO_FS
 
 // =======================================
 // ST ref primitives
 
 
+#ifndef LEAN_RUST_IO_ST_REF
 extern "C" LEAN_EXPORT obj_res lean_st_mk_ref(obj_arg a) {
     lean_ref_object * o = (lean_ref_object*)lean_alloc_small_object(sizeof(lean_ref_object));
     lean_set_st_header((lean_object*)o, LeanRef, 0);
@@ -1256,6 +1263,7 @@ extern "C" LEAN_EXPORT obj_res lean_st_ref_swap(b_obj_arg ref, obj_arg a) {
 extern "C" LEAN_EXPORT uint8_t lean_st_ref_ptr_eq(b_obj_arg ref1, b_obj_arg ref2) {
     return lean_to_ref(ref1) == lean_to_ref(ref2);
 }
+#endif // LEAN_RUST_IO_ST_REF
 
 /* {α : Type} (act : BaseIO α) (_ : IO.RealWorld) : α */
 static obj_res lean_io_as_task_fn(obj_arg act, obj_arg) {
@@ -1317,6 +1325,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_wait_any(b_obj_arg task_list) {
     return v;
 }
 
+#ifndef LEAN_RUST_IO_UTIL
 extern "C" LEAN_EXPORT obj_res lean_io_exit(uint8_t code) {
     exit(code);
 }
@@ -1349,6 +1358,7 @@ extern "C" LEAN_EXPORT obj_res lean_runtime_forget(obj_arg o) {
 #endif
     return box(0);
 }
+#endif // LEAN_RUST_IO_UTIL
 
 extern "C" LEAN_EXPORT obj_res lean_option_get_or_block(obj_arg o_opt) {
     option_ref<object_ref> opt = option_ref<object_ref>(o_opt);
