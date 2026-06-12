@@ -63,71 +63,6 @@ obj_res io_result_mk_error(std::string const & msg) {
     return io_result_mk_error(lean_mk_io_user_error(mk_string(msg)));
 }
 
-static lean_external_class * g_io_handle_external_class = nullptr;
-
-static void io_handle_finalizer(void * h) {
-    // There is no sensible way to handle errors here; in particular, we should
-    // not panic as finalizing a handle that already is in an invalid state
-    // (broken pipe etc.) should work and not terminate the process. The same
-    // decision was made for `std::fs::File` in the Rust stdlib.
-    fclose(static_cast<FILE *>(h));
-}
-
-static void io_handle_foreach(void * /* mod */, b_obj_arg /* fn */) {
-}
-
-lean_object * io_wrap_handle(FILE *hfile) {
-    return lean_alloc_external(g_io_handle_external_class, hfile);
-}
-
-extern "C" obj_res lean_stream_of_handle(obj_arg h);
-
-static object * g_stream_stdin  = nullptr;
-static object * g_stream_stdout = nullptr;
-static object * g_stream_stderr = nullptr;
-MK_THREAD_LOCAL_GET(object_ref, get_stream_current_stdin,  g_stream_stdin);
-MK_THREAD_LOCAL_GET(object_ref, get_stream_current_stdout, g_stream_stdout);
-MK_THREAD_LOCAL_GET(object_ref, get_stream_current_stderr, g_stream_stderr);
-
-/* getStdin : BaseIO FS.Stream */
-extern "C" LEAN_EXPORT obj_res lean_get_stdin() {
-    return get_stream_current_stdin().to_obj_arg();
-}
-
-/* getStdout : BaseIO FS.Stream */
-extern "C" LEAN_EXPORT obj_res lean_get_stdout() {
-    return get_stream_current_stdout().to_obj_arg();
-}
-
-/* getStderr : BaseIO FS.Stream */
-extern "C" LEAN_EXPORT obj_res lean_get_stderr() {
-    return get_stream_current_stderr().to_obj_arg();
-}
-
-/* setStdin  : FS.Stream -> BaseIO FS.Stream */
-extern "C" LEAN_EXPORT obj_res lean_get_set_stdin(obj_arg h) {
-    object_ref & x = get_stream_current_stdin();
-    object * r = x.steal();
-    x = object_ref(h);
-    return r;
-}
-
-/* setStdout  : FS.Stream -> BaseIO FS.Stream */
-extern "C" LEAN_EXPORT obj_res lean_get_set_stdout(obj_arg h) {
-    object_ref & x = get_stream_current_stdout();
-    object * r = x.steal();
-    x = object_ref(h);
-    return r;
-}
-
-/* setStderr  : FS.Stream -> BaseIO FS.Stream */
-extern "C" LEAN_EXPORT obj_res lean_get_set_stderr(obj_arg h) {
-    object_ref & x = get_stream_current_stderr();
-    object * r = x.steal();
-    x = object_ref(h);
-    return r;
-}
-
 /* Handle.mk (filename : @& String) (mode : FS.Mode) : IO Handle */
 extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_mk(b_obj_arg filename, uint8 mode) {
     int flags = 0;
@@ -329,25 +264,4 @@ extern "C" LEAN_EXPORT obj_res lean_get_windows_local_timezone_id_at(uint64_t tm
 // ST ref primitives
 
 
-LEAN_EXPORT void initialize_io() {
-    g_io_handle_external_class = lean_register_external_class(io_handle_finalizer, io_handle_foreach);
-#if defined(LEAN_WINDOWS)
-    _setmode(_fileno(stdout), _O_BINARY);
-    _setmode(_fileno(stderr), _O_BINARY);
-    _setmode(_fileno(stdin), _O_BINARY);
-#endif
-    g_stream_stdout = lean_stream_of_handle(io_wrap_handle(stdout));
-    mark_persistent(g_stream_stdout);
-    g_stream_stderr = lean_stream_of_handle(io_wrap_handle(stderr));
-    mark_persistent(g_stream_stderr);
-    g_stream_stdin  = lean_stream_of_handle(io_wrap_handle(stdin));
-    mark_persistent(g_stream_stdin);
-#if !defined(LEAN_WINDOWS) && !defined(LEAN_EMSCRIPTEN)
-    // We want to handle SIGPIPE ourselves
-    lean_always_assert(signal(SIGPIPE, SIG_IGN) != SIG_ERR);
-#endif
-}
-
-LEAN_EXPORT void finalize_io() {
-}
 }

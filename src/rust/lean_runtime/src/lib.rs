@@ -834,6 +834,7 @@ include!("runtime_io_fs.rs");
 include!("runtime_io_error.rs");
 include!("runtime_io_handle.rs");
 include!("runtime_io_task.rs");
+include!("runtime_io_stream.rs");
 include!("runtime_sharecommon.rs");
 include!("runtime_thread.rs");
 include!("runtime_once.rs");
