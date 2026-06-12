@@ -75,13 +75,6 @@ obj_res io_result_mk_error(std::string const & msg) {
     return io_result_mk_error(lean_mk_io_user_error(mk_string(msg)));
 }
 
-static obj_res mk_file_not_found_error(b_obj_arg fname) {
-    inc(fname);
-    int errnum = ENOENT;
-    object * details = mk_string("");
-    return io_result_mk_error(lean_mk_io_error_no_file_or_directory(fname, errnum, details));
-}
-
 static lean_external_class * g_io_handle_external_class = nullptr;
 
 static void io_handle_finalizer(void * h) {
@@ -362,21 +355,6 @@ obj_res mk_embedded_nul_error(b_obj_arg str) {
     return io_result_mk_error(lean_mk_io_error_invalid_argument_file(str, EINVAL, mk_string("string contains NUL bytes")));
 }
 #endif
-
-/* IO.setAccessRights (filename : @& String) (mode : UInt32) : IO Unit */
-#ifndef LEAN_RUST_IO_FS
-extern "C" LEAN_EXPORT obj_res lean_chmod (b_obj_arg filename, uint32_t mode) {
-    const char* fname = string_cstr(filename);
-    if (strlen(fname) != lean_string_size(filename) - 1) {
-        return mk_embedded_nul_error(filename);
-    }
-    if (!chmod(fname, mode)) {
-        return io_result_mk_ok(box(0));
-    } else {
-        return io_result_mk_error(decode_io_error(errno, filename));
-    }
-}
-#endif // LEAN_RUST_IO_FS
 
 /* Handle.mk (filename : @& String) (mode : FS.Mode) : IO Handle */
 extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_mk(b_obj_arg filename, uint8 mode) {
@@ -727,92 +705,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_get_random_bytes (size_t nbytes) {
     return io_result_mk_ok(res);
 }
 
-extern "C" LEAN_EXPORT obj_res lean_io_realpath(obj_arg filename) {
-    const char* fname = string_cstr(filename);
-    if (strlen(fname) != lean_string_size(filename) - 1) {
-        obj_res res = mk_embedded_nul_error(filename);
-        dec_ref(filename);
-        return res;
-    }
-#if defined(LEAN_WINDOWS)
-    constexpr unsigned BufferSize = 8192;
-    char buffer[BufferSize];
-    HANDLE handle = CreateFile(fname, 0, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, NULL);
-    if (handle == INVALID_HANDLE_VALUE) {
-        obj_res res = mk_file_not_found_error(filename);
-        dec_ref(filename);
-        return res;
-    }
-    DWORD retval = GetFinalPathNameByHandle(handle, buffer, BufferSize, 0);
-    CloseHandle(handle);
-    if (retval == 0 || retval > BufferSize) {
-        return io_result_mk_ok(filename);
-    } else {
-        dec_ref(filename);
-        char * res = buffer;
-        if (memcmp(res, "\\\\?\\", 4) == 0) {
-            if (memcmp(res + 4, "UNC\\", 4) == 0) {
-                // network path: convert "\\\\?\\UNC\\..." to "\\\\..."
-                res[6] = '\\';
-                res += 6;
-            } else {
-                // simple path: convert "\\\\?\\C:\\.." to "C:\\..."
-                res += 4;
-            }
-        }
-        // Hack for making sure disk is lower case
-        // TODO(Leo): more robust solution
-        if (strlen(res) >= 2 && res[1] == ':') {
-            res[0] = tolower(res[0]);
-        }
-        return io_result_mk_ok(mk_string(res));
-    }
-#else
-    char buffer[PATH_MAX];
-    char * tmp = realpath(fname, buffer);
-    if (tmp) {
-        obj_res s = mk_string(tmp);
-        dec_ref(filename);
-        return io_result_mk_ok(s);
-    } else {
-        obj_res res = mk_file_not_found_error(filename);
-        dec_ref(filename);
-        return res;
-    }
-#endif
-}
-
-/*
-structure DirEntry where
-  root     : String
-  filename : String
-
-constant readDir : @& FilePath → IO (Array DirEntry)
-*/
-extern "C" LEAN_EXPORT obj_res lean_io_read_dir(b_obj_arg dirname) {
-    const char* dirname_ptr = string_cstr(dirname);
-    if (strlen(dirname_ptr) != lean_string_size(dirname) - 1) {
-        return mk_embedded_nul_error(dirname);
-    }
-    object * arr = array_mk_empty();
-    DIR * dp = opendir(dirname_ptr);
-    if (!dp) {
-        return io_result_mk_error(decode_io_error(errno, dirname));
-    }
-    while (dirent * entry = readdir(dp)) {
-        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
-            continue;
-        }
-        object * lentry = alloc_cnstr(0, 2, 0);
-        lean_inc(dirname);
-        cnstr_set(lentry, 0, dirname);
-        cnstr_set(lentry, 1, lean_mk_string(entry->d_name));
-        arr = lean_array_push(arr, lentry);
-    }
-    lean_always_assert(closedir(dp) == 0);
-    return io_result_mk_ok(arr);
-}
-
 /*
 inductive FileType where
   | dir
@@ -893,89 +785,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_symlink_metadata(b_obj_arg filename) {
     }
 #endif
 }
-
-#ifndef LEAN_RUST_IO_FS
-extern "C" LEAN_EXPORT obj_res lean_io_create_dir(b_obj_arg p) {
-    const char* str = string_cstr(p);
-    if (strlen(str) != lean_string_size(p) - 1) {
-        return mk_embedded_nul_error(p);
-    }
-#ifdef LEAN_WINDOWS
-    if (mkdir(str) == 0) {
-#else
-    if (mkdir(str, 0777) == 0) {
-#endif
-        return io_result_mk_ok(box(0));
-    } else {
-        return io_result_mk_error(decode_io_error(errno, p));
-    }
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_remove_dir(b_obj_arg p) {
-    const char* str = string_cstr(p);
-    if (strlen(str) != lean_string_size(p) - 1) {
-        return mk_embedded_nul_error(p);
-    }
-    if (rmdir(str) == 0) {
-        return io_result_mk_ok(box(0));
-    } else {
-        return io_result_mk_error(decode_io_error(errno, p));
-    }
-}
-#endif // LEAN_RUST_IO_FS
-
-#ifndef LEAN_RUST_IO_FS
-extern "C" LEAN_EXPORT obj_res lean_io_rename(b_obj_arg from, b_obj_arg to) {
-    const char* from_str = string_cstr(from);
-    if (strlen(from_str) != lean_string_size(from) - 1) {
-        return mk_embedded_nul_error(from);
-    }
-    const char* to_str = string_cstr(to);
-    if (strlen(to_str) != lean_string_size(to) - 1) {
-        return mk_embedded_nul_error(to);
-    }
-#ifdef LEAN_WINDOWS
-    // Note: On windows, std::rename gives an error if the `to` file already exists,
-    // so we have to call the underlying windows API directly to get behavior consistent
-    // with the unix-like OSs
-    bool ok = MoveFileEx(from_str, to_str, MOVEFILE_REPLACE_EXISTING) != 0;
-    if (!ok) {
-        // TODO: actually produce the right type of IO error
-        return io_result_mk_error((sstream()
-            << "failed to rename '" << from_str << "' to '" << to_str << "': " << GetLastError()).str());
-    }
-#else
-    bool ok = std::rename(from_str, to_str) == 0;
-    if (!ok) {
-        std::ostringstream s;
-        s << from_str << " and/or " << to_str;
-        object_ref out{mk_string(s.str())};
-        return io_result_mk_error(decode_io_error(errno, out.raw()));
-    }
-#endif
-    return io_result_mk_ok(box(0));
-}
-
-/* hardLink (orig link : @& FilePath) : IO Unit */
-extern "C" LEAN_EXPORT obj_res lean_io_hard_link(b_obj_arg orig, b_obj_arg link) {
-    const char* orig_str = string_cstr(orig);
-    if (strlen(orig_str) != lean_string_size(orig) - 1) {
-        return mk_embedded_nul_error(orig);
-    }
-    const char* link_str = string_cstr(link);
-    if (strlen(link_str) != lean_string_size(link) - 1) {
-        return mk_embedded_nul_error(link);
-    }
-    uv_fs_t req;
-    int ret = uv_fs_link(NULL, &req, orig_str, link_str, NULL);
-    uv_fs_req_cleanup(&req);
-    if (ret < 0) {
-        return io_result_mk_error(decode_uv_error(ret, orig));
-    } else {
-        return io_result_mk_ok(box(0));
-    }
-}
-#endif // LEAN_RUST_IO_FS
 
 /* createTempFile : IO (Handle × FilePath) */
 extern "C" LEAN_EXPORT obj_res lean_io_create_tempfile(lean_object * /* w */) {
@@ -1067,90 +876,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_create_tempdir(lean_object * /* w */) {
         return res;
     }
 }
-
-#ifndef LEAN_RUST_IO_FS
-extern "C" LEAN_EXPORT obj_res lean_io_remove_file(b_obj_arg filename) {
-    const char* fname = string_cstr(filename);
-    if (strlen(fname) != lean_string_size(filename) - 1) {
-        return mk_embedded_nul_error(filename);
-    }
-    uv_fs_t req;
-    int ret = uv_fs_unlink(NULL, &req, fname, NULL);
-    uv_fs_req_cleanup(&req);
-    if (ret < 0) {
-        return io_result_mk_error(decode_uv_error(ret, filename));
-    } else {
-        return io_result_mk_ok(box(0));
-    }
-}
-#endif // LEAN_RUST_IO_FS
-
-#ifndef LEAN_RUST_IO_FS
-extern "C" LEAN_EXPORT obj_res lean_io_app_path() {
-#if defined(LEAN_WINDOWS)
-    HMODULE hModule = GetModuleHandle(NULL);
-    char path[MAX_PATH];
-    GetModuleFileName(hModule, path, MAX_PATH);
-    std::string pathstr(path);
-    // Hack for making sure disk is lower case
-    // TODO(Leo): more robust solution
-    if (pathstr.size() >= 2 && pathstr[1] == ':') {
-        pathstr[0] = tolower(pathstr[0]);
-    }
-    return io_result_mk_ok(mk_string(pathstr));
-#elif defined(__APPLE__)
-    char buf1[PATH_MAX];
-    char buf2[PATH_MAX];
-    uint32_t bufsize = PATH_MAX;
-    if (_NSGetExecutablePath(buf1, &bufsize) != 0)
-        return io_result_mk_error("failed to locate application");
-    if (!realpath(buf1, buf2))
-        return io_result_mk_error("failed to resolve symbolic links when locating application");
-    return io_result_mk_ok(mk_string(buf2));
-#elif defined(LEAN_EMSCRIPTEN)
-    // See https://emscripten.org/docs/api_reference/emscripten.h.html#c.EM_ASM_INT
-    char* appPath = reinterpret_cast<char*>(EM_ASM_INT({
-        if ((typeof process === "undefined") || (process.release.name !== "node")) {
-            return 0;
-        }
-
-        var lengthBytes = lengthBytesUTF8(__filename)+1;
-        var pathOnWasmHeap = _malloc(lengthBytes);
-        stringToUTF8(__filename, pathOnWasmHeap, lengthBytes);
-        return pathOnWasmHeap;
-    }));
-    if (appPath == nullptr) {
-        return io_result_mk_error("no Lean executable file exists in WASM outside of Node.js");
-    }
-
-    object * appPathLean = mk_string(appPath);
-    free(appPath);
-    return io_result_mk_ok(appPathLean);
-#else
-    // Linux version
-    char path[PATH_MAX];
-    char dest[PATH_MAX];
-    memset(dest, 0, PATH_MAX);
-    pid_t pid = getpid();
-    snprintf(path, PATH_MAX, "/proc/%d/exe", pid);
-    if (readlink(path, dest, PATH_MAX - 1) == -1) {
-        return io_result_mk_error("failed to locate application");
-    } else {
-        return io_result_mk_ok(mk_string(dest));
-    }
-#endif
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_current_dir() {
-    char buffer[PATH_MAX];
-    char * cwd = getcwd(buffer, sizeof(buffer));
-    if (cwd) {
-        return io_result_mk_ok(mk_string(cwd));
-    } else {
-        return io_result_mk_error("failed to retrieve current working directory");
-    }
-}
-#endif // LEAN_RUST_IO_FS
 
 // =======================================
 // ST ref primitives

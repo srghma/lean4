@@ -10,6 +10,11 @@ mod runtime_io_fs_impl {
 
     extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
+        fn lean_mk_io_error_no_file_or_directory(
+            fname: *mut LeanObject,
+            errnum: u32,
+            details: *mut LeanObject,
+        ) -> *mut LeanObject;
     }
 
     unsafe fn check_no_nuls(s: *mut LeanObject) -> Result<*const c_char, *mut LeanObject> {
@@ -26,11 +31,25 @@ mod runtime_io_fs_impl {
         lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(msg)))
     }
 
+    unsafe fn mk_file_not_found_error(fname: *mut LeanObject) -> *mut LeanObject {
+        lean_inc(fname);
+        let details = lean_mk_string(c"".as_ptr());
+        lean_io_result_mk_error(lean_mk_io_error_no_file_or_directory(
+            fname,
+            libc::ENOENT as u32,
+            details,
+        ))
+    }
+
     unsafe fn rename_error_detail(from: *const c_char, to: *const c_char) -> *mut LeanObject {
         let from = CStr::from_ptr(from).to_string_lossy();
         let to = CStr::from_ptr(to).to_string_lossy();
         let detail = CString::new(format!("{from} and/or {to}")).unwrap();
         lean_mk_string(detail.as_ptr())
+    }
+
+    unsafe fn ctor_set(obj: *mut LeanObject, index: u32, value: *mut LeanObject) {
+        lean_runtime_ctor_set(obj, index, value);
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -152,6 +171,83 @@ mod runtime_io_fs_impl {
         } else {
             lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
         }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_realpath(filename: *mut LeanObject) -> *mut LeanObject {
+        let fname = match check_no_nuls(filename) {
+            Ok(s) => s,
+            Err(e) => {
+                lean_dec(filename);
+                return e;
+            }
+        };
+
+        #[cfg(target_os = "windows")]
+        let result = {
+            use std::path::Path;
+
+            match CStr::from_ptr(fname).to_str().ok().and_then(|path| std::fs::canonicalize(Path::new(path)).ok()) {
+                Some(path) => {
+                    let mut path = path.to_string_lossy().into_owned();
+                    if path.len() >= 2 && path.as_bytes()[1] == b':' {
+                        let drive = path[..1].to_ascii_lowercase();
+                        path.replace_range(..1, &drive);
+                    }
+                    let path = CString::new(path).unwrap();
+                    lean_io_result_mk_ok(lean_mk_string(path.as_ptr()))
+                }
+                None => mk_file_not_found_error(filename),
+            }
+        };
+
+        #[cfg(not(target_os = "windows"))]
+        let result = {
+            let mut buffer = [0u8; libc::PATH_MAX as usize];
+            let resolved = libc::realpath(fname, buffer.as_mut_ptr().cast());
+            if resolved.is_null() {
+                mk_file_not_found_error(filename)
+            } else {
+                lean_io_result_mk_ok(lean_mk_string(buffer.as_ptr().cast()))
+            }
+        };
+
+        lean_dec(filename);
+        result
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_read_dir(dirname: *mut LeanObject) -> *mut LeanObject {
+        let dirname_ptr = match check_no_nuls(dirname) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        let dir = libc::opendir(dirname_ptr);
+        if dir.is_null() {
+            return lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), dirname));
+        }
+
+        let mut arr = lean_alloc_array(0, 0);
+        loop {
+            let entry = libc::readdir(dir);
+            if entry.is_null() {
+                break;
+            }
+
+            let name = (*entry).d_name.as_ptr();
+            if libc::strcmp(name, c".".as_ptr()) == 0 || libc::strcmp(name, c"..".as_ptr()) == 0 {
+                continue;
+            }
+
+            let lentry = lean_runtime_alloc_ctor(0, 2, 0);
+            lean_inc(dirname);
+            ctor_set(lentry, 0, dirname);
+            ctor_set(lentry, 1, lean_mk_string(name));
+            arr = lean_array_push(arr, lentry);
+        }
+
+        assert!(libc::closedir(dir) == 0);
+        lean_io_result_mk_ok(arr)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
