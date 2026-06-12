@@ -426,6 +426,84 @@ mod runtime_io_fs_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_get_random_bytes(nbytes: usize) -> *mut LeanObject {
+        if nbytes == 0 {
+            return lean_io_result_mk_ok(lean_alloc_sarray(1, 0, 0));
+        }
+        if lean_alloc_sarray_would_overflow(1, nbytes) {
+            return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
+        }
+
+        let res = lean_alloc_sarray(1, 0, nbytes);
+        let mut remain = nbytes;
+        let mut dst = lean_sarray_cptr(res).cast_mut();
+
+        #[cfg(not(target_os = "windows"))]
+        {
+            let random_path = c"/dev/urandom";
+            let fd = libc::open(random_path.as_ptr(), libc::O_RDONLY | libc::O_CLOEXEC);
+            if fd < 0 {
+                lean_dec(res);
+                let fname = lean_mk_string(random_path.as_ptr());
+                return lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), fname));
+            }
+
+            while remain > 0 {
+                #[cfg(target_os = "emscripten")]
+                let read_size = remain.min(65536);
+                #[cfg(not(target_os = "emscripten"))]
+                let read_size = remain;
+
+                let nread = libc::read(fd, dst.cast(), read_size);
+                if nread < 0 {
+                    if super::lean_runtime_errno() != libc::EINTR {
+                        let err = super::lean_runtime_errno();
+                        libc::close(fd);
+                        lean_dec(res);
+                        return lean_io_result_mk_error(lean_decode_io_error(err, core::ptr::null_mut()));
+                    }
+                } else {
+                    remain -= nread as usize;
+                    dst = dst.add(nread as usize);
+                }
+            }
+            libc::close(fd);
+        }
+
+        #[cfg(target_os = "windows")]
+        {
+            extern "system" {
+                fn BCryptGenRandom(
+                    algorithm: *mut core::ffi::c_void,
+                    buffer: *mut u8,
+                    count: u32,
+                    flags: u32,
+                ) -> i32;
+            }
+            const BCRYPT_USE_SYSTEM_PREFERRED_RNG: u32 = 0x00000002;
+
+            while remain > 0 {
+                let read_size = remain.min(u32::MAX as usize);
+                let status = BCryptGenRandom(
+                    core::ptr::null_mut(),
+                    dst,
+                    read_size as u32,
+                    BCRYPT_USE_SYSTEM_PREFERRED_RNG,
+                );
+                if status < 0 {
+                    lean_dec(res);
+                    return io_error_from_str(c"BCryptGenRandom failed".as_ptr());
+                }
+                remain -= read_size;
+                dst = dst.add(read_size);
+            }
+        }
+
+        lean_sarray_set_size(res, nbytes);
+        lean_io_result_mk_ok(res)
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_io_current_dir() -> *mut LeanObject {
         let mut buffer = [0u8; libc::PATH_MAX as usize];
         let cwd = libc::getcwd(buffer.as_mut_ptr().cast::<c_char>(), buffer.len());
