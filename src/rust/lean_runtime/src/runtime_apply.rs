@@ -44,7 +44,7 @@ mod runtime_apply_impl {
         (*obj).rc == 1
     }
 
-    unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
         debug_assert!(arity > 0);
         debug_assert!(num_fixed < arity);
         let byte_size = core::mem::size_of::<LeanClosureObject>()
@@ -275,4 +275,4 @@ mod runtime_apply_impl {
     }
 }
 
-pub(crate) use runtime_apply_impl::lean_apply_1;
+pub(crate) use runtime_apply_impl::{lean_alloc_closure, lean_apply_1, lean_apply_2};
