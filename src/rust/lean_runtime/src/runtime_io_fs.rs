@@ -10,6 +10,8 @@ mod runtime_io_fs_impl {
 
     extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
+        #[link_name = "_ZN4lean14io_wrap_handleEP8_IO_FILE"]
+        fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject;
         fn lean_mk_io_error_no_file_or_directory(
             fname: *mut LeanObject,
             errnum: u32,
@@ -393,6 +395,34 @@ mod runtime_io_fs_impl {
         } else {
             lean_io_result_mk_ok(lean_mk_string(path))
         }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_create_tempfile(_w: *mut LeanObject) -> *mut LeanObject {
+        let template = match tmpdir_template() {
+            Some(template) => template,
+            None => {
+                return lean_io_result_mk_error(lean_decode_io_error(
+                    libc::ENOENT,
+                    lean_mk_string(c"".as_ptr()),
+                ));
+            }
+        };
+        let mut bytes = template.into_bytes_with_nul();
+        let fd = libc::mkstemp(bytes.as_mut_ptr().cast());
+        if fd == -1 {
+            return lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()));
+        }
+        let handle = libc::fdopen(fd, c"r+".as_ptr());
+        if handle.is_null() {
+            let err = super::lean_runtime_errno();
+            libc::close(fd);
+            return lean_io_result_mk_error(lean_decode_io_error(err, core::ptr::null_mut()));
+        }
+        let pair = lean_runtime_alloc_ctor(0, 2, 0);
+        ctor_set(pair, 0, io_wrap_handle(handle));
+        ctor_set(pair, 1, lean_mk_string(bytes.as_ptr().cast()));
+        lean_io_result_mk_ok(pair)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
