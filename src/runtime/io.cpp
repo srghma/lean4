@@ -497,30 +497,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_bind_task(obj_arg t, obj_arg f, obj_arg p
     return t2;
 }
 
-extern "C" LEAN_EXPORT uint8_t lean_io_check_canceled() {
-    return lean_io_check_canceled_core();
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_cancel(b_obj_arg t) {
-    lean_io_cancel_core(t);
-    return box(0);
-}
-
-extern "C" LEAN_EXPORT uint8_t lean_io_get_task_state(b_obj_arg t) {
-    return lean_io_get_task_state_core(t);
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_wait(obj_arg t) {
-    return lean_task_get_own(t);
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_wait_any(b_obj_arg task_list) {
-    object * t = lean_io_wait_any_core(task_list);
-    object * v = lean_task_get(t);
-    lean_inc(v);
-    return v;
-}
-
 #ifndef LEAN_RUST_IO_UTIL
 extern "C" LEAN_EXPORT obj_res lean_io_exit(uint8_t code) {
     exit(code);
