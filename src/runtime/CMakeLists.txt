@@ -12,8 +12,8 @@ if(CMAKE_SYSTEM_NAME MATCHES "Windows")
   list(APPEND RUNTIME_OBJS io_timezone_windows.cpp)
 endif()
 
-set_source_files_properties(object.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_OBJECT_PANIC;LEAN_RUST_OBJECT_SIZE;LEAN_RUST_OBJECT_ARRAY;LEAN_RUST_OBJECT_RC;LEAN_RUST_OBJECT_NAT_INT;LEAN_RUST_OBJECT_STRING;LEAN_RUST_OBJECT_NAME;LEAN_RUST_OBJECT_CTOR_RUNTIME;LEAN_RUST_OBJECT_EXTERNAL_RUNTIME;LEAN_RUST_OBJECT_EXTERNAL_CLASS;LEAN_RUST_OBJECT_TASK_HARDWARE;LEAN_RUST_OBJECT_TASK_NUM_THREADS;LEAN_RUST_OBJECT_TASK_PURE;LEAN_RUST_OBJECT_TASK_IOSTATE")
-set_source_files_properties(thread.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_THREAD_INIT;LEAN_RUST_THREAD_LEAN_RUN_MAIN")
+set_source_files_properties(object.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_OBJECT_PANIC;LEAN_RUST_OBJECT_SIZE;LEAN_RUST_OBJECT_ARRAY;LEAN_RUST_OBJECT_RC;LEAN_RUST_OBJECT_NAT_INT;LEAN_RUST_OBJECT_STRING;LEAN_RUST_OBJECT_NAME;LEAN_RUST_OBJECT_CTOR_RUNTIME;LEAN_RUST_OBJECT_EXTERNAL_RUNTIME;LEAN_RUST_OBJECT_EXTERNAL_CLASS;LEAN_RUST_OBJECT_TASK_HARDWARE;LEAN_RUST_OBJECT_TASK_NUM_THREADS;LEAN_RUST_OBJECT_TASK_PURE;LEAN_RUST_OBJECT_TASK_IOSTATE;LEAN_RUST_OBJECT_TASK")
+set_source_files_properties(thread.cpp PROPERTIES COMPILE_DEFINITIONS "LEAN_RUST_THREAD_INIT;LEAN_RUST_THREAD_LEAN_RUN_MAIN;LEAN_RUST_THREAD_LTHREAD")
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
 
@@ -98,6 +98,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_size.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_array.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_rc.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_task.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_sharecommon.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_thread.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_once.rs
@@ -137,7 +138,7 @@ endif()
 add_library(leanrt_initial-exec STATIC ${RUNTIME_OBJS})
 set_target_properties(leanrt_initial-exec PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 add_dependencies(leanrt_initial-exec lean_runtime_rust)
-target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_ARCHIVE})
+target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE})
 
 # The above library, like all other C++ code, is built using `-ftls-model=initial-exec`, which is necessary for linking it into `leanshared`,
 # but introduces a measurable overhead while accessing the thread-local variable `g_heap` when allocating and deallocating. Therefore we compile
@@ -145,7 +146,7 @@ target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_ARCHIVE})
 add_library(leanrt STATIC ${RUNTIME_OBJS})
 set_target_properties(leanrt PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
 add_dependencies(leanrt lean_runtime_rust)
-target_link_libraries(leanrt PUBLIC ${LEAN_RUNTIME_RUST_ARCHIVE})
+target_link_libraries(leanrt PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE})
 if(NOT MSVC)
   target_compile_options(leanrt PRIVATE -ftls-model=local-exec)
 endif()

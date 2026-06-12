@@ -718,6 +718,7 @@ static inline void lean_dealloc(lean_object * o, size_t sz) {
 #endif
 }
 
+#ifndef LEAN_RUST_OBJECT_TASK
 typedef object * (*lean_cfun2)(object *, object *); // NOLINT
 typedef object * (*lean_cfun3)(object *, object *, object *); // NOLINT
 
@@ -733,6 +734,7 @@ static obj_res mk_closure_3_2(lean_cfun3 fn, obj_arg a1, obj_arg a2) {
     lean_closure_set(c, 1, a2);
     return c;
 }
+#endif // LEAN_RUST_OBJECT_TASK
 
 static object * g_array_empty = nullptr;
 
@@ -743,6 +745,8 @@ object * array_mk_empty() {
 
 // =======================================
 // Tasks
+
+#ifndef LEAN_RUST_OBJECT_TASK
 
 LEAN_THREAD_PTR(lean_task_object, g_current_task_object);
 
@@ -1387,6 +1391,8 @@ extern "C" LEAN_EXPORT void lean_runtime_deactivate_task(lean_task_object * t) {
 extern "C" LEAN_EXPORT void lean_runtime_deactivate_promise(lean_promise_object * promise) {
     deactivate_promise(promise);
 }
+
+#endif // LEAN_RUST_OBJECT_TASK
 
 // =======================================
 // Natural numbers

@@ -29,13 +29,12 @@ extern "C" {
     ) -> *mut LeanObject;
     fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
-    fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
     fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
+    #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
+    fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
     fn lean_io_promise_new() -> *mut LeanObject;
     fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject) -> *mut LeanObject;
-    fn lean_task_get(task: *mut LeanObject) -> *mut LeanObject;
     fn lean_mark_mt(obj: *mut LeanObject);
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
@@ -932,6 +931,7 @@ include!("runtime_object_panic.rs");
 include!("runtime_object_size.rs");
 include!("runtime_object_array.rs");
 include!("runtime_object_rc.rs");
+include!("runtime_object_task.rs");
 include!("runtime_io_ref.rs");
 include!("runtime_io_fs.rs");
 include!("runtime_io_error.rs");
@@ -1016,59 +1016,6 @@ pub extern "C" fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> 
     std::thread::available_parallelism()
         .map(|count| count.get() as u32)
         .unwrap_or(1)
-}
-
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_task_pure(value: *mut LeanObject) -> *mut LeanObject {
-    const LEAN_TASK_TAG: u8 = 252;
-    let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>())
-        as *mut LeanTaskObject;
-    (*obj).header.rc = 1;
-    #[cfg(not(lean_has_mimalloc))]
-    {
-        (*obj).header.cs_size = 0;
-    }
-    (*obj).header.other = 0;
-    (*obj).header.tag = LEAN_TASK_TAG;
-    (*obj).value = AtomicPtr::new(value);
-    (*obj).imp = ptr::null_mut();
-    obj as *mut LeanObject
-}
-
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_get_task_state_core(task: *mut LeanObject) -> u8 {
-    let task = task as *mut LeanTaskObject;
-    if (*task).imp.is_null() {
-        2
-    } else if (*( (*task).imp as *mut LeanTaskImp)).m_closure.is_null() {
-        1
-    } else {
-        0
-    }
-}
-
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_promise_result_opt(promise: *mut LeanObject) -> *mut LeanObject {
-    let p = promise as *mut LeanPromiseObject;
-    let t = (*p).result;
-    lean_inc_ref(t);
-    t
-}
-
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(opt) || (*opt).tag == 0 {
-        lean_dec(opt);
-        lean_box(0)
-    } else {
-        let task = lean_ctor_get(opt, 0);
-        lean_inc(task);
-        lean_dec(opt);
-        let v = lean_task_get(task);
-        lean_inc(v);
-        lean_dec_ref(task);
-        v
-    }
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

@@ -22,7 +22,9 @@ pub(crate) mod runtime_object_task_impl {
     use super::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
     use core::sync::atomic::Ordering;
     use std::collections::VecDeque;
+    use std::mem::MaybeUninit;
     use std::sync::{Arc, Condvar, Mutex, MutexGuard};
+    use std::thread::JoinHandle;
 
     // ─── Constants ────────────────────────────────────────────────────────────
 
@@ -275,6 +277,7 @@ pub(crate) mod runtime_object_task_impl {
         queues_size: usize,
         max_prio: usize,
         max_std_workers: usize,
+        std_workers: Vec<JoinHandle<()>>,
         total_std_workers: usize,
         idle_std_workers: usize,
         num_dedicated_workers: usize,
@@ -302,6 +305,7 @@ pub(crate) mod runtime_object_task_impl {
                     queues_size: 0,
                     max_prio: 0,
                     max_std_workers,
+                    std_workers: Vec::new(),
                     total_std_workers: 0,
                     idle_std_workers: 0,
                     num_dedicated_workers: 0,
@@ -371,7 +375,7 @@ pub(crate) mod runtime_object_task_impl {
             }
             guard.total_std_workers += 1;
             let tm = Arc::clone(self);
-            spawn_lean_worker(move || {
+            let handle = spawn_lean_worker(move || {
                 unsafe { save_stack_info(false); }
                 let mut guard = tm.inner.lock().unwrap();
                 guard.idle_std_workers += 1;
@@ -400,6 +404,7 @@ pub(crate) mod runtime_object_task_impl {
                 guard.idle_std_workers -= 1;
                 guard.total_std_workers -= 1;
             });
+            guard.std_workers.push(handle);
         }
 
         fn spawn_dedicated_worker(
@@ -442,16 +447,15 @@ pub(crate) mod runtime_object_task_impl {
 
             let result = with_mutex_unlocked!(guard, self.inner, {
                 let _scope = ScopedCurrentTask::new(t);
-                unsafe { lean_apply_1(closure, lean_box(0)) }
-            });
-
-            // If keep_alive and the task produced its final value, release the extra ref.
-            if !result.is_null() {
-                let imp2 = unsafe { (*t).imp as *mut LeanTaskImp };
-                if unsafe { (*imp2).m_keep_alive } {
-                    unsafe { lean_dec_ref(t as *mut LeanObject); }
+                let result = lean_apply_1(closure, lean_box(0));
+                if !result.is_null() {
+                    let imp2 = (*t).imp as *mut LeanTaskImp;
+                    if (*imp2).m_keep_alive {
+                        lean_dec_ref(t as *mut LeanObject);
+                    }
                 }
-            }
+                result
+            });
 
             let imp3 = unsafe { (*t).imp as *mut LeanTaskImp };
             debug_assert!(!imp3.is_null());
@@ -716,16 +720,20 @@ pub(crate) mod runtime_object_task_impl {
         }
 
         fn initiate_shutdown(&self) {
-            {
+            let std_workers = {
                 let mut guard = self.inner.lock().unwrap();
                 if guard.shutting_down {
                     return;
                 }
                 guard.shutting_down = true;
-            }
+                std::mem::take(&mut guard.std_workers)
+            };
             self.queue_cv.notify_all();
+            for worker in std_workers {
+                worker.join().expect("lean worker thread panicked");
+            }
             let guard = self.inner.lock().unwrap();
-            self.dedicated_finished_cv
+            let _guard = self.dedicated_finished_cv
                 .wait_while(guard, |g| g.num_dedicated_workers > 0)
                 .unwrap();
         }
@@ -765,7 +773,7 @@ pub(crate) mod runtime_object_task_impl {
         fn lean_panic(msg: *const core::ffi::c_char, force_stderr: bool);
     }
 
-    fn spawn_lean_worker<F: FnOnce() + Send + 'static>(f: F) {
+    fn spawn_lean_worker<F: FnOnce() + Send + 'static>(f: F) -> JoinHandle<()> {
         #[cfg(target_pointer_width = "64")]
         const STACK_SIZE: usize = 1024 * 1024 * 1024; // 1 GB
         #[cfg(not(target_pointer_width = "64"))]
@@ -774,11 +782,16 @@ pub(crate) mod runtime_object_task_impl {
         std::thread::Builder::new()
             .stack_size(STACK_SIZE)
             .spawn(move || {
-                unsafe { lean_initialize_thread(); }
-                f();
-                unsafe { lean_finalize_thread(); }
+                unsafe {
+                    let mut guard = MaybeUninit::<StackGuard>::uninit();
+                    stack_guard_ctor_complete(guard.as_mut_ptr());
+                    lean_initialize_thread();
+                    f();
+                    lean_finalize_thread();
+                    stack_guard_dtor_complete(guard.as_mut_ptr());
+                }
             })
-            .expect("failed to spawn lean worker thread");
+            .expect("failed to spawn lean worker thread")
     }
 
     // ─── Init / finalize task manager ────────────────────────────────────────
@@ -1128,3 +1141,7 @@ pub(crate) mod runtime_object_task_impl {
         }
     }
 }
+
+// Re-export functions needed by other modules (accessed via `use super::*`).
+pub use runtime_object_task_impl::lean_io_get_task_state_core;
+pub use runtime_object_task_impl::lean_task_get;

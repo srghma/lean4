@@ -29,6 +29,7 @@ Author: Leonardo de Moura
 #endif
 
 namespace lean {
+#ifndef LEAN_RUST_THREAD_LTHREAD
 static std::vector<std::function<void()>> * g_thread_local_reset_fns;
 
 static void initialize_thread_local_reset_fns() {
@@ -48,6 +49,7 @@ void reset_thread_local() {
         fn();
     }
 }
+#endif // LEAN_RUST_THREAD_LTHREAD
 
 using runnable = std::function<void()>;
 
@@ -62,6 +64,7 @@ extern "C" LEAN_EXPORT void lean_finalize_thread() {
 }
 #endif
 
+#ifndef LEAN_RUST_THREAD_LTHREAD
 static void thread_main(void * p) {
     lean_initialize_thread();
     std::unique_ptr<runnable> f;
@@ -165,6 +168,7 @@ lthread::~lthread() {}
 
 void lthread::join() { m_imp->join(); }
 #endif // LEAN_MULTI_THREAD
+#endif // LEAN_RUST_THREAD_LTHREAD
 
 #ifndef LEAN_RUST_THREAD_LEAN_RUN_MAIN
 /* setThreadStackSize (sz : USize) : BaseIO Unit */

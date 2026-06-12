@@ -12,9 +12,9 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
     - [x] src/runtime/hash (`src/runtime/hash.h` and `src/runtime/hash.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
     - [ ] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`)
-    - [ ] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`)
+    - [x] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpn.rs`; C++ source removed
       - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
-        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: LEAN_RUST_OBJECT_PANIC, LEAN_RUST_OBJECT_SIZE, LEAN_RUST_OBJECT_ARRAY, LEAN_RUST_OBJECT_RC, LEAN_RUST_OBJECT_NAT_INT, LEAN_RUST_OBJECT_STRING, LEAN_RUST_OBJECT_NAME, LEAN_RUST_OBJECT_CTOR_RUNTIME, LEAN_RUST_OBJECT_EXTERNAL_RUNTIME, LEAN_RUST_OBJECT_EXTERNAL_CLASS, LEAN_RUST_OBJECT_TASK_HARDWARE, LEAN_RUST_OBJECT_TASK_NUM_THREADS, LEAN_RUST_OBJECT_TASK_PURE, lean_io_get_task_state_core, lean_io_promise_result_opt, lean_get_or_block done; remaining: task/io sections
+        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: all lean_* functions ported (LEAN_RUST_OBJECT_PANIC/SIZE/ARRAY/RC/NAT_INT/STRING/NAME/CTOR_RUNTIME/EXTERNAL_RUNTIME/EXTERNAL_CLASS/TASK_*); remaining: g_array_empty+array_mk_empty() still in C++ (used by array_ref.h), lean_dealloc static helper (blocked on porting module.cpp/ir_interpreter.cpp)
           - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
             - [ ] src/runtime/option_ref (`src/runtime/option_ref.h`)
             - [ ] src/runtime/pair_ref (`src/runtime/pair_ref.h`)
@@ -62,7 +62,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ source removed
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
     - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
-      - [~] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — PARTIAL: initialize_thread, finalize_thread, lean_run_main, lean_internal_set_thread_stack_size done; remaining: lthread class (blocked by object.cpp task manager) and thread-local reset registry
+      - [~] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — PARTIAL: initialize_thread, finalize_thread, lean_run_main, lean_internal_set_thread_stack_size, lthread (LEAN_RUST_THREAD_LTHREAD), thread-local reset registry (LEAN_RUST_THREAD_LTHREAD) all done; remaining: interrupt/exception still in C++
         - [ ] src/util/rc (`src/util/rc.h`)
         - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)
     - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
