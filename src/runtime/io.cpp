@@ -705,87 +705,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_get_random_bytes (size_t nbytes) {
     return io_result_mk_ok(res);
 }
 
-/*
-inductive FileType where
-  | dir
-  | file
-  | symlink
-  | other
-
-structure SystemTime where
-  sec  : Int
-  nsec : UInt32
-
-structure Metadata where
-  --permissions : ...
-  accessed : SystemTime
-  modified : SystemTime
-  byteSize : UInt64
-  type     : FileType
-
-constant metadata : @& FilePath → IO IO.FS.Metadata
-*/
-static obj_res timespec_to_obj(uv_timespec_t const & ts) {
-    object * o = alloc_cnstr(0, 1, sizeof(uint32));
-    cnstr_set(o, 0, lean_int64_to_int(ts.tv_sec));
-    cnstr_set_uint32(o, sizeof(object *), ts.tv_nsec);
-    return o;
-}
-
-static obj_res metadata_core(uv_stat_t const & st) {
-    object * mdata = alloc_cnstr(0, 2, 2 * sizeof(uint64) + sizeof(uint8));
-    cnstr_set(mdata, 0, timespec_to_obj(st.st_atim));
-    cnstr_set(mdata, 1, timespec_to_obj(st.st_mtim));
-    cnstr_set_uint64(mdata, 2 * sizeof(object *), st.st_size);
-    cnstr_set_uint64(mdata, 2 * sizeof(object *) + sizeof(uint64), st.st_nlink);
-    cnstr_set_uint8(mdata, 2 * sizeof(object *) + 2 * sizeof(uint64),
-                    S_ISDIR(st.st_mode) ? 0 :
-                    S_ISREG(st.st_mode) ? 1 :
-#ifndef LEAN_WINDOWS
-                    S_ISLNK(st.st_mode) ? 2 :
-#endif
-                    3);
-    return io_result_mk_ok(mdata);
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_metadata(b_obj_arg filename) {
-    const char* fname = string_cstr(filename);
-    if (strlen(fname) != lean_string_size(filename) - 1) {
-        return mk_embedded_nul_error(filename);
-    }
-    uv_fs_t req;
-    int ret = uv_fs_stat(NULL, &req, fname, NULL);
-    if (ret < 0) {
-        uv_fs_req_cleanup(&req);
-        return io_result_mk_error(decode_uv_error(ret, filename));
-    } else {
-        object* mdata = metadata_core(req.statbuf);
-        uv_fs_req_cleanup(&req);
-        return mdata;
-    }
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_symlink_metadata(b_obj_arg filename) {
-#ifdef LEAN_WINDOWS
-    return lean_io_metadata(filename);
-#else
-    const char* fname = string_cstr(filename);
-    if (strlen(fname) != lean_string_size(filename) - 1) {
-        return mk_embedded_nul_error(filename);
-    }
-    uv_fs_t req;
-    int ret = uv_fs_lstat(NULL, &req, fname, NULL);
-    if (ret < 0) {
-        uv_fs_req_cleanup(&req);
-        return io_result_mk_error(decode_uv_error(ret, filename));
-    } else {
-        object* mdata = metadata_core(req.statbuf);
-        uv_fs_req_cleanup(&req);
-        return mdata;
-    }
-#endif
-}
-
 /* createTempFile : IO (Handle × FilePath) */
 extern "C" LEAN_EXPORT obj_res lean_io_create_tempfile(lean_object * /* w */) {
     char path[PATH_MAX];
@@ -829,51 +748,6 @@ extern "C" LEAN_EXPORT obj_res lean_io_create_tempfile(lean_object * /* w */) {
         object_ref pair = mk_cnstr(0, io_wrap_handle(handle), mk_string(req.path));
         uv_fs_req_cleanup(&req);
         return lean_io_result_mk_ok(pair.steal());
-    }
-}
-
-/* createTempDir : IO FilePath */
-extern "C" LEAN_EXPORT obj_res lean_io_create_tempdir(lean_object * /* w */) {
-    char path[PATH_MAX];
-    size_t base_len = PATH_MAX;
-    int ret = uv_os_tmpdir(path, &base_len);
-    if (ret < 0) {
-        return io_result_mk_error(decode_uv_error(ret, nullptr));
-    } else if (base_len == 0) {
-        return lean_io_result_mk_error(decode_uv_error(UV_ENOENT, mk_string("")));
-    }
-
-#if defined(LEAN_WINDOWS)
-    // On Windows `GetTempPathW` always returns a path ending in \, but libuv removes it.
-    // https://learn.microsoft.com/en-us/windows/win32/fileio/creating-and-using-a-temporary-file
-    if (path[base_len - 1] != '\\') {
-        lean_always_assert(PATH_MAX >= base_len + 1 + 1);
-        strcat(path, "\\");
-    }
-#else
-    // No guarantee that we have a trailing / in TMPDIR.
-    if (path[base_len - 1] != '/') {
-        lean_always_assert(PATH_MAX >= base_len + 1 + 1);
-        strcat(path, "/");
-    }
-#endif
-
-    const char* file_pattern = "tmp.XXXXXXXX";
-    const size_t file_pattern_size = strlen(file_pattern);
-    lean_always_assert(PATH_MAX >= strlen(path) + file_pattern_size + 1);
-    strcat(path, file_pattern);
-
-    uv_fs_t req;
-    // Differences from lean_io_create_tempfile start here
-    ret = uv_fs_mkdtemp(NULL, &req, path, NULL);
-    if (ret < 0) {
-        uv_fs_req_cleanup(&req);
-        // If mkdtemp throws an error we cannot rely on path to contain a proper file name.
-        return io_result_mk_error(decode_uv_error(ret, nullptr));
-    } else {
-        obj_res res = lean_io_result_mk_ok(mk_string(req.path));
-        uv_fs_req_cleanup(&req);
-        return res;
     }
 }
 

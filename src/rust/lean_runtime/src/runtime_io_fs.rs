@@ -52,6 +52,99 @@ mod runtime_io_fs_impl {
         lean_runtime_ctor_set(obj, index, value);
     }
 
+    unsafe fn ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u32) {
+        (obj.add(1) as *mut u8).add(offset).cast::<u32>().write(value);
+    }
+
+    unsafe fn system_time_to_obj(sec: i64, nsec: u32) -> *mut LeanObject {
+        let o = lean_runtime_alloc_ctor(0, 1, core::mem::size_of::<u32>() as u32);
+        ctor_set(o, 0, super::lean_int64_to_int_rust(sec));
+        ctor_set_uint32(o, core::mem::size_of::<*mut LeanObject>(), nsec);
+        o
+    }
+
+    #[cfg(any(target_os = "linux", target_os = "android"))]
+    unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
+        (
+            (st.st_atime as i64, st.st_atime_nsec as u32),
+            (st.st_mtime as i64, st.st_mtime_nsec as u32),
+        )
+    }
+
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
+        (
+            (st.st_atimespec.tv_sec as i64, st.st_atimespec.tv_nsec as u32),
+            (st.st_mtimespec.tv_sec as i64, st.st_mtimespec.tv_nsec as u32),
+        )
+    }
+
+    #[cfg(not(any(target_os = "linux", target_os = "android", target_os = "macos", target_os = "ios")))]
+    unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
+        ((st.st_atime as i64, 0), (st.st_mtime as i64, 0))
+    }
+
+    unsafe fn metadata_core(st: &libc::stat) -> *mut LeanObject {
+        let ((atime_sec, atime_nsec), (mtime_sec, mtime_nsec)) = stat_timespecs(st);
+        let mdata = lean_runtime_alloc_ctor(
+            0,
+            2,
+            (2 * core::mem::size_of::<u64>() + core::mem::size_of::<u8>()) as u32,
+        );
+        ctor_set(mdata, 0, system_time_to_obj(atime_sec, atime_nsec));
+        ctor_set(mdata, 1, system_time_to_obj(mtime_sec, mtime_nsec));
+
+        let ptr_size = core::mem::size_of::<*mut LeanObject>();
+        lean_ctor_set_uint64(mdata, 2 * ptr_size, st.st_size as u64);
+        lean_ctor_set_uint64(mdata, 2 * ptr_size + core::mem::size_of::<u64>(), st.st_nlink as u64);
+
+        let mode = st.st_mode as libc::mode_t;
+        let file_type = if mode & libc::S_IFMT == libc::S_IFDIR {
+            0
+        } else if mode & libc::S_IFMT == libc::S_IFREG {
+            1
+        } else if cfg!(not(target_os = "windows")) && mode & libc::S_IFMT == libc::S_IFLNK {
+            2
+        } else {
+            3
+        };
+        lean_ctor_set_uint8(
+            mdata,
+            2 * ptr_size + 2 * core::mem::size_of::<u64>(),
+            file_type,
+        );
+        lean_io_result_mk_ok(mdata)
+    }
+
+    unsafe fn tmpdir_template() -> Option<CString> {
+        #[cfg(unix)]
+        {
+            use std::os::unix::ffi::OsStrExt;
+
+            let mut bytes = std::env::temp_dir().as_os_str().as_bytes().to_vec();
+            if bytes.is_empty() {
+                return None;
+            }
+            if *bytes.last().unwrap() != b'/' {
+                bytes.push(b'/');
+            }
+            bytes.extend_from_slice(b"tmp.XXXXXXXX");
+            CString::new(bytes).ok()
+        }
+        #[cfg(not(unix))]
+        {
+            let mut path = std::env::temp_dir().to_string_lossy().into_owned();
+            if path.is_empty() {
+                return None;
+            }
+            if !path.ends_with('\\') && !path.ends_with('/') {
+                path.push(std::path::MAIN_SEPARATOR);
+            }
+            path.push_str("tmp.XXXXXXXX");
+            CString::new(path).ok()
+        }
+    }
+
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_chmod(filename: *mut LeanObject, mode: u32) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
@@ -248,6 +341,58 @@ mod runtime_io_fs_impl {
 
         assert!(libc::closedir(dir) == 0);
         lean_io_result_mk_ok(arr)
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_metadata(filename: *mut LeanObject) -> *mut LeanObject {
+        let fname = match check_no_nuls(filename) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        let mut st = core::mem::MaybeUninit::<libc::stat>::uninit();
+        if libc::stat(fname, st.as_mut_ptr()) == 0 {
+            metadata_core(&st.assume_init())
+        } else {
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
+        }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_symlink_metadata(filename: *mut LeanObject) -> *mut LeanObject {
+        let fname = match check_no_nuls(filename) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        let mut st = core::mem::MaybeUninit::<libc::stat>::uninit();
+        #[cfg(target_os = "windows")]
+        let ret = libc::stat(fname, st.as_mut_ptr());
+        #[cfg(not(target_os = "windows"))]
+        let ret = libc::lstat(fname, st.as_mut_ptr());
+        if ret == 0 {
+            metadata_core(&st.assume_init())
+        } else {
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
+        }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_create_tempdir(_w: *mut LeanObject) -> *mut LeanObject {
+        let template = match tmpdir_template() {
+            Some(template) => template,
+            None => {
+                return lean_io_result_mk_error(lean_decode_io_error(
+                    libc::ENOENT,
+                    lean_mk_string(c"".as_ptr()),
+                ));
+            }
+        };
+        let mut bytes = template.into_bytes_with_nul();
+        let path = libc::mkdtemp(bytes.as_mut_ptr().cast());
+        if path.is_null() {
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()))
+        } else {
+            lean_io_result_mk_ok(lean_mk_string(path))
+        }
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
