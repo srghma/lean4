@@ -968,6 +968,24 @@ pub unsafe extern "C" fn lean_get_or_block(opt: *mut LeanObject) -> *mut LeanObj
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
+    if !lean_is_scalar(opt) {
+        let value = lean_ctor_get(opt, 0);
+        lean_inc(value);
+        lean_dec(opt);
+        value
+    } else {
+        runtime_object_panic_impl::lean_panic(
+            c"PANIC: Promise.result!: promise has been dropped without ever being resolved".as_ptr(),
+            true,
+        );
+        loop {
+            std::thread::sleep(std::time::Duration::MAX);
+        }
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_runtime_get_lean_num_threads() -> c_uint {
     #[cfg(not(target_os = "emscripten"))]
     {

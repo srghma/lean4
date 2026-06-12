@@ -46,7 +46,6 @@ Authors: Leonardo de Moura, Sebastian Ullrich
 #include "runtime/utf8.h"
 #include "runtime/object.h"
 #include "runtime/thread.h"
-#include "runtime/option_ref.h"
 
 #ifdef _MSC_VER
 #define S_ISDIR(mode) ((mode & _S_IFDIR) != 0)
@@ -329,20 +328,6 @@ extern "C" LEAN_EXPORT obj_res lean_get_windows_local_timezone_id_at(uint64_t tm
 // =======================================
 // ST ref primitives
 
-
-extern "C" LEAN_EXPORT obj_res lean_option_get_or_block(obj_arg o_opt) {
-    option_ref<object_ref> opt = option_ref<object_ref>(o_opt);
-    if (opt) {
-        return opt.get_val().steal();
-    } else {
-        lean_panic("PANIC: Promise.result!: promise has been dropped without ever being resolved",
-          /* force_stderr */ true);
-        // this is only reachable when using non-fatal panics
-        while (true) {
-            this_thread::sleep_for(std::chrono::seconds::max());
-        }
-    }
-}
 
 LEAN_EXPORT void initialize_io() {
     g_io_handle_external_class = lean_register_external_class(io_handle_finalizer, io_handle_foreach);
