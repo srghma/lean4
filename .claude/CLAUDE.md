@@ -2,7 +2,9 @@ I am trying to rewrite lean4 cpp implementation to rust.
 
 we are rn at upstream/master + my changes
 
-goal is to rewrite all cpp (and maybe h files) files into rust, one file by one. after each rewritten to rust file we should check that tests pass using `CTEST_PARALLEL_LEVEL=$(nproc) make -C build/release test -j$(nproc) ARGS='-E bench/mvcgen/sym --timeout 240 --quiet --output-on-failure' && gaa && gc -m 'feat: all tests pass'` (or with -R "..."' to focus on some test or group of tests, e.g. -R "elab"') (bench/mvcgen/sym is not running bc olean files are deprecated). Use flag --timeout, one test cannot run more that 4 minutes.
+goal is to rewrite all cpp (and maybe h files) files into rust, one file by one. after each rewritten to rust file we should check that tests pass using `log="/tmp/lean4-test-output-$(date +%Y%m%d-%H%M%S).log"; set -o pipefail; CTEST_PARALLEL_LEVEL=$(nproc) make -C build/release test -j"$(nproc)" ARGS='-E bench/mvcgen/sym --timeout 240 --output-on-failure' 2>&1 | tee "$log" | grep -A5 -B20 -Ei 'fail(ed|ure)?|failure'; s=${PIPESTATUS[0]}; [ "$s" -eq 0 ] && git add -A && git commit -m 'feat: all tests pass' || { echo "Tests failed. Full log: $log"; exit "$s"; }` (or with -R "..."' to focus on some test or group of tests, e.g. -R "elab"') (bench/mvcgen/sym is not running bc olean files are deprecated). Use flag --timeout, one test cannot run more that 4 minutes.
+
+NOTE: that `--quiet` flag make ctests not output not only `Passed`, but `Failed` too, thus should not be used
 
 Can do `gaa && gc -m 'feat: all tests pass'` only if ALL tests have passed
 
