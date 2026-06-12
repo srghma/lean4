@@ -105,6 +105,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_object_name.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_fs.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_ref.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_error.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_handle.rs
   VERBATIM
 )
