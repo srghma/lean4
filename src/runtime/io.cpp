@@ -924,6 +924,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_remove_dir(b_obj_arg p) {
 }
 #endif // LEAN_RUST_IO_FS
 
+#ifndef LEAN_RUST_IO_FS
 extern "C" LEAN_EXPORT obj_res lean_io_rename(b_obj_arg from, b_obj_arg to) {
     const char* from_str = string_cstr(from);
     if (strlen(from_str) != lean_string_size(from) - 1) {
@@ -974,6 +975,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_hard_link(b_obj_arg orig, b_obj_arg link)
         return io_result_mk_ok(box(0));
     }
 }
+#endif // LEAN_RUST_IO_FS
 
 /* createTempFile : IO (Handle × FilePath) */
 extern "C" LEAN_EXPORT obj_res lean_io_create_tempfile(lean_object * /* w */) {
@@ -1066,6 +1068,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_create_tempdir(lean_object * /* w */) {
     }
 }
 
+#ifndef LEAN_RUST_IO_FS
 extern "C" LEAN_EXPORT obj_res lean_io_remove_file(b_obj_arg filename) {
     const char* fname = string_cstr(filename);
     if (strlen(fname) != lean_string_size(filename) - 1) {
@@ -1080,6 +1083,7 @@ extern "C" LEAN_EXPORT obj_res lean_io_remove_file(b_obj_arg filename) {
         return io_result_mk_ok(box(0));
     }
 }
+#endif // LEAN_RUST_IO_FS
 
 #ifndef LEAN_RUST_IO_FS
 extern "C" LEAN_EXPORT obj_res lean_io_app_path() {

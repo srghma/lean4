@@ -80,8 +80,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [ ] src/util/path (`src/util/path.h` and `src/util/path.cpp`)
         - [ ] src/util/shell (`src/util/shell.cpp`)
       - [ ] src/util/rb_tree (`src/util/rb_tree.h`)
-    - [ ] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`)
-    - [ ] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`)
+    - [x] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+    - [x] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [ ] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`)
   - [ ] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`)
 - [ ] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`)
@@ -103,8 +103,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [ ] src/util/rc (`src/util/rc.h`)
         - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)
         - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)
-    - [ ] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`)
-    - [ ] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`)
+    - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
+    - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
       - [ ] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`)
       - [ ] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`)
         - [ ] src/util/test (`src/util/test.h`)
@@ -117,18 +117,18 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [ ] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`)
 - [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
-- [ ] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`)
-- [ ] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`)
+- [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
+- [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
 - [ ] src/util/freset (`src/util/freset.h`)
-- [ ] src/util/lbool (`src/util/lbool.h` and `src/util/lbool.cpp`)
-- [ ] src/util/lbool (`src/util/lbool.h` and `src/util/lbool.cpp`)
+- [x] src/util/lbool (`src/util/lbool.h` and `src/util/lbool.cpp`) — Rust replacement for `lean_util_lbool_name` wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
+- [x] src/util/lbool (`src/util/lbool.h` and `src/util/lbool.cpp`) — Rust replacement for `lean_util_lbool_name` wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [ ] src/util/macros (`src/util/macros.h`)
 - [ ] src/util/null_ostream (`src/util/null_ostream.h`)
   - [ ] src/util/output_channel (`src/util/output_channel.h`)
 - [ ] src/util/pair (`src/util/pair.h`)
   - [ ] src/util/rb_map (`src/util/rb_map.h`)
-- [ ] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`)
-- [ ] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`)
+- [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
+- [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
 - [ ] src/util/unit (`src/util/unit.h`)
 - [ ] src/util/unlock_guard (`src/util/unlock_guard.h`)
 - [ ] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`)
@@ -217,7 +217,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [ ] src/library/time_task (`src/library/time_task.h` and `src/library/time_task.cpp`)
 - [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
 - [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
-  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_{is_tty,is_eof,flush,rewind,truncate,read,write,get_line,put_str}, lean_st_{mk_ref,ref_get,ref_take,ref_set,ref_swap,ref_ptr_eq}, lean_io_{exit,force_exit}, lean_runtime_{mark_persistent,mark_multi_threaded,forget} done; remaining: handle and stream plumbing, error decoding, task/io operations
+  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_{is_tty,is_eof,flush,rewind,truncate,read,write,get_line,put_str}, lean_io_{create_dir,remove_dir,current_dir,app_path,rename,hard_link,remove_file}, lean_chmod, lean_st_{mk_ref,ref_get,ref_take,ref_set,ref_swap,ref_ptr_eq}, lean_io_{exit,force_exit}, lean_runtime_{mark_persistent,mark_multi_threaded,forget} done; remaining: handle and stream plumbing, error decoding, read_dir/realpath/tempfile/tempdir, task/io operations
   - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: lean_io_result_show_error, mk_embedded_nul_error, lean_io_prim_handle_{is_tty,is_eof,flush,rewind,truncate,read,write,get_line,put_str}, lean_st_{mk_ref,ref_get,ref_take,ref_set,ref_swap,ref_ptr_eq}, lean_io_{exit,force_exit}, lean_runtime_{mark_persistent,mark_multi_threaded,forget} done; remaining: handle and stream plumbing, error decoding, task/io operations
     - [ ] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`)
     - [ ] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`)

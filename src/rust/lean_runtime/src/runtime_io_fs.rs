@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_io_fs_impl {
     use super::*;
     use core::ffi::c_char;
+    use std::ffi::{CStr, CString};
 
     extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
@@ -23,6 +24,13 @@ mod runtime_io_fs_impl {
 
     unsafe fn io_error_from_str(msg: *const c_char) -> *mut LeanObject {
         lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(msg)))
+    }
+
+    unsafe fn rename_error_detail(from: *const c_char, to: *const c_char) -> *mut LeanObject {
+        let from = CStr::from_ptr(from).to_string_lossy();
+        let to = CStr::from_ptr(to).to_string_lossy();
+        let detail = CString::new(format!("{from} and/or {to}")).unwrap();
+        lean_mk_string(detail.as_ptr())
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -65,6 +73,84 @@ mod runtime_io_fs_impl {
             lean_io_result_mk_ok(lean_box(0))
         } else {
             lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), p))
+        }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_rename(from: *mut LeanObject, to: *mut LeanObject) -> *mut LeanObject {
+        let from_str = match check_no_nuls(from) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        let to_str = match check_no_nuls(to) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        #[cfg(target_os = "windows")]
+        let ok = {
+            extern "system" {
+                fn MoveFileExA(existing_file_name: *const c_char, new_file_name: *const c_char, flags: u32) -> core::ffi::c_int;
+            }
+            const MOVEFILE_REPLACE_EXISTING: u32 = 0x1;
+            MoveFileExA(from_str, to_str, MOVEFILE_REPLACE_EXISTING) != 0
+        };
+        #[cfg(not(target_os = "windows"))]
+        let ok = libc::rename(from_str, to_str) == 0;
+
+        if ok {
+            lean_io_result_mk_ok(lean_box(0))
+        } else {
+            let details = rename_error_detail(from_str, to_str);
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), details))
+        }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_hard_link(orig: *mut LeanObject, link: *mut LeanObject) -> *mut LeanObject {
+        let orig_str = match check_no_nuls(orig) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        let link_str = match check_no_nuls(link) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        #[cfg(target_os = "windows")]
+        let ret = {
+            extern "system" {
+                fn CreateHardLinkA(
+                    file_name: *const c_char,
+                    existing_file_name: *const c_char,
+                    security_attributes: *mut core::ffi::c_void,
+                ) -> core::ffi::c_int;
+            }
+            if CreateHardLinkA(link_str, orig_str, core::ptr::null_mut()) != 0 { 0 } else { -1 }
+        };
+        #[cfg(not(target_os = "windows"))]
+        let ret = libc::link(orig_str, link_str);
+
+        if ret == 0 {
+            lean_io_result_mk_ok(lean_box(0))
+        } else {
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), orig))
+        }
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_io_remove_file(filename: *mut LeanObject) -> *mut LeanObject {
+        let fname = match check_no_nuls(filename) {
+            Ok(s) => s,
+            Err(e) => return e,
+        };
+        #[cfg(target_os = "windows")]
+        let ret = libc::remove(fname);
+        #[cfg(not(target_os = "windows"))]
+        let ret = libc::unlink(fname);
+
+        if ret == 0 {
+            lean_io_result_mk_ok(lean_box(0))
+        } else {
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
         }
     }
 
