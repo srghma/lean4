@@ -56,16 +56,6 @@ Authors: Leonardo de Moura, Sebastian Ullrich
 
 namespace lean {
 
-#ifndef LEAN_RUST_IO_RESULT_SHOW_ERROR
-extern "C" LEAN_EXPORT void lean_io_result_show_error(b_obj_arg r) {
-    object * err = io_result_get_error(r);
-    inc_ref(err);
-    object * str = lean_io_error_to_string(err);
-    std::cerr << "uncaught exception: " << string_cstr(str) << std::endl;
-    dec_ref(str);
-}
-#endif
-
 obj_res io_result_mk_error(char const * msg) {
     return io_result_mk_error(lean_mk_io_user_error(mk_string(msg)));
 }
@@ -138,14 +128,6 @@ extern "C" LEAN_EXPORT obj_res lean_get_set_stderr(obj_arg h) {
     x = object_ref(h);
     return r;
 }
-
-#ifndef LEAN_RUST_IO_EMBEDDED_NUL_ERROR
-// Used for when you try to convert a string with NUL bytes into a C string
-obj_res mk_embedded_nul_error(b_obj_arg str) {
-    lean_inc(str);
-    return io_result_mk_error(lean_mk_io_error_invalid_argument_file(str, EINVAL, mk_string("string contains NUL bytes")));
-}
-#endif
 
 /* Handle.mk (filename : @& String) (mode : FS.Mode) : IO Handle */
 extern "C" LEAN_EXPORT obj_res lean_io_prim_handle_mk(b_obj_arg filename, uint8 mode) {
@@ -347,154 +329,6 @@ extern "C" LEAN_EXPORT obj_res lean_get_windows_local_timezone_id_at(uint64_t tm
 // =======================================
 // ST ref primitives
 
-
-#ifndef LEAN_RUST_IO_ST_REF
-extern "C" LEAN_EXPORT obj_res lean_st_mk_ref(obj_arg a) {
-    lean_ref_object * o = (lean_ref_object*)lean_alloc_small_object(sizeof(lean_ref_object));
-    lean_set_st_header((lean_object*)o, LeanRef, 0);
-    o->m_value = a;
-    return (lean_object*)o;
-}
-
-static inline atomic<object*> * mt_ref_val_addr(object * o) {
-    return reinterpret_cast<atomic<object*> *>(&(lean_to_ref(o)->m_value));
-}
-
-/*
-  Important: we have added support for initializing global constants
-  at program startup. This feature is particularly useful for
-  initializing `ST.Ref` values. Any `ST.Ref` value created during
-  initialization will be marked as persistent. Thus, to make `ST.Ref`
-  API thread-safe, we must treat persistent `ST.Ref` objects created
-  during initialization as a multi-threaded object. Then, whenever we store
-  a value `val` into a global `ST.Ref`, we have to mark `va`l as a multi-threaded
-  object as we do for multi-threaded `ST.Ref`s. It makes sense since
-  the global `ST.Ref` may be used to communicate data between threads.
-*/
-static inline bool ref_maybe_mt(b_obj_arg ref) { return lean_is_mt(ref) || lean_is_persistent(ref); }
-
-extern "C" LEAN_EXPORT obj_res lean_st_ref_get(b_obj_arg ref) {
-    if (ref_maybe_mt(ref)) {
-        atomic<object *> * val_addr = mt_ref_val_addr(ref);
-        while (true) {
-            /*
-              We cannot simply read `val` from the ref and `inc` it like in the `else` branch since someone else could
-              write to the ref in between and remove the last owning reference to the object. Instead, we must take
-              ownership of the RC token in the ref via `exchange`, duplicate it, then put one RC token back. */
-            object * val = val_addr->exchange(nullptr);
-            if (val != nullptr) {
-                inc(val);
-                object * tmp = val_addr->exchange(val);
-                if (tmp != nullptr) {
-                    /* this may happen if another thread wrote `ref` */
-                    dec(tmp);
-                }
-                return val;
-            }
-        }
-    } else {
-        object * val = lean_to_ref(ref)->m_value;
-        lean_assert(val != nullptr);
-        inc(val);
-        return val;
-    }
-}
-
-extern "C" LEAN_EXPORT obj_res lean_st_ref_take(b_obj_arg ref) {
-    if (ref_maybe_mt(ref)) {
-        atomic<object *> * val_addr = mt_ref_val_addr(ref);
-        while (true) {
-            object * val = val_addr->exchange(nullptr);
-            if (val != nullptr)
-                return val;
-        }
-    } else {
-        object * val = lean_to_ref(ref)->m_value;
-        lean_assert(val != nullptr);
-        lean_to_ref(ref)->m_value = nullptr;
-        return val;
-    }
-}
-
-static_assert(sizeof(atomic<unsigned short>) == sizeof(unsigned short), "`atomic<unsigned short>` and `unsigned short` must have the same size"); // NOLINT
-
-extern "C" LEAN_EXPORT obj_res lean_st_ref_set(b_obj_arg ref, obj_arg a) {
-    if (ref_maybe_mt(ref)) {
-        /* We must mark `a` as multi-threaded if `ref` is marked as multi-threaded.
-           Reason: our runtime relies on the fact that a single-threaded object
-           cannot be reached from a multi-thread object. */
-        mark_mt(a);
-        atomic<object *> * val_addr = mt_ref_val_addr(ref);
-        object * old_a = val_addr->exchange(a);
-        if (old_a != nullptr)
-            dec(old_a);
-        return box(0);
-    } else {
-        if (lean_to_ref(ref)->m_value != nullptr)
-            dec(lean_to_ref(ref)->m_value);
-        lean_to_ref(ref)->m_value = a;
-        return box(0);
-    }
-}
-
-extern "C" LEAN_EXPORT obj_res lean_st_ref_swap(b_obj_arg ref, obj_arg a) {
-    if (ref_maybe_mt(ref)) {
-        /* See io_ref_write */
-        mark_mt(a);
-        atomic<object *> * val_addr = mt_ref_val_addr(ref);
-        while (true) {
-            object * old_a = val_addr->exchange(a);
-            if (old_a != nullptr)
-                return old_a;
-        }
-    } else {
-        object * old_a = lean_to_ref(ref)->m_value;
-        if (old_a == nullptr)
-            lean_internal_panic("null reference read");
-        lean_to_ref(ref)->m_value = a;
-        return old_a;
-    }
-}
-
-extern "C" LEAN_EXPORT uint8_t lean_st_ref_ptr_eq(b_obj_arg ref1, b_obj_arg ref2) {
-    return lean_to_ref(ref1) == lean_to_ref(ref2);
-}
-#endif // LEAN_RUST_IO_ST_REF
-
-#ifndef LEAN_RUST_IO_UTIL
-extern "C" LEAN_EXPORT obj_res lean_io_exit(uint8_t code) {
-    exit(code);
-}
-
-extern "C" LEAN_EXPORT obj_res lean_io_force_exit(uint8_t code) {
-    std::_Exit((int)code);
-}
-
-extern "C" LEAN_EXPORT obj_res lean_runtime_mark_multi_threaded(obj_arg a) {
-    lean_mark_mt(a);
-    return a;
-}
-
-extern "C" LEAN_EXPORT obj_res lean_runtime_mark_persistent(obj_arg a) {
-    lean_mark_persistent(a);
-    return a;
-}
-
-#if defined(__has_feature)
-#if __has_feature(address_sanitizer)
-#include <sanitizer/lsan_interface.h>
-#endif
-#endif
-
-extern "C" LEAN_EXPORT obj_res lean_runtime_forget(obj_arg o) {
-#if defined(__has_feature)
-#if __has_feature(address_sanitizer)
-    __lsan_ignore_object(o);
-#endif
-#endif
-    return box(0);
-}
-#endif // LEAN_RUST_IO_UTIL
 
 extern "C" LEAN_EXPORT obj_res lean_option_get_or_block(obj_arg o_opt) {
     option_ref<object_ref> opt = option_ref<object_ref>(o_opt);
