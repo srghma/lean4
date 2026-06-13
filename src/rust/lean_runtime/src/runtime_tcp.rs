@@ -101,7 +101,7 @@ mod runtime_tcp_impl {
         fn uv_tcp_nodelay(handle: *mut c_void, enable: c_int) -> c_int;
         fn uv_tcp_keepalive(handle: *mut c_void, enable: c_int, delay: c_uint) -> c_int;
 
-        fn uv_close(handle: *mut c_void, close_cb: Option<unsafe extern "C" fn(*mut c_void)>);
+        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
         fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t;
 
         #[link_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"]
@@ -159,13 +159,13 @@ mod runtime_tcp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn close_cb(handle: *mut c_void) {
-            let tcp_socket = (*handle.cast::<UvHandle>()).data.cast::<LeanUvTcpSocketObject>();
+        unsafe extern "C" fn close_cb(handle: *mut UvHandle) {
+            let tcp_socket = (*handle).data.cast::<LeanUvTcpSocketObject>();
             libc::free((*tcp_socket).m_uv_tcp);
             libc::free(tcp_socket.cast());
         }
 
-        uv_close((*tcp_socket).m_uv_tcp, Some(close_cb));
+        uv_close((*tcp_socket).m_uv_tcp.cast::<UvHandle>(), Some(close_cb));
 
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
     }

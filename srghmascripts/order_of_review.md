@@ -11,21 +11,21 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
     - [x] src/runtime/hash (`src/runtime/hash.h` and `src/runtime/hash.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
-    - [ ] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`)
+    - [x] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
     - [x] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpn.rs`; C++ source removed
       - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
         - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: all lean_* functions ported (LEAN_RUST_OBJECT_PANIC/SIZE/ARRAY/RC/NAT_INT/STRING/NAME/CTOR_RUNTIME/EXTERNAL_RUNTIME/EXTERNAL_CLASS/TASK_*); remaining: lean_dealloc static helper (blocked on porting module.cpp/ir_interpreter.cpp)
           - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
             - [ ] src/runtime/option_ref (`src/runtime/option_ref.h`)
             - [ ] src/runtime/pair_ref (`src/runtime/pair_ref.h`)
-              - [ ] src/runtime/process (`src/runtime/process.h` and `src/runtime/process.cpp`)
+              - [x] src/runtime/process (`src/runtime/process.h` and `src/runtime/process.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_process.rs`; C++ header/source removed
               - [ ] src/util/kvmap (`src/util/kvmap.h` and `src/util/kvmap.cpp`)
-            - [ ] src/runtime/sharecommon (`src/runtime/sharecommon.h` and `src/runtime/sharecommon.cpp`)
+            - [~] src/runtime/sharecommon (`src/runtime/sharecommon.h` and `src/runtime/sharecommon.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/runtime_sharecommon.rs`; C++ header kept for kernel/environment.cpp compatibility
             - [ ] src/runtime/string_ref (`src/runtime/string_ref.h`)
               - [ ] src/util/ffi (`src/util/ffi.cpp`)
               - [ ] src/util/io (`src/util/io.h`)
             - [ ] src/util/nat (`src/util/nat.h`)
-          - [ ] src/runtime/platform (`src/runtime/platform.h` and `src/runtime/platform.cpp`)
+          - [x] src/runtime/platform (`src/runtime/platform.h` and `src/runtime/platform.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_platform.rs`; C++ header/source removed
           - [x] src/runtime/uv/event_loop (`src/runtime/uv/event_loop.h` and `src/runtime/uv/event_loop.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_event_loop.rs`; C++ header/source removed
           - [x] src/runtime/uv/signal (`src/runtime/uv/signal.h` and `src/runtime/uv/signal.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_signal.rs`; C++ header/source removed
             - [x] src/runtime/uv/system (`src/runtime/uv/system.h` and `src/runtime/uv/system.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_system.rs`; C++ header/source removed
@@ -33,8 +33,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
           - [x] src/runtime/uv/net_addr (`src/runtime/uv/net_addr.h` and `src/runtime/uv/net_addr.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_net_addr.rs`; C++ header/source removed
             - [x] src/runtime/uv/tcp (`src/runtime/uv/tcp.h` and `src/runtime/uv/tcp.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_tcp.rs`; C++ header/source removed
             - [x] src/runtime/uv/udp (`src/runtime/uv/udp.h` and `src/runtime/uv/udp.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_udp.rs`; C++ header/source removed
-          - [ ] src/util/init_module (`src/util/init_module.h` and `src/util/init_module.cpp`)
-          - [ ] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`)
+          - [x] src/util/init_module (`src/util/init_module.h` and `src/util/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
+          - [~] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header kept for kernel/environment.cpp compatibility
     - [ ] src/runtime/optional (`src/runtime/optional.h`)
       - [x] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
         - [ ] src/util/name (`src/util/name.h` and `src/util/name.cpp`)
@@ -52,20 +52,20 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [ ] src/util/rb_tree (`src/util/rb_tree.h`)
     - [x] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_dns.rs`; C++ source removed, header no longer needed by C++ callers
-- [ ] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`)
+- [x] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_libuv.rs`; C++ header removed
 - [ ] src/library/suffixes (`src/library/suffixes.h`)
 - [ ] src/runtime/flet (`src/runtime/flet.h`)
   - [ ] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`)
 - [ ] src/runtime/int (`src/runtime/int.h`)
   - [ ] src/util/message_definitions (`src/util/message_definitions.h`)
 - [ ] src/runtime/sstream (`src/runtime/sstream.h`)
-  - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ source removed
+  - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ header/source removed
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
     - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
       - [x] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_thread.rs`; C++ source removed, reset-registry hooks kept as Rust no-op compatibility shims
         - [ ] src/util/rc (`src/util/rc.h`)
-        - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)
+        - [x] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`) — header removed; no in-tree users remained
     - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
       - [x] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_info.rs`; C++ header folded into `src/runtime/interrupt.h`
         - [ ] src/util/test (`src/util/test.h`)
@@ -120,7 +120,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [ ] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`)
     - [ ] src/library/expr_unsigned_map (`src/library/expr_unsigned_map.h`)
     - [ ] src/library/formatter (`src/library/formatter.h` and `src/library/formatter.cpp`)
-      - [ ] src/library/init_module (`src/library/init_module.h` and `src/library/init_module.cpp`)
+      - [x] src/library/init_module (`src/library/init_module.h` and `src/library/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
       - [ ] src/library/print (`src/library/print.h` and `src/library/print.cpp`)
     - [ ] src/library/max_sharing (`src/library/max_sharing.h` and `src/library/max_sharing.cpp`)
 - [ ] src/kernel/declaration (`src/kernel/declaration.h` and `src/kernel/declaration.cpp`)
@@ -138,7 +138,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
   - [x] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — Rust replacements wired in `src/rust/lean_runtime/src/lib.rs` and `runtime_io_*.rs`; remaining C++ namespace `io_result_mk_error` overloads are inline in `io.h`; C++ source removed
     - [x] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_libuv.rs`; C++ header/source removed
-    - [ ] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`)
+    - [x] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mutex.rs`; C++ header/source removed
 - [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_apply.rs`; unused generated C++ source removed
 - [ ] src/runtime/array_ref (`src/runtime/array_ref.h`)
 - [ ] src/runtime/buffer (`src/runtime/buffer.h`)

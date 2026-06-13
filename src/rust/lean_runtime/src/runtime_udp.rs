@@ -85,7 +85,7 @@ mod runtime_udp_impl {
         fn uv_udp_set_multicast_interface(handle: *mut c_void, interface_addr: *const c_char) -> c_int;
         fn uv_udp_set_ttl(handle: *mut c_void, ttl: c_int) -> c_int;
 
-        fn uv_close(handle: *mut c_void, close_cb: Option<unsafe extern "C" fn(*mut c_void)>);
+        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
         fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t;
 
         #[link_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"]
@@ -141,13 +141,13 @@ mod runtime_udp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn close_cb(handle: *mut c_void) {
-            let udp_socket = (*handle.cast::<UvHandle>()).data.cast::<LeanUvUdpSocketObject>();
+        unsafe extern "C" fn close_cb(handle: *mut UvHandle) {
+            let udp_socket = (*handle).data.cast::<LeanUvUdpSocketObject>();
             libc::free((*udp_socket).m_uv_udp);
             libc::free(udp_socket.cast());
         }
 
-        uv_close((*udp_socket).m_uv_udp, Some(close_cb));
+        uv_close((*udp_socket).m_uv_udp.cast::<UvHandle>(), Some(close_cb));
 
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
     }
