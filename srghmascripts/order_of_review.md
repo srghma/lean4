@@ -26,7 +26,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
               - [ ] src/util/io (`src/util/io.h`)
             - [ ] src/util/nat (`src/util/nat.h`)
           - [ ] src/runtime/platform (`src/runtime/platform.h` and `src/runtime/platform.cpp`)
-          - [ ] src/runtime/uv/event_loop (`src/runtime/uv/event_loop.h` and `src/runtime/uv/event_loop.cpp`)
+          - [x] src/runtime/uv/event_loop (`src/runtime/uv/event_loop.h` and `src/runtime/uv/event_loop.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_event_loop.rs`; C++ header/source removed
             - [ ] src/runtime/uv/signal (`src/runtime/uv/signal.h` and `src/runtime/uv/signal.cpp`)
             - [x] src/runtime/uv/system (`src/runtime/uv/system.h` and `src/runtime/uv/system.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_system.rs`; C++ header/source removed
             - [ ] src/runtime/uv/timer (`src/runtime/uv/timer.h` and `src/runtime/uv/timer.cpp`)

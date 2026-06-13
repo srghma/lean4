@@ -6,7 +6,6 @@ Author: Sofia Rodrigues
 */
 #pragma once
 #include <lean/lean.h>
-#include "runtime/uv/event_loop.h"
 
 #ifndef LEAN_EMSCRIPTEN
 #include <uv.h>

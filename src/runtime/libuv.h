@@ -6,7 +6,6 @@ Author: Markus Himmel, Sofia Rodrigues
 */
 #pragma once
 #include <lean/lean.h>
-#include "runtime/uv/event_loop.h"
 #include "runtime/uv/timer.h"
 #include "runtime/uv/tcp.h"
 #include "runtime/uv/udp.h"
