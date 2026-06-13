@@ -28,7 +28,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
           - [ ] src/runtime/platform (`src/runtime/platform.h` and `src/runtime/platform.cpp`)
           - [ ] src/runtime/uv/event_loop (`src/runtime/uv/event_loop.h` and `src/runtime/uv/event_loop.cpp`)
             - [ ] src/runtime/uv/signal (`src/runtime/uv/signal.h` and `src/runtime/uv/signal.cpp`)
-            - [ ] src/runtime/uv/system (`src/runtime/uv/system.h` and `src/runtime/uv/system.cpp`)
+            - [x] src/runtime/uv/system (`src/runtime/uv/system.h` and `src/runtime/uv/system.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_system.rs`; C++ header/source removed
             - [ ] src/runtime/uv/timer (`src/runtime/uv/timer.h` and `src/runtime/uv/timer.cpp`)
           - [ ] src/runtime/uv/net_addr (`src/runtime/uv/net_addr.h` and `src/runtime/uv/net_addr.cpp`)
             - [ ] src/runtime/uv/tcp (`src/runtime/uv/tcp.h` and `src/runtime/uv/tcp.cpp`)
