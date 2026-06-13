@@ -135,7 +135,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [ ] src/library/profiling (`src/library/profiling.h` and `src/library/profiling.cpp`)
   - [ ] src/library/time_task (`src/library/time_task.h` and `src/library/time_task.cpp`)
 - [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
-  - [~] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — PARTIAL: all lean_* extern "C" functions ported to Rust; io.cpp now only contains C++ namespace io_result_mk_error overloads (used by module.cpp and ir_interpreter.cpp); lean_io_prim_handle_mk ported to lib.rs; lean_windows_get_next_transition and lean_get_windows_local_timezone_id_at ported to lib.rs (non-Windows returns errors, Windows delegates to io_timezone_windows.cpp C++ shims); remaining: C++ namespace io_result_mk_error overloads (blocked on porting module.cpp / ir_interpreter.cpp)
+  - [x] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — Rust replacements wired in `src/rust/lean_runtime/src/lib.rs` and `runtime_io_*.rs`; remaining C++ namespace `io_result_mk_error` overloads are inline in `io.h`; C++ source removed
     - [ ] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`)
     - [ ] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`)
 - [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_apply.rs`; unused generated C++ source removed

@@ -5,7 +5,6 @@ set(
   object.cpp
   exception.cpp
   compact.cpp
-  io.cpp
 )
 
 if(CMAKE_SYSTEM_NAME MATCHES "Windows")
