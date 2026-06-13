@@ -1,7 +1,6 @@
 set(
   RUNTIME_OBJS
   thread.cpp
-  mpz_helpers.cpp
   object.cpp
   exception.cpp
   compact.cpp

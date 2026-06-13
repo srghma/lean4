@@ -13,6 +13,8 @@ Author: Leonardo de Moura
 #endif
 #include <string>
 #include <iostream>
+#include <memory>
+#include <sstream>
 #include <limits>
 #include <lean/lean.h>
 #include "runtime/int.h"
@@ -295,6 +297,32 @@ public:
 
     std::string to_string() const;
 };
+
+inline std::ostream & operator<<(std::ostream & out, mpz const & v) {
+#ifdef LEAN_USE_GMP
+    size_t sz = mpz_sizeinbase(v.m_val, 10) + 2;
+    if (sz < 1024) {
+        char buffer[1024];
+        mpz_get_str(buffer, 10, v.m_val);
+        out << buffer;
+    } else {
+        std::unique_ptr<char[]> buffer(new char[sz]);
+        mpz_get_str(buffer.get(), 10, v.m_val);
+        out << buffer.get();
+    }
+#else
+    if (v.m_sign) out << "-";
+    std::unique_ptr<char[]> buf(new char[11 * v.m_size + 1]);
+    out << mpn_to_string(v.m_digits, v.m_size, buf.get(), 11 * v.m_size + 1);
+#endif
+    return out;
+}
+
+inline std::string mpz::to_string() const {
+    std::ostringstream out;
+    out << *this;
+    return out.str();
+}
 
 struct mpz_cmp_fn {
     int operator()(mpz const & v1, mpz const & v2) const { return cmp(v1, v2); }

@@ -61,6 +61,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [ ] src/runtime/sstream (`src/runtime/sstream.h`)
   - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ source removed
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
+  - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
     - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
       - [~] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — PARTIAL: initialize_thread, finalize_thread, lean_run_main, lean_internal_set_thread_stack_size, lthread (LEAN_RUST_THREAD_LTHREAD), thread-local reset registry (LEAN_RUST_THREAD_LTHREAD) all done; remaining: interrupt/exception still in C++
         - [ ] src/util/rc (`src/util/rc.h`)
