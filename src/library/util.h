@@ -7,9 +7,17 @@ Author: Leonardo de Moura
 #pragma once
 #include <string>
 #include "kernel/environment.h"
-#include "library/expr_pair.h"
+#include "library/expr_lt.h"
 
 namespace lean {
+inline bool is_lt(expr_pair const & p1, expr_pair const & p2, bool use_hash) {
+    return is_lt(p1.first, p2.first, use_hash) || (p1.first == p2.first && is_lt(p1.second, p2.second, use_hash));
+}
+
+struct expr_pair_quick_cmp {
+    int operator()(expr_pair const & p1, expr_pair const & p2) const { return is_lt(p1, p2, true) ? -1 : (p1 == p2 ? 0 : 1);  }
+};
+
 /* If \c n is not in \c env, then return \c. Otherwise, find the first j >= idx s.t.
    n.append_after(j) is not in \c env. */
 name mk_unused_name(environment const & env, name const & n, unsigned & idx);

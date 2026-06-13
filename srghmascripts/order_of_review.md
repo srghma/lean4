@@ -4,7 +4,7 @@ Files are topologically sorted by dependency order (leaves first).
 Siblings at the same indentation level are independent and can be reviewed in any order.
 
 - [ ] src/include/lean/lean (`src/include/lean/lean.h`)
-  - [ ] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`)
+- [x] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`) — header removed; no in-tree users remained
   - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ header/source removed
   - [ ] src/library/llvm (`src/library/llvm.cpp`)
   - [x] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_alloc.rs`; CMake no longer compiles the C++ source
@@ -56,8 +56,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/library/suffixes (`src/library/suffixes.h`) — header removed; constants folded into src/library/util.cpp
 - [ ] src/runtime/flet (`src/runtime/flet.h`)
   - [ ] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`)
-- [ ] src/runtime/int (`src/runtime/int.h`)
-  - [ ] src/util/message_definitions (`src/util/message_definitions.h`)
+  - [ ] src/runtime/int (`src/runtime/int.h`)
+    - [x] src/util/message_definitions (`src/util/message_definitions.h`) — header removed; no in-tree users remained after folding the types out of trace/time_task
 - [ ] src/runtime/sstream (`src/runtime/sstream.h`)
   - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ header/source removed
   - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
@@ -84,8 +84,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [x] src/util/output_channel (`src/util/output_channel.h`) — header removed; no in-tree users remained
 - [ ] src/util/pair (`src/util/pair.h`)
   - [ ] src/util/rb_map (`src/util/rb_map.h`)
-- [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
-- [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
+- [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header removed; helpers folded into src/library/time_task.h
+- [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header removed; helpers folded into src/library/time_task.h
 - [x] src/util/unit (`src/util/unit.h`) — header removed; no in-tree users remained
 - [x] src/util/unlock_guard (`src/util/unlock_guard.h`) — header removed; no in-tree users remained
 - [x] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`) — header removed; no in-tree users remained
@@ -114,7 +114,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [ ] src/kernel/quot (`src/kernel/quot.h` and `src/kernel/quot.cpp`)
       - [ ] src/kernel/trace (`src/kernel/trace.h` and `src/kernel/trace.cpp`)
       - [ ] src/library/expr_lt (`src/library/expr_lt.h` and `src/library/expr_lt.cpp`)
-        - [ ] src/library/expr_pair (`src/library/expr_pair.h`)
+        - [x] src/library/expr_pair (`src/library/expr_pair.h`) — header removed; helper folded into src/library/util.h
     - [x] src/library/expr_pair_maps (`src/library/expr_pair_maps.h`) — header removed; no in-tree users remained
     - [ ] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`)
     - [x] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`) — header removed; no in-tree users remained
