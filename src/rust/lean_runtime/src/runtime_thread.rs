@@ -314,6 +314,14 @@ mod runtime_thread_impl {
     ) -> *mut LeanObject {
         main_fn(argc, argv)
     }
+
+    // The C++ thread-local reset registry is currently unused in the tree.
+    // Keep the hooks as no-ops so we can retire src/runtime/thread.cpp.
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn register_thread_local_reset_fn(_fn: *mut c_void) {}
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn reset_thread_local() {}
 }
 
 pub(crate) use runtime_thread_impl::{
