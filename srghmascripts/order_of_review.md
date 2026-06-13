@@ -5,7 +5,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 
 - [ ] src/include/lean/lean (`src/include/lean/lean.h`)
   - [ ] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`)
-  - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ source removed
+  - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ header/source removed
   - [ ] src/library/llvm (`src/library/llvm.cpp`)
   - [x] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_alloc.rs`; CMake no longer compiles the C++ source
   - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
