@@ -30,7 +30,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
             - [ ] src/runtime/uv/signal (`src/runtime/uv/signal.h` and `src/runtime/uv/signal.cpp`)
             - [x] src/runtime/uv/system (`src/runtime/uv/system.h` and `src/runtime/uv/system.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_system.rs`; C++ header/source removed
             - [ ] src/runtime/uv/timer (`src/runtime/uv/timer.h` and `src/runtime/uv/timer.cpp`)
-          - [ ] src/runtime/uv/net_addr (`src/runtime/uv/net_addr.h` and `src/runtime/uv/net_addr.cpp`)
+          - [x] src/runtime/uv/net_addr (`src/runtime/uv/net_addr.h` and `src/runtime/uv/net_addr.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_net_addr.rs`; C++ header/source removed
             - [ ] src/runtime/uv/tcp (`src/runtime/uv/tcp.h` and `src/runtime/uv/tcp.cpp`)
             - [ ] src/runtime/uv/udp (`src/runtime/uv/udp.h` and `src/runtime/uv/udp.cpp`)
           - [ ] src/util/init_module (`src/util/init_module.h` and `src/util/init_module.cpp`)
