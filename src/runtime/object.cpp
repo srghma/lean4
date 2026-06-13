@@ -492,10 +492,6 @@ static obj_res mk_closure_3_2(lean_cfun3 fn, obj_arg a1, obj_arg a2) {
 // Arrays
 static object * g_array_empty = nullptr;
 
-object * array_mk_empty() {
-    return g_array_empty;
-}
-
 extern "C" object * lean_list_to_array(object *, object *);
 extern "C" object * lean_array_to_list_impl(object *, object *);
 
@@ -737,10 +733,6 @@ static obj_res mk_closure_3_2(lean_cfun3 fn, obj_arg a1, obj_arg a2) {
 #endif // LEAN_RUST_OBJECT_TASK
 
 static object * g_array_empty = nullptr;
-
-object * array_mk_empty() {
-    return g_array_empty;
-}
 #endif
 
 // =======================================

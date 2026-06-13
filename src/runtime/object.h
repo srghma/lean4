@@ -183,7 +183,6 @@ inline mpz_object * to_mpz(object * o) { lean_assert(is_mpz(o)); return (mpz_obj
 inline size_t array_capacity(object * o) { return lean_array_capacity(o); }
 inline object ** array_cptr(object * o) { return lean_array_cptr(o); }
 inline obj_res alloc_array(size_t size, size_t capacity) { return lean_alloc_array(size, capacity); }
-LEAN_EXPORT object * array_mk_empty();
 inline size_t array_size(b_obj_arg o) { return lean_array_size(o); }
 inline void array_set_size(u_obj_arg o, size_t sz) { lean_array_set_size(o, sz); }
 inline b_obj_res array_get(b_obj_arg o, size_t i) { return lean_array_get_core(o, i); }

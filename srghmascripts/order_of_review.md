@@ -14,7 +14,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [ ] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`)
     - [x] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpn.rs`; C++ source removed
       - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
-        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: all lean_* functions ported (LEAN_RUST_OBJECT_PANIC/SIZE/ARRAY/RC/NAT_INT/STRING/NAME/CTOR_RUNTIME/EXTERNAL_RUNTIME/EXTERNAL_CLASS/TASK_*); remaining: g_array_empty+array_mk_empty() still in C++ (used by array_ref.h), lean_dealloc static helper (blocked on porting module.cpp/ir_interpreter.cpp)
+        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: all lean_* functions ported (LEAN_RUST_OBJECT_PANIC/SIZE/ARRAY/RC/NAT_INT/STRING/NAME/CTOR_RUNTIME/EXTERNAL_RUNTIME/EXTERNAL_CLASS/TASK_*); remaining: lean_dealloc static helper (blocked on porting module.cpp/ir_interpreter.cpp)
           - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
             - [ ] src/runtime/option_ref (`src/runtime/option_ref.h`)
             - [ ] src/runtime/pair_ref (`src/runtime/pair_ref.h`)
