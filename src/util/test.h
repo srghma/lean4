@@ -10,4 +10,4 @@ Author: Leonardo de Moura
 #define LEAN_DEBUG
 #endif
 #include "runtime/debug.h"
-#include "runtime/stackinfo.h"
+#include "runtime/interrupt.h"

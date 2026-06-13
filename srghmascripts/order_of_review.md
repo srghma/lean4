@@ -51,7 +51,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [ ] src/util/shell (`src/util/shell.cpp`)
       - [ ] src/util/rb_tree (`src/util/rb_tree.h`)
     - [x] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
-  - [ ] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`)
+  - [x] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_dns.rs`; C++ source removed, header no longer needed by C++ callers
 - [ ] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`)
 - [ ] src/library/suffixes (`src/library/suffixes.h`)
 - [ ] src/runtime/flet (`src/runtime/flet.h`)
@@ -67,7 +67,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [ ] src/util/rc (`src/util/rc.h`)
         - [ ] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`)
     - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
-      - [ ] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`)
+      - [x] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_info.rs`; C++ header folded into `src/runtime/interrupt.h`
         - [ ] src/util/test (`src/util/test.h`)
     - [ ] src/util/exception_with_pos (`src/util/exception_with_pos.h`)
 - [ ] src/shell/lean (`src/shell/lean.cpp`)

@@ -5,13 +5,29 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
+#include <cstdlib>
 #include <utility>
 #include "runtime/thread.h"
-#include "runtime/stackinfo.h"
 #include "runtime/exception.h"
 #include "runtime/flet.h"
 
 namespace lean {
+// Stack information is implemented in Rust now; keep these declarations here so
+// existing C++ includes still see the same API.
+#if defined(LEAN_USE_SPLIT_STACK)
+inline void check_stack(char const * ) { }
+inline size_t get_stack_size(bool ) { return 8192*1024; }
+inline void save_stack_info(bool = true) {}
+inline size_t get_used_stack_size() { return 0; }
+inline size_t get_available_stack_size() { return 8192*1024; }
+#else
+LEAN_EXPORT size_t get_stack_size(bool main);
+LEAN_EXPORT void save_stack_info(bool main = true);
+LEAN_EXPORT size_t get_used_stack_size();
+LEAN_EXPORT size_t get_available_stack_size();
+LEAN_EXPORT void check_stack(char const * component_name);
+#endif
+
 /** \brief Increment thread local counter for approximating elapsed time. */
 LEAN_EXPORT void inc_heartbeat();
 
