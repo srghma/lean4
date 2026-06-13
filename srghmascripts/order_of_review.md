@@ -68,8 +68,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [x] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`) — header removed; no in-tree users remained
     - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
       - [x] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_info.rs`; C++ header folded into `src/runtime/interrupt.h`
-        - [ ] src/util/test (`src/util/test.h`)
-    - [ ] src/util/exception_with_pos (`src/util/exception_with_pos.h`)
+        - [x] src/util/test (`src/util/test.h`) — header removed; no in-tree users remained
+    - [x] src/util/exception_with_pos (`src/util/exception_with_pos.h`) — header removed; no in-tree users remained
 - [ ] src/shell/lean (`src/shell/lean.cpp`)
 - [ ] src/shell/lean_js (`src/shell/lean_js.cpp`)
 - [ ] src/util/alloc (`src/util/alloc.h`)
@@ -77,17 +77,17 @@ Siblings at the same indentation level are independent and can be reviewed in an
   - [ ] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`)
 - [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
-- [ ] src/util/freset (`src/util/freset.h`)
+- [x] src/util/freset (`src/util/freset.h`) — header removed; no in-tree users remained
 - [x] src/util/lbool (`src/util/lbool.h` and `src/util/lbool.cpp`) — Rust replacement for `lean_util_lbool_name` wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [ ] src/util/macros (`src/util/macros.h`)
-- [ ] src/util/null_ostream (`src/util/null_ostream.h`)
-  - [ ] src/util/output_channel (`src/util/output_channel.h`)
+- [x] src/util/null_ostream (`src/util/null_ostream.h`) — header removed; no in-tree users remained
+  - [x] src/util/output_channel (`src/util/output_channel.h`) — header removed; no in-tree users remained
 - [ ] src/util/pair (`src/util/pair.h`)
   - [ ] src/util/rb_map (`src/util/rb_map.h`)
 - [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
 - [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
-- [ ] src/util/unit (`src/util/unit.h`)
-- [ ] src/util/unlock_guard (`src/util/unlock_guard.h`)
+- [x] src/util/unit (`src/util/unit.h`) — header removed; no in-tree users remained
+- [x] src/util/unlock_guard (`src/util/unlock_guard.h`) — header removed; no in-tree users remained
 - [ ] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`)
 - [ ] src/kernel/abstract (`src/kernel/abstract.h` and `src/kernel/abstract.cpp`)
   - [ ] src/kernel/expr (`src/kernel/expr.h` and `src/kernel/expr.cpp`)
