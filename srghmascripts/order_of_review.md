@@ -40,20 +40,20 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [ ] src/util/name (`src/util/name.h` and `src/util/name.cpp`)
           - [ ] src/util/name_generator (`src/util/name_generator.h` and `src/util/name_generator.cpp`)
           - [ ] src/util/name_hash_map (`src/util/name_hash_map.h`)
-          - [ ] src/util/name_hash_set (`src/util/name_hash_set.h`)
+          - [x] src/util/name_hash_set (`src/util/name_hash_set.h`) — header removed; no in-tree users remained
           - [ ] src/util/name_map (`src/util/name_map.h`)
             - [ ] src/util/option_declarations (`src/util/option_declarations.h` and `src/util/option_declarations.cpp`)
               - [ ] src/util/options (`src/util/options.h` and `src/util/options.cpp`)
           - [ ] src/util/name_set (`src/util/name_set.h` and `src/util/name_set.cpp`)
       - [ ] src/util/list (`src/util/list.h`)
         - [ ] src/util/list_fn (`src/util/list_fn.h` and `src/util/list_fn.cpp`)
-      - [ ] src/util/path (`src/util/path.h` and `src/util/path.cpp`)
+- [x] src/util/path (`src/util/path.h` and `src/util/path.cpp`) — header removed; no in-tree users remained
         - [ ] src/util/shell (`src/util/shell.cpp`)
       - [ ] src/util/rb_tree (`src/util/rb_tree.h`)
     - [x] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_dns.rs`; C++ source removed, header no longer needed by C++ callers
 - [x] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_libuv.rs`; C++ header removed
-- [ ] src/library/suffixes (`src/library/suffixes.h`)
+- [x] src/library/suffixes (`src/library/suffixes.h`) — header removed; constants folded into src/library/util.cpp
 - [ ] src/runtime/flet (`src/runtime/flet.h`)
   - [ ] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`)
 - [ ] src/runtime/int (`src/runtime/int.h`)
@@ -79,7 +79,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
 - [x] src/util/freset (`src/util/freset.h`) — header removed; no in-tree users remained
 - [x] src/util/lbool (`src/util/lbool.h` and `src/util/lbool.cpp`) — Rust replacement for `lean_util_lbool_name` wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
-- [ ] src/util/macros (`src/util/macros.h`)
+- [x] src/util/macros (`src/util/macros.h`) — header removed; macros folded into src/util/option_declarations.h
 - [x] src/util/null_ostream (`src/util/null_ostream.h`) — header removed; no in-tree users remained
   - [x] src/util/output_channel (`src/util/output_channel.h`) — header removed; no in-tree users remained
 - [ ] src/util/pair (`src/util/pair.h`)
@@ -88,7 +88,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header-only timer helpers remain for C++ RAII users; C++ source already removed
 - [x] src/util/unit (`src/util/unit.h`) — header removed; no in-tree users remained
 - [x] src/util/unlock_guard (`src/util/unlock_guard.h`) — header removed; no in-tree users remained
-- [ ] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`)
+- [x] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`) — header removed; no in-tree users remained
 - [ ] src/kernel/abstract (`src/kernel/abstract.h` and `src/kernel/abstract.cpp`)
   - [ ] src/kernel/expr (`src/kernel/expr.h` and `src/kernel/expr.cpp`)
     - [ ] src/kernel/expr_cache (`src/kernel/expr_cache.h` and `src/kernel/expr_cache.cpp`)
@@ -105,7 +105,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [ ] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`)
     - [ ] src/kernel/find_fn (`src/kernel/find_fn.h`)
       - [ ] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`)
-        - [ ] src/kernel/init_module (`src/kernel/init_module.h` and `src/kernel/init_module.cpp`)
+        - [x] src/kernel/init_module (`src/kernel/init_module.h` and `src/kernel/init_module.cpp`) — header removed; no in-tree users remained
     - [ ] src/kernel/instantiate (`src/kernel/instantiate.h` and `src/kernel/instantiate.cpp`)
       - [ ] src/library/instantiate_mvars (`src/library/instantiate_mvars.cpp`)
       - [ ] src/library/replace_visitor (`src/library/replace_visitor.h` and `src/library/replace_visitor.cpp`)
@@ -115,10 +115,10 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [ ] src/kernel/trace (`src/kernel/trace.h` and `src/kernel/trace.cpp`)
       - [ ] src/library/expr_lt (`src/library/expr_lt.h` and `src/library/expr_lt.cpp`)
         - [ ] src/library/expr_pair (`src/library/expr_pair.h`)
-          - [ ] src/library/expr_pair_maps (`src/library/expr_pair_maps.h`)
+    - [x] src/library/expr_pair_maps (`src/library/expr_pair_maps.h`) — header removed; no in-tree users remained
     - [ ] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`)
-    - [ ] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`)
-    - [ ] src/library/expr_unsigned_map (`src/library/expr_unsigned_map.h`)
+    - [x] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`) — header removed; no in-tree users remained
+    - [x] src/library/expr_unsigned_map (`src/library/expr_unsigned_map.h`) — header removed; no in-tree users remained
     - [ ] src/library/formatter (`src/library/formatter.h` and `src/library/formatter.cpp`)
       - [x] src/library/init_module (`src/library/init_module.h` and `src/library/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
       - [ ] src/library/print (`src/library/print.h` and `src/library/print.cpp`)

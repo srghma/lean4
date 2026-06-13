@@ -14,7 +14,6 @@ Author: Leonardo de Moura
 #include "kernel/abstract.h"
 #include "kernel/inductive.h"
 #include "library/util.h"
-#include "library/suffixes.h"
 #include "library/annotation.h"
 #include "library/constants.h"
 #include "library/replace_visitor.h"
@@ -22,6 +21,9 @@ Author: Leonardo de Moura
 #include "githash.h" // NOLINT
 
 namespace lean {
+static constexpr char const * g_rec = "rec";
+static constexpr char const * g_cases_on = "casesOn";
+
 name mk_unused_name(environment const & env, name const & n, unsigned & idx) {
     name curr = n;
     while (true) {

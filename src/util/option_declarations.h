@@ -9,7 +9,6 @@ Author: Leonardo de Moura
 #include <string>
 #include <cstring>
 #include <cstdlib>
-#include "util/macros.h"
 #include "util/name_map.h"
 #include "util/options.h"
 #include "util/io.h"
@@ -17,6 +16,9 @@ Author: Leonardo de Moura
 #include "runtime/pair_ref.h"
 
 namespace lean {
+#define LEAN_XSTR(x) #x
+#define LEAN_STR(x) LEAN_XSTR(x)
+
 /**
    \brief Datastructure for storing information about available
    configuration options.
