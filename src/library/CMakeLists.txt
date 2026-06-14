@@ -10,7 +10,6 @@ add_library(
   print.cpp
   annotation.cpp
   time_task.cpp
-  formatter.cpp
   elab_environment.cpp
   llvm.cpp
   ir_interpreter.cpp

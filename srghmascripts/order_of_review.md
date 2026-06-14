@@ -119,7 +119,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [ ] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`)
     - [x] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`) — header removed; no in-tree users remained
     - [x] src/library/expr_unsigned_map (`src/library/expr_unsigned_map.h`) — header removed; no in-tree users remained
-    - [ ] src/library/formatter (`src/library/formatter.h` and `src/library/formatter.cpp`)
+    - [x] src/library/formatter (`src/library/formatter.h` and `src/library/formatter.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed, header helpers inlined
       - [x] src/library/init_module (`src/library/init_module.h` and `src/library/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
       - [ ] src/library/print (`src/library/print.h` and `src/library/print.cpp`)
     - [ ] src/library/max_sharing (`src/library/max_sharing.h` and `src/library/max_sharing.cpp`)

@@ -75,10 +75,7 @@ extern "C" {
     // fn initialize_ascii_impl();
     // #[link_name = "_ZN4lean14finalize_asciiEv"]
     // fn finalize_ascii_impl();
-    #[link_name = "_ZN4lean20initialize_formatterEv"]
-    fn initialize_formatter();
-    #[link_name = "_ZN4lean18finalize_formatterEv"]
-    fn finalize_formatter();
+
     #[link_name = "_ZN4lean16initialize_printEv"]
     fn initialize_print();
     #[link_name = "_ZN4lean14finalize_printEv"]
@@ -1255,6 +1252,7 @@ include!("runtime_object_size.rs");
 include!("runtime_object_array.rs");
 include!("runtime_object_rc.rs");
 include!("runtime_object_task.rs");
+include!("library_formatter.rs");
 include!("runtime_io_ref.rs");
 include!("runtime_io_fs.rs");
 include!("runtime_io_error.rs");
