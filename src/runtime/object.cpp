@@ -701,37 +701,6 @@ extern "C" LEAN_EXPORT void lean_mark_mt(object * o) {
 }
 #endif // LEAN_RUST_OBJECT_RC
 
-#ifdef LEAN_RUST_OBJECT_RC
-static inline void lean_dealloc(lean_object * o, size_t sz) {
-#ifdef LEAN_SMALL_ALLOCATOR
-    dealloc(o, sz);
-#elif defined(LEAN_MIMALLOC)
-    mi_free_size(o, sz);
-#else
-    free_sized(o, sz);
-#endif
-}
-
-#ifndef LEAN_RUST_OBJECT_TASK
-typedef object * (*lean_cfun2)(object *, object *); // NOLINT
-typedef object * (*lean_cfun3)(object *, object *, object *); // NOLINT
-
-static obj_res mk_closure_2_1(lean_cfun2 fn, obj_arg a) {
-    object * c = lean_alloc_closure((void*)fn, 2, 1);
-    lean_closure_set(c, 0, a);
-    return c;
-}
-
-static obj_res mk_closure_3_2(lean_cfun3 fn, obj_arg a1, obj_arg a2) {
-    object * c = lean_alloc_closure((void*)fn, 3, 2);
-    lean_closure_set(c, 0, a1);
-    lean_closure_set(c, 1, a2);
-    return c;
-}
-#endif // LEAN_RUST_OBJECT_TASK
-
-static object * g_array_empty = nullptr;
-#endif
 
 // =======================================
 // Tasks

@@ -14,13 +14,13 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
     - [x] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpn.rs`; C++ source removed
       - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
-        - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: all lean_* functions ported (LEAN_RUST_OBJECT_PANIC/SIZE/ARRAY/RC/NAT_INT/STRING/NAME/CTOR_RUNTIME/EXTERNAL_RUNTIME/EXTERNAL_CLASS/TASK_*); remaining: lean_dealloc static helper (blocked on porting module.cpp/ir_interpreter.cpp)
+        - [x] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — all lean_* functions ported; dead `lean_dealloc` + `g_array_empty` in `#ifdef LEAN_RUST_OBJECT_RC` block removed
           - [x] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
             - [x] src/runtime/option_ref (`src/runtime/option_ref.h`) — header-only, kept as-is
             - [x] src/runtime/pair_ref (`src/runtime/pair_ref.h`) — header-only, kept as-is
               - [x] src/runtime/process (`src/runtime/process.h` and `src/runtime/process.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_process.rs`; C++ header/source removed
               - [x] src/util/kvmap (`src/util/kvmap.h` and `src/util/kvmap.cpp`)
-            - [~] src/runtime/sharecommon (`src/runtime/sharecommon.h` and `src/runtime/sharecommon.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/runtime_sharecommon.rs`; C++ header kept for kernel/environment.cpp compatibility
+            - [x] src/runtime/sharecommon (`src/runtime/sharecommon.h` and `src/runtime/sharecommon.cpp`) — Rust replacement in `src/rust/lean_runtime/src/runtime_sharecommon.rs`; C++ header removed; environment.cpp now calls Rust functions directly via local extern "C" declarations
             - [x] src/runtime/string_ref (`src/runtime/string_ref.h`) — header-only, kept as-is
               - [x] src/util/ffi (`src/util/ffi.cpp`)
               - [x] src/util/io (`src/util/io.h`) — header-only, kept as-is
@@ -34,7 +34,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
             - [x] src/runtime/uv/tcp (`src/runtime/uv/tcp.h` and `src/runtime/uv/tcp.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_tcp.rs`; C++ header/source removed
             - [x] src/runtime/uv/udp (`src/runtime/uv/udp.h` and `src/runtime/uv/udp.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_udp.rs`; C++ header/source removed
           - [x] src/util/init_module (`src/util/init_module.h` and `src/util/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
-          - [~] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header kept for kernel/environment.cpp compatibility
+          - [x] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`) — Rust replacement in `src/rust/lean_runtime/src/lib.rs`; C++ header removed; dead C++ code `for_each_constant` removed from environment.cpp
     - [x] src/runtime/optional (`src/runtime/optional.h`) — header-only, kept as-is
       - [x] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
         - [x] src/util/name (`src/util/name.h` and `src/util/name.cpp`)

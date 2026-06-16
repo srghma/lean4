@@ -9,13 +9,17 @@ Author: Leonardo de Moura
 #include <limits>
 #include "runtime/sstream.h"
 #include "runtime/thread.h"
-#include "runtime/sharecommon.h"
-#include "util/map_foreach.h"
 #include "util/io.h"
 #include "kernel/environment.h"
 #include "kernel/kernel_exception.h"
 #include "kernel/type_checker.h"
 #include "kernel/quot.h"
+
+extern "C" {
+    void * lean_sharecommon_persistent_create(bool check_set);
+    void lean_sharecommon_persistent_free(void * state);
+    lean_object * lean_sharecommon_persistent_run(void * state, lean_object * obj);
+}
 
 namespace lean {
 extern "C" object* lean_environment_add(object*, object*);
@@ -194,9 +198,11 @@ environment environment::add_theorem(declaration const & d, bool check) const {
     theorem_val const & v = d.to_theorem_val();
     if (check) {
         type_checker checker(*this, diag.get());
-        sharecommon_persistent_fn share;
-        expr val(share(v.get_value().raw()));
-        expr type(share(v.get_type().raw()));
+        auto share_state = std::unique_ptr<void, void(*)(void*)>(
+            lean_sharecommon_persistent_create(false),
+            lean_sharecommon_persistent_free);
+        expr val(lean_sharecommon_persistent_run(share_state.get(), v.get_value().raw()));
+        expr type(lean_sharecommon_persistent_run(share_state.get(), v.get_type().raw()));
         check_constant_val(*this, v.to_constant_val(), checker);
         if (!checker.is_prop(type))
             throw theorem_type_is_not_prop(*this, v.get_name(), type);
@@ -284,13 +290,6 @@ extern "C" LEAN_EXPORT object * lean_cxx_add_decl(object * env, size_t max_heart
 extern "C" LEAN_EXPORT object * lean_cxx_add_decl_without_checking(object * env, object * decl) {
     return catch_kernel_exceptions<environment>([&]() {
             return environment(env).add(declaration(decl, true), false);
-        });
-}
-
-void environment::for_each_constant(std::function<void(constant_info const & d)> const & f) const {
-    smap_foreach(cnstr_get(raw(), 1), [&](object *, object * v) {
-            constant_info cinfo(v, true);
-            f(cinfo);
         });
 }
 
