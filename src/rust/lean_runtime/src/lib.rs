@@ -81,10 +81,7 @@ extern "C" {
     #[link_name = "_ZN4lean14finalize_printEv"]
     fn finalize_print();
     // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
-    #[link_name = "_ZN4lean21initialize_annotationEv"]
-    fn initialize_annotation();
-    #[link_name = "_ZN4lean19finalize_annotationEv"]
-    fn finalize_annotation();
+    // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no-ops)
     #[link_name = "_ZN4lean23initialize_library_utilEv"]
     fn initialize_library_util();
     #[link_name = "_ZN4lean21finalize_library_utilEv"]
@@ -1683,7 +1680,6 @@ unsafe fn finalize_library_core_module_body() {
 unsafe fn initialize_library_module_body() {
     initialize_print();
     lean_cxx_initialize_num();
-    initialize_annotation();
     initialize_library_util();
     initialize_time_task();
     initialize_dynlib();
@@ -1694,7 +1690,6 @@ unsafe fn finalize_library_module_body() {
     finalize_ir_interpreter();
     finalize_time_task();
     finalize_library_util();
-    finalize_annotation();
     lean_cxx_finalize_num();
     finalize_print();
 }

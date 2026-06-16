@@ -1,11 +1,9 @@
 add_library(
   library
   OBJECT
-  expr_lt.cpp
   module.cpp
   util.cpp
   print.cpp
-  annotation.cpp
   time_task.cpp
   elab_environment.cpp
   llvm.cpp
