@@ -34,7 +34,6 @@ mod library_elab_environment_impl {
             lctx: *mut LeanObject,
             a: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_cxx_internal_get_believer_trust_level(io: *mut LeanObject) -> u32;
     }
 
     #[no_mangle]
@@ -85,8 +84,8 @@ mod library_elab_environment_impl {
 
     #[no_mangle]
     pub unsafe extern "C" fn lean_internal_get_believer_trust_level(
-        io: *mut LeanObject,
+        _io: *mut LeanObject,
     ) -> u32 {
-        lean_cxx_internal_get_believer_trust_level(io)
+        1024
     }
 }

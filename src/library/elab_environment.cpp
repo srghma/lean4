@@ -65,8 +65,4 @@ extern "C" LEAN_EXPORT lean_object * lean_cxx_kernel_check(lean_object * obj_env
     });
 }
 
-/* getBelieverTrustLevel (_ : Unit) : UInt32 */
-extern "C" LEAN_EXPORT uint32 lean_cxx_internal_get_believer_trust_level(obj_arg) {
-   return LEAN_BELIEVER_TRUST_LEVEL;
-}
 }
