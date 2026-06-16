@@ -41,60 +41,6 @@ expr instantiate(expr const & e, std::initializer_list<expr> const & l) {  retur
 expr instantiate(expr const & e, unsigned i, expr const & s) { return instantiate(e, i, 1, &s); }
 expr instantiate(expr const & e, expr const & s) { return instantiate(e, 0, s); }
 
-extern "C" LEAN_EXPORT object * lean_cxx_expr_instantiate1(object * a0, object * e0) {
-    expr const & a = reinterpret_cast<expr const &>(a0);
-    if (!has_loose_bvars(a)) {
-        lean_inc(a0);
-        return a0;
-    }
-    expr const & e = reinterpret_cast<expr const &>(e0);
-    expr r = instantiate(a, 1, &e);
-    return r.steal();
-}
-
-static object * lean_expr_instantiate_core(b_obj_arg a0, size_t n, object** subst) {
-    expr const & a = reinterpret_cast<expr const &>(a0);
-    if (!has_loose_bvars(a) || n == 0) {
-        lean_inc(a0);
-        return a0;
-    }
-    expr r = replace(a, [=](expr const & m, unsigned offset) -> optional<expr> {
-            if (offset >= get_loose_bvar_range(m))
-                return some_expr(m); // expression m does not contain loose bound variables with idx >= offset
-            if (is_bvar(m)) {
-                nat const & vidx = bvar_idx(m);
-                if (vidx >= offset) {
-                    size_t h = offset + n;
-                    if (h < offset /* overflow, h is bigger than any vidx */ || (vidx.is_small() && vidx.get_small_value() < h)) {
-                        object * v = subst[vidx.get_small_value() - offset];
-                        return some_expr(lift_loose_bvars(TO_REF(expr, v), offset));
-                    } else {
-                        return some_expr(mk_bvar(vidx - nat::of_size_t(n)));
-                    }
-                }
-            }
-            return none_expr();
-        });
-    return r.steal();
-}
-
-extern "C" LEAN_EXPORT object * lean_cxx_expr_instantiate(b_obj_arg a, b_obj_arg subst) {
-    return lean_expr_instantiate_core(a, lean_array_size(subst), lean_array_cptr(subst));
-}
-
-extern "C" LEAN_EXPORT object * lean_cxx_expr_instantiate_range(b_obj_arg a, b_obj_arg begin, b_obj_arg end, b_obj_arg subst) {
-    if (!lean_is_scalar(begin) || !lean_is_scalar(end)) {
-        lean_internal_panic("invalid range for Expr.instantiateRange");
-    } else {
-        usize sz = lean_array_size(subst);
-        usize b  = lean_unbox(begin);
-        usize e  = lean_unbox(end);
-        if (b > e || e > sz) {
-            lean_internal_panic("invalid range for Expr.instantiateRange");
-        }
-        return lean_expr_instantiate_core(a, e - b, lean_array_cptr(subst) + b);
-    }
-}
 
 expr instantiate_rev(expr const & a, unsigned n, expr const * subst) {
     if (!has_loose_bvars(a))
@@ -115,50 +61,6 @@ expr instantiate_rev(expr const & a, unsigned n, expr const * subst) {
             }
             return none_expr();
         });
-}
-
-static object * lean_expr_instantiate_rev_core(object * a0, size_t n, object ** subst) {
-    expr const & a = reinterpret_cast<expr const &>(a0);
-    if (!has_loose_bvars(a)) {
-        lean_inc(a0);
-        return a0;
-    }
-    expr r = replace(a, [=](expr const & m, unsigned offset) -> optional<expr> {
-            if (offset >= get_loose_bvar_range(m))
-                return some_expr(m); // expression m does not contain loose bound variables with idx >= offset
-            if (is_bvar(m)) {
-                nat const & vidx = bvar_idx(m);
-                if (vidx >= offset) {
-                    size_t h = offset + n;
-                    if (h < offset /* overflow, h is bigger than any vidx */ || (vidx.is_small() && vidx.get_small_value() < h)) {
-                        object * v = subst[n - (vidx.get_small_value() - offset) - 1];
-                        return some_expr(lift_loose_bvars(TO_REF(expr, v), offset));
-                    } else {
-                        return some_expr(mk_bvar(vidx - nat::of_size_t(n)));
-                    }
-                }
-            }
-            return none_expr();
-        });
-    return r.steal();
-}
-
-extern "C" LEAN_EXPORT object * lean_cxx_expr_instantiate_rev(b_obj_arg a, b_obj_arg subst) {
-    return lean_expr_instantiate_rev_core(a, lean_array_size(subst), lean_array_cptr(subst));
-}
-
-extern "C" LEAN_EXPORT object * lean_cxx_expr_instantiate_rev_range(b_obj_arg a, b_obj_arg begin, b_obj_arg end, b_obj_arg subst) {
-    if (!lean_is_scalar(begin) || !lean_is_scalar(end)) {
-        lean_internal_panic("invalid range for Expr.instantiateRevRange");
-    } else {
-        usize sz = lean_array_size(subst);
-        usize b  = lean_unbox(begin);
-        usize e  = lean_unbox(end);
-        if (b > e || e > sz) {
-            lean_internal_panic("invalid range for Expr.instantiateRevRange");
-        }
-        return lean_expr_instantiate_rev_core(a, e - b, lean_array_cptr(subst) + b);
-    }
 }
 
 bool is_head_beta(expr const & t) {
