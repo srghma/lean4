@@ -6,7 +6,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/include/lean/lean (`src/include/lean/lean.h`) — header-only, kept as-is
 - [x] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`) — header removed; no in-tree users remained
   - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ header/source removed
-  - [x] src/library/llvm (`src/library/llvm.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_llvm.rs`; C++ shims renamed to `lean_cxx_*`
+  - [x] src/library/llvm (`src/library/llvm.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_llvm.rs`; all C++ exports renamed to `lean_cxx_*` shims (including create_memory_buffer_with_contents_of_file and create_string_attribute)
   - [x] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_alloc.rs`; CMake no longer compiles the C++ source
   - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
@@ -116,7 +116,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [x] src/library/expr_lt (`src/library/expr_lt.h` and `src/library/expr_lt.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_expr_lt.rs`; C++ exports renamed to `lean_cxx_expr_*lt` shims
         - [x] src/library/expr_pair (`src/library/expr_pair.h`) — header removed; helper folded into src/library/util.h
     - [x] src/library/expr_pair_maps (`src/library/expr_pair_maps.h`) — header removed; no in-tree users remained
-    - [x] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+    - [x] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`) — DELETED: no extern C exports, no callers outside the file; initialize_annotation/finalize_annotation removed from lib.rs
     - [x] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`) — header removed; no in-tree users remained
     - [x] src/library/expr_unsigned_map (`src/library/expr_unsigned_map.h`) — header removed; no in-tree users remained
     - [x] src/library/formatter (`src/library/formatter.h` and `src/library/formatter.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed, header helpers inlined

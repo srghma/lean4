@@ -1012,7 +1012,7 @@ extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_tail_call(
 }
 
 extern "C" LEAN_EXPORT size_t
-lean_llvm_create_memory_buffer_with_contents_of_file(size_t ctx, lean_object *path) {
+lean_cxx_llvm_create_memory_buffer_with_contents_of_file(size_t ctx, lean_object *path) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1283,7 +1283,7 @@ extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_dll_storage_class(size_t c
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_create_string_attribute(size_t ctx, lean_object* key, lean_object* value) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_create_string_attribute(size_t ctx, lean_object* key, lean_object* value) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "

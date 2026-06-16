@@ -91,6 +91,8 @@ mod library_llvm_impl {
         fn lean_cxx_llvm_get_entry_basic_block(p0: *mut LeanObject, p1: *mut LeanObject) -> usize;
         fn lean_cxx_llvm_get_first_instruction(p0: *mut LeanObject, p1: *mut LeanObject) -> *mut LeanObject;
         fn lean_cxx_llvm_position_builder_before(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> *mut LeanObject;
+        fn lean_cxx_llvm_create_memory_buffer_with_contents_of_file(p0: *mut LeanObject, p1: *mut LeanObject) -> usize;
+        fn lean_cxx_llvm_create_string_attribute(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> usize;
     }
 
     #[no_mangle]
@@ -506,6 +508,16 @@ mod library_llvm_impl {
     #[no_mangle]
     pub unsafe extern "C" fn lean_llvm_position_builder_before(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> *mut LeanObject {
         lean_cxx_llvm_position_builder_before(p0, p1, p2)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_llvm_create_memory_buffer_with_contents_of_file(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
+        lean_cxx_llvm_create_memory_buffer_with_contents_of_file(p0, p1)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_llvm_create_string_attribute(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> usize {
+        lean_cxx_llvm_create_string_attribute(p0, p1, p2)
     }
 
 }
