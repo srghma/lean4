@@ -76,10 +76,7 @@ extern "C" {
     // #[link_name = "_ZN4lean14finalize_asciiEv"]
     // fn finalize_ascii_impl();
 
-    #[link_name = "_ZN4lean16initialize_printEv"]
-    fn initialize_print();
-    #[link_name = "_ZN4lean14finalize_printEv"]
-    fn finalize_print();
+    // initialize_print / finalize_print now provided by library_print.rs (no-ops)
     // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
     // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no-ops)
     #[link_name = "_ZN4lean23initialize_library_utilEv"]
@@ -127,8 +124,7 @@ extern "C" {
     #[link_name = "_ZN4lean13finalize_quotEv"]
     fn finalize_quot();
     // initialize_trace / finalize_trace now provided by kernel_trace.rs
-    #[link_name = "_ZN4lean21init_default_print_fnEv"]
-    fn init_default_print_fn_impl();
+    // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
     fn initialize_Init(builtin: u8) -> *mut LeanObject;
     fn initialize_Std(builtin: u8) -> *mut LeanObject;
     fn initialize_Lean(builtin: u8) -> *mut LeanObject;
@@ -1678,7 +1674,6 @@ unsafe fn finalize_library_core_module_body() {
 }
 
 unsafe fn initialize_library_module_body() {
-    initialize_print();
     lean_cxx_initialize_num();
     initialize_library_util();
     initialize_time_task();
@@ -1691,7 +1686,6 @@ unsafe fn finalize_library_module_body() {
     finalize_time_task();
     finalize_library_util();
     lean_cxx_finalize_num();
-    finalize_print();
 }
 
 unsafe fn initialize_constructions_module_body() {
@@ -1787,7 +1781,9 @@ pub extern "C" fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn init_default_print_fn() {
-    unsafe { init_default_print_fn_impl() }
+    // No-op: lean_expr_dbg_to_string (the ToString Expr instance) is now implemented
+    // in Rust (library_print.rs), so the C++ formatter.h print function pointer
+    // no longer needs to be set.
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
