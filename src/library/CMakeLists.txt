@@ -2,10 +2,7 @@ add_library(
   library
   OBJECT
   expr_lt.cpp
-  max_sharing.cpp
   module.cpp
-  replace_visitor.cpp
-  num.cpp
   util.cpp
   print.cpp
   annotation.cpp

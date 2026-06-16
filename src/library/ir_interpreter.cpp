@@ -1176,12 +1176,12 @@ uint32 run_main(elab_environment const & env, options const & opts, list_ref<str
 }
 
 /* runMain (env : Environment) (opts : Options) (args : List String) : BaseIO UInt32 */
-extern "C" LEAN_EXPORT uint32_t lean_eval_main(b_obj_arg env, b_obj_arg opts, b_obj_arg args) {
+extern "C" LEAN_EXPORT uint32_t lean_cxx_eval_main(b_obj_arg env, b_obj_arg opts, b_obj_arg args) {
     uint32 ret = run_main(TO_REF(elab_environment, env), TO_REF(options, opts), TO_REF(list_ref<string_ref>, args));
     return ret;
 }
 
-extern "C" LEAN_EXPORT object * lean_eval_const(object * env, object * opts, object * c) {
+extern "C" LEAN_EXPORT object * lean_cxx_eval_const(object * env, object * opts, object * c) {
     try {
         return mk_cnstr(1, run_boxed(TO_REF(elab_environment, env), TO_REF(options, opts), TO_REF(name, c), 0, 0)).steal();
     } catch (exception & ex) {
@@ -1190,7 +1190,7 @@ extern "C" LEAN_EXPORT object * lean_eval_const(object * env, object * opts, obj
 }
 
 /* runModInitCore (sym : @& String) : IO Bool */
-extern "C" LEAN_EXPORT obj_res lean_run_mod_init_core(b_obj_arg  sym) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_run_mod_init_core(b_obj_arg  sym) {
     if (void * init = lookup_symbol_in_cur_exe(string_cstr(sym))) {
         auto init_fn = reinterpret_cast<object *(*)(uint8_t)>(init);
         uint8_t builtin = 0;
@@ -1206,7 +1206,7 @@ extern "C" LEAN_EXPORT obj_res lean_run_mod_init_core(b_obj_arg  sym) {
     }
 }
 
-extern "C" LEAN_EXPORT object * lean_run_init(object * env, object * opts, object * decl, object * init_decl, object *) {
+extern "C" LEAN_EXPORT object * lean_cxx_run_init(object * env, object * opts, object * decl, object * init_decl, object *) {
     return interpreter::with_interpreter<object *>(TO_REF(elab_environment, env), TO_REF(options, opts), TO_REF(name, decl), [&](interpreter & interp) {
         return interp.run_init(TO_REF(name, decl), TO_REF(name, init_decl));
     });

@@ -104,6 +104,24 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_handle.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_task.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_io_stream.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_abstract.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_expr_lt.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_time_task.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_print.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_compact.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_replace_fn.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_expr_eq_fn.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_for_each_fn.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_level.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_expr.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_instantiate.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_environment.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_instantiate_mvars.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_module.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_elab_environment.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_ir_interpreter.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_llvm.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_num.rs
   VERBATIM
 )
 add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})

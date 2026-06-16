@@ -738,15 +738,15 @@ object * compacted_region::read() {
     return root;
 }
 
-extern "C" LEAN_EXPORT uint8 lean_compacted_region_is_memory_mapped(usize region) {
+extern "C" LEAN_EXPORT uint8 lean_cxx_compacted_region_is_memory_mapped(usize region) {
     return reinterpret_cast<compacted_region *>(region)->is_memory_mapped();
 }
 
-extern "C" LEAN_EXPORT usize lean_compacted_region_size(usize region) {
+extern "C" LEAN_EXPORT usize lean_cxx_compacted_region_size(usize region) {
     return reinterpret_cast<compacted_region *>(region)->size();
 }
 
-extern "C" LEAN_EXPORT obj_res lean_compacted_region_free(usize region, object *) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_compacted_region_free(usize region, object *) {
     delete reinterpret_cast<compacted_region *>(region);
     return lean_io_result_mk_ok(lean_box(0));
 }

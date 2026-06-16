@@ -161,7 +161,7 @@ void for_each(expr const & e, std::function<bool(expr const &, unsigned)> && f) 
     return for_each_offset_fn(f)(e);
 }
 
-extern "C" LEAN_EXPORT obj_res lean_find_expr(b_obj_arg p, b_obj_arg e_) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_find_expr(b_obj_arg p, b_obj_arg e_) {
     lean_object * found = nullptr;
     expr const & e = TO_REF(expr, e_);
     for_each_fn<true>([&](expr const & e) {
@@ -193,7 +193,7 @@ inductive FindStep where
   /-- Do not search subterms -/ | done
 ```
 */
-extern "C" LEAN_EXPORT obj_res lean_find_ext_expr(b_obj_arg p, b_obj_arg e_) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_find_ext_expr(b_obj_arg p, b_obj_arg e_) {
     lean_object * found = nullptr;
     expr const & e = TO_REF(expr, e_);
     // Recall that `findExt?` skips partial applications.

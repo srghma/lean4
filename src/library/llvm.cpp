@@ -40,18 +40,18 @@ Lean's IR.
 namespace lean {
 /*  initLLVM : IO Unit */
 extern "C" obj_res initialize_Lean_Compiler_IR_EmitLLVM(uint8_t builtin);
-extern "C" LEAN_EXPORT obj_res lean_init_llvm() {
+extern "C" LEAN_EXPORT obj_res lean_cxx_init_llvm() {
     return initialize_Lean_Compiler_IR_EmitLLVM(/*builtin*/ false);
 }
 
 /*  emitLLVM (env : Environment) (modName : Name) (filepath : FilePath) : IO Unit */
 extern "C" obj_res lean_ir_emit_llvm(obj_arg env, obj_arg mod_name, obj_arg filepath);
-extern "C" LEAN_EXPORT obj_res lean_emit_llvm(obj_arg env, obj_arg mod_name, obj_arg filepath) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_emit_llvm(obj_arg env, obj_arg mod_name, obj_arg filepath) {
     return lean_ir_emit_llvm(env, mod_name, filepath);
 }
 }
 
-extern "C" LEAN_EXPORT lean_object* lean_llvm_initialize_target_info() {
+extern "C" LEAN_EXPORT lean_object* lean_cxx_llvm_initialize_target_info() {
 
 #ifdef LEAN_LLVM
     LLVMInitializeAllTargetInfos();
@@ -239,7 +239,7 @@ LLVMValueRef *array_ref_to_ArrayLLVMValue(
 }
 
 // == FFI ==
-extern "C" LEAN_EXPORT size_t lean_llvm_create_context() {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_create_context() {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -250,7 +250,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_create_context() {
 #endif  // LEAN_LLVM
 };
 
-extern "C" LEAN_EXPORT size_t lean_llvm_create_module(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_create_module(
     size_t ctx, lean_object *str) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -263,7 +263,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_create_module(
 #endif  // LEAN_LLVM
 };
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_write_bitcode_to_file(size_t ctx,
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_write_bitcode_to_file(size_t ctx,
     size_t mod, lean_object *filepath) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -277,7 +277,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_write_bitcode_to_file(size_t ctx,
 #endif  // LEAN_LLVM
 };
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_module_to_string(size_t ctx, size_t mod) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_module_to_string(size_t ctx, size_t mod) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -290,7 +290,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_module_to_string(size_t ctx, size_
 #endif  // LEAN_LLVM
 };
 
-extern "C" LEAN_EXPORT size_t lean_llvm_add_function(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_add_function(
     size_t ctx, size_t mod, lean_object *name, size_t type) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -303,7 +303,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_add_function(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_get_named_function(
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_get_named_function(
     size_t ctx, size_t mod, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -318,7 +318,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_get_named_function(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_add_global(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_add_global(
     size_t ctx, size_t mod, lean_object *name, size_t type) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -332,7 +332,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_add_global(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_get_named_global(
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_get_named_global(
     size_t ctx, size_t mod, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -347,7 +347,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_get_named_global(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_global_string(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_global_string(
     size_t ctx, size_t builder, lean_object *str, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -361,7 +361,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_global_string(
     return Value_to_lean(out);
 #endif  // LEAN_LLVM
 }
-extern "C" LEAN_EXPORT size_t lean_llvm_get_undef(size_t ctx, size_t ty) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_undef(size_t ctx, size_t ty) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -372,7 +372,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_undef(size_t ctx, size_t ty) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_set_initializer(
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_initializer(
     size_t ctx, size_t global, size_t initializer) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -384,7 +384,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_set_initializer(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_function_type(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_function_type(
     size_t ctx, size_t retty, lean_object *argtys, uint8_t isvararg) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -401,7 +401,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_function_type(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_opaque_pointer_type_in_context(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_opaque_pointer_type_in_context(
     size_t ctx, uint64_t addrspace) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -412,7 +412,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_opaque_pointer_type_in_context(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_int_type_in_context(size_t ctx, uint64_t width) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_int_type_in_context(size_t ctx, uint64_t width) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -422,7 +422,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_int_type_in_context(size_t ctx, uint64_t
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_float_type_in_context(size_t ctx) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_float_type_in_context(size_t ctx) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -432,7 +432,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_float_type_in_context(size_t ctx) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_void_type_in_context(size_t ctx) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_void_type_in_context(size_t ctx) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -442,7 +442,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_void_type_in_context(size_t ctx) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_double_type_in_context(size_t ctx) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_double_type_in_context(size_t ctx) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -452,7 +452,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_double_type_in_context(size_t ctx) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_pointer_type(size_t ctx, size_t base) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_pointer_type(size_t ctx, size_t base) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -463,7 +463,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_pointer_type(size_t ctx, size_t base) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_array_type(size_t ctx, size_t base, uint64_t nelem) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_array_type(size_t ctx, size_t base, uint64_t nelem) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -474,7 +474,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_array_type(size_t ctx, size_t base, uint
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_create_builder_in_context(size_t ctx) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_create_builder_in_context(size_t ctx) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -484,7 +484,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_create_builder_in_context(size_t ctx) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_append_basic_block_in_context(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_append_basic_block_in_context(
     size_t ctx, size_t fn, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -497,7 +497,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_append_basic_block_in_context(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_position_builder_at_end(
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_position_builder_at_end(
     size_t ctx, size_t builder, size_t bb) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -509,7 +509,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_position_builder_at_end(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_clear_insertion_position(size_t ctx, size_t builder) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_clear_insertion_position(size_t ctx, size_t builder) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -520,7 +520,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_clear_insertion_position(size_t ct
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_call2(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_call2(
     size_t ctx, size_t builder, size_t fnty, size_t fnval, lean_object *args, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -538,7 +538,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_call2(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_cond_br(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_cond_br(
     size_t ctx,
     size_t builder, size_t if_, size_t thenbb, size_t elsebb) {
 #ifndef LEAN_LLVM
@@ -553,7 +553,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_cond_br(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_br(size_t ctx, size_t builder, size_t bb) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_br(size_t ctx, size_t builder, size_t bb) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -565,7 +565,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_br(size_t ctx, size_t builder, siz
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_build_store(size_t ctx,
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_build_store(size_t ctx,
     size_t builder, size_t v, size_t slot) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -578,7 +578,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_build_store(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_load2(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_load2(size_t ctx,
     size_t builder, size_t ty, size_t slot, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -591,7 +591,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_load2(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_alloca(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_alloca(size_t ctx,
     size_t builder, size_t type, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -604,7 +604,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_alloca(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_ret(size_t ctx, size_t builder, size_t v) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_ret(size_t ctx, size_t builder, size_t v) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -615,7 +615,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_ret(size_t ctx, size_t builder, si
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_ret_void(size_t builder) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_ret_void(size_t builder) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -626,7 +626,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_ret_void(size_t builder) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_unreachable(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_unreachable(size_t ctx,
     size_t builder) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -638,7 +638,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_unreachable(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_inbounds_gep2(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_inbounds_gep2(size_t ctx,
     size_t builder, size_t ty, size_t pointer, lean_object *indices, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -658,7 +658,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_inbounds_gep2(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_gep2(size_t ctx, size_t builder,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_gep2(size_t ctx, size_t builder,
                                                         size_t ty,
                                                         size_t pointer,
                                                         lean_object *indices,
@@ -680,7 +680,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_gep2(size_t ctx, size_t builder,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_sext(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_sext(size_t ctx,
     size_t builder, size_t val, size_t destty, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -694,7 +694,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_sext(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_zext(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_zext(size_t ctx,
     size_t builder, size_t val, size_t destty, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -708,7 +708,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_zext(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_sext_or_trunc(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_sext_or_trunc(size_t ctx,
     size_t builder, size_t val, size_t destty, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -732,7 +732,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_sext_or_trunc(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_switch(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_switch(size_t ctx,
     size_t builder, size_t val, size_t elsebb, uint64_t numCases) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -746,7 +746,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_switch(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_ptr_to_int(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_ptr_to_int(size_t ctx,
     size_t builder, size_t ptr, size_t destty, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -761,7 +761,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_ptr_to_int(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_mul(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_mul(size_t ctx,
         size_t builder,
                                                         size_t lhs, size_t rhs,
                                                         lean_object *name) {
@@ -778,7 +778,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_mul(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_add(size_t ctx, size_t builder,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_add(size_t ctx, size_t builder,
                                                         size_t lhs, size_t rhs,
                                                         lean_object *name) {
 #ifndef LEAN_LLVM
@@ -794,7 +794,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_add(size_t ctx, size_t builder,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_sub(size_t ctx, size_t builder,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_sub(size_t ctx, size_t builder,
                                                         size_t lhs, size_t rhs,
                                                         lean_object *name) {
 #ifndef LEAN_LLVM
@@ -810,7 +810,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_sub(size_t ctx, size_t builder,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_not(size_t ctx, size_t builder,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_not(size_t ctx, size_t builder,
                                                         size_t v,
                                                         lean_object *name) {
 #ifndef LEAN_LLVM
@@ -825,7 +825,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_not(size_t ctx, size_t builder,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_build_icmp(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_build_icmp(size_t ctx,
     size_t builder, uint64_t predicate, size_t x, size_t y, lean_object *name) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -840,7 +840,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_build_icmp(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_add_case(size_t ctx, size_t switch_,
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_add_case(size_t ctx, size_t switch_,
                                                        size_t onVal,
                                                        size_t destbb) {
 #ifndef LEAN_LLVM
@@ -854,7 +854,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_add_case(size_t ctx, size_t switch
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_basic_block_parent(size_t ctx, size_t bb) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_basic_block_parent(size_t ctx, size_t bb) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -865,7 +865,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_basic_block_parent(size_t ctx, size_
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_insert_block(size_t ctx, size_t builder) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_insert_block(size_t ctx, size_t builder) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -876,7 +876,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_insert_block(size_t ctx, size_t buil
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_type_of(size_t ctx, size_t val) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_type_of(size_t ctx, size_t val) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -887,7 +887,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_type_of(size_t ctx, size_t val) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_print_module_to_string(size_t ctx, size_t mod) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_print_module_to_string(size_t ctx, size_t mod) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -898,7 +898,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_print_module_to_string(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_print_module_to_file(size_t ctx,
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_print_module_to_file(size_t ctx,
     size_t mod, lean_object *file) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -919,7 +919,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_print_module_to_file(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_const_int(size_t ctx, size_t ty, uint64_t val,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_const_int(size_t ctx, size_t ty, uint64_t val,
                                                         uint8_t sext) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -931,7 +931,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_const_int(size_t ctx, size_t ty, uint64_
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_const_array(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_const_array(
     size_t ctx, size_t elemty, lean_object *args) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -947,7 +947,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_const_array(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_const_string(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_const_string(
     size_t ctx, lean_object *s) {
     lean::string_ref sref = lean::string_ref(s, true);
 #ifndef LEAN_LLVM
@@ -963,7 +963,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_const_string(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_const_pointer_null(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_const_pointer_null(
     size_t ctx, size_t elemty) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -977,7 +977,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_const_pointer_null(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t llvm_get_param(size_t ctx, size_t f, uint64_t ix) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_param(size_t ctx, size_t f, uint64_t ix) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -988,7 +988,7 @@ extern "C" LEAN_EXPORT size_t llvm_get_param(size_t ctx, size_t f, uint64_t ix) 
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT uint64_t llvm_count_params(size_t ctx, size_t f) {
+extern "C" LEAN_EXPORT uint64_t lean_cxx_llvm_count_params(size_t ctx, size_t f) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -999,7 +999,7 @@ extern "C" LEAN_EXPORT uint64_t llvm_count_params(size_t ctx, size_t f) {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_set_tail_call(
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_tail_call(
     size_t ctx, size_t fnval, uint8_t isTail) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -1033,7 +1033,7 @@ lean_llvm_create_memory_buffer_with_contents_of_file(size_t ctx, lean_object *pa
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_parse_bitcode(
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_parse_bitcode(
     size_t context, size_t membuf) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -1055,7 +1055,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_parse_bitcode(
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_link_modules(size_t ctx,
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_link_modules(size_t ctx,
     size_t dest_module, size_t src_module) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -1073,7 +1073,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_link_modules(size_t ctx,
 #endif
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_create_target_machine(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_create_target_machine(size_t ctx,
     size_t target, lean_object *tripleStr, lean_object *cpuStr,
     lean_object *featuresStr) {
 #ifndef LEAN_LLVM
@@ -1095,7 +1095,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_create_target_machine(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_target_from_triple(size_t ctx,
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_target_from_triple(size_t ctx,
     lean_object *triple) {
 #ifndef LEAN_LLVM
     lean_always_assert(
@@ -1118,7 +1118,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_target_from_triple(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_get_default_target_triple() {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_get_default_target_triple() {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1131,7 +1131,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_get_default_target_triple() {
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t ctx,
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_target_machine_emit_to_file(size_t ctx,
     size_t target_machine, size_t module, lean_object *filepath,
     uint64_t codegenType) {
 #ifndef LEAN_LLVM
@@ -1154,7 +1154,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 #endif  // LEAN_LLVM
 }
 
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_create_pass_manager(size_t ctx,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_create_pass_manager(size_t ctx,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1165,7 +1165,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //#endif  // LEAN_LLVM
 //}
 //
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_run_pass_manager(size_t ctx, size_t pm, size_t mod,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_run_pass_manager(size_t ctx, size_t pm, size_t mod,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1177,7 +1177,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //#endif  // LEAN_LLVM
 //}
 //
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_dispose_pass_manager(size_t ctx, size_t pm,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_dispose_pass_manager(size_t ctx, size_t pm,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1189,7 +1189,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //#endif  // LEAN_LLVM
 //}
 //
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_create_pass_manager_builder(size_t ctx,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_create_pass_manager_builder(size_t ctx,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1201,7 +1201,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //}
 //
 //
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_dispose_pass_manager_builder(size_t ctx, size_t pmb,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_dispose_pass_manager_builder(size_t ctx, size_t pmb,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1214,7 +1214,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //}
 //
 //
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_pass_manager_builder_set_opt_level(size_t ctx, size_t pmb, unsigned opt_level,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_pass_manager_builder_set_opt_level(size_t ctx, size_t pmb, unsigned opt_level,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1227,7 +1227,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //}
 //
 //
-//extern "C" LEAN_EXPORT lean_object *lean_llvm_pass_manager_builder_populate_module_pass_manager(size_t ctx, size_t pmb, size_t pm,
+//extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_pass_manager_builder_populate_module_pass_manager(size_t ctx, size_t pmb, size_t pm,
 //    lean_object * /* w */) {
 //#ifndef LEAN_LLVM
 //    lean_always_assert(
@@ -1239,7 +1239,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_target_machine_emit_to_file(size_t
 //#endif  // LEAN_LLVM
 //}
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_dispose_target_machine(size_t ctx, size_t tm) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_dispose_target_machine(size_t ctx, size_t tm) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1250,7 +1250,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_dispose_target_machine(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_dispose_module(size_t ctx, size_t mod) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_dispose_module(size_t ctx, size_t mod) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1261,7 +1261,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_dispose_module(size_t ctx, size_t 
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_set_visibility(size_t ctx, size_t value, uint64_t vis) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_visibility(size_t ctx, size_t value, uint64_t vis) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1272,7 +1272,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_set_visibility(size_t ctx, size_t 
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_set_dll_storage_class(size_t ctx, size_t value, uint64_t cls) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_dll_storage_class(size_t ctx, size_t value, uint64_t cls) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1294,7 +1294,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_create_string_attribute(size_t ctx, lean
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_add_attribute_at_index(size_t ctx, size_t fn, uint64_t idx, size_t attr) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_add_attribute_at_index(size_t ctx, size_t fn, uint64_t idx, size_t attr) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1305,7 +1305,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_add_attribute_at_index(size_t ctx,
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_first_global(size_t ctx, size_t mod) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_first_global(size_t ctx, size_t mod) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1316,7 +1316,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_first_global(size_t ctx, size_t mod)
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_next_global(size_t ctx, size_t global) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_next_global(size_t ctx, size_t global) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1327,7 +1327,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_next_global(size_t ctx, size_t globa
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_first_function(size_t ctx, size_t mod) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_first_function(size_t ctx, size_t mod) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1338,7 +1338,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_first_function(size_t ctx, size_t mo
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_next_function(size_t ctx, size_t function) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_next_function(size_t ctx, size_t function) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1350,7 +1350,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_next_function(size_t ctx, size_t fun
 }
 
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_set_linkage(size_t ctx, size_t value, uint64_t linkage) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_set_linkage(size_t ctx, size_t value, uint64_t linkage) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1361,7 +1361,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_set_linkage(size_t ctx, size_t val
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_get_value_name2(size_t ctx, size_t value) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_get_value_name2(size_t ctx, size_t value) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1373,7 +1373,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_get_value_name2(size_t ctx, size_t
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *llvm_is_declaration(size_t ctx, size_t global) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_is_declaration(size_t ctx, size_t global) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1384,7 +1384,7 @@ extern "C" LEAN_EXPORT lean_object *llvm_is_declaration(size_t ctx, size_t globa
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_verify_module(size_t ctx, size_t mod) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_verify_module(size_t ctx, size_t mod) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1400,7 +1400,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_verify_module(size_t ctx, size_t m
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT uint64_t lean_llvm_count_basic_blocks(size_t ctx, size_t fn_val) {
+extern "C" LEAN_EXPORT uint64_t lean_cxx_llvm_count_basic_blocks(size_t ctx, size_t fn_val) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1411,7 +1411,7 @@ extern "C" LEAN_EXPORT uint64_t lean_llvm_count_basic_blocks(size_t ctx, size_t 
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT size_t lean_llvm_get_entry_basic_block(size_t ctx, size_t fn_val) {
+extern "C" LEAN_EXPORT size_t lean_cxx_llvm_get_entry_basic_block(size_t ctx, size_t fn_val) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1423,7 +1423,7 @@ extern "C" LEAN_EXPORT size_t lean_llvm_get_entry_basic_block(size_t ctx, size_t
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_get_first_instruction(size_t ctx, size_t bb) {
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_get_first_instruction(size_t ctx, size_t bb) {
 #ifndef LEAN_LLVM
     lean_always_assert(
         false && ("Please build a version of Lean4 with -DLLVM=ON to invoke "
@@ -1439,7 +1439,7 @@ extern "C" LEAN_EXPORT lean_object *lean_llvm_get_first_instruction(size_t ctx, 
 #endif  // LEAN_LLVM
 }
 
-extern "C" LEAN_EXPORT lean_object *lean_llvm_position_builder_before(
+extern "C" LEAN_EXPORT lean_object *lean_cxx_llvm_position_builder_before(
     size_t ctx, size_t builder, size_t instr) {
 #ifndef LEAN_LLVM
     lean_always_assert(

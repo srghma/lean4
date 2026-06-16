@@ -39,7 +39,7 @@ void display_cumulative_profiling_times(std::ostream & out) {
 }
 
 /* displayCumulativeProfilingTimes : BaseIO Unit */
-extern "C" LEAN_EXPORT obj_res lean_display_cumulative_profiling_times() {
+extern "C" LEAN_EXPORT obj_res lean_cxx_display_cumulative_profiling_times() {
    display_cumulative_profiling_times(std::cerr);
    return box(0);
 }
@@ -82,7 +82,7 @@ time_task::~time_task() {
 }
 
 /* profileit {α : Type} (category : String) (opts : Options) (fn : Unit → α) (decl : Name) : α */
-extern "C" LEAN_EXPORT obj_res lean_profileit(b_obj_arg category, b_obj_arg opts, obj_arg fn, obj_arg decl) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_profileit(b_obj_arg category, b_obj_arg opts, obj_arg fn, obj_arg decl) {
     time_task t(string_to_std(category),
                 TO_REF(options, opts),
                 name(decl));

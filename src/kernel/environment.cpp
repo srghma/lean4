@@ -272,7 +272,7 @@ environment environment::add(declaration const & d, bool check) const {
 addDeclCore (env : Environment) (maxHeartbeats : USize) (decl : @& Declaration)
   (cancelTk? : @& Option IO.CancelToken) : Except Kernel.Exception Environment
 */
-extern "C" LEAN_EXPORT object * lean_add_decl(object * env, size_t max_heartbeat, object * decl,
+extern "C" LEAN_EXPORT object * lean_cxx_add_decl(object * env, size_t max_heartbeat, object * decl,
     object * opt_cancel_tk) {
     scope_max_heartbeat s(max_heartbeat);
     scope_cancel_tk s2(is_scalar(opt_cancel_tk) ? nullptr : cnstr_get(opt_cancel_tk, 0));
@@ -281,7 +281,7 @@ extern "C" LEAN_EXPORT object * lean_add_decl(object * env, size_t max_heartbeat
         });
 }
 
-extern "C" LEAN_EXPORT object * lean_add_decl_without_checking(object * env, object * decl) {
+extern "C" LEAN_EXPORT object * lean_cxx_add_decl_without_checking(object * env, object * decl) {
     return catch_kernel_exceptions<environment>([&]() {
             return environment(env).add(declaration(decl, true), false);
         });

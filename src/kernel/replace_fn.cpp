@@ -148,7 +148,7 @@ public:
     expr operator()(expr const & e) { return apply(e); }
 };
 
-extern "C" LEAN_EXPORT obj_res lean_replace_expr(b_obj_arg f, b_obj_arg e) {
+extern "C" LEAN_EXPORT obj_res lean_cxx_replace_expr(b_obj_arg f, b_obj_arg e) {
     expr r = replace_fn(f)(TO_REF(expr, e));
     return r.steal();
 }

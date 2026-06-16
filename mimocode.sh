@@ -19,6 +19,7 @@ bwrap \
   --ro-bind /home/srghma/.nix-profile /home/srghma/.nix-profile \
   --ro-bind /home/srghma/.elan /home/srghma/.elan \
   --ro-bind /home/srghma/.dotfiles/nvim "$MHOME/.config/nvim" \
+  --ro-bind /home/srghma/.dotfiles/gitignore_global "$MHOME/.config/git/ignore" \
   --chdir "$PWD" \
   --setenv HOME "$MHOME" \
   --setenv PATH "/run/current-system/sw/bin:/home/srghma/.nix-profile/bin:/bin:/usr/bin" \

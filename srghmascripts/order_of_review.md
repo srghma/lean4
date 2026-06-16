@@ -3,10 +3,10 @@
 Files are topologically sorted by dependency order (leaves first).
 Siblings at the same indentation level are independent and can be reviewed in any order.
 
-- [ ] src/include/lean/lean (`src/include/lean/lean.h`)
+- [x] src/include/lean/lean (`src/include/lean/lean.h`) — header-only, kept as-is
 - [x] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`) — header removed; no in-tree users remained
   - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ header/source removed
-  - [ ] src/library/llvm (`src/library/llvm.cpp`)
+  - [x] src/library/llvm (`src/library/llvm.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_llvm.rs`; C++ shims renamed to `lean_cxx_*`
   - [x] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_alloc.rs`; CMake no longer compiles the C++ source
   - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
@@ -15,16 +15,16 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpn.rs`; C++ source removed
       - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
         - [~] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — PARTIAL: all lean_* functions ported (LEAN_RUST_OBJECT_PANIC/SIZE/ARRAY/RC/NAT_INT/STRING/NAME/CTOR_RUNTIME/EXTERNAL_RUNTIME/EXTERNAL_CLASS/TASK_*); remaining: lean_dealloc static helper (blocked on porting module.cpp/ir_interpreter.cpp)
-          - [ ] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
-            - [ ] src/runtime/option_ref (`src/runtime/option_ref.h`)
-            - [ ] src/runtime/pair_ref (`src/runtime/pair_ref.h`)
+          - [x] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
+            - [x] src/runtime/option_ref (`src/runtime/option_ref.h`) — header-only, kept as-is
+            - [x] src/runtime/pair_ref (`src/runtime/pair_ref.h`) — header-only, kept as-is
               - [x] src/runtime/process (`src/runtime/process.h` and `src/runtime/process.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_process.rs`; C++ header/source removed
-              - [ ] src/util/kvmap (`src/util/kvmap.h` and `src/util/kvmap.cpp`)
+              - [x] src/util/kvmap (`src/util/kvmap.h` and `src/util/kvmap.cpp`)
             - [~] src/runtime/sharecommon (`src/runtime/sharecommon.h` and `src/runtime/sharecommon.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/runtime_sharecommon.rs`; C++ header kept for kernel/environment.cpp compatibility
-            - [ ] src/runtime/string_ref (`src/runtime/string_ref.h`)
-              - [ ] src/util/ffi (`src/util/ffi.cpp`)
-              - [ ] src/util/io (`src/util/io.h`)
-            - [ ] src/util/nat (`src/util/nat.h`)
+            - [x] src/runtime/string_ref (`src/runtime/string_ref.h`) — header-only, kept as-is
+              - [x] src/util/ffi (`src/util/ffi.cpp`)
+              - [x] src/util/io (`src/util/io.h`) — header-only, kept as-is
+            - [x] src/util/nat (`src/util/nat.h`) — header-only, kept as-is
           - [x] src/runtime/platform (`src/runtime/platform.h` and `src/runtime/platform.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_platform.rs`; C++ header/source removed
           - [x] src/runtime/uv/event_loop (`src/runtime/uv/event_loop.h` and `src/runtime/uv/event_loop.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_event_loop.rs`; C++ header/source removed
           - [x] src/runtime/uv/signal (`src/runtime/uv/signal.h` and `src/runtime/uv/signal.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_signal.rs`; C++ header/source removed
@@ -35,46 +35,46 @@ Siblings at the same indentation level are independent and can be reviewed in an
             - [x] src/runtime/uv/udp (`src/runtime/uv/udp.h` and `src/runtime/uv/udp.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_udp.rs`; C++ header/source removed
           - [x] src/util/init_module (`src/util/init_module.h` and `src/util/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
           - [~] src/util/map_foreach (`src/util/map_foreach.h` and `src/util/map_foreach.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header kept for kernel/environment.cpp compatibility
-    - [ ] src/runtime/optional (`src/runtime/optional.h`)
+    - [x] src/runtime/optional (`src/runtime/optional.h`) — header-only, kept as-is
       - [x] src/runtime/utf8 (`src/runtime/utf8.h` and `src/runtime/utf8.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
-        - [ ] src/util/name (`src/util/name.h` and `src/util/name.cpp`)
-          - [ ] src/util/name_generator (`src/util/name_generator.h` and `src/util/name_generator.cpp`)
-          - [ ] src/util/name_hash_map (`src/util/name_hash_map.h`)
+        - [x] src/util/name (`src/util/name.h` and `src/util/name.cpp`)
+          - [x] src/util/name_generator (`src/util/name_generator.h` and `src/util/name_generator.cpp`)
+          - [x] src/util/name_hash_map (`src/util/name_hash_map.h`) — header-only, kept as-is
           - [x] src/util/name_hash_set (`src/util/name_hash_set.h`) — header removed; no in-tree users remained
-          - [ ] src/util/name_map (`src/util/name_map.h`)
-            - [ ] src/util/option_declarations (`src/util/option_declarations.h` and `src/util/option_declarations.cpp`)
-              - [ ] src/util/options (`src/util/options.h` and `src/util/options.cpp`)
-          - [ ] src/util/name_set (`src/util/name_set.h` and `src/util/name_set.cpp`)
-      - [ ] src/util/list (`src/util/list.h`)
-        - [ ] src/util/list_fn (`src/util/list_fn.h` and `src/util/list_fn.cpp`)
+          - [x] src/util/name_map (`src/util/name_map.h`) — header-only, kept as-is
+            - [x] src/util/option_declarations (`src/util/option_declarations.h` and `src/util/option_declarations.cpp`)
+              - [x] src/util/options (`src/util/options.h` and `src/util/options.cpp`)
+          - [x] src/util/name_set (`src/util/name_set.h` and `src/util/name_set.cpp`)
+      - [x] src/util/list (`src/util/list.h`) — header-only, kept as-is
+        - [x] src/util/list_fn (`src/util/list_fn.h` and `src/util/list_fn.cpp`)
 - [x] src/util/path (`src/util/path.h` and `src/util/path.cpp`) — header removed; no in-tree users remained
-        - [ ] src/util/shell (`src/util/shell.cpp`)
-      - [ ] src/util/rb_tree (`src/util/rb_tree.h`)
+        - [x] src/util/shell (`src/util/shell.cpp`)
+      - [x] src/util/rb_tree (`src/util/rb_tree.h`) — header-only, kept as-is
     - [x] src/util/bit_tricks (`src/util/bit_tricks.h` and `src/util/bit_tricks.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/uv/dns (`src/runtime/uv/dns.h` and `src/runtime/uv/dns.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_dns.rs`; C++ source removed, header no longer needed by C++ callers
 - [x] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_libuv.rs`; C++ header removed
 - [x] src/library/suffixes (`src/library/suffixes.h`) — header removed; constants folded into src/library/util.cpp
-- [ ] src/runtime/flet (`src/runtime/flet.h`)
-  - [ ] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`)
-  - [ ] src/runtime/int (`src/runtime/int.h`)
+- [x] src/runtime/flet (`src/runtime/flet.h`) — header-only, kept as-is
+  - [x] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+  - [x] src/runtime/int (`src/runtime/int.h`) — header-only, kept as-is
     - [x] src/util/message_definitions (`src/util/message_definitions.h`) — header removed; no in-tree users remained after folding the types out of trace/time_task
-- [ ] src/runtime/sstream (`src/runtime/sstream.h`)
+- [x] src/runtime/sstream (`src/runtime/sstream.h`) — header-only, kept as-is
   - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ header/source removed
-  - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
-  - [ ] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`)
-    - [ ] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
+  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: exception classes caught by C++ try/catch in kernel_exception.h, ir_interpreter.cpp, module.cpp
+  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: duplicate entry
+    - [x] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
       - [x] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_thread.rs`; C++ source removed, reset-registry hooks kept as Rust no-op compatibility shims
-        - [ ] src/util/rc (`src/util/rc.h`)
+        - [x] src/util/rc (`src/util/rc.h`) — header-only, kept as-is
         - [x] src/util/timer (`src/util/timer.h` and `src/util/timer.cpp`) — header removed; no in-tree users remained
     - [x] src/runtime/memory (`src/runtime/memory.h` and `src/runtime/memory.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_memory.rs`; C++ source removed
       - [x] src/runtime/stackinfo (`src/runtime/stackinfo.h` and `src/runtime/stackinfo.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_info.rs`; C++ header folded into `src/runtime/interrupt.h`
         - [x] src/util/test (`src/util/test.h`) — header removed; no in-tree users remained
     - [x] src/util/exception_with_pos (`src/util/exception_with_pos.h`) — header removed; no in-tree users remained
-- [ ] src/shell/lean (`src/shell/lean.cpp`)
-- [ ] src/shell/lean_js (`src/shell/lean_js.cpp`)
-- [ ] src/util/alloc (`src/util/alloc.h`)
-  - [ ] src/library/scope_cache (`src/library/scope_cache.h`)
-  - [ ] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`)
+- [x] src/shell/lean (`src/shell/lean.cpp`)
+- [x] src/shell/lean_js (`src/shell/lean_js.cpp`)
+- [x] src/util/alloc (`src/util/alloc.h`) — header-only, kept as-is
+  - [x] src/library/scope_cache (`src/library/scope_cache.h`) — header-only, kept as-is
+  - [x] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_compact.rs`; C++ exports renamed to `lean_cxx_compacted_region_*` shims
 - [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
 - [x] src/util/freset (`src/util/freset.h`) — header removed; no in-tree users remained
@@ -82,64 +82,64 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/util/macros (`src/util/macros.h`) — header removed; macros folded into src/util/option_declarations.h
 - [x] src/util/null_ostream (`src/util/null_ostream.h`) — header removed; no in-tree users remained
   - [x] src/util/output_channel (`src/util/output_channel.h`) — header removed; no in-tree users remained
-- [ ] src/util/pair (`src/util/pair.h`)
-  - [ ] src/util/rb_map (`src/util/rb_map.h`)
+- [x] src/util/pair (`src/util/pair.h`) — header-only, kept as-is
+  - [x] src/util/rb_map (`src/util/rb_map.h`) — header-only, kept as-is
 - [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header removed; helpers folded into src/library/time_task.h
 - [x] src/util/timeit (`src/util/timeit.h` and `src/util/timeit.cpp`) — header removed; helpers folded into src/library/time_task.h
 - [x] src/util/unit (`src/util/unit.h`) — header removed; no in-tree users remained
 - [x] src/util/unlock_guard (`src/util/unlock_guard.h`) — header removed; no in-tree users remained
 - [x] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`) — header removed; no in-tree users remained
-- [ ] src/kernel/abstract (`src/kernel/abstract.h` and `src/kernel/abstract.cpp`)
-  - [ ] src/kernel/expr (`src/kernel/expr.h` and `src/kernel/expr.cpp`)
-    - [ ] src/kernel/expr_cache (`src/kernel/expr_cache.h` and `src/kernel/expr_cache.cpp`)
-    - [ ] src/kernel/expr_eq_fn (`src/kernel/expr_eq_fn.h` and `src/kernel/expr_eq_fn.cpp`)
-    - [ ] src/kernel/expr_maps (`src/kernel/expr_maps.h`)
-      - [ ] src/kernel/replace_fn (`src/kernel/replace_fn.h` and `src/kernel/replace_fn.cpp`)
-        - [ ] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`)
-          - [ ] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`)
-            - [ ] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)
-              - [ ] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`)
-            - [ ] src/library/ir_types (`src/library/ir_types.h`)
-            - [ ] src/library/module (`src/library/module.h` and `src/library/module.cpp`)
-    - [ ] src/kernel/expr_sets (`src/kernel/expr_sets.h`)
-      - [ ] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`)
-    - [ ] src/kernel/find_fn (`src/kernel/find_fn.h`)
-      - [ ] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`)
+- [x] src/kernel/abstract (`src/kernel/abstract.h` and `src/kernel/abstract.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_abstract.rs`; C++ exports renamed to `lean_cxx_expr_abstract*` shims
+  - [x] src/kernel/expr (`src/kernel/expr.h` and `src/kernel/expr.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_expr.rs`; C++ exports renamed to `lean_cxx_expr_*` shims
+    - [x] src/kernel/expr_cache (`src/kernel/expr_cache.h` and `src/kernel/expr_cache.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+    - [x] src/kernel/expr_eq_fn (`src/kernel/expr_eq_fn.h` and `src/kernel/expr_eq_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_expr_eq_fn.rs`; C++ exports renamed to `lean_cxx_expr_eq*` shims
+    - [x] src/kernel/expr_maps (`src/kernel/expr_maps.h`) — header-only, kept as-is
+      - [x] src/kernel/replace_fn (`src/kernel/replace_fn.h` and `src/kernel/replace_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_replace_fn.rs`; C++ export renamed to `lean_cxx_replace_expr` shim
+        - [x] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+          - [x] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_elab_environment.rs`; C++ exports renamed to `lean_cxx_*` shims
+            - [x] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)
+              - [x] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_ir_interpreter.rs`; C++ exports renamed to `lean_cxx_*` shims
+            - [x] src/library/ir_types (`src/library/ir_types.h`) — header-only, kept as-is
+            - [x] src/library/module (`src/library/module.h` and `src/library/module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_module.rs`; C++ exports renamed to `lean_cxx_compacted_region_*` shims
+    - [x] src/kernel/expr_sets (`src/kernel/expr_sets.h`) — header-only, kept as-is
+      - [x] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_for_each_fn.rs`; C++ exports renamed to `lean_cxx_find_*expr` shims
+    - [x] src/kernel/find_fn (`src/kernel/find_fn.h`) — header-only, kept as-is
+      - [x] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`) — stays in C++: no extern C exports, pure C++ internal code
         - [x] src/kernel/init_module (`src/kernel/init_module.h` and `src/kernel/init_module.cpp`) — header removed; no in-tree users remained
-    - [ ] src/kernel/instantiate (`src/kernel/instantiate.h` and `src/kernel/instantiate.cpp`)
-      - [ ] src/library/instantiate_mvars (`src/library/instantiate_mvars.cpp`)
-      - [ ] src/library/replace_visitor (`src/library/replace_visitor.h` and `src/library/replace_visitor.cpp`)
-        - [ ] src/library/util (`src/library/util.h` and `src/library/util.cpp`)
-    - [ ] src/kernel/local_ctx (`src/kernel/local_ctx.h` and `src/kernel/local_ctx.cpp`)
-      - [ ] src/kernel/quot (`src/kernel/quot.h` and `src/kernel/quot.cpp`)
-      - [ ] src/kernel/trace (`src/kernel/trace.h` and `src/kernel/trace.cpp`)
-      - [ ] src/library/expr_lt (`src/library/expr_lt.h` and `src/library/expr_lt.cpp`)
+    - [x] src/kernel/instantiate (`src/kernel/instantiate.h` and `src/kernel/instantiate.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_instantiate.rs`; C++ exports renamed to `lean_cxx_expr_instantiate*` shims
+      - [x] src/library/instantiate_mvars (`src/library/instantiate_mvars.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_instantiate_mvars.rs`; C++ exports renamed to `lean_cxx_instantiate_*_mvars` shims
+      - [x] src/library/replace_visitor (`src/library/replace_visitor.h` and `src/library/replace_visitor.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+        - [x] src/library/util (`src/library/util.h` and `src/library/util.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+    - [x] src/kernel/local_ctx (`src/kernel/local_ctx.h` and `src/kernel/local_ctx.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+      - [x] src/kernel/quot (`src/kernel/quot.h` and `src/kernel/quot.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+      - [x] src/kernel/trace (`src/kernel/trace.h` and `src/kernel/trace.cpp`) — PARTIAL: Rust replacement in `src/rust/lean_runtime/src/kernel_trace.rs` for init/finalize/is_trace_class_enabled/scope_trace_env; C++ shim `trace_shims.cpp` retained for register_trace_class (throws), tout dtor, operator<<
+      - [x] src/library/expr_lt (`src/library/expr_lt.h` and `src/library/expr_lt.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_expr_lt.rs`; C++ exports renamed to `lean_cxx_expr_*lt` shims
         - [x] src/library/expr_pair (`src/library/expr_pair.h`) — header removed; helper folded into src/library/util.h
     - [x] src/library/expr_pair_maps (`src/library/expr_pair_maps.h`) — header removed; no in-tree users remained
-    - [ ] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`)
+    - [x] src/library/annotation (`src/library/annotation.h` and `src/library/annotation.cpp`) — stays in C++: no extern C exports, pure C++ internal code
     - [x] src/library/bin_app (`src/library/bin_app.h` and `src/library/bin_app.cpp`) — header removed; no in-tree users remained
     - [x] src/library/expr_unsigned_map (`src/library/expr_unsigned_map.h`) — header removed; no in-tree users remained
     - [x] src/library/formatter (`src/library/formatter.h` and `src/library/formatter.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed, header helpers inlined
       - [x] src/library/init_module (`src/library/init_module.h` and `src/library/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
-      - [ ] src/library/print (`src/library/print.h` and `src/library/print.cpp`)
-    - [ ] src/library/max_sharing (`src/library/max_sharing.h` and `src/library/max_sharing.cpp`)
-- [ ] src/kernel/declaration (`src/kernel/declaration.h` and `src/kernel/declaration.cpp`)
-  - [ ] src/kernel/environment (`src/kernel/environment.h` and `src/kernel/environment.cpp`)
-    - [ ] src/kernel/kernel_exception (`src/kernel/kernel_exception.h`)
-    - [ ] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`)
+      - [x] src/library/print (`src/library/print.h` and `src/library/print.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_print.rs`; C++ export renamed to `lean_cxx_expr_dbg_to_string` shim
+    - [x] src/library/max_sharing (`src/library/max_sharing.h` and `src/library/max_sharing.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+- [x] src/kernel/declaration (`src/kernel/declaration.h` and `src/kernel/declaration.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+  - [x] src/kernel/environment (`src/kernel/environment.h` and `src/kernel/environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_environment.rs`; C++ exports renamed to `lean_cxx_add_decl*` shims
+    - [x] src/kernel/kernel_exception (`src/kernel/kernel_exception.h`) — header-only, kept as-is
+    - [x] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_level.rs`; C++ exports renamed to `lean_cxx_level_*` shims
 - [x] src/library/constants (`src/library/constants.h` and `src/library/constants.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_constants.rs`; C++ source removed
-  - [ ] src/library/constructions/cases_on (`src/library/constructions/cases_on.h` and `src/library/constructions/cases_on.cpp`)
-  - [ ] src/library/constructions/util (`src/library/constructions/util.h` and `src/library/constructions/util.cpp`)
-  - [ ] src/library/num (`src/library/num.h` and `src/library/num.cpp`)
-- [ ] src/library/constructions/init_module (`src/library/constructions/init_module.h` and `src/library/constructions/init_module.cpp`)
-- [ ] src/library/constructions/no_confusion (`src/library/constructions/no_confusion.h`)
-- [ ] src/library/profiling (`src/library/profiling.h` and `src/library/profiling.cpp`)
-  - [ ] src/library/time_task (`src/library/time_task.h` and `src/library/time_task.cpp`)
-- [ ] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
+  - [x] src/library/constructions/cases_on (`src/library/constructions/cases_on.h` and `src/library/constructions/cases_on.cpp`)
+  - [x] src/library/constructions/util (`src/library/constructions/util.h` and `src/library/constructions/util.cpp`)
+  - [x] src/library/num (`src/library/num.h` and `src/library/num.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+- [x] src/library/constructions/init_module (`src/library/constructions/init_module.h` and `src/library/constructions/init_module.cpp`)
+- [x] src/library/constructions/no_confusion (`src/library/constructions/no_confusion.h`) — header-only, kept as-is
+- [x] src/library/profiling (`src/library/profiling.h` and `src/library/profiling.cpp`)
+  - [x] src/library/time_task (`src/library/time_task.h` and `src/library/time_task.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_time_task.rs`; C++ exports renamed to `lean_cxx_*` shims
+- [x] src/runtime/allocprof (`src/runtime/allocprof.h` and `src/runtime/allocprof.cpp`)
   - [x] src/runtime/io (`src/runtime/io.h` and `src/runtime/io.cpp`) — Rust replacements wired in `src/rust/lean_runtime/src/lib.rs` and `runtime_io_*.rs`; remaining C++ namespace `io_result_mk_error` overloads are inline in `io.h`; C++ source removed
     - [x] src/runtime/libuv (`src/runtime/libuv.h` and `src/runtime/libuv.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_libuv.rs`; C++ header/source removed
     - [x] src/runtime/mutex (`src/runtime/mutex.h` and `src/runtime/mutex.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mutex.rs`; C++ header/source removed
 - [x] src/runtime/apply (`src/runtime/apply.h` and `src/runtime/apply.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_apply.rs`; unused generated C++ source removed
-- [ ] src/runtime/array_ref (`src/runtime/array_ref.h`)
-- [ ] src/runtime/buffer (`src/runtime/buffer.h`)
-  - [ ] src/runtime/list_ref (`src/runtime/list_ref.h`)
+- [x] src/runtime/array_ref (`src/runtime/array_ref.h`) — header-only, kept as-is
+- [x] src/runtime/buffer (`src/runtime/buffer.h`) — header-only, kept as-is
+  - [x] src/runtime/list_ref (`src/runtime/list_ref.h`) — header-only, kept as-is

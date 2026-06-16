@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #include "kernel/declaration.h"
 #include "kernel/environment.h"
-#include "kernel/for_each_fn.h"
 
 namespace lean {
 
@@ -93,8 +92,6 @@ quot_val::quot_val(name const & n, names const & lparams, expr const & type, quo
     object_ref(lean_mk_quot_val(n.to_obj_arg(), lparams.to_obj_arg(), type.to_obj_arg(), static_cast<uint8>(k))) {
 }
 
-quot_kind quot_val::get_quot_kind() const { return static_cast<quot_kind>(lean_quot_val_kind(to_obj_arg())); }
-
 recursor_rule::recursor_rule(name const & cnstr, unsigned nfields, expr const & rhs):
     object_ref(mk_cnstr(0, cnstr, nat(nfields), rhs)) {
 }
@@ -170,81 +167,11 @@ bool declaration::is_unsafe() const {
     lean_unreachable();
 }
 
-bool use_unsafe(environment const & env, expr const & e) {
-    bool found = false;
-    for_each(e, [&](expr const & e) {
-            if (found) return false;
-            if (is_constant(e)) {
-                if (auto info = env.find(const_name(e))) {
-                    if (info->is_unsafe()) {
-                        found = true;
-                        return false;
-                    }
-                }
-            }
-            return true;
-        });
-    return found;
-}
-
 static declaration * g_dummy = nullptr;
 declaration::declaration():declaration(*g_dummy) {}
 
-static unsigned get_max_height(environment const & env, expr const & v) {
-    unsigned h = 0;
-    for_each(v, [&](expr const & e) {
-            if (is_constant(e)) {
-                auto d = env.find(const_name(e));
-                if (d && d->get_hints().get_height() > h)
-                    h = d->get_hints().get_height();
-            }
-            return true;
-        });
-    return h;
-}
-
-definition_val mk_definition_val(environment const & env, name const & n, names const & params, expr const & t, expr const & v, definition_safety s) {
-    unsigned h = get_max_height(env, v);
-    return definition_val(n, params, t, v, reducibility_hints::mk_regular(h+1), s, names(n));
-}
-
-declaration mk_definition(name const & n, names const & params, expr const & t, expr const & v,
-                          reducibility_hints const & h, definition_safety safety) {
-    return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Definition), definition_val(n, params, t, v, h, safety, names(n))));
-}
-
-declaration mk_definition(environment const & env, name const & n, names const & params, expr const & t,
-                          expr const & v, definition_safety safety) {
-    return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Definition), mk_definition_val(env, n, params, t, v, safety)));
-}
-
-declaration mk_theorem(name const & n, names const & lparams, expr const & type, expr const & val) {
-    return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Theorem), theorem_val(n, lparams, type, val, names(n))));
-}
-
-declaration mk_opaque(name const & n, names const & params, expr const & t, expr const & v, bool is_unsafe) {
-    return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Opaque), opaque_val(n, params, t, v, is_unsafe, names(n))));
-}
-
 declaration mk_axiom(name const & n, names const & params, expr const & t, bool unsafe) {
     return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Axiom), axiom_val(n, params, t, unsafe)));
-}
-
-static definition_safety to_safety(bool unsafe) {
-    return unsafe ? definition_safety::unsafe : definition_safety::safe;
-}
-
-declaration mk_definition_inferring_unsafe(environment const & env, name const & n, names const & params,
-                                            expr const & t, expr const & v, reducibility_hints const & hints) {
-    bool unsafe = use_unsafe(env, t) || use_unsafe(env, v);
-    return mk_definition(n, params, t, v, hints, to_safety(unsafe));
-}
-
-declaration mk_definition_inferring_unsafe(environment const & env, name const & n, names const & params,
-                                         expr const & t, expr const & v) {
-    bool unsafe  = use_unsafe(env, t) && use_unsafe(env, v);
-    unsigned h = get_max_height(env, v);
-    return mk_definition(n, params, t, v, reducibility_hints::mk_regular(h+1), to_safety(unsafe));
 }
 
 inductive_type::inductive_type(name const & id, expr const & type, constructors const & cnstrs):

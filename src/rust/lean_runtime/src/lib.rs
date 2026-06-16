@@ -80,10 +80,7 @@ extern "C" {
     fn initialize_print();
     #[link_name = "_ZN4lean14finalize_printEv"]
     fn finalize_print();
-    #[link_name = "_ZN4lean14initialize_numEv"]
-    fn initialize_num();
-    #[link_name = "_ZN4lean12finalize_numEv"]
-    fn finalize_num();
+    // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
     #[link_name = "_ZN4lean21initialize_annotationEv"]
     fn initialize_annotation();
     #[link_name = "_ZN4lean19finalize_annotationEv"]
@@ -132,10 +129,7 @@ extern "C" {
     fn initialize_quot();
     #[link_name = "_ZN4lean13finalize_quotEv"]
     fn finalize_quot();
-    #[link_name = "_ZN4lean16initialize_traceEv"]
-    fn initialize_trace();
-    #[link_name = "_ZN4lean14finalize_traceEv"]
-    fn finalize_trace();
+    // initialize_trace / finalize_trace now provided by kernel_trace.rs
     #[link_name = "_ZN4lean21init_default_print_fnEv"]
     fn init_default_print_fn_impl();
     fn initialize_Init(builtin: u8) -> *mut LeanObject;
@@ -1267,6 +1261,25 @@ include!("runtime_mpz.rs");
 include!("runtime_object_nat_int.rs");
 include!("runtime_object_string.rs");
 include!("runtime_object_name.rs");
+include!("kernel_abstract.rs");
+include!("library_expr_lt.rs");
+include!("library_time_task.rs");
+include!("library_print.rs");
+include!("runtime_compact.rs");
+include!("kernel_replace_fn.rs");
+include!("kernel_expr_eq_fn.rs");
+include!("kernel_for_each_fn.rs");
+include!("kernel_level.rs");
+include!("kernel_expr.rs");
+include!("kernel_instantiate.rs");
+include!("kernel_environment.rs");
+include!("library_instantiate_mvars.rs");
+include!("library_module.rs");
+include!("library_elab_environment.rs");
+include!("library_ir_interpreter.rs");
+include!("library_llvm.rs");
+include!("kernel_num.rs");
+include!("kernel_trace.rs");
 
 #[cfg_attr(feature = "export-runtime-ffi", export_name = "lean_name_eq")]
 pub unsafe extern "C" fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
@@ -1640,11 +1653,11 @@ unsafe fn initialize_kernel_module_body() {
     initialize_local_ctx();
     initialize_inductive();
     initialize_quot();
-    initialize_trace();
+    lean_cxx_initialize_trace();
 }
 
 unsafe fn finalize_kernel_module_body() {
-    finalize_trace();
+    lean_cxx_finalize_trace();
     finalize_quot();
     finalize_inductive();
     finalize_local_ctx();
@@ -1669,7 +1682,7 @@ unsafe fn finalize_library_core_module_body() {
 
 unsafe fn initialize_library_module_body() {
     initialize_print();
-    initialize_num();
+    lean_cxx_initialize_num();
     initialize_annotation();
     initialize_library_util();
     initialize_time_task();
@@ -1682,7 +1695,7 @@ unsafe fn finalize_library_module_body() {
     finalize_time_task();
     finalize_library_util();
     finalize_annotation();
-    finalize_num();
+    lean_cxx_finalize_num();
     finalize_print();
 }
 

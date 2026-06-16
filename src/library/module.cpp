@@ -247,7 +247,7 @@ static std::vector<std::pair<size_t, ptrdiff_t>> read_lib_table_from_buffer(char
     return relocs;
 }
 
-extern "C" LEAN_EXPORT object * lean_compacted_region_save(b_obj_arg ofname, b_obj_arg mod, b_obj_arg odata,
+extern "C" LEAN_EXPORT object * lean_cxx_compacted_region_save(b_obj_arg ofname, b_obj_arg mod, b_obj_arg odata,
                                                            b_obj_arg odep_regions, obj_arg oprev,
                                                            uint8 allow_closures_u8, object *) {
     // `mmap` addresses must be page-aligned. The default (non-huge) page size on x86-64 is 4KB;
@@ -418,7 +418,7 @@ extern "C" LEAN_EXPORT object * lean_compacted_region_save(b_obj_arg ofname, b_o
 // root to be interpreted as — the C side does no type checking and the caller is responsible for
 // using a type compatible with what was saved (see `CompactedRegion.read`).
 // Supports both `v2` and `v3` formats.
-extern "C" LEAN_EXPORT object * lean_compacted_region_read(b_obj_arg ofname, b_obj_arg odep_regions, object *) {
+extern "C" LEAN_EXPORT object * lean_cxx_compacted_region_read(b_obj_arg ofname, b_obj_arg odep_regions, object *) {
     std::string olean_fn(lean_string_cstr(ofname));
     std::vector<compacted_region *> dep_regions = extract_dep_regions(odep_regions);
     try {

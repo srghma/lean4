@@ -41,7 +41,7 @@ unsigned get_depth(level const & l) { return lean_level_depth(l.to_obj_arg()); }
 bool has_param(level const & l) { return lean_level_has_param(l.to_obj_arg()); }
 bool has_mvar(level const & l) { return lean_level_has_mvar(l.to_obj_arg()); }
 
-extern "C" LEAN_EXPORT uint64_t lean_level_mk_data (uint64_t h, object * depth, uint8_t hasMVar, uint8_t hasParam) {
+extern "C" LEAN_EXPORT uint64_t lean_cxx_level_mk_data (uint64_t h, object * depth, uint8_t hasMVar, uint8_t hasParam) {
     if (!is_scalar(depth))
         lean_internal_panic("universe level depth is too big");
     size_t d = unbox(depth);
@@ -149,11 +149,11 @@ bool operator==(level const & l1, level const & l2) {
     lean_unreachable(); // LCOV_EXCL_LINE
 }
 
-extern "C" LEAN_EXPORT uint8 lean_level_eqv(object * l1, object * l2) {
+extern "C" LEAN_EXPORT uint8 lean_cxx_level_eqv(object * l1, object * l2) {
     return is_equivalent(TO_REF(level, l1), TO_REF(level, l2));
 }
 
-extern "C" LEAN_EXPORT uint8 lean_level_eq(object * l1, object * l2) {
+extern "C" LEAN_EXPORT uint8 lean_cxx_level_eq(object * l1, object * l2) {
     return TO_REF(level, l1) == TO_REF(level, l2);
 }
 
