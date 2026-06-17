@@ -197,46 +197,12 @@ public:
     }
 };
 
-LEAN_EXPORT name string_to_name(std::string const & str);
-
 struct name_hash_fn { unsigned operator()(name const & n) const { return n.hash(); } };
 struct name_eq_fn { bool operator()(name const & n1, name const & n2) const { return n1 == n2; } };
-struct name_cmp {
-    typedef name type;
-    int operator()(name const & n1, name const & n2) const { return cmp(n1, n2); }
-};
 struct name_quick_cmp {
     typedef name type;
     int operator()(name const & n1, name const & n2) const { return quick_cmp(n1, n2); }
 };
-
-/** \brief Return true if \c p is part of \c n */
-bool is_part_of(std::string const & p, name n);
-
-/**
-   \brief Return true iff the two given names are independent.
-   That \c a is not a prefix of \c b, nor \c b is a prefix of \c a
-
-   \remark forall a b c d,
-               independent(a, b) => independent(join(a, c), join(b, d))
-*/
-inline bool independent(name const & a, name const & b) {
-    return !is_prefix_of(a, b) && !is_prefix_of(b, a);
-}
-
-typedef pair<name, name> name_pair;
-struct name_pair_quick_cmp {
-    int operator()(name_pair const & p1, name_pair const & p2) const {
-        int r = quick_cmp(p1.first, p2.first);
-        if (r != 0) return r;
-        return quick_cmp(p1.second, p2.second);
-    }
-};
-
-typedef std::function<bool(name const &)> name_predicate; // NOLINT
-
-/** \brief Return true if it is a lean internal name, i.e., the name starts with a `_` */
-bool is_internal_name(name const & n);
 
 typedef list_ref<name> names;
 
@@ -565,43 +531,6 @@ inline name name::replace_prefix(name const & prefix, name const & new_prefix) c
         return name(p, get_numeral());
 }
 
-inline bool is_part_of(std::string const & p, name n) {
-    while (true) {
-        if (n.is_string()) {
-            std::string s = n.get_string().to_std_string();
-            if (s.find(p) != std::string::npos)
-                return true;
-        }
-        if (n.is_atomic() || n.is_anonymous())
-            return false;
-        n = n.get_prefix();
-    }
-}
-
-inline name string_to_name(std::string const & str) {
-    static_assert(*(lean_name_separator+1) == 0, "this function assumes the length of lean_name_separator is 1");
-    name result;
-    std::string id_part;
-    for (unsigned i = 0; i < str.size(); i++) {
-        if (str[i] == lean_name_separator[0]) {
-            result = name(result, id_part.c_str());
-            id_part.clear();
-        } else {
-            id_part.push_back(str[i]);
-        }
-    }
-    return name(result, id_part.c_str());
-}
-
-inline bool is_internal_name(name const & n) {
-    name it = n;
-    while (!it.is_anonymous()) {
-        if (!it.is_anonymous() && it.is_string() && it.get_string().data() && it.get_string().data()[0] == '_')
-            return true;
-        it = it.get_prefix();
-    }
-    return false;
-}
 
 inline name name::mk_internal_unique_name() {
     unsigned id = lean_name_next_internal_unique_id();
