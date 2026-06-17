@@ -5,7 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #include <utility>
-#include "runtime/memory.h"
 #include "util/alloc.h"
 #include "runtime/interrupt.h"
 #include "runtime/flet.h"
