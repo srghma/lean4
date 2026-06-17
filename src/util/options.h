@@ -28,15 +28,6 @@ extern "C" LEAN_EXPORT obj_res lean_options_get_empty(obj_arg u);
 extern "C" LEAN_EXPORT bool lean_options_get_bool(obj_arg opts, obj_arg n, bool default_value);
 extern "C" LEAN_EXPORT obj_res lean_options_update_bool(obj_arg opts, obj_arg n, bool v);
 
-LEAN_EXPORT bool get_verbose(options const & opts);
-LEAN_EXPORT name const & get_verbose_opt_name();
-LEAN_EXPORT name const & get_max_memory_opt_name();
-LEAN_EXPORT name const & get_timeout_opt_name();
-
-struct mk_option_declaration {
-    mk_option_declaration(name const & n, data_value_kind k, char const * default_value, char const * description);
-};
-
 void initialize_options();
 void finalize_options();
 }
