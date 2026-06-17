@@ -463,8 +463,6 @@ public:
 };
 
 inline optional<constant_info> none_constant_info() { return optional<constant_info>(); }
-inline optional<constant_info> some_constant_info(constant_info const & o) { return optional<constant_info>(o); }
-inline optional<constant_info> some_constant_info(constant_info && o) { return optional<constant_info>(std::forward<constant_info>(o)); }
 
 static_assert(static_cast<unsigned>(declaration_kind::Axiom) == static_cast<unsigned>(constant_info_kind::Axiom), "declaration vs constant_info tag mismatch");
 static_assert(static_cast<unsigned>(declaration_kind::Definition) == static_cast<unsigned>(constant_info_kind::Definition), "declaration vs constant_info tag mismatch");
