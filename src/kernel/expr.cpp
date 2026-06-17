@@ -15,7 +15,6 @@ Author: Leonardo de Moura
 #include "util/list_fn.h"
 #include "kernel/expr.h"
 #include "kernel/expr_eq_fn.h"
-#include "kernel/expr_sets.h"
 #include "kernel/for_each_fn.h"
 #include "kernel/replace_fn.h"
 #include "kernel/abstract.h"

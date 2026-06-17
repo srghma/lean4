@@ -10,7 +10,6 @@ Author: Leonardo de Moura
 #include "runtime/interrupt.h"
 #include "runtime/thread.h"
 #include "kernel/expr.h"
-#include "kernel/expr_sets.h"
 #include "util/alloc.h"
 
 namespace lean {
