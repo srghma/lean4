@@ -64,12 +64,4 @@ public:
     friend nat operator%(nat const & a, nat const & b)   { return nat(nat_mod(a.raw(), b.raw())); }
 };
 
-inline optional<nat> to_optional_nat(obj_arg o) {
-    if (is_scalar(o)) return optional<nat>();
-    optional<nat> r(nat(cnstr_get(o, 0), true));
-    dec(o);
-    return r;
-}
-
-inline std::ostream & operator<<(std::ostream & out, nat const & n) { out << n.to_mpz(); return out; }
 };
