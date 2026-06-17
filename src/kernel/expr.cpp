@@ -216,21 +216,6 @@ expr const & get_app_args(expr const & e, buffer<expr> & args) {
     return *it;
 }
 
-expr const & get_app_args_at_most(expr const & e, unsigned num, buffer<expr> & args) {
-    unsigned sz = args.size();
-    expr const * it = &e;
-    unsigned i = 0;
-    while (is_app(*it)) {
-        if (i == num)
-            break;
-        args.push_back(app_arg(*it));
-        it = &(app_fn(*it));
-        i++;
-    }
-    std::reverse(args.begin() + sz, args.end());
-    return *it;
-}
-
 expr const & get_app_rev_args(expr const & e, buffer<expr> & args) {
     expr const * it = &e;
     while (is_app(*it)) {
@@ -266,10 +251,6 @@ bool is_arrow(expr const & t) {
         lean_assert(has_loose_bvars(binding_body(t)) == has_loose_bvar(binding_body(t), 0));
         return !has_loose_bvars(binding_body(t));
     }
-}
-
-bool is_default_var_name(name const & n) {
-    return n == *g_default_name;
 }
 
 extern "C" uint8 lean_expr_is_have(object * e);
@@ -476,18 +457,4 @@ LEAN_EXPORT void finalize_expr() {
     delete g_default_name;
 }
 
-// =======================================
-// Legacy
-
-optional<expr> has_expr_metavar_strict(expr const & e) {
-    if (!has_expr_metavar(e))
-        return none_expr();
-    optional<expr> r;
-    for_each(e, [&](expr const & e) {
-            if (r || !has_expr_metavar(e)) return false;
-            if (is_metavar_app(e)) { r = e; return false; }
-            return true;
-        });
-    return r;
-}
 }

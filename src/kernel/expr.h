@@ -186,7 +186,6 @@ inline bool is_binding(expr const & e)     { return is_lambda(e) || is_pi(e); }
 
 bool is_atomic(expr const & e);
 bool is_arrow(expr const & t);
-bool is_default_var_name(name const & n);
 // =======================================
 
 // =======================================
@@ -287,15 +286,6 @@ expr update_proj(expr const & e, expr const & new_e);
 
     It returns the f. */
 expr const & get_app_args(expr const & e, buffer<expr> & args);
-/** \brief Similar to \c get_app_args, but stores at most num args.
-    Examples:
-    1) get_app_args_at_most(f a b c, 2, args);
-    stores {b, c} in args and returns (f a)
-
-    2) get_app_args_at_most(f a b c, 4, args);
-    stores {a, b, c} in args and returns f */
-expr const & get_app_args_at_most(expr const & e, unsigned num, buffer<expr> & args);
-
 /** \brief Similar to \c get_app_args, but arguments are stored in reverse order in \c args.
     If e is of the form <tt>(...(f a1) ... an)</tt>, then the procedure stores [an, ..., a1] in \c args. */
 expr const & get_app_rev_args(expr const & e, buffer<expr> & args);
@@ -365,9 +355,6 @@ inline expr mk_constant(name const & n, levels const & ls) { return mk_const(n, 
 inline expr mk_constant(name const & n) { return mk_constant(n, levels()); }
 inline bool is_constant(expr const & e) { return is_const(e); }
 inline expr update_constant(expr const & e, levels const & new_levels) { return update_const(e, new_levels); }
-/** \brief Similar to \c has_expr_metavar, but ignores metavariables occurring in local constant types.
-    It also returns the meta-variable application found in \c e. */
-optional<expr> has_expr_metavar_strict(expr const & e);
 inline bool is_constant(expr const & e, name const & n) { return is_const(e, n); }
 
 /* Like `is_exclusive`, but also consider unique MT references as unshared, which ensures we get
