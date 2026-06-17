@@ -8,13 +8,6 @@ Author: Leonardo de Moura
 #include "kernel/environment.h"
 #include "kernel/instantiate.h"
 namespace lean {
-/** \brief Return recursor name for the given inductive datatype name */
-name mk_rec_name(name const & I);
-
-bool is_inductive(environment const & env, name const & n);
-bool is_constructor(environment const & env, name const & n);
-bool is_recursor(environment const & env, name const & n);
-
 /** \brief If \c e is a constructor application, then return the name of the constructor.
     Otherwise, return none. */
 optional<name> is_constructor_app(environment const & env, expr const & e);
