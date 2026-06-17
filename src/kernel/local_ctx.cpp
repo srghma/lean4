@@ -47,7 +47,6 @@ extern "C" uint8 lean_local_ctx_is_empty(object*);
 extern "C" object * lean_local_ctx_mk_local_decl(object * lctx, object * name, object * user_name, object * expr, uint8 bi);
 extern "C" object * lean_local_ctx_mk_let_decl(object * lctx, object * name, object * user_name, object * type, object * value, uint8 non_dep);
 extern "C" object * lean_local_ctx_find(object * lctx, object * name);
-extern "C" object * lean_local_ctx_erase(object * lctx, object * name);
 
 local_ctx::local_ctx():object_ref(lean_mk_empty_local_ctx(box(0))) {
 }
@@ -79,15 +78,6 @@ local_decl local_ctx::get_local_decl(name const & n) const {
         // lean_assert(false);
         throw exception(sstream() << "unknown free variable: " << n);
     }
-}
-
-expr local_ctx::get_local(name const & n) const {
-    lean_assert(find_local_decl(n));
-    return get_local_decl(n).mk_ref();
-}
-
-void local_ctx::clear(local_decl const & d) {
-    m_obj = lean_local_ctx_erase(m_obj, d.get_name().to_obj_arg());
 }
 
 template<bool is_lambda>

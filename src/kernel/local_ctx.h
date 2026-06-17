@@ -84,13 +84,6 @@ public:
        \pre is_fvar(e) */
     expr get_type(expr const & e) const { return get_local_decl(e).get_type(); }
 
-    /** Return the free variable associated with the given name.
-        \pre get_local_decl(n) */
-    expr get_local(name const & n) const;
-
-    /** \brief Remove the given local decl. */
-    void clear(local_decl const & d);
-
     expr mk_lambda(unsigned num, expr const * fvars, expr const & e, bool remove_dead_let = false) const;
     expr mk_pi(unsigned num, expr const * fvars, expr const & e, bool remove_dead_let = false) const;
     expr mk_lambda(buffer<expr> const & fvars, expr const & e, bool remove_dead_let = false) const { return mk_lambda(fvars.size(), fvars.data(), e, remove_dead_let); }
