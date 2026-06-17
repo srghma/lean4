@@ -63,11 +63,6 @@ pair<level, unsigned> to_offset(level l) {
     return mk_pair(l, k);
 }
 
-unsigned to_explicit(level const & l) {
-    lean_assert(is_explicit(l));
-    return to_offset(l).second;
-}
-
 level mk_max(level const & l1, level const & l2)  {
     if (is_explicit(l1) && is_explicit(l2)) {
         return get_depth(l1) >= get_depth(l2) ? l1 : l2;
@@ -241,16 +236,6 @@ level replace_level_fn::apply(level const & l) {
         return l;
     }
     lean_unreachable(); // LCOV_EXCL_LINE
-}
-
-bool occurs(level const & u, level const & l) {
-    bool found = false;
-    for_each(l, [&](level const & l) {
-            if (found) return false;
-            if (l == u) { found = true; return false; }
-            return true;
-        });
-    return found;
 }
 
 optional<name> get_undef_param(level const & l, names const & ps) {

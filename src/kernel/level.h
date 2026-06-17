@@ -98,9 +98,6 @@ level mk_succ(level const & l);
 level mk_univ_param(name const & n);
 level mk_univ_mvar(name const & n);
 
-/** \brief Convert (succ^k l) into (l, k). If l is not a succ, then return (l, 0) */
-pair<level, unsigned> to_offset(level l);
-
 inline unsigned hash(level const & l) { return l.hash(); }
 inline level_kind kind(level const & l) { return l.kind(); }
 inline bool is_zero(level const & l)   { return l.is_zero(); }
@@ -118,9 +115,6 @@ unsigned get_depth(level const & l);
     1) l is zero OR
     2) l = succ(l') and l' is explicit */
 bool is_explicit(level const & l);
-/** \brief Convert an explicit universe into a unsigned integer.
-    \pre is_explicit(l) */
-unsigned to_explicit(level const & l);
 /** \brief Return true iff \c l contains placeholder (aka meta parameters). */
 bool has_mvar(level const & l);
 /** \brief Return true iff \c l contains parameters */
@@ -179,9 +173,6 @@ public:
     level operator()(level const & l) { return apply(l); }
 };
 template<typename F> level replace(level const & l, F const & f) { return replace_level_fn(f)(l); }
-
-/** \brief Return true if \c u occurs in \c l */
-bool occurs(level const & u, level const & l);
 
 /** \brief If \c l contains a parameter that is not in \c ps, then return it. Otherwise, return none. */
 optional<name> get_undef_param(level const & l, names const & lparams);
