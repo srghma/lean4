@@ -10,13 +10,11 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include <vector>
 #include <utility>
 #include <string>
-#include <sstream>
 #include <fstream>
 #include <algorithm>
 #include <sys/stat.h>
 #include <cerrno>
 #include <cstring>
-#include "runtime/thread.h"
 #include "runtime/interrupt.h"
 #include "runtime/sstream.h"
 #include "runtime/hash.h"

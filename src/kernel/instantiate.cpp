@@ -4,8 +4,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Author: Leonardo de Moura
 */
-#include <algorithm>
-#include <limits>
 #include "kernel/replace_fn.h"
 #include "kernel/declaration.h"
 #include "kernel/kernel_exception.h"
