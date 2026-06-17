@@ -22,7 +22,6 @@ namespace lean {
 /** \brief Lean Type Checker. It can also be used to infer types, check whether a
     type \c A is convertible to a type \c B, etc. */
 class type_checker {
-public:
     class state {
         typedef expr_map<expr> infer_cache;
         typedef lean::unordered_set<expr_pair, expr_pair_hash, expr_pair_eq> expr_pair_set;
@@ -41,7 +40,6 @@ public:
         environment const & env() const { return m_env; }
         name_generator & ngen() { return m_ngen; }
     };
-private:
     bool                      m_st_owner;
     state *                   m_st;
     diagnostics *             m_diag;
@@ -111,9 +109,6 @@ private:
     optional<expr> reduce_pow(expr const & e);
     optional<expr> reduce_nat(expr const & e);
 public:
-    // The following two constructor are used only by the old compiler and should be deleted with it
-    type_checker(state & st, local_ctx const & lctx, definition_safety ds = definition_safety::safe);
-    type_checker(state & st, definition_safety ds = definition_safety::safe):type_checker(st, local_ctx(), ds) {}
     type_checker(environment const & env, local_ctx const & lctx, diagnostics * diag = nullptr, definition_safety ds = definition_safety::safe);
     type_checker(environment const & env, diagnostics * diag = nullptr, definition_safety ds = definition_safety::safe):type_checker(env, local_ctx(), diag, ds) {}
     type_checker(type_checker &&) noexcept;
