@@ -44,7 +44,15 @@ functions, which have a (relatively) homogeneous ABI that we can use without run
 #include "runtime/array_ref.h"
 #include "kernel/trace.h"
 #include "library/constants.h"
-#include "library/time_task.h"
+// lean_runtime_time_task_begin/end implemented in Rust (library_time_task.rs)
+extern "C" uint8_t lean_runtime_time_task_begin(const char * category, lean_object * opts, lean_object * name);
+extern "C" void lean_runtime_time_task_end(uint8_t enabled);
+struct LeanTimeTaskGuard {
+    uint8_t m_enabled;
+    LeanTimeTaskGuard(const char * category, lean_object * opts, lean_object * name)
+        : m_enabled(lean_runtime_time_task_begin(category, opts, name)) {}
+    ~LeanTimeTaskGuard() { lean_runtime_time_task_end(m_enabled); }
+};
 #include "library/ir_types.h"
 #include "library/init_attribute.h"
 #include "util/nat.h"
@@ -433,7 +441,7 @@ public:
             return f(*g_interpreter);
         } else {
             // We changed threads or the closure was stored and called in a different context.
-            time_task t("interpretation", opts, fn);
+            LeanTimeTaskGuard _ttg("interpretation", opts.raw(), fn.raw());
             scope_trace_env scope_trace(env, opts);
             // the caches contain data from the Environment, so we cannot reuse them when changing it
             interpreter interp(env, opts);

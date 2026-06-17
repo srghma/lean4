@@ -3,7 +3,6 @@ add_library(
   OBJECT
   module.cpp
   util.cpp
-  time_task.cpp
   elab_environment.cpp
   llvm.cpp
   ir_interpreter.cpp

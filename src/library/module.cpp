@@ -30,7 +30,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include "util/name_map.h"
 #include "library/module.h"
 #include "library/constants.h"
-#include "library/time_task.h"
 #include "library/util.h"
 #include "githash.h"
 
