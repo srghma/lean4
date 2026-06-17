@@ -56,20 +56,6 @@ bool operator<(literal const & a, literal const & b) {
     lean_unreachable();
 }
 
-bool is_atomic(expr const & e) {
-    switch (e.kind()) {
-    case expr_kind::Const: case expr_kind::Sort:
-    case expr_kind::BVar:  case expr_kind::Lit:
-    case expr_kind::MVar:  case expr_kind::FVar:
-        return true;
-    case expr_kind::App:
-    case expr_kind::Lambda:
-    case expr_kind::Pi:    case expr_kind::Let:
-    case expr_kind::MData: case expr_kind::Proj:
-        return false;
-    }
-    lean_unreachable(); // LCOV_EXCL_LINE
-}
 
 extern "C" uint8 lean_expr_binder_info(object * e);
 binder_info binding_info(expr const & e) { return static_cast<binder_info>(lean_expr_binder_info(e.to_obj_arg())); }

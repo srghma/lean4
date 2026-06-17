@@ -112,10 +112,6 @@ inline optional<expr> none_expr() { return optional<expr>(); }
 inline optional<expr> some_expr(expr const & e) { return optional<expr>(e); }
 inline optional<expr> some_expr(expr && e) { return optional<expr>(std::forward<expr>(e)); }
 
-inline bool is_eqp(optional<expr> const & a, optional<expr> const & b) {
-    return static_cast<bool>(a) == static_cast<bool>(b) && (!a || is_eqp(*a, *b));
-}
-
 inline uint64_t get_data(expr const & e) {
     return lean_ctor_get_uint64(e.raw(), lean_ctor_num_objs(e.raw())*sizeof(object*));
 }
@@ -177,7 +173,6 @@ inline bool is_mdata(expr const & e)       { return e.kind() == expr_kind::MData
 inline bool is_proj(expr const & e)        { return e.kind() == expr_kind::Proj; }
 inline bool is_binding(expr const & e)     { return is_lambda(e) || is_pi(e); }
 
-bool is_atomic(expr const & e);
 bool is_arrow(expr const & t);
 // =======================================
 
@@ -286,9 +281,6 @@ expr const & get_app_rev_args(expr const & e, buffer<expr> & args);
 expr const & get_app_fn(expr const & e);
 /** \brief Given \c e of the form <tt>(...(f a_1) ... a_n)</tt>, return \c n. If \c e is not an application, then return 0. */
 unsigned get_app_num_args(expr const & e);
-
-/** \brief Return true iff \c e is a metavariable or an application of a metavariable */
-inline bool is_mvar_app(expr const & e) { return is_mvar(get_app_fn(e)); }
 
 expr consume_type_annotations(expr const & e);
 
