@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Author: Leonardo de Moura
 */
+#include <functional>
 #include <utility>
 #include <algorithm>
 #include <vector>
@@ -17,6 +18,24 @@ Author: Leonardo de Moura
 #include "kernel/environment.h"
 
 namespace lean {
+
+class for_each_level_fn {
+    std::function<bool(level const &)>  m_f; // NOLINT
+    void apply(level const & l);
+public:
+    template<typename F> for_each_level_fn(F const & f):m_f(f) {}
+    void operator()(level const & l) { return apply(l); }
+};
+template<typename F> static void for_each(level const & l, F const & f) { return for_each_level_fn(f)(l); }
+
+class replace_level_fn {
+    std::function<optional<level>(level const &)>  m_f;
+    level apply(level const & l);
+public:
+    template<typename F> replace_level_fn(F const & f):m_f(f) {}
+    level operator()(level const & l) { return apply(l); }
+};
+template<typename F> static level replace(level const & l, F const & f) { return replace_level_fn(f)(l); }
 
 extern "C" unsigned lean_level_hash(obj_arg l);
 extern "C" unsigned lean_level_depth(obj_arg l);
@@ -270,7 +289,7 @@ level instantiate(level const & l, names const & ps, levels const & ls) {
     lean_assert(length(ps) == length(ls));
     return replace(l, [=](level const & l) {
             if (!has_param(l)) {
-                return some_level(l);
+                return optional<level>(l);
             } else if (is_param(l)) {
                 name const & id = param_id(l);
                 names const *it1  = &ps;
@@ -280,13 +299,13 @@ level instantiate(level const & l, names const & ps, levels const & ls) {
                    at runtime when misused. */
                 while (!is_nil(*it1) && !is_nil(*it2)) {
                     if (head(*it1) == id)
-                        return some_level(head(*it2));
+                        return optional<level>(head(*it2));
                     it1 = &tail(*it1);
                     it2 = &tail(*it2);
                 }
-                return some_level(l);
+                return optional<level>(l);
             } else {
-                return none_level();
+                return optional<level>();
             }
         });
 }

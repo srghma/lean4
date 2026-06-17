@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include <iostream>
-#include <algorithm>
 #include <utility>
 #include "runtime/optional.h"
 #include "runtime/list_ref.h"
@@ -74,19 +73,11 @@ public:
 };
 
 typedef list_ref<level> levels;
-typedef pair<level, level> level_pair;
-
-bool operator==(level const & l1, level const & l2);
-inline bool operator!=(level const & l1, level const & l2) { return !operator==(l1, l2); }
-
-struct level_hash { unsigned operator()(level const & n) const { return n.hash(); } };
-struct level_eq { bool operator()(level const & n1, level const & n2) const { return n1 == n2; } };
 
 inline bool is_shared(level const & l) { return !is_exclusive(l.raw()); }
 
-inline optional<level> none_level() { return optional<level>(); }
-inline optional<level> some_level(level const & e) { return optional<level>(e); }
-inline optional<level> some_level(level && e) { return optional<level>(std::forward<level>(e)); }
+bool operator==(level const & l1, level const & l2);
+inline bool operator!=(level const & l1, level const & l2) { return !operator==(l1, l2); }
 
 level const & mk_level_zero();
 level const & mk_level_one();
@@ -106,8 +97,6 @@ inline bool is_mvar(level const & l)   { return l.is_mvar(); }
 inline bool is_succ(level const & l)   { return l.is_succ(); }
 inline bool is_max(level const & l)    { return l.is_max(); }
 inline bool is_imax(level const & l)   { return l.is_imax(); }
-bool is_one(level const & l);
-
 /** \brief Return true iff \c l is an explicit level.
     We say a level l is explicit iff
     1) l is zero OR
@@ -134,43 +123,10 @@ bool is_equivalent(level const & lhs, level const & rhs);
 /** \brief Return the given level expression normal form */
 level normalize(level const & l);
 
-/** \brief If the result is true, then forall assignments \c A that assigns all parameters and metavariables occurring
-    in \c l1 and \l2, we have that the universe level l1[A] is bigger or equal to l2[A].
-
-    \remark This function assumes l1 and l2 are normalized */
-bool is_geq_core(level l1, level l2);
-
 bool is_geq(level const & l1, level const & l2);
 
-bool levels_has_mvar(object * ls);
 bool has_mvar(levels const & ls);
-bool levels_has_param(object * ls);
 bool has_param(levels const & ls);
-
-/** \brief An arbitrary (monotonic) total order on universe level terms. */
-bool is_lt(level const & l1, level const & l2, bool use_hash);
-bool is_lt(levels const & as, levels const & bs, bool use_hash);
-struct level_quick_cmp { int operator()(level const & l1, level const & l2) const { return is_lt(l1, l2, true) ? -1 : (l1 == l2 ? 0 : 1); } };
-
-/** \brief Functional for applying <tt>F</tt> to each level expressions. */
-class for_each_level_fn {
-    std::function<bool(level const &)>  m_f; // NOLINT
-    void apply(level const & l);
-public:
-    template<typename F> for_each_level_fn(F const & f):m_f(f) {}
-    void operator()(level const & l) { return apply(l); }
-};
-template<typename F> void for_each(level const & l, F const & f) { return for_each_level_fn(f)(l); }
-
-/** \brief Functional for applying <tt>F</tt> to the level expressions. */
-class replace_level_fn {
-    std::function<optional<level>(level const &)>  m_f;
-    level apply(level const & l);
-public:
-    template<typename F> replace_level_fn(F const & f):m_f(f) {}
-    level operator()(level const & l) { return apply(l); }
-};
-template<typename F> level replace(level const & l, F const & f) { return replace_level_fn(f)(l); }
 
 /** \brief If \c l contains a parameter that is not in \c ps, then return it. Otherwise, return none. */
 optional<name> get_undef_param(level const & l, names const & lparams);
