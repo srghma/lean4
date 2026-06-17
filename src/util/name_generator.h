@@ -6,9 +6,7 @@ Author: Leonardo de Moura
 #pragma once
 #include <algorithm>
 #include <limits>
-#include "runtime/sstream.h"
 #include "util/name.h"
-#include "util/name_set.h"
 
 namespace lean {
 /**
