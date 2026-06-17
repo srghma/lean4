@@ -240,26 +240,8 @@ inline optional<declaration> none_declaration() { return optional<declaration>()
 inline optional<declaration> some_declaration(declaration const & o) { return optional<declaration>(o); }
 inline optional<declaration> some_declaration(declaration && o) { return optional<declaration>(std::forward<declaration>(o)); }
 
-bool use_unsafe(environment const & env, expr const & e);
-declaration mk_definition(name const & n, names const & lparams, expr const & t, expr const & v,
-                          reducibility_hints const & hints, definition_safety safety = definition_safety::safe);
-declaration mk_definition(environment const & env, name const & n, names const & lparams, expr const & t, expr const & v,
-                          definition_safety safety = definition_safety::safe);
-declaration mk_theorem(name const & n, names const & lparams, expr const & type, expr const & val);
-declaration mk_opaque(name const & n, names const & lparams, expr const & t, expr const & v, bool unsafe);
 declaration mk_axiom(name const & n, names const & lparams, expr const & t, bool unsafe = false);
 declaration mk_inductive_decl(names const & lparams, nat const & nparams, inductive_types const & types, bool is_unsafe);
-
-/** \brief Similar to mk_definition but infer the value of unsafe flag.
-    That is, set it to true if \c t or \c v contains a unsafe declaration. */
-declaration mk_definition_inferring_unsafe(environment const & env, name const & n, names const & lparams,
-                                         expr const & t, expr const & v, reducibility_hints const & hints);
-declaration mk_definition_inferring_unsafe(environment const & env, name const & n, names const & lparams,
-                                         expr const & t, expr const & v);
-/** \brief Similar to mk_axiom but infer the value of unsafe flag.
-    That is, set it to true if \c t or \c v contains a unsafe declaration. */
-declaration mk_axiom_inferring_unsafe(environment const & env, name const & n,
-                                    names const & lparams, expr const & t);
 
 /** \brief View for manipulating declaration.induct_decl constructor.
     | induct_decl      (lparams : list name) (nparams : nat) (types : list inductive_type) (is_unsafe : bool) */
