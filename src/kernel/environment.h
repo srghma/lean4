@@ -5,16 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <utility>
-#include <memory>
-#include <vector>
 #include "runtime/optional.h"
-#include "util/rc.h"
-#include "util/list.h"
-#include "util/rb_map.h"
-#include "util/name_set.h"
-#include "util/name_map.h"
-#include "kernel/expr.h"
 #include "kernel/declaration.h"
 
 #ifndef LEAN_BELIEVER_TRUST_LEVEL

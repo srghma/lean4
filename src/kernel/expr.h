@@ -28,16 +28,9 @@ enum class binder_info { Default, Implicit, StrictImplicit, InstImplicit, Rec };
 
 inline binder_info mk_binder_info() { return binder_info::Default; }
 inline binder_info mk_implicit_binder_info() { return binder_info::Implicit; }
-inline binder_info mk_strict_implicit_binder_info() { return binder_info::StrictImplicit; }
-inline binder_info mk_inst_implicit_binder_info() { return binder_info::InstImplicit; }
-inline binder_info mk_rec_info() { return binder_info::Rec; }
-
-inline bool is_default(binder_info bi) { return bi == binder_info::Default; }
-inline bool is_implicit(binder_info bi) { return bi == binder_info::Implicit; }
-inline bool is_strict_implicit(binder_info bi) { return bi == binder_info::StrictImplicit; }
-inline bool is_inst_implicit(binder_info bi) { return bi == binder_info::InstImplicit; }
-inline bool is_explicit(binder_info bi) { return !is_implicit(bi) && !is_strict_implicit(bi) && !is_inst_implicit(bi); }
-inline bool is_rec(binder_info bi) { return bi == binder_info::Rec; }
+inline bool is_explicit(binder_info bi) {
+    return bi != binder_info::Implicit && bi != binder_info::StrictImplicit && bi != binder_info::InstImplicit;
+}
 
 /* Expression literal values */
 enum class literal_kind { Nat, String };
@@ -343,14 +336,10 @@ void finalize_expr();
 
 /* ================= LEGACY ============== */
 inline bool has_expr_metavar(expr const & e) { return has_expr_mvar(e); }
-inline bool has_univ_metavar(expr const & e) { return has_univ_mvar(e); }
 inline bool has_metavar(expr const & e) { return has_mvar(e); }
 inline bool has_param_univ(expr const & e) { return has_univ_param(e); }
 inline bool is_var(expr const & e) { return is_bvar(e); }
 inline bool is_var(expr const & e, unsigned idx) { return is_bvar(e, idx); }
-inline bool is_metavar(expr const & e) { return is_mvar(e); }
-inline bool is_metavar_app(expr const & e) { return is_mvar_app(e); }
-inline expr mk_metavar(name const & n) { return mk_mvar(n); }
 inline expr mk_constant(name const & n, levels const & ls) { return mk_const(n, ls); }
 inline expr mk_constant(name const & n) { return mk_constant(n, levels()); }
 inline bool is_constant(expr const & e) { return is_const(e); }

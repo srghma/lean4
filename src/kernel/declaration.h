@@ -5,9 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <algorithm>
-#include <string>
-#include <limits>
 #include "kernel/expr.h"
 
 namespace lean {
@@ -235,10 +232,6 @@ public:
     opaque_val const & to_opaque_val() const { lean_assert(is_opaque()); return static_cast<opaque_val const &>(cnstr_get_ref(raw(), 0)); }
     definition_vals const & to_definition_vals() const { lean_assert(is_mutual()); return static_cast<definition_vals const &>(cnstr_get_ref(raw(), 0)); }
 };
-
-inline optional<declaration> none_declaration() { return optional<declaration>(); }
-inline optional<declaration> some_declaration(declaration const & o) { return optional<declaration>(o); }
-inline optional<declaration> some_declaration(declaration && o) { return optional<declaration>(std::forward<declaration>(o)); }
 
 declaration mk_axiom(name const & n, names const & lparams, expr const & t, bool unsafe = false);
 declaration mk_inductive_decl(names const & lparams, nat const & nparams, inductive_types const & types, bool is_unsafe);
