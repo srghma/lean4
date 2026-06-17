@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include "util/name_generator.h"
-#include "util/rb_map.h"
 #include "util/name_map.h"
 #include "kernel/expr.h"
 
