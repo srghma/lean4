@@ -13,13 +13,10 @@ Author: Leonardo de Moura
 
 namespace lean {
 
-static expr * g_bool       = nullptr;
 static expr * g_bool_true  = nullptr;
 static expr * g_bool_false = nullptr;
 
 static void initialize_bool() {
-    g_bool = new expr(mk_constant(get_bool_name()));
-    mark_persistent(g_bool->raw());
     g_bool_false = new expr(mk_constant(get_bool_false_name()));
     mark_persistent(g_bool_false->raw());
     g_bool_true = new expr(mk_constant(get_bool_true_name()));
@@ -27,7 +24,6 @@ static void initialize_bool() {
 }
 
 static void finalize_bool() {
-    delete g_bool;
     delete g_bool_false;
     delete g_bool_true;
 }
