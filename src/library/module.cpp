@@ -28,7 +28,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include "runtime/option_ref.h"
 #include "util/io.h"
 #include "util/name_map.h"
-#include "library/module.h"
 #include "library/constants.h"
 #include "library/util.h"
 #include "githash.h"
