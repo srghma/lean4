@@ -108,8 +108,6 @@ inline bool is_max(level const & l)    { return l.is_max(); }
 inline bool is_imax(level const & l)   { return l.is_imax(); }
 bool is_one(level const & l);
 
-unsigned get_depth(level const & l);
-
 /** \brief Return true iff \c l is an explicit level.
     We say a level l is explicit iff
     1) l is zero OR
@@ -194,4 +192,3 @@ levels lparams_to_levels(names const & ps);
 void initialize_level();
 void finalize_level();
 }
-void print(lean::level const & l);

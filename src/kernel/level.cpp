@@ -37,7 +37,7 @@ level mk_univ_param(name const & n) { return level(lean_level_mk_param(n.to_obj_
 level mk_univ_mvar(name const & n) { return level(lean_level_mk_mvar(n.to_obj_arg())); }
 
 unsigned level::hash() const { return lean_level_hash(to_obj_arg()); }
-unsigned get_depth(level const & l) { return lean_level_depth(l.to_obj_arg()); }
+static unsigned get_depth(level const & l) { return lean_level_depth(l.to_obj_arg()); }
 bool has_param(level const & l) { return lean_level_has_param(l.to_obj_arg()); }
 bool has_mvar(level const & l) { return lean_level_has_mvar(l.to_obj_arg()); }
 
@@ -516,4 +516,3 @@ LEAN_EXPORT void finalize_level() {
     delete g_level_zero;
 }
 }
-void print(lean::level const & l) { std::cout << l << std::endl; }
