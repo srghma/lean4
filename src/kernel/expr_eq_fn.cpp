@@ -20,7 +20,6 @@ namespace lean {
 Remark if CompareBinderInfo is true, then functional object will also compare
 binder information attached to lambda and Pi expressions
 */
-template<bool CompareBinderInfo>
 class expr_eq_fn {
     struct key_hasher {
         std::size_t operator()(std::pair<lean_object *, lean_object *> const & p) const {
@@ -114,17 +113,14 @@ class expr_eq_fn {
             check_system(depth);
             return
                 apply(binding_domain(a), binding_domain(b), depth) &&
-                apply(binding_body(a), binding_body(b), depth) &&
-                (!CompareBinderInfo || binding_name(a) == binding_name(b)) &&
-                (!CompareBinderInfo || binding_info(a) == binding_info(b));
+                apply(binding_body(a), binding_body(b), depth);
         case expr_kind::Let:
             check_system(depth);
             return
                 apply(let_type(a), let_type(b), depth) &&
                 apply(let_value(a), let_value(b), depth) &&
                 apply(let_body(a), let_body(b), depth) &&
-                let_nondep(a) == let_nondep(b) &&
-                (!CompareBinderInfo || let_name(a) == let_name(b));
+                let_nondep(a) == let_nondep(b);
         }
         lean_unreachable(); // LCOV_EXCL_LINE
     }
@@ -138,9 +134,6 @@ public:
 };
 
 bool is_equal(expr const & a, expr const & b) {
-    return expr_eq_fn<false>()(a, b);
-}
-bool is_bi_equal(expr const & a, expr const & b) {
-    return expr_eq_fn<true>()(a, b);
+    return expr_eq_fn()(a, b);
 }
 }
