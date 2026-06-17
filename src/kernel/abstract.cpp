@@ -31,9 +31,4 @@ expr abstract(expr const & e, unsigned n, expr const * subst) {
         });
 }
 
-expr abstract(expr const & e, name const & n) {
-    expr fvar = mk_fvar(n);
-    return abstract(e, 1, &fvar);
-}
-
 }
