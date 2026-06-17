@@ -63,10 +63,6 @@ expr instantiate_rev(expr const & a, unsigned n, expr const * subst) {
         });
 }
 
-bool is_head_beta(expr const & t) {
-    return is_app(t) && is_lambda(get_app_fn(t));
-}
-
 static expr apply_beta_rec(expr e, unsigned i, unsigned num_rev_args, expr const * rev_args, bool preserve_data, bool zeta) {
     if (is_lambda(e)) {
         if (i + 1 < num_rev_args) {
@@ -97,17 +93,6 @@ static expr apply_beta_rec(expr e, unsigned i, unsigned num_rev_args, expr const
 expr apply_beta(expr f, unsigned num_rev_args, expr const * rev_args, bool preserve_data, bool zeta) {
     if (num_rev_args == 0) return f;
     return apply_beta_rec(f, 0, num_rev_args, rev_args, preserve_data, zeta);
-}
-
-expr head_beta_reduce(expr const & t) {
-    if (!is_head_beta(t)) {
-        return t;
-    } else {
-        buffer<expr> args;
-        expr const & f = get_app_rev_args(t, args);
-        lean_assert(is_lambda(f));
-        return head_beta_reduce(apply_beta(f, args.size(), args.data()));
-    }
 }
 
 expr cheap_beta_reduce(expr const & e) {
