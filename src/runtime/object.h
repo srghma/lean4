@@ -271,12 +271,6 @@ inline obj_res thunk_get_own(b_obj_arg t) { return lean_thunk_get_own(t); }
 // =======================================
 // Tasks
 
-class LEAN_EXPORT scoped_task_manager {
-public:
-    scoped_task_manager(unsigned num_workers);
-    ~scoped_task_manager();
-};
-
 inline obj_res task_spawn(obj_arg c, unsigned prio = 0, bool keep_alive = false) { return lean_task_spawn_core(c, prio, keep_alive); }
 inline obj_res task_pure(obj_arg a) { return lean_task_pure(a); }
 inline obj_res task_bind(obj_arg x, obj_arg f, unsigned prio = 0, bool sync = false, bool keep_alive = false) { return lean_task_bind_core(x, f, prio, sync, keep_alive); }
@@ -348,13 +342,6 @@ inline obj_res nat_lxor(b_obj_arg a1, b_obj_arg a2) { return lean_nat_lxor(a1, a
 
 // =======================================
 // Integers
-LEAN_EXPORT object * mk_int_obj_core(mpz const & m);
-inline obj_res mk_int_obj(mpz const & m) {
-    if (m < LEAN_MIN_SMALL_INT || m > LEAN_MAX_SMALL_INT)
-        return mk_int_obj_core(m);
-    else
-        return box(static_cast<unsigned>(m.get_int()));
-}
 inline obj_res mk_int_obj(int n) { return lean_int_to_int(n); }
 inline obj_res mk_int_obj(int64 n) { return lean_int64_to_int(n); }
 inline obj_res nat2int(obj_arg a) { return lean_nat_to_int(a); }
@@ -467,7 +454,6 @@ inline b_obj_res io_result_get_value(b_obj_arg r) { return lean_io_result_get_va
 inline b_obj_res io_result_get_error(b_obj_arg r) { return lean_io_result_get_error(r); }
 inline void io_result_show_error(b_obj_arg r) { return lean_io_result_show_error(r); }
 inline void io_mark_end_initialization() { return lean_io_mark_end_initialization(); }
-LEAN_EXPORT void io_eprintln(obj_arg s);
 
 // =======================================
 // ST ref primitives
