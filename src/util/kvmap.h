@@ -5,7 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <string>
 #include "runtime/pair_ref.h"
 #include "util/name.h"
 
@@ -70,77 +69,4 @@ inline bool operator<(data_value const & a, data_value const & b) {
 typedef pair_ref<name, data_value> kvmap_entry;
 typedef list_ref<kvmap_entry> kvmap;
 
-inline optional<data_value> find(kvmap m, name const & k) {
-    while (!is_nil(m)) {
-        if (head(m).fst() == k)
-            return optional<data_value>(head(m).snd());
-        m = tail(m);
-    }
-    return optional<data_value>();
-}
-
-inline optional<string_ref> get_string(kvmap const & m, name const & k) {
-    optional<data_value> r = find(m, k);
-    if (r && r->kind() == data_value_kind::String)
-        return optional<string_ref>(r->get_string());
-    else
-        return optional<string_ref>();
-}
-inline optional<nat> get_nat(kvmap const & m, name const & k) {
-    optional<data_value> r = find(m, k);
-    if (r && r->kind() == data_value_kind::Nat)
-        return optional<nat>(r->get_nat());
-    else
-        return optional<nat>();
-}
-inline optional<bool> get_bool(kvmap const & m, name const & k) {
-    optional<data_value> r = find(m, k);
-    if (r && r->kind() == data_value_kind::Bool)
-        return optional<bool>(r->get_bool());
-    else
-        return optional<bool>();
-}
-inline optional<name> get_name(kvmap const & m, name const & k) {
-    optional<data_value> r = find(m, k);
-    if (r && r->kind() == data_value_kind::Name)
-        return optional<name>(r->get_name());
-    else
-        return optional<name>();
-}
-
-inline kvmap set_string(kvmap const & m, name const & k, string_ref const & v) {
-    if (is_nil(m))
-        return kvmap(kvmap_entry(k, data_value(v)));
-    else if (head(m).fst() == k)
-        return kvmap(kvmap_entry(k, data_value(v)), tail(m));
-    else
-        return kvmap(head(m), set_string(tail(m), k, v));
-}
-inline kvmap set_string(kvmap const & m, name const & k, char const * v) { return set_string(m, k, string_ref(v)); }
-inline kvmap set_string(kvmap const & m, name const & k, std::string const & v) { return set_string(m, k, string_ref(v)); }
-inline kvmap set_bool(kvmap const & m, name const & k, bool v) {
-    if (is_nil(m))
-        return kvmap(kvmap_entry(k, data_value(v)));
-    else if (head(m).fst() == k)
-        return kvmap(kvmap_entry(k, data_value(v)), tail(m));
-    else
-        return kvmap(head(m), set_bool(tail(m), k, v));
-}
-inline kvmap set_name(kvmap const & m, name const & k, name const & v) {
-    if (is_nil(m))
-        return kvmap(kvmap_entry(k, data_value(v)));
-    else if (head(m).fst() == k)
-        return kvmap(kvmap_entry(k, data_value(v)), tail(m));
-    else
-        return kvmap(head(m), set_name(tail(m), k, v));
-}
-inline kvmap set_nat(kvmap const & m, name const & k, nat const & v) {
-    if (is_nil(m))
-        return kvmap(kvmap_entry(k, data_value(v)));
-    else if (head(m).fst() == k)
-        return kvmap(kvmap_entry(k, data_value(v)), tail(m));
-    else
-        return kvmap(head(m), set_nat(tail(m), k, v));
-}
-inline kvmap set_nat(kvmap const & m, name const & k, unsigned v) { return set_nat(m, k, nat(v)); }
 }
