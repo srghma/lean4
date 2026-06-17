@@ -5,13 +5,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <unordered_set>
-#include <memory>
-#include <utility>
-#include <algorithm>
 #include "runtime/flet.h"
 #include "util/lbool.h"
-#include "util/name_set.h"
 #include "util/name_generator.h"
 #include "kernel/environment.h"
 #include "kernel/local_ctx.h"

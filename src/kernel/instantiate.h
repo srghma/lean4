@@ -5,11 +5,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <functional>
 #include "kernel/expr.h"
 
 namespace lean {
-class ro_metavar_env;
 /** \brief Replace the loose bound variables with indices 0, ..., n-1 with s[0], ..., s[n-1] in e. */
 expr instantiate(expr const & e, unsigned n, expr const * s);
 expr instantiate(expr const & e, std::initializer_list<expr> const & l);
