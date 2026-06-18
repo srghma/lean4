@@ -7,7 +7,6 @@ Author: Leonardo de Moura
 #pragma once
 #include "kernel/environment.h"
 #include "kernel/local_ctx.h"
-#include "runtime/interrupt.h"
 
 namespace lean {
 /** \brief Base class for all kernel exceptions. */
