@@ -7,7 +7,6 @@ Author: Leonardo de Moura
 #pragma once
 #include <exception>
 #include <string>
-#include <memory>
 #include "lean/lean.h"
 
 namespace lean {
