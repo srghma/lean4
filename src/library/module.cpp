@@ -18,7 +18,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include "runtime/sstream.h"
 #include "runtime/io.h"
 #include "runtime/compact.h"
-#include "runtime/buffer.h"
 #include "runtime/string_ref.h"
 #include "runtime/array_ref.h"
 #include "runtime/option_ref.h"

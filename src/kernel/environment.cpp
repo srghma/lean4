@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #include "runtime/sstream.h"
 #include "runtime/interrupt.h"
-#include "util/io.h"
 #include "kernel/environment.h"
 #include "kernel/kernel_exception.h"
 #include "kernel/type_checker.h"

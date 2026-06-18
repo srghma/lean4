@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #include "kernel/replace_fn.h"
 #include "kernel/declaration.h"
-#include "kernel/kernel_exception.h"
 #include "kernel/instantiate.h"
 
 namespace lean {

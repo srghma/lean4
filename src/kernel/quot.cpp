@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 
 Quotient types.
 */
-#include "util/name_generator.h"
 #include "kernel/quot.h"
 #include "kernel/local_ctx.h"
 
