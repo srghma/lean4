@@ -6,11 +6,7 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 
 .olean serialization and deserialization.
 */
-#include <vector>
-#include <utility>
-#include <string>
 #include <fstream>
-#include <algorithm>
 #include <sys/stat.h>
 #include <cerrno>
 #include <cstring>
@@ -18,8 +14,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include "runtime/sstream.h"
 #include "runtime/io.h"
 #include "runtime/compact.h"
-#include "runtime/string_ref.h"
-#include "runtime/array_ref.h"
 #include "runtime/option_ref.h"
 #include "util/name.h"
 #include "library/util.h"
