@@ -697,13 +697,17 @@ mod library_module_impl {
         );
 
         // Create the OleanCompactedRegion that owns the allocation.
+        // Field order must match #[repr(C)] layout (see runtime_compact.rs).
         let region = Box::new(OleanCompactedRegion {
+            m_size: data_section_sz,
+            m_base_addr: m_base_addr,
             m_is_mmap: is_mmap,
+            _free_data_placeholder: [0u8; 39],
+            m_begin: m_begin,
+            _m_next: 0,
+            _m_end: 0,
             m_ptr: buffer,
             m_alloc_size: file_size,
-            m_size: data_section_sz,
-            m_begin: m_begin,
-            m_base_addr: m_base_addr,
         });
         let region_ptr = Box::into_raw(region) as usize;
 
