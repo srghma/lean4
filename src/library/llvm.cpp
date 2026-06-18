@@ -9,10 +9,7 @@ This file contains bare bones bindings to the LLVM C FFI. This enables
 Lean's IR.
 */
 
-#include <lean/lean.h>
-
 #include "runtime/array_ref.h"
-#include "runtime/debug.h"
 #include "runtime/string_ref.h"
 
 #ifdef LEAN_LLVM
