@@ -16,7 +16,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include <cstring>
 #include "runtime/interrupt.h"
 #include "runtime/sstream.h"
-#include "runtime/hash.h"
 #include "runtime/io.h"
 #include "runtime/compact.h"
 #include "runtime/buffer.h"
