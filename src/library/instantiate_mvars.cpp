@@ -20,7 +20,7 @@ Terminology (for this file):
 
 * Direct MVar: an MVar that is not delayed-assigned.
 * Pending MVar: the direct MVar stored in a `DelayedMetavarAssignment`.
-* Assigned MVar: a direct MVar with an assignment, or a delayed-assigned MVar
+* Assigned MVar: an assigned direct MVar, or a delayed-assigned MVar
   with an assigned pending MVar.
 * MVar DAG: the directed acyclic graph of MVars reachable from the expression.
 * Resolvable MVar: an MVar where all MVars reachable from it (including itself)

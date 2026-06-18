@@ -2,8 +2,8 @@ add_library(
   library
   OBJECT
   module.cpp
+  instantiate_mvars.cpp
   elab_environment.cpp
   llvm.cpp
   ir_interpreter.cpp
-  instantiate_mvars.cpp
 )
