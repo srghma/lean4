@@ -6,7 +6,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/include/lean/lean (`src/include/lean/lean.h`) — header-only, kept as-is
 - [x] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`) — header removed; no in-tree users remained
   - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ header/source removed
-  - [x] src/library/llvm (`src/library/llvm.cpp`) — PARTIAL: Rust replacement wired in `src/rust/lean_runtime/src/library_llvm.rs` for initLLVM/emitLLVM/llvm_initialize_target_info; remaining C++ exports stay as `lean_cxx_*` shims
+  - [x] src/library/llvm (`src/library/llvm.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_llvm.rs`; C++ export file reduced to a stub after porting LLVM init/emit/module/string/bitcode/target-machine/builder/value/attribute helpers
   - [x] src/runtime/alloc (`src/runtime/alloc.h` and `src/runtime/alloc.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_alloc.rs`; CMake no longer compiles the C++ source
   - [x] src/runtime/byteslice (`src/runtime/byteslice.h` and `src/runtime/byteslice.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
   - [x] src/runtime/debug (`src/runtime/debug.h` and `src/runtime/debug.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_debug.rs`; C++ source removed
