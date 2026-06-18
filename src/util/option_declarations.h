@@ -8,7 +8,6 @@ Author: Leonardo de Moura
 #include <cstring>
 #include <cstdlib>
 #include "util/kvmap.h"
-#include "util/options.h"
 #include "util/io.h"
 
 namespace lean {

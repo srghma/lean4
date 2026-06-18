@@ -55,6 +55,7 @@ struct LeanTimeTaskGuard {
 #include "library/ir_types.h"
 #include "library/init_attribute.h"
 #include "util/option_declarations.h"
+#include "util/options.h"
 #include "util/name_hash_map.h"
 
 #ifndef LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE
