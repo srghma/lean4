@@ -27,7 +27,6 @@ functions, which have a (relatively) homogeneous ABI that we can use without run
 
 */
 #include <vector>
-#include <shared_mutex>
 #ifdef LEAN_WINDOWS
 #include <windows.h>
 #include <psapi.h>
