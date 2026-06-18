@@ -29,6 +29,137 @@ mod library_instantiate_mvars_impl {
 
     // Level data bit 32 = hasMVar.
     const LEVEL_DATA_HAS_MVAR: u64 = 1 << 32;
+    // Level.Data.depth is stored in bits [63:40] of the packed u64.
+    const LEVEL_DATA_DEPTH_SHIFT: u64 = 40;
+
+    const LEVEL_SUCC_TAG:  u8 = 1;
+    const LEVEL_MAX_TAG:   u8 = 2;
+    const LEVEL_IMAX_TAG:  u8 = 3;
+
+    unsafe fn is_zero_level(l: *mut LeanObject) -> bool {
+        // Level.zero = lean_box(0) = the tagged scalar 0.
+        lean_is_scalar(l) && lean_unbox(l) == 0
+    }
+
+    unsafe fn is_one_level(l: *mut LeanObject) -> bool {
+        !lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC_TAG
+            && is_zero_level(lean_ctor_get(l, 0))
+    }
+
+    // A level is "explicit" iff it is a chain of succs ending at zero (no params/mvars/max/imax).
+    unsafe fn is_explicit_level(l: *mut LeanObject) -> bool {
+        if lean_is_scalar(l) {
+            return true; // zero
+        }
+        if lean_obj_tag(l) == LEVEL_SUCC_TAG {
+            is_explicit_level(lean_ctor_get(l, 0))
+        } else {
+            false
+        }
+    }
+
+    // Read the packed Level.Data u64 from a level ctor object.
+    unsafe fn get_level_data(l: *mut LeanObject) -> u64 {
+        if lean_is_scalar(l) {
+            return 0; // zero: depth = 0
+        }
+        let num_objs = (*l).other as usize;
+        lean_ctor_get_uint64(l, num_objs * core::mem::size_of::<*mut LeanObject>())
+    }
+
+    unsafe fn get_level_depth(l: *mut LeanObject) -> u32 {
+        (get_level_data(l) >> LEVEL_DATA_DEPTH_SHIFT) as u32
+    }
+
+    // True iff the level is syntactically guaranteed to be > 0 (e.g., succ of anything).
+    unsafe fn is_not_zero_level(l: *mut LeanObject) -> bool {
+        if lean_is_scalar(l) { return false; }
+        match lean_obj_tag(l) {
+            LEVEL_SUCC_TAG => true,
+            LEVEL_MAX_TAG  => {
+                is_not_zero_level(lean_ctor_get(l, 0))
+                    || is_not_zero_level(lean_ctor_get(l, 1))
+            }
+            LEVEL_IMAX_TAG => is_not_zero_level(lean_ctor_get(l, 1)),
+            _ => false, // param, mvar — unknown sign
+        }
+    }
+
+    // Simplified mk_max that mirrors the C++ mk_max() simplifications.
+    // Consumes ownership of both lhs and rhs; returns a new owned result.
+    unsafe extern "C" fn mk_max_simplified(
+        lhs: *mut LeanObject,
+        rhs: *mut LeanObject,
+    ) -> *mut LeanObject {
+        // Both explicit (succ chains): return the deeper (= numerically larger) one.
+        if is_explicit_level(lhs) && is_explicit_level(rhs) {
+            if get_level_depth(lhs) >= get_level_depth(rhs) {
+                lean_dec(rhs);
+                return lhs;
+            } else {
+                lean_dec(lhs);
+                return rhs;
+            }
+        }
+        // Pointer equality: l1 == l2.
+        if lhs == rhs {
+            lean_dec(rhs);
+            return lhs;
+        }
+        // max(0, u) = u.
+        if is_zero_level(lhs) {
+            lean_dec(lhs);
+            return rhs;
+        }
+        // max(u, 0) = u.
+        if is_zero_level(rhs) {
+            lean_dec(rhs);
+            return lhs;
+        }
+        // max(u, max(u, v)) = max(u, v)  (rhs already contains lhs as a child).
+        if !lean_is_scalar(rhs) && lean_obj_tag(rhs) == LEVEL_MAX_TAG
+            && (lean_ctor_get(rhs, 0) == lhs || lean_ctor_get(rhs, 1) == lhs)
+        {
+            lean_dec(lhs);
+            return rhs;
+        }
+        // max(max(u, v), u) = max(u, v)  (lhs already contains rhs as a child).
+        if !lean_is_scalar(lhs) && lean_obj_tag(lhs) == LEVEL_MAX_TAG
+            && (lean_ctor_get(lhs, 0) == rhs || lean_ctor_get(lhs, 1) == rhs)
+        {
+            lean_dec(rhs);
+            return lhs;
+        }
+        lean_level_mk_max(lhs, rhs)
+    }
+
+    // Simplified mk_imax that mirrors the C++ mk_imax() simplifications.
+    // Consumes ownership of both lhs and rhs; returns a new owned result.
+    unsafe extern "C" fn mk_imax_simplified(
+        lhs: *mut LeanObject,
+        rhs: *mut LeanObject,
+    ) -> *mut LeanObject {
+        // imax(u, v) where v is not zero = max(u, v).
+        if is_not_zero_level(rhs) {
+            return mk_max_simplified(lhs, rhs);
+        }
+        // imax(u, 0) = 0.
+        if is_zero_level(rhs) {
+            lean_dec(lhs);
+            return rhs;
+        }
+        // imax(0, v) = v  and  imax(1, v) = v.
+        if is_zero_level(lhs) || is_one_level(lhs) {
+            lean_dec(lhs);
+            return rhs;
+        }
+        // imax(u, u) = u.
+        if lhs == rhs {
+            lean_dec(rhs);
+            return lhs;
+        }
+        lean_level_mk_imax(lhs, rhs)
+    }
 
     unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
@@ -161,12 +292,12 @@ mod library_instantiate_mvars_impl {
                 2 => {
                     let lhs = self.visit(lean_ctor_get(l, 0));
                     let rhs = self.visit(lean_ctor_get(l, 1));
-                    self.rebuild_binary(l, lhs, rhs, lean_level_mk_max, shared)
+                    self.rebuild_binary(l, lhs, rhs, mk_max_simplified, shared)
                 }
                 3 => {
                     let lhs = self.visit(lean_ctor_get(l, 0));
                     let rhs = self.visit(lean_ctor_get(l, 1));
-                    self.rebuild_binary(l, lhs, rhs, lean_level_mk_imax, shared)
+                    self.rebuild_binary(l, lhs, rhs, mk_imax_simplified, shared)
                 }
                 5 => {
                     // LevelMVar: field 0 = LevelMVarId (a Name)
