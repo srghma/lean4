@@ -2,7 +2,6 @@ add_library(
   library
   OBJECT
   module.cpp
-  util.cpp
   elab_environment.cpp
   llvm.cpp
   ir_interpreter.cpp

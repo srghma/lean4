@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 fn main() {
+    println!("cargo:rerun-if-changed=../../CMakeLists.txt");
     for key in [
         "LEAN_RUST_GITHASH",
         "LEAN_RUST_BUILD_TYPE",
@@ -29,11 +30,31 @@ fn main() {
             std::env::var(key).unwrap_or_default()
         );
     }
+    println!("cargo:rerun-if-env-changed=LEAN_RUST_VERSION_STRING");
+    if let Ok(version_string) = std::env::var("LEAN_RUST_VERSION_STRING") {
+        println!("cargo:rustc-env=LEAN_RUST_VERSION_STRING={version_string}");
+    } else {
+        let version_string = derive_version_string_from_cmake();
+        println!("cargo:rustc-env=LEAN_RUST_VERSION_STRING={version_string}");
+    }
     if let Ok(archive) = std::env::var("LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE") {
         if !archive.is_empty() {
             println!("cargo:rustc-link-arg={archive}");
         }
     }
+    let version_string = std::env::var("LEAN_RUST_VERSION_STRING")
+        .unwrap_or_else(|_| derive_version_string_from_cmake());
+    let out_dir = std::env::var("OUT_DIR").expect("OUT_DIR must be set by cargo");
+    let version_rs = std::path::Path::new(&out_dir).join("lean_version.rs");
+    std::fs::write(
+        &version_rs,
+        format!(
+            "pub(crate) const LEAN_VERSION_STRING: &str = {:?};\npub(crate) const LEAN_VERSION_STRING_CSTR: &[u8] = b\"{}\\0\";\n",
+            version_string,
+            version_string
+        ),
+    )
+    .unwrap_or_else(|_| panic!("unable to write {}", version_rs.display()));
     println!("cargo:rustc-check-cfg=cfg(lean_small_allocator)");
     if std::env::var("LEAN_RUST_SMALL_ALLOCATOR").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_small_allocator");
@@ -63,4 +84,60 @@ fn main() {
     if std::env::var("LEAN_RUST_USE_GMP").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_use_gmp");
     }
+}
+
+fn derive_version_string_from_cmake() -> String {
+    let manifest_dir = std::env::var("CARGO_MANIFEST_DIR")
+        .expect("CARGO_MANIFEST_DIR must be set by cargo");
+    let cmake_path = std::path::Path::new(&manifest_dir).join("../../CMakeLists.txt");
+    let cmake = std::fs::read_to_string(&cmake_path)
+        .unwrap_or_else(|_| panic!("unable to read {} for Lean version", cmake_path.display()));
+
+    let major = parse_cmake_integer(&cmake, "LEAN_VERSION_MAJOR");
+    let minor = parse_cmake_integer(&cmake, "LEAN_VERSION_MINOR");
+    let patch = parse_cmake_integer(&cmake, "LEAN_VERSION_PATCH");
+    let is_release = parse_cmake_integer(&cmake, "LEAN_VERSION_IS_RELEASE");
+    let special_desc = parse_cmake_string(&cmake, "LEAN_SPECIAL_VERSION_DESC");
+
+    let mut version = format!("{major}.{minor}.{patch}");
+    if !special_desc.is_empty() {
+        version.push('-');
+        version.push_str(&special_desc);
+    } else if is_release == 0 {
+        version.push_str("-pre");
+    }
+    version
+}
+
+fn parse_cmake_integer(text: &str, name: &str) -> u32 {
+    let prefix = format!("set({name} ");
+    let line = text
+        .lines()
+        .find(|line| line.trim_start().starts_with(&prefix))
+        .unwrap_or_else(|| panic!("missing {name} in CMakeLists.txt"));
+    let value = line
+        .trim_start()
+        .strip_prefix(&prefix)
+        .and_then(|rest| rest.split_whitespace().next())
+        .unwrap_or_else(|| panic!("unable to parse {name}"));
+    value
+        .parse()
+        .unwrap_or_else(|_| panic!("unable to parse integer {name}"))
+}
+
+fn parse_cmake_string(text: &str, name: &str) -> String {
+    let prefix = format!("set({name} \"");
+    let line = text
+        .lines()
+        .find(|line| line.trim_start().starts_with(&prefix))
+        .unwrap_or_else(|| panic!("missing {name} in CMakeLists.txt"));
+    let rest = line
+        .trim_start()
+        .strip_prefix(&prefix)
+        .unwrap_or_else(|| panic!("unable to parse {name}"));
+    let value = rest
+        .split_once('"')
+        .unwrap_or_else(|| panic!("unable to parse {name}"))
+        .0;
+    value.to_owned()
 }

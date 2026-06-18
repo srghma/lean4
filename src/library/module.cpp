@@ -16,7 +16,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include "runtime/compact.h"
 #include "runtime/option_ref.h"
 #include "util/name.h"
-#include "library/util.h"
 #include "githash.h"
 
 #ifdef LEAN_WINDOWS
@@ -43,6 +42,8 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #endif
 
 namespace lean {
+
+extern "C" char const * lean_short_version_string();
 
 namespace {
 /** Read up to `n` bytes from `fd` into `buf`, handling `EINTR`. */
@@ -294,7 +295,7 @@ extern "C" LEAN_EXPORT object * lean_cxx_compacted_region_save(b_obj_arg ofname,
             olean_header header = {};
             header.version = 2;
             header.base_addr = reinterpret_cast<size_t>(compactor.base_addr()) + file_offset;
-            strncpy(header.lean_version, get_short_version_string().c_str(), sizeof(header.lean_version));
+            strncpy(header.lean_version, lean_short_version_string(), sizeof(header.lean_version));
             strncpy(header.githash, LEAN_GITHASH, sizeof(header.githash));
             out.write(reinterpret_cast<char *>(&header), sizeof(header));
 
@@ -320,7 +321,7 @@ extern "C" LEAN_EXPORT object * lean_cxx_compacted_region_save(b_obj_arg ofname,
             olean_header header = {};
             header.version = 3;
             header.base_addr = reinterpret_cast<size_t>(compactor.base_addr()) + file_offset;
-            strncpy(header.lean_version, get_short_version_string().c_str(), sizeof(header.lean_version));
+            strncpy(header.lean_version, lean_short_version_string(), sizeof(header.lean_version));
             strncpy(header.githash, LEAN_GITHASH, sizeof(header.githash));
             out.write(reinterpret_cast<char *>(&header), sizeof(header));
 

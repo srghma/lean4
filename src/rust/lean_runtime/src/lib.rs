@@ -1214,6 +1214,7 @@ unsafe fn mk_name_path(components: &[&str]) -> LeanName {
 }
 
 include!("library_constants.rs");
+include!("library_util.rs");
 include!("library_dynlib.rs");
 include!("runtime_apply.rs");
 include!("runtime_debug.rs");

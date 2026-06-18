@@ -29,6 +29,7 @@ add_custom_command(
     CARGO_TARGET_DIR=${CMAKE_BINARY_DIR}/rust
     LEAN_RUST_GITHASH=${GIT_SHA1}
     LEAN_RUST_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+    LEAN_RUST_VERSION_STRING=${LEAN_VERSION_STRING}
     LEAN_RUST_HAS_LLVM=$<IF:$<BOOL:${LLVM}>,1,0>
     LEAN_RUST_HAS_ADDRESS_SANITIZER=${LEAN_RUST_HAS_ADDRESS_SANITIZER}
     LEAN_RUST_HAS_MIMALLOC=$<IF:$<BOOL:${USE_MIMALLOC}>,1,0>
@@ -53,6 +54,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/Cargo.toml
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/build.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/lib.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_util.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mpz.rs
   VERBATIM
 )

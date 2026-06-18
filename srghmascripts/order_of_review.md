@@ -74,7 +74,8 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/shell/lean_js (`src/shell/lean_js.cpp`)
 - [x] src/util/alloc (`src/util/alloc.h`) — header-only, kept as-is
   - [x] src/library/scope_cache (`src/library/scope_cache.h`) — header-only, kept as-is
-  - [x] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_compact.rs`; C++ exports renamed to `lean_cxx_compacted_region_*` shims
+- [x] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_compact.rs`; C++ exports renamed to `lean_cxx_compacted_region_*` shims
+- [x] src/library/util (`src/library/util.h` and `src/library/util.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_util.rs`; C++ source/header removed, bool constants and short version string now exported directly from Rust
 - [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
 - [x] src/util/freset (`src/util/freset.h`) — header removed; no in-tree users remained

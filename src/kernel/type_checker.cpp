@@ -534,8 +534,11 @@ namespace ir {
 object * run_boxed_kernel(environment const & env, options const & opts, name const & fn, unsigned n, object **args);
 }
 
-expr mk_bool_true();
-expr mk_bool_false();
+extern "C" object * lean_mk_bool_true();
+extern "C" object * lean_mk_bool_false();
+
+inline expr mk_bool_true() { return expr(lean_mk_bool_true()); }
+inline expr mk_bool_false() { return expr(lean_mk_bool_false()); }
 
 optional<expr> reduce_native(environment const & env, expr const & e) {
     if (!is_app(e)) return none_expr();
