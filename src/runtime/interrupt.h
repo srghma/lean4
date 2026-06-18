@@ -5,11 +5,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <cstdlib>
-#include <utility>
 #include "runtime/thread.h"
 #include "runtime/exception.h"
-#include "runtime/flet.h"
 
 namespace lean {
 // Stack information is implemented in Rust now; keep these declarations here so
