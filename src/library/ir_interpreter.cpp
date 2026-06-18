@@ -26,7 +26,6 @@ functions, which have a (relatively) homogeneous ABI that we can use without run
 `call/lookup_symbol` below.
 
 */
-#include <string>
 #include <vector>
 #include <shared_mutex>
 #ifdef LEAN_WINDOWS
@@ -55,7 +54,6 @@ struct LeanTimeTaskGuard {
 };
 #include "library/ir_types.h"
 #include "library/init_attribute.h"
-#include "util/nat.h"
 #include "util/option_declarations.h"
 #include "util/name_hash_map.h"
 

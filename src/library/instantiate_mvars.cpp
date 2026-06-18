@@ -10,7 +10,6 @@ Authors: Joachim Breitner
 #include "runtime/option_ref.h"
 #include "runtime/array_ref.h"
 #include "kernel/instantiate.h"
-#include "kernel/expr.h"
 #include "library/scope_cache.h"
 
 /*
