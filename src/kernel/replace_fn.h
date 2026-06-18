@@ -7,7 +7,6 @@ Author: Leonardo de Moura
 #pragma once
 #include <functional>
 #include "kernel/expr.h"
-#include "kernel/expr_maps.h"
 
 namespace lean {
 /**
