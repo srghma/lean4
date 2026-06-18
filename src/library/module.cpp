@@ -24,7 +24,7 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 #include "runtime/array_ref.h"
 #include "runtime/option_ref.h"
 #include "util/io.h"
-#include "util/name_map.h"
+#include "util/name.h"
 #include "library/util.h"
 #include "githash.h"
 
