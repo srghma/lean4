@@ -5,14 +5,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
         Soonho Kong
 */
-#include <algorithm>
 #include <limits>
 #include "kernel/expr.h"
-#include "kernel/expr_eq_fn.h"
 #include "kernel/for_each_fn.h"
 #include "kernel/replace_fn.h"
-#include "kernel/abstract.h"
-#include "kernel/instantiate.h"
 
 namespace lean {
 /* Expression literal values */

@@ -8,7 +8,6 @@ Author: Leonardo de Moura
 #include <algorithm>
 #include "runtime/interrupt.h"
 #include "kernel/level.h"
-#include "kernel/environment.h"
 
 namespace lean {
 
