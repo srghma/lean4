@@ -732,14 +732,7 @@ static object * run_instantiate_all(object * m, object * e) {
     return r;
 }
 
-extern "C" LEAN_EXPORT object * lean_cxx_instantiate_level_mvars(object * m, object * l) {
-    metavar_ctx mctx(m);
-    level l_new = instantiate_lmvars_all_fn(mctx)(level(l));
-    object * r = alloc_cnstr(0, 2, 0);
-    cnstr_set(r, 0, mctx.steal());
-    cnstr_set(r, 1, l_new.steal());
-    return r;
-}
+// lean_instantiate_level_mvars is now implemented in Rust (library_instantiate_mvars.rs).
 
 extern "C" LEAN_EXPORT object * lean_cxx_instantiate_expr_mvars(object * m, object * e) {
     return run_instantiate_all(m, e);
