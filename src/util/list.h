@@ -7,8 +7,6 @@ Author: Leonardo de Moura
 #pragma once
 #include <iostream>
 #include <iterator>
-#include "runtime/debug.h"
-#include "runtime/optional.h"
 #include "runtime/buffer.h"
 #include "util/rc.h"
 
