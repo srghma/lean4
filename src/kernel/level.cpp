@@ -10,7 +10,6 @@ Author: Leonardo de Moura
 #include "runtime/interrupt.h"
 #include "runtime/hash.h"
 #include "runtime/buffer.h"
-#include "util/list.h"
 #include "kernel/level.h"
 #include "kernel/environment.h"
 
