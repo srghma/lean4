@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include <stdio.h>
-#include <string>
 #include <lean/lean.h>
 #include "runtime/object.h"
 
