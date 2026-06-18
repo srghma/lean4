@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include <functional>
-#include <string>
 #include <vector>
 #include "runtime/object.h"
 #include "util/alloc.h"
