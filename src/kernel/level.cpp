@@ -6,10 +6,7 @@ Author: Leonardo de Moura
 */
 #include <functional>
 #include <algorithm>
-#include "runtime/debug.h"
 #include "runtime/interrupt.h"
-#include "runtime/hash.h"
-#include "runtime/buffer.h"
 #include "kernel/level.h"
 #include "kernel/environment.h"
 
