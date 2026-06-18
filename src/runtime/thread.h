@@ -68,7 +68,6 @@ public:
 #else
 // NO MULTI THREADING SUPPORT
 #include <utility>
-#include <cstdlib>
 #define LEAN_THREAD_LOCAL
 namespace lean {
 constexpr int memory_order_relaxed = 0;
