@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include "kernel/for_each_fn.h"
-#include "kernel/expr.h"
 
 namespace lean {
 /** \brief Return a subexpression of \c e that satisfies the predicate \c p. */

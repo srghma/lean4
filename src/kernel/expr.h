@@ -5,9 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #pragma once
-#include <iostream>
-#include <utility>
-#include "runtime/optional.h"
 #include "runtime/hash.h"
 #include "runtime/buffer.h"
 #include "util/name.h"
