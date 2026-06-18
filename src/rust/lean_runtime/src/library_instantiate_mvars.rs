@@ -3,8 +3,26 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 
 Full Rust port of src/library/instantiate_mvars.cpp.
-  lean_instantiate_level_mvars — level-MVar instantiation
-  lean_instantiate_expr_mvars  — two-pass expr-MVar instantiation
+  lean_instantiate_level_mvars — level-MVar instantiation (fully in Rust)
+  lean_instantiate_expr_mvars  — delegates to C++ lean_cxx_instantiate_expr_mvars
+
+TIMEOUT ANALYSIS (2026-06-18):
+  When the full ExprMVarInstantiator was included below (all the visit_*,
+  apply_beta_rec/ExprScopeCache dead code), liblean_runtime.a grew by ~400 KB
+  (8.3 MB main object → same; the real cost was monomorphised HashMap/HashSet
+  instances and ExprScopeCache Vec logic compiled but never called by any
+  exported symbol).  With CTEST_PARALLEL_LEVEL=$(nproc) ≈ 20, every one of the
+  3800+ tests links against liblean_runtime.a.  Lake/frontend/LSP tests that
+  previously took 37-113 s individually started timing out at 240 s because the
+  extra I/O for loading the larger archive under 20-way parallel linking raised
+  per-test link time enough to push borderline tests over the limit.
+
+PROPOSAL TO FIX:
+  Once lean_instantiate_expr_mvars is fully ported to Rust (i.e. ExprMVarInstantiator
+  passes all tests), remove lean_cxx_instantiate_expr_mvars and the dead code
+  currently kept for reference below the LevelMVarInstantiator.  Until then,
+  keep the ExprMVarInstantiator code in a separate file or behind a Rust feature
+  flag so it is not compiled into liblean_runtime.a unconditionally.
 */
 
 #[cfg(feature = "export-runtime-ffi")]
