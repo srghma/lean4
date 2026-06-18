@@ -6,7 +6,6 @@ Authors: Leonardo de Moura, Gabriel Ebner, Sebastian Ullrich
 
 .olean serialization and deserialization.
 */
-#include <unordered_map>
 #include <vector>
 #include <utility>
 #include <string>
