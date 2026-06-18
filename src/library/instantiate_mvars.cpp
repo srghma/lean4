@@ -4,7 +4,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Authors: Joachim Breitner
 */
-#include <vector>
 #include "util/name_set.h"
 #include "util/name_hash_map.h"
 #include "runtime/option_ref.h"
