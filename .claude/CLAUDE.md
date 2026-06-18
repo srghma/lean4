@@ -8,9 +8,9 @@ NOTE: that `--quiet` flag make ctests not output not only `Passed`, but `Failed`
 
 Can do `gaa && gc -m 'feat: all tests pass'` only if ALL tests have passed
 
-<!-- If want to run ALL tests - dont run, I will run myself (to preserve tokens), but before telling me that this is a time to run all tests - run 3-5 tests related to change to confirm that change doesnt break tests. NOTE: dont run whole groups of tests (e.g. it bad to do `ARGS='-R "compiler|ir_interp|elab"` because too much tests), instead 3-5 tests (e.g. `ARGS='-R "compiler/testXXX|ir_interp/testXXX|elab/testXXX"`) -->
+If want to run ALL tests - dont run, I will run myself (to preserve tokens), but before telling me that this is a time to run all tests - run 3-5 tests related to change to confirm that change doesnt break tests. NOTE: dont run whole groups of tests (e.g. it bad to do `ARGS='-R "compiler|ir_interp|elab"` because too much tests), instead 3-5 tests (e.g. `ARGS='-R "compiler/testXXX|ir_interp/testXXX|elab/testXXX"`)
 
-If want to run ALL tests - run only in background to preserve tokens (bc it will notify You, no need to recheck all the time) (to preserve tokens). can run all ctests Yourself, just make sure they output only failures to reduce number or tokens. Continue in automatic mode. Commit only after ALL tests have passed successfully. Commit message should contain short info about the change.
+<!-- If want to run ALL tests - run only in background to preserve tokens (bc it will notify You, no need to recheck all the time) (to preserve tokens). can run all ctests Yourself, just make sure they output only failures to reduce number or tokens. Continue in automatic mode. Commit only after ALL tests have passed successfully. Commit message should contain short info about the change. -->
 
 Instead of using flags like `#ifndef LEAN_RUST_IO_EMBEDDED_NUL_ERROR` - rust remove unused cpp code/file.
 

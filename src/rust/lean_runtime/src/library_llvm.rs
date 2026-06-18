@@ -8,9 +8,12 @@ mod library_llvm_impl {
     use super::*;
 
     extern "C" {
-        fn lean_cxx_init_llvm() -> *mut LeanObject;
-        fn lean_cxx_emit_llvm(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> *mut LeanObject;
-        fn lean_cxx_llvm_initialize_target_info() -> *mut LeanObject;
+        fn initialize_Lean_Compiler_IR_EmitLLVM(builtin: u8) -> *mut LeanObject;
+        fn lean_ir_emit_llvm(
+            env: *mut LeanObject,
+            mod_name: *mut LeanObject,
+            filepath: *mut LeanObject,
+        ) -> *mut LeanObject;
         fn lean_cxx_llvm_create_context() -> usize;
         fn lean_cxx_llvm_create_module(p0: *mut LeanObject, p1: *mut LeanObject) -> usize;
         fn lean_cxx_llvm_write_bitcode_to_file(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> *mut LeanObject;
@@ -93,24 +96,50 @@ mod library_llvm_impl {
         fn lean_cxx_llvm_position_builder_before(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> *mut LeanObject;
         fn lean_cxx_llvm_create_memory_buffer_with_contents_of_file(p0: *mut LeanObject, p1: *mut LeanObject) -> usize;
         fn lean_cxx_llvm_create_string_attribute(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> usize;
+        #[cfg(feature = "export-runtime-ffi")]
+        fn LLVMInitializeAllTargetInfos();
+        #[cfg(feature = "export-runtime-ffi")]
+        fn LLVMInitializeAllTargets();
+        #[cfg(feature = "export-runtime-ffi")]
+        fn LLVMInitializeAllTargetMCs();
+        #[cfg(feature = "export-runtime-ffi")]
+        fn LLVMInitializeAllAsmParsers();
+        #[cfg(feature = "export-runtime-ffi")]
+        fn LLVMInitializeAllAsmPrinters();
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_init_llvm() -> *mut LeanObject {
-        lean_cxx_init_llvm()
+        initialize_Lean_Compiler_IR_EmitLLVM(0)
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_emit_llvm(p0: *mut LeanObject, p1: *mut LeanObject, p2: *mut LeanObject) -> *mut LeanObject {
-        lean_cxx_emit_llvm(p0, p1, p2)
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_emit_llvm(
+        p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+    ) -> *mut LeanObject {
+        lean_ir_emit_llvm(p0, p1, p2)
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_cxx_llvm_initialize_target_info() -> *mut LeanObject {
+        if env!("LEAN_RUST_HAS_LLVM") == "1" {
+            LLVMInitializeAllTargetInfos();
+            LLVMInitializeAllTargets();
+            LLVMInitializeAllTargetMCs();
+            LLVMInitializeAllAsmParsers();
+            LLVMInitializeAllAsmPrinters();
+        }
+        lean_box(0)
+    }
+
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_llvm_initialize_target_info() -> *mut LeanObject {
         lean_cxx_llvm_initialize_target_info()
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_llvm_create_context() -> usize {
         lean_cxx_llvm_create_context()
     }

@@ -35,28 +35,9 @@ Lean's IR.
 namespace lean {
 /*  initLLVM : IO Unit */
 extern "C" obj_res initialize_Lean_Compiler_IR_EmitLLVM(uint8_t builtin);
-extern "C" LEAN_EXPORT obj_res lean_cxx_init_llvm() {
-    return initialize_Lean_Compiler_IR_EmitLLVM(/*builtin*/ false);
-}
 
 /*  emitLLVM (env : Environment) (modName : Name) (filepath : FilePath) : IO Unit */
 extern "C" obj_res lean_ir_emit_llvm(obj_arg env, obj_arg mod_name, obj_arg filepath);
-extern "C" LEAN_EXPORT obj_res lean_cxx_emit_llvm(obj_arg env, obj_arg mod_name, obj_arg filepath) {
-    return lean_ir_emit_llvm(env, mod_name, filepath);
-}
-}
-
-extern "C" LEAN_EXPORT lean_object* lean_cxx_llvm_initialize_target_info() {
-
-#ifdef LEAN_LLVM
-    LLVMInitializeAllTargetInfos();
-    LLVMInitializeAllTargets();
-    LLVMInitializeAllTargetMCs();
-    LLVMInitializeAllAsmParsers();
-    LLVMInitializeAllAsmPrinters();
-#endif
-
-    return lean_box(0);
 }
 
 #ifdef LEAN_LLVM
