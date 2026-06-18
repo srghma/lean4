@@ -9,7 +9,6 @@ C++ shim for trace functions that cannot be ported to Rust:
 
 All other trace functions are implemented in Rust (kernel_trace.rs).
 */
-#include "util/io.h"
 #include "util/option_declarations.h"
 #include "kernel/trace.h"
 
