@@ -10,7 +10,6 @@ Author: Leonardo de Moura
 #include "runtime/optional.h"
 #include "runtime/list_ref.h"
 #include "util/name.h"
-#include "util/options.h"
 
 namespace lean {
 class environment;

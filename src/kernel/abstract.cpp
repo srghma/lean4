@@ -5,8 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #include <algorithm>
-#include <utility>
-#include <vector>
 #include "kernel/abstract.h"
 #include "kernel/replace_fn.h"
 

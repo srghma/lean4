@@ -10,6 +10,7 @@ Author: Leonardo de Moura
 #include "runtime/sstream.h"
 #include "runtime/flet.h"
 #include "util/lbool.h"
+#include "util/options.h"
 #include "kernel/type_checker.h"
 #include "kernel/expr_maps.h"
 #include "kernel/instantiate.h"
