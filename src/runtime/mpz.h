@@ -18,7 +18,6 @@ Author: Leonardo de Moura
 #include <limits>
 #include <lean/lean.h>
 #include "runtime/int.h"
-#include "runtime/debug.h"
 
 namespace lean {
 

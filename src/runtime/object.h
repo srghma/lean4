@@ -7,6 +7,7 @@ Author: Leonardo de Moura
 #pragma once
 #include <string>
 #include <lean/lean.h>
+#include "runtime/debug.h"
 #include "runtime/mpz.h"
 
 namespace lean {
