@@ -6,10 +6,8 @@ Author: Leonardo de Moura
 */
 #include "runtime/sstream.h"
 #include "runtime/utf8.h"
-#include "util/name_generator.h"
 #include "util/name_map.h"
 #include "util/name_set.h"
-#include "kernel/environment.h"
 #include "kernel/type_checker.h"
 #include "kernel/instantiate.h"
 #include "kernel/abstract.h"
