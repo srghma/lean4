@@ -4,8 +4,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Author: Leonardo de Moura
 */
-#include <string>
-#include <lean/lean.h>
 #include "runtime/object.h"
 
 #if !defined(__STDC_VERSION_STDLIB_H__) || __STDC_VERSION_STDLIB_H__ < 202311L

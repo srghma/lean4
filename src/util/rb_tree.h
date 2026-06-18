@@ -13,7 +13,6 @@ Author: Leonardo de Moura
 #include <utility>
 #include <algorithm>
 #include "runtime/optional.h"
-#include "runtime/debug.h"
 #include "runtime/buffer.h"
 #include "util/rc.h"
 

@@ -7,11 +7,9 @@ Author: Leonardo de Moura
 #include <algorithm>
 #include <vector>
 #include <cstring>
-#include <lean/lean.h>
 #include "runtime/hash.h"
 #include "runtime/compact.h"
 #include "runtime/exception.h"
-#include "util/alloc.h"
 
 #ifdef LEAN_WINDOWS
 #include <windows.h>  // must precede <psapi.h>: it relies on `WINBOOL`/`DWORD`/`WINAPI` from here
