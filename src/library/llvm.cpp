@@ -11,8 +11,6 @@ Lean's IR.
 
 #include <lean/lean.h>
 
-#include <cassert>
-
 #include "runtime/array_ref.h"
 #include "runtime/debug.h"
 #include "runtime/string_ref.h"
