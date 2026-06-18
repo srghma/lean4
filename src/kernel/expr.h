@@ -8,7 +8,6 @@ Author: Leonardo de Moura
 #include "runtime/hash.h"
 #include "runtime/buffer.h"
 #include "util/name.h"
-#include "util/nat.h"
 #include "util/kvmap.h"
 #include "util/list_fn.h"
 #include "kernel/level.h"
