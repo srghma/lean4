@@ -6,8 +6,6 @@ Author: Leonardo de Moura
 */
 #include <utility>
 #include "util/alloc.h"
-#include "runtime/interrupt.h"
-#include "runtime/flet.h"
 #include "kernel/for_each_fn.h"
 
 namespace lean {
