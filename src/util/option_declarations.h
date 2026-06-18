@@ -7,6 +7,7 @@ Author: Leonardo de Moura
 #pragma once
 #include <cstring>
 #include <cstdlib>
+#include "util/kvmap.h"
 #include "util/options.h"
 #include "util/io.h"
 

@@ -6,7 +6,6 @@ Author: Leonardo de Moura
 */
 #pragma once
 #include "util/name.h"
-#include "util/kvmap.h"
 
 #ifndef LEAN_DEFAULT_VERBOSE
 #define LEAN_DEFAULT_VERBOSE true
