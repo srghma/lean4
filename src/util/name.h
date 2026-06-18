@@ -7,7 +7,6 @@ Author: Leonardo de Moura
 #pragma once
 #include <string>
 #include <iostream>
-#include <functional>
 #include <algorithm>
 #include <utility>
 #include "runtime/optional.h"
