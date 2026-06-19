@@ -4,33 +4,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Author: Leonardo de Moura
 */
-#include "kernel/replace_fn.h"
 #include "kernel/declaration.h"
 #include "kernel/instantiate.h"
 
 namespace lean {
+extern "C" object * lean_expr_instantiate_at(object * a, size_t s, size_t n, object * const * subst);
+extern "C" object * lean_expr_instantiate_rev_ptr(object * a, size_t n, object * const * subst);
+extern "C" object * lean_expr_cheap_beta_reduce(object * e);
+extern "C" object * lean_expr_instantiate_lparams(object * e, object * ps, object * ls);
+extern "C" object * lean_instantiate_type_lparams(object * info, object * ls);
+extern "C" object * lean_instantiate_value_lparams(object * info, object * ls);
+
 expr instantiate(expr const & a, unsigned s, unsigned n, expr const * subst) {
     if (s >= get_loose_bvar_range(a) || n == 0)
         return a;
-    return replace(a, [=](expr const & m, unsigned offset) -> optional<expr> {
-            unsigned s1 = s + offset;
-            if (s1 < s)
-                return some_expr(m); // overflow, vidx can't be >= max unsigned
-            if (s1 >= get_loose_bvar_range(m))
-                return some_expr(m); // expression m does not contain loose bound variables with idx >= s1
-            if (is_bvar(m)) {
-                nat const & vidx = bvar_idx(m);
-                if (vidx >= s1) {
-                    unsigned h = s1 + n;
-                    if (h < s1 /* overflow, h is bigger than any vidx */ || vidx < h) {
-                        return some_expr(lift_loose_bvars(subst[vidx.get_small_value() - s1], offset));
-                    } else {
-                        return some_expr(mk_bvar(vidx - nat(n)));
-                    }
-                }
-            }
-            return none_expr();
-        });
+    static_assert(sizeof(expr) == sizeof(object *), "expr buffer layout must match object pointer buffer");
+    return expr(lean_expr_instantiate_at(a.raw(), s, n, reinterpret_cast<object * const *>(subst)));
 }
 
 expr instantiate(expr const & e, unsigned n, expr const * s) { return instantiate(e, 0, n, s); }
@@ -42,109 +31,24 @@ expr instantiate(expr const & e, expr const & s) { return instantiate(e, 0, s); 
 expr instantiate_rev(expr const & a, unsigned n, expr const * subst) {
     if (!has_loose_bvars(a))
         return a;
-    return replace(a, [=](expr const & m, unsigned offset) -> optional<expr> {
-            if (offset >= get_loose_bvar_range(m))
-                return some_expr(m); // expression m does not contain loose bound variables with idx >= offset
-            if (is_bvar(m)) {
-                nat const & vidx = bvar_idx(m);
-                if (vidx >= offset) {
-                    size_t h = offset + n;
-                    if (h < offset /* overflow, h is bigger than any vidx */ || (vidx.is_small() && vidx.get_small_value() < h)) {
-                        return some_expr(lift_loose_bvars(subst[n - (vidx.get_small_value() - offset) - 1], offset));
-                    } else {
-                        return some_expr(mk_bvar(vidx - nat(n)));
-                    }
-                }
-            }
-            return none_expr();
-        });
-}
-
-static expr apply_beta_rec(expr e, unsigned i, unsigned num_rev_args, expr const * rev_args, bool preserve_data, bool zeta) {
-    if (is_lambda(e)) {
-        if (i + 1 < num_rev_args) {
-            return apply_beta_rec(binding_body(e), i+1, num_rev_args, rev_args, preserve_data, zeta);
-        } else {
-            return instantiate(binding_body(e), num_rev_args, rev_args);
-        }
-    } else if (is_let(e)) {
-        if (zeta && i < num_rev_args) {
-            return apply_beta_rec(instantiate(let_body(e), let_value(e)), i, num_rev_args, rev_args, preserve_data, zeta);
-        } else {
-            unsigned n = num_rev_args - i;
-            return mk_rev_app(instantiate(e, i, rev_args + n), n, rev_args);
-        }
-    } else if (is_mdata(e)) {
-        if (preserve_data) {
-            unsigned n = num_rev_args - i;
-            return mk_rev_app(instantiate(e, i, rev_args + n), n, rev_args);
-        } else {
-            return apply_beta_rec(mdata_expr(e), i, num_rev_args, rev_args, preserve_data, zeta);
-        }
-    } else {
-        unsigned n = num_rev_args - i;
-        return mk_rev_app(instantiate(e, i, rev_args + n), n, rev_args);
-    }
-}
-
-expr apply_beta(expr f, unsigned num_rev_args, expr const * rev_args, bool preserve_data, bool zeta) {
-    if (num_rev_args == 0) return f;
-    return apply_beta_rec(f, 0, num_rev_args, rev_args, preserve_data, zeta);
+    static_assert(sizeof(expr) == sizeof(object *), "expr buffer layout must match object pointer buffer");
+    return expr(lean_expr_instantiate_rev_ptr(a.raw(), n, reinterpret_cast<object * const *>(subst)));
 }
 
 expr cheap_beta_reduce(expr const & e) {
-    if (!is_app(e)) return e;
-    expr fn = get_app_fn(e);
-    if (!is_lambda(fn)) return e;
-    buffer<expr> args;
-    get_app_args(e, args);
-    unsigned i = 0;
-    while (is_lambda(fn) && i < args.size()) {
-        i++;
-        fn = binding_body(fn);
-    }
-    if (!has_loose_bvars(fn)) {
-        return mk_app(fn, args.size() - i, args.data() + i);
-    } else if (is_bvar(fn)) {
-        lean_assert(bvar_idx(fn) < i);
-        return mk_app(args[i - bvar_idx(fn).get_small_value() - 1], args.size() - i, args.data() + i);
-    } else {
-        return e;
-    }
+    return expr(lean_expr_cheap_beta_reduce(e.raw()));
 }
 
 expr instantiate_lparams(expr const & e, names const & lps, levels const & ls) {
-    if (!has_param_univ(e))
-        return e;
-    return replace(e, [&](expr const & e) -> optional<expr> {
-            if (!has_param_univ(e))
-                return some_expr(e);
-            if (is_constant(e)) {
-                return some_expr(update_constant(e, map_reuse(const_levels(e), [&](level const & l) { return instantiate(l, lps, ls); })));
-            } else if (is_sort(e)) {
-                return some_expr(update_sort(e, instantiate(sort_level(e), lps, ls)));
-            } else {
-                return none_expr();
-            }
-        });
+    return expr(lean_expr_instantiate_lparams(e.raw(), lps.raw(), ls.raw()));
 }
 
 expr instantiate_type_lparams(constant_info const & info, levels const & ls) {
-    if (info.get_num_lparams() != length(ls))
-        lean_internal_panic("#universes mismatch at instantiateTypeLevelParams");
-    if (is_nil(ls) || !has_param_univ(info.get_type()))
-        return info.get_type();
-    return instantiate_lparams(info.get_type(), info.get_lparams(), ls);
+    return expr(lean_instantiate_type_lparams(info.raw(), ls.raw()));
 }
 
 expr instantiate_value_lparams(constant_info const & info, levels const & ls) {
-    if (info.get_num_lparams() != length(ls))
-        lean_internal_panic("#universes mismatch at instantiateValueLevelParams");
-    if (!info.has_value())
-        lean_internal_panic("definition/theorem expected at instantiateValueLevelParams");
-    if (is_nil(ls) || !has_param_univ(info.get_value()))
-        return info.get_value();
-    return instantiate_lparams(info.get_value(), info.get_lparams(), ls);
+    return expr(lean_instantiate_value_lparams(info.raw(), ls.raw()));
 }
 
 }
