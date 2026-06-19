@@ -4,28 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Port of src/library/module.cpp:
   lean_compacted_region_read — fully implemented in Rust
-  lean_compacted_region_save — delegates to C++ lean_cxx_compacted_region_save
-    (object_compactor is too complex to port without the full compactor)
-
-The lean_cxx_compacted_region_read shim has been removed from module.cpp.
+  lean_compacted_region_save — implemented in runtime_compact_writer.rs
 */
 
 #[cfg(feature = "export-runtime-ffi")]
 mod library_module_impl {
     use super::*;
     use core::ffi::{c_char, c_int, c_void, CStr};
-
-    extern "C" {
-        fn lean_cxx_compacted_region_save(
-            ofname: *mut LeanObject,
-            mod_: *mut LeanObject,
-            odata: *mut LeanObject,
-            odep_regions: *mut LeanObject,
-            oprev: *mut LeanObject,
-            allow_closures: u8,
-            io: *mut LeanObject,
-        ) -> *mut LeanObject;
-    }
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):
     //   marker[5]        {'o','l','e','a','n'}
@@ -472,22 +457,6 @@ mod library_module_impl {
     // -------------------------------------------------------------------------
     // Public FFI entry points
     // -------------------------------------------------------------------------
-
-    /// `lean_compacted_region_save` delegates to C++.
-    /// The `object_compactor` class is too complex to port without also porting
-    /// `max_sharing_table`, `get_loaded_libs`, and the full serialization path.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_save(
-        ofname: *mut LeanObject,
-        mod_: *mut LeanObject,
-        odata: *mut LeanObject,
-        odep_regions: *mut LeanObject,
-        oprev: *mut LeanObject,
-        allow_closures: u8,
-        io: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_compacted_region_save(ofname, mod_, odata, odep_regions, oprev, allow_closures, io)
-    }
 
     /// Load a compacted olean region from `ofname`.
     ///

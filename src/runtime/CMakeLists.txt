@@ -2,7 +2,6 @@ set(
   RUNTIME_OBJS
   object.cpp
   exception.cpp
-  compact.cpp
 )
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
@@ -110,6 +109,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_time_task.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_print.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_compact.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_compact_writer.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_replace_fn.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_expr_eq_fn.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_for_each_fn.rs

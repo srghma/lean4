@@ -1260,6 +1260,7 @@ include!("library_expr_lt.rs");
 include!("library_time_task.rs");
 include!("library_print.rs");
 include!("runtime_compact.rs");
+include!("runtime_compact_writer.rs");
 include!("kernel_replace_fn.rs");
 include!("kernel_expr_eq_fn.rs");
 include!("kernel_for_each_fn.rs");
