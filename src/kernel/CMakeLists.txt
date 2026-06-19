@@ -3,7 +3,6 @@ add_library(
   OBJECT
   level.cpp
   expr.cpp
-  expr_eq_fn.cpp
   for_each_fn.cpp
   replace_fn.cpp
   abstract.cpp

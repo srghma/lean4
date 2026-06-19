@@ -11,6 +11,7 @@ mod library_ir_interpreter_impl {
     use core::sync::atomic::{AtomicBool, AtomicPtr, AtomicUsize, Ordering};
     use std::collections::HashMap;
     use std::hash::{BuildHasher, Hash, Hasher};
+    use std::sync::{Mutex, MutexGuard, OnceLock};
 
     // ---------------------------------------------------------------------------
     // FFI declarations
@@ -179,8 +180,8 @@ mod library_ir_interpreter_impl {
     #[inline(always)]
     unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) {
         let fld = lean_ctor_get_obj(obj, idx);
-        lean_ctor_set_obj(obj, idx, ptr::null_mut());
         lean_dec(fld);
+        lean_ctor_set_obj(obj, idx, lean_box(0));
     }
 
     #[inline(always)]
@@ -306,20 +307,26 @@ mod library_ir_interpreter_impl {
 
     struct ScopeTraceEnvGuard {
         inner: ScopeTraceEnv,
+        // Heap-allocate opts so the pointer passed to G_OPTS via lean_scope_trace_env_ctor
+        // remains stable even after ScopeTraceEnvGuard is moved out of new().
+        // Rust moves structs by bitwise copy; Box's heap allocation doesn't move.
+        _boxed_opts: Box<*mut LeanObject>,
     }
 
     impl ScopeTraceEnvGuard {
-        unsafe fn new(env: *mut LeanObject, opts: *mut LeanObject) -> Self {
-            let mut guard = ScopeTraceEnvGuard {
-                inner: ScopeTraceEnv { m_old_opts: ptr::null() },
-            };
-            lean_scope_trace_env_ctor(&mut guard.inner, &env as *const _, &opts as *const _);
-            guard
+        unsafe fn new(_env: *mut LeanObject, opts: *mut LeanObject) -> Self {
+            let boxed_opts = Box::new(opts);
+            let opts_ptr: *const *mut LeanObject = &*boxed_opts;
+            let mut inner = ScopeTraceEnv { m_old_opts: ptr::null() };
+            // _env is unused in the Rust impl of scope_trace_env ctor
+            lean_scope_trace_env_ctor(&mut inner, ptr::null(), opts_ptr);
+            ScopeTraceEnvGuard { inner, _boxed_opts: boxed_opts }
         }
     }
 
     impl Drop for ScopeTraceEnvGuard {
         fn drop(&mut self) {
+            // Restore G_OPTS before _boxed_opts is freed (Drop runs before field drops).
             unsafe { lean_scope_trace_env_dtor(&mut self.inner); }
         }
     }
@@ -848,6 +855,7 @@ mod library_ir_interpreter_impl {
     static G_INTERPRETER_KEY_INIT: AtomicBool = AtomicBool::new(false);
     static mut G_INIT_GLOBALS: *mut InitGlobals = ptr::null_mut();
     static mut G_NATIVE_SYMBOL_CACHE: *mut NativeSymbolCache = ptr::null_mut();
+    static G_NATIVE_SYMBOL_CACHE_MUTEX: OnceLock<Mutex<()>> = OnceLock::new();
 
     unsafe fn init_globals() -> &'static mut InitGlobals {
         if G_INIT_GLOBALS.is_null() {
@@ -861,6 +869,13 @@ mod library_ir_interpreter_impl {
             G_NATIVE_SYMBOL_CACHE = Box::into_raw(Box::new(NativeSymbolCache(new_name_hash_map())));
         }
         &mut *G_NATIVE_SYMBOL_CACHE
+    }
+
+    fn native_symbol_cache_lock() -> MutexGuard<'static, ()> {
+        G_NATIVE_SYMBOL_CACHE_MUTEX
+            .get_or_init(|| Mutex::new(()))
+            .lock()
+            .expect("native symbol cache mutex poisoned")
     }
 
     unsafe fn interpreter_key() -> libc::pthread_key_t {
@@ -1397,16 +1412,19 @@ mod library_ir_interpreter_impl {
             if let Some(&e) = self.m_symbol_cache.get(&key) {
                 return Ok(e);
             }
-            // Check global cache (read lock)
-            {
+            // Check the process-wide native symbol cache. The C++ implementation
+            // protects this map with a shared_mutex; Rust uses a plain mutex here.
+            let native_hit = {
+                let _lock = native_symbol_cache_lock();
                 let cache = native_symbol_cache();
-                if let Some(&native) = cache.0.get(&key) {
-                    let decl = self.get_decl(fn_name)?;
-                    let e = SymbolCacheEntry { m_decl: decl, m_native: native };
-                    lean_inc(fn_name);
-                    self.m_symbol_cache.insert(key, e);
-                    return Ok(e);
-                }
+                cache.0.get(&key).copied()
+            };
+            if let Some(native) = native_hit {
+                let decl = self.get_decl(fn_name)?;
+                let e = SymbolCacheEntry { m_decl: decl, m_native: native };
+                lean_inc(fn_name);
+                self.m_symbol_cache.insert(key, e);
+                return Ok(e);
             }
             // Not in global cache; compute
             let decl = self.get_decl(fn_name)?;
@@ -1462,12 +1480,17 @@ mod library_ir_interpreter_impl {
                 }
             }
 
-            // Write to global cache
-            {
+            let native = {
+                let _lock = native_symbol_cache_lock();
                 let cache = native_symbol_cache();
-                lean_inc(fn_name);
-                cache.0.insert(NameKey(fn_name), native);
-            }
+                if let Some(&cached) = cache.0.get(&key) {
+                    cached
+                } else {
+                    lean_inc(fn_name);
+                    cache.0.insert(NameKey(fn_name), native);
+                    native
+                }
+            };
 
             let e = SymbolCacheEntry { m_decl: decl, m_native: native };
             lean_inc(fn_name);
@@ -2029,9 +2052,12 @@ mod library_ir_interpreter_impl {
     #[no_mangle]
     pub unsafe extern "C" fn finalize_ir_interpreter() {
         // Drop the global caches. OnceLock doesn't support resetting, so just clear contents.
-        if !G_NATIVE_SYMBOL_CACHE.is_null() {
-            let _w = unsafe { Box::from_raw(G_NATIVE_SYMBOL_CACHE) };
-            G_NATIVE_SYMBOL_CACHE = ptr::null_mut();
+        {
+            let _lock = native_symbol_cache_lock();
+            if !G_NATIVE_SYMBOL_CACHE.is_null() {
+                let _w = unsafe { Box::from_raw(G_NATIVE_SYMBOL_CACHE) };
+                G_NATIVE_SYMBOL_CACHE = ptr::null_mut();
+            }
         }
         if !G_INIT_GLOBALS.is_null() {
             let mut w = unsafe { Box::from_raw(G_INIT_GLOBALS) };

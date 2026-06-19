@@ -11,6 +11,12 @@ Author: Leonardo de Moura
 #include "kernel/replace_fn.h"
 
 namespace lean {
+extern "C" uint8_t lean_expr_eqv(object * a, object * b);
+
+bool is_equal(expr const & a, expr const & b) {
+    return lean_expr_eqv(a.raw(), b.raw()) != 0;
+}
+
 /* Expression literal values */
 literal::literal(char const * v):
     object_ref(mk_cnstr(static_cast<unsigned>(literal_kind::String), mk_string(v))) {

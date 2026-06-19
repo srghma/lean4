@@ -493,7 +493,9 @@ mod library_instantiate_mvars_impl {
         let mut i = num_args;
         while i > 0 {
             i -= 1;
-            f = lean_expr_mk_app(f, *args.add(i));
+            let arg = *args.add(i);
+            lean_inc(arg);
+            f = lean_expr_mk_app(f, arg);
         }
         f
     }
@@ -518,7 +520,9 @@ mod library_instantiate_mvars_impl {
                 if zeta && i < num_rev_args {
                     let value = lean_ctor_get(f, 2);
                     let body = instantiate_with_slice(lean_ctor_get(f, 3), 1, &value);
-                    apply_beta_rec(body, i, num_rev_args, rev_args, preserve_data, zeta)
+                    let result = apply_beta_rec(body, i, num_rev_args, rev_args, preserve_data, zeta);
+                    lean_dec(body);
+                    result
                 } else {
                     let n = num_rev_args - i;
                     let r = instantiate_with_slice(f, i, rev_args.add(n));
@@ -723,7 +727,12 @@ mod library_instantiate_mvars_impl {
                 args.push(self.visit(lean_ctor_get(curr, 1)));
                 curr = lean_ctor_get(curr, 0);
             }
-            apply_beta(f_new, args.len(), args.as_ptr(), false, true)
+            let result = apply_beta(f_new, args.len(), args.as_ptr(), false, true);
+            lean_dec(f_new);
+            for &arg in &args {
+                lean_dec(arg);
+            }
+            result
         }
 
         unsafe fn visit_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
@@ -880,94 +889,134 @@ mod library_instantiate_mvars_impl {
         value: *mut LeanObject,
     }
 
+    struct ScopeGenNode {
+        gen: u64,
+        tail: Option<usize>,
+    }
+
     struct ScopeCacheEntry {
         result: *mut LeanObject,
         scope_level: u32,
-        scope_snapshot: Vec<u64>,
+        scope_gen: usize,
         result_scope: u32,
     }
 
     struct ExprScopeCache {
         cache: HashMap<(usize, u32), Vec<ScopeCacheEntry>>,
+        gens: Vec<ScopeGenNode>,
+        current_gen: usize,
         gen_counter: u64,
         scope: u32,
-        scope_snapshot: Vec<u64>,
     }
 
     impl ExprScopeCache {
         fn new() -> Self {
-            Self { cache: HashMap::new(), gen_counter: 0, scope: 0, scope_snapshot: vec![0] }
+            Self {
+                cache: HashMap::new(),
+                gens: vec![ScopeGenNode { gen: 0, tail: None }],
+                current_gen: 0,
+                gen_counter: 0,
+                scope: 0,
+            }
         }
 
-        fn scope(&self) -> u32 { self.scope }
+        fn scope(&self) -> u32 {
+            self.scope
+        }
 
         fn push(&mut self) {
             self.scope += 1;
             self.gen_counter += 1;
-            self.scope_snapshot.push(self.gen_counter);
+            self.gens.push(ScopeGenNode { gen: self.gen_counter, tail: Some(self.current_gen) });
+            self.current_gen = self.gens.len() - 1;
         }
 
         fn pop(&mut self) {
             self.scope -= 1;
-            self.scope_snapshot.pop();
+            self.current_gen = self.gens[self.current_gen].tail.expect("scope cache underflow");
         }
 
-        unsafe fn rewind_stack(scope: u32, scope_snapshot: &[u64], stack: &mut Vec<ScopeCacheEntry>) {
+        fn node_at_level(gens: &[ScopeGenNode], mut node: usize, current_scope: u32, level: u32) -> usize {
+            let mut current_level = current_scope;
+            while current_level > level {
+                node = gens[node].tail.expect("scope cache rewind underflow");
+                current_level -= 1;
+            }
+            node
+        }
+
+        fn rewind(
+            gens: &[ScopeGenNode],
+            current_gen: usize,
+            scope: u32,
+            stack: &mut Vec<ScopeCacheEntry>,
+        ) {
             while let Some(top) = stack.last_mut() {
                 if top.result_scope > scope {
                     let old = stack.pop().unwrap();
-                    lean_dec(old.result);
+                    unsafe {
+                        lean_dec(old.result);
+                    }
                     continue;
                 }
 
                 while top.scope_level > scope {
+                    top.scope_gen = gens[top.scope_gen].tail.expect("scope cache rewind underflow");
                     top.scope_level -= 1;
-                    top.scope_snapshot.pop();
                 }
 
-                if top.scope_snapshot[top.scope_level as usize] == scope_snapshot[top.scope_level as usize] {
+                let mut current = Self::node_at_level(gens, current_gen, scope, top.scope_level);
+                if gens[top.scope_gen].gen == gens[current].gen {
                     return;
                 }
 
+                let mut entry = top.scope_gen;
                 let mut level = top.scope_level;
                 while level > top.result_scope {
+                    entry = gens[entry].tail.expect("scope cache rewind tail underflow");
+                    current = gens[current].tail.expect("scope cache rewind tail underflow");
                     level -= 1;
-                    if top.scope_snapshot[level as usize] == scope_snapshot[level as usize] {
+                    if gens[entry].gen == gens[current].gen {
                         top.scope_level = level;
-                        top.scope_snapshot.truncate(level as usize + 1);
+                        top.scope_gen = entry;
                         return;
                     }
                 }
 
                 let old = stack.pop().unwrap();
-                lean_dec(old.result);
+                unsafe {
+                    lean_dec(old.result);
+                }
             }
         }
 
         fn lookup(&mut self, key: (usize, u32), result_scope: &mut u32) -> Option<*mut LeanObject> {
             let stack = self.cache.get_mut(&key)?;
-            unsafe {
-                Self::rewind_stack(self.scope, &self.scope_snapshot, stack);
-                let top = stack.last()?;
-                if top.scope_level != self.scope {
-                    return None;
-                }
-                *result_scope = (*result_scope).max(top.result_scope);
-                lean_inc(top.result);
-                Some(top.result)
+            Self::rewind(&self.gens, self.current_gen, self.scope, stack);
+            let top = stack.last()?;
+            if top.scope_level != self.scope {
+                return None;
             }
+            *result_scope = (*result_scope).max(top.result_scope);
+            unsafe {
+                lean_inc(top.result);
+            }
+            Some(top.result)
         }
 
         unsafe fn insert(&mut self, key: (usize, u32), result: *mut LeanObject, result_scope: u32) -> *mut LeanObject {
             let stack = self.cache.entry(key).or_default();
-            Self::rewind_stack(self.scope, &self.scope_snapshot, stack);
-            let mut stored = result;
+            Self::rewind(&self.gens, self.current_gen, self.scope, stack);
+            let mut shared = result;
+            let mut reused = false;
             if let Some(top) = stack.last() {
                 if top.result_scope == result_scope {
-                    stored = top.result;
-                    lean_inc(stored);
-                    lean_dec(result);
+                    shared = top.result;
+                    reused = true;
                 }
+            }
+            if reused && shared != result {
+                lean_inc(shared);
             }
             while let Some(top) = stack.last() {
                 if top.scope_level < result_scope {
@@ -976,14 +1025,21 @@ mod library_instantiate_mvars_impl {
                 let old = stack.pop().unwrap();
                 lean_dec(old.result);
             }
-            lean_inc(stored);
+            if reused {
+                if shared != result {
+                    lean_dec(result);
+                }
+                lean_inc(shared);
+            } else {
+                lean_inc(shared);
+            }
             stack.push(ScopeCacheEntry {
-                result: stored,
+                result: shared,
                 scope_level: self.scope,
-                scope_snapshot: self.scope_snapshot.clone(),
+                scope_gen: self.current_gen,
                 result_scope,
             });
-            stored
+            shared
         }
     }
 
@@ -1216,9 +1272,10 @@ mod library_instantiate_mvars_impl {
                 saved_entries.push((fid, old));
             }
 
-            let pending_val = self.get_mvar_assignment_raw(mid_pending).expect("delayed pending mvar must be assigned");
+            let pending_val = self
+                .get_mvar_assignment_raw(mid_pending)
+                .expect("delayed pending mvar must be assigned");
             let val_new = self.visit(pending_val);
-            lean_dec(pending_val);
 
             self.cache.pop();
             self.result_scope = self.result_scope.min(self.cache.scope());
@@ -1234,7 +1291,13 @@ mod library_instantiate_mvars_impl {
                 }
             }
 
-            apply_beta(val_new, extra_count, args.as_ptr(), false, true)
+            let result = apply_beta(val_new, extra_count, args.as_ptr(), false, true);
+            lean_dec(val_new);
+            lean_dec(pending_val);
+            for arg in args {
+                lean_dec(arg);
+            }
+            result
         }
 
         unsafe fn visit_nonmvar_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
