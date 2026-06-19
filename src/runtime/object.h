@@ -175,7 +175,23 @@ inline object* apply_m(object* f, unsigned n, object** args) { return lean_apply
 // =======================================
 // MPZ
 
-LEAN_EXPORT object * alloc_mpz(mpz const &);
+#ifdef LEAN_USE_GMP
+// lean_alloc_mpz is implemented in Rust (runtime_object_nat_int.rs)
+extern "C" LEAN_EXPORT lean_object * lean_alloc_mpz(mpz_t v);
+inline object * alloc_mpz(mpz const & m) {
+    mpz_t tmp;
+    mpz_init(tmp);
+    m.set(tmp);
+    lean_object * result = lean_alloc_mpz(tmp);
+    mpz_clear(tmp);
+    return result;
+}
+#else
+inline object * alloc_mpz(mpz const & m) {
+    lean_internal_panic("alloc_mpz: non-GMP build not supported with Rust nat/int");
+    lean_unreachable();
+}
+#endif
 inline mpz_object * to_mpz(object * o) { lean_assert(is_mpz(o)); return (mpz_object*)o; }
 
 // =======================================
@@ -235,9 +251,9 @@ inline size_t string_capacity(object * o) { return lean_string_capacity(o); }
 inline uint32 char_default_value() { return lean_char_default_value(); }
 inline obj_res alloc_string(size_t size, size_t capacity, size_t len) { return lean_alloc_string(size, capacity, len); }
 inline obj_res mk_string(char const * s) { return lean_mk_string(s); }
-LEAN_EXPORT obj_res mk_ascii_string_unchecked(std::string const & s);
-LEAN_EXPORT obj_res mk_string(std::string const & s);
-LEAN_EXPORT std::string string_to_std(b_obj_arg o);
+inline obj_res mk_ascii_string_unchecked(std::string const & s) { return lean_mk_string_unchecked(s.data(), s.size(), s.size()); }
+inline obj_res mk_string(std::string const & s) { return lean_mk_string_from_bytes(s.data(), s.size()); }
+inline std::string string_to_std(b_obj_arg o) { lean_assert(string_size(o) > 0); return std::string(lean_string_cstr(o), lean_string_size(o) - 1); }
 inline char const * string_cstr(b_obj_arg o) { return lean_string_cstr(o); }
 inline size_t string_size(b_obj_arg o) { return lean_string_size(o); }
 inline size_t string_len(b_obj_arg o) { return lean_string_len(o); }
@@ -311,7 +327,10 @@ inline obj_res mk_except_err(obj_arg v) { obj_res r = alloc_cnstr(0, 1, 0); cnst
 // Natural numbers
 
 inline mpz const & mpz_value(b_obj_arg o) { return to_mpz(o)->m_value; }
-LEAN_EXPORT object * mpz_to_nat_core(mpz const & m);
+inline object * mpz_to_nat_core(mpz const & m) {
+    lean_assert(!m.is_size_t() || m.get_size_t() > LEAN_MAX_SMALL_NAT);
+    return alloc_mpz(m);
+}
 inline object * mk_nat_obj_core(mpz const & m) { return mpz_to_nat_core(m); }
 inline obj_res mk_nat_obj(mpz const & m) {
     if (m.is_size_t() && m.get_size_t() <= LEAN_MAX_SMALL_NAT)

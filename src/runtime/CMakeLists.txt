@@ -1,6 +1,5 @@
 set(
   RUNTIME_OBJS
-  object.cpp
   exception.cpp
 )
 

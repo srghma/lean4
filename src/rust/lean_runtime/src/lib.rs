@@ -59,10 +59,7 @@ extern "C" {
     fn initialize_alloc();
     #[link_name = "_ZN4lean14finalize_allocEv"]
     fn finalize_alloc();
-    #[link_name = "_ZN4lean17initialize_objectEv"]
-    fn initialize_object();
-    #[link_name = "_ZN4lean15finalize_objectEv"]
-    fn finalize_object();
+    // initialize_object / finalize_object now provided inline (no-op / lean_finalize_external_classes)
     #[link_name = "_ZN4lean13initialize_ioEv"]
     fn initialize_io();
     #[link_name = "_ZN4lean11finalize_ioEv"]
@@ -1603,7 +1600,7 @@ unsafe fn consume_io_result(result: *mut LeanObject) {
 unsafe fn initialize_runtime_module_body() {
     initialize_alloc();
     initialize_debug();
-    initialize_object();
+    // initialize_object was a no-op (object.cpp deleted)
     initialize_io();
     initialize_thread();
     initialize_mutex();
@@ -1618,7 +1615,7 @@ unsafe fn finalize_runtime_module_body() {
     finalize_mutex();
     finalize_thread();
     finalize_io();
-    finalize_object();
+    lean_finalize_external_classes(); // was finalize_object() in object.cpp
     finalize_debug();
     finalize_alloc();
 }
