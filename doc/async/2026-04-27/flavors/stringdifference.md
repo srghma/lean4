@@ -10,7 +10,7 @@ This document outlines the differences between the various string-like types in 
 | `String.Slice` | `Init.Data.String.Slice` | Byte-based | A view into a `String`. Optimized for searching and iteration. | High-performance parsing, tokenization. |
 | `String.Slice.Subslice` | `Init.Data.String.Subslice` | Byte-based | A region relative to another `Slice`. | Tracking nested regions within a token. |
 | `Substring.Raw` | `Init.Data.String.Substring` | Byte-based | A lightweight view into a `String` using `String.Pos.Raw`. | Internal Lean parser/compiler logic. |
-| `Substring` | `Init.Data.String.Substring` | Character | High-level UTF-8 aware view of a string. | General application logic needing slices. |
+| ~`Substring`~ | `Init.Data.String.Substring` | Character | High-level UTF-8 aware view of a string. | General application logic needing slices. |
 
 ---
 
