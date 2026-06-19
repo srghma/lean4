@@ -2,52 +2,30 @@
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 
-Full Rust port of src/library/instantiate_mvars.cpp.
-  lean_instantiate_level_mvars — level-MVar instantiation (fully in Rust)
-  lean_instantiate_expr_mvars  — delegates to C++ lean_cxx_instantiate_expr_mvars
-
-TIMEOUT ANALYSIS (2026-06-18):
-  When the full ExprMVarInstantiator was included below (all the visit_*,
-  apply_beta_rec/ExprScopeCache dead code), liblean_runtime.a grew by ~400 KB
-  (8.3 MB main object → same; the real cost was monomorphised HashMap/HashSet
-  instances and ExprScopeCache Vec logic compiled but never called by any
-  exported symbol).  With CTEST_PARALLEL_LEVEL=$(nproc) ≈ 20, every one of the
-  3800+ tests links against liblean_runtime.a.  Lake/frontend/LSP tests that
-  previously took 37-113 s individually started timing out at 240 s because the
-  extra I/O for loading the larger archive under 20-way parallel linking raised
-  per-test link time enough to push borderline tests over the limit.
-
-PROPOSAL TO FIX:
-  Once lean_instantiate_expr_mvars is fully ported to Rust (i.e. ExprMVarInstantiator
-  passes all tests), remove lean_cxx_instantiate_expr_mvars and the dead code
-  currently kept for reference below the LevelMVarInstantiator.  Until then,
-  keep the ExprMVarInstantiator code in a separate file or behind a Rust feature
-  flag so it is not compiled into liblean_runtime.a unconditionally.
+Rust implementation of src/library/instantiate_mvars.cpp entry points.
+  lean_instantiate_level_mvars — level-MVar instantiation
+  lean_instantiate_expr_mvars  — expr-MVar instantiation
 */
 
 #[cfg(feature = "export-runtime-ffi")]
 mod library_instantiate_mvars_impl {
     use super::*;
-    use std::collections::{HashMap, HashSet};
+    use super::runtime_object_name_impl::lean_name_eq;
+    use std::collections::HashMap;
 
     extern "C" {
         fn lean_get_lmvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject;
         fn lean_assign_lmvar(mctx: *mut LeanObject, mid: *mut LeanObject, val: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_cxx_instantiate_expr_mvars(mctx: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
-
         fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject;
         fn lean_get_delayed_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject;
         fn lean_delayed_mvar_assignment_fvars(d: *mut LeanObject) -> *mut LeanObject;
         fn lean_delayed_mvar_assignment_mvar_id_pending(d: *mut LeanObject) -> *mut LeanObject;
         fn lean_assign_mvar(mctx: *mut LeanObject, mid: *mut LeanObject, val: *mut LeanObject) -> *mut LeanObject;
 
-        fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
-
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
-
         fn lean_expr_lift_loose_bvars(
             e: *mut LeanObject,
             s: *mut LeanObject,
@@ -82,7 +60,6 @@ mod library_instantiate_mvars_impl {
             idx: *mut LeanObject,
             structure: *mut LeanObject,
         ) -> *mut LeanObject;
-
         fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     }
 
@@ -474,19 +451,29 @@ mod library_instantiate_mvars_impl {
         lean_ctor_get(e, 0)
     }
 
-    unsafe fn delayed_assignment_fvars_array(d: *mut LeanObject) -> *mut LeanObject {
-        lean_delayed_mvar_assignment_fvars(d)
+    unsafe fn get_delayed_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject {
+        lean_inc_ref(mctx);
+        lean_inc(mid);
+        lean_get_delayed_mvar_assignment(mctx, mid)
     }
 
-    unsafe fn delayed_assignment_mvar_id_pending(d: *mut LeanObject) -> *mut LeanObject {
-        lean_delayed_mvar_assignment_mvar_id_pending(d)
+    unsafe fn app_head(mut e: *mut LeanObject) -> *mut LeanObject {
+        while !lean_is_scalar(e) && lean_obj_tag(e) == EXPR_APP_TAG {
+            e = lean_ctor_get(e, 0);
+        }
+        e
     }
 
-    unsafe fn instantiate_with_slice(
-        e: *mut LeanObject,
-        n: usize,
-        base: *const *mut LeanObject,
-    ) -> *mut LeanObject {
+    unsafe fn app_num_args(mut e: *mut LeanObject) -> usize {
+        let mut n = 0;
+        while !lean_is_scalar(e) && lean_obj_tag(e) == EXPR_APP_TAG {
+            n += 1;
+            e = lean_ctor_get(e, 0);
+        }
+        n
+    }
+
+    unsafe fn instantiate_with_slice(e: *mut LeanObject, n: usize, base: *const *mut LeanObject) -> *mut LeanObject {
         if n == 0 {
             lean_inc(e);
             return e;
@@ -569,134 +556,418 @@ mod library_instantiate_mvars_impl {
         apply_beta_rec(f, 0, num_rev_args, rev_args, preserve_data, zeta)
     }
 
-    struct ScopeGenNode {
-        gen: u32,
-        tail: Option<usize>,
+    unsafe fn map_level_list(level_inst: &mut LevelMVarInstantiator, list: *mut LeanObject) -> *mut LeanObject {
+        let mut curr = list;
+        let mut levels = Vec::new();
+        let mut changed = false;
+        while !lean_is_scalar(curr) {
+            let head = lean_ctor_get(curr, 0);
+            let new_head = level_inst.visit(head);
+            changed |= new_head != head;
+            levels.push(new_head);
+            curr = lean_ctor_get(curr, 1);
+        }
+        if !changed {
+            for level in levels {
+                lean_dec(level);
+            }
+            lean_inc(list);
+            return list;
+        }
+        let mut result = lean_box(0);
+        for level in levels.into_iter().rev() {
+            let cons = lean_alloc_ctor(1, 2, 0);
+            lean_ctor_set(cons, 0, level);
+            lean_ctor_set(cons, 1, result);
+            result = cons;
+        }
+        result
+    }
+
+    unsafe fn name_vec_contains(names: &[*mut LeanObject], name: *mut LeanObject) -> bool {
+        names.iter().any(|&entry| lean_name_eq(entry, name) != 0)
+    }
+
+    unsafe fn name_vec_insert(names: &mut Vec<*mut LeanObject>, name: *mut LeanObject) {
+        if !name_vec_contains(names, name) {
+            lean_inc(name);
+            names.push(name);
+        }
+    }
+
+    unsafe fn name_state_find(states: &[( *mut LeanObject, u8 )], name: *mut LeanObject) -> Option<usize> {
+        states.iter().position(|(entry, _)| lean_name_eq(*entry, name) != 0)
+    }
+
+    unsafe fn name_state_get(states: &[( *mut LeanObject, u8 )], name: *mut LeanObject) -> Option<u8> {
+        name_state_find(states, name).map(|idx| states[idx].1)
+    }
+
+    unsafe fn name_state_set(states: &mut Vec<( *mut LeanObject, u8 )>, name: *mut LeanObject, state: u8) {
+        if let Some(idx) = name_state_find(states, name) {
+            states[idx].1 = state;
+        } else {
+            lean_inc(name);
+            states.push((name, state));
+        }
+    }
+
+    unsafe fn name_state_clear(states: &mut Vec<( *mut LeanObject, u8 )>) {
+        for (name, _) in states.drain(..) {
+            lean_dec(name);
+        }
+    }
+
+    struct InstantiateDirect {
+        level_inst: LevelMVarInstantiator,
+        cache: HashMap<*mut LeanObject, *mut LeanObject>,
+        saved_assignments: Vec<*mut LeanObject>,
+        already_normalized: Vec<*mut LeanObject>,
+        has_updateable_delayed: bool,
+    }
+
+    impl InstantiateDirect {
+        unsafe fn new(mctx: *mut LeanObject) -> Self {
+            Self {
+                level_inst: LevelMVarInstantiator::new(mctx),
+                cache: HashMap::new(),
+                saved_assignments: Vec::new(),
+                already_normalized: Vec::new(),
+                has_updateable_delayed: false,
+            }
+        }
+
+        unsafe fn cache_result(&mut self, original: *mut LeanObject, result: *mut LeanObject, shared: bool) -> *mut LeanObject {
+            if shared {
+                lean_inc(result);
+                self.cache.insert(original, result);
+            }
+            result
+        }
+
+        unsafe fn get_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
+            let mctx = self.level_inst.mctx;
+            lean_inc_ref(mctx);
+            lean_inc(mid);
+            let opt = lean_get_mvar_assignment(mctx, mid);
+            if lean_is_scalar(opt) {
+                None
+            } else {
+                let value = lean_ctor_get(opt, 0);
+                lean_inc(value);
+                lean_dec(opt);
+                if !expr_needs_instantiation(value) || name_vec_contains(&self.already_normalized, mid) {
+                    return Some(value);
+                }
+                name_vec_insert(&mut self.already_normalized, mid);
+                let value_new = self.visit(value);
+                if value_new != value {
+                    lean_inc(value);
+                    self.saved_assignments.push(value);
+                    self.assign(mid, value_new);
+                }
+                lean_dec(value);
+                Some(value_new)
+            }
+        }
+
+        unsafe fn assign(&mut self, mid: *mut LeanObject, value: *mut LeanObject) {
+            lean_inc(mid);
+            lean_inc(value);
+            let mctx = self.level_inst.mctx;
+            self.level_inst.mctx = lean_assign_mvar(mctx, mid, value);
+        }
+
+        unsafe fn reuse_or(
+            &mut self,
+            original: *mut LeanObject,
+            changed: bool,
+            new_fields: &[*mut LeanObject],
+            mk: impl FnOnce() -> *mut LeanObject,
+            shared: bool,
+        ) -> *mut LeanObject {
+            if changed {
+                self.cache_result(original, mk(), shared)
+            } else {
+                for &field in new_fields {
+                    lean_dec(field);
+                }
+                lean_inc(original);
+                self.cache_result(original, original, shared)
+            }
+        }
+
+        unsafe fn visit_nonmvar_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
+            let old_a = lean_ctor_get(e, 1);
+            let new_a = self.visit(old_a);
+            let old_f = lean_ctor_get(e, 0);
+            let new_f = if lean_obj_tag(old_f) == EXPR_APP_TAG {
+                self.visit_nonmvar_app(old_f)
+            } else {
+                self.visit(old_f)
+            };
+            if new_f == old_f && new_a == old_a {
+                lean_dec(new_f);
+                lean_dec(new_a);
+                lean_inc(e);
+                e
+            } else {
+                lean_expr_mk_app(new_f, new_a)
+            }
+        }
+
+        unsafe fn visit_app_beta(&mut self, f_new: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject {
+            let mut args = Vec::new();
+            let mut curr = e;
+            while lean_obj_tag(curr) == EXPR_APP_TAG {
+                args.push(self.visit(lean_ctor_get(curr, 1)));
+                curr = lean_ctor_get(curr, 0);
+            }
+            apply_beta(f_new, args.len(), args.as_ptr(), false, true)
+        }
+
+        unsafe fn visit_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
+            let f = app_head(e);
+            if lean_obj_tag(f) != EXPR_MVAR_TAG {
+                return self.visit_nonmvar_app(e);
+            }
+            let mid = mvar_name(f);
+            if let Some(f_new) = self.get_assignment(mid) {
+                return self.visit_app_beta(f_new, e);
+            }
+            let d_opt = get_delayed_assignment(self.level_inst.mctx, mid);
+            if !lean_is_scalar(d_opt) {
+                let d = lean_ctor_get(d_opt, 0);
+                lean_inc(d);
+                let pending = lean_delayed_mvar_assignment_mvar_id_pending(d);
+                if self.get_assignment(pending).is_some() {
+                    self.has_updateable_delayed = true;
+                }
+                lean_dec(pending);
+                lean_dec(d_opt);
+            }
+            self.visit_nonmvar_app(e)
+        }
+
+        unsafe fn visit_mvar(&mut self, e: *mut LeanObject) -> *mut LeanObject {
+            let mid = mvar_name(e);
+            if let Some(r) = self.get_assignment(mid) {
+                return r;
+            }
+            let d_opt = get_delayed_assignment(self.level_inst.mctx, mid);
+            if !lean_is_scalar(d_opt) {
+                let d = lean_ctor_get(d_opt, 0);
+                lean_inc(d);
+                let pending = lean_delayed_mvar_assignment_mvar_id_pending(d);
+                if self.get_assignment(pending).is_some() {
+                    self.has_updateable_delayed = true;
+                }
+                lean_dec(pending);
+                lean_dec(d_opt);
+            }
+            lean_inc(e);
+            e
+        }
+
+        unsafe fn visit(&mut self, e: *mut LeanObject) -> *mut LeanObject {
+            if !expr_needs_instantiation(e) {
+                lean_inc(e);
+                return e;
+            }
+            let shared = is_shared_object(e);
+            if shared {
+                if let Some(&cached) = self.cache.get(&e) {
+                    lean_inc(cached);
+                    return cached;
+                }
+            }
+            match lean_obj_tag(e) {
+                EXPR_SORT_TAG => {
+                    let old = lean_ctor_get(e, 0);
+                    let level = self.level_inst.visit(old);
+                    self.reuse_or(e, level != old, &[level], || lean_expr_mk_sort(level), shared)
+                }
+                EXPR_CONST_TAG => {
+                    let old_levels = lean_ctor_get(e, 1);
+                    let levels = map_level_list(&mut self.level_inst, old_levels);
+                    self.reuse_or(e, levels != old_levels, &[levels], || {
+                        let name = lean_ctor_get(e, 0);
+                        lean_inc(name);
+                        lean_expr_mk_const(name, levels)
+                    }, shared)
+                }
+                EXPR_MVAR_TAG => self.visit_mvar(e),
+                EXPR_MDATA_TAG => {
+                    let old = lean_ctor_get(e, 1);
+                    let expr = self.visit(old);
+                    self.reuse_or(e, expr != old, &[expr], || {
+                        let md = lean_ctor_get(e, 0);
+                        lean_inc(md);
+                        lean_expr_mk_mdata(md, expr)
+                    }, shared)
+                }
+                EXPR_PROJ_TAG => {
+                    let old = lean_ctor_get(e, 2);
+                    let expr = self.visit(old);
+                    self.reuse_or(e, expr != old, &[expr], || {
+                        let sname = lean_ctor_get(e, 0);
+                        let idx = lean_ctor_get(e, 1);
+                        lean_inc(sname);
+                        lean_inc(idx);
+                        lean_expr_mk_proj(sname, idx, expr)
+                    }, shared)
+                }
+                EXPR_APP_TAG => {
+                    let r = self.visit_app(e);
+                    self.cache_result(e, r, shared)
+                }
+                EXPR_LAMBDA_TAG | EXPR_PI_TAG => {
+                    let old_dom = lean_ctor_get(e, 1);
+                    let old_body = lean_ctor_get(e, 2);
+                    let dom = self.visit(old_dom);
+                    let body = self.visit(old_body);
+                    self.reuse_or(e, dom != old_dom || body != old_body, &[dom, body], || {
+                        let name = lean_ctor_get(e, 0);
+                        lean_inc(name);
+                        let bi = expr_binder_info_raw(e);
+                        if lean_obj_tag(e) == EXPR_LAMBDA_TAG {
+                            lean_expr_mk_lambda(name, dom, body, bi)
+                        } else {
+                            lean_expr_mk_forall(name, dom, body, bi)
+                        }
+                    }, shared)
+                }
+                EXPR_LET_TAG => {
+                    let old_typ = lean_ctor_get(e, 1);
+                    let old_val = lean_ctor_get(e, 2);
+                    let old_body = lean_ctor_get(e, 3);
+                    let typ = self.visit(old_typ);
+                    let val = self.visit(old_val);
+                    let body = self.visit(old_body);
+                    self.reuse_or(e, typ != old_typ || val != old_val || body != old_body, &[typ, val, body], || {
+                        let name = lean_ctor_get(e, 0);
+                        lean_inc(name);
+                        lean_expr_mk_let(name, typ, val, body, expr_let_nondep(e))
+                    }, shared)
+                }
+                _ => {
+                    lean_inc(e);
+                    e
+                }
+            }
+        }
+    }
+
+    impl Drop for InstantiateDirect {
+        fn drop(&mut self) {
+            unsafe {
+                for &v in self.cache.values() {
+                    lean_dec(v);
+                }
+                for v in self.saved_assignments.drain(..) {
+                    lean_dec(v);
+                }
+                for name in self.already_normalized.drain(..) {
+                    lean_dec(name);
+                }
+            }
+        }
+    }
+
+    struct FvarSubstEntry {
+        depth: u32,
+        scope: u32,
+        value: *mut LeanObject,
     }
 
     struct ScopeCacheEntry {
         result: *mut LeanObject,
         scope_level: u32,
-        scope_gen: usize,
+        scope_snapshot: Vec<u64>,
         result_scope: u32,
     }
 
     struct ExprScopeCache {
         cache: HashMap<(usize, u32), Vec<ScopeCacheEntry>>,
-        gens: Vec<ScopeGenNode>,
-        current_gen: usize,
-        gen_counter: u32,
+        gen_counter: u64,
         scope: u32,
+        scope_snapshot: Vec<u64>,
     }
 
     impl ExprScopeCache {
         fn new() -> Self {
-            Self {
-                cache: HashMap::new(),
-                gens: vec![ScopeGenNode { gen: 0, tail: None }],
-                current_gen: 0,
-                gen_counter: 0,
-                scope: 0,
-            }
+            Self { cache: HashMap::new(), gen_counter: 0, scope: 0, scope_snapshot: vec![0] }
         }
 
-        fn scope(&self) -> u32 {
-            self.scope
-        }
+        fn scope(&self) -> u32 { self.scope }
 
         fn push(&mut self) {
             self.scope += 1;
             self.gen_counter += 1;
-            self.gens.push(ScopeGenNode { gen: self.gen_counter, tail: Some(self.current_gen) });
-            self.current_gen = self.gens.len() - 1;
+            self.scope_snapshot.push(self.gen_counter);
         }
 
         fn pop(&mut self) {
             self.scope -= 1;
-            self.current_gen = self.gens[self.current_gen].tail.expect("cache scope underflow");
+            self.scope_snapshot.pop();
         }
 
-        fn node_at_level(
-            gens: &[ScopeGenNode],
-            mut node: usize,
-            current_scope: u32,
-            level: u32,
-        ) -> usize {
-            let mut current_level = current_scope;
-            while current_level > level {
-                node = gens[node].tail.expect("cache scope rewind underflow");
-                current_level -= 1;
-            }
-            node
-        }
-
-        fn rewind(
-            stack: &mut Vec<ScopeCacheEntry>,
-            current_scope: u32,
-            current_gen: usize,
-            gens: &[ScopeGenNode],
-        ) {
+        unsafe fn rewind_stack(scope: u32, scope_snapshot: &[u64], stack: &mut Vec<ScopeCacheEntry>) {
             while let Some(top) = stack.last_mut() {
-                if top.result_scope > current_scope {
-                    stack.pop();
+                if top.result_scope > scope {
+                    let old = stack.pop().unwrap();
+                    lean_dec(old.result);
                     continue;
                 }
-                while top.scope_level > current_scope {
-                    top.scope_gen = gens[top.scope_gen].tail.expect("cache rewind underflow");
+
+                while top.scope_level > scope {
                     top.scope_level -= 1;
+                    top.scope_snapshot.pop();
                 }
-                let mut current = Self::node_at_level(gens, current_gen, current_scope, top.scope_level);
-                if gens[top.scope_gen].gen == gens[current].gen {
+
+                if top.scope_snapshot[top.scope_level as usize] == scope_snapshot[top.scope_level as usize] {
                     return;
                 }
-                let mut entry = top.scope_gen;
+
                 let mut level = top.scope_level;
                 while level > top.result_scope {
-                    entry = gens[entry].tail.expect("cache rewind tail underflow");
-                    current = gens[current].tail.expect("cache rewind tail underflow");
                     level -= 1;
-                    if gens[entry].gen == gens[current].gen {
+                    if top.scope_snapshot[level as usize] == scope_snapshot[level as usize] {
                         top.scope_level = level;
-                        top.scope_gen = entry;
+                        top.scope_snapshot.truncate(level as usize + 1);
                         return;
                     }
                 }
-                stack.pop();
+
+                let old = stack.pop().unwrap();
+                lean_dec(old.result);
             }
         }
 
         fn lookup(&mut self, key: (usize, u32), result_scope: &mut u32) -> Option<*mut LeanObject> {
             let stack = self.cache.get_mut(&key)?;
-            Self::rewind(stack, self.scope, self.current_gen, &self.gens);
-            let top = stack.last()?;
-            if top.scope_level != self.scope {
-                return None;
-            }
-            *result_scope = (*result_scope).max(top.result_scope);
             unsafe {
+                Self::rewind_stack(self.scope, &self.scope_snapshot, stack);
+                let top = stack.last()?;
+                if top.scope_level != self.scope {
+                    return None;
+                }
+                *result_scope = (*result_scope).max(top.result_scope);
                 lean_inc(top.result);
+                Some(top.result)
             }
-            Some(top.result)
         }
 
-        unsafe fn insert(
-            &mut self,
-            key: (usize, u32),
-            result: *mut LeanObject,
-            result_scope: u32,
-        ) -> *mut LeanObject {
+        unsafe fn insert(&mut self, key: (usize, u32), result: *mut LeanObject, result_scope: u32) -> *mut LeanObject {
             let stack = self.cache.entry(key).or_default();
-            Self::rewind(stack, self.scope, self.current_gen, &self.gens);
-            let mut shared = result;
-            let mut reused = false;
+            Self::rewind_stack(self.scope, &self.scope_snapshot, stack);
+            let mut stored = result;
             if let Some(top) = stack.last() {
                 if top.result_scope == result_scope {
-                    shared = top.result;
-                    reused = true;
+                    stored = top.result;
+                    lean_inc(stored);
+                    lean_dec(result);
                 }
-            }
-            if reused && shared != result {
-                lean_inc(shared);
             }
             while let Some(top) = stack.last() {
                 if top.scope_level < result_scope {
@@ -705,50 +976,53 @@ mod library_instantiate_mvars_impl {
                 let old = stack.pop().unwrap();
                 lean_dec(old.result);
             }
-            if reused {
-                if shared != result {
-                    lean_dec(result);
-                }
-                lean_inc(shared);
-            } else {
-                lean_inc(shared);
-            }
+            lean_inc(stored);
             stack.push(ScopeCacheEntry {
-                result: shared,
+                result: stored,
                 scope_level: self.scope,
-                scope_gen: self.current_gen,
+                scope_snapshot: self.scope_snapshot.clone(),
                 result_scope,
             });
-            shared
+            stored
         }
     }
 
-    struct ExprMVarInstantiator {
-        level_inst: LevelMVarInstantiator,
-        mctx: *mut LeanObject,
-        cache: ExprScopeCache,
-        fvar_subst: HashMap<*mut LeanObject, (u32, *mut LeanObject)>,
-        already_normalized: HashSet<*mut LeanObject>,
-        saved_assignments: Vec<*mut LeanObject>,
-        resolvable_expr_cache: HashMap<usize, bool>,
-        resolvable_pending_cache: HashMap<*mut LeanObject, u8>,
-        depth: u32,
-        result_scope: u32,
+    impl Drop for ExprScopeCache {
+        fn drop(&mut self) {
+            unsafe {
+                for stack in self.cache.values_mut() {
+                    for entry in stack.drain(..) {
+                        lean_dec(entry.result);
+                    }
+                }
+            }
+        }
     }
 
-    impl ExprMVarInstantiator {
+    struct InstantiateDelayed {
+        mctx: *mut LeanObject,
+        fvar_subst: Vec<(*mut LeanObject, FvarSubstEntry)>,
+        depth: u32,
+        cache: ExprScopeCache,
+        result_scope: u32,
+        already_normalized: Vec<*mut LeanObject>,
+        saved_assignments: Vec<*mut LeanObject>,
+        resolvable_expr_cache: HashMap<usize, bool>,
+        resolvable_pending_cache: Vec<(*mut LeanObject, u8)>,
+    }
+
+    impl InstantiateDelayed {
         unsafe fn new(mctx: *mut LeanObject) -> Self {
             Self {
-                level_inst: LevelMVarInstantiator::new(mctx),
                 mctx,
+                fvar_subst: Vec::new(),
+                depth: 0,
                 cache: ExprScopeCache::new(),
-                fvar_subst: HashMap::new(),
-                already_normalized: HashSet::new(),
+                result_scope: 0,
+                already_normalized: Vec::new(),
                 saved_assignments: Vec::new(),
                 resolvable_expr_cache: HashMap::new(),
-                resolvable_pending_cache: HashMap::new(),
-                depth: 0,
-                result_scope: 0,
+                resolvable_pending_cache: Vec::new(),
             }
         }
 
@@ -756,43 +1030,13 @@ mod library_instantiate_mvars_impl {
             self.fvar_subst.is_empty()
         }
 
-        unsafe fn lookup_fvar(&mut self, fid: *mut LeanObject) -> Option<*mut LeanObject> {
-            if let Some(&(depth, value)) = self.fvar_subst.get(&fid) {
-                let d = self.depth.checked_sub(depth)?;
-                if d == 0 {
-                    lean_inc(value);
-                    Some(value)
-                } else {
-                    Some(lean_expr_lift_loose_bvars(value, lean_box(0), lean_box(d as usize)))
-                }
-            } else {
-                None
-            }
+        unsafe fn find_fvar_subst(&self, fid: *mut LeanObject) -> Option<usize> {
+            self.fvar_subst
+                .iter()
+                .position(|(key, _)| lean_name_eq(*key, fid) != 0)
         }
 
-        unsafe fn get_lmvar_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
-            lean_inc_ref(self.mctx);
-            lean_inc(mid);
-            let opt = lean_get_lmvar_assignment(self.mctx, mid);
-            if lean_is_scalar(opt) {
-                None
-            } else {
-                let value = lean_ctor_get(opt, 0);
-                lean_inc(value);
-                lean_dec(opt);
-                Some(value)
-            }
-        }
-
-        unsafe fn assign_lmvar(&mut self, mid: *mut LeanObject, value: *mut LeanObject) {
-            lean_inc(mid);
-            lean_inc(value);
-            self.mctx = lean_assign_lmvar(self.mctx, mid, value);
-            self.resolvable_expr_cache.clear();
-            self.resolvable_pending_cache.clear();
-        }
-
-        unsafe fn get_mvar_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn get_mvar_assignment_raw(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
             lean_inc_ref(self.mctx);
             lean_inc(mid);
             let opt = lean_get_mvar_assignment(self.mctx, mid);
@@ -806,47 +1050,47 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn assign_mvar(&mut self, mid: *mut LeanObject, value: *mut LeanObject) {
+        unsafe fn assign(&mut self, mid: *mut LeanObject, value: *mut LeanObject) {
             lean_inc(mid);
             lean_inc(value);
             self.mctx = lean_assign_mvar(self.mctx, mid, value);
             self.resolvable_expr_cache.clear();
-            self.resolvable_pending_cache.clear();
+            name_state_clear(&mut self.resolvable_pending_cache);
         }
 
         unsafe fn get_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
-            let opt = self.get_mvar_assignment(mid)?;
+            let value = self.get_mvar_assignment_raw(mid)?;
             if self.in_outer_mode() {
-                if self.already_normalized.contains(&mid) {
-                    return Some(opt);
+                if name_vec_contains(&self.already_normalized, mid) {
+                    return Some(value);
                 }
-                self.already_normalized.insert(mid);
-                let a_new = self.visit(opt);
-                if a_new != opt {
-                    lean_inc(opt);
-                    self.saved_assignments.push(opt);
-                    self.assign_mvar(mid, a_new);
+                name_vec_insert(&mut self.already_normalized, mid);
+                let value_new = self.visit(value);
+                if value_new != value {
+                    lean_inc(value);
+                    self.saved_assignments.push(value);
+                    self.assign(mid, value_new);
                 }
-                lean_dec(opt);
-                Some(a_new)
+                lean_dec(value);
+                Some(value_new)
             } else {
-                let a_new = self.visit(opt);
-                lean_dec(opt);
-                Some(a_new)
+                let value_new = self.visit(value);
+                lean_dec(value);
+                Some(value_new)
             }
         }
 
         unsafe fn is_resolvable_pending(&mut self, pending: *mut LeanObject) -> bool {
-            if let Some(&state) = self.resolvable_pending_cache.get(&pending) {
+            if let Some(state) = name_state_get(&self.resolvable_pending_cache, pending) {
                 return state == 1;
             }
-            self.resolvable_pending_cache.insert(pending, 0);
-            let Some(a) = self.get_mvar_assignment(pending) else {
-                self.resolvable_pending_cache.insert(pending, 2);
+            name_state_set(&mut self.resolvable_pending_cache, pending, 0);
+            let Some(a) = self.get_mvar_assignment_raw(pending) else {
+                name_state_set(&mut self.resolvable_pending_cache, pending, 2);
                 return false;
             };
             let ok = self.is_resolvable_expr(a);
-            self.resolvable_pending_cache.insert(pending, if ok { 1 } else { 2 });
+            name_state_set(&mut self.resolvable_pending_cache, pending, if ok { 1 } else { 2 });
             lean_dec(a);
             ok
         }
@@ -856,11 +1100,15 @@ mod library_instantiate_mvars_impl {
                 return true;
             }
             let key = e as usize;
-            if let Some(&cached) = self.resolvable_expr_cache.get(&key) {
-                return cached;
+            if is_shared_object(e) {
+                if let Some(&cached) = self.resolvable_expr_cache.get(&key) {
+                    return cached;
+                }
             }
             let r = self.is_resolvable_expr_core(e);
-            self.resolvable_expr_cache.insert(key, r);
+            if is_shared_object(e) {
+                self.resolvable_expr_cache.insert(key, r);
+            }
             r
         }
 
@@ -868,31 +1116,41 @@ mod library_instantiate_mvars_impl {
             match lean_obj_tag(e) {
                 EXPR_MVAR_TAG => false,
                 EXPR_APP_TAG => {
-                    let f = lean_ctor_get(e, 0);
+                    let f = app_head(e);
                     if lean_obj_tag(f) == EXPR_MVAR_TAG {
-                        let d = lean_get_delayed_mvar_assignment(self.mctx, lean_ctor_get(f, 0));
-                        if lean_is_scalar(d) {
+                        let d_opt = get_delayed_assignment(self.mctx, mvar_name(f));
+                        if lean_is_scalar(d_opt) {
                             return false;
                         }
-                        let fvars = delayed_assignment_fvars_array(d);
-                        if lean_array_size(fvars) > self.app_num_args(e) {
-                            lean_dec(d);
+                        let d = lean_ctor_get(d_opt, 0);
+                        lean_inc(d);
+                        let fvars = lean_delayed_mvar_assignment_fvars(d);
+                        if lean_array_size(fvars) > app_num_args(e) {
+                            lean_dec(fvars);
+                            lean_dec(d_opt);
                             return false;
                         }
-                        let pending = delayed_assignment_mvar_id_pending(d);
-                        if !self.is_resolvable_pending(pending) {
-                            lean_dec(d);
+                        let d = lean_ctor_get(d_opt, 0);
+                        lean_inc(d);
+                        let pending = lean_delayed_mvar_assignment_mvar_id_pending(d);
+                        let ok_pending = self.is_resolvable_pending(pending);
+                        lean_dec(pending);
+                        if !ok_pending {
+                            lean_dec(fvars);
+                            lean_dec(d_opt);
                             return false;
                         }
                         let mut curr = e;
                         while lean_obj_tag(curr) == EXPR_APP_TAG {
                             if !self.is_resolvable_expr(lean_ctor_get(curr, 1)) {
-                                lean_dec(d);
+                                lean_dec(fvars);
+                                lean_dec(d_opt);
                                 return false;
                             }
                             curr = lean_ctor_get(curr, 0);
                         }
-                        lean_dec(d);
+                        lean_dec(fvars);
+                        lean_dec(d_opt);
                         true
                     } else {
                         self.is_resolvable_expr(lean_ctor_get(e, 0)) && self.is_resolvable_expr(lean_ctor_get(e, 1))
@@ -912,106 +1170,83 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn app_num_args(&self, e: *mut LeanObject) -> usize {
+        unsafe fn lookup_fvar(&mut self, fid: *mut LeanObject) -> Option<*mut LeanObject> {
+            if let Some(pos) = self.find_fvar_subst(fid) {
+                let entry = &self.fvar_subst[pos].1;
+                self.result_scope = self.result_scope.max(entry.scope);
+                let delta = self.depth - entry.depth;
+                if delta == 0 {
+                    lean_inc(entry.value);
+                    Some(entry.value)
+                } else {
+                    Some(lean_expr_lift_loose_bvars(entry.value, lean_box(0), lean_box(delta as usize)))
+                }
+            } else {
+                None
+            }
+        }
+
+        unsafe fn visit_delayed(&mut self, fvars: *mut LeanObject, mid_pending: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject {
+            let mut args = Vec::new();
             let mut curr = e;
-            let mut n = 0;
             while lean_obj_tag(curr) == EXPR_APP_TAG {
-                n += 1;
+                args.push(self.visit(lean_ctor_get(curr, 1)));
                 curr = lean_ctor_get(curr, 0);
             }
-            n
-        }
+            let fvar_count = lean_array_size(fvars);
+            let extra_count = args.len() - fvar_count;
 
-        unsafe fn map_level_list(&mut self, list: *mut LeanObject) -> *mut LeanObject {
-            let mut curr = list;
-            let mut levels = Vec::new();
-            let mut changed = false;
-            while !lean_is_scalar(curr) {
-                let head = lean_ctor_get(curr, 0);
-                let new_head = self.visit_level(head);
-                changed |= new_head != head;
-                levels.push(new_head);
-                curr = lean_ctor_get(curr, 1);
+            self.cache.push();
+            let mut saved_entries: Vec<(*mut LeanObject, Option<(*mut LeanObject, FvarSubstEntry)>)> = Vec::with_capacity(fvar_count);
+            for i in 0..fvar_count {
+                let fid = fvar_name(lean_array_get(fvars, i));
+                let arg = args[args.len() - 1 - i];
+                lean_inc(arg);
+                let old = if let Some(pos) = self.find_fvar_subst(fid) {
+                    Some(self.fvar_subst.remove(pos))
+                } else {
+                    None
+                };
+                lean_inc(fid);
+                self.fvar_subst.push((fid, FvarSubstEntry {
+                    depth: self.depth,
+                    scope: self.cache.scope(),
+                    value: arg,
+                }));
+                saved_entries.push((fid, old));
             }
-            if !changed {
-                for level in levels {
-                    lean_dec(level);
-                }
-                lean_inc(list);
-                return list;
-            }
-            let mut result = lean_box(0);
-            for level in levels.into_iter().rev() {
-                let cons = lean_alloc_ctor(1, 2, 0);
-                lean_ctor_set(cons, 0, level);
-                lean_ctor_set(cons, 1, result);
-                result = cons;
-            }
-            result
-        }
 
-        unsafe fn visit_level(&mut self, l: *mut LeanObject) -> *mut LeanObject {
-            if !has_level_mvar(l) {
-                lean_inc(l);
-                return l;
-            }
-            let shared = is_shared_object(l);
-            if shared {
-                if let Some(cached) = self.level_inst.cache.get(&l) {
-                    lean_inc(*cached);
-                    return *cached;
+            let pending_val = self.get_mvar_assignment_raw(mid_pending).expect("delayed pending mvar must be assigned");
+            let val_new = self.visit(pending_val);
+            lean_dec(pending_val);
+
+            self.cache.pop();
+            self.result_scope = self.result_scope.min(self.cache.scope());
+
+            for (fid, old) in saved_entries {
+                if let Some(pos) = self.find_fvar_subst(fid) {
+                    let (key, current) = self.fvar_subst.remove(pos);
+                    lean_dec(key);
+                    lean_dec(current.value);
+                }
+                if let Some(v) = old {
+                    self.fvar_subst.push(v);
                 }
             }
-            match lean_obj_tag(l) {
-                LEVEL_SUCC_TAG => {
-                    let child = self.visit_level(lean_ctor_get(l, 0));
-                    self.level_inst.rebuild_unary(l, child, lean_level_mk_succ, shared)
-                }
-                LEVEL_MAX_TAG => {
-                    let lhs = self.visit_level(lean_ctor_get(l, 0));
-                    let rhs = self.visit_level(lean_ctor_get(l, 1));
-                    self.level_inst.rebuild_binary(l, lhs, rhs, mk_max_simplified, shared)
-                }
-                LEVEL_IMAX_TAG => {
-                    let lhs = self.visit_level(lean_ctor_get(l, 0));
-                    let rhs = self.visit_level(lean_ctor_get(l, 1));
-                    self.level_inst.rebuild_binary(l, lhs, rhs, mk_imax_simplified, shared)
-                }
-                5 => {
-                    let mid = lean_ctor_get(l, 0);
-                    let Some(assignment) = self.get_lmvar_assignment(mid) else {
-                        lean_inc(l);
-                        return l;
-                    };
-                    if !has_level_mvar(assignment) {
-                        assignment
-                    } else {
-                        let assignment_new = self.visit_level(assignment);
-                        if lean_level_eq(assignment, assignment_new) == 0 {
-                            lean_inc(assignment);
-                            self.saved_assignments.push(assignment);
-                            self.assign_lmvar(mid, assignment_new);
-                        }
-                        lean_dec(assignment);
-                        assignment_new
-                    }
-                }
-                _ => {
-                    lean_inc(l);
-                    l
-                }
-            }
+
+            apply_beta(val_new, extra_count, args.as_ptr(), false, true)
         }
 
         unsafe fn visit_nonmvar_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
-            let new_a = self.visit(lean_ctor_get(e, 1));
-            let fn_e = lean_ctor_get(e, 0);
-            let new_f = if lean_obj_tag(fn_e) == EXPR_APP_TAG {
-                self.visit_nonmvar_app(fn_e)
+            let old_a = lean_ctor_get(e, 1);
+            let new_a = self.visit(old_a);
+            let old_f = lean_ctor_get(e, 0);
+            let new_f = if lean_obj_tag(old_f) == EXPR_APP_TAG {
+                self.visit_nonmvar_app(old_f)
             } else {
-                self.visit(fn_e)
+                self.visit(old_f)
             };
-            if new_f == fn_e && new_a == lean_ctor_get(e, 1) {
+            if new_f == old_f && new_a == old_a {
                 lean_dec(new_f);
                 lean_dec(new_a);
                 lean_inc(e);
@@ -1021,45 +1256,34 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn visit_app_beta(&mut self, f_new: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject {
-            let mut args: Vec<*mut LeanObject> = Vec::new();
-            let mut curr = e;
-            while lean_obj_tag(curr) == EXPR_APP_TAG {
-                args.push(self.visit(lean_ctor_get(curr, 1)));
-                curr = lean_ctor_get(curr, 0);
-            }
-            apply_beta(f_new, args.len(), args.as_ptr(), false, true)
-        }
-
         unsafe fn visit_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
-            let f = lean_ctor_get(e, 0);
+            let f = app_head(e);
             if lean_obj_tag(f) != EXPR_MVAR_TAG {
                 return self.visit_nonmvar_app(e);
             }
             let mid = mvar_name(f);
-            if let Some(f_new) = self.get_assignment(mid) {
-                return self.visit_app_beta(f_new, e);
+            let d_opt = get_delayed_assignment(self.mctx, mid);
+            if lean_is_scalar(d_opt) {
+                return self.visit_nonmvar_app(e);
             }
-            let d = lean_get_delayed_mvar_assignment(self.mctx, mid);
-            if !lean_is_scalar(d) {
-                let fvars = delayed_assignment_fvars_array(d);
-                if lean_array_size(fvars) > self.app_num_args(e) {
-                    lean_dec(d);
-                    return self.visit_nonmvar_app(e);
-                }
-                let pending = delayed_assignment_mvar_id_pending(d);
-                if self.is_resolvable_pending(pending) {
-                    let r = self.visit_delayed(fvars, pending, e);
-                    lean_dec(d);
-                    return r;
-                } else {
-                    debug_assert!(self.in_outer_mode());
-                    let _ = self.get_assignment(pending);
-                    lean_dec(d);
-                    return self.visit_nonmvar_app(e);
-                }
-            }
-            self.visit_nonmvar_app(e)
+            let d = lean_ctor_get(d_opt, 0);
+            lean_inc(d);
+            let fvars = lean_delayed_mvar_assignment_fvars(d);
+            let d = lean_ctor_get(d_opt, 0);
+            lean_inc(d);
+            let pending = lean_delayed_mvar_assignment_mvar_id_pending(d);
+            let r = if lean_array_size(fvars) > app_num_args(e) {
+                self.visit_nonmvar_app(e)
+            } else if self.is_resolvable_pending(pending) {
+                self.visit_delayed(fvars, pending, e)
+            } else {
+                let _ = self.get_assignment(pending);
+                self.visit_nonmvar_app(e)
+            };
+            lean_dec(pending);
+            lean_dec(fvars);
+            lean_dec(d_opt);
+            r
         }
 
         unsafe fn visit_fvar(&mut self, e: *mut LeanObject) -> *mut LeanObject {
@@ -1071,102 +1295,44 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn visit_delayed(
-            &mut self,
-            fvars: *mut LeanObject,
-            mid_pending: *mut LeanObject,
-            e: *mut LeanObject,
-        ) -> *mut LeanObject {
-            let mut args: Vec<*mut LeanObject> = Vec::new();
-            let mut curr = e;
-            while lean_obj_tag(curr) == EXPR_APP_TAG {
-                args.push(self.visit(lean_ctor_get(curr, 1)));
-                curr = lean_ctor_get(curr, 0);
-            }
-            let fvar_count = lean_array_size(fvars);
-            let Some(extra_count) = args.len().checked_sub(fvar_count) else {
-                for arg in args {
-                    lean_dec(arg);
-                }
-                return self.visit_nonmvar_app(e);
-            };
-            let args_ptr = args.as_ptr();
-
-            self.cache.push();
-            let saved_scope = self.result_scope;
-            self.result_scope = 0;
-
-            let mut saved_entries: Vec<(*mut LeanObject, Option<(u32, *mut LeanObject)>)> = Vec::with_capacity(fvar_count);
-            for i in 0..fvar_count {
-                let fid = fvar_name(lean_array_get(fvars, i));
-                let arg = args[args.len() - 1 - i];
-                lean_inc(arg);
-                let old = self.fvar_subst.insert(fid, (self.depth, arg));
-                saved_entries.push((fid, old));
-            }
-
-            let pending_val = self.get_mvar_assignment(mid_pending).expect("delayed assignment must be assigned");
-            let val_new = self.visit(pending_val);
-            lean_dec(pending_val);
-
-            self.cache.pop();
-            self.result_scope = self.result_scope.max(saved_scope);
-            self.result_scope = self.result_scope.min(self.cache.scope());
-
-            for (fid, old) in saved_entries {
-                if let Some((_, current)) = self.fvar_subst.remove(&fid) {
-                    lean_dec(current);
-                }
-                if let Some(v) = old {
-                    self.fvar_subst.insert(fid, v);
-                }
-            }
-
-            let result = apply_beta(val_new, extra_count, args_ptr, false, true);
-            for arg in args {
-                lean_dec(arg);
-            }
-            result
-        }
-
         unsafe fn visit(&mut self, e: *mut LeanObject) -> *mut LeanObject {
-            if (!has_fvar(e) || self.in_outer_mode()) && !expr_needs_instantiation(e) {
+            if (!has_fvar(e) || self.in_outer_mode()) && !has_expr_mvar(e) {
                 lean_inc(e);
                 return e;
             }
-
             let shared = is_shared_object(e);
+            let key = (e as usize, self.depth);
             if shared {
-                if let Some(cached) = self.cache.lookup((e as usize, self.depth), &mut self.result_scope) {
+                if let Some(cached) = self.cache.lookup(key, &mut self.result_scope) {
                     return cached;
                 }
             }
-
             let saved_result_scope = self.result_scope;
             self.result_scope = 0;
-
+            let mut skip_cache = false;
             let r = match lean_obj_tag(e) {
-                EXPR_FVAR_TAG => self.visit_fvar(e),
+                EXPR_FVAR_TAG => {
+                    skip_cache = true;
+                    self.visit_fvar(e)
+                }
                 EXPR_MVAR_TAG => {
-                    let mid = mvar_name(e);
-                    if let Some(r) = self.get_assignment(mid) {
-                        r
-                    } else {
-                        lean_inc(e);
-                        e
-                    }
+                    skip_cache = true;
+                    lean_inc(e);
+                    e
                 }
-                EXPR_SORT_TAG => {
-                    let old = lean_ctor_get(e, 0);
-                    let level = self.visit_level(old);
-                    lean_expr_mk_sort(level)
+                EXPR_MDATA_TAG => {
+                    let md = lean_ctor_get(e, 0);
+                    let expr = self.visit(lean_ctor_get(e, 1));
+                    lean_inc(md);
+                    lean_expr_mk_mdata(md, expr)
                 }
-                EXPR_CONST_TAG => {
-                    let old_levels = lean_ctor_get(e, 1);
-                    let levels = self.map_level_list(old_levels);
-                    let name = lean_ctor_get(e, 0);
-                    lean_inc(name);
-                    lean_expr_mk_const(name, levels)
+                EXPR_PROJ_TAG => {
+                    let sname = lean_ctor_get(e, 0);
+                    let idx = lean_ctor_get(e, 1);
+                    let expr = self.visit(lean_ctor_get(e, 2));
+                    lean_inc(sname);
+                    lean_inc(idx);
+                    lean_expr_mk_proj(sname, idx, expr)
                 }
                 EXPR_APP_TAG => self.visit_app(e),
                 EXPR_LAMBDA_TAG | EXPR_PI_TAG => {
@@ -1185,55 +1351,43 @@ mod library_instantiate_mvars_impl {
                 }
                 EXPR_LET_TAG => {
                     let typ = self.visit(lean_ctor_get(e, 1));
-                    let value = self.visit(lean_ctor_get(e, 2));
+                    let val = self.visit(lean_ctor_get(e, 2));
                     self.depth += 1;
                     let body = self.visit(lean_ctor_get(e, 3));
                     self.depth -= 1;
                     let name = lean_ctor_get(e, 0);
                     lean_inc(name);
-                    let nondep = expr_let_nondep(e);
-                    lean_expr_mk_let(name, typ, value, body, nondep)
-                }
-                EXPR_MDATA_TAG => {
-                    let md = lean_ctor_get(e, 0);
-                    let expr = self.visit(lean_ctor_get(e, 1));
-                    lean_inc(md);
-                    lean_expr_mk_mdata(md, expr)
-                }
-                EXPR_PROJ_TAG => {
-                    let sname = lean_ctor_get(e, 0);
-                    let idx = lean_ctor_get(e, 1);
-                    let expr = self.visit(lean_ctor_get(e, 2));
-                    lean_inc(sname);
-                    lean_inc(idx);
-                    lean_expr_mk_proj(sname, idx, expr)
+                    lean_expr_mk_let(name, typ, val, body, expr_let_nondep(e))
                 }
                 _ => {
                     lean_inc(e);
                     e
                 }
             };
-
-            if shared {
-                let r = self.cache.insert((e as usize, self.depth), r, self.result_scope);
-                self.result_scope = self.result_scope.max(saved_result_scope);
-                r
+            let r = if shared && !skip_cache {
+                self.cache.insert(key, r, self.result_scope)
             } else {
-                self.result_scope = self.result_scope.max(saved_result_scope);
                 r
-            }
+            };
+            self.result_scope = self.result_scope.max(saved_result_scope);
+            r
         }
     }
 
-    impl Drop for ExprMVarInstantiator {
+    impl Drop for InstantiateDelayed {
         fn drop(&mut self) {
             unsafe {
                 for v in self.saved_assignments.drain(..) {
                     lean_dec(v);
                 }
-                for (_, (_, v)) in self.fvar_subst.drain() {
-                    lean_dec(v);
+                for name in self.already_normalized.drain(..) {
+                    lean_dec(name);
                 }
+                for (key, v) in self.fvar_subst.drain(..) {
+                    lean_dec(key);
+                    lean_dec(v.value);
+                }
+                name_state_clear(&mut self.resolvable_pending_cache);
             }
         }
     }
@@ -1244,6 +1398,21 @@ mod library_instantiate_mvars_impl {
         mctx: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_cxx_instantiate_expr_mvars(mctx, e)
+        let mut pass1 = InstantiateDirect::new(mctx);
+        let e1 = pass1.visit(e);
+        let mctx1 = pass1.level_inst.mctx;
+        pass1.level_inst.mctx = core::ptr::null_mut();
+        let (mctx2, expr) = if pass1.has_updateable_delayed {
+            let mut pass2 = InstantiateDelayed::new(mctx1);
+            let e2 = pass2.visit(e1);
+            lean_dec(e1);
+            let mctx2 = pass2.mctx;
+            pass2.mctx = core::ptr::null_mut();
+            (mctx2, e2)
+        } else {
+            (mctx1, e1)
+        };
+        lean_dec(e);
+        mk_pair(mctx2, expr)
     }
 }

@@ -19,7 +19,7 @@ axiom customGoalHolds : CustomGoal
 
 -- Create a tactic that consumes heartbeats through meta operations
 elab "expensive_meta_tactic" : tactic => do
-  for _ in [:10000] do
+  for _ in [:40000] do
     let mvar ← mkFreshExprMVar (some (mkConst ``Nat))
     let _ ← instantiateMVars mvar
   evalTactic (← `(tactic| exact customGoalHolds))
