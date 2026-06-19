@@ -9,7 +9,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 compile_error!("runtime_object_nat_int.rs requires lean_use_gmp cfg flag");
 
 #[cfg(lean_use_gmp)]
-mod runtime_object_nat_int_impl {
+pub(crate) mod runtime_object_nat_int_impl {
     use super::*;
     use core::ffi::{c_char, c_int, c_long, c_ulong};
 

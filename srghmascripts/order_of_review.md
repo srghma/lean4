@@ -14,7 +14,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/runtime/init_module (`src/runtime/init_module.h` and `src/runtime/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
     - [x] src/runtime/mpn (`src/runtime/mpn.h` and `src/runtime/mpn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpn.rs`; C++ source removed
       - [x] src/runtime/mpz (`src/runtime/mpz.h` and `src/runtime/mpz.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_mpz.rs`; unused C++ source removed, `mpz_helpers.cpp` remains for string/ostream ABI
-        - [x] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — all lean_* functions ported; dead `lean_dealloc` + `g_array_empty` in `#ifdef LEAN_RUST_OBJECT_RC` block removed
+        - [x] src/runtime/object (`src/runtime/object.h` and `src/runtime/object.cpp`) — FULLY DELETED; string/mpz helpers made inline in object.h; finalize_object replaced by direct lean_finalize_external_classes() call in Rust
           - [x] src/runtime/object_ref (`src/runtime/object_ref.h` and `src/runtime/object_ref.cpp`)
             - [x] src/runtime/option_ref (`src/runtime/option_ref.h`) — header-only, kept as-is
             - [x] src/runtime/pair_ref (`src/runtime/pair_ref.h`) — header-only, kept as-is
@@ -74,7 +74,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/shell/lean_js (`src/shell/lean_js.cpp`)
 - [x] src/util/alloc (`src/util/alloc.h`) — header-only, kept as-is
   - [x] src/library/scope_cache (`src/library/scope_cache.h`) — header-only, kept as-is
-- [x] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_compact.rs`; C++ exports renamed to `lean_cxx_compacted_region_*` shims
+- [x] src/runtime/compact (`src/runtime/compact.h` and `src/runtime/compact.cpp`) — FULLY DELETED; ObjectCompactor + lean_compacted_region_save ported to `src/rust/lean_runtime/src/runtime_compact_writer.rs`; reader was already in `runtime_compact.rs`
 - [x] src/library/util (`src/library/util.h` and `src/library/util.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_util.rs`; C++ source/header removed, bool constants and short version string now exported directly from Rust
 - [x] src/util/ascii (`src/util/ascii.h` and `src/util/ascii.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ source removed
 - [x] src/util/escaped (`src/util/escaped.h` and `src/util/escaped.cpp`) — header-only helper remains for C++ ostream users; C++ source already removed
@@ -101,7 +101,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
             - [x] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)
               - [x] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_ir_interpreter.rs`; C++ exports renamed to `lean_cxx_*` shims
             - [x] src/library/ir_types (`src/library/ir_types.h`) — header-only, kept as-is
-            - [x] src/library/module (`src/library/module.h` and `src/library/module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_module.rs`; C++ exports renamed to `lean_cxx_compacted_region_*` shims
+            - [x] src/library/module (`src/library/module.h` and `src/library/module.cpp`) — FULLY DELETED; reader in `library_module.rs`, writer (lean_cxx_compacted_region_save) in `runtime_compact_writer.rs`
     - [x] src/kernel/expr_sets (`src/kernel/expr_sets.h`) — header-only, kept as-is
       - [x] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_for_each_fn.rs`; C++ exports renamed to `lean_cxx_find_*expr` shims
     - [x] src/kernel/find_fn (`src/kernel/find_fn.h`) — header-only, kept as-is
