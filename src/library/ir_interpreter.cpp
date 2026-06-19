@@ -1195,7 +1195,11 @@ extern "C" LEAN_EXPORT object * lean_cxx_eval_const(object * env, object * opts,
     }
 }
 
-/* runModInitCore (sym : @& String) : IO Bool */
+/* runModInitCore (sym : @& String) : IO Bool
+   On Unix, lean_run_mod_init_core is implemented in Rust (library_ir_interpreter.rs)
+   using dlsym(RTLD_DEFAULT, ...).  On Windows we keep this C++ version which uses
+   EnumProcessModules/GetProcAddress to scan all loaded DLLs. */
+#ifdef LEAN_WINDOWS
 extern "C" LEAN_EXPORT obj_res lean_cxx_run_mod_init_core(b_obj_arg  sym) {
     if (void * init = lookup_symbol_in_cur_exe(string_cstr(sym))) {
         auto init_fn = reinterpret_cast<object *(*)(uint8_t)>(init);
@@ -1211,6 +1215,7 @@ extern "C" LEAN_EXPORT obj_res lean_cxx_run_mod_init_core(b_obj_arg  sym) {
         return lean_io_result_mk_ok(box(false));
     }
 }
+#endif
 
 extern "C" LEAN_EXPORT object * lean_cxx_run_init(object * env, object * opts, object * decl, object * init_decl, object *) {
     return interpreter::with_interpreter<object *>(TO_REF(elab_environment, env), TO_REF(options, opts), TO_REF(name, decl), [&](interpreter & interp) {
