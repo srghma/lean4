@@ -107,7 +107,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/kernel/find_fn (`src/kernel/find_fn.h`) — header-only, kept as-is
       - [x] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`) — stays in C++: no extern C exports, pure C++ internal code
         - [x] src/kernel/init_module (`src/kernel/init_module.h` and `src/kernel/init_module.cpp`) — header removed; no in-tree users remained
-    - [x] src/kernel/instantiate (`src/kernel/instantiate.h` and `src/kernel/instantiate.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_instantiate.rs`; C++ source now only keeps typed wrappers for in-tree C++ callers
+    - [x] src/kernel/instantiate (`src/kernel/instantiate.h` and `src/kernel/instantiate.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_instantiate.rs`; C++ source removed, typed in-tree C++ callers use inline header wrappers over Rust exports
       - [x] src/library/instantiate_mvars (`src/library/instantiate_mvars.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_instantiate_mvars.rs`; C++ source removed, helper exports are Lean definitions in `src/Lean/MetavarContext.lean`
       - [x] src/library/replace_visitor (`src/library/replace_visitor.h` and `src/library/replace_visitor.cpp`) — stays in C++: no extern C exports, pure C++ internal code
         - [x] src/library/util (`src/library/util.h` and `src/library/util.cpp`) — stays in C++: no extern C exports, pure C++ internal code
