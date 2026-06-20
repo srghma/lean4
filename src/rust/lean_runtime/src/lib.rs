@@ -1264,6 +1264,7 @@ include!("kernel_expr.rs");
 include!("kernel_equiv_manager.rs");
 include!("kernel_instantiate.rs");
 include!("kernel_local_ctx.rs");
+include!("kernel_declaration.rs");
 include!("kernel_environment.rs");
 include!("library_instantiate_mvars.rs");
 include!("library_module.rs");

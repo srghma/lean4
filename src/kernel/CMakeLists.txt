@@ -3,7 +3,6 @@ add_library(
   OBJECT
   level.cpp
   expr.cpp
-  declaration.cpp
   environment.cpp
   type_checker.cpp
   quot.cpp

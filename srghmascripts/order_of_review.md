@@ -124,7 +124,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
       - [x] src/library/init_module (`src/library/init_module.h` and `src/library/init_module.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/lib.rs`; C++ header/source removed
       - [x] src/library/print (`src/library/print.h` and `src/library/print.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_print.rs`; print.cpp removed from CMakeLists; lean_expr_dbg_to_string (ToString Expr) fully implemented in Rust; initialize_print/finalize_print/init_default_print_fn are no-ops
     - [x] src/library/max_sharing (`src/library/max_sharing.h` and `src/library/max_sharing.cpp`) — stays in C++: no extern C exports, pure C++ internal code
-- [x] src/kernel/declaration (`src/kernel/declaration.h` and `src/kernel/declaration.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+- [x] src/kernel/declaration (`src/kernel/declaration.h` and `src/kernel/declaration.cpp`) — C++ source removed; typed in-tree C++ callers use inline wrappers over Lean exports, init/finalize hooks are Rust no-ops
   - [x] src/kernel/environment (`src/kernel/environment.h` and `src/kernel/environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_environment.rs`; C++ exports renamed to `lean_cxx_add_decl*` shims
     - [x] src/kernel/kernel_exception (`src/kernel/kernel_exception.h`) — header-only, kept as-is
     - [x] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_level.rs`; C++ exports renamed to `lean_cxx_level_*` shims
