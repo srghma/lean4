@@ -9,6 +9,7 @@ Author: Leonardo de Moura
 #include "kernel/environment.h"
 #include "kernel/kernel_exception.h"
 #include "kernel/type_checker.h"
+#include "kernel/quot.h"
 
 extern "C" {
     void * lean_sharecommon_persistent_create(bool check_set);

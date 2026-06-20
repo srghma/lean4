@@ -1266,6 +1266,7 @@ include!("kernel_instantiate.rs");
 include!("kernel_local_ctx.rs");
 include!("kernel_declaration.rs");
 include!("kernel_environment.rs");
+include!("kernel_quot.rs");
 include!("library_instantiate_mvars.rs");
 include!("library_module.rs");
 include!("library_elab_environment.rs");

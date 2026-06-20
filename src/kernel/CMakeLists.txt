@@ -5,7 +5,6 @@ add_library(
   expr.cpp
   environment.cpp
   type_checker.cpp
-  quot.cpp
   inductive.cpp
   trace_shims.cpp
 )
