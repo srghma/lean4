@@ -55,7 +55,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/include/lean/lean_libuv (`src/include/lean/lean_libuv.h`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_libuv.rs`; C++ header removed
 - [x] src/library/suffixes (`src/library/suffixes.h`) — header removed; constants folded into src/library/util.cpp
 - [x] src/runtime/flet (`src/runtime/flet.h`) — header-only, kept as-is
-  - [x] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+  - [x] src/kernel/equiv_manager (`src/kernel/equiv_manager.h` and `src/kernel/equiv_manager.cpp`) — FULLY PORTED; opaque handle pattern: Rust `kernel_equiv_manager.rs` provides `lean_equiv_manager_{new,free,is_equiv,add_equiv}`; `equiv_manager.h` rewritten as thin C++ wrapper; `equiv_manager.cpp` deleted; note: `check_system` omitted (outer type_checker still checks heartbeat)
   - [x] src/runtime/int (`src/runtime/int.h`) — header-only, kept as-is
     - [x] src/util/message_definitions (`src/util/message_definitions.h`) — header removed; no in-tree users remained after folding the types out of trace/time_task
 - [x] src/runtime/sstream (`src/runtime/sstream.h`) — header-only, kept as-is

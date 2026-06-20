@@ -7,7 +7,6 @@ add_library(
   declaration.cpp
   environment.cpp
   type_checker.cpp
-  equiv_manager.cpp
   quot.cpp
   inductive.cpp
   trace_shims.cpp
