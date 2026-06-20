@@ -127,7 +127,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/kernel/declaration (`src/kernel/declaration.h` and `src/kernel/declaration.cpp`) — C++ source removed; typed in-tree C++ callers use inline wrappers over Lean exports, init/finalize hooks are Rust no-ops
   - [x] src/kernel/environment (`src/kernel/environment.h` and `src/kernel/environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_environment.rs`; C++ exports renamed to `lean_cxx_add_decl*` shims
     - [x] src/kernel/kernel_exception (`src/kernel/kernel_exception.h`) — header-only, kept as-is
-    - [x] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_level.rs`; C++ exports renamed to `lean_cxx_level_*` shims
+    - [x] src/kernel/level (`src/kernel/level.h` and `src/kernel/level.cpp`) — `level.cpp` removed; Rust owns raw exported level operations in `src/rust/lean_runtime/src/kernel_level.rs`, and `level.h` keeps the C++ value-type facade inline
 - [x] src/library/constants (`src/library/constants.h` and `src/library/constants.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_constants.rs`; C++ source removed
   - [x] src/library/constructions/cases_on (`src/library/constructions/cases_on.h` and `src/library/constructions/cases_on.cpp`)
   - [x] src/library/constructions/util (`src/library/constructions/util.h` and `src/library/constructions/util.cpp`)

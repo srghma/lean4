@@ -2,10 +2,10 @@
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 
-Port of the LEAN_EXPORT functions in kernel/level.cpp that contain pure logic:
-  lean_level_mk_data, lean_level_eqv, lean_level_eq
-The remaining level.cpp (mk_succ, mk_max, normalize, …) uses lean::level C++ value types
-and stays in C++.
+Port of the exported raw level operations previously backed by kernel/level.cpp:
+  lean_level_mk_data, lean_level_eqv, lean_level_eq, initialize_level, finalize_level
+
+The C++ value-type facade now lives inline in kernel/level.h.
 */
 
 #[cfg(feature = "export-runtime-ffi")]
@@ -77,4 +77,10 @@ mod kernel_level_impl {
     pub unsafe extern "C" fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
+
+    #[export_name = "_ZN4lean16initialize_levelEv"]
+    pub extern "C" fn initialize_level() {}
+
+    #[export_name = "_ZN4lean14finalize_levelEv"]
+    pub extern "C" fn finalize_level() {}
 }

@@ -1,7 +1,6 @@
 add_library(
   kernel
   OBJECT
-  level.cpp
   environment.cpp
   type_checker.cpp
   inductive.cpp
