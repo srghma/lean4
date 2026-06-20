@@ -6,6 +6,7 @@ Author: Leonardo de Moura
 */
 #include "runtime/interrupt.h"
 #include "runtime/sstream.h"
+#include "runtime/string_ref.h"
 #include "runtime/flet.h"
 #include "util/options.h"
 #include "kernel/type_checker.h"
@@ -531,7 +532,18 @@ static expr * g_lean_reduce_bool = nullptr;
 static expr * g_lean_reduce_nat  = nullptr;
 
 namespace ir {
-object * run_boxed_kernel(environment const & env, options const & opts, name const & fn, unsigned n, object **args);
+extern "C" object * lean_eval_const_at_kernel_env(object * env, object * opts, object * fn, size_t n, object ** args);
+
+object * run_boxed_kernel(environment const & env, options const & opts, name const & fn, unsigned n, object ** args) {
+    object_ref result(lean_eval_const_at_kernel_env(env.raw(), opts.raw(), fn.raw(), n, args));
+    object * value = cnstr_get(result.raw(), 0);
+    if (cnstr_tag(result.raw()) == 0) {
+        string_ref msg(value, true);
+        throw exception(msg.to_std_string());
+    }
+    inc(value);
+    return value;
+}
 }
 
 extern "C" object * lean_mk_bool_true();

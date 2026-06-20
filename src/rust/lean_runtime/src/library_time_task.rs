@@ -129,7 +129,7 @@ mod library_time_task_impl {
         });
     }
 
-    /// C-callable API for C++ callers (ir_interpreter.cpp).
+    /// C-callable API for runtime/interpreter callers.
     /// opts and name are borrowed (b_obj_arg). Returns 1 if profiling enabled.
     #[no_mangle]
     pub unsafe extern "C" fn lean_runtime_time_task_begin(

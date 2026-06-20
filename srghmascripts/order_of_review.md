@@ -60,7 +60,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/util/message_definitions (`src/util/message_definitions.h`) — header removed; no in-tree users remained after folding the types out of trace/time_task
 - [x] src/runtime/sstream (`src/runtime/sstream.h`) — header-only, kept as-is
   - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ header/source removed
-  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: exception classes caught by C++ try/catch in kernel_exception.h, ir_interpreter.cpp, module.cpp
+  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: exception classes caught by C++ try/catch in kernel_exception.h and remaining kernel shims
   - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: duplicate entry
     - [x] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
       - [x] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_thread.rs`; C++ source removed, reset-registry hooks kept as Rust no-op compatibility shims
@@ -99,7 +99,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [x] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`) — stays in C++: no extern C exports, pure C++ internal code
           - [x] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_elab_environment.rs`; C++ exports renamed to `lean_cxx_*` shims
             - [x] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)
-              - [x] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_ir_interpreter.rs`; C++ exports renamed to `lean_cxx_*` shims
+              - [x] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`) — fully deleted; Rust replacement wired in `src/rust/lean_runtime/src/library_ir_interpreter.rs`; temporary `run_boxed_kernel` C++ bridge lives in `src/kernel/type_checker.cpp`
             - [x] src/library/ir_types (`src/library/ir_types.h`) — header-only, kept as-is
             - [x] src/library/module (`src/library/module.h` and `src/library/module.cpp`) — FULLY DELETED; reader in `library_module.rs`, writer (lean_cxx_compacted_region_save) in `runtime_compact_writer.rs`
     - [x] src/kernel/expr_sets (`src/kernel/expr_sets.h`) — header-only, kept as-is

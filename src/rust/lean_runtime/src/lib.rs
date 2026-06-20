@@ -84,9 +84,7 @@ extern "C" {
     fn initialize_time_task();
     #[link_name = "_ZN4lean18finalize_time_taskEv"]
     fn finalize_time_task();
-    #[link_name = "_ZN4lean25initialize_ir_interpreterEv"]
     fn initialize_ir_interpreter();
-    #[link_name = "_ZN4lean23finalize_ir_interpreterEv"]
     fn finalize_ir_interpreter();
     #[link_name = "_ZN4lean16initialize_levelEv"]
     fn initialize_level();
