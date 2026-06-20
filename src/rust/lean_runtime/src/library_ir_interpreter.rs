@@ -72,8 +72,6 @@ mod library_ir_interpreter_impl {
         #[link_name = "_ZN4lean15scope_trace_envD1Ev"]
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
-        // option registration
-        fn lean_register_option(name: *mut LeanObject, decl: *mut LeanObject) -> *mut LeanObject;
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
 
@@ -878,6 +876,30 @@ mod library_ir_interpreter_impl {
             .expect("native symbol cache mutex poisoned")
     }
 
+    unsafe fn interpreter_prefer_native_name() -> *mut LeanObject {
+        let existing = G_INTERPRETER_PREFER_NATIVE_NAME.load(Ordering::Acquire);
+        if !existing.is_null() {
+            return existing;
+        }
+
+        let interp_str = lean_mk_string(c"interpreter".as_ptr());
+        let prefer_native_str = lean_mk_string(c"prefer_native".as_ptr());
+        let interp_name = lean_name_mk_string(lean_box(0), interp_str);
+        let prefer_native_name = lean_name_mk_string(interp_name, prefer_native_str);
+        match G_INTERPRETER_PREFER_NATIVE_NAME.compare_exchange(
+            ptr::null_mut(),
+            prefer_native_name,
+            Ordering::AcqRel,
+            Ordering::Acquire,
+        ) {
+            Ok(_) => prefer_native_name,
+            Err(current) => {
+                lean_dec(prefer_native_name);
+                current
+            }
+        }
+    }
+
     unsafe fn interpreter_key() -> libc::pthread_key_t {
         if !G_INTERPRETER_KEY_INIT.load(Ordering::Acquire) {
             let mut key: libc::pthread_key_t = 0;
@@ -945,16 +967,10 @@ mod library_ir_interpreter_impl {
 
     impl Interpreter {
         unsafe fn new(env: *mut LeanObject, opts: *mut LeanObject) -> Self {
-            let name_obj = G_INTERPRETER_PREFER_NATIVE_NAME.load(Ordering::Acquire);
-            let prefer_native = if !name_obj.is_null() {
-                lean_inc(name_obj);
-                lean_inc(opts);
-                let v = lean_options_get_bool(opts, name_obj, LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE);
-                lean_dec(opts);
-                v
-            } else {
-                LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE
-            };
+            let name_obj = interpreter_prefer_native_name();
+            lean_inc(name_obj);
+            lean_inc(opts);
+            let prefer_native = lean_options_get_bool(opts, name_obj, LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE);
             Interpreter {
                 m_arg_stack: Vec::new(),
                 m_jp_stack: Vec::new(),
@@ -1994,59 +2010,12 @@ mod library_ir_interpreter_impl {
     }
 
     // ---------------------------------------------------------------------------
-    // Option registration helper
-    // ---------------------------------------------------------------------------
-
-    unsafe fn register_bool_option_rust(name_obj: *mut LeanObject, default_value: bool, description: *const c_char) {
-        // mk_bool_data_value
-        let bval = lean_runtime_alloc_ctor(1, 0, 1);
-        lean_ctor_set_u8(bval, 0, default_value as u8);
-
-        let desc_str = lean_mk_string(description);
-        let empty_name = lean_box(0);
-        // OptionDecl.mk name decl_name defaultValue description group
-        let mut fields: [*mut LeanObject; 5] = [
-            name_obj, empty_name, bval, desc_str, lean_box(0),
-        ];
-        lean_inc(name_obj);
-        let decl = lean_runtime_mk_cnstr(0, 5, fields.as_mut_ptr(), 0);
-        let r = lean_register_option(name_obj, decl);
-        // consume IO result
-        if lean_io_result_is_ok(r) {
-            lean_dec(r);
-        } else {
-            lean_dec(r);
-        }
-    }
-
-    // ---------------------------------------------------------------------------
     // Public exported functions
     // ---------------------------------------------------------------------------
 
     /// initialize_ir_interpreter — called from lib.rs initialize_library_module_body
     #[no_mangle]
-        pub unsafe extern "C" fn initialize_ir_interpreter() {
-            // Initialize g_init_globals
-        G_INIT_GLOBALS = Box::into_raw(Box::new(InitGlobals(new_name_hash_map())));
-        // Initialize g_native_symbol_cache
-        G_NATIVE_SYMBOL_CACHE = Box::into_raw(Box::new(NativeSymbolCache(new_name_hash_map())));
-
-        // Register interpreter.prefer_native option
-        let interp_str = lean_mk_string(c"interpreter".as_ptr());
-        let prefer_native_str = lean_mk_string(c"prefer_native".as_ptr());
-        let interp_name = lean_name_mk_string(lean_box(0), interp_str);
-        let prefer_native_name = lean_name_mk_string(interp_name, prefer_native_str);
-
-        lean_inc(prefer_native_name);
-        G_INTERPRETER_PREFER_NATIVE_NAME.store(prefer_native_name, Ordering::Release);
-
-        lean_inc(prefer_native_name);
-        register_bool_option_rust(
-            prefer_native_name,
-            LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE,
-            c"(interpreter) whether to use precompiled code where available".as_ptr(),
-        );
-    }
+    pub unsafe extern "C" fn initialize_ir_interpreter() {}
 
     /// finalize_ir_interpreter — called from lib.rs
     #[no_mangle]
@@ -2122,6 +2091,38 @@ mod library_ir_interpreter_impl {
                 lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0) // Except.error msg
             }
         }
+    }
+
+    /// C++ kernel/type_checker bridge for Lean.reduceNat/Lean.reduceBool.
+    ///
+    /// Returns `Except String Object`; the C++ shim converts the error case
+    /// back into a C++ exception to preserve the old `ir::run_boxed_kernel`
+    /// contract.
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_eval_const_at_kernel_env(
+        env: *mut LeanObject,
+        opts: *mut LeanObject,
+        c: *mut LeanObject,
+        n: usize,
+        args: *mut *mut LeanObject,
+    ) -> *mut LeanObject {
+        lean_inc(env);
+        let elab_env = lean_elab_environment_of_kernel_env(env);
+        lean_inc(c);
+        let result = match run_boxed(elab_env, opts, c, n, args) {
+            Ok(r) => {
+                let mut fields = [r];
+                lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
+            }
+            Err(e) => {
+                let c_msg = std::ffi::CString::new(e).unwrap_or_default();
+                let s = lean_mk_string(c_msg.as_ptr());
+                let mut fields = [s];
+                lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
+            }
+        };
+        lean_dec(elab_env);
+        result
     }
 
     /// lean_run_init (env opts decl init_decl io) : IO Unit

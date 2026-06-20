@@ -51,4 +51,9 @@ register_builtin_option compiler.inLeanIR : Bool := {
   descr := "Internal. Indicates whether the compiler is currently running in `leanir`."
 }
 
+register_builtin_option interpreter.prefer_native : Bool := {
+  defValue := true
+  descr := "(interpreter) whether to use precompiled code where available"
+}
+
 end Lean.Compiler
