@@ -95,7 +95,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/kernel/expr_cache (`src/kernel/expr_cache.h` and `src/kernel/expr_cache.cpp`) — stays in C++: no extern C exports, pure C++ internal code
     - [x] src/kernel/expr_eq_fn (`src/kernel/expr_eq_fn.h` and `src/kernel/expr_eq_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_expr_eq_fn.rs`; C++ exports renamed to `lean_cxx_expr_eq*` shims
     - [x] src/kernel/expr_maps (`src/kernel/expr_maps.h`) — header-only, kept as-is
-      - [x] src/kernel/replace_fn (`src/kernel/replace_fn.h` and `src/kernel/replace_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_replace_fn.rs`; C++ export renamed to `lean_cxx_replace_expr` shim
+      - [x] src/kernel/replace_fn (`src/kernel/replace_fn.h` and `src/kernel/replace_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_replace_fn.rs`; C++ source removed, typed in-tree C++ callers use inline callback adapter over Rust traversal
         - [x] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`) — stays in C++: no extern C exports, pure C++ internal code
           - [x] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_elab_environment.rs`; C++ exports renamed to `lean_cxx_*` shims
             - [x] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)

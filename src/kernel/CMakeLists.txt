@@ -4,7 +4,6 @@ add_library(
   level.cpp
   expr.cpp
   for_each_fn.cpp
-  replace_fn.cpp
   local_ctx.cpp
   declaration.cpp
   environment.cpp
