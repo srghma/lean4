@@ -4,5 +4,4 @@ add_library(
   environment.cpp
   type_checker.cpp
   inductive.cpp
-  trace_shims.cpp
 )

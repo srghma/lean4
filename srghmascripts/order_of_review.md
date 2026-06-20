@@ -113,7 +113,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
         - [x] src/library/util (`src/library/util.h` and `src/library/util.cpp`) — stays in C++: no extern C exports, pure C++ internal code
     - [x] src/kernel/local_ctx (`src/kernel/local_ctx.h` and `src/kernel/local_ctx.cpp`) — C++ source removed; typed in-tree C++ callers use inline wrappers over Lean/Rust exports, init/finalize hooks are Rust no-ops
       - [x] src/kernel/quot (`src/kernel/quot.h` and `src/kernel/quot.cpp`) — C++ source removed; quotient setup/reduction helpers are inline in quot.h, init/finalize hooks are Rust no-ops
-      - [x] src/kernel/trace (`src/kernel/trace.h` and `src/kernel/trace.cpp`) — PARTIAL: Rust replacement in `src/rust/lean_runtime/src/kernel_trace.rs` for register_trace_class/init/finalize/is_trace_class_enabled/scope_trace_env; C++ shim `trace_shims.cpp` retained for tout dtor, operator<<
+      - [x] src/kernel/trace (`src/kernel/trace.h` and `src/kernel/trace.cpp`) — Rust replacement in `src/rust/lean_runtime/src/kernel_trace.rs` for register_trace_class/init/finalize/is_trace_class_enabled/scope_trace_env; former `trace_shims.cpp` stream helpers are inline in `trace.h`
       - [x] src/library/expr_lt (`src/library/expr_lt.h` and `src/library/expr_lt.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_expr_lt.rs`; C++ exports renamed to `lean_cxx_expr_*lt` shims
         - [x] src/library/expr_pair (`src/library/expr_pair.h`) — header removed; helper folded into src/library/util.h
     - [x] src/library/expr_pair_maps (`src/library/expr_pair_maps.h`) — header removed; no in-tree users remained

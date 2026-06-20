@@ -9,6 +9,8 @@ Author: Leonardo de Moura
 #include "util/options.h"
 
 namespace lean {
+extern "C" obj_res lean_io_eprint(obj_arg s);
+
 void register_trace_class(name const & n, name const & decl_name = {});
 bool is_trace_class_enabled(name const & n);
 
@@ -24,7 +26,12 @@ struct tclass { name m_cls; tclass(name const & c):m_cls(c) {} };
 
 struct tout {
     sstream m_out;
-    ~tout();
+    ~tout() {
+        object * r = lean_io_eprint(mk_string(m_out.str()));
+        if (!lean_io_result_is_ok(r))
+            lean_io_result_show_error(r);
+        lean_dec(r);
+    }
 };
 
 template <typename T>
@@ -34,7 +41,10 @@ tout & operator<<(tout const & out, T const & t) {
     return out_mut;
 }
 
-std::ostream & operator<<(std::ostream & ios, tclass const &);
+inline std::ostream & operator<<(std::ostream & ios, tclass const & c) {
+    ios << "[" << c.m_cls << "] ";
+    return ios;
+}
 
 #define lean_trace(CName, CODE) {               \
 if (lean::is_trace_class_enabled(CName)) {      \
