@@ -103,7 +103,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
             - [x] src/library/ir_types (`src/library/ir_types.h`) — header-only, kept as-is
             - [x] src/library/module (`src/library/module.h` and `src/library/module.cpp`) — FULLY DELETED; reader in `library_module.rs`, writer (lean_cxx_compacted_region_save) in `runtime_compact_writer.rs`
     - [x] src/kernel/expr_sets (`src/kernel/expr_sets.h`) — header-only, kept as-is
-      - [x] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_for_each_fn.rs`; C++ exports renamed to `lean_cxx_find_*expr` shims
+      - [x] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`) — FULLY PORTED; `lean_for_each_expr_with_callback` in `kernel_for_each_fn.rs`; `for_each_fn.cpp` deleted; `for_each_fn.h` now a C++ callback adapter over Rust traversal; `lean_find_expr`/`lean_find_ext_expr` also in `kernel_for_each_fn.rs`
     - [x] src/kernel/find_fn (`src/kernel/find_fn.h`) — header-only, kept as-is
       - [x] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`) — stays in C++: no extern C exports, pure C++ internal code
         - [x] src/kernel/init_module (`src/kernel/init_module.h` and `src/kernel/init_module.cpp`) — header removed; no in-tree users remained

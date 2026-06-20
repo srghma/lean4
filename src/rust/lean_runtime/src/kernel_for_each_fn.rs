@@ -2,8 +2,9 @@
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 
-Full Rust implementation of lean_find_expr and lean_find_ext_expr from kernel/for_each_fn.cpp.
-Replaces thin C++ shims lean_cxx_find_expr / lean_cxx_find_ext_expr.
+Full Rust implementation of:
+  - lean_for_each_expr_with_callback: C++ for_each traversal via callback (for_each_fn.cpp)
+  - lean_find_expr / lean_find_ext_expr: predicate search (lean_find_expr)
 
 Expression kind tags (enum class expr_kind { BVar, FVar, MVar, Sort, Const, App, Lambda, Pi, Let, Lit, MData, Proj }):
   BVar=0  FVar=1  MVar=2  Sort=3  Const=4  App=5  Lambda=6  Pi=7  Let=8  Lit=9  MData=10  Proj=11
@@ -19,18 +20,99 @@ Field layout (from expr.h):
 #[cfg(feature = "export-runtime-ffi")]
 mod kernel_for_each_fn_impl {
     use super::*;
+    use core::ffi::c_void;
     use std::collections::HashSet;
 
     // Expression kind tag constants
     const EXPR_BVAR: u8 = 0;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
     const EXPR_SORT: u8 = 3;
     const EXPR_CONST: u8 = 4;
     const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
     const EXPR_PI: u8 = 7;
     const EXPR_LET: u8 = 8;
+    const EXPR_LIT: u8 = 9;
     const EXPR_MDATA: u8 = 10;
     const EXPR_PROJ: u8 = 11;
+
+    // Callback: ctx, expr_ptr, binder_offset → nonzero to recurse into children, zero to stop.
+    // For BVar/Sort/Const (pure leaves), the return value is ignored.
+    type ForEachCallback = unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> u8;
+
+    struct ForEachState {
+        ctx: *mut c_void,
+        callback: ForEachCallback,
+        // Cache of (ptr, offset) pairs already visited. Only used for shared (rc != 1) nodes.
+        cache: HashSet<(usize, u32)>,
+    }
+
+    impl ForEachState {
+        fn new(ctx: *mut c_void, callback: ForEachCallback) -> Self {
+            Self { ctx, callback, cache: HashSet::new() }
+        }
+
+        // Returns true if the node was already visited (should be skipped).
+        // Unshared nodes (rc == 1) are never cached — they can only be reached once.
+        unsafe fn visited(&mut self, e: *mut LeanObject, offset: u32) -> bool {
+            if (*e).rc == 1 { return false; }
+            !self.cache.insert((e as usize, offset))
+        }
+
+        unsafe fn apply(&mut self, e: *mut LeanObject, offset: u32) {
+            let tag = lean_obj_tag(e);
+
+            // BVar=0, Sort=3, Const=4: pure leaves — call callback (return value ignored),
+            // no cache tracking, no recursion possible.
+            if tag == EXPR_BVAR || tag == EXPR_SORT || tag == EXPR_CONST {
+                (self.callback)(self.ctx, e, offset);
+                return;
+            }
+
+            // All other nodes: check visited cache to avoid redundant traversal.
+            if self.visited(e, offset) { return; }
+
+            // Call callback; if it returns 0, do not recurse into children.
+            if (self.callback)(self.ctx, e, offset) == 0 { return; }
+
+            match tag {
+                // FVar=1, MVar=2, Lit=9: non-leaf tag path but no Expr children.
+                EXPR_FVAR | EXPR_MVAR | EXPR_LIT => {}
+                EXPR_APP => {
+                    self.apply(lean_ctor_get(e, 0), offset);
+                    self.apply(lean_ctor_get(e, 1), offset);
+                }
+                EXPR_LAMBDA | EXPR_PI => {
+                    self.apply(lean_ctor_get(e, 1), offset);
+                    self.apply(lean_ctor_get(e, 2), offset + 1);
+                }
+                EXPR_LET => {
+                    self.apply(lean_ctor_get(e, 1), offset);
+                    self.apply(lean_ctor_get(e, 2), offset);
+                    self.apply(lean_ctor_get(e, 3), offset + 1);
+                }
+                EXPR_MDATA => {
+                    self.apply(lean_ctor_get(e, 1), offset);
+                }
+                EXPR_PROJ => {
+                    self.apply(lean_ctor_get(e, 2), offset);
+                }
+                _ => {}
+            }
+        }
+    }
+
+    /// C-callable for_each traversal used by the for_each_fn.h C++ adapter.
+    /// Mirrors for_each_offset_fn::apply from for_each_fn.cpp.
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_for_each_expr_with_callback(
+        e: *mut LeanObject,
+        ctx: *mut c_void,
+        callback: ForEachCallback,
+    ) {
+        ForEachState::new(ctx, callback).apply(e, 0);
+    }
 
     unsafe fn lean_ctor_set_local(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
