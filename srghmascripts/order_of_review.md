@@ -90,7 +90,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
 - [x] src/util/unit (`src/util/unit.h`) — header removed; no in-tree users remained
 - [x] src/util/unlock_guard (`src/util/unlock_guard.h`) — header removed; no in-tree users remained
 - [x] src/initialize/init (`src/initialize/init.h` and `src/initialize/init.cpp`) — header removed; no in-tree users remained
-- [x] src/kernel/abstract (`src/kernel/abstract.h` and `src/kernel/abstract.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_abstract.rs`; C++ exports renamed to `lean_cxx_expr_abstract*` shims
+- [x] src/kernel/abstract (`src/kernel/abstract.h` and `src/kernel/abstract.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_abstract.rs`; C++ source removed, typed in-tree C++ callers use inline header wrapper over Rust export
   - [x] src/kernel/expr (`src/kernel/expr.h` and `src/kernel/expr.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_expr.rs`; C++ exports renamed to `lean_cxx_expr_*` shims
     - [x] src/kernel/expr_cache (`src/kernel/expr_cache.h` and `src/kernel/expr_cache.cpp`) — stays in C++: no extern C exports, pure C++ internal code
     - [x] src/kernel/expr_eq_fn (`src/kernel/expr_eq_fn.h` and `src/kernel/expr_eq_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_expr_eq_fn.rs`; C++ exports renamed to `lean_cxx_expr_eq*` shims

@@ -96,7 +96,7 @@ mod kernel_abstract_impl {
 
     struct AbstractFn {
         n: usize,                       // number of substitution expressions
-        subst: *mut LeanObject,         // Lean Array Expr (borrowed)
+        subst: *const *mut LeanObject,  // borrowed substitution slice
         cache: HashMap<(usize, u32), *mut LeanObject>,
     }
 
@@ -139,7 +139,7 @@ mod kernel_abstract_impl {
                     let mut bvar_idx = 0usize;
                     while i > 0 {
                         i -= 1;
-                        let v = *lean_array_data_ptr(self.subst).add(i);
+                        let v = *self.subst.add(i);
                         let v_tag = lean_obj_tag(v);
                         if (tag == EXPR_FVAR && v_tag == EXPR_FVAR)
                             || (tag == EXPR_MVAR && v_tag == EXPR_MVAR)
@@ -263,7 +263,7 @@ mod kernel_abstract_impl {
     unsafe fn abstract_core(
         e: *mut LeanObject,
         n: usize,
-        subst: *mut LeanObject,
+        subst: *const *mut LeanObject,
     ) -> *mut LeanObject {
         if n == 0 || (!has_fvar(e) && !has_mvar(e)) {
             lean_inc(e);
@@ -280,7 +280,7 @@ mod kernel_abstract_impl {
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
         let n = lean_array_size(subst);
-        abstract_core(e, n, subst)
+        abstract_core(e, n, lean_array_data_ptr(subst))
     }
 
     // lean_expr_abstract_range (e : @& Expr) (n : @& Nat) (xs : @& Array Expr) : Expr
@@ -297,6 +297,15 @@ mod kernel_abstract_impl {
         } else {
             lean_unbox(n).min(sz)
         };
-        abstract_core(e, count, subst)
+        abstract_core(e, count, lean_array_data_ptr(subst))
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_expr_abstract_ptr(
+        e: *mut LeanObject,
+        n: usize,
+        subst: *const *mut LeanObject,
+    ) -> *mut LeanObject {
+        abstract_core(e, n, subst)
     }
 }
