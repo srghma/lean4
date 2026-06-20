@@ -1,5 +1,6 @@
+file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/empty.c CONTENT "")
 add_library(
   library
   OBJECT
-  elab_environment.cpp
+  ${CMAKE_CURRENT_BINARY_DIR}/empty.c
 )

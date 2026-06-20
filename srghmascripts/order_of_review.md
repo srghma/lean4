@@ -97,7 +97,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/kernel/expr_maps (`src/kernel/expr_maps.h`) — header-only, kept as-is
       - [x] src/kernel/replace_fn (`src/kernel/replace_fn.h` and `src/kernel/replace_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_replace_fn.rs`; C++ source removed, typed in-tree C++ callers use inline callback adapter over Rust traversal
         - [x] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`) — stays in C++: no extern C exports, pure C++ internal code
-          - [x] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_elab_environment.rs`; C++ exports renamed to `lean_cxx_*` shims
+          - [x] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`) — `elab_environment.cpp` removed; Rust wrappers remain in `src/rust/lean_runtime/src/library_elab_environment.rs`, and the temporary C++ exception bridge now lives with `type_checker.cpp`
             - [x] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)
               - [x] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`) — fully deleted; Rust replacement wired in `src/rust/lean_runtime/src/library_ir_interpreter.rs`; temporary `run_boxed_kernel` C++ bridge lives in `src/kernel/type_checker.cpp`
             - [x] src/library/ir_types (`src/library/ir_types.h`) — header-only, kept as-is
