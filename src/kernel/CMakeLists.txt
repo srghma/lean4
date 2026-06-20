@@ -3,7 +3,6 @@ add_library(
   OBJECT
   level.cpp
   expr.cpp
-  local_ctx.cpp
   declaration.cpp
   environment.cpp
   type_checker.cpp
