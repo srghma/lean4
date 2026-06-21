@@ -334,6 +334,13 @@ extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl(object * env, size_t max_
         });
 }
 
+/* No-scope variant: scope_max_heartbeat / scope_cancel_tk are set up by the Rust caller. */
+extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl_no_scope(object * env, object * decl) {
+    return catch_kernel_exceptions<elab_environment>([&]() {
+            return elab_environment(env).add(declaration(decl, true));
+        });
+}
+
 extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl_without_checking(object * env, object * decl) {
     return catch_kernel_exceptions<elab_environment>([&]() {
             return elab_environment(env).add(declaration(decl, true), false);
