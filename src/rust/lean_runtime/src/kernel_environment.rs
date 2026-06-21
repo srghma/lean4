@@ -8,11 +8,9 @@ mod kernel_environment_impl {
     use super::*;
 
     extern "C" {
-        fn lean_cxx_add_decl(
+        fn lean_cxx_add_decl_no_scope(
             env: *mut LeanObject,
-            max_heartbeat: usize,
             decl: *mut LeanObject,
-            opt_cancel_tk: *mut LeanObject,
         ) -> *mut LeanObject;
         fn lean_cxx_add_decl_without_checking(
             env: *mut LeanObject,
@@ -27,7 +25,20 @@ mod kernel_environment_impl {
         decl: *mut LeanObject,
         opt_cancel_tk: *mut LeanObject,
     ) -> *mut LeanObject {
-        lean_cxx_add_decl(env, max_heartbeat, decl, opt_cancel_tk)
+        let old_max = scope_max_heartbeat_push(max_heartbeat);
+        let cancel_tk = if lean_is_scalar(opt_cancel_tk) {
+            core::ptr::null_mut()
+        } else {
+            lean_ctor_get(opt_cancel_tk, 0)
+        };
+        let old_tk = scope_cancel_tk_push(cancel_tk);
+
+        let result = lean_cxx_add_decl_no_scope(env, decl);
+
+        scope_max_heartbeat_pop(old_max);
+        scope_cancel_tk_pop(old_tk);
+
+        result
     }
 
     #[no_mangle]
