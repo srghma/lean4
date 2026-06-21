@@ -83,9 +83,6 @@ public:
     /** \brief Return information for the constant with name \c n. Throws and exception if constant declaration does not exist in this environment. */
     constant_info get(name const & n) const;
 
-    /** \brief Extends the current environment with the given declaration */
-    environment add(declaration const & d, bool check = true) const;
-
     /** \brief Pointer equality */
     friend bool is_eqp(environment const & e1, environment const & e2) {
         return e1.raw() == e2.raw();

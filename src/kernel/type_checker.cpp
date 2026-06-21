@@ -259,18 +259,6 @@ environment environment::add_mutual(declaration const & d, bool check) const {
     return diag.update(new_env);
 }
 
-environment environment::add(declaration const & d, bool check) const {
-    switch (d.kind()) {
-    case declaration_kind::Axiom:            return add_axiom(d, check);
-    case declaration_kind::Definition:       return add_definition(d, check);
-    case declaration_kind::Theorem:          return add_theorem(d, check);
-    case declaration_kind::Opaque:           return add_opaque(d, check);
-    case declaration_kind::MutualDefinition: return add_mutual(d, check);
-    case declaration_kind::Quot:             return add_quot();
-    case declaration_kind::Inductive:        return add_inductive(d);
-    }
-    lean_unreachable();
-}
 
 extern "C" LEAN_EXPORT object * lean_cxx_add_quot_to_env(object * env) {
     return catch_kernel_exceptions<environment>([&]() {
