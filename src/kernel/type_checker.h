@@ -156,6 +156,8 @@ public:
     optional<expr> unfold_definition(expr const & e);
 };
 
-void initialize_type_checker();
-void finalize_type_checker();
+// initialize_type_checker / finalize_type_checker are now provided by Rust (kernel_type_checker.rs).
+// The C++ globals are initialized separately via:
+void initialize_cxx_type_checker_globals();
+void finalize_cxx_type_checker_globals();
 }

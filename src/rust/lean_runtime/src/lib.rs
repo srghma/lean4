@@ -98,10 +98,7 @@ extern "C" {
     fn initialize_declaration();
     #[link_name = "_ZN4lean20finalize_declarationEv"]
     fn finalize_declaration();
-    #[link_name = "_ZN4lean23initialize_type_checkerEv"]
-    fn initialize_type_checker();
-    #[link_name = "_ZN4lean21finalize_type_checkerEv"]
-    fn finalize_type_checker();
+    // initialize_type_checker / finalize_type_checker now provided by kernel_type_checker.rs
     #[link_name = "_ZN4lean20initialize_local_ctxEv"]
     fn initialize_local_ctx();
     #[link_name = "_ZN4lean18finalize_local_ctxEv"]
@@ -1639,7 +1636,7 @@ unsafe fn initialize_kernel_module_body() {
     initialize_level();
     initialize_expr();
     initialize_declaration();
-    initialize_type_checker();
+    #[cfg(feature = "export-runtime-ffi")] initialize_type_checker();
     initialize_local_ctx();
     initialize_inductive();
     initialize_quot();
@@ -1651,7 +1648,7 @@ unsafe fn finalize_kernel_module_body() {
     finalize_quot();
     finalize_inductive();
     finalize_local_ctx();
-    finalize_type_checker();
+    #[cfg(feature = "export-runtime-ffi")] finalize_type_checker();
     finalize_declaration();
     finalize_expr();
     finalize_level();

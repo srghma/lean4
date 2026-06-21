@@ -17,23 +17,6 @@ mod library_elab_environment_impl {
             decl: *mut LeanObject,
         ) -> *mut LeanObject;
 
-        fn lean_cxx_kernel_is_def_eq(
-            env: *mut LeanObject,
-            lctx: *mut LeanObject,
-            a: *mut LeanObject,
-            b: *mut LeanObject,
-        ) -> *mut LeanObject;
-        fn lean_cxx_kernel_whnf(
-            env: *mut LeanObject,
-            lctx: *mut LeanObject,
-            a: *mut LeanObject,
-        ) -> *mut LeanObject;
-        fn lean_cxx_kernel_check(
-            env: *mut LeanObject,
-            lctx: *mut LeanObject,
-            a: *mut LeanObject,
-        ) -> *mut LeanObject;
-
         fn lean_cxx_add_axiom(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
         fn lean_cxx_add_definition(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
         fn lean_cxx_add_theorem(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
@@ -150,33 +133,8 @@ mod library_elab_environment_impl {
         elab_add_decl_impl(env, decl, 0)
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_is_def_eq(
-        env: *mut LeanObject,
-        lctx: *mut LeanObject,
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_kernel_is_def_eq(env, lctx, a, b)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_whnf(
-        env: *mut LeanObject,
-        lctx: *mut LeanObject,
-        a: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_kernel_whnf(env, lctx, a)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_check(
-        env: *mut LeanObject,
-        lctx: *mut LeanObject,
-        a: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_kernel_check(env, lctx, a)
-    }
+    // lean_kernel_is_def_eq / lean_kernel_whnf / lean_kernel_check now in kernel_type_checker.rs
+    // using the Rust TypeChecker with elab→kernel env conversion.
 
     #[no_mangle]
     pub unsafe extern "C" fn lean_internal_get_believer_trust_level(

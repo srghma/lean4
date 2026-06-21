@@ -1446,7 +1446,7 @@ inline static expr * new_persistent_expr_const(name const & n) {
     return e;
 }
 
-LEAN_EXPORT void initialize_type_checker() {
+void initialize_cxx_type_checker_globals() {
     g_kernel_fresh = new name("_kernel_fresh");
     mark_persistent(g_kernel_fresh->raw());
     g_bool_true    = new name{"Bool", "true"};
@@ -1475,7 +1475,7 @@ LEAN_EXPORT void initialize_type_checker() {
     register_name_generator_prefix(*g_kernel_fresh);
 }
 
-LEAN_EXPORT void finalize_type_checker() {
+void finalize_cxx_type_checker_globals() {
     delete g_kernel_fresh;
     delete g_bool_true;
     delete g_eager_reduce;
