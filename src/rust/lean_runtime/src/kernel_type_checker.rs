@@ -82,26 +82,6 @@ mod kernel_type_checker_impl {
     static G_EAGER_REDUCE: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
 
     extern "C" {
-        fn lean_cxx_add_decl(
-            env: *mut LeanObject,
-            max_heartbeat: usize,
-            decl: *mut LeanObject,
-            opt_cancel_tk: *mut LeanObject,
-        ) -> *mut LeanObject;
-        fn lean_cxx_add_decl_without_checking(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-        ) -> *mut LeanObject;
-        fn lean_cxx_elab_add_decl(
-            env: *mut LeanObject,
-            max_heartbeat: usize,
-            decl: *mut LeanObject,
-            opt_cancel_tk: *mut LeanObject,
-        ) -> *mut LeanObject;
-        fn lean_cxx_elab_add_decl_without_checking(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-        ) -> *mut LeanObject;
         fn lean_cxx_kernel_is_def_eq(
             env: *mut LeanObject,
             lctx: *mut LeanObject,
@@ -728,38 +708,6 @@ mod kernel_type_checker_impl {
         lean_cxx_kernel_check(env, lctx, a)
     }
 
-    unsafe fn lean_add_decl_result_bridge(
-        env: *mut LeanObject,
-        max_heartbeat: usize,
-        decl: *mut LeanObject,
-        opt_cancel_tk: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_add_decl(env, max_heartbeat, decl, opt_cancel_tk)
-    }
-
-    unsafe fn lean_add_decl_without_checking_result_bridge(
-        env: *mut LeanObject,
-        decl: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_add_decl_without_checking(env, decl)
-    }
-
-    unsafe fn lean_elab_add_decl_result_bridge(
-        env: *mut LeanObject,
-        max_heartbeat: usize,
-        decl: *mut LeanObject,
-        opt_cancel_tk: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_elab_add_decl(env, max_heartbeat, decl, opt_cancel_tk)
-    }
-
-    unsafe fn lean_elab_add_decl_without_checking_result_bridge(
-        env: *mut LeanObject,
-        decl: *mut LeanObject,
-    ) -> *mut LeanObject {
-        lean_cxx_elab_add_decl_without_checking(env, decl)
-    }
-
     unsafe fn lean_kernel_is_def_eq_result_bridge(
         env: *mut LeanObject,
         lctx: *mut LeanObject,
@@ -803,7 +751,4 @@ mod kernel_type_checker_impl {
         }
     }
 
-    fn initialize_environment_rust() {}
-
-    fn finalize_environment_rust() {}
 }

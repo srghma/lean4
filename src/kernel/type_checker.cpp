@@ -267,11 +267,6 @@ extern "C" LEAN_EXPORT object * lean_cxx_add_quot_to_env(object * env) {
 }
 
 
-LEAN_EXPORT void initialize_environment() {
-}
-
-LEAN_EXPORT void finalize_environment() {
-}
 extern "C" obj_res lean_elab_environment_to_kernel_env(obj_arg);
 
 environment elab_environment::to_kernel_env() const {

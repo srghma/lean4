@@ -102,10 +102,6 @@ extern "C" {
     fn initialize_type_checker();
     #[link_name = "_ZN4lean21finalize_type_checkerEv"]
     fn finalize_type_checker();
-    #[link_name = "_ZN4lean22initialize_environmentEv"]
-    fn initialize_environment();
-    #[link_name = "_ZN4lean20finalize_environmentEv"]
-    fn finalize_environment();
     #[link_name = "_ZN4lean20initialize_local_ctxEv"]
     fn initialize_local_ctx();
     #[link_name = "_ZN4lean18finalize_local_ctxEv"]
@@ -1644,7 +1640,6 @@ unsafe fn initialize_kernel_module_body() {
     initialize_expr();
     initialize_declaration();
     initialize_type_checker();
-    initialize_environment();
     initialize_local_ctx();
     initialize_inductive();
     initialize_quot();
@@ -1656,7 +1651,6 @@ unsafe fn finalize_kernel_module_body() {
     finalize_quot();
     finalize_inductive();
     finalize_local_ctx();
-    finalize_environment();
     finalize_type_checker();
     finalize_declaration();
     finalize_expr();

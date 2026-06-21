@@ -32,29 +32,29 @@ def realpathSafe (p : FilePath) : IO FilePath :=
 -- ─── Known external dependency groups ────────────────────────────────────────
 
 def knownExternals : Array (String × Array String) := #[
-  ("cadical",          #["cadical"]),
-  ("mimalloc",         #["mimalloc"]),
-  ("libuv",            #["libuv.h", "uv.h"]),
-  ("ICU (<icu.h>)",    #["icu.h", "unicode/"]),
-  ("emscripten",       #["emscripten.h", "emscripten/"]),
+  ("cadical",          #["cadical"]), -- CaDiCaL: A high-performance CDCL SAT solver
+  ("mimalloc",         #["mimalloc"]), -- mimalloc: Microsoft's compact, fast general-purpose memory allocator
+  ("libuv",            #["libuv.h", "uv.h"]), -- libuv: Cross-platform asynchronous I/O support library (used by Node.js)
+  ("ICU (<icu.h>)",    #["icu.h", "unicode/"]), -- ICU: International Components for Unicode (globalization & localization support)
+  ("emscripten",       #["emscripten.h", "emscripten/"]), -- Emscripten: Toolchain and APIs for compiling C/C++ to WebAssembly
   ("<windows.h>",      #["windows.h", "psapi.h", "ntdef.h", "bcrypt.h",
-                          "tchar.h", "strsafe.h"]),
-  ("<pthread.h>",      #["pthread.h"]),
-  ("<unistd.h>",       #["unistd.h"]),
-  ("<dlfcn.h>",        #["dlfcn.h"]),
-  ("<dirent.h>",       #["dirent.h"]),
-  ("<link.h>",         #["link.h"]),
-  ("<execinfo.h>",     #["execinfo.h"]),
-  ("<sys/mman.h>",     #["sys/mman.h"]),
+                          "tchar.h", "strsafe.h"]), -- Windows SDK: Core APIs for system programming on Windows OS
+  ("<pthread.h>",      #["pthread.h"]), -- POSIX Threads: Standard multi-threading API for Unix-like systems
+  ("<unistd.h>",       #["unistd.h"]), -- POSIX Standard: Operating system APIs (defines miscellaneous constants and types)
+  ("<dlfcn.h>",        #["dlfcn.h"]), -- Dynamic Linking: Programmatic dynamic library loading (e.g., dlopen, dlsym)
+  ("<dirent.h>",       #["dirent.h"]), -- POSIX Directory: API for directory traversal and entry manipulation
+  ("<link.h>",         #["link.h"]), -- Linker: Executable and Shared Object Linker interfaces (dynamic linker structures)
+  ("<execinfo.h>",     #["execinfo.h"]), -- GNU Backtrace: GNU extension used to obtain call stack backtraces
+  ("<sys/mman.h>",     #["sys/mman.h"]), -- Memory Management: POSIX memory mapping APIs (e.g., mmap, munmap)
   ("<sys/stat.h>",     #["sys/stat.h", "sys/types.h", "sys/wait.h",
                           "sys/syscall.h", "sys/resource.h", "sys/time.h",
-                          "sys/random.h", "sys/file.h"]),
-  ("<mach-o/dyld.h>",  #["mach-o/dyld.h", "mach-o/getsect.h", "mach/mach.h"]),
-  ("<sanitizer>",      #["sanitizer/lsan_interface.h"]),
-  ("<jemalloc>",       #["jemalloc/jemalloc.h"]),
-  ("LLVM",             #["llvm-c/Core.h", "llvm.h", "llvm-c/"]),
-  ("libc",             #["use libc", "libc::"]),
-  ("libuv-sys2",       #["use libuv_sys2", "libuv_sys2::"]),
+                          "sys/random.h", "sys/file.h"]), -- POSIX System: Low-level file status, processes, system calls, time, and resources
+  ("<mach-o/dyld.h>",  #["mach-o/dyld.h", "mach-o/getsect.h", "mach/mach.h"]), -- macOS/Darwin: Dynamic linking and Mach kernel system APIs
+  ("<sanitizer>",      #["sanitizer/lsan_interface.h"]), -- LLVM/GCC Sanitizers: Interface for LeakSanitizer (memory leak detection)
+  ("<jemalloc>",       #["jemalloc/jemalloc.h"]), -- jemalloc: General-purpose malloc implementation focusing on scalability and fragmentation avoidance
+  ("LLVM",             #["llvm-c/Core.h", "llvm.h", "llvm-c/"]), -- LLVM: Headers and APIs for the LLVM compiler infrastructure
+  ("libc",             #["use libc", "libc::"]), -- Rust 'libc' crate: System library bindings for Rust
+  ("libuv-sys2",       #["use libuv_sys2", "libuv_sys2::"]) -- Rust 'libuv-sys2' crate: Low-level bindings to libuv for Rust
 ]
 
 def stdHeaders : Std.HashSet String :=

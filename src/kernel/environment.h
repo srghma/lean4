@@ -91,6 +91,4 @@ public:
 
 void check_no_metavar_no_fvar(environment const & env, name const & n, expr const & e);
 
-void initialize_environment();
-void finalize_environment();
 }
