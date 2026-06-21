@@ -284,20 +284,7 @@ LEAN_EXPORT void initialize_environment() {
 
 LEAN_EXPORT void finalize_environment() {
 }
-/* updateBaseAfterKernelAdd (env : Environment) (base : Kernel.Environment) (decl : Declaration) : Environment
-
-   Updates an elab environment with a given kernel environment.
-
-   NOTE: Ideally this language switching would not be necessary and we could do all this in Lean
-   only but the old code generator still needs a C++ `elab_environment::add`
-   that throws C++ exceptions. */
-extern "C" obj_res lean_elab_environment_update_base_after_kernel_add(obj_arg env, obj_arg kenv, obj_arg decl);
 extern "C" obj_res lean_elab_environment_to_kernel_env(obj_arg);
-
-elab_environment elab_environment::add(declaration const & d, bool check) const {
-    environment kenv = to_kernel_env().add(d, check);
-    return elab_environment(lean_elab_environment_update_base_after_kernel_add(this->to_obj_arg(), kenv.to_obj_arg(), d.to_obj_arg()));
-}
 
 environment elab_environment::to_kernel_env() const {
     return environment(lean_elab_environment_to_kernel_env(to_obj_arg()));
