@@ -127,5 +127,17 @@ mod runtime_stack_info_impl {
             throw_stack_space_exception(component_name);
         }
     }
+
+    /// Returns `true` if there is enough stack space (no deep recursion detected).
+    /// This is the Result-returning variant used by the Rust type checker.
+    pub unsafe fn lean_stack_has_space() -> bool {
+        let init = G_STACK_INFO_INIT.with(|cell| cell.get());
+        if !init {
+            save_stack_info_export(false);
+        }
+        let curr = get_stack_pointer();
+        let threshold = G_STACK_THRESHOLD.with(|cell| cell.get());
+        curr >= threshold
+    }
 }
 pub use runtime_stack_info_impl::*;

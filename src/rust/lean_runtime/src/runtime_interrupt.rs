@@ -269,5 +269,46 @@ mod runtime_interrupt_impl {
     pub unsafe extern "C" fn scope_cancel_tk_dtor_base(this: *mut ScopeCancelTk) {
         ScopeCancelTk::dtor(this);
     }
+
+    /// Result-returning heartbeat check for the Rust type checker.
+    /// Returns `Err(true)` if timeout, `Ok(())` otherwise.
+    /// The caller converts `Err(true)` → `KernelError::DeterministicTimeout`.
+    pub fn check_heartbeat_exceeded() -> bool {
+        inc_heartbeat();
+        let max = G_MAX_HEARTBEAT.with(|cell| cell.get());
+        let current = G_HEARTBEAT.with(|cell| cell.get());
+        max > 0 && current > max
+    }
+
+    /// Result-returning interrupted check for the Rust type checker.
+    /// Returns `true` if interrupted.
+    pub fn check_interrupted_flag() -> bool {
+        let tk = G_CANCEL_TK.with(|cell| cell.get());
+        if tk.is_null() {
+            return false;
+        }
+        unsafe { cancel_tk_is_set(tk) && !lean_uncaught_exceptions() }
+    }
+
+    /// Set both the max heartbeat and the cancel token, returning old values for restoration.
+    pub fn scope_max_heartbeat_push(max: usize) -> usize {
+        let old = get_max_heartbeat();
+        set_max_heartbeat(max);
+        old
+    }
+
+    pub fn scope_max_heartbeat_pop(old: usize) {
+        set_max_heartbeat(old);
+    }
+
+    pub fn scope_cancel_tk_push(tk: *mut LeanObject) -> *mut LeanObject {
+        let old = g_cancel_tk_get();
+        g_cancel_tk_set(tk);
+        old
+    }
+
+    pub fn scope_cancel_tk_pop(old: *mut LeanObject) {
+        g_cancel_tk_set(old);
+    }
 }
 pub use runtime_interrupt_impl::*;

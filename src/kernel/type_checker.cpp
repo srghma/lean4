@@ -291,6 +291,7 @@ extern "C" LEAN_EXPORT object * lean_cxx_add_decl_without_checking(object * env,
         });
 }
 
+
 LEAN_EXPORT void initialize_environment() {
 }
 
@@ -1557,4 +1558,500 @@ LEAN_EXPORT void finalize_type_checker() {
     delete g_lean_reduce_bool;
     delete g_lean_reduce_nat;
 }
+
+/* ── Bridges for Rust TypeChecker (in type_checker.cpp) ──────────────────── */
+
+/** Check if two universe levels are definitionally equivalent (normalizing). */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_level_is_equivalent(object * l1, object * l2) {
+    try {
+        return is_equivalent(level(l1, true), level(l2, true)) ? 1 : 0;
+    } catch (...) {
+        return 0;
+    }
 }
+
+/** Check system for timeout/interrupt/memory.
+    Returns: 0 = OK, 1 = deterministic timeout, 2 = interrupted, 3 = excessive memory, 4 = deep recursion. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_check_system(char const * msg) {
+    try {
+        check_system(msg);
+        return 0;
+    } catch (heartbeat_exception const &) {
+        return 1;
+    } catch (interrupted const &) {
+        return 2;
+    } catch (memory_exception const &) {
+        return 3;
+    } catch (stack_space_exception const &) {
+        return 4;
+    } catch (...) {
+        return 2;
+    }
+}
+
+/** Return Some(name) of first level parameter in `l` not found in `lparams`, or None.
+    lparams is a `List Name`. */
+extern "C" LEAN_EXPORT object * lean_cxx_get_undef_param(object * l, object * lparams) {
+    optional<name> r = get_undef_param(level(l, true), names(lparams, true));
+    if (r) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, r->to_obj_arg());
+        return some;
+    }
+    return lean_box(0); /* None */
+}
+
+/** Instantiate the type of a constant_info with given universe level arguments. */
+extern "C" LEAN_EXPORT object * lean_cxx_instantiate_type_lparams(object * const_info, object * lparams_obj) {
+    constant_info ci(const_info, true);
+    lean::levels ls(lparams_obj, true);
+    return instantiate_type_lparams(ci, ls).steal();
+}
+
+/** Instantiate the value of a constant_info with given universe level arguments.
+    Only call when has_value() is true. */
+extern "C" LEAN_EXPORT object * lean_cxx_instantiate_value_lparams(object * const_info, object * levels) {
+    constant_info ci(const_info, true);
+    lean::levels ls(levels, true);
+    return instantiate_value_lparams(ci, ls).steal();
+}
+
+/** Returns 1 if the constant_info has a value (definition, theorem, opaque). */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_has_value(object * const_info) {
+    constant_info ci(const_info, true);
+    return ci.has_value() ? 1 : 0;
+}
+
+/** Returns the ReducibilityHints of a definition_val.
+    The first argument is a constant_info with tag = DEFINITION (1). */
+extern "C" LEAN_EXPORT object * lean_cxx_const_info_get_hints(object * const_info) {
+    constant_info ci(const_info, true);
+    /* definition_val::get_hints() returns reduce_hints (a Lean ReducibilityHints) */
+    return ci.to_definition_val().get_hints().to_obj_arg();
+}
+
+/** Compare two ReducibilityHints. Returns -1, 0, or 1. */
+extern "C" LEAN_EXPORT int8_t lean_cxx_compare_hints(object * h1, object * h2) {
+    unsigned k1 = lean_obj_tag(h1);
+    unsigned k2 = lean_obj_tag(h2);
+    if (k1 == k2) {
+        if (k1 == static_cast<unsigned>(reducibility_hints_kind::Regular)) {
+            lean_inc(h1);
+            uint32_t ht1 = lean_reducibility_hints_get_height(h1);
+            lean_inc(h2);
+            uint32_t ht2 = lean_reducibility_hints_get_height(h2);
+            if (ht1 == ht2) return 0;
+            return static_cast<int8_t>(ht1 > ht2 ? -1 : 1);
+        }
+        return 0;
+    }
+    if (k1 == static_cast<unsigned>(reducibility_hints_kind::Opaque)) return 1;
+    if (k2 == static_cast<unsigned>(reducibility_hints_kind::Opaque)) return -1;
+    return static_cast<int8_t>(k1 < k2 ? -1 : 1);
+}
+
+/** Check if a constant_info is a definition with `is_eqp`. Used in lazy_delta_reduction.
+    Returns the same pointer if equal (pointer equality), else null. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_is_eqp(object * c1, object * c2) {
+    constant_info ci1(c1, true);
+    constant_info ci2(c2, true);
+    return is_eqp(ci1, ci2) ? 1 : 0;
+}
+
+/** Record an unfold event in a diagnostics object, returning a new (potentially updated) diagnostics. */
+extern "C" LEAN_EXPORT object * lean_cxx_diag_record_unfold(object * diag_obj, object * name_obj) {
+    diagnostics d(diag_obj, true);
+    d.record_unfold(name(name_obj, true));
+    return d.steal();
+}
+
+/** Return the name of a constant expression, or lean_box(0) if not a constant. */
+extern "C" LEAN_EXPORT object * lean_cxx_const_name(object * e) {
+    expr ex(e, true);
+    if (!is_constant(ex)) return lean_box(0);
+    return const_name(ex).to_obj_arg();
+}
+
+/** Return the universe level list of a constant expression, or lean_box(0) if not a constant. */
+extern "C" LEAN_EXPORT object * lean_cxx_const_levels(object * e) {
+    expr ex(e, true);
+    if (!is_constant(ex)) {
+        lean_inc(lean_box(0));
+        return lean_box(0);
+    }
+    return const_levels(ex).to_obj_arg();
+}
+
+/** mk_pi from array of fvar expressions: lctx + fvars[0..n-1] + body -> Pi type */
+extern "C" LEAN_EXPORT object * lean_cxx_lctx_mk_pi_array(
+    object * lctx, size_t n, object * const * fvars, object * body
+) {
+    local_ctx lc(lctx, true);
+    buffer<expr> fvar_buf;
+    for (size_t i = 0; i < n; i++)
+        fvar_buf.push_back(expr(fvars[i], true));
+    return lc.mk_pi(fvar_buf, expr(body, true)).steal();
+}
+
+/** mk_lambda from array of fvar expressions */
+extern "C" LEAN_EXPORT object * lean_cxx_lctx_mk_lambda_array(
+    object * lctx, size_t n, object * const * fvars, object * body
+) {
+    local_ctx lc(lctx, true);
+    buffer<expr> fvar_buf;
+    for (size_t i = 0; i < n; i++)
+        fvar_buf.push_back(expr(fvars[i], true));
+    return lc.mk_lambda(fvar_buf, expr(body, true)).steal();
+}
+
+/** mk_pi from array of fvar expressions with remove_dead_let=true */
+extern "C" LEAN_EXPORT object * lean_cxx_lctx_mk_pi_let_array(
+    object * lctx, size_t n, object * const * fvars, object * body
+) {
+    local_ctx lc(lctx, true);
+    buffer<expr> fvar_buf;
+    for (size_t i = 0; i < n; i++)
+        fvar_buf.push_back(expr(fvars[i], true));
+    return lc.mk_pi(fvar_buf, expr(body, true), true).steal();
+}
+
+/** Create a local declaration.
+    Returns a pair (new_lctx, fvar_expr) via out-parameters.
+    Uses a name generated from ngen_prefix + ngen_counter (and increments the counter via out param). */
+extern "C" LEAN_EXPORT void lean_cxx_lctx_mk_local_decl(
+    object * lctx_in, object * ngen_prefix, size_t ngen_counter,
+    object * user_name, object * type, uint8_t binfo,
+    object ** lctx_out, object ** fvar_out, size_t * ngen_counter_out
+) {
+    local_ctx lc(lctx_in, true);
+    name prefix(ngen_prefix, true);
+    name fvar_id = name(prefix, ngen_counter);
+    local_decl decl = lc.mk_local_decl(fvar_id, name(user_name, true), expr(type, true),
+                                        static_cast<binder_info>(binfo));
+    *lctx_out = lc.steal();
+    *fvar_out = decl.mk_ref().steal();
+    *ngen_counter_out = ngen_counter + 1;
+}
+
+/** Create a let local declaration (with value).
+    Returns a pair (new_lctx, fvar_expr) via out-parameters. */
+extern "C" LEAN_EXPORT void lean_cxx_lctx_mk_let_decl(
+    object * lctx_in, object * ngen_prefix, size_t ngen_counter,
+    object * let_name, object * type, object * value,
+    object ** lctx_out, object ** fvar_out, size_t * ngen_counter_out
+) {
+    local_ctx lc(lctx_in, true);
+    name prefix(ngen_prefix, true);
+    name fvar_id = name(prefix, ngen_counter);
+    local_decl decl = lc.mk_local_decl(fvar_id, name(let_name, true), expr(type, true), expr(value, true));
+    *lctx_out = lc.steal();
+    *fvar_out = decl.mk_ref().steal();
+    *ngen_counter_out = ngen_counter + 1;
+}
+
+/** Find a local declaration for an fvar expression.
+    Returns Option LocalDecl (Some = tag 0, field 0 = decl; None = lean_box(0)). */
+extern "C" LEAN_EXPORT object * lean_cxx_lctx_find_for_fvar(object * lctx, object * fvar) {
+    local_ctx lc(lctx, true);
+    expr e(fvar, true);
+    lean_assert(is_fvar(e));
+    optional<local_decl> r = lc.find_local_decl(e);
+    if (r) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, r->to_obj_arg());
+        return some;
+    }
+    return lean_box(0);
+}
+
+/** Get the type from a local_decl (owned reference). */
+extern "C" LEAN_EXPORT object * lean_cxx_local_decl_type(object * decl) {
+    return local_decl(decl, true).get_type().to_obj_arg();
+}
+
+/** Get the value from a local_decl as Option Expr. Returns None for cdecl. */
+extern "C" LEAN_EXPORT object * lean_cxx_local_decl_value(object * decl) {
+    local_decl d(decl, true);
+    if (optional<expr> const & v = d.get_value()) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, v->to_obj_arg());
+        return some;
+    }
+    return lean_box(0);
+}
+
+/** Get the user name from a local_decl (owned reference). */
+extern "C" LEAN_EXPORT object * lean_cxx_local_decl_user_name(object * decl) {
+    return local_decl(decl, true).get_user_name().to_obj_arg();
+}
+
+/** Get binder info from a local_decl as uint8. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_local_decl_binder_info(object * decl) {
+    return static_cast<uint8_t>(local_decl(decl, true).get_info());
+}
+
+/** Make the fvar expression for a local_decl (owned reference). */
+extern "C" LEAN_EXPORT object * lean_cxx_local_decl_mk_fvar(object * decl) {
+    return local_decl(decl, true).mk_ref().steal();
+}
+
+/** Check if an expression is a let-bound free variable in the given local context. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_is_let_fvar(object * lctx, object * e) {
+    local_ctx lc(lctx, true);
+    expr ex(e, true);
+    if (!is_fvar(ex)) return 0;
+    optional<local_decl> decl = lc.find_local_decl(ex);
+    if (!decl) return 0;
+    return decl->get_value() ? 1 : 0;
+}
+
+/** Get the number of level parameters from a constant_info. */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_const_info_num_lparams(object * const_info) {
+    constant_info ci(const_info, true);
+    return static_cast<uint32_t>(length(ci.get_lparams()));
+}
+
+/** Returns 1 if the constant_info is an inductive. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_is_inductive(object * const_info) {
+    return constant_info(const_info, true).is_inductive() ? 1 : 0;
+}
+
+/** Returns 1 if the constant_info is a constructor. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_is_constructor(object * const_info) {
+    return constant_info(const_info, true).is_constructor() ? 1 : 0;
+}
+
+/** Returns 1 if the constant_info is a definition. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_is_definition(object * const_info) {
+    return constant_info(const_info, true).is_definition() ? 1 : 0;
+}
+
+/** Returns the definition_safety of a definition_val (0=Unsafe, 1=Safe, 2=Partial). */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_def_safety(object * const_info) {
+    constant_info ci(const_info, true);
+    if (!ci.is_definition()) return 255;
+    return static_cast<uint8_t>(ci.to_definition_val().get_safety());
+}
+
+/** Returns constructor_val.get_nparams() from a constructor constant_info. */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_ctor_val_nparams(object * const_info) {
+    constant_info ci(const_info, true);
+    return static_cast<uint32_t>(ci.to_constructor_val().get_nparams());
+}
+
+/** Returns constructor_val.get_nfields() from a constructor constant_info. */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_ctor_val_nfields(object * const_info) {
+    constant_info ci(const_info, true);
+    return static_cast<uint32_t>(ci.to_constructor_val().get_nfields());
+}
+
+/** Returns the inductive name from a constructor_val. */
+extern "C" LEAN_EXPORT object * lean_cxx_ctor_val_induct(object * const_info) {
+    constant_info ci(const_info, true);
+    return ci.to_constructor_val().get_induct().to_obj_arg();
+}
+
+/** Returns the first constructor name from an inductive_val. */
+extern "C" LEAN_EXPORT object * lean_cxx_inductive_val_first_cnstr(object * const_info) {
+    constant_info ci(const_info, true);
+    return head(ci.to_inductive_val().get_cnstrs()).to_obj_arg();
+}
+
+/** Returns inductive_val.get_nparams() + get_nindices() from an inductive constant_info. */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_inductive_val_nparams_plus_nindices(object * const_info) {
+    constant_info ci(const_info, true);
+    inductive_val iv = ci.to_inductive_val();
+    return static_cast<uint32_t>(iv.get_nparams() + iv.get_nindices());
+}
+
+/** Returns inductive_val.get_nparams(). */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_inductive_val_nparams(object * const_info) {
+    constant_info ci(const_info, true);
+    return static_cast<uint32_t>(ci.to_inductive_val().get_nparams());
+}
+
+/** Returns inductive_val.get_nindices(). */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_inductive_val_nindices(object * const_info) {
+    constant_info ci(const_info, true);
+    return static_cast<uint32_t>(ci.to_inductive_val().get_nindices());
+}
+
+/** Returns 1 if the inductive_val has exactly 1 constructor. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_inductive_val_ncnstrs_is_one(object * const_info) {
+    constant_info ci(const_info, true);
+    return length(ci.to_inductive_val().get_cnstrs()) == 1 ? 1 : 0;
+}
+
+/** Returns the name of the first constructor from an inductive constant_info.
+    Only call when ncnstrs == 1. */
+extern "C" LEAN_EXPORT object * lean_cxx_inductive_val_single_cnstr_name(object * const_info) {
+    constant_info ci(const_info, true);
+    return head(ci.to_inductive_val().get_cnstrs()).to_obj_arg();
+}
+
+/** Create a proj expression: given an inductive name, field idx (usize), and the struct value. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_proj(object * sname, size_t idx, object * e) {
+    return mk_proj(name(sname, true), idx, expr(e, true)).steal();
+}
+
+/** Returns the proj_idx as usize (for small). Returns SIZE_MAX if not small. */
+extern "C" LEAN_EXPORT size_t lean_cxx_proj_idx_get_small_value(object * e) {
+    expr ex(e, true);
+    lean_assert(is_proj(ex));
+    nat const & n = proj_idx(ex);
+    if (n.is_small()) return n.get_small_value();
+    return SIZE_MAX;
+}
+
+/** Returns 1 if proj_idx is small (fits in usize). */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_proj_idx_is_small(object * e) {
+    expr ex(e, true);
+    if (!is_proj(ex)) return 0;
+    return proj_idx(ex).is_small() ? 1 : 0;
+}
+
+/** Returns the struct name from a proj expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_proj_sname(object * e) {
+    return proj_sname(expr(e, true)).to_obj_arg();
+}
+
+/** Returns the struct expression from a proj expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_proj_expr(object * e) {
+    return proj_expr(expr(e, true)).to_obj_arg();
+}
+
+/** Returns the Nat Idx object from a proj expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_proj_idx(object * e) {
+    return proj_idx(expr(e, true)).to_obj_arg();
+}
+
+/** Returns `is_prop(type)` in the context of the type checker. Type must be a sort. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_sort_is_prop(object * sort_expr) {
+    expr e(sort_expr, true);
+    lean_assert(is_sort(e));
+    return is_zero(sort_level(e)) ? 1 : 0;
+}
+
+/** Returns the level from a Sort expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_sort_level(object * sort_expr) {
+    return sort_level(expr(sort_expr, true)).to_obj_arg();
+}
+
+/** Make a Sort expression from a level. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_sort(object * level) {
+    return mk_sort(lean::level(level, true)).steal();
+}
+
+/** Make a Succ level. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_level_succ(object * level) {
+    return mk_succ(lean::level(level, true)).steal();
+}
+
+/** Make an IMax level. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_level_imax(object * l1, object * l2) {
+    return mk_imax(lean::level(l1, true), lean::level(l2, true)).steal();
+}
+
+/** Returns the level from a Sort expression (as a borrow - inc'd). */
+extern "C" LEAN_EXPORT object * lean_cxx_get_app_fn(object * e) {
+    return get_app_fn(expr(e, true)).to_obj_arg();
+}
+
+/** Returns app_fn of an App expression, or the expression itself if not an App. */
+extern "C" LEAN_EXPORT uint32_t lean_cxx_get_app_num_args(object * e) {
+    return static_cast<uint32_t>(get_app_num_args(expr(e, true)));
+}
+
+/** Returns the name of the sort (for Sort Prop: "Prop"). Actually returns the sort universe. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_prop() {
+    return mk_Prop().steal();
+}
+
+/** Returns mk_app(f, arg). */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_app(object * f, object * arg) {
+    return mk_app(expr(f, true), expr(arg, true)).steal();
+}
+
+/** Returns mk_rev_app(f, n, args) - applies f to n args in reverse order. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_rev_app_array(object * f, size_t n, object * const * args) {
+    return mk_rev_app(expr(f, true), n, reinterpret_cast<expr const *>(args)).steal();
+}
+
+/** Check if expression has a loose bound variable. Returns 1 if it does. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_has_loose_bvars(object * e) {
+    return has_loose_bvars(expr(e, true)) ? 1 : 0;
+}
+
+/** Returns 1 if const_info.is_unsafe() */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_const_info_is_unsafe(object * const_info) {
+    return constant_info(const_info, true).is_unsafe() ? 1 : 0;
+}
+
+/** Returns the instantiate_rev expression: instantiate_rev(e, n, subst).
+    This is different from lean_expr_instantiate_rev_ptr which uses the Lean Array/Nat ABI. */
+extern "C" LEAN_EXPORT object * lean_cxx_instantiate_rev_ptr(object * e, size_t n, object * const * subst) {
+    buffer<expr> subst_buf;
+    for (size_t i = 0; i < n; i++)
+        subst_buf.push_back(expr(subst[i], true));
+    return instantiate_rev(expr(e, true), subst_buf.size(), subst_buf.data()).steal();
+}
+
+/** Returns cheap_beta_reduce of expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_cheap_beta_reduce(object * e) {
+    return cheap_beta_reduce(expr(e, true)).steal();
+}
+
+/** Returns instantiate(e, subst) - instantiate the outermost bvar with subst. */
+extern "C" LEAN_EXPORT object * lean_cxx_instantiate1(object * e, object * subst) {
+    return instantiate(expr(e, true), expr(subst, true)).steal();
+}
+
+/** Returns mk_lambda(n, domain, body, binfo). */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_lambda(object * n, object * domain, object * body, uint8_t binfo) {
+    return mk_lambda(name(n, true), expr(domain, true), expr(body, true), static_cast<binder_info>(binfo)).steal();
+}
+
+/** Returns mk_bvar(i) as an expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_mk_bvar(size_t i) {
+    return mk_bvar(i).steal();
+}
+
+/** Returns the level list from a Const expression. */
+extern "C" LEAN_EXPORT object * lean_cxx_const_info_lparams(object * const_info) {
+    return constant_info(const_info, true).get_lparams().to_obj_arg();
+}
+
+/** Check if `t` has free variables. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_has_fvar(object * e) {
+    return has_fvar(expr(e, true)) ? 1 : 0;
+}
+
+/** Check if name n1 == n2. */
+extern "C" LEAN_EXPORT uint8_t lean_cxx_name_eq(object * n1, object * n2) {
+    return name(n1, true) == name(n2, true) ? 1 : 0;
+}
+
+/** Scope max heartbeat (for lean_cxx_add_decl).
+    Returns an opaque handle that must be released with lean_cxx_scope_max_heartbeat_release. */
+extern "C" LEAN_EXPORT void * lean_cxx_scope_max_heartbeat_create(size_t max) {
+    return new scope_max_heartbeat(max);
+}
+
+extern "C" LEAN_EXPORT void lean_cxx_scope_max_heartbeat_release(void * s) {
+    delete static_cast<scope_max_heartbeat *>(s);
+}
+
+extern "C" LEAN_EXPORT void * lean_cxx_scope_cancel_tk_create(object * opt_cancel_tk) {
+    return new scope_cancel_tk(is_scalar(opt_cancel_tk) ? nullptr : cnstr_get(opt_cancel_tk, 0));
+}
+
+extern "C" LEAN_EXPORT void lean_cxx_scope_cancel_tk_release(void * s) {
+    delete static_cast<scope_cancel_tk *>(s);
+}
+
+/** Wrap a KernelError (Lean Except.error payload) into a Rust-usable form.
+    This catches any C++ exception thrown by the callable and converts it. */
+
+/** catch_kernel_exceptions wrapper for kernel add_decl: full implementation in C++. */
+
+} /* namespace lean */

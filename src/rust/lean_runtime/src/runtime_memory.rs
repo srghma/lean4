@@ -161,5 +161,32 @@ mod runtime_memory_impl {
     pub unsafe extern "C" fn get_allocated_memory() -> usize {
         get_current_rss()
     }
+
+    /// Returns `true` if memory usage is within configured limits.
+    /// This is the Result-returning variant used by the Rust type checker.
+    pub unsafe fn lean_memory_within_limit() -> bool {
+        let max = G_MAX_MEMORY.load(Ordering::SeqCst);
+        if max == 0 {
+            return true;
+        }
+        let counter = G_COUNTER.with(|cell| {
+            let val = cell.get() + 1;
+            cell.set(val);
+            val
+        });
+        if counter >= LEAN_CHECK_MEM_THRESHOLD {
+            G_COUNTER.with(|cell| cell.set(0));
+            let r = get_peak_rss();
+            if r > 0 && r < max {
+                return true;
+            }
+            let r = get_current_rss();
+            if r == 0 || r < max {
+                return true;
+            }
+            return false;
+        }
+        true
+    }
 }
 pub use runtime_memory_impl::*;

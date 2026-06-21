@@ -9,6 +9,7 @@ Author: Leonardo de Moura
 #include "util/name_map.h"
 #include "util/name_set.h"
 #include "kernel/type_checker.h"
+#include "kernel/inductive.h"
 #include "kernel/instantiate.h"
 #include "kernel/abstract.h"
 #include "kernel/find_fn.h"
@@ -1210,6 +1211,103 @@ expr string_lit_to_constructor(expr const & e) {
     return mk_app(*g_string_mk, r);
 }
 
+
+/* ── Bridges for Rust TypeChecker ────────────────────────────────────────── */
+
+extern "C" LEAN_EXPORT uint8_t lean_cxx_is_non_rec_structure(object * env, object * n) {
+    try {
+        return is_non_rec_structure(environment(env, true), name(n, true)) ? 1 : 0;
+    } catch (...) {
+        return 0;
+    }
+}
+
+extern "C" LEAN_EXPORT object * lean_cxx_is_constructor_app(object * env, object * e) {
+    optional<name> r = is_constructor_app(environment(env, true), expr(e, true));
+    if (r) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, r->to_obj_arg());
+        return some;
+    }
+    return lean_box(0); /* None */
+}
+
+extern "C" LEAN_EXPORT object * lean_cxx_expand_eta_struct(object * env, object * e_type, object * e) {
+    return expand_eta_struct(environment(env, true), expr(e_type, true), expr(e, true)).steal();
+}
+
+extern "C" LEAN_EXPORT object * lean_cxx_mk_nullary_cnstr(object * env, object * type, size_t nparams) {
+    optional<expr> r = mk_nullary_cnstr(environment(env, true), expr(type, true), (unsigned)nparams);
+    if (r) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, r->to_obj_arg());
+        return some;
+    }
+    return lean_box(0); /* None */
+}
+
+extern "C" LEAN_EXPORT object * lean_cxx_get_rec_rule_for(object * const_info_obj, object * major_e) {
+    constant_info ci(const_info_obj, true);
+    optional<recursor_rule> r = get_rec_rule_for(ci.to_recursor_val(), expr(major_e, true));
+    if (r) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, r->to_obj_arg());
+        return some;
+    }
+    return lean_box(0); /* None */
+}
+
+extern "C" LEAN_EXPORT object * lean_cxx_nat_lit_to_constructor(object * e) {
+    return nat_lit_to_constructor(expr(e, true)).steal();
+}
+
+extern "C" LEAN_EXPORT object * lean_cxx_string_lit_to_constructor(object * e) {
+    return string_lit_to_constructor(expr(e, true)).steal();
+}
+
+/* Bridge for Rust TypeChecker: given a recursor_val object, return the name of its major induct (borrowed). */
+extern "C" LEAN_EXPORT object * lean_cxx_rec_val_major_induct(object * const_info_obj) {
+    constant_info ci(const_info_obj, true);
+    return ci.to_recursor_val().get_major_induct().to_obj_arg();
+}
+
+/* Bridge for Rust TypeChecker: run inductive_reduce_rec with Rust callbacks.
+   whnf_fn  : fn(ctx: *mut void, e: *mut object) -> *mut object  (owned)
+   infer_fn : fn(ctx: *mut void, e: *mut object) -> *mut object  (owned)
+   is_def_eq_fn: fn(ctx: *mut void, a: *mut object, b: *mut object) -> uint8_t */
+extern "C" LEAN_EXPORT object * lean_cxx_inductive_reduce_rec(
+    object * env,
+    object * e,
+    void * ctx,
+    object * (*whnf_fn)(void *, object *),
+    object * (*infer_fn)(void *, object *),
+    uint8_t (*is_def_eq_fn)(void *, object *, object *)
+) {
+    auto whnf_cb = [&](expr const & ex) -> expr {
+        return expr(whnf_fn(ctx, ex.to_obj_arg()), true);
+    };
+    auto infer_cb = [&](expr const & ex) -> expr {
+        return expr(infer_fn(ctx, ex.to_obj_arg()), true);
+    };
+    auto is_def_eq_cb = [&](expr const & a, expr const & b) -> bool {
+        return is_def_eq_fn(ctx, a.to_obj_arg(), b.to_obj_arg()) != 0;
+    };
+    optional<expr> r = inductive_reduce_rec(environment(env, true), expr(e, true),
+                                            whnf_cb, infer_cb, is_def_eq_cb);
+    if (r) {
+        object * some = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(some, 0, r->to_obj_arg());
+        return some;
+    }
+    return lean_box(0); /* None */
+}
+
+/* Bridge for Rust TypeChecker: add an inductive declaration. */
+extern "C" LEAN_EXPORT object * lean_cxx_add_inductive_only(object * env, object * decl) {
+    return catch_kernel_exceptions<environment>([&]() {
+        return environment(env, true).add_inductive(declaration(decl, true));
+    });
+}
 
 LEAN_EXPORT void initialize_inductive() {
     g_nested         = new name("_nested");
