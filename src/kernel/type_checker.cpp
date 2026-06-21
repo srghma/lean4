@@ -272,32 +272,6 @@ environment environment::add(declaration const & d, bool check) const {
     lean_unreachable();
 }
 
-/*
-addDeclCore (env : Environment) (maxHeartbeats : USize) (decl : @& Declaration)
-  (cancelTk? : @& Option IO.CancelToken) : Except Kernel.Exception Environment
-*/
-extern "C" LEAN_EXPORT object * lean_cxx_add_decl(object * env, size_t max_heartbeat, object * decl,
-    object * opt_cancel_tk) {
-    scope_max_heartbeat s(max_heartbeat);
-    scope_cancel_tk s2(is_scalar(opt_cancel_tk) ? nullptr : cnstr_get(opt_cancel_tk, 0));
-    return catch_kernel_exceptions<environment>([&]() {
-            return environment(env).add(declaration(decl, true));
-        });
-}
-
-extern "C" LEAN_EXPORT object * lean_cxx_add_decl_without_checking(object * env, object * decl) {
-    return catch_kernel_exceptions<environment>([&]() {
-            return environment(env).add(declaration(decl, true), false);
-        });
-}
-
-/* No-scope variant: scope_max_heartbeat / scope_cancel_tk are set up by the Rust caller. */
-extern "C" LEAN_EXPORT object * lean_cxx_add_decl_no_scope(object * env, object * decl) {
-    return catch_kernel_exceptions<environment>([&]() {
-            return environment(env).add(declaration(decl, true));
-        });
-}
-
 extern "C" LEAN_EXPORT object * lean_cxx_add_quot_to_env(object * env) {
     return catch_kernel_exceptions<environment>([&]() {
             return environment(env).add_quot();
@@ -325,16 +299,6 @@ elab_environment elab_environment::add(declaration const & d, bool check) const 
     return elab_environment(lean_elab_environment_update_base_after_kernel_add(this->to_obj_arg(), kenv.to_obj_arg(), d.to_obj_arg()));
 }
 
-extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl(object * env, size_t max_heartbeat, object * decl,
-    object * opt_cancel_tk) {
-    scope_max_heartbeat s(max_heartbeat);
-    scope_cancel_tk s2(is_scalar(opt_cancel_tk) ? nullptr : cnstr_get(opt_cancel_tk, 0));
-    return catch_kernel_exceptions<elab_environment>([&]() {
-            return elab_environment(env).add(declaration(decl, true));
-        });
-}
-
-/* No-scope variant: scope_max_heartbeat / scope_cancel_tk are set up by the Rust caller. */
 extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl_no_scope(object * env, object * decl) {
     return catch_kernel_exceptions<elab_environment>([&]() {
             return elab_environment(env).add(declaration(decl, true));
@@ -2050,29 +2014,6 @@ extern "C" LEAN_EXPORT uint8_t lean_cxx_has_fvar(object * e) {
 extern "C" LEAN_EXPORT uint8_t lean_cxx_name_eq(object * n1, object * n2) {
     return name(n1, true) == name(n2, true) ? 1 : 0;
 }
-
-/** Scope max heartbeat (for lean_cxx_add_decl).
-    Returns an opaque handle that must be released with lean_cxx_scope_max_heartbeat_release. */
-extern "C" LEAN_EXPORT void * lean_cxx_scope_max_heartbeat_create(size_t max) {
-    return new scope_max_heartbeat(max);
-}
-
-extern "C" LEAN_EXPORT void lean_cxx_scope_max_heartbeat_release(void * s) {
-    delete static_cast<scope_max_heartbeat *>(s);
-}
-
-extern "C" LEAN_EXPORT void * lean_cxx_scope_cancel_tk_create(object * opt_cancel_tk) {
-    return new scope_cancel_tk(is_scalar(opt_cancel_tk) ? nullptr : cnstr_get(opt_cancel_tk, 0));
-}
-
-extern "C" LEAN_EXPORT void lean_cxx_scope_cancel_tk_release(void * s) {
-    delete static_cast<scope_cancel_tk *>(s);
-}
-
-/** Wrap a KernelError (Lean Except.error payload) into a Rust-usable form.
-    This catches any C++ exception thrown by the callable and converts it. */
-
-/** catch_kernel_exceptions wrapper for kernel add_decl: full implementation in C++. */
 
 /* ── Per-kind add bridges for Rust lean_add_decl dispatch ──────────────────── */
 
