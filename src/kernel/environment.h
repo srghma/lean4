@@ -55,12 +55,12 @@ class LEAN_EXPORT environment : public object_ref {
     void add_core(constant_info const & info);
     void mark_quot_initialized();
     environment add(constant_info const & info) const;
+public:
     environment add_axiom(declaration const & d, bool check) const;
     environment add_definition(declaration const & d, bool check) const;
     environment add_theorem(declaration const & d, bool check) const;
     environment add_opaque(declaration const & d, bool check) const;
     environment add_mutual(declaration const & d, bool check) const;
-public:
     environment add_quot() const;
     environment add_inductive(declaration const & d) const;
     environment(environment const & other):object_ref(other) {}

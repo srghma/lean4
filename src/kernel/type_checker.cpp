@@ -2067,4 +2067,41 @@ extern "C" LEAN_EXPORT void lean_cxx_scope_cancel_tk_release(void * s) {
 
 /** catch_kernel_exceptions wrapper for kernel add_decl: full implementation in C++. */
 
+/* ── Per-kind add bridges for Rust lean_add_decl dispatch ──────────────────── */
+
+/** Add an axiom declaration (CONSUMES env, BORROWS decl). */
+extern "C" LEAN_EXPORT object * lean_cxx_add_axiom(object * env, object * decl, uint8_t check) {
+    return catch_kernel_exceptions<environment>([&]() {
+        return environment(env).add_axiom(declaration(decl, true), check != 0);
+    });
+}
+
+/** Add a definition declaration (CONSUMES env, BORROWS decl). */
+extern "C" LEAN_EXPORT object * lean_cxx_add_definition(object * env, object * decl, uint8_t check) {
+    return catch_kernel_exceptions<environment>([&]() {
+        return environment(env).add_definition(declaration(decl, true), check != 0);
+    });
+}
+
+/** Add a theorem declaration (CONSUMES env, BORROWS decl). */
+extern "C" LEAN_EXPORT object * lean_cxx_add_theorem(object * env, object * decl, uint8_t check) {
+    return catch_kernel_exceptions<environment>([&]() {
+        return environment(env).add_theorem(declaration(decl, true), check != 0);
+    });
+}
+
+/** Add an opaque declaration (CONSUMES env, BORROWS decl). */
+extern "C" LEAN_EXPORT object * lean_cxx_add_opaque(object * env, object * decl, uint8_t check) {
+    return catch_kernel_exceptions<environment>([&]() {
+        return environment(env).add_opaque(declaration(decl, true), check != 0);
+    });
+}
+
+/** Add a mutual definition declaration (CONSUMES env, BORROWS decl). */
+extern "C" LEAN_EXPORT object * lean_cxx_add_mutual(object * env, object * decl, uint8_t check) {
+    return catch_kernel_exceptions<environment>([&]() {
+        return environment(env).add_mutual(declaration(decl, true), check != 0);
+    });
+}
+
 } /* namespace lean */

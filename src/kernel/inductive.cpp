@@ -1303,9 +1303,10 @@ extern "C" LEAN_EXPORT object * lean_cxx_inductive_reduce_rec(
 }
 
 /* Bridge for Rust TypeChecker: add an inductive declaration. */
+/* CONSUMES env, BORROWS decl. */
 extern "C" LEAN_EXPORT object * lean_cxx_add_inductive_only(object * env, object * decl) {
     return catch_kernel_exceptions<environment>([&]() {
-        return environment(env, true).add_inductive(declaration(decl, true));
+        return environment(env).add_inductive(declaration(decl, true));
     });
 }
 
