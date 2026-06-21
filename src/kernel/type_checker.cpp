@@ -299,18 +299,6 @@ elab_environment elab_environment::add(declaration const & d, bool check) const 
     return elab_environment(lean_elab_environment_update_base_after_kernel_add(this->to_obj_arg(), kenv.to_obj_arg(), d.to_obj_arg()));
 }
 
-extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl_no_scope(object * env, object * decl) {
-    return catch_kernel_exceptions<elab_environment>([&]() {
-            return elab_environment(env).add(declaration(decl, true));
-        });
-}
-
-extern "C" LEAN_EXPORT object * lean_cxx_elab_add_decl_without_checking(object * env, object * decl) {
-    return catch_kernel_exceptions<elab_environment>([&]() {
-            return elab_environment(env).add(declaration(decl, true), false);
-        });
-}
-
 environment elab_environment::to_kernel_env() const {
     return environment(lean_elab_environment_to_kernel_env(to_obj_arg()));
 }
