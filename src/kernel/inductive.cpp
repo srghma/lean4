@@ -1211,6 +1211,21 @@ expr string_lit_to_constructor(expr const & e) {
     return mk_app(*g_string_mk, r);
 }
 
+/* Bridge for Rust TypeChecker: nat/string literal → constructor expression.
+   Both BORROW their argument (caller retains ownership). */
+extern "C" LEAN_EXPORT object * lean_nat_lit_to_constructor(object * e) {
+    expr wrapper(e, true);  // borrowed constructor: incs e, wrapper owns one ref
+    expr result = nat_lit_to_constructor(wrapper);
+    // wrapper dtor: decs e back to original
+    return result.steal();
+}
+
+extern "C" LEAN_EXPORT object * lean_string_lit_to_constructor(object * e) {
+    expr wrapper(e, true);  // borrowed constructor
+    expr result = string_lit_to_constructor(wrapper);
+    return result.steal();
+}
+
 /* Bridge for Rust TypeChecker: add an inductive declaration. */
 /* CONSUMES env, BORROWS decl. */
 extern "C" LEAN_EXPORT object * lean_cxx_add_inductive_only(object * env, object * decl) {

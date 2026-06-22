@@ -294,6 +294,20 @@ extern "C" LEAN_EXPORT lean_object * lean_cxx_kernel_check(lean_object * obj_env
     });
 }
 
+// local_ctx::mk_pi (= mk_binding<false>) exposed with a clean C ABI for the Rust kernel
+// type-checker. BORROWS lctx/fvars/body (caller retains ownership), returns an owned expr.
+// `fvars` is an array of `n` Expr objects (each a single object pointer, layout-compatible
+// with `expr`).
+extern "C" LEAN_EXPORT object * lean_kernel_local_ctx_mk_pi(object * lctx, object ** fvars, size_t n, object * body, uint8 remove_dead_let) {
+    inc(lctx);
+    inc(body);
+    local_ctx lc(lctx);   // consumes the inc'd lctx
+    expr b(body);         // consumes the inc'd body
+    static_assert(sizeof(expr) == sizeof(object *), "expr must be a single object pointer");
+    expr r = lc.mk_pi(static_cast<unsigned>(n), reinterpret_cast<expr const *>(fvars), b, remove_dead_let != 0);
+    return r.steal();
+}
+
 static name * g_kernel_fresh = nullptr;
 static expr * g_dont_care    = nullptr;
 static name * g_bool_true    = nullptr;
@@ -1446,7 +1460,7 @@ inline static expr * new_persistent_expr_const(name const & n) {
     return e;
 }
 
-void initialize_cxx_type_checker_globals() {
+extern "C" LEAN_EXPORT void initialize_cxx_type_checker_globals() {
     g_kernel_fresh = new name("_kernel_fresh");
     mark_persistent(g_kernel_fresh->raw());
     g_bool_true    = new name{"Bool", "true"};
@@ -1475,7 +1489,7 @@ void initialize_cxx_type_checker_globals() {
     register_name_generator_prefix(*g_kernel_fresh);
 }
 
-void finalize_cxx_type_checker_globals() {
+extern "C" LEAN_EXPORT void finalize_cxx_type_checker_globals() {
     delete g_kernel_fresh;
     delete g_bool_true;
     delete g_eager_reduce;
