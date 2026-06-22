@@ -157,7 +157,12 @@ public:
 };
 
 // initialize_type_checker / finalize_type_checker are now provided by Rust (kernel_type_checker.rs).
-// The C++ globals are initialized separately via:
-void initialize_cxx_type_checker_globals();
-void finalize_cxx_type_checker_globals();
+// The C++ globals are initialized separately via these (exported as plain C symbols so the
+// Rust runtime can reference them even when linked into standalone artifacts):
+extern "C" LEAN_EXPORT void initialize_cxx_type_checker_globals();
+extern "C" LEAN_EXPORT void finalize_cxx_type_checker_globals();
+
+// Build a Pi telescope over `fvars` (= local_ctx::mk_pi / mk_binding<false>), exported with a
+// clean C ABI for the Rust kernel type-checker. BORROWS lctx/fvars/body, returns an owned expr.
+extern "C" LEAN_EXPORT object * lean_kernel_local_ctx_mk_pi(object * lctx, object ** fvars, size_t n, object * body, uint8 remove_dead_let);
 }

@@ -116,6 +116,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_expr.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_instantiate.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_environment.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_type_checker.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_instantiate_mvars.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_module.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/library_elab_environment.rs
