@@ -136,8 +136,7 @@ extern "C" {
     // lean_constant_info_is_constructor / is_recursor / is_definition / is_unsafe / has_value: implemented as Rust shims below
     // lean_constant_info_get_name / get_lparams / get_num_lparams / get_hints / get_safety: implemented as Rust shims below
     // lean_constant_info_to_constructor_val / to_recursor_val / to_definition_val: implemented as Rust shims below
-    fn lean_constant_info_get_type(info: *const LeanObject) -> *mut LeanObject;
-    fn lean_constant_info_get_value(info: *const LeanObject) -> *mut LeanObject;
+    // lean_constant_info_get_type: implemented as a Rust shim below (constant_val field 2).
     fn lean_instantiate_type_lparams(info: *const LeanObject, ls: *mut LeanObject) -> *mut LeanObject;
     fn lean_instantiate_value_lparams(info: *const LeanObject, ls: *mut LeanObject) -> *mut LeanObject;
 
@@ -838,6 +837,10 @@ pub unsafe extern "C" fn lean_constant_info_get_name(info: *const LeanObject) ->
 #[no_mangle]
 pub unsafe extern "C" fn lean_constant_info_get_lparams(info: *const LeanObject) -> *mut LeanObject {
     lean_ctor_get(ci_constant_val(info), 1)
+}
+#[no_mangle]
+pub unsafe extern "C" fn lean_constant_info_get_type(info: *const LeanObject) -> *mut LeanObject {
+    lean_ctor_get(ci_constant_val(info), 2)
 }
 #[no_mangle]
 pub unsafe extern "C" fn lean_constant_info_get_num_lparams(info: *const LeanObject) -> u32 {
@@ -4211,82 +4214,223 @@ unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
 }
 
 // ---------------------------------------------------------------------------
-// add_decl_impl — dispatches on declaration kind
+// add-declaration path (Rust port of environment::add_axiom/add_definition/
+// add_theorem/add_opaque from type_checker.cpp). All C++ `throw` become
+// `Err(KernelError::...)`. For declaration kinds Axiom/Definition/Theorem/Opaque
+// (tags 0-3) a `Declaration` IS layout-identical to a `ConstantInfo` (the C++
+// `constant_info(declaration)` ctor just reuses `d.raw()`), so we treat `decl`
+// directly as a `ConstantInfo` for the field accessors and for `add`.
 // ---------------------------------------------------------------------------
 
+extern "C" {
+    // LocalContext.mkEmpty : Unit → LocalContext (returns an owned empty local ctx).
+    fn lean_mk_empty_local_ctx(u: *mut LeanObject) -> *mut LeanObject;
+    // Kernel.Environment.add (env cinfo) : Environment — pure insert (no dup check);
+    // CONSUMES env + cinfo, returns the new env (owned). Matches C++ `environment::add`.
+    fn lean_environment_add(env: *mut LeanObject, info: *mut LeanObject) -> *mut LeanObject;
+    // C++ bridges still used for the not-yet-ported kinds (quot/mutual/inductive),
+    // plus axiom/def/theorem/opaque as a fallback while the Rust port is debugged.
+    fn lean_cxx_add_axiom(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+    fn lean_cxx_add_definition(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+    fn lean_cxx_add_theorem(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+    fn lean_cxx_add_opaque(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+    fn lean_cxx_add_quot_to_env(env: *mut LeanObject) -> *mut LeanObject;
+    fn lean_cxx_add_mutual(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+    fn lean_cxx_add_inductive_only(env: *mut LeanObject, decl: *mut LeanObject) -> *mut LeanObject;
+}
+
+/// Toggle: route axiom/def/theorem/opaque through the Rust `add_decl_impl` (true) or the
+/// C++ bridges (false). Kept false until the Rust path is validated, so the tree stays green.
+const RUST_ADD_SIMPLE: bool = false;
+
+#[inline(always)]
+unsafe fn mk_empty_lctx() -> *mut LeanObject {
+    lean_mk_empty_local_ctx(lean_box(0))
+}
+
+/// Value of a def/thm/opaque declaration (BORROWED). `val` is field 0 of the
+/// `Declaration`/`ConstantInfo`; the val nests its `constant_val` at field 0 and stores the
+/// value at field 1 (matching C++ `definition_val::get_value() = cnstr_get_ref(*this, 1)`).
+#[inline(always)]
+unsafe fn decl_value(decl: *mut LeanObject) -> *mut LeanObject {
+    lean_ctor_get(ci_to_val(decl), 1)
+}
+
+/// Port of `check_no_metavar_no_fvar`: declarations may not contain mvars/fvars.
+unsafe fn check_no_metavar_no_fvar(env: *mut LeanObject, name: *mut LeanObject, e: *mut LeanObject) -> Result<(), KernelError> {
+    if expr_has_expr_mvar(e) {
+        lean_inc(env); lean_inc(name); lean_inc(e);
+        return Err(KernelError::DeclHasMVars { env, name, expr: e });
+    }
+    if expr_has_fvar(e) {
+        lean_inc(env); lean_inc(name); lean_inc(e);
+        return Err(KernelError::DeclHasFVars { env, name, expr: e });
+    }
+    Ok(())
+}
+
+/// Port of `check_name` (errors if `name` is already declared). `env`/`name` borrowed.
+unsafe fn check_name_dup(env: *mut LeanObject, name: *mut LeanObject) -> Result<(), KernelError> {
+    let info = env_find(env, name); // owned ConstantInfo, or boxed scalar when absent
+    if lean_is_scalar(info) {
+        return Ok(());
+    }
+    lean_dec(info);
+    lean_inc(env); lean_inc(name);
+    Err(KernelError::AlreadyDeclared { env, name })
+}
+
+/// Port of `check_duplicated_univ_params`: error if a level param repeats.
+unsafe fn check_duplicated_univ_params(env: *mut LeanObject, lparams: *mut LeanObject) -> Result<(), KernelError> {
+    let mut l = lparams;
+    while !lean_list_is_nil(l) {
+        let p = lean_list_head(l);
+        let mut rest = lean_list_tail(l);
+        while !lean_list_is_nil(rest) {
+            if lean_name_eq(p, lean_list_head(rest)) {
+                let _ = env;
+                let msg = lean_mk_string_from_bytes(
+                    b"failed to add declaration to environment, duplicate universe level parameter".as_ptr().cast(),
+                    78);
+                return Err(KernelError::Other { msg });
+            }
+            rest = lean_list_tail(rest);
+        }
+        l = lean_list_tail(l);
+    }
+    Ok(())
+}
+
+/// Port of `check_constant_val`: name not duplicated, no duplicate univ params, the type is
+/// metavar/fvar-free, and the type is itself a sort. `tc`'s env is borrowed.
+unsafe fn check_constant_val(tc: &mut TypeChecker, decl: *mut LeanObject) -> Result<(), KernelError> {
+    let env = tc.env();
+    let name = lean_constant_info_get_name(decl);
+    let lparams = lean_constant_info_get_lparams(decl);
+    let ty = lean_constant_info_get_type(decl);
+    check_name_dup(env, name)?;
+    check_duplicated_univ_params(env, lparams)?;
+    check_no_metavar_no_fvar(env, name, ty)?;
+    let sort = tc.check(ty, lparams)?;
+    let s2 = tc.ensure_sort_core(sort, ty)?;
+    lean_dec(s2);
+    lean_dec(sort);
+    Ok(())
+}
+
+/// Check the value of a def/thm/opaque against its declared type. `tc`'s env is borrowed.
+unsafe fn check_decl_value(tc: &mut TypeChecker, decl: *mut LeanObject) -> Result<(), KernelError> {
+    let env = tc.env();
+    let name = lean_constant_info_get_name(decl);
+    let lparams = lean_constant_info_get_lparams(decl);
+    let ty = lean_constant_info_get_type(decl);
+    let val = decl_value(decl);
+    check_no_metavar_no_fvar(env, name, val)?;
+    let val_type = tc.check(val, lparams)?;
+    let ok = tc.is_def_eq(val_type, ty)?;
+    lean_dec(val_type);
+    if !ok {
+        lean_inc(env); lean_inc(decl); lean_inc(ty);
+        return Err(KernelError::DeclTypeMismatch { env, decl, given_type: ty });
+    }
+    Ok(())
+}
+
+/// Port of `environment::add_axiom/add_definition/add_theorem/add_opaque`.
+/// CONSUMES `env`, BORROWS `decl`. `kind` ∈ {0=axiom,1=def,2=thm,3=opaque}.
 unsafe fn add_decl_impl(
     env: *mut LeanObject,
     decl: *mut LeanObject,
-    skip_check: bool,
+    do_check: bool,
 ) -> Result<*mut LeanObject, KernelError> {
-    // Declaration kinds (matching C++ declaration_val tags):
-    // 0 = Axiom, 1 = Definition, 2 = Theorem, 3 = Opaque, 4 = Mutual,
-    // 5 = Inductive (handled in kernel_inductive.rs via lean_add_inductive)
     let kind = lean_ptr_tag(decl);
-    lean_inc(env);
-    let decl_name = lean_constant_info_get_name(decl);
-    let decl_type = lean_constant_info_get_type(decl);
+    let is_unsafe = lean_constant_info_is_unsafe(decl);
 
-    // Basic duplicate check
-    let check_result = lean_environment_check_name(env, decl_name);
-    if !lean_is_scalar(check_result) {
-        // Except.error — propagate
-        let inner = lean_ctor_get(check_result, 0);
-        lean_inc(inner);
-        lean_dec(check_result);
-        lean_dec(env);
-        lean_inc(decl_name); lean_inc(inner);
-        return Err(KernelError::AlreadyDeclared { env, name: decl_name });
-    }
-    lean_dec(check_result);
-
-    if !skip_check {
-        let lparams = lean_constant_info_get_lparams(decl);
-        let mut tc = TypeChecker::new(env, ptr::null_mut(), DEF_SAFETY_SAFE);
-        let ty = tc.check(decl_type, lparams)?;
-        // For theorems: check type is Prop
-        if kind == 2 {
-            let sort = tc.whnf(ty)?;
-            let prop = lean_expr_mk_prop();
-            if !lean_expr_eqv(sort, prop) {
-                lean_dec(sort); lean_dec(prop);
-                lean_inc(env); lean_inc(decl_name); lean_inc(ty);
-                return Err(KernelError::ThmTypeIsNotProp { env, name: decl_name, ty });
+    // Unsafe definitions: check the type, ADD, then check the value in the new env
+    // (so the definition may reference itself). Mirrors add_definition's unsafe branch.
+    if kind == 1 && is_unsafe {
+        if do_check {
+            let lctx = mk_empty_lctx();
+            let mut tc = TypeChecker::new(env, lctx, DEF_SAFETY_UNSAFE);
+            lean_dec(lctx);
+            if let Err(e) = check_constant_val(&mut tc, decl) {
+                drop(tc); lean_dec(env); return Err(e);
             }
-            lean_dec(sort); lean_dec(prop);
+            drop(tc);
         }
-        lean_dec(ty);
-        // Check definition value if present
-        if lean_constant_info_has_value(decl) {
-            let val = lean_constant_info_get_value(decl);
-            let val_type = tc.check(val, lparams)?;
-            if !tc.is_def_eq(val_type, decl_type)? {
-                lean_inc(env);
-                lean_inc(decl_name);
-                lean_inc(val_type);
-                lean_inc(decl_type);
-                let err = KernelError::DeclTypeMismatch { env, decl: decl_name, given_type: val_type };
-                lean_dec(decl_type);
-                return Err(err);
+        lean_inc(decl);
+        let new_env = lean_environment_add(env, decl); // consumes env + inc'd decl
+        if do_check {
+            let lctx = mk_empty_lctx();
+            let mut tc = TypeChecker::new(new_env, lctx, DEF_SAFETY_UNSAFE);
+            lean_dec(lctx);
+            if let Err(e) = check_decl_value(&mut tc, decl) {
+                drop(tc); lean_dec(new_env); return Err(e);
             }
-            lean_dec(val_type);
+            drop(tc);
         }
+        return Ok(new_env);
     }
 
-    // Add to environment
+    // Axiom / safe(+partial) definition / theorem / opaque: check everything in the
+    // current env, then add.
+    if do_check {
+        // Axiom uses unsafe-mode iff the axiom is unsafe; the others use safe mode.
+        let ds = if kind == 0 && is_unsafe { DEF_SAFETY_UNSAFE } else { DEF_SAFETY_SAFE };
+        let lctx = mk_empty_lctx();
+        let mut tc = TypeChecker::new(env, lctx, ds);
+        lean_dec(lctx);
+        let r: Result<(), KernelError> = (|| {
+            check_constant_val(&mut tc, decl)?;
+            if kind == 2 {
+                // theorem: the type must be a proposition
+                let ty = lean_constant_info_get_type(decl);
+                if !tc.is_prop(ty)? {
+                    let env2 = tc.env();
+                    let name = lean_constant_info_get_name(decl);
+                    lean_inc(env2); lean_inc(name); lean_inc(ty);
+                    return Err(KernelError::ThmTypeIsNotProp { env: env2, name, ty });
+                }
+            }
+            if kind != 0 {
+                // def/thm/opaque carry a value
+                check_decl_value(&mut tc, decl)?;
+            }
+            Ok(())
+        })();
+        if let Err(e) = r {
+            drop(tc); lean_dec(env); return Err(e);
+        }
+        drop(tc);
+    }
+
     lean_inc(decl);
-    let new_env = lean_environment_add_core(env, decl);
-    lean_dec(decl);
-    lean_dec(env);
+    Ok(lean_environment_add(env, decl)) // consumes env + inc'd decl
+}
 
-    if lean_is_scalar(new_env) {
-        // This shouldn't happen after check_name succeeded, but handle gracefully
-        lean_inc(env);
-        lean_inc(decl_name);
-        return Err(KernelError::AlreadyDeclared { env, name: decl_name });
+/// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
+/// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`;
+/// quot/mutual/inductive still delegate to the C++ bridges.
+#[no_mangle]
+pub unsafe extern "C" fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject {
+    match lean_ptr_tag(decl) {
+        0 | 1 | 2 | 3 if RUST_ADD_SIMPLE => match add_decl_impl(env, decl, check != 0) {
+            Ok(new_env) => mk_except_ok(new_env),
+            Err(e) => kernel_error_to_lean_except(e),
+        },
+        0 => lean_cxx_add_axiom(env, decl, check),
+        1 => lean_cxx_add_definition(env, decl, check),
+        2 => lean_cxx_add_theorem(env, decl, check),
+        3 => lean_cxx_add_opaque(env, decl, check),
+        4 => lean_cxx_add_quot_to_env(env),
+        5 => lean_cxx_add_mutual(env, decl, check),
+        6 => lean_cxx_add_inductive_only(env, decl),
+        _ => {
+            lean_dec(env);
+            let msg = lean_mk_string_from_bytes(b"unknown declaration kind".as_ptr().cast(), 24);
+            kernel_error_to_lean_except(KernelError::Other { msg })
+        }
     }
-
-    Ok(new_env)
 }
 
 // ---------------------------------------------------------------------------

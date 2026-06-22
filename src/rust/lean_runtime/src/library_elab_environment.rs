@@ -17,51 +17,23 @@ mod library_elab_environment_impl {
             decl: *mut LeanObject,
         ) -> *mut LeanObject;
 
-        fn lean_cxx_add_axiom(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
-        fn lean_cxx_add_definition(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
-        fn lean_cxx_add_theorem(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
-        fn lean_cxx_add_opaque(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
-        fn lean_cxx_add_mutual(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
-        fn lean_cxx_add_quot_to_env(env: *mut LeanObject) -> *mut LeanObject;
-        fn lean_cxx_add_inductive_only(env: *mut LeanObject, decl: *mut LeanObject) -> *mut LeanObject;
+        // Unified Rust dispatch (kernel_type_checker.rs): axiom/def/theorem/opaque checked +
+        // added in Rust; quot/mutual/inductive still delegate to the C++ bridges internally.
+        fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
     }
-
-    const DECL_AXIOM_TAG: u8 = 0;
-    const DECL_DEFINITION_TAG: u8 = 1;
-    const DECL_THEOREM_TAG: u8 = 2;
-    const DECL_OPAQUE_TAG: u8 = 3;
-    const DECL_QUOT_TAG: u8 = 4;
-    const DECL_MUTUAL_DEFINITION_TAG: u8 = 5;
-    const DECL_INDUCTIVE_TAG: u8 = 6;
 
     const EXCEPT_ERROR_TAG: u8 = 0;
     const EXCEPT_OK_TAG: u8 = 1;
 
     // Dispatch kernel-env add on declaration kind (check=1 → type-check, check=0 → skip).
     // CONSUMES kernel_env. BORROWS decl (caller must not use decl after this call returning Err).
+    #[inline(always)]
     unsafe fn kernel_add_dispatch(
         kernel_env: *mut LeanObject,
         decl: *mut LeanObject,
         check: u8,
     ) -> *mut LeanObject {
-        match lean_obj_tag(decl) {
-            DECL_AXIOM_TAG             => lean_cxx_add_axiom(kernel_env, decl, check),
-            DECL_DEFINITION_TAG        => lean_cxx_add_definition(kernel_env, decl, check),
-            DECL_THEOREM_TAG           => lean_cxx_add_theorem(kernel_env, decl, check),
-            DECL_OPAQUE_TAG            => lean_cxx_add_opaque(kernel_env, decl, check),
-            DECL_QUOT_TAG              => lean_cxx_add_quot_to_env(kernel_env),
-            DECL_MUTUAL_DEFINITION_TAG => lean_cxx_add_mutual(kernel_env, decl, check),
-            DECL_INDUCTIVE_TAG         => lean_cxx_add_inductive_only(kernel_env, decl),
-            _ => {
-                lean_dec(kernel_env);
-                let msg = lean_mk_string(b"unknown declaration kind\0".as_ptr().cast());
-                let err_ctor = lean_runtime_alloc_ctor(12, 1, 0); // KernelException.other
-                lean_runtime_ctor_set(err_ctor, 0, msg);
-                let except_err = lean_runtime_alloc_ctor(EXCEPT_ERROR_TAG as u32, 1, 0);
-                lean_runtime_ctor_set(except_err, 0, err_ctor);
-                except_err
-            }
-        }
+        lean_rust_add_decl(kernel_env, decl, check)
     }
 
     /// Common implementation for lean_elab_add_decl and lean_elab_add_decl_without_checking.
