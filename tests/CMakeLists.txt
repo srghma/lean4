@@ -326,3 +326,58 @@ add_combined_measurements("${BENCH_MEASUREMENTS}" "${BENCH_MEASUREMENTS_PART1}" 
 add_custom_target(bench-part1 DEPENDS lean "${BENCH_MEASUREMENTS_PART1}" COMMENT "Run benchmarks (part 1)")
 add_custom_target(bench-part2 DEPENDS lean "${BENCH_MEASUREMENTS_PART2}" COMMENT "Run benchmarks (part 2)")
 add_custom_target(bench DEPENDS lean "${BENCH_MEASUREMENTS}" COMMENT "Run all benchmarks")
+
+######################
+## C++ Unit Tests   ##
+######################
+
+add_executable(cpp_type_checker_test cpp/type_checker_test.cpp)
+add_dependencies(cpp_type_checker_test make_stdlib)
+target_include_directories(cpp_type_checker_test PRIVATE
+  "${LEAN_SOURCE_DIR}"
+  "${CMAKE_BINARY_DIR}"
+  "${CMAKE_BINARY_DIR}/include"
+)
+
+if(LLVM)
+  target_link_libraries(cpp_type_checker_test PRIVATE
+    -Wl,--start-group
+    $<TARGET_FILE:leancpp>
+    "${CMAKE_BINARY_DIR}/lib/lean/libLean.a"
+    -Wl,--end-group
+    "${CMAKE_BINARY_DIR}/lib/lean/libStd.a"
+    -Wl,--start-group
+    "${CMAKE_BINARY_DIR}/lib/lean/libInit.a"
+    $<TARGET_FILE:leanrt>
+    -Wl,--end-group
+    ${GMP_LIBRARIES}
+    ${LIBUV_LDFLAGS}
+    ${LLVM_CONFIG_LDFLAGS}
+    ${LLVM_CONFIG_LIBS}
+    ${LLVM_CONFIG_SYSTEM_LIBS}
+    pthread
+    rt
+    dl
+  )
+else()
+  target_link_libraries(cpp_type_checker_test PRIVATE
+    -Wl,--start-group
+    $<TARGET_FILE:leancpp>
+    "${CMAKE_BINARY_DIR}/lib/lean/libLean.a"
+    -Wl,--end-group
+    "${CMAKE_BINARY_DIR}/lib/lean/libStd.a"
+    -Wl,--start-group
+    "${CMAKE_BINARY_DIR}/lib/lean/libInit.a"
+    $<TARGET_FILE:leanrt>
+    -Wl,--end-group
+    ${GMP_LIBRARIES}
+    ${LIBUV_LDFLAGS}
+    pthread
+    rt
+    dl
+  )
+endif()
+
+add_test(NAME cpp_type_checker_test COMMAND cpp_type_checker_test)
+
+

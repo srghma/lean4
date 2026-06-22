@@ -718,11 +718,8 @@ endif()
 add_subdirectory(initialize)
 add_subdirectory(shell)
 
-# The relative path doesn't work once the CMakeLists.txt files have been copied into the stage0 dir.
-# Since stage0 needs no tests, we just ignore them instead of fixing the path.
-if(NOT STAGE EQUAL 0)
-  add_subdirectory(../tests "${CMAKE_CURRENT_BINARY_DIR}/tests")
-endif()
+
+
 
 # to be included in `leanshared` but not the smaller `leanshared_*` (as it would pull
 # in the world)
@@ -795,6 +792,12 @@ else()
   )
   add_library(leancpp STATIC ${LEAN_OBJS} $<TARGET_OBJECTS:initialize>)
   set_target_properties(leancpp PROPERTIES OUTPUT_NAME leancpp)
+endif()
+
+# The relative path doesn't work once the CMakeLists.txt files have been copied into the stage0 dir.
+# Since stage0 needs no tests, we just ignore them instead of fixing the path.
+if(NOT STAGE EQUAL 0)
+  add_subdirectory(../tests "${CMAKE_CURRENT_BINARY_DIR}/tests")
 endif()
 
 if(STAGE GREATER 0 AND CADICAL AND INSTALL_CADICAL)
