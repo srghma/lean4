@@ -16,6 +16,19 @@ def C (a : Expr) : CoreM Unit := do
 def D (a b : Expr) : CoreM Unit := do
   let env ← getEnv
   IO.println (toString (← ofExceptKernelException (Kernel.isDefEq env {} a b)))
+-- check `a`, then whnf the resulting type (normalizes the inferred type for a stable assertion)
+def CW (a : Expr) : CoreM Unit := do
+  let env ← getEnv
+  let t ← ofExceptKernelException (Kernel.check env {} a)
+  IO.println (toString (← ofExceptKernelException (Kernel.whnf env {} t)))
+-- (Sigma.mk Nat (fun _ => Nat) 1 2).snd : a VALID dependent projection (field type `β fst` has a
+-- loose bvar) — exercises the infer_proj mk_proj branch, which over-freed the borrowed proj
+-- subject / struct-name before a session-4d fix. Checking it in a loop catches that use-after-free.
+def depProj : Expr :=
+  Expr.proj `Sigma 1 <|
+    mkApp4 (mkConst `Sigma.mk [Level.zero, Level.zero])
+      (mkConst `Nat) (Expr.lam `x (mkConst `Nat) (mkConst `Nat) .default)
+      (Expr.lit (.natVal 1)) (Expr.lit (.natVal 2))
 -- whnf / isDefEq of named constants (exercises real elaborated terms incl. recursors)
 def WN (n : Name) : CoreM Unit := do
   let env ← getEnv
@@ -73,6 +86,9 @@ run check-nat       'Nat'      'C (mkApp2 (mkConst `Nat.add) (Expr.lit (.natVal 
 run check-pi        'Sort.{imax 1 1}' 'C (Expr.forallE `x (mkConst `Nat) (mkConst `Nat) .default)'
 run check-lam       'Nat -> Nat'      'C (Expr.lam `x (mkConst `Nat) (Expr.bvar 0) .default)'
 run check-let       'Nat'             'C (Expr.letE `x (mkConst `Nat) (mkConst `Nat.zero) (Expr.bvar 0) false)'
+# Dependent projection (infer_proj mk_proj-ordering use-after-free, session-4d). Looped so the
+# use-after-free accumulates and crashes if the fix regresses; the type whnfs to `Nat`.
+run check-dep-proj  'Nat'             'do for _ in [0:300] do CW depProj'
 
 run defeq-lit       'true'     'D (Expr.lit (.natVal 5)) (Expr.lit (.natVal 5))'
 run defeq-lit-ne    'false'    'D (Expr.lit (.natVal 5)) (Expr.lit (.natVal 6))'

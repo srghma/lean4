@@ -2333,8 +2333,11 @@ impl TypeChecker {
             }
             let body = lean_expr_get_binding_body(r);
             if lean_expr_has_loose_bvars(body) {
-                let proj_i = lean_expr_mk_proj(proj_sname, lean_nat_mk_obj(i as u64), proj_e);
+                // mk_proj CONSUMES sname/idx/expr. proj_sname/proj_e are BORROWED from `e`, so
+                // they must be inc'd BEFORE the call — incrementing after lets mk_proj decrement
+                // them to zero (freeing them) and the inc then writes to freed memory.
                 lean_inc(proj_sname); lean_inc(proj_e);
+                let proj_i = lean_expr_mk_proj(proj_sname, lean_nat_mk_obj(i as u64), proj_e);
                 let new_r = lean_expr_instantiate1(body, proj_i);
                 lean_dec(proj_i);
                 lean_dec(r);
