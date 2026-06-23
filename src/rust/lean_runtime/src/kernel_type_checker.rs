@@ -1887,11 +1887,12 @@ impl TypeChecker {
     // -----------------------------------------------------------------------
 
     unsafe fn ensure_sort_core(&mut self, e: *mut LeanObject, s: *mut LeanObject) -> Result<*mut LeanObject, KernelError> {
+        // CONSUMES `e` (owned), BORROWS `s`, returns an owned sort.
         if lean_expr_is_sort(e) {
-            lean_inc(e);
             return Ok(e);
         }
-        let new_e = self.whnf(e)?;
+        let new_e = self.whnf(e)?; // whnf borrows e
+        lean_dec(e); // consume e
         if lean_expr_is_sort(new_e) {
             return Ok(new_e);
         }
@@ -1903,11 +1904,12 @@ impl TypeChecker {
     }
 
     unsafe fn ensure_pi_core(&mut self, e: *mut LeanObject, s: *mut LeanObject) -> Result<*mut LeanObject, KernelError> {
+        // CONSUMES `e` (owned), BORROWS `s`, returns an owned pi.
         if lean_expr_is_pi(e) {
-            lean_inc(e);
             return Ok(e);
         }
-        let new_e = self.whnf(e)?;
+        let new_e = self.whnf(e)?; // whnf borrows e
+        lean_dec(e); // consume e
         if lean_expr_is_pi(new_e) {
             return Ok(new_e);
         }
@@ -2011,7 +2013,7 @@ impl TypeChecker {
                 };
                 if !infer_only {
                     let sort = tc.infer_type_core(d, infer_only)?;
-                    let _ = tc.ensure_sort_core(sort, d)?;
+                    lean_dec(tc.ensure_sort_core(sort, d)?); // consumes `sort`; result unused
                 }
                 let bi = lean_expr_get_binding_info(e);
                 let fvar = tc.lctx_mk_local_decl(name, d, bi);
@@ -2181,7 +2183,7 @@ impl TypeChecker {
                 let val = lean_expr_instantiate_rev(val_bv, fvars.len() as u32, fvars.as_ptr());
                 if !infer_only {
                     let ty_type = tc.infer_type_core(ty, infer_only)?;
-                    let _ = tc.ensure_sort_core(ty_type, ty)?;
+                    lean_dec(tc.ensure_sort_core(ty_type, ty)?); // consumes `ty_type`; result unused
                     let val_type = tc.infer_type_core(val, infer_only)?;
                     if !tc.is_def_eq(val_type, ty)? {
                         lean_inc(tc.st.env);
@@ -4164,10 +4166,15 @@ pub unsafe extern "C" fn lean_kernel_is_def_eq(
     let kernel_env = lean_elab_environment_to_kernel_env(env);
     let mut tc = TypeChecker::new(kernel_env, lctx, DEF_SAFETY_SAFE);
     lean_dec(kernel_env);
-    match tc.is_def_eq(a, b) {
+    let result = match tc.is_def_eq(a, b) {
         Ok(r) => mk_except_ok(lean_box(if r { 1 } else { 0 })),
         Err(e) => kernel_error_to_lean_except(e),
-    }
+    };
+    // The opaque @[extern] passes `lctx`/`a`/`b` owned; tc only borrowed them, so consume here.
+    lean_dec(lctx);
+    lean_dec(a);
+    lean_dec(b);
+    result
 }
 
 /// `lean_kernel_whnf(env, lctx, a) -> Except KernelException Expr`
@@ -4180,10 +4187,14 @@ pub unsafe extern "C" fn lean_kernel_whnf(
     let kernel_env = lean_elab_environment_to_kernel_env(env);
     let mut tc = TypeChecker::new(kernel_env, lctx, DEF_SAFETY_SAFE);
     lean_dec(kernel_env);
-    match tc.whnf(a) {
+    let result = match tc.whnf(a) {
         Ok(r) => mk_except_ok(r),
         Err(e) => kernel_error_to_lean_except(e),
-    }
+    };
+    // The opaque @[extern] passes `lctx`/`a` owned; tc only borrowed them, so consume here.
+    lean_dec(lctx);
+    lean_dec(a);
+    result
 }
 
 /// `lean_kernel_check(env, lctx, a) -> Except KernelException Expr`
@@ -4199,10 +4210,14 @@ pub unsafe extern "C" fn lean_kernel_check(
     // The `Kernel.check` debugging API matches C++ `check(expr)` (one arg), which is
     // `check_ignore_undefined_universes` (m_lparams = null). Passing an empty lparam list
     // instead would wrongly reject any term containing universe-level parameters.
-    match tc.check_ignore_undefined_universes(a) {
+    let result = match tc.check_ignore_undefined_universes(a) {
         Ok(r) => mk_except_ok(r),
         Err(e) => kernel_error_to_lean_except(e),
-    }
+    };
+    // The opaque @[extern] passes `lctx`/`a` owned; tc only borrowed them, so consume here.
+    lean_dec(lctx);
+    lean_dec(a);
+    result
 }
 
 /// Build `Except.ok value` (a single-field constructor). `Except` declares `error`
@@ -4312,9 +4327,9 @@ unsafe fn check_constant_val(tc: &mut TypeChecker, decl: *mut LeanObject) -> Res
     check_duplicated_univ_params(env, lparams)?;
     check_no_metavar_no_fvar(env, name, ty)?;
     let sort = tc.check(ty, lparams)?;
+    // ensure_sort_core CONSUMES `sort` and returns an owned sort; do not dec `sort` again.
     let s2 = tc.ensure_sort_core(sort, ty)?;
     lean_dec(s2);
-    lean_dec(sort);
     Ok(())
 }
 
@@ -4383,7 +4398,7 @@ unsafe fn add_decl_impl(
         let r: Result<(), KernelError> = (|| {
             check_constant_val(&mut tc, decl)?;
             if kind == 2 {
-                // theorem: the type must be a proposition
+                // theorem: the type must be a proposition (C++ add_theorem: is_prop(type))
                 let ty = lean_constant_info_get_type(decl);
                 if !tc.is_prop(ty)? {
                     let env2 = tc.env();
