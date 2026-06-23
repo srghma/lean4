@@ -17,16 +17,28 @@
 # count as FAIL. Each range runs under a 90s timeout, so the whole script stays under the 4-min/
 # test budget.
 #
-# Usage: srghmascripts/kernel_bulk_check.sh [HI ...]   (default ranges: 200 1000)
+# Numeric ranges [0:hi] are flaky (the over-free is ASLR/scheduling sensitive at small scale);
+# sweeping the WHOLE environment (`all`, the default) reproduces it reliably (crashes within ~50s).
+#
+# Usage: srghmascripts/kernel_bulk_check.sh [all | HI ...]   (default: all)
 set -u
 LEAN=build/release/stage1/bin/lean
-RANGES=("${@:-200 1000}")
+RANGES=("${@:-all}")
 # shellcheck disable=SC2206
 RANGES=(${RANGES[@]})
 
 pass=0; fail=0
-run_range() { # $1 = hi  (checks types of constants [0:hi])
+run_range() { # $1 = hi  ("all" = every constant, or a numeric upper bound)
   local hi="$1"
+  local loop
+  if [ "$hi" = "all" ]; then
+    loop='for (_, ci) in env.constants.toList do'
+  else
+    loop="let cs := env.constants.toList
+  for i in [0:$hi] do
+   if h : i < cs.length then
+    let ci := (cs[i]'h).2"
+  fi
   local f; f=$(mktemp /tmp/kbulk_XXXX.lean)
   cat > "$f" <<EOF
 import Lean
@@ -34,27 +46,24 @@ open Lean
 set_option linter.unusedVariables false
 def stress : CoreM Unit := do
   let env ← getEnv
-  let cs := env.constants.toList
   let mut ok := 0
   let mut err := 0
-  for i in [0:$hi] do
-    if h : i < cs.length then
-      let ci := (cs[i]'h).2
+  $loop
       match Kernel.check env {} ci.type with
       | .ok _    => ok := ok + 1
       | .error _ => err := err + 1
   IO.println s!"DONE ok={ok} err={err}"
 #eval stress
 EOF
-  local out; out=$(timeout 90 "$LEAN" "$f" 2>/dev/null); local ec=$?
+  local out; out=$(timeout 180 "$LEAN" "$f" 2>/dev/null); local ec=$?
   rm -f "$f"
   local done; done=$(printf '%s\n' "$out" | grep -c '^DONE ')
   if [ "$ec" -gt 128 ]; then
-    printf '  FAIL  [0:%-5s] CRASH(exit=%s, signal=%s)\n' "$hi" "$ec" "$((ec-128))"; fail=$((fail+1))
+    printf '  FAIL  [%-5s] CRASH(exit=%s, signal=%s)\n' "$hi" "$ec" "$((ec-128))"; fail=$((fail+1))
   elif [ "$done" -ge 1 ]; then
-    printf '  PASS  [0:%-5s] %s\n' "$hi" "$(printf '%s\n' "$out" | grep '^DONE ')"; pass=$((pass+1))
+    printf '  PASS  [%-5s] %s\n' "$hi" "$(printf '%s\n' "$out" | grep '^DONE ')"; pass=$((pass+1))
   else
-    printf '  FAIL  [0:%-5s] no DONE marker (aborted, exit=%s)\n' "$hi" "$ec"; fail=$((fail+1))
+    printf '  FAIL  [%-5s] no DONE marker (aborted, exit=%s)\n' "$hi" "$ec"; fail=$((fail+1))
   fi
 }
 
