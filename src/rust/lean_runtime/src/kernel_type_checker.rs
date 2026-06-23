@@ -1253,20 +1253,32 @@ unsafe fn normalize_level(l: *mut LeanObject) -> *mut LeanObject {
             let rhs_raw = lean_level_get_imax_rhs(l);
             let lhs = normalize_level(lhs_raw);
             let rhs = normalize_level(rhs_raw);
-            // IMax l 0 = 0
-            if level_kind(rhs) == LEVEL_ZERO {
-                lean_dec(lhs);
-                lean_dec(rhs);
-                return lean_level_mk_zero();
-            }
-            // IMax l (Succ r) = Max l (Succ r). mk_max/mk_imax consume lhs/rhs — no dec after.
-            if level_kind(rhs) == LEVEL_SUCC {
-                let m = lean_level_mk_max(lhs, rhs);
+            // Smart `mk_imax` (kernel level.cpp), in the same order:
+            //   is_not_zero(r) ⇒ max l r      (covers IMax l (Succ r) etc.)
+            //   is_zero(r)     ⇒ 0            (imax u 0 = 0)
+            //   is_zero/one(l) ⇒ r            (imax 0 u = imax 1 u = u)
+            //   l == r         ⇒ l            (imax u u = u)
+            //   otherwise      ⇒ imax l r
+            if is_not_zero_level(rhs as *const LeanObject) {
+                // mk_max is the raw constructor; normalize to canonicalise the result.
+                let m = lean_level_mk_max(lhs, rhs); // consumes lhs, rhs
                 let r = normalize_level(m);
                 lean_dec(m);
                 return r;
             }
-            lean_level_mk_imax(lhs, rhs)
+            if level_kind(rhs) == LEVEL_ZERO {
+                lean_dec(lhs);
+                return rhs; // imax u 0 = 0 (rhs is the zero level)
+            }
+            if level_kind(lhs) == LEVEL_ZERO || is_one_level(lhs as *const LeanObject) {
+                lean_dec(lhs);
+                return rhs; // imax 0 u = imax 1 u = u
+            }
+            if lean_level_eq(lhs, rhs) {
+                lean_dec(rhs);
+                return lhs; // imax u u = u
+            }
+            lean_level_mk_imax(lhs, rhs) // consumes lhs, rhs
         }
         _ => {
             lean_inc(l);
@@ -1311,6 +1323,11 @@ unsafe fn is_equivalent_level(l1: *mut LeanObject, l2: *mut LeanObject) -> Resul
     lean_dec(n1);
     lean_dec(n2);
     Ok(eq)
+}
+
+/// Return true if l is the level `1` (i.e. `succ zero`).
+unsafe fn is_one_level(l: *const LeanObject) -> bool {
+    level_kind(l) == LEVEL_SUCC && level_kind(lean_level_get_succ(l)) == LEVEL_ZERO
 }
 
 /// Return true if l is definitely not zero for any universe assignment.
@@ -1552,6 +1569,11 @@ unsafe fn kernel_error_to_lean_except(e: KernelError) -> *mut LeanObject {
     // Wrap: Except.error inner (Except.error is the first constructor → tag 0)
     let except_err = lean_alloc_ctor(EXCEPT_ERROR_TAG, 1, 0);
     lean_ctor_set(except_err, 0, inner);
+    // The match above bound the `*mut LeanObject` fields by COPY (raw pointers are `Copy`),
+    // transferring their owned refs into the Lean exception object via `lean_ctor_set` WITHOUT
+    // consuming `e`. Since `KernelError` has a manual `Drop` that decrements those same fields,
+    // letting `e` drop here would double-free every field (env/lctx/expr/…). Suppress it.
+    core::mem::forget(e);
     except_err
 }
 
@@ -2083,7 +2105,12 @@ impl TypeChecker {
             for level in us.iter().rev() {
                 r_level = lean_level_mk_imax(*level, r_level);
             }
-            let result = lean_expr_mk_sort(r_level);
+            // The kernel infers Pi sorts with the *smart* `mk_imax`/`mk_max` constructors, which
+            // simplify e.g. `imax 1 0 → 0` and `imax 1 1 → 1`. We build with the raw `mk_imax`
+            // above, so canonicalise here (normalize_level borrows, returns an owned level).
+            let norm = normalize_level(r_level);
+            lean_dec(r_level);
+            let result = lean_expr_mk_sort(norm);
             for f in &fvars { lean_dec(*f); }
             Ok(result)
         })
@@ -4370,7 +4397,7 @@ unsafe fn add_decl_impl(
         if do_check {
             let lctx = mk_empty_lctx();
             let mut tc = TypeChecker::new(env, lctx, DEF_SAFETY_UNSAFE);
-            lean_dec(lctx);
+            lean_dec(lctx); // tc took its own inc; release the owned ref from mk_empty_lctx
             if let Err(e) = check_constant_val(&mut tc, decl) {
                 drop(tc); lean_dec(env); return Err(e);
             }
@@ -4381,7 +4408,7 @@ unsafe fn add_decl_impl(
         if do_check {
             let lctx = mk_empty_lctx();
             let mut tc = TypeChecker::new(new_env, lctx, DEF_SAFETY_UNSAFE);
-            lean_dec(lctx);
+            lean_dec(lctx); // tc took its own inc; release the owned ref from mk_empty_lctx
             if let Err(e) = check_decl_value(&mut tc, decl) {
                 drop(tc); lean_dec(new_env); return Err(e);
             }
@@ -4397,7 +4424,7 @@ unsafe fn add_decl_impl(
         let ds = if kind == 0 && is_unsafe { DEF_SAFETY_UNSAFE } else { DEF_SAFETY_SAFE };
         let lctx = mk_empty_lctx();
         let mut tc = TypeChecker::new(env, lctx, ds);
-        lean_dec(lctx);
+        lean_dec(lctx); // tc took its own inc; release the owned ref from mk_empty_lctx
         let r: Result<(), KernelError> = (|| {
             check_constant_val(&mut tc, decl)?;
             if kind == 2 {

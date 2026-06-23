@@ -83,7 +83,7 @@ run check-nat       'Nat'      'C (mkApp2 (mkConst `Nat.add) (Expr.lit (.natVal 
 # --- check-mode infer over binders: guards the session-4 leak fix (ensure_sort_core /
 #     ensure_pi_core now CONSUME their first arg; infer_pi/infer_lambda/infer_let call sites).
 #     A regression of that change reintroduces +1 refcount leaks per binder check. ---
-run check-pi        'Sort.{imax 1 1}' 'C (Expr.forallE `x (mkConst `Nat) (mkConst `Nat) .default)'
+run check-pi        'Type'            'C (Expr.forallE `x (mkConst `Nat) (mkConst `Nat) .default)'
 run check-lam       'Nat -> Nat'      'C (Expr.lam `x (mkConst `Nat) (Expr.bvar 0) .default)'
 run check-let       'Nat'             'C (Expr.letE `x (mkConst `Nat) (mkConst `Nat.zero) (Expr.bvar 0) false)'
 # Dependent projection (infer_proj mk_proj-ordering use-after-free, session-4d). Looped so the
