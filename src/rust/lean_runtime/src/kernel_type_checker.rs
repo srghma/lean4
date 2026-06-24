@@ -1185,8 +1185,30 @@ unsafe fn normalize_level(l: *mut LeanObject) -> *mut LeanObject {
         LEVEL_SUCC => {
             let inner = lean_level_get_succ(l);
             let norm = normalize_level(inner);
-            // mk_succ consumes `norm` (obj_arg) — no dec afterwards.
-            lean_level_mk_succ(norm)
+            // Canonical normal form pushes `succ` to the leaves: succ(max a b …) = max (succ a)(succ b)…
+            // Without this distribution, `succ(max u v)` and `max (u+1)(v+1)` normalize to
+            // structurally different levels and `is_equivalent_level` (normalized struct-eq) wrongly
+            // reports them unequal — breaking app/pi checks over multi-universe types.
+            if level_kind(norm) == LEVEL_MAX {
+                let mut margs: Vec<*mut LeanObject> = Vec::new();
+                level_push_max_args(norm, &mut margs); // owned refs
+                lean_dec(norm);
+                // mk_succ consumes each arg; fold into a raw max, then re-normalize to canonicalise.
+                let raw = margs
+                    .into_iter()
+                    .map(|a| lean_level_mk_succ(a))
+                    .collect::<Vec<_>>()
+                    .into_iter()
+                    .rev()
+                    .reduce(|acc, cur| lean_level_mk_max(cur, acc))
+                    .unwrap();
+                let r = normalize_level(raw);
+                lean_dec(raw);
+                r
+            } else {
+                // mk_succ consumes `norm` (obj_arg) — no dec afterwards.
+                lean_level_mk_succ(norm)
+            }
         }
         LEVEL_MAX => {
             // Port of `normalize` (level.h): flatten max args, normalize each (re-flattening
@@ -1292,23 +1314,98 @@ unsafe fn is_explicit_level(l: *const LeanObject) -> bool {
     level_kind(level_to_offset(l).0) == LEVEL_ZERO
 }
 
-/// Comparison for sorted Max-arg deduplication (port of is_norm_lt).
+/// Map a level kind to `Level.ctorToNat`'s ordinal (zero<param<mvar<succ<max<imax).
+fn level_ctor_ord(kind: u32) -> u32 {
+    match kind {
+        LEVEL_ZERO => 0,
+        LEVEL_PARAM => 1,
+        LEVEL_MVAR => 2,
+        LEVEL_SUCC => 3,
+        LEVEL_MAX => 4,
+        LEVEL_IMAX => 5,
+        _ => 6,
+    }
+}
+
+/// Port of `Name.cmp` (lexicographic, prefix-major). Names are BORROWED.
+/// Tags: `.str`=1, `.num`=2, `.anonymous`=scalar; ordering anonymous<num<str per `Name.cmp`.
+unsafe fn name_cmp(n1: *mut LeanObject, n2: *mut LeanObject) -> core::cmp::Ordering {
+    use core::cmp::Ordering;
+    let a1 = lean_is_scalar(n1);
+    let a2 = lean_is_scalar(n2);
+    if a1 && a2 { return Ordering::Equal; }
+    if a1 { return Ordering::Less; }
+    if a2 { return Ordering::Greater; }
+    let t1 = lean_obj_tag(n1);
+    let t2 = lean_obj_tag(n2);
+    if t1 != t2 {
+        return if t1 == 2 { Ordering::Less } else { Ordering::Greater };
+    }
+    let pc = name_cmp(lean_ctor_get(n1, 0), lean_ctor_get(n2, 0)); // compare prefix first
+    if pc != Ordering::Equal { return pc; }
+    if t1 == 1 {
+        // `.str`: compare component strings (UTF-8 byte order == codepoint order).
+        let s1 = core::ffi::CStr::from_ptr(lean_string_cstr(lean_ctor_get(n1, 1))).to_bytes();
+        let s2 = core::ffi::CStr::from_ptr(lean_string_cstr(lean_ctor_get(n2, 1))).to_bytes();
+        s1.cmp(s2)
+    } else {
+        // `.num`: compare nat indices (name numerals are small scalars in practice).
+        let c1 = lean_ctor_get(n1, 1);
+        let c2 = lean_ctor_get(n2, 1);
+        let i1 = if lean_is_scalar(c1) { lean_unbox(c1) as u64 } else { u64::MAX };
+        let i2 = if lean_is_scalar(c2) { lean_unbox(c2) as u64 } else { u64::MAX };
+        i1.cmp(&i2)
+    }
+}
+
+/// Faithful port of `Level.normLtAux` — the total order used to canonicalise `max` args.
+/// Levels are BORROWED; `k1`/`k2` accumulate stripped `succ` offsets. Recurses into
+/// `max`/`imax` so complex multi-universe levels get a *stable* canonical order (the previous
+/// offset-only version could not, so equal arg-multisets sorted to different sequences and
+/// `is_equivalent_level` wrongly reported them unequal). Uses `Name.cmp` (lexicographic), not a
+/// hash, matching the Lean source (hashes are unstable across shifted indices; see test 343).
+unsafe fn norm_lt_aux(l1: *mut LeanObject, k1: u32, l2: *mut LeanObject, k2: u32) -> bool {
+    use core::cmp::Ordering;
+    let kind1 = level_kind(l1);
+    let kind2 = level_kind(l2);
+    if kind1 == LEVEL_SUCC {
+        return norm_lt_aux(lean_level_get_succ(l1), k1 + 1, l2, k2);
+    }
+    if kind2 == LEVEL_SUCC {
+        return norm_lt_aux(l1, k1, lean_level_get_succ(l2), k2 + 1);
+    }
+    if kind1 == LEVEL_MAX && kind2 == LEVEL_MAX {
+        if lean_level_eq(l1, l2) { return k1 < k2; }
+        let a = lean_level_get_max_lhs(l1);
+        let b = lean_level_get_max_lhs(l2);
+        if !lean_level_eq(a, b) { return norm_lt_aux(a, 0, b, 0); }
+        return norm_lt_aux(lean_level_get_max_rhs(l1), 0, lean_level_get_max_rhs(l2), 0);
+    }
+    if kind1 == LEVEL_IMAX && kind2 == LEVEL_IMAX {
+        if lean_level_eq(l1, l2) { return k1 < k2; }
+        let a = lean_level_get_imax_lhs(l1);
+        let b = lean_level_get_imax_lhs(l2);
+        if !lean_level_eq(a, b) { return norm_lt_aux(a, 0, b, 0); }
+        return norm_lt_aux(lean_level_get_imax_rhs(l1), 0, lean_level_get_imax_rhs(l2), 0);
+    }
+    if kind1 == LEVEL_PARAM && kind2 == LEVEL_PARAM {
+        let n1 = lean_level_get_param_name(l1);
+        let n2 = lean_level_get_param_name(l2);
+        return if lean_name_eq(n1, n2) { k1 < k2 } else { name_cmp(n1, n2) == Ordering::Less };
+    }
+    if kind1 == LEVEL_MVAR && kind2 == LEVEL_MVAR {
+        // mvar holds an `LMVarId` wrapper whose field 0 is the Name.
+        let n1 = lean_ctor_get(lean_level_get_param_name(l1), 0);
+        let n2 = lean_ctor_get(lean_level_get_param_name(l2), 0);
+        return if lean_name_eq(n1, n2) { k1 < k2 } else { name_cmp(n1, n2) == Ordering::Less };
+    }
+    if lean_level_eq(l1, l2) { return k1 < k2; }
+    level_ctor_ord(kind1) < level_ctor_ord(kind2)
+}
+
+/// Comparison for sorted Max-arg deduplication (`Level.normLt`).
 unsafe fn is_norm_lt(a: *const LeanObject, b: *const LeanObject) -> bool {
-    let (base_a, off_a) = level_to_offset(a);
-    let (base_b, off_b) = level_to_offset(b);
-    let ka = level_kind(base_a);
-    let kb = level_kind(base_b);
-    if ka != kb {
-        return ka < kb;
-    }
-    if ka == LEVEL_PARAM || ka == LEVEL_MVAR {
-        let na = lean_level_get_param_name(base_a);
-        let nb = lean_level_get_param_name(base_b);
-        let ha = expr_hash(na as *const LeanObject); // reuse hash for name (borrowing)
-        let hb = expr_hash(nb as *const LeanObject);
-        if ha != hb { return ha < hb; }
-    }
-    off_a < off_b
+    norm_lt_aux(a as *mut LeanObject, 0, b as *mut LeanObject, 0)
 }
 
 /// Check level equivalence (modulo normalization).
@@ -3796,10 +3893,13 @@ unsafe fn is_non_rec_structure_name(env: *mut LeanObject, name: *mut LeanObject)
         lean_dec(info_opt);
         return false;
     }
+    // I_val is BORROWED (field 0 of info_opt). `lean_inductive_val_is_rec` is an @[export] owned
+    // function (C++ calls it via `to_obj_arg()`), so it CONSUMES its argument — inc before calling,
+    // else it frees the InductiveVal sub-object shared with the env's stored constant (env corruption).
     let I_val = lean_constant_info_to_inductive_val(info_opt);
     let result = lean_inductive_val_get_ncnstrs(I_val) == 1
         && lean_inductive_val_get_nindices(I_val) == 0
-        && !lean_inductive_val_is_rec(I_val);
+        && { lean_inc(I_val); !lean_inductive_val_is_rec(I_val) };
     lean_dec(info_opt);
     result
 }
@@ -4388,9 +4488,6 @@ unsafe fn add_decl_impl(
     decl: *mut LeanObject,
     do_check: bool,
 ) -> Result<*mut LeanObject, KernelError> {
-    // DEBUG: RUST_ADD_NOCHECK=1 skips the Rust type-checker (store-only). Lets one build test
-    // whether the env corruption comes from check/is_def_eq (works when skipped) or the store.
-    let do_check = do_check && std::env::var_os("RUST_ADD_NOCHECK").is_none();
     let kind = lean_ptr_tag(decl);
     let is_unsafe = lean_constant_info_is_unsafe(decl);
 
@@ -4456,45 +4553,107 @@ unsafe fn add_decl_impl(
     Ok(lean_environment_add(env, decl)) // consumes env + inc'd decl
 }
 
+/// Wrap a `DefinitionVal` (BORROWED) as a `ConstantInfo.defnInfo` (tag 1). Returns an OWNED ctor.
+#[inline]
+unsafe fn wrap_defn_info(v: *mut LeanObject) -> *mut LeanObject {
+    let w = lean_alloc_ctor(CI_DEFINITION, 1, 0);
+    lean_inc(v);
+    lean_ctor_set(w, 0, v);
+    w
+}
+
+/// Port of `environment::add_mutual` (type_checker.cpp). CONSUMES `env`, BORROWS `decl`
+/// (= `Declaration.mutualDefnDecl`, field 0 = `List DefinitionVal`). The definitions must all be
+/// unsafe/partial with the same safety. Checks each constant-val, adds all (so they may reference
+/// each other), then checks each value against its type in the extended env.
+unsafe fn add_mutual_impl(
+    env: *mut LeanObject,
+    decl: *mut LeanObject,
+    do_check: bool,
+) -> Result<*mut LeanObject, KernelError> {
+    let defns = lean_ctor_get(decl, 0); // List DefinitionVal (borrowed)
+    if lean_list_is_nil(defns) {
+        lean_dec(env);
+        let msg = lean_mk_string_from_bytes(b"invalid empty mutual definition".as_ptr().cast(), 31);
+        return Err(KernelError::Other { msg });
+    }
+    let safety = lean_constant_info_get_safety(lean_list_head(defns));
+    if safety == DEF_SAFETY_SAFE {
+        lean_dec(env);
+        let msg = lean_mk_string_from_bytes(
+            b"invalid mutual definition, declaration is not tagged as unsafe/partial".as_ptr().cast(), 69);
+        return Err(KernelError::Other { msg });
+    }
+
+    // Pass 1: check each constant-val in the current env.
+    if do_check {
+        let lctx = mk_empty_lctx();
+        let mut tc = TypeChecker::new(env, lctx, safety);
+        lean_dec(lctx);
+        let r: Result<(), KernelError> = (|| {
+            let mut cur = defns;
+            while !lean_list_is_nil(cur) {
+                let v = lean_list_head(cur);
+                if lean_constant_info_get_safety(v) != safety {
+                    let msg = lean_mk_string_from_bytes(
+                        b"invalid mutual definition, declarations must have the same safety annotation".as_ptr().cast(), 75);
+                    return Err(KernelError::Other { msg });
+                }
+                let wrapped = wrap_defn_info(v);
+                let res = check_constant_val(&mut tc, wrapped);
+                lean_dec(wrapped);
+                res?;
+                cur = lean_list_tail(cur);
+            }
+            Ok(())
+        })();
+        if let Err(e) = r { drop(tc); lean_dec(env); return Err(e); }
+        drop(tc);
+    }
+
+    // Add all definitions to the env (each as a ConstantInfo.defnInfo).
+    let mut new_env = env;
+    let mut cur = defns;
+    while !lean_list_is_nil(cur) {
+        let wrapped = wrap_defn_info(lean_list_head(cur));
+        new_env = lean_environment_add(new_env, wrapped); // consumes new_env + wrapped
+        cur = lean_list_tail(cur);
+    }
+
+    // Pass 2: check each value against its type in the extended env.
+    if do_check {
+        let lctx = mk_empty_lctx();
+        let mut tc = TypeChecker::new(new_env, lctx, safety);
+        lean_dec(lctx);
+        let r: Result<(), KernelError> = (|| {
+            let mut cur = defns;
+            while !lean_list_is_nil(cur) {
+                let wrapped = wrap_defn_info(lean_list_head(cur));
+                let res = check_decl_value(&mut tc, wrapped);
+                lean_dec(wrapped);
+                res?;
+                cur = lean_list_tail(cur);
+            }
+            Ok(())
+        })();
+        if let Err(e) = r { drop(tc); lean_dec(new_env); return Err(e); }
+        drop(tc);
+    }
+
+    Ok(new_env)
+}
+
 /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
-/// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`;
-/// quot/mutual/inductive still delegate to the C++ bridges.
+/// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`, kind 5 (mutual)
+/// uses `add_mutual_impl`; quot/inductive still delegate to the C++ bridges.
 #[no_mangle]
 pub unsafe extern "C" fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject {
-    let tag = lean_ptr_tag(decl);
-    // DEBUG: log every add (name + kind) when RUST_ADD_LOG set; route names containing any
-    // RUST_ADD_CXX substring through the C++ bridge to bisect the corrupting decl.
-    let dbg_log = std::env::var_os("RUST_ADD_LOG").is_some();
-    let cxx_filter = std::env::var("RUST_ADD_CXX").ok();
-    let force_cxx = if tag <= 3 {
-        let nm = lean_constant_info_get_name(decl);
-        // inline name->string (the file's lean_name_to_string is a stub)
-        let s = {
-            let mut comps: Vec<String> = Vec::new();
-            let mut cur = nm;
-            while !lean_is_scalar(cur) {
-                match lean_obj_tag(cur) {
-                    1 => {
-                        let so = lean_ctor_get(cur, 1);
-                        let cs = core::ffi::CStr::from_ptr(lean_string_cstr(so)).to_string_lossy().into_owned();
-                        comps.push(cs);
-                        cur = lean_ctor_get(cur, 0);
-                    }
-                    2 => {
-                        comps.push("_num".to_string());
-                        cur = lean_ctor_get(cur, 0);
-                    }
-                    _ => break,
-                }
-            }
-            comps.reverse();
-            comps.join(".")
-        };
-        if dbg_log { eprintln!("[rust-add] tag={} check={} name={}", tag, check, s); }
-        cxx_filter.as_deref().map_or(false, |f| f.split(',').any(|p| !p.is_empty() && s.contains(p)))
-    } else { false };
-    match tag {
-        0 | 1 | 2 | 3 if RUST_ADD_SIMPLE && !force_cxx => match add_decl_impl(env, decl, check != 0) {
+    match lean_ptr_tag(decl) {
+        0 | 1 | 2 | 3 if RUST_ADD_SIMPLE => match add_decl_impl(env, decl, check != 0) {
+            Ok(new_env) => mk_except_ok(new_env),
+            Err(e) => kernel_error_to_lean_except(e),
+        },
+        5 if RUST_ADD_SIMPLE => match add_mutual_impl(env, decl, check != 0) {
             Ok(new_env) => mk_except_ok(new_env),
             Err(e) => kernel_error_to_lean_except(e),
         },

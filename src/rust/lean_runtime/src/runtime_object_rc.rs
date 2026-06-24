@@ -160,7 +160,7 @@ pub(crate) mod runtime_object_rc_impl {
     // Poison `(*o).rc = i32::MIN` at the PHYSICAL-free choke points and park the block in a
     // bounded quarantine; a later inc/dec of a parked block (checked in lib.rs) is a UAF. The
     // free-site backtrace is captured into a large ring so the report names the over-decrement.
-    pub(crate) const UAF_DETECT: bool = true;
+    pub(crate) const UAF_DETECT: bool = false;
     pub(crate) const LEAN_UAF_POISON_RC: i32 = i32::MIN;
     const QSET_SIZE: usize = 1 << 21;
     const QSET_MASK: usize = QSET_SIZE - 1;
