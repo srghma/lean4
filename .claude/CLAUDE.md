@@ -105,45 +105,32 @@ parse_deps = false
 
 
 -----------
+todo
+
+1. Attempt the 3 perf timeouts
+   Profile + optimize the Rust kernel/runtime hot paths (inline accessors, cut redundant inc/dec, stack-based arg buffers). Large, uncertain effort — it's a systemic constant-factor gap, not one bug. May not fully close 240s timeouts.
+2. Continue porting (add_quot/add_inductive/exception.cpp)
+   Resume the C++→Rust port goal. Note: tree won't be fully green (the 5 parity tests still fail), so no commit yet; porting may also surface new issues.
+3. Dig into the 2 diagnostic-count tests
+   Try to match C++'s exact recursor unfold-count (Nat.rec 62 vs 80). Requires replicating C++'s exact reduction/caching trace — fiddly, cosmetic-only payoff.
+
+-----------
 
 Right these tests dont pass
 
 ```
-3861/3863 Test  #841: elab/6043.lean .........................................***Timeout 240.44 sec
-++ lean --root=.. -DprintMessageEndPos=true -Dlinter.all=false -DElab.inServer=true -Dcompiler.postponeCompile=false 6043.lean
+99% tests passed, 9 tests failed out of 3863
 
-3862/3863 Test #1720: elab/grind_9854.lean ...................................***Timeout 240.10 sec
-++ lean --root=.. -DprintMessageEndPos=true -Dlinter.all=false -DElab.inServer=true -Dcompiler.postponeCompile=false grind_9854.lean
-
-          Start   56: lint.py
-3863/3863 Test   #56: lint.py ................................................   Passed   10.59 sec
-
-99% tests passed, 23 tests failed out of 3863
-
-Total Test time (real) = 689.85 sec
+Total Test time (real) = 528.77 sec
 
 The following tests FAILED:
-        841 - elab/6043.lean (Timeout)
-        847 - elab/6123_cat_adjunction.lean (Failed)
-        998 - elab/ack.lean (Failed)
-        1102 - elab/binop_binrel_perf_issue.lean (Failed)
-        1171 - elab/cancellation_context.lean (Failed)
-        1275 - elab/congrSimpMathlibIssue.lean (Failed)
-        1426 - elab/discrTreeIota.lean (Failed)
-        1720 - elab/grind_9854.lean (Timeout)
-        2036 - elab/grind_unfold_reducible_regression.lean (Failed)
-        2092 - elab/impossibleTactic.lean (Failed)
-        2563 - elab/mvcgenTutorial.lean (Timeout)
-        2677 - elab/pow_exploit.lean (Failed)
-        2945 - elab/skipKernelTC.lean (Failed)
-        3023 - elab/structWithAlgTCSynth.lean (Failed)
-        3035 - elab/structuralNamedF.lean (Failed)
-        3084 - elab/sym_simp_1.lean (Failed)
-        3088 - elab/sym_simp_5.lean (Failed)
-        3090 - elab/sym_simp_cd.lean (Failed)
-        3395 - elab_fail/1781.lean (Failed)
-        3607 - elab_fail/partialIssue.lean (Failed)
-        3630 - elab_fail/sanitychecks.lean (Failed)
-        3714 - server_interactive/cancellation_try_plain.lean (Failed)
-        3847 - pkg/leanchecker (Failed)
+	13 - tests/lake/tests/builtin-lint/test.sh (Timeout)
+	14 - tests/lake/tests/cache/test.sh (Timeout)
+	841 - elab/6043.lean (Timeout)
+	998 - elab/ack.lean (Failed)
+	1720 - elab/grind_9854.lean (Timeout)
+	2563 - elab/mvcgenTutorial.lean (Timeout)
+	2998 - elab/string_neq_kernel_cost.lean (Failed)
+	3035 - elab/structuralNamedF.lean (Failed)
+	3843 - pkg/frontend (Timeout)
 ```
