@@ -1124,6 +1124,16 @@ const BI_IMPLICIT: u8 = 1;
 const BI_STRICT:   u8 = 2;
 const BI_INST:     u8 = 3;
 
+// Quotient eliminator argument layout (mirrors `quot_reduce_rec` in quot.h).
+// `Quot.lift {α} (r) {β} (f) (h) (q)`: q (the Quot.mk) is arg 5, f is arg 3.
+// `Quot.ind  {α} {r} {β} (mk) (q)`:    q (the Quot.mk) is arg 4, mk is arg 3.
+// `Quot.mk   {α} (r) (a)`:             fully applied with 3 args; `a` is the last arg.
+const QUOT_LIFT_MK_POS:  usize = 5;
+const QUOT_LIFT_ARG_POS: usize = 3;
+const QUOT_IND_MK_POS:   usize = 4;
+const QUOT_IND_ARG_POS:  usize = 3;
+const QUOT_MK_NUM_ARGS:  usize = 3;
+
 // ---------------------------------------------------------------------------
 // LBool (three-valued boolean: true / false / undef)
 // ---------------------------------------------------------------------------
@@ -1809,6 +1819,10 @@ global_const!(G_NAT_SHIFTRIGHT);
 global_const!(G_STRING_MK);
 global_const!(G_LEAN_REDUCE_BOOL);
 global_const!(G_LEAN_REDUCE_NAT);
+// Bare `Name`s (not `Expr.const`) for quotient-eliminator head matching in `quot_reduce_rec`.
+global_const!(G_QUOT_LIFT_NAME);
+global_const!(G_QUOT_IND_NAME);
+global_const!(G_QUOT_MK_NAME);
 
 unsafe fn load_global(g: &AtomicPtr<LeanObject>) -> *mut LeanObject {
     g.load(Ordering::Acquire)
@@ -1843,6 +1857,13 @@ unsafe fn init_global_const(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
     let expr = lean_expr_mk_const(name, levels);
     lean_mark_persistent(expr);
     g.store(expr, Ordering::Release);
+}
+
+/// Build a persistent bare `Name` and store it in a global (for name matching, not as an Expr).
+unsafe fn init_global_name(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
+    let name = build_lean_name(parts);
+    lean_mark_persistent(name);
+    g.store(name, Ordering::Release);
 }
 
 /// Build a Lean name from dot-separated parts.
@@ -1928,6 +1949,7 @@ struct TypeChecker {
     definition_safety:  u8,
     eager_reduce:       bool,
     lparams:            Option<*mut LeanObject>, // borrowed, names list
+    diag:               *mut LeanObject, // owned `Diagnostics`, or null when disabled
 }
 
 impl TypeChecker {
@@ -1939,7 +1961,25 @@ impl TypeChecker {
             definition_safety,
             eager_reduce: false,
             lparams: None,
+            diag: ptr::null_mut(),
         }
+    }
+
+    /// Record a delta/iota unfold for kernel diagnostics. No-op when diagnostics are disabled.
+    /// `name` is BORROWED. Mirrors `diagnostics::record_unfold` (type_checker.cpp).
+    #[inline]
+    unsafe fn record_unfold(&mut self, name: *mut LeanObject) {
+        if !self.diag.is_null() {
+            lean_inc(name);
+            self.diag = lean_kernel_record_unfold(self.diag, name); // consumes diag + name
+        }
+    }
+
+    /// Take ownership of the (possibly updated) diagnostics, leaving the field null. Used to thread
+    /// the diag across the sequence of type-checkers created within one `add_*` call.
+    #[inline]
+    fn take_diag(&mut self) -> *mut LeanObject {
+        core::mem::replace(&mut self.diag, ptr::null_mut())
     }
 
     fn env(&self) -> *mut LeanObject {
@@ -2093,8 +2133,11 @@ impl TypeChecker {
                 let defval = lean_constant_info_to_definition_val(info);
                 let safety = lean_constant_info_get_safety(defval);
                 if safety == DEF_SAFETY_PARTIAL && self.definition_safety == DEF_SAFETY_SAFE {
+                    // `name` is borrowed from `e` (independent of `info`); read it before dropping info.
+                    let msg_str = format!(
+                        "invalid declaration, safe declaration must not contain partial declaration '{}'",
+                        lean_name_to_string(name));
                     lean_dec(info);
-                    let msg_str = format!("invalid declaration, safe declaration must not contain partial declaration");
                     let msg = lean_mk_string(msg_str.as_ptr(), msg_str.len());
                     return Err(KernelError::Other { msg });
                 }
@@ -2589,11 +2632,11 @@ impl TypeChecker {
         cheap_rec: bool,
         cheap_proj: bool,
     ) -> Result<Option<*mut LeanObject>, KernelError> {
-        // Try quotient reduction first
+        // Try quotient reduction first (matches C++ reduce_recursor ordering).
         if lean_environment_is_quot_initialized(self.st.env) {
-            // We can't pass closures through the C quot_reduce_rec; use the inductive path instead
-            // (A proper implementation would call quot_reduce_rec via a trampoline)
-            // For now, fall through to inductive reduction
+            if let Some(r) = self.quot_reduce_rec(e)? {
+                return Ok(Some(r));
+            }
         }
 
         // Inductive reduction
@@ -2605,6 +2648,69 @@ impl TypeChecker {
             self,
         )?;
         Ok(result)
+    }
+
+    /// Quotient computation rule — port of `quot_reduce_rec` (quot.h). Reduces
+    /// `Quot.lift f h (Quot.mk r a) ↝ f a` and `Quot.ind mk (Quot.mk r a) ↝ mk a`, re-applying any
+    /// over-saturated trailing args. `e` is BORROWED; returns an OWNED reduct or `None`.
+    unsafe fn quot_reduce_rec(&mut self, e: *mut LeanObject) -> Result<Option<*mut LeanObject>, KernelError> {
+        // Head constant of the application spine.
+        let mut head = e;
+        while lean_expr_is_app(head) { head = lean_expr_get_app_fn(head); }
+        if !lean_expr_is_const(head) { return Ok(None); }
+        let head_name = lean_expr_get_const_name(head); // borrowed
+        let mk_pos: usize;
+        let arg_pos: usize;
+        if lean_name_eq(head_name, load_global(&G_QUOT_LIFT_NAME)) {
+            mk_pos = QUOT_LIFT_MK_POS; arg_pos = QUOT_LIFT_ARG_POS;
+        } else if lean_name_eq(head_name, load_global(&G_QUOT_IND_NAME)) {
+            mk_pos = QUOT_IND_MK_POS; arg_pos = QUOT_IND_ARG_POS;
+        } else {
+            return Ok(None);
+        }
+
+        // Collect args in application order (all borrowed, pointing inside `e`).
+        let mut args: Vec<*mut LeanObject> = Vec::new();
+        let mut cur = e;
+        while lean_expr_is_app(cur) {
+            args.push(lean_expr_get_app_arg(cur));
+            cur = lean_expr_get_app_fn(cur);
+        }
+        args.reverse();
+        if args.len() <= mk_pos { return Ok(None); }
+
+        // whnf the major premise (the value that should be a `Quot.mk`).
+        let mk_arg = args[mk_pos];
+        lean_inc(mk_arg);
+        let mk = self.whnf(mk_arg)?; // owned
+
+        // Require `mk` to be exactly `Quot.mk α r a` (a constant head + 3 args).
+        let mut mk_head = mk;
+        let mut mk_nargs = 0usize;
+        while lean_expr_is_app(mk_head) { mk_nargs += 1; mk_head = lean_expr_get_app_fn(mk_head); }
+        if !lean_expr_is_const(mk_head)
+            || !lean_name_eq(lean_expr_get_const_name(mk_head), load_global(&G_QUOT_MK_NAME))
+            || mk_nargs != QUOT_MK_NUM_ARGS
+        {
+            lean_dec(mk);
+            return Ok(None);
+        }
+
+        // r := f a, where f = args[arg_pos] and a = last arg of `Quot.mk` (the element).
+        let f = args[arg_pos];
+        let elem = lean_expr_get_app_arg(mk); // borrowed (inside mk)
+        lean_inc(f);
+        lean_inc(elem);
+        let mut r = lean_expr_mk_app(f, elem); // consumes f + elem
+        lean_dec(mk);
+
+        // Re-apply any over-saturated args beyond the eliminator's expected arity.
+        let elim_arity = mk_pos + 1;
+        for &a in &args[elim_arity..] {
+            lean_inc(a);
+            r = lean_expr_mk_app(r, a);
+        }
+        Ok(Some(r))
     }
 
     // -----------------------------------------------------------------------
@@ -2788,6 +2894,14 @@ impl TypeChecker {
                     // Try recursor
                     lean_inc(e);
                     if let Some(r) = self.reduce_recursor(e, cheap_rec, cheap_proj)? {
+                        // Record the iota/quot unfold for kernel diagnostics (head const of `e`).
+                        if !self.diag.is_null() {
+                            let mut head = e;
+                            while lean_expr_is_app(head) { head = lean_expr_get_app_fn(head); }
+                            if lean_expr_is_const(head) {
+                                self.record_unfold(lean_expr_get_const_name(head));
+                            }
+                        }
                         lean_dec(e);
                         lean_dec(f);
                         let result = self.whnf_core(r, cheap_rec, cheap_proj)?;
@@ -2855,6 +2969,10 @@ impl TypeChecker {
             lean_dec(info_opt);
             return None;
         }
+
+        // is_delta succeeded — record the delta unfold for kernel diagnostics (matches C++
+        // unfold_definition_core, which records on every call, including cache hits).
+        self.record_unfold(name);
 
         let levels_obj = levels;
         // Check unfold cache
@@ -3763,7 +3881,10 @@ impl TypeChecker {
 
 impl Drop for TypeChecker {
     fn drop(&mut self) {
-        unsafe { lean_dec(self.lctx); }
+        unsafe {
+            lean_dec(self.lctx);
+            if !self.diag.is_null() { lean_dec(self.diag); }
+        }
     }
 }
 
@@ -3905,18 +4026,46 @@ unsafe fn is_non_rec_structure_name(env: *mut LeanObject, name: *mut LeanObject)
 }
 
 unsafe fn format_level_error_msg(name: *mut LeanObject) -> *mut LeanObject {
-    let s = format!("invalid reference to undefined universe level parameter");
+    let s = format!(
+        "invalid reference to undefined universe level parameter '{}'",
+        lean_name_to_string(name));
     lean_mk_string(s.as_ptr(), s.len())
 }
 
 unsafe fn format_arity_error_msg(name: *mut LeanObject, expected: usize, got: usize) -> *mut LeanObject {
-    let s = format!("incorrect number of universe levels parameters");
+    let s = format!(
+        "incorrect number of universe levels parameters for '{}', #{} expected, #{} provided",
+        lean_name_to_string(name), expected, got);
     lean_mk_string(s.as_ptr(), s.len())
 }
 
 unsafe fn lean_name_to_string(name: *mut LeanObject) -> String {
-    // Simplified; a real implementation would recurse through the name structure
-    "<name>".to_string()
+    // Dotted string form of a `Name`: `.str`/`.num` components joined by '.', recursing into the
+    // prefix first (field 0). `name` is BORROWED. Sufficient for kernel error messages over
+    // ordinary identifier names (no special-char escaping, which Lean's `Name.toString` adds).
+    unsafe fn go(n: *mut LeanObject, out: &mut String) {
+        if lean_is_scalar(n) {
+            return; // `.anonymous`: contributes nothing
+        }
+        let tag = lean_obj_tag(n);
+        go(lean_ctor_get(n, 0), out); // prefix
+        if !out.is_empty() {
+            out.push('.');
+        }
+        if tag == 1 {
+            // `.str`: field 1 is a String object.
+            let bytes = core::ffi::CStr::from_ptr(lean_string_cstr(lean_ctor_get(n, 1))).to_bytes();
+            out.push_str(&String::from_utf8_lossy(bytes));
+        } else {
+            // `.num`: field 1 is a Nat (small scalar in practice).
+            let c = lean_ctor_get(n, 1);
+            let v = if lean_is_scalar(c) { lean_unbox(c) as u64 } else { u64::MAX };
+            out.push_str(&v.to_string());
+        }
+    }
+    let mut s = String::new();
+    go(name, &mut s);
+    s
 }
 
 // ---------------------------------------------------------------------------
@@ -4373,6 +4522,12 @@ extern "C" {
     // Kernel.Environment.add (env cinfo) : Environment — pure insert (no dup check);
     // CONSUMES env + cinfo, returns the new env (owned). Matches C++ `environment::add`.
     fn lean_environment_add(env: *mut LeanObject, info: *mut LeanObject) -> *mut LeanObject;
+    // Kernel diagnostics (Kernel.Environment / Diagnostics in Environment.lean). All take their
+    // arguments OWNED (no `@&`); record_unfold/set_diag return owned results.
+    fn lean_kernel_diag_is_enabled(d: *mut LeanObject) -> u8;
+    fn lean_kernel_record_unfold(d: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
+    fn lean_kernel_get_diag(env: *mut LeanObject) -> *mut LeanObject;
+    fn lean_kernel_set_diag(env: *mut LeanObject, diag: *mut LeanObject) -> *mut LeanObject;
     // C++ bridges still used for the not-yet-ported kinds (quot/mutual/inductive),
     // plus axiom/def/theorem/opaque as a fallback while the Rust port is debugged.
     fn lean_cxx_add_axiom(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
@@ -4391,6 +4546,22 @@ const RUST_ADD_SIMPLE: bool = true;
 #[inline(always)]
 unsafe fn mk_empty_lctx() -> *mut LeanObject {
     lean_mk_empty_local_ctx(lean_box(0))
+}
+
+/// Begin a `scoped_diagnostics` (type_checker.cpp): if the env's diagnostics are enabled, return an
+/// owned copy of the `Diagnostics` to accumulate unfolds into; otherwise return null. `env` BORROWED.
+unsafe fn diag_begin(env: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(env);
+    let d = lean_kernel_get_diag(env); // consumes the inc'd env, returns owned Diagnostics
+    lean_inc(d);
+    let enabled = lean_kernel_diag_is_enabled(d) != 0; // consumes the inc'd copy
+    if enabled { d } else { lean_dec(d); ptr::null_mut() }
+}
+
+/// Write an accumulated `Diagnostics` back into the env (`scoped_diagnostics::update`). CONSUMES
+/// `env` and `diag` (when non-null); returns the (possibly updated) env.
+unsafe fn diag_update(env: *mut LeanObject, diag: *mut LeanObject) -> *mut LeanObject {
+    if diag.is_null() { env } else { lean_kernel_set_diag(env, diag) }
 }
 
 /// Value of a def/thm/opaque declaration (BORROWED). `val` is field 0 of the
@@ -4473,11 +4644,14 @@ unsafe fn check_decl_value(tc: &mut TypeChecker, decl: *mut LeanObject) -> Resul
     check_no_metavar_no_fvar(env, name, val)?;
     let val_type = tc.check(val, lparams)?;
     let ok = tc.is_def_eq(val_type, ty)?;
-    lean_dec(val_type);
     if !ok {
-        lean_inc(env); lean_inc(decl); lean_inc(ty);
-        return Err(KernelError::DeclTypeMismatch { env, decl, given_type: ty });
+        // `givenType` in the error is the INFERRED type of the value (val_type), and the message's
+        // "expected to have type" is `decl.type` (Message.lean: declTypeMismatch). val_type is owned
+        // and moves into the error — do NOT dec it here.
+        lean_inc(env); lean_inc(decl);
+        return Err(KernelError::DeclTypeMismatch { env, decl, given_type: val_type });
     }
+    lean_dec(val_type);
     Ok(())
 }
 
@@ -4494,14 +4668,19 @@ unsafe fn add_decl_impl(
     // Unsafe definitions: check the type, ADD, then check the value in the new env
     // (so the definition may reference itself). Mirrors add_definition's unsafe branch.
     if kind == 1 && is_unsafe {
+        // scoped_diagnostics: accumulate unfolds across both passes, then write back.
+        let mut diag = if do_check { diag_begin(env) } else { ptr::null_mut() };
         if do_check {
             let lctx = mk_empty_lctx();
             let mut tc = TypeChecker::new(env, lctx, DEF_SAFETY_UNSAFE);
             lean_dec(lctx); // tc took its own inc; release the owned ref from mk_empty_lctx
-            if let Err(e) = check_constant_val(&mut tc, decl) {
-                drop(tc); lean_dec(env); return Err(e);
-            }
+            tc.diag = diag;
+            let r = check_constant_val(&mut tc, decl);
+            diag = tc.take_diag();
             drop(tc);
+            if let Err(e) = r {
+                if !diag.is_null() { lean_dec(diag); } lean_dec(env); return Err(e);
+            }
         }
         lean_inc(decl);
         let new_env = lean_environment_add(env, decl); // consumes env + inc'd decl
@@ -4509,22 +4688,28 @@ unsafe fn add_decl_impl(
             let lctx = mk_empty_lctx();
             let mut tc = TypeChecker::new(new_env, lctx, DEF_SAFETY_UNSAFE);
             lean_dec(lctx); // tc took its own inc; release the owned ref from mk_empty_lctx
-            if let Err(e) = check_decl_value(&mut tc, decl) {
-                drop(tc); lean_dec(new_env); return Err(e);
-            }
+            tc.diag = diag;
+            let r = check_decl_value(&mut tc, decl);
+            diag = tc.take_diag();
             drop(tc);
+            if let Err(e) = r {
+                if !diag.is_null() { lean_dec(diag); } lean_dec(new_env); return Err(e);
+            }
         }
-        return Ok(new_env);
+        return Ok(diag_update(new_env, diag));
     }
 
     // Axiom / safe(+partial) definition / theorem / opaque: check everything in the
     // current env, then add.
+    let mut diag: *mut LeanObject = ptr::null_mut();
     if do_check {
+        diag = diag_begin(env);
         // Axiom uses unsafe-mode iff the axiom is unsafe; the others use safe mode.
         let ds = if kind == 0 && is_unsafe { DEF_SAFETY_UNSAFE } else { DEF_SAFETY_SAFE };
         let lctx = mk_empty_lctx();
         let mut tc = TypeChecker::new(env, lctx, ds);
         lean_dec(lctx); // tc took its own inc; release the owned ref from mk_empty_lctx
+        tc.diag = diag;
         let r: Result<(), KernelError> = (|| {
             check_constant_val(&mut tc, decl)?;
             if kind == 2 {
@@ -4543,14 +4728,16 @@ unsafe fn add_decl_impl(
             }
             Ok(())
         })();
-        if let Err(e) = r {
-            drop(tc); lean_dec(env); return Err(e);
-        }
+        diag = tc.take_diag();
         drop(tc);
+        if let Err(e) = r {
+            if !diag.is_null() { lean_dec(diag); } lean_dec(env); return Err(e);
+        }
     }
 
     lean_inc(decl);
-    Ok(lean_environment_add(env, decl)) // consumes env + inc'd decl
+    let new_env = lean_environment_add(env, decl); // consumes env + inc'd decl
+    Ok(diag_update(new_env, diag))
 }
 
 /// Wrap a `DefinitionVal` (BORROWED) as a `ConstantInfo.defnInfo` (tag 1). Returns an OWNED ctor.
@@ -4585,11 +4772,15 @@ unsafe fn add_mutual_impl(
         return Err(KernelError::Other { msg });
     }
 
+    // scoped_diagnostics: shared across both passes (matches C++ add_mutual).
+    let mut diag = if do_check { diag_begin(env) } else { ptr::null_mut() };
+
     // Pass 1: check each constant-val in the current env.
     if do_check {
         let lctx = mk_empty_lctx();
         let mut tc = TypeChecker::new(env, lctx, safety);
         lean_dec(lctx);
+        tc.diag = diag;
         let r: Result<(), KernelError> = (|| {
             let mut cur = defns;
             while !lean_list_is_nil(cur) {
@@ -4607,8 +4798,9 @@ unsafe fn add_mutual_impl(
             }
             Ok(())
         })();
-        if let Err(e) = r { drop(tc); lean_dec(env); return Err(e); }
+        diag = tc.take_diag();
         drop(tc);
+        if let Err(e) = r { if !diag.is_null() { lean_dec(diag); } lean_dec(env); return Err(e); }
     }
 
     // Add all definitions to the env (each as a ConstantInfo.defnInfo).
@@ -4625,6 +4817,7 @@ unsafe fn add_mutual_impl(
         let lctx = mk_empty_lctx();
         let mut tc = TypeChecker::new(new_env, lctx, safety);
         lean_dec(lctx);
+        tc.diag = diag;
         let r: Result<(), KernelError> = (|| {
             let mut cur = defns;
             while !lean_list_is_nil(cur) {
@@ -4636,11 +4829,12 @@ unsafe fn add_mutual_impl(
             }
             Ok(())
         })();
-        if let Err(e) = r { drop(tc); lean_dec(new_env); return Err(e); }
+        diag = tc.take_diag();
         drop(tc);
+        if let Err(e) = r { if !diag.is_null() { lean_dec(diag); } lean_dec(new_env); return Err(e); }
     }
 
-    Ok(new_env)
+    Ok(diag_update(new_env, diag))
 }
 
 /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
@@ -4729,6 +4923,11 @@ pub extern "C" fn initialize_type_checker() {
         init_global_const(&G_STRING_MK,       &["String", "ofList"]);
         init_global_const(&G_LEAN_REDUCE_BOOL, &["Lean", "reduceBool"]);
         init_global_const(&G_LEAN_REDUCE_NAT,  &["Lean", "reduceNat"]);
+
+        // Quotient eliminator/constructor names (bare Name) for quot_reduce_rec.
+        init_global_name(&G_QUOT_LIFT_NAME, &["Quot", "lift"]);
+        init_global_name(&G_QUOT_IND_NAME,  &["Quot", "ind"]);
+        init_global_name(&G_QUOT_MK_NAME,   &["Quot", "mk"]);
     }
 }
 
@@ -4744,6 +4943,7 @@ pub extern "C" fn finalize_type_checker() {
         &G_NAT_BLE, &G_NAT_LAND, &G_NAT_LOR, &G_NAT_XOR,
         &G_NAT_SHIFTLEFT, &G_NAT_SHIFTRIGHT,
         &G_STRING_MK, &G_LEAN_REDUCE_BOOL, &G_LEAN_REDUCE_NAT,
+        &G_QUOT_LIFT_NAME, &G_QUOT_IND_NAME, &G_QUOT_MK_NAME,
     ];
     for p in ptrs {
         p.store(ptr::null_mut(), Ordering::Release);
