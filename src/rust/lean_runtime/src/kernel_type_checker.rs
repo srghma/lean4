@@ -2845,7 +2845,8 @@ impl TypeChecker {
 
         let r: *mut LeanObject = match lean_expr_kind(e) {
             EXPR_FVAR => {
-                self.whnf_fvar(e, cheap_rec, cheap_proj)?
+                // C++ `whnf_core` does `return whnf_fvar(...)` — early return, NOT cached.
+                return self.whnf_fvar(e, cheap_rec, cheap_proj);
             }
             EXPR_PROJ => {
                 if let Some(m) = self.reduce_proj(e, cheap_rec, cheap_proj)? {
@@ -2911,12 +2912,17 @@ impl TypeChecker {
                         lean_dec(f);
                         let result = self.whnf_core(r, cheap_rec, cheap_proj)?;
                         lean_dec(r);
-                        result
+                        // C++ does `return whnf_core(*r, ...)` here — early return, NOT cached.
+                        // Caching iota/recursor results diverges from C++: it suppresses re-reductions
+                        // (wrong kernel-diagnostics unfold counts) and balloons the whnf_core cache on
+                        // recursor-heavy proofs (bv_decide/grind) → memory pressure + slow lookups.
+                        return Ok(result);
                     } else {
                         lean_dec(f);
                         lean_dec(e);
                         lean_inc(e);
-                        e
+                        // C++ does `return e` here (stuck recursor) — early return, NOT cached.
+                        return Ok(e);
                     }
                 } else {
                     // rebuild application with reduced function. mk_app consumes both args.
@@ -4556,18 +4562,12 @@ unsafe fn mk_empty_lctx() -> *mut LeanObject {
 /// Begin a `scoped_diagnostics` (type_checker.cpp): if the env's diagnostics are enabled, return an
 /// owned copy of the `Diagnostics` to accumulate unfolds into; otherwise return null. `env` BORROWED.
 ///
-/// NOTE: kernel-diagnostics RECORDING is currently DISABLED (this returns null unconditionally).
-/// The recording infrastructure (`record_unfold`, the two whnf_core/unfold_definition_core sites,
-/// and the add-path threading) is a faithful port of C++ `diagnostics`, but the Rust kernel's
-/// reduction trace does not yet reproduce the C++ kernel's exact per-declaration unfold COUNTS
-/// (cache/eqv-manager reduction-order parity). Enabling it makes the `[kernel] unfolded
-/// declarations` counts diverge from the expected test output in BOTH directions — it over-reports
-/// for `tests/elab/string_neq_kernel_cost.lean` (whose proofs are expected to stay under the
-/// diagnostics threshold) and under-reports for `ack`/`structuralNamedF`. Until the reduction-order
-/// parity is closed, leave recording off so the diagnostics output matches an empty/threshold-clean
-/// trace. Flip back to the env-driven check below to re-enable.
-unsafe fn diag_begin(_env: *mut LeanObject) -> *mut LeanObject {
-    ptr::null_mut()
+unsafe fn diag_begin(env: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(env);
+    let d = lean_kernel_get_diag(env); // consumes the inc'd env, returns owned Diagnostics
+    lean_inc(d);
+    let enabled = lean_kernel_diag_is_enabled(d) != 0; // consumes the inc'd copy
+    if enabled { d } else { lean_dec(d); ptr::null_mut() }
 }
 
 /// Write an accumulated `Diagnostics` back into the env (`scoped_diagnostics::update`). CONSUMES
