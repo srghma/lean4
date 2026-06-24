@@ -275,6 +275,9 @@ pub unsafe fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
 }
 
 pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
+    if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC {
+        runtime_object_rc_impl::quar_report_uaf(obj, "inc");
+    }
     if (*obj).rc > 0 {
         (*obj).rc += n as i32;
     } else if (*obj).rc != 0 {
@@ -288,6 +291,9 @@ pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {
 }
 
 unsafe fn lean_dec_ref(obj: *mut LeanObject) {
+    if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC {
+        runtime_object_rc_impl::quar_report_uaf(obj, "dec");
+    }
     if (*obj).rc > 1 {
         (*obj).rc -= 1;
     } else if (*obj).rc != 0 {

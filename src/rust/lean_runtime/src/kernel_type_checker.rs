@@ -4286,7 +4286,7 @@ extern "C" {
 
 /// Toggle: route axiom/def/theorem/opaque through the Rust `add_decl_impl` (true) or the
 /// C++ bridges (false). Kept false until the Rust path is validated, so the tree stays green.
-const RUST_ADD_SIMPLE: bool = false;
+const RUST_ADD_SIMPLE: bool = true;
 
 #[inline(always)]
 unsafe fn mk_empty_lctx() -> *mut LeanObject {
@@ -4388,6 +4388,9 @@ unsafe fn add_decl_impl(
     decl: *mut LeanObject,
     do_check: bool,
 ) -> Result<*mut LeanObject, KernelError> {
+    // DEBUG: RUST_ADD_NOCHECK=1 skips the Rust type-checker (store-only). Lets one build test
+    // whether the env corruption comes from check/is_def_eq (works when skipped) or the store.
+    let do_check = do_check && std::env::var_os("RUST_ADD_NOCHECK").is_none();
     let kind = lean_ptr_tag(decl);
     let is_unsafe = lean_constant_info_is_unsafe(decl);
 
@@ -4458,8 +4461,40 @@ unsafe fn add_decl_impl(
 /// quot/mutual/inductive still delegate to the C++ bridges.
 #[no_mangle]
 pub unsafe extern "C" fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject {
-    match lean_ptr_tag(decl) {
-        0 | 1 | 2 | 3 if RUST_ADD_SIMPLE => match add_decl_impl(env, decl, check != 0) {
+    let tag = lean_ptr_tag(decl);
+    // DEBUG: log every add (name + kind) when RUST_ADD_LOG set; route names containing any
+    // RUST_ADD_CXX substring through the C++ bridge to bisect the corrupting decl.
+    let dbg_log = std::env::var_os("RUST_ADD_LOG").is_some();
+    let cxx_filter = std::env::var("RUST_ADD_CXX").ok();
+    let force_cxx = if tag <= 3 {
+        let nm = lean_constant_info_get_name(decl);
+        // inline name->string (the file's lean_name_to_string is a stub)
+        let s = {
+            let mut comps: Vec<String> = Vec::new();
+            let mut cur = nm;
+            while !lean_is_scalar(cur) {
+                match lean_obj_tag(cur) {
+                    1 => {
+                        let so = lean_ctor_get(cur, 1);
+                        let cs = core::ffi::CStr::from_ptr(lean_string_cstr(so)).to_string_lossy().into_owned();
+                        comps.push(cs);
+                        cur = lean_ctor_get(cur, 0);
+                    }
+                    2 => {
+                        comps.push("_num".to_string());
+                        cur = lean_ctor_get(cur, 0);
+                    }
+                    _ => break,
+                }
+            }
+            comps.reverse();
+            comps.join(".")
+        };
+        if dbg_log { eprintln!("[rust-add] tag={} check={} name={}", tag, check, s); }
+        cxx_filter.as_deref().map_or(false, |f| f.split(',').any(|p| !p.is_empty() && s.contains(p)))
+    } else { false };
+    match tag {
+        0 | 1 | 2 | 3 if RUST_ADD_SIMPLE && !force_cxx => match add_decl_impl(env, decl, check != 0) {
             Ok(new_env) => mk_except_ok(new_env),
             Err(e) => kernel_error_to_lean_except(e),
         },
