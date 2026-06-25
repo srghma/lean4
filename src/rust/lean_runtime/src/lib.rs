@@ -7,12 +7,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #![allow(
     dead_code,
     non_upper_case_globals,
-    private_interfaces,
-    static_mut_refs,
-    unused_imports,
-    unused_mut,
-    unused_unsafe,
-    unused_variables
 )]
 
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
@@ -2466,31 +2460,21 @@ pub unsafe extern "C" fn lean_io_set_heartbeats(count: *mut LeanObject) -> *mut 
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_io_mono_ms_now() -> *mut LeanObject {
-    use std::mem::MaybeUninit;
-    use std::sync::Once;
+    use std::sync::OnceLock;
     use std::time::Instant;
 
-    static START_ONCE: Once = Once::new();
-    static mut START: MaybeUninit<Instant> = MaybeUninit::uninit();
-    START_ONCE.call_once(|| unsafe {
-        START.write(Instant::now());
-    });
-    let start = unsafe { START.assume_init_ref() };
+    static START: OnceLock<Instant> = OnceLock::new();
+    let start = START.get_or_init(Instant::now);
     lean_uint64_to_nat_rust(start.elapsed().as_millis() as u64)
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_io_mono_nanos_now() -> *mut LeanObject {
-    use std::mem::MaybeUninit;
-    use std::sync::Once;
+    use std::sync::OnceLock;
     use std::time::Instant;
 
-    static START_ONCE: Once = Once::new();
-    static mut START: MaybeUninit<Instant> = MaybeUninit::uninit();
-    START_ONCE.call_once(|| unsafe {
-        START.write(Instant::now());
-    });
-    let start = unsafe { START.assume_init_ref() };
+    static START: OnceLock<Instant> = OnceLock::new();
+    let start = START.get_or_init(Instant::now);
     lean_uint64_to_nat_rust(start.elapsed().as_nanos() as u64)
 }
 

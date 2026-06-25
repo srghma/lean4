@@ -6,7 +6,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_io_ref_impl {
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
-    use core::ffi::c_char;
     use core::sync::atomic::{AtomicPtr, Ordering};
 
     extern "C" {

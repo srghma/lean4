@@ -392,9 +392,7 @@ pub(crate) mod runtime_object_task_impl {
                     guard.idle_std_workers -= 1;
                     tm.run_task_locked(&mut guard, t);
                     guard.idle_std_workers += 1;
-                    unsafe {
-                        reset_heartbeat();
-                    }
+                    reset_heartbeat();
                 }
                 guard.idle_std_workers -= 1;
                 guard.total_std_workers -= 1;
@@ -436,9 +434,7 @@ pub(crate) mod runtime_object_task_impl {
                 return;
             }
 
-            unsafe {
-                reset_heartbeat();
-            }
+            reset_heartbeat();
 
             let closure = unsafe {
                 let c = (*imp).m_closure;
@@ -446,50 +442,40 @@ pub(crate) mod runtime_object_task_impl {
                 c
             };
 
-            let result = unsafe {
-                with_mutex_unlocked!(guard, self.inner, {
-                    let _scope = ScopedCurrentTask::new(t);
-                    let result = lean_apply_1(closure, lean_box(0));
-                    if !result.is_null() {
-                        let imp2 = (*t).imp as *mut LeanTaskImp;
-                        if (*imp2).m_keep_alive {
-                            lean_dec_ref(t as *mut LeanObject);
-                        }
+            let result = with_mutex_unlocked!(guard, self.inner, {
+                let _scope = ScopedCurrentTask::new(t);
+                let result = lean_apply_1(closure, lean_box(0));
+                if !result.is_null() {
+                    let imp2 = (*t).imp as *mut LeanTaskImp;
+                    if (*imp2).m_keep_alive {
+                        lean_dec_ref(t as *mut LeanObject);
                     }
-                    result
-                })
-            };
+                }
+                result
+            });
 
             let imp3 = unsafe { (*t).imp as *mut LeanTaskImp };
             debug_assert!(!imp3.is_null());
 
             if unsafe { (*imp3).m_deleted } {
-                unsafe {
-                    with_mutex_unlocked!(guard, self.inner, {
-                        unsafe {
-                            if !result.is_null() {
-                                lean_dec(result);
-                            }
-                            free_task(t);
-                        }
-                    })
-                };
+                with_mutex_unlocked!(guard, self.inner, {
+                    if !result.is_null() {
+                        lean_dec(result);
+                    }
+                    free_task(t);
+                });
             } else if !result.is_null() {
                 self.resolve_core(guard, t, result);
             } else {
                 // Bind task suspended — re-registered as dep of a nested task.
                 // The closure pointer was updated by task_bind_fn1.
                 let new_closure = unsafe { (*imp3).m_closure };
-                unsafe {
-                    with_mutex_unlocked!(guard, self.inner, {
-                        unsafe {
-                            let nested_ptr =
-                                local_closure_arg_cptr(new_closure) as *mut *mut LeanTaskObject;
-                            let nested = *nested_ptr;
-                            self.add_dep_raw(nested, t);
-                        }
-                    })
-                };
+                with_mutex_unlocked!(guard, self.inner, {
+                    let nested_ptr =
+                        local_closure_arg_cptr(new_closure) as *mut *mut LeanTaskObject;
+                    let nested = *nested_ptr;
+                    self.add_dep_raw(nested, t);
+                });
             }
         }
 
@@ -702,22 +688,18 @@ pub(crate) mod runtime_object_task_impl {
                 (*imp).m_canceled = true;
                 (*imp).m_deleted = true;
             }
-            unsafe {
-                with_mutex_unlocked!(guard, self.inner, {
-                    unsafe {
-                        while !it.is_null() {
-                            let it_imp = (*it).imp as *mut LeanTaskImp;
-                            debug_assert!((*it_imp).m_deleted);
-                            let next = (*it_imp).m_next_dep;
-                            free_task(it);
-                            it = next;
-                        }
-                        if !closure.is_null() {
-                            lean_dec_ref(closure);
-                        }
-                    }
-                })
-            };
+            with_mutex_unlocked!(guard, self.inner, {
+                while !it.is_null() {
+                    let it_imp = (*it).imp as *mut LeanTaskImp;
+                    debug_assert!((*it_imp).m_deleted);
+                    let next = (*it_imp).m_next_dep;
+                    free_task(it);
+                    it = next;
+                }
+                if !closure.is_null() {
+                    lean_dec_ref(closure);
+                }
+            });
         }
 
         fn cancel_task(self: &Arc<Self>, t: *mut LeanTaskObject) {

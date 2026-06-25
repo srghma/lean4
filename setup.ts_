@@ -674,7 +674,7 @@ lean_lean = { path = "../lean_lean" }`;
 
       await Bun_write_ifChanged(
         path.join(pkgDir, "src/lib.rs"),
-        `#![allow(warnings, non_upper_case_globals, non_snake_case, non_camel_case_types, dead_code, unused_imports, clashing_extern_declarations)]\n${codeTree}`,
+        `${codeTree}`,
       );
       step(`Package ${c.bold}${pkg}${c.reset}: ${files.length} modules`);
     }),
@@ -708,7 +708,7 @@ lean_lean = { path = "../lean_lean" }`;
 
     await Bun_write_ifChanged(
       path.join(pkgDir, "src/lib.rs"),
-      `#![allow(warnings, non_upper_case_globals, non_snake_case, non_camel_case_types, dead_code, unused_imports, clashing_extern_declarations)]\n${rootExports}${codeTree}`,
+      `${rootExports}${codeTree}`,
     );
     step(`Package ${c.bold}${pkg}${c.reset}: ${groups[G].length} modules`);
   }
@@ -725,7 +725,7 @@ lean_lean = { path = "../lean_lean" }`;
   );
   await Bun_write_ifChanged(
     path.join(umbrellaDir, "src/lib.rs"),
-    `#![allow(warnings)]\npub use lean_lean_${LAST_G}::*;`,
+    `pub use lean_lean_${LAST_G}::*;`,
   );
   step(`Package ${c.bold}lean_lean${c.reset}: umbrella → lean_lean_${LAST_G}`);
 
@@ -745,7 +745,7 @@ lean_lean = { path = "../lean_lean" }`;
 
   await Bun_write_ifChanged(
     path.join(lakeDir, "src/lib.rs"),
-    `#![allow(warnings, non_upper_case_globals, non_snake_case, non_camel_case_types, dead_code, unused_imports, clashing_extern_declarations)]\nextern crate self as lean_lake;\n${lakeTree}`,
+    `extern crate self as lean_lake;\n${lakeTree}`,
   );
   step(`Package ${c.bold}lean_lake${c.reset}: ${lakeFiles.length} modules`);
 
@@ -820,13 +820,11 @@ extern crate lean_lake;
 // These are only invoked when lean uses the LLVM IR backend; they will never be called
 // in the stdlib test suite.  Without them, --export-dynamic forces the linker to keep
 // the l_LLVM_* wrapper functions alive, which then require these symbols to be defined.
-#[allow(non_snake_case, unused_variables)]
 #[no_mangle]
 pub extern "C" fn llvm_count_params(_ctx: usize, _fn_: usize) -> u64 {
     panic!("LLVM backend not compiled in")
 }
 
-#[allow(non_snake_case, unused_variables)]
 #[no_mangle]
 pub extern "C" fn llvm_get_param(_ctx: usize, _fn_: usize, _ix: u64) -> usize {
     panic!("LLVM backend not compiled in")
@@ -877,7 +875,6 @@ ${profileOverrides}
 
   await Bun_write_ifChanged(
     path.join(LEAN_STDLIB_DIR, "src/lib.rs"),
-    `#![allow(warnings)]
 extern crate lean_runtime;
 extern crate lean_init;
 extern crate lean_std;

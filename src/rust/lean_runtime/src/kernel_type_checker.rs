@@ -3254,7 +3254,7 @@ mod kernel_type_checker_impl {
             let idx = lean_nat_get_small_value(proj_idx_nat) as usize;
 
             let proj_e_type_uninferred = self.infer_type_core(proj_e, infer_only)?;
-            let mut ty = self.whnf(proj_e_type_uninferred)?;
+            let ty = self.whnf(proj_e_type_uninferred)?;
             lean_dec(proj_e_type_uninferred);
 
             // Collect args from the type application

@@ -244,7 +244,6 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
-        let mut len: usize = 0;
         let mut p = s;
         while *p != 0 {
             p = p.add(1);
@@ -572,7 +571,7 @@ mod runtime_object_string_impl {
         if !lean_is_scalar(b0) || !lean_is_scalar(e0) {
             return s;
         }
-        let mut b = lean_unbox(b0);
+        let b = lean_unbox(b0);
         let mut e = lean_unbox(e0);
         let str = lean_string_cstr(s) as *const u8;
         let sz = lean_string_size(s) - 1;

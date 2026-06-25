@@ -12,7 +12,6 @@ use lean_runtime::{
 use std::ffi::{CStr, CString};
 use std::io::{self, Write};
 use std::slice;
-use std::thread;
 
 fn multi_thread() -> bool {
     option_env!("LEAN_RUST_MULTI_THREAD") == Some("1")
@@ -65,11 +64,6 @@ enum ArgMode {
     Optional,
 }
 
-fn bootstrap_num_threads() -> c_uint {
-    thread::available_parallelism()
-        .map(|n| n.get() as c_uint)
-        .unwrap_or(1)
-}
 
 fn long_option(name: &str) -> Option<(c_char, ArgMode)> {
     let candidates = [
@@ -221,7 +215,7 @@ unsafe fn parse_and_process_options(
 
         let mut opt_char: c_char;
         let mut opt_arg: Option<&CStr> = None;
-        let mut opt_arg_storage: Option<CString> = None;
+        let opt_arg_storage: Option<CString>;
         let mut consumed_extra = 0usize;
 
         if bytes.len() >= 2 && bytes[1] == b'-' {
@@ -293,7 +287,7 @@ unsafe fn parse_and_process_options(
         let next = process_option(shell_opts, opt_char, opt_arg)?;
         shell_opts = next;
         if get_run(shell_opts) {
-            let mut start = idx + 1 + consumed_extra;
+            let start = idx + 1 + consumed_extra;
             positional.clear();
             positional.extend(args[start..].iter().copied().filter(|p| !p.is_null()));
             break;

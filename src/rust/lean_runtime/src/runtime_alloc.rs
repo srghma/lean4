@@ -57,7 +57,7 @@ mod runtime_alloc_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean14set_heartbeatsEm"
     )]
-    pub extern "C" fn set_heartbeats(count: u64) {
+    pub unsafe extern "C" fn set_heartbeats(count: u64) {
         G_HEARTBEAT.with(|cell| cell.set(count));
     }
 
@@ -66,13 +66,13 @@ mod runtime_alloc_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean14add_heartbeatsEm"
     )]
-    pub extern "C" fn add_heartbeats(count: u64) {
+    pub unsafe extern "C" fn add_heartbeats(count: u64) {
         G_HEARTBEAT.with(|cell| cell.set(cell.get().wrapping_add(count)));
     }
 
     #[cfg(not(lean_small_allocator))]
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_inc_heartbeat() {
+    pub unsafe extern "C" fn lean_inc_heartbeat() {
         add_heartbeats(1);
     }
 
@@ -94,7 +94,9 @@ mod runtime_alloc_impl {
     #[cfg(not(lean_small_allocator))]
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_set_heartbeats(count: u64) {
-        set_heartbeats(count);
+        unsafe {
+            set_heartbeats(count);
+        }
     }
 
     #[cfg(lean_small_allocator)]

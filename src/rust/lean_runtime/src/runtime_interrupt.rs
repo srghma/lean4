@@ -6,7 +6,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_interrupt_impl {
     use super::*;
     use core::ffi::c_char;
-    use core::sync::atomic::Ordering;
     use std::cell::Cell;
 
     extern "C" {

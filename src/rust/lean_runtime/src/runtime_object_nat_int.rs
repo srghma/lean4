@@ -14,12 +14,12 @@ pub(crate) mod runtime_object_nat_int_impl {
     use core::ffi::{c_char, c_int, c_long, c_ulong};
 
     #[repr(C)]
-    struct MpzStruct {
+    pub(crate) struct MpzStruct {
         _mp_alloc: c_int,
         _mp_size: c_int,
         _mp_d: *mut u64,
     }
-    type MpzT = [MpzStruct; 1];
+    pub(crate) type MpzT = [MpzStruct; 1];
 
     #[repr(C)]
     struct LeanMpzObject {

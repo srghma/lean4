@@ -719,7 +719,7 @@ mod runtime_compact_writer_impl {
     // -------------------------------------------------------------------------
 
     unsafe fn write_olean(
-        olean_fn: &str,
+        _olean_fn: &str,
         olean_tmp_fn: &str,
         compactor: &mut ObjectCompactor,
         file_offset: usize,
