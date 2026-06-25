@@ -3057,7 +3057,31 @@ impl TypeChecker {
         Ok(None)
     }
 
+    /// True when `f` is one of the binary `Nat` operations handled by `reduce_bin_nat_op`.
+    /// C++ `reduce_nat` dispatches on `f == *g_nat_*` *before* touching the arguments, so a
+    /// 2-arg application whose head is not a `Nat` op (e.g. `String.ofByteArray (utf8Encode l) p`)
+    /// must never have its arguments reduced — otherwise we needlessly force the `utf8Encode`
+    /// (byte-encoding) reduction and blow up the kernel unfold count.
+    unsafe fn is_nat_bin_op(&self, f: *mut LeanObject) -> bool {
+        lean_expr_eqv(f, load_global(&G_NAT_ADD))
+            || lean_expr_eqv(f, load_global(&G_NAT_SUB))
+            || lean_expr_eqv(f, load_global(&G_NAT_MUL))
+            || lean_expr_eqv(f, load_global(&G_NAT_DIV))
+            || lean_expr_eqv(f, load_global(&G_NAT_MOD))
+            || lean_expr_eqv(f, load_global(&G_NAT_GCD))
+            || lean_expr_eqv(f, load_global(&G_NAT_LAND))
+            || lean_expr_eqv(f, load_global(&G_NAT_LOR))
+            || lean_expr_eqv(f, load_global(&G_NAT_XOR))
+            || lean_expr_eqv(f, load_global(&G_NAT_SHIFTLEFT))
+            || lean_expr_eqv(f, load_global(&G_NAT_SHIFTRIGHT))
+            || lean_expr_eqv(f, load_global(&G_NAT_POW))
+            || lean_expr_eqv(f, load_global(&G_NAT_BEQ))
+            || lean_expr_eqv(f, load_global(&G_NAT_BLE))
+    }
+
     unsafe fn reduce_bin_nat_op(&mut self, e: *mut LeanObject, f: *mut LeanObject) -> Result<Option<*mut LeanObject>, KernelError> {
+        // Match C++: bail out before reducing the arguments unless `f` is a known Nat op.
+        if !self.is_nat_bin_op(f) { return Ok(None); }
         let arg1 = self.whnf(lean_expr_get_app_arg(lean_expr_get_app_fn(e)))?;
         if !is_nat_lit_ext(arg1) { lean_dec(arg1); return Ok(None); }
         let arg2 = self.whnf(lean_expr_get_app_arg(e))?;
