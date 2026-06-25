@@ -180,130 +180,7 @@ typedef lean_object * lean_obj_res;   /* Standard object result. */
 typedef lean_object * b_lean_obj_res; /* Borrowed object result. */
 
 /* BEGIN GENERATED LEAN C ABI TYPES */
-typedef struct {
-    lean_object   m_header;
-    lean_object * m_objs[];
-} lean_ctor_object;
-
-/* Array arrays */
-typedef struct {
-    lean_object   m_header;
-    size_t        m_size;
-    size_t        m_capacity;
-    lean_object * m_data[];
-} lean_array_object;
-
-/* Scalar arrays */
-typedef struct {
-    lean_object   m_header;
-    size_t        m_size;
-    size_t        m_capacity;
-    uint8_t       m_data[];
-} lean_sarray_object;
-
-typedef struct {
-    lean_object m_header;
-    size_t      m_size;     /* byte length including '\0' terminator */
-    size_t      m_capacity;
-    size_t      m_length;   /* UTF8 length */
-    char        m_data[];
-} lean_string_object;
-
-typedef struct {
-    lean_object   m_header;
-    void *        m_fun;
-    uint16_t      m_arity;     /* Number of arguments expected by m_fun. */
-    uint16_t      m_num_fixed; /* Number of arguments that have been already fixed. */
-    lean_object * m_objs[];
-} lean_closure_object;
-
-typedef struct {
-    lean_object   m_header;
-    lean_object * m_value;
-} lean_ref_object;
-
-typedef struct {
-    lean_object            m_header;
-    _Atomic(lean_object *) m_value;
-    _Atomic(lean_object *) m_closure;
-} lean_thunk_object;
-
-struct lean_task;
-
-/* Data required for executing a Lean task. It is released as soon as
-   the task terminates even if the task object itself is still referenced. */
-typedef struct {
-    lean_object *        m_closure;
-    struct lean_task *   m_head_dep;
-    struct lean_task *   m_next_dep;
-    unsigned             m_prio;
-    uint8_t              m_canceled;
-    // If true, task will not be freed until finished
-    uint8_t              m_keep_alive;
-    uint8_t              m_deleted;
-} lean_task_imp;
-
-/* Object of type `Task _`. The lifetime of a `lean_task` object can be represented as a state machine with atomic
-   state transitions.
-
-   In the following, `condition` describes a predicate uniquely identifying a state.
-
-   creation:
-   * Task.spawn ==> Queued
-   * Task.map/bind ==> Waiting
-   * Task.pure ==> Finished
-   * Promise.new ==> Promised
-
-   states:
-   * Queued
-     * condition: in task_manager::m_queues && m_imp != nullptr && !m_imp->m_deleted
-     * invariant: m_value == nullptr
-     * transition: RC becomes 0 ==> Deactivated (`deactivate_task` lock)
-     * transition: dequeued by worker thread            ==> Running     (`spawn_worker` lock)
-   * Waiting
-     * condition: reachable from task via `m_head_dep->m_next_dep->...` && !m_imp->m_deleted
-     * invariant: m_imp != nullptr && m_value == nullptr
-     * invariant: task dependency is Queued/Waiting/Running
-       * It cannot become Deactivated because this task should be holding an owned reference to it
-     * transition: RC becomes 0 ==> Deactivated (`deactivate_task` lock)
-     * transition: task dependency Finished ==> Queued (`handle_finished` under `spawn_worker` lock)
-   * Promised
-     * condition: obtained as result from promise
-     * invariant: m_imp != nullptr && m_value == nullptr
-     * transition: promise resolved ==> Finished (`resolve_core` under `spawn_worker` lock)
-     * transition: RC becomes 0 ==> Deactivated (`deactivate_task` lock)
-   * Running
-     * condition: m_imp != nullptr && m_imp->m_closure == nullptr
-       * The worker takes ownership of the closure when running it
-     * invariant: m_value == nullptr
-     * transition: RC becomes 0 ==> Deactivated (`deactivate_task` lock)
-     * transition: finished execution                   ==> Finished    (`spawn_worker` lock)
-   * Deactivated
-     * condition: m_imp != nullptr && m_imp->m_deleted
-     * invariant: RC == 0
-     * invariant: m_imp->m_closure == nullptr && m_imp->m_head_dep == nullptr (both freed by `deactivate_task_core`)
-       * Note that all dependent tasks must have already been Deactivated by the converse of the second Waiting invariant
-     * invariant: m_value == nullptr
-     * transition: dequeued by worker thread   ==> freed
-     * transition: finished execution          ==> freed
-     * transition: task dependency Finished    ==> freed
-     * We must keep the task object alive until one of these transitions because in either case, we have live
-       (internal, unowned) references to the task up to that point
-     * transition: task dependency Deactivated ==> freed
-   * Finished
-     * condition: m_value != nullptr
-     * invariant: m_imp == nullptr
-     * transition: RC becomes 0 ==> freed (`deactivate_task` lock) */
-typedef struct lean_task {
-    lean_object            m_header;
-    _Atomic(lean_object *) m_value;
-    lean_task_imp *        m_imp;
-} lean_task_object;
-
-typedef struct lean_promise {
-    lean_object        m_header;
-    lean_task_object * m_result;
-} lean_promise_object;
+/* END GENERATED LEAN C ABI TYPES */
 
 typedef void (*lean_external_finalize_proc)(void *);
 typedef void (*lean_external_foreach_proc)(void *, b_lean_obj_arg);
@@ -321,11 +198,12 @@ typedef struct {
     lean_external_class * m_class;
     void *                m_data;
 } lean_external_object;
-/* END GENERATED LEAN C ABI TYPES */
 
-static inline LEAN_ALWAYS_INLINE uint8_t lean_is_scalar(lean_object * o) { return ((size_t)(o) & 1) == 1; }
-static inline lean_object * lean_box(size_t n) { return (lean_object*)(((size_t)(n) << 1) | 1); }
-static inline size_t lean_unbox(lean_object * o) { return (size_t)(o) >> 1; }
+LEAN_EXPORT bool lean_is_scalar(lean_object * o);
+LEAN_EXPORT lean_object * lean_box(size_t n);
+LEAN_EXPORT size_t lean_unbox(lean_object * o);
+LEAN_EXPORT uint8_t lean_ptr_tag(lean_object * o);
+LEAN_EXPORT uint8_t lean_obj_tag(lean_object * o);
 
 LEAN_EXPORT void lean_set_exit_on_panic(bool flag);
 /* Enable/disable panic messages */
@@ -3267,11 +3145,6 @@ static inline lean_obj_res lean_runtime_hold(b_lean_obj_arg a) {
 #else
 #define LEAN_SCALAR_PTR_LITERAL(b1, b2, b3, b4, b5, b6, b7, b8) (lean_object*)((uint64_t)b1 | ((uint64_t)b2 << 8) | ((uint64_t)b3 << 16) | ((uint64_t)b4 << 24) | ((uint64_t)b5 << 32) | ((uint64_t)b6 << 40) | ((uint64_t)b7 << 48) | ((uint64_t)b8 << 56))
 #endif
-
-typedef struct {
-    _Atomic(int) state;
-    _Atomic(int) lock;
-} lean_once_cell_t;
 
 #define LEAN_ONCE_CELL_INITIALIZER { .state = 0, .lock = 0 }
 

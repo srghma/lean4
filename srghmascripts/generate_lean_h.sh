@@ -23,12 +23,12 @@ cbindgen "$repo_root/src/rust/lean_ffi_types" \
   --output "$generated_tmp"
 
 awk '
-  /^typedef struct lean_object \{/ { capture = 1 }
-  capture { print }
+  /^typedef struct lean_ctor_object \{/ { capture = 1 }
+  capture && !/^#endif  \/\* LEAN_H \*\/$/ { print }
   /^#endif  \/\* LEAN_H \*\/$/ { exit }
 ' "$generated_tmp" > "$types_tmp"
 
-sed 's/\[0\]/[]/g' "$types_tmp" > "$types_block_tmp"
+sed -e 's/\[0\]/[]/g' -e 's/struct LeanObject/lean_object/g' "$types_tmp" > "$types_block_tmp"
 
 mkdir -p "$(dirname "$output")"
 

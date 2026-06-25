@@ -234,15 +234,18 @@ unsafe impl Send for NameGeneratorState {}
 static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
     std::sync::Mutex::new(None);
 
-pub unsafe fn lean_unbox(obj: *mut LeanObject) -> Size {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_unbox(obj: *mut LeanObject) -> Size {
     (obj as Size) >> 1
 }
 
-pub unsafe fn lean_is_scalar(obj: *mut LeanObject) -> bool {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_is_scalar(obj: *mut LeanObject) -> bool {
     (obj as Size) & 1 == 1
 }
 
-pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
     if lean_is_scalar(obj) {
         lean_unbox(obj) as u8
     } else {
@@ -250,7 +253,8 @@ pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
     }
 }
 
-pub unsafe fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
     lean_ptr_tag(obj)
 }
 
@@ -1198,7 +1202,8 @@ pub unsafe fn lean_string_cstr(obj: *mut LeanObject) -> *const c_char {
     (obj as *const u8).add(32) as *const c_char
 }
 
-pub unsafe fn lean_box(value: Size) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_box(value: Size) -> *mut LeanObject {
     ((value << 1) | 1) as *mut LeanObject
 }
 
