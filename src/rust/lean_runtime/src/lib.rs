@@ -258,6 +258,11 @@ pub unsafe extern "C" fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
     lean_ptr_tag(obj)
 }
 
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_ptr_other(obj: *mut LeanObject) -> u8 {
+    (*obj).other
+}
+
 pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
     if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
     {

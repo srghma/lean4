@@ -204,6 +204,9 @@ LEAN_EXPORT lean_object * lean_box(size_t n);
 LEAN_EXPORT size_t lean_unbox(lean_object * o);
 LEAN_EXPORT uint8_t lean_ptr_tag(lean_object * o);
 LEAN_EXPORT uint8_t lean_obj_tag(lean_object * o);
+LEAN_EXPORT unsigned lean_ptr_other(lean_object * o);
+LEAN_EXPORT bool lean_io_result_is_ok(b_lean_obj_arg r);
+LEAN_EXPORT bool lean_io_result_is_error(b_lean_obj_arg r);
 
 LEAN_EXPORT void lean_set_exit_on_panic(bool flag);
 /* Enable/disable panic messages */
@@ -390,14 +393,6 @@ static inline void lean_del_object(lean_object * o) {
     }
 }
 
-static inline uint8_t lean_ptr_tag(lean_object * o) {
-    return o->m_tag;
-}
-
-static inline unsigned lean_ptr_other(lean_object * o) {
-    return o->m_other;
-}
-
 /* The object size may be slightly bigger for constructor objects.
    The runtime does not track the size of the scalar size area.
    All constructor objects are "small", and allocated into pages.
@@ -473,10 +468,6 @@ static inline bool lean_is_task(lean_object * o) { return lean_ptr_tag(o) == Lea
 static inline bool lean_is_promise(lean_object * o) { return lean_ptr_tag(o) == LeanPromise; }
 static inline bool lean_is_external(lean_object * o) { return lean_ptr_tag(o) == LeanExternal; }
 static inline bool lean_is_ref(lean_object * o) { return lean_ptr_tag(o) == LeanRef; }
-
-static inline unsigned lean_obj_tag(lean_object * o) {
-    if (lean_is_scalar(o)) return lean_unbox(o); else return lean_ptr_tag(o);
-}
 
 static inline lean_ctor_object * lean_to_ctor(lean_object * o) { assert(lean_is_ctor(o)); return (lean_ctor_object*)(o); }
 static inline lean_closure_object * lean_to_closure(lean_object * o) { assert(lean_is_closure(o)); return (lean_closure_object*)(o); }
@@ -2814,8 +2805,6 @@ static inline lean_obj_res lean_void_mk(lean_obj_arg a) {
     return lean_box(0);
 }
 
-static inline bool lean_io_result_is_ok(b_lean_obj_arg r) { return lean_ptr_tag(r) == 0; }
-static inline bool lean_io_result_is_error(b_lean_obj_arg r) { return lean_ptr_tag(r) == 1; }
 static inline b_lean_obj_res lean_io_result_get_value(b_lean_obj_arg r) { assert(lean_io_result_is_ok(r)); return lean_ctor_get(r, 0); }
 static inline b_lean_obj_res lean_io_result_get_error(b_lean_obj_arg r) { assert(lean_io_result_is_error(r)); return lean_ctor_get(r, 0); }
 

@@ -29,6 +29,7 @@ include = [
   "LeanRefObject",
   "LeanTaskImp",
   "LeanTaskObject",
+  "LeanOnceCell",
 ]
 
 [export.rename]
@@ -42,6 +43,7 @@ include = [
 "LeanScalarArray"    = "lean_sarray_object"
 "LeanTaskImp"        = "lean_task_imp"
 "LeanTaskObject"     = "lean_task_object"
+"LeanOnceCell"       = "lean_once_cell_t"
 
 [parse]
 parse_deps = false

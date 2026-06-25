@@ -141,7 +141,7 @@ pub struct LeanTaskObject {
 }
 
 /// Lean once-cell synchronization token (lean_once_cell_t in C).
-/// The state and lock fields are _Atomic(int) in C; emitted as int32_t here.
+/// The C header only needs the stable layout, so we keep this as plain integers.
 /// cbindgen:field-names=[state, lock]
 #[repr(C)]
 pub struct LeanOnceCell {
