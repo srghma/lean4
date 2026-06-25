@@ -108,8 +108,7 @@ mod kernel_type_checker_impl {
         // lean_expr_get_binding_domain / lean_expr_get_binding_body: implemented as Rust shims below
         // lean_expr_get_binding_info: implemented as Rust shim below (delegates to lean_expr_binder_info)
         // lean_expr_get_let_name / lean_expr_get_let_type / lean_expr_get_let_value / lean_expr_get_let_body: implemented as Rust shims below
-        // lean_expr_get_lit_nat: implemented as Rust shim below
-        fn lean_expr_get_lit_str(e: *const LeanObject) -> *mut LeanObject;
+        // lean_expr_get_lit_nat / lean_expr_get_lit_str: implemented as Rust shims below
         // lean_expr_get_proj_sname / lean_expr_get_proj_idx / lean_expr_get_proj_expr are inline C++; implemented as Rust shims below
         // lean_expr_get_mdata_expr: implemented as Rust shim below
         // `instantiate`/`instantiate_rev`/`abstract` take an `Array Expr`; the kernel needs the
@@ -144,10 +143,8 @@ mod kernel_type_checker_impl {
         // lean_expr_is_app / lean_expr_is_const are inline C++; implemented as Rust shims below
         // lean_expr_is_fvar / lean_expr_is_proj: implemented as Rust shims below
         fn lean_expr_is_mdata(e: *const LeanObject) -> bool;
-        // lean_expr_is_nat_lit: implemented as Rust shim below
-        // lean_expr_is_string_lit: implemented as Rust shim below
-        fn lean_nat_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject;
-        fn lean_string_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject;
+        // lean_expr_is_nat_lit / lean_expr_is_string_lit / lit-to-constructor:
+        // implemented as Rust shims below.
 
         // Nat
         // lean_nat_mk_obj: implemented as Rust shim below
@@ -626,12 +623,31 @@ mod kernel_type_checker_impl {
         lean_ctor_get(lean_ctor_get(e, 0), 0)
     }
 
+    // Get String from Expr::Lit(Literal::String(s)).
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_expr_get_lit_str(e: *const LeanObject) -> *mut LeanObject {
+        lean_ctor_get(lean_ctor_get(e, 0), 0)
+    }
+
     // Create Expr::Lit(Literal::Nat(n)). Consumes n.
     #[no_mangle]
     pub unsafe extern "C" fn lean_expr_mk_lit_nat(n: *mut LeanObject) -> *mut LeanObject {
         let lit = lean_alloc_ctor(LITERAL_NAT_TAG, 1, 0);
         lean_ctor_set(lit, 0, n);
         lean_expr_mk_lit(lit)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_nat_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject {
+        debug_assert!(lean_expr_is_nat_lit(e));
+        let n = lean_expr_get_lit_nat(e);
+        if lean_nat_is_zero(n) {
+            return load_global(&G_NAT_ZERO);
+        }
+        let pred = lean_nat_dec(n);
+        let pred_lit = lean_expr_mk_lit_nat(pred);
+        let succ = load_global(&G_NAT_SUCC);
+        lean_expr_mk_app(succ, pred_lit)
     }
 
     // ---------------------------------------------------------------------------
@@ -970,6 +986,28 @@ mod kernel_type_checker_impl {
             && lean_ptr_tag(e) == EXPR_LIT
             && !lean_is_scalar(lean_ctor_get(e, 0))
             && lean_ptr_tag(lean_ctor_get(e, 0)) == LITERAL_STRING_TAG
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_string_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject {
+        debug_assert!(lean_expr_is_string_lit(e));
+        let s = lean_expr_get_lit_str(e);
+        let bytes = core::slice::from_raw_parts(
+            lean_string_cstr(s) as *const u8,
+            lean_string_size(s).saturating_sub(1),
+        );
+        let text = core::str::from_utf8_unchecked(bytes);
+        let mut r = load_global(&G_LIST_NIL_CHAR);
+        for ch in text.chars().rev() {
+            let char_of_nat = load_global(&G_CHAR_OF_NAT);
+            let char_nat = lean_expr_mk_lit_nat(lean_box(ch as usize));
+            let char_expr = lean_expr_mk_app(char_of_nat, char_nat);
+            let cons = load_global(&G_LIST_CONS_CHAR);
+            let cons_char = lean_expr_mk_app(cons, char_expr);
+            r = lean_expr_mk_app(cons_char, r);
+        }
+        let string_mk = load_global(&G_STRING_MK);
+        lean_expr_mk_app(string_mk, r)
     }
 
     // --- Expr field accessors (borrowed) ---
@@ -2563,6 +2601,10 @@ mod kernel_type_checker_impl {
     global_const!(G_QUOT_MK_NAME);
     global_const!(G_NESTED_NAME);
     global_const!(G_NESTED_FRESH);
+    global_const!(G_IND_FRESH);
+    global_const!(G_LIST_CONS_CHAR);
+    global_const!(G_LIST_NIL_CHAR);
+    global_const!(G_CHAR_OF_NAT);
 
     unsafe fn load_global(g: &AtomicPtr<LeanObject>) -> *mut LeanObject {
         g.load(Ordering::Acquire)
@@ -2604,6 +2646,19 @@ mod kernel_type_checker_impl {
         let name = build_lean_name(parts);
         lean_mark_persistent(name);
         g.store(name, Ordering::Release);
+    }
+
+    /// Build `List.cons Char` or `List.nil Char`, matching inductive.cpp globals.
+    unsafe fn init_list_char_global(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
+        let level_zero = lean_level_mk_zero();
+        let levels = lean_mk_list_cons(ptr::null_mut(), level_zero, lean_mk_list_nil(ptr::null_mut()));
+        let name = build_lean_name(parts);
+        let list_const = lean_expr_mk_const(name, levels);
+        let char_name = build_lean_name(&["Char"]);
+        let char_type = lean_expr_mk_const(char_name, lean_mk_list_nil(ptr::null_mut()));
+        let expr = lean_expr_mk_app(list_const, char_type);
+        lean_mark_persistent(expr);
+        g.store(expr, Ordering::Release);
     }
 
     /// Build a Lean name from dot-separated parts.
@@ -5672,16 +5727,12 @@ mod kernel_type_checker_impl {
     // Extern "C" public entry points
     // ---------------------------------------------------------------------------
 
-    // lean_add_decl / lean_add_decl_without_checking exported from kernel_environment.rs (still calls C++)
-    // They will be updated to call add_decl_impl once type_checker.cpp is fully removed.
+    // lean_add_decl / lean_add_decl_without_checking exported from kernel_environment.rs
+    // call this Rust declaration dispatch.
 
     // lean_kernel_* receive elab envs; need to extract kernel env first.
     extern "C" {
         fn lean_elab_environment_to_kernel_env(env: *mut LeanObject) -> *mut LeanObject;
-        // C++ type_checker.cpp globals (still bridged until full Rust port of add_quot/add_mutual).
-        // Exported as plain C symbols (extern "C" LEAN_EXPORT) from libleanshared.
-        fn initialize_cxx_type_checker_globals();
-        fn finalize_cxx_type_checker_globals();
     }
 
     /// `lean_kernel_is_def_eq(env, lctx, a, b) -> Except KernelException Bool`
@@ -5778,39 +5829,7 @@ mod kernel_type_checker_impl {
         fn lean_kernel_record_unfold(d: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
         fn lean_kernel_get_diag(env: *mut LeanObject) -> *mut LeanObject;
         fn lean_kernel_set_diag(env: *mut LeanObject, diag: *mut LeanObject) -> *mut LeanObject;
-        // C++ bridges still used as fallbacks for simple declarations and for quot/mutual.
-        // plus axiom/def/theorem/opaque as a fallback while the Rust port is debugged.
-        fn lean_cxx_add_axiom(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-            check: u8,
-        ) -> *mut LeanObject;
-        fn lean_cxx_add_definition(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-            check: u8,
-        ) -> *mut LeanObject;
-        fn lean_cxx_add_theorem(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-            check: u8,
-        ) -> *mut LeanObject;
-        fn lean_cxx_add_opaque(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-            check: u8,
-        ) -> *mut LeanObject;
-        fn lean_cxx_add_quot_to_env(env: *mut LeanObject) -> *mut LeanObject;
-        fn lean_cxx_add_mutual(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-            check: u8,
-        ) -> *mut LeanObject;
     }
-
-    /// Toggle: route axiom/def/theorem/opaque through the Rust `add_decl_impl` (true) or the
-    /// C++ bridges (false). Kept false until the Rust path is validated, so the tree stays green.
-    const RUST_ADD_SIMPLE: bool = true;
 
     #[inline(always)]
     unsafe fn mk_empty_lctx() -> *mut LeanObject {
@@ -6796,7 +6815,8 @@ mod kernel_type_checker_impl {
                 DEF_SAFETY_SAFE
             };
             let lctx = mk_empty_lctx();
-            let tc = TypeChecker::new(env, lctx, safety);
+            let mut tc = TypeChecker::new(env, lctx, safety);
+            tc.st.ngen = NameGenerator::new(load_global(&G_IND_FRESH));
             lean_dec(lctx);
             lean_dec(env); // TypeChecker::new inc'd env; drop the consumed caller ref.
             AddInductiveFn {
@@ -8585,15 +8605,15 @@ mod kernel_type_checker_impl {
         check: u8,
     ) -> *mut LeanObject {
         match lean_ptr_tag(decl) {
-            0 | 1 | 2 | 3 if RUST_ADD_SIMPLE => match add_decl_impl(env, decl, check != 0) {
+            0 | 1 | 2 | 3 => match add_decl_impl(env, decl, check != 0) {
                 Ok(new_env) => mk_except_ok(new_env),
                 Err(e) => kernel_error_to_lean_except(e),
             },
-            5 if RUST_ADD_SIMPLE => match add_mutual_impl(env, decl, check != 0) {
+            5 => match add_mutual_impl(env, decl, check != 0) {
                 Ok(new_env) => mk_except_ok(new_env),
                 Err(e) => kernel_error_to_lean_except(e),
             },
-            4 if RUST_ADD_SIMPLE => match add_quot_impl(env) {
+            4 => match add_quot_impl(env) {
                 Ok(new_env) => mk_except_ok(new_env),
                 Err(e) => {
                     lean_dec(env);
@@ -8604,12 +8624,6 @@ mod kernel_type_checker_impl {
                 Ok(new_env) => mk_except_ok(new_env),
                 Err(e) => kernel_error_to_lean_except(e),
             },
-            0 => lean_cxx_add_axiom(env, decl, check),
-            1 => lean_cxx_add_definition(env, decl, check),
-            2 => lean_cxx_add_theorem(env, decl, check),
-            3 => lean_cxx_add_opaque(env, decl, check),
-            4 => lean_cxx_add_quot_to_env(env),
-            5 => lean_cxx_add_mutual(env, decl, check),
             _ => {
                 lean_dec(env);
                 let msg =
@@ -8626,15 +8640,10 @@ mod kernel_type_checker_impl {
     #[export_name = "_ZN4lean23initialize_type_checkerEv"]
     pub extern "C" fn initialize_type_checker() {
         unsafe {
-            // Initialize C++ globals in type_checker.cpp (lean_cxx_add_* depend on these)
-            initialize_cxx_type_checker_globals();
-
             let fresh_name = build_lean_name(&["_kernel_fresh"]);
             lean_mark_persistent(fresh_name);
             G_KERNEL_FRESH.store(fresh_name, Ordering::Release);
-            // NB: the "_kernel_fresh" prefix is already registered by
-            // initialize_cxx_type_checker_globals() above; registering it again here
-            // would trip the duplicate-prefix assertion in the name generator.
+            lean_register_name_generator_prefix(fresh_name);
 
             let bool_true = build_lean_name(&["Bool", "true"]);
             lean_mark_persistent(bool_true);
@@ -8684,6 +8693,11 @@ mod kernel_type_checker_impl {
             init_global_name(&G_NESTED_NAME, &["_nested"]);
             init_global_name(&G_NESTED_FRESH, &["_nested_fresh"]);
             lean_register_name_generator_prefix(load_global(&G_NESTED_FRESH));
+            init_global_name(&G_IND_FRESH, &["_ind_fresh"]);
+            lean_register_name_generator_prefix(load_global(&G_IND_FRESH));
+            init_list_char_global(&G_LIST_CONS_CHAR, &["List", "cons"]);
+            init_list_char_global(&G_LIST_NIL_CHAR, &["List", "nil"]);
+            init_global_const(&G_CHAR_OF_NAT, &["Char", "ofNat"]);
         }
     }
 
@@ -8691,9 +8705,6 @@ mod kernel_type_checker_impl {
     pub extern "C" fn finalize_type_checker() {
         // All globals were marked persistent; the runtime will free them.
         // Reset pointers to null for cleanliness.
-        unsafe {
-            finalize_cxx_type_checker_globals();
-        }
         let ptrs: &[&AtomicPtr<LeanObject>] = &[
             &G_KERNEL_FRESH,
             &G_BOOL_TRUE,
@@ -8725,6 +8736,10 @@ mod kernel_type_checker_impl {
             &G_QUOT_MK_NAME,
             &G_NESTED_NAME,
             &G_NESTED_FRESH,
+            &G_IND_FRESH,
+            &G_LIST_CONS_CHAR,
+            &G_LIST_NIL_CHAR,
+            &G_CHAR_OF_NAT,
         ];
         for p in ptrs {
             p.store(ptr::null_mut(), Ordering::Release);

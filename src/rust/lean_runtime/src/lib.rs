@@ -105,10 +105,6 @@ extern "C" {
     fn initialize_local_ctx();
     #[link_name = "_ZN4lean18finalize_local_ctxEv"]
     fn finalize_local_ctx();
-    #[link_name = "_ZN4lean20initialize_inductiveEv"]
-    fn initialize_inductive();
-    #[link_name = "_ZN4lean18finalize_inductiveEv"]
-    fn finalize_inductive();
     #[link_name = "_ZN4lean15initialize_quotEv"]
     fn initialize_quot();
     #[link_name = "_ZN4lean13finalize_quotEv"]
@@ -1272,6 +1268,7 @@ include!("runtime_signal.rs");
 include!("runtime_process.rs");
 include!("runtime_stack_overflow.rs");
 include!("runtime_stack_info.rs");
+include!("runtime_exception.rs");
 include!("runtime_interrupt.rs");
 include!("runtime_system.rs");
 include!("runtime_tcp.rs");
@@ -1711,6 +1708,18 @@ unsafe fn finalize_kernel_module_body() {
     finalize_expr();
     finalize_level();
 }
+
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean20initialize_inductiveEv"
+)]
+pub extern "C" fn initialize_inductive() {}
+
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean18finalize_inductiveEv"
+)]
+pub extern "C" fn finalize_inductive() {}
 
 unsafe fn initialize_library_core_module_body() {
     initialize_formatter();

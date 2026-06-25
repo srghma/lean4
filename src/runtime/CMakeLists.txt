@@ -1,7 +1,4 @@
-set(
-  RUNTIME_OBJS
-  exception.cpp
-)
+set(RUNTIME_OBJS)
 
 find_program(CARGO_EXECUTABLE cargo REQUIRED)
 
@@ -35,6 +32,7 @@ add_custom_command(
     LEAN_RUST_GITHASH=${GIT_SHA1}
     LEAN_RUST_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     LEAN_RUST_VERSION_STRING=${LEAN_VERSION_STRING}
+    LEAN_RUST_MANUAL_ROOT=${LEAN_MANUAL_ROOT}
     LEAN_RUST_HAS_LLVM=$<IF:$<BOOL:${LLVM}>,1,0>
     LEAN_RUST_HAS_ADDRESS_SANITIZER=${LEAN_RUST_HAS_ADDRESS_SANITIZER}
     LEAN_RUST_HAS_MIMALLOC=$<IF:$<BOOL:${USE_MIMALLOC}>,1,0>
@@ -77,6 +75,7 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_signal.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_overflow.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_stack_info.rs
+    ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_exception.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_interrupt.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_system.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_process.rs

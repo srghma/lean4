@@ -60,8 +60,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/util/message_definitions (`src/util/message_definitions.h`) — header removed; no in-tree users remained after folding the types out of trace/time_task
 - [x] src/runtime/sstream (`src/runtime/sstream.h`) — header-only, kept as-is
   - [x] src/library/dynlib (`src/library/dynlib.h` and `src/library/dynlib.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_dynlib.rs`; C++ header/source removed
-  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: exception classes caught by C++ try/catch in kernel_exception.h and remaining kernel shims
-  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — stays in C++: duplicate entry
+  - [x] src/runtime/exception (`src/runtime/exception.h` and `src/runtime/exception.cpp`) — `exception.cpp` removed; no-return resource/interrupt hooks live in `src/rust/lean_runtime/src/runtime_exception.rs`; `exception.h` remains as a temporary C++ facade for header users
     - [x] src/runtime/interrupt (`src/runtime/interrupt.h` and `src/runtime/interrupt.cpp`)
       - [x] src/runtime/thread (`src/runtime/thread.h` and `src/runtime/thread.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_thread.rs`; C++ source removed, reset-registry hooks kept as Rust no-op compatibility shims
         - [x] src/util/rc (`src/util/rc.h`) — header-only, kept as-is
@@ -96,7 +95,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/kernel/expr_eq_fn (`src/kernel/expr_eq_fn.h` and `src/kernel/expr_eq_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_expr_eq_fn.rs`; C++ exports renamed to `lean_cxx_expr_eq*` shims
     - [x] src/kernel/expr_maps (`src/kernel/expr_maps.h`) — header-only, kept as-is
       - [x] src/kernel/replace_fn (`src/kernel/replace_fn.h` and `src/kernel/replace_fn.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_replace_fn.rs`; C++ source removed, typed in-tree C++ callers use inline callback adapter over Rust traversal
-        - [x] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+        - [x] src/kernel/type_checker (`src/kernel/type_checker.h` and `src/kernel/type_checker.cpp`) — C++ source/header removed; Rust type checker and declaration add paths live in `src/rust/lean_runtime/src/kernel_type_checker.rs`
           - [x] src/library/elab_environment (`src/library/elab_environment.h` and `src/library/elab_environment.cpp`) — `elab_environment.cpp` removed; Rust wrappers remain in `src/rust/lean_runtime/src/library_elab_environment.rs`, and the temporary C++ exception bridge now lives with `type_checker.cpp`
             - [x] src/library/init_attribute (`src/library/init_attribute.h` and `src/library/init_attribute.cpp`)
               - [x] src/library/ir_interpreter (`src/library/ir_interpreter.h` and `src/library/ir_interpreter.cpp`) — fully deleted; Rust replacement wired in `src/rust/lean_runtime/src/library_ir_interpreter.rs`; temporary `run_boxed_kernel` C++ bridge lives in `src/kernel/type_checker.cpp`
@@ -105,7 +104,7 @@ Siblings at the same indentation level are independent and can be reviewed in an
     - [x] src/kernel/expr_sets (`src/kernel/expr_sets.h`) — header-only, kept as-is
       - [x] src/kernel/for_each_fn (`src/kernel/for_each_fn.h` and `src/kernel/for_each_fn.cpp`) — FULLY PORTED; `lean_for_each_expr_with_callback` in `kernel_for_each_fn.rs`; `for_each_fn.cpp` deleted; `for_each_fn.h` now a C++ callback adapter over Rust traversal; `lean_find_expr`/`lean_find_ext_expr` also in `kernel_for_each_fn.rs`
     - [x] src/kernel/find_fn (`src/kernel/find_fn.h`) — header-only, kept as-is
-      - [x] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`) — stays in C++: no extern C exports, pure C++ internal code
+      - [x] src/kernel/inductive (`src/kernel/inductive.h` and `src/kernel/inductive.cpp`) — C++ source/header removed; Rust inductive add path lives in `src/rust/lean_runtime/src/kernel_type_checker.rs`
         - [x] src/kernel/init_module (`src/kernel/init_module.h` and `src/kernel/init_module.cpp`) — header removed; no in-tree users remained
     - [x] src/kernel/instantiate (`src/kernel/instantiate.h` and `src/kernel/instantiate.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/kernel_instantiate.rs`; C++ source removed, typed in-tree C++ callers use inline header wrappers over Rust exports
       - [x] src/library/instantiate_mvars (`src/library/instantiate_mvars.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_instantiate_mvars.rs`; C++ source removed, helper exports are Lean definitions in `src/Lean/MetavarContext.lean`

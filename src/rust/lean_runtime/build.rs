@@ -8,6 +8,7 @@ fn main() {
     for key in [
         "LEAN_RUST_GITHASH",
         "LEAN_RUST_BUILD_TYPE",
+        "LEAN_RUST_MANUAL_ROOT",
         "LEAN_RUST_HAS_LLVM",
         "LEAN_RUST_HAS_ADDRESS_SANITIZER",
         "LEAN_RUST_HAS_MIMALLOC",

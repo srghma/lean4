@@ -797,8 +797,6 @@ else()
 
   add_subdirectory(util)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:util>)
-  add_subdirectory(kernel)
-  set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:kernel>)
   add_subdirectory(library)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:library>)
 
