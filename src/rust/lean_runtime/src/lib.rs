@@ -4,6 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 #![cfg_attr(not(feature = "std"), no_std)]
+#![allow(
+    dead_code,
+    non_upper_case_globals,
+    private_interfaces,
+    static_mut_refs,
+    unused_imports,
+    unused_mut,
+    unused_unsafe,
+    unused_variables
+)]
 
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};

@@ -82,7 +82,6 @@ mod library_util_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23initialize_library_utilEv")]
-    #[no_mangle]
     pub unsafe extern "C" fn lean_initialize_library_util() {
         if INITIALIZED
             .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
@@ -93,7 +92,6 @@ mod library_util_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean21finalize_library_utilEv")]
-    #[no_mangle]
     pub unsafe extern "C" fn lean_finalize_library_util() {
         if INITIALIZED.load(Ordering::Acquire) {
             finalize_library_util_impl();

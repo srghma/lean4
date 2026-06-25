@@ -70,13 +70,11 @@ mod runtime_stack_info_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14get_stack_sizeEb")]
     pub unsafe extern "C" fn get_stack_size_export(main: bool) -> usize {
         get_stack_size(main)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15save_stack_infoEb")]
     pub unsafe extern "C" fn save_stack_info_export(main: bool) {
         let size = get_stack_size(main);
@@ -98,7 +96,6 @@ mod runtime_stack_info_impl {
         save_stack_info_export(main);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19get_used_stack_sizeEv")]
     pub unsafe extern "C" fn get_used_stack_size_export() -> usize {
         let curr = get_stack_pointer();
@@ -106,7 +103,6 @@ mod runtime_stack_info_impl {
         base.saturating_sub(curr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean24get_available_stack_sizeEv")]
     pub unsafe extern "C" fn get_available_stack_size_export() -> usize {
         let used = get_used_stack_size_export();
@@ -114,7 +110,6 @@ mod runtime_stack_info_impl {
         size.saturating_sub(used)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11check_stackEPKc")]
     pub unsafe extern "C" fn check_stack_export(component_name: *const c_char) {
         let init = G_STACK_INFO_INIT.with(|cell| cell.get());

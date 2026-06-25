@@ -11,6 +11,8 @@ publish = false
 default = ["std"]
 std = []
 export-runtime-ffi = []
+default-max-heartbeat = []
+default-max-memory = []
 
 [dependencies]
 libc = "0.2"

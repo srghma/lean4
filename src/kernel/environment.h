@@ -47,8 +47,6 @@ public:
 
 /* Wrapper for `Lean.Kernel.Environment` */
 class LEAN_EXPORT environment : public object_ref {
-    friend class add_inductive_fn;
-
     void check_name(name const & n) const;
     void check_duplicated_univ_params(names ls) const;
 
@@ -62,7 +60,6 @@ public:
     environment add_opaque(declaration const & d, bool check) const;
     environment add_mutual(declaration const & d, bool check) const;
     environment add_quot() const;
-    environment add_inductive(declaration const & d) const;
     environment(environment const & other):object_ref(other) {}
     environment(environment && other) noexcept:object_ref(std::move(other)) {}
     explicit environment(b_obj_arg o, bool b):object_ref(o, b) {}
