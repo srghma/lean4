@@ -11,7 +11,7 @@ Port of src/library/module.cpp:
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod library_module_impl {
+pub(crate) mod library_module_impl {
     use super::*;
     use core::ffi::{c_char, c_int, c_void, CStr};
 

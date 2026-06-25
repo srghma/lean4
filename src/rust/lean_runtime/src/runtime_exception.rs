@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 
-mod runtime_exception_impl {
+pub(crate) mod runtime_exception_impl {
     use core::ffi::c_char;
 
     const LAKE_CONFIG_MANUAL_SECTION: &str =

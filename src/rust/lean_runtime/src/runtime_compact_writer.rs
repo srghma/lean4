@@ -10,7 +10,7 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod runtime_compact_writer_impl {
+pub(crate) mod runtime_compact_writer_impl {
     use super::*;
     use core::ffi::{c_char, c_void, CStr};
     use core::sync::atomic::{AtomicPtr, Ordering};

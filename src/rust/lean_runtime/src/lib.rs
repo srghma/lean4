@@ -18,29 +18,17 @@ use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 type Size = usize;
 
 extern "C" {
-    pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
-    fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
     fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-    fn lean_dec_ref_cold(obj: *mut LeanObject);
-    fn lean_mark_persistent(obj: *mut LeanObject);
     fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
-    fn lean_alloc_object(size: Size) -> *mut LeanObject;
     fn lean_mk_io_error_invalid_argument_file(
         name: *mut LeanObject,
         errnum: u32,
         details: *mut LeanObject,
     ) -> *mut LeanObject;
-    fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
-    fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
     fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
-    fn lean_io_promise_new() -> *mut LeanObject;
-    fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject)
-        -> *mut LeanObject;
-    fn lean_mark_mt(obj: *mut LeanObject);
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
     fn lean_options_get_bool(
@@ -56,20 +44,6 @@ extern "C" {
     fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
     fn lean_get_profiler(opts: *mut LeanObject) -> u8;
     fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
-
-    #[link_name = "_ZN4lean16initialize_allocEv"]
-    fn initialize_alloc();
-    #[link_name = "_ZN4lean14finalize_allocEv"]
-    fn finalize_alloc();
-    // initialize_object / finalize_object now provided inline (no-op / lean_finalize_external_classes)
-    #[link_name = "_ZN4lean13initialize_ioEv"]
-    fn initialize_io();
-    #[link_name = "_ZN4lean11finalize_ioEv"]
-    fn finalize_io();
-    #[link_name = "_ZN4lean17initialize_threadEv"]
-    fn initialize_thread();
-    #[link_name = "_ZN4lean15finalize_threadEv"]
-    fn finalize_thread();
     // #[link_name = "_ZN4lean16initialize_asciiEv"]
     // fn initialize_ascii_impl();
     // #[link_name = "_ZN4lean14finalize_asciiEv"]
@@ -82,39 +56,11 @@ extern "C" {
     fn initialize_library_util();
     #[link_name = "_ZN4lean21finalize_library_utilEv"]
     fn finalize_library_util();
-    #[link_name = "_ZN4lean20initialize_time_taskEv"]
-    fn initialize_time_task();
-    #[link_name = "_ZN4lean18finalize_time_taskEv"]
-    fn finalize_time_task();
-    fn initialize_ir_interpreter();
-    fn finalize_ir_interpreter();
-    #[link_name = "_ZN4lean16initialize_levelEv"]
-    fn initialize_level();
-    #[link_name = "_ZN4lean14finalize_levelEv"]
-    fn finalize_level();
-    #[link_name = "_ZN4lean15initialize_exprEv"]
-    fn initialize_expr();
-    #[link_name = "_ZN4lean13finalize_exprEv"]
-    fn finalize_expr();
-    #[link_name = "_ZN4lean22initialize_declarationEv"]
-    fn initialize_declaration();
-    #[link_name = "_ZN4lean20finalize_declarationEv"]
-    fn finalize_declaration();
-    // initialize_type_checker / finalize_type_checker now provided by kernel_type_checker.rs
-    #[link_name = "_ZN4lean20initialize_local_ctxEv"]
-    fn initialize_local_ctx();
-    #[link_name = "_ZN4lean18finalize_local_ctxEv"]
-    fn finalize_local_ctx();
-    #[link_name = "_ZN4lean15initialize_quotEv"]
-    fn initialize_quot();
-    #[link_name = "_ZN4lean13finalize_quotEv"]
-    fn finalize_quot();
     // initialize_trace / finalize_trace now provided by kernel_trace.rs
     // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
     fn initialize_Init(builtin: u8) -> *mut LeanObject;
     fn initialize_Std(builtin: u8) -> *mut LeanObject;
-    fn initialize_Lean(builtin: u8) -> *mut LeanObject;
-}
+    fn initialize_Lean(builtin: u8) -> *mut LeanObject;}
 
 #[repr(C)]
 pub struct LeanObject {
@@ -1260,7 +1206,6 @@ pub mod library_util;
 pub mod library_dynlib;
 pub(crate) use library_dynlib::*;
 pub mod runtime_apply;
-pub(crate) use runtime_apply::*;
 pub mod runtime_debug;
 pub(crate) use runtime_debug::*;
 pub mod runtime_dns;
@@ -1289,7 +1234,6 @@ pub mod runtime_tcp;
 pub mod runtime_timer;
 pub mod runtime_udp;
 pub mod runtime_alloc;
-pub(crate) use runtime_alloc::*;
 pub mod runtime_memory;
 #[cfg(feature = "export-runtime-ffi")]
 pub(crate) use runtime_memory::*;
@@ -1297,7 +1241,6 @@ pub mod runtime_object_panic;
 pub mod runtime_object_size;
 pub mod runtime_object_array;
 pub mod runtime_object_rc;
-pub(crate) use runtime_object_rc::*;
 pub mod runtime_object_task;
 pub(crate) use runtime_object_task::*;
 pub mod library_formatter;
@@ -1316,7 +1259,6 @@ pub mod runtime_float;
 pub(crate) use runtime_float::*;
 pub mod runtime_mpz;
 pub mod runtime_object_nat_int;
-pub(crate) use runtime_object_nat_int::*;
 pub mod runtime_object_string;
 pub mod runtime_object_name;
 pub mod kernel_abstract;
@@ -1351,6 +1293,41 @@ pub(crate) use kernel_num::*;
 pub mod kernel_trace;
 pub(crate) use kernel_trace::*;
 
+pub use runtime_alloc::runtime_alloc_impl::finalize_alloc;
+pub use kernel_declaration::kernel_declaration_impl::finalize_declaration;
+pub use kernel_expr::kernel_expr_impl::finalize_expr;
+pub use runtime_io_stream::runtime_io_stream_impl::finalize_io;
+pub use library_ir_interpreter::library_ir_interpreter_impl::finalize_ir_interpreter;
+pub use kernel_level::kernel_level_impl::finalize_level;
+pub use kernel_local_ctx::kernel_local_ctx_impl::finalize_local_ctx;
+pub use kernel_quot::kernel_quot_impl::finalize_quot;
+pub use runtime_thread::runtime_thread_impl::finalize_thread;
+pub use library_time_task::library_time_task_impl::finalize_time_task;
+pub use runtime_alloc::runtime_alloc_impl::initialize_alloc;
+pub use kernel_declaration::kernel_declaration_impl::initialize_declaration;
+pub use kernel_expr::kernel_expr_impl::initialize_expr;
+pub use runtime_io_stream::runtime_io_stream_impl::initialize_io;
+pub use library_ir_interpreter::library_ir_interpreter_impl::initialize_ir_interpreter;
+pub use kernel_level::kernel_level_impl::initialize_level;
+pub use kernel_local_ctx::kernel_local_ctx_impl::initialize_local_ctx;
+pub use kernel_quot::kernel_quot_impl::initialize_quot;
+pub use runtime_thread::runtime_thread_impl::initialize_thread;
+pub use library_time_task::library_time_task_impl::initialize_time_task;
+pub use runtime_object_rc::runtime_object_rc_impl::lean_alloc_object;
+pub use runtime_object_array::runtime_object_array_impl::lean_array_push;
+pub use runtime_object_rc::runtime_object_rc_impl::lean_dec_ref_cold;
+pub use runtime_io_error::runtime_io_error_impl::lean_decode_io_error;
+pub use runtime_io_error::runtime_io_error_impl::lean_decode_uv_error;
+pub use runtime_object_task::runtime_object_task_impl::lean_io_promise_new;
+pub use runtime_object_task::runtime_object_task_impl::lean_io_promise_resolve;
+pub use runtime_object_rc::runtime_object_rc_impl::lean_mark_mt;
+pub use runtime_object_rc::runtime_object_rc_impl::lean_mark_persistent;
+pub use runtime_object_string::runtime_object_string_impl::lean_mk_string;
+pub use runtime_object_string::runtime_object_string_impl::lean_mk_string_from_bytes;
+pub use runtime_apply::{lean_alloc_closure, lean_apply_1, lean_apply_2};
+pub use runtime_object_task::lean_task_get;
+pub use runtime_alloc::{lean_get_num_heartbeats, lean_set_heartbeats};
+
 pub(crate) use runtime_object_panic::runtime_object_panic_impl;
 pub(crate) use runtime_io_stream::runtime_io_stream_impl;
 pub(crate) use runtime_object_string::runtime_object_string_impl;
@@ -1361,8 +1338,9 @@ pub(crate) use runtime_alloc::runtime_alloc_impl;
 pub(crate) use runtime_object_array::runtime_object_array_impl;
 #[cfg(feature = "export-runtime-ffi")]
 pub(crate) use runtime_object_size::runtime_object_size_impl;
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) use runtime_apply::runtime_apply_impl;
+pub(crate) use runtime_object_rc::runtime_object_rc_impl;
+pub(crate) use runtime_object_nat_int::runtime_object_nat_int_impl;
 
 
 #[cfg_attr(feature = "export-runtime-ffi", export_name = "lean_name_eq")]

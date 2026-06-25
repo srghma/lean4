@@ -56,7 +56,7 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod library_expr_lt_impl {
+pub(crate) mod library_expr_lt_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::*;
 

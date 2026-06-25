@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
-mod runtime_timer_impl {
+pub(crate) mod runtime_timer_impl {
     use super::*;
     use core::ptr::{addr_of_mut, null_mut};
 

@@ -33,7 +33,7 @@ Scalar field layout:
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod kernel_instantiate_impl {
+pub(crate) mod kernel_instantiate_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;

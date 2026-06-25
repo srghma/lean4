@@ -7,7 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(feature = "export-runtime-ffi")]
-mod kernel_environment_impl {
+pub(crate) mod kernel_environment_impl {
     use super::*;
 
     extern "C" {

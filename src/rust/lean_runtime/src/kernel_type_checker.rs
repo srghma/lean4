@@ -16,9 +16,8 @@ All C++ `throw X` → `return Err(KernelError::X)`.
     non_upper_case_globals,
     clippy::missing_safety_doc
 )]
-mod kernel_type_checker_impl {
+pub(crate) mod kernel_type_checker_impl {
     use super::*;
-    use core::ffi::{c_char, c_void};
     use std::collections::{HashMap, HashSet};
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
@@ -35,7 +34,6 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     extern "C" {
-        fn lean_mark_persistent(o: *mut LeanObject);
 
         // Names
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
@@ -285,7 +283,6 @@ mod kernel_type_checker_impl {
             lctx: *mut LeanObject,
             proj: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
         fn lean_mk_quot_val(
             name: *mut LeanObject,
             lparams: *mut LeanObject,

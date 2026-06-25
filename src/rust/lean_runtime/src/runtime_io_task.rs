@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-mod runtime_io_task_impl {
+pub(crate) mod runtime_io_task_impl {
     use super::*;
 
     extern "C" {

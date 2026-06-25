@@ -25,7 +25,7 @@ Field layout (from expr.h):
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod kernel_replace_fn_impl {
+pub(crate) mod kernel_replace_fn_impl {
     use super::*;
     use core::ffi::c_void;
     use std::collections::HashMap;

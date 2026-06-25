@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -16,8 +15,7 @@ Exports:
   _ZN4lean18finalize_time_taskEv    (clears cumulative times map)
 */
 
-#[cfg(feature = "export-runtime-ffi")]
-mod library_time_task_impl {
+pub(crate) mod library_time_task_impl {
     use super::*;
     use std::collections::BTreeMap;
     use std::ffi::CStr;
@@ -134,7 +132,7 @@ mod library_time_task_impl {
 
     /// C-callable API for runtime/interpreter callers.
     /// opts and name are borrowed (b_obj_arg). Returns 1 if profiling enabled.
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_runtime_time_task_begin(
         category_cstr: *const core::ffi::c_char,
         opts: *mut LeanObject,
@@ -151,7 +149,7 @@ mod library_time_task_impl {
         enabled as u8
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_runtime_time_task_end(enabled: u8) {
         if enabled != 0 {
             end_impl();
@@ -159,7 +157,7 @@ mod library_time_task_impl {
     }
 
     /// displayCumulativeProfilingTimes : BaseIO Unit
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_display_cumulative_profiling_times() -> *mut LeanObject {
         if let Ok(cum) = CUM_TIMES.lock() {
             if !cum.is_empty() {
@@ -175,7 +173,7 @@ mod library_time_task_impl {
 
     /// profileit {α} (category : @& String) (opts : @& Options) (fn : Unit → α) (decl : Name) : α
     /// category and opts are b_obj_arg (borrowed); func and decl are obj_arg (owned).
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_profileit(
         category: *mut LeanObject,
         opts: *mut LeanObject,
@@ -201,10 +199,10 @@ mod library_time_task_impl {
         }
     }
 
-    #[export_name = "_ZN4lean20initialize_time_taskEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20initialize_time_taskEv")]
     pub extern "C" fn initialize_time_task() {}
 
-    #[export_name = "_ZN4lean18finalize_time_taskEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18finalize_time_taskEv")]
     pub extern "C" fn finalize_time_task() {
         if let Ok(mut cum) = CUM_TIMES.lock() {
             cum.clear();

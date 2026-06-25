@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -63,12 +62,11 @@ const _: () = {
 unsafe impl Send for OleanCompactedRegion {}
 unsafe impl Sync for OleanCompactedRegion {}
 
-#[cfg(feature = "export-runtime-ffi")]
-mod runtime_compact_impl {
+pub(crate) mod runtime_compact_impl {
     use super::*;
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
         if region == 0 {
             return 0;
@@ -78,7 +76,7 @@ mod runtime_compact_impl {
     }
 
     // lean_compacted_region_size(region : USize) : USize
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_compacted_region_size(region: usize) -> usize {
         if region == 0 {
             return 0;
@@ -88,7 +86,7 @@ mod runtime_compact_impl {
     }
 
     // lean_compacted_region_free(region : USize) : IO Unit
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_compacted_region_free(
         region: usize,
         _io: *mut LeanObject,

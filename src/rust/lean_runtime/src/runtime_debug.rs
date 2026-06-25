@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(feature = "std")]
-mod runtime_debug_impl {
+pub(crate) mod runtime_debug_impl {
     use super::*;
     use std::collections::HashSet;
     use std::ffi::CStr;

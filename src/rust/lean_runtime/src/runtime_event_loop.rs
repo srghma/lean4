@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
-mod runtime_event_loop_impl {
+pub(crate) mod runtime_event_loop_impl {
     use super::*;
     use core::ptr::null_mut;
     use core::sync::atomic::{AtomicI32, Ordering};

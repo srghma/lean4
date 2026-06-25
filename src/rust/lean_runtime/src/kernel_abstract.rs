@@ -27,7 +27,7 @@ Expression kind tags:
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod kernel_abstract_impl {
+pub(crate) mod kernel_abstract_impl {
     use super::*;
     use std::collections::HashMap;
 

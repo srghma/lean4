@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-mod runtime_sharecommon_impl {
+pub(crate) mod runtime_sharecommon_impl {
     use super::*;
     use core::ffi::c_void;
     use std::collections::{HashMap, HashSet};

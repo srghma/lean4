@@ -12,13 +12,10 @@ still uses directly:
 
 The old C++ util.cpp implementation is removed.
 */
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
-#[cfg(feature = "export-runtime-ffi")]
 pub use library_util_impl::*;
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod library_util_impl {
     use super::*;
     use core::ffi::c_char;
@@ -29,7 +26,6 @@ pub(crate) mod library_util_impl {
 
     extern "C" {
         fn lean_expr_mk_const(name: *mut LeanObject, lvls: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mark_persistent(obj: *mut LeanObject);
     }
 
     static INITIALIZED: AtomicBool = AtomicBool::new(false);
@@ -109,7 +105,7 @@ pub(crate) mod library_util_impl {
         }
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_mk_bool_true() -> *mut LeanObject {
         ensure_initialized();
         let result = BOOL_TRUE.load(Ordering::Acquire);
@@ -117,7 +113,7 @@ pub(crate) mod library_util_impl {
         result
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_mk_bool_false() -> *mut LeanObject {
         ensure_initialized();
         let result = BOOL_FALSE.load(Ordering::Acquire);
@@ -125,7 +121,7 @@ pub(crate) mod library_util_impl {
         result
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_short_version_string() -> *const c_char {
         SHORT_VERSION_STRING.as_ptr().cast::<c_char>()
     }

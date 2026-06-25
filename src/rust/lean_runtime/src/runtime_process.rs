@@ -16,7 +16,7 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 // lean_mk_string, lean_decode_io_error, lean_mk_io_user_error, etc.
 
 #[cfg(feature = "std")]
-mod runtime_process_impl {
+pub(crate) mod runtime_process_impl {
     use super::*;
     use core::ffi::c_int;
     use core::ptr::null_mut;
@@ -24,7 +24,6 @@ mod runtime_process_impl {
     // ─── additional externals needed for this module ──────────────────────────
 
     extern "C" {
-        fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
         #[link_name = "_ZN4lean14io_wrap_handleEP8_IO_FILE"]
         fn io_wrap_handle(f: *mut libc::FILE) -> *mut LeanObject;
     }

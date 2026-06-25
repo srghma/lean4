@@ -40,7 +40,7 @@ Level kind tags:
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod kernel_expr_eq_fn_impl {
+pub(crate) mod kernel_expr_eq_fn_impl {
     use super::runtime_alloc_impl::add_heartbeats;
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;

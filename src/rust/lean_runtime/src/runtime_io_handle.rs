@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-mod runtime_io_handle_impl {
+pub(crate) mod runtime_io_handle_impl {
     use super::*;
 
     unsafe fn io_get_handle(hfile: *mut LeanObject) -> *mut libc::FILE {

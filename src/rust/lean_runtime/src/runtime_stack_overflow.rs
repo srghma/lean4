@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(all(feature = "std", unix))]
-mod runtime_stack_overflow_impl {
+pub(crate) mod runtime_stack_overflow_impl {
     use super::*;
     use std::mem;
     use std::ptr;
@@ -184,7 +184,7 @@ mod runtime_stack_overflow_impl {
 pub use runtime_stack_overflow_impl::*;
 
 #[cfg(all(feature = "std", windows))]
-mod runtime_stack_overflow_impl {
+pub(crate) mod runtime_stack_overflow_impl {
     use super::*;
     use std::process;
 

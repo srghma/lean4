@@ -7,8 +7,7 @@ Compatibility init/finalize hooks for the C++ quotient facade.
 The remaining typed quotient helpers are inline in quot.h.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
-mod kernel_quot_impl {
+pub(crate) mod kernel_quot_impl {
     #[cfg_attr(
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15initialize_quotEv"

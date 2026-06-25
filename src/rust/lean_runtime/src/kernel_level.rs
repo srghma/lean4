@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -11,8 +10,7 @@ Port of the exported raw level operations previously backed by kernel/level.cpp:
 The C++ value-type facade now lives inline in kernel/level.h.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
-mod kernel_level_impl {
+pub(crate) mod kernel_level_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
@@ -51,7 +49,7 @@ mod kernel_level_impl {
     // bit  32      = hasMVar
     // bit  33      = hasParam
     // bits [63:40] = depth (24-bit, max 16777215 = 0x00FFFFFF)
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_level_mk_data(
         h: u64,
         depth: *mut LeanObject,
@@ -69,19 +67,19 @@ mod kernel_level_impl {
         h1 | ((has_mvar as u64) << 32) | ((has_param as u64) << 33) | ((d as u64) << 40)
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 
-    #[export_name = "_ZN4lean16initialize_levelEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_levelEv")]
     pub extern "C" fn initialize_level() {}
 
-    #[export_name = "_ZN4lean14finalize_levelEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_levelEv")]
     pub extern "C" fn finalize_level() {}
 }

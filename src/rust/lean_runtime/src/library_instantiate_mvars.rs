@@ -11,7 +11,7 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod library_instantiate_mvars_impl {
+pub(crate) mod library_instantiate_mvars_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::*;
     use std::collections::HashMap;
@@ -78,7 +78,6 @@ mod library_instantiate_mvars_impl {
             idx: *mut LeanObject,
             structure: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     }
 
     // Level data bit 32 = hasMVar.

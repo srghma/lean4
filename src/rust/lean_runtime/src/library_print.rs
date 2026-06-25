@@ -30,7 +30,7 @@ pub extern "C" fn initialize_print() {}
 pub extern "C" fn finalize_print() {}
 
 #[cfg(feature = "export-runtime-ffi")]
-mod library_print_impl {
+pub(crate) mod library_print_impl {
     use super::*;
 
     extern "C" {

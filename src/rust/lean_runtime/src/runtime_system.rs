@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
-mod runtime_system_impl {
+pub(crate) mod runtime_system_impl {
     use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, addr_of_mut, null_mut};
@@ -770,7 +770,7 @@ mod runtime_system_impl {
 pub use runtime_system_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
-mod runtime_system_impl {
+pub(crate) mod runtime_system_impl {
     use super::*;
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

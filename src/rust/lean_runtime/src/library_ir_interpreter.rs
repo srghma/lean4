@@ -3,11 +3,9 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
-#[cfg(feature = "export-runtime-ffi")]
-mod library_ir_interpreter_impl {
+pub(crate) mod library_ir_interpreter_impl {
     use super::*;
     use core::ffi::{c_char, c_void};
     use core::ptr;
@@ -96,7 +94,6 @@ mod library_ir_interpreter_impl {
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-        pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
 
         // IO helpers
         fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool;
@@ -2591,11 +2588,11 @@ mod library_ir_interpreter_impl {
     // ---------------------------------------------------------------------------
 
     /// initialize_ir_interpreter — called from lib.rs initialize_library_module_body
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn initialize_ir_interpreter() {}
 
     /// finalize_ir_interpreter — called from lib.rs
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn finalize_ir_interpreter() {
         // Drop the global caches. OnceLock doesn't support resetting, so just clear contents.
         {
@@ -2622,7 +2619,7 @@ mod library_ir_interpreter_impl {
     }
 
     /// lean_eval_main (env : Environment) (opts : Options) (args : List String) : BaseIO UInt32
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_eval_main(
         env: *mut LeanObject,
         opts: *mut LeanObject,
@@ -2639,7 +2636,7 @@ mod library_ir_interpreter_impl {
                 let mut fields = [s];
                 let ioe = lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
                 let r = lean_io_result_mk_error(ioe);
-                lean_io_result_show_error(r);
+                let _ = lean_io_result_show_error(r);
                 lean_dec(r);
                 1
             }
@@ -2647,7 +2644,7 @@ mod library_ir_interpreter_impl {
     }
 
     /// lean_eval_const (env : Environment) (opts : Options) (c : Name) : Except String _
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_eval_const(
         env: *mut LeanObject,
         opts: *mut LeanObject,
@@ -2673,7 +2670,7 @@ mod library_ir_interpreter_impl {
     /// Returns `Except String Object`; the C++ shim converts the error case
     /// back into a C++ exception to preserve the old `ir::run_boxed_kernel`
     /// contract.
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_eval_const_at_kernel_env(
         env: *mut LeanObject,
         opts: *mut LeanObject,
@@ -2701,7 +2698,7 @@ mod library_ir_interpreter_impl {
     }
 
     /// lean_run_init (env opts decl init_decl io) : IO Unit
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_run_init(
         env: *mut LeanObject,
         opts: *mut LeanObject,
@@ -2724,7 +2721,7 @@ mod library_ir_interpreter_impl {
     ///
     /// On Unix, uses dlsym(RTLD_DEFAULT, ...) directly.
     /// On Windows, uses EnumProcessModules/GetProcAddress.
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject {
         let sym_cstr = lean_string_cstr(sym);
         let init = lookup_symbol_in_cur_exe(sym_cstr);

@@ -621,6 +621,6 @@ pub(crate) mod runtime_alloc_impl {
 }
 
 #[cfg(lean_small_allocator)]
-pub(crate) use runtime_alloc_impl::small::{lean_get_num_heartbeats, lean_set_heartbeats};
+pub use runtime_alloc_impl::small::{lean_get_num_heartbeats, lean_set_heartbeats};
 #[cfg(not(lean_small_allocator))]
-pub(crate) use runtime_alloc_impl::{lean_get_num_heartbeats, lean_set_heartbeats};
+pub use runtime_alloc_impl::{lean_get_num_heartbeats, lean_set_heartbeats};

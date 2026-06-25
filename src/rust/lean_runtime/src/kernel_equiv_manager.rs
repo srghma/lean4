@@ -27,7 +27,7 @@ Literal tags: 0 = natVal, 1 = strVal
 */
 
 #[cfg(feature = "export-runtime-ffi")]
-mod kernel_equiv_manager_impl {
+pub(crate) mod kernel_equiv_manager_impl {
     use super::*;
     use core::ffi::c_void;
     use std::collections::HashMap;

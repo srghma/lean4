@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use crate::*;
 
 #[cfg(feature = "std")]
-mod runtime_mutex_impl {
+pub(crate) mod runtime_mutex_impl {
     use super::*;
     use std::sync::{Condvar, Mutex};
     use std::thread::ThreadId;

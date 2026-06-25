@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-mod runtime_thread_impl {
+pub(crate) mod runtime_thread_impl {
     use super::{lean_box, LeanObject};
     use core::cell::Cell;
     use core::ffi::c_void;

@@ -5,15 +5,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-mod runtime_io_ref_impl {
+pub(crate) mod runtime_io_ref_impl {
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
     use core::sync::atomic::{AtomicPtr, Ordering};
 
-    extern "C" {
-        fn lean_mark_mt(obj: *mut LeanObject);
-        fn lean_mark_persistent(obj: *mut LeanObject);
-    }
+    
 
     const LEAN_REF_TAG: u8 = 253;
 

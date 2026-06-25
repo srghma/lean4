@@ -46,7 +46,8 @@ pub(crate) mod runtime_apply_impl {
         (*obj).rc == 1
     }
 
-    pub(crate) unsafe fn lean_alloc_closure(
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_alloc_closure(
         fun: *mut c_void,
         arity: u32,
         num_fixed: u32,
@@ -851,4 +852,4 @@ pub(crate) mod runtime_apply_impl {
     }
 }
 
-pub(crate) use runtime_apply_impl::{lean_alloc_closure, lean_apply_1, lean_apply_2};
+pub use runtime_apply_impl::{lean_alloc_closure, lean_apply_1, lean_apply_2};

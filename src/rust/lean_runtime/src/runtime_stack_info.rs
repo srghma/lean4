@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-mod runtime_stack_info_impl {
+pub(crate) mod runtime_stack_info_impl {
     use super::*;
     use core::ffi::c_char;
     use std::cell::Cell;

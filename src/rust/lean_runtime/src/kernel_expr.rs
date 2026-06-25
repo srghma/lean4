@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -28,8 +27,7 @@ Scalar field layout (after object pointer fields):
   Let      (4 obj fields): [8] nondep flag (u8)
 */
 
-#[cfg(feature = "export-runtime-ffi")]
-mod kernel_expr_impl {
+pub(crate) mod kernel_expr_impl {
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
 
@@ -111,7 +109,7 @@ mod kernel_expr_impl {
         h.wrapping_mul(M) as u32
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_expr_mk_data(
         hash: u64,
         bvar_range: *mut LeanObject,
@@ -141,7 +139,7 @@ mod kernel_expr_impl {
             | (r << 44)
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
         let mut depth = ((f_data >> 32) & 0xFF).max((a_data >> 32) & 0xFF) + 1;
         if depth > 255 {
@@ -196,7 +194,7 @@ mod kernel_expr_impl {
         }
     }
 
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_expr_has_loose_bvar(
         e: *mut LeanObject,
         i: *mut LeanObject,
@@ -356,7 +354,7 @@ mod kernel_expr_impl {
 
     // lower_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), subtract d.
     // Precondition: s >= d (asserted in C++, guarded here).
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_expr_lower_loose_bvars(
         e: *mut LeanObject,
         s: *mut LeanObject,
@@ -376,7 +374,7 @@ mod kernel_expr_impl {
     }
 
     // lift_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), add d.
-    #[no_mangle]
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_expr_lift_loose_bvars(
         e: *mut LeanObject,
         s: *mut LeanObject,
@@ -395,9 +393,9 @@ mod kernel_expr_impl {
         shift_loose_bvars(e, 0, s_val, d_val, true)
     }
 
-    #[export_name = "_ZN4lean15initialize_exprEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15initialize_exprEv")]
     pub extern "C" fn initialize_expr() {}
 
-    #[export_name = "_ZN4lean13finalize_exprEv"]
+    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13finalize_exprEv")]
     pub extern "C" fn finalize_expr() {}
 }
