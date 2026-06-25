@@ -106,34 +106,4 @@ parse_deps = false
 
 7. Every time You fix error - consult original cpp implementation at `./origin-master-src`. RUST CODE SHOULD WORK SAME AS CPP!! SAME inc/dec etc!!
 
------------
-
-# todo
-
-1. Attempt to fix the 3 perf timeouts
-   Profile + optimize the Rust kernel/runtime hot paths (inline accessors, cut redundant inc/dec, stack-based arg buffers). Large, uncertain effort — it's a systemic constant-factor gap, not one bug. May not fully close 240s timeouts.
-2. Continue porting (add_quot/add_inductive/exception.cpp)
-   Resume the C++→Rust port goal. Note: tree won't be fully green (the 5 parity tests still fail), so no commit yet; porting may also surface new issues.
-3. Dig into the 2 diagnostic-count tests
-   Try to match C++'s exact recursor unfold-count (Nat.rec 62 vs 80). Requires replicating C++'s exact reduction/caching trace — fiddly, cosmetic-only payoff.
-
------------
-
-Right these tests dont pass
-
-```
-99% tests passed, 9 tests failed out of 3863
-
-Total Test time (real) = 528.77 sec
-
-The following tests FAILED:
-	13 - tests/lake/tests/builtin-lint/test.sh (Timeout)
-	14 - tests/lake/tests/cache/test.sh (Timeout)
-	841 - elab/6043.lean (Timeout)
-	998 - elab/ack.lean (Failed)
-	1720 - elab/grind_9854.lean (Timeout)
-	2563 - elab/mvcgenTutorial.lean (Timeout)
-	2998 - elab/string_neq_kernel_cost.lean (Failed)
-	3035 - elab/structuralNamedF.lean (Failed)
-	3843 - pkg/frontend (Timeout)
-```
+8. in srghmascripts/rust_cpp_audit we maintain/will maintain the audit of rust files compared to their original cpp+h files. To find discrepancies.

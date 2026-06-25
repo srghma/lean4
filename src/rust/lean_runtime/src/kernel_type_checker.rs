@@ -46,8 +46,7 @@ extern "C" {
     // lean_level_get_succ / lean_level_get_param_name are inline C++; implemented as Rust shims below
     // lean_level_get_max_lhs / get_max_rhs / get_imax_lhs / get_imax_rhs: implemented as Rust shims below
     fn lean_level_hash(l: *const LeanObject) -> u32;
-    fn lean_mk_list_cons(ty: *mut LeanObject, h: *mut LeanObject, t: *mut LeanObject) -> *mut LeanObject;
-    // lean_mk_list_nil / lean_list_is_nil: implemented as Rust shims below
+    // lean_mk_list_nil / lean_mk_list_cons / lean_list_is_nil: implemented as Rust shims below
     // lean_list_head / lean_list_tail: implemented as Rust shims below
 
     // Expressions
@@ -196,6 +195,7 @@ extern "C" {
     fn lean_mk_def_type_mismatch_exception(env: *mut LeanObject, lctx: *mut LeanObject, name: *mut LeanObject, given: *mut LeanObject, expected: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_invalid_proj_exception(env: *mut LeanObject, lctx: *mut LeanObject, proj: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
+    fn lean_mk_quot_val(name: *mut LeanObject, lparams: *mut LeanObject, ty: *mut LeanObject, kind: u8) -> *mut LeanObject;
 }
 
 // ---------------------------------------------------------------------------
@@ -658,6 +658,8 @@ extern "C" {
     fn lean_options_get_empty(u: *mut LeanObject) -> *mut LeanObject;
     // Expr level-param instantiation (Lean @[export]). Borrows e/ps/ls, returns owned.
     fn lean_expr_instantiate_lparams(e: *mut LeanObject, ps: *mut LeanObject, ls: *mut LeanObject) -> *mut LeanObject;
+    // Environment quot-init marker (Lean @[export], consumes env).
+    fn lean_environment_mark_quot_init(env: *mut LeanObject) -> *mut LeanObject;
     // Real Lean LocalContext builders (return new LocalContext; consume owned args).
     #[link_name = "lean_local_ctx_mk_local_decl"]
     fn lean_real_lctx_mk_local_decl(lctx: *mut LeanObject, fvar_id: *mut LeanObject, user_name: *mut LeanObject, ty: *mut LeanObject, bi: u8) -> *mut LeanObject;
@@ -686,6 +688,10 @@ const CI_CONSTRUCTOR: u32 = 6;
 const CI_RECURSOR: u32 = 7;
 const DEFINITION_SAFETY_UNSAFE: u8 = 0;
 const REDUCIBILITY_HINTS_REGULAR_TAG: u32 = 2;
+const QUOT_KIND_TYPE: u8 = 0;
+const QUOT_KIND_CTOR: u8 = 1;
+const QUOT_KIND_LIFT: u8 = 2;
+const QUOT_KIND_IND:  u8 = 3;
 
 // --- Name ---
 // Name.anonymous is the boxed scalar 0.
@@ -705,6 +711,15 @@ pub unsafe extern "C" fn lean_list_is_nil(l: *const LeanObject) -> bool {
 #[no_mangle]
 pub unsafe extern "C" fn lean_mk_list_nil(_ty: *mut LeanObject) -> *mut LeanObject {
     super::lean_box(0)
+}
+
+// List.cons ignores its erased element-type argument and consumes head/tail.
+#[no_mangle]
+pub unsafe extern "C" fn lean_mk_list_cons(_ty: *mut LeanObject, h: *mut LeanObject, t: *mut LeanObject) -> *mut LeanObject {
+    let r = lean_alloc_ctor(1, 2, 0);
+    lean_ctor_set(r, 0, h);
+    lean_ctor_set(r, 1, t);
+    r
 }
 
 // --- Levels (Max tag 2 / IMax tag 3): field[0]=lhs, field[1]=rhs ---
@@ -3454,6 +3469,8 @@ impl TypeChecker {
             let mut sc = s;
             while lean_expr_is_app(tc) { t_args.push(lean_expr_get_app_arg(tc)); tc = lean_expr_get_app_fn(tc); }
             while lean_expr_is_app(sc) { s_args.push(lean_expr_get_app_arg(sc)); sc = lean_expr_get_app_fn(sc); }
+            t_args.reverse();
+            s_args.reverse();
             let t_fn = tc;
             let s_fn = sc;
             if t_args.len() == s_args.len() && self.is_def_eq(t_fn, s_fn)? {
@@ -3617,7 +3634,7 @@ impl TypeChecker {
             } else {
                 let info_t2 = self.is_delta(*t_n).unwrap();
                 let info_s2 = self.is_delta(*s_n).unwrap();
-                let same_def = lean_constant_info_get_name(info_t2) == lean_constant_info_get_name(info_s2);
+                let same_def = lean_name_eq(lean_constant_info_get_name(info_t2), lean_constant_info_get_name(info_s2));
                 let is_regular = lean_hints_is_regular(lean_constant_info_get_hints(info_t2));
                 lean_dec(info_t2); lean_dec(info_s2);
 
@@ -3949,7 +3966,7 @@ unsafe fn is_eager_reduce_expr(e: *mut LeanObject) -> bool {
     if nargs != 2 { return false; }
     let f = app_head(e);
     if !lean_expr_is_const(f) { return false; }
-    lean_name_eq(lean_expr_get_const_name(f), lean_expr_get_const_name(eager))
+    lean_name_eq(lean_expr_get_const_name(f), eager)
 }
 
 unsafe fn is_nat_lit_ext(e: *mut LeanObject) -> bool {
@@ -4202,6 +4219,12 @@ unsafe fn inductive_reduce_rec_impl(
     }
     let rec_levels = lean_expr_get_const_levels(rec_fn);
     let rec_lparams = lean_constant_info_get_lparams(rec_info_opt);
+    if list_length(rec_levels) != list_length(rec_lparams) {
+        lean_dec(rule);
+        lean_dec(major);
+        lean_dec(rec_info_opt);
+        return Ok(None);
+    }
     let nparams_rec = lean_recursor_val_get_nparams(rec_val) as usize;
     let nmotives = lean_recursor_val_get_nmotives(rec_val) as usize;
     let nminors = lean_recursor_val_get_nminors(rec_val) as usize;
@@ -4873,6 +4896,268 @@ unsafe fn add_mutual_impl(
     Ok(diag_update(new_env, diag))
 }
 
+#[inline]
+unsafe fn lean_string_name(s: &str) -> *mut LeanObject {
+    build_lean_name(&[s])
+}
+
+unsafe fn lean_list_from_borrowed(items: &[*mut LeanObject]) -> *mut LeanObject {
+    let mut result = lean_mk_list_nil(ptr::null_mut());
+    for &item in items.iter().rev() {
+        lean_inc(item);
+        result = lean_mk_list_cons(ptr::null_mut(), item, result);
+    }
+    result
+}
+
+#[inline]
+unsafe fn level_param_borrowed(name: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(name);
+    lean_level_mk_param(name)
+}
+
+#[inline]
+unsafe fn sort_borrowed(level: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(level);
+    lean_expr_mk_sort(level)
+}
+
+#[inline]
+unsafe fn const_borrowed(name: *mut LeanObject, levels: &[*mut LeanObject]) -> *mut LeanObject {
+    lean_inc(name);
+    let ls = lean_list_from_borrowed(levels);
+    lean_expr_mk_const(name, ls)
+}
+
+unsafe fn app_borrowed(mut f: *mut LeanObject, args: &[*mut LeanObject]) -> *mut LeanObject {
+    for &arg in args {
+        lean_inc(arg);
+        f = lean_expr_mk_app(f, arg);
+    }
+    f
+}
+
+unsafe fn arrow_borrowed(domain: *mut LeanObject, body: *mut LeanObject) -> *mut LeanObject {
+    let n = lean_name_anonymous();
+    lean_inc(domain);
+    lean_inc(body);
+    lean_expr_mk_forall(n, domain, body, BI_DEFAULT)
+}
+
+unsafe fn local_decl(tc: &mut TypeChecker, name: &str, ty: *mut LeanObject, bi: u8) -> *mut LeanObject {
+    let n = lean_string_name(name);
+    let fvar = tc.lctx_mk_local_decl(n, ty, bi);
+    lean_dec(n);
+    fvar
+}
+
+unsafe fn pi_named(name: &str, domain: *mut LeanObject, body: *mut LeanObject) -> *mut LeanObject {
+    let n = lean_string_name(name);
+    lean_expr_mk_forall(n, domain, body, BI_DEFAULT)
+}
+
+unsafe fn wrap_quot_info(v: *mut LeanObject) -> *mut LeanObject {
+    let w = lean_alloc_ctor(CI_QUOT, 1, 0);
+    lean_ctor_set(w, 0, v);
+    w
+}
+
+unsafe fn add_quot_const(
+    env: *mut LeanObject,
+    name: *mut LeanObject,
+    lparams: &[*mut LeanObject],
+    ty: *mut LeanObject,
+    kind: u8,
+) -> *mut LeanObject {
+    lean_inc(name);
+    let ps = lean_list_from_borrowed(lparams);
+    let qv = lean_mk_quot_val(name, ps, ty, kind);
+    let info = wrap_quot_info(qv);
+    lean_environment_add(env, info)
+}
+
+unsafe fn quot_error(msg: &'static [u8]) -> KernelError {
+    KernelError::Other { msg: lean_mk_string(msg.as_ptr(), msg.len()) }
+}
+
+/// Port of `quot_detail::check_eq_type` (kernel/quot.cpp). `env` is BORROWED.
+unsafe fn check_eq_type_for_quot(env: *mut LeanObject) -> Result<(), KernelError> {
+    let eq_name = build_lean_name(&["Eq"]);
+    let eq_info = env_find(env, eq_name);
+    if lean_is_scalar(eq_info) {
+        lean_dec(eq_name);
+        return Err(quot_error(b"failed to initialize quot module, environment does not have 'Eq' type"));
+    }
+    if !lean_constant_info_is_inductive(eq_info) {
+        lean_dec(eq_name);
+        lean_dec(eq_info);
+        return Err(quot_error(b"failed to initialize quot module, environment does not have 'Eq' type"));
+    }
+    let eq_lparams = lean_constant_info_get_lparams(eq_info);
+    let eq_val = lean_constant_info_to_inductive_val(eq_info);
+    if lean_list_length(eq_lparams) != 1 {
+        lean_dec(eq_name);
+        lean_dec(eq_info);
+        return Err(quot_error(b"failed to initialize quot module, unexpected number of universe params at 'Eq' type"));
+    }
+    let eq_cnstrs = lean_inductive_val_get_cnstrs(eq_val);
+    if lean_list_length(eq_cnstrs) != 1 {
+        lean_dec(eq_name);
+        lean_dec(eq_info);
+        return Err(quot_error(b"failed to initialize quot module, unexpected number of constructors for 'Eq' type"));
+    }
+
+    let lctx = mk_empty_lctx();
+    let mut tc = TypeChecker::new(env, lctx, DEF_SAFETY_SAFE);
+    lean_dec(lctx);
+
+    let u = level_param_borrowed(lean_list_head(eq_lparams));
+    let sort_u = sort_borrowed(u);
+    let alpha = local_decl(&mut tc, "α", sort_u, BI_IMPLICIT);
+    let alpha_to_prop = arrow_borrowed(alpha, lean_expr_mk_prop());
+    let alpha_to_alpha_to_prop = arrow_borrowed(alpha, alpha_to_prop);
+    let expected_eq_type = tc.lctx_mk_pi(&[alpha], alpha_to_alpha_to_prop, false);
+    if !lean_expr_eqv(expected_eq_type, lean_constant_info_get_type(eq_info)) {
+        lean_dec(u);
+        lean_dec(sort_u);
+        lean_dec(alpha);
+        lean_dec(alpha_to_prop);
+        lean_dec(alpha_to_alpha_to_prop);
+        lean_dec(expected_eq_type);
+        drop(tc);
+        lean_dec(eq_name);
+        lean_dec(eq_info);
+        return Err(quot_error(b"failed to initialize quot module, 'Eq' has an expected type"));
+    }
+    lean_dec(u);
+    lean_dec(sort_u);
+    lean_dec(alpha);
+    lean_dec(alpha_to_prop);
+    lean_dec(alpha_to_alpha_to_prop);
+    lean_dec(expected_eq_type);
+
+    let eq_refl_info = env_find(env, lean_list_head(eq_cnstrs));
+    if lean_is_scalar(eq_refl_info) {
+        drop(tc);
+        lean_dec(eq_name);
+        lean_dec(eq_info);
+        return Err(quot_error(b"failed to initialize quot module, unexpected type for 'Eq' type constructor"));
+    }
+    let u2 = level_param_borrowed(lean_list_head(lean_constant_info_get_lparams(eq_refl_info)));
+    let sort_u2 = sort_borrowed(u2);
+    let alpha2 = local_decl(&mut tc, "α", sort_u2, BI_IMPLICIT);
+    let a = local_decl(&mut tc, "a", alpha2, BI_DEFAULT);
+    let eq_const = const_borrowed(eq_name, &[u2]);
+    let eq_refl_body = app_borrowed(eq_const, &[alpha2, a, a]);
+    let expected_eq_refl_type = tc.lctx_mk_pi(&[alpha2, a], eq_refl_body, false);
+    if !lean_expr_eqv(expected_eq_refl_type, lean_constant_info_get_type(eq_refl_info)) {
+        lean_dec(u2);
+        lean_dec(sort_u2);
+        lean_dec(alpha2);
+        lean_dec(a);
+        lean_dec(eq_refl_body);
+        lean_dec(expected_eq_refl_type);
+        lean_dec(eq_refl_info);
+        drop(tc);
+        lean_dec(eq_name);
+        lean_dec(eq_info);
+        return Err(quot_error(b"failed to initialize quot module, unexpected type for 'Eq' type constructor"));
+    }
+    lean_dec(u2);
+    lean_dec(sort_u2);
+    lean_dec(alpha2);
+    lean_dec(a);
+    lean_dec(eq_refl_body);
+    lean_dec(expected_eq_refl_type);
+    lean_dec(eq_refl_info);
+    drop(tc);
+    lean_dec(eq_name);
+    lean_dec(eq_info);
+    Ok(())
+}
+
+/// Port of `environment::add_quot` (kernel/quot.cpp). CONSUMES `env`.
+unsafe fn add_quot_impl(env: *mut LeanObject) -> Result<*mut LeanObject, KernelError> {
+    if lean_environment_is_quot_initialized(env) {
+        return Ok(env);
+    }
+    check_eq_type_for_quot(env)?;
+
+    let lctx = mk_empty_lctx();
+    let mut tc = TypeChecker::new(env, lctx, DEF_SAFETY_SAFE);
+    lean_dec(lctx);
+
+    let u_name = lean_string_name("u");
+    let u = level_param_borrowed(u_name);
+    let sort_u = sort_borrowed(u);
+    let alpha = local_decl(&mut tc, "α", sort_u, BI_IMPLICIT);
+    let alpha_to_prop = arrow_borrowed(alpha, lean_expr_mk_prop());
+    let r_ty = arrow_borrowed(alpha, alpha_to_prop);
+    let r = local_decl(&mut tc, "r", r_ty, BI_DEFAULT);
+
+    let quot_ty = tc.lctx_mk_pi(&[alpha, r], sort_u, false);
+    let quot_name = build_lean_name(&["Quot"]);
+    let mut new_env = add_quot_const(env, quot_name, &[u_name], quot_ty, QUOT_KIND_TYPE);
+
+    let quot_const = const_borrowed(quot_name, &[u]);
+    let quot_r = app_borrowed(quot_const, &[alpha, r]);
+    let a = local_decl(&mut tc, "a", alpha, BI_DEFAULT);
+    let quot_mk_ty = tc.lctx_mk_pi(&[alpha, r, a], quot_r, false);
+    let quot_mk_name = load_global(&G_QUOT_MK_NAME);
+    new_env = add_quot_const(new_env, quot_mk_name, &[u_name], quot_mk_ty, QUOT_KIND_CTOR);
+
+    drop(tc);
+
+    let lctx2 = mk_empty_lctx();
+    let mut tc = TypeChecker::new(new_env, lctx2, DEF_SAFETY_SAFE);
+    lean_dec(lctx2);
+    let alpha2 = local_decl(&mut tc, "α", sort_u, BI_IMPLICIT);
+    let alpha2_to_prop = arrow_borrowed(alpha2, lean_expr_mk_prop());
+    let r2_ty = arrow_borrowed(alpha2, alpha2_to_prop);
+    let r2 = local_decl(&mut tc, "r", r2_ty, BI_IMPLICIT);
+    let quot_const2 = const_borrowed(quot_name, &[u]);
+    let quot_r2 = app_borrowed(quot_const2, &[alpha2, r2]);
+    let a2 = local_decl(&mut tc, "a", alpha2, BI_DEFAULT);
+    let v_name = lean_string_name("v");
+    let v = level_param_borrowed(v_name);
+    let sort_v = sort_borrowed(v);
+    let beta = local_decl(&mut tc, "β", sort_v, BI_IMPLICIT);
+    let alpha2_to_beta = arrow_borrowed(alpha2, beta);
+    let f = local_decl(&mut tc, "f", alpha2_to_beta, BI_DEFAULT);
+    let b = local_decl(&mut tc, "b", alpha2, BI_DEFAULT);
+    let r_a_b = app_borrowed(r2, &[a2, b]);
+    let eq_const_v = const_borrowed(build_lean_name(&["Eq"]), &[v]);
+    let f_a = app_borrowed(f, &[a2]);
+    let f_b = app_borrowed(f, &[b]);
+    let f_a_eq_f_b = app_borrowed(eq_const_v, &[beta, f_a, f_b]);
+    let r_to_eq = arrow_borrowed(r_a_b, f_a_eq_f_b);
+    let sanity = tc.lctx_mk_pi(&[a2, b], r_to_eq, false);
+    let quot_r_to_beta = arrow_borrowed(quot_r2, beta);
+    let lift_tail = arrow_borrowed(sanity, quot_r_to_beta);
+    let lift_ty = tc.lctx_mk_pi(&[alpha2, r2, beta, f], lift_tail, false);
+    new_env = add_quot_const(new_env, load_global(&G_QUOT_LIFT_NAME), &[u_name, v_name], lift_ty, QUOT_KIND_LIFT);
+
+    let quot_r2_to_prop = arrow_borrowed(quot_r2, lean_expr_mk_prop());
+    let beta2 = local_decl(&mut tc, "β", quot_r2_to_prop, BI_IMPLICIT);
+    let quot_mk_const = const_borrowed(quot_mk_name, &[u]);
+    let quot_mk_a = app_borrowed(quot_mk_const, &[alpha2, r2, a2]);
+    let beta_quot_mk_a = app_borrowed(beta2, &[quot_mk_a]);
+    let all_quot = tc.lctx_mk_pi(&[a2], beta_quot_mk_a, false);
+    let q = local_decl(&mut tc, "q", quot_r2, BI_DEFAULT);
+    let beta_q = app_borrowed(beta2, &[q]);
+    let ind_q_tail = tc.lctx_mk_pi(&[q], beta_q, false);
+    let ind_mk_tail = pi_named("mk", all_quot, ind_q_tail);
+    let ind_ty = tc.lctx_mk_pi(&[alpha2, r2, beta2], ind_mk_tail, false);
+    new_env = add_quot_const(new_env, load_global(&G_QUOT_IND_NAME), &[u_name], ind_ty, QUOT_KIND_IND);
+
+    drop(tc);
+    // These quotient declarations are built once per kernel environment. Releasing the local
+    // construction temporaries here currently corrupts `Environment.replay`/`Quot.sound`; keep the
+    // objects alive until the exact C++ RAII ownership pattern is mirrored.
+
+    Ok(lean_environment_mark_quot_init(new_env))
+}
+
 /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
 /// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`, kind 5 (mutual)
 /// uses `add_mutual_impl`; quot/inductive still delegate to the C++ bridges.
@@ -4886,6 +5171,10 @@ pub unsafe extern "C" fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut Lea
         5 if RUST_ADD_SIMPLE => match add_mutual_impl(env, decl, check != 0) {
             Ok(new_env) => mk_except_ok(new_env),
             Err(e) => kernel_error_to_lean_except(e),
+        },
+        4 if RUST_ADD_SIMPLE => match add_quot_impl(env) {
+            Ok(new_env) => mk_except_ok(new_env),
+            Err(e) => { lean_dec(env); kernel_error_to_lean_except(e) },
         },
         0 => lean_cxx_add_axiom(env, decl, check),
         1 => lean_cxx_add_definition(env, decl, check),

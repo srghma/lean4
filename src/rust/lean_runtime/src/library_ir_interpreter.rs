@@ -886,6 +886,14 @@ mod library_ir_interpreter_impl {
         let prefer_native_str = lean_mk_string(c"prefer_native".as_ptr());
         let interp_name = lean_name_mk_string(lean_box(0), interp_str);
         let prefer_native_name = lean_name_mk_string(interp_name, prefer_native_str);
+        // This name is a process-lifetime immortal global read concurrently from many
+        // worker threads (every `Interpreter::new` does a non-atomic `lean_inc`/consume on
+        // it via `lean_options_get_bool`). Mark it persistent (rc = 0, inc/dec become
+        // no-ops) BEFORE publishing it, so those refcount operations are thread-safe.
+        // Mirrors C++ `mark_persistent(g_verbose->raw())` for global option names
+        // (util/options.cpp) and the kernel's `init_global_name`. Without this, the
+        // non-atomic refcount races and is over-freed under parallel `try?`/library-search.
+        lean_mark_persistent(prefer_native_name);
         match G_INTERPRETER_PREFER_NATIVE_NAME.compare_exchange(
             ptr::null_mut(),
             prefer_native_name,
@@ -894,7 +902,10 @@ mod library_ir_interpreter_impl {
         ) {
             Ok(_) => prefer_native_name,
             Err(current) => {
-                lean_dec(prefer_native_name);
+                // Lost the init race: our copy is already persistent so it cannot be
+                // freed via `lean_dec` (no-op on rc = 0). This leaks a handful of small
+                // Name objects exactly once per process, only when two threads initialize
+                // simultaneously — negligible and bounded.
                 current
             }
         }
