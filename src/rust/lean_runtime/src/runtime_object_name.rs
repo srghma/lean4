@@ -3,10 +3,12 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 // Port of the Name primitives section from src/runtime/object.cpp.
 // Include from lib.rs: include!("runtime_object_name.rs");
 
-mod runtime_object_name_impl {
+pub(crate) mod runtime_object_name_impl {
     use super::*;
 
     // Reads the cached hash u64 stored after the 2 lean_object* fields.

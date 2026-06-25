@@ -3,16 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 mod runtime_interrupt_impl {
     use super::*;
     use core::ffi::c_char;
     use std::cell::Cell;
 
     extern "C" {
-        fn lean_uncaught_exceptions() -> bool;
-        fn lean_throw_interrupted() -> !;
-        fn throw_heartbeat_exception() -> !;
-
         #[link_name = "_ZN4lean12check_memoryEPKc"]
         fn check_memory(component_name: *const c_char);
 
@@ -96,8 +94,8 @@ mod runtime_interrupt_impl {
     pub unsafe extern "C" fn check_interrupted() {
         let tk = G_CANCEL_TK.with(|cell| cell.get());
         if !tk.is_null() {
-            if cancel_tk_is_set(tk) && !lean_uncaught_exceptions() {
-                lean_throw_interrupted();
+            if cancel_tk_is_set(tk) && !has_uncaught_exception() {
+                throw_interrupted();
             }
         }
     }
@@ -340,7 +338,7 @@ mod runtime_interrupt_impl {
         if tk.is_null() {
             return false;
         }
-        unsafe { cancel_tk_is_set(tk) && !lean_uncaught_exceptions() }
+        unsafe { cancel_tk_is_set(tk) && !has_uncaught_exception() }
     }
 
     /// Set both the max heartbeat and the cancel token, returning old values for restoration.

@@ -3,10 +3,12 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 // Port of the Strings section from src/runtime/object.cpp (lines 1949-2486).
 // Include from lib.rs: include!("runtime_object_string.rs");
 
-mod runtime_object_string_impl {
+pub(crate) mod runtime_object_string_impl {
     use super::*;
     use core::ffi::c_char;
     use core::mem::size_of;

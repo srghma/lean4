@@ -3,6 +3,8 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 // Port of Natural numbers, Integers, UInt, IntX sections from src/runtime/object.cpp.
 
 #[cfg(not(lean_use_gmp))]

@@ -237,7 +237,7 @@ Task now is to rewrite last cpp files (inductive.cpp, type_checker.cpp, exceptio
 
 1. Since kernel depends on cpp exceptions and rust dont have them, we use Result<KernelException::X> approach instead of throwing of exceptions.
 
-2. In the end want to remove all .h files too and generate ONLY ONE lean.h header file using `cbindgen` like
+2. In the end I want to remove all .h files too and generate ONLY ONE lean.h header file using `cbindgen` like
 
 ```toml
 language = "C"

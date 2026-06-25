@@ -3,6 +3,8 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 mod runtime_memory_impl {
     use super::*;
     use core::ffi::c_char;
@@ -17,9 +19,7 @@ mod runtime_memory_impl {
         static G_COUNTER: Cell<usize> = Cell::new(0);
     }
 
-    extern "C" {
-        fn throw_memory_exception(component_name: *const c_char) -> !;
-    }
+
 
     #[cfg(all(unix, not(target_os = "macos")))]
     unsafe fn get_peak_rss() -> usize {

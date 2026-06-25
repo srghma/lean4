@@ -12,9 +12,14 @@ still uses directly:
 
 The old C++ util.cpp implementation is removed.
 */
+#[cfg(feature = "export-runtime-ffi")]
+use crate::*;
 
 #[cfg(feature = "export-runtime-ffi")]
-mod library_util_impl {
+pub use library_util_impl::*;
+
+#[cfg(feature = "export-runtime-ffi")]
+pub(crate) mod library_util_impl {
     use super::*;
     use core::ffi::c_char;
     use core::ptr;

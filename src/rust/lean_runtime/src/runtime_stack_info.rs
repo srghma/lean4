@@ -3,7 +3,10 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 mod runtime_stack_info_impl {
+    use super::*;
     use core::ffi::c_char;
     use std::cell::Cell;
 
@@ -12,10 +15,6 @@ mod runtime_stack_info_impl {
     extern "C" {
         #[link_name = "_ZN4lean7lthread21get_thread_stack_sizeEv"]
         fn lthread_get_thread_stack_size() -> usize;
-
-        fn throw_get_stack_size_failed() -> !;
-
-        fn throw_stack_space_exception(component_name: *const c_char) -> !;
     }
 
     thread_local! {

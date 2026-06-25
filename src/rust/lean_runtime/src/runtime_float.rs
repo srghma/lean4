@@ -3,6 +3,8 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 extern "C" {
     fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
     fn lean_int_big_nonneg(value: *mut LeanObject) -> bool;
@@ -27,16 +29,16 @@ fn lean_scalar_to_int(value: *mut LeanObject) -> c_int {
     }
 }
 
-fn float_to_string(text: String) -> *mut LeanObject {
+pub(crate) fn float_to_string(text: String) -> *mut LeanObject {
     let cstr = std::ffi::CString::new(text).expect("float formatting produced embedded NUL");
     unsafe { lean_mk_ascii_string_unchecked(cstr.as_ptr()) }
 }
 
-unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
     lean_box(value as u32 as usize)
 }
 
-unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
@@ -45,7 +47,7 @@ unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     obj
 }
 
-unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
@@ -54,7 +56,7 @@ unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
     obj
 }
 
-unsafe fn lean_mk_float_exp_pair(
+pub(crate) unsafe fn lean_mk_float_exp_pair(
     float_value: *mut LeanObject,
     exp_value: *mut LeanObject,
 ) -> *mut LeanObject {

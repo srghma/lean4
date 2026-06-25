@@ -4,6 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 #[cfg(feature = "export-runtime-ffi")]
+use crate::*;
+
+#[cfg(feature = "export-runtime-ffi")]
 mod library_elab_environment_impl {
     use super::*;
 

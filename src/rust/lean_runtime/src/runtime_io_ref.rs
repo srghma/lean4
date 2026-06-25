@@ -3,6 +3,8 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 mod runtime_io_ref_impl {
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;

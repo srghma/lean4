@@ -3,7 +3,8 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-mod runtime_alloc_impl {
+
+pub(crate) mod runtime_alloc_impl {
     use std::cell::Cell;
 
     #[cfg(lean_small_allocator)]

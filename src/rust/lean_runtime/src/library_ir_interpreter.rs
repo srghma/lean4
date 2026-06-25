@@ -4,6 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 #[cfg(feature = "export-runtime-ffi")]
+use crate::*;
+
+#[cfg(feature = "export-runtime-ffi")]
 mod library_ir_interpreter_impl {
     use super::*;
     use core::ffi::{c_char, c_void};

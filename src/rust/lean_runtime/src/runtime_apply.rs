@@ -3,9 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 // Port of src/runtime/apply.cpp.
 
-mod runtime_apply_impl {
+pub(crate) mod runtime_apply_impl {
     use super::*;
 
     const LEAN_CLOSURE_TAG: u8 = 245;

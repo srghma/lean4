@@ -3,9 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 // Port of the panic, sorry, and stack trace helpers from src/runtime/object.cpp.
 
-mod runtime_object_panic_impl {
+pub(crate) mod runtime_object_panic_impl {
     use super::*;
     use std::io::Write;
 

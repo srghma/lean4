@@ -3,9 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
+use crate::*;
+
 // Port of the object size helpers from src/runtime/object.cpp.
 
-mod runtime_object_size_impl {
+pub(crate) mod runtime_object_size_impl {
     use super::*;
 
     const LEAN_ARRAY_TAG: u8 = 246;

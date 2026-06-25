@@ -1,3 +1,6 @@
+#[cfg(feature = "export-runtime-ffi")]
+use crate::*;
+
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
@@ -35,13 +38,13 @@ pub struct OleanCompactedRegion {
     pub m_is_mmap: bool,
     /// 7-byte padding + 32-byte std::function placeholder to match C++ layout.
     /// C++ accesses `m_begin` at offset 56 via the `begin()` accessor.
-    _free_data_placeholder: [u8; 39],
+    pub _free_data_placeholder: [u8; 39],
     /// Actual in-memory address of the data section start (matches C++ `m_begin` at offset 56).
     pub m_begin: usize,
     /// Placeholder for C++ `m_next` at offset 64 (not used from Rust).
-    _m_next: usize,
+    pub _m_next: usize,
     /// Placeholder for C++ `m_end` at offset 72 (not used from Rust).
-    _m_end: usize,
+    pub _m_end: usize,
     // --- Rust-only fields below (C++ does not access these for dep-region queries) ---
     /// Base of the file-level allocation (the `buffer` pointer from the read function).
     pub m_ptr: *mut u8,
