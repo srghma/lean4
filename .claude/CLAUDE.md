@@ -106,4 +106,1432 @@ parse_deps = false
 
 7. Every time You fix error - consult original cpp implementation at `./origin-master-src`. RUST CODE SHOULD WORK SAME AS CPP!! SAME inc/dec etc!!
 
-8. in srghmascripts/rust_cpp_audit we maintain/will maintain the audit of rust files compared to their original cpp+h files. To find discrepancies.
+8. in srghmascripts/rust_cpp_audit we maintain/will maintain the audit of rust files compared to their original cpp+h files. To find discrepancies and fix them.
+
+-----
+
+# CURRENT TASK - CONTINUE
+
+❯ continue porting cpp+h to rust
+
+● Let me assess the current porting state before picking the next target.
+
+● The state has advanced — add_quot_impl is already ported (tag 4 wired to Rust). Let me see the full dispatch to find what still routes to C++.
+
+● Only tag 6 (inductive) and the C++ fallback bridges remain. The remaining .cpp files are exception.cpp (53 lines), type_checker.cpp (1555, mostly lean_cxx_* bridges + the type_checker class inductive.cpp needs), and inductive.cpp
+  (1271, add_inductive — the big one). Let me look at exception.cpp and scope inductive.cpp.
+
+● exception.cpp is rightly last (C++-exception machinery, depended on widely). The clear next target is add_inductive (inductive.cpp, tag 6 — the only remaining C++ dispatch). Let me scope it.
+      echo "=== inductive.cpp: top-level structure (functions/classes) ==="…)
+  ⎿  === inductive.cpp: top-level structure (functions/classes) ===
+     22:static name mk_rec_name(name const & I) {
+     27:bool is_non_rec_structure(environment const & env, name const & decl_name) {
+     … +19 lines (ctrl+o to expand)
+
+● inductive.cpp = helpers + add_inductive_fn (~670 lines, the core: checks types/constructors, builds recursors + computation rules) + elim_nested_inductive_fn (~290 lines, nested-inductive preprocessing) + entry point. This is the
+  large, build-critical port the memory flagged. I'll develop it behind a new RUST_ADD_INDUCTIVE gate (default false, C++ fallback stays live) like add_decl/add_quot were. Let me study the core first.
+
+● This is the full, build-critical add_inductive algorithm. Porting ~1000 lines of the most delicate kernel code is a multi-step effort that underpins every inductive type — I'll do it incrementally behind a RUST_ADD_INDUCTIVE gate
+  (default false, C++ stays live), validating as I go. Let me first inventory which helpers already exist in Rust to size the work.
+
+● The next domino is unavoidably add_inductive — every other file removal depends on it (type_checker.cpp's C++ bridges + the type_checker class are only kept for inductive.cpp). It's large and build-critical, so I'll port it
+  behind a default-false RUST_ADD_INDUCTIVE gate and validate before flipping. Let me read the rest of add_inductive_fn to understand the full algorithm before writing any Rust.
+
+● This is the full recursor-construction algorithm — the most intricate part. I now have the scope clearly: add_inductive_fn (checking + recursor/computation-rule construction) plus elim_nested_inductive_fn. This is a large,
+  build-critical port that I'll develop completely behind a default-false gate before validating. Let me set up tracking and read the remaining recursor-building and nested-elimination code.
+
+● Now the nested-inductive elimination and entry point.
+
+
+
+● I now fully understand add_inductive (Task 1 done). It's ~1000 lines touching dozens of kernel primitives (inductive_val/constructor_val/recursor_val builders, local_ctx mk_pi/mk_lambda, infer_implicit, instantiate_lparams,
+  replace/find, etc.) and is build-critical. Let me mark it understood and check the closest existing analog — add_quot_impl — to inventory which builders are already available in Rust.
+
+
+
+● add_quot_impl shows the available builders (local_decl, tc.lctx_mk_pi, const_borrowed, app_borrowed, arrow_borrowed, etc.). add_inductive needs more: the inductive_val/constructor_val/recursor_val/recursor_rule constructors,
+  lctx_mk_lambda, infer_implicit, replace-with-callback, name.replace_prefix/append_after. Let me inventory which of these already exist in Rust.
+
+● I've now fully scoped and inventoried the add_inductive port. Here's the honest status before I commit to generating a large amount of kernel code.
+
+  What I found:
+  - add_inductive (tag 6) is the only remaining C++ dispatch, and removing it is what unblocks deleting all three remaining .cpp files: inductive.cpp directly, then type_checker.cpp (its lean_cxx_add_* bridges are already dead
+  since RUST_ADD_SIMPLE=true, but its type_checker C++ class is still used by inductive.cpp), then exception.cpp last.
+  - It's ~1000 lines across add_inductive_fn (checks types/constructors/positivity, builds recursors + computation rules) + elim_nested_inductive_fn (nested-inductive preprocessing) + the restore/entry logic.
+  - Building blocks that exist in Rust: TypeChecker (whnf/infer/check/is_def_eq/ensure_sort), lctx_mk_pi/lctx_mk_lambda, local_decl, infer_implicit, instantiate_lparams, has_loose_bvars, lean_environment_add, the
+  const/app/arrow/sort_borrowed builders (from add_quot_impl).
+  - Building blocks I'd need to add: lparams_to_levels, Name.replace_prefix/append_after, a get_app_args helper, replace-with-callback for restore_nested, and the inductive_val/constructor_val/recursor_val/recursor_rule
+  constructors.
+
+  It's build-critical (every inductive type in the prelude/stdlib goes through it), so I'll develop it behind a default-false RUST_ADD_INDUCTIVE gate (C++ path stays live, zero risk) and only flip after it compiles and passes
+  inductive/structure/deriving tests — likely spanning multiple steps.
+
+  One sequencing point: the concurrency fix from earlier is verified locally but not yet committed (you run the full suite + commit). Starting a large build-critical port on top of it risks entangling the two if something breaks.
+
+● User answered Claude's questions:
+  ⎿  · How should I sequence the add_inductive port relative to the (verified-but-uncommitted) concurrency fix? → Start port now (gated)
+
+● The user chose to start now (gated). Let me mark task 2 in progress and examine the existing val-constructor/accessor references and reusable helpers in kernel_type_checker.rs.
+
+● Accessors exist but not builders — I'll need to construct InductiveVal/ConstructorVal/RecursorVal/RecursorRule/ConstantInfo objects by hand. Let me get their exact field layouts from the C++ constructors in declaration.cpp.
+
+● Key finding: the val builders are exported Lean symbols — lean_mk_inductive_val, lean_mk_constructor_val, lean_mk_recursor_val, lean_mk_inductive_decl. I can call them as externs instead of hand-rolling layouts.
+  recursor_rule/inductive_type/constant_info are simple tag-0/kind ctors. Let me confirm the symbols exist and find the CI kind tags + list/nat builder helpers.
+
+● All primitives exist: val builders (externs), CI_INDUCTIVE/CONSTRUCTOR/RECURSOR=5/6/7, lean_usize_to_nat, lean_list_from_borrowed, plus the TypeChecker/lctx/expr builders from add_quot_impl. The port is fully feasible. Let me
+  read the exact signatures of the helpers I'll reuse so I call them correctly.
+
+● Let me read the exact bodies of the borrowed-expr helpers and local_decl/lctx_mk_pi to get the refcount conventions right before writing code.
+
+
+
+● I understand the conventions now: the _borrowed helpers inc their args; local_decl/lctx store fvars in the lctx; and the existing add_* impls intentionally leak construction temporaries (per the add_quot_impl comment) — so I only
+  need refcount-correct values added to the env, not perfect temp discipline. Let me inventory the expr accessors/builders I'll need before writing.
+
+● Most builders exist. Let me find the exact accessor names the kernel uses for binding domain/body/name/info and const levels (they're read constantly in whnf/infer).
+
+● Nearly everything exists. Let me locate the last few: infer_implicit, the Lean Name.appendAfter/replacePrefix exports, and the replace/find callback APIs.
+
+● All located. Let me read the callback-helper and name-op signatures so I call them correctly.
+
+
+
+● Last structural question before writing: how the Rust TypeChecker manages its local_ctx as the environment evolves (C++ recreates tc() per op with mutating m_env/m_lctx). Let me read the TypeChecker struct and lctx_mk_local_decl.
+
+
+
+● Design is clear: keep one persistent TypeChecker for the whole add_inductive (so its ngen + lctx persist for unique fvars), and add a set_env method to update its env + clear caches when declarations are added (mirroring C++
+  recreating tc() against the mutated m_env). Let me read the TC env accessor area to add set_env.
+
+
+
+● Now I'll add an add_core method to TypeChecker (env-extend + cache-invalidate, mirroring C++ recreating tc() against the mutated m_env), then build the add_inductive port on top. Let me add it after env().
+
+● Update(kernel_type_checker.rs)
+  ⎿  Added 17 lines
+      2006          self.st.env
+      2007      }
+      2008
+      2009 +    /// Extend the type-checker's environment with `info` (pure insert; CONSUMES `info`).
+      2010 +    /// Mirrors C++ `environment::add_core` followed by recreating `tc()` against the mutated
+      2011 +    /// `m_env`: the reduction caches are cleared because results computed in the old environment
+      2012 +    /// may no longer hold once new declarations exist. `lctx`/`ngen` are kept so fvar ids stay
+      2013 +    /// unique across the whole `add_inductive`. Used by the Rust `add_inductive` port.
+      2014 +    unsafe fn add_core(&mut self, info: *mut LeanObject) {
+      2015 +        // lean_environment_add (= Kernel.Environment.add) CONSUMES both env and info.
+      2016 +        let new_env = lean_environment_add(self.st.env, info);
+      2017 +        self.st.env = new_env;
+      2018 +        self.st.infer_cache[0].clear();
+      2019 +        self.st.infer_cache[1].clear();
+      2020 +        self.st.whnf_core.clear();
+      2021 +        self.st.whnf.clear();
+      2022 +        self.st.unfold.clear();
+      2023 +        self.st.failure.clear();
+      2024 +    }
+      2025 +
+      2026      unsafe fn with_saved_lctx<R, E, F>(&mut self, f: F) -> Result<R, E>
+      2027      where F: FnOnce(&mut Self) -> Result<R, E>
+      2028      {
+
+● Now I'll write the port. I need exact accessors for Declaration.inductDecl, InductiveType, and Constructor. Let me get them from declaration.h.
+
+● I have all the layouts. Now let me write the port foundation — extern builders, the gate, and standalone helpers. Let me find the insertion point.
+
+● Let me inventory the remaining constants/accessors (expr-kind, binding-info, level predicates, name-eq, sort-level) so the code compiles against existing names.
+
+● I now have a complete inventory. Let me read the exact insertion anchor (end of add_quot_impl) and write the foundation block.
+
+  Read 2 files (ctrl+o to expand)
+
+● mk_rec_name = I.str "rec". Let me confirm the local lean_mk_string/lean_name_mk_string signatures used by build_lean_name.
+
+● I have a complete inventory. Let me confirm the two callback externs are #[no_mangle], then write the foundation block.
+
+● Both callbacks are #[no_mangle]. Now let me write the foundation block — externs, gate, and all standalone helpers needed across the whole port.
+
+● Update(kernel_type_checker.rs)
+  ⎿  Added 180 lines
+      5175      Ok(lean_environment_mark_quot_init(new_env))
+      5176  }
+      5177
+      5178 +// ===========================================================================
+      5179 +// add_inductive — port of kernel/inductive.cpp
+      5180 +//
+      5181 +// Developed behind the RUST_ADD_INDUCTIVE gate (default false → the C++
+      5182 +// `lean_cxx_add_inductive_only` bridge stays live, zero risk to the build).
+      5183 +// Flip to true only after validation on inductive/structure/deriving tests.
+      5184 +//
+      5185 +// Refcount discipline mirrors `add_quot_impl`/`add_decl_impl`: construction
+      5186 +// temporaries (fvars, intermediate exprs) are intentionally leaked; only the
+      5187 +// VALUES handed to the environment builders need correct ownership (the
+      5188 +// `lean_mk_*_val` builders CONSUME their object args, like C++ `obj_arg`).
+      5189 +// ===========================================================================
+      5190 +
+      5191 +const RUST_ADD_INDUCTIVE: bool = false;
+      5192 +
+      5193 +extern "C" {
+      5194 +    // @[export] builders from Lean's Declaration (declaration.cpp wraps these). All object args
+      5195 +    // are CONSUMED; trailing u8 args are plain scalars.
+      5196 +    fn lean_mk_inductive_val(
+      5197 +        n: *mut LeanObject, lparams: *mut LeanObject, type_: *mut LeanObject,
+      5198 +        nparams: *mut LeanObject, nindices: *mut LeanObject, all: *mut LeanObject,
+      5199 +        cnstrs: *mut LeanObject, nnested: *mut LeanObject,
+      5200 +        rec: u8, is_unsafe: u8, is_refl: u8,
+      5201 +    ) -> *mut LeanObject;
+      5202 +    fn lean_mk_constructor_val(
+      5203 +        n: *mut LeanObject, lparams: *mut LeanObject, type_: *mut LeanObject,
+      5204 +        induct: *mut LeanObject, cidx: *mut LeanObject, nparams: *mut LeanObject,
+      5205 +        nfields: *mut LeanObject, is_unsafe: u8,
+      5206 +    ) -> *mut LeanObject;
+      5207 +    fn lean_mk_recursor_val(
+      5208 +        n: *mut LeanObject, lparams: *mut LeanObject, type_: *mut LeanObject, all: *mut LeanObject,
+      5209 +        nparams: *mut LeanObject, nindices: *mut LeanObject, nmotives: *mut LeanObject,
+      5210 +        nminors: *mut LeanObject, rules: *mut LeanObject, k: u8, is_unsafe: u8,
+      5211 +    ) -> *mut LeanObject;
+      5212 +    fn lean_mk_inductive_decl(
+      5213 +        lparams: *mut LeanObject, nparams: *mut LeanObject, types: *mut LeanObject, is_unsafe: u8,
+      5214 +    ) -> *mut LeanObject;
+      5215 +    fn lean_is_unsafe_inductive_decl(d: *mut LeanObject) -> u8;
+      5216 +    // Name ops (obj_arg → owned).
+      5217 +    fn lean_name_append_index_after(n: *mut LeanObject, i: *mut LeanObject) -> *mut LeanObject;
+      5218 +    #[link_name = "l_Lean_Name_replacePrefix"]
+      5219 +    fn lean_name_replace_prefix(
+      5220 +        n: *mut LeanObject, pre: *mut LeanObject, new_pre: *mut LeanObject,
+      5221 +    ) -> *mut LeanObject;
+      5222 +    // Expr traversal callbacks (from kernel_for_each_fn.rs / kernel_replace_fn.rs).
+      5223 +    fn lean_for_each_expr_with_callback(
+      5224 +        e: *mut LeanObject, ctx: *mut c_void,
+      5225 +        cb: unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> u8,
+      5226 +    );
+      5227 +    fn lean_replace_expr_with_callback(
+      5228 +        e: *mut LeanObject, ctx: *mut c_void,
+      5229 +        cb: unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject,
+      5230 +        use_cache: u8,
+      5231 +    ) -> *mut LeanObject;
+      5232 +}
+      5233 +
+      5234 +#[inline]
+      5235 +unsafe fn nat_box(n: usize) -> *mut LeanObject {
+      5236 +    lean_usize_to_nat(n)
+      5237 +}
+      5238 +
+      5239 +/// Wrap a `*Val` in a `ConstantInfo` constructor (tag = CI kind, one object field).
+      5240 +unsafe fn wrap_ci(tag: u32, v: *mut LeanObject) -> *mut LeanObject {
+      5241 +    let w = lean_alloc_ctor(tag, 1, 0);
+      5242 +    lean_ctor_set(w, 0, v);
+      5243 +    w
+      5244 +}
+      5245 +
+      5246 +/// Collect a Lean `List` into a Vec of BORROWED element pointers (list order).
+      5247 +unsafe fn list_to_vec(mut l: *mut LeanObject) -> Vec<*mut LeanObject> {
+      5248 +    let mut v = Vec::new();
+      5249 +    while !lean_list_is_nil(l) {
+      5250 +        v.push(lean_list_head(l));
+      5251 +        l = lean_list_tail(l);
+      5252 +    }
+      5253 +    v
+      5254 +}
+      5255 +
+      5256 +/// `is_constant(e)` — true iff `e` is an `Expr.const`.
+      5257 +#[inline]
+      5258 +unsafe fn ind_is_constant(e: *mut LeanObject) -> bool {
+      5259 +    !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_CONST
+      5260 +}
+      5261 +
+      5262 +/// Strip the application spine: returns `(fn, args)` with `args` in application order,
+      5263 +/// all BORROWED (sub-references of `e`).
+      5264 +unsafe fn ind_get_app_args(e: *mut LeanObject) -> (*mut LeanObject, Vec<*mut LeanObject>) {
+      5265 +    let mut args = Vec::new();
+      5266 +    let mut cur = e;
+      5267 +    while !lean_is_scalar(cur) && lean_ptr_tag(cur) == EXPR_APP {
+      5268 +        args.push(lean_expr_get_app_arg(cur));
+      5269 +        cur = lean_expr_get_app_fn(cur);
+      5270 +    }
+      5271 +    args.reverse();
+      5272 +    (cur, args)
+      5273 +}
+      5274 +
+      5275 +/// `mk_rec_name(I) = I.str "rec"`. BORROWS `i`, returns owned name.
+      5276 +unsafe fn mk_rec_name(i: *mut LeanObject) -> *mut LeanObject {
+      5277 +    lean_inc(i);
+      5278 +    let s = lean_mk_string(b"rec".as_ptr(), 3);
+      5279 +    lean_name_mk_string(i, s)
+      5280 +}
+      5281 +
+      5282 +/// `name.append_after(i)` (`Name.appendIndexAfter`). BORROWS `n`, returns owned name.
+      5283 +unsafe fn name_append_index(n: *mut LeanObject, idx: usize) -> *mut LeanObject {
+      5284 +    lean_inc(n);
+      5285 +    lean_name_append_index_after(n, nat_box(idx))
+      5286 +}
+      5287 +
+      5288 +/// `name.append_after(s)` (`Name.appendAfter` with a string). BORROWS `n`, returns owned name.
+      5289 +unsafe fn name_append_str(n: *mut LeanObject, s: &str) -> *mut LeanObject {
+      5290 +    lean_inc(n);
+      5291 +    // Build the suffix Name (`Name.str anonymous s`) then append its single string component.
+      5292 +    let str_obj = lean_mk_string(s.as_ptr(), s.len());
+      5293 +    // `lean_name_append_after` takes the suffix as a Lean String, not a Name.
+      5294 +    name_append_after_string(n, str_obj)
+      5295 +}
+      5296 +
+      5297 +/// `name.replace_prefix(pre, new)`. BORROWS all three, returns owned name.
+      5298 +unsafe fn name_replace_prefix(
+      5299 +    n: *mut LeanObject, pre: *mut LeanObject, new_pre: *mut LeanObject,
+      5300 +) -> *mut LeanObject {
+      5301 +    lean_inc(n);
+      5302 +    lean_inc(pre);
+      5303 +    lean_inc(new_pre);
+      5304 +    lean_name_replace_prefix(n, pre, new_pre)
+      5305 +}
+      5306 +
+      5307 +/// `lparams_to_levels(ps)` — map `List Name` to `List Level` of `Level.param`. BORROWS `ps`.
+      5308 +unsafe fn lparams_to_levels(ps: *mut LeanObject) -> *mut LeanObject {
+      5309 +    let names = list_to_vec(ps);
+      5310 +    let levels: Vec<*mut LeanObject> =
+      5311 +        names.iter().map(|&n| level_param_borrowed(n)).collect();
+      5312 +    let r = lean_list_from_borrowed(&levels);
+      5313 +    for l in levels { lean_dec(l); }
+      5314 +    r
+      5315 +}
+      5316 +
+      5317 +// `lean_name_append_after(n, str)` — append a String component. CONSUMES n + str.
+      5318 +unsafe fn name_append_after_string(n: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject {
+      5319 +    lean_name_append_after_extern(n, s)
+      5320 +}
+      5321 +
+      5322 +extern "C" {
+      5323 +    #[link_name = "lean_name_append_after"]
+      5324 +    fn lean_name_append_after_extern(n: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
+      5325 +}
+      5326 +
+      5327 +/// Does `e` contain a subterm `Expr.const c` with `c` ∈ `names`?  (`find` + `is_ind_occ`).
+      5328 +struct FindConstCtx<'a> {
+      5329 +    names: &'a [*mut LeanObject],
+      5330 +    found: bool,
+      5331 +}
+      5332 +unsafe extern "C" fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
+      5331 +}
+      5332 +unsafe extern "C" fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
+      5333 +    let c = &mut *(ctx as *mut FindConstCtx);
+      5334 +    if c.found {
+      5335 +        return 0;
+      5336 +    }
+      5337 +    if ind_is_constant(e) {
+      5338 +        let nm = lean_expr_get_const_name(e);
+      5339 +        for &n in c.names {
+      5340 +            if lean_name_eq(nm, n) {
+      5341 +                c.found = true;
+      5342 +                return 0;
+      5343 +            }
+      5344 +        }
+      5345 +    }
+      5346 +    1
+      5347 +}
+      5348 +unsafe fn expr_contains_const(e: *mut LeanObject, names: &[*mut LeanObject]) -> bool {
+      5349 +    let mut ctx = FindConstCtx { names, found: false };
+      5350 +    lean_for_each_expr_with_callback(
+      5351 +        e,
+      5352 +        &mut ctx as *mut FindConstCtx as *mut c_void,
+      5353 +        find_const_cb,
+      5354 +    );
+      5355 +    ctx.found
+      5356 +}
+      5357 +
+      5358  /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
+      5359  /// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`, kind 5 (mutual)
+      5360  /// uses `add_mutual_impl`; quot/inductive still delegate to the C++ bridges.
+
+● Let me verify EXPR_APP exists and do a fast cargo check to catch errors in the foundation before continuing.
+
+● The grep was too aggressive — let me see the actual errors (full blocks).
+
+● Foundation compiles (0 errors). Task 2 essentially done. Now for the checking half I need two more primitives: consume_type_annotations and an lctx local-decl lookup (for get_param_type/get_user_name). Let me check availability.
+
+● lean_expr_consume_type_annotations is exported, and lean_local_ctx_find is already used here. Let me see how the kernel reads a LocalDecl's type/user-name.
+
+● I have the lctx accessors and consume_type_annotations. Let me confirm the instantiate1 refcount convention from existing usage, then write the struct + checking half.
+
+● Let me confirm the public tc.check/infer/whnf/is_def_eq/ensure_sort borrow-vs-consume conventions from check_constant_val's usage.
+
+
+
+● Conventions fully nailed: check/infer/is_def_eq/ensure_type/whnf BORROW; ensure_sort/ensure_pi CONSUME; env-add must be ownership-correct. Let me find the KernelError enum + a generic "kernel exception with env+msg" builder
+  before writing the struct.
+
+● All conventions and the KernelError::Other builder are clear. Let me write the struct + constructor + first checking method as a compilable unit, then add the rest incrementally. Inserting before the dispatch comment.
+
+● Update(kernel_type_checker.rs)
+  ⎿  Added 195 lines
+      5355      ctx.found
+      5356  }
+      5357
+      5358 +unsafe fn kernel_exc(msg: &str) -> KernelError {
+      5359 +    KernelError::Other { msg: lean_mk_string(msg.as_ptr(), msg.len()) }
+      5360 +}
+      5361 +
+      5362 +extern "C" {
+      5363 +    fn lean_expr_consume_type_annotations(e: *mut LeanObject) -> *mut LeanObject;
+      5364 +}
+      5365 +
+      5366 +/// Per-recursor working data (mirrors C++ `add_inductive_fn::rec_info`).
+      5367 +struct RecInfo {
+      5368 +    c:       *mut LeanObject,        // motive fvar
+      5369 +    minors:  Vec<*mut LeanObject>,
+      5370 +    indices: Vec<*mut LeanObject>,
+      5371 +    major:   *mut LeanObject,
+      5372 +}
+      5373 +
+      5374 +/// Port of C++ `add_inductive_fn`. Holds one persistent `TypeChecker` for the whole add (so its
+      5375 +/// name generator + local context evolve continuously, giving unique fvar ids); `tc.add_core`
+      5376 +/// extends the env as declarations are added. Construction temporaries are leaked, matching
+      5377 +/// `add_quot_impl`/`add_decl_impl`; only env-bound values are refcount-correct.
+      5378 +struct AddInductiveFn {
+      5379 +    tc:           TypeChecker,
+      5380 +    lparams:      *mut LeanObject,        // borrowed (List Name) from the decl
+      5381 +    nparams:      usize,
+      5382 +    is_unsafe:    bool,
+      5383 +    ind_types:    Vec<*mut LeanObject>,   // borrowed InductiveType objects
+      5384 +    ind_names:    Vec<*mut LeanObject>,   // borrowed Name of each inductive type
+      5385 +    nindices:     Vec<usize>,
+      5386 +    result_level: *mut LeanObject,        // owned Level (null until set)
+      5387 +    levels:       *mut LeanObject,        // owned List Level (null until set)
+      5388 +    is_not_zero:  bool,
+      5389 +    params:       Vec<*mut LeanObject>,   // parameter fvars (owned)
+      5390 +    param_types:  Vec<*mut LeanObject>,   // type of each parameter (owned, consume-annotated)
+      5391 +    ind_cnsts:    Vec<*mut LeanObject>,   // `Expr.const I levels` for each inductive type (owned)
+      5392 +    elim_level:   *mut LeanObject,        // owned Level (null until set)
+      5393 +    k_target:     bool,
+      5394 +    nnested:      usize,
+      5395 +    rec_infos:    Vec<RecInfo>,
+      5396 +}
+      5397 +
+      5398 +impl AddInductiveFn {
+      5399 +    /// CONSUMES `env`; BORROWS `decl` (an `inductive_decl` = `Declaration.inductDecl`).
+      5400 +    unsafe fn new(env: *mut LeanObject, decl: *mut LeanObject, nnested: usize) -> Self {
+      5401 +        let lparams = lean_ctor_get(decl, 0);          // List Name (borrowed)
+      5402 +        let nparams_nat = lean_ctor_get(decl, 1);      // Nat
+      5403 +        let nparams = lean_unbox(nparams_nat);         // small (kernel guarantees)
+      5404 +        let types = lean_ctor_get(decl, 2);            // List InductiveType (borrowed)
+      5405 +        lean_inc(decl);
+      5406 +        let is_unsafe = lean_is_unsafe_inductive_decl(decl) != 0;
+      5407 +        let ind_types = list_to_vec(types);
+      5408 +        let ind_names: Vec<*mut LeanObject> =
+      5409 +            ind_types.iter().map(|&it| lean_ctor_get(it, 0)).collect();
+      5410 +        let safety = if is_unsafe { DEF_SAFETY_UNSAFE } else { DEF_SAFETY_SAFE };
+      5411 +        let lctx = mk_empty_lctx();
+      5412 +        let tc = TypeChecker::new(env, lctx, safety);
+      5413 +        lean_dec(lctx);
+      5414 +        lean_dec(env); // TypeChecker::new inc'd env; drop the consumed caller ref.
+      5415 +        AddInductiveFn {
+      5416 +            tc,
+      5417 +            lparams,
+      5418 +            nparams,
+      5419 +            is_unsafe,
+      5420 +            ind_types,
+      5421 +            ind_names,
+      5422 +            nindices: Vec::new(),
+      5423 +            result_level: ptr::null_mut(),
+      5424 +            levels: ptr::null_mut(),
+      5425 +            is_not_zero: false,
+      5426 +            params: Vec::new(),
+      5427 +            param_types: Vec::new(),
+      5428 +            ind_cnsts: Vec::new(),
+      5429 +            elim_level: ptr::null_mut(),
+      5430 +            k_target: false,
+      5431 +            nnested,
+      5432 +            rec_infos: Vec::new(),
+      5433 +        }
+      5434 +    }
+      5435 +
+      5436 +    #[inline]
+      5437 +    unsafe fn env(&self) -> *mut LeanObject {
+      5438 +        self.tc.env()
+      5439 +    }
+      5440 +
+      5441 +    /// `m_lctx.mk_local_decl(m_ngen, name, consume_type_annotations(ty), bi)`. BORROWS name + ty.
+      5442 +    unsafe fn mk_local_decl(
+      5443 +        &mut self,
+      5444 +        name_obj: *mut LeanObject,
+      5445 +        ty: *mut LeanObject,
+      5446 +        bi: u8,
+      5447 +    ) -> *mut LeanObject {
+      5448 +        lean_inc(ty);
+      5449 +        let ty2 = lean_expr_consume_type_annotations(ty); // owned, stripped
+      5450 +        let fvar = self.tc.lctx_mk_local_decl(name_obj, ty2, bi); // borrows name + ty2
+      5451 +        lean_dec(ty2);
+      5452 +        fvar
+      5453 +    }
+      5454 +
+      5455 +    /// `mk_local_decl` for the binder at the head of Pi `t`. BORROWS `t`.
+      5456 +    unsafe fn mk_local_decl_for(&mut self, t: *mut LeanObject) -> *mut LeanObject {
+      5457 +        let name = lean_expr_get_binding_name(t);
+      5458 +        let domain = lean_expr_get_binding_domain(t);
+      5459 +        let bi = lean_expr_get_binding_info(t);
+      5460 +        self.mk_local_decl(name, domain, bi)
+      5461 +    }
+      5462 +
+      5463 +    /// `instantiate(binding_body(t), v)`. BORROWS `t` and `v`; returns owned.
+      5464 +    #[inline]
+      5465 +    unsafe fn inst_body(&self, t: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
+      5466 +        let body = lean_expr_get_binding_body(t);
+      5467 +        lean_expr_instantiate1(body, v)
+      5468 +    }
+      5469 +
+      5470 +    /// `check_inductive_types` (inductive.cpp): every datatype's type is well-typed with no
+      5471 +    /// mvars/fvars, all share the same parameters and result universe; initializes `levels`,
+      5472 +    /// `result_level`, `nindices`, `ind_cnsts`, `params`.
+      5473 +    unsafe fn check_inductive_types(&mut self) -> Result<(), KernelError> {
+      5474 +        self.levels = lparams_to_levels(self.lparams);
+      5475 +        let mut first = true;
+      5476 +        let ind_types = self.ind_types.clone();
+      5477 +        for &ind_type in &ind_types {
+      5478 +            let name = lean_ctor_get(ind_type, 0);
+      5479 +            let ty0 = lean_ctor_get(ind_type, 1);
+      5480 +            check_name_dup(self.env(), name)?;
+      5481 +            let rn = mk_rec_name(name);
+      5482 +            let rn_dup = check_name_dup(self.env(), rn);
+      5483 +            lean_dec(rn);
+      5484 +            rn_dup?;
+      5485 +            check_no_metavar_no_fvar(self.env(), name, ty0)?;
+      5486 +            let sort = self.tc.check(ty0, self.lparams)?;
+      5487 +            lean_dec(sort);
+      5488 +            self.nindices.push(0);
+      5489 +            let mut i: usize = 0;
+      5490 +            let mut ty = self.tc.whnf(ty0)?;
+      5491 +            while lean_expr_is_pi(ty) {
+      5492 +                if i < self.nparams {
+      5493 +                    if first {
+      5494 +                        let param = self.mk_local_decl_for(ty);
+      5495 +                        let dom = lean_expr_get_binding_domain(ty);
+      5496 +                        lean_inc(dom);
+      5497 +                        let dom2 = lean_expr_consume_type_annotations(dom);
+      5498 +                        self.params.push(param);
+      5499 +                        self.param_types.push(dom2);
+      5500 +                        let nty = self.inst_body(ty, param);
+      5501 +                        lean_dec(ty);
+      5502 +                        ty = nty;
+      5503 +                    } else {
+      5504 +                        let dom = lean_expr_get_binding_domain(ty);
+      5505 +                        let pt = self.param_types[i];
+      5506 +                        if !self.tc.is_def_eq(dom, pt)? {
+      5507 +                            return Err(kernel_exc(
+      5508 +                                "parameters of all inductive datatypes must match",
+      5509 +                            ));
+      5510 +                        }
+      5511 +                        let nty = self.inst_body(ty, self.params[i]);
+      5512 +                        lean_dec(ty);
+      5513 +                        ty = nty;
+      5514 +                    }
+      5515 +                    i += 1;
+      5516 +                } else {
+      5517 +                    let local = self.mk_local_decl_for(ty);
+      5518 +                    let nty = self.inst_body(ty, local);
+      5519 +                    lean_dec(local);
+      5520 +                    lean_dec(ty);
+      5521 +                    ty = nty;
+      5522 +                    *self.nindices.last_mut().unwrap() += 1;
+      5523 +                }
+      5524 +                let w = self.tc.whnf(ty)?;
+      5525 +                lean_dec(ty);
+      5526 +                ty = w;
+      5527 +            }
+      5528 +            if i != self.nparams {
+      5529 +                return Err(kernel_exc(
+      5530 +                    "number of parameters mismatch in inductive datatype declaration",
+      5531 +                ));
+      5532 +            }
+      5533 +            let s = self.tc.ensure_sort(ty)?; // consumes ty
+      5534 +            let lvl = lean_expr_get_sort_level(s);
+      5535 +            if first {
+      5536 +                lean_inc(lvl);
+      5537 +                self.result_level = lvl;
+      5538 +                self.is_not_zero = is_not_zero_level(self.result_level);
+      5539 +            } else if !is_equivalent_level(lvl, self.result_level)? {
+      5540 +                lean_dec(s);
+      5541 +                return Err(kernel_exc("mutually inductive types must live in the same universe"));
+      5542 +            }
+      5543 +            lean_dec(s);
+      5544 +            let levels_vec = list_to_vec(self.levels);
+      5545 +            let cnst = const_borrowed(name, &levels_vec);
+      5546 +            self.ind_cnsts.push(cnst);
+      5547 +            first = false;
+      5548 +        }
+      5549 +        Ok(())
+      5550 +    }
+      5551 +}
+      5552 +
+      5553  /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
+      5554  /// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`, kind 5 (mutual)
+      5555  /// uses `add_mutual_impl`; quot/inductive still delegate to the C++ bridges.
+
+● Let me compile-check the struct + first method.
+
+● 0 errors — the checking-half foundation compiles cleanly. Let me check the name→string helper (for faithful error messages) and confirm lean_expr_eqv is callable, then write the rest of the checking + declare methods.
+
+● All helpers confirmed (lean_name_to_string, lean_expr_eqv, check_name_dup). Let me write the rest of the checking + declaration methods as a second impl block.
+
+● Update(kernel_type_checker.rs)
+  ⎿  Added 297 lines
+      5550      }
+      5551  }
+      5552
+      5553 +#[inline]
+      5554 +unsafe fn level_is_zero(l: *mut LeanObject) -> bool {
+      5555 +    level_kind(l) == LEVEL_ZERO
+      5556 +}
+      5557 +
+      5558 +unsafe fn kernel_exc_string(s: String) -> KernelError {
+      5559 +    KernelError::Other { msg: lean_mk_string(s.as_ptr(), s.len()) }
+      5560 +}
+      5561 +
+      5562 +impl AddInductiveFn {
+      5563 +    /// True iff the declaration is recursive (a constructor argument mentions a datatype being
+      5564 +    /// declared). Structural walk over the constructor types (no fvars introduced).
+      5565 +    unsafe fn is_rec(&self) -> bool {
+      5566 +        for &ind_type in &self.ind_types {
+      5567 +            for &cnstr in &list_to_vec(lean_ctor_get(ind_type, 2)) {
+      5568 +                let mut t = lean_ctor_get(cnstr, 1);
+      5569 +                while lean_expr_is_pi(t) {
+      5570 +                    if expr_contains_const(lean_expr_get_binding_domain(t), &self.ind_names) {
+      5571 +                        return true;
+      5572 +                    }
+      5573 +                    t = lean_expr_get_binding_body(t);
+      5574 +                }
+      5575 +            }
+      5576 +        }
+      5577 +        false
+      5578 +    }
+      5579 +
+      5580 +    /// True iff reflexive (a constructor takes a function argument returning a datatype being
+      5581 +    /// declared). Introduces fvars via `mk_local_decl_for` like C++.
+      5582 +    unsafe fn is_reflexive(&mut self) -> bool {
+      5583 +        let ind_types = self.ind_types.clone();
+      5584 +        for &ind_type in &ind_types {
+      5585 +            for &cnstr in &list_to_vec(lean_ctor_get(ind_type, 2)) {
+      5586 +                let mut t = lean_ctor_get(cnstr, 1);
+      5587 +                lean_inc(t);
+      5588 +                while lean_expr_is_pi(t) {
+      5589 +                    let arg_type = lean_expr_get_binding_domain(t);
+      5590 +                    if lean_expr_is_pi(arg_type)
+      5591 +                        && expr_contains_const(arg_type, &self.ind_names)
+      5592 +                    {
+      5593 +                        lean_dec(t);
+      5594 +                        return true;
+      5595 +                    }
+      5596 +                    let local = self.mk_local_decl_for(t);
+      5597 +                    let nt = self.inst_body(t, local);
+      5598 +                    lean_dec(local);
+      5599 +                    lean_dec(t);
+      5600 +                    t = nt;
+      5601 +                }
+      5602 +                lean_dec(t);
+      5603 +            }
+      5604 +        }
+      5605 +        false
+      5606 +    }
+      5607 +
+      5608 +    /// Add all inductive type declarations to the environment.
+      5609 +    unsafe fn declare_inductive_types(&mut self) -> Result<(), KernelError> {
+      5610 +        let rec = self.is_rec();
+      5611 +        let reflexive = self.is_reflexive();
+      5612 +        let all = lean_list_from_borrowed(&self.ind_names);
+      5613 +        for idx in 0..self.ind_types.len() {
+      5614 +            let ind_type = self.ind_types[idx];
+      5615 +            let n = lean_ctor_get(ind_type, 0);
+      5616 +            let ty = lean_ctor_get(ind_type, 1);
+      5617 +            let cnstr_names: Vec<*mut LeanObject> = list_to_vec(lean_ctor_get(ind_type, 2))
+      5618 +                .iter()
+      5619 +                .map(|&c| lean_ctor_get(c, 0))
+      5620 +                .collect();
+      5621 +            check_name_dup(self.env(), n)?;
+      5622 +            lean_inc(n);
+      5623 +            lean_inc(self.lparams);
+      5624 +            lean_inc(ty);
+      5625 +            lean_inc(all);
+      5626 +            let cnstr_list = lean_list_from_borrowed(&cnstr_names);
+      5627 +            let v = lean_mk_inductive_val(
+      5628 +                n,
+      5629 +                self.lparams,
+      5630 +                ty,
+      5631 +                nat_box(self.nparams),
+      5632 +                nat_box(self.nindices[idx]),
+      5633 +                all,
+      5634 +                cnstr_list,
+      5635 +                nat_box(self.nnested),
+      5636 +                rec as u8,
+      5637 +                self.is_unsafe as u8,
+      5638 +                reflexive as u8,
+      5639 +            );
+      5640 +            let info = wrap_ci(CI_INDUCTIVE, v);
+      5641 +            self.tc.add_core(info);
+      5642 +        }
+      5643 +        lean_dec(all);
+      5644 +        Ok(())
+      5645 +    }
+      5646 +
+      5647 +    /// `is_valid_ind_app(t, i)` — `t` is `I_i params indices` with no occurrence of a datatype
+      5648 +    /// being declared in the indices.
+      5649 +    unsafe fn is_valid_ind_app_i(&self, t: *mut LeanObject, i: usize) -> bool {
+      5650 +        let (head, args) = ind_get_app_args(t);
+      5651 +        if !lean_expr_eqv(head, self.ind_cnsts[i])
+      5652 +            || args.len() != self.nparams + self.nindices[i]
+      5653 +        {
+      5654 +            return false;
+      5655 +        }
+      5656 +        for k in 0..self.nparams {
+      5657 +            if !lean_expr_eqv(self.params[k], args[k]) {
+      5658 +                return false;
+      5659 +            }
+      5660 +        }
+      5661 +        for k in self.nparams..args.len() {
+      5662 +            if expr_contains_const(args[k], &self.ind_names) {
+      5663 +                return false;
+      5664 +            }
+      5665 +        }
+      5666 +        true
+      5667 +    }
+      5668 +
+      5669 +    unsafe fn is_valid_ind_app(&self, t: *mut LeanObject) -> Option<usize> {
+      5670 +        (0..self.ind_types.len()).find(|&i| self.is_valid_ind_app_i(t, i))
+      5671 +    }
+      5672 +
+      5673 +    /// `is_rec_argument(t)` — `Some(d_idx)` iff `t` is a recursive argument.
+      5674 +    unsafe fn is_rec_argument(&mut self, t: *mut LeanObject) -> Result<Option<usize>, KernelError> {
+      5675 +        let mut t = self.tc.whnf(t)?;
+      5676 +        while lean_expr_is_pi(t) {
+      5677 +            let local = self.mk_local_decl_for(t);
+      5678 +            let inst = self.inst_body(t, local);
+      5679 +            lean_dec(local);
+      5680 +            let w = self.tc.whnf(inst)?;
+      5681 +            lean_dec(inst);
+      5682 +            lean_dec(t);
+      5683 +            t = w;
+      5684 +        }
+      5685 +        let r = self.is_valid_ind_app(t);
+      5686 +        lean_dec(t);
+      5687 +        Ok(r)
+      5688 +    }
+      5689 +
+      5690 +    /// Check that `t` contains only positive occurrences of the datatypes being declared.
+      5691 +    unsafe fn check_positivity(
+      5692 +        &mut self,
+      5693 +        t: *mut LeanObject,
+      5694 +        cnstr_name: *mut LeanObject,
+      5695 +        arg_idx: usize,
+      5696 +    ) -> Result<(), KernelError> {
+      5697 +        let t = self.tc.whnf(t)?;
+      5698 +        if !expr_contains_const(t, &self.ind_names) {
+      5699 +            // nonrecursive argument
+      5700 +        } else if lean_expr_is_pi(t) {
+      5701 +            if expr_contains_const(lean_expr_get_binding_domain(t), &self.ind_names) {
+      5702 +                lean_dec(t);
+      5703 +                return Err(kernel_exc_string(format!(
+      5704 +                    "arg #{} of '{}' has a non positive occurrence of the datatypes being declared",
+      5705 +                    arg_idx + 1,
+      5706 +                    lean_name_to_string(cnstr_name)
+      5707 +                )));
+      5708 +            }
+      5709 +            let local = self.mk_local_decl_for(t);
+      5710 +            let body = self.inst_body(t, local);
+      5711 +            lean_dec(local);
+      5712 +            let r = self.check_positivity(body, cnstr_name, arg_idx);
+      5713 +            lean_dec(body);
+      5714 +            lean_dec(t);
+      5715 +            return r;
+      5716 +        } else if self.is_valid_ind_app(t).is_some() {
+      5717 +            // recursive argument
+      5718 +        } else {
+      5719 +            lean_dec(t);
+      5720 +            return Err(kernel_exc_string(format!(
+      5721 +                "arg #{} of '{}' contains a non valid occurrence of the datatypes being declared",
+      5722 +                arg_idx + 1,
+      5723 +                lean_name_to_string(cnstr_name)
+      5724 +            )));
+      5725 +        }
+      5726 +        lean_dec(t);
+      5727 +        Ok(())
+      5728 +    }
+      5729 +
+      5730 +    /// Check that every constructor is type-correct: parameters match, fields live in acceptable
+      5731 +    /// universes, positivity holds, and the return type is the right datatype application.
+      5732 +    unsafe fn check_constructors(&mut self) -> Result<(), KernelError> {
+      5733 +        let ind_types = self.ind_types.clone();
+      5734 +        for idx in 0..ind_types.len() {
+      5735 +            let mut seen: Vec<*mut LeanObject> = Vec::new();
+      5736 +            for &cnstr in &list_to_vec(lean_ctor_get(ind_types[idx], 2)) {
+      5737 +                let n = lean_ctor_get(cnstr, 0);
+      5738 +                if seen.iter().any(|&s| lean_name_eq(s, n)) {
+      5739 +                    return Err(kernel_exc_string(format!(
+      5740 +                        "duplicate constructor name '{}'",
+      5741 +                        lean_name_to_string(n)
+      5742 +                    )));
+      5743 +                }
+      5744 +                seen.push(n);
+      5745 +                let t0 = lean_ctor_get(cnstr, 1);
+      5746 +                check_name_dup(self.env(), n)?;
+      5747 +                check_no_metavar_no_fvar(self.env(), n, t0)?;
+      5748 +                let sort = self.tc.check(t0, self.lparams)?;
+      5749 +                lean_dec(sort);
+      5750 +                let mut i: usize = 0;
+      5751 +                let mut t = t0;
+      5752 +                lean_inc(t);
+      5753 +                while lean_expr_is_pi(t) {
+      5754 +                    if i < self.nparams {
+      5755 +                        let dom = lean_expr_get_binding_domain(t);
+      5756 +                        if !self.tc.is_def_eq(dom, self.param_types[i])? {
+      5757 +                            lean_dec(t);
+      5758 +                            return Err(kernel_exc_string(format!(
+      5759 +                                "arg #{} of '{}' does not match inductive datatypes parameters'",
+      5760 +                                i + 1,
+      5761 +                                lean_name_to_string(n)
+      5762 +                            )));
+      5763 +                        }
+      5764 +                        let nt = self.inst_body(t, self.params[i]);
+      5765 +                        lean_dec(t);
+      5766 +                        t = nt;
+      5767 +                    } else {
+      5768 +                        let dom = lean_expr_get_binding_domain(t);
+      5769 +                        let s = self.tc.ensure_type(dom)?;
+      5770 +                        let s_lvl = lean_expr_get_sort_level(s);
+      5771 +                        let geq = is_geq_level(self.result_level, s_lvl)?;
+      5772 +                        lean_dec(s);
+      5773 +                        if !(geq || level_is_zero(self.result_level)) {
+      5774 +                            lean_dec(t);
+      5775 +                            return Err(kernel_exc_string(format!(
+      5776 +                                "universe level of type_of(arg #{}) of '{}' is too big for the corresponding inductive datatype",
+      5777 +                                i + 1,
+      5778 +                                lean_name_to_string(n)
+      5779 +                            )));
+      5780 +                        }
+      5781 +                        if !self.is_unsafe {
+      5782 +                            let dom2 = lean_expr_get_binding_domain(t);
+      5783 +                            lean_inc(dom2);
+      5784 +                            let r = self.check_positivity(dom2, n, i);
+      5785 +                            lean_dec(dom2);
+      5786 +                            r?;
+      5787 +                        }
+      5788 +                        let local = self.mk_local_decl_for(t);
+      5789 +                        let nt = self.inst_body(t, local);
+      5790 +                        lean_dec(local);
+      5791 +                        lean_dec(t);
+      5792 +                        t = nt;
+      5793 +                    }
+      5794 +                    i += 1;
+      5795 +                }
+      5796 +                let valid = self.is_valid_ind_app_i(t, idx);
+      5797 +                lean_dec(t);
+      5798 +                if !valid {
+      5799 +                    return Err(kernel_exc_string(format!(
+      5800 +                        "invalid return type for '{}'",
+      5801 +                        lean_name_to_string(n)
+      5802 +                    )));
+      5803 +                }
+      5804 +            }
+      5805 +        }
+      5806 +        Ok(())
+      5807 +    }
+      5808 +
+      5809 +    /// Add all constructor declarations to the environment.
+      5810 +    unsafe fn declare_constructors(&mut self) -> Result<(), KernelError> {
+      5811 +        for idx in 0..self.ind_types.len() {
+      5812 +            let ind_type = self.ind_types[idx];
+      5813 +            let ind_name = lean_ctor_get(ind_type, 0);
+      5814 +            let mut cidx: usize = 0;
+      5815 +            for &cnstr in &list_to_vec(lean_ctor_get(ind_type, 2)) {
+      5816 +                let n = lean_ctor_get(cnstr, 0);
+      5817 +                let t = lean_ctor_get(cnstr, 1);
+      5818 +                // arity = number of leading Pis; nfields = arity - nparams.
+      5819 +                let mut arity: usize = 0;
+      5820 +                let mut it = t;
+      5821 +                while lean_expr_is_pi(it) {
+      5822 +                    it = lean_expr_get_binding_body(it);
+      5823 +                    arity += 1;
+      5824 +                }
+      5825 +                let nfields = arity - self.nparams;
+      5826 +                check_name_dup(self.env(), n)?;
+      5827 +                lean_inc(n);
+      5828 +                lean_inc(self.lparams);
+      5829 +                lean_inc(t);
+      5830 +                lean_inc(ind_name);
+      5831 +                let v = lean_mk_constructor_val(
+      5832 +                    n,
+      5833 +                    self.lparams,
+      5834 +                    t,
+      5835 +                    ind_name,
+      5836 +                    nat_box(cidx),
+      5837 +                    nat_box(self.nparams),
+      5838 +                    nat_box(nfields),
+      5839 +                    self.is_unsafe as u8,
+      5831 +                let v = lean_mk_constructor_val(
+      5832 +                    n,
+      5833 +                    self.lparams,
+      5834 +                    t,
+      5835 +                    ind_name,
+      5836 +                    nat_box(cidx),
+      5837 +                    nat_box(self.nparams),
+      5838 +                    nat_box(nfields),
+      5839 +                    self.is_unsafe as u8,
+      5840 +                );
+      5841 +                let info = wrap_ci(CI_CONSTRUCTOR, v);
+      5842 +                self.tc.add_core(info);
+      5843 +                cidx += 1;
+      5844 +            }
+      5845 +        }
+      5846 +        Ok(())
+      5847 +    }
+      5848 +}
+      5849 +
+      5850  /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
+      5851  /// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`, kind 5 (mutual)
+      5852  /// uses `add_mutual_impl`; quot/inductive still delegate to the C++ bridges.
+
+● 0 errors — the entire checking + declaration half compiles (tasks 2 & 3 done). Let me update task status and rebuild leanshared so the built library matches the source.
+
+● Built cleanly. Let me do a quick sanity check that the rebuilt library is healthy (the gated code shouldn't affect anything; C++ inductive path is still live).
+
+● The rebuilt library is healthy. Let me record the porting progress in the audit so the continuation is clear, then summarize.
+
+● API Error: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+
+❯ continue
+
+● Continuing with the recursor construction half (task 4). Let me set it in progress and confirm the public infer method name + re-read the exact C++ for mk_rec_infos/mk_rec_rules/declare_recursors.
+
+● infer_type, infer, level helpers all available. Now I'll write the recursor-construction half + operator() + a temporary non-nested entry (so I can validate non-nested inductives after this; nested elimination is task 5). This is
+  the most intricate part. Let me write it as a third impl block.
+
+● Update(kernel_type_checker.rs)
+  ⎿  Added 450 lines
+      5847      }
+      5848  }
+      5849
+      5850 +impl AddInductiveFn {
+      5851 +    /// Build a local decl with a string user-name. BORROWS `ty`.
+      5852 +    unsafe fn mk_local_decl_str(&mut self, s: &str, ty: *mut LeanObject, bi: u8) -> *mut LeanObject {
+      5853 +        let n = lean_string_name(s);
+      5854 +        let fvar = self.mk_local_decl(n, ty, bi);
+      5855 +        lean_dec(n);
+      5856 +        fvar
+      5857 +    }
+      5858 +
+      5859 +    /// `mk_constant(name, m_levels)`. BORROWS `name`; returns owned.
+      5860 +    unsafe fn mk_const_levels(&self, name: *mut LeanObject) -> *mut LeanObject {
+      5861 +        let lv = list_to_vec(self.levels);
+      5862 +        const_borrowed(name, &lv)
+      5863 +    }
+      5864 +
+      5865 +    /// `mk_app(mk_app(base, xs), ys)` where `base` is OWNED (consumed); `xs`/`ys` BORROWED.
+      5866 +    unsafe fn app2(
+      5867 +        &self,
+      5868 +        base: *mut LeanObject,
+      5869 +        xs: &[*mut LeanObject],
+      5870 +        ys: &[*mut LeanObject],
+      5871 +    ) -> *mut LeanObject {
+      5872 +        app_borrowed(app_borrowed(base, xs), ys)
+      5873 +    }
+      5874 +
+      5875 +    #[inline]
+      5876 +    unsafe fn mk_pi(&self, fvars: &[*mut LeanObject], body: *mut LeanObject) -> *mut LeanObject {
+      5877 +        self.tc.lctx_mk_pi(fvars, body, false)
+      5878 +    }
+      5879 +    #[inline]
+      5880 +    unsafe fn mk_lambda(&self, fvars: &[*mut LeanObject], body: *mut LeanObject) -> *mut LeanObject {
+      5881 +        self.tc.lctx_mk_lambda(fvars, body)
+      5882 +    }
+      5883 +
+      5884 +    /// `get_I_indices(t, indices)` — push the index args of `I params indices` into `indices`,
+      5885 +    /// return the inductive index. BORROWS `t`.
+      5886 +    unsafe fn get_i_indices(&self, t: *mut LeanObject, indices: &mut Vec<*mut LeanObject>) -> usize {
+      5887 +        let r = self.is_valid_ind_app(t).expect("get_i_indices: not a valid ind app");
+      5888 +        let (_, all_args) = ind_get_app_args(t);
+      5889 +        for k in self.nparams..all_args.len() {
+      5890 +            indices.push(all_args[k]);
+      5891 +        }
+      5892 +        r
+      5893 +    }
+      5894 +
+      5895 +    /// `elim_only_at_universe_zero` — true iff the recursor can only eliminate into `Prop`.
+      5896 +    unsafe fn elim_only_at_universe_zero(&mut self) -> Result<bool, KernelError> {
+      5897 +        if self.is_not_zero {
+      5898 +            return Ok(false);
+      5899 +        }
+      5900 +        if self.ind_types.len() > 1 {
+      5901 +            return Ok(true);
+      5902 +        }
+      5903 +        let cnstrs = list_to_vec(lean_ctor_get(self.ind_types[0], 2));
+      5904 +        let num_intros = cnstrs.len();
+      5905 +        if num_intros > 1 {
+      5906 +            return Ok(true);
+      5907 +        }
+      5908 +        if num_intros == 0 {
+      5909 +            return Ok(false);
+      5910 +        }
+      5911 +        let mut t = lean_ctor_get(cnstrs[0], 1);
+      5912 +        lean_inc(t);
+      5913 +        let mut i: usize = 0;
+      5914 +        let mut to_check: Vec<*mut LeanObject> = Vec::new();
+      5915 +        while lean_expr_is_pi(t) {
+      5916 +            let fvar = self.mk_local_decl_for(t);
+      5917 +            if i >= self.nparams {
+      5918 +                let s = self.tc.ensure_type(lean_expr_get_binding_domain(t))?;
+      5919 +                let is_zero = level_is_zero(lean_expr_get_sort_level(s));
+      5920 +                lean_dec(s);
+      5921 +                if !is_zero {
+      5922 +                    to_check.push(fvar);
+      5923 +                }
+      5924 +            }
+      5925 +            let nt = self.inst_body(t, fvar);
+      5926 +            lean_dec(t);
+      5927 +            t = nt;
+      5928 +            i += 1;
+      5929 +        }
+      5930 +        let (_, result_args) = ind_get_app_args(t);
+      5931 +        lean_dec(t);
+      5932 +        for arg in to_check {
+      5933 +            if !result_args.iter().any(|&ra| lean_expr_eqv(arg, ra)) {
+      5934 +                return Ok(true);
+      5935 +            }
+      5936 +        }
+      5937 +        Ok(false)
+      5938 +    }
+      5939 +
+      5940 +    /// Initialize `elim_level`.
+      5941 +    unsafe fn init_elim_level(&mut self) -> Result<(), KernelError> {
+      5942 +        if self.elim_only_at_universe_zero()? {
+      5943 +            self.elim_level = lean_level_mk_zero();
+      5944 +        } else {
+      5945 +            let lparam_names = list_to_vec(self.lparams);
+      5946 +            let mut u = lean_string_name("u");
+      5947 +            let mut idx = 1usize;
+      5948 +            while lparam_names.iter().any(|&p| lean_name_eq(p, u)) {
+      5949 +                let base = lean_string_name("u");
+      5950 +                u = name_append_index(base, idx);
+      5951 +                lean_dec(base);
+      5952 +                idx += 1;
+      5953 +            }
+      5954 +            self.elim_level = level_param_borrowed(u);
+      5955 +            lean_dec(u);
+      5956 +        }
+      5957 +        Ok(())
+      5958 +    }
+      5959 +
+      5960 +    /// Initialize `k_target` (K-like reduction is available).
+      5961 +    unsafe fn init_k_target(&mut self) {
+      5962 +        let cnstrs = list_to_vec(lean_ctor_get(self.ind_types[0], 2));
+      5963 +        self.k_target = self.ind_types.len() == 1
+      5964 +            && level_is_zero(self.result_level)
+      5965 +            && cnstrs.len() == 1;
+      5966 +        if !self.k_target {
+      5967 +            return;
+      5968 +        }
+      5969 +        let mut it = lean_ctor_get(cnstrs[0], 1);
+      5970 +        let mut i: usize = 0;
+      5971 +        while lean_expr_is_pi(it) {
+      5972 +            if i < self.nparams {
+      5973 +                it = lean_expr_get_binding_body(it);
+      5974 +            } else {
+      5975 +                self.k_target = false;
+      5976 +                break;
+      5977 +            }
+      5978 +            i += 1;
+      5979 +        }
+      5980 +    }
+      5981 +
+      5982 +    /// Populate `rec_infos` (motives, indices, major premises, minor premises).
+      5983 +    unsafe fn mk_rec_infos(&mut self) -> Result<(), KernelError> {
+      5984 +        // Pass 1: motives, indices, major premise.
+      5985 +        for d_idx in 0..self.ind_types.len() {
+      5986 +            let mut indices: Vec<*mut LeanObject> = Vec::new();
+      5987 +            let mut t = self.tc.whnf(lean_ctor_get(self.ind_types[d_idx], 1))?;
+      5988 +            let mut i: usize = 0;
+      5989 +            while lean_expr_is_pi(t) {
+      5990 +                let nt = if i < self.nparams {
+      5991 +                    self.inst_body(t, self.params[i])
+      5992 +                } else {
+      5993 +                    let idx = self.mk_local_decl_for(t);
+      5994 +                    indices.push(idx);
+      5995 +                    self.inst_body(t, idx)
+      5996 +                };
+      5997 +                lean_dec(t);
+      5998 +                let w = self.tc.whnf(nt)?;
+      5999 +                lean_dec(nt);
+      6000 +                t = w;
+      6001 +                i += 1;
+      6002 +            }
+      6003 +            lean_dec(t);
+      6004 +            let base = self.ind_cnsts[d_idx];
+      6005 +            lean_inc(base);
+      6006 +            let major_ty = self.app2(base, &self.params.clone(), &indices);
+      6007 +            let major = self.mk_local_decl_str("t", major_ty, BI_DEFAULT);
+      6008 +            let mut c_ty = sort_borrowed(self.elim_level);
+      6009 +            c_ty = self.mk_pi(&[major], c_ty);
+      6010 +            c_ty = self.mk_pi(&indices, c_ty);
+      6011 +            let c_name = if self.ind_types.len() > 1 {
+      6012 +                let m = lean_string_name("motive");
+      6013 +                let r = name_append_index(m, d_idx + 1);
+      6014 +                lean_dec(m);
+      6015 +                r
+      6016 +            } else {
+      6017 +                lean_string_name("motive")
+      6018 +            };
+      6019 +            let c = self.mk_local_decl(c_name, c_ty, BI_DEFAULT);
+      6020 +            lean_dec(c_name);
+      6021 +            self.rec_infos.push(RecInfo { c, minors: Vec::new(), indices, major });
+      6022 +        }
+      6023 +        // Pass 2: minor premises.
+      6024 +        for d_idx in 0..self.ind_types.len() {
+      6025 +            let ind_type_name = self.ind_names[d_idx];
+      6026 +            let cnstrs = list_to_vec(lean_ctor_get(self.ind_types[d_idx], 2));
+      6027 +            for &cnstr in &cnstrs {
+      6028 +                let mut b_u: Vec<*mut LeanObject> = Vec::new();
+      6029 +                let mut u: Vec<*mut LeanObject> = Vec::new();
+      6030 +                let cnstr_name = lean_ctor_get(cnstr, 0);
+      6031 +                let mut t = lean_ctor_get(cnstr, 1);
+      6032 +                lean_inc(t);
+      6033 +                let mut i: usize = 0;
+      6034 +                while lean_expr_is_pi(t) {
+      6035 +                    let nt = if i < self.nparams {
+      6036 +                        self.inst_body(t, self.params[i])
+      6037 +                    } else {
+      6038 +                        let l = self.mk_local_decl_for(t);
+      6039 +                        b_u.push(l);
+      6040 +                        if self.is_rec_argument(lean_expr_get_binding_domain(t))?.is_some() {
+      6041 +                            u.push(l);
+      6042 +                        }
+      6043 +                        self.inst_body(t, l)
+      6044 +                    };
+      6045 +                    lean_dec(t);
+      6046 +                    t = nt;
+      6047 +                    i += 1;
+      6048 +                }
+      6049 +                let mut it_indices: Vec<*mut LeanObject> = Vec::new();
+      6050 +                let it_idx = self.get_i_indices(t, &mut it_indices);
+      6051 +                let mut c_app = app_borrowed({ let c = self.rec_infos[it_idx].c; lean_inc(c); c }, &it_indices);
+      6052 +                let intro_base = self.mk_const_levels(cnstr_name);
+      6053 +                let intro_app = self.app2(intro_base, &self.params.clone(), &b_u);
+      6054 +                c_app = app_borrowed(c_app, &[intro_app]);
+      6055 +                lean_dec(t);
+      6056 +                // populate v using u
+      6057 +                let mut v: Vec<*mut LeanObject> = Vec::new();
+      6058 +                for &u_i in &u {
+      6059 +                    let inferred = self.tc.infer_type(u_i)?;
+      6060 +                    let mut u_i_ty = self.tc.whnf(inferred)?;
+      6061 +                    lean_dec(inferred);
+      6062 +                    let mut xs: Vec<*mut LeanObject> = Vec::new();
+      6063 +                    while lean_expr_is_pi(u_i_ty) {
+      6064 +                        let x = self.mk_local_decl_for(u_i_ty);
+      6065 +                        xs.push(x);
+      6066 +                        let inst = self.inst_body(u_i_ty, x);
+      6067 +                        let w = self.tc.whnf(inst)?;
+      6068 +                        lean_dec(inst);
+      6069 +                        lean_dec(u_i_ty);
+      6070 +                        u_i_ty = w;
+      6071 +                    }
+      6072 +                    let mut it_indices2: Vec<*mut LeanObject> = Vec::new();
+      6073 +                    let it_idx2 = self.get_i_indices(u_i_ty, &mut it_indices2);
+      6074 +                    lean_dec(u_i_ty);
+      6075 +                    let mut c_app2 = app_borrowed({ let c = self.rec_infos[it_idx2].c; lean_inc(c); c }, &it_indices2);
+      6076 +                    let u_app = app_borrowed({ lean_inc(u_i); u_i }, &xs);
+      6077 +                    c_app2 = app_borrowed(c_app2, &[u_app]);
+      6078 +                    let v_i_ty = self.mk_pi(&xs, c_app2);
+      6079 +                    let u_decl = lean_local_ctx_find_local_decl(self.tc.lctx, u_i);
+      6080 +                    let user_name = lean_local_decl_get_user_name(u_decl);
+      6081 +                    let ih_name = name_append_str(user_name, "_ih");
+      6082 +                    lean_dec(u_decl);
+      6083 +                    let v_i = self.mk_local_decl(ih_name, v_i_ty, BI_DEFAULT);
+      6084 +                    lean_dec(ih_name);
+      6085 +                    v.push(v_i);
+      6086 +                }
+      6087 +                let inner = self.mk_pi(&v, c_app);
+      6088 +                let minor_ty = self.mk_pi(&b_u, inner);
+      6089 +                let anon = lean_name_anonymous();
+      6090 +                let minor_name = name_replace_prefix(cnstr_name, ind_type_name, anon);
+      6091 +                let minor = self.mk_local_decl(minor_name, minor_ty, BI_DEFAULT);
+      6092 +                lean_dec(minor_name);
+      6093 +                self.rec_infos[d_idx].minors.push(minor);
+      6094 +            }
+      6095 +        }
+      6096 +        Ok(())
+      6097 +    }
+      6098 +
+      6099 +    /// Recursor universe levels (prepend the elim level param if it is a parameter).
+      6100 +    unsafe fn get_rec_levels(&self) -> *mut LeanObject {
+      6101 +        if level_kind(self.elim_level) == LEVEL_PARAM {
+      6102 +            lean_inc(self.elim_level);
+      6103 +            lean_inc(self.levels);
+      6104 +            lean_mk_list_cons(ptr::null_mut(), self.elim_level, self.levels)
+      6105 +        } else {
+      6106 +            lean_inc(self.levels);
+      6107 +            self.levels
+      6108 +        }
+      6109 +    }
+      6110 +
+      6111 +    /// Recursor level parameter names (prepend the elim level's param name if it is a parameter).
+      6112 +    unsafe fn get_rec_lparams(&self) -> *mut LeanObject {
+      6113 +        if level_kind(self.elim_level) == LEVEL_PARAM {
+      6114 +            let pid = lean_ctor_get(self.elim_level, 0);
+      6115 +            lean_inc(pid);
+      6116 +            lean_inc(self.lparams);
+      6117 +            lean_mk_list_cons(ptr::null_mut(), pid, self.lparams)
+      6118 +        } else {
+      6119 +            lean_inc(self.lparams);
+      6120 +            self.lparams
+      6121 +        }
+      6122 +    }
+      6123 +
+      6124 +    unsafe fn collect_cs(&self) -> Vec<*mut LeanObject> {
+      6125 +        self.rec_infos.iter().map(|r| r.c).collect()
+      6126 +    }
+      6127 +    unsafe fn collect_minors(&self) -> Vec<*mut LeanObject> {
+      6128 +        let mut ms = Vec::new();
+      6129 +        for r in &self.rec_infos {
+      6130 +            ms.extend_from_slice(&r.minors);
+      6131 +        }
+      6132 +        ms
+      6133 +    }
+      6134 +
+      6135 +    /// Build the computation rules for inductive type `d_idx`.
+      6136 +    unsafe fn mk_rec_rules(
+      6137 +        &mut self,
+      6138 +        d_idx: usize,
+      6139 +        cs: &[*mut LeanObject],
+      6140 +        minors: &[*mut LeanObject],
+      6141 +        minor_idx: &mut usize,
+      6142 +    ) -> *mut LeanObject {
+      6143 +        let lvls = self.get_rec_levels();
+      6144 +        let cnstrs = list_to_vec(lean_ctor_get(self.ind_types[d_idx], 2));
+      6145 +        let mut rules: Vec<*mut LeanObject> = Vec::new();
+      6146 +        for &cnstr in &cnstrs {
+      6147 +            let mut b_u: Vec<*mut LeanObject> = Vec::new();
+      6148 +            let mut u: Vec<*mut LeanObject> = Vec::new();
+      6149 +            let mut t = lean_ctor_get(cnstr, 1);
+      6150 +            lean_inc(t);
+      6151 +            let mut i: usize = 0;
+      6152 +            while lean_expr_is_pi(t) {
+      6153 +                let nt = if i < self.nparams {
+      6154 +                    self.inst_body(t, self.params[i])
+      6155 +                } else {
+      6156 +                    let l = self.mk_local_decl_for(t);
+      6157 +                    b_u.push(l);
+      6158 +                    if self.is_rec_argument(lean_expr_get_binding_domain(t)).ok().flatten().is_some() {
+      6159 +                        u.push(l);
+      6160 +                    }
+      6161 +                    self.inst_body(t, l)
+      6162 +                };
+      6163 +                lean_dec(t);
+      6164 +                t = nt;
+      6165 +                i += 1;
+      6166 +            }
+      6167 +            lean_dec(t);
+      6168 +            let mut v: Vec<*mut LeanObject> = Vec::new();
+      6169 +            for &u_i in &u {
+      6170 +                let inferred = self.tc.infer_type(u_i).unwrap();
+      6171 +                let mut u_i_ty = self.tc.whnf(inferred).unwrap();
+      6172 +                lean_dec(inferred);
+      6173 +                let mut xs: Vec<*mut LeanObject> = Vec::new();
+      6174 +                while lean_expr_is_pi(u_i_ty) {
+      6175 +                    let x = self.mk_local_decl_for(u_i_ty);
+      6176 +                    xs.push(x);
+      6177 +                    let inst = self.inst_body(u_i_ty, x);
+      6178 +                    let w = self.tc.whnf(inst).unwrap();
+      6179 +                    lean_dec(inst);
+      6180 +                    lean_dec(u_i_ty);
+      6181 +                    u_i_ty = w;
+      6182 +                }
+      6183 +                let mut it_indices: Vec<*mut LeanObject> = Vec::new();
+      6184 +                let it_idx = self.get_i_indices(u_i_ty, &mut it_indices);
+      6185 +                lean_dec(u_i_ty);
+      6186 +                let rec_name = mk_rec_name(self.ind_names[it_idx]);
+      6187 +                lean_inc(lvls);
+      6188 +                let lv = list_to_vec(lvls);
+      6189 +                let rec_app0 = const_borrowed(rec_name, &lv);
+      6190 +                lean_dec(rec_name);
+      6191 +                // rec_app = rec params Cs minors it_indices (u_i xs)
+      6192 +                let u_app = app_borrowed({ lean_inc(u_i); u_i }, &xs);
+      6193 +                let rec_app = app_borrowed(
+      6194 +                    app_borrowed(
+      6195 +                        app_borrowed(app_borrowed(app_borrowed(rec_app0, &self.params.clone()), cs), minors),
+      6196 +                        &it_indices,
+      6197 +                    ),
+      6198 +                    &[u_app],
+      6199 +                );
+      6200 +                v.push(self.mk_lambda(&xs, rec_app));
+      6201 +            }
+      6202 +            let e_app = app_borrowed(app_borrowed({ let m = minors[*minor_idx]; lean_inc(m); m }, &b_u), &v);
+      6203 +            let comp_rhs = self.mk_lambda(
+      6204 +                &self.params.clone(),
+      6205 +                self.mk_lambda(cs, self.mk_lambda(minors, self.mk_lambda(&b_u, e_app))),
+      6206 +            );
+      6207 +            let cnstr_name = lean_ctor_get(cnstr, 0);
+      6208 +            let rule = lean_alloc_ctor(0, 3, 0);
+      6209 +            lean_inc(cnstr_name);
+      6210 +            lean_ctor_set(rule, 0, cnstr_name);
+      6211 +            lean_ctor_set(rule, 1, nat_box(b_u.len()));
+      6212 +            lean_ctor_set(rule, 2, comp_rhs);
+      6213 +            rules.push(rule);
+      6214 +            *minor_idx += 1;
+      6215 +        }
+      6216 +        lean_dec(lvls);
+      6217 +        let r = lean_list_from_borrowed(&rules);
+      6218 +        for rule in rules {
+      6219 +            lean_dec(rule);
+      6220 +        }
+      6221 +        r
+      6222 +    }
+      6223 +
+      6224 +    /// Declare the recursors.
+      6225 +    unsafe fn declare_recursors(&mut self) -> Result<(), KernelError> {
+      6226 +        let cs = self.collect_cs();
+      6227 +        let minors = self.collect_minors();
+      6228 +        let nminors = minors.len();
+      6229 +        let nmotives = cs.len();
+      6230 +        let all = lean_list_from_borrowed(&self.ind_names);
+      6231 +        let mut minor_idx: usize = 0;
+      6232 +        for d_idx in 0..self.ind_types.len() {
+      6233 +            let (c, indices, major) = {
+      6234 +                let info = &self.rec_infos[d_idx];
+      6235 +                (info.c, info.indices.clone(), info.major)
+      6236 +            };
+      6237 +            lean_inc(c);
+      6238 +            let c_app = self.app2(c, &indices, &[major]);
+      6239 +            let mut rec_ty = self.mk_pi(&[major], c_app);
+      6240 +            rec_ty = self.mk_pi(&indices, rec_ty);
+      6241 +            rec_ty = self.mk_pi(&minors, rec_ty);
+      6242 +            rec_ty = self.mk_pi(&cs, rec_ty);
+      6243 +            rec_ty = self.mk_pi(&self.params.clone(), rec_ty);
+      6244 +            rec_ty = lean_expr_infer_implicit(rec_ty, true);
+      6245 +            let rules = self.mk_rec_rules(d_idx, &cs, &minors, &mut minor_idx);
+      6246 +            let rec_name = mk_rec_name(self.ind_names[d_idx]);
+      6247 +            let rec_lparams = self.get_rec_lparams();
+      6248 +            check_name_dup(self.env(), rec_name)?;
+      6249 +            lean_inc(all);
+      6250 +            let v = lean_mk_recursor_val(
+      6251 +                rec_name,
+      6252 +                rec_lparams,
+      6253 +                rec_ty,
+      6254 +                all,
+      6255 +                nat_box(self.nparams),
+      6256 +                nat_box(self.nindices[d_idx]),
+      6257 +                nat_box(nmotives),
+      6258 +                nat_box(nminors),
+      6259 +                rules,
+      6260 +                self.k_target as u8,
+      6261 +                self.is_unsafe as u8,
+      6262 +            );
+      6263 +            let info = wrap_ci(CI_RECURSOR, v);
+      6264 +            self.tc.add_core(info);
+      6265 +        }
+      6258 +                nat_box(nminors),
+      6259 +                rules,
+      6260 +                self.k_target as u8,
+      6261 +                self.is_unsafe as u8,
+      6262 +            );
+      6263 +            let info = wrap_ci(CI_RECURSOR, v);
+      6264 +            self.tc.add_core(info);
+      6265 +        }
+      6266 +        lean_dec(all);
+      6267 +        Ok(())
+      6268 +    }
+      6269 +
+      6270 +    /// Run the full add (mirrors C++ `add_inductive_fn::operator()`). Returns the extended env
+      6271 +    /// (OWNED). On error, the caller drops `self` which decs the partially-built env.
+      6272 +    unsafe fn run(&mut self) -> Result<*mut LeanObject, KernelError> {
+      6273 +        check_duplicated_univ_params(self.env(), self.lparams)?;
+      6274 +        self.check_inductive_types()?;
+      6275 +        self.declare_inductive_types()?;
+      6276 +        self.check_constructors()?;
+      6277 +        self.declare_constructors()?;
+      6278 +        self.init_elim_level()?;
+      6279 +        self.init_k_target();
+      6280 +        self.mk_rec_infos()?;
+      6281 +        self.declare_recursors()?;
+      6282 +        let env = self.tc.env();
+      6283 +        lean_inc(env);
+      6284 +        Ok(env)
+      6285 +    }
+      6286 +}
+      6287 +
+      6288 +/// Port of `environment::add_inductive` (non-nested path only for now; nested-inductive
+      6289 +/// elimination is handled separately). CONSUMES `env`, BORROWS `decl`.
+      6290 +unsafe fn add_inductive_impl(
+      6291 +    env: *mut LeanObject,
+      6292 +    decl: *mut LeanObject,
+      6293 +) -> Result<*mut LeanObject, KernelError> {
+      6294 +    // TODO(task 5): run elim_nested_inductive_fn first and restore nested occurrences. For now we
+      6295 +    // run add_inductive_fn directly, which is correct for declarations with no nested inductives.
+      6296 +    let mut f = AddInductiveFn::new(env, decl, 0);
+      6297 +    f.run()
+      6298 +}
+      6299 +
+      6300  /// Dispatch a kernel declaration add. CONSUMES `env`, BORROWS `decl`; returns
+      6301  /// `Except KernelException Environment`. Kinds 0-3 use the Rust `add_decl_impl`, kind 5 (mutual)
+      6302  /// uses `add_mutual_impl`; quot/inductive still delegate to the C++ bridges.
+  ⎿  You've hit your weekly limit · resets Jun 30, 2am (Asia/Bangkok)
+
+  5 tasks (3 done, 1 in progress, 1 open)
+  ✔ Read full add_inductive_fn + elim_nested_inductive_fn C++
+  ✔ Scaffold add_inductive_impl behind RUST_ADD_INDUCTIVE gate
+  ✔ Port checking half: types + constructors + positivity
+  ◼ Port recursor construction half
+  ◻ Port elim_nested_inductive_fn + entry point, compile, validate, flip gate
+
+
+here is compilation errors as of now
+
+```sh
+error[E0277]: `KernelError` doesn't implement `Debug`
+    --> lean_runtime/src/kernel_type_checker.rs:6170:56
+     |
+6170 |                 let inferred = self.tc.infer_type(u_i).unwrap();
+     |                                                        ^^^^^^ the trait `Debug` is not implemented for `KernelError`
+     |
+     = note: add `#[derive(Debug)]` to `KernelError` or manually `impl Debug for KernelError`
+note: required by a bound in `Result::<T, E>::unwrap`
+    --> /rustc/59807616e1fa2540724bfbac14d7976d7e4a3860/library/core/src/result.rs:1227:4
+help: consider annotating `KernelError` with `#[derive(Debug)]`
+     |
+1552 + #[derive(Debug)]
+1553 | pub enum KernelError {
+     |
+
+error[E0277]: `KernelError` doesn't implement `Debug`
+    --> lean_runtime/src/kernel_type_checker.rs:6171:57
+     |
+6171 |                 let mut u_i_ty = self.tc.whnf(inferred).unwrap();
+     |                                                         ^^^^^^ the trait `Debug` is not implemented for `KernelError`
+     |
+     = note: add `#[derive(Debug)]` to `KernelError` or manually `impl Debug for KernelError`
+note: required by a bound in `Result::<T, E>::unwrap`
+    --> /rustc/59807616e1fa2540724bfbac14d7976d7e4a3860/library/core/src/result.rs:1227:4
+help: consider annotating `KernelError` with `#[derive(Debug)]`
+     |
+1552 + #[derive(Debug)]
+1553 | pub enum KernelError {
+     |
+
+error[E0277]: `KernelError` doesn't implement `Debug`
+    --> lean_runtime/src/kernel_type_checker.rs:6178:48
+     |
+6178 |                     let w = self.tc.whnf(inst).unwrap();
+     |                                                ^^^^^^ the trait `Debug` is not implemented for `KernelError`
+     |
+     = note: add `#[derive(Debug)]` to `KernelError` or manually `impl Debug for KernelError`
+note: required by a bound in `Result::<T, E>::unwrap`
+    --> /rustc/59807616e1fa2540724bfbac14d7976d7e4a3860/library/core/src/result.rs:1227:4
+help: consider annotating `KernelError` with `#[derive(Debug)]`
+     |
+1552 + #[derive(Debug)]
+1553 | pub enum KernelError {
+     |
+
+For more information about this error, try `rustc --explain E0277`.
+warning: `lean_runtime` (lib) generated 107 warnings
+error: could not compile `lean_runtime` (lib) due to 3 previous errors; 107 warnings emitted
+make[6]: *** [runtime/CMakeFiles/lean_runtime_rust.dir/build.make:137: runtime/rust/lean_runtime/lean_runtime.o] Error 101
+make[5]: *** [CMakeFiles/Makefile2:2036: runtime/CMakeFiles/lean_runtime_rust.dir/all] Error 2
+make[4]: *** [Makefile:146: all] Error 2
+make[3]: *** [CMakeFiles/stage1.dir/build.make:95: stage1-prefix/src/stage1-stamp/stage1-build] Error 2
+make[2]: *** [CMakeFiles/Makefile2:214: CMakeFiles/stage1.dir/all] Error 2
+make[1]: *** [CMakeFiles/Makefile2:485: CMakeFiles/test.dir/rule] Error 2
+make: *** [Makefile:299: test] Error 2
+make: Leaving directory '/home/srghma/projects/lean4/build/release'
+```
