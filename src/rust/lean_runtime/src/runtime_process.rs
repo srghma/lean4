@@ -356,7 +356,7 @@ pub(crate) mod runtime_process_impl {
         let mut pargs: Vec<*mut libc::c_char> = Vec::with_capacity(args_size + 2);
         pargs.push(libc::strdup(proc_name));
         for i in 0..args_size {
-            let arg = lean_array_get(lean_args, i);
+            let arg = lean_array_get_core(lean_args, i);
             pargs.push(libc::strdup(lean_string_cstr(arg)));
         }
         pargs.push(null_mut());
@@ -387,7 +387,7 @@ pub(crate) mod runtime_process_impl {
             // Apply env entries: Array (String × Option String)
             let env_size = lean_array_size(env_arr);
             for i in 0..env_size {
-                let entry = lean_array_get(env_arr, i);
+                let entry = lean_array_get_core(env_arr, i);
                 // Pair: field 0 = key String, field 1 = Option String
                 let key = lean_ctor_get(entry, 0);
                 let val_opt = lean_ctor_get(entry, 1);

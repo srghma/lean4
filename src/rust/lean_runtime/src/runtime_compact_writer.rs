@@ -205,7 +205,7 @@ pub(crate) mod runtime_compact_writer_impl {
         let n = lean_array_size(arr);
         let mut result = Vec::with_capacity(n);
         for i in 0..n {
-            let elem = lean_array_get(arr, i);
+            let elem = lean_array_get_core(arr, i);
             let ptr = lean_ctor_get_uint64(elem, 0) as usize;
             if ptr == 0 {
                 continue;
@@ -387,7 +387,7 @@ pub(crate) mod runtime_compact_writer_impl {
             let mut i = n;
             while i > 0 {
                 i -= 1;
-                match self.to_offset(lean_array_get(o, i)) {
+                match self.to_offset(lean_array_get_core(o, i)) {
                     Some(off) => self.tmp[i] = off,
                     None => missing = true,
                 }

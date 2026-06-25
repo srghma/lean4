@@ -77,7 +77,7 @@ pub(crate) mod runtime_net_addr_impl {
     ) {
         let mut host_addr = 0u32;
         for index in 0..4 {
-            let octet = lean_unbox(lean_array_get(ipv4_addr, index)) as u32;
+            let octet = lean_unbox(lean_array_get_core(ipv4_addr, index)) as u32;
             host_addr |= octet << ((3 - index) * 8);
         }
         (*out).s_addr = host_addr.to_be();
@@ -92,7 +92,7 @@ pub(crate) mod runtime_net_addr_impl {
         out: *mut libc::in6_addr,
     ) {
         for index in 0..8 {
-            let segment = lean_unbox(lean_array_get(ipv6_addr, index)) as u16;
+            let segment = lean_unbox(lean_array_get_core(ipv6_addr, index)) as u16;
             let bytes = segment.to_be_bytes();
             (*out).s6_addr[2 * index] = bytes[0];
             (*out).s6_addr[2 * index + 1] = bytes[1];

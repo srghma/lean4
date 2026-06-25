@@ -327,7 +327,7 @@ pub(crate) mod library_llvm_impl {
         let size = lean_array_size(param_tys);
         let mut tys = Vec::with_capacity(size);
         for i in 0..size {
-            tys.push(lean_unbox(lean_array_get(param_tys, i)));
+            tys.push(lean_unbox(lean_array_get_core(param_tys, i)));
         }
         tys
     }
@@ -337,7 +337,7 @@ pub(crate) mod library_llvm_impl {
         let size = lean_array_size(values);
         let mut out = Vec::with_capacity(size);
         for i in 0..size {
-            out.push(lean_unbox(lean_array_get(values, i)));
+            out.push(lean_unbox(lean_array_get_core(values, i)));
         }
         out
     }

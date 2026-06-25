@@ -7,6 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #![allow(
     dead_code,
     non_upper_case_globals,
+    non_snake_case,
 )]
 
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
@@ -953,9 +954,40 @@ pub unsafe extern "C" fn lean_manual_get_root(_: *mut LeanObject) -> *mut LeanOb
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
-    let array_data_ptr = (obj as *const u8).add(24) as *const *mut LeanObject;
-    array_data_ptr.add(idx).read()
+pub unsafe extern "C" fn lean_array_get(
+    def_val: *mut LeanObject,
+    a: *mut LeanObject,
+    i: *mut LeanObject,
+) -> *mut LeanObject {
+    // Mirrors lean_array_get from origin-master-src/include/lean/lean.h
+    if lean_is_scalar(i) {
+        let idx = lean_unbox(i);
+        if idx < lean_array_size(a) {
+            let r = lean_array_get_core(a, idx);
+            lean_inc(r);
+            return r;
+        }
+    }
+    // If i is not a scalar it must be out of bounds (i > LEAN_MAX_SMALL_NAT)
+    lean_inc(def_val);
+    runtime_object_array_impl::lean_array_get_panic(def_val)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_array_get_borrowed(
+    def_val: *mut LeanObject,
+    a: *mut LeanObject,
+    i: *mut LeanObject,
+) -> *mut LeanObject {
+    // Mirrors lean_array_get_borrowed from origin-master-src/include/lean/lean.h
+    if lean_is_scalar(i) {
+        let idx = lean_unbox(i);
+        if idx < lean_array_size(a) {
+            return lean_array_get_core(a, idx);
+        }
+    }
+    lean_inc(def_val);
+    runtime_object_array_impl::lean_array_get_panic(def_val)
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -5055,13 +5087,13 @@ unsafe fn lean_map_foreach_collision(
     let size = lean_array_size(ks);
     debug_assert_eq!(size, lean_array_size(vs));
     for i in 0..size {
-        cb(lean_array_get(ks, i), lean_array_get(vs, i), ctx);
+        cb(lean_array_get_core(ks, i), lean_array_get_core(vs, i), ctx);
     }
 }
 
 unsafe fn lean_map_foreach_entries(es: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     for i in 0..lean_array_size(es) {
-        lean_map_foreach_entry(lean_array_get(es, i), cb, ctx);
+        lean_map_foreach_entry(lean_array_get_core(es, i), cb, ctx);
     }
 }
 
@@ -5076,7 +5108,7 @@ unsafe fn lean_map_foreach_node(n: *mut LeanObject, cb: LeanMapForeachFn, ctx: *
 unsafe fn lean_map_foreach_hashmap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     let buckets = lean_ctor_get(m, 1);
     for i in 0..lean_array_size(buckets) {
-        let mut lst = lean_array_get(buckets, i);
+        let mut lst = lean_array_get_core(buckets, i);
         while !lean_is_scalar(lst) {
             cb(lean_ctor_get(lst, 0), lean_ctor_get(lst, 1), ctx);
             lst = lean_ctor_get(lst, 2);

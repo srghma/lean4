@@ -1417,7 +1417,7 @@ pub(crate) mod library_instantiate_mvars_impl {
                 Option<(*mut LeanObject, FvarSubstEntry)>,
             )> = Vec::with_capacity(fvar_count);
             for i in 0..fvar_count {
-                let fid = fvar_name(lean_array_get(fvars, i));
+                let fid = fvar_name(lean_array_get_core(fvars, i));
                 let arg = args[args.len() - 1 - i];
                 lean_inc(arg);
                 let old = if let Some(pos) = self.find_fvar_subst(fid) {

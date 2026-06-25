@@ -106,7 +106,7 @@ pub(crate) mod library_module_impl {
         let n = lean_array_size(arr);
         let mut result = Vec::with_capacity(n);
         for i in 0..n {
-            let elem = lean_array_get(arr, i);
+            let elem = lean_array_get_core(arr, i);
             let ptr = lean_unbox_usize_val(elem);
             if ptr == 0 {
                 continue;

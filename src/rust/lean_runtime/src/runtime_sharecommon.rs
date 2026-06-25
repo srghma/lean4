@@ -292,7 +292,7 @@ pub(crate) mod runtime_sharecommon_impl {
             let mut missing_children = false;
             let sz = lean_array_size(a);
             for i in 0..sz {
-                if !self.push_child(lean_array_get(a, i)) {
+                if !self.push_child(lean_array_get_core(a, i)) {
                     missing_children = true;
                 }
             }
@@ -510,7 +510,7 @@ pub(crate) mod runtime_sharecommon_impl {
             let new_a = lean_alloc_array(sz, sz);
             let array_data_ptr = (new_a as *mut u8).add(24) as *mut *mut LeanObject;
             for i in 0..sz {
-                let child = self.visit(lean_array_get(a, i));
+                let child = self.visit(lean_array_get_core(a, i));
                 array_data_ptr.add(i).write(child);
             }
             self.save(a, new_a)

@@ -294,7 +294,7 @@ pub(crate) mod runtime_udp_impl {
         }
 
         for i in 0..array_len {
-            let byte_array = lean_array_get(data_array, i);
+            let byte_array = lean_array_get_core(data_array, i);
             let data_len = lean_sarray_size(byte_array);
             let data_str = lean_sarray_cptr(byte_array).cast_mut().cast::<c_char>();
             bufs.add(i).write(uv_buf_init(data_str, data_len as c_uint));
