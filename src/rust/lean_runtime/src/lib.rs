@@ -324,6 +324,8 @@ pub extern "C" fn lean_get_slot_idx(sz: u32) -> u32 {
     sz / LEAN_OBJECT_SIZE_DELTA as u32 - 1
 }
 
+
+
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
     if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
@@ -2563,16 +2565,19 @@ pub unsafe extern "C" fn lean_nat_succ(value: *mut LeanObject) -> *mut LeanObjec
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_int_to_int(value: c_int) -> *mut LeanObject {
+    // Original: lean_box((unsigned)(n)) unconditionally on 64-bit (all i32 are small ints).
+    // On 32-bit only values in LEAN_MIN_SMALL_INT..=LEAN_MAX_SMALL_INT are small.
+    // Must cast through u32 to match C `(unsigned)(n)`.
     #[cfg(target_pointer_width = "64")]
     {
-        lean_box(value as usize)
+        lean_box(value as u32 as usize)
     }
     #[cfg(not(target_pointer_width = "64"))]
     {
         const LEAN_MAX_SMALL_INT: i32 = i32::MAX >> 1;
         const LEAN_MIN_SMALL_INT: i32 = i32::MIN >> 1;
-        if (LEAN_MIN_SMALL_INT..=LEAN_MAX_SMALL_INT).contains(&value) {
-            lean_box(value as usize)
+        if value >= LEAN_MIN_SMALL_INT && value <= LEAN_MAX_SMALL_INT {
+            lean_box(value as u32 as usize)
         } else {
             runtime_object_nat_int_impl::lean_big_int_to_int(value)
         }
@@ -2581,16 +2586,26 @@ pub unsafe extern "C" fn lean_int_to_int(value: c_int) -> *mut LeanObject {
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_int64_to_int(value: i64) -> *mut LeanObject {
+    // Original: lean_box((unsigned)(int)n) when LEAN_MIN_SMALL_INT <= n <= LEAN_MAX_SMALL_INT
+    // On 64-bit: LEAN_MAX_SMALL_INT = INT_MAX, LEAN_MIN_SMALL_INT = INT_MIN (full i32 range)
+    // On 32-bit: LEAN_MAX_SMALL_INT = INT_MAX>>1, LEAN_MIN_SMALL_INT = INT_MIN>>1
     #[cfg(target_pointer_width = "64")]
     {
-        lean_box(value as usize)
+        const LEAN_MAX_SMALL_INT: i64 = i32::MAX as i64;
+        const LEAN_MIN_SMALL_INT: i64 = i32::MIN as i64;
+        if value >= LEAN_MIN_SMALL_INT && value <= LEAN_MAX_SMALL_INT {
+            // Match C: lean_box((unsigned)(int)n) — truncate to i32 then reinterpret as u32
+            lean_box(value as i32 as u32 as usize)
+        } else {
+            runtime_object_nat_int_impl::lean_big_int64_to_int(value)
+        }
     }
     #[cfg(not(target_pointer_width = "64"))]
     {
         const LEAN_MAX_SMALL_INT: i64 = (i32::MAX >> 1) as i64;
         const LEAN_MIN_SMALL_INT: i64 = (i32::MIN >> 1) as i64;
-        if (LEAN_MIN_SMALL_INT..=LEAN_MAX_SMALL_INT).contains(&value) {
-            lean_box(value as usize)
+        if value >= LEAN_MIN_SMALL_INT && value <= LEAN_MAX_SMALL_INT {
+            lean_box(value as i32 as u32 as usize)
         } else {
             runtime_object_nat_int_impl::lean_big_int64_to_int(value)
         }
@@ -2625,9 +2640,15 @@ pub unsafe extern "C" fn lean_scalar_to_int(value: *mut LeanObject) -> c_int {
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject {
+    // Original: if lean_is_scalar(a) { v = lean_unbox(a); if v <= LEAN_MAX_SMALL_INT return a; }
+    // LEAN_MAX_SMALL_INT = INT_MAX on 64-bit, INT_MAX>>1 on 32-bit
     if lean_is_scalar(value) {
         let unboxed = lean_unbox(value);
-        if unboxed <= (i32::MAX as usize >> 1) {
+        #[cfg(target_pointer_width = "64")]
+        let max_small = i32::MAX as usize; // INT_MAX = 2147483647
+        #[cfg(not(target_pointer_width = "64"))]
+        let max_small = (i32::MAX >> 1) as usize; // INT_MAX>>1 = 1073741823
+        if unboxed <= max_small {
             value
         } else {
             runtime_object_nat_int_impl::lean_big_size_t_to_int(unboxed)
@@ -2657,15 +2678,38 @@ pub unsafe extern "C" fn lean_int_neg_succ_of_nat(value: *mut LeanObject) -> *mu
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_nat_abs(value: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(value) {
-        if lean_scalar_to_int(value) >= 0 {
-            lean_nat_to_int(value)
+/// Int → Nat (absolute value).
+/// Takes a *borrowed* Int, returns a *new owned* Nat.
+/// Original C++:
+///   if (lean_int_lt(i, lean_box(0))) return lean_int_to_nat(lean_int_neg(i));
+///   else { lean_inc(i); return lean_int_to_nat(i); }
+pub unsafe extern "C" fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject {
+    // Check sign: negative if scalar < 0, or big MPZ with negative sign
+    let is_negative = if lean_is_scalar(i) {
+        lean_scalar_to_int(i) < 0
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_lt(i, lean_box(0))
+    };
+
+    if is_negative {
+        // lean_int_neg borrows i (b_lean_obj_arg) and returns a new owned negated Int.
+        // lean_int_to_nat consumes (lean_obj_arg) that owned Int and returns an owned Nat.
+        let negated = lean_int_neg(i);
+        // lean_int_to_nat: scalar → pass through; big → clone mpz and lean_dec input
+        if lean_is_scalar(negated) {
+            negated // scalar identity: Nat and Int share scalar representation for small values
         } else {
-            lean_nat_to_int(lean_int_neg(value))
+            runtime_object_nat_int_impl::lean_big_int_to_nat(negated)
         }
     } else {
-        value
+        // i is borrowed; inc to get an owned copy for lean_int_to_nat to consume
+        lean_inc(i);
+        // lean_int_to_nat: scalar → pass through; big → clone mpz and lean_dec input
+        if lean_is_scalar(i) {
+            i // scalar identity
+        } else {
+            runtime_object_nat_int_impl::lean_big_int_to_nat(i)
+        }
     }
 }
 

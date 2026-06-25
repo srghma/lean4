@@ -15,6 +15,8 @@ pub(crate) mod runtime_object_rc_impl {
     use core::ptr;
     use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
 
+
+
     const LEAN_MAX_CTOR_TAG: u8 = 243;
     const LEAN_PROMISE_TAG: u8 = 244;
     const LEAN_CLOSURE_TAG: u8 = 245;
@@ -226,6 +228,9 @@ pub(crate) mod runtime_object_rc_impl {
         std::process::abort();
     }
     unsafe fn quar_free(o: *mut LeanObject) {
+        if (*o).rc == LEAN_UAF_POISON_RC {
+            quar_report_uaf(o, "double-free");
+        }
         let p = o as usize;
         let i = FB_HEAD.fetch_add(1, Ordering::Relaxed) % FB_N;
         let row = core::ptr::addr_of_mut!(FB_BT[i]) as *mut *mut c_void;
