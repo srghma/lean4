@@ -179,6 +179,7 @@ typedef lean_object * u_lean_obj_arg; /* Unique (aka non shared) object argument
 typedef lean_object * lean_obj_res;   /* Standard object result. */
 typedef lean_object * b_lean_obj_res; /* Borrowed object result. */
 
+/* BEGIN GENERATED LEAN C ABI TYPES */
 typedef struct {
     lean_object   m_header;
     lean_object * m_objs[];
@@ -320,6 +321,7 @@ typedef struct {
     lean_external_class * m_class;
     void *                m_data;
 } lean_external_object;
+/* END GENERATED LEAN C ABI TYPES */
 
 static inline LEAN_ALWAYS_INLINE uint8_t lean_is_scalar(lean_object * o) { return ((size_t)(o) & 1) == 1; }
 static inline lean_object * lean_box(size_t n) { return (lean_object*)(((size_t)(n) << 1) | 1); }

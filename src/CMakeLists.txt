@@ -707,6 +707,15 @@ else()
   set(LEAN_IS_STAGE0 "#define LEAN_IS_STAGE0 0")
 endif()
 configure_file("${LEAN_SOURCE_DIR}/config.h.in" "${LEAN_BINARY_DIR}/include/lean/config.h")
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/include/lean")
+execute_process(
+  COMMAND bash "${LEAN_SOURCE_DIR}/../srghmascripts/generate_lean_h.sh" "${CMAKE_BINARY_DIR}/include/lean/lean.h"
+  WORKING_DIRECTORY "${LEAN_SOURCE_DIR}/.."
+  RESULT_VARIABLE LEAN_GENERATE_LEAN_H_RESULT
+)
+if(NOT LEAN_GENERATE_LEAN_H_RESULT EQUAL 0)
+  message(FATAL_ERROR "failed to generate build/include/lean/lean.h from Rust cbindgen sources")
+endif()
 if(USE_MIMALLOC)
   file(
     COPY "${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/include/mimalloc.h"
@@ -1045,8 +1054,6 @@ install(
 if(STAGE GREATER 0 AND INSTALL_LICENSE)
   install(FILES "${CMAKE_SOURCE_DIR}/../LICENSE" "${CMAKE_SOURCE_DIR}/../LICENSES" DESTINATION ".")
 endif()
-
-file(COPY ${CMAKE_SOURCE_DIR}/include/lean DESTINATION ${CMAKE_BINARY_DIR}/include FILES_MATCHING PATTERN "*.h")
 
 set(LEAN_INSTALL_PREFIX "" CACHE STRING "If set, set CMAKE_INSTALL_PREFIX to this value + version name")
 if(LEAN_INSTALL_PREFIX)

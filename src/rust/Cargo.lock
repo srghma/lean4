@@ -3,6 +3,10 @@
 version = 4
 
 [[package]]
+name = "lean_ffi_types"
+version = "0.1.0"
+
+[[package]]
 name = "lean_runtime"
 version = "0.1.0"
 dependencies = [

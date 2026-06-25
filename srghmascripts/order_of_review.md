@@ -3,7 +3,7 @@
 Files are topologically sorted by dependency order (leaves first).
 Siblings at the same indentation level are independent and can be reviewed in any order.
 
-- [x] src/include/lean/lean (`src/include/lean/lean.h`) — header-only, kept as-is
+- [x] src/include/lean/lean (`src/include/lean/lean.h`) — removed; build now generates `include/lean/lean.h` from Rust cbindgen + `lean_header.template`
 - [x] src/include/lean/lean_gmp (`src/include/lean/lean_gmp.h`) — header removed; no in-tree users remained
   - [x] src/runtime/stack_overflow (`src/runtime/stack_overflow.h` and `src/runtime/stack_overflow.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/runtime_stack_overflow.rs`; C++ header/source removed
   - [x] src/library/llvm (`src/library/llvm.cpp`) — Rust replacement wired in `src/rust/lean_runtime/src/library_llvm.rs`; C++ export file reduced to a stub after porting LLVM init/emit/module/string/bitcode/target-machine/builder/value/attribute helpers

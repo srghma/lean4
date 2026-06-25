@@ -172,7 +172,7 @@ if(LLVM)
       "building 'lean.h.bc', need CMAKE_CXX_COMPILER_ID to match Clang to build LLVM bitcode file of Lean runtime."
     )
   endif()
-  file(READ "${CMAKE_CURRENT_SOURCE_DIR}/../include/lean/lean.h" LEAN_H)
+  file(READ "${CMAKE_BINARY_DIR}/include/lean/lean.h" LEAN_H)
   # generate LLVM IR for `static inline` definitions in lean.h for the LLVM backend
   string(REPLACE "static inline" "__attribute__((always_inline))" LEAN_H "${LEAN_H}")
   # drop '#pragma once' in .c file to avoid warning

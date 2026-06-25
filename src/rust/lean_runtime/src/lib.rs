@@ -62,12 +62,13 @@ extern "C" {
     fn initialize_Std(builtin: u8) -> *mut LeanObject;
     fn initialize_Lean(builtin: u8) -> *mut LeanObject;}
 
+/// cbindgen:field-names=[m_rc, m_cs_sz, m_other, m_tag]
 #[repr(C)]
 pub struct LeanObject {
-    rc: i32,
-    cs_size: u16,
-    other: u8,
-    tag: u8,
+    pub(crate) rc: i32,
+    pub(crate) cs_size: u16,
+    pub(crate) other: u8,
+    pub(crate) tag: u8,
 }
 
 #[repr(C)]
@@ -79,10 +80,11 @@ struct LeanCtorObject {
 type LeanExternalFinalizeProc = unsafe extern "C" fn(*mut c_void);
 type LeanExternalForeachProc = unsafe extern "C" fn(*mut c_void, *mut LeanObject);
 
+/// cbindgen:field-names=[m_finalize, m_foreach]
 #[repr(C)]
 pub struct LeanExternalClass {
-    finalize: LeanExternalFinalizeProc,
-    foreach: LeanExternalForeachProc,
+    pub(crate) finalize: LeanExternalFinalizeProc,
+    pub(crate) foreach: LeanExternalForeachProc,
 }
 
 #[repr(C)]
@@ -92,44 +94,71 @@ struct LeanListCell {
     tail: *mut LeanListCell,
 }
 
+/// cbindgen:field-names=[m_header, m_size, m_capacity, m_data]
 #[repr(C)]
-struct LeanArrayObject {
-    header: LeanObject,
-    size: Size,
-    capacity: Size,
-    data: [*mut LeanObject; 0],
+pub(crate) struct LeanArrayObject {
+    pub(crate) header: LeanObject,
+    pub(crate) size: Size,
+    pub(crate) capacity: Size,
+    pub(crate) data: [*mut LeanObject; 0],
 }
 
+/// cbindgen:field-names=[m_header, m_size, m_capacity, m_length, m_data]
 #[repr(C)]
-struct LeanStringObject {
-    header: LeanObject,
-    size: Size,
-    capacity: Size,
-    len: Size,
-    data: [c_char; 0],
+pub(crate) struct LeanStringObject {
+    pub(crate) header: LeanObject,
+    pub(crate) size: Size,
+    pub(crate) capacity: Size,
+    pub(crate) len: Size,
+    pub(crate) data: [c_char; 0],
 }
 
+/// cbindgen:field-names=[m_header, m_fun, m_arity, m_num_fixed, m_objs]
 #[repr(C)]
-struct LeanClosureObject {
-    header: LeanObject,
-    fun: *mut c_void,
-    arity: u16,
-    num_fixed: u16,
-    data: [*mut LeanObject; 0],
+pub(crate) struct LeanClosureObject {
+    pub(crate) header: LeanObject,
+    pub(crate) fun: *mut c_void,
+    pub(crate) arity: u16,
+    pub(crate) num_fixed: u16,
+    pub(crate) data: [*mut LeanObject; 0],
 }
 
+/// cbindgen:field-names=[m_header, m_size, m_capacity, m_data]
 #[repr(C)]
-struct LeanScalarArray {
-    header: LeanObject,
-    size: Size,
-    capacity: Size,
-    data: [u8; 0],
+pub(crate) struct LeanScalarArray {
+    pub(crate) header: LeanObject,
+    pub(crate) size: Size,
+    pub(crate) capacity: Size,
+    pub(crate) data: [u8; 0],
 }
 
+/// cbindgen:field-names=[m_header, m_result]
 #[repr(C)]
-struct LeanPromiseObject {
-    header: LeanObject,
-    result: *mut LeanObject,
+pub(crate) struct LeanPromiseObject {
+    pub(crate) header: LeanObject,
+    pub(crate) result: *mut LeanObject,
+}
+
+/// cbindgen:field-names=[m_header, m_value, m_closure]
+#[repr(C)]
+pub struct LeanThunkObject {
+    pub m_header: LeanObject,
+    pub m_value: AtomicPtr<LeanObject>,
+    pub m_closure: AtomicPtr<LeanObject>,
+}
+
+/// cbindgen:field-names=[m_header, m_value]
+#[repr(C)]
+pub struct LeanRefObject {
+    pub m_header: LeanObject,
+    pub m_value: *mut LeanObject,
+}
+
+/// cbindgen:field-names=[state, lock]
+#[repr(C)]
+pub struct LeanOnceCell {
+    pub state: AtomicI32,
+    pub lock: AtomicI32,
 }
 
 #[repr(C)]
@@ -1348,11 +1377,12 @@ pub unsafe extern "C" fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanO
     runtime_object_name_impl::lean_name_eq(n1, n2)
 }
 
+/// cbindgen:field-names=[m_header, m_class, m_data]
 #[repr(C)]
-struct LeanExternalObject {
-    header: LeanObject,
-    class: *mut LeanExternalClass,
-    data: *mut c_void,
+pub(crate) struct LeanExternalObject {
+    pub(crate) header: LeanObject,
+    pub(crate) class: *mut LeanExternalClass,
+    pub(crate) data: *mut c_void,
 }
 
 static EXTERNAL_CLASSES: std::sync::Mutex<Vec<usize>> = std::sync::Mutex::new(Vec::new());
