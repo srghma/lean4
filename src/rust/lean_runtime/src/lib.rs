@@ -901,12 +901,12 @@ pub extern "C" fn lean_strict_and(b1: u8, b2: u8) -> u8 {
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_nat_pred(n: *mut LeanObject) -> *mut LeanObject {
-    // lean_nat_pred(n) = lean_nat_sub(n, lean_box(1)) per original lean.h:3251
+    // Mirrors origin-master-src/include/lean/lean.h: lean_nat_pred(n) = lean_nat_sub(n, lean_box(1)).
     if lean_is_scalar(n) {
         let v = lean_unbox(n);
-        lean_box(if v == 0 { 0 } else { v - 1 })
+        unsafe { lean_box(if v == 0 { 0 } else { v - 1 }) }
     } else {
-        runtime_object_nat_int_impl::lean_nat_big_sub(n, lean_box(1))
+        runtime_object_nat_int_impl::lean_nat_big_sub(n, unsafe { lean_box(1) })
     }
 }
 

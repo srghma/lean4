@@ -743,7 +743,9 @@ if(CMAKE_OSX_SYSROOT AND NOT LEAN_STANDALONE)
   string(APPEND LEAN_EXTRA_LINKER_FLAGS " ${CMAKE_CXX_SYSROOT_FLAG}${CMAKE_OSX_SYSROOT}")
 endif()
 
-add_subdirectory(initialize)
+# Previously src/initialize/CMakeLists.txt (inlined; directory removed)
+file(CONFIGURE OUTPUT ${CMAKE_BINARY_DIR}/temp/empty_init.c CONTENT "")
+add_library(initialize OBJECT ${CMAKE_BINARY_DIR}/temp/empty_init.c)
 add_subdirectory(shell)
 
 # The relative path doesn't work once the CMakeLists.txt files have been copied into the stage0 dir.
@@ -804,8 +806,10 @@ else()
     add_dependencies(leanrt_initial-exec libuv)
   endif()
 
-  add_subdirectory(util)
-  set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:util>)
+# Previously src/util/CMakeLists.txt (inlined; directory removed)
+file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/util/empty.c CONTENT "")
+add_library(util OBJECT ${CMAKE_CURRENT_BINARY_DIR}/util/empty.c)
+set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:util>)
   add_subdirectory(library)
   set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:library>)
 

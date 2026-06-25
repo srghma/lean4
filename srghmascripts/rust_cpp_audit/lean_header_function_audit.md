@@ -6,24 +6,24 @@ Lean scan root: `src`
 
 ## Summary
 - total functions: 767
-- used anywhere: 716
-- used more than once: 540
-- used in Rust: 526
+- used anywhere: 719
+- used more than once: 542
+- used in Rust: 529
 - used in Lean: 538
 - used in generated Lean (.lean_): 252
-- unused: 51
+- unused: 48
 
 ## Used in Rust and Lean
-- [ ] lean_is_scalar — rust: 343, lean: 3, lean_: 2, total: 348 — multi: yes
-- [ ] lean_box — rust: 282, lean: 11, lean_: 10, total: 303 — multi: yes
-- [ ] lean_unbox — rust: 335, lean: 3, lean_: 2, total: 340 — multi: yes
+- [ ] lean_is_scalar — rust: 347, lean: 3, lean_: 2, total: 352 — multi: yes
+- [ ] lean_box — rust: 283, lean: 11, lean_: 10, total: 304 — multi: yes
+- [ ] lean_unbox — rust: 337, lean: 3, lean_: 2, total: 342 — multi: yes
 - [ ] lean_del_object — rust: 1, lean: 2, lean_: 2, total: 5 — multi: yes
 - [ ] lean_ptr_tag — rust: 69, lean: 0, lean_: 1, total: 70 — multi: yes
 - [ ] lean_is_st — rust: 5, lean: 0, lean_: 1, total: 6 — multi: yes
 - [ ] lean_inc_ref_n — rust: 2, lean: 1, lean_: 2, total: 5 — multi: yes
 - [ ] lean_inc_ref — rust: 9, lean: 1, lean_: 2, total: 12 — multi: yes
 - [ ] lean_dec_ref — rust: 19, lean: 12, lean_: 9, total: 40 — multi: yes
-- [ ] lean_inc — rust: 646, lean: 1, lean_: 2, total: 649 — multi: yes
+- [ ] lean_inc — rust: 650, lean: 1, lean_: 2, total: 653 — multi: yes
 - [ ] lean_inc_n — rust: 3, lean: 1, lean_: 2, total: 6 — multi: yes
 - [ ] lean_dec — rust: 898, lean: 1, lean_: 6, total: 905 — multi: yes
 - [ ] lean_obj_tag — rust: 104, lean: 2, lean_: 2, total: 108 — multi: yes
@@ -67,10 +67,10 @@ Lean scan root: `src`
 - [ ] lean_apply_16 — rust: 2, lean: 0, lean_: 1, total: 3 — multi: yes
 - [ ] lean_apply_m — rust: 1, lean: 2, lean_: 1, total: 4 — multi: yes
 - [ ] lean_alloc_array — rust: 17, lean: 0, lean_: 1, total: 18 — multi: yes
-- [ ] lean_array_size — rust: 45, lean: 1, lean_: 1, total: 47 — multi: yes
+- [ ] lean_array_size — rust: 47, lean: 1, lean_: 1, total: 49 — multi: yes
 - [ ] lean_mk_empty_array — rust: 2, lean: 0, lean_: 1, total: 3 — multi: yes
 - [ ] lean_array_uget — rust: 1, lean: 1, lean_: 1, total: 3 — multi: yes
-- [ ] lean_array_get — rust: 20, lean: 1, lean_: 1, total: 22 — multi: yes
+- [ ] lean_array_get — rust: 2, lean: 1, lean_: 1, total: 4 — multi: yes
 - [ ] lean_array_uset — rust: 2, lean: 1, lean_: 1, total: 4 — multi: yes
 - [ ] lean_array_set — rust: 1, lean: 1, lean_: 1, total: 3 — multi: yes
 - [ ] lean_array_uswap — rust: 2, lean: 0, lean_: 1, total: 3 — multi: yes
@@ -102,7 +102,7 @@ Lean scan root: `src`
 - [ ] lean_int64_to_int — rust: 3, lean: 0, lean_: 1, total: 4 — multi: yes
 - [ ] lean_scalar_to_int64 — rust: 3, lean: 0, lean_: 1, total: 4 — multi: yes
 - [ ] lean_scalar_to_int — rust: 3, lean: 0, lean_: 1, total: 4 — multi: yes
-- [ ] lean_nat_to_int — rust: 3, lean: 1, lean_: 1, total: 5 — multi: yes
+- [ ] lean_nat_to_int — rust: 1, lean: 1, lean_: 1, total: 3 — multi: yes
 - [ ] lean_int_neg — rust: 2, lean: 1, lean_: 1, total: 4 — multi: yes
 - [ ] lean_uint8_of_big_nat — rust: 1, lean: 0, lean_: 1, total: 2 — multi: yes
 - [ ] lean_uint8_of_nat — rust: 2, lean: 2, lean_: 1, total: 5 — multi: yes
@@ -462,7 +462,8 @@ Lean scan root: `src`
 - [ ] lean_array_byte_size — rust: 3, lean: 0, lean_: 0, total: 3 — multi: yes
 - [ ] lean_array_data_byte_size — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_array_cptr — rust: 18, lean: 0, lean_: 0, total: 18 — multi: yes
-- [ ] lean_array_get_core — rust: 3, lean: 0, lean_: 0, total: 3 — multi: yes
+- [ ] lean_array_get_core — rust: 23, lean: 0, lean_: 0, total: 23 — multi: yes
+- [ ] lean_array_get_panic — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_copy_expand_array — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_copy_expand_array_nonlinear — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_ensure_exclusive_array — rust: 3, lean: 0, lean_: 0, total: 3 — multi: yes
@@ -526,10 +527,12 @@ Lean scan root: `src`
 - [ ] lean_big_uint64_to_nat — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_nat_big_shiftr — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_int_big_neg — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
+- [ ] lean_int_big_lt — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_int_big_nonneg — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_big_int_to_int — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_big_size_t_to_int — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
-- [ ] lean_big_int64_to_int — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
+- [ ] lean_big_int64_to_int — rust: 3, lean: 0, lean_: 0, total: 3 — multi: yes
+- [ ] lean_big_int_to_nat — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_uint16_of_big_nat — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_usize_of_big_nat — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_int8_of_big_int — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
@@ -762,7 +765,6 @@ Lean scan root: `src`
 - [ ] lean_array_set_size — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
 - [ ] lean_array_set_core — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
 - [ ] lean_array_sz — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
-- [ ] lean_array_get_panic — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_utf8_strlen — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_string_ne — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
 - [ ] lean_get_external_data — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
@@ -780,11 +782,9 @@ Lean scan root: `src`
 - [ ] lean_int_big_emod — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_int_big_eq — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_int_big_le — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
-- [ ] lean_int_big_lt — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_cstr_to_int — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_int_to_int — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
 - [ ] lean_int_ne — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: header-only helper; no textual callers found
-- [ ] lean_big_int_to_nat — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_st_ref_reset — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_obj_once_cold — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: no textual callers found; review whether this is dead code or only reached indirectly
 
