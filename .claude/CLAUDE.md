@@ -230,3 +230,123 @@ with
 
 can we do it more?
 maybe use Phantom fields?
+
+----
+
+there should be no lean_cxx_... functions, they were just temporary port
+
+Look what horrible mess I found
+
+rust_/lean_runtime/src/kernel_expr.rs|15 col 12-40| fn lean_cxx_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> u8;
+rust_/lean_runtime/src/kernel_expr.rs|112 col 9-37| lean_cxx_expr_has_loose_bvar(e, i)
+src/rust/lean_runtime/src/kernel_expr.rs|9 col 55-83| lean_expr_has_loose_bvar               — replaces lean_cxx_expr_has_loose_bvar
+rust_/lean_runtime/src/runtime_compat_cxx.rs|728 col 18-46| #[export_name = "lean_cxx_expr_has_loose_bvar"]
+rust_/lean_runtime/src/runtime_compat_cxx.rs|729 col 26-54| pub unsafe extern "C" fn lean_cxx_expr_has_loose_bvar_export(
+
+is this a loop? there is no body of this function. right? Fix.
+
+----
+
+I want You to write bun script that will:
+1. extract from original `origin-master-src/include/lean/lean.h` list of all functions
+2. write them into .md file , each item with checkbox [ ]
+3. then for each of them - check that they are used in rust code (i.e. they are not only exported, but also actively used in rust or lean code)
+
+Write a bun script that will show that functions are used AND used more than once.
+
+It will output summary: used in rust code and/or used in lean generated code. not used anywere.
+
+If function is not used - why not used? I this a mistake?
+
+This will also allow to check that rust code doesnt use magic constants (e.g. number 1 which actually should be written as LEAN_XXX).
+
+----
+
+In our rust code we use xxx_initialize/finalize for modules
+
+But can we replace them with rust-based approach Drop or etc? so that things are initialized/finalized automatically?
+
+Note that we:
+1. export (? right ?) some initializer/finalizers in lean.h, and it should continue to work
+2. the user defined (in cpp, in tests) initializer/finalizers, should continue to work
+
+----
+
+Check rust code, make as much as possible unsafe functions - safe
+
+----
+
+are all
+
+~/projects/lean4  ↱ rust-rewrite ±✚  fd "\.rs$" ./src/rust/lean_runtime/src
+/kernel_abstract.rs
+/kernel_declaration.rs
+/kernel_environment.rs
+/kernel_equiv_manager.rs
+/kernel_expr.rs
+/kernel_expr_eq_fn.rs
+/kernel_for_each_fn.rs
+/kernel_instantiate.rs
+/kernel_level.rs
+/kernel_local_ctx.rs
+/kernel_num.rs
+/kernel_quot.rs
+/kernel_replace_fn.rs
+/kernel_trace.rs
+/kernel_type_checker.rs
+/lib.rs
+/library_constants.rs
+/library_dynlib.rs
+/library_elab_environment.rs
+/library_expr_lt.rs
+/library_formatter.rs
+/library_instantiate_mvars.rs
+/library_ir_interpreter.rs
+/library_llvm.rs
+/library_module.rs
+/library_print.rs
+/library_time_task.rs
+/library_util.rs
+/runtime_alloc.rs
+/runtime_apply.rs
+/runtime_compact.rs
+/runtime_compact_writer.rs
+/runtime_debug.rs
+/runtime_dns.rs
+/runtime_event_loop.rs
+/runtime_exception.rs
+/runtime_float.rs
+/runtime_interrupt.rs
+/runtime_io_error.rs
+/runtime_io_fs.rs
+/runtime_io_handle.rs
+/runtime_io_ref.rs
+/runtime_io_stream.rs
+/runtime_io_task.rs
+/runtime_libuv.rs
+/runtime_memory.rs
+/runtime_mpn.rs
+/runtime_mpz.rs
+/runtime_mutex.rs
+/runtime_net_addr.rs
+/runtime_object_array.rs
+/runtime_object_name.rs
+/runtime_object_nat_int.rs
+/runtime_object_panic.rs
+/runtime_object_rc.rs
+/runtime_object_size.rs
+/runtime_object_string.rs
+/runtime_object_task.rs
+/runtime_once.rs
+/runtime_process.rs
+/runtime_sharecommon.rs
+/runtime_signal.rs
+/runtime_stack_info.rs
+/runtime_stack_overflow.rs
+/runtime_system.rs
+/runtime_tcp.rs
+/runtime_thread.rs
+/runtime_timer.rs
+/runtime_udp.rs
+
+files used by each other?

@@ -20,21 +20,21 @@ pub(crate) mod runtime_object_size_impl {
         fn lean_small_mem_size(o: *mut LeanObject) -> c_uint;
     }
 
-    #[inline]
-    unsafe fn lean_small_object_size(o: *mut LeanObject) -> usize {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_small_object_size(o: *mut LeanObject) -> c_uint {
         #[cfg(lean_small_allocator)]
         {
-            lean_small_mem_size(o) as usize
+            return lean_small_mem_size(o);
         }
 
         #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
         {
-            (*o).cs_size as usize
+            return (*o).cs_size as c_uint;
         }
 
         #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
         {
-            *((o as *const usize).sub(1))
+            return *((o as *const usize).sub(1)) as c_uint;
         }
     }
 
@@ -92,7 +92,7 @@ pub(crate) mod runtime_object_size_impl {
             LEAN_CLOSURE_TAG => lean_closure_byte_size(o),
             _ => {
                 if (*o).cs_size == 0 {
-                    lean_small_object_size(o)
+                    lean_small_object_size(o) as usize
                 } else {
                     (*o).cs_size as usize
                 }
@@ -109,7 +109,7 @@ pub(crate) mod runtime_object_size_impl {
             LEAN_CLOSURE_TAG => lean_closure_byte_size(o),
             _ => {
                 if (*o).cs_size == 0 {
-                    lean_small_object_size(o)
+                    lean_small_object_size(o) as usize
                 } else {
                     (*o).cs_size as usize
                 }

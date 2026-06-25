@@ -344,8 +344,8 @@ pub(crate) mod runtime_object_rc_impl {
         obj as *mut LeanObject
     }
 
-    #[inline(always)]
-    pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
         let sz = ((sz + 7) / 8) * 8;
         #[cfg(lean_small_allocator)]
         {
@@ -372,8 +372,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[inline(always)]
-    pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_free_small_object(o: *mut LeanObject) {
         #[cfg(not(lean_small_allocator))]
         if UAF_DETECT {
             quar_free(o);
@@ -396,8 +396,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[inline(always)]
-    pub(crate) unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
         let sz1 = ((sz + 7) / 8) * 8;
         let r = lean_alloc_small_object(sz1);
         if sz1 > sz {
@@ -591,11 +591,6 @@ pub(crate) mod runtime_object_rc_impl {
             }
             r as *mut LeanObject
         }
-    }
-
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_alloc_ctor_memory_export(sz: usize) -> *mut LeanObject {
-        lean_alloc_ctor_memory(sz)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

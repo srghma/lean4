@@ -60,13 +60,13 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     // On 64-bit, UInt32 fits in a Lean scalar.
-    #[inline]
-    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_box_uint32(v: u32) -> *mut LeanObject {
         lean_box(v as usize)
     }
 
-    #[inline]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub unsafe extern "C" fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
         lean_unbox(o) as u32
     }
 
