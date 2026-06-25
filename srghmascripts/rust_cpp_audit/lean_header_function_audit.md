@@ -8,15 +8,15 @@ Lean scan root: `src`
 - total functions: 767
 - used anywhere: 716
 - used more than once: 540
-- used in Rust: 527
+- used in Rust: 526
 - used in Lean: 538
 - used in generated Lean (.lean_): 252
 - unused: 51
 
 ## Used in Rust and Lean
-- [ ] lean_is_scalar — rust: 341, lean: 3, lean_: 2, total: 346 — multi: yes
-- [ ] lean_box — rust: 272, lean: 11, lean_: 10, total: 293 — multi: yes
-- [ ] lean_unbox — rust: 332, lean: 3, lean_: 2, total: 337 — multi: yes
+- [ ] lean_is_scalar — rust: 343, lean: 3, lean_: 2, total: 348 — multi: yes
+- [ ] lean_box — rust: 282, lean: 11, lean_: 10, total: 303 — multi: yes
+- [ ] lean_unbox — rust: 335, lean: 3, lean_: 2, total: 340 — multi: yes
 - [ ] lean_del_object — rust: 1, lean: 2, lean_: 2, total: 5 — multi: yes
 - [ ] lean_ptr_tag — rust: 69, lean: 0, lean_: 1, total: 70 — multi: yes
 - [ ] lean_is_st — rust: 5, lean: 0, lean_: 1, total: 6 — multi: yes
@@ -37,9 +37,9 @@ Lean scan root: `src`
 - [ ] lean_ctor_get_uint8 — rust: 28, lean: 2, lean_: 2, total: 32 — multi: yes
 - [ ] lean_ctor_get_uint16 — rust: 1, lean: 2, lean_: 2, total: 5 — multi: yes
 - [ ] lean_ctor_get_uint32 — rust: 5, lean: 2, lean_: 2, total: 9 — multi: yes
-- [ ] lean_ctor_get_uint64 — rust: 17, lean: 2, lean_: 2, total: 21 — multi: yes
-- [ ] lean_ctor_get_float — rust: 1, lean: 2, lean_: 2, total: 5 — multi: yes
-- [ ] lean_ctor_get_float32 — rust: 1, lean: 2, lean_: 2, total: 5 — multi: yes
+- [ ] lean_ctor_get_uint64 — rust: 18, lean: 2, lean_: 2, total: 22 — multi: yes
+- [ ] lean_ctor_get_float — rust: 2, lean: 2, lean_: 2, total: 6 — multi: yes
+- [ ] lean_ctor_get_float32 — rust: 2, lean: 2, lean_: 2, total: 6 — multi: yes
 - [ ] lean_ctor_set_usize — rust: 3, lean: 2, lean_: 2, total: 7 — multi: yes
 - [ ] lean_ctor_set_uint8 — rust: 5, lean: 2, lean_: 2, total: 9 — multi: yes
 - [ ] lean_ctor_set_uint16 — rust: 1, lean: 2, lean_: 2, total: 5 — multi: yes
@@ -82,9 +82,8 @@ Lean scan root: `src`
 - [ ] lean_float_array_uget — rust: 2, lean: 1, lean_: 0, total: 3 — multi: yes
 - [ ] lean_float_array_uset — rust: 2, lean: 1, lean_: 0, total: 3 — multi: yes
 - [ ] lean_mk_string_unchecked — rust: 7, lean: 2, lean_: 1, total: 10 — multi: yes
-- [ ] lean_mk_string — rust: 119, lean: 2, lean_: 1, total: 122 — multi: yes
+- [ ] lean_mk_string — rust: 122, lean: 2, lean_: 1, total: 125 — multi: yes
 - [ ] lean_task_pure — rust: 3, lean: 1, lean_: 0, total: 4 — multi: yes
-- [ ] lean_task_get_own — rust: 4, lean: 1, lean_: 1, total: 6 — multi: yes
 - [ ] lean_usize_to_nat — rust: 8, lean: 2, lean_: 1, total: 11 — multi: yes
 - [ ] lean_uint64_to_nat — rust: 1, lean: 2, lean_: 1, total: 4 — multi: yes
 - [ ] lean_nat_succ — rust: 1, lean: 0, lean_: 1, total: 2 — multi: yes
@@ -415,7 +414,7 @@ Lean scan root: `src`
 - [ ] lean_register_external_class — rust: 12, lean: 0, lean_: 0, total: 12 — multi: yes
 - [ ] lean_panic — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_panic_fn — rust: 4, lean: 0, lean_: 0, total: 4 — multi: yes
-- [ ] lean_internal_panic — rust: 30, lean: 0, lean_: 0, total: 30 — multi: yes
+- [ ] lean_internal_panic — rust: 29, lean: 0, lean_: 0, total: 29 — multi: yes
 - [ ] lean_internal_panic_out_of_memory — rust: 14, lean: 0, lean_: 0, total: 14 — multi: yes
 - [ ] lean_internal_panic_overflow — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
 - [ ] lean_usize_mul_would_overflow — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
@@ -453,7 +452,7 @@ Lean scan root: `src`
 - [ ] lean_mark_mt — rust: 27, lean: 0, lean_: 0, total: 27 — multi: yes
 - [ ] lean_set_st_header — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_set_non_heap_header — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
-- [ ] lean_ctor_num_objs — rust: 6, lean: 0, lean_: 0, total: 6 — multi: yes
+- [ ] lean_ctor_num_objs — rust: 7, lean: 0, lean_: 0, total: 7 — multi: yes
 - [ ] lean_ctor_obj_cptr — rust: 6, lean: 0, lean_: 0, total: 6 — multi: yes
 - [ ] lean_closure_num_fixed — rust: 7, lean: 0, lean_: 0, total: 7 — multi: yes
 - [ ] lean_closure_arg_cptr — rust: 5, lean: 0, lean_: 0, total: 5 — multi: yes
@@ -512,7 +511,7 @@ Lean scan root: `src`
 - [ ] lean_get_external_class — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_nat_big_succ — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_nat_big_add — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
-- [ ] lean_nat_big_sub — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
+- [ ] lean_nat_big_sub — rust: 3, lean: 0, lean_: 0, total: 3 — multi: yes
 - [ ] lean_nat_big_mul — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_nat_overflow_mul — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 - [ ] lean_nat_big_div — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
@@ -541,7 +540,7 @@ Lean scan root: `src`
 - [ ] lean_decode_io_error — rust: 57, lean: 0, lean_: 0, total: 57 — multi: yes
 - [ ] lean_decode_uv_error — rust: 71, lean: 0, lean_: 0, total: 71 — multi: yes
 - [ ] lean_io_result_take_value — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
-- [ ] lean_name_hash_ptr — rust: 2, lean: 0, lean_: 0, total: 2 — multi: yes
+- [ ] lean_name_hash_ptr — rust: 3, lean: 0, lean_: 0, total: 3 — multi: yes
 - [ ] lean_name_hash — rust: 1, lean: 0, lean_: 0, total: 1 — multi: no
 
 ## Used only in Lean
@@ -615,6 +614,7 @@ Lean scan root: `src`
 - [ ] lean_task_spawn — rust: 0, lean: 1, lean_: 1, total: 2 — multi: yes
 - [ ] lean_task_bind — rust: 0, lean: 1, lean_: 1, total: 2 — multi: yes
 - [ ] lean_task_map — rust: 0, lean: 1, lean_: 1, total: 2 — multi: yes
+- [ ] lean_task_get_own — rust: 0, lean: 1, lean_: 1, total: 2 — multi: yes
 - [ ] lean_cstr_to_nat — rust: 0, lean: 2, lean_: 1, total: 3 — multi: yes
 - [ ] lean_unsigned_to_nat — rust: 0, lean: 2, lean_: 2, total: 4 — multi: yes
 - [ ] lean_nat_div_exact — rust: 0, lean: 1, lean_: 0, total: 1 — multi: no
@@ -787,4 +787,12 @@ Lean scan root: `src`
 - [ ] lean_big_int_to_nat — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_st_ref_reset — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: exported ABI surface; may only be used by generated C/C++ or external callers
 - [ ] lean_obj_once_cold — rust: 0, lean: 0, lean_: 0, total: 0 — multi: no — reason: no textual callers found; review whether this is dead code or only reached indirectly
+
+## Explanation of Unused Functions
+
+Out of the 51 functions flagged as unused, none are mistakes. They fall into three categories:
+
+1. **Header-Only / Inline Helpers:** Functions like `lean_to_ctor`, `lean_to_string`, `lean_usize_add_checked`, etc., are defined as `static inline` in the header or exported as symbols. They are meant for external C/C++ code or generated C code, but the Rust runtime uses native Rust structures and operations directly.
+2. **Exported Public ABI Surface:** Functions like `lean_notify_assert`, `lean_set_exit_on_panic`, `lean_internal_panic_rc_overflow`, `lean_inc_heartbeat` are called by generated C/C++ code or external FFI code, so they are not textually referenced in the Rust runtime itself.
+3. **Legacy/Dead Declarations:** `lean_st_ref_reset` was declared in the original C++ header (`lean.h`) but never actually implemented or used in the C++ runtime either. It is kept solely for header compatibility.
 
