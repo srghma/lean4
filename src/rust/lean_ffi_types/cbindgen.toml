@@ -19,6 +19,8 @@ after_includes = """
 
 [export]
 include = [
+  "LeanExternalClass",
+  "LeanExternalObject",
   "LeanCtorObject",
   "LeanArrayObject",
   "LeanStringObject",
@@ -34,6 +36,8 @@ include = [
 
 [export.rename]
 "LeanCtorObject"     = "lean_ctor_object"
+"LeanExternalClass"   = "lean_external_class"
+"LeanExternalObject"  = "lean_external_object"
 "LeanThunkObject"    = "lean_thunk_object"
 "LeanRefObject"      = "lean_ref_object"
 "LeanPromiseObject"  = "lean_promise_object"

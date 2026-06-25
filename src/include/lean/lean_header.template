@@ -118,34 +118,7 @@ static inline bool lean_is_big_object_tag(uint8_t tag) {
 
 LEAN_CASSERT(sizeof(size_t) == sizeof(void*));
 
-/*
-Lean object header.
-
-The reference counter `m_rc` field also encodes whether the object is single threaded (> 0), multi threaded (< 0), or
-reference counting is not needed (== 0). We don't use reference counting for objects stored in compact regions, or
-marked as persistent.
-
-For "small" objects stored in compact regions, the field `m_cs_sz` contains the object size. For "small" objects not
-stored in compact regions, we use the page information to retrieve its size so that we can reuse
-`m_cs_sz` to store the deletion list inline. Using the page information is not an option with
-mimalloc, so there we always use `m_cs_sz`; reusing it for the deletion list is fine in this case as
-we do not need the size after an object has been marked for deletion (see `lean_free_small_object`).
-
-During deallocation and 64-bit machines, the fields `m_rc` and `m_cs_sz` store the next object in the deletion TODO list.
-These two fields together have 48-bits, and this is enough for most modern computers.
-In 32-bit machines, the field `m_rc` is sufficient.
-Note that as a result, this code is not compatible with ARM MTE or HWASAN,
-which use extra pointer bits which do not fit (https://github.com/leanprover/lean4/issues/13113).
-
-
-The field `m_other` is used to store the number of fields in a constructor object and the element size in a scalar array.
-*/
-typedef struct {
-    int      m_rc;
-    unsigned m_cs_sz:16;
-    unsigned m_other:8;
-    unsigned m_tag:8;
-} lean_object;
+typedef struct lean_object lean_object;
 
 /*
 In our runtime, a Lean function consume the reference counter (RC) of its argument or not.
@@ -185,19 +158,11 @@ typedef lean_object * b_lean_obj_res; /* Borrowed object result. */
 typedef void (*lean_external_finalize_proc)(void *);
 typedef void (*lean_external_foreach_proc)(void *, b_lean_obj_arg);
 
-typedef struct {
-    lean_external_finalize_proc m_finalize;
-    lean_external_foreach_proc  m_foreach;
-} lean_external_class;
-
 LEAN_EXPORT lean_external_class * lean_register_external_class(lean_external_finalize_proc, lean_external_foreach_proc);
-
-/* Object for wrapping external data. */
-typedef struct {
-    lean_object           m_header;
-    lean_external_class * m_class;
-    void *                m_data;
-} lean_external_object;
+LEAN_EXPORT lean_object * lean_alloc_external(lean_external_class * cls, void * data);
+LEAN_EXPORT lean_external_class * lean_get_external_class(lean_object * o);
+LEAN_EXPORT void * lean_get_external_data(lean_object * o);
+LEAN_EXPORT lean_object * lean_set_external_data(lean_object * o, void * data);
 
 LEAN_EXPORT bool lean_is_scalar(lean_object * o);
 LEAN_EXPORT lean_object * lean_box(size_t n);
@@ -1218,33 +1183,6 @@ LEAN_EXPORT uint8_t lean_io_get_task_state_core(b_lean_obj_arg t);
 LEAN_EXPORT b_lean_obj_res lean_io_wait_any_core(b_lean_obj_arg task_list);
 
 /* External objects */
-
-static inline lean_object * lean_alloc_external(lean_external_class * cls, void * data) {
-    lean_external_object * o = (lean_external_object*)lean_alloc_small_object(sizeof(lean_external_object));
-    lean_set_st_header((lean_object*)o, LeanExternal, 0);
-    o->m_class   = cls;
-    o->m_data    = data;
-    return (lean_object*)o;
-}
-
-static inline lean_external_class * lean_get_external_class(lean_object * o) {
-    return lean_to_external(o)->m_class;
-}
-
-static inline void * lean_get_external_data(lean_object * o) {
-    return lean_to_external(o)->m_data;
-}
-
-static inline lean_object * lean_set_external_data(lean_object * o, void * data) {
-    if (lean_is_exclusive(o)) {
-        lean_to_external(o)->m_data = data;
-        return o;
-    } else {
-        lean_object * o_new = lean_alloc_external(lean_get_external_class(o), data);
-        lean_dec_ref(o);
-        return o_new;
-    }
-}
 
 /* Natural numbers */
 
@@ -2798,36 +2736,16 @@ LEAN_EXPORT lean_object * lean_dbg_trace_if_shared(lean_obj_arg s, lean_obj_arg 
 LEAN_EXPORT lean_obj_res lean_decode_io_error(int errnum, b_lean_obj_arg fname);
 LEAN_EXPORT lean_obj_res lean_decode_uv_error(int errnum, b_lean_obj_arg fname);
 
-static inline lean_obj_res lean_io_mk_world() { return lean_box(0); }
-
-static inline lean_obj_res lean_void_mk(lean_obj_arg a) {
-    lean_dec(a);
-    return lean_box(0);
-}
-
-static inline b_lean_obj_res lean_io_result_get_value(b_lean_obj_arg r) { assert(lean_io_result_is_ok(r)); return lean_ctor_get(r, 0); }
-static inline b_lean_obj_res lean_io_result_get_error(b_lean_obj_arg r) { assert(lean_io_result_is_error(r)); return lean_ctor_get(r, 0); }
-
-static inline lean_obj_res lean_io_result_take_value(lean_obj_arg r) {
-    assert(lean_io_result_is_ok(r));
-    lean_object* v = lean_ctor_get(r, 0);
-    lean_inc(v);
-    lean_dec(r);
-    return v;
-}
+LEAN_EXPORT lean_obj_res lean_io_mk_world(void);
+LEAN_EXPORT lean_obj_res lean_void_mk(lean_obj_arg a);
+LEAN_EXPORT b_lean_obj_res lean_io_result_get_value(b_lean_obj_arg r);
+LEAN_EXPORT b_lean_obj_res lean_io_result_get_error(b_lean_obj_arg r);
+LEAN_EXPORT lean_obj_res lean_io_result_take_value(lean_obj_arg r);
 
 LEAN_EXPORT void lean_io_result_show_error(b_lean_obj_arg r);
 LEAN_EXPORT void lean_io_mark_end_initialization(void);
-static inline lean_obj_res lean_io_result_mk_ok(lean_obj_arg a) {
-    lean_object * r = lean_alloc_ctor(0, 1, 0);
-    lean_ctor_set(r, 0, a);
-    return r;
-}
-static inline lean_obj_res lean_io_result_mk_error(lean_obj_arg e) {
-    lean_object * r = lean_alloc_ctor(1, 1, 0);
-    lean_ctor_set(r, 0, e);
-    return r;
-}
+LEAN_EXPORT lean_obj_res lean_io_result_mk_ok(lean_obj_arg a);
+LEAN_EXPORT lean_obj_res lean_io_result_mk_error(lean_obj_arg e);
 
 LEAN_EXPORT lean_obj_res lean_mk_io_error_already_exists(uint32_t, lean_obj_arg);
 LEAN_EXPORT lean_obj_res lean_mk_io_error_already_exists_file(lean_obj_arg, uint32_t, lean_obj_arg);

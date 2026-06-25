@@ -1449,10 +1449,54 @@ pub unsafe extern "C" fn lean_runtime_get_external_data(obj: *mut LeanObject) ->
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_alloc_external(
+    class: *mut LeanExternalClass,
+    data: *mut c_void,
+) -> *mut LeanObject {
+    lean_runtime_alloc_external(class, data)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_get_external_class(obj: *mut LeanObject) -> *mut LeanExternalClass {
+    (*(obj as *mut LeanExternalObject)).class
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_get_external_data(obj: *mut LeanObject) -> *mut c_void {
+    lean_runtime_get_external_data(obj)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_set_external_data(
+    obj: *mut LeanObject,
+    data: *mut c_void,
+) -> *mut LeanObject {
+    if (*obj).rc == 1 {
+        (*(obj as *mut LeanExternalObject)).data = data;
+        obj
+    } else {
+        let new_obj = lean_alloc_external(lean_get_external_class(obj), data);
+        lean_dec_ref(obj);
+        new_obj
+    }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
     std::thread::available_parallelism()
         .map(|count| count.get() as u32)
         .unwrap_or(1)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
+    unsafe { lean_box(0) }
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_void_mk(obj: *mut LeanObject) -> *mut LeanObject {
+    lean_dec(obj);
+    lean_box(0)
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -1487,11 +1531,6 @@ pub unsafe extern "C" fn lean_runtime_get_lean_num_threads() -> c_uint {
     std::thread::available_parallelism()
         .map(|count| count.get() as c_uint)
         .unwrap_or(1)
-}
-
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
-    unsafe { lean_box(0) }
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
