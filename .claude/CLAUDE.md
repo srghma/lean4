@@ -24,7 +24,7 @@ If want to run ALL tests - dont run, I will run myself (to preserve tokens), but
 
 6. during porting we used TDD approach. made new tests (lean tests or bash scripts or rust tests)
 
-7. Every time we did some change - we consulted and should continue to consult original cpp implementation at `./origin-master-src`. RUST CODE SHOULD WORK SAME AS CPP!! (e.g. inc/dec should be same as in cpp)!!
+7. Every time we do some change - we should should continue to consult original cpp implementation at `./origin-master-src`. RUST CODE SHOULD WORK SAME AS CPP!! (e.g. inc/dec should be same as in cpp)!!
 
 ----------
 
@@ -134,6 +134,7 @@ but our rust code should not import any structures or functions from it.
 
 all code should be inside of rust.
 
+--------
 After this feature is done and tests have passed we want to replace cpp deps with cargo deps
 
 
@@ -153,6 +154,66 @@ After this feature is done and tests have passed we want to replace cpp deps wit
 
 <dlfcn.h> / LoadLibrary	-> libloading (safe cross-platform dynamic loading)
 ```
+
+rust libs can be xxx-sys or xxx (safe wrapper around sys) - I want to use xxx libs. If my selection of libs is wrong - please fix me
+
+I would start in this order:
+
+1. mimalloc
+    - Lowest-risk, global, and self-contained.
+    - Use the mimalloc crate as the global allocator. That is the right choice for a Rust-owned allocator layer. mimalloc is explicitly a drop-in global allocator wrapper. source (https://docs.rs/mimalloc)
+
+2. libloading
+    - Also low-risk and lets you remove dlfcn.h / LoadLibrary style shims early.
+    - This is the right “safe wrapper over sys” choice here. The crate is specifically a cross-platform dynamic loading API. source (https://docs.rs/libloading)
+
+3. zlib
+    - Prefer flate2 first if Lean only needs normal compress/decompress streams.
+    - flate2 already defaults to a pure-Rust backend (miniz_oxide) and supports zlib/gzip. source (https://docs.rs/flate2)
+    - If you need something closer to a low-level zlib engine, zlib-rs is the better fit, but it is lower-level and the crate itself says to use flate2 for a higher-level interface. source (https://docs.rs/zlib-rs)
+
+4. icu
+    - Move this after the basic infra because it tends to touch string/locale behavior and can spread into parsing/printing paths.
+    - The icu meta-crate is the right Rust-side family for ICU4X-based functionality. source (https://docs.rs/icu)
+
+5. llvm-c
+    - Use llvm-sys.
+    - This is the correct low-level crate for LLVM C API bindings. It is version-coupled to LLVM, so you want to line it up with the LLVM you actually build against. source (https://docs.rs/llvm-sys)
+
+6. libuv
+    - Use the safe libuv crate, not libuv-sys2, if your goal is Rust-facing APIs.
+    - The libuv crate is a wrapper crate; its docs show it depends on libuv-sys2 under the hood, which is fine if you want the safe wrapper layer. source (https://docs.rs/libuv)
+    - If you want to avoid low-level sys crates in your codebase, libuv is the right user-facing choice, but it still depends on a sys crate internally. That is normal.
+
+7. Emscripten and platform-specific C headers
+    - emscripten.h: leave this until later, because it is usually tied to the build target and not just a library swap.
+    - Windows/POSIX/debug headers: replace with Rust-native APIs after the higher-level runtime pieces are stable.
+
+So the practical starting point is:
+
+- first: mimalloc, libloading
+- then: zlib via flate2 or zlib-rs
+- then: icu
+- then: llvm-sys
+- then: libuv
+- last: target/platform shims like emscripten.h, windows.h, unistd.h, pthread.h, dlfcn.h, dirent.h, execinfo.h
+
+That order is based on blast radius:
+
+- allocator and dynamic loading are easiest to swap out cleanly
+- compression and ICU are contained but more behavior-sensitive
+- LLVM and libuv are core runtime dependencies and touch more of the system
+- platform shims are best removed once the Rust replacements are already in place
+
+One correction to your dependency preference:
+
+- mimalloc: yes, use the mimalloc crate
+- libloading: yes, use the safe wrapper crate
+- libuv: yes, use the libuv crate, not libuv-sys2 directly
+- zlib: I would start with flate2 unless you have a hard reason to need the lower-level zlib-rs
+- icu: use the icu meta-crate family, but expect to choose specific subcrates later if you want tighter control
+
+--------
 
 but in next iteration we want to replace these shims
 
@@ -231,19 +292,92 @@ with
 can we do it more?
 maybe use Phantom fields?
 
+1. Audit the object model and split types into two layers:
+    - raw ABI types that must stay #[repr(C)] and pointer-compatible with C
+    - Rust-only typed wrappers for ownership, borrowing, and invariants
+
+2. Replace the most obvious broad pointers first:
+    - *mut LeanObject fields inside concrete Rust structs should become the specific struct pointer when layout and usage are known, like *mut LeanTaskObject
+    - keep *mut LeanObject only at true erased boundaries such as generic containers, dispatch points, and FFI entry points
+
+3. Introduce lightweight wrapper types for typed access:
+    - LeanObj<T> or similar for typed raw pointers
+    - BorrowedLeanObj<'a, T> / OwnedLeanObj<T> where lifetime or ownership matters
+    - these wrappers should be zero-cost and repr(transparent) where appropriate
+
+4. Use PhantomData only for semantic state, not for layout:
+    - encode borrow vs owned
+    - encode “this pointer is logically a LeanTaskObject”
+    - encode aliasing or mutability constraints where that prevents misuse
+    - do not use it to model actual stored fields in C-facing structs
+
+5. Tighten constructors and accessors:
+    - make constructors return the precise type
+    - make field accessors require the precise type
+    - reduce unchecked casts by moving them into a few well-named conversion points
+
+6. Leave the C ABI stable:
+    - no changes to generated header layout unless the C-facing representation already permits it
+    - no breaking changes to exported symbol names while the port is still in progress
+
+7. Validate incrementally:
+    - compile after each type-family conversion
+    - run focused tests around the touched runtime paths
+    - compare against origin-master-src whenever a mismatch appears
+
+The practical rule is: use precise Rust types everywhere inside Rust, and only erase back to *mut LeanObject at the FFI boundary or in truly polymorphic runtime code. PhantomData is useful for ownership and lifetime encoding, but not as a substitute for concrete object typing.
+
 ----
 
 there should be no lean_cxx_... functions, they were just temporary port
 
-Look what horrible mess I found
+1. Remove the temporary lean_cxx_... symbol names from Rust entry points, keeping only the final names that match origin-master-src.
+ - kernel_expr_eq_fn.rs
+ - kernel_abstract.rs
+ - kernel_expr.rs
+ - kernel_trace.rs
+ - kernel_num.rs
 
-rust_/lean_runtime/src/kernel_expr.rs|15 col 12-40| fn lean_cxx_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> u8;
-rust_/lean_runtime/src/kernel_expr.rs|112 col 9-37| lean_cxx_expr_has_loose_bvar(e, i)
-src/rust/lean_runtime/src/kernel_expr.rs|9 col 55-83| lean_expr_has_loose_bvar               — replaces lean_cxx_expr_has_loose_bvar
-rust_/lean_runtime/src/runtime_compat_cxx.rs|728 col 18-46| #[export_name = "lean_cxx_expr_has_loose_bvar"]
-rust_/lean_runtime/src/runtime_compat_cxx.rs|729 col 26-54| pub unsafe extern "C" fn lean_cxx_expr_has_loose_bvar_export(
+2. Split the remaining cases into two buckets.
+ - Pure Rust implementations that should stay as real Rust functions, exported under the final C ABI names.
+ - Compatibility-only wrappers that should disappear entirely once no caller needs the old names.
 
-is this a loop? there is no body of this function. right? Fix.
+3. For kernel_num.rs, delete the placeholder lean_cxx_initialize_num / lean_cxx_finalize_num pair.
+ - Check the original C++ num.cpp/equivalent in origin-master-src.
+ - If there is no real work there, keep only the final no-op initialize_num / finalize_num symbols expected by the runtime.
+ - Do not keep the lean_cxx_... aliases.
+
+4. For kernel_trace.rs, rename the actual exported functions to the non-cxx names and keep their bodies in Rust.
+ - lean_register_trace_class
+ - lean_initialize_trace
+ - lean_finalize_trace
+ - lean_is_trace_class_enabled
+ - lean_scope_trace_env_ctor_c1/c2
+ - lean_scope_trace_env_dtor_c1/c2
+   Then remove the lean_cxx_... spellings entirely.
+
+5. For kernel_expr.rs, kernel_abstract.rs, and kernel_expr_eq_fn.rs, keep the Rust bodies but rename the exported ABI symbols to the final names only.
+ - The comments that say “replaces lean_cxx_...” should be rewritten or removed after the rename.
+ - There should be no symbol indirection through a lean_cxx_... function at all.
+
+6. Search for every remaining lean_cxx_ reference after the rename.
+ - Any remaining reference should be either:
+  - an old comment, which should be cleaned up, or
+  - a genuine external compatibility requirement, which should be checked against origin-master-src before keeping.
+
+ - If it does not exist in the original C++ implementation, remove it.
+
+7. Validate against origin-master-src.
+ - For each function family, compare the Rust body and exported name to the original C++ implementation.
+ - The goal is semantic parity, not a Rust-specific cleanup that changes behavior.
+
+8. Then run a focused test slice around the touched areas.
+ - expr equality / abstraction / loose bvar
+ - trace registration and scope handling
+ - num init/finalize if still present
+ - any runtime tests that include those headers or call the affected exports
+
+The key rule is: the final Rust runtime should export only the final ABI names, with no lean_cxx_... hop, and any remaining lean_cxx_... text should be treated as leftover scaffolding unless the original C++ really needs it.
 
 ----
 
@@ -269,6 +403,49 @@ But can we replace them with rust-based approach Drop or etc? so that things are
 Note that we:
 1. export (? right ?) some initializer/finalizers in lean.h, and it should continue to work
 2. the user defined (in cpp, in tests) initializer/finalizers, should continue to work
+
+1. Inventory all current *_initialize / *_finalize paths.
+    - Classify each one as:
+        - pure Rust-owned state
+        - C++/test hook that must still be callable
+        - no-op that can disappear
+
+    - This gives the exact compatibility surface we must preserve in lean.h.
+
+2. Introduce a Rust module registry.
+    - Store per-module init state in Rust, keyed by module name or module ID.
+    - Use OnceLock for one-time setup and a guarded runtime struct for cleanup.
+    - Keep explicit initialize_xxx() / finalize_xxx() Rust functions, but make them operate on the registry instead of scattered global state.
+
+3. Keep the exported C ABI unchanged.
+    - lean.h continues to export the same initializer/finalizer symbols.
+    - Those symbols become wrappers around the Rust registry.
+    - That preserves both:
+        - Lean-generated code that calls init/finalize functions
+        - user-defined init/finalize functions used in tests or C++ glue
+
+4. Add an owning runtime handle for automatic cleanup.
+    - Build a top-level Rust Runtime / ModuleRuntime object that owns all module resources.
+    - On process-side Rust entrypoints, create one and let Drop release internal state.
+    - Do not rely on Drop for static globals at process exit; use it for owned runtime objects only.
+    - Exported finalize_* functions should still exist and call the same cleanup path explicitly.
+
+5. Preserve user-defined hooks.
+    - Keep a registry of external initializer/finalizer callbacks.
+    - Rust init should invoke registered user hooks in the same order as today.
+    - Rust finalize should call them in reverse or existing order, matching current behavior.
+
+6. Validate incrementally.
+    - First port one module with clear state ownership.
+    - Verify initialize/finalize symbols still link and tests still call custom hooks.
+    - Then migrate the rest module-by-module.
+
+Main constraint:
+
+- Replace implicit global lifecycle with explicit Rust ownership internally.
+- Do not remove the public init/finalize C ABI until the last consumer is gone.
+
+If you want, I can turn this into a concrete migration sequence against the current src/rust/lean_runtime modules.
 
 ----
 

@@ -38,6 +38,15 @@ fn main() {
         let version_string = derive_version_string_from_cmake();
         println!("cargo:rustc-env=LEAN_RUST_VERSION_STRING={version_string}");
     }
+    let (major, minor, patch, is_release, special_desc) = derive_version_components_from_cmake();
+    println!("cargo:rustc-env=LEAN_RUST_VERSION_MAJOR={major}");
+    println!("cargo:rustc-env=LEAN_RUST_VERSION_MINOR={minor}");
+    println!("cargo:rustc-env=LEAN_RUST_VERSION_PATCH={patch}");
+    println!("cargo:rustc-env=LEAN_RUST_VERSION_IS_RELEASE={is_release}");
+    println!("cargo:rustc-env=LEAN_RUST_VERSION_SPECIAL_DESC={special_desc}");
+    if let Ok(target) = std::env::var("TARGET") {
+        println!("cargo:rustc-env=LEAN_RUST_PLATFORM_TARGET={target}");
+    }
     if let Ok(archive) = std::env::var("LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE") {
         if !archive.is_empty() {
             println!("cargo:rustc-link-arg={archive}");
@@ -108,6 +117,21 @@ fn derive_version_string_from_cmake() -> String {
         version.push_str("-pre");
     }
     version
+}
+
+fn derive_version_components_from_cmake() -> (u32, u32, u32, u32, String) {
+    let manifest_dir =
+        std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR must be set by cargo");
+    let cmake_path = std::path::Path::new(&manifest_dir).join("../../CMakeLists.txt");
+    let cmake = std::fs::read_to_string(&cmake_path)
+        .unwrap_or_else(|_| panic!("unable to read {} for Lean version", cmake_path.display()));
+    (
+        parse_cmake_integer(&cmake, "LEAN_VERSION_MAJOR"),
+        parse_cmake_integer(&cmake, "LEAN_VERSION_MINOR"),
+        parse_cmake_integer(&cmake, "LEAN_VERSION_PATCH"),
+        parse_cmake_integer(&cmake, "LEAN_VERSION_IS_RELEASE"),
+        parse_cmake_string(&cmake, "LEAN_SPECIAL_VERSION_DESC"),
+    )
 }
 
 fn parse_cmake_integer(text: &str, name: &str) -> u32 {

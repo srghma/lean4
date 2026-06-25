@@ -319,36 +319,15 @@ LEAN_EXPORT void lean_ctor_set_float32(b_lean_obj_arg o, unsigned offset, float 
 
 /* Closures */
 
-static inline void * lean_closure_fun(lean_object * o) { return lean_to_closure(o)->m_fun; }
-static inline unsigned lean_closure_arity(lean_object * o) { return lean_to_closure(o)->m_arity; }
-static inline unsigned lean_closure_num_fixed(lean_object * o) { return lean_to_closure(o)->m_num_fixed; }
-static inline lean_object ** lean_closure_arg_cptr(lean_object * o) { return lean_to_closure(o)->m_objs; }
-static inline lean_obj_res lean_alloc_closure(void * fun, unsigned arity, unsigned num_fixed) {
-    assert(arity > 0);
-    assert(num_fixed < arity);
-    lean_closure_object * o = (lean_closure_object*)lean_alloc_object(lean_usize_add_checked(sizeof(lean_closure_object), lean_usize_mul_checked(sizeof(void*), num_fixed)));
-    lean_set_st_header((lean_object*)o, LeanClosure, 0);
-    o->m_fun = fun;
-    o->m_arity = arity;
-    o->m_num_fixed = num_fixed;
-    return (lean_object*)o;
-}
-static inline b_lean_obj_res lean_closure_get(b_lean_obj_arg o, unsigned i) {
-    assert(i < lean_closure_num_fixed(o));
-    return lean_to_closure(o)->m_objs[i];
-}
-static inline void lean_closure_set(u_lean_obj_arg o, unsigned i, lean_obj_arg a) {
-    assert(i < lean_closure_num_fixed(o));
-    lean_to_closure(o)->m_objs[i] = a;
-}
-static inline size_t lean_closure_byte_size(lean_object * o) {
-    return sizeof(lean_closure_object) + sizeof(void*)*lean_closure_num_fixed(o);
-}
-
-static inline size_t lean_closure_data_byte_size(lean_object * o) {
-    // Matches for closures.
-    return lean_closure_byte_size(o);
-}
+LEAN_EXPORT void * lean_closure_fun(lean_object * o);
+LEAN_EXPORT unsigned lean_closure_arity(lean_object * o);
+LEAN_EXPORT unsigned lean_closure_num_fixed(lean_object * o);
+LEAN_EXPORT lean_object ** lean_closure_arg_cptr(lean_object * o);
+LEAN_EXPORT lean_obj_res lean_alloc_closure(void * fun, unsigned arity, unsigned num_fixed);
+LEAN_EXPORT b_lean_obj_res lean_closure_get(b_lean_obj_arg o, unsigned i);
+LEAN_EXPORT void lean_closure_set(u_lean_obj_arg o, unsigned i, lean_obj_arg a);
+LEAN_EXPORT size_t lean_closure_byte_size(lean_object * o);
+LEAN_EXPORT size_t lean_closure_data_byte_size(lean_object * o);
 
 LEAN_EXPORT lean_object* lean_apply_1(lean_object* f, lean_object* a1);
 LEAN_EXPORT lean_object* lean_apply_2(lean_object* f, lean_object* a1, lean_object* a2);
@@ -371,226 +350,69 @@ LEAN_EXPORT lean_object* lean_apply_n(lean_object* f, unsigned n, lean_object** 
 LEAN_EXPORT lean_object* lean_apply_m(lean_object* f, unsigned n, lean_object** args);
 
 /* Arrays of objects (low level API) */
-static inline lean_obj_res lean_alloc_array(size_t size, size_t capacity) {
-    lean_array_object * o = (lean_array_object*)lean_alloc_object(lean_usize_add_checked(sizeof(lean_array_object), lean_usize_mul_checked(sizeof(void*), capacity)));
-    lean_set_st_header((lean_object*)o, LeanArray, 0);
-    o->m_size = size;
-    o->m_capacity = capacity;
-    return (lean_object*)o;
-}
-static inline size_t lean_array_size(b_lean_obj_arg o) { return lean_to_array(o)->m_size; }
-static inline size_t lean_array_capacity(b_lean_obj_arg o) { return lean_to_array(o)->m_capacity; }
-static inline size_t lean_array_byte_size(lean_object * o) {
-    return sizeof(lean_array_object) + sizeof(void*)*lean_array_capacity(o);
-}
-static inline size_t lean_array_data_byte_size(lean_object * o) {
-    return sizeof(lean_array_object) + sizeof(void*)*lean_array_size(o);
-}
-static inline lean_object ** lean_array_cptr(lean_object * o) { return lean_to_array(o)->m_data; }
-static inline void lean_array_set_size(u_lean_obj_arg o, size_t sz) {
-    assert(lean_is_array(o));
-    assert(lean_is_exclusive(o));
-    assert(sz <= lean_array_capacity(o));
-    lean_to_array(o)->m_size = sz;
-}
-static inline b_lean_obj_res lean_array_get_core(b_lean_obj_arg o, size_t i) {
-    assert(i < lean_array_size(o));
-    return lean_to_array(o)->m_data[i];
-}
-static inline void lean_array_set_core(u_lean_obj_arg o, size_t i, lean_obj_arg v) {
-    /* Remark: we use this procedure to update non shared arrays in the heap,
-       and when copying objects to compact region at compact.cpp */
-    assert(!lean_has_rc(o) || lean_is_exclusive(o));
-    assert(i < lean_array_size(o));
-    lean_to_array(o)->m_data[i] = v;
-}
+LEAN_EXPORT lean_obj_res lean_alloc_array(size_t size, size_t capacity);
+LEAN_EXPORT size_t lean_array_size(b_lean_obj_arg o);
+LEAN_EXPORT size_t lean_array_capacity(b_lean_obj_arg o);
+LEAN_EXPORT size_t lean_array_byte_size(lean_object * o);
+LEAN_EXPORT size_t lean_array_data_byte_size(lean_object * o);
+LEAN_EXPORT lean_object ** lean_array_cptr(lean_object * o);
+LEAN_EXPORT void lean_array_set_size(u_lean_obj_arg o, size_t sz);
+LEAN_EXPORT b_lean_obj_res lean_array_get_core(b_lean_obj_arg o, size_t i);
+LEAN_EXPORT void lean_array_set_core(u_lean_obj_arg o, size_t i, lean_obj_arg v);
 LEAN_EXPORT lean_object * lean_array_mk(lean_obj_arg l);
 LEAN_EXPORT lean_object * lean_array_to_list(lean_obj_arg a);
 
 /* Arrays of objects (high level API) */
 
-static inline lean_object * lean_array_sz(lean_obj_arg a) {
-    lean_object * r = lean_box(lean_array_size(a));
-    lean_dec(a);
-    return r;
-}
-
-static inline lean_object * lean_array_get_size(b_lean_obj_arg a) {
-    return lean_box(lean_array_size(a));
-}
-
-static inline lean_object * lean_mk_empty_array() {
-    return lean_alloc_array(0, 0);
-}
-
-static inline lean_object * lean_mk_empty_array_with_capacity(b_lean_obj_arg capacity) {
-    if (!lean_is_scalar(capacity)) lean_internal_panic_out_of_memory();
-    return lean_alloc_array(0, lean_unbox(capacity));
-}
-
-static inline lean_object * lean_array_uget(b_lean_obj_arg a, size_t i) {
-    lean_object * r = lean_array_get_core(a, i); lean_inc(r);
-    return r;
-}
-
-static inline b_lean_obj_res lean_array_uget_borrowed(b_lean_obj_arg a, size_t i) {
-    return lean_array_get_core(a, i);
-}
-
-static inline lean_obj_res lean_array_fget(b_lean_obj_arg a, b_lean_obj_arg i) {
-    return lean_array_uget(a, lean_unbox(i));
-}
-
-static inline lean_obj_res lean_array_fget_borrowed(b_lean_obj_arg a, b_lean_obj_arg i) {
-    return lean_array_get_core(a, lean_unbox(i));
-}
+LEAN_EXPORT lean_object * lean_array_sz(lean_obj_arg a);
+LEAN_EXPORT lean_object * lean_array_get_size(b_lean_obj_arg a);
+LEAN_EXPORT lean_object * lean_mk_empty_array(void);
+LEAN_EXPORT lean_object * lean_mk_empty_array_with_capacity(b_lean_obj_arg capacity);
+LEAN_EXPORT lean_object * lean_array_uget(b_lean_obj_arg a, size_t i);
+LEAN_EXPORT b_lean_obj_res lean_array_uget_borrowed(b_lean_obj_arg a, size_t i);
+LEAN_EXPORT lean_obj_res lean_array_fget(b_lean_obj_arg a, b_lean_obj_arg i);
+LEAN_EXPORT lean_obj_res lean_array_fget_borrowed(b_lean_obj_arg a, b_lean_obj_arg i);
 
 LEAN_EXPORT lean_obj_res lean_array_get_panic(lean_obj_arg def_val);
 
-static inline lean_object * lean_array_get(b_lean_obj_arg def_val, b_lean_obj_arg a, b_lean_obj_arg i) {
-    if (lean_is_scalar(i)) {
-        size_t idx = lean_unbox(i);
-        if (idx < lean_array_size(a)) {
-            return lean_array_uget(a, idx);
-        }
-    }
-    /* Recall that if `i` is not a scalar, then it must be out of bounds because
-       i > LEAN_MAX_SMALL_NAT == MAX_UNSIGNED >> 1
-       but each array entry is 8 bytes in 64-bit machines and 4 in 32-bit ones.
-       In both cases, we would be out-of-memory. */
-    lean_inc(def_val);
-    return lean_array_get_panic(def_val);
-}
-
-static inline lean_object * lean_array_get_borrowed(b_lean_obj_arg def_val, b_lean_obj_arg a, b_lean_obj_arg i) {
-    if (lean_is_scalar(i)) {
-        size_t idx = lean_unbox(i);
-        if (idx < lean_array_size(a)) {
-            return lean_array_get_core(a, idx);
-        }
-    }
-    /* Recall that if `i` is not a scalar, then it must be out of bounds because
-       i > LEAN_MAX_SMALL_NAT == MAX_UNSIGNED >> 1
-       but each array entry is 8 bytes in 64-bit machines and 4 in 32-bit ones.
-       In both cases, we would be out-of-memory. */
-    lean_inc(def_val);
-    return lean_array_get_panic(def_val);
-}
+LEAN_EXPORT lean_object * lean_array_get(b_lean_obj_arg def_val, b_lean_obj_arg a, b_lean_obj_arg i);
+LEAN_EXPORT lean_object * lean_array_get_borrowed(b_lean_obj_arg def_val, b_lean_obj_arg a, b_lean_obj_arg i);
 
 LEAN_EXPORT lean_obj_res lean_copy_expand_array(lean_obj_arg a, bool expand);
 // Equivalent to `lean_copy_expand_array` but used as a gadget to spot `Array` non-linearities in
 // profiles.
 LEAN_EXPORT lean_obj_res lean_copy_expand_array_nonlinear(lean_obj_arg a, bool expand);
 
-static inline lean_obj_res lean_ensure_exclusive_array(lean_obj_arg a) {
-    if (lean_is_exclusive(a)) return a;
-    return lean_copy_expand_array_nonlinear(a, false);
-}
-
-static inline lean_object * lean_array_uset(lean_obj_arg a, size_t i, lean_obj_arg v) {
-    lean_object * r   = lean_ensure_exclusive_array(a);
-    lean_object ** it = lean_array_cptr(r) + i;
-    lean_dec(*it);
-    *it = v;
-    return r;
-}
-
-static inline lean_object * lean_array_fset(lean_obj_arg a, b_lean_obj_arg i, lean_obj_arg v) {
-    return lean_array_uset(a, lean_unbox(i), v);
-}
+LEAN_EXPORT lean_obj_res lean_ensure_exclusive_array(lean_obj_arg a);
+LEAN_EXPORT lean_object * lean_array_uset(lean_obj_arg a, size_t i, lean_obj_arg v);
+LEAN_EXPORT lean_object * lean_array_fset(lean_obj_arg a, b_lean_obj_arg i, lean_obj_arg v);
 
 LEAN_EXPORT lean_obj_res lean_array_set_panic(lean_obj_arg a, lean_obj_arg v);
 
-static inline lean_object * lean_array_set(lean_obj_arg a, b_lean_obj_arg i, lean_obj_arg v) {
-    if (lean_is_scalar(i)) {
-        size_t idx = lean_unbox(i);
-        if (idx < lean_array_size(a))
-            return lean_array_uset(a, idx, v);
-    }
-    return lean_array_set_panic(a, v);
-}
-
-static inline lean_object * lean_array_pop(lean_obj_arg a) {
-    lean_object * r  = lean_ensure_exclusive_array(a);
-    size_t sz = lean_to_array(r)->m_size;
-    lean_object ** last;
-    if (sz == 0) return r;
-    sz--;
-    last = lean_array_cptr(r) + sz;
-    lean_to_array(r)->m_size = sz;
-    lean_dec(*last);
-    return r;
-}
-
-static inline lean_object * lean_array_uswap(lean_obj_arg a, size_t i, size_t j) {
-    lean_object * r   = lean_ensure_exclusive_array(a);
-    lean_object ** it = lean_array_cptr(r);
-    lean_object * v1  = it[i];
-    it[i]        = it[j];
-    it[j]        = v1;
-    return r;
-}
-
-static inline lean_object * lean_array_fswap(lean_obj_arg a, b_lean_obj_arg i, b_lean_obj_arg j) {
-    return lean_array_uswap(a, lean_unbox(i), lean_unbox(j));
-}
-
-static inline lean_object * lean_array_swap(lean_obj_arg a, b_lean_obj_arg i, b_lean_obj_arg j) {
-    if (!lean_is_scalar(i) || !lean_is_scalar(j)) return a;
-    size_t ui = lean_unbox(i);
-    size_t uj = lean_unbox(j);
-    size_t sz = lean_to_array(a)->m_size;
-    if (ui >= sz || uj >= sz) return a;
-    return lean_array_uswap(a, ui, uj);
-}
+LEAN_EXPORT lean_object * lean_array_set(lean_obj_arg a, b_lean_obj_arg i, lean_obj_arg v);
+LEAN_EXPORT lean_object * lean_array_pop(lean_obj_arg a);
+LEAN_EXPORT lean_object * lean_array_uswap(lean_obj_arg a, size_t i, size_t j);
+LEAN_EXPORT lean_object * lean_array_fswap(lean_obj_arg a, b_lean_obj_arg i, b_lean_obj_arg j);
+LEAN_EXPORT lean_object * lean_array_swap(lean_obj_arg a, b_lean_obj_arg i, b_lean_obj_arg j);
 
 LEAN_EXPORT lean_object * lean_array_push(lean_obj_arg a, lean_obj_arg v);
 LEAN_EXPORT lean_object * lean_mk_array(lean_obj_arg n, lean_obj_arg v);
 
 /* Array of scalars */
 
-static inline bool lean_alloc_sarray_would_overflow(unsigned elem_size, size_t capacity) {
-    if (lean_usize_mul_would_overflow(elem_size, capacity)) {
-        return true;
-    }
-    if (lean_usize_add_would_overflow(sizeof(lean_sarray_object), elem_size * capacity)) {
-        return true;
-    }
-    return false;
-}
-
-static inline lean_obj_res lean_alloc_sarray(unsigned elem_size, size_t size, size_t capacity) {
-    lean_sarray_object * o = (lean_sarray_object*)lean_alloc_object(lean_usize_add_checked(sizeof(lean_sarray_object), lean_usize_mul_checked(elem_size, capacity)));
-    lean_set_st_header((lean_object*)o, LeanScalarArray, elem_size);
-    o->m_size = size;
-    o->m_capacity = capacity;
-    return (lean_object*)o;
-}
-static inline unsigned lean_sarray_elem_size(lean_object * o) {
-    assert(lean_is_sarray(o));
-    return lean_ptr_other(o);
-}
-static inline size_t lean_sarray_capacity(lean_object * o) { return lean_to_sarray(o)->m_capacity; }
-static inline size_t lean_sarray_byte_size(lean_object * o) {
-    return sizeof(lean_sarray_object) + lean_sarray_elem_size(o)*lean_sarray_capacity(o);
-}
-static inline size_t lean_sarray_size(b_lean_obj_arg o) { return lean_to_sarray(o)->m_size; }
-static inline size_t lean_sarray_data_byte_size(lean_object * o) {
-    return sizeof(lean_sarray_object) + lean_sarray_elem_size(o)*lean_sarray_size(o);
-}
-static inline void lean_sarray_set_size(u_lean_obj_arg o, size_t sz) {
-    assert(lean_is_exclusive(o));
-    assert(sz <= lean_sarray_capacity(o));
-    lean_to_sarray(o)->m_size = sz;
-}
-static inline uint8_t* lean_sarray_cptr(lean_object * o) { return lean_to_sarray(o)->m_data; }
+LEAN_EXPORT bool lean_alloc_sarray_would_overflow(unsigned elem_size, size_t capacity);
+LEAN_EXPORT lean_obj_res lean_alloc_sarray(unsigned elem_size, size_t size, size_t capacity);
+LEAN_EXPORT unsigned lean_sarray_elem_size(lean_object * o);
+LEAN_EXPORT size_t lean_sarray_capacity(lean_object * o);
+LEAN_EXPORT size_t lean_sarray_byte_size(lean_object * o);
+LEAN_EXPORT size_t lean_sarray_size(b_lean_obj_arg o);
+LEAN_EXPORT size_t lean_sarray_data_byte_size(lean_object * o);
+LEAN_EXPORT void lean_sarray_set_size(u_lean_obj_arg o, size_t sz);
+LEAN_EXPORT uint8_t* lean_sarray_cptr(lean_object * o);
 
 LEAN_EXPORT bool lean_sarray_eq_cold(b_lean_obj_arg a1, b_lean_obj_arg a2);
-static inline bool lean_sarray_eq(b_lean_obj_arg a1, b_lean_obj_arg a2) {
-    assert(lean_sarray_elem_size(a1) == lean_sarray_elem_size(a2));
-    return a1 == a2 || (lean_sarray_size(a1) == lean_sarray_size(a2) && lean_sarray_eq_cold(a1, a2));
-}
-static inline uint8_t lean_sarray_dec_eq(b_lean_obj_arg a1, b_lean_obj_arg a2) { return lean_sarray_eq(a1, a2); }
+LEAN_EXPORT bool lean_sarray_eq(b_lean_obj_arg a1, b_lean_obj_arg a2);
+LEAN_EXPORT uint8_t lean_sarray_dec_eq(b_lean_obj_arg a1, b_lean_obj_arg a2);
 
 /* Remark: expand sarray API after we add better support in the compiler */
 
@@ -601,58 +423,17 @@ LEAN_EXPORT lean_obj_res lean_byte_array_data(lean_obj_arg a);
 LEAN_EXPORT lean_obj_res lean_copy_byte_array(lean_obj_arg a);
 LEAN_EXPORT uint64_t lean_byte_array_hash(b_lean_obj_arg a);
 
-static inline lean_obj_res lean_mk_empty_byte_array(b_lean_obj_arg capacity) {
-    if (!lean_is_scalar(capacity)) lean_internal_panic_out_of_memory();
-    return lean_alloc_sarray(1, 0, lean_unbox(capacity));
-}
-
-static inline lean_obj_res lean_byte_array_size(b_lean_obj_arg a) {
-    return lean_box(lean_sarray_size(a));
-}
-static inline uint8_t lean_byte_array_uget(b_lean_obj_arg a, size_t i) {
-    assert(i < lean_sarray_size(a));
-    return lean_sarray_cptr(a)[i];
-}
-static inline uint8_t lean_byte_array_get(b_lean_obj_arg a, b_lean_obj_arg i) {
-    if (lean_is_scalar(i)) {
-        size_t idx = lean_unbox(i);
-        return idx < lean_sarray_size(a) ? lean_byte_array_uget(a, idx) : 0;
-    } else {
-        /* The index must be out of bounds. Otherwise we would be out of memory. */
-        return 0;
-    }
-}
-static inline uint8_t lean_byte_array_fget(b_lean_obj_arg a, b_lean_obj_arg i) {
-    return lean_byte_array_uget(a, lean_unbox(i));
-}
+LEAN_EXPORT lean_obj_res lean_mk_empty_byte_array(b_lean_obj_arg capacity);
+LEAN_EXPORT lean_obj_res lean_byte_array_size(b_lean_obj_arg a);
+LEAN_EXPORT uint8_t lean_byte_array_uget(b_lean_obj_arg a, size_t i);
+LEAN_EXPORT uint8_t lean_byte_array_get(b_lean_obj_arg a, b_lean_obj_arg i);
+LEAN_EXPORT uint8_t lean_byte_array_fget(b_lean_obj_arg a, b_lean_obj_arg i);
 
 LEAN_EXPORT lean_obj_res lean_byte_array_push(lean_obj_arg a, uint8_t b);
 
-static inline lean_object * lean_byte_array_uset(lean_obj_arg a, size_t i, uint8_t v) {
-    lean_obj_res r;
-    if (lean_is_exclusive(a)) r = a;
-    else r = lean_copy_byte_array(a);
-    uint8_t * it = lean_sarray_cptr(r) + i;
-    *it = v;
-    return r;
-}
-
-static inline lean_obj_res lean_byte_array_set(lean_obj_arg a, b_lean_obj_arg i, uint8_t b) {
-    if (!lean_is_scalar(i)) {
-        return a;
-    } else {
-        size_t idx = lean_unbox(i);
-        if (idx >= lean_sarray_size(a)) {
-            return a;
-        } else {
-            return lean_byte_array_uset(a, idx, b);
-        }
-    }
-}
-
-static inline lean_obj_res lean_byte_array_fset(lean_obj_arg a, b_lean_obj_arg i, uint8_t b) {
-    return lean_byte_array_uset(a, lean_unbox(i), b);
-}
+LEAN_EXPORT lean_object * lean_byte_array_uset(lean_obj_arg a, size_t i, uint8_t v);
+LEAN_EXPORT lean_obj_res lean_byte_array_set(lean_obj_arg a, b_lean_obj_arg i, uint8_t b);
+LEAN_EXPORT lean_obj_res lean_byte_array_fset(lean_obj_arg a, b_lean_obj_arg i, uint8_t b);
 
 /* FloatArray (special case of Array of Scalars) */
 
@@ -660,64 +441,18 @@ LEAN_EXPORT lean_obj_res lean_float_array_mk(lean_obj_arg a);
 LEAN_EXPORT lean_obj_res lean_float_array_data(lean_obj_arg a);
 LEAN_EXPORT lean_obj_res lean_copy_float_array(lean_obj_arg a);
 
-static inline lean_obj_res lean_mk_empty_float_array(b_lean_obj_arg capacity) {
-    if (!lean_is_scalar(capacity)) lean_internal_panic_out_of_memory();
-    return lean_alloc_sarray(sizeof(double), 0, lean_unbox(capacity)); // NOLINT
-}
-
-static inline lean_obj_res lean_float_array_size(b_lean_obj_arg a) {
-    return lean_box(lean_sarray_size(a));
-}
-
-static inline double * lean_float_array_cptr(b_lean_obj_arg a) {
-    return (double*)(lean_sarray_cptr(a)); // NOLINT
-}
-
-static inline double lean_float_array_uget(b_lean_obj_arg a, size_t i) {
-    return lean_float_array_cptr(a)[i];
-}
-
-static inline double lean_float_array_fget(b_lean_obj_arg a, b_lean_obj_arg i) {
-    return lean_float_array_uget(a, lean_unbox(i));
-}
-
-static inline double lean_float_array_get(b_lean_obj_arg a, b_lean_obj_arg i) {
-    if (lean_is_scalar(i)) {
-        size_t idx = lean_unbox(i);
-        return idx < lean_sarray_size(a) ? lean_float_array_uget(a, idx) : 0.0;
-    } else {
-        /* The index must be out of bounds. Otherwise we would be out of memory. */
-        return 0.0;
-    }
-}
+LEAN_EXPORT lean_obj_res lean_mk_empty_float_array(b_lean_obj_arg capacity);
+LEAN_EXPORT lean_obj_res lean_float_array_size(b_lean_obj_arg a);
+LEAN_EXPORT double * lean_float_array_cptr(b_lean_obj_arg a);
+LEAN_EXPORT double lean_float_array_uget(b_lean_obj_arg a, size_t i);
+LEAN_EXPORT double lean_float_array_fget(b_lean_obj_arg a, b_lean_obj_arg i);
+LEAN_EXPORT double lean_float_array_get(b_lean_obj_arg a, b_lean_obj_arg i);
 
 LEAN_EXPORT lean_obj_res lean_float_array_push(lean_obj_arg a, double d);
 
-static inline lean_obj_res lean_float_array_uset(lean_obj_arg a, size_t i, double d) {
-    lean_obj_res r;
-    if (lean_is_exclusive(a)) r = a;
-    else r = lean_copy_float_array(a);
-    double * it = lean_float_array_cptr(r) + i;
-    *it = d;
-    return r;
-}
-
-static inline lean_obj_res lean_float_array_fset(lean_obj_arg a, b_lean_obj_arg i, double d) {
-    return lean_float_array_uset(a, lean_unbox(i), d);
-}
-
-static inline lean_obj_res lean_float_array_set(lean_obj_arg a, b_lean_obj_arg i, double d) {
-    if (!lean_is_scalar(i)) {
-        return a;
-    } else {
-        size_t idx = lean_unbox(i);
-        if (idx >= lean_sarray_size(a)) {
-            return a;
-        } else {
-            return lean_float_array_uset(a, idx, d);
-        }
-    }
-}
+LEAN_EXPORT lean_obj_res lean_float_array_uset(lean_obj_arg a, size_t i, double d);
+LEAN_EXPORT lean_obj_res lean_float_array_fset(lean_obj_arg a, b_lean_obj_arg i, double d);
+LEAN_EXPORT lean_obj_res lean_float_array_set(lean_obj_arg a, b_lean_obj_arg i, double d);
 
 /* Strings */
 
@@ -731,68 +466,43 @@ static inline lean_obj_res lean_alloc_string(size_t size, size_t capacity, size_
 }
 LEAN_EXPORT size_t lean_utf8_strlen(char const * str);
 LEAN_EXPORT size_t lean_utf8_n_strlen(char const * str, size_t n);
-static inline size_t lean_string_capacity(lean_object * o) { return lean_to_string(o)->m_capacity; }
-static inline size_t lean_string_byte_size(lean_object * o) { return sizeof(lean_string_object) + lean_string_capacity(o); }
 /* instance : inhabited char := ⟨'A'⟩ */
-static inline uint32_t lean_char_default_value() { return 'A'; }
+LEAN_EXPORT uint32_t lean_char_default_value(void);
 LEAN_EXPORT lean_obj_res lean_mk_string_unchecked(char const * s, size_t sz, size_t len);
 LEAN_EXPORT lean_obj_res lean_mk_string_from_bytes(char const * s, size_t sz);
 LEAN_EXPORT lean_obj_res lean_mk_string_from_bytes_unchecked(char const * s, size_t sz);
 LEAN_EXPORT lean_obj_res lean_mk_ascii_string_unchecked(char const * s);
 LEAN_EXPORT lean_obj_res lean_mk_string(char const * s);
-static inline char const * lean_string_cstr(b_lean_obj_arg o) {
-    assert(lean_is_string(o));
-    return lean_to_string(o)->m_data;
-}
-static inline size_t lean_string_size(b_lean_obj_arg o) { return lean_to_string(o)->m_size; }
-static inline size_t lean_string_len(b_lean_obj_arg o) { return lean_to_string(o)->m_length; }
-static inline size_t lean_string_data_byte_size(lean_object * o) { return sizeof(lean_string_object) + lean_string_size(o); }
+LEAN_EXPORT char const * lean_string_cstr(lean_object * o);
+LEAN_EXPORT size_t lean_string_capacity(lean_object * o);
+LEAN_EXPORT size_t lean_string_byte_size(lean_object * o);
+LEAN_EXPORT size_t lean_string_size(b_lean_obj_arg o);
+LEAN_EXPORT size_t lean_string_len(b_lean_obj_arg o);
+LEAN_EXPORT size_t lean_string_data_byte_size(lean_object * o);
 LEAN_EXPORT lean_obj_res lean_string_push(lean_obj_arg s, uint32_t c);
 LEAN_EXPORT lean_obj_res lean_string_append(lean_obj_arg s1, b_lean_obj_arg s2);
-static inline lean_obj_res lean_string_length(b_lean_obj_arg s) { return lean_box(lean_string_len(s)); }
+LEAN_EXPORT lean_obj_res lean_string_length(b_lean_obj_arg s);
 LEAN_EXPORT lean_obj_res lean_string_mk(lean_obj_arg cs);
 LEAN_EXPORT lean_obj_res lean_string_data(lean_obj_arg s);
 LEAN_EXPORT uint32_t  lean_string_utf8_get(b_lean_obj_arg s, b_lean_obj_arg i);
 LEAN_EXPORT uint32_t lean_string_utf8_get_fast_cold(char const * str, size_t i, size_t size, unsigned char c);
-static inline uint32_t lean_string_utf8_get_fast(b_lean_obj_arg s, b_lean_obj_arg i) {
-  char const * str = lean_string_cstr(s);
-  size_t idx = lean_unbox(i);
-  unsigned char c = (unsigned char)(str[idx]);
-  if ((c & 0x80) == 0) return c;
-  return lean_string_utf8_get_fast_cold(str, idx, lean_string_size(s), c);
-}
-static inline uint8_t lean_string_get_byte_fast(b_lean_obj_arg s, b_lean_obj_arg i) {
-  char const * str = lean_string_cstr(s);
-  size_t idx = lean_unbox(i);
-  return str[idx];
-}
-
+LEAN_EXPORT uint32_t lean_string_utf8_get_fast(b_lean_obj_arg s, b_lean_obj_arg i);
+LEAN_EXPORT uint8_t lean_string_get_byte_fast(b_lean_obj_arg s, b_lean_obj_arg i);
 LEAN_EXPORT lean_obj_res lean_string_utf8_next(b_lean_obj_arg s, b_lean_obj_arg i);
 LEAN_EXPORT lean_obj_res lean_string_utf8_next_fast_cold(size_t i, unsigned char c);
-static inline lean_obj_res lean_string_utf8_next_fast(b_lean_obj_arg s, b_lean_obj_arg i) {
-  char const * str = lean_string_cstr(s);
-  size_t idx = lean_unbox(i);
-  unsigned char c = (unsigned char)(str[idx]);
-  if ((c & 0x80) == 0) return lean_box(idx+1);
-  return lean_string_utf8_next_fast_cold(idx, c);
-}
-
+LEAN_EXPORT lean_obj_res lean_string_utf8_next_fast(b_lean_obj_arg s, b_lean_obj_arg i);
 LEAN_EXPORT lean_obj_res lean_string_utf8_prev(b_lean_obj_arg s, b_lean_obj_arg i);
 LEAN_EXPORT lean_obj_res lean_string_utf8_set(lean_obj_arg s, b_lean_obj_arg i, uint32_t c);
-static inline uint8_t lean_string_utf8_at_end(b_lean_obj_arg s, b_lean_obj_arg i) {
-    return !lean_is_scalar(i) || lean_unbox(i) >= lean_string_size(s) - 1;
-}
+LEAN_EXPORT bool lean_string_utf8_at_end(b_lean_obj_arg s, b_lean_obj_arg i);
 LEAN_EXPORT lean_obj_res lean_string_utf8_extract(b_lean_obj_arg s, b_lean_obj_arg b, b_lean_obj_arg e);
-static inline lean_obj_res lean_string_utf8_byte_size(b_lean_obj_arg s) { return lean_box(lean_string_size(s) - 1); }
+LEAN_EXPORT lean_obj_res lean_string_utf8_byte_size(b_lean_obj_arg s);
 LEAN_EXPORT bool lean_string_eq_cold(b_lean_obj_arg s1, b_lean_obj_arg s2);
-static inline bool lean_string_eq(b_lean_obj_arg s1, b_lean_obj_arg s2) {
-    return s1 == s2 || (lean_string_size(s1) == lean_string_size(s2) && lean_string_eq_cold(s1, s2));
-}
-static inline bool lean_string_ne(b_lean_obj_arg s1, b_lean_obj_arg s2) { return !lean_string_eq(s1, s2); }
+LEAN_EXPORT bool lean_string_eq(b_lean_obj_arg s1, b_lean_obj_arg s2);
+LEAN_EXPORT bool lean_string_ne(b_lean_obj_arg s1, b_lean_obj_arg s2);
 LEAN_EXPORT bool lean_string_lt(b_lean_obj_arg s1, b_lean_obj_arg s2);
 LEAN_EXPORT uint8_t lean_string_compare(b_lean_obj_arg s1, b_lean_obj_arg s2);
-static inline uint8_t lean_string_dec_eq(b_lean_obj_arg s1, b_lean_obj_arg s2) { return lean_string_eq(s1, s2); }
-static inline uint8_t lean_string_dec_lt(b_lean_obj_arg s1, b_lean_obj_arg s2) { return lean_string_lt(s1, s2); }
+LEAN_EXPORT uint8_t lean_string_dec_eq(b_lean_obj_arg s1, b_lean_obj_arg s2);
+LEAN_EXPORT uint8_t lean_string_dec_lt(b_lean_obj_arg s1, b_lean_obj_arg s2);
 LEAN_EXPORT uint64_t lean_string_hash(b_lean_obj_arg);
 LEAN_EXPORT lean_obj_res lean_string_of_usize(size_t);
 LEAN_EXPORT uint8_t lean_string_memcmp(b_lean_obj_arg s1, b_lean_obj_arg s2, b_lean_obj_arg lstart, b_lean_obj_arg rstart, b_lean_obj_arg len);
@@ -801,37 +511,17 @@ LEAN_EXPORT uint8_t lean_slice_dec_lt(b_lean_obj_arg s1, b_lean_obj_arg s2);
 
 /* Thunks */
 
-static inline lean_obj_res lean_mk_thunk(lean_obj_arg c) {
-    lean_thunk_object * o = (lean_thunk_object*)lean_alloc_small_object(sizeof(lean_thunk_object));
-    lean_set_st_header((lean_object*)o, LeanThunk, 0);
-    o->m_value   = (lean_object*)0;
-    o->m_closure = c;
-    return (lean_object*)o;
-}
+LEAN_EXPORT lean_obj_res lean_mk_thunk(lean_obj_arg c);
 
 /* Thunk.pure : A -> Thunk A */
-static inline lean_obj_res lean_thunk_pure(lean_obj_arg v) {
-    lean_thunk_object * o = (lean_thunk_object*)lean_alloc_small_object(sizeof(lean_thunk_object));
-    lean_set_st_header((lean_object*)o, LeanThunk, 0);
-    o->m_value   = v;
-    o->m_closure = (lean_object*)0;
-    return (lean_object*)o;
-}
+LEAN_EXPORT lean_obj_res lean_thunk_pure(lean_obj_arg v);
 
 LEAN_EXPORT lean_object * lean_thunk_get_core(lean_object * t);
 
-static inline b_lean_obj_res lean_thunk_get(b_lean_obj_arg t) {
-    lean_object * r = lean_to_thunk(t)->m_value;
-    if (r) return r;
-    return lean_thunk_get_core(t);
-}
+LEAN_EXPORT b_lean_obj_res lean_thunk_get(b_lean_obj_arg t);
 
 /* Primitive for implementing Thunk.get : Thunk A -> A */
-static inline lean_obj_res lean_thunk_get_own(b_lean_obj_arg t) {
-    lean_object * r = lean_thunk_get(t);
-    lean_inc(r);
-    return r;
-}
+LEAN_EXPORT lean_obj_res lean_thunk_get_own(b_lean_obj_arg t);
 
 /* Tasks */
 
@@ -841,23 +531,18 @@ LEAN_EXPORT void lean_finalize_task_manager(void);
 
 LEAN_EXPORT lean_obj_res lean_task_spawn_core(lean_obj_arg c, unsigned prio, bool keep_alive);
 /* Run a closure `Unit -> A` as a `Task A` */
-static inline lean_obj_res lean_task_spawn(lean_obj_arg c, lean_obj_arg prio) { return lean_task_spawn_core(c, lean_unbox(prio), false); }
+LEAN_EXPORT lean_obj_res lean_task_spawn(lean_obj_arg c, lean_obj_arg prio);
 /* Convert a value `a : A` into `Task A` */
 LEAN_EXPORT lean_obj_res lean_task_pure(lean_obj_arg a);
 LEAN_EXPORT lean_obj_res lean_task_bind_core(lean_obj_arg x, lean_obj_arg f, unsigned prio, bool sync, bool keep_alive);
 /* Task.bind (x : Task A) (f : A -> Task B) (prio : Nat) (sync : Bool) : Task B */
-static inline lean_obj_res lean_task_bind(lean_obj_arg x, lean_obj_arg f, lean_obj_arg prio, uint8_t sync) { return lean_task_bind_core(x, f, lean_unbox(prio), sync, false); }
+LEAN_EXPORT lean_obj_res lean_task_bind(lean_obj_arg x, lean_obj_arg f, lean_obj_arg prio, uint8_t sync);
 LEAN_EXPORT lean_obj_res lean_task_map_core(lean_obj_arg f, lean_obj_arg t, unsigned prio, bool sync, bool keep_alive);
 /* Task.map (f : A -> B) (t : Task A) (prio : Nat) (sync : Bool) : Task B */
-static inline lean_obj_res lean_task_map(lean_obj_arg f, lean_obj_arg t, lean_obj_arg prio, uint8_t sync) { return lean_task_map_core(f, t, lean_unbox(prio), sync, false); }
+LEAN_EXPORT lean_obj_res lean_task_map(lean_obj_arg f, lean_obj_arg t, lean_obj_arg prio, uint8_t sync);
 LEAN_EXPORT b_lean_obj_res lean_task_get(b_lean_obj_arg t);
 /* Primitive for implementing Task.get : Task A -> A */
-static inline lean_obj_res lean_task_get_own(lean_obj_arg t) {
-    lean_object * r = lean_task_get(t);
-    lean_inc(r);
-    lean_dec(t);
-    return r;
-}
+LEAN_EXPORT lean_obj_res lean_task_get_own(b_lean_obj_arg t);
 
 /* primitive for implementing `IO.checkCanceled : IO Bool` */
 LEAN_EXPORT bool lean_io_check_canceled_core(void);
@@ -1308,16 +993,16 @@ static inline uint8_t lean_int_dec_nonneg(b_lean_obj_arg a) {
 
 /* Bool */
 
-static inline uint8_t lean_bool_to_uint8(uint8_t a) { return a; }
-static inline uint16_t lean_bool_to_uint16(uint8_t a) { return (uint16_t)a; }
-static inline uint32_t lean_bool_to_uint32(uint8_t a) { return (uint32_t)a; }
-static inline uint64_t lean_bool_to_uint64(uint8_t a) { return (uint64_t)a; }
-static inline size_t lean_bool_to_usize(uint8_t a) { return (size_t)a; }
-static inline uint8_t lean_bool_to_int8(uint8_t a) { return (uint8_t)(int8_t)a; }
-static inline uint16_t lean_bool_to_int16(uint8_t a) { return (uint16_t)(int16_t)a; }
-static inline uint32_t lean_bool_to_int32(uint8_t a) { return (uint32_t)(int32_t)a; }
-static inline uint64_t lean_bool_to_int64(uint8_t a) { return (uint64_t)(int64_t)a; }
-static inline size_t lean_bool_to_isize(uint8_t a) { return (size_t)(ptrdiff_t)a; }
+LEAN_EXPORT uint8_t lean_bool_to_uint8(uint8_t a);
+LEAN_EXPORT uint16_t lean_bool_to_uint16(uint8_t a);
+LEAN_EXPORT uint32_t lean_bool_to_uint32(uint8_t a);
+LEAN_EXPORT uint64_t lean_bool_to_uint64(uint8_t a);
+LEAN_EXPORT size_t lean_bool_to_usize(uint8_t a);
+LEAN_EXPORT uint8_t lean_bool_to_int8(uint8_t a);
+LEAN_EXPORT uint16_t lean_bool_to_int16(uint8_t a);
+LEAN_EXPORT uint32_t lean_bool_to_int32(uint8_t a);
+LEAN_EXPORT uint64_t lean_bool_to_int64(uint8_t a);
+LEAN_EXPORT size_t lean_bool_to_isize(uint8_t a);
 
 
 /* UInt8 */
@@ -1636,26 +1321,10 @@ LEAN_EXPORT lean_obj_res lean_box_uint64(uint64_t v);
 LEAN_EXPORT uint64_t lean_unbox_uint64(b_lean_obj_arg o);
 LEAN_EXPORT lean_obj_res lean_box_usize(size_t v);
 LEAN_EXPORT size_t lean_unbox_usize(b_lean_obj_arg o);
-
-static inline lean_obj_res lean_box_float(double v) {
-    lean_obj_res r = lean_alloc_ctor(0, 0, sizeof(double)); // NOLINT
-    lean_ctor_set_float(r, 0, v);
-    return r;
-}
-
-static inline double lean_unbox_float(b_lean_obj_arg o) {
-    return lean_ctor_get_float(o, 0);
-}
-
-static inline lean_obj_res lean_box_float32(float v) {
-    lean_obj_res r = lean_alloc_ctor(0, 0, sizeof(float)); // NOLINT
-    lean_ctor_set_float32(r, 0, v);
-    return r;
-}
-
-static inline float lean_unbox_float32(b_lean_obj_arg o) {
-    return lean_ctor_get_float32(o, 0);
-}
+LEAN_EXPORT lean_obj_res lean_box_float(double v);
+LEAN_EXPORT double lean_unbox_float(b_lean_obj_arg o);
+LEAN_EXPORT lean_obj_res lean_box_float32(float v);
+LEAN_EXPORT float lean_unbox_float32(b_lean_obj_arg o);
 
 /* Debugging helper functions */
 
@@ -1714,22 +1383,13 @@ LEAN_EXPORT lean_obj_res lean_st_ref_reset(b_lean_obj_arg);
 LEAN_EXPORT lean_obj_res lean_st_ref_swap(b_lean_obj_arg, lean_obj_arg);
 
 /* pointer address unsafe primitive  */
-static inline size_t lean_ptr_addr(b_lean_obj_arg a) { return (size_t)a; }
+LEAN_EXPORT size_t lean_ptr_addr(b_lean_obj_arg a);
 
 /* Name primitives */
 LEAN_EXPORT uint8_t lean_name_eq(b_lean_obj_arg n1, b_lean_obj_arg n2);
 
-static inline uint64_t lean_name_hash_ptr(b_lean_obj_arg n) {
-    assert(!lean_is_scalar(n));
-    return lean_ctor_get_uint64(n, sizeof(lean_object*)*2);
-}
-
-static inline uint64_t lean_name_hash(b_lean_obj_arg n) {
-    if (lean_is_scalar(n))
-        return 1723;
-    else
-        return lean_name_hash_ptr(n);
-}
+LEAN_EXPORT uint64_t lean_name_hash_ptr(b_lean_obj_arg n);
+LEAN_EXPORT uint64_t lean_name_hash(b_lean_obj_arg n);
 
 /* float primitives */
 
@@ -1751,14 +1411,14 @@ LEAN_EXPORT uint64_t lean_float_to_int64(double a);
 LEAN_EXPORT size_t lean_float_to_isize(double a);
 LEAN_EXPORT double lean_float_of_bits(uint64_t u);
 LEAN_EXPORT uint64_t lean_float_to_bits(double d);
-static inline double lean_float_add(double a, double b) { return a + b; }
-static inline double lean_float_sub(double a, double b) { return a - b; }
-static inline double lean_float_mul(double a, double b) { return a * b; }
-static inline double lean_float_div(double a, double b) { return a / b; }
-static inline double lean_float_negate(double a) { return -a; }
-static inline uint8_t lean_float_beq(double a, double b) { return a == b; }
-static inline uint8_t lean_float_decLe(double a, double b) { return a <= b; }
-static inline uint8_t lean_float_decLt(double a, double b) { return a < b; }
+LEAN_EXPORT double lean_float_add(double a, double b);
+LEAN_EXPORT double lean_float_sub(double a, double b);
+LEAN_EXPORT double lean_float_mul(double a, double b);
+LEAN_EXPORT double lean_float_div(double a, double b);
+LEAN_EXPORT double lean_float_negate(double a);
+LEAN_EXPORT uint8_t lean_float_beq(double a, double b);
+LEAN_EXPORT uint8_t lean_float_decLe(double a, double b);
+LEAN_EXPORT uint8_t lean_float_decLt(double a, double b);
 LEAN_EXPORT double lean_uint8_to_float(uint8_t a);
 LEAN_EXPORT double lean_uint16_to_float(uint16_t a);
 LEAN_EXPORT double lean_uint32_to_float(uint32_t a);
@@ -1783,14 +1443,14 @@ LEAN_EXPORT uint64_t lean_float32_to_int64(float a);
 LEAN_EXPORT size_t lean_float32_to_isize(float a);
 LEAN_EXPORT float lean_float32_of_bits(uint32_t u);
 LEAN_EXPORT uint32_t lean_float32_to_bits(float d);
-static inline float lean_float32_add(float a, float b) { return a + b; }
-static inline float lean_float32_sub(float a, float b) { return a - b; }
-static inline float lean_float32_mul(float a, float b) { return a * b; }
-static inline float lean_float32_div(float a, float b) { return a / b; }
-static inline float lean_float32_negate(float a) { return -a; }
-static inline uint8_t lean_float32_beq(float a, float b) { return a == b; }
-static inline uint8_t lean_float32_decLe(float a, float b) { return a <= b; }
-static inline uint8_t lean_float32_decLt(float a, float b) { return a < b; }
+LEAN_EXPORT float lean_float32_add(float a, float b);
+LEAN_EXPORT float lean_float32_sub(float a, float b);
+LEAN_EXPORT float lean_float32_mul(float a, float b);
+LEAN_EXPORT float lean_float32_div(float a, float b);
+LEAN_EXPORT float lean_float32_negate(float a);
+LEAN_EXPORT uint8_t lean_float32_beq(float a, float b);
+LEAN_EXPORT uint8_t lean_float32_decLe(float a, float b);
+LEAN_EXPORT uint8_t lean_float32_decLt(float a, float b);
 LEAN_EXPORT float lean_uint8_to_float32(uint8_t a);
 LEAN_EXPORT float lean_uint16_to_float32(uint16_t a);
 LEAN_EXPORT float lean_uint32_to_float32(uint32_t a);
@@ -1806,17 +1466,9 @@ LEAN_EXPORT float lean_float_to_float32(double a);
 LEAN_EXPORT double lean_float32_to_float(float a);
 
 /* Efficient C implementations of defns used by the compiler */
-static inline size_t lean_hashmap_mk_idx(lean_obj_arg sz, uint64_t hash) {
-    return (size_t)(hash & (lean_unbox(sz) - 1));
-}
-
-static inline size_t lean_hashset_mk_idx(lean_obj_arg sz, uint64_t hash) {
-    return (size_t)(hash & (lean_unbox(sz) - 1));
-}
-
-static inline uint64_t lean_expr_data(lean_obj_arg expr) {
-    return lean_ctor_get_uint64(expr, lean_ctor_num_objs(expr)*sizeof(void*));
-}
+LEAN_EXPORT size_t lean_hashmap_mk_idx(lean_obj_arg sz, uint64_t hash);
+LEAN_EXPORT size_t lean_hashset_mk_idx(lean_obj_arg sz, uint64_t hash);
+LEAN_EXPORT uint64_t lean_expr_data(lean_obj_arg expr);
 
 // eliding unused parameter names is C23+, so ignore warning instead in the following
 #if defined(__clang__)
@@ -1825,69 +1477,22 @@ static inline uint64_t lean_expr_data(lean_obj_arg expr) {
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #endif
 
-static inline lean_obj_res lean_get_max_ctor_fields(lean_obj_arg _unit) {
-    return lean_box(LEAN_MAX_CTOR_FIELDS);
-}
-
-static inline lean_obj_res lean_get_max_ctor_scalars_size(lean_obj_arg _unit) {
-    return lean_box(LEAN_MAX_CTOR_SCALARS_SIZE);
-}
-
-static inline lean_obj_res lean_get_usize_size(lean_obj_arg _unit) {
-    return lean_box(sizeof(size_t));
-}
-
-static inline lean_obj_res lean_get_max_ctor_tag(lean_obj_arg _unit) {
-    return lean_box(LeanMaxCtorTag);
-}
-
-static inline uint8_t lean_strict_or(uint8_t b1, uint8_t b2) {
-    return b1 || b2;
-}
-
-static inline uint8_t lean_strict_and(uint8_t b1, uint8_t b2) {
-    return b1 && b2;
-}
-
-static inline lean_obj_res lean_version_get_major(lean_obj_arg _unit) {
-    return lean_box(LEAN_VERSION_MAJOR);
-}
-
-static inline lean_obj_res lean_version_get_minor(lean_obj_arg _unit) {
-    return lean_box(LEAN_VERSION_MINOR);
-}
-
-static inline lean_obj_res lean_version_get_patch(lean_obj_arg _unit) {
-    return lean_box(LEAN_VERSION_PATCH);
-}
-
-static inline uint8_t lean_version_get_is_release(lean_obj_arg _unit) {
-    return LEAN_VERSION_IS_RELEASE;
-}
-
-static inline lean_obj_res lean_version_get_special_desc(lean_obj_arg _unit) {
-    return lean_mk_string(LEAN_SPECIAL_VERSION_DESC);
-}
-
-static inline lean_obj_res lean_system_platform_target(lean_obj_arg _unit) {
-    return lean_mk_string(LEAN_PLATFORM_TARGET);
-}
-
-static inline uint8_t lean_internal_is_stage0(lean_obj_arg _unit) {
-    return LEAN_IS_STAGE0;
-}
-
-static inline lean_obj_res lean_nat_pred(b_lean_obj_arg n) {
-    return lean_nat_sub(n, lean_box(1));
-}
-
-static inline lean_obj_res lean_manual_get_root(lean_obj_arg _unit) {
-    return lean_mk_string(LEAN_MANUAL_ROOT);
-}
-
-static inline lean_obj_res lean_runtime_hold(b_lean_obj_arg a) {
-    return lean_box(0);
-}
+LEAN_EXPORT lean_obj_res lean_get_max_ctor_fields(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_get_max_ctor_scalars_size(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_get_usize_size(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_get_max_ctor_tag(lean_obj_arg _unit);
+LEAN_EXPORT uint8_t lean_strict_or(uint8_t b1, uint8_t b2);
+LEAN_EXPORT uint8_t lean_strict_and(uint8_t b1, uint8_t b2);
+LEAN_EXPORT lean_obj_res lean_version_get_major(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_version_get_minor(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_version_get_patch(lean_obj_arg _unit);
+LEAN_EXPORT uint8_t lean_version_get_is_release(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_version_get_special_desc(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_system_platform_target(lean_obj_arg _unit);
+LEAN_EXPORT uint8_t lean_internal_is_stage0(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_nat_pred(b_lean_obj_arg n);
+LEAN_EXPORT lean_obj_res lean_manual_get_root(lean_obj_arg _unit);
+LEAN_EXPORT lean_obj_res lean_runtime_hold(b_lean_obj_arg a);
 
 #ifdef LEAN_EMSCRIPTEN
 #define LEAN_SCALAR_PTR_LITERAL(b1, b2, b3, b4, b5, b6, b7, b8) (lean_object*)((uint32_t)b1 | ((uint32_t)b2 << 8) | ((uint32_t)b3 << 16) | ((uint32_t)b4 << 24)), (lean_object*)((uint32_t)b5 | ((uint32_t)b6 << 8) | ((uint32_t)b7 << 16) | ((uint32_t)b8 << 24))

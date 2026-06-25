@@ -38,7 +38,8 @@ pub(crate) unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
     lean_box(value as u32 as usize)
 }
 
-pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_box_float(value: f64) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
@@ -47,13 +48,104 @@ pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     obj
 }
 
-pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_box_float32(value: f32) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
         value,
     );
     obj
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_unbox_float(o: *mut LeanObject) -> f64 {
+    lean_ctor_get_float(o, 0)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub unsafe extern "C" fn lean_unbox_float32(o: *mut LeanObject) -> f32 {
+    lean_ctor_get_float32(o, 0)
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_add(a: f64, b: f64) -> f64 {
+    a + b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_sub(a: f64, b: f64) -> f64 {
+    a - b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_mul(a: f64, b: f64) -> f64 {
+    a * b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_div(a: f64, b: f64) -> f64 {
+    a / b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_negate(a: f64) -> f64 {
+    -a
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_beq(a: f64, b: f64) -> u8 {
+    (a == b) as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_decLe(a: f64, b: f64) -> u8 {
+    (a <= b) as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float_decLt(a: f64, b: f64) -> u8 {
+    (a < b) as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_add(a: f32, b: f32) -> f32 {
+    a + b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_sub(a: f32, b: f32) -> f32 {
+    a - b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_mul(a: f32, b: f32) -> f32 {
+    a * b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_div(a: f32, b: f32) -> f32 {
+    a / b
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_negate(a: f32) -> f32 {
+    -a
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_beq(a: f32, b: f32) -> u8 {
+    (a == b) as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_decLe(a: f32, b: f32) -> u8 {
+    (a <= b) as u8
+}
+
+#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+pub extern "C" fn lean_float32_decLt(a: f32, b: f32) -> u8 {
+    (a < b) as u8
 }
 
 pub(crate) unsafe fn lean_mk_float_exp_pair(

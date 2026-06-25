@@ -70,8 +70,8 @@ pub(crate) mod runtime_object_string_impl {
         lean_unbox(o) as u32
     }
 
-    #[inline]
-    fn lean_char_default_value() -> u32 {
+    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
+    pub extern "C" fn lean_char_default_value() -> u32 {
         b'A' as u32
     }
 
