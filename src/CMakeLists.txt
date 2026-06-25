@@ -810,8 +810,11 @@ else()
 file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/util/empty.c CONTENT "")
 add_library(util OBJECT ${CMAKE_CURRENT_BINARY_DIR}/util/empty.c)
 set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:util>)
-  add_subdirectory(library)
-  set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:library>)
+
+# Previously src/library/CMakeLists.txt (inlined; directory removed)
+file(CONFIGURE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/library/empty.c CONTENT "")
+add_library(library OBJECT ${CMAKE_CURRENT_BINARY_DIR}/library/empty.c)
+set(LEAN_OBJS ${LEAN_OBJS} $<TARGET_OBJECTS:library>)
 
   # leancpp without `initialize` (see `leaninitialize` above)
   add_library(leancpp_1 STATIC ${LEAN_OBJS})
