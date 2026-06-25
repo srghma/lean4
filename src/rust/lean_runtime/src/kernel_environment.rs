@@ -10,11 +10,19 @@ mod kernel_environment_impl {
     extern "C" {
         // Unified Rust dispatch (kernel_type_checker.rs): axiom/def/theorem/opaque are checked
         // and added in Rust; quot/mutual/inductive still delegate to the C++ bridges internally.
-        fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+        fn lean_rust_add_decl(
+            env: *mut LeanObject,
+            decl: *mut LeanObject,
+            check: u8,
+        ) -> *mut LeanObject;
     }
 
     #[inline(always)]
-    unsafe fn add_decl_dispatch(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject {
+    unsafe fn add_decl_dispatch(
+        env: *mut LeanObject,
+        decl: *mut LeanObject,
+        check: u8,
+    ) -> *mut LeanObject {
         lean_rust_add_decl(env, decl, check)
     }
 

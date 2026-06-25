@@ -37,32 +37,50 @@ mod runtime_interrupt_impl {
         static G_CANCEL_TK: Cell<*mut LeanObject> = Cell::new(core::ptr::null_mut());
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13inc_heartbeatEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean13inc_heartbeatEv"
+    )]
     pub extern "C" fn inc_heartbeat() {
         G_HEARTBEAT.with(|cell| cell.set(cell.get().wrapping_add(1)));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15reset_heartbeatEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15reset_heartbeatEv"
+    )]
     pub extern "C" fn reset_heartbeat() {
         G_HEARTBEAT.with(|cell| cell.set(0));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17set_max_heartbeatEm")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean17set_max_heartbeatEm"
+    )]
     pub extern "C" fn set_max_heartbeat(max: usize) {
         G_MAX_HEARTBEAT.with(|cell| cell.set(max));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17get_max_heartbeatEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean17get_max_heartbeatEv"
+    )]
     pub extern "C" fn get_max_heartbeat() -> usize {
         G_MAX_HEARTBEAT.with(|cell| cell.get())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean27set_max_heartbeat_thousandsEj")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean27set_max_heartbeat_thousandsEj"
+    )]
     pub extern "C" fn set_max_heartbeat_thousands(max: u32) {
         G_MAX_HEARTBEAT.with(|cell| cell.set((max as usize).wrapping_mul(1000)));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15check_heartbeatEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15check_heartbeatEv"
+    )]
     pub unsafe extern "C" fn check_heartbeat() {
         inc_heartbeat();
         let max = G_MAX_HEARTBEAT.with(|cell| cell.get());
@@ -72,7 +90,10 @@ mod runtime_interrupt_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17check_interruptedEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean17check_interruptedEv"
+    )]
     pub unsafe extern "C" fn check_interrupted() {
         let tk = G_CANCEL_TK.with(|cell| cell.get());
         if !tk.is_null() {
@@ -87,8 +108,14 @@ mod runtime_interrupt_impl {
         lean_unbox((*lean_to_ref(set_ref)).value) != 0
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean12check_systemEPKcb")]
-    pub unsafe extern "C" fn check_system(component_name: *const c_char, do_check_interrupted: bool) {
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean12check_systemEPKcb"
+    )]
+    pub unsafe extern "C" fn check_system(
+        component_name: *const c_char,
+        do_check_interrupted: bool,
+    ) {
         check_stack(component_name);
         check_memory(component_name);
         if do_check_interrupted {
@@ -120,7 +147,7 @@ mod runtime_interrupt_impl {
         const DEFAULT: usize = 200000; // standard Lean default
         #[cfg(not(feature = "default-max-heartbeat"))]
         const DEFAULT: usize = 0;
-        
+
         unsafe { lean_box(DEFAULT) }
     }
 
@@ -157,22 +184,34 @@ mod runtime_interrupt_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_heartbeatC1Em")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_heartbeatC1Em"
+    )]
     pub unsafe extern "C" fn scope_heartbeat_ctor_complete(this: *mut ScopeHeartbeat, curr: usize) {
         ScopeHeartbeat::ctor(this, curr);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_heartbeatC2Em")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_heartbeatC2Em"
+    )]
     pub unsafe extern "C" fn scope_heartbeat_ctor_base(this: *mut ScopeHeartbeat, curr: usize) {
         ScopeHeartbeat::ctor(this, curr);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_heartbeatD1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_heartbeatD1Ev"
+    )]
     pub unsafe extern "C" fn scope_heartbeat_dtor_complete(this: *mut ScopeHeartbeat) {
         ScopeHeartbeat::dtor(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_heartbeatD2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_heartbeatD2Ev"
+    )]
     pub unsafe extern "C" fn scope_heartbeat_dtor_base(this: *mut ScopeHeartbeat) {
         ScopeHeartbeat::dtor(this);
     }
@@ -193,22 +232,40 @@ mod runtime_interrupt_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19scope_max_heartbeatC1Em")]
-    pub unsafe extern "C" fn scope_max_heartbeat_ctor_complete(this: *mut ScopeMaxHeartbeat, max: usize) {
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean19scope_max_heartbeatC1Em"
+    )]
+    pub unsafe extern "C" fn scope_max_heartbeat_ctor_complete(
+        this: *mut ScopeMaxHeartbeat,
+        max: usize,
+    ) {
         ScopeMaxHeartbeat::ctor(this, max);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19scope_max_heartbeatC2Em")]
-    pub unsafe extern "C" fn scope_max_heartbeat_ctor_base(this: *mut ScopeMaxHeartbeat, max: usize) {
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean19scope_max_heartbeatC2Em"
+    )]
+    pub unsafe extern "C" fn scope_max_heartbeat_ctor_base(
+        this: *mut ScopeMaxHeartbeat,
+        max: usize,
+    ) {
         ScopeMaxHeartbeat::ctor(this, max);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19scope_max_heartbeatD1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean19scope_max_heartbeatD1Ev"
+    )]
     pub unsafe extern "C" fn scope_max_heartbeat_dtor_complete(this: *mut ScopeMaxHeartbeat) {
         ScopeMaxHeartbeat::dtor(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19scope_max_heartbeatD2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean19scope_max_heartbeatD2Ev"
+    )]
     pub unsafe extern "C" fn scope_max_heartbeat_dtor_base(this: *mut ScopeMaxHeartbeat) {
         ScopeMaxHeartbeat::dtor(this);
     }
@@ -229,22 +286,40 @@ mod runtime_interrupt_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_cancel_tkC1EP11lean_object")]
-    pub unsafe extern "C" fn scope_cancel_tk_ctor_complete(this: *mut ScopeCancelTk, tk: *mut LeanObject) {
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_cancel_tkC1EP11lean_object"
+    )]
+    pub unsafe extern "C" fn scope_cancel_tk_ctor_complete(
+        this: *mut ScopeCancelTk,
+        tk: *mut LeanObject,
+    ) {
         ScopeCancelTk::ctor(this, tk);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_cancel_tkC2EP11lean_object")]
-    pub unsafe extern "C" fn scope_cancel_tk_ctor_base(this: *mut ScopeCancelTk, tk: *mut LeanObject) {
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_cancel_tkC2EP11lean_object"
+    )]
+    pub unsafe extern "C" fn scope_cancel_tk_ctor_base(
+        this: *mut ScopeCancelTk,
+        tk: *mut LeanObject,
+    ) {
         ScopeCancelTk::ctor(this, tk);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_cancel_tkD1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_cancel_tkD1Ev"
+    )]
     pub unsafe extern "C" fn scope_cancel_tk_dtor_complete(this: *mut ScopeCancelTk) {
         ScopeCancelTk::dtor(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15scope_cancel_tkD2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15scope_cancel_tkD2Ev"
+    )]
     pub unsafe extern "C" fn scope_cancel_tk_dtor_base(this: *mut ScopeCancelTk) {
         ScopeCancelTk::dtor(this);
     }

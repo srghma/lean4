@@ -42,7 +42,10 @@ mod runtime_object_panic_impl {
         type DemangleBacktraceLine = unsafe extern "C" fn(*mut LeanObject) -> *mut LeanObject;
 
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
-            let proc = libc::dlsym(libc::RTLD_DEFAULT, c_char_ptr(b"lean_demangle_bt_line_cstr\0"));
+            let proc = libc::dlsym(
+                libc::RTLD_DEFAULT,
+                c_char_ptr(b"lean_demangle_bt_line_cstr\0"),
+            );
             if proc.is_null() {
                 return None;
             }

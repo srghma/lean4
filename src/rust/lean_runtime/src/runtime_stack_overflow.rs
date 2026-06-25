@@ -38,9 +38,12 @@ mod runtime_stack_overflow_impl {
     }
 
     unsafe fn stack_guard_ctor(this: *mut StackGuard) {
-        ptr::write(this, StackGuard {
-            signal_stack: mem::zeroed(),
-        });
+        ptr::write(
+            this,
+            StackGuard {
+                signal_stack: mem::zeroed(),
+            },
+        );
         install_signal_stack(ptr::addr_of_mut!((*this).signal_stack));
     }
 
@@ -48,22 +51,34 @@ mod runtime_stack_overflow_impl {
         uninstall_signal_stack(ptr::addr_of_mut!((*this).signal_stack));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardC1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardC1Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_ctor_complete(this: *mut StackGuard) {
         stack_guard_ctor(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardC2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardC2Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_ctor_base(this: *mut StackGuard) {
         stack_guard_ctor(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardD1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardD1Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_dtor_complete(this: *mut StackGuard) {
         stack_guard_dtor(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardD2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardD2Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_dtor_base(this: *mut StackGuard) {
         stack_guard_dtor(this);
     }
@@ -94,7 +109,10 @@ mod runtime_stack_overflow_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean21is_within_stack_guardEPv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean21is_within_stack_guardEPv"
+    )]
     pub unsafe extern "C" fn is_within_stack_guard(addr: *mut c_void) -> bool {
         let Some(stackaddr) = stack_low_address() else {
             return false;
@@ -121,7 +139,10 @@ mod runtime_stack_overflow_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25initialize_stack_overflowEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean25initialize_stack_overflowEv"
+    )]
     pub extern "C" fn initialize_stack_overflow() {
         unsafe {
             let guard = Box::into_raw(Box::new(StackGuard {
@@ -142,7 +163,10 @@ mod runtime_stack_overflow_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23finalize_stack_overflowEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean23finalize_stack_overflowEv"
+    )]
     pub extern "C" fn finalize_stack_overflow() {
         let guard = MAIN_STACK_GUARD.swap(ptr::null_mut(), Ordering::Relaxed);
         if !guard.is_null() {
@@ -205,31 +229,49 @@ mod runtime_stack_overflow_impl {
         EXCEPTION_CONTINUE_SEARCH
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardC1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardC1Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_ctor_complete(_: *mut StackGuard) {
         let mut size = 0x5000;
         SetThreadStackGuarantee(&mut size);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardC2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardC2Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_ctor_base(this: *mut StackGuard) {
         stack_guard_ctor_complete(this);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardD1Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardD1Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_dtor_complete(_: *mut StackGuard) {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11stack_guardD2Ev")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean11stack_guardD2Ev"
+    )]
     pub unsafe extern "C" fn stack_guard_dtor_base(_: *mut StackGuard) {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25initialize_stack_overflowEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean25initialize_stack_overflowEv"
+    )]
     pub extern "C" fn initialize_stack_overflow() {
         unsafe {
             AddVectoredExceptionHandler(0, Some(stack_overflow_handler));
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23finalize_stack_overflowEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean23finalize_stack_overflowEv"
+    )]
     pub extern "C" fn finalize_stack_overflow() {}
 }
 

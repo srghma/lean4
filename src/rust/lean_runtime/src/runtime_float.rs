@@ -38,17 +38,26 @@ unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
 
 unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
-    ptr::write_unaligned((obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64, value);
+    ptr::write_unaligned(
+        (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
+        value,
+    );
     obj
 }
 
 unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
-    ptr::write_unaligned((obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32, value);
+    ptr::write_unaligned(
+        (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
+        value,
+    );
     obj
 }
 
-unsafe fn lean_mk_float_exp_pair(float_value: *mut LeanObject, exp_value: *mut LeanObject) -> *mut LeanObject {
+unsafe fn lean_mk_float_exp_pair(
+    float_value: *mut LeanObject,
+    exp_value: *mut LeanObject,
+) -> *mut LeanObject {
     let pair = lean_runtime_alloc_ctor(0, 2, 0);
     lean_runtime_ctor_set(pair, 0, float_value);
     lean_runtime_ctor_set(pair, 1, exp_value);

@@ -41,18 +41,23 @@ unsafe fn dynlib_error(prefix: &str, detail: *const c_char) -> *mut LeanObject {
     } else {
         core::ffi::CStr::from_ptr(detail).to_string_lossy()
     };
-    let message =
-        std::ffi::CString::new(format!("{prefix}{detail}")).expect("dynamic loader error has no NUL");
+    let message = std::ffi::CString::new(format!("{prefix}{detail}"))
+        .expect("dynamic loader error has no NUL");
     lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(message.as_ptr())))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17initialize_dynlibEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean17initialize_dynlibEv"
+)]
 pub extern "C" fn initialize_dynlib() {
     unsafe {
         DYNLIB_EXTERNAL_CLASS =
             lean_register_external_class(Some(dynlib_finalizer), Some(noop_external_foreach));
-        DYNLIB_SYMBOL_EXTERNAL_CLASS =
-            lean_register_external_class(Some(noop_external_finalizer), Some(noop_external_foreach));
+        DYNLIB_SYMBOL_EXTERNAL_CLASS = lean_register_external_class(
+            Some(noop_external_finalizer),
+            Some(noop_external_foreach),
+        );
     }
 }
 
@@ -90,7 +95,10 @@ pub unsafe extern "C" fn lean_dynlib_get(
     #[cfg(unix)]
     let symbol = {
         dlerror();
-        let symbol = dlsym(lean_runtime_get_external_data(dynlib), lean_string_cstr(name));
+        let symbol = dlsym(
+            lean_runtime_get_external_data(dynlib),
+            lean_string_cstr(name),
+        );
         if !dlerror().is_null() {
             return lean_box(0);
         }
@@ -98,7 +106,10 @@ pub unsafe extern "C" fn lean_dynlib_get(
     };
     #[cfg(windows)]
     let symbol = {
-        let symbol = GetProcAddress(lean_runtime_get_external_data(dynlib), lean_string_cstr(name));
+        let symbol = GetProcAddress(
+            lean_runtime_get_external_data(dynlib),
+            lean_string_cstr(name),
+        );
         if symbol.is_null() {
             return lean_box(0);
         }

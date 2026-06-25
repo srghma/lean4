@@ -87,8 +87,8 @@ fn main() {
 }
 
 fn derive_version_string_from_cmake() -> String {
-    let manifest_dir = std::env::var("CARGO_MANIFEST_DIR")
-        .expect("CARGO_MANIFEST_DIR must be set by cargo");
+    let manifest_dir =
+        std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR must be set by cargo");
     let cmake_path = std::path::Path::new(&manifest_dir).join("../../CMakeLists.txt");
     let cmake = std::fs::read_to_string(&cmake_path)
         .unwrap_or_else(|_| panic!("unable to read {} for Lean version", cmake_path.display()));

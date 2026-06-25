@@ -17,9 +17,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 //   lean_get_or_block
 
 pub(crate) mod runtime_object_task_impl {
-    use super::*;
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
+    use super::*;
     use core::sync::atomic::Ordering;
     use std::collections::VecDeque;
     use std::mem::MaybeUninit;
@@ -87,11 +87,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline(always)]
-    unsafe fn local_alloc_closure(
-        fun: *mut c_void,
-        arity: u32,
-        num_fixed: u32,
-    ) -> *mut LeanObject {
+    unsafe fn local_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
         let byte_size = core::mem::size_of::<LeanClosureLocal>()
             + core::mem::size_of::<*mut LeanObject>() * num_fixed as usize;
         let obj = lean_alloc_object(byte_size) as *mut LeanClosureLocal;
@@ -186,8 +182,7 @@ pub(crate) mod runtime_object_task_impl {
         prio: u32,
         keep_alive: bool,
     ) -> *mut LeanTaskImp {
-        let imp =
-            lean_alloc_small_object(core::mem::size_of::<LeanTaskImp>()) as *mut LeanTaskImp;
+        let imp = lean_alloc_small_object(core::mem::size_of::<LeanTaskImp>()) as *mut LeanTaskImp;
         (*imp).m_closure = closure;
         (*imp).m_head_dep = core::ptr::null_mut();
         (*imp).m_next_dep = core::ptr::null_mut();
@@ -217,8 +212,8 @@ pub(crate) mod runtime_object_task_impl {
         keep_alive: bool,
     ) -> *mut LeanTaskObject {
         lean_mark_mt(closure);
-        let o = lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>())
-            as *mut LeanTaskObject;
+        let o =
+            lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>()) as *mut LeanTaskObject;
         set_task_header_mt(o as *mut LeanObject);
         (*o).value = AtomicPtr::new(core::ptr::null_mut());
         (*o).imp = alloc_task_imp(closure, prio, keep_alive) as *mut c_void;
@@ -230,7 +225,8 @@ pub(crate) mod runtime_object_task_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_task_pure(value: *mut LeanObject) -> *mut LeanObject {
-        let o = lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>()) as *mut LeanTaskObject;
+        let o =
+            lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>()) as *mut LeanTaskObject;
         set_task_header_st(o as *mut LeanObject);
         (*o).value = AtomicPtr::new(value);
         (*o).imp = core::ptr::null_mut();
@@ -342,9 +338,7 @@ pub(crate) mod runtime_object_task_impl {
             guard.queues[prio_idx].push_back(t);
             guard.queues_size += 1;
 
-            if guard.idle_std_workers == 0
-                && guard.total_std_workers < guard.max_std_workers
-            {
+            if guard.idle_std_workers == 0 && guard.total_std_workers < guard.max_std_workers {
                 self.spawn_worker(guard);
             } else {
                 self.queue_cv.notify_one();
@@ -374,7 +368,9 @@ pub(crate) mod runtime_object_task_impl {
             guard.total_std_workers += 1;
             let tm = Arc::clone(self);
             let handle = spawn_lean_worker(move || {
-                unsafe { save_stack_info(false); }
+                unsafe {
+                    save_stack_info(false);
+                }
                 let mut guard = tm.inner.lock().unwrap();
                 guard.idle_std_workers += 1;
                 loop {
@@ -387,8 +383,7 @@ pub(crate) mod runtime_object_task_impl {
                     }
                     // Throttle if over max (but not during shutdown).
                     if !guard.shutting_down
-                        && guard.total_std_workers - guard.idle_std_workers
-                            >= guard.max_std_workers
+                        && guard.total_std_workers - guard.idle_std_workers >= guard.max_std_workers
                     {
                         guard = tm.queue_cv.wait(guard).unwrap();
                         continue;
@@ -397,7 +392,9 @@ pub(crate) mod runtime_object_task_impl {
                     guard.idle_std_workers -= 1;
                     tm.run_task_locked(&mut guard, t);
                     guard.idle_std_workers += 1;
-                    unsafe { reset_heartbeat(); }
+                    unsafe {
+                        reset_heartbeat();
+                    }
                 }
                 guard.idle_std_workers -= 1;
                 guard.total_std_workers -= 1;
@@ -414,7 +411,9 @@ pub(crate) mod runtime_object_task_impl {
             let tm = Arc::clone(self);
             let t_send = SendPtr(t);
             spawn_lean_worker(move || {
-                unsafe { save_stack_info(false); }
+                unsafe {
+                    save_stack_info(false);
+                }
                 let mut guard = tm.inner.lock().unwrap();
                 tm.run_task_locked(&mut guard, t_send.get());
                 guard.num_dedicated_workers -= 1;
@@ -431,11 +430,15 @@ pub(crate) mod runtime_object_task_impl {
             debug_assert!(!imp.is_null());
 
             if unsafe { (*imp).m_deleted } {
-                unsafe { free_task(t); }
+                unsafe {
+                    free_task(t);
+                }
                 return;
             }
 
-            unsafe { reset_heartbeat(); }
+            unsafe {
+                reset_heartbeat();
+            }
 
             let closure = unsafe {
                 let c = (*imp).m_closure;
@@ -445,15 +448,15 @@ pub(crate) mod runtime_object_task_impl {
 
             let result = unsafe {
                 with_mutex_unlocked!(guard, self.inner, {
-                let _scope = ScopedCurrentTask::new(t);
-                let result = lean_apply_1(closure, lean_box(0));
-                if !result.is_null() {
-                    let imp2 = (*t).imp as *mut LeanTaskImp;
-                    if (*imp2).m_keep_alive {
-                        lean_dec_ref(t as *mut LeanObject);
+                    let _scope = ScopedCurrentTask::new(t);
+                    let result = lean_apply_1(closure, lean_box(0));
+                    if !result.is_null() {
+                        let imp2 = (*t).imp as *mut LeanTaskImp;
+                        if (*imp2).m_keep_alive {
+                            lean_dec_ref(t as *mut LeanObject);
+                        }
                     }
-                }
-                result
+                    result
                 })
             };
 
@@ -463,12 +466,12 @@ pub(crate) mod runtime_object_task_impl {
             if unsafe { (*imp3).m_deleted } {
                 unsafe {
                     with_mutex_unlocked!(guard, self.inner, {
-                    unsafe {
-                        if !result.is_null() {
-                            lean_dec(result);
+                        unsafe {
+                            if !result.is_null() {
+                                lean_dec(result);
+                            }
+                            free_task(t);
                         }
-                        free_task(t);
-                    }
                     })
                 };
             } else if !result.is_null() {
@@ -479,12 +482,12 @@ pub(crate) mod runtime_object_task_impl {
                 let new_closure = unsafe { (*imp3).m_closure };
                 unsafe {
                     with_mutex_unlocked!(guard, self.inner, {
-                    unsafe {
-                        let nested_ptr =
-                            local_closure_arg_cptr(new_closure) as *mut *mut LeanTaskObject;
-                        let nested = *nested_ptr;
-                        self.add_dep_raw(nested, t);
-                    }
+                        unsafe {
+                            let nested_ptr =
+                                local_closure_arg_cptr(new_closure) as *mut *mut LeanTaskObject;
+                            let nested = *nested_ptr;
+                            self.add_dep_raw(nested, t);
+                        }
                     })
                 };
             }
@@ -496,15 +499,21 @@ pub(crate) mod runtime_object_task_impl {
             t: *mut LeanTaskObject,
             v: *mut LeanObject,
         ) {
-            unsafe { lean_mark_mt(v); }
-            unsafe { (*t).value.store(v, Ordering::Release); }
+            unsafe {
+                lean_mark_mt(v);
+            }
+            unsafe {
+                (*t).value.store(v, Ordering::Release);
+            }
             let imp = unsafe {
                 let imp = (*t).imp as *mut LeanTaskImp;
                 (*t).imp = core::ptr::null_mut();
                 imp
             };
             self.handle_finished(guard, t, imp);
-            unsafe { free_task_imp(imp); }
+            unsafe {
+                free_task_imp(imp);
+            }
             self.task_finished_cv.notify_all();
         }
 
@@ -516,16 +525,24 @@ pub(crate) mod runtime_object_task_impl {
         ) {
             let canceled = unsafe { (*imp).m_canceled };
             let mut it = unsafe { (*imp).m_head_dep };
-            unsafe { (*imp).m_head_dep = core::ptr::null_mut(); }
+            unsafe {
+                (*imp).m_head_dep = core::ptr::null_mut();
+            }
             while !it.is_null() {
                 let it_imp = unsafe { (*it).imp as *mut LeanTaskImp };
                 if canceled {
-                    unsafe { (*it_imp).m_canceled = true; }
+                    unsafe {
+                        (*it_imp).m_canceled = true;
+                    }
                 }
                 let next = unsafe { (*it_imp).m_next_dep };
-                unsafe { (*it_imp).m_next_dep = core::ptr::null_mut(); }
+                unsafe {
+                    (*it_imp).m_next_dep = core::ptr::null_mut();
+                }
                 if unsafe { (*it_imp).m_deleted } {
-                    unsafe { free_task(it); }
+                    unsafe {
+                        free_task(it);
+                    }
                 } else {
                     self.enqueue_core(guard, it);
                 }
@@ -551,11 +568,7 @@ pub(crate) mod runtime_object_task_impl {
             }
         }
 
-        unsafe fn add_dep_raw(
-            self: &Arc<Self>,
-            t1: *mut LeanTaskObject,
-            t2: *mut LeanTaskObject,
-        ) {
+        unsafe fn add_dep_raw(self: &Arc<Self>, t1: *mut LeanTaskObject, t2: *mut LeanTaskObject) {
             let mut guard = self.inner.lock().unwrap();
             if !(*t1).value.load(Ordering::Acquire).is_null() {
                 self.enqueue_core(&mut guard, t2);
@@ -594,9 +607,7 @@ pub(crate) mod runtime_object_task_impl {
 
             if in_pool {
                 guard.max_std_workers += 1;
-                if guard.idle_std_workers == 0
-                    && guard.total_std_workers < guard.max_std_workers
-                {
+                if guard.idle_std_workers == 0 && guard.total_std_workers < guard.max_std_workers {
                     self.spawn_worker(&mut guard);
                 } else {
                     self.queue_cv.notify_one();
@@ -643,13 +654,17 @@ pub(crate) mod runtime_object_task_impl {
 
         fn resolve(self: &Arc<Self>, t: *mut LeanTaskObject, v: *mut LeanObject) {
             if !unsafe { (*t).value.load(Ordering::Acquire).is_null() } {
-                unsafe { lean_dec(v); }
+                unsafe {
+                    lean_dec(v);
+                }
                 return;
             }
             let mut guard = self.inner.lock().unwrap();
             if !unsafe { (*t).value.load(Ordering::Acquire).is_null() } {
                 drop(guard);
-                unsafe { lean_dec(v); }
+                unsafe {
+                    lean_dec(v);
+                }
                 return;
             }
             self.resolve_core(&mut guard, t, v);
@@ -661,8 +676,12 @@ pub(crate) mod runtime_object_task_impl {
             if !v.is_null() {
                 debug_assert!(unsafe { (*t).imp.is_null() });
                 drop(guard);
-                unsafe { lean_dec(v); }
-                unsafe { free_task(t); }
+                unsafe {
+                    lean_dec(v);
+                }
+                unsafe {
+                    free_task(t);
+                }
                 return;
             }
             debug_assert!(!unsafe { (*t).imp.is_null() });
@@ -685,18 +704,18 @@ pub(crate) mod runtime_object_task_impl {
             }
             unsafe {
                 with_mutex_unlocked!(guard, self.inner, {
-                unsafe {
-                    while !it.is_null() {
-                        let it_imp = (*it).imp as *mut LeanTaskImp;
-                        debug_assert!((*it_imp).m_deleted);
-                        let next = (*it_imp).m_next_dep;
-                        free_task(it);
-                        it = next;
+                    unsafe {
+                        while !it.is_null() {
+                            let it_imp = (*it).imp as *mut LeanTaskImp;
+                            debug_assert!((*it_imp).m_deleted);
+                            let next = (*it_imp).m_next_dep;
+                            free_task(it);
+                            it = next;
+                        }
+                        if !closure.is_null() {
+                            lean_dec_ref(closure);
+                        }
                     }
-                    if !closure.is_null() {
-                        lean_dec_ref(closure);
-                    }
-                }
                 })
             };
         }
@@ -705,7 +724,9 @@ pub(crate) mod runtime_object_task_impl {
             let _guard = self.inner.lock().unwrap();
             let imp = unsafe { (*t).imp as *mut LeanTaskImp };
             if !imp.is_null() {
-                unsafe { (*imp).m_canceled = true; }
+                unsafe {
+                    (*imp).m_canceled = true;
+                }
             }
         }
 
@@ -739,7 +760,8 @@ pub(crate) mod runtime_object_task_impl {
                 worker.join().expect("lean worker thread panicked");
             }
             let guard = self.inner.lock().unwrap();
-            let _guard = self.dedicated_finished_cv
+            let _guard = self
+                .dedicated_finished_cv
                 .wait_while(guard, |g| g.num_dedicated_workers > 0)
                 .unwrap();
         }
@@ -787,15 +809,13 @@ pub(crate) mod runtime_object_task_impl {
 
         std::thread::Builder::new()
             .stack_size(STACK_SIZE)
-            .spawn(move || {
-                unsafe {
-                    let mut guard = MaybeUninit::<StackGuard>::uninit();
-                    stack_guard_ctor_complete(guard.as_mut_ptr());
-                    lean_initialize_thread();
-                    f();
-                    lean_finalize_thread();
-                    stack_guard_dtor_complete(guard.as_mut_ptr());
-                }
+            .spawn(move || unsafe {
+                let mut guard = MaybeUninit::<StackGuard>::uninit();
+                stack_guard_ctor_complete(guard.as_mut_ptr());
+                lean_initialize_thread();
+                f();
+                lean_finalize_thread();
+                stack_guard_dtor_complete(guard.as_mut_ptr());
             })
             .expect("failed to spawn lean worker thread")
     }
@@ -883,10 +903,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Task bind ────────────────────────────────────────────────────────────
 
-    unsafe extern "C" fn task_bind_fn2(
-        t: *mut LeanObject,
-        _w: *mut LeanObject,
-    ) -> *mut LeanObject {
+    unsafe extern "C" fn task_bind_fn2(t: *mut LeanObject, _w: *mut LeanObject) -> *mut LeanObject {
         let v = (*(t as *mut LeanTaskObject)).value.load(Ordering::Relaxed);
         debug_assert!(!v.is_null());
         lean_inc(v);
@@ -1018,9 +1035,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_wait_any_core(
-        task_list: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_wait_any_core(task_list: *mut LeanObject) -> *mut LeanObject {
         if let Some(tm) = get_task_manager() {
             tm.wait_any(task_list)
         } else {

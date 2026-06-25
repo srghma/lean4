@@ -180,7 +180,9 @@ pub(crate) mod runtime_object_rc_impl {
         fn backtrace_symbols_fd(buf: *const *mut c_void, size: i32, fd: i32);
     }
     #[inline(always)]
-    fn qhash(p: usize) -> usize { (p >> 4) & QSET_MASK }
+    fn qhash(p: usize) -> usize {
+        (p >> 4) & QSET_MASK
+    }
     #[inline(always)]
     unsafe fn quar_phys_free(p: usize) {
         #[cfg(lean_has_mimalloc)]
@@ -190,15 +192,28 @@ pub(crate) mod runtime_object_rc_impl {
     }
     #[cold]
     pub(crate) unsafe fn quar_report_uaf(o: *mut LeanObject, op: &str) {
-        eprintln!("\n=== USE-AFTER-FREE DETECTED ({} of a freed/quarantined object) ===", op);
+        eprintln!(
+            "\n=== USE-AFTER-FREE DETECTED ({} of a freed/quarantined object) ===",
+            op
+        );
         eprintln!("obj={:p} tag={} other={}", o, lean_ptr_tag(o), (*o).other);
         let w = o as *const u64;
-        eprintln!("words: [0]={:#018x} [1]={:#018x} [2]={:#018x} [3]={:#018x}", *w, *w.add(1), *w.add(2), *w.add(3));
+        eprintln!(
+            "words: [0]={:#018x} [1]={:#018x} [2]={:#018x} [3]={:#018x}",
+            *w,
+            *w.add(1),
+            *w.add(2),
+            *w.add(3)
+        );
         let p = o as usize;
         for i in 0..FB_N {
             if *core::ptr::addr_of!(FB_PTR[i]) == p {
                 eprintln!(">>> FREE-SITE (over-decrement) backtrace:");
-                backtrace_symbols_fd(core::ptr::addr_of!(FB_BT[i]) as *const *mut c_void, FB_D as i32, 2);
+                backtrace_symbols_fd(
+                    core::ptr::addr_of!(FB_BT[i]) as *const *mut c_void,
+                    FB_D as i32,
+                    2,
+                );
                 break;
             }
         }
@@ -212,7 +227,9 @@ pub(crate) mod runtime_object_rc_impl {
         let p = o as usize;
         let i = FB_HEAD.fetch_add(1, Ordering::Relaxed) % FB_N;
         let row = core::ptr::addr_of_mut!(FB_BT[i]) as *mut *mut c_void;
-        for k in 0..FB_D { *row.add(k) = ptr::null_mut(); }
+        for k in 0..FB_D {
+            *row.add(k) = ptr::null_mut();
+        }
         backtrace(row, FB_D as i32);
         *core::ptr::addr_of_mut!(FB_PTR[i]) = p;
         let h = qhash(p);
@@ -229,7 +246,10 @@ pub(crate) mod runtime_object_rc_impl {
 
     #[inline(always)]
     unsafe fn lean_dealloc(o: *mut LeanObject, sz: usize) {
-        if UAF_DETECT { quar_free(o); return; }
+        if UAF_DETECT {
+            quar_free(o);
+            return;
+        }
         #[cfg(lean_small_allocator)]
         {
             lean_dealloc_raw(o as *mut u8, sz);
@@ -353,7 +373,10 @@ pub(crate) mod runtime_object_rc_impl {
     #[inline(always)]
     pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) {
         #[cfg(not(lean_small_allocator))]
-        if UAF_DETECT { quar_free(o); return; }
+        if UAF_DETECT {
+            quar_free(o);
+            return;
+        }
         #[cfg(lean_small_allocator)]
         {
             lean_free_small(o as *mut c_void);
@@ -594,12 +617,10 @@ pub(crate) mod runtime_object_rc_impl {
         if lean_is_scalar(o) {
             return;
         }
-        if (*o).rc == 1
-            || {
-                let rc = core::ptr::addr_of_mut!((*o).rc).cast::<AtomicI32>();
-                (*rc).fetch_add(1, Ordering::AcqRel) == -1
-            }
-        {
+        if (*o).rc == 1 || {
+            let rc = core::ptr::addr_of_mut!((*o).rc).cast::<AtomicI32>();
+            (*rc).fetch_add(1, Ordering::AcqRel) == -1
+        } {
             #[cfg(lean_lazy_rc)]
             {
                 G_TO_FREE.with(|cell| {
@@ -649,7 +670,8 @@ pub(crate) mod runtime_object_rc_impl {
                     match tag {
                         LEAN_SCALAR_ARRAY_TAG | LEAN_STRING_TAG | LEAN_MPZ_TAG => {}
                         LEAN_EXTERNAL_TAG => {
-                            let fn_obj = lean_alloc_closure(mark_persistent_fn as *mut c_void, 1, 0);
+                            let fn_obj =
+                                lean_alloc_closure(mark_persistent_fn as *mut c_void, 1, 0);
                             let e = cur as *mut LeanExternalObject;
                             ((*(*e).m_class).m_foreach)((*e).m_data, fn_obj);
                             lean_dec(fn_obj);

@@ -98,40 +98,64 @@ mod runtime_thread_impl {
         run_post_thread_finalizers_internal();
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean22in_thread_finalizationEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean22in_thread_finalizationEv"
+    )]
     pub extern "C" fn in_thread_finalization() -> bool {
         G_FINALIZING.with(|cell| cell.get())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25register_thread_finalizerEPFvPvES0_")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean25register_thread_finalizerEPFvPvES0_"
+    )]
     pub unsafe extern "C" fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_FINALIZERS, f, data);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean30register_post_thread_finalizerEPFvPvES0_")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean30register_post_thread_finalizerEPFvPvES0_"
+    )]
     pub unsafe extern "C" fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_POST_FINALIZERS, f, data);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean21run_thread_finalizersEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean21run_thread_finalizersEv"
+    )]
     pub unsafe extern "C" fn run_thread_finalizers_export() {
         run_thread_finalizers_internal();
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean26run_post_thread_finalizersEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean26run_post_thread_finalizersEv"
+    )]
     pub unsafe extern "C" fn run_post_thread_finalizers_export() {
         run_post_thread_finalizers_internal();
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean31delete_thread_finalizer_managerEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean31delete_thread_finalizer_managerEv"
+    )]
     pub unsafe extern "C" fn delete_thread_finalizer_manager_export() {
         delete_thread_finalizer_manager_internal();
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17initialize_threadEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean17initialize_threadEv"
+    )]
     pub extern "C" fn initialize_thread() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15finalize_threadEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15finalize_threadEv"
+    )]
     pub extern "C" fn finalize_thread() {}
 
     // -------------------------------------------------------------------------
@@ -184,7 +208,10 @@ mod runtime_thread_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7lthread21get_thread_stack_sizeEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean7lthread21get_thread_stack_sizeEv"
+    )]
     pub extern "C" fn lthread_get_thread_stack_size() -> usize {
         get_thread_stack_size()
     }
@@ -237,7 +264,11 @@ mod runtime_thread_impl {
                     pthread_attr_destroy(&mut attr);
                     panic!("lean: failed to create thread");
                 }
-                LThread { attr, thread: thread.assume_init(), joined: false }
+                LThread {
+                    attr,
+                    thread: thread.assume_init(),
+                    joined: false,
+                }
             }
         }
 

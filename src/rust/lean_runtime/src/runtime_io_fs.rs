@@ -55,7 +55,10 @@ mod runtime_io_fs_impl {
     }
 
     unsafe fn ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u32) {
-        (obj.add(1) as *mut u8).add(offset).cast::<u32>().write(value);
+        (obj.add(1) as *mut u8)
+            .add(offset)
+            .cast::<u32>()
+            .write(value);
     }
 
     unsafe fn system_time_to_obj(sec: i64, nsec: u32) -> *mut LeanObject {
@@ -76,12 +79,23 @@ mod runtime_io_fs_impl {
     #[cfg(any(target_os = "macos", target_os = "ios"))]
     unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
         (
-            (st.st_atimespec.tv_sec as i64, st.st_atimespec.tv_nsec as u32),
-            (st.st_mtimespec.tv_sec as i64, st.st_mtimespec.tv_nsec as u32),
+            (
+                st.st_atimespec.tv_sec as i64,
+                st.st_atimespec.tv_nsec as u32,
+            ),
+            (
+                st.st_mtimespec.tv_sec as i64,
+                st.st_mtimespec.tv_nsec as u32,
+            ),
         )
     }
 
-    #[cfg(not(any(target_os = "linux", target_os = "android", target_os = "macos", target_os = "ios")))]
+    #[cfg(not(any(
+        target_os = "linux",
+        target_os = "android",
+        target_os = "macos",
+        target_os = "ios"
+    )))]
     unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
         ((st.st_atime as i64, 0), (st.st_mtime as i64, 0))
     }
@@ -98,7 +112,11 @@ mod runtime_io_fs_impl {
 
         let ptr_size = core::mem::size_of::<*mut LeanObject>();
         lean_ctor_set_uint64(mdata, 2 * ptr_size, st.st_size as u64);
-        lean_ctor_set_uint64(mdata, 2 * ptr_size + core::mem::size_of::<u64>(), st.st_nlink as u64);
+        lean_ctor_set_uint64(
+            mdata,
+            2 * ptr_size + core::mem::size_of::<u64>(),
+            st.st_nlink as u64,
+        );
 
         let mode = st.st_mode as libc::mode_t;
         let file_type = if mode & libc::S_IFMT == libc::S_IFDIR {
@@ -191,7 +209,10 @@ mod runtime_io_fs_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_rename(from: *mut LeanObject, to: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_rename(
+        from: *mut LeanObject,
+        to: *mut LeanObject,
+    ) -> *mut LeanObject {
         let from_str = match check_no_nuls(from) {
             Ok(s) => s,
             Err(e) => return e,
@@ -203,7 +224,11 @@ mod runtime_io_fs_impl {
         #[cfg(target_os = "windows")]
         let ok = {
             extern "system" {
-                fn MoveFileExA(existing_file_name: *const c_char, new_file_name: *const c_char, flags: u32) -> core::ffi::c_int;
+                fn MoveFileExA(
+                    existing_file_name: *const c_char,
+                    new_file_name: *const c_char,
+                    flags: u32,
+                ) -> core::ffi::c_int;
             }
             const MOVEFILE_REPLACE_EXISTING: u32 = 0x1;
             MoveFileExA(from_str, to_str, MOVEFILE_REPLACE_EXISTING) != 0
@@ -220,7 +245,10 @@ mod runtime_io_fs_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_hard_link(orig: *mut LeanObject, link: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_hard_link(
+        orig: *mut LeanObject,
+        link: *mut LeanObject,
+    ) -> *mut LeanObject {
         let orig_str = match check_no_nuls(orig) {
             Ok(s) => s,
             Err(e) => return e,
@@ -238,7 +266,11 @@ mod runtime_io_fs_impl {
                     security_attributes: *mut core::ffi::c_void,
                 ) -> core::ffi::c_int;
             }
-            if CreateHardLinkA(link_str, orig_str, core::ptr::null_mut()) != 0 { 0 } else { -1 }
+            if CreateHardLinkA(link_str, orig_str, core::ptr::null_mut()) != 0 {
+                0
+            } else {
+                -1
+            }
         };
         #[cfg(not(target_os = "windows"))]
         let ret = libc::link(orig_str, link_str);
@@ -282,7 +314,11 @@ mod runtime_io_fs_impl {
         let result = {
             use std::path::Path;
 
-            match CStr::from_ptr(fname).to_str().ok().and_then(|path| std::fs::canonicalize(Path::new(path)).ok()) {
+            match CStr::from_ptr(fname)
+                .to_str()
+                .ok()
+                .and_then(|path| std::fs::canonicalize(Path::new(path)).ok())
+            {
                 Some(path) => {
                     let mut path = path.to_string_lossy().into_owned();
                     if path.len() >= 2 && path.as_bytes()[1] == b':' {
@@ -319,7 +355,10 @@ mod runtime_io_fs_impl {
         };
         let dir = libc::opendir(dirname_ptr);
         if dir.is_null() {
-            return lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), dirname));
+            return lean_io_result_mk_error(lean_decode_io_error(
+                super::lean_runtime_errno(),
+                dirname,
+            ));
         }
 
         let mut arr = lean_alloc_array(0, 0);
@@ -360,7 +399,9 @@ mod runtime_io_fs_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_symlink_metadata(filename: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_symlink_metadata(
+        filename: *mut LeanObject,
+    ) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
             Ok(s) => s,
             Err(e) => return e,
@@ -391,7 +432,10 @@ mod runtime_io_fs_impl {
         let mut bytes = template.into_bytes_with_nul();
         let path = libc::mkdtemp(bytes.as_mut_ptr().cast());
         if path.is_null() {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()))
+            lean_io_result_mk_error(lean_decode_io_error(
+                super::lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ))
         } else {
             lean_io_result_mk_ok(lean_mk_string(path))
         }
@@ -411,7 +455,10 @@ mod runtime_io_fs_impl {
         let mut bytes = template.into_bytes_with_nul();
         let fd = libc::mkstemp(bytes.as_mut_ptr().cast());
         if fd == -1 {
-            return lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()));
+            return lean_io_result_mk_error(lean_decode_io_error(
+                super::lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ));
         }
         let handle = libc::fdopen(fd, c"r+".as_ptr());
         if handle.is_null() {
@@ -431,7 +478,10 @@ mod runtime_io_fs_impl {
             return lean_io_result_mk_ok(lean_alloc_sarray(1, 0, 0));
         }
         if lean_alloc_sarray_would_overflow(1, nbytes) {
-            return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
+            return lean_io_result_mk_error(lean_decode_io_error(
+                libc::ENOMEM,
+                core::ptr::null_mut(),
+            ));
         }
 
         let res = lean_alloc_sarray(1, 0, nbytes);
@@ -445,7 +495,10 @@ mod runtime_io_fs_impl {
             if fd < 0 {
                 lean_dec(res);
                 let fname = lean_mk_string(random_path.as_ptr());
-                return lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), fname));
+                return lean_io_result_mk_error(lean_decode_io_error(
+                    super::lean_runtime_errno(),
+                    fname,
+                ));
             }
 
             while remain > 0 {
@@ -460,7 +513,10 @@ mod runtime_io_fs_impl {
                         let err = super::lean_runtime_errno();
                         libc::close(fd);
                         lean_dec(res);
-                        return lean_io_result_mk_error(lean_decode_io_error(err, core::ptr::null_mut()));
+                        return lean_io_result_mk_error(lean_decode_io_error(
+                            err,
+                            core::ptr::null_mut(),
+                        ));
                     }
                 } else {
                     remain -= nread as usize;
@@ -521,7 +577,11 @@ mod runtime_io_fs_impl {
             use core::ffi::c_void;
             extern "C" {
                 fn GetModuleHandleA(module_name: *const c_char) -> *mut c_void;
-                fn GetModuleFileNameA(h_module: *mut c_void, lp_filename: *mut c_char, n_size: u32) -> u32;
+                fn GetModuleFileNameA(
+                    h_module: *mut c_void,
+                    lp_filename: *mut c_char,
+                    n_size: u32,
+                ) -> u32;
             }
             let mut path = [0u8; 32768usize]; // MAX_PATH
             let h = GetModuleHandleA(core::ptr::null());
@@ -548,7 +608,9 @@ mod runtime_io_fs_impl {
             }
             let resolved = libc::realpath(buf1.as_ptr().cast(), buf2.as_mut_ptr().cast());
             if resolved.is_null() {
-                return io_error_from_str(c"failed to resolve symbolic links when locating application".as_ptr());
+                return io_error_from_str(
+                    c"failed to resolve symbolic links when locating application".as_ptr(),
+                );
             }
             lean_io_result_mk_ok(lean_mk_string(buf2.as_ptr().cast()))
         }

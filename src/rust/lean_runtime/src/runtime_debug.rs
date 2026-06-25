@@ -34,29 +34,44 @@ mod runtime_debug_impl {
         let _ = io::stderr().flush();
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_debugEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean16initialize_debugEv"
+    )]
     pub extern "C" fn initialize_debug() {
         // Debug tags are initialized lazily.
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_debugEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean14finalize_debugEv"
+    )]
     pub extern "C" fn finalize_debug() {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().clear();
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14has_violationsEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean14has_violationsEv"
+    )]
     pub extern "C" fn has_violations() -> bool {
         HAS_VIOLATIONS.load(Ordering::Relaxed)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean17enable_assertionsEb")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean17enable_assertionsEb"
+    )]
     pub extern "C" fn enable_assertions(enabled: bool) {
         ASSERTIONS_ENABLED.store(enabled, Ordering::Relaxed);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18assertions_enabledEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean18assertions_enabledEv"
+    )]
     pub extern "C" fn assertions_enabled() -> bool {
         ASSERTIONS_ENABLED.load(Ordering::Relaxed)
     }
@@ -76,7 +91,10 @@ mod runtime_debug_impl {
         write_stderr(&format!("{}\n", cstr_to_string(condition)));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean12enable_debugEPKc")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean12enable_debugEPKc"
+    )]
     pub unsafe extern "C" fn enable_debug(tag: *const c_char) {
         debug_tags().lock().unwrap().insert(cstr_to_string(tag));
     }
@@ -87,14 +105,20 @@ mod runtime_debug_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13disable_debugEPKc")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean13disable_debugEPKc"
+    )]
     pub unsafe extern "C" fn disable_debug(tag: *const c_char) {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().remove(&cstr_to_string(tag));
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16is_debug_enabledEPKc")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean16is_debug_enabledEPKc"
+    )]
     pub unsafe extern "C" fn is_debug_enabled(tag: *const c_char) -> bool {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().contains(&cstr_to_string(tag))
@@ -103,17 +127,26 @@ mod runtime_debug_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19enable_debug_dialogEb")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean19enable_debug_dialogEb"
+    )]
     pub extern "C" fn enable_debug_dialog(enabled: bool) {
         DEBUG_DIALOG.store(enabled, Ordering::Relaxed);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15debuggable_exitEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15debuggable_exitEv"
+    )]
     pub extern "C" fn debuggable_exit() -> ! {
         process::abort();
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15invoke_debuggerEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean15invoke_debuggerEv"
+    )]
     pub extern "C" fn invoke_debugger() {
         HAS_VIOLATIONS.store(true, Ordering::Relaxed);
         if !DEBUG_DIALOG.load(Ordering::Relaxed) {
@@ -142,7 +175,6 @@ mod runtime_debug_impl {
         notify_assertion_violation(file_name, line, condition);
         invoke_debugger();
     }
-
 }
 
 #[cfg(feature = "std")]

@@ -50,7 +50,11 @@ mod runtime_object_string_impl {
 
     #[inline]
     unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
-        lean_runtime_alloc_ctor(tag as core::ffi::c_uint, num_objs as core::ffi::c_uint, scalar_sz as core::ffi::c_uint)
+        lean_runtime_alloc_ctor(
+            tag as core::ffi::c_uint,
+            num_objs as core::ffi::c_uint,
+            scalar_sz as core::ffi::c_uint,
+        )
     }
 
     // On 64-bit, UInt32 fits in a Lean scalar.
@@ -114,7 +118,7 @@ mod runtime_object_string_impl {
 
     unsafe fn string_ensure_capacity(o: *mut LeanObject, extra: usize) -> *mut LeanObject {
         debug_assert!(lean_is_exclusive(o));
-        let sz  = lean_string_size(o);
+        let sz = lean_string_size(o);
         let cap = lean_string_capacity(o);
         if sz + extra > cap {
             let new_o = lean_alloc_string(sz, cap + sz + extra, lean_string_len(o));
@@ -163,16 +167,16 @@ mod runtime_object_string_impl {
 
     #[inline]
     unsafe fn is_utf8_first_byte(c: u8) -> bool {
-        (c & 0x80) == 0
-            || (c & 0xe0) == 0xc0
-            || (c & 0xf0) == 0xe0
-            || (c & 0xf8) == 0xf0
+        (c & 0x80) == 0 || (c & 0xe0) == 0xc0 || (c & 0xf0) == 0xe0 || (c & 0xf8) == 0xf0
     }
 
     // ── lossy UTF-8 recovery ─────────────────────────────────────────────────────
 
     unsafe fn lean_mk_string_lossy_recover(
-        s: *const c_char, sz: usize, pos: usize, i: usize,
+        s: *const c_char,
+        sz: usize,
+        pos: usize,
+        i: usize,
     ) -> *mut LeanObject {
         let s = s as *const u8;
         let mut out: Vec<u8> = Vec::from(core::slice::from_raw_parts(s, pos));
@@ -205,7 +209,9 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_mk_string_unchecked(
-        s: *const c_char, sz: usize, len: usize,
+        s: *const c_char,
+        sz: usize,
+        len: usize,
     ) -> *mut LeanObject {
         let rsz = sz + 1;
         let r = lean_alloc_string(rsz, rsz, len);
@@ -216,7 +222,8 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_mk_string_from_bytes(
-        s: *const c_char, sz: usize,
+        s: *const c_char,
+        sz: usize,
     ) -> *mut LeanObject {
         let mut pos: usize = 0;
         let mut i: usize = 0;
@@ -229,7 +236,8 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_mk_string_from_bytes_unchecked(
-        s: *const c_char, sz: usize,
+        s: *const c_char,
+        sz: usize,
     ) -> *mut LeanObject {
         lean_mk_string_unchecked(s, sz, lean_utf8_n_strlen(s, sz))
     }
@@ -265,7 +273,9 @@ mod runtime_object_string_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_string_from_utf8_unchecked(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_string_from_utf8_unchecked(
+        a: *mut LeanObject,
+    ) -> *mut LeanObject {
         let r = lean_mk_string_from_bytes_unchecked(
             lean_sarray_cptr(a) as *const c_char,
             lean_sarray_size(a),
@@ -285,7 +295,11 @@ mod runtime_object_string_impl {
     pub unsafe extern "C" fn lean_string_to_utf8(s: *mut LeanObject) -> *mut LeanObject {
         let sz = lean_string_size(s) - 1;
         let r = lean_alloc_sarray(1, sz, sz);
-        core::ptr::copy_nonoverlapping(lean_string_cstr(s), lean_sarray_mut_cptr(r) as *mut c_char, sz);
+        core::ptr::copy_nonoverlapping(
+            lean_string_cstr(s),
+            lean_sarray_mut_cptr(r) as *mut c_char,
+            sz,
+        );
         r
     }
 
@@ -295,7 +309,7 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_push(s: *mut LeanObject, c: u32) -> *mut LeanObject {
-        let sz  = lean_string_size(s);
+        let sz = lean_string_size(s);
         let len = lean_string_len(s);
         let r;
         if !lean_is_exclusive(s) {
@@ -306,22 +320,23 @@ mod runtime_object_string_impl {
             r = string_ensure_capacity(s, 5);
         }
         let consumed = lean_runtime_push_unicode_scalar(w_string_cstr(r).add(sz - 1), c) as usize;
-        (*(r as *mut LeanStringObject)).size   = sz + consumed;
-        (*(r as *mut LeanStringObject)).len   += 1;
+        (*(r as *mut LeanStringObject)).size = sz + consumed;
+        (*(r as *mut LeanStringObject)).len += 1;
         *w_string_cstr(r).add(sz + consumed - 1) = 0;
         r
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_append(
-        s1: *mut LeanObject, s2: *mut LeanObject,
+        s1: *mut LeanObject,
+        s2: *mut LeanObject,
     ) -> *mut LeanObject {
-        let sz1     = lean_string_size(s1);
-        let sz2     = lean_string_size(s2);
-        let len1    = lean_string_len(s1);
-        let len2    = lean_string_len(s2);
+        let sz1 = lean_string_size(s1);
+        let sz2 = lean_string_size(s2);
+        let len1 = lean_string_len(s1);
+        let len2 = lean_string_len(s2);
         let new_len = len1 + len2;
-        let new_sz  = sz1 + sz2 - 1;
+        let new_sz = sz1 + sz2 - 1;
         let r;
         if !lean_is_exclusive(s1) {
             r = lean_alloc_string(new_sz, mk_capacity(new_sz), new_len);
@@ -331,9 +346,13 @@ mod runtime_object_string_impl {
             debug_assert!(s1 != s2);
             r = string_ensure_capacity(s1, sz2 - 1);
         }
-        core::ptr::copy_nonoverlapping(lean_string_cstr(s2), w_string_cstr(r).add(sz1 - 1), sz2 - 1);
+        core::ptr::copy_nonoverlapping(
+            lean_string_cstr(s2),
+            w_string_cstr(r).add(sz1 - 1),
+            sz2 - 1,
+        );
         (*(r as *mut LeanStringObject)).size = new_sz;
-        (*(r as *mut LeanStringObject)).len  = new_len;
+        (*(r as *mut LeanStringObject)).len = new_len;
         *w_string_cstr(r).add(new_sz - 1) = 0;
         r
     }
@@ -343,27 +362,21 @@ mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_string_eq_cold(
-        s1: *mut LeanObject, s2: *mut LeanObject,
-    ) -> bool {
+    pub unsafe extern "C" fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
         let sz = lean_string_size(s1);
         core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz)
             == core::slice::from_raw_parts(lean_string_cstr(s2) as *const u8, sz)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sarray_eq_cold(
-        a1: *mut LeanObject, a2: *mut LeanObject,
-    ) -> bool {
+    pub unsafe extern "C" fn lean_sarray_eq_cold(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
         let len = lean_sarray_elem_size(a1) * lean_sarray_size(a1);
         core::slice::from_raw_parts(lean_sarray_cptr(a1), len)
             == core::slice::from_raw_parts(lean_sarray_cptr(a2), len)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_string_lt(
-        s1: *mut LeanObject, s2: *mut LeanObject,
-    ) -> bool {
+    pub unsafe extern "C" fn lean_string_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
         let sz1 = lean_string_size(s1) - 1;
         let sz2 = lean_string_size(s2) - 1;
         let b1 = core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz1);
@@ -372,16 +385,14 @@ mod runtime_object_string_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_string_compare(
-        s1: *mut LeanObject, s2: *mut LeanObject,
-    ) -> u8 {
+    pub unsafe extern "C" fn lean_string_compare(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
         let sz1 = lean_string_size(s1) - 1;
         let sz2 = lean_string_size(s2) - 1;
         let b1 = core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz1);
         let b2 = core::slice::from_raw_parts(lean_string_cstr(s2) as *const u8, sz2);
         match b1.cmp(b2) {
-            core::cmp::Ordering::Less    => 0,
-            core::cmp::Ordering::Equal   => 1,
+            core::cmp::Ordering::Less => 0,
+            core::cmp::Ordering::Equal => 1,
             core::cmp::Ordering::Greater => 2,
         }
     }
@@ -391,12 +402,10 @@ mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_string_utf8_get(
-        s: *mut LeanObject, i0: *mut LeanObject,
-    ) -> u32 {
+    pub unsafe extern "C" fn lean_string_utf8_get(s: *mut LeanObject, i0: *mut LeanObject) -> u32 {
         if lean_is_scalar(i0) {
-            let i    = lean_unbox(i0);
-            let str  = lean_string_cstr(s) as *const u8;
+            let i = lean_unbox(i0);
+            let str = lean_string_cstr(s) as *const u8;
             let size = lean_string_size(s) - 1;
             if i < size {
                 if let Some(cp) = string_utf8_get_core(str, size, i) {
@@ -409,7 +418,10 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_get_fast_cold(
-        str: *const c_char, i: usize, size: usize, c: u8,
+        str: *const c_char,
+        i: usize,
+        size: usize,
+        c: u8,
     ) -> u32 {
         let c = c as u32;
         if (c & 0xe0) == 0xc0 && i + 1 < size {
@@ -441,11 +453,12 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_get_opt(
-        s: *mut LeanObject, i0: *mut LeanObject,
+        s: *mut LeanObject,
+        i0: *mut LeanObject,
     ) -> *mut LeanObject {
         if lean_is_scalar(i0) {
-            let i    = lean_unbox(i0);
-            let str  = lean_string_cstr(s) as *const u8;
+            let i = lean_unbox(i0);
+            let str = lean_string_cstr(s) as *const u8;
             let size = lean_string_size(s) - 1;
             if i < size {
                 if let Some(cp) = string_utf8_get_core(str, size, i) {
@@ -470,11 +483,12 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_get_bang(
-        s: *mut LeanObject, i0: *mut LeanObject,
+        s: *mut LeanObject,
+        i0: *mut LeanObject,
     ) -> u32 {
         if lean_is_scalar(i0) {
-            let i    = lean_unbox(i0);
-            let str  = lean_string_cstr(s) as *const u8;
+            let i = lean_unbox(i0);
+            let str = lean_string_cstr(s) as *const u8;
             let size = lean_string_size(s) - 1;
             if i < size {
                 return string_utf8_get_core(str, size, i)
@@ -486,53 +500,73 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_next(
-        s: *mut LeanObject, i0: *mut LeanObject,
+        s: *mut LeanObject,
+        i0: *mut LeanObject,
     ) -> *mut LeanObject {
         if !lean_is_scalar(i0) {
             return lean_nat_add(i0, lean_box(1));
         }
-        let i    = lean_unbox(i0);
-        let str  = lean_string_cstr(s) as *const u8;
+        let i = lean_unbox(i0);
+        let str = lean_string_cstr(s) as *const u8;
         let size = lean_string_size(s) - 1;
         if i >= size {
             return lean_usize_to_nat(i + 1);
         }
         let c = *str.add(i);
-        if (c & 0x80) == 0    { return lean_box(i + 1); }
-        if (c & 0xe0) == 0xc0 { return lean_box(i + 2); }
-        if (c & 0xf0) == 0xe0 { return lean_box(i + 3); }
-        if (c & 0xf8) == 0xf0 { return lean_box(i + 4); }
+        if (c & 0x80) == 0 {
+            return lean_box(i + 1);
+        }
+        if (c & 0xe0) == 0xc0 {
+            return lean_box(i + 2);
+        }
+        if (c & 0xf0) == 0xe0 {
+            return lean_box(i + 3);
+        }
+        if (c & 0xf8) == 0xf0 {
+            return lean_box(i + 4);
+        }
         lean_box(i + 1)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_string_utf8_next_fast_cold(
-        i: usize, c: u8,
-    ) -> *mut LeanObject {
-        if (c & 0xe0) == 0xc0 { return lean_box(i + 2); }
-        if (c & 0xf0) == 0xe0 { return lean_box(i + 3); }
-        if (c & 0xf8) == 0xf0 { return lean_box(i + 4); }
+    pub unsafe extern "C" fn lean_string_utf8_next_fast_cold(i: usize, c: u8) -> *mut LeanObject {
+        if (c & 0xe0) == 0xc0 {
+            return lean_box(i + 2);
+        }
+        if (c & 0xf0) == 0xe0 {
+            return lean_box(i + 3);
+        }
+        if (c & 0xf8) == 0xf0 {
+            return lean_box(i + 4);
+        }
         lean_box(i + 1)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_is_valid_pos(
-        s: *mut LeanObject, i0: *mut LeanObject,
+        s: *mut LeanObject,
+        i0: *mut LeanObject,
     ) -> u8 {
         if !lean_is_scalar(i0) {
             return 0;
         }
-        let i  = lean_unbox(i0);
+        let i = lean_unbox(i0);
         let sz = lean_string_size(s) - 1;
-        if i > sz  { return 0; }
-        if i == sz { return 1; }
+        if i > sz {
+            return 0;
+        }
+        if i == sz {
+            return 1;
+        }
         let str = lean_string_cstr(s) as *const u8;
         is_utf8_first_byte(*str.add(i)) as u8
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_extract(
-        s: *mut LeanObject, b0: *mut LeanObject, e0: *mut LeanObject,
+        s: *mut LeanObject,
+        b0: *mut LeanObject,
+        e0: *mut LeanObject,
     ) -> *mut LeanObject {
         let empty = || lean_mk_string_unchecked(b"\0".as_ptr() as *const c_char, 0, 0);
         if !lean_is_scalar(b0) || !lean_is_scalar(e0) {
@@ -541,26 +575,39 @@ mod runtime_object_string_impl {
         let mut b = lean_unbox(b0);
         let mut e = lean_unbox(e0);
         let str = lean_string_cstr(s) as *const u8;
-        let sz  = lean_string_size(s) - 1;
-        if b >= e || b >= sz { return empty(); }
-        if !is_utf8_first_byte(*str.add(b)) { return empty(); }
-        if e > sz { e = sz; }
-        if e < sz && !is_utf8_first_byte(*str.add(e)) { e = sz; }
+        let sz = lean_string_size(s) - 1;
+        if b >= e || b >= sz {
+            return empty();
+        }
+        if !is_utf8_first_byte(*str.add(b)) {
+            return empty();
+        }
+        if e > sz {
+            e = sz;
+        }
+        if e < sz && !is_utf8_first_byte(*str.add(e)) {
+            e = sz;
+        }
         let new_sz = e - b;
         lean_mk_string_from_bytes_unchecked(lean_string_cstr(s).add(b), new_sz)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_prev(
-        s: *mut LeanObject, i0: *mut LeanObject,
+        s: *mut LeanObject,
+        i0: *mut LeanObject,
     ) -> *mut LeanObject {
         if !lean_is_scalar(i0) {
             return lean_nat_sub(i0, lean_box(1));
         }
         let mut i = lean_unbox(i0);
-        let sz    = lean_string_size(s) - 1;
-        if i == 0 { return lean_box(0); }
-        if i > sz  { return lean_box(i - 1); }
+        let sz = lean_string_size(s) - 1;
+        if i == 0 {
+            return lean_box(0);
+        }
+        if i > sz {
+            return lean_box(i - 1);
+        }
         i -= 1;
         let str = lean_string_cstr(s) as *const u8;
         while !is_utf8_first_byte(*str.add(i)) {
@@ -572,14 +619,18 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_utf8_set(
-        s: *mut LeanObject, i0: *mut LeanObject, c: u32,
+        s: *mut LeanObject,
+        i0: *mut LeanObject,
+        c: u32,
     ) -> *mut LeanObject {
         if !lean_is_scalar(i0) {
             return s;
         }
-        let i  = lean_unbox(i0);
+        let i = lean_unbox(i0);
         let sz = lean_string_size(s) - 1;
-        if i >= sz { return s; }
+        if i >= sz {
+            return s;
+        }
         let str_ptr = w_string_cstr(s);
         if lean_is_exclusive(s) {
             let b = *str_ptr.add(i) as u8;
@@ -588,13 +639,20 @@ mod runtime_object_string_impl {
                 return s;
             }
         }
-        if !is_utf8_first_byte(*str_ptr.add(i) as u8) { return s; }
+        if !is_utf8_first_byte(*str_ptr.add(i) as u8) {
+            return s;
+        }
         let old_c_sz = {
             let b = *str_ptr.add(i) as u8;
-            if      (b & 0x80) == 0    { 1 }
-            else if (b & 0xe0) == 0xc0 { 2 }
-            else if (b & 0xf0) == 0xe0 { 3 }
-            else                        { 4 }
+            if (b & 0x80) == 0 {
+                1
+            } else if (b & 0xe0) == 0xc0 {
+                2
+            } else if (b & 0xf0) == 0xe0 {
+                3
+            } else {
+                4
+            }
         };
         let mut buf = [0i8; 4];
         let new_c_sz = lean_runtime_push_unicode_scalar(buf.as_mut_ptr(), c) as usize;
@@ -622,19 +680,22 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_hash(s: *mut LeanObject) -> u64 {
-        let sz  = lean_string_size(s) - 1;
+        let sz = lean_string_size(s) - 1;
         let str = lean_string_cstr(s) as *const u8;
         lean_runtime_hash_str(sz, str, 11)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_memcmp(
-        s1: *mut LeanObject, s2: *mut LeanObject,
-        lstart: *mut LeanObject, rstart: *mut LeanObject, len: *mut LeanObject,
+        s1: *mut LeanObject,
+        s2: *mut LeanObject,
+        lstart: *mut LeanObject,
+        rstart: *mut LeanObject,
+        len: *mut LeanObject,
     ) -> u8 {
         let lbase = lean_string_cstr(s1).add(lean_unbox(lstart));
         let rbase = lean_string_cstr(s2).add(lean_unbox(rstart));
-        let l     = lean_unbox(len);
+        let l = lean_unbox(len);
         let b1 = core::slice::from_raw_parts(lbase as *const u8, l);
         let b2 = core::slice::from_raw_parts(rbase as *const u8, l);
         (b1 == b2) as u8
@@ -653,24 +714,22 @@ mod runtime_object_string_impl {
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_slice_hash(s: *mut LeanObject) -> u64 {
         let start = lean_unbox(lean_ctor_get(s, 1));
-        let end_  = lean_unbox(lean_ctor_get(s, 2));
-        let sz    = if end_ > start { end_ - start } else { 0 };
-        let base  = lean_string_cstr(lean_ctor_get(s, 0)).add(start) as *const u8;
+        let end_ = lean_unbox(lean_ctor_get(s, 2));
+        let sz = if end_ > start { end_ - start } else { 0 };
+        let base = lean_string_cstr(lean_ctor_get(s, 0)).add(start) as *const u8;
         lean_runtime_hash_str(sz, base, 11)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_slice_dec_lt(
-        s1: *mut LeanObject, s2: *mut LeanObject,
-    ) -> u8 {
+    pub unsafe extern "C" fn lean_slice_dec_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
         let start1 = lean_unbox(lean_ctor_get(s1, 1));
-        let end1   = lean_unbox(lean_ctor_get(s1, 2));
+        let end1 = lean_unbox(lean_ctor_get(s1, 2));
         let start2 = lean_unbox(lean_ctor_get(s2, 1));
-        let end2   = lean_unbox(lean_ctor_get(s2, 2));
-        let sz1    = if end1 > start1 { end1 - start1 } else { 0 };
-        let sz2    = if end2 > start2 { end2 - start2 } else { 0 };
-        let base1  = lean_string_cstr(lean_ctor_get(s1, 0)).add(start1) as *const u8;
-        let base2  = lean_string_cstr(lean_ctor_get(s2, 0)).add(start2) as *const u8;
+        let end2 = lean_unbox(lean_ctor_get(s2, 2));
+        let sz1 = if end1 > start1 { end1 - start1 } else { 0 };
+        let sz2 = if end2 > start2 { end2 - start2 } else { 0 };
+        let base1 = lean_string_cstr(lean_ctor_get(s1, 0)).add(start1) as *const u8;
+        let base2 = lean_string_cstr(lean_ctor_get(s2, 0)).add(start2) as *const u8;
         let b1 = core::slice::from_raw_parts(base1, sz1);
         let b2 = core::slice::from_raw_parts(base2, sz2);
         (b1 < b2) as u8
@@ -702,7 +761,7 @@ mod runtime_object_string_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject {
-        let sz    = lean_string_size(s) - 1;
+        let sz = lean_string_size(s) - 1;
         let bytes = core::slice::from_raw_parts(lean_string_cstr(s) as *const u8, sz);
         let mut cps: Vec<u32> = Vec::new();
         let mut i = 0;
@@ -710,10 +769,15 @@ mod runtime_object_string_impl {
             if let Some(cp) = string_utf8_get_core(bytes.as_ptr(), bytes.len(), i) {
                 cps.push(cp);
                 let b = bytes[i];
-                if      (b & 0x80) == 0    { i += 1; }
-                else if (b & 0xe0) == 0xc0 { i += 2; }
-                else if (b & 0xf0) == 0xe0 { i += 3; }
-                else                        { i += 4; }
+                if (b & 0x80) == 0 {
+                    i += 1;
+                } else if (b & 0xe0) == 0xc0 {
+                    i += 2;
+                } else if (b & 0xf0) == 0xe0 {
+                    i += 3;
+                } else {
+                    i += 4;
+                }
             } else {
                 i += 1;
             }

@@ -12,27 +12,47 @@ mod runtime_io_handle_impl {
 
     #[cfg(not(target_os = "windows"))]
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_prim_handle_lock(h: *mut LeanObject, exclusive: u8) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_prim_handle_lock(
+        h: *mut LeanObject,
+        exclusive: u8,
+    ) -> *mut LeanObject {
         let fp = io_get_handle(h);
-        let op = if exclusive != 0 { libc::LOCK_EX } else { libc::LOCK_SH };
+        let op = if exclusive != 0 {
+            libc::LOCK_EX
+        } else {
+            libc::LOCK_SH
+        };
         if libc::flock(libc::fileno(fp), op) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()))
+            lean_io_result_mk_error(lean_decode_io_error(
+                super::lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ))
         }
     }
 
     #[cfg(not(target_os = "windows"))]
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_prim_handle_try_lock(h: *mut LeanObject, exclusive: u8) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_prim_handle_try_lock(
+        h: *mut LeanObject,
+        exclusive: u8,
+    ) -> *mut LeanObject {
         let fp = io_get_handle(h);
-        let op = if exclusive != 0 { libc::LOCK_EX } else { libc::LOCK_SH };
+        let op = if exclusive != 0 {
+            libc::LOCK_EX
+        } else {
+            libc::LOCK_SH
+        };
         if libc::flock(libc::fileno(fp), op | libc::LOCK_NB) == 0 {
             lean_io_result_mk_ok(lean_box(1))
         } else if super::lean_runtime_errno() == libc::EWOULDBLOCK {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()))
+            lean_io_result_mk_error(lean_decode_io_error(
+                super::lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ))
         }
     }
 
@@ -43,7 +63,10 @@ mod runtime_io_handle_impl {
         if libc::flock(libc::fileno(fp), libc::LOCK_UN) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), core::ptr::null_mut()))
+            lean_io_result_mk_error(lean_decode_io_error(
+                super::lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ))
         }
     }
 
@@ -109,12 +132,16 @@ mod runtime_io_handle_impl {
                     n /= 10;
                 }
             }
-            let msg = super::super::lean_mk_string_from_bytes(buf[i..].as_ptr().cast(), buf.len() - i);
+            let msg =
+                super::super::lean_mk_string_from_bytes(buf[i..].as_ptr().cast(), buf.len() - i);
             lean_io_result_mk_error(lean_mk_io_user_error(msg))
         }
 
         #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_io_prim_handle_lock(h: *mut LeanObject, exclusive: u8) -> *mut LeanObject {
+        pub unsafe extern "C" fn lean_io_prim_handle_lock(
+            h: *mut LeanObject,
+            exclusive: u8,
+        ) -> *mut LeanObject {
             let mut overlapped = Overlapped {
                 internal: 0,
                 internal_high: 0,
@@ -122,8 +149,20 @@ mod runtime_io_handle_impl {
                 offset_high: 0,
                 event: core::ptr::null_mut(),
             };
-            let flags = if exclusive != 0 { LOCKFILE_EXCLUSIVE_LOCK } else { 0 };
-            if LockFileEx(win_handle(super::io_get_handle(h)), flags, 0, MAXDWORD, MAXDWORD, &mut overlapped) != 0 {
+            let flags = if exclusive != 0 {
+                LOCKFILE_EXCLUSIVE_LOCK
+            } else {
+                0
+            };
+            if LockFileEx(
+                win_handle(super::io_get_handle(h)),
+                flags,
+                0,
+                MAXDWORD,
+                MAXDWORD,
+                &mut overlapped,
+            ) != 0
+            {
                 lean_io_result_mk_ok(lean_box(0))
             } else {
                 last_error_result()
@@ -131,7 +170,10 @@ mod runtime_io_handle_impl {
         }
 
         #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_io_prim_handle_try_lock(h: *mut LeanObject, exclusive: u8) -> *mut LeanObject {
+        pub unsafe extern "C" fn lean_io_prim_handle_try_lock(
+            h: *mut LeanObject,
+            exclusive: u8,
+        ) -> *mut LeanObject {
             let mut overlapped = Overlapped {
                 internal: 0,
                 internal_high: 0,
@@ -143,7 +185,15 @@ mod runtime_io_handle_impl {
             if exclusive != 0 {
                 flags |= LOCKFILE_EXCLUSIVE_LOCK;
             }
-            if LockFileEx(win_handle(super::io_get_handle(h)), flags, 0, MAXDWORD, MAXDWORD, &mut overlapped) != 0 {
+            if LockFileEx(
+                win_handle(super::io_get_handle(h)),
+                flags,
+                0,
+                MAXDWORD,
+                MAXDWORD,
+                &mut overlapped,
+            ) != 0
+            {
                 lean_io_result_mk_ok(lean_box(1))
             } else if GetLastError() == ERROR_LOCK_VIOLATION {
                 lean_io_result_mk_ok(lean_box(0))
@@ -161,7 +211,14 @@ mod runtime_io_handle_impl {
                 offset_high: 0,
                 event: core::ptr::null_mut(),
             };
-            if UnlockFileEx(win_handle(super::io_get_handle(h)), 0, MAXDWORD, MAXDWORD, &mut overlapped) != 0 {
+            if UnlockFileEx(
+                win_handle(super::io_get_handle(h)),
+                0,
+                MAXDWORD,
+                MAXDWORD,
+                &mut overlapped,
+            ) != 0
+            {
                 lean_io_result_mk_ok(lean_box(0))
             } else if GetLastError() == ERROR_NOT_LOCKED {
                 lean_io_result_mk_ok(lean_box(0))

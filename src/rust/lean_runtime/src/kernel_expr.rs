@@ -27,25 +27,45 @@ Scalar field layout (after object pointer fields):
 
 #[cfg(feature = "export-runtime-ffi")]
 mod kernel_expr_impl {
-    use super::*;
     use super::runtime_object_panic_impl::lean_internal_panic;
+    use super::*;
 
-    const EXPR_BVAR:   u8 = 0;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_BVAR: u8 = 0;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     extern "C" {
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_lambda(n: *mut LeanObject, d: *mut LeanObject, b: *mut LeanObject, bi: u8) -> *mut LeanObject;
-        fn lean_expr_mk_forall(n: *mut LeanObject, d: *mut LeanObject, b: *mut LeanObject, bi: u8) -> *mut LeanObject;
-        fn lean_expr_mk_let(n: *mut LeanObject, t: *mut LeanObject, v: *mut LeanObject, b: *mut LeanObject, nondep: u8) -> *mut LeanObject;
+        fn lean_expr_mk_lambda(
+            n: *mut LeanObject,
+            d: *mut LeanObject,
+            b: *mut LeanObject,
+            bi: u8,
+        ) -> *mut LeanObject;
+        fn lean_expr_mk_forall(
+            n: *mut LeanObject,
+            d: *mut LeanObject,
+            b: *mut LeanObject,
+            bi: u8,
+        ) -> *mut LeanObject;
+        fn lean_expr_mk_let(
+            n: *mut LeanObject,
+            t: *mut LeanObject,
+            v: *mut LeanObject,
+            b: *mut LeanObject,
+            nondep: u8,
+        ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_proj(sname: *mut LeanObject, idx: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
+        fn lean_expr_mk_proj(
+            sname: *mut LeanObject,
+            idx: *mut LeanObject,
+            expr: *mut LeanObject,
+        ) -> *mut LeanObject;
     }
 
     // Read the Expr.Data u64 scalar stored just after the object pointer fields.
@@ -168,7 +188,7 @@ mod kernel_expr_impl {
                     || has_loose_bvar_impl(lean_ctor_get(e, 3), i, offset + 1)
             }
             EXPR_MDATA => has_loose_bvar_impl(lean_ctor_get(e, 1), i, offset),
-            EXPR_PROJ  => has_loose_bvar_impl(lean_ctor_get(e, 2), i, offset),
+            EXPR_PROJ => has_loose_bvar_impl(lean_ctor_get(e, 2), i, offset),
             _ => false, // Const, Sort, FVar, MVar, Lit: no loose bvars
         }
     }
@@ -182,7 +202,11 @@ mod kernel_expr_impl {
             return 0; // index too large, can't be present
         }
         let idx = lean_unbox(i) as u32;
-        if has_loose_bvar_impl(e, idx, 0) { 1 } else { 0 }
+        if has_loose_bvar_impl(e, idx, 0) {
+            1
+        } else {
+            0
+        }
     }
 
     // ── shift_loose_bvars (shared impl for lower and lift) ──────────────────
@@ -237,9 +261,9 @@ mod kernel_expr_impl {
                 }
             }
             EXPR_APP => {
-                let fn_e  = lean_ctor_get(e, 0);
+                let fn_e = lean_ctor_get(e, 0);
                 let arg_e = lean_ctor_get(e, 1);
-                let new_fn  = shift_loose_bvars(fn_e,  offset, s, d, lift);
+                let new_fn = shift_loose_bvars(fn_e, offset, s, d, lift);
                 let new_arg = shift_loose_bvars(arg_e, offset, s, d, lift);
                 if new_fn == fn_e && new_arg == arg_e {
                     lean_dec(new_fn);
@@ -251,9 +275,9 @@ mod kernel_expr_impl {
                 }
             }
             EXPR_LAMBDA | EXPR_PI => {
-                let dom  = lean_ctor_get(e, 1);
+                let dom = lean_ctor_get(e, 1);
                 let body = lean_ctor_get(e, 2);
-                let new_dom  = shift_loose_bvars(dom,  offset,     s, d, lift);
+                let new_dom = shift_loose_bvars(dom, offset, s, d, lift);
                 let new_body = shift_loose_bvars(body, offset + 1, s, d, lift);
                 if new_dom == dom && new_body == body {
                     lean_dec(new_dom);
@@ -272,11 +296,11 @@ mod kernel_expr_impl {
                 }
             }
             EXPR_LET => {
-                let ty   = lean_ctor_get(e, 1);
-                let val  = lean_ctor_get(e, 2);
+                let ty = lean_ctor_get(e, 1);
+                let val = lean_ctor_get(e, 2);
                 let body = lean_ctor_get(e, 3);
-                let new_ty   = shift_loose_bvars(ty,   offset,     s, d, lift);
-                let new_val  = shift_loose_bvars(val,  offset,     s, d, lift);
+                let new_ty = shift_loose_bvars(ty, offset, s, d, lift);
+                let new_val = shift_loose_bvars(val, offset, s, d, lift);
                 let new_body = shift_loose_bvars(body, offset + 1, s, d, lift);
                 if new_ty == ty && new_val == val && new_body == body {
                     lean_dec(new_ty);
@@ -285,7 +309,7 @@ mod kernel_expr_impl {
                     lean_inc(e);
                     e
                 } else {
-                    let name   = lean_ctor_get(e, 0);
+                    let name = lean_ctor_get(e, 0);
                     lean_inc(name);
                     let nondep = expr_let_nondep(e);
                     lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
@@ -313,7 +337,7 @@ mod kernel_expr_impl {
                     e
                 } else {
                     let sname = lean_ctor_get(e, 0);
-                    let idx   = lean_ctor_get(e, 1);
+                    let idx = lean_ctor_get(e, 1);
                     lean_inc(sname);
                     lean_inc(idx);
                     lean_expr_mk_proj(sname, idx, new_child)

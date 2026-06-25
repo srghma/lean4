@@ -75,13 +75,23 @@ pub(crate) mod runtime_object_nat_int_impl {
 
     #[inline]
     fn uninit_mpzt() -> MpzT {
-        [MpzStruct { _mp_alloc: 0, _mp_size: 0, _mp_d: core::ptr::null_mut() }]
+        [MpzStruct {
+            _mp_alloc: 0,
+            _mp_size: 0,
+            _mp_d: core::ptr::null_mut(),
+        }]
     }
 
     #[inline]
     unsafe fn mpz_sgn(op: *const MpzT) -> c_int {
         let size = (*op)[0]._mp_size;
-        if size < 0 { -1 } else if size > 0 { 1 } else { 0 }
+        if size < 0 {
+            -1
+        } else if size > 0 {
+            1
+        } else {
+            0
+        }
     }
 
     #[inline]
@@ -105,9 +115,13 @@ pub(crate) mod runtime_object_nat_int_impl {
         (*obj).tag = LEAN_MPZ_TAG;
         (*obj).other = 0;
         #[cfg(lean_has_mimalloc)]
-        { (*obj).cs_size = saved_cs_size; }
+        {
+            (*obj).cs_size = saved_cs_size;
+        }
         #[cfg(not(lean_has_mimalloc))]
-        { (*obj).cs_size = 0; }
+        {
+            (*obj).cs_size = 0;
+        }
         obj
     }
 
@@ -160,9 +174,15 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     unsafe fn mpz_log2(m: *const MpzT) -> usize {
-        if mpz_sgn(m) <= 0 { return 0; }
+        if mpz_sgn(m) <= 0 {
+            return 0;
+        }
         let r = __gmpz_sizeinbase(m, 2);
-        if r > 0 { r - 1 } else { 0 }
+        if r > 0 {
+            r - 1
+        } else {
+            0
+        }
     }
 
     fn mix_hash_u64(a: u64, b: u64) -> u64 {
@@ -256,7 +276,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_add(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -270,7 +293,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_sub(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             return lean_box(0);
         } else if lean_is_scalar(a2) {
@@ -290,7 +316,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_mul(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_mul(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -318,7 +347,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_div(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_div(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             return lean_box(0);
         } else if lean_is_scalar(a2) {
@@ -339,7 +371,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_div_exact(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_div_exact(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             return lean_box(0);
         } else if lean_is_scalar(a2) {
@@ -359,7 +394,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_mod(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_mod(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             return a1;
         } else if lean_is_scalar(a2) {
@@ -412,7 +450,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_land(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_land(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -432,7 +473,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_lor(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_lor(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -452,7 +496,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_xor(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_xor(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -472,7 +519,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_shiftl(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_shiftl(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) && lean_unbox(a1) == 0 {
             return lean_box(0);
         }
@@ -491,7 +541,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_big_shiftr(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_big_shiftr(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if !lean_is_scalar(a2) {
             return lean_box(0);
         }
@@ -515,7 +568,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_pow(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_pow(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if !lean_is_scalar(a2) || lean_unbox(a2) > u32::MAX as usize {
             lean_internal_panic(b"Nat.pow exponent is too big\0".as_ptr() as *const c_char);
         }
@@ -534,7 +590,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_nat_gcd(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_nat_gcd(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m1 = uninit_mpzt();
         let mut m2 = uninit_mpzt();
         if lean_is_scalar(a1) {
@@ -560,7 +619,10 @@ pub(crate) mod runtime_object_nat_int_impl {
         if lean_is_scalar(a) {
             let mut n = lean_unbox(a);
             let mut res: usize = 0;
-            while n >= 2 { res += 1; n /= 2; }
+            while n >= 2 {
+                res += 1;
+                n /= 2;
+            }
             lean_box(res)
         } else {
             lean_box(mpz_log2(lean_mpz_val(a)))
@@ -604,7 +666,11 @@ pub(crate) mod runtime_object_nat_int_impl {
             return lean_box(n as i32 as u32 as usize);
         }
         let mut m = uninit_mpzt();
-        let w: u64 = if n < 0 { (-(n as i128)) as u64 } else { n as u64 };
+        let w: u64 = if n < 0 {
+            (-(n as i128)) as u64
+        } else {
+            n as u64
+        };
         init_uint64(&mut m, w);
         if n < 0 {
             __gmpz_neg(&mut m, &m);
@@ -621,7 +687,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_add(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -645,7 +714,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_sub(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -667,7 +739,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_mul(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_mul(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut m = uninit_mpzt();
         __gmpz_init(&mut m);
         if lean_is_scalar(a1) {
@@ -681,7 +756,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_div(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_div(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             let mut n = uninit_mpzt();
             __gmpz_init_set_si(&mut n, scalar_to_int(a1) as c_long);
@@ -715,7 +793,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_div_exact(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_div_exact(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             let n = scalar_to_int(a1);
             if n == 0 {
@@ -739,7 +820,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_mod(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_mod(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             let mut n = uninit_mpzt();
             __gmpz_init_set_si(&mut n, scalar_to_int(a1) as c_long);
@@ -801,7 +885,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_ediv(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_ediv(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             let mut n = uninit_mpzt();
             __gmpz_init_set_si(&mut n, scalar_to_int(a1) as c_long);
@@ -825,7 +912,10 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_int_big_emod(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_int_big_emod(
+        a1: *mut LeanObject,
+        a2: *mut LeanObject,
+    ) -> *mut LeanObject {
         if lean_is_scalar(a1) {
             let mut n = uninit_mpzt();
             __gmpz_init_set_si(&mut n, scalar_to_int(a1) as c_long);

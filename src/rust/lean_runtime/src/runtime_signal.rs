@@ -59,7 +59,10 @@ mod runtime_signal_impl {
         libc::free(handle.cast());
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25lean_uv_signal_finalizerEPv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean25lean_uv_signal_finalizerEPv"
+    )]
     pub unsafe extern "C" fn lean_uv_signal_finalizer(ptr: *mut c_void) {
         let signal = ptr.cast::<LeanUvSignalObject>();
 
@@ -68,7 +71,10 @@ mod runtime_signal_impl {
         }
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        uv_close((*signal).uv_signal.cast::<UvHandle>(), Some(close_free_handle));
+        uv_close(
+            (*signal).uv_signal.cast::<UvHandle>(),
+            Some(close_free_handle),
+        );
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
 
         libc::free(signal.cast());
@@ -82,13 +88,19 @@ mod runtime_signal_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23initialize_libuv_signalEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean23initialize_libuv_signalEv"
+    )]
     pub unsafe extern "C" fn initialize_libuv_signal() {
         UV_SIGNAL_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_signal_finalizer), Some(signal_foreach));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean19handle_signal_eventEP11uv_signal_si")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean19handle_signal_eventEP11uv_signal_si"
+    )]
     pub unsafe extern "C" fn handle_signal_event(handle: *mut UvSignal, signum: c_int) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let signal = signal_from_obj(obj);
@@ -155,7 +167,8 @@ mod runtime_signal_impl {
             _ => signum = 0,
         }
 
-        let signal = libc::malloc(core::mem::size_of::<LeanUvSignalObject>()).cast::<LeanUvSignalObject>();
+        let signal =
+            libc::malloc(core::mem::size_of::<LeanUvSignalObject>()).cast::<LeanUvSignalObject>();
         if signal.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
@@ -190,7 +203,10 @@ mod runtime_signal_impl {
         lean_io_result_mk_ok(obj)
     }
 
-    unsafe fn setup_signal(obj: *mut LeanObject, signal: *mut LeanUvSignalObject) -> *mut LeanObject {
+    unsafe fn setup_signal(
+        obj: *mut LeanObject,
+        signal: *mut LeanUvSignalObject,
+    ) -> *mut LeanObject {
         debug_assert!((*signal).promise.is_null());
 
         let promise = lean_io_promise_new();
@@ -261,9 +277,9 @@ mod runtime_signal_impl {
                 }
                 _ => {
                     event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
-                    lean_io_result_mk_error(lean_mk_io_user_error(
-                        lean_mk_string(b"invalid signal state\0".as_ptr().cast()),
-                    ))
+                    lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(
+                        b"invalid signal state\0".as_ptr().cast(),
+                    )))
                 }
             }
         } else if (*signal).state == SIGNAL_STATE_INITIAL {

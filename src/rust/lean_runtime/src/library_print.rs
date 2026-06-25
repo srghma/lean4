@@ -14,10 +14,16 @@ pointer is no longer needed because lean_expr_dbg_to_string is implemented
 entirely in Rust.
 */
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_printEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean16initialize_printEv"
+)]
 pub extern "C" fn initialize_print() {}
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_printEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean14finalize_printEv"
+)]
 pub extern "C" fn finalize_print() {}
 
 #[cfg(feature = "export-runtime-ffi")]
@@ -36,31 +42,31 @@ mod library_print_impl {
     }
 
     // Level kind tags (heap objects; Level.zero = lean_box(0), scalar).
-    const LEVEL_SUCC:  u8 = 1;
-    const LEVEL_MAX:   u8 = 2;
-    const LEVEL_IMAX:  u8 = 3;
+    const LEVEL_SUCC: u8 = 1;
+    const LEVEL_MAX: u8 = 2;
+    const LEVEL_IMAX: u8 = 3;
     const LEVEL_PARAM: u8 = 4;
     // LEVEL_MVAR = 5
 
     // Expr kind tags.
-    const EXPR_BVAR:   u8 = 0;
-    const EXPR_FVAR:   u8 = 1;
-    const EXPR_MVAR:   u8 = 2;
-    const EXPR_SORT:   u8 = 3;
-    const EXPR_CONST:  u8 = 4;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_BVAR: u8 = 0;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
+    const EXPR_SORT: u8 = 3;
+    const EXPR_CONST: u8 = 4;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_LIT:    u8 = 9;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_LIT: u8 = 9;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     // BinderInfo values stored as u8 in Lambda/Pi scalar area.
-    const BI_DEFAULT:         u8 = 0;
-    const BI_IMPLICIT:        u8 = 1;
+    const BI_DEFAULT: u8 = 0;
+    const BI_IMPLICIT: u8 = 1;
     const BI_STRICT_IMPLICIT: u8 = 2;
-    const BI_INST_IMPLICIT:   u8 = 3;
+    const BI_INST_IMPLICIT: u8 = 3;
 
     // Literal kind tags.
     const LIT_NAT: u8 = 0;
@@ -98,7 +104,7 @@ mod library_print_impl {
             if lean_is_scalar(n) {
                 return false; // Name.anonymous
             }
-            let tag    = lean_obj_tag(n);
+            let tag = lean_obj_tag(n);
             let prefix = lean_ctor_get(n, 0);
             if lean_is_scalar(prefix) {
                 // Atomic: numeral iff Name.num (tag 2).
@@ -125,7 +131,7 @@ mod library_print_impl {
         if lean_is_scalar(n) {
             return; // Name.anonymous
         }
-        let tag    = lean_obj_tag(n);
+        let tag = lean_obj_tag(n);
         let prefix = lean_ctor_get(n, 0);
         if !lean_is_scalar(prefix) {
             fmt_name(prefix, out);
@@ -150,7 +156,7 @@ mod library_print_impl {
         if lean_is_scalar(n) {
             return; // Name.anonymous
         }
-        let tag    = lean_obj_tag(n);
+        let tag = lean_obj_tag(n);
         let prefix = lean_ctor_get(n, 0);
         if lean_is_scalar(prefix) {
             // Atomic component.
@@ -198,8 +204,8 @@ mod library_print_impl {
         } else {
             match lean_obj_tag(l) {
                 LEVEL_PARAM => false, // Level.param
-                5           => false, // Level.mvar
-                _           => level_explicit_depth(l).is_none(),
+                5 => false,           // Level.mvar
+                _ => level_explicit_depth(l).is_none(),
             }
         };
         if needs_parens {
@@ -323,20 +329,20 @@ mod library_print_impl {
     #[inline(always)]
     unsafe fn fmt_binder_open(bi: u8, out: &mut String) {
         match bi {
-            BI_IMPLICIT        => out.push('{'),
+            BI_IMPLICIT => out.push('{'),
             BI_STRICT_IMPLICIT => out.push_str("{{"),
-            BI_INST_IMPLICIT   => out.push('['),
-            _                  => out.push('('), // BI_DEFAULT
+            BI_INST_IMPLICIT => out.push('['),
+            _ => out.push('('), // BI_DEFAULT
         }
     }
 
     #[inline(always)]
     unsafe fn fmt_binder_close(bi: u8, out: &mut String) {
         match bi {
-            BI_IMPLICIT        => out.push('}'),
+            BI_IMPLICIT => out.push('}'),
             BI_STRICT_IMPLICIT => out.push_str("}}"),
-            BI_INST_IMPLICIT   => out.push(']'),
-            _                  => out.push(')'),
+            BI_INST_IMPLICIT => out.push(']'),
+            _ => out.push(')'),
         }
     }
 
@@ -356,9 +362,9 @@ mod library_print_impl {
             }
             out.push(' ');
             let name_field = lean_ctor_get(current, 0);
-            let domain     = lean_ctor_get(current, 1);
-            let body       = lean_ctor_get(current, 2);
-            let bi         = expr_binder_info_raw(current);
+            let domain = lean_ctor_get(current, 1);
+            let body = lean_ctor_get(current, 2);
+            let bi = expr_binder_info_raw(current);
 
             let fresh_name = cleanup_name_owned(name_field); // owned Name
 
@@ -370,14 +376,18 @@ mod library_print_impl {
 
             // Substitute BVar(0) in body with a fresh FVar carrying the binder name.
             let fresh_fvar = lean_expr_mk_fvar(fresh_name); // consumes fresh_name, owned Expr
-            let inst_body  = lean_expr_instantiate1(body, fresh_fvar); // both borrowed, owned result
+            let inst_body = lean_expr_instantiate1(body, fresh_fvar); // both borrowed, owned result
             lean_dec(fresh_fvar);
 
             owned_exprs.push(inst_body);
             current = inst_body; // borrow from owned_exprs.last()
         }
 
-        if is_lambda { out.push_str(" => "); } else { out.push_str(", "); }
+        if is_lambda {
+            out.push_str(" => ");
+        } else {
+            out.push_str(", ");
+        }
         fmt_expr(current, out);
 
         for obj in owned_exprs {
@@ -387,11 +397,11 @@ mod library_print_impl {
 
     // Print a let/have binding with instantiated body.
     unsafe fn fmt_let(e: *mut LeanObject, out: &mut String) {
-        let nondep     = expr_let_nondep(e);
+        let nondep = expr_let_nondep(e);
         let name_field = lean_ctor_get(e, 0);
-        let ty         = lean_ctor_get(e, 1);
-        let val        = lean_ctor_get(e, 2);
-        let body       = lean_ctor_get(e, 3);
+        let ty = lean_ctor_get(e, 1);
+        let val = lean_ctor_get(e, 2);
+        let body = lean_ctor_get(e, 3);
 
         out.push_str(if nondep != 0 { "have " } else { "let " });
 
@@ -404,7 +414,7 @@ mod library_print_impl {
         out.push_str("; ");
 
         let fresh_fvar = lean_expr_mk_fvar(fresh_name); // consumes fresh_name
-        let inst_body  = lean_expr_instantiate1(body, fresh_fvar);
+        let inst_body = lean_expr_instantiate1(body, fresh_fvar);
         lean_dec(fresh_fvar);
         fmt_expr(inst_body, out);
         lean_dec(inst_body);
@@ -412,16 +422,16 @@ mod library_print_impl {
 
     // DataValue tag constants (matches inductive DataValue where order).
     const DV_STRING: u8 = 0; // ofString (v : String)
-    const DV_BOOL:   u8 = 1; // ofBool   (v : Bool)
-    const DV_NAME:   u8 = 2; // ofName   (v : Name)
-    const DV_NAT:    u8 = 3; // ofNat    (v : Nat)
-    // ofInt=4, ofSyntax=5 — printed as fallback
+    const DV_BOOL: u8 = 1; // ofBool   (v : Bool)
+    const DV_NAME: u8 = 2; // ofName   (v : Name)
+    const DV_NAT: u8 = 3; // ofNat    (v : Nat)
+                          // ofInt=4, ofSyntax=5 — printed as fallback
 
     // Print escaped string content (without surrounding quotes), mirroring escaped() in C++.
     unsafe fn fmt_escaped(s: *mut LeanObject, out: &mut String) {
         for &b in CStr::from_ptr(lean_string_cstr(s)).to_bytes() {
             match b {
-                b'"'  => out.push_str("\\\""),
+                b'"' => out.push_str("\\\""),
                 b'\\' => out.push_str("\\\\"),
                 b'\n' => out.push_str("\\n"),
                 b'\r' => out.push_str("\\r"),
@@ -443,9 +453,9 @@ mod library_print_impl {
         while !lean_is_scalar(list) {
             // List.cons: field[0] = Prod.mk Name DataValue, field[1] = tail
             let pair = lean_ctor_get(list, 0);
-            let key  = lean_ctor_get(pair, 0); // Name
-            let dv   = lean_ctor_get(pair, 1); // DataValue
-            // Print "key:"
+            let key = lean_ctor_get(pair, 0); // Name
+            let dv = lean_ctor_get(pair, 1); // DataValue
+                                             // Print "key:"
             fmt_name(key, out);
             out.push(':');
             // Print value
@@ -459,7 +469,11 @@ mod library_print_impl {
                     // DataValue.ofBool: lean_alloc_ctor(1, 0, 1) + lean_ctor_set_uint8(v, 0, b)
                     // Bool is stored as a uint8 scalar (NOT a boxed pointer).
                     let b = lean_ctor_get_uint8(dv, 0);
-                    if b != 0 { out.push('1'); } else { out.push('0'); }
+                    if b != 0 {
+                        out.push('1');
+                    } else {
+                        out.push('0');
+                    }
                 }
                 DV_NAME => {
                     // DataValue.ofName: field[0] = Name
@@ -499,7 +513,7 @@ mod library_print_impl {
                 fmt_sort(e, out);
             }
             EXPR_CONST => {
-                let name   = lean_ctor_get(e, 0);
+                let name = lean_ctor_get(e, 0);
                 let levels = lean_ctor_get(e, 1); // List Level; nil = lean_box(0)
                 fmt_name(name, out);
                 if !lean_is_scalar(levels) {
@@ -527,7 +541,7 @@ mod library_print_impl {
                 if is_arrow(e) {
                     // Arrow body has bvarRange=0, so lower_loose_bvars is a no-op.
                     let domain = lean_ctor_get(e, 1);
-                    let body   = lean_ctor_get(e, 2);
+                    let body = lean_ctor_get(e, 2);
                     fmt_expr_child(domain, out);
                     out.push_str(" -> ");
                     if is_atomic_expr(body) || is_arrow(body) {
@@ -558,13 +572,13 @@ mod library_print_impl {
             EXPR_MDATA => {
                 out.push_str("[mdata ");
                 fmt_mdata_kvmap(lean_ctor_get(e, 0), out); // field[0] = KVMap
-                fmt_expr(lean_ctor_get(e, 1), out);        // field[1] = Expr
+                fmt_expr(lean_ctor_get(e, 1), out); // field[1] = Expr
                 out.push(']');
             }
             EXPR_PROJ => {
                 // Proj: field[0]=typeName, field[1]=idx(Nat, 0-based), field[2]=struct.
                 // Display as 1-indexed (matching C++: proj_idx.to_mpz() + 1).
-                let idx   = lean_ctor_get(e, 1);
+                let idx = lean_ctor_get(e, 1);
                 let inner = lean_ctor_get(e, 2);
                 fmt_expr_child(inner, out);
                 out.push('.');

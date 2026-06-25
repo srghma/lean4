@@ -26,8 +26,17 @@ mod runtime_sharecommon_impl {
         fn lean_mpz_hash(o: *mut LeanObject) -> u32;
         fn lean_mpz_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8;
         fn lean_runtime_hash_str(len: usize, str: *const u8, init_value: u64) -> u64;
-        fn lean_apply_2(f: *mut LeanObject, a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject;
-        fn lean_apply_3(f: *mut LeanObject, a1: *mut LeanObject, a2: *mut LeanObject, a3: *mut LeanObject) -> *mut LeanObject;
+        fn lean_apply_2(
+            f: *mut LeanObject,
+            a1: *mut LeanObject,
+            a2: *mut LeanObject,
+        ) -> *mut LeanObject;
+        fn lean_apply_3(
+            f: *mut LeanObject,
+            a1: *mut LeanObject,
+            a2: *mut LeanObject,
+            a3: *mut LeanObject,
+        ) -> *mut LeanObject;
     }
 
     #[inline]
@@ -106,7 +115,11 @@ mod runtime_sharecommon_impl {
                 return 1;
             }
             let res = libc::memcmp(body1.cast(), body2.cast(), len);
-            if res == 0 { 1 } else { 0 }
+            if res == 0 {
+                1
+            } else {
+                0
+            }
         }
     }
 
@@ -354,7 +367,8 @@ mod runtime_sharecommon_impl {
                 fn lean_object_byte_size(o: *mut LeanObject) -> usize;
             }
             let sz = lean_object_byte_size(a);
-            let scalar_offset = core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();
+            let scalar_offset = core::mem::size_of::<LeanObject>()
+                + num_objs * core::mem::size_of::<*mut LeanObject>();
             let scalar_sz = sz.saturating_sub(scalar_offset);
             let new_a = lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
             for i in 0..num_objs {
@@ -372,7 +386,11 @@ mod runtime_sharecommon_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_state_sharecommon(tc: *mut LeanObject, s: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_state_sharecommon(
+        tc: *mut LeanObject,
+        s: *mut LeanObject,
+        a: *mut LeanObject,
+    ) -> *mut LeanObject {
         let state = ShareCommonState::new(tc, s);
         let mut f = ShareCommonFn {
             state,
@@ -507,7 +525,8 @@ mod runtime_sharecommon_impl {
                 fn lean_object_byte_size(o: *mut LeanObject) -> usize;
             }
             let sz = lean_object_byte_size(a);
-            let scalar_offset = core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();
+            let scalar_offset = core::mem::size_of::<LeanObject>()
+                + num_objs * core::mem::size_of::<*mut LeanObject>();
             let scalar_sz = sz.saturating_sub(scalar_offset);
             let new_a = lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
             for i in 0..num_objs {

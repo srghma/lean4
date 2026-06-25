@@ -33,10 +33,7 @@ mod runtime_object_name_impl {
     }
 
     #[inline(always)]
-    pub(crate) unsafe fn lean_name_eq(
-        mut n1: *mut LeanObject,
-        mut n2: *mut LeanObject,
-    ) -> u8 {
+    pub(crate) unsafe fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut LeanObject) -> u8 {
         if n1 == n2 {
             return 1;
         }

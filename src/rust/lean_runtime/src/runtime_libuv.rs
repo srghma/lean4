@@ -44,12 +44,10 @@ mod runtime_libuv_impl {
         initialize_libuv_loop();
 
         let event_loop_addr = ptr::addr_of_mut!(GLOBAL_EV) as usize;
-        thread::spawn(move || {
-            unsafe {
-                lean_initialize_thread();
-                event_loop_run_loop(event_loop_addr as *mut EventLoop);
-                lean_finalize_thread();
-            }
+        thread::spawn(move || unsafe {
+            lean_initialize_thread();
+            event_loop_run_loop(event_loop_addr as *mut EventLoop);
+            lean_finalize_thread();
         });
     }
 
@@ -78,10 +76,7 @@ mod runtime_libuv_impl {
     pub extern "C" fn initialize_libuv() {}
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_setup_args(
-        _: c_int,
-        argv: *mut *mut c_char,
-    ) -> *mut *mut c_char {
+    pub unsafe extern "C" fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         argv
     }
 

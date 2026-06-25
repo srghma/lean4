@@ -89,7 +89,11 @@ mod runtime_compact_writer_impl {
     #[inline]
     fn align_up_ptr(sz: usize) -> usize {
         let rem = sz % PTR_SIZE;
-        if rem != 0 { sz + PTR_SIZE - rem } else { sz }
+        if rem != 0 {
+            sz + PTR_SIZE - rem
+        } else {
+            sz
+        }
     }
 
     /// Read the cached hash stored in a Lean Name object.
@@ -124,7 +128,9 @@ mod runtime_compact_writer_impl {
 
     #[cfg(target_os = "linux")]
     unsafe fn get_loaded_libs() -> Vec<LibInfo> {
-        struct State { libs: Vec<LibInfo> }
+        struct State {
+            libs: Vec<LibInfo>,
+        }
         unsafe extern "C" fn callback(
             info: *mut libc::dl_phdr_info,
             _size: libc::size_t,
@@ -132,11 +138,16 @@ mod runtime_compact_writer_impl {
         ) -> core::ffi::c_int {
             let state = &mut *(data as *mut State);
             let id = if !(*info).dlpi_name.is_null() {
-                CStr::from_ptr((*info).dlpi_name).to_string_lossy().into_owned()
+                CStr::from_ptr((*info).dlpi_name)
+                    .to_string_lossy()
+                    .into_owned()
             } else {
                 std::string::String::new()
             };
-            state.libs.push(LibInfo { base_addr: (*info).dlpi_addr as usize, id });
+            state.libs.push(LibInfo {
+                base_addr: (*info).dlpi_addr as usize,
+                id,
+            });
             0
         }
         let mut state = State { libs: Vec::new() };
@@ -156,9 +167,13 @@ mod runtime_compact_writer_impl {
         let mut libs = Vec::with_capacity(n as usize);
         for i in 0..n {
             let hdr = _dyld_get_image_header(i);
-            if hdr.is_null() { continue; }
+            if hdr.is_null() {
+                continue;
+            }
             let name_ptr = _dyld_get_image_name(i);
-            if name_ptr.is_null() { continue; }
+            if name_ptr.is_null() {
+                continue;
+            }
             libs.push(LibInfo {
                 base_addr: hdr as usize,
                 id: CStr::from_ptr(name_ptr).to_string_lossy().into_owned(),
@@ -189,7 +204,9 @@ mod runtime_compact_writer_impl {
         for i in 0..n {
             let elem = lean_array_get(arr, i);
             let ptr = lean_ctor_get_uint64(elem, 0) as usize;
-            if ptr == 0 { continue; }
+            if ptr == 0 {
+                continue;
+            }
             let region = &*(ptr as *const OleanCompactedRegion);
             result.push(DepRegionWriterInfo {
                 m_begin: region.m_begin,
@@ -260,9 +277,15 @@ mod runtime_compact_writer_impl {
 
         /// Write the lean_object non-heap header at buf_offset.
         /// rc=0, cs_size=cs_sz, other=other, tag=tag.
-        unsafe fn set_non_heap_header(&mut self, buf_offset: usize, cs_sz: u16, tag: u8, other: u8) {
+        unsafe fn set_non_heap_header(
+            &mut self,
+            buf_offset: usize,
+            cs_sz: u16,
+            tag: u8,
+            other: u8,
+        ) {
             let p = self.buf.as_mut_ptr().add(buf_offset);
-            (p as *mut i32).write(0);         // rc = 0
+            (p as *mut i32).write(0); // rc = 0
             (p.add(4) as *mut u16).write(cs_sz); // cs_size
             *p.add(6) = other;
             *p.add(7) = tag;
@@ -341,10 +364,13 @@ mod runtime_compact_writer_impl {
                     None => missing = true,
                 }
             }
-            if missing { return false; }
+            if missing {
+                return false;
+            }
             let new_off = self.copy_object(o);
             for i in 0..num_objs {
-                (self.buf.as_mut_ptr().add(new_off + 8 + i * PTR_SIZE) as *mut usize).write(self.tmp[i]);
+                (self.buf.as_mut_ptr().add(new_off + 8 + i * PTR_SIZE) as *mut usize)
+                    .write(self.tmp[i]);
             }
             let sz = runtime_object_size_impl::lean_object_byte_size(o);
             self.save_max_sharing(o as usize, new_off, sz);
@@ -363,7 +389,9 @@ mod runtime_compact_writer_impl {
                     None => missing = true,
                 }
             }
-            if missing { return false; }
+            if missing {
+                return false;
+            }
             let obj_sz = core::mem::size_of::<LeanArrayObject>() + PTR_SIZE * n;
             let new_off = self.alloc(obj_sz);
             self.set_non_heap_header_for_big(new_off, LEAN_ARRAY_TAG, 0);
@@ -419,7 +447,10 @@ mod runtime_compact_writer_impl {
         }
 
         unsafe fn insert_ref(&mut self, o: *mut LeanObject) -> bool {
-            let v = (o as *const u8).add(LEAN_VALUE_OFFSET).cast::<*mut LeanObject>().read();
+            let v = (o as *const u8)
+                .add(LEAN_VALUE_OFFSET)
+                .cast::<*mut LeanObject>()
+                .read();
             match self.to_offset(v) {
                 None => false,
                 Some(c) => {
@@ -448,7 +479,10 @@ mod runtime_compact_writer_impl {
         }
 
         unsafe fn insert_promise(&mut self, o: *mut LeanObject) -> bool {
-            let m_result = (o as *const u8).add(LEAN_VALUE_OFFSET).cast::<*mut LeanObject>().read();
+            let m_result = (o as *const u8)
+                .add(LEAN_VALUE_OFFSET)
+                .cast::<*mut LeanObject>()
+                .read();
             match self.to_offset(m_result) {
                 None => false,
                 Some(c) => {
@@ -461,14 +495,16 @@ mod runtime_compact_writer_impl {
             }
         }
 
-        unsafe fn insert_closure(&mut self, o: *mut LeanObject) -> Result<bool, std::string::String> {
+        unsafe fn insert_closure(
+            &mut self,
+            o: *mut LeanObject,
+        ) -> Result<bool, std::string::String> {
             if !self.allow_closures {
-                return Err(
-                    "Closures cannot be compacted (unless explicitly calling \
+                return Err("Closures cannot be compacted (unless explicitly calling \
                      `CompactedRegion.save (allowClosures := true)`). \
                      One possible cause of this error is trying to store a function \
-                     in a persistent environment extension.".to_owned()
-                );
+                     in a persistent environment extension."
+                    .to_owned());
             }
             let num_fixed = (o as *const u8)
                 .add(LEAN_CLOSURE_NUM_FIXED_OFFSET)
@@ -488,7 +524,9 @@ mod runtime_compact_writer_impl {
                     None => missing = true,
                 }
             }
-            if missing { return Ok(false); }
+            if missing {
+                return Ok(false);
+            }
             let new_off = self.copy_object(o);
             let p = self.buf.as_mut_ptr().add(new_off);
             for i in 0..num_fixed {
@@ -503,29 +541,49 @@ mod runtime_compact_writer_impl {
 
         #[cfg(lean_use_gmp)]
         unsafe fn insert_mpz(&mut self, o: *mut LeanObject) {
-            let mp_size_raw = (o as *const u8).add(LEAN_MPZ_MP_SIZE_OFFSET).cast::<i32>().read();
+            let mp_size_raw = (o as *const u8)
+                .add(LEAN_MPZ_MP_SIZE_OFFSET)
+                .cast::<i32>()
+                .read();
             let nlimbs = mp_size_raw.unsigned_abs() as usize;
             let data_sz = nlimbs * LEAN_MP_LIMB_SIZE;
             let sz = LEAN_MPZ_OBJECT_SIZE + data_sz;
             let new_off = self.alloc(sz);
-            core::ptr::copy_nonoverlapping(o as *const u8, self.buf.as_mut_ptr().add(new_off), LEAN_MPZ_OBJECT_SIZE);
+            core::ptr::copy_nonoverlapping(
+                o as *const u8,
+                self.buf.as_mut_ptr().add(new_off),
+                LEAN_MPZ_OBJECT_SIZE,
+            );
             self.set_non_heap_header(new_off, sz as u16, LEAN_MPZ_TAG, 0);
             // Copy limb data from original's _mp_d pointer
-            let orig_mp_d = (o as *const u8).add(LEAN_MPZ_MP_D_OFFSET).cast::<*const u8>().read();
+            let orig_mp_d = (o as *const u8)
+                .add(LEAN_MPZ_MP_D_OFFSET)
+                .cast::<*const u8>()
+                .read();
             let limbs_off = new_off + LEAN_MPZ_OBJECT_SIZE;
-            core::ptr::copy_nonoverlapping(orig_mp_d, self.buf.as_mut_ptr().add(limbs_off), data_sz);
+            core::ptr::copy_nonoverlapping(
+                orig_mp_d,
+                self.buf.as_mut_ptr().add(limbs_off),
+                data_sz,
+            );
             // Patch _mp_d to base_addr-relative pointer
             (self.buf.as_mut_ptr().add(new_off + LEAN_MPZ_MP_D_OFFSET) as *mut usize)
                 .write(self.base_addr + limbs_off);
             // Set _mp_alloc = nlimbs
-            (self.buf.as_mut_ptr().add(new_off + LEAN_MPZ_MP_ALLOC_OFFSET) as *mut i32)
+            (self
+                .buf
+                .as_mut_ptr()
+                .add(new_off + LEAN_MPZ_MP_ALLOC_OFFSET) as *mut i32)
                 .write(nlimbs as i32);
             self.save(o as usize, new_off);
         }
 
         #[cfg(not(lean_use_gmp))]
         unsafe fn insert_mpz(&mut self, o: *mut LeanObject) {
-            let m_size = (o as *const u8).add(LEAN_MPZ_SIZE_OFFSET).cast::<usize>().read();
+            let m_size = (o as *const u8)
+                .add(LEAN_MPZ_SIZE_OFFSET)
+                .cast::<usize>()
+                .read();
             let data_sz = m_size * LEAN_MPN_DIGIT_SIZE;
             let sz = LEAN_MPZ_OBJECT_SIZE + data_sz;
             let new_off = self.alloc(sz);
@@ -536,7 +594,10 @@ mod runtime_compact_writer_impl {
             (p.add(LEAN_MPZ_SIZE_OFFSET) as *mut usize).write(m_size);
             self.set_non_heap_header(new_off, sz as u16, LEAN_MPZ_TAG, 0);
             // Copy digit data from original's m_digits pointer
-            let orig_digits = (o as *const u8).add(LEAN_MPZ_DIGITS_OFFSET).cast::<*const u8>().read();
+            let orig_digits = (o as *const u8)
+                .add(LEAN_MPZ_DIGITS_OFFSET)
+                .cast::<*const u8>()
+                .read();
             let digits_off = new_off + LEAN_MPZ_OBJECT_SIZE;
             core::ptr::copy_nonoverlapping(orig_digits, p.add(LEAN_MPZ_OBJECT_SIZE), data_sz);
             // Patch m_digits to base_addr-relative pointer
@@ -563,9 +624,18 @@ mod runtime_compact_writer_impl {
                         match tag {
                             LEAN_CLOSURE_TAG => self.insert_closure(curr)?,
                             LEAN_ARRAY_TAG => self.insert_array(curr),
-                            LEAN_SCALAR_ARRAY_TAG => { self.insert_sarray(curr); true }
-                            LEAN_STRING_TAG => { self.insert_string(curr); true }
-                            LEAN_MPZ_TAG => { self.insert_mpz(curr); true }
+                            LEAN_SCALAR_ARRAY_TAG => {
+                                self.insert_sarray(curr);
+                                true
+                            }
+                            LEAN_STRING_TAG => {
+                                self.insert_string(curr);
+                                true
+                            }
+                            LEAN_MPZ_TAG => {
+                                self.insert_mpz(curr);
+                                true
+                            }
                             LEAN_THUNK_TAG => self.insert_thunk(curr),
                             LEAN_TASK_TAG => self.insert_task(curr),
                             LEAN_PROMISE_TAG => self.insert_promise(curr),
@@ -576,7 +646,9 @@ mod runtime_compact_writer_impl {
                             _ => return Err(format!("unexpected lean object tag: {}", tag)),
                         }
                     };
-                    if done { self.todo.pop(); }
+                    if done {
+                        self.todo.pop();
+                    }
                 }
                 self.tmp.clear();
             }
@@ -592,7 +664,9 @@ mod runtime_compact_writer_impl {
             for &off in &self.closure_offsets {
                 let fn_ptr = unsafe { (self.buf.as_ptr().add(off) as *const usize).read() };
                 let idx = self.libs.partition_point(|l| l.base_addr <= fn_ptr);
-                if idx > 0 { used[idx - 1] = true; }
+                if idx > 0 {
+                    used[idx - 1] = true;
+                }
             }
             (0..self.libs.len()).filter(|&i| used[i]).collect()
         }
@@ -635,7 +709,8 @@ mod runtime_compact_writer_impl {
 
     fn get_compactor_class() -> *mut LeanExternalClass {
         *COMPACTOR_CLASS.get_or_init(|| unsafe {
-            lean_register_external_class(Some(compactor_finalizer), Some(compactor_foreach)) as usize
+            lean_register_external_class(Some(compactor_finalizer), Some(compactor_foreach))
+                as usize
         }) as *mut LeanExternalClass
     }
 
@@ -651,7 +726,11 @@ mod runtime_compact_writer_impl {
         odata: *mut LeanObject,
         allow_closures: bool,
     ) -> Result<(), std::string::String> {
-        let version = if allow_closures { OLEAN_VERSION_V3 } else { OLEAN_VERSION_V2 };
+        let version = if allow_closures {
+            OLEAN_VERSION_V3
+        } else {
+            OLEAN_VERSION_V2
+        };
         let base_addr_for_file = compactor.base_addr + file_offset;
         let header = build_olean_header(version, base_addr_for_file);
 
@@ -665,45 +744,65 @@ mod runtime_compact_writer_impl {
             // v2: [header(88)][data]
             let data_start = file_offset + OLEAN_HEADER_SIZE;
             compactor.compact(odata)?;
-            out.write_all(&compactor.buf[data_start..]).map_err(|e| e.to_string())?;
+            out.write_all(&compactor.buf[data_start..])
+                .map_err(|e| e.to_string())?;
         } else {
             // v3: [header(88)][data_size(8)][data][num_co(4)][co_offsets(8*n)][lib_table]
             let data_offset = file_offset + OLEAN_HEADER_SIZE + PTR_SIZE;
             compactor.compact(odata)?;
             let data_size = compactor.buf.len() - data_offset;
 
-            out.write_all(&data_size.to_ne_bytes()).map_err(|e| e.to_string())?;
-            out.write_all(&compactor.buf[data_offset..]).map_err(|e| e.to_string())?;
+            out.write_all(&data_size.to_ne_bytes())
+                .map_err(|e| e.to_string())?;
+            out.write_all(&compactor.buf[data_offset..])
+                .map_err(|e| e.to_string())?;
 
             // Gather closure offsets (data-section-relative) and used libs before clearing
             let used_indices = compactor.used_lib_indices();
-            let file_offsets: Vec<u64> = compactor.closure_offsets.iter()
+            let file_offsets: Vec<u64> = compactor
+                .closure_offsets
+                .iter()
                 .map(|&off| (off - data_offset) as u64)
                 .collect();
             // Snapshot used lib data (base_addr + id) before any alloc that could move buf
-            struct SnapLib { base_addr: usize, id: Vec<u8> }
-            let snap_libs: Vec<SnapLib> = used_indices.iter()
-                .map(|&i| SnapLib { base_addr: compactor.libs[i].base_addr, id: compactor.libs[i].id.as_bytes().to_vec() })
+            struct SnapLib {
+                base_addr: usize,
+                id: Vec<u8>,
+            }
+            let snap_libs: Vec<SnapLib> = used_indices
+                .iter()
+                .map(|&i| SnapLib {
+                    base_addr: compactor.libs[i].base_addr,
+                    id: compactor.libs[i].id.as_bytes().to_vec(),
+                })
                 .collect();
             compactor.closure_offsets.clear();
 
             // Reserve trailer bytes in compactor buf (so future saves have correct offsets)
             let num_co = file_offsets.len() as u32;
             let lt_sz = core::mem::size_of::<u32>()
-                + snap_libs.iter().map(|l| PTR_SIZE + core::mem::size_of::<u32>() + l.id.len()).sum::<usize>();
+                + snap_libs
+                    .iter()
+                    .map(|l| PTR_SIZE + core::mem::size_of::<u32>() + l.id.len())
+                    .sum::<usize>();
             let trailer_sz = core::mem::size_of::<u32>() + file_offsets.len() * 8 + lt_sz;
             compactor.alloc(trailer_sz);
 
             // Write trailer to file
-            out.write_all(&num_co.to_ne_bytes()).map_err(|e| e.to_string())?;
+            out.write_all(&num_co.to_ne_bytes())
+                .map_err(|e| e.to_string())?;
             for &co in &file_offsets {
-                out.write_all(&co.to_ne_bytes()).map_err(|e| e.to_string())?;
+                out.write_all(&co.to_ne_bytes())
+                    .map_err(|e| e.to_string())?;
             }
             let num_libs = snap_libs.len() as u32;
-            out.write_all(&num_libs.to_ne_bytes()).map_err(|e| e.to_string())?;
+            out.write_all(&num_libs.to_ne_bytes())
+                .map_err(|e| e.to_string())?;
             for lib in &snap_libs {
-                out.write_all(&lib.base_addr.to_ne_bytes()).map_err(|e| e.to_string())?;
-                out.write_all(&(lib.id.len() as u32).to_ne_bytes()).map_err(|e| e.to_string())?;
+                out.write_all(&lib.base_addr.to_ne_bytes())
+                    .map_err(|e| e.to_string())?;
+                out.write_all(&(lib.id.len() as u32).to_ne_bytes())
+                    .map_err(|e| e.to_string())?;
                 out.write_all(&lib.id).map_err(|e| e.to_string())?;
             }
         }
@@ -740,8 +839,16 @@ mod runtime_compact_writer_impl {
             let base_addr = (hash as usize % 0x7f_0000_0000_00) & !(PAGE_ALIGN - 1);
             let dep_regions = extract_dep_regions_for_writer(odep_regions);
             let libs = get_loaded_libs();
-            let compactor = Box::new(ObjectCompactor::new(base_addr, dep_regions, allow_closures, libs));
-            lean_runtime_alloc_external(get_compactor_class(), Box::into_raw(compactor) as *mut c_void)
+            let compactor = Box::new(ObjectCompactor::new(
+                base_addr,
+                dep_regions,
+                allow_closures,
+                libs,
+            ));
+            lean_runtime_alloc_external(
+                get_compactor_class(),
+                Box::into_raw(compactor) as *mut c_void,
+            )
         } else {
             // prev = Some(inner): reuse existing; inc inner before dec'ing Some wrapper
             let inner = lean_ctor_get(oprev, 0);
@@ -776,7 +883,14 @@ mod runtime_compact_writer_impl {
         compactor.alloc(header_reserve);
 
         // ---- Write file ----
-        let result = write_olean(&olean_fn, &olean_tmp_fn, compactor, file_offset, odata, allow_closures);
+        let result = write_olean(
+            &olean_fn,
+            &olean_tmp_fn,
+            compactor,
+            file_offset,
+            odata,
+            allow_closures,
+        );
 
         if let Err(msg) = result {
             let _ = std::fs::remove_file(&olean_tmp_fn);

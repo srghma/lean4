@@ -19,7 +19,11 @@ mod library_elab_environment_impl {
 
         // Unified Rust dispatch (kernel_type_checker.rs): axiom/def/theorem/opaque checked +
         // added in Rust; quot/mutual/inductive still delegate to the C++ bridges internally.
-        fn lean_rust_add_decl(env: *mut LeanObject, decl: *mut LeanObject, check: u8) -> *mut LeanObject;
+        fn lean_rust_add_decl(
+            env: *mut LeanObject,
+            decl: *mut LeanObject,
+            check: u8,
+        ) -> *mut LeanObject;
     }
 
     const EXCEPT_ERROR_TAG: u8 = 0;
@@ -109,9 +113,7 @@ mod library_elab_environment_impl {
     // using the Rust TypeChecker with elab→kernel env conversion.
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_internal_get_believer_trust_level(
-        _io: *mut LeanObject,
-    ) -> u32 {
+    pub unsafe extern "C" fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
         1024
     }
 }

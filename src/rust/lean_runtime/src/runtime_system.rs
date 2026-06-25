@@ -172,7 +172,6 @@ mod runtime_system_impl {
         array_data_ptr.add(idx).write(value);
     }
 
-
     unsafe fn timeval_to_millis(t: UvTimeval) -> u64 {
         (t.tv_sec as u64) * 1000 + (t.tv_usec as u64) / 1000
     }
@@ -217,7 +216,11 @@ mod runtime_system_impl {
         fflush(null_mut());
         let mut uptime = 0.0;
         let result = uv_uptime(&mut uptime);
-        printf(c"uv_uptime result = %d, uptime = %f\n".as_ptr(), result, uptime);
+        printf(
+            c"uv_uptime result = %d, uptime = %f\n".as_ptr(),
+            result,
+            uptime,
+        );
         fflush(null_mut());
 
         if result < 0 {
@@ -659,7 +662,8 @@ mod runtime_system_impl {
                 lean_dec(result);
             } else {
                 lean_sarray_set_size((*req).byte_array, buflen);
-                let result = lean_io_promise_resolve(mk_except_ok((*req).byte_array), (*req).promise);
+                let result =
+                    lean_io_promise_resolve(mk_except_ok((*req).byte_array), (*req).promise);
                 lean_dec(result);
             }
 

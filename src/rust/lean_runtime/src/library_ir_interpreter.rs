@@ -20,7 +20,8 @@ mod library_ir_interpreter_impl {
     extern "C" {
         // IR declaration lookup
         fn lean_ir_find_env_decl(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
-        fn lean_ir_find_env_decl_boxed(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
+        fn lean_ir_find_env_decl_boxed(env: *mut LeanObject, n: *mut LeanObject)
+            -> *mut LeanObject;
 
         // Numeric coercions
         fn lean_float_of_nat(a: *mut LeanObject) -> f64;
@@ -33,7 +34,10 @@ mod library_ir_interpreter_impl {
         fn lean_mk_mangled_boxed_name(s: *mut LeanObject) -> *mut LeanObject;
 
         // Init attribute
-        fn lean_get_regular_init_fn_name_for(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
+        fn lean_get_regular_init_fn_name_for(
+            env: *mut LeanObject,
+            n: *mut LeanObject,
+        ) -> *mut LeanObject;
         fn lean_get_export_name_for(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
 
         // Name equality and hash
@@ -46,14 +50,22 @@ mod library_ir_interpreter_impl {
         fn lean_elab_environment_of_kernel_env(env: *mut LeanObject) -> *mut LeanObject;
 
         // Option bool
-        fn lean_options_get_bool(opts: *mut LeanObject, name: *mut LeanObject, default_value: bool) -> bool;
+        fn lean_options_get_bool(
+            opts: *mut LeanObject,
+            name: *mut LeanObject,
+            default_value: bool,
+        ) -> bool;
 
         // apply_n
         fn lean_apply_n(f: *mut LeanObject, n: u32, args: *mut *mut LeanObject) -> *mut LeanObject;
 
         // curry (call native function pointer with n boxed args)
         #[link_name = "_ZN4lean5curryEPvjPP11lean_object"]
-        fn lean_curry(fun: *mut core::ffi::c_void, n: u32, args: *mut *mut LeanObject) -> *mut LeanObject;
+        fn lean_curry(
+            fun: *mut core::ffi::c_void,
+            n: u32,
+            args: *mut *mut LeanObject,
+        ) -> *mut LeanObject;
 
         // IR format (debug)
         fn lean_ir_format_fn_body_head(b: *mut LeanObject) -> *mut LeanObject;
@@ -63,12 +75,20 @@ mod library_ir_interpreter_impl {
         fn lean_check_system(component_name: *const c_char, do_check_interrupted: bool);
 
         // time task
-        fn lean_runtime_time_task_begin(category: *const c_char, opts: *mut LeanObject, name: *mut LeanObject) -> u8;
+        fn lean_runtime_time_task_begin(
+            category: *const c_char,
+            opts: *mut LeanObject,
+            name: *mut LeanObject,
+        ) -> u8;
         fn lean_runtime_time_task_end(enabled: u8);
 
         // scope_trace_env (C++ RAII for trace opts)
         #[link_name = "_ZN4lean15scope_trace_envC1ERKNS_16elab_environmentERKNS_7optionsE"]
-        fn lean_scope_trace_env_ctor(this: *mut ScopeTraceEnv, env: *const *mut LeanObject, opts: *const *mut LeanObject);
+        fn lean_scope_trace_env_ctor(
+            this: *mut ScopeTraceEnv,
+            env: *const *mut LeanObject,
+            opts: *const *mut LeanObject,
+        );
         #[link_name = "_ZN4lean15scope_trace_envD1Ev"]
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
@@ -83,7 +103,10 @@ mod library_ir_interpreter_impl {
         fn lean_io_result_mk_error(err: *mut LeanObject) -> *mut LeanObject;
 
         // get_init_fn_name_for (already in lib.rs but may be called as extern)
-        fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
+        fn lean_get_init_fn_name_for(
+            env: *mut LeanObject,
+            name: *mut LeanObject,
+        ) -> *mut LeanObject;
 
         // alloc/free for closures/ctors (from runtime_apply_impl)
         fn lean_free_object(o: *mut LeanObject);
@@ -110,33 +133,51 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_get_u16(obj: *mut LeanObject, byte_offset: usize) -> u16 {
-        (obj.add(1) as *const u8).add(byte_offset).cast::<u16>().read_unaligned()
+        (obj.add(1) as *const u8)
+            .add(byte_offset)
+            .cast::<u16>()
+            .read_unaligned()
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_get_u32(obj: *mut LeanObject, byte_offset: usize) -> u32 {
-        (obj.add(1) as *const u8).add(byte_offset).cast::<u32>().read_unaligned()
+        (obj.add(1) as *const u8)
+            .add(byte_offset)
+            .cast::<u32>()
+            .read_unaligned()
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_get_u64(obj: *mut LeanObject, byte_offset: usize) -> u64 {
-        (obj.add(1) as *const u8).add(byte_offset).cast::<u64>().read_unaligned()
+        (obj.add(1) as *const u8)
+            .add(byte_offset)
+            .cast::<u64>()
+            .read_unaligned()
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize {
         let byte_offset = idx * core::mem::size_of::<*mut LeanObject>();
-        (obj.add(1) as *const u8).add(byte_offset).cast::<usize>().read_unaligned()
+        (obj.add(1) as *const u8)
+            .add(byte_offset)
+            .cast::<usize>()
+            .read_unaligned()
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_get_float(obj: *mut LeanObject, byte_offset: usize) -> f64 {
-        (obj.add(1) as *const u8).add(byte_offset).cast::<f64>().read_unaligned()
+        (obj.add(1) as *const u8)
+            .add(byte_offset)
+            .cast::<f64>()
+            .read_unaligned()
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, byte_offset: usize) -> f32 {
-        (obj.add(1) as *const u8).add(byte_offset).cast::<f32>().read_unaligned()
+        (obj.add(1) as *const u8)
+            .add(byte_offset)
+            .cast::<f32>()
+            .read_unaligned()
     }
 
     #[inline(always)]
@@ -146,33 +187,51 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_set_u16(obj: *mut LeanObject, byte_offset: usize, v: u16) {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<u16>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<u16>()
+            .write_unaligned(v);
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_set_u32(obj: *mut LeanObject, byte_offset: usize, v: u32) {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<u32>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<u32>()
+            .write_unaligned(v);
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_set_u64(obj: *mut LeanObject, byte_offset: usize, v: u64) {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<u64>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<u64>()
+            .write_unaligned(v);
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_set_usize(obj: *mut LeanObject, idx: usize, v: usize) {
         let byte_offset = idx * core::mem::size_of::<*mut LeanObject>();
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<usize>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<usize>()
+            .write_unaligned(v);
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_set_float(obj: *mut LeanObject, byte_offset: usize, v: f64) {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<f64>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<f64>()
+            .write_unaligned(v);
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, byte_offset: usize, v: f32) {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<f32>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<f32>()
+            .write_unaligned(v);
     }
 
     #[inline(always)]
@@ -193,7 +252,11 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_alloc_closure(fun: *mut core::ffi::c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
+    unsafe fn lean_alloc_closure(
+        fun: *mut core::ffi::c_void,
+        arity: u32,
+        num_fixed: u32,
+    ) -> *mut LeanObject {
         runtime_apply_impl::lean_alloc_closure(fun, arity, num_fixed)
     }
 
@@ -201,7 +264,11 @@ mod library_ir_interpreter_impl {
     unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) {
         // closure args are after the LeanClosureObject header (16 bytes: header=8, fun=ptr, arity=u16, num_fixed=u16, padding)
         const LEAN_CLOSURE_OBJECT_SIZE: usize = core::mem::size_of::<LeanClosureObject>();
-        (cls as *mut u8).add(LEAN_CLOSURE_OBJECT_SIZE).cast::<*mut LeanObject>().add(idx).write(val);
+        (cls as *mut u8)
+            .add(LEAN_CLOSURE_OBJECT_SIZE)
+            .cast::<*mut LeanObject>()
+            .add(idx)
+            .write(val);
     }
 
     #[inline(always)]
@@ -217,7 +284,10 @@ mod library_ir_interpreter_impl {
     #[inline(always)]
     unsafe fn lean_box_float(v: f64) -> *mut LeanObject {
         let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as u32);
-        ptr::write_unaligned((obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64, v);
+        ptr::write_unaligned(
+            (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
+            v,
+        );
         obj
     }
 
@@ -229,7 +299,10 @@ mod library_ir_interpreter_impl {
     #[inline(always)]
     unsafe fn lean_box_float32(v: f32) -> *mut LeanObject {
         let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as u32);
-        ptr::write_unaligned((obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32, v);
+        ptr::write_unaligned(
+            (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
+            v,
+        );
         obj
     }
 
@@ -240,22 +313,34 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
-        (*( obj as *const LeanArrayObject)).size
+        (*(obj as *const LeanArrayObject)).size
     }
 
     #[inline(always)]
     unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
-        (obj as *const u8).add(24).cast::<*mut LeanObject>().add(idx).read()
+        (obj as *const u8)
+            .add(24)
+            .cast::<*mut LeanObject>()
+            .add(idx)
+            .read()
     }
 
     #[inline(always)]
     unsafe fn lean_uint64_of_nat(a: *mut LeanObject) -> u64 {
-        if lean_is_scalar(a) { lean_unbox(a) as u64 } else { lean_uint64_of_big_nat(a) }
+        if lean_is_scalar(a) {
+            lean_unbox(a) as u64
+        } else {
+            lean_uint64_of_big_nat(a)
+        }
     }
 
     #[inline(always)]
     unsafe fn lean_usize_of_nat(a: *mut LeanObject) -> usize {
-        if lean_is_scalar(a) { lean_unbox(a) } else { lean_usize_of_big_nat(a) }
+        if lean_is_scalar(a) {
+            lean_unbox(a)
+        } else {
+            lean_usize_of_big_nat(a)
+        }
     }
 
     #[inline(always)]
@@ -315,17 +400,24 @@ mod library_ir_interpreter_impl {
         unsafe fn new(_env: *mut LeanObject, opts: *mut LeanObject) -> Self {
             let boxed_opts = Box::new(opts);
             let opts_ptr: *const *mut LeanObject = &*boxed_opts;
-            let mut inner = ScopeTraceEnv { m_old_opts: ptr::null() };
+            let mut inner = ScopeTraceEnv {
+                m_old_opts: ptr::null(),
+            };
             // _env is unused in the Rust impl of scope_trace_env ctor
             lean_scope_trace_env_ctor(&mut inner, ptr::null(), opts_ptr);
-            ScopeTraceEnvGuard { inner, _boxed_opts: boxed_opts }
+            ScopeTraceEnvGuard {
+                inner,
+                _boxed_opts: boxed_opts,
+            }
         }
     }
 
     impl Drop for ScopeTraceEnvGuard {
         fn drop(&mut self) {
             // Restore G_OPTS before _boxed_opts is freed (Drop runs before field drops).
-            unsafe { lean_scope_trace_env_dtor(&mut self.inner); }
+            unsafe {
+                lean_scope_trace_env_dtor(&mut self.inner);
+            }
         }
     }
 
@@ -338,7 +430,11 @@ mod library_ir_interpreter_impl {
     }
 
     impl TimeTaskGuard {
-        unsafe fn new(category: *const c_char, opts: *mut LeanObject, name: *mut LeanObject) -> Self {
+        unsafe fn new(
+            category: *const c_char,
+            opts: *mut LeanObject,
+            name: *mut LeanObject,
+        ) -> Self {
             let enabled = lean_runtime_time_task_begin(category, opts, name);
             TimeTaskGuard { enabled }
         }
@@ -346,7 +442,9 @@ mod library_ir_interpreter_impl {
 
     impl Drop for TimeTaskGuard {
         fn drop(&mut self) {
-            unsafe { lean_runtime_time_task_end(self.enabled); }
+            unsafe {
+                lean_runtime_time_task_end(self.enabled);
+            }
         }
     }
 
@@ -410,12 +508,18 @@ mod library_ir_interpreter_impl {
     struct NameHasher(u64);
 
     impl Hasher for NameHasher {
-        fn finish(&self) -> u64 { self.0 }
+        fn finish(&self) -> u64 {
+            self.0
+        }
         fn write(&mut self, bytes: &[u8]) {
             // Not used; NameKey::hash only calls write_u64
-            for &b in bytes { self.0 = self.0.wrapping_mul(31).wrapping_add(b as u64); }
+            for &b in bytes {
+                self.0 = self.0.wrapping_mul(31).wrapping_add(b as u64);
+            }
         }
-        fn write_u64(&mut self, i: u64) { self.0 = i; }
+        fn write_u64(&mut self, i: u64) {
+            self.0 = i;
+        }
     }
 
     // ---------------------------------------------------------------------------
@@ -425,25 +529,32 @@ mod library_ir_interpreter_impl {
     #[derive(Clone, Copy, PartialEq, Eq)]
     #[repr(u8)]
     enum IrType {
-        Float      = 0,
-        UInt8      = 1,
-        UInt16     = 2,
-        UInt32     = 3,
-        UInt64     = 4,
-        USize      = 5,
+        Float = 0,
+        UInt8 = 1,
+        UInt16 = 2,
+        UInt32 = 3,
+        UInt64 = 4,
+        USize = 5,
         Irrelevant = 6,
-        Object     = 7,
-        TObject    = 8,
-        Float32    = 9,
-        Struct     = 10,
-        Union      = 11,
-        Tagged     = 12,
-        Void       = 13,
+        Object = 7,
+        TObject = 8,
+        Float32 = 9,
+        Struct = 10,
+        Union = 11,
+        Tagged = 12,
+        Void = 13,
     }
 
     impl IrType {
         fn is_scalar(self) -> bool {
-            !matches!(self, IrType::Object | IrType::Tagged | IrType::TObject | IrType::Irrelevant | IrType::Void)
+            !matches!(
+                self,
+                IrType::Object
+                    | IrType::Tagged
+                    | IrType::TObject
+                    | IrType::Irrelevant
+                    | IrType::Void
+            )
         }
     }
 
@@ -482,19 +593,19 @@ mod library_ir_interpreter_impl {
     #[derive(Clone, Copy, PartialEq, Eq)]
     #[repr(u8)]
     enum ExprKind {
-        Ctor       = 0,
-        Reset      = 1,
-        Reuse      = 2,
-        Proj       = 3,
-        UProj      = 4,
-        SProj      = 5,
-        FAp        = 6,
-        PAp        = 7,
-        Ap         = 8,
-        Box        = 9,
-        Unbox      = 10,
-        Lit        = 11,
-        IsShared   = 12,
+        Ctor = 0,
+        Reset = 1,
+        Reuse = 2,
+        Proj = 3,
+        UProj = 4,
+        SProj = 5,
+        FAp = 6,
+        PAp = 7,
+        Ap = 8,
+        Box = 9,
+        Unbox = 10,
+        Lit = 11,
+        IsShared = 12,
         IsTaggedPtr = 13,
     }
 
@@ -512,18 +623,18 @@ mod library_ir_interpreter_impl {
     #[derive(Clone, Copy, PartialEq, Eq)]
     #[repr(u8)]
     enum FnBodyKind {
-        VDecl      = 0,
-        JDecl      = 1,
-        Set        = 2,
-        SetTag     = 3,
-        USet       = 4,
-        SSet       = 5,
-        Inc        = 6,
-        Dec        = 7,
-        Del        = 8,
-        Case       = 9,
-        Ret        = 10,
-        Jmp        = 11,
+        VDecl = 0,
+        JDecl = 1,
+        Set = 2,
+        SetTag = 3,
+        USet = 4,
+        SSet = 5,
+        Inc = 6,
+        Dec = 7,
+        Del = 8,
+        Case = 9,
+        Ret = 10,
+        Jmp = 11,
         Unreachable = 12,
     }
 
@@ -534,7 +645,7 @@ mod library_ir_interpreter_impl {
     #[derive(Clone, Copy, PartialEq, Eq)]
     #[repr(u8)]
     enum DeclKind {
-        Fun    = 0,
+        Fun = 0,
         Extern = 1,
     }
 
@@ -545,7 +656,7 @@ mod library_ir_interpreter_impl {
     #[derive(Clone, Copy, PartialEq, Eq)]
     #[repr(u8)]
     enum AltCoreKind {
-        Ctor    = 0,
+        Ctor = 0,
         Default = 1,
     }
 
@@ -566,112 +677,288 @@ mod library_ir_interpreter_impl {
     // ---------------------------------------------------------------------------
 
     // arg
-    unsafe fn arg_is_irrelevant(a: *mut LeanObject) -> bool { lean_is_scalar(a) }
-    unsafe fn arg_var_id(a: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(a, 0) }
+    unsafe fn arg_is_irrelevant(a: *mut LeanObject) -> bool {
+        lean_is_scalar(a)
+    }
+    unsafe fn arg_var_id(a: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(a, 0)
+    }
 
     // var_id: just a name (small value = variable index)
-    unsafe fn var_get_small_value(v: *mut LeanObject) -> usize { lean_unbox(v) }
+    unsafe fn var_get_small_value(v: *mut LeanObject) -> usize {
+        lean_unbox(v)
+    }
 
     // nat get_small_value: assumes it fits in usize
-    unsafe fn nat_get_small_value(n: *mut LeanObject) -> usize { lean_usize_of_nat(n) }
+    unsafe fn nat_get_small_value(n: *mut LeanObject) -> usize {
+        lean_usize_of_nat(n)
+    }
 
     // lit_val
-    unsafe fn lit_val_tag(l: *mut LeanObject) -> LitValKind { core::mem::transmute(lean_obj_tag(l)) }
-    unsafe fn lit_val_num(l: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(l, 0) }
-    unsafe fn lit_val_str(l: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(l, 0) }
+    unsafe fn lit_val_tag(l: *mut LeanObject) -> LitValKind {
+        core::mem::transmute(lean_obj_tag(l))
+    }
+    unsafe fn lit_val_num(l: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(l, 0)
+    }
+    unsafe fn lit_val_str(l: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(l, 0)
+    }
 
     // ctor_info
-    unsafe fn ctor_info_tag_val(c: *mut LeanObject) -> usize { nat_get_small_value(lean_ctor_get_obj(c, 1)) }
-    unsafe fn ctor_info_size(c: *mut LeanObject) -> usize    { nat_get_small_value(lean_ctor_get_obj(c, 2)) }
-    unsafe fn ctor_info_usize(c: *mut LeanObject) -> usize   { nat_get_small_value(lean_ctor_get_obj(c, 3)) }
-    unsafe fn ctor_info_ssize(c: *mut LeanObject) -> usize   { nat_get_small_value(lean_ctor_get_obj(c, 4)) }
+    unsafe fn ctor_info_tag_val(c: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(c, 1))
+    }
+    unsafe fn ctor_info_size(c: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(c, 2))
+    }
+    unsafe fn ctor_info_usize(c: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(c, 3))
+    }
+    unsafe fn ctor_info_ssize(c: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(c, 4))
+    }
 
     // expr fields
-    unsafe fn expr_ctor_info(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_ctor_args(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_reset_num_objs(e: *mut LeanObject) -> usize       { nat_get_small_value(lean_ctor_get_obj(e, 0)) }
-    unsafe fn expr_reset_obj(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_reuse_obj(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_reuse_ctor(e: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_reuse_args(e: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(e, 2) }
-    unsafe fn expr_reuse_update_header(e: *mut LeanObject) -> bool   { get_bool_field(e, 3) }
-    unsafe fn expr_proj_idx(e: *mut LeanObject) -> usize             { nat_get_small_value(lean_ctor_get_obj(e, 0)) }
-    unsafe fn expr_proj_obj(e: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_uproj_idx(e: *mut LeanObject) -> usize            { nat_get_small_value(lean_ctor_get_obj(e, 0)) }
-    unsafe fn expr_uproj_obj(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_sproj_idx(e: *mut LeanObject) -> usize            { nat_get_small_value(lean_ctor_get_obj(e, 0)) }
-    unsafe fn expr_sproj_offset(e: *mut LeanObject) -> usize         { nat_get_small_value(lean_ctor_get_obj(e, 1)) }
-    unsafe fn expr_sproj_obj(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 2) }
-    unsafe fn expr_fap_fun(e: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_fap_args(e: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_pap_fun(e: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_pap_args(e: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_ap_fun(e: *mut LeanObject) -> *mut LeanObject     { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_ap_args(e: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_box_type(e: *mut LeanObject) -> Result<IrType, String> { cnstr_get_ir_type(e, 0) }
-    unsafe fn expr_box_obj(e: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(e, 1) }
-    unsafe fn expr_unbox_obj(e: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_lit_val(e: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_is_shared_obj(e: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(e, 0) }
-    unsafe fn expr_is_tagged_ptr_obj(e: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(e, 0) }
+    unsafe fn expr_ctor_info(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_ctor_args(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_reset_num_objs(e: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(e, 0))
+    }
+    unsafe fn expr_reset_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_reuse_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_reuse_ctor(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_reuse_args(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 2)
+    }
+    unsafe fn expr_reuse_update_header(e: *mut LeanObject) -> bool {
+        get_bool_field(e, 3)
+    }
+    unsafe fn expr_proj_idx(e: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(e, 0))
+    }
+    unsafe fn expr_proj_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_uproj_idx(e: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(e, 0))
+    }
+    unsafe fn expr_uproj_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_sproj_idx(e: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(e, 0))
+    }
+    unsafe fn expr_sproj_offset(e: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(e, 1))
+    }
+    unsafe fn expr_sproj_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 2)
+    }
+    unsafe fn expr_fap_fun(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_fap_args(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_pap_fun(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_pap_args(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_ap_fun(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_ap_args(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_box_type(e: *mut LeanObject) -> Result<IrType, String> {
+        cnstr_get_ir_type(e, 0)
+    }
+    unsafe fn expr_box_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 1)
+    }
+    unsafe fn expr_unbox_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_lit_val(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_is_shared_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
+    unsafe fn expr_is_tagged_ptr_obj(e: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(e, 0)
+    }
 
     // param
-    unsafe fn param_var(p: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(p, 0) }
-    unsafe fn param_type(p: *mut LeanObject) -> Result<IrType, String> { cnstr_get_ir_type(p, 1) }
-    unsafe fn param_borrow(p: *mut LeanObject) -> bool            { get_bool_field(p, 2) }
+    unsafe fn param_var(p: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(p, 0)
+    }
+    unsafe fn param_type(p: *mut LeanObject) -> Result<IrType, String> {
+        cnstr_get_ir_type(p, 1)
+    }
+    unsafe fn param_borrow(p: *mut LeanObject) -> bool {
+        get_bool_field(p, 2)
+    }
 
     // alt_core
-    unsafe fn alt_core_ctor_info(a: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(a, 0) }
-    unsafe fn alt_core_ctor_cont(a: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(a, 1) }
-    unsafe fn alt_core_default_cont(a: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(a, 0) }
+    unsafe fn alt_core_ctor_info(a: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(a, 0)
+    }
+    unsafe fn alt_core_ctor_cont(a: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(a, 1)
+    }
+    unsafe fn alt_core_default_cont(a: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(a, 0)
+    }
 
     // fn_body
-    unsafe fn fn_body_vdecl_var(b: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_vdecl_type(b: *mut LeanObject) -> Result<IrType, String> { cnstr_get_ir_type(b, 1) }
-    unsafe fn fn_body_vdecl_expr(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_vdecl_cont(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 3) }
-    unsafe fn fn_body_jdecl_id(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_jdecl_params(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 1) }
-    unsafe fn fn_body_jdecl_body(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_jdecl_cont(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 3) }
-    unsafe fn fn_body_set_var(b: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_set_idx(b: *mut LeanObject) -> usize              { nat_get_small_value(lean_ctor_get_obj(b, 1)) }
-    unsafe fn fn_body_set_arg(b: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_set_cont(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 3) }
-    unsafe fn fn_body_set_tag_var(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_set_tag_cidx(b: *mut LeanObject) -> usize         { nat_get_small_value(lean_ctor_get_obj(b, 1)) }
-    unsafe fn fn_body_set_tag_cont(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_uset_target(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_uset_idx(b: *mut LeanObject) -> usize             { nat_get_small_value(lean_ctor_get_obj(b, 1)) }
-    unsafe fn fn_body_uset_source(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_uset_cont(b: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(b, 3) }
-    unsafe fn fn_body_sset_target(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_sset_idx(b: *mut LeanObject) -> usize             { nat_get_small_value(lean_ctor_get_obj(b, 1)) }
-    unsafe fn fn_body_sset_offset(b: *mut LeanObject) -> usize          { nat_get_small_value(lean_ctor_get_obj(b, 2)) }
-    unsafe fn fn_body_sset_source(b: *mut LeanObject) -> *mut LeanObject { lean_ctor_get_obj(b, 3) }
-    unsafe fn fn_body_sset_type(b: *mut LeanObject) -> Result<IrType, String> { cnstr_get_ir_type(b, 4) }
-    unsafe fn fn_body_sset_cont(b: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(b, 5) }
-    unsafe fn fn_body_inc_var(b: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_inc_val(b: *mut LeanObject) -> usize              { nat_get_small_value(lean_ctor_get_obj(b, 1)) }
-    unsafe fn fn_body_inc_cont(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_dec_var(b: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_dec_val(b: *mut LeanObject) -> usize              { nat_get_small_value(lean_ctor_get_obj(b, 1)) }
-    unsafe fn fn_body_dec_cont(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 2) }
-    unsafe fn fn_body_del_var(b: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_del_cont(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 1) }
-    unsafe fn fn_body_case_var(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 1) }
-    unsafe fn fn_body_case_var_type(b: *mut LeanObject) -> Result<IrType, String> { cnstr_get_ir_type(b, 2) }
-    unsafe fn fn_body_case_alts(b: *mut LeanObject) -> *mut LeanObject  { lean_ctor_get_obj(b, 3) }
-    unsafe fn fn_body_ret_arg(b: *mut LeanObject) -> *mut LeanObject    { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_jmp_jp(b: *mut LeanObject) -> *mut LeanObject     { lean_ctor_get_obj(b, 0) }
-    unsafe fn fn_body_jmp_args(b: *mut LeanObject) -> *mut LeanObject   { lean_ctor_get_obj(b, 1) }
+    unsafe fn fn_body_vdecl_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_vdecl_type(b: *mut LeanObject) -> Result<IrType, String> {
+        cnstr_get_ir_type(b, 1)
+    }
+    unsafe fn fn_body_vdecl_expr(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_vdecl_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 3)
+    }
+    unsafe fn fn_body_jdecl_id(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_jdecl_params(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 1)
+    }
+    unsafe fn fn_body_jdecl_body(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_jdecl_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 3)
+    }
+    unsafe fn fn_body_set_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_set_idx(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 1))
+    }
+    unsafe fn fn_body_set_arg(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_set_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 3)
+    }
+    unsafe fn fn_body_set_tag_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_set_tag_cidx(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 1))
+    }
+    unsafe fn fn_body_set_tag_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_uset_target(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_uset_idx(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 1))
+    }
+    unsafe fn fn_body_uset_source(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_uset_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 3)
+    }
+    unsafe fn fn_body_sset_target(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_sset_idx(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 1))
+    }
+    unsafe fn fn_body_sset_offset(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 2))
+    }
+    unsafe fn fn_body_sset_source(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 3)
+    }
+    unsafe fn fn_body_sset_type(b: *mut LeanObject) -> Result<IrType, String> {
+        cnstr_get_ir_type(b, 4)
+    }
+    unsafe fn fn_body_sset_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 5)
+    }
+    unsafe fn fn_body_inc_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_inc_val(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 1))
+    }
+    unsafe fn fn_body_inc_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_dec_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_dec_val(b: *mut LeanObject) -> usize {
+        nat_get_small_value(lean_ctor_get_obj(b, 1))
+    }
+    unsafe fn fn_body_dec_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 2)
+    }
+    unsafe fn fn_body_del_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_del_cont(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 1)
+    }
+    unsafe fn fn_body_case_var(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 1)
+    }
+    unsafe fn fn_body_case_var_type(b: *mut LeanObject) -> Result<IrType, String> {
+        cnstr_get_ir_type(b, 2)
+    }
+    unsafe fn fn_body_case_alts(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 3)
+    }
+    unsafe fn fn_body_ret_arg(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_jmp_jp(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 0)
+    }
+    unsafe fn fn_body_jmp_args(b: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(b, 1)
+    }
 
     // decl
-    unsafe fn decl_fun_id(d: *mut LeanObject) -> *mut LeanObject        { lean_ctor_get_obj(d, 0) }
-    unsafe fn decl_params(d: *mut LeanObject) -> *mut LeanObject        { lean_ctor_get_obj(d, 1) }
-    unsafe fn decl_type_field(d: *mut LeanObject) -> Result<IrType, String> { cnstr_get_ir_type(d, 2) }
-    unsafe fn decl_params_size(d: *mut LeanObject) -> usize             { lean_array_size(decl_params(d)) }
-    unsafe fn decl_params_get(d: *mut LeanObject, i: usize) -> *mut LeanObject { lean_array_get(decl_params(d), i) }
+    unsafe fn decl_fun_id(d: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(d, 0)
+    }
+    unsafe fn decl_params(d: *mut LeanObject) -> *mut LeanObject {
+        lean_ctor_get_obj(d, 1)
+    }
+    unsafe fn decl_type_field(d: *mut LeanObject) -> Result<IrType, String> {
+        cnstr_get_ir_type(d, 2)
+    }
+    unsafe fn decl_params_size(d: *mut LeanObject) -> usize {
+        lean_array_size(decl_params(d))
+    }
+    unsafe fn decl_params_get(d: *mut LeanObject, i: usize) -> *mut LeanObject {
+        lean_array_get(decl_params(d), i)
+    }
     unsafe fn decl_fun_body(d: *mut LeanObject) -> Result<*mut LeanObject, String> {
         if decl_tag(d) != DeclKind::Fun {
             let fn_id = decl_fun_id(d);
@@ -685,8 +972,12 @@ mod library_ir_interpreter_impl {
     }
 
     // array field accessors
-    unsafe fn array_size(arr: *mut LeanObject) -> usize   { lean_array_size(arr) }
-    unsafe fn array_get(arr: *mut LeanObject, i: usize) -> *mut LeanObject { lean_array_get(arr, i) }
+    unsafe fn array_size(arr: *mut LeanObject) -> usize {
+        lean_array_size(arr)
+    }
+    unsafe fn array_get(arr: *mut LeanObject, i: usize) -> *mut LeanObject {
+        lean_array_get(arr, i)
+    }
 
     // Simple best-effort name to string for error messages
     unsafe fn lean_name_to_string_for_err(n: *mut LeanObject) -> String {
@@ -703,7 +994,9 @@ mod library_ir_interpreter_impl {
                     // Name.str prefix str
                     let str_obj = lean_ctor_get_obj(cur, 1);
                     let cstr = lean_string_cstr(str_obj);
-                    let s = core::ffi::CStr::from_ptr(cstr).to_string_lossy().into_owned();
+                    let s = core::ffi::CStr::from_ptr(cstr)
+                        .to_string_lossy()
+                        .into_owned();
                     components.push(s);
                     cur = lean_ctor_get_obj(cur, 0);
                 }
@@ -736,26 +1029,54 @@ mod library_ir_interpreter_impl {
     }
 
     impl IrValue {
-        #[inline] fn from_num(n: u64) -> Self { IrValue { m_num: n } }
-        #[inline] fn from_float(f: f64) -> Self { IrValue { m_float: f } }
-        #[inline] fn from_float32(f: f32) -> Self { IrValue { m_float32: f } }
-        #[inline] fn from_obj(o: *mut LeanObject) -> Self { IrValue { m_obj: o } }
-        #[inline] unsafe fn num(self) -> u64 { self.m_num }
-        #[inline] unsafe fn float(self) -> f64 { self.m_float }
-        #[inline] unsafe fn float32(self) -> f32 { self.m_float32 }
-        #[inline] unsafe fn obj(self) -> *mut LeanObject { self.m_obj }
+        #[inline]
+        fn from_num(n: u64) -> Self {
+            IrValue { m_num: n }
+        }
+        #[inline]
+        fn from_float(f: f64) -> Self {
+            IrValue { m_float: f }
+        }
+        #[inline]
+        fn from_float32(f: f32) -> Self {
+            IrValue { m_float32: f }
+        }
+        #[inline]
+        fn from_obj(o: *mut LeanObject) -> Self {
+            IrValue { m_obj: o }
+        }
+        #[inline]
+        unsafe fn num(self) -> u64 {
+            self.m_num
+        }
+        #[inline]
+        unsafe fn float(self) -> f64 {
+            self.m_float
+        }
+        #[inline]
+        unsafe fn float32(self) -> f32 {
+            self.m_float32
+        }
+        #[inline]
+        unsafe fn obj(self) -> *mut LeanObject {
+            self.m_obj
+        }
     }
 
     unsafe fn box_t(v: IrValue, t: IrType) -> Result<*mut LeanObject, String> {
         Ok(match t {
-            IrType::Float   => lean_box_float(v.float()),
+            IrType::Float => lean_box_float(v.float()),
             IrType::Float32 => lean_box_float32(v.float32()),
-            IrType::UInt8   => lean_box(v.num() as usize),
-            IrType::UInt16  => lean_box(v.num() as usize),
-            IrType::UInt32  => lean_box_uint32(v.num() as u32),
-            IrType::UInt64  => lean_box_uint64(v.num()),
-            IrType::USize   => lean_box_size_t(v.num() as usize),
-            IrType::Object | IrType::Tagged | IrType::TObject | IrType::Irrelevant | IrType::Void => v.obj(),
+            IrType::UInt8 => lean_box(v.num() as usize),
+            IrType::UInt16 => lean_box(v.num() as usize),
+            IrType::UInt32 => lean_box_uint32(v.num() as u32),
+            IrType::UInt64 => lean_box_uint64(v.num()),
+            IrType::USize => lean_box_size_t(v.num() as usize),
+            IrType::Object
+            | IrType::Tagged
+            | IrType::TObject
+            | IrType::Irrelevant
+            | IrType::Void => v.obj(),
             IrType::Struct | IrType::Union => return Err("box_t: not implemented yet".to_string()),
         })
     }
@@ -772,14 +1093,16 @@ mod library_ir_interpreter_impl {
 
     unsafe fn unbox_t(o: *mut LeanObject, t: IrType) -> Result<IrValue, String> {
         Ok(match t {
-            IrType::Float   => IrValue::from_float(lean_unbox_float(o)),
+            IrType::Float => IrValue::from_float(lean_unbox_float(o)),
             IrType::Float32 => IrValue::from_float32(lean_unbox_float32(o)),
-            IrType::UInt8   => IrValue::from_num(lean_unbox(o) as u64),
-            IrType::UInt16  => IrValue::from_num(lean_unbox(o) as u64),
-            IrType::UInt32  => IrValue::from_num(lean_unbox_uint32(o) as u64),
-            IrType::UInt64  => IrValue::from_num(lean_unbox_uint64(o)),
-            IrType::USize   => IrValue::from_num(lean_unbox_size_t(o) as u64),
-            IrType::Struct | IrType::Union => return Err("unbox_t: not implemented yet".to_string()),
+            IrType::UInt8 => IrValue::from_num(lean_unbox(o) as u64),
+            IrType::UInt16 => IrValue::from_num(lean_unbox(o) as u64),
+            IrType::UInt32 => IrValue::from_num(lean_unbox_uint32(o) as u64),
+            IrType::UInt64 => IrValue::from_num(lean_unbox_uint64(o)),
+            IrType::USize => IrValue::from_num(lean_unbox_size_t(o) as u64),
+            IrType::Struct | IrType::Union => {
+                return Err("unbox_t: not implemented yet".to_string())
+            }
             _ => unreachable!("unbox_t called with non-scalar type"),
         })
     }
@@ -795,19 +1118,34 @@ mod library_ir_interpreter_impl {
         }
         #[cfg(windows)]
         {
-            use winapi::um::psapi::EnumProcessModules;
             use winapi::um::libloaderapi::GetProcAddress;
             use winapi::um::processthreadsapi::GetCurrentProcess;
+            use winapi::um::psapi::EnumProcessModules;
             let process = GetCurrentProcess();
-            let mut hmods: Vec<winapi::shared::minwindef::HMODULE> = vec![std::ptr::null_mut(); 128];
+            let mut hmods: Vec<winapi::shared::minwindef::HMODULE> =
+                vec![std::ptr::null_mut(); 128];
             let mut bytes_needed: u32 = 0;
-            if EnumProcessModules(process, hmods.as_mut_ptr(), (hmods.len() * core::mem::size_of::<winapi::shared::minwindef::HMODULE>()) as u32, &mut bytes_needed) == 0 {
+            if EnumProcessModules(
+                process,
+                hmods.as_mut_ptr(),
+                (hmods.len() * core::mem::size_of::<winapi::shared::minwindef::HMODULE>()) as u32,
+                &mut bytes_needed,
+            ) == 0
+            {
                 return ptr::null_mut();
             }
-            let num_mods = bytes_needed as usize / core::mem::size_of::<winapi::shared::minwindef::HMODULE>();
+            let num_mods =
+                bytes_needed as usize / core::mem::size_of::<winapi::shared::minwindef::HMODULE>();
             if num_mods > hmods.len() {
                 hmods.resize(num_mods, std::ptr::null_mut());
-                if EnumProcessModules(process, hmods.as_mut_ptr(), (hmods.len() * core::mem::size_of::<winapi::shared::minwindef::HMODULE>()) as u32, &mut bytes_needed) == 0 {
+                if EnumProcessModules(
+                    process,
+                    hmods.as_mut_ptr(),
+                    (hmods.len() * core::mem::size_of::<winapi::shared::minwindef::HMODULE>())
+                        as u32,
+                    &mut bytes_needed,
+                ) == 0
+                {
                     return ptr::null_mut();
                 }
             }
@@ -848,7 +1186,8 @@ mod library_ir_interpreter_impl {
     unsafe impl Send for NativeSymbolCache {}
     unsafe impl Sync for NativeSymbolCache {}
 
-    static G_INTERPRETER_PREFER_NATIVE_NAME: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
+    static G_INTERPRETER_PREFER_NATIVE_NAME: AtomicPtr<LeanObject> =
+        AtomicPtr::new(ptr::null_mut());
     static G_INTERPRETER_KEY: AtomicUsize = AtomicUsize::new(0);
     static G_INTERPRETER_KEY_INIT: AtomicBool = AtomicBool::new(false);
     static mut G_INIT_GLOBALS: *mut InitGlobals = ptr::null_mut();
@@ -944,7 +1283,7 @@ mod library_ir_interpreter_impl {
     // ---------------------------------------------------------------------------
 
     struct Frame {
-        m_fn: *mut LeanObject,   // name (borrowed, env owns it)
+        m_fn: *mut LeanObject, // name (borrowed, env owns it)
         m_arg_bp: usize,
         m_jp_bp: usize,
     }
@@ -956,7 +1295,7 @@ mod library_ir_interpreter_impl {
 
     #[derive(Clone, Copy)]
     struct SymbolCacheEntry {
-        m_decl: *mut LeanObject,           // decl (owned inc ref)
+        m_decl: *mut LeanObject, // decl (owned inc ref)
         m_native: NativeSymbolCacheEntry,
     }
 
@@ -965,10 +1304,10 @@ mod library_ir_interpreter_impl {
 
     struct Interpreter {
         m_arg_stack: Vec<IrValue>,
-        m_jp_stack: Vec<*mut LeanObject>,  // fn_body* pointers (borrowed from IR)
+        m_jp_stack: Vec<*mut LeanObject>, // fn_body* pointers (borrowed from IR)
         m_call_stack: Vec<Frame>,
-        m_env: *mut LeanObject,            // borrowed
-        m_opts: *mut LeanObject,           // borrowed
+        m_env: *mut LeanObject,  // borrowed
+        m_opts: *mut LeanObject, // borrowed
         m_prefer_native: bool,
         m_constant_cache: NameHashMap<ConstantCacheEntry>,
         m_symbol_cache: NameHashMap<SymbolCacheEntry>,
@@ -981,7 +1320,8 @@ mod library_ir_interpreter_impl {
             let name_obj = interpreter_prefer_native_name();
             lean_inc(name_obj);
             lean_inc(opts);
-            let prefer_native = lean_options_get_bool(opts, name_obj, LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE);
+            let prefer_native =
+                lean_options_get_bool(opts, name_obj, LEAN_DEFAULT_INTERPRETER_PREFER_NATIVE);
             Interpreter {
                 m_arg_stack: Vec::new(),
                 m_jp_stack: Vec::new(),
@@ -1045,7 +1385,11 @@ mod library_ir_interpreter_impl {
         // alloc_ctor
         // -----------------------------------------------------------------------
 
-        unsafe fn alloc_ctor(&mut self, info: *mut LeanObject, args: *mut LeanObject) -> *mut LeanObject {
+        unsafe fn alloc_ctor(
+            &mut self,
+            info: *mut LeanObject,
+            args: *mut LeanObject,
+        ) -> *mut LeanObject {
             let tag = ctor_info_tag_val(info);
             let size = ctor_info_size(info);
             let usize_fields = ctor_info_usize(info);
@@ -1053,7 +1397,11 @@ mod library_ir_interpreter_impl {
             if size == 0 && usize_fields == 0 && ssize == 0 {
                 return lean_box(tag);
             }
-            let o = lean_alloc_ctor(tag as u32, size, usize_fields * core::mem::size_of::<*mut LeanObject>() + ssize);
+            let o = lean_alloc_ctor(
+                tag as u32,
+                size,
+                usize_fields * core::mem::size_of::<*mut LeanObject>() + ssize,
+            );
             let n = array_size(args);
             for i in 0..n {
                 let arg = array_get(args, i);
@@ -1066,7 +1414,12 @@ mod library_ir_interpreter_impl {
         // mk_stub_closure
         // -----------------------------------------------------------------------
 
-        unsafe fn mk_stub_closure(&self, d: *mut LeanObject, n: usize, args: *const *mut LeanObject) -> *mut LeanObject {
+        unsafe fn mk_stub_closure(
+            &self,
+            d: *mut LeanObject,
+            n: usize,
+            args: *const *mut LeanObject,
+        ) -> *mut LeanObject {
             let num_params = decl_params_size(d);
             let cls_size = 3 + num_params;
             let fun_ptr = get_stub(cls_size as u32);
@@ -1150,12 +1503,18 @@ mod library_ir_interpreter_impl {
                     let offset = expr_sproj_idx(e) * ptr_size + expr_sproj_offset(e);
                     let o = self.var_slot(expr_sproj_obj(e)).obj();
                     match t {
-                        IrType::Float   => Ok(IrValue::from_float(lean_ctor_get_float(o, offset))),
-                        IrType::Float32 => Ok(IrValue::from_float32(lean_ctor_get_float32(o, offset))),
-                        IrType::UInt8   => Ok(IrValue::from_num(lean_ctor_get_u8(o, offset) as u64)),
-                        IrType::UInt16  => Ok(IrValue::from_num(lean_ctor_get_u16(o, offset) as u64)),
-                        IrType::UInt32  => Ok(IrValue::from_num(lean_ctor_get_u32(o, offset) as u64)),
-                        IrType::UInt64  => Ok(IrValue::from_num(lean_ctor_get_u64(o, offset))),
+                        IrType::Float => Ok(IrValue::from_float(lean_ctor_get_float(o, offset))),
+                        IrType::Float32 => {
+                            Ok(IrValue::from_float32(lean_ctor_get_float32(o, offset)))
+                        }
+                        IrType::UInt8 => Ok(IrValue::from_num(lean_ctor_get_u8(o, offset) as u64)),
+                        IrType::UInt16 => {
+                            Ok(IrValue::from_num(lean_ctor_get_u16(o, offset) as u64))
+                        }
+                        IrType::UInt32 => {
+                            Ok(IrValue::from_num(lean_ctor_get_u32(o, offset) as u64))
+                        }
+                        IrType::UInt64 => Ok(IrValue::from_num(lean_ctor_get_u64(o, offset))),
                         _ => Err("invalid instruction".to_string()),
                     }
                 }
@@ -1228,9 +1587,7 @@ mod library_ir_interpreter_impl {
                                 IrType::UInt8 | IrType::UInt16 | IrType::UInt32 | IrType::USize => {
                                     Ok(IrValue::from_num(lean_usize_of_nat(n_obj) as u64))
                                 }
-                                IrType::UInt64 => {
-                                    Ok(IrValue::from_num(lean_uint64_of_nat(n_obj)))
-                                }
+                                IrType::UInt64 => Ok(IrValue::from_num(lean_uint64_of_nat(n_obj))),
                                 IrType::Object | IrType::Tagged | IrType::TObject => {
                                     lean_inc(n_obj);
                                     Ok(IrValue::from_obj(n_obj))
@@ -1338,12 +1695,12 @@ mod library_ir_interpreter_impl {
                         let offset = fn_body_sset_idx(b) * ptr_size + fn_body_sset_offset(b);
                         let v = *self.var_slot(fn_body_sset_source(b));
                         match fn_body_sset_type(b)? {
-                            IrType::Float   => lean_ctor_set_float(o, offset, v.float()),
+                            IrType::Float => lean_ctor_set_float(o, offset, v.float()),
                             IrType::Float32 => lean_ctor_set_float32(o, offset, v.float32()),
-                            IrType::UInt8   => lean_ctor_set_u8(o, offset, v.num() as u8),
-                            IrType::UInt16  => lean_ctor_set_u16(o, offset, v.num() as u16),
-                            IrType::UInt32  => lean_ctor_set_u32(o, offset, v.num() as u32),
-                            IrType::UInt64  => lean_ctor_set_u64(o, offset, v.num()),
+                            IrType::UInt8 => lean_ctor_set_u8(o, offset, v.num() as u8),
+                            IrType::UInt16 => lean_ctor_set_u16(o, offset, v.num() as u16),
+                            IrType::UInt32 => lean_ctor_set_u32(o, offset, v.num() as u32),
+                            IrType::UInt64 => lean_ctor_set_u64(o, offset, v.num()),
                             _ => return Err("invalid instruction".to_string()),
                         }
                         b = fn_body_sset_cont(b);
@@ -1433,7 +1790,10 @@ mod library_ir_interpreter_impl {
         // lookup_symbol
         // -----------------------------------------------------------------------
 
-        unsafe fn lookup_symbol(&mut self, fn_name: *mut LeanObject) -> Result<SymbolCacheEntry, String> {
+        unsafe fn lookup_symbol(
+            &mut self,
+            fn_name: *mut LeanObject,
+        ) -> Result<SymbolCacheEntry, String> {
             let key = NameKey(fn_name);
             // Check per-interpreter cache
             if let Some(&e) = self.m_symbol_cache.get(&key) {
@@ -1448,21 +1808,29 @@ mod library_ir_interpreter_impl {
             };
             if let Some(native) = native_hit {
                 let decl = self.get_decl(fn_name)?;
-                let e = SymbolCacheEntry { m_decl: decl, m_native: native };
+                let e = SymbolCacheEntry {
+                    m_decl: decl,
+                    m_native: native,
+                };
                 lean_inc(fn_name);
                 self.m_symbol_cache.insert(key, e);
                 return Ok(e);
             }
             // Not in global cache; compute
             let decl = self.get_decl(fn_name)?;
-            let mut native = NativeSymbolCacheEntry { m_addr: ptr::null_mut(), m_boxed: false };
+            let mut native = NativeSymbolCacheEntry {
+                m_addr: ptr::null_mut(),
+                m_boxed: false,
+            };
 
             lean_inc(self.m_env);
             lean_inc(fn_name);
             let has_init = {
                 let opt = lean_get_init_fn_name_for(self.m_env, fn_name);
                 let found = !lean_is_scalar(opt);
-                if found { lean_dec(opt); }
+                if found {
+                    lean_dec(opt);
+                }
                 found
             };
 
@@ -1475,7 +1843,11 @@ mod library_ir_interpreter_impl {
                 let boxed_mangled_cstr = lean_string_cstr(boxed_mangled_obj);
                 if let Some(p_boxed) = {
                     let p = lookup_symbol_in_cur_exe(boxed_mangled_cstr);
-                    if p.is_null() { None } else { Some(p) }
+                    if p.is_null() {
+                        None
+                    } else {
+                        Some(p)
+                    }
                 } {
                     native.m_addr = p_boxed;
                     native.m_boxed = true;
@@ -1519,7 +1891,10 @@ mod library_ir_interpreter_impl {
                 }
             };
 
-            let e = SymbolCacheEntry { m_decl: decl, m_native: native };
+            let e = SymbolCacheEntry {
+                m_decl: decl,
+                m_native: native,
+            };
             lean_inc(fn_name);
             self.m_symbol_cache.insert(key, e);
             Ok(e)
@@ -1571,16 +1946,18 @@ mod library_ir_interpreter_impl {
             if !sym.m_native.m_addr.is_null() {
                 let addr = sym.m_native.m_addr;
                 let v = match t {
-                    IrType::Float   => IrValue::from_float(*(addr as *const f64)),
+                    IrType::Float => IrValue::from_float(*(addr as *const f64)),
                     IrType::Float32 => IrValue::from_float32(*(addr as *const f32)),
-                    IrType::UInt8   => IrValue::from_num(*(addr as *const u8) as u64),
-                    IrType::UInt16  => IrValue::from_num(*(addr as *const u16) as u64),
-                    IrType::UInt32  => IrValue::from_num(*(addr as *const u32) as u64),
-                    IrType::UInt64  => IrValue::from_num(*(addr as *const u64)),
-                    IrType::USize   => IrValue::from_num(*(addr as *const usize) as u64),
-                    IrType::Object | IrType::Tagged | IrType::TObject | IrType::Irrelevant | IrType::Void => {
-                        IrValue::from_obj(*(addr as *const *mut LeanObject))
-                    }
+                    IrType::UInt8 => IrValue::from_num(*(addr as *const u8) as u64),
+                    IrType::UInt16 => IrValue::from_num(*(addr as *const u16) as u64),
+                    IrType::UInt32 => IrValue::from_num(*(addr as *const u32) as u64),
+                    IrType::UInt64 => IrValue::from_num(*(addr as *const u64)),
+                    IrType::USize => IrValue::from_num(*(addr as *const usize) as u64),
+                    IrType::Object
+                    | IrType::Tagged
+                    | IrType::TObject
+                    | IrType::Irrelevant
+                    | IrType::Void => IrValue::from_obj(*(addr as *const *mut LeanObject)),
                     _ => return Err("load: not implemented yet for Struct/Union".to_string()),
                 };
                 return Ok(v);
@@ -1593,7 +1970,10 @@ mod library_ir_interpreter_impl {
             if !lean_is_scalar(init_opt) {
                 lean_dec(init_opt);
                 let name_str = lean_name_to_string_for_err(fn_name);
-                return Err(format!("cannot evaluate `[init]` declaration '{}' in the same module", name_str));
+                return Err(format!(
+                    "cannot evaluate `[init]` declaration '{}' in the same module",
+                    name_str
+                ));
             }
             lean_dec(init_opt);
 
@@ -1613,7 +1993,13 @@ mod library_ir_interpreter_impl {
 
             let is_scalar = t.is_scalar();
             lean_inc(fn_name);
-            self.m_constant_cache.insert(NameKey(fn_name), ConstantCacheEntry { m_is_scalar: is_scalar, m_val: r });
+            self.m_constant_cache.insert(
+                NameKey(fn_name),
+                ConstantCacheEntry {
+                    m_is_scalar: is_scalar,
+                    m_val: r,
+                },
+            );
             Ok(r)
         }
 
@@ -1621,7 +2007,11 @@ mod library_ir_interpreter_impl {
         // call
         // -----------------------------------------------------------------------
 
-        unsafe fn call(&mut self, fn_name: *mut LeanObject, args: *mut LeanObject) -> Result<IrValue, String> {
+        unsafe fn call(
+            &mut self,
+            fn_name: *mut LeanObject,
+            args: *mut LeanObject,
+        ) -> Result<IrValue, String> {
             let old_size = self.m_arg_stack.len();
             let sym = self.lookup_symbol(fn_name)?;
             if !sym.m_native.m_addr.is_null() {
@@ -1726,7 +2116,12 @@ mod library_ir_interpreter_impl {
         // call_boxed
         // -----------------------------------------------------------------------
 
-        unsafe fn call_boxed(&mut self, fn_name: *mut LeanObject, n: usize, args: *const *mut LeanObject) -> Result<*mut LeanObject, String> {
+        unsafe fn call_boxed(
+            &mut self,
+            fn_name: *mut LeanObject,
+            n: usize,
+            args: *const *mut LeanObject,
+        ) -> Result<*mut LeanObject, String> {
             let sym = self.lookup_symbol(fn_name)?;
             let arity = decl_params_size(sym.m_decl);
             if arity == 0 {
@@ -1812,7 +2207,11 @@ mod library_ir_interpreter_impl {
         // run_init
         // -----------------------------------------------------------------------
 
-        unsafe fn run_init(&mut self, decl_name: *mut LeanObject, init_decl_name: *mut LeanObject) -> Result<*mut LeanObject, String> {
+        unsafe fn run_init(
+            &mut self,
+            decl_name: *mut LeanObject,
+            init_decl_name: *mut LeanObject,
+        ) -> Result<*mut LeanObject, String> {
             let args: [*mut LeanObject; 0] = [];
             let r = self.call_boxed(init_decl_name, 1, args.as_ptr())?;
             if lean_io_result_is_ok(r) {
@@ -1865,7 +2264,12 @@ mod library_ir_interpreter_impl {
     // with_interpreter
     // ---------------------------------------------------------------------------
 
-    unsafe fn with_interpreter_obj<T, F>(env: *mut LeanObject, opts: *mut LeanObject, fn_name: *mut LeanObject, f: F) -> T
+    unsafe fn with_interpreter_obj<T, F>(
+        env: *mut LeanObject,
+        opts: *mut LeanObject,
+        fn_name: *mut LeanObject,
+        f: F,
+    ) -> T
     where
         F: FnOnce(&mut Interpreter) -> T,
     {
@@ -1884,7 +2288,9 @@ mod library_ir_interpreter_impl {
         struct RestoreInterp(*mut Interpreter);
         impl Drop for RestoreInterp {
             fn drop(&mut self) {
-                unsafe { set_interpreter(self.0); }
+                unsafe {
+                    set_interpreter(self.0);
+                }
             }
         }
         let _restore = RestoreInterp(old);
@@ -1895,7 +2301,13 @@ mod library_ir_interpreter_impl {
     // run_boxed
     // ---------------------------------------------------------------------------
 
-    unsafe fn run_boxed(env: *mut LeanObject, opts: *mut LeanObject, fn_name: *mut LeanObject, n: usize, args: *const *mut LeanObject) -> Result<*mut LeanObject, String> {
+    unsafe fn run_boxed(
+        env: *mut LeanObject,
+        opts: *mut LeanObject,
+        fn_name: *mut LeanObject,
+        n: usize,
+        args: *const *mut LeanObject,
+    ) -> Result<*mut LeanObject, String> {
         // Check sorry dep
         lean_inc(env);
         lean_inc(fn_name);
@@ -1936,60 +2348,211 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_3_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_3_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_4_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_4_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_5_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_5_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_6_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_6_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_7_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_7_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_8_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_8_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_9_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_9_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_10_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_10_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_11_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject, x11: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_11_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+        x11: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_12_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject, x11: *mut LeanObject, x12: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_12_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+        x11: *mut LeanObject,
+        x12: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_13_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject, x11: *mut LeanObject, x12: *mut LeanObject, x13: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_13_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+        x11: *mut LeanObject,
+        x12: *mut LeanObject,
+        x13: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_14_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject, x11: *mut LeanObject, x12: *mut LeanObject, x13: *mut LeanObject, x14: *mut LeanObject) -> *mut LeanObject {
+    unsafe extern "C" fn stub_14_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+        x11: *mut LeanObject,
+        x12: *mut LeanObject,
+        x13: *mut LeanObject,
+        x14: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_15_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject, x11: *mut LeanObject, x12: *mut LeanObject, x13: *mut LeanObject, x14: *mut LeanObject, x15: *mut LeanObject) -> *mut LeanObject {
-        let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15];
+    unsafe extern "C" fn stub_15_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+        x11: *mut LeanObject,
+        x12: *mut LeanObject,
+        x13: *mut LeanObject,
+        x14: *mut LeanObject,
+        x15: *mut LeanObject,
+    ) -> *mut LeanObject {
+        let mut args = [
+            x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15,
+        ];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_16_aux(x1: *mut LeanObject, x2: *mut LeanObject, x3: *mut LeanObject, x4: *mut LeanObject, x5: *mut LeanObject, x6: *mut LeanObject, x7: *mut LeanObject, x8: *mut LeanObject, x9: *mut LeanObject, x10: *mut LeanObject, x11: *mut LeanObject, x12: *mut LeanObject, x13: *mut LeanObject, x14: *mut LeanObject, x15: *mut LeanObject, x16: *mut LeanObject) -> *mut LeanObject {
-        let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16];
+    unsafe extern "C" fn stub_16_aux(
+        x1: *mut LeanObject,
+        x2: *mut LeanObject,
+        x3: *mut LeanObject,
+        x4: *mut LeanObject,
+        x5: *mut LeanObject,
+        x6: *mut LeanObject,
+        x7: *mut LeanObject,
+        x8: *mut LeanObject,
+        x9: *mut LeanObject,
+        x10: *mut LeanObject,
+        x11: *mut LeanObject,
+        x12: *mut LeanObject,
+        x13: *mut LeanObject,
+        x14: *mut LeanObject,
+        x15: *mut LeanObject,
+        x16: *mut LeanObject,
+    ) -> *mut LeanObject {
+        let mut args = [
+            x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16,
+        ];
         stub_m_aux_impl(args.as_mut_ptr())
     }
     // stub_m_aux with varargs via pointer
@@ -2000,15 +2563,15 @@ mod library_ir_interpreter_impl {
     unsafe fn get_stub(params: u32) -> *mut core::ffi::c_void {
         match params {
             0 => unreachable!("get_stub: params == 0"),
-            1  => stub_1_aux  as *mut core::ffi::c_void,
-            2  => stub_2_aux  as *mut core::ffi::c_void,
-            3  => stub_3_aux  as *mut core::ffi::c_void,
-            4  => stub_4_aux  as *mut core::ffi::c_void,
-            5  => stub_5_aux  as *mut core::ffi::c_void,
-            6  => stub_6_aux  as *mut core::ffi::c_void,
-            7  => stub_7_aux  as *mut core::ffi::c_void,
-            8  => stub_8_aux  as *mut core::ffi::c_void,
-            9  => stub_9_aux  as *mut core::ffi::c_void,
+            1 => stub_1_aux as *mut core::ffi::c_void,
+            2 => stub_2_aux as *mut core::ffi::c_void,
+            3 => stub_3_aux as *mut core::ffi::c_void,
+            4 => stub_4_aux as *mut core::ffi::c_void,
+            5 => stub_5_aux as *mut core::ffi::c_void,
+            6 => stub_6_aux as *mut core::ffi::c_void,
+            7 => stub_7_aux as *mut core::ffi::c_void,
+            8 => stub_8_aux as *mut core::ffi::c_void,
+            9 => stub_9_aux as *mut core::ffi::c_void,
             10 => stub_10_aux as *mut core::ffi::c_void,
             11 => stub_11_aux as *mut core::ffi::c_void,
             12 => stub_12_aux as *mut core::ffi::c_void,
@@ -2016,7 +2579,7 @@ mod library_ir_interpreter_impl {
             14 => stub_14_aux as *mut core::ffi::c_void,
             15 => stub_15_aux as *mut core::ffi::c_void,
             16 => stub_16_aux as *mut core::ffi::c_void,
-            _  => stub_m_aux  as *mut core::ffi::c_void,
+            _ => stub_m_aux as *mut core::ffi::c_void,
         }
     }
 
@@ -2063,9 +2626,7 @@ mod library_ir_interpreter_impl {
         args: *mut LeanObject,
     ) -> u32 {
         let main_name = mk_lean_name_anon("main");
-        let ret = with_interpreter_obj(env, opts, main_name, |interp| {
-            interp.run_main(args)
-        });
+        let ret = with_interpreter_obj(env, opts, main_name, |interp| interp.run_main(args));
         lean_dec(main_name);
         match ret {
             Ok(v) => v,

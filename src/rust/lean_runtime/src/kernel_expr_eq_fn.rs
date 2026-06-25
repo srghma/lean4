@@ -38,10 +38,10 @@ Level kind tags:
 
 #[cfg(feature = "export-runtime-ffi")]
 mod kernel_expr_eq_fn_impl {
-    use super::*;
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_alloc_impl::add_heartbeats;
+    use super::runtime_object_name_impl::lean_name_eq;
+    use super::runtime_object_panic_impl::lean_internal_panic;
+    use super::*;
     use std::collections::HashSet;
 
     extern "C" {
@@ -52,18 +52,18 @@ mod kernel_expr_eq_fn_impl {
         fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     }
 
-    const EXPR_BVAR:   u8 = 0;
-    const EXPR_FVAR:   u8 = 1;
-    const EXPR_MVAR:   u8 = 2;
-    const EXPR_SORT:   u8 = 3;
-    const EXPR_CONST:  u8 = 4;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_BVAR: u8 = 0;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
+    const EXPR_SORT: u8 = 3;
+    const EXPR_CONST: u8 = 4;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_LIT:    u8 = 9;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_LIT: u8 = 9;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     // Max recursion depth: get_available_stack_size() / 256 = 8*1024*1024 / 256 = 32768
     const MAX_STACK_DEPTH: usize = 8 * 1024 * 1024 / 256;
@@ -99,11 +99,17 @@ mod kernel_expr_eq_fn_impl {
     // Borrowed references: does not consume m1 or m2.
     unsafe fn kvmap_eq(mut m1: *mut LeanObject, mut m2: *mut LeanObject) -> bool {
         loop {
-            if m1 == m2 { return true; }
+            if m1 == m2 {
+                return true;
+            }
             let s1 = lean_is_scalar(m1);
             let s2 = lean_is_scalar(m2);
-            if s1 && s2 { return true; }   // both nil
-            if s1 || s2 { return false; }  // different lengths
+            if s1 && s2 {
+                return true;
+            } // both nil
+            if s1 || s2 {
+                return false;
+            } // different lengths
 
             // cons cell: field[0]=pair, field[1]=tail
             let pair1 = lean_ctor_get(m1, 0);
@@ -112,14 +118,18 @@ mod kernel_expr_eq_fn_impl {
                 // pair: field[0]=name, field[1]=data_value
                 let name1 = lean_ctor_get(pair1, 0);
                 let name2 = lean_ctor_get(pair2, 0);
-                if lean_name_eq(name1, name2) == 0 { return false; }
+                if lean_name_eq(name1, name2) == 0 {
+                    return false;
+                }
 
                 let dv1 = lean_ctor_get(pair1, 1);
                 let dv2 = lean_ctor_get(pair2, 1);
                 if dv1 != dv2 {
                     lean_inc(dv1);
                     lean_inc(dv2);
-                    if lean_data_value_beq(dv1, dv2) == 0 { return false; }
+                    if lean_data_value_beq(dv1, dv2) == 0 {
+                        return false;
+                    }
                 }
             }
 
@@ -137,24 +147,34 @@ mod kernel_expr_eq_fn_impl {
     impl Drop for ExprEqFn {
         fn drop(&mut self) {
             if self.counter > 0 {
-                unsafe { add_heartbeats(self.counter); }
+                unsafe {
+                    add_heartbeats(self.counter);
+                }
             }
         }
     }
 
     impl ExprEqFn {
         fn new(compare_binder_info: bool) -> Self {
-            Self { compare_binder_info, cache: None, counter: 0 }
+            Self {
+                compare_binder_info,
+                cache: None,
+                counter: 0,
+            }
         }
 
         // Returns true if (a, b) are already in the cache (proven equal or in progress).
         // Inserts (a, b) into the cache if not found, so future encounters return true.
         // Only caches shared objects (rc > 1).
         unsafe fn check_cache(&mut self, a: *mut LeanObject, b: *mut LeanObject) -> bool {
-            if (*a).rc <= 1 || (*b).rc <= 1 { return false; }
+            if (*a).rc <= 1 || (*b).rc <= 1 {
+                return false;
+            }
             let key = (a as usize, b as usize);
             let cache = self.cache.get_or_insert_with(HashSet::new);
-            if cache.contains(&key) { return true; }
+            if cache.contains(&key) {
+                return true;
+            }
             cache.insert(key);
             false
         }
@@ -168,8 +188,12 @@ mod kernel_expr_eq_fn_impl {
         // Compare two Nat objects (no ownership transfer).
         #[inline(always)]
         unsafe fn nat_eq(&self, a: *mut LeanObject, b: *mut LeanObject) -> bool {
-            if a == b { return true; }
-            if lean_is_scalar(a) || lean_is_scalar(b) { return false; }
+            if a == b {
+                return true;
+            }
+            if lean_is_scalar(a) || lean_is_scalar(b) {
+                return false;
+            }
             lean_nat_big_eq(a, b)
         }
 
@@ -182,10 +206,14 @@ mod kernel_expr_eq_fn_impl {
         // Compare two Literal objects (tag 0 = natVal, tag 1 = strVal).
         #[inline]
         unsafe fn lit_eq(&self, a: *mut LeanObject, b: *mut LeanObject) -> bool {
-            if a == b { return true; }
+            if a == b {
+                return true;
+            }
             let tag_a = lean_obj_tag(a);
             let tag_b = lean_obj_tag(b);
-            if tag_a != tag_b { return false; }
+            if tag_a != tag_b {
+                return false;
+            }
             match tag_a {
                 0 => self.nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
                 1 => self.str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
@@ -196,11 +224,17 @@ mod kernel_expr_eq_fn_impl {
         // Compare two Level list objects (List Level, nil = lean_box(0), cons has tag 0).
         unsafe fn levels_eq(&self, mut ls1: *mut LeanObject, mut ls2: *mut LeanObject) -> bool {
             loop {
-                if ls1 == ls2 { return true; }
+                if ls1 == ls2 {
+                    return true;
+                }
                 let s1 = lean_is_scalar(ls1);
                 let s2 = lean_is_scalar(ls2);
-                if s1 && s2 { return true; }
-                if s1 || s2 { return false; }
+                if s1 && s2 {
+                    return true;
+                }
+                if s1 || s2 {
+                    return false;
+                }
                 if lean_level_eqv(lean_ctor_get(ls1, 0), lean_ctor_get(ls2, 0)) == 0 {
                     return false;
                 }
@@ -218,11 +252,17 @@ mod kernel_expr_eq_fn_impl {
             depth: usize,
             root: bool,
         ) -> bool {
-            if a == b { return true; }
-            if expr_hash(a) != expr_hash(b) { return false; }
+            if a == b {
+                return true;
+            }
+            if expr_hash(a) != expr_hash(b) {
+                return false;
+            }
 
             let tag = lean_obj_tag(a);
-            if tag != lean_obj_tag(b) { return false; }
+            if tag != lean_obj_tag(b) {
+                return false;
+            }
 
             // Leaf cases: compare directly without caching.
             match tag {
@@ -276,9 +316,18 @@ mod kernel_expr_eq_fn_impl {
                     let mut curr_a = lean_ctor_get(a, 0);
                     let mut curr_b = lean_ctor_get(b, 0);
                     loop {
-                        if lean_obj_tag(curr_a) != EXPR_APP { break; }
-                        if lean_obj_tag(curr_b) != EXPR_APP { return false; }
-                        if !self.apply(lean_ctor_get(curr_a, 1), lean_ctor_get(curr_b, 1), depth, false) {
+                        if lean_obj_tag(curr_a) != EXPR_APP {
+                            break;
+                        }
+                        if lean_obj_tag(curr_b) != EXPR_APP {
+                            return false;
+                        }
+                        if !self.apply(
+                            lean_ctor_get(curr_a, 1),
+                            lean_ctor_get(curr_b, 1),
+                            depth,
+                            false,
+                        ) {
                             return false;
                         }
                         curr_a = lean_ctor_get(curr_a, 0);
@@ -289,23 +338,41 @@ mod kernel_expr_eq_fn_impl {
                 EXPR_LAMBDA | EXPR_PI => {
                     // field[0]=name, field[1]=domain, field[2]=body; scalar: data u64, binder_info u8
                     self.check_system(depth);
-                    if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) { return false; }
-                    if !self.apply(lean_ctor_get(a, 2), lean_ctor_get(b, 2), depth, false) { return false; }
+                    if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) {
+                        return false;
+                    }
+                    if !self.apply(lean_ctor_get(a, 2), lean_ctor_get(b, 2), depth, false) {
+                        return false;
+                    }
                     if self.compare_binder_info {
-                        if lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) == 0 { return false; }
-                        if expr_binder_info_raw(a) != expr_binder_info_raw(b) { return false; }
+                        if lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) == 0 {
+                            return false;
+                        }
+                        if expr_binder_info_raw(a) != expr_binder_info_raw(b) {
+                            return false;
+                        }
                     }
                     true
                 }
                 EXPR_LET => {
                     // field[0]=name, field[1]=type, field[2]=value, field[3]=body; scalar: data u64, nondep u8
                     self.check_system(depth);
-                    if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) { return false; }
-                    if !self.apply(lean_ctor_get(a, 2), lean_ctor_get(b, 2), depth, false) { return false; }
-                    if !self.apply(lean_ctor_get(a, 3), lean_ctor_get(b, 3), depth, false) { return false; }
-                    if expr_let_nondep(a) != expr_let_nondep(b) { return false; }
+                    if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) {
+                        return false;
+                    }
+                    if !self.apply(lean_ctor_get(a, 2), lean_ctor_get(b, 2), depth, false) {
+                        return false;
+                    }
+                    if !self.apply(lean_ctor_get(a, 3), lean_ctor_get(b, 3), depth, false) {
+                        return false;
+                    }
+                    if expr_let_nondep(a) != expr_let_nondep(b) {
+                        return false;
+                    }
                     if self.compare_binder_info {
-                        if lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) == 0 { return false; }
+                        if lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) == 0 {
+                            return false;
+                        }
                     }
                     true
                 }

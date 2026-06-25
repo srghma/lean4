@@ -330,7 +330,10 @@ mod runtime_object_array_impl {
         v: *mut LeanObject,
     ) -> *mut LeanObject {
         lean_dec(v);
-        lean_panic_fn(a, lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()))
+        lean_panic_fn(
+            a,
+            lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()),
+        )
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]

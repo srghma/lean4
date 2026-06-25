@@ -77,7 +77,11 @@ mod library_module_impl {
     #[inline]
     fn align_up_ptr(d: usize) -> usize {
         let rem = d % PTR_SIZE;
-        if rem != 0 { d + PTR_SIZE - rem } else { d }
+        if rem != 0 {
+            d + PTR_SIZE - rem
+        } else {
+            d
+        }
     }
 
     /// Info about a dependency region needed for cross-region pointer fixup.
@@ -189,10 +193,7 @@ mod library_module_impl {
             0
         }
         let mut state = State { libs: Vec::new() };
-        libc::dl_iterate_phdr(
-            Some(callback),
-            &mut state as *mut State as *mut c_void,
-        );
+        libc::dl_iterate_phdr(Some(callback), &mut state as *mut State as *mut c_void);
         state.libs.sort_by_key(|l| l.base_addr);
         state.libs
     }
@@ -232,7 +233,9 @@ mod library_module_impl {
 
     /// Parse the on-disk lib relocation table starting at `p`.
     /// Returns sorted `(old_base, delta)` pairs.
-    unsafe fn read_lib_relocs(mut p: *const u8) -> Result<Vec<(usize, isize)>, std::string::String> {
+    unsafe fn read_lib_relocs(
+        mut p: *const u8,
+    ) -> Result<Vec<(usize, isize)>, std::string::String> {
         let mut n: u32 = 0;
         core::ptr::copy_nonoverlapping(p, &mut n as *mut u32 as *mut u8, 4);
         p = p.add(4);
@@ -307,7 +310,7 @@ mod library_module_impl {
             let dep = &dep_regions[idx - 1];
             if addr < dep.m_base_addr + dep.m_size {
                 return (dep.m_begin + (addr - dep.m_base_addr)) as *mut LeanObject;
-        }
+            }
         }
         // No region matched: should not happen with valid olean data.
         o
@@ -409,9 +412,8 @@ mod library_module_impl {
                         #[cfg(lean_use_gmp)]
                         {
                             // Fix _mp_d: stored as m_base_addr-relative, convert to m_begin-relative.
-                            let mp_d_field = (curr as *mut u8)
-                                .add(LEAN_MPZ_MP_D_OFFSET)
-                                .cast::<usize>();
+                            let mp_d_field =
+                                (curr as *mut u8).add(LEAN_MPZ_MP_D_OFFSET).cast::<usize>();
                             let old_mp_d = mp_d_field.read();
                             mp_d_field.write(m_begin + (old_mp_d - m_base_addr));
                         }
@@ -480,8 +482,7 @@ mod library_module_impl {
                 return io_error_str(format!(
                     "failed to open file '{}': {}",
                     olean_fn,
-                    CStr::from_ptr(libc::strerror(*libc::__errno_location()))
-                        .to_string_lossy()
+                    CStr::from_ptr(libc::strerror(*libc::__errno_location())).to_string_lossy()
                 ));
             }
             fd
@@ -491,7 +492,9 @@ mod library_module_impl {
         impl Drop for FdGuard {
             fn drop(&mut self) {
                 if self.0 >= 0 {
-                    unsafe { libc::close(self.0); }
+                    unsafe {
+                        libc::close(self.0);
+                    }
                 }
             }
         }
@@ -503,8 +506,7 @@ mod library_module_impl {
             return io_error_str(format!(
                 "failed to stat file '{}': {}",
                 olean_fn,
-                CStr::from_ptr(libc::strerror(*libc::__errno_location()))
-                    .to_string_lossy()
+                CStr::from_ptr(libc::strerror(*libc::__errno_location())).to_string_lossy()
             ));
         }
         let file_size = st.st_size as usize;
@@ -516,8 +518,7 @@ mod library_module_impl {
             return io_error_str(format!(
                 "failed to read file '{}': {}",
                 olean_fn,
-                CStr::from_ptr(libc::strerror(*libc::__errno_location()))
-                    .to_string_lossy()
+                CStr::from_ptr(libc::strerror(*libc::__errno_location())).to_string_lossy()
             ));
         }
         if n_read as usize != OLEAN_HEADER_SIZE {
@@ -534,8 +535,7 @@ mod library_module_impl {
         }
         let version = header_buf[5];
         let flags = header_buf[6];
-        if (version != OLEAN_VERSION_V2 && version != OLEAN_VERSION_V3)
-            || flags != OLEAN_FLAGS_GMP
+        if (version != OLEAN_VERSION_V2 && version != OLEAN_VERSION_V3) || flags != OLEAN_FLAGS_GMP
         {
             return io_error_str(format!(
                 "failed to read file '{}', incompatible header",
@@ -639,10 +639,7 @@ mod library_module_impl {
                         } else {
                             libc::free(buffer as *mut c_void);
                         }
-                        return io_error_str(format!(
-                            "failed to read '{}': {msg}",
-                            olean_fn
-                        ));
+                        return io_error_str(format!("failed to read '{}': {msg}", olean_fn));
                     }
                 }
             }

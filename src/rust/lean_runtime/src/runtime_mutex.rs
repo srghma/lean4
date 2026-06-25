@@ -284,14 +284,22 @@ mod runtime_mutex_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_condvar_notify_one(condvar: *mut LeanObject) -> *mut LeanObject {
-        external_data::<RuntimeCondvar>(condvar).condvar.notify_one();
+    pub unsafe extern "C" fn lean_io_condvar_notify_one(
+        condvar: *mut LeanObject,
+    ) -> *mut LeanObject {
+        external_data::<RuntimeCondvar>(condvar)
+            .condvar
+            .notify_one();
         lean_box(0)
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_condvar_notify_all(condvar: *mut LeanObject) -> *mut LeanObject {
-        external_data::<RuntimeCondvar>(condvar).condvar.notify_all();
+    pub unsafe extern "C" fn lean_io_condvar_notify_all(
+        condvar: *mut LeanObject,
+    ) -> *mut LeanObject {
+        external_data::<RuntimeCondvar>(condvar)
+            .condvar
+            .notify_all();
         lean_box(0)
     }
 
@@ -323,7 +331,9 @@ mod runtime_mutex_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_write(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_basesharedmutex_write(
+        mtx: *mut LeanObject,
+    ) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).write();
         lean_box(0)
     }
@@ -360,7 +370,10 @@ mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_mutexEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean16initialize_mutexEv"
+    )]
     pub extern "C" fn initialize_mutex() {
         unsafe {
             BASEMUTEX_EXTERNAL_CLASS =
@@ -374,7 +387,10 @@ mod runtime_mutex_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_mutexEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean14finalize_mutexEv"
+    )]
     pub extern "C" fn finalize_mutex() {}
 }
 

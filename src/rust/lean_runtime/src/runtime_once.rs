@@ -32,7 +32,11 @@ fn unlock_once_cell(lock: &AtomicI32) {
     lock.store(0, Ordering::Release);
 }
 
-unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsafe extern "C" fn() -> T) -> T {
+unsafe fn run_once<T: Copy>(
+    loc: *mut T,
+    tok: *mut LeanOnceCell,
+    init: unsafe extern "C" fn() -> T,
+) -> T {
     let tok = &*tok;
     lock_once_cell(&tok.lock);
     if tok.state.load(Ordering::Acquire) != 1 {

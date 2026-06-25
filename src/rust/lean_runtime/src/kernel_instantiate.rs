@@ -31,9 +31,9 @@ Scalar field layout:
 
 #[cfg(feature = "export-runtime-ffi")]
 mod kernel_instantiate_impl {
-    use super::*;
-    use super::runtime_object_panic_impl::lean_internal_panic;
     use super::runtime_object_name_impl::lean_name_eq;
+    use super::runtime_object_panic_impl::lean_internal_panic;
+    use super::*;
     use std::collections::HashMap;
 
     extern "C" {
@@ -41,35 +41,59 @@ mod kernel_instantiate_impl {
         fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_expr_lift_loose_bvars(e: *mut LeanObject, s: *mut LeanObject, d: *mut LeanObject) -> *mut LeanObject;
+        fn lean_expr_lift_loose_bvars(
+            e: *mut LeanObject,
+            s: *mut LeanObject,
+            d: *mut LeanObject,
+        ) -> *mut LeanObject;
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_sort(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_const(n: *mut LeanObject, us: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_lambda(n: *mut LeanObject, d: *mut LeanObject, b: *mut LeanObject, bi: u8) -> *mut LeanObject;
-        fn lean_expr_mk_forall(n: *mut LeanObject, d: *mut LeanObject, b: *mut LeanObject, bi: u8) -> *mut LeanObject;
-        fn lean_expr_mk_let(n: *mut LeanObject, t: *mut LeanObject, v: *mut LeanObject, b: *mut LeanObject, nondep: u8) -> *mut LeanObject;
+        fn lean_expr_mk_lambda(
+            n: *mut LeanObject,
+            d: *mut LeanObject,
+            b: *mut LeanObject,
+            bi: u8,
+        ) -> *mut LeanObject;
+        fn lean_expr_mk_forall(
+            n: *mut LeanObject,
+            d: *mut LeanObject,
+            b: *mut LeanObject,
+            bi: u8,
+        ) -> *mut LeanObject;
+        fn lean_expr_mk_let(
+            n: *mut LeanObject,
+            t: *mut LeanObject,
+            v: *mut LeanObject,
+            b: *mut LeanObject,
+            nondep: u8,
+        ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_proj(sname: *mut LeanObject, idx: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
+        fn lean_expr_mk_proj(
+            sname: *mut LeanObject,
+            idx: *mut LeanObject,
+            expr: *mut LeanObject,
+        ) -> *mut LeanObject;
     }
 
     const LEVEL_DATA_HAS_PARAM_BIT: u64 = 1u64 << 33;
     const LEVEL_DATA_DEPTH_SHIFT: u32 = 40;
 
-    const LEVEL_SUCC:  u8 = 1;
-    const LEVEL_MAX:   u8 = 2;
-    const LEVEL_IMAX:  u8 = 3;
+    const LEVEL_SUCC: u8 = 1;
+    const LEVEL_MAX: u8 = 2;
+    const LEVEL_IMAX: u8 = 3;
     const LEVEL_PARAM: u8 = 4;
 
-    const EXPR_BVAR:   u8 = 0;
-    const EXPR_SORT:   u8 = 3;
-    const EXPR_CONST:  u8 = 4;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_BVAR: u8 = 0;
+    const EXPR_SORT: u8 = 3;
+    const EXPR_CONST: u8 = 4;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     const EXPR_DATA_HAS_LEVEL_PARAM_BIT: u64 = 1u64 << 43;
 
@@ -81,7 +105,8 @@ mod kernel_instantiate_impl {
 
     const TYPE_LPARAMS_MISMATCH: &[u8] = b"#universes mismatch at instantiateTypeLevelParams\0";
     const VALUE_LPARAMS_MISMATCH: &[u8] = b"#universes mismatch at instantiateValueLevelParams\0";
-    const VALUE_LPARAMS_EXPECTED_VALUE: &[u8] = b"definition/theorem expected at instantiateValueLevelParams\0";
+    const VALUE_LPARAMS_EXPECTED_VALUE: &[u8] =
+        b"definition/theorem expected at instantiateValueLevelParams\0";
 
     #[inline(always)]
     unsafe fn ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
@@ -155,7 +180,10 @@ mod kernel_instantiate_impl {
     }
 
     unsafe fn level_is_explicit(l: *mut LeanObject) -> bool {
-        lean_is_scalar(l) || (!lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC && level_is_explicit(lean_ctor_get(l, 0)))
+        lean_is_scalar(l)
+            || (!lean_is_scalar(l)
+                && lean_obj_tag(l) == LEVEL_SUCC
+                && level_is_explicit(lean_ctor_get(l, 0)))
     }
 
     unsafe fn level_is_not_zero(l: *mut LeanObject) -> bool {
@@ -164,7 +192,9 @@ mod kernel_instantiate_impl {
         }
         match lean_obj_tag(l) {
             LEVEL_SUCC => true,
-            LEVEL_MAX => level_is_not_zero(lean_ctor_get(l, 0)) || level_is_not_zero(lean_ctor_get(l, 1)),
+            LEVEL_MAX => {
+                level_is_not_zero(lean_ctor_get(l, 0)) || level_is_not_zero(lean_ctor_get(l, 1))
+            }
             LEVEL_IMAX => level_is_not_zero(lean_ctor_get(l, 1)),
             _ => false,
         }
@@ -205,13 +235,15 @@ mod kernel_instantiate_impl {
             lean_dec(rhs);
             return lhs;
         }
-        if !lean_is_scalar(rhs) && lean_obj_tag(rhs) == LEVEL_MAX
+        if !lean_is_scalar(rhs)
+            && lean_obj_tag(rhs) == LEVEL_MAX
             && (level_eq(lean_ctor_get(rhs, 0), lhs) || level_eq(lean_ctor_get(rhs, 1), lhs))
         {
             lean_dec(lhs);
             return rhs;
         }
-        if !lean_is_scalar(lhs) && lean_obj_tag(lhs) == LEVEL_MAX
+        if !lean_is_scalar(lhs)
+            && lean_obj_tag(lhs) == LEVEL_MAX
             && (level_eq(lean_ctor_get(lhs, 0), rhs) || level_eq(lean_ctor_get(lhs, 1), rhs))
         {
             lean_dec(rhs);
@@ -252,10 +284,10 @@ mod kernel_instantiate_impl {
 
     // (expr*, offset) → owned result cache — mirrors replace_rec_fn's cache.
     struct InstFn {
-        n: usize,                           // number of substitution expressions
-        start: usize,                       // first loose BVar index to instantiate at offset 0
-        base: *const *mut LeanObject,       // pointer to first subst element (borrowed)
-        rev: bool,                          // if true, index as subst[n-1-rel_idx] (instantiateRev)
+        n: usize,                     // number of substitution expressions
+        start: usize,                 // first loose BVar index to instantiate at offset 0
+        base: *const *mut LeanObject, // pointer to first subst element (borrowed)
+        rev: bool,                    // if true, index as subst[n-1-rel_idx] (instantiateRev)
         cache: HashMap<(usize, u32), *mut LeanObject>,
     }
 
@@ -303,10 +335,18 @@ mod kernel_instantiate_impl {
                             let (_, ovf) = first_idx.overflowing_add(self.n);
                             if ovf || rel_idx < self.n {
                                 // In substitution range: look up substitution and lift.
-                                let subst_idx = if self.rev { self.n - rel_idx - 1 } else { rel_idx };
+                                let subst_idx = if self.rev {
+                                    self.n - rel_idx - 1
+                                } else {
+                                    rel_idx
+                                };
                                 let v = *self.base.add(subst_idx);
                                 // lift_loose_bvars(v, 0, offset): lift all loose bvars by offset.
-                                lean_expr_lift_loose_bvars(v, lean_box(0), lean_box(offset as usize))
+                                lean_expr_lift_loose_bvars(
+                                    v,
+                                    lean_box(0),
+                                    lean_box(offset as usize),
+                                )
                             } else {
                                 // Beyond substitution range: lower BVar index by n.
                                 let new_idx = idx - self.n;
@@ -323,9 +363,9 @@ mod kernel_instantiate_impl {
                     }
                 }
                 EXPR_APP => {
-                    let fn_e  = lean_ctor_get(e, 0);
+                    let fn_e = lean_ctor_get(e, 0);
                     let arg_e = lean_ctor_get(e, 1);
-                    let new_fn  = self.apply(fn_e,  offset);
+                    let new_fn = self.apply(fn_e, offset);
                     let new_arg = self.apply(arg_e, offset);
                     if new_fn == fn_e && new_arg == arg_e {
                         lean_dec(new_fn);
@@ -337,9 +377,9 @@ mod kernel_instantiate_impl {
                     }
                 }
                 EXPR_LAMBDA | EXPR_PI => {
-                    let dom  = lean_ctor_get(e, 1);
+                    let dom = lean_ctor_get(e, 1);
                     let body = lean_ctor_get(e, 2);
-                    let new_dom  = self.apply(dom,  offset);
+                    let new_dom = self.apply(dom, offset);
                     let new_body = self.apply(body, offset + 1);
                     if new_dom == dom && new_body == body {
                         lean_dec(new_dom);
@@ -358,11 +398,11 @@ mod kernel_instantiate_impl {
                     }
                 }
                 EXPR_LET => {
-                    let ty   = lean_ctor_get(e, 1);
-                    let val  = lean_ctor_get(e, 2);
+                    let ty = lean_ctor_get(e, 1);
+                    let val = lean_ctor_get(e, 2);
                     let body = lean_ctor_get(e, 3);
-                    let new_ty   = self.apply(ty,   offset);
-                    let new_val  = self.apply(val,  offset);
+                    let new_ty = self.apply(ty, offset);
+                    let new_val = self.apply(val, offset);
                     let new_body = self.apply(body, offset + 1);
                     if new_ty == ty && new_val == val && new_body == body {
                         lean_dec(new_ty);
@@ -371,7 +411,7 @@ mod kernel_instantiate_impl {
                         lean_inc(e);
                         e
                     } else {
-                        let name   = lean_ctor_get(e, 0);
+                        let name = lean_ctor_get(e, 0);
                         lean_inc(name);
                         let nondep = expr_let_nondep(e);
                         lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
@@ -399,7 +439,7 @@ mod kernel_instantiate_impl {
                         e
                     } else {
                         let sname = lean_ctor_get(e, 0);
-                        let idx   = lean_ctor_get(e, 1);
+                        let idx = lean_ctor_get(e, 1);
                         lean_inc(sname);
                         lean_inc(idx);
                         lean_expr_mk_proj(sname, idx, new_child)
@@ -433,7 +473,13 @@ mod kernel_instantiate_impl {
             lean_inc(a);
             return a;
         }
-        let mut inst = InstFn { n, start, base, rev, cache: HashMap::new() };
+        let mut inst = InstFn {
+            n,
+            start,
+            base,
+            rev,
+            cache: HashMap::new(),
+        };
         inst.apply(a, 0)
     }
 
@@ -460,7 +506,10 @@ mod kernel_instantiate_impl {
         instantiate_core(a, 0, n, subst, true)
     }
 
-    unsafe fn mk_app_from_borrowed(mut f: *mut LeanObject, args: &[*mut LeanObject]) -> *mut LeanObject {
+    unsafe fn mk_app_from_borrowed(
+        mut f: *mut LeanObject,
+        args: &[*mut LeanObject],
+    ) -> *mut LeanObject {
         lean_inc(f);
         for &arg in args {
             lean_inc(arg);
@@ -588,7 +637,8 @@ mod kernel_instantiate_impl {
                 }
             }
             LEVEL_PARAM => {
-                if let Some(replacement) = find_level_param(lean_ctor_get(level, 0), params, levels) {
+                if let Some(replacement) = find_level_param(lean_ctor_get(level, 0), params, levels)
+                {
                     replacement
                 } else {
                     lean_inc(level);
@@ -859,7 +909,7 @@ mod kernel_instantiate_impl {
         a: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
-        let n    = lean_array_size(subst);
+        let n = lean_array_size(subst);
         let base = lean_array_data_ptr(subst);
         instantiate_core(a, 0, n, base, false)
     }
@@ -877,12 +927,12 @@ mod kernel_instantiate_impl {
             lean_internal_panic(b"invalid range for Expr.instantiateRange\0".as_ptr() as *const i8);
         }
         let sz = lean_array_size(subst);
-        let b  = lean_unbox(begin);
-        let e  = lean_unbox(end);
+        let b = lean_unbox(begin);
+        let e = lean_unbox(end);
         if b > e || e > sz {
             lean_internal_panic(b"invalid range for Expr.instantiateRange\0".as_ptr() as *const i8);
         }
-        let n    = e - b;
+        let n = e - b;
         let base = lean_array_data_ptr(subst).add(b);
         instantiate_core(a, 0, n, base, false)
     }
@@ -894,7 +944,7 @@ mod kernel_instantiate_impl {
         a: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
-        let n    = lean_array_size(subst);
+        let n = lean_array_size(subst);
         let base = lean_array_data_ptr(subst);
         instantiate_core(a, 0, n, base, true)
     }
@@ -909,15 +959,19 @@ mod kernel_instantiate_impl {
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
         if !lean_is_scalar(begin) || !lean_is_scalar(end) {
-            lean_internal_panic(b"invalid range for Expr.instantiateRevRange\0".as_ptr() as *const i8);
+            lean_internal_panic(
+                b"invalid range for Expr.instantiateRevRange\0".as_ptr() as *const i8
+            );
         }
         let sz = lean_array_size(subst);
-        let b  = lean_unbox(begin);
-        let e  = lean_unbox(end);
+        let b = lean_unbox(begin);
+        let e = lean_unbox(end);
         if b > e || e > sz {
-            lean_internal_panic(b"invalid range for Expr.instantiateRevRange\0".as_ptr() as *const i8);
+            lean_internal_panic(
+                b"invalid range for Expr.instantiateRevRange\0".as_ptr() as *const i8
+            );
         }
-        let n    = e - b;
+        let n = e - b;
         let base = lean_array_data_ptr(subst).add(b);
         instantiate_core(a, 0, n, base, true)
     }

@@ -6,8 +6,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_memory_impl {
     use super::*;
     use core::ffi::c_char;
-    use std::sync::atomic::{AtomicUsize, Ordering};
     use std::cell::Cell;
+    use std::sync::atomic::{AtomicUsize, Ordering};
 
     const LEAN_CHECK_MEM_THRESHOLD: usize = 200;
 
@@ -43,11 +43,18 @@ mod runtime_memory_impl {
 
     #[cfg(windows)]
     unsafe fn get_peak_rss() -> usize {
-        use windows_sys::Win32::System::ProcessStatus::{GetProcessMemoryInfo, PROCESS_MEMORY_COUNTERS};
+        use windows_sys::Win32::System::ProcessStatus::{
+            GetProcessMemoryInfo, PROCESS_MEMORY_COUNTERS,
+        };
         use windows_sys::Win32::System::Threading::GetCurrentProcess;
         let mut info = std::mem::zeroed::<PROCESS_MEMORY_COUNTERS>();
         info.cb = std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32;
-        if GetProcessMemoryInfo(GetCurrentProcess(), &mut info, std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32) != 0 {
+        if GetProcessMemoryInfo(
+            GetCurrentProcess(),
+            &mut info,
+            std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32,
+        ) != 0
+        {
             info.PeakWorkingSetSize as usize
         } else {
             0
@@ -72,7 +79,9 @@ mod runtime_memory_impl {
 
     #[cfg(target_os = "macos")]
     unsafe fn get_current_rss() -> usize {
-        use mach2::task_info::{task_info, task_info_t, MACH_TASK_BASIC_INFO, MACH_TASK_BASIC_INFO_COUNT};
+        use mach2::task_info::{
+            task_info, task_info_t, MACH_TASK_BASIC_INFO, MACH_TASK_BASIC_INFO_COUNT,
+        };
         use mach2::traps::mach_task_self;
         let mut info = std::mem::zeroed::<mach2::task_info::mach_task_basic_info>();
         let mut info_count = MACH_TASK_BASIC_INFO_COUNT;
@@ -81,7 +90,8 @@ mod runtime_memory_impl {
             MACH_TASK_BASIC_INFO,
             &mut info as *mut _ as task_info_t,
             &mut info_count,
-        ) == 0 {
+        ) == 0
+        {
             info.resident_size as usize
         } else {
             0
@@ -90,11 +100,18 @@ mod runtime_memory_impl {
 
     #[cfg(windows)]
     unsafe fn get_current_rss() -> usize {
-        use windows_sys::Win32::System::ProcessStatus::{GetProcessMemoryInfo, PROCESS_MEMORY_COUNTERS};
+        use windows_sys::Win32::System::ProcessStatus::{
+            GetProcessMemoryInfo, PROCESS_MEMORY_COUNTERS,
+        };
         use windows_sys::Win32::System::Threading::GetCurrentProcess;
         let mut info = std::mem::zeroed::<PROCESS_MEMORY_COUNTERS>();
         info.cb = std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32;
-        if GetProcessMemoryInfo(GetCurrentProcess(), &mut info, std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32) != 0 {
+        if GetProcessMemoryInfo(
+            GetCurrentProcess(),
+            &mut info,
+            std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32,
+        ) != 0
+        {
             info.WorkingSetSize as usize
         } else {
             0
@@ -111,7 +128,10 @@ mod runtime_memory_impl {
         unsafe { lean_box(DEFAULT) }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14set_max_memoryEm")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean14set_max_memoryEm"
+    )]
     pub extern "C" fn set_max_memory(max: usize) {
         G_MAX_MEMORY.store(max, Ordering::SeqCst);
     }
@@ -122,13 +142,19 @@ mod runtime_memory_impl {
         unsafe { lean_box(0) }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23set_max_memory_megabyteEj")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean23set_max_memory_megabyteEj"
+    )]
     pub extern "C" fn set_max_memory_megabyte(max: u32) {
         let m = (max as usize).wrapping_mul(1024).wrapping_mul(1024);
         set_max_memory(m);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean12check_memoryEPKc")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean12check_memoryEPKc"
+    )]
     pub unsafe extern "C" fn check_memory(component_name: *const c_char) {
         let max = G_MAX_MEMORY.load(Ordering::SeqCst);
         if max == 0 {
@@ -153,7 +179,10 @@ mod runtime_memory_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20get_allocated_memoryEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean20get_allocated_memoryEv"
+    )]
     pub unsafe extern "C" fn get_allocated_memory() -> usize {
         get_current_rss()
     }

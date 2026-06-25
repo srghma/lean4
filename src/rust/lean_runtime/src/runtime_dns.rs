@@ -33,12 +33,7 @@ mod runtime_dns_impl {
             loop_: *mut c_void,
             req: *mut UvGetNameInfo,
             cb: Option<
-                unsafe extern "C" fn(
-                    *mut UvGetNameInfo,
-                    c_int,
-                    *const c_char,
-                    *const c_char,
-                ),
+                unsafe extern "C" fn(*mut UvGetNameInfo, c_int, *const c_char, *const c_char),
             >,
             addr: *const libc::sockaddr,
             flags: c_int,
@@ -54,10 +49,8 @@ mod runtime_dns_impl {
             out: *mut libc::sockaddr_storage,
         );
         #[link_name = "_ZN4lean31lean_in_addr_storage_to_ip_addrEsPNS_15in_addr_storageE"]
-        fn lean_in_addr_storage_to_ip_addr(
-            family: i16,
-            out: *mut InAddrStorage,
-        ) -> *mut LeanObject;
+        fn lean_in_addr_storage_to_ip_addr(family: i16, out: *mut InAddrStorage)
+            -> *mut LeanObject;
 
         #[link_name = "_ZN4lean30lean_promise_resolve_with_codeEiP11lean_object"]
         fn lean_promise_resolve_with_code(code: c_int, promise: *mut LeanObject);
@@ -175,7 +168,8 @@ mod runtime_dns_impl {
                     continue;
                 }
 
-                let addr = lean_in_addr_storage_to_ip_addr(family as i16, storage_addr.as_mut_ptr());
+                let addr =
+                    lean_in_addr_storage_to_ip_addr(family as i16, storage_addr.as_mut_ptr());
                 arr = lean_array_push(arr, addr);
                 ai = (*ai).ai_next;
             }

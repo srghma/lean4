@@ -16,10 +16,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 )]
 
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
-use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use core::ptr;
 #[cfg(not(feature = "std"))]
 use core::panic::PanicInfo;
+use core::ptr;
+use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
 type Size = usize;
 
@@ -44,7 +44,8 @@ extern "C" {
     #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
     fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
     fn lean_io_promise_new() -> *mut LeanObject;
-    fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject) -> *mut LeanObject;
+    fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject)
+        -> *mut LeanObject;
     fn lean_mark_mt(obj: *mut LeanObject);
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
@@ -58,10 +59,7 @@ extern "C" {
         name: *mut LeanObject,
         value: bool,
     ) -> *mut LeanObject;
-    fn lean_get_init_fn_name_for(
-        env: *mut LeanObject,
-        name: *mut LeanObject,
-    ) -> *mut LeanObject;
+    fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
     fn lean_get_profiler(opts: *mut LeanObject) -> u8;
     fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
 
@@ -126,7 +124,7 @@ extern "C" {
     fn initialize_Init(builtin: u8) -> *mut LeanObject;
     fn initialize_Std(builtin: u8) -> *mut LeanObject;
     fn initialize_Lean(builtin: u8) -> *mut LeanObject;
-    }
+}
 
 #[repr(C)]
 pub struct LeanObject {
@@ -247,12 +245,19 @@ pub struct LeanOptionalName {
     value: LeanName,
 }
 
-static mut VERBOSE_OPT: LeanName = LeanName { obj: ptr::null_mut() };
-static mut MAX_MEMORY_OPT: LeanName = LeanName { obj: ptr::null_mut() };
-static mut TIMEOUT_OPT: LeanName = LeanName { obj: ptr::null_mut() };
-static mut CONSTRUCTIONS_FRESH: LeanName = LeanName { obj: ptr::null_mut() };
-static INTERNAL_UNIQUE_NAME_ID: std::sync::atomic::AtomicU32 =
-    std::sync::atomic::AtomicU32::new(0);
+static mut VERBOSE_OPT: LeanName = LeanName {
+    obj: ptr::null_mut(),
+};
+static mut MAX_MEMORY_OPT: LeanName = LeanName {
+    obj: ptr::null_mut(),
+};
+static mut TIMEOUT_OPT: LeanName = LeanName {
+    obj: ptr::null_mut(),
+};
+static mut CONSTRUCTIONS_FRESH: LeanName = LeanName {
+    obj: ptr::null_mut(),
+};
+static INTERNAL_UNIQUE_NAME_ID: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
 
 struct NameGeneratorState {
     tmp_prefix: *mut LeanObject,
@@ -285,7 +290,8 @@ pub unsafe fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
 }
 
 pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
-    if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC {
+    if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
+    {
         runtime_object_rc_impl::quar_report_uaf(obj, "inc");
     }
     if (*obj).rc > 0 {
@@ -301,7 +307,8 @@ pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {
 }
 
 unsafe fn lean_dec_ref(obj: *mut LeanObject) {
-    if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC {
+    if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
+    {
         runtime_object_rc_impl::quar_report_uaf(obj, "dec");
     }
     if (*obj).rc > 1 {
@@ -346,7 +353,10 @@ unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
 }
 
 unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) {
-    (obj.add(1) as *mut u8).add(offset).cast::<u16>().write(value);
+    (obj.add(1) as *mut u8)
+        .add(offset)
+        .cast::<u16>()
+        .write(value);
 }
 
 unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
@@ -354,7 +364,10 @@ unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
 }
 
 unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
-    (obj.add(1) as *mut u8).add(offset).cast::<u64>().write(value);
+    (obj.add(1) as *mut u8)
+        .add(offset)
+        .cast::<u64>()
+        .write(value);
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -397,8 +410,9 @@ pub unsafe extern "C" fn lean_runtime_ctor_set(
     value: *mut LeanObject,
 ) {
     debug_assert!(index < (*obj).other as c_uint);
-    let fields = (obj as *mut LeanCtorObject).cast::<u8>().add(core::mem::size_of::<LeanCtorObject>())
-        as *mut *mut LeanObject;
+    let fields = (obj as *mut LeanCtorObject)
+        .cast::<u8>()
+        .add(core::mem::size_of::<LeanCtorObject>()) as *mut *mut LeanObject;
     fields.add(index as Size).write(value);
 }
 
@@ -411,7 +425,6 @@ pub unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject {
 pub unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 {
     lean_ctor_get_uint64(o, 0)
 }
-
 
 unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
     let array_data_ptr = (obj as *const u8).add(24) as *const *mut LeanObject;
@@ -446,7 +459,11 @@ unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
-pub(crate) unsafe fn lean_alloc_sarray(elem_size: c_uint, size: Size, capacity: Size) -> *mut LeanObject {
+pub(crate) unsafe fn lean_alloc_sarray(
+    elem_size: c_uint,
+    size: Size,
+    capacity: Size,
+) -> *mut LeanObject {
     const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
     let byte_size = core::mem::size_of::<LeanScalarArray>()
         .checked_add(
@@ -474,7 +491,11 @@ pub(crate) fn lean_alloc_sarray_would_overflow(elem_size: c_uint, capacity: Size
     }
 }
 
-pub(crate) unsafe fn lean_alloc_string(size: usize, capacity: usize, len: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_alloc_string(
+    size: usize,
+    capacity: usize,
+    len: usize,
+) -> *mut LeanObject {
     const LEAN_STRING_TAG: u8 = 249;
     let byte_size = core::mem::size_of::<LeanStringObject>()
         .checked_add(capacity)
@@ -504,7 +525,6 @@ unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
     let sarray = obj as *const LeanScalarArray;
     (*sarray).capacity
 }
-
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
@@ -603,7 +623,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut L
     if libc::fflush(fp) == 0 {
         lean_io_result_mk_ok(lean_box(0))
     } else {
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     }
 }
 
@@ -613,7 +636,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut 
     if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
         lean_io_result_mk_ok(lean_box(0))
     } else {
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     }
 }
 
@@ -625,7 +651,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mu
         if libc::_chsize_s(libc::_fileno(fp), libc::_ftelli64(fp)) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+            lean_io_result_mk_error(lean_decode_io_error(
+                lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ))
         }
     }
     #[cfg(not(target_os = "windows"))]
@@ -633,7 +662,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mu
         if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+            lean_io_result_mk_error(lean_decode_io_error(
+                lean_runtime_errno(),
+                core::ptr::null_mut(),
+            ))
         }
     }
 }
@@ -653,7 +685,12 @@ pub unsafe extern "C" fn lean_io_prim_handle_read(
         return lean_io_result_mk_ok(res);
     }
 
-    let n = libc::fread(lean_sarray_cptr(res) as *mut core::ffi::c_void, 1, nbytes, fp);
+    let n = libc::fread(
+        lean_sarray_cptr(res) as *mut core::ffi::c_void,
+        1,
+        nbytes,
+        fp,
+    );
     if n > 0 {
         lean_sarray_set_size(res, n);
         lean_io_result_mk_ok(res)
@@ -663,7 +700,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_read(
         lean_io_result_mk_ok(res)
     } else {
         lean_dec(res);
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     }
 }
 
@@ -678,7 +718,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_write(
     if m == n {
         lean_io_result_mk_ok(lean_box(0))
     } else {
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     }
 }
 
@@ -728,7 +771,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mu
     }
 
     if libc::ferror(fp) != 0 {
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     } else {
         if libc::feof(fp) != 0 {
             libc::clearerr(fp);
@@ -749,7 +795,10 @@ pub unsafe extern "C" fn lean_io_prim_handle_put_str(
     if m == n {
         lean_io_result_mk_ok(lean_box(0))
     } else {
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), core::ptr::null_mut()))
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     }
 }
 
@@ -896,13 +945,7 @@ pub unsafe extern "C" fn lean_windows_get_next_transition(
             ));
         }
 
-        let cal = ucal_open(
-            tz_id.as_ptr(),
-            -1,
-            ptr::null(),
-            UCAL_GREGORIAN,
-            &mut status,
-        );
+        let cal = ucal_open(tz_id.as_ptr(), -1, ptr::null(), UCAL_GREGORIAN, &mut status);
         if cal.is_null() || icu_failed(status) {
             if !cal.is_null() {
                 ucal_close(cal);
@@ -1054,7 +1097,11 @@ pub unsafe extern "C" fn lean_windows_get_next_transition(
                 display_name_str_len as usize,
             ),
         );
-        lean_ctor_set_uint8(lean_tz, core::mem::size_of::<*mut c_void>() * 3, is_dst as u8);
+        lean_ctor_set_uint8(
+            lean_tz,
+            core::mem::size_of::<*mut c_void>() * 3,
+            is_dst as u8,
+        );
 
         let lean_pair = lean_alloc_ctor(0, 2, 0);
         lean_ctor_set(lean_pair, 0, lean_box_uint64(tm as u64));
@@ -1072,9 +1119,7 @@ pub unsafe extern "C" fn lean_windows_get_next_transition(
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_windows_local_timezone_id_at(
-    tm_obj: u64,
-) -> *mut LeanObject {
+pub unsafe extern "C" fn lean_get_windows_local_timezone_id_at(tm_obj: u64) -> *mut LeanObject {
     #[cfg(target_os = "windows")]
     {
         type UErrorCode = c_int;
@@ -1136,7 +1181,8 @@ pub unsafe extern "C" fn lean_get_windows_local_timezone_id_at(
         }
 
         let mut tz_id = [0u16; 256];
-        let tz_id_len = ucal_getTimeZoneID(cal, tz_id.as_mut_ptr(), tz_id.len() as c_int, &mut status);
+        let tz_id_len =
+            ucal_getTimeZoneID(cal, tz_id.as_mut_ptr(), tz_id.len() as c_int, &mut status);
         ucal_close(cal);
         if icu_failed(status) {
             return lean_io_result_mk_error(lean_mk_io_error_invalid_argument(
@@ -1330,8 +1376,9 @@ pub unsafe extern "C" fn lean_runtime_alloc_external(
     data: *mut c_void,
 ) -> *mut LeanObject {
     const LEAN_EXTERNAL_TAG: u8 = 254;
-    let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<LeanExternalObject>())
-        as *mut LeanExternalObject;
+    let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
+        LeanExternalObject,
+    >()) as *mut LeanExternalObject;
     (*obj).header.rc = 1;
     #[cfg(not(lean_has_mimalloc))]
     {
@@ -1365,7 +1412,8 @@ pub unsafe extern "C" fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut 
         value
     } else {
         runtime_object_panic_impl::lean_panic(
-            c"PANIC: Promise.result!: promise has been dropped without ever being resolved".as_ptr(),
+            c"PANIC: Promise.result!: promise has been dropped without ever being resolved"
+                .as_ptr(),
             true,
         );
         loop {
@@ -1604,8 +1652,6 @@ unsafe fn consume_io_result(result: *mut LeanObject) {
         let bytes = text.to_bytes();
         write(2, bytes.as_ptr(), bytes.len());
         write(2, b"\n".as_ptr(), 1);
-
-
     }
 }
 
@@ -1652,7 +1698,8 @@ unsafe fn initialize_kernel_module_body() {
     initialize_level();
     initialize_expr();
     initialize_declaration();
-    #[cfg(feature = "export-runtime-ffi")] initialize_type_checker();
+    #[cfg(feature = "export-runtime-ffi")]
+    initialize_type_checker();
     initialize_local_ctx();
     initialize_inductive();
     initialize_quot();
@@ -1664,7 +1711,8 @@ unsafe fn finalize_kernel_module_body() {
     finalize_quot();
     finalize_inductive();
     finalize_local_ctx();
-    #[cfg(feature = "export-runtime-ffi")] finalize_type_checker();
+    #[cfg(feature = "export-runtime-ffi")]
+    finalize_type_checker();
     finalize_declaration();
     finalize_expr();
     finalize_level();
@@ -1705,14 +1753,18 @@ unsafe fn finalize_constructions_module_body() {
     finalize_constructions_util();
 }
 
-
-
 // initialize_ascii / finalize_ascii are no-ops: the original C++ ascii.h had them as empty
 // inline functions. The actual ASCII utility functions are ported to Rust above.
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_asciiEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean16initialize_asciiEv"
+)]
 pub extern "C" fn initialize_ascii() {}
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_asciiEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean14finalize_asciiEv"
+)]
 pub extern "C" fn finalize_ascii() {}
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -1827,7 +1879,10 @@ pub extern "C" fn lean_initialize() {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18initialize_optionsEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean18initialize_optionsEv"
+)]
 pub extern "C" fn initialize_options() {
     unsafe {
         VERBOSE_OPT = mk_name("verbose");
@@ -1839,7 +1894,10 @@ pub extern "C" fn initialize_options() {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16finalize_optionsEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean16finalize_optionsEv"
+)]
 pub extern "C" fn finalize_options() {
     unsafe {
         if !VERBOSE_OPT.obj.is_null() {
@@ -1942,7 +2000,9 @@ pub extern "C" fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_register_name_generator_prefix(n: *mut LeanObject) {
     let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
-    let state = guard.as_mut().expect("name generator registry is not initialized");
+    let state = guard
+        .as_mut()
+        .expect("name generator registry is not initialized");
     assert!(!name_contains_registered_prefix(state, n));
     lean_inc(n);
     state.prefixes.push(n);
@@ -1957,7 +2017,10 @@ pub unsafe extern "C" fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> 
     name_uses_registered_prefix(state, n)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean25initialize_name_generatorEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean25initialize_name_generatorEv"
+)]
 pub extern "C" fn initialize_name_generator() {
     unsafe {
         let c_str = std::ffi::CString::new("_uniq").expect("static string has no NULs");
@@ -1973,12 +2036,18 @@ pub extern "C" fn initialize_name_generator() {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15initialize_nameEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean15initialize_nameEv"
+)]
 pub extern "C" fn initialize_name() {
     INTERNAL_UNIQUE_NAME_ID.store(0, Ordering::Relaxed);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13finalize_nameEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean13finalize_nameEv"
+)]
 pub extern "C" fn finalize_name() {}
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -1986,7 +2055,10 @@ pub extern "C" fn lean_name_next_internal_unique_id() -> c_uint {
     INTERNAL_UNIQUE_NAME_ID.fetch_add(1, Ordering::Relaxed)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23finalize_name_generatorEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean23finalize_name_generatorEv"
+)]
 pub extern "C" fn finalize_name_generator() {
     let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
     if let Some(state) = guard.take() {
@@ -1996,22 +2068,34 @@ pub extern "C" fn finalize_name_generator() {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20get_verbose_opt_nameEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean20get_verbose_opt_nameEv"
+)]
 pub extern "C" fn get_verbose_opt_name() -> *const LeanName {
     core::ptr::addr_of!(VERBOSE_OPT)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23get_max_memory_opt_nameEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean23get_max_memory_opt_nameEv"
+)]
 pub extern "C" fn get_max_memory_opt_name() -> *const LeanName {
     core::ptr::addr_of!(MAX_MEMORY_OPT)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20get_timeout_opt_nameEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean20get_timeout_opt_nameEv"
+)]
 pub extern "C" fn get_timeout_opt_name() -> *const LeanName {
     core::ptr::addr_of!(TIMEOUT_OPT)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11get_verboseERKNS_7optionsE")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean11get_verboseERKNS_7optionsE"
+)]
 pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     let name = (*get_verbose_opt_name()).obj;
@@ -2030,7 +2114,10 @@ pub unsafe extern "C" fn options_ctor_c2(this: *mut LeanOptions) {
     options_ctor_c1(this);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZNK4lean7options8get_boolERKNS_4nameEb")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZNK4lean7options8get_boolERKNS_4nameEb"
+)]
 pub unsafe extern "C" fn options_get_bool(
     this: *const LeanOptions,
     name: *const LeanName,
@@ -2043,7 +2130,10 @@ pub unsafe extern "C" fn options_get_bool(
     lean_options_get_bool(opts, name, default_value)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZNK4lean7options6updateERKNS_4nameEb")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZNK4lean7options6updateERKNS_4nameEb"
+)]
 pub unsafe extern "C" fn options_update(
     this: *const LeanOptions,
     name: *const LeanName,
@@ -2058,7 +2148,10 @@ pub unsafe extern "C" fn options_update(
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean12get_profilerERKNS_7optionsE")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean12get_profilerERKNS_7optionsE"
+)]
 pub unsafe extern "C" fn get_profiler(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     lean_inc(opts);
@@ -2075,10 +2168,16 @@ pub unsafe extern "C" fn get_profiling_threshold(opts: *const LeanOptions) -> f6
     lean_get_profiler_threshold(opts)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20initialize_profilingEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean20initialize_profilingEv"
+)]
 pub extern "C" fn initialize_profiling() {}
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18finalize_profilingEv")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean18finalize_profilingEv"
+)]
 pub extern "C" fn finalize_profiling() {}
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
@@ -2212,16 +2311,14 @@ pub unsafe extern "C" fn lean_get_linker_flags(link_static: u8) -> *mut LeanObje
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub unsafe extern "C" fn lean_get_internal_linker_flags(_: *mut LeanObject) -> *mut LeanObject {
-    lean_mk_string(concat!(env!("LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS"), "\0").as_ptr() as *const c_char)
+    lean_mk_string(
+        concat!(env!("LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS"), "\0").as_ptr() as *const c_char,
+    )
 }
 
 type LeanMapForeachFn = extern "C" fn(*mut LeanObject, *mut LeanObject, *mut c_void);
 
-unsafe fn lean_map_foreach_rbmap(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+unsafe fn lean_map_foreach_rbmap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     if lean_is_scalar(m) {
         return;
     }
@@ -2230,11 +2327,7 @@ unsafe fn lean_map_foreach_rbmap(
     lean_map_foreach_rbmap(lean_ctor_get(m, 3), cb, ctx);
 }
 
-unsafe fn lean_map_foreach_entry(
-    e: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+unsafe fn lean_map_foreach_entry(e: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     match lean_obj_tag(e) {
         0 => cb(lean_ctor_get(e, 0), lean_ctor_get(e, 1), ctx),
         1 => lean_map_foreach_node(lean_ctor_get(e, 0), cb, ctx),
@@ -2255,21 +2348,13 @@ unsafe fn lean_map_foreach_collision(
     }
 }
 
-unsafe fn lean_map_foreach_entries(
-    es: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+unsafe fn lean_map_foreach_entries(es: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     for i in 0..lean_array_size(es) {
         lean_map_foreach_entry(lean_array_get(es, i), cb, ctx);
     }
 }
 
-unsafe fn lean_map_foreach_node(
-    n: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+unsafe fn lean_map_foreach_node(n: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     if lean_ptr_tag(n) == 0 {
         lean_map_foreach_entries(lean_ctor_get(n, 0), cb, ctx);
     } else {
@@ -2277,11 +2362,7 @@ unsafe fn lean_map_foreach_node(
     }
 }
 
-unsafe fn lean_map_foreach_hashmap(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+unsafe fn lean_map_foreach_hashmap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     let buckets = lean_ctor_get(m, 1);
     for i in 0..lean_array_size(buckets) {
         let mut lst = lean_array_get(buckets, i);
@@ -2292,11 +2373,7 @@ unsafe fn lean_map_foreach_hashmap(
     }
 }
 
-unsafe fn lean_map_foreach_smap(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+unsafe fn lean_map_foreach_smap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     lean_map_foreach_hashmap(lean_ctor_get(m, 0), cb, ctx);
     lean_map_foreach_node(lean_ctor_get(m, 1), cb, ctx);
 }
@@ -2701,8 +2778,7 @@ pub unsafe extern "C" fn lean_runtime_next_utf8(
         let b1 = *text.add(i + 1) as c_uchar as c_uint;
         let b2 = *text.add(i + 2) as c_uchar as c_uint;
         let b3 = *text.add(i + 3) as c_uchar as c_uint;
-        let scalar =
-            ((byte & 0x07) << 18) | ((b1 & 0x3f) << 12) | ((b2 & 0x3f) << 6) | (b3 & 0x3f);
+        let scalar = ((byte & 0x07) << 18) | ((b1 & 0x3f) << 12) | ((b2 & 0x3f) << 6) | (b3 & 0x3f);
         if (0x10000..=0x10FFFF).contains(&scalar) {
             *pos = i + 4;
             return scalar;
@@ -2769,8 +2845,7 @@ pub unsafe extern "C" fn lean_runtime_validate_utf8_one(
         if b1 & 0xc0 != 0x80 || b2 & 0xc0 != 0x80 || b3 & 0xc0 != 0x80 {
             return false;
         }
-        let scalar =
-            ((byte & 0x07) << 18) | ((b1 & 0x3f) << 12) | ((b2 & 0x3f) << 6) | (b3 & 0x3f);
+        let scalar = ((byte & 0x07) << 18) | ((b1 & 0x3f) << 12) | ((b2 & 0x3f) << 6) | (b3 & 0x3f);
         if !(0x10000..=0x10FFFF).contains(&scalar) {
             return false;
         }
@@ -2798,7 +2873,10 @@ pub unsafe extern "C" fn lean_runtime_validate_utf8(
 }
 
 #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_push_unicode_scalar(dst: *mut c_char, code: c_uint) -> c_uint {
+pub unsafe extern "C" fn lean_runtime_push_unicode_scalar(
+    dst: *mut c_char,
+    code: c_uint,
+) -> c_uint {
     const TAG_CONT: c_uint = 0b10000000;
     const TAG_TWO_B: c_uint = 0b11000000;
     const TAG_THREE_B: c_uint = 0b11100000;
@@ -2807,7 +2885,12 @@ pub unsafe extern "C" fn lean_runtime_push_unicode_scalar(dst: *mut c_char, code
     let bytes = if code < 0x80 {
         [code, 0, 0, 0]
     } else if code < 0x800 {
-        [((code >> 6) & 0x1F) | TAG_TWO_B, (code & 0x3F) | TAG_CONT, 0, 0]
+        [
+            ((code >> 6) & 0x1F) | TAG_TWO_B,
+            (code & 0x3F) | TAG_CONT,
+            0,
+            0,
+        ]
     } else if code < 0x10000 {
         [
             ((code >> 12) & 0x0F) | TAG_THREE_B,

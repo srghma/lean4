@@ -10,9 +10,9 @@ The C++ value-type facade now lives inline in kernel/level.h.
 
 #[cfg(feature = "export-runtime-ffi")]
 mod kernel_level_impl {
-    use super::*;
-    use super::runtime_object_panic_impl::lean_internal_panic;
     use super::runtime_object_name_impl::lean_name_eq;
+    use super::runtime_object_panic_impl::lean_internal_panic;
+    use super::*;
 
     // Structural equality on lean Level objects (mirrors C++ operator==).
     // Level tags:
@@ -63,9 +63,7 @@ mod kernel_level_impl {
             lean_internal_panic(b"universe level depth is too big\0".as_ptr() as *const i8);
         }
         let h1 = h as u32 as u64;
-        h1 | ((has_mvar as u64) << 32)
-            | ((has_param as u64) << 33)
-            | ((d as u64) << 40)
+        h1 | ((has_mvar as u64) << 32) | ((has_param as u64) << 33) | ((d as u64) << 40)
     }
 
     #[no_mangle]

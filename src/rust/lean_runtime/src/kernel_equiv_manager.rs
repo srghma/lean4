@@ -37,18 +37,18 @@ mod kernel_equiv_manager_impl {
 
     use super::runtime_object_name_impl::lean_name_eq;
 
-    const EXPR_BVAR:   u8 = 0;
-    const EXPR_FVAR:   u8 = 1;
-    const EXPR_MVAR:   u8 = 2;
-    const EXPR_SORT:   u8 = 3;
-    const EXPR_CONST:  u8 = 4;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_BVAR: u8 = 0;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
+    const EXPR_SORT: u8 = 3;
+    const EXPR_CONST: u8 = 4;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_LIT:    u8 = 9;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_LIT: u8 = 9;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     struct EquivManager {
         nodes: Vec<(u32, u8)>,           // (parent, rank)
@@ -70,7 +70,11 @@ mod kernel_equiv_manager_impl {
 
     impl EquivManager {
         fn new() -> Self {
-            Self { nodes: Vec::new(), to_node: HashMap::new(), expr_refs: Vec::new() }
+            Self {
+                nodes: Vec::new(),
+                to_node: HashMap::new(),
+                expr_refs: Vec::new(),
+            }
         }
 
         fn mk_node(&mut self) -> u32 {
@@ -82,13 +86,17 @@ mod kernel_equiv_manager_impl {
         fn find(&self, mut n: u32) -> u32 {
             loop {
                 let p = self.nodes[n as usize].0;
-                if p == n { return p; }
+                if p == n {
+                    return p;
+                }
                 n = p;
             }
         }
 
         fn merge(&mut self, r1: u32, r2: u32) {
-            if r1 == r2 { return; }
+            if r1 == r2 {
+                return;
+            }
             let rank1 = self.nodes[r1 as usize].1;
             let rank2 = self.nodes[r2 as usize].1;
             if rank1 < rank2 {
@@ -116,15 +124,21 @@ mod kernel_equiv_manager_impl {
         // Compare two Nat objects (borrowed).
         #[inline(always)]
         unsafe fn nat_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-            if a == b { return true; }
-            if lean_is_scalar(a) || lean_is_scalar(b) { return false; } // one scalar, one not
+            if a == b {
+                return true;
+            }
+            if lean_is_scalar(a) || lean_is_scalar(b) {
+                return false;
+            } // one scalar, one not
             lean_nat_big_eq(a, b)
         }
 
         // Compare two String objects (borrowed).
         #[inline(always)]
         unsafe fn str_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
-            if s1 == s2 { return true; }
+            if s1 == s2 {
+                return true;
+            }
             let size1 = *((s1 as *const u8).add(8) as *const usize);
             let size2 = *((s2 as *const u8).add(8) as *const usize);
             size1 == size2 && lean_string_eq_cold(s1, s2)
@@ -133,9 +147,13 @@ mod kernel_equiv_manager_impl {
         // Compare two Literal objects (tag 0 = natVal, tag 1 = strVal).
         #[inline]
         unsafe fn lit_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-            if a == b { return true; }
+            if a == b {
+                return true;
+            }
             let ta = lean_obj_tag(a);
-            if ta != lean_obj_tag(b) { return false; }
+            if ta != lean_obj_tag(b) {
+                return false;
+            }
             match ta {
                 0 => Self::nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
                 1 => Self::str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
@@ -146,11 +164,17 @@ mod kernel_equiv_manager_impl {
         // Compare two Level list objects (List Level, nil = lean_box(0)).
         unsafe fn levels_eq(mut ls1: *mut LeanObject, mut ls2: *mut LeanObject) -> bool {
             loop {
-                if ls1 == ls2 { return true; }
+                if ls1 == ls2 {
+                    return true;
+                }
                 let s1 = lean_is_scalar(ls1);
                 let s2 = lean_is_scalar(ls2);
-                if s1 && s2 { return true; }
-                if s1 || s2 { return false; }
+                if s1 && s2 {
+                    return true;
+                }
+                if s1 || s2 {
+                    return false;
+                }
                 if lean_level_eqv(lean_ctor_get(ls1, 0), lean_ctor_get(ls2, 0)) == 0 {
                     return false;
                 }
@@ -166,9 +190,18 @@ mod kernel_equiv_manager_impl {
             lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
         }
 
-        unsafe fn is_equiv_core(&mut self, a: *mut LeanObject, b: *mut LeanObject, use_hash: bool) -> bool {
-            if a == b { return true; }
-            if use_hash && Self::expr_hash(a) != Self::expr_hash(b) { return false; }
+        unsafe fn is_equiv_core(
+            &mut self,
+            a: *mut LeanObject,
+            b: *mut LeanObject,
+            use_hash: bool,
+        ) -> bool {
+            if a == b {
+                return true;
+            }
+            if use_hash && Self::expr_hash(a) != Self::expr_hash(b) {
+                return false;
+            }
 
             let tag_a = lean_obj_tag(a);
             let tag_b = lean_obj_tag(b);
@@ -182,10 +215,14 @@ mod kernel_equiv_manager_impl {
             let n2 = self.to_node_ref(b);
             let r1 = self.find(n1);
             let r2 = self.find(n2);
-            if r1 == r2 { return true; }
+            if r1 == r2 {
+                return true;
+            }
 
             // Kind mismatch → not equivalent
-            if tag_a != tag_b { return false; }
+            if tag_a != tag_b {
+                return false;
+            }
 
             // NOTE: check_system("expression equivalence test") is intentionally omitted.
             // The outer type_checker checks the heartbeat at other call sites.
@@ -207,12 +244,8 @@ mod kernel_equiv_manager_impl {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
                 }
-                EXPR_SORT => {
-                    lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
-                }
-                EXPR_LIT => {
-                    Self::lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
-                }
+                EXPR_SORT => lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
+                EXPR_LIT => Self::lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
                 EXPR_MDATA => {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                 }
@@ -228,7 +261,9 @@ mod kernel_equiv_manager_impl {
                 _ => false,
             };
 
-            if result { self.merge(r1, r2); }
+            if result {
+                self.merge(r1, r2);
+            }
             result
         }
     }

@@ -11,8 +11,8 @@ use lean_runtime::{
 };
 use std::ffi::{CStr, CString};
 use std::io::{self, Write};
-use std::thread;
 use std::slice;
+use std::thread;
 
 fn multi_thread() -> bool {
     option_env!("LEAN_RUST_MULTI_THREAD") == Some("1")
@@ -130,8 +130,8 @@ fn long_option(name: &str) -> Option<(c_char, ArgMode)> {
 
 fn short_option(ch: char) -> Option<ArgMode> {
     Some(match ch {
-        'v' | 'h' | 'g' | 'V' | 'r' | 'I' | 'P' | 'a' | 'q' | 'd' | 'O' | 'N' | 'f' | 'e'
-        | 'J' | 'x' | 'L' => ArgMode::None,
+        'v' | 'h' | 'g' | 'V' | 'r' | 'I' | 'P' | 'a' | 'q' | 'd' | 'O' | 'N' | 'f' | 'e' | 'J'
+        | 'x' | 'L' => ArgMode::None,
         'o' | 'i' | 'T' | 'c' | 'b' | 'R' | 'M' | 't' | 'p' | 'l' | 'u' | 'E' | 'D' => {
             ArgMode::Required
         }
@@ -275,7 +275,8 @@ unsafe fn parse_and_process_options(
                     ArgMode::None => {}
                     ArgMode::Required => {
                         if bytes.len() > 2 {
-                            opt_arg_storage = Some(CString::new(&bytes[2..]).expect("argv contains NUL"));
+                            opt_arg_storage =
+                                Some(CString::new(&bytes[2..]).expect("argv contains NUL"));
                             opt_arg = Some(opt_arg_storage.as_ref().unwrap().as_c_str());
                         } else if idx + 1 < args.len() {
                             opt_arg = Some(CStr::from_ptr(args[idx + 1]));
@@ -366,7 +367,8 @@ fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
         }
 
         let shell_opts = lean_shell_options_mk(lean_box(0));
-        let (shell_opts, positional_args) = match parse_and_process_options(argc, argv, shell_opts) {
+        let (shell_opts, positional_args) = match parse_and_process_options(argc, argv, shell_opts)
+        {
             Ok(v) => v,
             Err(code) => return code,
         };
@@ -375,11 +377,14 @@ fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
 
         let _profiling = get_profiler(shell_opts);
         let num_threads = get_num_threads(shell_opts);
-        
+
         lean_init_task_manager_using(num_threads);
         let _task_manager_guard = TaskManagerGuard;
 
-        let args = make_args_list(positional_args.len() as c_int, positional_args.as_ptr() as *mut *mut c_char);
+        let args = make_args_list(
+            positional_args.len() as c_int,
+            positional_args.as_ptr() as *mut *mut c_char,
+        );
         let result = lean_shell_main(args, shell_opts);
         if lean_io_result_is_ok(result) {
             let rc = lean_unbox(lean_io_result_get_value(result)) as c_int;

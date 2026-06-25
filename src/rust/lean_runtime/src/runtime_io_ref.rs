@@ -4,10 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_ref_impl {
+    use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
     use core::ffi::c_char;
     use core::sync::atomic::{AtomicPtr, Ordering};
-    use super::runtime_object_panic_impl::lean_internal_panic;
 
     extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
@@ -52,9 +52,9 @@ mod runtime_io_ref_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_st_mk_ref(a: *mut LeanObject) -> *mut LeanObject {
-        let o = super::runtime_object_rc_impl::lean_alloc_small_object(
-            core::mem::size_of::<LeanRefObject>(),
-        ) as *mut LeanRefObject;
+        let o = super::runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
+            LeanRefObject,
+        >()) as *mut LeanRefObject;
         lean_set_st_header(o as *mut LeanObject, LEAN_REF_TAG, 0);
         (*o).value = a;
         o as *mut LeanObject
@@ -104,7 +104,10 @@ mod runtime_io_ref_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_set(ref_: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_st_ref_set(
+        ref_: *mut LeanObject,
+        a: *mut LeanObject,
+    ) -> *mut LeanObject {
         if ref_maybe_mt(ref_) {
             lean_mark_mt(a);
             let val_addr = mt_ref_val_addr(ref_);
@@ -124,7 +127,10 @@ mod runtime_io_ref_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_swap(ref_: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_st_ref_swap(
+        ref_: *mut LeanObject,
+        a: *mut LeanObject,
+    ) -> *mut LeanObject {
         if ref_maybe_mt(ref_) {
             lean_mark_mt(a);
             let val_addr = mt_ref_val_addr(ref_);
@@ -146,7 +152,10 @@ mod runtime_io_ref_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_ptr_eq(ref1: *mut LeanObject, ref2: *mut LeanObject) -> u8 {
+    pub unsafe extern "C" fn lean_st_ref_ptr_eq(
+        ref1: *mut LeanObject,
+        ref2: *mut LeanObject,
+    ) -> u8 {
         (lean_to_ref(ref1) == lean_to_ref(ref2)) as u8
     }
 
@@ -167,7 +176,9 @@ mod runtime_io_ref_impl {
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_runtime_mark_multi_threaded(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_runtime_mark_multi_threaded(
+        a: *mut LeanObject,
+    ) -> *mut LeanObject {
         lean_mark_mt(a);
         a
     }

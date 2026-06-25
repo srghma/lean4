@@ -115,4 +115,3 @@ mod runtime_object_size_impl {
         }
     }
 }
-

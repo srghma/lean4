@@ -9,19 +9,34 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
 
 #[cfg(feature = "export-runtime-ffi")]
 mod library_instantiate_mvars_impl {
-    use super::*;
     use super::runtime_object_name_impl::lean_name_eq;
+    use super::*;
     use std::collections::HashMap;
 
     extern "C" {
-        fn lean_get_lmvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject;
-        fn lean_assign_lmvar(mctx: *mut LeanObject, mid: *mut LeanObject, val: *mut LeanObject) -> *mut LeanObject;
+        fn lean_get_lmvar_assignment(
+            mctx: *mut LeanObject,
+            mid: *mut LeanObject,
+        ) -> *mut LeanObject;
+        fn lean_assign_lmvar(
+            mctx: *mut LeanObject,
+            mid: *mut LeanObject,
+            val: *mut LeanObject,
+        ) -> *mut LeanObject;
         fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject;
-        fn lean_get_delayed_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject;
+        fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject)
+            -> *mut LeanObject;
+        fn lean_get_delayed_mvar_assignment(
+            mctx: *mut LeanObject,
+            mid: *mut LeanObject,
+        ) -> *mut LeanObject;
         fn lean_delayed_mvar_assignment_fvars(d: *mut LeanObject) -> *mut LeanObject;
         fn lean_delayed_mvar_assignment_mvar_id_pending(d: *mut LeanObject) -> *mut LeanObject;
-        fn lean_assign_mvar(mctx: *mut LeanObject, mid: *mut LeanObject, val: *mut LeanObject) -> *mut LeanObject;
+        fn lean_assign_mvar(
+            mctx: *mut LeanObject,
+            mid: *mut LeanObject,
+            val: *mut LeanObject,
+        ) -> *mut LeanObject;
 
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
@@ -68,20 +83,20 @@ mod library_instantiate_mvars_impl {
     // Level.Data.depth is stored in bits [63:40] of the packed u64.
     const LEVEL_DATA_DEPTH_SHIFT: u64 = 40;
 
-    const LEVEL_SUCC_TAG:  u8 = 1;
-    const LEVEL_MAX_TAG:   u8 = 2;
-    const LEVEL_IMAX_TAG:  u8 = 3;
+    const LEVEL_SUCC_TAG: u8 = 1;
+    const LEVEL_MAX_TAG: u8 = 2;
+    const LEVEL_IMAX_TAG: u8 = 3;
 
-    const EXPR_FVAR_TAG:   u8 = 1;
-    const EXPR_MVAR_TAG:   u8 = 2;
-    const EXPR_SORT_TAG:   u8 = 3;
-    const EXPR_CONST_TAG:  u8 = 4;
-    const EXPR_APP_TAG:    u8 = 5;
+    const EXPR_FVAR_TAG: u8 = 1;
+    const EXPR_MVAR_TAG: u8 = 2;
+    const EXPR_SORT_TAG: u8 = 3;
+    const EXPR_CONST_TAG: u8 = 4;
+    const EXPR_APP_TAG: u8 = 5;
     const EXPR_LAMBDA_TAG: u8 = 6;
-    const EXPR_PI_TAG:     u8 = 7;
-    const EXPR_LET_TAG:    u8 = 8;
-    const EXPR_MDATA_TAG:  u8 = 10;
-    const EXPR_PROJ_TAG:   u8 = 11;
+    const EXPR_PI_TAG: u8 = 7;
+    const EXPR_LET_TAG: u8 = 8;
+    const EXPR_MDATA_TAG: u8 = 10;
+    const EXPR_PROJ_TAG: u8 = 11;
 
     unsafe fn is_zero_level(l: *mut LeanObject) -> bool {
         // Level.zero = lean_box(0) = the tagged scalar 0.
@@ -89,7 +104,8 @@ mod library_instantiate_mvars_impl {
     }
 
     unsafe fn is_one_level(l: *mut LeanObject) -> bool {
-        !lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC_TAG
+        !lean_is_scalar(l)
+            && lean_obj_tag(l) == LEVEL_SUCC_TAG
             && is_zero_level(lean_ctor_get(l, 0))
     }
 
@@ -120,12 +136,13 @@ mod library_instantiate_mvars_impl {
 
     // True iff the level is syntactically guaranteed to be > 0 (e.g., succ of anything).
     unsafe fn is_not_zero_level(l: *mut LeanObject) -> bool {
-        if lean_is_scalar(l) { return false; }
+        if lean_is_scalar(l) {
+            return false;
+        }
         match lean_obj_tag(l) {
             LEVEL_SUCC_TAG => true,
-            LEVEL_MAX_TAG  => {
-                is_not_zero_level(lean_ctor_get(l, 0))
-                    || is_not_zero_level(lean_ctor_get(l, 1))
+            LEVEL_MAX_TAG => {
+                is_not_zero_level(lean_ctor_get(l, 0)) || is_not_zero_level(lean_ctor_get(l, 1))
             }
             LEVEL_IMAX_TAG => is_not_zero_level(lean_ctor_get(l, 1)),
             _ => false, // param, mvar — unknown sign
@@ -164,14 +181,16 @@ mod library_instantiate_mvars_impl {
             return lhs;
         }
         // max(u, max(u, v)) = max(u, v)  (rhs already contains lhs as a child).
-        if !lean_is_scalar(rhs) && lean_obj_tag(rhs) == LEVEL_MAX_TAG
+        if !lean_is_scalar(rhs)
+            && lean_obj_tag(rhs) == LEVEL_MAX_TAG
             && (lean_ctor_get(rhs, 0) == lhs || lean_ctor_get(rhs, 1) == lhs)
         {
             lean_dec(lhs);
             return rhs;
         }
         // max(max(u, v), u) = max(u, v)  (lhs already contains rhs as a child).
-        if !lean_is_scalar(lhs) && lean_obj_tag(lhs) == LEVEL_MAX_TAG
+        if !lean_is_scalar(lhs)
+            && lean_obj_tag(lhs) == LEVEL_MAX_TAG
             && (lean_ctor_get(lhs, 0) == rhs || lean_ctor_get(lhs, 1) == rhs)
         {
             lean_dec(rhs);
@@ -213,7 +232,11 @@ mod library_instantiate_mvars_impl {
     }
 
     unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
-        lean_runtime_alloc_ctor(tag as core::ffi::c_uint, num_objs as core::ffi::c_uint, scalar_size as core::ffi::c_uint)
+        lean_runtime_alloc_ctor(
+            tag as core::ffi::c_uint,
+            num_objs as core::ffi::c_uint,
+            scalar_size as core::ffi::c_uint,
+        )
     }
 
     // rc > 0 means single-threaded object (not atomic refcount).
@@ -250,10 +273,19 @@ mod library_instantiate_mvars_impl {
 
     impl LevelMVarInstantiator {
         unsafe fn new(mctx: *mut LeanObject) -> Self {
-            Self { mctx, cache: HashMap::new(), saved_assignments: Vec::new() }
+            Self {
+                mctx,
+                cache: HashMap::new(),
+                saved_assignments: Vec::new(),
+            }
         }
 
-        unsafe fn cache_result(&mut self, original: *mut LeanObject, result: *mut LeanObject, shared: bool) -> *mut LeanObject {
+        unsafe fn cache_result(
+            &mut self,
+            original: *mut LeanObject,
+            result: *mut LeanObject,
+            shared: bool,
+        ) -> *mut LeanObject {
             if shared {
                 lean_inc(result);
                 self.cache.insert(original, result);
@@ -451,7 +483,10 @@ mod library_instantiate_mvars_impl {
         lean_ctor_get(e, 0)
     }
 
-    unsafe fn get_delayed_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn get_delayed_assignment(
+        mctx: *mut LeanObject,
+        mid: *mut LeanObject,
+    ) -> *mut LeanObject {
         lean_inc_ref(mctx);
         lean_inc(mid);
         lean_get_delayed_mvar_assignment(mctx, mid)
@@ -473,7 +508,11 @@ mod library_instantiate_mvars_impl {
         n
     }
 
-    unsafe fn instantiate_with_slice(e: *mut LeanObject, n: usize, base: *const *mut LeanObject) -> *mut LeanObject {
+    unsafe fn instantiate_with_slice(
+        e: *mut LeanObject,
+        n: usize,
+        base: *const *mut LeanObject,
+    ) -> *mut LeanObject {
         if n == 0 {
             lean_inc(e);
             return e;
@@ -489,7 +528,11 @@ mod library_instantiate_mvars_impl {
         r
     }
 
-    unsafe fn mk_rev_app(mut f: *mut LeanObject, num_args: usize, args: *const *mut LeanObject) -> *mut LeanObject {
+    unsafe fn mk_rev_app(
+        mut f: *mut LeanObject,
+        num_args: usize,
+        args: *const *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut i = num_args;
         while i > 0 {
             i -= 1;
@@ -511,7 +554,14 @@ mod library_instantiate_mvars_impl {
         match lean_obj_tag(f) {
             EXPR_LAMBDA_TAG => {
                 if i + 1 < num_rev_args {
-                    apply_beta_rec(lean_ctor_get(f, 2), i + 1, num_rev_args, rev_args, preserve_data, zeta)
+                    apply_beta_rec(
+                        lean_ctor_get(f, 2),
+                        i + 1,
+                        num_rev_args,
+                        rev_args,
+                        preserve_data,
+                        zeta,
+                    )
                 } else {
                     instantiate_with_slice(lean_ctor_get(f, 2), num_rev_args, rev_args)
                 }
@@ -520,7 +570,8 @@ mod library_instantiate_mvars_impl {
                 if zeta && i < num_rev_args {
                     let value = lean_ctor_get(f, 2);
                     let body = instantiate_with_slice(lean_ctor_get(f, 3), 1, &value);
-                    let result = apply_beta_rec(body, i, num_rev_args, rev_args, preserve_data, zeta);
+                    let result =
+                        apply_beta_rec(body, i, num_rev_args, rev_args, preserve_data, zeta);
                     lean_dec(body);
                     result
                 } else {
@@ -535,7 +586,14 @@ mod library_instantiate_mvars_impl {
                     let r = instantiate_with_slice(f, i, rev_args.add(n));
                     mk_rev_app(r, n, rev_args)
                 } else {
-                    apply_beta_rec(lean_ctor_get(f, 1), i, num_rev_args, rev_args, preserve_data, zeta)
+                    apply_beta_rec(
+                        lean_ctor_get(f, 1),
+                        i,
+                        num_rev_args,
+                        rev_args,
+                        preserve_data,
+                        zeta,
+                    )
                 }
             }
             _ => {
@@ -560,7 +618,10 @@ mod library_instantiate_mvars_impl {
         apply_beta_rec(f, 0, num_rev_args, rev_args, preserve_data, zeta)
     }
 
-    unsafe fn map_level_list(level_inst: &mut LevelMVarInstantiator, list: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn map_level_list(
+        level_inst: &mut LevelMVarInstantiator,
+        list: *mut LeanObject,
+    ) -> *mut LeanObject {
         let mut curr = list;
         let mut levels = Vec::new();
         let mut changed = false;
@@ -599,15 +660,27 @@ mod library_instantiate_mvars_impl {
         }
     }
 
-    unsafe fn name_state_find(states: &[( *mut LeanObject, u8 )], name: *mut LeanObject) -> Option<usize> {
-        states.iter().position(|(entry, _)| lean_name_eq(*entry, name) != 0)
+    unsafe fn name_state_find(
+        states: &[(*mut LeanObject, u8)],
+        name: *mut LeanObject,
+    ) -> Option<usize> {
+        states
+            .iter()
+            .position(|(entry, _)| lean_name_eq(*entry, name) != 0)
     }
 
-    unsafe fn name_state_get(states: &[( *mut LeanObject, u8 )], name: *mut LeanObject) -> Option<u8> {
+    unsafe fn name_state_get(
+        states: &[(*mut LeanObject, u8)],
+        name: *mut LeanObject,
+    ) -> Option<u8> {
         name_state_find(states, name).map(|idx| states[idx].1)
     }
 
-    unsafe fn name_state_set(states: &mut Vec<( *mut LeanObject, u8 )>, name: *mut LeanObject, state: u8) {
+    unsafe fn name_state_set(
+        states: &mut Vec<(*mut LeanObject, u8)>,
+        name: *mut LeanObject,
+        state: u8,
+    ) {
         if let Some(idx) = name_state_find(states, name) {
             states[idx].1 = state;
         } else {
@@ -616,7 +689,7 @@ mod library_instantiate_mvars_impl {
         }
     }
 
-    unsafe fn name_state_clear(states: &mut Vec<( *mut LeanObject, u8 )>) {
+    unsafe fn name_state_clear(states: &mut Vec<(*mut LeanObject, u8)>) {
         for (name, _) in states.drain(..) {
             lean_dec(name);
         }
@@ -641,7 +714,12 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn cache_result(&mut self, original: *mut LeanObject, result: *mut LeanObject, shared: bool) -> *mut LeanObject {
+        unsafe fn cache_result(
+            &mut self,
+            original: *mut LeanObject,
+            result: *mut LeanObject,
+            shared: bool,
+        ) -> *mut LeanObject {
             if shared {
                 lean_inc(result);
                 self.cache.insert(original, result);
@@ -660,7 +738,9 @@ mod library_instantiate_mvars_impl {
                 let value = lean_ctor_get(opt, 0);
                 lean_inc(value);
                 lean_dec(opt);
-                if !expr_needs_instantiation(value) || name_vec_contains(&self.already_normalized, mid) {
+                if !expr_needs_instantiation(value)
+                    || name_vec_contains(&self.already_normalized, mid)
+                {
                     return Some(value);
                 }
                 name_vec_insert(&mut self.already_normalized, mid);
@@ -720,7 +800,11 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn visit_app_beta(&mut self, f_new: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject {
+        unsafe fn visit_app_beta(
+            &mut self,
+            f_new: *mut LeanObject,
+            e: *mut LeanObject,
+        ) -> *mut LeanObject {
             let mut args = Vec::new();
             let mut curr = e;
             while lean_obj_tag(curr) == EXPR_APP_TAG {
@@ -794,37 +878,61 @@ mod library_instantiate_mvars_impl {
                 EXPR_SORT_TAG => {
                     let old = lean_ctor_get(e, 0);
                     let level = self.level_inst.visit(old);
-                    self.reuse_or(e, level != old, &[level], || lean_expr_mk_sort(level), shared)
+                    self.reuse_or(
+                        e,
+                        level != old,
+                        &[level],
+                        || lean_expr_mk_sort(level),
+                        shared,
+                    )
                 }
                 EXPR_CONST_TAG => {
                     let old_levels = lean_ctor_get(e, 1);
                     let levels = map_level_list(&mut self.level_inst, old_levels);
-                    self.reuse_or(e, levels != old_levels, &[levels], || {
-                        let name = lean_ctor_get(e, 0);
-                        lean_inc(name);
-                        lean_expr_mk_const(name, levels)
-                    }, shared)
+                    self.reuse_or(
+                        e,
+                        levels != old_levels,
+                        &[levels],
+                        || {
+                            let name = lean_ctor_get(e, 0);
+                            lean_inc(name);
+                            lean_expr_mk_const(name, levels)
+                        },
+                        shared,
+                    )
                 }
                 EXPR_MVAR_TAG => self.visit_mvar(e),
                 EXPR_MDATA_TAG => {
                     let old = lean_ctor_get(e, 1);
                     let expr = self.visit(old);
-                    self.reuse_or(e, expr != old, &[expr], || {
-                        let md = lean_ctor_get(e, 0);
-                        lean_inc(md);
-                        lean_expr_mk_mdata(md, expr)
-                    }, shared)
+                    self.reuse_or(
+                        e,
+                        expr != old,
+                        &[expr],
+                        || {
+                            let md = lean_ctor_get(e, 0);
+                            lean_inc(md);
+                            lean_expr_mk_mdata(md, expr)
+                        },
+                        shared,
+                    )
                 }
                 EXPR_PROJ_TAG => {
                     let old = lean_ctor_get(e, 2);
                     let expr = self.visit(old);
-                    self.reuse_or(e, expr != old, &[expr], || {
-                        let sname = lean_ctor_get(e, 0);
-                        let idx = lean_ctor_get(e, 1);
-                        lean_inc(sname);
-                        lean_inc(idx);
-                        lean_expr_mk_proj(sname, idx, expr)
-                    }, shared)
+                    self.reuse_or(
+                        e,
+                        expr != old,
+                        &[expr],
+                        || {
+                            let sname = lean_ctor_get(e, 0);
+                            let idx = lean_ctor_get(e, 1);
+                            lean_inc(sname);
+                            lean_inc(idx);
+                            lean_expr_mk_proj(sname, idx, expr)
+                        },
+                        shared,
+                    )
                 }
                 EXPR_APP_TAG => {
                     let r = self.visit_app(e);
@@ -835,16 +943,22 @@ mod library_instantiate_mvars_impl {
                     let old_body = lean_ctor_get(e, 2);
                     let dom = self.visit(old_dom);
                     let body = self.visit(old_body);
-                    self.reuse_or(e, dom != old_dom || body != old_body, &[dom, body], || {
-                        let name = lean_ctor_get(e, 0);
-                        lean_inc(name);
-                        let bi = expr_binder_info_raw(e);
-                        if lean_obj_tag(e) == EXPR_LAMBDA_TAG {
-                            lean_expr_mk_lambda(name, dom, body, bi)
-                        } else {
-                            lean_expr_mk_forall(name, dom, body, bi)
-                        }
-                    }, shared)
+                    self.reuse_or(
+                        e,
+                        dom != old_dom || body != old_body,
+                        &[dom, body],
+                        || {
+                            let name = lean_ctor_get(e, 0);
+                            lean_inc(name);
+                            let bi = expr_binder_info_raw(e);
+                            if lean_obj_tag(e) == EXPR_LAMBDA_TAG {
+                                lean_expr_mk_lambda(name, dom, body, bi)
+                            } else {
+                                lean_expr_mk_forall(name, dom, body, bi)
+                            }
+                        },
+                        shared,
+                    )
                 }
                 EXPR_LET_TAG => {
                     let old_typ = lean_ctor_get(e, 1);
@@ -853,11 +967,17 @@ mod library_instantiate_mvars_impl {
                     let typ = self.visit(old_typ);
                     let val = self.visit(old_val);
                     let body = self.visit(old_body);
-                    self.reuse_or(e, typ != old_typ || val != old_val || body != old_body, &[typ, val, body], || {
-                        let name = lean_ctor_get(e, 0);
-                        lean_inc(name);
-                        lean_expr_mk_let(name, typ, val, body, expr_let_nondep(e))
-                    }, shared)
+                    self.reuse_or(
+                        e,
+                        typ != old_typ || val != old_val || body != old_body,
+                        &[typ, val, body],
+                        || {
+                            let name = lean_ctor_get(e, 0);
+                            lean_inc(name);
+                            lean_expr_mk_let(name, typ, val, body, expr_let_nondep(e))
+                        },
+                        shared,
+                    )
                 }
                 _ => {
                     lean_inc(e);
@@ -927,16 +1047,26 @@ mod library_instantiate_mvars_impl {
         fn push(&mut self) {
             self.scope += 1;
             self.gen_counter += 1;
-            self.gens.push(ScopeGenNode { gen: self.gen_counter, tail: Some(self.current_gen) });
+            self.gens.push(ScopeGenNode {
+                gen: self.gen_counter,
+                tail: Some(self.current_gen),
+            });
             self.current_gen = self.gens.len() - 1;
         }
 
         fn pop(&mut self) {
             self.scope -= 1;
-            self.current_gen = self.gens[self.current_gen].tail.expect("scope cache underflow");
+            self.current_gen = self.gens[self.current_gen]
+                .tail
+                .expect("scope cache underflow");
         }
 
-        fn node_at_level(gens: &[ScopeGenNode], mut node: usize, current_scope: u32, level: u32) -> usize {
+        fn node_at_level(
+            gens: &[ScopeGenNode],
+            mut node: usize,
+            current_scope: u32,
+            level: u32,
+        ) -> usize {
             let mut current_level = current_scope;
             while current_level > level {
                 node = gens[node].tail.expect("scope cache rewind underflow");
@@ -961,7 +1091,9 @@ mod library_instantiate_mvars_impl {
                 }
 
                 while top.scope_level > scope {
-                    top.scope_gen = gens[top.scope_gen].tail.expect("scope cache rewind underflow");
+                    top.scope_gen = gens[top.scope_gen]
+                        .tail
+                        .expect("scope cache rewind underflow");
                     top.scope_level -= 1;
                 }
 
@@ -974,7 +1106,9 @@ mod library_instantiate_mvars_impl {
                 let mut level = top.scope_level;
                 while level > top.result_scope {
                     entry = gens[entry].tail.expect("scope cache rewind tail underflow");
-                    current = gens[current].tail.expect("scope cache rewind tail underflow");
+                    current = gens[current]
+                        .tail
+                        .expect("scope cache rewind tail underflow");
                     level -= 1;
                     if gens[entry].gen == gens[current].gen {
                         top.scope_level = level;
@@ -1004,7 +1138,12 @@ mod library_instantiate_mvars_impl {
             Some(top.result)
         }
 
-        unsafe fn insert(&mut self, key: (usize, u32), result: *mut LeanObject, result_scope: u32) -> *mut LeanObject {
+        unsafe fn insert(
+            &mut self,
+            key: (usize, u32),
+            result: *mut LeanObject,
+            result_scope: u32,
+        ) -> *mut LeanObject {
             let stack = self.cache.entry(key).or_default();
             Self::rewind(&self.gens, self.current_gen, self.scope, stack);
             let mut shared = result;
@@ -1092,7 +1231,10 @@ mod library_instantiate_mvars_impl {
                 .position(|(key, _)| lean_name_eq(*key, fid) != 0)
         }
 
-        unsafe fn get_mvar_assignment_raw(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn get_mvar_assignment_raw(
+            &mut self,
+            mid: *mut LeanObject,
+        ) -> Option<*mut LeanObject> {
             lean_inc_ref(self.mctx);
             lean_inc(mid);
             let opt = lean_get_mvar_assignment(self.mctx, mid);
@@ -1146,7 +1288,11 @@ mod library_instantiate_mvars_impl {
                 return false;
             };
             let ok = self.is_resolvable_expr(a);
-            name_state_set(&mut self.resolvable_pending_cache, pending, if ok { 1 } else { 2 });
+            name_state_set(
+                &mut self.resolvable_pending_cache,
+                pending,
+                if ok { 1 } else { 2 },
+            );
             lean_dec(a);
             ok
         }
@@ -1209,11 +1355,13 @@ mod library_instantiate_mvars_impl {
                         lean_dec(d_opt);
                         true
                     } else {
-                        self.is_resolvable_expr(lean_ctor_get(e, 0)) && self.is_resolvable_expr(lean_ctor_get(e, 1))
+                        self.is_resolvable_expr(lean_ctor_get(e, 0))
+                            && self.is_resolvable_expr(lean_ctor_get(e, 1))
                     }
                 }
                 EXPR_LAMBDA_TAG | EXPR_PI_TAG => {
-                    self.is_resolvable_expr(lean_ctor_get(e, 1)) && self.is_resolvable_expr(lean_ctor_get(e, 2))
+                    self.is_resolvable_expr(lean_ctor_get(e, 1))
+                        && self.is_resolvable_expr(lean_ctor_get(e, 2))
                 }
                 EXPR_LET_TAG => {
                     self.is_resolvable_expr(lean_ctor_get(e, 1))
@@ -1235,14 +1383,23 @@ mod library_instantiate_mvars_impl {
                     lean_inc(entry.value);
                     Some(entry.value)
                 } else {
-                    Some(lean_expr_lift_loose_bvars(entry.value, lean_box(0), lean_box(delta as usize)))
+                    Some(lean_expr_lift_loose_bvars(
+                        entry.value,
+                        lean_box(0),
+                        lean_box(delta as usize),
+                    ))
                 }
             } else {
                 None
             }
         }
 
-        unsafe fn visit_delayed(&mut self, fvars: *mut LeanObject, mid_pending: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject {
+        unsafe fn visit_delayed(
+            &mut self,
+            fvars: *mut LeanObject,
+            mid_pending: *mut LeanObject,
+            e: *mut LeanObject,
+        ) -> *mut LeanObject {
             let mut args = Vec::new();
             let mut curr = e;
             while lean_obj_tag(curr) == EXPR_APP_TAG {
@@ -1253,7 +1410,10 @@ mod library_instantiate_mvars_impl {
             let extra_count = args.len() - fvar_count;
 
             self.cache.push();
-            let mut saved_entries: Vec<(*mut LeanObject, Option<(*mut LeanObject, FvarSubstEntry)>)> = Vec::with_capacity(fvar_count);
+            let mut saved_entries: Vec<(
+                *mut LeanObject,
+                Option<(*mut LeanObject, FvarSubstEntry)>,
+            )> = Vec::with_capacity(fvar_count);
             for i in 0..fvar_count {
                 let fid = fvar_name(lean_array_get(fvars, i));
                 let arg = args[args.len() - 1 - i];
@@ -1264,11 +1424,14 @@ mod library_instantiate_mvars_impl {
                     None
                 };
                 lean_inc(fid);
-                self.fvar_subst.push((fid, FvarSubstEntry {
-                    depth: self.depth,
-                    scope: self.cache.scope(),
-                    value: arg,
-                }));
+                self.fvar_subst.push((
+                    fid,
+                    FvarSubstEntry {
+                        depth: self.depth,
+                        scope: self.cache.scope(),
+                        value: arg,
+                    },
+                ));
                 saved_entries.push((fid, old));
             }
 

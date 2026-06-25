@@ -55,7 +55,10 @@ mod runtime_timer_impl {
         libc::free(handle.cast());
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean23lean_uv_timer_finalizerEPv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean23lean_uv_timer_finalizerEPv"
+    )]
     pub unsafe extern "C" fn lean_uv_timer_finalizer(ptr: *mut c_void) {
         let timer = ptr.cast::<LeanUvTimerObject>();
 
@@ -64,7 +67,10 @@ mod runtime_timer_impl {
         }
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        uv_close((*timer).uv_timer.cast::<UvHandle>(), Some(close_free_handle));
+        uv_close(
+            (*timer).uv_timer.cast::<UvHandle>(),
+            Some(close_free_handle),
+        );
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
 
         libc::free(timer.cast());
@@ -78,13 +84,19 @@ mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean22initialize_libuv_timerEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean22initialize_libuv_timerEv"
+    )]
     pub unsafe extern "C" fn initialize_libuv_timer() {
         UV_TIMER_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_timer_finalizer), Some(timer_foreach));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18handle_timer_eventEP10uv_timer_s")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean18handle_timer_eventEP10uv_timer_s"
+    )]
     pub unsafe extern "C" fn handle_timer_event(handle: *mut UvTimer) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);
@@ -111,7 +123,8 @@ mod runtime_timer_impl {
 
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub unsafe extern "C" fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
-        let timer = libc::malloc(core::mem::size_of::<LeanUvTimerObject>()).cast::<LeanUvTimerObject>();
+        let timer =
+            libc::malloc(core::mem::size_of::<LeanUvTimerObject>()).cast::<LeanUvTimerObject>();
         if timer.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
@@ -159,8 +172,16 @@ mod runtime_timer_impl {
         let result = uv_timer_start(
             (*timer).uv_timer,
             Some(handle_timer_event),
-            if (*timer).repeating { 0 } else { (*timer).timeout },
-            if (*timer).repeating { (*timer).timeout } else { 0 },
+            if (*timer).repeating {
+                0
+            } else {
+                (*timer).timeout
+            },
+            if (*timer).repeating {
+                (*timer).timeout
+            } else {
+                0
+            },
         );
 
         if result != 0 {
@@ -209,9 +230,9 @@ mod runtime_timer_impl {
                 }
                 _ => {
                     event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
-                    lean_io_result_mk_error(lean_mk_io_user_error(
-                        lean_mk_string(b"invalid timer state\0".as_ptr().cast()),
-                    ))
+                    lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(
+                        b"invalid timer state\0".as_ptr().cast(),
+                    )))
                 }
             }
         } else if (*timer).state == TIMER_STATE_INITIAL {
@@ -241,7 +262,11 @@ mod runtime_timer_impl {
                 (*timer).uv_timer,
                 Some(handle_timer_event),
                 (*timer).timeout,
-                if (*timer).repeating { (*timer).timeout } else { 0 },
+                if (*timer).repeating {
+                    (*timer).timeout
+                } else {
+                    0
+                },
             );
 
             event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));

@@ -50,13 +50,19 @@ mod kernel_for_each_fn_impl {
 
     impl ForEachState {
         fn new(ctx: *mut c_void, callback: ForEachCallback) -> Self {
-            Self { ctx, callback, cache: HashSet::new() }
+            Self {
+                ctx,
+                callback,
+                cache: HashSet::new(),
+            }
         }
 
         // Returns true if the node was already visited (should be skipped).
         // Unshared nodes (rc == 1) are never cached — they can only be reached once.
         unsafe fn visited(&mut self, e: *mut LeanObject, offset: u32) -> bool {
-            if (*e).rc == 1 { return false; }
+            if (*e).rc == 1 {
+                return false;
+            }
             !self.cache.insert((e as usize, offset))
         }
 
@@ -71,10 +77,14 @@ mod kernel_for_each_fn_impl {
             }
 
             // All other nodes: check visited cache to avoid redundant traversal.
-            if self.visited(e, offset) { return; }
+            if self.visited(e, offset) {
+                return;
+            }
 
             // Call callback; if it returns 0, do not recurse into children.
-            if (self.callback)(self.ctx, e, offset) == 0 { return; }
+            if (self.callback)(self.ctx, e, offset) == 0 {
+                return;
+            }
 
             match tag {
                 // FVar=1, MVar=2, Lit=9: non-leaf tag path but no Expr children.
@@ -118,7 +128,11 @@ mod kernel_for_each_fn_impl {
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
-    unsafe fn lean_alloc_ctor_local(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor_local(
+        tag: u32,
+        num_objs: usize,
+        scalar_size: usize,
+    ) -> *mut LeanObject {
         lean_runtime_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
@@ -147,13 +161,18 @@ mod kernel_for_each_fn_impl {
 
     impl ExprFindState {
         fn new() -> Self {
-            ExprFindState { found: None, cache: HashSet::new() }
+            ExprFindState {
+                found: None,
+                cache: HashSet::new(),
+            }
         }
 
         // for_each_fn<true> (partial_apps = true): App nodes visit fn via apply_find.
         // Predicate p(e) -> bool: nonzero = found, zero = continue searching.
         unsafe fn apply_find(&mut self, p: *mut LeanObject, e: *mut LeanObject) {
-            if self.found.is_some() { return; }
+            if self.found.is_some() {
+                return;
+            }
             let tag = lean_obj_tag(e);
 
             // Leaf nodes: call predicate without visited-set tracking
@@ -167,7 +186,9 @@ mod kernel_for_each_fn_impl {
             }
 
             // Non-leaf: skip if already visited
-            if !self.cache.insert(e as usize) { return; }
+            if !self.cache.insert(e as usize) {
+                return;
+            }
 
             lean_inc(p);
             lean_inc(e);
@@ -213,7 +234,9 @@ mod kernel_for_each_fn_impl {
         // apply_fn for partial_apps=false: unpack the left App spine without calling predicate
         // on intermediate App nodes; only calls apply_ext on the head and each argument.
         unsafe fn apply_fn_ext(&mut self, p: *mut LeanObject, e: *mut LeanObject) {
-            if self.found.is_some() { return; }
+            if self.found.is_some() {
+                return;
+            }
             if lean_obj_tag(e) == EXPR_APP {
                 self.apply_fn_ext(p, lean_ctor_get(e, 0)); // unpack fn recursively
                 if self.found.is_none() {
@@ -227,14 +250,17 @@ mod kernel_for_each_fn_impl {
         // for_each_fn<false> (partial_apps = false): App nodes use apply_fn_ext for fn.
         // Predicate p(e) -> FindStep: 0=found, 1=visit, 2=done(skip children).
         unsafe fn apply_ext(&mut self, p: *mut LeanObject, e: *mut LeanObject) {
-            if self.found.is_some() { return; }
+            if self.found.is_some() {
+                return;
+            }
             let tag = lean_obj_tag(e);
 
             // Leaf nodes: call predicate without visited-set tracking
             if tag == EXPR_BVAR || tag == EXPR_CONST || tag == EXPR_SORT {
                 lean_inc(p);
                 lean_inc(e);
-                if lean_unbox(lean_apply_1(p, e)) == 0 { // 0 = FindStep.found
+                if lean_unbox(lean_apply_1(p, e)) == 0 {
+                    // 0 = FindStep.found
                     self.found = Some(e);
                 }
                 // 1 (visit) or 2 (done): no children to visit anyway
@@ -242,17 +268,22 @@ mod kernel_for_each_fn_impl {
             }
 
             // Non-leaf: skip if already visited
-            if !self.cache.insert(e as usize) { return; }
+            if !self.cache.insert(e as usize) {
+                return;
+            }
 
             lean_inc(p);
             lean_inc(e);
             match lean_unbox(lean_apply_1(p, e)) {
-                0 => { // FindStep.found
+                0 => {
+                    // FindStep.found
                     self.found = Some(e);
                     return;
                 }
                 1 => { /* FindStep.visit — recurse into children below */ }
-                _ => { return; } // FindStep.done — skip children
+                _ => {
+                    return;
+                } // FindStep.done — skip children
             }
 
             // Recurse into expr children

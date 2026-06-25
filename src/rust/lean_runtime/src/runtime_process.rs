@@ -45,11 +45,17 @@ mod runtime_process_impl {
 
     // lean_ctor_get_uint32 is not in lib.rs – define locally
     unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, byte_offset: usize) -> u32 {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<u32>().read_unaligned()
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<u32>()
+            .read_unaligned()
     }
 
     unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, byte_offset: usize, v: u32) {
-        (obj.add(1) as *mut u8).add(byte_offset).cast::<u32>().write_unaligned(v);
+        (obj.add(1) as *mut u8)
+            .add(byte_offset)
+            .cast::<u32>()
+            .write_unaligned(v);
     }
 
     // lean_ctor_set (set object field) is not in lib.rs – define locally
@@ -128,7 +134,10 @@ mod runtime_process_impl {
                 if ret == -1 {
                     Err(unsafe { *libc::__errno_location() })
                 } else {
-                    Ok(Some(OwnedPipe { read_fd: fds[0], write_fd: fds[1] }))
+                    Ok(Some(OwnedPipe {
+                        read_fd: fds[0],
+                        write_fd: fds[1],
+                    }))
                 }
             }
         }
@@ -154,7 +163,9 @@ mod runtime_process_impl {
 
     #[cfg(unix)]
     #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_set_current_dir(path: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe extern "C" fn lean_io_process_set_current_dir(
+        path: *mut LeanObject,
+    ) -> *mut LeanObject {
         if libc::chdir(lean_string_cstr(path)) == 0 {
             io_result_ok(lean_box(0))
         } else {
@@ -317,12 +328,12 @@ mod runtime_process_impl {
     #[cfg(unix)]
     unsafe fn spawn(
         proc_name: *const c_char,
-        lean_args: *mut LeanObject,   // Array String
+        lean_args: *mut LeanObject, // Array String
         stdin_mode: StdioMode,
         stdout_mode: StdioMode,
         stderr_mode: StdioMode,
-        cwd_opt: *mut LeanObject,     // Option String
-        env_arr: *mut LeanObject,     // Array (String × Option String)
+        cwd_opt: *mut LeanObject, // Option String
+        env_arr: *mut LeanObject, // Array (String × Option String)
         inherit_env: bool,
         do_setsid: bool,
     ) -> *mut LeanObject {
@@ -365,7 +376,9 @@ mod runtime_process_impl {
                 }
                 #[cfg(not(target_os = "macos"))]
                 {
-                    extern "C" { fn clearenv() -> c_int; }
+                    extern "C" {
+                        fn clearenv() -> c_int;
+                    }
                     clearenv();
                 }
             }
@@ -528,10 +541,16 @@ mod runtime_process_impl {
 
     // ─── initialize / finalize ────────────────────────────────────────────────
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18initialize_processEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean18initialize_processEv"
+    )]
     pub extern "C" fn initialize_process() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16finalize_processEv")]
+    #[cfg_attr(
+        feature = "export-runtime-ffi",
+        export_name = "_ZN4lean16finalize_processEv"
+    )]
     pub extern "C" fn finalize_process() {}
 }
 

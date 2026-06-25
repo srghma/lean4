@@ -32,21 +32,41 @@ mod kernel_abstract_impl {
         fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_lambda(n: *mut LeanObject, d: *mut LeanObject, b: *mut LeanObject, bi: u8) -> *mut LeanObject;
-        fn lean_expr_mk_forall(n: *mut LeanObject, d: *mut LeanObject, b: *mut LeanObject, bi: u8) -> *mut LeanObject;
-        fn lean_expr_mk_let(n: *mut LeanObject, t: *mut LeanObject, v: *mut LeanObject, b: *mut LeanObject, nondep: u8) -> *mut LeanObject;
+        fn lean_expr_mk_lambda(
+            n: *mut LeanObject,
+            d: *mut LeanObject,
+            b: *mut LeanObject,
+            bi: u8,
+        ) -> *mut LeanObject;
+        fn lean_expr_mk_forall(
+            n: *mut LeanObject,
+            d: *mut LeanObject,
+            b: *mut LeanObject,
+            bi: u8,
+        ) -> *mut LeanObject;
+        fn lean_expr_mk_let(
+            n: *mut LeanObject,
+            t: *mut LeanObject,
+            v: *mut LeanObject,
+            b: *mut LeanObject,
+            nondep: u8,
+        ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_proj(sname: *mut LeanObject, idx: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
+        fn lean_expr_mk_proj(
+            sname: *mut LeanObject,
+            idx: *mut LeanObject,
+            expr: *mut LeanObject,
+        ) -> *mut LeanObject;
     }
 
-    const EXPR_FVAR:   u8 = 1;
-    const EXPR_MVAR:   u8 = 2;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     // Read the Expr.Data u64 stored right after the object pointer fields.
     #[inline(always)]
@@ -95,8 +115,8 @@ mod kernel_abstract_impl {
     }
 
     struct AbstractFn {
-        n: usize,                       // number of substitution expressions
-        subst: *const *mut LeanObject,  // borrowed substitution slice
+        n: usize,                      // number of substitution expressions
+        subst: *const *mut LeanObject, // borrowed substitution slice
         cache: HashMap<(usize, u32), *mut LeanObject>,
     }
 
@@ -162,9 +182,9 @@ mod kernel_abstract_impl {
                     }
                 }
                 EXPR_APP => {
-                    let fn_e  = lean_ctor_get(e, 0);
+                    let fn_e = lean_ctor_get(e, 0);
                     let arg_e = lean_ctor_get(e, 1);
-                    let new_fn  = self.apply(fn_e,  offset);
+                    let new_fn = self.apply(fn_e, offset);
                     let new_arg = self.apply(arg_e, offset);
                     if new_fn == fn_e && new_arg == arg_e {
                         lean_dec(new_fn);
@@ -176,9 +196,9 @@ mod kernel_abstract_impl {
                     }
                 }
                 EXPR_LAMBDA | EXPR_PI => {
-                    let dom  = lean_ctor_get(e, 1);
+                    let dom = lean_ctor_get(e, 1);
                     let body = lean_ctor_get(e, 2);
-                    let new_dom  = self.apply(dom,  offset);
+                    let new_dom = self.apply(dom, offset);
                     let new_body = self.apply(body, offset + 1);
                     if new_dom == dom && new_body == body {
                         lean_dec(new_dom);
@@ -197,11 +217,11 @@ mod kernel_abstract_impl {
                     }
                 }
                 EXPR_LET => {
-                    let ty   = lean_ctor_get(e, 1);
-                    let val  = lean_ctor_get(e, 2);
+                    let ty = lean_ctor_get(e, 1);
+                    let val = lean_ctor_get(e, 2);
                     let body = lean_ctor_get(e, 3);
-                    let new_ty   = self.apply(ty,   offset);
-                    let new_val  = self.apply(val,  offset);
+                    let new_ty = self.apply(ty, offset);
+                    let new_val = self.apply(val, offset);
                     let new_body = self.apply(body, offset + 1);
                     if new_ty == ty && new_val == val && new_body == body {
                         lean_dec(new_ty);
@@ -210,7 +230,7 @@ mod kernel_abstract_impl {
                         lean_inc(e);
                         e
                     } else {
-                        let name   = lean_ctor_get(e, 0);
+                        let name = lean_ctor_get(e, 0);
                         lean_inc(name);
                         let nondep = expr_let_nondep(e);
                         lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
@@ -238,7 +258,7 @@ mod kernel_abstract_impl {
                         e
                     } else {
                         let sname = lean_ctor_get(e, 0);
-                        let idx   = lean_ctor_get(e, 1);
+                        let idx = lean_ctor_get(e, 1);
                         lean_inc(sname);
                         lean_inc(idx);
                         lean_expr_mk_proj(sname, idx, new_child)
@@ -269,7 +289,11 @@ mod kernel_abstract_impl {
             lean_inc(e);
             return e;
         }
-        let mut abs_fn = AbstractFn { n, subst, cache: HashMap::new() };
+        let mut abs_fn = AbstractFn {
+            n,
+            subst,
+            cache: HashMap::new(),
+        };
         abs_fn.apply(e, 0)
     }
 

@@ -135,8 +135,8 @@ fn div_unnormalize(numer: &[MpnDigit], denom_len: usize, shift: usize, rem: &mut
         rem[..denom_len].copy_from_slice(&numer[..denom_len]);
     } else {
         for index in 0..denom_len - 1 {
-            rem[index] =
-                (numer[index] >> shift) | (last_bits(shift, numer[index + 1]) << (DIGIT_BITS - shift));
+            rem[index] = (numer[index] >> shift)
+                | (last_bits(shift, numer[index + 1]) << (DIGIT_BITS - shift));
         }
         rem[denom_len - 1] = numer[denom_len - 1] >> shift;
     }
@@ -144,7 +144,8 @@ fn div_unnormalize(numer: &[MpnDigit], denom_len: usize, shift: usize, rem: &mut
 
 fn div_1(numer: &mut [MpnDigit], denom: MpnDigit, quot: &mut [MpnDigit]) {
     for index in (1..numer.len()).rev() {
-        let temp = ((numer[index] as MpnDoubleDigit) << DIGIT_BITS) | numer[index - 1] as MpnDoubleDigit;
+        let temp =
+            ((numer[index] as MpnDoubleDigit) << DIGIT_BITS) | numer[index - 1] as MpnDoubleDigit;
         let q_hat = temp / denom as MpnDoubleDigit;
         let ms = temp - q_hat * denom as MpnDoubleDigit;
         let borrow = ms > temp;
@@ -164,8 +165,8 @@ fn div_n(numer: &mut [MpnDigit], denom: &[MpnDigit], quot: &mut [MpnDigit]) {
     let mut ms = vec![0; n + 1];
 
     for j in (0..m).rev() {
-        let temp = ((numer[j + n] as MpnDoubleDigit) << DIGIT_BITS)
-            | numer[j + n - 1] as MpnDoubleDigit;
+        let temp =
+            ((numer[j + n] as MpnDoubleDigit) << DIGIT_BITS) | numer[j + n - 1] as MpnDoubleDigit;
         let mut q_hat = temp / denom[n - 1] as MpnDoubleDigit;
         let mut r_hat = temp % denom[n - 1] as MpnDoubleDigit;
         while q_hat >= BASE
@@ -195,7 +196,12 @@ fn div_n(numer: &mut [MpnDigit], denom: &[MpnDigit], quot: &mut [MpnDigit]) {
     }
 }
 
-fn mpn_div_impl(numer: &[MpnDigit], denom: &[MpnDigit], quot: &mut [MpnDigit], rem: &mut [MpnDigit]) {
+fn mpn_div_impl(
+    numer: &[MpnDigit],
+    denom: &[MpnDigit],
+    quot: &mut [MpnDigit],
+    rem: &mut [MpnDigit],
+) {
     if numer.len() < denom.len() {
         for value in quot.iter_mut() {
             *value = 0;
@@ -225,7 +231,10 @@ fn mpn_div_impl(numer: &[MpnDigit], denom: &[MpnDigit], quot: &mut [MpnDigit], r
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean11mpn_compareEPKjmS1_m")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean11mpn_compareEPKjmS1_m"
+)]
 pub unsafe extern "C" fn mpn_compare(
     a: *const MpnDigit,
     lnga: usize,
@@ -235,7 +244,10 @@ pub unsafe extern "C" fn mpn_compare(
     mpn_compare_impl(digit_slice(a, lnga), digit_slice(b, lngb))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7mpn_addEPKjmS1_mPjmPm")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean7mpn_addEPKjmS1_mPjmPm"
+)]
 pub unsafe extern "C" fn mpn_add(
     a: *const MpnDigit,
     lnga: usize,
@@ -247,15 +259,14 @@ pub unsafe extern "C" fn mpn_add(
 ) {
     let lhs = digit_slice(a, lnga).to_vec();
     let rhs = digit_slice(b, lngb).to_vec();
-    let size = mpn_add_impl(
-        &lhs,
-        &rhs,
-        digit_slice_mut(c, lngc_alloc),
-    );
+    let size = mpn_add_impl(&lhs, &rhs, digit_slice_mut(c, lngc_alloc));
     *plngc = size;
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7mpn_subEPKjmS1_mPjS2_")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean7mpn_subEPKjmS1_mPjS2_"
+)]
 pub unsafe extern "C" fn mpn_sub(
     a: *const MpnDigit,
     lnga: usize,
@@ -267,14 +278,13 @@ pub unsafe extern "C" fn mpn_sub(
     let len = lnga.max(lngb);
     let lhs = digit_slice(a, lnga).to_vec();
     let rhs = digit_slice(b, lngb).to_vec();
-    *pborrow = mpn_sub_impl(
-        &lhs,
-        &rhs,
-        digit_slice_mut(c, len),
-    );
+    *pborrow = mpn_sub_impl(&lhs, &rhs, digit_slice_mut(c, len));
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7mpn_mulEPKjmS1_mPj")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean7mpn_mulEPKjmS1_mPj"
+)]
 pub unsafe extern "C" fn mpn_mul(
     a: *const MpnDigit,
     lnga: usize,
@@ -284,14 +294,13 @@ pub unsafe extern "C" fn mpn_mul(
 ) {
     let lhs = digit_slice(a, lnga).to_vec();
     let rhs = digit_slice(b, lngb).to_vec();
-    mpn_mul_impl(
-        &lhs,
-        &rhs,
-        digit_slice_mut(c, lnga + lngb),
-    );
+    mpn_mul_impl(&lhs, &rhs, digit_slice_mut(c, lnga + lngb));
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7mpn_divEPKjmS1_mPjS2_")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean7mpn_divEPKjmS1_mPjS2_"
+)]
 pub unsafe extern "C" fn mpn_div(
     numer: *const MpnDigit,
     lnum: usize,
@@ -309,7 +318,10 @@ pub unsafe extern "C" fn mpn_div(
     );
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13mpn_to_stringEPKjmPcm")]
+#[cfg_attr(
+    feature = "export-runtime-ffi",
+    export_name = "_ZN4lean13mpn_to_stringEPKjmPcm"
+)]
 pub unsafe extern "C" fn mpn_to_string(
     a: *const MpnDigit,
     lng: usize,

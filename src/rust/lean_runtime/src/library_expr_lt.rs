@@ -54,8 +54,8 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 
 #[cfg(feature = "export-runtime-ffi")]
 mod library_expr_lt_impl {
-    use super::*;
     use super::runtime_object_name_impl::lean_name_eq;
+    use super::*;
 
     extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
@@ -71,18 +71,18 @@ mod library_expr_lt_impl {
 
     // ── Expr field layout helpers ─────────────────────────────────────────────
 
-    const EXPR_BVAR:   u8 = 0;
-    const EXPR_FVAR:   u8 = 1;
-    const EXPR_MVAR:   u8 = 2;
-    const EXPR_SORT:   u8 = 3;
-    const EXPR_CONST:  u8 = 4;
-    const EXPR_APP:    u8 = 5;
+    const EXPR_BVAR: u8 = 0;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
+    const EXPR_SORT: u8 = 3;
+    const EXPR_CONST: u8 = 4;
+    const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI:     u8 = 7;
-    const EXPR_LET:    u8 = 8;
-    const EXPR_LIT:    u8 = 9;
-    const EXPR_MDATA:  u8 = 10;
-    const EXPR_PROJ:   u8 = 11;
+    const EXPR_PI: u8 = 7;
+    const EXPR_LET: u8 = 8;
+    const EXPR_LIT: u8 = 9;
+    const EXPR_MDATA: u8 = 10;
+    const EXPR_PROJ: u8 = 11;
 
     #[inline(always)]
     unsafe fn expr_hash(e: *mut LeanObject) -> u32 {
@@ -97,11 +97,11 @@ mod library_expr_lt_impl {
 
     // ── Level helpers ─────────────────────────────────────────────────────────
 
-    const LEVEL_SUCC:  u8 = 1;
-    const LEVEL_MAX:   u8 = 2;
-    const LEVEL_IMAX:  u8 = 3;
+    const LEVEL_SUCC: u8 = 1;
+    const LEVEL_MAX: u8 = 2;
+    const LEVEL_IMAX: u8 = 3;
     const LEVEL_PARAM: u8 = 4;
-    const LEVEL_MVAR:  u8 = 5;
+    const LEVEL_MVAR: u8 = 5;
 
     #[inline(always)]
     unsafe fn level_data(l: *mut LeanObject) -> u64 {
@@ -112,7 +112,9 @@ mod library_expr_lt_impl {
 
     #[inline(always)]
     unsafe fn level_hash(l: *mut LeanObject) -> u32 {
-        if lean_is_scalar(l) { return 0; }
+        if lean_is_scalar(l) {
+            return 0;
+        }
         level_data(l) as u32
     }
 
@@ -121,28 +123,44 @@ mod library_expr_lt_impl {
 
     #[inline(always)]
     unsafe fn level_depth(l: *mut LeanObject) -> u32 {
-        if lean_is_scalar(l) { return 0; }
+        if lean_is_scalar(l) {
+            return 0;
+        }
         (level_data(l) >> LEVEL_DATA_DEPTH_SHIFT) as u32
     }
 
     // Total order on Level objects. Mirrors C++ is_lt(level, level, use_hash).
     // Sub-field inequality checks use lean_level_eqv (structural), matching C++ level::operator!=.
     unsafe fn level_lt(a: *mut LeanObject, b: *mut LeanObject, use_hash: bool) -> bool {
-        if a == b { return false; }
+        if a == b {
+            return false;
+        }
         let da = level_depth(a);
         let db = level_depth(b);
-        if da < db { return true; }
-        if da > db { return false; }
+        if da < db {
+            return true;
+        }
+        if da > db {
+            return false;
+        }
         let tag_a = lean_obj_tag(a);
         let tag_b = lean_obj_tag(b);
-        if tag_a != tag_b { return tag_a < tag_b; }
+        if tag_a != tag_b {
+            return tag_a < tag_b;
+        }
         if use_hash {
             let ha = level_hash(a);
             let hb = level_hash(b);
-            if ha < hb { return true; }
-            if ha > hb { return false; }
+            if ha < hb {
+                return true;
+            }
+            if ha > hb {
+                return false;
+            }
         }
-        if lean_level_eqv(a, b) != 0 { return false; }
+        if lean_level_eqv(a, b) != 0 {
+            return false;
+        }
         match tag_a {
             LEVEL_PARAM | LEVEL_MVAR => {
                 l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
@@ -171,8 +189,12 @@ mod library_expr_lt_impl {
         loop {
             let sa = lean_is_scalar(as_);
             let sb = lean_is_scalar(bs_);
-            if sa { return !sb; }  // nil < cons
-            if sb { return false; }
+            if sa {
+                return !sb;
+            } // nil < cons
+            if sb {
+                return false;
+            }
             let head_a = lean_ctor_get(as_, 0);
             let head_b = lean_ctor_get(bs_, 0);
             // Use structural equality to match C++ car(as) == car(bs) (level::operator==).
@@ -198,17 +220,21 @@ mod library_expr_lt_impl {
     // Borrowed Nat equality check.
     #[inline(always)]
     unsafe fn nat_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-        if a == b { return true; }
-        if lean_is_scalar(a) || lean_is_scalar(b) { return false; }
+        if a == b {
+            return true;
+        }
+        if lean_is_scalar(a) || lean_is_scalar(b) {
+            return false;
+        }
         lean_nat_big_eq(a, b)
     }
 
     // ── DataValue helpers ─────────────────────────────────────────────────────
 
     const DV_STRING: u8 = 0;
-    const DV_BOOL:   u8 = 1;
-    const DV_NAME:   u8 = 2;
-    const DV_NAT:    u8 = 3;
+    const DV_BOOL: u8 = 1;
+    const DV_NAME: u8 = 2;
+    const DV_NAT: u8 = 3;
 
     // String equality (borrowed).
     #[inline(always)]
@@ -223,34 +249,42 @@ mod library_expr_lt_impl {
 
     // Borrowed DataValue equality — avoids the consuming lean_data_value_beq.
     unsafe fn data_value_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-        if a == b { return true; }
+        if a == b {
+            return true;
+        }
         let tag_a = lean_obj_tag(a);
-        if tag_a != lean_obj_tag(b) { return false; }
+        if tag_a != lean_obj_tag(b) {
+            return false;
+        }
         match tag_a {
             DV_STRING => str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            DV_BOOL   => lean_ctor_get_uint8(a, 0) == lean_ctor_get_uint8(b, 0),
-            DV_NAME   => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
-            DV_NAT    => nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            _         => false,
+            DV_BOOL => lean_ctor_get_uint8(a, 0) == lean_ctor_get_uint8(b, 0),
+            DV_NAME => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
+            DV_NAT => nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            _ => false,
         }
     }
 
     // DataValue ordering. Mirrors C++ data_value::operator< from kvmap.h.
     // C++ uses name::operator< (lexicographic) for DV_NAME, so we use l_Lean_Name_lt.
     unsafe fn data_value_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-        if a == b { return false; }
+        if a == b {
+            return false;
+        }
         let tag_a = lean_obj_tag(a);
         let tag_b = lean_obj_tag(b);
-        if tag_a != tag_b { return tag_a < tag_b; }
+        if tag_a != tag_b {
+            return tag_a < tag_b;
+        }
         match tag_a {
             DV_STRING => lean_string_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            DV_BOOL   => {
+            DV_BOOL => {
                 // false < true: a.bool == 0 && b.bool != 0
                 lean_ctor_get_uint8(a, 0) == 0 && lean_ctor_get_uint8(b, 0) != 0
             }
             DV_NAME => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
-            DV_NAT  => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            _       => false,
+            DV_NAT => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            _ => false,
         }
     }
 
@@ -260,11 +294,17 @@ mod library_expr_lt_impl {
     // Borrowed: does not consume m1 or m2.
     unsafe fn kvmap_lt(mut m1: *mut LeanObject, mut m2: *mut LeanObject) -> bool {
         loop {
-            if m1 == m2 { return false; }
+            if m1 == m2 {
+                return false;
+            }
             let s1 = lean_is_scalar(m1);
             let s2 = lean_is_scalar(m2);
-            if s1 { return !s2; }   // nil < cons
-            if s2 { return false; }
+            if s1 {
+                return !s2;
+            } // nil < cons
+            if s2 {
+                return false;
+            }
 
             // cons cell: field[0]=pair, field[1]=tail
             let pair1 = lean_ctor_get(m1, 0);
@@ -295,10 +335,14 @@ mod library_expr_lt_impl {
     // Literal.natVal = tag 0, field[0] = Nat
     // Literal.strVal = tag 1, field[0] = String
     unsafe fn lit_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-        if a == b { return false; }
+        if a == b {
+            return false;
+        }
         let tag_a = lean_obj_tag(a);
         let tag_b = lean_obj_tag(b);
-        if tag_a != tag_b { return tag_a < tag_b; }
+        if tag_a != tag_b {
+            return tag_a < tag_b;
+        }
         match tag_a {
             0 => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             1 => lean_string_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
@@ -315,22 +359,32 @@ mod library_expr_lt_impl {
     // expr_eq_fn<false> = lean_expr_eqv) for sub-exprs, level::operator!= (= lean_level_eqv)
     // for sub-levels, and name::operator!= (= lean_name_eq) for sub-names.
     unsafe fn expr_lt(a: *mut LeanObject, b: *mut LeanObject, use_hash: bool) -> bool {
-        if a == b { return false; }
+        if a == b {
+            return false;
+        }
 
         let tag_a = lean_obj_tag(a);
         let tag_b = lean_obj_tag(b);
-        if tag_a != tag_b { return tag_a < tag_b; }
+        if tag_a != tag_b {
+            return tag_a < tag_b;
+        }
 
         if use_hash {
             let ha = expr_hash(a);
             let hb = expr_hash(b);
-            if ha < hb { return true; }
-            if ha > hb { return false; }
+            if ha < hb {
+                return true;
+            }
+            if ha > hb {
+                return false;
+            }
         }
 
         // Structural equality fast-exit: mirrors C++ "if (a == b) return false;" which calls
         // expr_eq_fn<false>. Needed because sub-field comparisons below use structural equality.
-        if lean_expr_eqv(a, b) != 0 { return false; }
+        if lean_expr_eqv(a, b) != 0 {
+            return false;
+        }
 
         match tag_a {
             EXPR_LIT => lit_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
@@ -402,7 +456,9 @@ mod library_expr_lt_impl {
                 // C++: if (let_nondep(a) != let_nondep(b)) — scalar comparison
                 let nd_a = expr_let_nondep(a);
                 let nd_b = expr_let_nondep(b);
-                if nd_a != nd_b { return nd_a < nd_b; }
+                if nd_a != nd_b {
+                    return nd_a < nd_b;
+                }
                 // C++: else if (let_type(a) != let_type(b)) — structural expr inequality
                 let type_a = lean_ctor_get(a, 1);
                 let type_b = lean_ctor_get(b, 1);
@@ -434,18 +490,12 @@ mod library_expr_lt_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_quick_lt(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> u8 {
+    pub unsafe extern "C" fn lean_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
         expr_lt(a, b, true) as u8
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_lt(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> u8 {
+    pub unsafe extern "C" fn lean_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
         expr_lt(a, b, false) as u8
     }
 }
