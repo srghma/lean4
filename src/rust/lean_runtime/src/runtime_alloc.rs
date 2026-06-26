@@ -5,7 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 
 pub(crate) mod runtime_alloc_impl {
-    use core::ffi::c_void;
     use std::cell::Cell;
 
     #[cfg(lean_small_allocator)]
@@ -41,34 +40,12 @@ pub(crate) mod runtime_alloc_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16initialize_allocEv"
-    )]
-    pub extern "C" fn initialize_alloc() {}
-
-    #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14finalize_allocEv"
-    )]
-    pub extern "C" fn finalize_alloc() {}
-
-    #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14set_heartbeatsEm"
-    )]
-    pub unsafe extern "C" fn set_heartbeats(count: u64) {
+    pub unsafe fn set_heartbeats(count: u64) {
         G_HEARTBEAT.with(|cell| cell.set(count));
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14add_heartbeatsEm"
-    )]
-    pub unsafe extern "C" fn add_heartbeats(count: u64) {
+    pub unsafe fn add_heartbeats(count: u64) {
         G_HEARTBEAT.with(|cell| cell.set(cell.get().wrapping_add(count)));
     }
 
@@ -79,11 +56,7 @@ pub(crate) mod runtime_alloc_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18get_num_heartbeatsEv"
-    )]
-    pub extern "C" fn get_num_heartbeats() -> u64 {
+    pub fn get_num_heartbeats() -> u64 {
         G_HEARTBEAT.with(|cell| cell.get())
     }
 
@@ -99,11 +72,6 @@ pub(crate) mod runtime_alloc_impl {
         unsafe {
             set_heartbeats(count);
         }
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn free_sized(ptr: *mut c_void, _sz: usize) {
-        libc::free(ptr)
     }
 
     #[cfg(lean_small_allocator)]
@@ -441,11 +409,7 @@ pub(crate) mod runtime_alloc_impl {
             }
         }
 
-        #[cfg_attr(
-            feature = "export-runtime-ffi",
-            export_name = "_ZN4lean16init_thread_heapEv"
-        )]
-        pub unsafe extern "C" fn init_thread_heap() {
+        pub unsafe fn init_thread_heap() {
             init_heap(false);
         }
 
@@ -505,8 +469,7 @@ pub(crate) mod runtime_alloc_impl {
             lean_alloc_small(sz as u32, slot_idx as u32)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean5allocEm")]
-        pub unsafe extern "C" fn alloc_export(sz: usize) -> *mut c_void {
+        pub unsafe fn alloc_export(sz: usize) -> *mut c_void {
             alloc(sz)
         }
 
@@ -544,8 +507,7 @@ pub(crate) mod runtime_alloc_impl {
             dealloc_small_core(obj.cast::<u8>());
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7deallocEPvm")]
-        pub unsafe extern "C" fn dealloc_export(obj: *mut c_void, sz: usize) {
+        pub unsafe fn dealloc_export(obj: *mut c_void, sz: usize) {
             dealloc(obj, sz);
         }
 
@@ -560,36 +522,19 @@ pub(crate) mod runtime_alloc_impl {
             (*page).header.obj_size
         }
 
-        #[cfg_attr(
-            feature = "export-runtime-ffi",
-            export_name = "_ZN4lean16initialize_allocEv"
-        )]
-        pub unsafe extern "C" fn initialize_alloc() {
+        pub unsafe fn initialize_alloc() {
             init_heap(true);
         }
 
-        #[cfg_attr(
-            feature = "export-runtime-ffi",
-            export_name = "_ZN4lean14finalize_allocEv"
-        )]
-        pub extern "C" fn finalize_alloc() {}
 
-        #[cfg_attr(
-            feature = "export-runtime-ffi",
-            export_name = "_ZN4lean14set_heartbeatsEm"
-        )]
-        pub unsafe extern "C" fn set_heartbeats(count: u64) {
+        pub unsafe fn set_heartbeats(count: u64) {
             let heap = get_heap();
             if !heap.is_null() {
                 (*heap).heartbeat = count;
             }
         }
 
-        #[cfg_attr(
-            feature = "export-runtime-ffi",
-            export_name = "_ZN4lean14add_heartbeatsEm"
-        )]
-        pub unsafe extern "C" fn add_heartbeats(count: u64) {
+        pub unsafe fn add_heartbeats(count: u64) {
             let heap = get_heap();
             if !heap.is_null() {
                 (*heap).heartbeat = (*heap).heartbeat.wrapping_add(count);
@@ -601,11 +546,7 @@ pub(crate) mod runtime_alloc_impl {
             add_heartbeats(1);
         }
 
-        #[cfg_attr(
-            feature = "export-runtime-ffi",
-            export_name = "_ZN4lean18get_num_heartbeatsEv"
-        )]
-        pub unsafe extern "C" fn get_num_heartbeats() -> u64 {
+        pub unsafe fn get_num_heartbeats() -> u64 {
             let heap = get_heap();
             if heap.is_null() {
                 0

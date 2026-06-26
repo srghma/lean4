@@ -75,9 +75,6 @@ pub(crate) mod runtime_libuv_impl {
     use super::*;
 
     #[inline]
-    pub(crate) fn initialize_libuv() {}
-
-    #[inline]
     pub(crate) unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         argv
     }

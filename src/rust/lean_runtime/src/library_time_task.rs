@@ -11,7 +11,6 @@ Exports:
   lean_profileit(category, opts, fn, decl) -> lean_object*
   lean_runtime_time_task_begin(category_cstr, opts, name) -> u8  (1 if enabled)
   lean_runtime_time_task_end(enabled: u8)
-  _ZN4lean20initialize_time_taskEv  (no-op, state lives in Rust statics)
   _ZN4lean18finalize_time_taskEv    (clears cumulative times map)
 */
 
@@ -199,11 +198,8 @@ pub(crate) mod library_time_task_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean20initialize_time_taskEv")]
-    pub extern "C" fn initialize_time_task() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean18finalize_time_taskEv")]
-    pub extern "C" fn finalize_time_task() {
+    pub fn finalize_time_task() {
         if let Ok(mut cum) = CUM_TIMES.lock() {
             cum.clear();
         }

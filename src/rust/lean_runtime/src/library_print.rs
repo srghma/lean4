@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -9,27 +8,10 @@ Rust port of library/print.cpp.
 
 Provides lean_expr_dbg_to_string, which is the ToString Expr instance in Lean
 (registered via @[extern "lean_expr_dbg_to_string"] on Expr.dbgToString).
-
-initialize_print / finalize_print are now no-ops exported with their original
-C++ mangled names so that any code compiled against the old ABI still links.
-init_default_print_fn is also a no-op: the C++ formatter.h print function
-pointer is no longer needed because lean_expr_dbg_to_string is implemented
-entirely in Rust.
 */
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16initialize_printEv"
-)]
-pub extern "C" fn initialize_print() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean14finalize_printEv"
-)]
-pub extern "C" fn finalize_print() {}
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod library_print_impl {
     use super::*;
 
@@ -38,7 +20,7 @@ pub(crate) mod library_print_impl {
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Lean.Expr): mkFVar — takes owned FVarId (= Name at ABI), returns owned Expr.
         fn lean_expr_mk_fvar(n: *mut LeanObject) -> *mut LeanObject;
-        // Rust #[no_mangle] in kernel_instantiate.rs: both args borrowed, returns owned.
+        // Rust implementation in kernel_instantiate.rs: both args borrowed, returns owned.
         fn lean_expr_instantiate1(a: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Init.Data.Repr): takes owned Nat, returns owned String.
         fn l_Nat_reprFast(n: *mut LeanObject) -> *mut LeanObject;

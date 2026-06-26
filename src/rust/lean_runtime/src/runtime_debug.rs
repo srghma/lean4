@@ -36,53 +36,29 @@ pub(crate) mod runtime_debug_impl {
         let _ = io::stderr().flush();
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16initialize_debugEv"
-    )]
-    pub extern "C" fn initialize_debug() {
+    pub fn initialize_debug() {
         // Debug tags are initialized lazily.
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14finalize_debugEv"
-    )]
-    pub extern "C" fn finalize_debug() {
+    pub fn finalize_debug() {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().clear();
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14has_violationsEv"
-    )]
-    pub extern "C" fn has_violations() -> bool {
+    pub fn has_violations() -> bool {
         HAS_VIOLATIONS.load(Ordering::Relaxed)
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean17enable_assertionsEb"
-    )]
-    pub extern "C" fn enable_assertions(enabled: bool) {
+    pub fn enable_assertions(enabled: bool) {
         ASSERTIONS_ENABLED.store(enabled, Ordering::Relaxed);
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18assertions_enabledEv"
-    )]
-    pub extern "C" fn assertions_enabled() -> bool {
+    pub fn assertions_enabled() -> bool {
         ASSERTIONS_ENABLED.load(Ordering::Relaxed)
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean26notify_assertion_violationEPKciS1_"
-    )]
-    pub unsafe extern "C" fn notify_assertion_violation(
+    pub unsafe fn notify_assertion_violation(
         file_name: *const c_char,
         line: c_int,
         condition: *const c_char,
@@ -93,11 +69,7 @@ pub(crate) mod runtime_debug_impl {
         write_stderr(&format!("{}\n", cstr_to_string(condition)));
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean12enable_debugEPKc"
-    )]
-    pub unsafe extern "C" fn enable_debug(tag: *const c_char) {
+    pub unsafe fn enable_debug(tag: *const c_char) {
         debug_tags().lock().unwrap().insert(cstr_to_string(tag));
     }
 
@@ -107,21 +79,13 @@ pub(crate) mod runtime_debug_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean13disable_debugEPKc"
-    )]
-    pub unsafe extern "C" fn disable_debug(tag: *const c_char) {
+    pub unsafe fn disable_debug(tag: *const c_char) {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().remove(&cstr_to_string(tag));
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16is_debug_enabledEPKc"
-    )]
-    pub unsafe extern "C" fn is_debug_enabled(tag: *const c_char) -> bool {
+    pub unsafe fn is_debug_enabled(tag: *const c_char) -> bool {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().contains(&cstr_to_string(tag))
         } else {
@@ -129,27 +93,15 @@ pub(crate) mod runtime_debug_impl {
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean19enable_debug_dialogEb"
-    )]
-    pub extern "C" fn enable_debug_dialog(enabled: bool) {
+    pub fn enable_debug_dialog(enabled: bool) {
         DEBUG_DIALOG.store(enabled, Ordering::Relaxed);
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15debuggable_exitEv"
-    )]
-    pub extern "C" fn debuggable_exit() -> ! {
+    pub fn debuggable_exit() -> ! {
         process::abort();
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15invoke_debuggerEv"
-    )]
-    pub extern "C" fn invoke_debugger() {
+    pub fn invoke_debugger() {
         HAS_VIOLATIONS.store(true, Ordering::Relaxed);
         if !DEBUG_DIALOG.load(Ordering::Relaxed) {
             debuggable_exit();

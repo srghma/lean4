@@ -3,22 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod kernel_environment_impl {
+    use super::kernel_type_checker::kernel_type_checker_impl::lean_rust_add_decl;
     use super::*;
-
-    extern "C" {
-        // Unified Rust dispatch (kernel_type_checker.rs): axiom/def/theorem/opaque are checked
-        // and added in Rust; quot/mutual/inductive still delegate to the C++ bridges internally.
-        fn lean_rust_add_decl(
-            env: *mut LeanObject,
-            decl: *mut LeanObject,
-            check: u8,
-        ) -> *mut LeanObject;
-    }
 
     #[inline(always)]
     unsafe fn add_decl_dispatch(

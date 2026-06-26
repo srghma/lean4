@@ -24,7 +24,7 @@ namespace Lean.IR
 /-
 TODO: At the time of writing this our CI for LLVM is dysfunctional so this code is not actually
 tested. When we get back to fixing it we need to account for changes made to the ABI in the mean
-time. These changes can likely be done similar to the ones in EmitC:
+time. These changes can likely be done similar to the Rust backend:
 - IO.RealWorld elimination:
   - init functions don't take a real world parameter anymore
   - parameters that are `void` are erased and do not appear in function signatures or call sites
@@ -636,7 +636,7 @@ def emitNumLit (builder : LLVM.Builder llvmctx)
 def toHexDigit (c : Nat) : String :=
   String.singleton c.digitChar
 
--- TODO(bollu) : Setup code sharing between 'EmitC' and 'EmitLLVM'
+-- TODO(bollu) : Setup code sharing between the native code generators and 'EmitLLVM'
 def quoteString (s : String) : String :=
   let q := "\"";
   let q := s.foldl
@@ -1617,7 +1617,7 @@ def main : M llvmctx Unit := do
 end EmitLLVM
 
 def getLeanHBcPath : IO System.FilePath := do
-  return (← getLibDir (← getBuildDir)) / "lean.h.bc"
+  throw <| IO.userError "LLVM runtime bitcode from the old C header has been removed in the Rust backend"
 
 /-- Get the names of all global symbols in the module -/
 partial def getModuleGlobals (mod : LLVM.Module llvmctx) : IO (Array (LLVM.Value llvmctx)) := do

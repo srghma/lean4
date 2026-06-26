@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -10,7 +9,6 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
   lean_instantiate_expr_mvars  — expr-MVar instantiation
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod library_instantiate_mvars_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::*;

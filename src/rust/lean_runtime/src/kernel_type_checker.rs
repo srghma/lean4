@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -9,7 +8,6 @@ Rust port of src/kernel/type_checker.cpp (1560 lines).
 All C++ `throw X` → `return Err(KernelError::X)`.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 #[allow(
     dead_code,
     non_snake_case,
@@ -26,7 +24,7 @@ pub(crate) mod kernel_type_checker_impl {
     type Size = usize;
 
     // ---------------------------------------------------------------------------
-    // Lean runtime C API bindings (extern "C" stubs expected from lean/lean.h)
+    // Lean runtime Rust ABI bindings
     // lean_inc, lean_dec, lean_is_scalar, lean_box, lean_unbox, lean_ptr_tag,
     // lean_mark_persistent are Rust functions from super::* — not declared here.
     // lean_alloc_ctor / lean_ctor_get / lean_ctor_set are local shims below.
@@ -372,7 +370,7 @@ pub(crate) mod kernel_type_checker_impl {
 
     // ---------------------------------------------------------------------------
     // Exported C symbols for inline C++ accessor functions
-    // These were inline in the C++ runtime (lean/lean.h) and thus not exported,
+    // These were inline in the C++ runtime (lean/static runtime layout) and thus not exported,
     // but libleanshared.so references them as external symbols — so Rust provides them.
     // ---------------------------------------------------------------------------
 
@@ -739,6 +737,20 @@ pub(crate) mod kernel_type_checker_impl {
     }
 
     #[inline]
+    pub(crate) unsafe fn lean_nat_div_exact(
+        a: *mut LeanObject,
+        b: *mut LeanObject,
+    ) -> *mut LeanObject {
+        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
+            let n1 = lean_unbox(a as *const _);
+            let n2 = lean_unbox(b as *const _);
+            super::lean_box(if n2 == 0 { 0 } else { n1 / n2 })
+        } else {
+            runtime_object_nat_int_impl::lean_nat_big_div_exact(a, b)
+        }
+    }
+
+    #[inline]
     pub(crate) unsafe fn lean_nat_mod(
         a: *mut LeanObject,
         b: *mut LeanObject,
@@ -777,7 +789,7 @@ pub(crate) mod kernel_type_checker_impl {
         }
     }
 
-    // lean_nat_xor (= lean_nat_lxor in lean.h): tag bit cancels on XOR so must unbox/rebox.
+    // lean_nat_xor (= lean_nat_lxor in static runtime layout): tag bit cancels on XOR so must unbox/rebox.
     #[inline]
     pub(crate) unsafe fn lean_nat_xor(
         a: *mut LeanObject,
@@ -788,6 +800,14 @@ pub(crate) mod kernel_type_checker_impl {
         } else {
             runtime_object_nat_int_impl::lean_nat_big_xor(a, b)
         }
+    }
+
+    #[inline]
+    pub(crate) unsafe fn lean_nat_lxor(
+        a: *mut LeanObject,
+        b: *mut LeanObject,
+    ) -> *mut LeanObject {
+        lean_nat_xor(a, b)
     }
 
     #[inline]
@@ -1501,9 +1521,8 @@ pub(crate) mod kernel_type_checker_impl {
     }
 
     // --- LocalContext: build (fvar, new_lctx) pairs from the real Lean exports ---
-    // These are NOT #[no_mangle]: `lean_local_ctx_mk_local_decl` is also a Lean stdlib
-    // export (returning just the LocalContext), so an exported shim would collide.
-    // As module-local fns they simply shadow the names at the call sites in this file.
+    // These module-local helpers return both the fresh fvar and updated LocalContext,
+    // while the Lean stdlib functions return only the LocalContext.
     //
     // `mk_local_decl(g, un, type, bi)` in C++ does:
     //   new_lctx = lean_local_ctx_mk_local_decl(lctx, g.next(), un, type, bi); return mk_fvar(g.next())
@@ -8638,8 +8657,7 @@ pub(crate) mod kernel_type_checker_impl {
     // Init / Finalize
     // ---------------------------------------------------------------------------
 
-    #[export_name = "_ZN4lean23initialize_type_checkerEv"]
-    pub extern "C" fn initialize_type_checker() {
+    pub fn initialize_type_checker() {
         unsafe {
             let fresh_name = build_lean_name(&["_kernel_fresh"]);
             lean_mark_persistent(fresh_name);
@@ -8702,8 +8720,7 @@ pub(crate) mod kernel_type_checker_impl {
         }
     }
 
-    #[export_name = "_ZN4lean21finalize_type_checkerEv"]
-    pub extern "C" fn finalize_type_checker() {
+    pub fn finalize_type_checker() {
         // All globals were marked persistent; the runtime will free them.
         // Reset pointers to null for cleanliness.
         let ptrs: &[&AtomicPtr<LeanObject>] = &[
@@ -8747,13 +8764,10 @@ pub(crate) mod kernel_type_checker_impl {
         }
     }
 
-    #[export_name = "_ZN4lean22initialize_environmentEv"]
-    pub extern "C" fn initialize_environment() {
+    pub fn initialize_environment() {
         // No per-environment globals needed; all state is per-instance.
     }
 
-    #[export_name = "_ZN4lean20finalize_environmentEv"]
-    pub extern "C" fn finalize_environment() {}
 
     // The ReductionStatus type needs to be accessible from the TypeChecker impl.
     // Rust doesn't allow nested enums in impls cleanly, so we define it at module level:
@@ -8765,5 +8779,4 @@ pub(crate) mod kernel_type_checker_impl {
         DefDiff,
     }
 } // end kernel_type_checker_impl
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) use kernel_type_checker_impl::*;

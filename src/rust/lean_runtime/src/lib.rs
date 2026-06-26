@@ -16,6 +16,10 @@ use core::panic::PanicInfo;
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
+#[cfg(all(feature = "std", lean_has_mimalloc))]
+#[global_allocator]
+static GLOBAL_ALLOCATOR: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
 type Size = usize;
 
 const LEAN_REF_TAG: u8 = 253;
@@ -62,31 +66,27 @@ extern "C" {
     fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
     fn lean_get_profiler(opts: *mut LeanObject) -> u8;
     fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
-    // #[link_name = "_ZN4lean16initialize_asciiEv"]
-    // fn initialize_ascii_impl();
-    // #[link_name = "_ZN4lean14finalize_asciiEv"]
-    // fn finalize_ascii_impl();
-
-    // initialize_print / finalize_print now provided by library_print.rs (no-ops)
-    // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
-    // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no-ops)
+    // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no state)
     #[link_name = "_ZN4lean23initialize_library_utilEv"]
     fn initialize_library_util();
     #[link_name = "_ZN4lean21finalize_library_utilEv"]
     fn finalize_library_util();
-    // initialize_trace / finalize_trace now provided by kernel_trace.rs
-    // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
     fn initialize_Init(builtin: u8) -> *mut LeanObject;
     fn initialize_Std(builtin: u8) -> *mut LeanObject;
     fn initialize_Lean(builtin: u8) -> *mut LeanObject;}
 
+#[inline]
+pub unsafe fn lean_io_error_to_string_rust(err: *mut LeanObject) -> *mut LeanObject {
+    lean_io_error_to_string(err)
+}
+
 /// cbindgen:field-names=[m_rc, m_cs_sz, m_other, m_tag]
 #[repr(C)]
 pub struct LeanObject {
-    pub(crate) rc: i32,
-    pub(crate) cs_size: u16,
-    pub(crate) other: u8,
-    pub(crate) tag: u8,
+    pub rc: i32,
+    pub cs_size: u16,
+    pub other: u8,
+    pub tag: u8,
 }
 
 #[repr(C)]
@@ -95,8 +95,8 @@ pub struct LeanCtorObject {
     data: [*mut LeanObject; 0],
 }
 
-type LeanExternalFinalizeProc = unsafe extern "C" fn(*mut c_void);
-type LeanExternalForeachProc = unsafe extern "C" fn(*mut c_void, *mut LeanObject);
+type LeanExternalFinalizeProc = unsafe fn(*mut c_void);
+type LeanExternalForeachProc = unsafe fn(*mut c_void, *mut LeanObject);
 
 /// cbindgen:field-names=[m_finalize, m_foreach]
 #[repr(C)]
@@ -901,7 +901,7 @@ pub(crate) fn lean_strict_and(b1: u8, b2: u8) -> u8 {
 
 #[inline]
 pub(crate) unsafe fn lean_nat_pred(n: *mut LeanObject) -> *mut LeanObject {
-    // Mirrors origin-master-src/include/lean/lean.h: lean_nat_pred(n) = lean_nat_sub(n, lean_box(1)).
+    // Mirrors origin-master-src/include/lean/static runtime layout: lean_nat_pred(n) = lean_nat_sub(n, lean_box(1)).
     if lean_is_scalar(n) {
         let v = lean_unbox(n);
         unsafe { lean_box(if v == 0 { 0 } else { v - 1 }) }
@@ -961,7 +961,7 @@ pub(crate) unsafe fn lean_array_get(
     a: *mut LeanObject,
     i: *mut LeanObject,
 ) -> *mut LeanObject {
-    // Mirrors lean_array_get from origin-master-src/include/lean/lean.h
+    // Mirrors lean_array_get from origin-master-src/include/lean/static runtime layout
     if lean_is_scalar(i) {
         let idx = lean_unbox(i);
         if idx < lean_array_size(a) {
@@ -981,7 +981,7 @@ pub(crate) unsafe fn lean_array_get_borrowed(
     a: *mut LeanObject,
     i: *mut LeanObject,
 ) -> *mut LeanObject {
-    // Mirrors lean_array_get_borrowed from origin-master-src/include/lean/lean.h
+    // Mirrors lean_array_get_borrowed from origin-master-src/include/lean/static runtime layout
     if lean_is_scalar(i) {
         let idx = lean_unbox(i);
         if idx < lean_array_size(a) {
@@ -1591,11 +1591,7 @@ pub(crate) unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
     lean_dec(err);
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"
-)]
-pub unsafe extern "C" fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
     lean_inc(str);
     let details = lean_mk_string(c"string contains NUL bytes".as_ptr());
     lean_io_result_mk_error(lean_mk_io_error_invalid_argument_file(
@@ -1856,10 +1852,7 @@ pub(crate) unsafe fn lean_io_prim_handle_mk(
         _ => libc::O_RDONLY,
     };
 
-    extern "C" {
-        fn open(path: *const libc::c_char, oflag: libc::c_int, mode: libc::mode_t) -> libc::c_int;
-    }
-    let fd = open(fname, flags, 0o666);
+    let fd = libc::open(fname, flags, 0o666);
     if fd == -1 {
         return lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), filename));
     }
@@ -2291,7 +2284,6 @@ unsafe fn mk_name_path(components: &[&str]) -> LeanName {
 
 pub mod library_constants;
 pub(crate) use library_constants::*;
-#[cfg(feature = "export-runtime-ffi")]
 pub mod library_util;
 pub mod library_dynlib;
 pub(crate) use library_dynlib::*;
@@ -2310,7 +2302,6 @@ pub mod runtime_net_addr;
 pub(crate) use runtime_net_addr::*;
 pub mod runtime_signal;
 pub mod runtime_process;
-pub(crate) use runtime_process::*;
 pub mod runtime_stack_overflow;
 pub(crate) use runtime_stack_overflow::*;
 pub mod runtime_stack_info;
@@ -2332,7 +2323,6 @@ pub mod runtime_object_rc;
 pub mod runtime_object_task;
 pub(crate) use runtime_object_task::*;
 pub mod library_formatter;
-pub(crate) use library_formatter::*;
 pub mod runtime_io_ref;
 pub mod runtime_io_fs;
 pub mod runtime_io_error;
@@ -2354,7 +2344,6 @@ pub mod library_expr_lt;
 pub mod library_time_task;
 pub mod library_print;
 pub mod runtime_compact;
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) use runtime_compact::*;
 pub mod runtime_compact_writer;
 pub mod kernel_replace_fn;
@@ -2369,7 +2358,6 @@ pub mod kernel_declaration;
 pub mod kernel_environment;
 pub mod kernel_quot;
 pub mod kernel_type_checker;
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) use kernel_type_checker::*;
 pub mod library_instantiate_mvars;
 pub mod library_module;
@@ -2377,33 +2365,57 @@ pub mod library_elab_environment;
 pub mod library_ir_interpreter;
 pub mod library_llvm;
 pub mod kernel_num;
-pub(crate) use kernel_num::*;
 pub mod kernel_trace;
-pub(crate) use kernel_trace::*;
 
-#[cfg(feature = "export-runtime-ffi")]
-pub mod foreign_ffi;
+pub mod generated_abi {
+    pub use crate::*;
 
-pub(crate) use runtime_alloc::runtime_alloc_impl::finalize_alloc;
-pub(crate) use kernel_declaration::kernel_declaration_impl::finalize_declaration;
-pub(crate) use kernel_expr::kernel_expr_impl::finalize_expr;
-pub(crate) use runtime_io_stream::runtime_io_stream_impl::finalize_io;
+    #[repr(C)]
+    pub struct LeanCtorObject<const N: usize> {
+        pub m_header: LeanObject,
+        pub m_objs: [*mut LeanObject; N],
+    }
+
+    #[repr(C)]
+    pub struct LeanStringObject<const N: usize> {
+        pub m_header: LeanObject,
+        pub m_size: usize,
+        pub m_capacity: usize,
+        pub m_length: usize,
+        pub m_data: [core::ffi::c_char; N],
+    }
+
+    #[repr(C)]
+    pub struct LeanClosureObject<const N: usize> {
+        pub m_header: LeanObject,
+        pub m_fun: *const core::ffi::c_void,
+        pub m_arity: u16,
+        pub m_num_fixed: u16,
+        pub m_objs: [*mut LeanObject; N],
+    }
+
+    #[repr(C)]
+    pub struct LeanArrayObject<const N: usize> {
+        pub m_header: LeanObject,
+        pub m_size: usize,
+        pub m_capacity: usize,
+        pub m_data: [*mut LeanObject; N],
+    }
+
+    #[repr(C)]
+    pub struct LeanScalarArrayObject<const N: usize> {
+        pub m_header: LeanObject,
+        pub m_size: usize,
+        pub m_capacity: usize,
+        pub m_data: [u8; N],
+    }
+}
+
 pub(crate) use library_ir_interpreter::library_ir_interpreter_impl::finalize_ir_interpreter;
 pub(crate) use kernel_level::kernel_level_impl::finalize_level;
-pub(crate) use kernel_local_ctx::kernel_local_ctx_impl::finalize_local_ctx;
-pub(crate) use kernel_quot::kernel_quot_impl::finalize_quot;
-pub(crate) use runtime_thread::runtime_thread_impl::finalize_thread;
 pub(crate) use library_time_task::library_time_task_impl::finalize_time_task;
-pub(crate) use runtime_alloc::runtime_alloc_impl::initialize_alloc;
-pub(crate) use kernel_declaration::kernel_declaration_impl::initialize_declaration;
-pub(crate) use kernel_expr::kernel_expr_impl::initialize_expr;
 pub(crate) use runtime_io_stream::runtime_io_stream_impl::initialize_io;
-pub(crate) use library_ir_interpreter::library_ir_interpreter_impl::initialize_ir_interpreter;
 pub(crate) use kernel_level::kernel_level_impl::initialize_level;
-pub(crate) use kernel_local_ctx::kernel_local_ctx_impl::initialize_local_ctx;
-pub(crate) use kernel_quot::kernel_quot_impl::initialize_quot;
-pub(crate) use runtime_thread::runtime_thread_impl::initialize_thread;
-pub(crate) use library_time_task::library_time_task_impl::initialize_time_task;
 pub(crate) use runtime_object_rc::runtime_object_rc_impl::lean_alloc_object;
 pub(crate) use runtime_object_array::runtime_object_array_impl::lean_array_push;
 pub(crate) use runtime_object_rc::runtime_object_rc_impl::lean_dec_ref_cold;
@@ -2423,24 +2435,17 @@ pub(crate) use runtime_object_panic::runtime_object_panic_impl;
 pub(crate) use runtime_io_stream::runtime_io_stream_impl;
 pub(crate) use runtime_object_string::runtime_object_string_impl;
 pub(crate) use runtime_object_name::runtime_object_name_impl;
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) use runtime_alloc::runtime_alloc_impl;
 pub(crate) use runtime_object_array::runtime_object_array_impl;
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) use runtime_object_size::runtime_object_size_impl;
 pub(crate) use runtime_apply::runtime_apply_impl;
 pub(crate) use runtime_object_rc::runtime_object_rc_impl;
 pub(crate) use runtime_object_nat_int::runtime_object_nat_int_impl;
-#[cfg(feature = "export-runtime-ffi")]
-pub(crate) use kernel_for_each_fn::kernel_for_each_fn_impl::ForEachCallback;
-#[cfg(feature = "export-runtime-ffi")]
-pub(crate) use kernel_replace_fn::kernel_replace_fn_impl::ReplaceCallback;
 
 
 
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "lean_name_eq")]
-pub unsafe extern "C" fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
+pub unsafe fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
     runtime_object_name_impl::lean_name_eq(n1, n2)
 }
 
@@ -2454,9 +2459,9 @@ pub struct LeanExternalObject {
 
 static EXTERNAL_CLASSES: std::sync::Mutex<Vec<usize>> = std::sync::Mutex::new(Vec::new());
 
-unsafe extern "C" fn lean_external_noop_finalize(_: *mut c_void) {}
+unsafe fn lean_external_noop_finalize(_: *mut c_void) {}
 
-unsafe extern "C" fn lean_external_noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
+unsafe fn lean_external_noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
 #[inline]
 pub(crate) unsafe fn lean_register_external_class(
@@ -2684,13 +2689,12 @@ pub(crate) unsafe fn lean_int_neg_succ_of_nat(value: *mut LeanObject) -> *mut Le
     result
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 /// Int → Nat (absolute value).
 /// Takes a *borrowed* Int, returns a *new owned* Nat.
 /// Original C++:
 ///   if (lean_int_lt(i, lean_box(0))) return lean_int_to_nat(lean_int_neg(i));
 ///   else { lean_inc(i); return lean_int_to_nat(i); }
-pub unsafe extern "C" fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject {
     // Check sign: negative if scalar < 0, or big MPZ with negative sign
     let is_negative = if lean_is_scalar(i) {
         lean_scalar_to_int(i) < 0
@@ -2717,6 +2721,173 @@ pub unsafe extern "C" fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject {
         } else {
             runtime_object_nat_int_impl::lean_big_int_to_nat(i)
         }
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_int64_to_int(lean_scalar_to_int64(a).wrapping_add(lean_scalar_to_int64(b)))
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_add(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_int64_to_int(lean_scalar_to_int64(a).wrapping_sub(lean_scalar_to_int64(b)))
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_sub(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_int64_to_int(lean_scalar_to_int64(a).wrapping_mul(lean_scalar_to_int64(b)))
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_mul(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        let v1 = lean_scalar_to_int64(a);
+        let v2 = lean_scalar_to_int64(b);
+        if v2 == 0 {
+            lean_box(0)
+        } else {
+            lean_int64_to_int(v1 / v2)
+        }
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_div(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_div_exact(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        let v1 = lean_scalar_to_int64(a);
+        let v2 = lean_scalar_to_int64(b);
+        if v2 == 0 {
+            lean_box(0)
+        } else {
+            lean_int64_to_int(v1 / v2)
+        }
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_div_exact(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        let v1 = lean_scalar_to_int64(a);
+        let v2 = lean_scalar_to_int64(b);
+        if v2 == 0 {
+            a
+        } else {
+            lean_int64_to_int(v1 % v2)
+        }
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_mod(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_ediv(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        let n = lean_scalar_to_int64(a);
+        let d = lean_scalar_to_int64(b);
+        if d == 0 {
+            lean_box(0)
+        } else {
+            let mut q = n / d;
+            let r = n % d;
+            if r < 0 {
+                q = if d > 0 { q - 1 } else { q + 1 };
+            }
+            lean_int64_to_int(q)
+        }
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_ediv(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_emod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        let n = lean_scalar_to_int64(a);
+        let d = lean_scalar_to_int64(b);
+        if d == 0 {
+            a
+        } else {
+            let mut r = n % d;
+            if r < 0 {
+                r = if d > 0 { r + d } else { r - d };
+            }
+            lean_int64_to_int(r)
+        }
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_emod(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        a == b
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_eq(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_ne(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    !lean_int_eq(a, b)
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_le(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_scalar_to_int(a) <= lean_scalar_to_int(b)
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_le(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_scalar_to_int(a) < lean_scalar_to_int(b)
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_lt(a, b)
+    }
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    lean_int_eq(a, b) as u8
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    lean_int_le(a, b) as u8
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    lean_int_lt(a, b) as u8
+}
+
+#[inline]
+pub(crate) unsafe fn lean_int_dec_nonneg(a: *mut LeanObject) -> u8 {
+    if lean_is_scalar(a) {
+        (lean_scalar_to_int(a) >= 0) as u8
+    } else {
+        runtime_object_nat_int_impl::lean_int_big_nonneg(a) as u8
     }
 }
 
@@ -2750,8 +2921,7 @@ macro_rules! define_unsigned_numeric_family {
         $dec_lt_fn:ident,
         $dec_le_fn:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $of_nat_fn(value: *mut LeanObject) -> $ty {
+        pub unsafe fn $of_nat_fn(value: *mut LeanObject) -> $ty {
             if lean_is_scalar(value) {
                 lean_unbox(value) as $ty
             } else {
@@ -2759,28 +2929,23 @@ macro_rules! define_unsigned_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_nat_fn(value: $ty) -> *mut LeanObject {
+        pub unsafe fn $to_nat_fn(value: $ty) -> *mut LeanObject {
             lean_usize_to_nat(value as usize)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $add_fn(a1: $ty, a2: $ty) -> $ty {
+        pub unsafe fn $add_fn(a1: $ty, a2: $ty) -> $ty {
             a1.wrapping_add(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $sub_fn(a1: $ty, a2: $ty) -> $ty {
+        pub unsafe fn $sub_fn(a1: $ty, a2: $ty) -> $ty {
             a1.wrapping_sub(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mul_fn(a1: $ty, a2: $ty) -> $ty {
+        pub unsafe fn $mul_fn(a1: $ty, a2: $ty) -> $ty {
             a1.wrapping_mul(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $div_fn(a1: $ty, a2: $ty) -> $ty {
+        pub unsafe fn $div_fn(a1: $ty, a2: $ty) -> $ty {
             if a2 == 0 {
                 0
             } else {
@@ -2788,8 +2953,7 @@ macro_rules! define_unsigned_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mod_fn(a1: $ty, a2: $ty) -> $ty {
+        pub unsafe fn $mod_fn(a1: $ty, a2: $ty) -> $ty {
             if a2 == 0 {
                 a1
             } else {
@@ -2797,45 +2961,37 @@ macro_rules! define_unsigned_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $land_fn(a: $ty, b: $ty) -> $ty {
+        pub unsafe fn $land_fn(a: $ty, b: $ty) -> $ty {
             a & b
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $lor_fn(a: $ty, b: $ty) -> $ty {
+        pub unsafe fn $lor_fn(a: $ty, b: $ty) -> $ty {
             a | b
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $xor_fn(a: $ty, b: $ty) -> $ty {
+        pub unsafe fn $xor_fn(a: $ty, b: $ty) -> $ty {
             a ^ b
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_left_fn(a: $ty, b: $ty) -> $ty {
+        pub unsafe fn $shift_left_fn(a: $ty, b: $ty) -> $ty {
             let width = $width;
             a.wrapping_shl((b as u32) % width)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_right_fn(a: $ty, b: $ty) -> $ty {
+        pub unsafe fn $shift_right_fn(a: $ty, b: $ty) -> $ty {
             let width = $width;
             a.wrapping_shr((b as u32) % width)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $complement_fn(a: $ty) -> $ty {
+        pub unsafe fn $complement_fn(a: $ty) -> $ty {
             !a
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $neg_fn(a: $ty) -> $ty {
+        pub unsafe fn $neg_fn(a: $ty) -> $ty {
             (0 as $ty).wrapping_sub(a)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $log2_fn(mut a: $ty) -> $ty {
+        pub unsafe fn $log2_fn(mut a: $ty) -> $ty {
             let mut res: $ty = 0;
             while a >= 2 {
                 res = res.wrapping_add(1);
@@ -2844,43 +3000,35 @@ macro_rules! define_unsigned_numeric_family {
             res
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_eq_fn(a1: $ty, a2: $ty) -> u8 {
+        pub unsafe fn $dec_eq_fn(a1: $ty, a2: $ty) -> u8 {
             (a1 == a2) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_lt_fn(a1: $ty, a2: $ty) -> u8 {
+        pub unsafe fn $dec_lt_fn(a1: $ty, a2: $ty) -> u8 {
             (a1 < a2) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_le_fn(a1: $ty, a2: $ty) -> u8 {
+        pub unsafe fn $dec_le_fn(a1: $ty, a2: $ty) -> u8 {
             (a1 <= a2) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u8_fn(a: $ty) -> u8 {
+        pub unsafe fn $to_u8_fn(a: $ty) -> u8 {
             a as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u16_fn(a: $ty) -> u16 {
+        pub unsafe fn $to_u16_fn(a: $ty) -> u16 {
             a as u16
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u32_fn(a: $ty) -> u32 {
+        pub unsafe fn $to_u32_fn(a: $ty) -> u32 {
             a as u32
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u64_fn(a: $ty) -> u64 {
+        pub unsafe fn $to_u64_fn(a: $ty) -> u64 {
             a as u64
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_usize_fn(a: $ty) -> usize {
+        pub unsafe fn $to_usize_fn(a: $ty) -> usize {
             a as usize
         }
     };
@@ -2912,8 +3060,7 @@ macro_rules! define_usize_numeric_family {
         $dec_lt_fn:ident,
         $dec_le_fn:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $of_nat_fn(value: *mut LeanObject) -> usize {
+        pub unsafe fn $of_nat_fn(value: *mut LeanObject) -> usize {
             if lean_is_scalar(value) {
                 lean_unbox(value)
             } else {
@@ -2921,28 +3068,23 @@ macro_rules! define_usize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_nat_fn(value: usize) -> *mut LeanObject {
+        pub unsafe fn $to_nat_fn(value: usize) -> *mut LeanObject {
             lean_usize_to_nat_impl(value)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $add_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $add_fn(a1: usize, a2: usize) -> usize {
             a1.wrapping_add(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $sub_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $sub_fn(a1: usize, a2: usize) -> usize {
             a1.wrapping_sub(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mul_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $mul_fn(a1: usize, a2: usize) -> usize {
             a1.wrapping_mul(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $div_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $div_fn(a1: usize, a2: usize) -> usize {
             if a2 == 0 {
                 0
             } else {
@@ -2950,8 +3092,7 @@ macro_rules! define_usize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mod_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $mod_fn(a1: usize, a2: usize) -> usize {
             if a2 == 0 {
                 a1
             } else {
@@ -2959,45 +3100,37 @@ macro_rules! define_usize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $land_fn(a: usize, b: usize) -> usize {
+        pub unsafe fn $land_fn(a: usize, b: usize) -> usize {
             a & b
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $lor_fn(a: usize, b: usize) -> usize {
+        pub unsafe fn $lor_fn(a: usize, b: usize) -> usize {
             a | b
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $xor_fn(a: usize, b: usize) -> usize {
+        pub unsafe fn $xor_fn(a: usize, b: usize) -> usize {
             a ^ b
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_left_fn(a: usize, b: usize) -> usize {
+        pub unsafe fn $shift_left_fn(a: usize, b: usize) -> usize {
             let width = usize::BITS;
             a.wrapping_shl((b as u32) % width)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_right_fn(a: usize, b: usize) -> usize {
+        pub unsafe fn $shift_right_fn(a: usize, b: usize) -> usize {
             let width = usize::BITS;
             a.wrapping_shr((b as u32) % width)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $complement_fn(a: usize) -> usize {
+        pub unsafe fn $complement_fn(a: usize) -> usize {
             !a
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $neg_fn(a: usize) -> usize {
+        pub unsafe fn $neg_fn(a: usize) -> usize {
             0usize.wrapping_sub(a)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $log2_fn(mut a: usize) -> usize {
+        pub unsafe fn $log2_fn(mut a: usize) -> usize {
             let mut res: usize = 0;
             while a >= 2 {
                 res = res.wrapping_add(1);
@@ -3006,38 +3139,31 @@ macro_rules! define_usize_numeric_family {
             res
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_eq_fn(a1: usize, a2: usize) -> u8 {
+        pub unsafe fn $dec_eq_fn(a1: usize, a2: usize) -> u8 {
             (a1 == a2) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_lt_fn(a1: usize, a2: usize) -> u8 {
+        pub unsafe fn $dec_lt_fn(a1: usize, a2: usize) -> u8 {
             (a1 < a2) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_le_fn(a1: usize, a2: usize) -> u8 {
+        pub unsafe fn $dec_le_fn(a1: usize, a2: usize) -> u8 {
             (a1 <= a2) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u8_fn(a: usize) -> u8 {
+        pub unsafe fn $to_u8_fn(a: usize) -> u8 {
             a as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u16_fn(a: usize) -> u16 {
+        pub unsafe fn $to_u16_fn(a: usize) -> u16 {
             a as u16
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u32_fn(a: usize) -> u32 {
+        pub unsafe fn $to_u32_fn(a: usize) -> u32 {
             a as u32
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u64_fn(a: usize) -> u64 {
+        pub unsafe fn $to_u64_fn(a: usize) -> u64 {
             a as u64
         }
     };
@@ -3260,8 +3386,7 @@ macro_rules! define_signed_numeric_family {
         $to_int64_fn:ident,
         $to_isize_fn:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $of_int_fn(value: *mut LeanObject) -> $storage {
+        pub unsafe fn $of_int_fn(value: *mut LeanObject) -> $storage {
             if lean_is_scalar(value) {
                 lean_scalar_to_int64(value) as $storage
             } else {
@@ -3269,8 +3394,7 @@ macro_rules! define_signed_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $of_nat_fn(value: *mut LeanObject) -> $storage {
+        pub unsafe fn $of_nat_fn(value: *mut LeanObject) -> $storage {
             if lean_is_scalar(value) {
                 lean_unbox(value) as $storage
             } else {
@@ -3278,28 +3402,23 @@ macro_rules! define_signed_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int_fn(value: $storage) -> *mut LeanObject {
+        pub unsafe fn $to_int_fn(value: $storage) -> *mut LeanObject {
             lean_int64_to_int((value as $signed) as i64)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $add_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $add_fn(a1: $storage, a2: $storage) -> $storage {
             a1.wrapping_add(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $sub_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $sub_fn(a1: $storage, a2: $storage) -> $storage {
             a1.wrapping_sub(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mul_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $mul_fn(a1: $storage, a2: $storage) -> $storage {
             a1.wrapping_mul(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $div_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $div_fn(a1: $storage, a2: $storage) -> $storage {
             let lhs = a1 as $signed;
             let rhs = a2 as $signed;
             if rhs == 0 {
@@ -3311,8 +3430,7 @@ macro_rules! define_signed_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mod_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $mod_fn(a1: $storage, a2: $storage) -> $storage {
             let lhs = a1 as $signed;
             let rhs = a2 as $signed;
             if rhs == 0 {
@@ -3324,47 +3442,39 @@ macro_rules! define_signed_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $land_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $land_fn(a1: $storage, a2: $storage) -> $storage {
             (a1 as $signed & a2 as $signed) as $storage
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $lor_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $lor_fn(a1: $storage, a2: $storage) -> $storage {
             (a1 as $signed | a2 as $signed) as $storage
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $xor_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $xor_fn(a1: $storage, a2: $storage) -> $storage {
             (a1 as $signed ^ a2 as $signed) as $storage
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_right_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $shift_right_fn(a1: $storage, a2: $storage) -> $storage {
             let width = $width as $signed;
             let rhs = (((a2 as $signed) % width) + width) % width;
             ((a1 as $signed) >> rhs) as $storage
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_left_fn(a1: $storage, a2: $storage) -> $storage {
+        pub unsafe fn $shift_left_fn(a1: $storage, a2: $storage) -> $storage {
             let width = $width as $signed;
             let rhs = (((a2 as $signed) % width) + width) % width;
             a1.wrapping_shl(rhs as u32)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $complement_fn(a: $storage) -> $storage {
+        pub unsafe fn $complement_fn(a: $storage) -> $storage {
             !(a as $signed) as $storage
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $neg_fn(a: $storage) -> $storage {
+        pub unsafe fn $neg_fn(a: $storage) -> $storage {
             (0 as $storage).wrapping_sub(a)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $abs_fn(a: $storage) -> $storage {
+        pub unsafe fn $abs_fn(a: $storage) -> $storage {
             let signed = a as $signed;
             if signed < 0 {
                 (0 as $storage).wrapping_sub(a)
@@ -3373,43 +3483,35 @@ macro_rules! define_signed_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_eq_fn(a1: $storage, a2: $storage) -> u8 {
+        pub unsafe fn $dec_eq_fn(a1: $storage, a2: $storage) -> u8 {
             ((a1 as $signed) == (a2 as $signed)) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_lt_fn(a1: $storage, a2: $storage) -> u8 {
+        pub unsafe fn $dec_lt_fn(a1: $storage, a2: $storage) -> u8 {
             ((a1 as $signed) < (a2 as $signed)) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_le_fn(a1: $storage, a2: $storage) -> u8 {
+        pub unsafe fn $dec_le_fn(a1: $storage, a2: $storage) -> u8 {
             ((a1 as $signed) <= (a2 as $signed)) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int8_fn(a: $storage) -> u8 {
+        pub unsafe fn $to_int8_fn(a: $storage) -> u8 {
             (a as $signed as i8) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int16_fn(a: $storage) -> u16 {
+        pub unsafe fn $to_int16_fn(a: $storage) -> u16 {
             (a as $signed as i16) as u16
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int32_fn(a: $storage) -> u32 {
+        pub unsafe fn $to_int32_fn(a: $storage) -> u32 {
             (a as $signed as i32) as u32
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int64_fn(a: $storage) -> u64 {
+        pub unsafe fn $to_int64_fn(a: $storage) -> u64 {
             (a as $signed as i64) as u64
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_isize_fn(a: $storage) -> usize {
+        pub unsafe fn $to_isize_fn(a: $storage) -> usize {
             (a as $signed as isize) as usize
         }
 
@@ -3567,8 +3669,7 @@ macro_rules! define_isize_numeric_family {
         $to_int32_fn:ident,
         $to_int64_fn:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $of_int_fn(value: *mut LeanObject) -> usize {
+        pub unsafe fn $of_int_fn(value: *mut LeanObject) -> usize {
             if lean_is_scalar(value) {
                 lean_scalar_to_int64(value) as isize as usize
             } else {
@@ -3576,8 +3677,7 @@ macro_rules! define_isize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $of_nat_fn(value: *mut LeanObject) -> usize {
+        pub unsafe fn $of_nat_fn(value: *mut LeanObject) -> usize {
             if lean_is_scalar(value) {
                 lean_unbox(value)
             } else {
@@ -3585,28 +3685,23 @@ macro_rules! define_isize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int_fn(value: usize) -> *mut LeanObject {
+        pub unsafe fn $to_int_fn(value: usize) -> *mut LeanObject {
             lean_int64_to_int((value as isize) as i64)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $add_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $add_fn(a1: usize, a2: usize) -> usize {
             a1.wrapping_add(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $sub_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $sub_fn(a1: usize, a2: usize) -> usize {
             a1.wrapping_sub(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mul_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $mul_fn(a1: usize, a2: usize) -> usize {
             a1.wrapping_mul(a2)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $div_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $div_fn(a1: usize, a2: usize) -> usize {
             let lhs = a1 as isize;
             let rhs = a2 as isize;
             if rhs == 0 {
@@ -3618,8 +3713,7 @@ macro_rules! define_isize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $mod_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $mod_fn(a1: usize, a2: usize) -> usize {
             let lhs = a1 as isize;
             let rhs = a2 as isize;
             if rhs == 0 {
@@ -3631,47 +3725,39 @@ macro_rules! define_isize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $land_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $land_fn(a1: usize, a2: usize) -> usize {
             (a1 as isize & a2 as isize) as usize
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $lor_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $lor_fn(a1: usize, a2: usize) -> usize {
             (a1 as isize | a2 as isize) as usize
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $xor_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $xor_fn(a1: usize, a2: usize) -> usize {
             (a1 as isize ^ a2 as isize) as usize
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_right_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $shift_right_fn(a1: usize, a2: usize) -> usize {
             let width = usize::BITS as isize;
             let rhs = (((a2 as isize) % width) + width) % width;
             ((a1 as isize) >> rhs) as usize
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $shift_left_fn(a1: usize, a2: usize) -> usize {
+        pub unsafe fn $shift_left_fn(a1: usize, a2: usize) -> usize {
             let width = usize::BITS as isize;
             let rhs = (((a2 as isize) % width) + width) % width;
             a1.wrapping_shl(rhs as u32)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $complement_fn(a: usize) -> usize {
+        pub unsafe fn $complement_fn(a: usize) -> usize {
             !(a as isize) as usize
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $neg_fn(a: usize) -> usize {
+        pub unsafe fn $neg_fn(a: usize) -> usize {
             0usize.wrapping_sub(a)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $abs_fn(a: usize) -> usize {
+        pub unsafe fn $abs_fn(a: usize) -> usize {
             let signed = a as isize;
             if signed < 0 {
                 (0usize).wrapping_sub(a)
@@ -3680,38 +3766,31 @@ macro_rules! define_isize_numeric_family {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_eq_fn(a1: usize, a2: usize) -> u8 {
+        pub unsafe fn $dec_eq_fn(a1: usize, a2: usize) -> u8 {
             ((a1 as isize) == (a2 as isize)) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_lt_fn(a1: usize, a2: usize) -> u8 {
+        pub unsafe fn $dec_lt_fn(a1: usize, a2: usize) -> u8 {
             ((a1 as isize) < (a2 as isize)) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $dec_le_fn(a1: usize, a2: usize) -> u8 {
+        pub unsafe fn $dec_le_fn(a1: usize, a2: usize) -> u8 {
             ((a1 as isize) <= (a2 as isize)) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int8_fn(a: usize) -> u8 {
+        pub unsafe fn $to_int8_fn(a: usize) -> u8 {
             (a as isize as i8) as u8
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int16_fn(a: usize) -> u16 {
+        pub unsafe fn $to_int16_fn(a: usize) -> u16 {
             (a as isize as i16) as u16
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int32_fn(a: usize) -> u32 {
+        pub unsafe fn $to_int32_fn(a: usize) -> u32 {
             (a as isize as i32) as u32
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_int64_fn(a: usize) -> u64 {
+        pub unsafe fn $to_int64_fn(a: usize) -> u64 {
             (a as isize as i64) as u64
         }
     };
@@ -3732,8 +3811,7 @@ macro_rules! define_float_casts {
         $to_f32_fn:ident,
         $to_f64_fn:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u8_fn(a: f64) -> u8 {
+        pub unsafe fn $to_u8_fn(a: f64) -> u8 {
             if 0.0 <= a {
                 if a < u8::MAX as f64 {
                     a as u8
@@ -3745,8 +3823,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u16_fn(a: f64) -> u16 {
+        pub unsafe fn $to_u16_fn(a: f64) -> u16 {
             if 0.0 <= a {
                 if a < u16::MAX as f64 {
                     a as u16
@@ -3758,8 +3835,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u32_fn(a: f64) -> u32 {
+        pub unsafe fn $to_u32_fn(a: f64) -> u32 {
             if 0.0 <= a {
                 if a < u32::MAX as f64 {
                     a as u32
@@ -3771,8 +3847,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u64_fn(a: f64) -> u64 {
+        pub unsafe fn $to_u64_fn(a: f64) -> u64 {
             if 0.0 <= a {
                 if a < u64::MAX as f64 {
                     a as u64
@@ -3784,8 +3859,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_usize_fn(a: f64) -> usize {
+        pub unsafe fn $to_usize_fn(a: f64) -> usize {
             if 0.0 <= a {
                 if a < usize::MAX as f64 {
                     a as usize
@@ -3797,8 +3871,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i8_fn(a: f64) -> u8 {
+        pub unsafe fn $to_i8_fn(a: f64) -> u8 {
             if a.is_nan() {
                 0
             } else if -129.0 < a {
@@ -3812,8 +3885,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i16_fn(a: f64) -> u16 {
+        pub unsafe fn $to_i16_fn(a: f64) -> u16 {
             if a.is_nan() {
                 0
             } else if -32769.0 < a {
@@ -3827,8 +3899,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i32_fn(a: f64) -> u32 {
+        pub unsafe fn $to_i32_fn(a: f64) -> u32 {
             if a.is_nan() {
                 0
             } else if -2147483649.0 < a {
@@ -3842,8 +3913,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i64_fn(a: f64) -> u64 {
+        pub unsafe fn $to_i64_fn(a: f64) -> u64 {
             if a.is_nan() {
                 0
             } else if -9223372036854775809.0 < a {
@@ -3857,8 +3927,7 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_isize_fn(a: f64) -> usize {
+        pub unsafe fn $to_isize_fn(a: f64) -> usize {
             if a.is_nan() {
                 0
             } else if usize::BITS == 64 {
@@ -3882,13 +3951,11 @@ macro_rules! define_float_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_fn(a: f32) -> f64 {
+        pub unsafe fn $to_f64_fn(a: f32) -> f64 {
             a as f64
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_fn(a: f64) -> f32 {
+        pub unsafe fn $to_f32_fn(a: f64) -> f32 {
             a as f32
         }
     };
@@ -3917,46 +3984,26 @@ macro_rules! define_integer_float_casts {
         $to_f32_i64:ident,
         $to_f32_isize:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_u8(a: u8) -> f64 { a as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_u16(a: u16) -> f64 { a as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_u32(a: u32) -> f64 { a as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_u64(a: u64) -> f64 { a as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_usize(a: usize) -> f64 { a as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_i8(a: u8) -> f64 { (a as i8) as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_i16(a: u16) -> f64 { (a as i16) as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_i32(a: u32) -> f64 { (a as i32) as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_i64(a: u64) -> f64 { (a as i64) as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f64_isize(a: usize) -> f64 { (a as isize) as f64 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_u8(a: u8) -> f32 { a as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_u16(a: u16) -> f32 { a as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_u32(a: u32) -> f32 { a as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_u64(a: u64) -> f32 { a as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_usize(a: usize) -> f32 { a as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_i8(a: u8) -> f32 { (a as i8) as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_i16(a: u16) -> f32 { (a as i16) as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_i32(a: u32) -> f32 { (a as i32) as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_i64(a: u64) -> f32 { (a as i64) as f32 }
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_f32_isize(a: usize) -> f32 { (a as isize) as f32 }
+        pub unsafe fn $to_f64_u8(a: u8) -> f64 { a as f64 }
+        pub unsafe fn $to_f64_u16(a: u16) -> f64 { a as f64 }
+        pub unsafe fn $to_f64_u32(a: u32) -> f64 { a as f64 }
+        pub unsafe fn $to_f64_u64(a: u64) -> f64 { a as f64 }
+        pub unsafe fn $to_f64_usize(a: usize) -> f64 { a as f64 }
+        pub unsafe fn $to_f64_i8(a: u8) -> f64 { (a as i8) as f64 }
+        pub unsafe fn $to_f64_i16(a: u16) -> f64 { (a as i16) as f64 }
+        pub unsafe fn $to_f64_i32(a: u32) -> f64 { (a as i32) as f64 }
+        pub unsafe fn $to_f64_i64(a: u64) -> f64 { (a as i64) as f64 }
+        pub unsafe fn $to_f64_isize(a: usize) -> f64 { (a as isize) as f64 }
+        pub unsafe fn $to_f32_u8(a: u8) -> f32 { a as f32 }
+        pub unsafe fn $to_f32_u16(a: u16) -> f32 { a as f32 }
+        pub unsafe fn $to_f32_u32(a: u32) -> f32 { a as f32 }
+        pub unsafe fn $to_f32_u64(a: u64) -> f32 { a as f32 }
+        pub unsafe fn $to_f32_usize(a: usize) -> f32 { a as f32 }
+        pub unsafe fn $to_f32_i8(a: u8) -> f32 { (a as i8) as f32 }
+        pub unsafe fn $to_f32_i16(a: u16) -> f32 { (a as i16) as f32 }
+        pub unsafe fn $to_f32_i32(a: u32) -> f32 { (a as i32) as f32 }
+        pub unsafe fn $to_f32_i64(a: u64) -> f32 { (a as i64) as f32 }
+        pub unsafe fn $to_f32_isize(a: usize) -> f32 { (a as isize) as f32 }
     };
 }
 
@@ -3973,8 +4020,7 @@ macro_rules! define_float32_to_integer_casts {
         $to_i64_fn:ident,
         $to_isize_fn:ident
     ) => {
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u8_fn(a: f32) -> u8 {
+        pub unsafe fn $to_u8_fn(a: f32) -> u8 {
             if 0.0 <= a {
                 if a < u8::MAX as f32 {
                     a as u8
@@ -3986,8 +4032,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u16_fn(a: f32) -> u16 {
+        pub unsafe fn $to_u16_fn(a: f32) -> u16 {
             if 0.0 <= a {
                 if a < u16::MAX as f32 {
                     a as u16
@@ -3999,8 +4044,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u32_fn(a: f32) -> u32 {
+        pub unsafe fn $to_u32_fn(a: f32) -> u32 {
             if 0.0 <= a {
                 if a < u32::MAX as f32 {
                     a as u32
@@ -4012,8 +4056,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_u64_fn(a: f32) -> u64 {
+        pub unsafe fn $to_u64_fn(a: f32) -> u64 {
             if 0.0 <= a {
                 if a < u64::MAX as f32 {
                     a as u64
@@ -4025,8 +4068,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_usize_fn(a: f32) -> usize {
+        pub unsafe fn $to_usize_fn(a: f32) -> usize {
             if 0.0 <= a {
                 if usize::BITS == 64 {
                     if a < u64::MAX as f32 {
@@ -4044,8 +4086,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i8_fn(a: f32) -> u8 {
+        pub unsafe fn $to_i8_fn(a: f32) -> u8 {
             if a.is_nan() {
                 0
             } else if a <= (i8::MIN as f32) {
@@ -4057,8 +4098,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i16_fn(a: f32) -> u16 {
+        pub unsafe fn $to_i16_fn(a: f32) -> u16 {
             if a.is_nan() {
                 0
             } else if -32769.0 < a {
@@ -4072,8 +4112,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i32_fn(a: f32) -> u32 {
+        pub unsafe fn $to_i32_fn(a: f32) -> u32 {
             if a.is_nan() {
                 0
             } else if -2147483649.0 < a {
@@ -4087,8 +4126,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_i64_fn(a: f32) -> u64 {
+        pub unsafe fn $to_i64_fn(a: f32) -> u64 {
             if a.is_nan() {
                 0
             } else if -9223372036854775809.0 < a {
@@ -4102,8 +4140,7 @@ macro_rules! define_float32_to_integer_casts {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn $to_isize_fn(a: f32) -> usize {
+        pub unsafe fn $to_isize_fn(a: f32) -> usize {
             if a.is_nan() {
                 0
             } else if usize::BITS == 64 {
@@ -4431,11 +4468,6 @@ unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanOb
     name_uses_registered_prefix(state, name_prefix(n))
 }
 
-extern "C" {
-    fn write(fd: i32, buf: *const u8, count: usize) -> isize;
-    fn abort() -> !;
-}
-
 unsafe fn consume_io_result(result: *mut LeanObject) {
     if lean_io_result_is_ok(result) {
         lean_dec(result);
@@ -4447,39 +4479,33 @@ unsafe fn consume_io_result(result: *mut LeanObject) {
         let text = core::ffi::CStr::from_ptr(lean_string_cstr(msg));
 
         let prefix = b"IO Error in lean_initialize: ";
-        write(2, prefix.as_ptr(), prefix.len());
+        libc::write(2, prefix.as_ptr().cast(), prefix.len());
         let bytes = text.to_bytes();
-        write(2, bytes.as_ptr(), bytes.len());
-        write(2, b"\n".as_ptr(), 1);
+        libc::write(2, bytes.as_ptr().cast(), bytes.len());
+        libc::write(2, b"\n".as_ptr().cast(), 1);
     }
 }
 
 unsafe fn initialize_runtime_module_body() {
+    #[cfg(lean_small_allocator)]
     initialize_alloc();
     initialize_debug();
     // initialize_object was a no-op (object.cpp deleted)
     initialize_io();
-    initialize_thread();
     initialize_mutex();
-    initialize_process();
     initialize_stack_overflow();
+    #[cfg(all(feature = "std", not(target_family = "wasm")))]
     initialize_libuv();
 }
 
 unsafe fn finalize_runtime_module_body() {
     finalize_stack_overflow();
-    finalize_process();
-    finalize_mutex();
-    finalize_thread();
-    finalize_io();
     lean_finalize_external_classes(); // was finalize_object() in object.cpp
     finalize_debug();
-    finalize_alloc();
 }
 
 unsafe fn initialize_util_module_body() {
     initialize_runtime_module_body();
-    initialize_ascii();
     initialize_name();
     initialize_name_generator();
     initialize_options();
@@ -4488,74 +4514,38 @@ unsafe fn initialize_util_module_body() {
 unsafe fn finalize_util_module_body() {
     finalize_options();
     finalize_name_generator();
-    finalize_name();
-    finalize_ascii();
     finalize_runtime_module_body();
 }
 
 unsafe fn initialize_kernel_module_body() {
     initialize_level();
-    initialize_expr();
-    initialize_declaration();
-    #[cfg(feature = "export-runtime-ffi")]
     initialize_type_checker();
-    initialize_local_ctx();
-    initialize_inductive();
-    initialize_quot();
-    initialize_trace();
 }
 
 unsafe fn finalize_kernel_module_body() {
-    finalize_trace();
-    finalize_quot();
-    finalize_inductive();
-    finalize_local_ctx();
-    #[cfg(feature = "export-runtime-ffi")]
     finalize_type_checker();
-    finalize_declaration();
-    finalize_expr();
     finalize_level();
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20initialize_inductiveEv"
-)]
-pub extern "C" fn initialize_inductive() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18finalize_inductiveEv"
-)]
-pub extern "C" fn finalize_inductive() {}
 
 unsafe fn initialize_library_core_module_body() {
-    initialize_formatter();
     initialize_constants();
-    initialize_profiling();
 }
 
 unsafe fn finalize_library_core_module_body() {
-    finalize_profiling();
     finalize_constants();
-    finalize_formatter();
 }
 
 unsafe fn initialize_library_module_body() {
-    initialize_num();
     initialize_library_util();
-    initialize_time_task();
     initialize_dynlib();
-    initialize_ir_interpreter();
-    initialize_trace();
 }
 
 unsafe fn finalize_library_module_body() {
-    finalize_trace();
     finalize_ir_interpreter();
     finalize_time_task();
     finalize_library_util();
-    finalize_num();
 }
 
 unsafe fn initialize_constructions_module_body() {
@@ -4565,20 +4555,6 @@ unsafe fn initialize_constructions_module_body() {
 unsafe fn finalize_constructions_module_body() {
     finalize_constructions_util();
 }
-
-// initialize_ascii / finalize_ascii are no-ops: the original C++ ascii.h had them as empty
-// inline functions. The actual ASCII utility functions are ported to Rust above.
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16initialize_asciiEv"
-)]
-pub extern "C" fn initialize_ascii() {}
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean14finalize_asciiEv"
-)]
-pub extern "C" fn finalize_ascii() {}
 
 #[inline]
 pub(crate) fn lean_initialize_runtime_module() {
@@ -4654,13 +4630,6 @@ pub(crate) fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) fn init_default_print_fn() {
-    // No-op: lean_expr_dbg_to_string (the ToString Expr instance) is now implemented
-    // in Rust (library_print.rs), so the C++ formatter.h print function pointer
-    // no longer needs to be set.
-}
-
-#[inline]
 pub(crate) fn run_thread_finalizers() {
     unsafe { run_thread_finalizers_internal() }
 }
@@ -4676,7 +4645,7 @@ pub(crate) fn delete_thread_finalizer_manager() {
 }
 
 #[inline]
-pub(crate) fn lean_initialize() {
+pub fn lean_initialize() {
     unsafe {
         save_stack_info(true);
         initialize_util_module();
@@ -4685,18 +4654,13 @@ pub(crate) fn lean_initialize() {
         consume_io_result(initialize_Std(builtin));
         consume_io_result(initialize_Lean(builtin));
         initialize_kernel_module();
-        init_default_print_fn();
         initialize_library_core_module();
         initialize_library_module();
         initialize_constructions_module();
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18initialize_optionsEv"
-)]
-pub extern "C" fn initialize_options() {
+pub fn initialize_options() {
     unsafe {
         VERBOSE_OPT = mk_name("verbose");
         MAX_MEMORY_OPT = mk_name("max_memory");
@@ -4707,11 +4671,7 @@ pub extern "C" fn initialize_options() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16finalize_optionsEv"
-)]
-pub extern "C" fn finalize_options() {
+pub fn finalize_options() {
     unsafe {
         if !VERBOSE_OPT.obj.is_null() {
             lean_dec(VERBOSE_OPT.obj);
@@ -4728,11 +4688,7 @@ pub extern "C" fn finalize_options() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean31mk_constructions_name_generatorEv"
-)]
-pub unsafe extern "C" fn mk_constructions_name_generator(
+pub unsafe fn mk_constructions_name_generator(
     result: *mut LeanNameGenerator,
 ) -> *mut LeanNameGenerator {
     lean_inc(CONSTRUCTIONS_FRESH.obj);
@@ -4743,11 +4699,7 @@ pub unsafe extern "C" fn mk_constructions_name_generator(
     result
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean29initialize_constructions_utilEv"
-)]
-pub extern "C" fn initialize_constructions_util() {
+pub fn initialize_constructions_util() {
     unsafe {
         CONSTRUCTIONS_FRESH = mk_name("_cnstr_fresh");
         lean_mark_persistent(CONSTRUCTIONS_FRESH.obj);
@@ -4755,11 +4707,7 @@ pub extern "C" fn initialize_constructions_util() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean27finalize_constructions_utilEv"
-)]
-pub extern "C" fn finalize_constructions_util() {
+pub fn finalize_constructions_util() {
     unsafe {
         if !CONSTRUCTIONS_FRESH.obj.is_null() {
             lean_dec(CONSTRUCTIONS_FRESH.obj);
@@ -4768,11 +4716,7 @@ pub extern "C" fn finalize_constructions_util() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20get_init_fn_name_forERKNS_16elab_environmentERKNS_4nameE"
-)]
-pub unsafe extern "C" fn get_init_fn_name_for(
+pub unsafe fn get_init_fn_name_for(
     result: *mut LeanOptionalName,
     env: *const LeanName,
     name: *const LeanName,
@@ -4830,11 +4774,7 @@ pub(crate) unsafe fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool
     name_uses_registered_prefix(state, n)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean25initialize_name_generatorEv"
-)]
-pub extern "C" fn initialize_name_generator() {
+pub fn initialize_name_generator() {
     unsafe {
         let c_str = std::ffi::CString::new("_uniq").expect("static string has no NULs");
         let string = lean_mk_string(c_str.as_ptr());
@@ -4849,30 +4789,17 @@ pub extern "C" fn initialize_name_generator() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean15initialize_nameEv"
-)]
-pub extern "C" fn initialize_name() {
+pub fn initialize_name() {
     INTERNAL_UNIQUE_NAME_ID.store(0, Ordering::Relaxed);
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean13finalize_nameEv"
-)]
-pub extern "C" fn finalize_name() {}
 
 #[inline]
 pub(crate) fn lean_name_next_internal_unique_id() -> c_uint {
     INTERNAL_UNIQUE_NAME_ID.fetch_add(1, Ordering::Relaxed)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean23finalize_name_generatorEv"
-)]
-pub extern "C" fn finalize_name_generator() {
+pub fn finalize_name_generator() {
     let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
     if let Some(state) = guard.take() {
         for prefix in state.prefixes {
@@ -4881,35 +4808,19 @@ pub extern "C" fn finalize_name_generator() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20get_verbose_opt_nameEv"
-)]
-pub extern "C" fn get_verbose_opt_name() -> *const LeanName {
+pub fn get_verbose_opt_name() -> *const LeanName {
     core::ptr::addr_of!(VERBOSE_OPT)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean23get_max_memory_opt_nameEv"
-)]
-pub extern "C" fn get_max_memory_opt_name() -> *const LeanName {
+pub fn get_max_memory_opt_name() -> *const LeanName {
     core::ptr::addr_of!(MAX_MEMORY_OPT)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20get_timeout_opt_nameEv"
-)]
-pub extern "C" fn get_timeout_opt_name() -> *const LeanName {
+pub fn get_timeout_opt_name() -> *const LeanName {
     core::ptr::addr_of!(TIMEOUT_OPT)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean11get_verboseERKNS_7optionsE"
-)]
-pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
+pub unsafe fn get_verbose(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     let name = (*get_verbose_opt_name()).obj;
     lean_inc(opts);
@@ -4917,21 +4828,15 @@ pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
     lean_options_get_bool(opts, name, true)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC1Ev")]
-pub unsafe extern "C" fn options_ctor_c1(this: *mut LeanOptions) {
+pub unsafe fn options_ctor_c1(this: *mut LeanOptions) {
     (*this).obj = lean_options_get_empty(lean_box(0));
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC2Ev")]
-pub unsafe extern "C" fn options_ctor_c2(this: *mut LeanOptions) {
+pub unsafe fn options_ctor_c2(this: *mut LeanOptions) {
     options_ctor_c1(this);
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZNK4lean7options8get_boolERKNS_4nameEb"
-)]
-pub unsafe extern "C" fn options_get_bool(
+pub unsafe fn options_get_bool(
     this: *const LeanOptions,
     name: *const LeanName,
     default_value: bool,
@@ -4943,11 +4848,7 @@ pub unsafe extern "C" fn options_get_bool(
     lean_options_get_bool(opts, name, default_value)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZNK4lean7options6updateERKNS_4nameEb"
-)]
-pub unsafe extern "C" fn options_update(
+pub unsafe fn options_update(
     this: *const LeanOptions,
     name: *const LeanName,
     value: bool,
@@ -4961,37 +4862,19 @@ pub unsafe extern "C" fn options_update(
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean12get_profilerERKNS_7optionsE"
-)]
-pub unsafe extern "C" fn get_profiler(opts: *const LeanOptions) -> bool {
+pub unsafe fn get_profiler(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     lean_inc(opts);
     lean_get_profiler(opts) != 0
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean23get_profiling_thresholdERKNS_7optionsE"
-)]
-pub unsafe extern "C" fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
+pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
     let opts = (*opts).obj;
     lean_inc(opts);
     lean_get_profiler_threshold(opts)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20initialize_profilingEv"
-)]
-pub extern "C" fn initialize_profiling() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18finalize_profilingEv"
-)]
-pub extern "C" fn finalize_profiling() {}
 
 #[inline]
 pub(crate) fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
@@ -5019,7 +4902,7 @@ pub(crate) unsafe fn lean_internal_get_default_options(_: *mut LeanObject) -> *m
 }
 
 #[inline]
-pub(crate) fn lean_finalize() {
+pub fn lean_finalize() {
     run_thread_finalizers();
     run_post_thread_finalizers();
     delete_thread_finalizer_manager();

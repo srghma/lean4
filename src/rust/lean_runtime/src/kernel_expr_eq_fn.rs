@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -39,20 +38,23 @@ Level kind tags:
   (see kernel_level.rs)
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod kernel_expr_eq_fn_impl {
+    use super::kernel_level::kernel_level_impl::lean_level_eqv;
     use super::runtime_alloc_impl::add_heartbeats;
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;
+    use super::runtime_object_string_impl::lean_string_eq_cold;
     use super::*;
     use std::collections::HashSet;
 
+    #[cfg(lean_use_gmp)]
+    use super::runtime_object_nat_int_impl::lean_nat_big_eq;
+
     extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
-        fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
         // Consumes both arguments (obj_arg semantics); call lean_inc before passing borrowed refs.
         fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
+        #[cfg(not(lean_use_gmp))]
+        fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
     }
 
     const EXPR_BVAR: u8 = 0;

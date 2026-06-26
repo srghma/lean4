@@ -128,11 +128,7 @@ pub(crate) mod runtime_memory_impl {
         unsafe { lean_box(DEFAULT) }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14set_max_memoryEm"
-    )]
-    pub extern "C" fn set_max_memory(max: usize) {
+    pub fn set_max_memory(max: usize) {
         G_MAX_MEMORY.store(max, Ordering::SeqCst);
     }
 
@@ -142,20 +138,12 @@ pub(crate) mod runtime_memory_impl {
         unsafe { lean_box(0) }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23set_max_memory_megabyteEj"
-    )]
-    pub extern "C" fn set_max_memory_megabyte(max: u32) {
+    pub fn set_max_memory_megabyte(max: u32) {
         let m = (max as usize).wrapping_mul(1024).wrapping_mul(1024);
         set_max_memory(m);
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean12check_memoryEPKc"
-    )]
-    pub unsafe extern "C" fn check_memory(component_name: *const c_char) {
+    pub unsafe fn check_memory(component_name: *const c_char) {
         let max = G_MAX_MEMORY.load(Ordering::SeqCst);
         if max == 0 {
             return;
@@ -179,11 +167,7 @@ pub(crate) mod runtime_memory_impl {
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean20get_allocated_memoryEv"
-    )]
-    pub unsafe extern "C" fn get_allocated_memory() -> usize {
+    pub unsafe fn get_allocated_memory() -> usize {
         get_current_rss()
     }
 

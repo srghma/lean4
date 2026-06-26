@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -10,7 +9,6 @@ Port of src/library/module.cpp:
   lean_compacted_region_save — implemented in runtime_compact_writer.rs
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod library_module_impl {
     use super::*;
     use core::ffi::{c_char, c_int, c_void, CStr};
@@ -34,7 +32,7 @@ pub(crate) mod library_module_impl {
     // v3 format extra header: 8 bytes data_size right after the 88-byte header.
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
 
-    // Object tag constants matching lean.h
+    // Object tag constants matching static runtime layout
     const LEAN_MAX_CTOR_TAG: u8 = 243;
     const LEAN_CLOSURE_TAG: u8 = 245;
     const LEAN_ARRAY_TAG: u8 = 246;

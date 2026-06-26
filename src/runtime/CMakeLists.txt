@@ -19,12 +19,9 @@ else()
   set(LEAN_RUST_IS_STAGE0 0)
 endif()
 
-set(LEAN_RUNTIME_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.a)
-set(LEAN_RUNTIME_RUST_DEPS_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime_deps.a)
-set(LEAN_RUNTIME_RUST_OBJECT_DIR ${CMAKE_CURRENT_BINARY_DIR}/rust/lean_runtime)
-set(LEAN_RUNTIME_RUST_OBJECT ${LEAN_RUNTIME_RUST_OBJECT_DIR}/lean_runtime.o)
+set(LEAN_RUNTIME_RUST_RLIB ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.rlib)
 add_custom_command(
-  OUTPUT ${LEAN_RUNTIME_RUST_OBJECT} ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}
+  OUTPUT ${LEAN_RUNTIME_RUST_RLIB}
   COMMAND
     ${CMAKE_COMMAND} -E env
     CARGO_TARGET_DIR=${CMAKE_BINARY_DIR}/rust
@@ -48,14 +45,8 @@ add_custom_command(
     LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS=${LEAN_EXTRA_LINKER_FLAGS}
     LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE=${LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE}
     LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS=${LEANC_INTERNAL_LINKER_FLAGS}
-    LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE=${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a
     LEAN_RUST_IS_STAGE0=${LEAN_RUST_IS_STAGE0}
-    ${CARGO_EXECUTABLE} build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml --package lean_runtime --features export-runtime-ffi ${LEAN_RUST_CARGO_ARGS}
-  COMMAND ${CMAKE_COMMAND} -E rm -rf ${LEAN_RUNTIME_RUST_OBJECT_DIR}
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${LEAN_RUNTIME_RUST_OBJECT_DIR}
-  COMMAND
-    bash -ec
-    "cd '${LEAN_RUNTIME_RUST_OBJECT_DIR}' && obj=`'${CMAKE_AR}' t '${LEAN_RUNTIME_RUST_ARCHIVE}' | grep '^lean_runtime-.*\\.o$' | head -n 1` && cp '${LEAN_RUNTIME_RUST_ARCHIVE}' '${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}' && '${CMAKE_AR}' x '${LEAN_RUNTIME_RUST_ARCHIVE}' \"$obj\" && '${CMAKE_AR}' d '${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}' \"$obj\" && mv \"$obj\" lean_runtime.o"
+    ${CARGO_EXECUTABLE} build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml --package lean_runtime ${LEAN_RUST_CARGO_ARGS}
   DEPENDS
     ${LEAN_SOURCE_DIR}/rust/Cargo.toml
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/Cargo.toml
@@ -125,67 +116,6 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/kernel_num.rs
   VERBATIM
 )
-add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_OBJECT})
-list(APPEND RUNTIME_OBJS ${LEAN_RUNTIME_RUST_OBJECT})
-if(USE_MIMALLOC)
-  list(APPEND RUNTIME_OBJS ${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/src/static.c)
-  # Lean code includes it as `lean/mimalloc.h` but for compiling `static.c` itself, add original dir
-  include_directories(${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/include)
-  # make all symbols visible, always build with optimizations as otherwise Lean becomes too slow
-  set(MIMALLOC_FLAGS "-DMI_SHARED_LIB -DMI_SHARED_LIB_EXPORT -O3 -DNDEBUG -DMI_WIN_NOREDIRECT -DMI_SECURE=${LEAN_MI_SECURE} -Wno-unused-function")
-  if(CMAKE_CXX_COMPILER_ID MATCHES "AppleClang|Clang")
-    string(APPEND MIMALLOC_FLAGS " -Wno-deprecated")
-  endif()
-  set_source_files_properties(
-    ${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/src/static.c
-    PROPERTIES
-      # (C flags are incomplete, compile as C++ instead like everything else)
-      LANGUAGE CXX
-      COMPILE_FLAGS ${MIMALLOC_FLAGS}
-  )
-endif()
-
-add_library(leanrt_initial-exec STATIC ${RUNTIME_OBJS})
-set_target_properties(leanrt_initial-exec PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} LINKER_LANGUAGE CXX INTERPROCEDURAL_OPTIMIZATION TRUE)
-add_dependencies(leanrt_initial-exec lean_runtime_rust)
-target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE})
-
-# The above library, like all other C++ code, is built using `-ftls-model=initial-exec`, which is necessary for linking it into `leanshared`,
-# but introduces a measurable overhead while accessing the thread-local variable `g_heap` when allocating and deallocating. Therefore we compile
-# the runtime again with the more restrictive `local-exec` and use it when linking Lean code statically, i.e. not against `leanshared`.
-add_library(leanrt STATIC ${RUNTIME_OBJS})
-set_target_properties(leanrt PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY} LINKER_LANGUAGE CXX INTERPROCEDURAL_OPTIMIZATION TRUE)
-add_dependencies(leanrt lean_runtime_rust)
-target_link_libraries(leanrt PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE})
-if(NOT MSVC)
-  target_compile_options(leanrt PRIVATE -ftls-model=local-exec)
-endif()
-# We do not export Lean symbols when statically linking on Windows.
-if(CMAKE_SYSTEM_NAME MATCHES "Windows")
-  target_compile_options(leanrt PRIVATE -ULEAN_EXPORTING)
-endif()
-
-if(LLVM)
-  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    message(
-      FATAL_ERROR
-      "building 'lean.h.bc', need CMAKE_CXX_COMPILER_ID to match Clang to build LLVM bitcode file of Lean runtime."
-    )
-  endif()
-  file(READ "${CMAKE_BINARY_DIR}/include/lean/lean.h" LEAN_H)
-  # generate LLVM IR for `static inline` definitions in lean.h for the LLVM backend
-  string(REPLACE "static inline" "__attribute__((always_inline))" LEAN_H "${LEAN_H}")
-  # drop '#pragma once' in .c file to avoid warning
-  string(REPLACE "#pragma once" "" LEAN_H "${LEAN_H}")
-  file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/lean_inlines.c" "${LEAN_H}")
-  message("Generating LLVM bitcode file for Lean runtime at '${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/lean.h.bc'")
-  add_custom_command(
-    OUTPUT ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lean.h.bc
-    DEPENDS ${RUNTIME_OBJS} ${CMAKE_CURRENT_BINARY_DIR}/lean_inlines.c
-    COMMAND
-      bash -ec
-      "${CMAKE_BINARY_DIR}/leanc.sh ${LEANC_OPTS} -I$<JOIN:$<TARGET_PROPERTY:leanrt_initial-exec,INCLUDE_DIRECTORIES>, -I> -c ${CMAKE_CURRENT_BINARY_DIR}/lean_inlines.c -emit-llvm -o ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lean.h.bc"
-    VERBATIM
-  )
-  add_custom_target(runtime_bc DEPENDS ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/lean.h.bc)
-endif()
+add_custom_target(lean_runtime_rust DEPENDS ${LEAN_RUNTIME_RUST_RLIB})
+add_custom_target(leanrt_initial-exec DEPENDS lean_runtime_rust)
+add_custom_target(leanrt DEPENDS lean_runtime_rust)

@@ -9,15 +9,5 @@ from src/Lean/LocalContext.lean; typed C++ callers are inline in local_ctx.h.
 */
 
 pub(crate) mod kernel_local_ctx_impl {
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean20initialize_local_ctxEv"
-    )]
-    pub extern "C" fn initialize_local_ctx() {}
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18finalize_local_ctxEv"
-    )]
-    pub extern "C" fn finalize_local_ctx() {}
 }

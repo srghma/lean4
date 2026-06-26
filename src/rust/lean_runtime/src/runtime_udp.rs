@@ -136,7 +136,7 @@ pub(crate) mod runtime_udp_impl {
         result
     }
 
-    unsafe extern "C" fn lean_uv_udp_socket_finalizer(ptr: *mut c_void) {
+    unsafe fn lean_uv_udp_socket_finalizer(ptr: *mut c_void) {
         let udp_socket = ptr.cast::<LeanUvUdpSocketObject>();
         assert!((*udp_socket).m_promise_read.is_null());
         assert!((*udp_socket).m_byte_array.is_null());
@@ -157,12 +157,8 @@ pub(crate) mod runtime_udp_impl {
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean27initialize_libuv_udp_socketEv"
-    )]
-    pub unsafe extern "C" fn initialize_libuv_udp_socket() {
-        unsafe extern "C" fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
+    pub unsafe fn initialize_libuv_udp_socket() {
+        unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
             let udp_socket = obj.cast::<LeanUvUdpSocketObject>();
             if !(*udp_socket).m_promise_read.is_null() {
                 lean_inc(f);
@@ -800,9 +796,6 @@ pub(crate) mod runtime_udp_impl {
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_udp_impl {
     use super::*;
-
-    #[inline]
-    pub(crate) fn initialize_libuv_udp_socket() {}
 
     #[inline]
     pub(crate) fn lean_uv_udp_new() -> *mut LeanObject {

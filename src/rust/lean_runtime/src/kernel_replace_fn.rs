@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -24,7 +23,6 @@ Field layout (from expr.h):
   Proj:      [0]=sname, [1]=idx,  [2]=expr
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod kernel_replace_fn_impl {
     use super::*;
     use core::ffi::c_void;

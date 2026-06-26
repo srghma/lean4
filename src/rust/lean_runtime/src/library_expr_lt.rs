@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -55,7 +54,6 @@ KVMap = list_ref<pair_ref<name, data_value>>, field layout same as kvmap_eq in e
 DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte offset 0).
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod library_expr_lt_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::*;
@@ -211,7 +209,7 @@ pub(crate) mod library_expr_lt_impl {
 
     // ── Nat helpers ───────────────────────────────────────────────────────────
 
-    // Borrowed Nat comparison; mirrors lean_nat_lt from lean.h.
+    // Borrowed Nat comparison; mirrors lean_nat_lt from static runtime layout.
     #[inline(always)]
     unsafe fn nat_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
         if lean_is_scalar(a) && lean_is_scalar(b) {

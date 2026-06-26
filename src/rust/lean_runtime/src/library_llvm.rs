@@ -3,10 +3,8 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod library_llvm_impl {
     use super::*;
 
@@ -237,15 +235,15 @@ pub(crate) mod library_llvm_impl {
             err_msg: *mut *mut core::ffi::c_char,
         ) -> core::ffi::c_int;
         fn LLVMDisposeMessage(message: *mut core::ffi::c_char);
-        #[cfg(all(feature = "export-runtime-ffi", lean_has_llvm))]
+        #[cfg(lean_has_llvm)]
         fn LLVMInitializeAllTargetInfos();
-        #[cfg(all(feature = "export-runtime-ffi", lean_has_llvm))]
+        #[cfg(lean_has_llvm)]
         fn LLVMInitializeAllTargets();
-        #[cfg(all(feature = "export-runtime-ffi", lean_has_llvm))]
+        #[cfg(lean_has_llvm)]
         fn LLVMInitializeAllTargetMCs();
-        #[cfg(all(feature = "export-runtime-ffi", lean_has_llvm))]
+        #[cfg(lean_has_llvm)]
         fn LLVMInitializeAllAsmParsers();
-        #[cfg(all(feature = "export-runtime-ffi", lean_has_llvm))]
+        #[cfg(lean_has_llvm)]
         fn LLVMInitializeAllAsmPrinters();
     }
 

@@ -350,7 +350,7 @@ pub(crate) mod runtime_sharecommon_impl {
         unsafe fn visit_ctor(&mut self, a: *mut LeanObject) {
             self.children.clear();
             // How do we get the number of object fields?
-            // In lean.h: static inline unsigned lean_ctor_num_objs(lean_object * o) { return lean_ptr_other(o); }
+            // In static runtime layout: static inline unsigned lean_ctor_num_objs(lean_object * o) { return lean_ptr_other(o); }
             // lean_ptr_other returns o->m_other. In our LeanObject, this is `other`.
             let num_objs = (*a).other as usize;
             let mut missing_child = false;

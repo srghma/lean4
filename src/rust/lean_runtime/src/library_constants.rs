@@ -127,8 +127,7 @@ unsafe fn library_constant(index: usize) -> *const LeanName {
 
 macro_rules! library_constant_getter {
     ($name:ident, $symbol:literal, $index:literal) => {
-        #[cfg_attr(feature = "export-runtime-ffi", export_name = $symbol)]
-        pub extern "C" fn $name() -> *const LeanName {
+        pub fn $name() -> *const LeanName {
             unsafe { library_constant($index) }
         }
     };
@@ -301,11 +300,7 @@ library_constant_getter!(get_uint32_name, "_ZN4lean15get_uint32_nameEv", 103);
 library_constant_getter!(get_uint64_name, "_ZN4lean15get_uint64_nameEv", 104);
 library_constant_getter!(get_usize_name, "_ZN4lean14get_usize_nameEv", 105);
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20initialize_constantsEv"
-)]
-pub extern "C" fn initialize_constants() {
+pub fn initialize_constants() {
     unsafe {
         for (index, path) in LIBRARY_CONSTANT_PATHS.iter().enumerate() {
             let value = mk_name_path(path);
@@ -315,11 +310,7 @@ pub extern "C" fn initialize_constants() {
     }
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18finalize_constantsEv"
-)]
-pub extern "C" fn finalize_constants() {
+pub fn finalize_constants() {
     unsafe {
         for index in 0..LIBRARY_CONSTANT_PATHS.len() {
             let value = LIBRARY_CONSTANTS[index].obj;

@@ -28,7 +28,7 @@ pub(crate) mod runtime_process_impl {
         fn io_wrap_handle(f: *mut libc::FILE) -> *mut LeanObject;
     }
 
-    // lean_box_uint32 is a static inline in lean.h; implement it directly in Rust
+    // lean_box_uint32 is a static inline in static runtime layout; implement it directly in Rust
     // On 64-bit systems (our target), UInt32 is boxed as a tagged scalar: lean_box(v)
     unsafe fn lean_box_uint32_rust(v: u32) -> *mut LeanObject {
         lean_box(v as usize)
@@ -542,18 +542,5 @@ pub(crate) mod runtime_process_impl {
 
     // ─── initialize / finalize ────────────────────────────────────────────────
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18initialize_processEv"
-    )]
-    pub extern "C" fn initialize_process() {}
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16finalize_processEv"
-    )]
-    pub extern "C" fn finalize_process() {}
 }
-
-#[cfg(feature = "std")]
-pub(crate) use runtime_process_impl::*;

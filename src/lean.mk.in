@@ -78,9 +78,9 @@ endif
 	@mkdir -p $(OLEAN_OUT)/$(*D)
 	LEAN_OPTS="$(LEAN_OPTS)"; \
 	[[ -z "$(LLVM)" ]] || LEAN_OPTS+=" --bc=$(TEMP_OUT)/$*.bc.tmp"; \
-	$(LEAN) $$LEAN_OPTS -o "$@" -i "$(OLEAN_OUT)/$*.ilean" --c="$(TEMP_OUT)/$*.c.tmp" "$<"
-# create the .c file atomically
-	@mv "$(TEMP_OUT)/$*.c.tmp" "$(C_OUT)/$*.c"
+	$(LEAN) $$LEAN_OPTS -o "$@" -i "$(OLEAN_OUT)/$*.ilean" --rust="$(TEMP_OUT)/$*.rs.tmp" "$<"
+# create the .rs file atomically
+	@mv "$(TEMP_OUT)/$*.rs.tmp" "$(C_OUT)/$*.rs"
 ifdef LLVM
 	@mv "$(TEMP_OUT)/$*.bc.tmp" "$(BC_OUT)/$*.bc"
 endif

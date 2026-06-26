@@ -61,11 +61,7 @@ pub(crate) mod runtime_signal_impl {
         libc::free(handle.cast());
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean25lean_uv_signal_finalizerEPv"
-    )]
-    pub unsafe extern "C" fn lean_uv_signal_finalizer(ptr: *mut c_void) {
+    pub unsafe fn lean_uv_signal_finalizer(ptr: *mut c_void) {
         let signal = ptr.cast::<LeanUvSignalObject>();
 
         if !(*signal).promise.is_null() {
@@ -82,7 +78,7 @@ pub(crate) mod runtime_signal_impl {
         libc::free(signal.cast());
     }
 
-    unsafe extern "C" fn signal_foreach(obj: *mut c_void, f: *mut LeanObject) {
+    unsafe fn signal_foreach(obj: *mut c_void, f: *mut LeanObject) {
         let signal = obj.cast::<LeanUvSignalObject>();
         if !(*signal).promise.is_null() {
             lean_inc(f);
@@ -90,19 +86,11 @@ pub(crate) mod runtime_signal_impl {
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23initialize_libuv_signalEv"
-    )]
-    pub unsafe extern "C" fn initialize_libuv_signal() {
+    pub unsafe fn initialize_libuv_signal() {
         UV_SIGNAL_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_signal_finalizer), Some(signal_foreach));
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean19handle_signal_eventEP11uv_signal_si"
-    )]
     pub unsafe extern "C" fn handle_signal_event(handle: *mut UvSignal, signum: c_int) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let signal = signal_from_obj(obj);

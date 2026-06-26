@@ -13,7 +13,7 @@ import Lean.Compiler.Options
 import Lean.Compiler.IR.CompilerM
 
 import all Lean.Compiler.CSimpAttr
-import Lean.Compiler.LCNF.EmitC
+import Lean.Compiler.LCNF.EmitRust
 import Lean.Language.Lean
 import Lean.Compiler.LCNF.PhaseExt
 import Lean.Compiler.LCNF.Main
@@ -55,8 +55,8 @@ def setConfigOption (opts : Options) (arg : String) : IO Options := do
       throw <| .userError s!"unknown option '{name}'"
 
 public def main (args : List String) : IO UInt32 := do
-  let setupFile::irFile::c::optArgs := args | do
-    IO.println s!"usage: leanir <setup.json> <output.ir> <output.c> [--stat] <-Dopt=val>..."
+  let setupFile::irFile::outFile::optArgs := args | do
+    IO.println s!"usage: leanir <setup.json> <output.ir> <output.rs> [--stat] <-Dopt=val>..."
     return 1
 
   let setup ← ModuleSetup.load setupFile
@@ -152,11 +152,11 @@ public def main (args : List String) : IO UInt32 := do
   -- Make sure to change the module name so we derive a different base address
   saveModuleData irFile (env.mainModule ++ `ir) (← mkIRData env)
 
-  let .ok out ← IO.FS.Handle.mk c .write |>.toBaseIO
-    | IO.eprintln s!"failed to create '{c}'"
+  let .ok out ← IO.FS.Handle.mk outFile .write |>.toBaseIO
+    | IO.eprintln s!"failed to create '{outFile}'"
       return 1
-  profileitIO "C code generation" opts do
-    let data ← Compiler.LCNF.emitC modName
+  profileitIO "Rust code generation" opts do
+    let data ← Compiler.LCNF.emitRust modName
       |>.toIO' { fileName := irFile, fileMap := default } { env }
     out.write data.toUTF8
 

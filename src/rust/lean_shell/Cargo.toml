@@ -11,4 +11,4 @@ publish = false
 lean_runtime = { path = "../lean_runtime", features = ["std"] }
 
 [lib]
-crate-type = ["staticlib"]
+crate-type = ["rlib"]

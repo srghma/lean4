@@ -36,11 +36,11 @@ def Lean.Expr.toRustType : Expr → String
   | uint32 => "u32"
   | uint64 => "u64"
   | usize => "usize"
-  | object => "*mut lean_object"
-  | tagged => "*mut lean_object"
-  | tobject => "*mut lean_object"
-  | erased => "*mut lean_object"
-  | void => "*mut lean_object"
+  | object => "*mut LeanObject"
+  | tagged => "*mut LeanObject"
+  | tobject => "*mut LeanObject"
+  | erased => "*mut LeanObject"
+  | void => "*mut LeanObject"
   | _ => unreachable!
 
 def Lean.Expr.unboxOpName (t : Expr) : String :=
@@ -108,7 +108,7 @@ private def scalarPtrLiteral (b1 b2 b3 b4 b5 b6 b7 b8 : UInt8) : String :=
   let pack (b : UInt8) (shift : UInt64) : UInt64 := b.toUInt64 <<< shift
   let v := pack b1 0 ||| pack b2 8 ||| pack b3 16 ||| pack b4 24 |||
            pack b5 32 ||| pack b6 40 ||| pack b7 48 ||| pack b8 56
-  s!"{v} as *mut lean_object"
+  s!"{v} as *mut LeanObject"
 
 structure Context where
   localDecls : Array (Decl .impure)
@@ -266,16 +266,13 @@ def emitCInitName (n : Name) : EmitM Unit :=
   toCInitName n >>= emit
 
 -- Returns the Rust crate name for well-known stdlib packages, or "" for user-defined packages.
--- User packages are compiled as separate --emit=obj staticlib objects (not rlibs), so they
--- cannot be referenced via `use crate::*` or `use pkg::Mod::*`. Callers use "" to detect
--- user packages and emit `extern "C"` declarations instead.
 def leanModuleToRustPackage (name : Name) : String :=
   let s := name.toString
   if s.startsWith "Init" then "lean_init"
   else if s.startsWith "Std"  then "lean_std"
   else if s.startsWith "Lean" then "lean_lean"
   else if s.startsWith "Lake" then "lean_lake"
-  else ""  -- user-defined package: compiled as --emit=obj, not an rlib crate
+  else ""
 
 def emitFileHeader : EmitM Unit := do
   let env ← getEnv
@@ -303,7 +300,7 @@ def emitFileHeader : EmitM Unit := do
         emitLn s!"use crate::{rustPath}::*;"
       else if !impPkg.isEmpty then
         emitLn s!"use {impPkg}::{rustPath}::*;"
-      -- else: user package; extern "C" declarations emitted by emitFnDecls
+      -- else: user package; Rust crate imports emitted by emitFnDecls
   -- 2. otherModuleDecls (handles inlined transitive refs)
   for sig in (← getOtherModuleDecls) do
     if let some idx := env.getModuleIdxFor? sig.name then
@@ -316,7 +313,7 @@ def emitFileHeader : EmitM Unit := do
             emitLn s!"use crate::{rustPath}::*;"
           else if !impPkg.isEmpty then
             emitLn s!"use {impPkg}::{rustPath}::*;"
-          -- else: user package; extern "C" declarations emitted by emitFnDecls
+          -- else: user package; Rust crate imports emitted by emitFnDecls
 
 def ctorScalarSizeExpression (usize : Nat) (ssize : Nat) : String :=
   if usize == 0 then
@@ -336,26 +333,24 @@ partial def emitGroundDecl (decl : Decl .impure) (cppBaseName : String) : EmitM 
   discard <| compileGround ground |>.run {}
 where
   mkHeader {α : Type} [ToString α] (csSz : α) (other : Nat) (tag : Nat) : String :=
-    s!"lean_object \{ m_rc: 0, m_cs_sz: ({csSz}) as u16, m_other: {other}, m_tag: {tag} }"
+    s!"LeanObject \{ rc: 0, cs_size: ({csSz}) as u16, other: {other}, tag: {tag} }"
 
   mkCtorHeader (numObjs : Nat) (usize : Nat) (ssize : Nat) (tag : Nat) : String :=
-    let size := s!"core::mem::size_of::<lean_object>() + core::mem::size_of::<*mut lean_object>()*{numObjs} + {ctorScalarSizeExpression usize ssize}"
+    let size := s!"core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*{numObjs} + {ctorScalarSizeExpression usize ssize}"
     mkHeader size numObjs tag
 
   compileGround (e : SimpleGroundExpr) : GroundM Unit := do
     let valueName ← compileGroundToValue e (root := true)
     if isClosedTermName (← getEnv) decl.name then
-      emitLn <| s!"static mut {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
+      emitLn <| s!"static mut {cppBaseName}: *mut LeanObject = core::ptr::addr_of!({valueName}) as *mut LeanObject;"
     else
-      emitLn "#[used]"
-      emitLn "#[no_mangle]"
-      emitLn <| s!"pub static mut {cppBaseName}: *mut lean_object = core::ptr::addr_of!({valueName}) as *mut lean_object;"
+      emitLn <| s!"pub static mut {cppBaseName}: *mut LeanObject = core::ptr::addr_of!({valueName}) as *mut LeanObject;"
 
   compileGroundToValue (e : SimpleGroundExpr) (root := false) : GroundM String := do
     match e with
     | .ctor cidx objArgs usizeArgs scalarArgs =>
       let (n, val) ← compileCtor cidx objArgs usizeArgs scalarArgs
-      mkValueCLit s!"lean_ctor_object<{n}>" val root
+      mkValueCLit s!"LeanCtorObject<{n}>" val root
     | .string data =>
       let leanStringTag := 249
       let header := mkHeader 0 0 leanStringTag
@@ -363,8 +358,8 @@ where
       let length := data.length
       let dataBytes := String.intercalate ", " <| (data.toUTF8.data.toList.map (fun b => toString b.toNat))
       let dataWithNull := if dataBytes.isEmpty then "0" else dataBytes ++ ", 0"
-      let type := "lean_string_object<" ++ toString size ++ ">"
-      let value := (s!"lean_string_object \{ m_header: {header}, m_size: {size}, m_capacity: {size}, m_length: {length}, m_data: [") ++ dataWithNull ++ "]" ++ "}"
+      let type := "LeanStringObject<" ++ toString size ++ ">"
+      let value := (s!"LeanStringObject \{ m_header: {header}, m_size: {size}, m_capacity: {size}, m_length: {length}, m_data: [") ++ dataWithNull ++ "]" ++ "}"
       mkValueCLit
         type
         value
@@ -372,36 +367,36 @@ where
     | .pap func args =>
       let numFixed := args.size
       let leanClosureTag := 245
-      let header := mkHeader s!"core::mem::size_of::<lean_object>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut lean_object>()*{numFixed}" 0 leanClosureTag
+      let header := mkHeader s!"core::mem::size_of::<LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut LeanObject>()*{numFixed}" 0 leanClosureTag
       let funPtr := s!"{← toCName func} as *const core::ffi::c_void"
       let arity := (← getImpureSignature? func).get!.params.size
       let args ← args.mapM groundArgToCLit
       let argArray := String.intercalate "," args.toList
       mkValueCLit
-        s!"lean_closure_object<{numFixed}>"
-        s!"lean_closure_object \{ m_header: {header}, m_fun: {funPtr}, m_arity: {arity}, m_num_fixed: {numFixed}, m_objs: [{argArray}] }"
+        s!"LeanClosureObject<{numFixed}>"
+        s!"LeanClosureObject \{ m_header: {header}, m_fun: {funPtr}, m_arity: {arity}, m_num_fixed: {numFixed}, m_objs: [{argArray}] }"
         root
     | .nameMkStr args =>
       let (n, obj) ← groundNameMkStrToCLit args
-      mkValueCLit s!"lean_ctor_object<{n}>" obj root
+      mkValueCLit s!"LeanCtorObject<{n}>" obj root
     | .array elems =>
       let leanArrayTag := 246
-      let header := mkHeader s!"core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut lean_object>()*{elems.size}" 0 leanArrayTag
+      let header := mkHeader s!"core::mem::size_of::<LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut LeanObject>()*{elems.size}" 0 leanArrayTag
       let elemLits ← elems.mapM groundArgToCLit
       let dataArray := String.intercalate "," elemLits.toList
       mkValueCLit
-        s!"lean_array_object<{elems.size}>"
-        s!"lean_array_object \{ m_header: {header}, m_size: {elems.size}, m_capacity: {elems.size}, m_data: [{dataArray}] }"
+        s!"LeanArrayObject<{elems.size}>"
+        s!"LeanArrayObject \{ m_header: {header}, m_size: {elems.size}, m_capacity: {elems.size}, m_data: [{dataArray}] }"
         root
     | .byteArray data =>
       let leanScalarArrayTag := 248
       let elemSize : Nat := 1
-      let header := mkHeader s!"core::mem::size_of::<lean_object>() + core::mem::size_of::<usize>()*2 + {data.size}" elemSize leanScalarArrayTag
+      let header := mkHeader s!"core::mem::size_of::<LeanObject>() + core::mem::size_of::<usize>()*2 + {data.size}" elemSize leanScalarArrayTag
       let dataLits := data.map toString
       let dataArray := String.intercalate "," dataLits.toList
       mkValueCLit
-        s!"lean_sarray_object<{data.size}>"
-        s!"lean_sarray_object \{ m_header: {header}, m_size: {data.size}, m_capacity: {data.size}, m_data: [{dataArray}] }"
+        s!"LeanScalarArrayObject<{data.size}>"
+        s!"LeanScalarArrayObject \{ m_header: {header}, m_size: {data.size}, m_capacity: {data.size}, m_data: [{dataArray}] }"
         root
     | .reference refDecl => findValueDecl refDecl
 
@@ -435,16 +430,16 @@ where
       let (ref, hash) := args.back!
       let args := args.pop
       let (auxN, lit) ← groundNameMkStrToCLit args
-      let auxName ← mkAuxDecl s!"lean_ctor_object<{auxN}>" lit
+      let auxName ← mkAuxDecl s!"LeanCtorObject<{auxN}>" lit
       let hash := uint64ToByteArrayLE hash
       compileCtor 1 #[.rawReference auxName, .reference ref] #[] hash
 
   groundArgToCLit (a : SimpleGroundArg) : GroundM String := do
     match a with
-    | .tagged val => return s!"((( {val} as usize) << 1) | 1) as *mut lean_object"
+    | .tagged val => return s!"((( {val} as usize) << 1) | 1) as *mut LeanObject"
     | .reference decl =>
-        return s!"core::ptr::addr_of!({← findValueDecl decl}) as *mut lean_object"
-    | .rawReference decl => return s!"core::ptr::addr_of!({decl}) as *mut lean_object"
+        return s!"core::ptr::addr_of!({← findValueDecl decl}) as *mut LeanObject"
+    | .rawReference decl => return s!"core::ptr::addr_of!({decl}) as *mut LeanObject"
 
   -- Follow reference chains until a decl with its own _value is found.
   -- Decls whose ground expr is `.reference` have no own _value static;
@@ -460,11 +455,11 @@ where
     let numFixed := objArgs.size + usizeArgs.size
     let header := mkCtorHeader numFixed usizeArgs.size scalarArgs.size cidx
     let objArgs ← objArgs.mapM groundArgToCLit
-    let usizeArgs : Array String := usizeArgs.map fun val => s!"({val} as *mut lean_object)"
+    let usizeArgs : Array String := usizeArgs.map fun val => s!"({val} as *mut LeanObject)"
     let packedScalars ← packScalarArgs scalarArgs
     let totalObjs := numFixed + packedScalars.size
     let argArray := String.intercalate "," (objArgs ++ usizeArgs ++ packedScalars).toList
-    return (totalObjs, s!"lean_ctor_object \{ m_header: {header}, m_objs: [{argArray}] }")
+    return (totalObjs, s!"LeanCtorObject \{ m_header: {header}, m_objs: [{argArray}] }")
 
   packScalarArgs (scalarArgs : Array UInt8) : GroundM (Array String) := do
     let numU64s := (scalarArgs.size + 7) / 8
@@ -493,9 +488,9 @@ def paramsWithoutVoid (ps : Array (Param .impure)) :=
 def paramsWithoutErased (ps : Array (Param .impure)) :=
   ps.filter (!·.type.isErased)
 
--- Names already declared in emitFileHeader's extern "C" block; must not be re-declared.
+-- Names already provided by the runtime import; must not be re-declared.
 -- This list covers both the low-level functions imported via `use lean_runtime::generated_abi::*;`
--- and any other names that should not appear in per-module extern "C" blocks.
+-- and any other names that should not appear in per-module declaration blocks.
 -- BEGIN GENERATED headerExternNames
 private def headerExternNames : Array String := #[
   "lean_alloc_array",
@@ -773,9 +768,8 @@ def emitFnDecls : EmitM Unit := do
          && !localExportedNames.contains externName then
         seenExterns := seenExterns.push externName
         emitFnDeclAux decl.toSignature externName true
-  -- 2. Other-module @[extern "name"] C functions still need explicit extern "C" declarations.
-  --    Stdlib Lean functions are in scope via `use` imports; user-package ones via section 3/4.
-  --    But C functions (extern "C") are module-private (not pub) and cannot be re-exported.
+  -- 2. Other-module @[extern "name"] functions still need explicit declarations while
+  --    the crate graph migration is incomplete.
   --    Skip if the name is locally exported (@[export]) — the definition is already in this file.
   for sig in (← getOtherModuleDecls) do
     if let some externName := getExternNameFor env `c sig.name then
@@ -784,9 +778,6 @@ def emitFnDecls : EmitM Unit := do
         seenExterns := seenExterns.push externName
         emitFnDeclAux sig externName true
   -- 3. User-package init functions.
-  --    User packages are compiled as --emit=obj staticlib crates (not rlibs), so
-  --    `use crate::ModName::*` fails.  Declare init functions as extern "C" so the
-  --    linker resolves them from the linked .o file.
   for imp in env.imports do
     if let some idx := env.getModuleIdx? imp.module then
       let pkg? := env.getModulePackageByIdx? idx
@@ -795,7 +786,7 @@ def emitFnDecls : EmitM Unit := do
           let fnName := mkModuleInitializationFunctionName (phases := phases) imp.module pkg?
           if !seenExterns.contains fnName then
             seenExterns := seenExterns.push fnName
-            emitLn s!"    fn {fnName}(_: u8) -> *mut lean_object;"
+            emitLn s!"    fn {fnName}(_: u8) -> *mut LeanObject;"
   -- 4. User-package lp_* statics and Lean functions from otherModuleDecls.
   --    (Skip those that have @[extern "name"] — already declared in section 2.)
   for sig in (← getOtherModuleDecls) do
@@ -828,7 +819,7 @@ where
       emitFnDeclStandard decl.toSignature isExternal
 
   emitFnDeclClosed (decl : Decl .impure) (cppBaseName : String) : EmitM Unit := do
-    emitLn s!"static mut {toOnceTokenName cppBaseName}: lean_once_cell = lean_once_cell \{ state: 0, lock: 0 };"
+    emitLn s!"static mut {toOnceTokenName cppBaseName}: LeanOnceCell = LeanOnceCell \{ state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };"
     emitLn s!"static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
 
   emitFnDeclStandard (sig : Signature .impure) (isExternal : Bool) : EmitM Unit := do
@@ -844,13 +835,11 @@ where
       if isExternal then
         emitLn s!"    static mut {cppBaseName}: {sig.type.toRustType};"
         if isSimpleGroundDecl env sig.name then
-          emitLn s!"    static {cppBaseName}_value: lean_object;"
+          emitLn s!"    static {cppBaseName}_value: LeanObject;"
       else
         if isClosedTermName env sig.name then
           emitLn s!"static mut {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
         else
-          emitLn "#[used]"
-          emitLn "#[no_mangle]"
           emitLn s!"pub static mut {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
     else
       if isExternal then
@@ -860,7 +849,7 @@ where
           let ps := paramsWithoutVoid ps
           let ps := if isExternC env sig.name then paramsWithoutErased ps else ps
           if ps.size > closureMaxArgs && isBoxedName sig.name then
-            emit "_: *mut *mut lean_object"
+            emit "_: *mut *mut LeanObject"
           else
             ps.size.forM fun i _ => do
               if i > 0 then emit ", "
@@ -872,9 +861,9 @@ where
 def offsetExpression (i : Nat) (offset : Nat) : String :=
   if i > 0 then
     if offset > 0 then
-      s!"(core::mem::size_of::<*mut lean_object>()*{i} + {offset}) as u32"
+      s!"(core::mem::size_of::<*mut LeanObject>()*{i} + {offset}) as u32"
     else
-      s!"(core::mem::size_of::<*mut lean_object>()*{i}) as u32"
+      s!"(core::mem::size_of::<*mut LeanObject>()*{i}) as u32"
   else
     s!"{offset} as u32"
 
@@ -1380,10 +1369,7 @@ def emitDecl (decl : Decl .impure) : EmitM Unit := do
   | .code code =>
     let baseName ← toCName decl.name
     let ps := decl.params
-    -- All functions use `#[no_mangle] pub unsafe extern "C"` so that `lean_eval_const` can
-    -- find them via dlsym (needed for non-builtin attribute implementations loaded from oleans,
-    -- parser constants, and any evalConst/evalConstCheck call site).
-    emit "#[no_mangle] pub unsafe extern \"C\" fn "
+    emit "pub unsafe fn "
 
     if ps.isEmpty then
       emitCInitName decl.name
@@ -1393,7 +1379,7 @@ def emitDecl (decl : Decl .impure) : EmitM Unit := do
       emit "("
       let ps := paramsWithoutVoid ps
       if ps.size > closureMaxArgs && isBoxedName decl.name then
-        emit "_args: *mut *mut lean_object"
+        emit "_args: *mut *mut LeanObject"
       else
         ps.size.forM fun i _ => do
           if i > 0 then emit ", "
@@ -1484,9 +1470,8 @@ def emitInitFn (phases : IRPhases) (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_{mkModuleInitializationPrefix phases}initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    "#[no_mangle]",
-    s!"pub unsafe extern \"C\" fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut lean_object \{",
-    "let mut res: *mut lean_object = core::ptr::null_mut();",
+    s!"pub unsafe fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut LeanObject \{",
+    "let mut res: *mut LeanObject = core::ptr::null_mut();",
     s!"if {initialized} \{ return lean_io_result_mk_ok(lean_box(0)); }",
     s!"{initialized} = true;"
   ]
@@ -1504,9 +1489,8 @@ def emitLegacyInitFn (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    "#[no_mangle]",
-    s!"pub unsafe extern \"C\" fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut lean_object \{",
-    "let mut res: *mut lean_object = core::ptr::null_mut();",
+    s!"pub unsafe fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut LeanObject \{",
+    "let mut res: *mut LeanObject = core::ptr::null_mut();",
     s!"if {initialized} \{ return lean_io_result_mk_ok(lean_box(0)); }",
     s!"{initialized} = true;"
   ]
@@ -1544,7 +1528,7 @@ where
     let hasExitCode := retTy.isConstOf ``UInt32
 
     emitLns [
-      "unsafe extern \"C\" fn run_main(argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> *mut lean_object {",
+      "unsafe fn run_main(argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> *mut LeanObject {",
       if ps.size == 2 then
         s!"    let mut args_list = lean_box(0);
             let mut i = argc;
@@ -1564,8 +1548,7 @@ where
     ]
 
     emitLns [
-      "#[no_mangle]",
-      "pub unsafe extern \"C\" fn main(argc: core::ffi::c_int, mut argv: *mut *mut core::ffi::c_char) -> core::ffi::c_int {",
+      "unsafe fn lean_rust_main(argc: core::ffi::c_int, mut argv: *mut *mut core::ffi::c_char) -> core::ffi::c_int {",
       "  argv = lean_setup_args(argc, argv);",
       if usesLeanAPI then "  lean_initialize();" else "  lean_initialize_runtime_module();",
       s!"  let res = {← getModInitFn (phases := if env.header.isModule then .runtime else .all)}(1 /* builtin */);",
@@ -1592,6 +1575,14 @@ where
       "    lean_dec(res);",
       "  }",
       "  return ret_val;",
+      "}",
+      "",
+      "fn main() {",
+      "  let c_args: Vec<std::ffi::CString> = std::env::args().map(|arg| std::ffi::CString::new(arg).expect(\"process argument contains NUL byte\")).collect();",
+      "  let mut raw_args: Vec<*mut core::ffi::c_char> = c_args.iter().map(|arg| arg.as_ptr() as *mut core::ffi::c_char).collect();",
+      "  let argc = raw_args.len() as core::ffi::c_int;",
+      "  let code = unsafe { lean_rust_main(argc, raw_args.as_mut_ptr()) };",
+      "  std::process::exit(code);",
       "}"
     ]
 

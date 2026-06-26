@@ -9,15 +9,5 @@ src/Lean/Declaration.lean; typed C++ callers are inline in declaration.h.
 */
 
 pub(crate) mod kernel_declaration_impl {
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean22initialize_declarationEv"
-    )]
-    pub extern "C" fn initialize_declaration() {}
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean20finalize_declarationEv"
-    )]
-    pub extern "C" fn finalize_declaration() {}
 }

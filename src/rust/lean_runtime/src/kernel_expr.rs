@@ -393,9 +393,5 @@ pub(crate) mod kernel_expr_impl {
         shift_loose_bvars(e, 0, s_val, d_val, true)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean15initialize_exprEv")]
-    pub extern "C" fn initialize_expr() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean13finalize_exprEv")]
-    pub extern "C" fn finalize_expr() {}
 }

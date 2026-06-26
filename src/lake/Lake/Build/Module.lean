@@ -1085,13 +1085,12 @@ public def Module.cFacetConfig : ModuleFacetConfig cFacet :=
     (← mod.leanArts.fetch).mapM (sync := true) fun arts => do
       let art := arts.c
       /-
-      Avoid recompiling unchanged C files.
-      C files are assumed to only incorporate their own content
+      Avoid recompiling unchanged Rust files.
+      Rust files are assumed to only incorporate their own content
       and not transitively include their inputs (e.g., imports).
-      They do, however, include `lean/lean.h`.
-      Lean also produces LF-only C files, so no line ending normalization.
+      Lean also produces LF-only Rust files, so no line ending normalization.
       -/
-      newTrace s!"{mod.name.toString}:c"
+      newTrace s!"{mod.name.toString}:rust"
       addTrace art.trace
       addLeanTrace
       return art.path
@@ -1113,7 +1112,7 @@ public def Module.bcFacetConfig : ModuleFacetConfig bcFacet :=
 
 /--
 Recursively build the module's object file from its C file produced by `lean`
-with `-DLEAN_EXPORTING` set, which exports Lean symbols defined within the C files.
+with `-DLEAN_EXPORTING` set, which exports Lean symbols defined within the Rust files.
 -/
 def Module.recBuildLeanCToOExport (self : Module) : FetchM (Job FilePath) := do
   let suffix := if (← getIsVerbose) then " (with exports)" else ""

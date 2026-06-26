@@ -6,8 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 Rust implementation of kernel/trace.cpp functions.
 C++ shim handles: tout::~tout(), operator<<(ostream&, tclass)
-This file handles: register_trace_class, initialize_trace, finalize_trace,
-is_trace_class_enabled, scope_trace_env
+This file handles trace-class registration, trace-class lookup, and scope_trace_env.
 */
 
 use std::cell::Cell;
@@ -63,11 +62,7 @@ unsafe fn mk_option_decl(
     lean_runtime_mk_cnstr(0, 5, fields.as_mut_ptr(), 0)
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20register_trace_classERKNS_4nameES2_"
-)]
-pub unsafe extern "C" fn register_trace_class(
+pub unsafe fn register_trace_class(
     n: *const LeanName,
     decl_name: *const LeanName,
 ) {
@@ -83,27 +78,10 @@ pub unsafe extern "C" fn register_trace_class(
     consume_io_result(lean_register_option(opt_name, decl));
 }
 
-// initialize_trace / finalize_trace — empty no-ops
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16initialize_traceEv"
-)]
-pub unsafe extern "C" fn initialize_trace() {}
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean14finalize_traceEv"
-)]
-pub unsafe extern "C" fn finalize_trace() {}
-
 // is_trace_class_enabled — delegates to Lean-exported function.
 // n is `name const&` which in x86-64 ABI is lean::name const* = pointer to {lean_object*}.
 // We dereference to get the inner lean_object* and call lean_inc (mimicking to_obj_arg()).
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean22is_trace_class_enabledERKNS_4nameE"
-)]
-pub unsafe extern "C" fn is_trace_class_enabled(n: *const *mut LeanObject) -> bool {
+pub unsafe fn is_trace_class_enabled(n: *const *mut LeanObject) -> bool {
     let opts_holder = G_OPTS.get();
     if opts_holder.is_null() {
         return false;
@@ -123,11 +101,7 @@ pub struct ScopeTraceEnv {
 }
 
 // C1 constructor. opts is `options const&` = lean::options const* = *const *mut LeanObject.
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean15scope_trace_envC1ERKNS_16elab_environmentERKNS_7optionsE"
-)]
-pub unsafe extern "C" fn scope_trace_env_ctor_c1(
+pub unsafe fn scope_trace_env_ctor_c1(
     this: *mut ScopeTraceEnv,
     _env: *const *mut LeanObject,
     opts: *const *mut LeanObject,
@@ -138,11 +112,7 @@ pub unsafe extern "C" fn scope_trace_env_ctor_c1(
 }
 
 // C2 constructor (usually identical to C1)
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean15scope_trace_envC2ERKNS_16elab_environmentERKNS_7optionsE"
-)]
-pub unsafe extern "C" fn scope_trace_env_ctor_c2(
+pub unsafe fn scope_trace_env_ctor_c2(
     this: *mut ScopeTraceEnv,
     _env: *const *mut LeanObject,
     opts: *const *mut LeanObject,
@@ -151,20 +121,12 @@ pub unsafe extern "C" fn scope_trace_env_ctor_c2(
 }
 
 // D1 destructor
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean15scope_trace_envD1Ev"
-)]
-pub unsafe extern "C" fn scope_trace_env_dtor_c1(this: *mut ScopeTraceEnv) {
+pub unsafe fn scope_trace_env_dtor_c1(this: *mut ScopeTraceEnv) {
     let old = (*this).m_old_opts;
     G_OPTS.set(old);
 }
 
 // D2 destructor (usually identical to D1)
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean15scope_trace_envD2Ev"
-)]
-pub unsafe extern "C" fn scope_trace_env_dtor_c2(this: *mut ScopeTraceEnv) {
+pub unsafe fn scope_trace_env_dtor_c2(this: *mut ScopeTraceEnv) {
     scope_trace_env_dtor_c1(this);
 }

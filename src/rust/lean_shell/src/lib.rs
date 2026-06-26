@@ -5,9 +5,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use core::ffi::{c_char, c_int, c_uint};
 use lean_runtime::{
-    lean_box, lean_dec, lean_inc, lean_io_result_get_error, lean_io_result_get_value,
-    lean_io_result_is_ok, lean_mk_string, lean_runtime_mk_cnstr, lean_string_cstr, lean_unbox,
-    LeanObject,
+    lean_box, lean_dec, lean_finalize, lean_inc, lean_initialize, lean_io_error_to_string_rust,
+    lean_io_result_get_error, lean_io_result_get_value, lean_io_result_is_ok, lean_mk_string,
+    lean_runtime_mk_cnstr, lean_string_cstr, lean_unbox, LeanObject,
 };
 use std::ffi::{CStr, CString};
 use std::io::{self, Write};
@@ -22,11 +22,9 @@ fn debug_build() -> bool {
 }
 
 extern "C" {
-    fn lean_initialize();
     fn lean_init_search_path() -> *mut LeanObject;
     fn lean_enable_initializer_execution() -> *mut LeanObject;
     fn lean_io_mark_end_initialization();
-    fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     fn lean_shell_options_mk(unit: *mut LeanObject) -> *mut LeanObject;
     fn lean_shell_options_process(
         shell_opts: *mut LeanObject,
@@ -53,7 +51,7 @@ struct LeanInitializerGuard;
 
 impl Drop for LeanInitializerGuard {
     fn drop(&mut self) {
-        unsafe { lean_finalize() }
+        lean_finalize()
     }
 }
 
@@ -153,7 +151,7 @@ unsafe fn make_opt_arg(value: Option<&CStr>) -> *mut LeanObject {
 }
 
 unsafe fn print_io_error(prefix: Option<&str>, err: *mut LeanObject) {
-    let msg = lean_io_error_to_string(err);
+    let msg = lean_io_error_to_string_rust(err);
     let text = CStr::from_ptr(lean_string_cstr(msg));
     let mut stderr = io::stderr().lock();
     if let Some(prefix) = prefix {
@@ -344,10 +342,6 @@ unsafe fn make_args_list(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject
     list
 }
 
-extern "C" {
-    fn lean_finalize();
-}
-
 fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
     unsafe {
         lean_initialize();
@@ -395,12 +389,10 @@ fn main_impl(argc: c_int, argv: *mut *mut c_char) -> c_int {
     }
 }
 
-#[no_mangle]
-pub extern "C" fn main(argc: c_int, argv: *mut *mut c_char) -> c_int {
+pub fn main(argc: c_int, argv: *mut *mut c_char) -> c_int {
     main_impl(argc, argv)
 }
 
-#[no_mangle]
-pub extern "C" fn lean_main(argc: c_int, argv: *mut *mut c_char) -> c_int {
+pub fn lean_main(argc: c_int, argv: *mut *mut c_char) -> c_int {
     main_impl(argc, argv)
 }

@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -9,7 +8,6 @@ Port of src/runtime/compact.cpp (object_compactor) and
 src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod runtime_compact_writer_impl {
     use super::*;
     use core::ffi::{c_char, c_void, CStr};
@@ -37,7 +35,7 @@ pub(crate) mod runtime_compact_writer_impl {
 
     const LEAN_GITHASH: &str = env!("LEAN_RUST_GITHASH");
 
-    // Object tag constants matching lean.h
+    // Object tag constants matching static runtime layout
     const LEAN_MAX_CTOR_TAG: u8 = 243;
     const LEAN_PROMISE_TAG: u8 = 244;
     const LEAN_CLOSURE_TAG: u8 = 245;
@@ -50,7 +48,7 @@ pub(crate) mod runtime_compact_writer_impl {
     const LEAN_REF_TAG: u8 = 253;
     const LEAN_EXTERNAL_TAG: u8 = 254;
 
-    // lean_closure_object layout (matching lean.h uint16_t fields):
+    // lean_closure_object layout (matching static runtime layout uint16_t fields):
     //   header(8) + fun(8) + arity(u16,2) + num_fixed(u16,2) + pad(4) = 24 bytes header
     //   args start at offset 24
     const LEAN_CLOSURE_FUN_OFFSET: usize = 8;
@@ -704,11 +702,11 @@ pub(crate) mod runtime_compact_writer_impl {
 
     static COMPACTOR_CLASS: std::sync::OnceLock<usize> = std::sync::OnceLock::new();
 
-    unsafe extern "C" fn compactor_finalizer(data: *mut c_void) {
+    unsafe fn compactor_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data as *mut ObjectCompactor));
     }
 
-    unsafe extern "C" fn compactor_foreach(_data: *mut c_void, _o: *mut LeanObject) {}
+    unsafe fn compactor_foreach(_data: *mut c_void, _o: *mut LeanObject) {}
 
     fn get_compactor_class() -> *mut LeanExternalClass {
         *COMPACTOR_CLASS.get_or_init(|| unsafe {

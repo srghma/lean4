@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -26,13 +25,12 @@ Expression kind tags:
   Lambda=6  Pi=7  Let=8  Lit=9  MData=10  Proj=11
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod kernel_abstract_impl {
+    use super::runtime_object_name_impl::lean_name_eq;
     use super::*;
     use std::collections::HashMap;
 
     extern "C" {
-        fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(

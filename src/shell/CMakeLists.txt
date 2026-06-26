@@ -20,10 +20,10 @@ else()
   set(LEAN_RUST_IS_STAGE0 0)
 endif()
 
-set(LEANMAIN_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanmain.a)
-set(LEANSHELL_ARCHIVE ${CMAKE_BINARY_DIR}/lib/temp/libleanshell.a)
+set(LEANMAIN_RLIB ${CMAKE_BINARY_DIR}/lib/temp/libleanmain.rlib)
+set(LEANSHELL_RLIB ${CMAKE_BINARY_DIR}/lib/temp/libleanshell.rlib)
 add_custom_command(
-  OUTPUT ${LEANMAIN_ARCHIVE} ${LEANSHELL_ARCHIVE}
+  OUTPUT ${LEANMAIN_RLIB} ${LEANSHELL_RLIB}
   COMMAND
     ${CMAKE_COMMAND} -E env
     CARGO_TARGET_DIR=${CMAKE_BINARY_DIR}/rust
@@ -45,12 +45,11 @@ add_custom_command(
     LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS=${LEAN_EXTRA_LINKER_FLAGS}
     LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE=${LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE}
     LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS=${LEANC_INTERNAL_LINKER_FLAGS}
-    LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE=${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a
     LEAN_RUST_IS_STAGE0=${LEAN_RUST_IS_STAGE0}
     ${CARGO_EXECUTABLE} build --manifest-path ${LEAN_SOURCE_DIR}/rust/Cargo.toml --package lean_shell ${LEAN_RUST_CARGO_ARGS}
   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib/temp
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEAN_RUST_TARGET_DIR}/liblean_shell.a ${LEANMAIN_ARCHIVE}
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEANMAIN_ARCHIVE} ${LEANSHELL_ARCHIVE}
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEAN_RUST_TARGET_DIR}/liblean_shell.rlib ${LEANMAIN_RLIB}
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${LEANMAIN_RLIB} ${LEANSHELL_RLIB}
   DEPENDS ${LEAN_SOURCE_DIR}/rust/Cargo.toml ${LEAN_SOURCE_DIR}/rust/lean_shell/Cargo.toml ${LEAN_SOURCE_DIR}/rust/lean_shell/src/lib.rs
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/Cargo.toml
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/build.rs
@@ -59,8 +58,8 @@ add_custom_command(
     ${LEAN_SOURCE_DIR}/rust/lean_runtime/src/runtime_mpz.rs
   VERBATIM
 )
-add_custom_target(leanmain DEPENDS ${LEANMAIN_ARCHIVE})
-add_custom_target(leanshell DEPENDS ${LEANSHELL_ARCHIVE})
+add_custom_target(leanmain DEPENDS ${LEANMAIN_RLIB})
+add_custom_target(leanshell DEPENDS ${LEANSHELL_RLIB})
 
 # library must contain at least one non-manifest file
 # We use `CONFIGURE` instead of `WRITE` so as to avoid touching the file on each run

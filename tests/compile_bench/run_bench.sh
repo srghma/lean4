@@ -22,8 +22,8 @@ if [[ -n $DO_COMPILE ]]; then
 
   TOPIC="compiled/$(basename "$1" .lean)"
 
-  lean --c="$1.c" -Dcompiler.postponeCompile=false "${TEST_LEAN_ARGS[@]}" "$1" || fail "Failed to compile $1 into $1.c"
-  leanc ${LEANC_OPTS-} -O3 -DNDEBUG -o "$1.out" "${TEST_LEANC_ARGS[@]}" "$1.c" || fail "Failed to compile $1.c"
+  lean --rust="$1.rs" -Dcompiler.postponeCompile=false "${TEST_LEAN_ARGS[@]}" "$1" || fail "Failed to compile $1 into $1.rs"
+  leanc ${LEANC_OPTS-} -O3 -DNDEBUG -o "$1.out" "${TEST_LEANC_ARGS[@]}" "$1.rs" || fail "Failed to compile $1.rs"
 
   capture_only "$1" \
     "$TEST_DIR/measure.py" -t "$TOPIC" -o "$1.measurements.jsonl" -a -d -- \

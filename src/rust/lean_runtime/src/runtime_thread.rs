@@ -100,65 +100,31 @@ pub(crate) mod runtime_thread_impl {
         run_post_thread_finalizers_internal();
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean22in_thread_finalizationEv"
-    )]
-    pub extern "C" fn in_thread_finalization() -> bool {
+    pub fn in_thread_finalization() -> bool {
         G_FINALIZING.with(|cell| cell.get())
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean25register_thread_finalizerEPFvPvES0_"
-    )]
-    pub unsafe extern "C" fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
+    pub unsafe fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_FINALIZERS, f, data);
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean30register_post_thread_finalizerEPFvPvES0_"
-    )]
-    pub unsafe extern "C" fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
+    pub unsafe fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_POST_FINALIZERS, f, data);
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean21run_thread_finalizersEv"
-    )]
-    pub unsafe extern "C" fn run_thread_finalizers_export() {
+    pub unsafe fn run_thread_finalizers_export() {
         run_thread_finalizers_internal();
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean26run_post_thread_finalizersEv"
-    )]
-    pub unsafe extern "C" fn run_post_thread_finalizers_export() {
+    pub unsafe fn run_post_thread_finalizers_export() {
         run_post_thread_finalizers_internal();
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean31delete_thread_finalizer_managerEv"
-    )]
-    pub unsafe extern "C" fn delete_thread_finalizer_manager_export() {
+    pub unsafe fn delete_thread_finalizer_manager_export() {
         delete_thread_finalizer_manager_internal();
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean17initialize_threadEv"
-    )]
-    pub extern "C" fn initialize_thread() {}
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15finalize_threadEv"
-    )]
-    pub extern "C" fn finalize_thread() {}
 
     // -------------------------------------------------------------------------
     // LThread / lean_run_main
@@ -210,11 +176,7 @@ pub(crate) mod runtime_thread_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean7lthread21get_thread_stack_sizeEv"
-    )]
-    pub extern "C" fn lthread_get_thread_stack_size() -> usize {
+    pub fn lthread_get_thread_stack_size() -> usize {
         get_thread_stack_size()
     }
 
@@ -349,13 +311,6 @@ pub(crate) mod runtime_thread_impl {
         main_fn(argc, argv)
     }
 
-    // The C++ thread-local reset registry is currently unused in the tree.
-    // Keep the hooks as no-ops so we can retire src/runtime/thread.cpp.
-    #[inline]
-    pub(crate) unsafe fn register_thread_local_reset_fn(_fn: *mut c_void) {}
-
-    #[inline]
-    pub(crate) unsafe fn reset_thread_local() {}
 }
 
 pub(crate) use runtime_thread_impl::{

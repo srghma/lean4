@@ -126,14 +126,6 @@ pub(crate) mod runtime_object_rc_impl {
         fn lean_free_small(ptr: *mut c_void);
         #[cfg(lean_small_allocator)]
         fn lean_inc_heartbeat();
-        #[cfg(lean_has_mimalloc)]
-        fn mi_malloc(sz: usize) -> *mut c_void;
-        #[cfg(lean_has_mimalloc)]
-        fn mi_malloc_small(sz: usize) -> *mut c_void;
-        #[cfg(lean_has_mimalloc)]
-        fn mi_free(ptr: *mut c_void);
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        fn mi_free_size(ptr: *mut c_void, sz: usize);
         #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
         fn free_sized(ptr: *mut c_void, sz: usize);
         #[cfg(lean_has_address_sanitizer)]
@@ -189,9 +181,6 @@ pub(crate) mod runtime_object_rc_impl {
     }
     #[inline(always)]
     unsafe fn quar_phys_free(p: usize) {
-        #[cfg(lean_has_mimalloc)]
-        mi_free(p as *mut c_void);
-        #[cfg(not(lean_has_mimalloc))]
         libc::free(p as *mut c_void);
     }
     #[cold]
@@ -263,12 +252,32 @@ pub(crate) mod runtime_object_rc_impl {
         }
         #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
         {
-            mi_free_size(o as *mut c_void, sz);
+            lean_global_dealloc(o as *mut u8, sz);
         }
         #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
         {
             free_sized(o as *mut c_void, sz);
         }
+    }
+
+    #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
+    #[inline(always)]
+    unsafe fn lean_global_alloc(sz: usize) -> *mut u8 {
+        let layout = std::alloc::Layout::from_size_align(sz.max(1), core::mem::align_of::<usize>())
+            .unwrap();
+        let mem = std::alloc::alloc(layout);
+        if mem.is_null() {
+            lean_internal_panic_out_of_memory();
+        }
+        mem
+    }
+
+    #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
+    #[inline(always)]
+    unsafe fn lean_global_dealloc(ptr: *mut u8, sz: usize) {
+        let layout = std::alloc::Layout::from_size_align(sz.max(1), core::mem::align_of::<usize>())
+            .unwrap();
+        std::alloc::dealloc(ptr, layout);
     }
 
     #[inline(always)]
@@ -358,11 +367,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
         #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
         {
-            let mem = mi_malloc_small(sz);
-            if mem.is_null() {
-                lean_internal_panic_out_of_memory();
-            }
-            let o = mem as *mut LeanObject;
+            let o = lean_global_alloc(sz) as *mut LeanObject;
             (*o).cs_size = sz as u16;
             return o;
         }
@@ -391,7 +396,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
         #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
         {
-            mi_free(o as *mut c_void);
+            lean_global_dealloc(o as *mut u8, (*o).cs_size as usize);
             return;
         }
         #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
@@ -580,11 +585,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
         #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
         {
-            let r = mi_malloc(sz);
-            if r.is_null() {
-                lean_internal_panic_out_of_memory();
-            }
-            let o = r as *mut LeanObject;
+            let o = lean_global_alloc(sz) as *mut LeanObject;
             (*o).cs_size = 0;
             return o;
         }

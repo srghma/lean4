@@ -10,7 +10,7 @@ import Lean.Elab.Frontend
 import Lean.Elab.ParseImportsFast
 import Lean.Server.Watchdog
 import Lean.Server.FileWorker
-import Lean.Compiler.LCNF.EmitC
+import Lean.Compiler.LCNF.EmitRust
 import Init.System.Platform
 import Lean.Compiler.Options
 
@@ -148,7 +148,7 @@ def displayHelp (useStderr : Bool) : IO Unit := do
   out.putStrLn    "      --run <file>       call the 'main' definition in the given file with the remaining arguments"
   out.putStrLn    "  -o, --o=oname          create olean file"
   out.putStrLn    "  -i, --i=iname          create ilean file"
-  out.putStrLn    "  -c, --c=fname          name of the C output file"
+  out.putStrLn    "  -c, --rust=fname       name of the Rust output file"
   out.putStrLn    "  -b, --bc=fname         name of the LLVM bitcode file"
   out.putStrLn    "      --stdin            take input from stdin"
   out.putStrLn    "  -R, --root=dir         set package root directory from which the module name\n"
@@ -166,8 +166,8 @@ def displayHelp (useStderr : Bool) : IO Unit := do
     out.putStrLn  "  -s, --tstack=num       thread stack size in Kb"
     out.putStrLn  "      --server           start lean in server mode"
     out.putStrLn  "      --worker           start lean in server-worker mode"
-  out.putStrLn    "      --plugin=file[=fn] load and initialize Lean shared library for registering linters etc."
-  out.putStrLn    "      --load-dynlib=file load shared library to make its symbols available to the interpreter"
+  out.putStrLn    "      --plugin=file[=fn] unsupported in the Rust/Cargo backend"
+  out.putStrLn    "      --load-dynlib=file unsupported in the Rust/Cargo backend"
   out.putStrLn    "      --setup=file       JSON file with module setup data (supersedes the file's header)"
   out.putStrLn    "      --json             report Lean output (e.g., messages) as JSON (one per line)"
   out.putStrLn    "  -E, --error=kind       report Lean messages of kind as errors"
@@ -242,7 +242,7 @@ structure ShellOptions where
   setupFileName? : Option System.FilePath := none
   oleanFileName? : Option System.FilePath := none
   ileanFileName? : Option System.FilePath := none
-  cFileName? : Option System.FilePath := none
+  rustFileName? : Option System.FilePath := none
   bcFileName? : Option System.FilePath := none
   jsonOutput : Bool := false
   errorOnKinds : Array Name := #[]
@@ -322,8 +322,8 @@ def ShellOptions.process (opts : ShellOptions)
   | 'f' => -- `--features`
     IO.println Lean.featuresString
     throw 0
-  | 'c' => -- `-c, --c=fname`
-    return {opts with cFileName? := ← checkOptArg "c" optArg?}
+  | 'c' => -- `-c, --rust=fname`
+    return {opts with rustFileName? := ← checkOptArg "c" optArg?}
   | 'b' => -- `-b, --bc=fname`
     return {opts with bcFileName? := ← checkOptArg "b" optArg?}
   | 's' => -- `-s, --tstack=num`
@@ -411,23 +411,11 @@ def ShellOptions.process (opts : ShellOptions)
       return opts
     -- if not `LEAN_DEBUG`, fall through to unknown option
   | 'p' => -- `--plugin=file[=fn]`
-    let arg ← checkOptArg "p" optArg?
-    let (path, fn?) :=
-      let pos := arg.find '='
-      if h : pos.IsAtEnd then
-        (FilePath.mk arg, none)
-      else
-        let path := arg.sliceTo pos
-        let initFn := arg.sliceFrom (pos.next h)
-        (FilePath.mk path.copy, some initFn.copy)
-    Lean.loadPlugin path fn?
-    let forwardedArgs := opts.forwardedArgs.push s!"-p{arg}"
-    return {opts with forwardedArgs}
+    discard <| checkOptArg "p" optArg?
+    IO.eprintln "--plugin is not supported in the Rust/Cargo backend"; throw 1
   | 'l' => -- `--load-dynlib=file`
-    let arg ← checkOptArg "l" optArg?
-    Lean.loadDynlib arg
-    let forwardedArgs := opts.forwardedArgs.push s!"-l{arg}"
-    return {opts with forwardedArgs}
+    discard <| checkOptArg "l" optArg?
+    IO.eprintln "--load-dynlib is not supported in the Rust/Cargo backend"; throw 1
   | 'u' => -- `--setup=file`
     return {opts with setupFileName? := ← checkOptArg "u" optArg?}
   | 'E' => -- `-E, --error=kind`
@@ -536,7 +524,7 @@ def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do
       pure setup.name
     else if let some fileName := fileName? then
       try moduleNameOfFileName fileName opts.rootDir? catch e =>
-        if opts.oleanFileName?.isNone && opts.cFileName?.isNone then
+        if opts.oleanFileName?.isNone && opts.rustFileName?.isNone then
           pure `_stdin
         else
           throw e
@@ -548,12 +536,12 @@ def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do
   if let some env := env? then
     if opts.run then
       return ← runMain env opts.leanOpts args
-    if let some c := opts.cFileName? then
-      let .ok out ← IO.FS.Handle.mk c .write |>.toBaseIO
-        | IO.eprintln s!"failed to create '{c}'"
+    if let some rust := opts.rustFileName? then
+      let .ok out ← IO.FS.Handle.mk rust .write |>.toBaseIO
+        | IO.eprintln s!"failed to create '{rust}'"
           return 1
-      profileitIO "C code generation" opts.leanOpts do
-        let data ← Compiler.LCNF.emitC mainModuleName
+      profileitIO "Rust code generation" opts.leanOpts do
+        let data ← Compiler.LCNF.emitRust mainModuleName
           |>.toIO' { fileName, fileMap := default } { env }
         out.write data.toUTF8
     if let some bc := opts.bcFileName? then

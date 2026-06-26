@@ -483,16 +483,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
   set(LEAN_RUST_PROFILE_DIR release)
 endif()
-set(LEAN_RUNTIME_RUST_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.a)
-set(LEAN_RUNTIME_RUST_DEPS_ARCHIVE ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime_deps.a)
-string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}")
-string(APPEND LEAN_EXTRA_LINKER_FLAGS " ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}")
-
-# libleanrt_initial-exec.a (C++ objects like object.cpp) must come BEFORE liblean_runtime_deps.a
-# so that Rust symbols referenced by C++ are resolved correctly (left-to-right link order).
-set(LEAN_RUNTIME_INITIAL_EXEC_ARCHIVE ${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a)
-string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_RUNTIME_INITIAL_EXEC_ARCHIVE}")
-string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}")
+set(LEAN_RUNTIME_RUST_RLIB ${CMAKE_BINARY_DIR}/rust/${LEAN_RUST_PROFILE_DIR}/liblean_runtime.rlib)
 
 string(APPEND TOOLCHAIN_STATIC_LINKER_FLAGS " ${LEAN_CXX_STDLIB}")
 string(APPEND TOOLCHAIN_SHARED_LINKER_FLAGS " ${LEAN_CXX_STDLIB}")
@@ -623,7 +614,6 @@ if(MULTI_THREAD AND NOT MSVC AND NOT CMAKE_SYSTEM_NAME MATCHES "Darwin")
 endif()
 
 set(LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE "${LEAN_EXTRA_LINKER_FLAGS}")
-string(REPLACE " ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE}" "" LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE "${LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE}")
 
 # Git HASH
 if(USE_GITHASH)
@@ -701,30 +691,11 @@ endif()
 # inherit genral options for lean.mk.in and stdlib.make.in
 string(APPEND LEAN_EXTRA_MAKE_OPTS " ${LEAN_EXTRA_OPTS}")
 
-# Version
-configure_file("${LEAN_SOURCE_DIR}/version.h.in" "${LEAN_BINARY_DIR}/include/lean/version.h")
 if(STAGE EQUAL 0)
   set(LEAN_IS_STAGE0 "#define LEAN_IS_STAGE0 1")
 else()
   set(LEAN_IS_STAGE0 "#define LEAN_IS_STAGE0 0")
 endif()
-configure_file("${LEAN_SOURCE_DIR}/config.h.in" "${LEAN_BINARY_DIR}/include/lean/config.h")
-file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/include/lean")
-execute_process(
-  COMMAND bun "${LEAN_SOURCE_DIR}/../srghmascripts/generate_lean_h.ts" "${CMAKE_BINARY_DIR}/include/lean/lean.h"
-  WORKING_DIRECTORY "${LEAN_SOURCE_DIR}/.."
-  RESULT_VARIABLE LEAN_GENERATE_LEAN_H_RESULT
-)
-if(NOT LEAN_GENERATE_LEAN_H_RESULT EQUAL 0)
-  message(FATAL_ERROR "failed to generate build/include/lean/lean.h from Rust cbindgen sources")
-endif()
-if(USE_MIMALLOC)
-  file(
-    COPY "${LEAN_BINARY_DIR}/../mimalloc/src/mimalloc/include/mimalloc.h"
-    DESTINATION "${LEAN_BINARY_DIR}/include/lean"
-  )
-endif()
-install(DIRECTORY ${LEAN_BINARY_DIR}/include/ DESTINATION include)
 configure_file(${LEAN_SOURCE_DIR}/lean.mk.in ${LEAN_BINARY_DIR}/share/lean/lean.mk)
 install(DIRECTORY ${LEAN_BINARY_DIR}/share/ DESTINATION share)
 
@@ -769,23 +740,14 @@ endif()
 
 if(STAGE GREATER 1)
   # reuse C++ parts, which don't change
-  add_library(leanrt_initial-exec STATIC IMPORTED)
-  set_target_properties(
-    leanrt_initial-exec
-    PROPERTIES IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a"
-  )
-  add_library(leanrt STATIC IMPORTED)
-  set_target_properties(leanrt PROPERTIES IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/lib/lean/libleanrt.a")
+  add_custom_target(leanrt_initial-exec)
+  add_custom_target(leanrt)
   add_library(leancpp_1 STATIC IMPORTED)
   set_target_properties(leancpp_1 PROPERTIES IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/lib/temp/libleancpp_1.a")
   add_library(leancpp STATIC IMPORTED)
   set_target_properties(leancpp PROPERTIES IMPORTED_LOCATION "${CMAKE_BINARY_DIR}/lib/lean/libleancpp.a")
   add_custom_target(
     copy-leancpp
-    COMMAND
-      cmake -E copy_if_different "${PREV_STAGE}/runtime/libleanrt_initial-exec.a"
-      "${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a"
-    COMMAND cmake -E copy_if_different "${PREV_STAGE}/lib/lean/libleanrt.a" "${CMAKE_BINARY_DIR}/lib/lean/libleanrt.a"
     COMMAND cmake -E copy_if_different "${PREV_STAGE}/lib/lean/libleancpp.a" "${CMAKE_BINARY_DIR}/lib/lean/libleancpp.a"
     COMMAND
       cmake -E copy_if_different "${PREV_STAGE}/lib/temp/libleancpp_1.a" "${CMAKE_BINARY_DIR}/lib/temp/libleancpp_1.a"
@@ -794,13 +756,6 @@ if(STAGE GREATER 1)
   add_dependencies(leanrt copy-leancpp)
   add_dependencies(leancpp_1 copy-leancpp)
   add_dependencies(leancpp copy-leancpp)
-  if(LLVM)
-    add_custom_target(
-      copy-lean-h-bc
-      COMMAND cmake -E copy_if_different "${PREV_STAGE}/lib/lean/lean.h.bc" "${CMAKE_BINARY_DIR}/lib/lean/lean.h.bc"
-    )
-    add_dependencies(leancpp copy-lean-h-bc)
-  endif()
 else()
   add_subdirectory(runtime)
   if(CMAKE_SYSTEM_NAME MATCHES "Emscripten")
@@ -861,7 +816,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Emscripten")
   # in this file.
   string(
     APPEND LEAN_EXE_LINKER_FLAGS
-    " ${LIB}/temp/libleanshell.a ${TOOLCHAIN_STATIC_LINKER_FLAGS} ${EMSCRIPTEN_SETTINGS} -lnodefs.js -s EXIT_RUNTIME=1 -s MAIN_MODULE=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0"
+    " ${LIB}/temp/libleanshell.rlib ${TOOLCHAIN_STATIC_LINKER_FLAGS} ${EMSCRIPTEN_SETTINGS} -lnodefs.js -s EXIT_RUNTIME=1 -s MAIN_MODULE=1 -s LINKABLE=1 -s EXPORT_ALL=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0"
   )
 endif()
 
@@ -893,12 +848,6 @@ add_custom_target(
   COMMAND $(MAKE) -f ${CMAKE_BINARY_DIR}/stdlib.make ${STDLIBS}
   VERBATIM
 )
-
-# if we have LLVM enabled, then build `lean.h.bc` which has the LLVM bitcode
-# of Lean runtime to be built.
-if(LLVM AND STAGE EQUAL 1)
-  add_dependencies(make_stdlib runtime_bc)
-endif()
 
 # We declare these as separate custom targets so they use separate `make` invocations, which makes `make` recompute which dependencies
 # (e.g. `libLean.a`) are now newer than the target file

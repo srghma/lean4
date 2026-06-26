@@ -77,7 +77,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Closure helpers ──────────────────────────────────────────────────────
 
-    // Mirror of the lean.h inline lean_closure_object layout.
+    // Mirror of the static runtime layout inline lean_closure_object layout.
     #[repr(C)]
     struct LeanClosureLocal {
         header: LeanObject,
@@ -1134,11 +1134,7 @@ pub(crate) mod runtime_object_task_impl {
     // ─── Promise new / resolve ────────────────────────────────────────────────
 
     // lean::lean_promise_new (C++ namespace → mangled name)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16lean_promise_newEv"
-    )]
-    pub unsafe extern "C" fn lean_promise_new_impl() -> *mut LeanObject {
+    pub unsafe fn lean_promise_new_impl() -> *mut LeanObject {
         if get_task_manager().is_none() {
             lean_internal_panic(
                 c"`IO.Promise.new` called before the task manager is running; \
@@ -1169,11 +1165,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     // lean::lean_promise_resolve (C++ namespace → mangled name)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"
-    )]
-    pub unsafe extern "C" fn lean_promise_resolve_impl(
+    pub unsafe fn lean_promise_resolve_impl(
         value: *mut LeanObject,
         promise: *mut LeanObject,
     ) {

@@ -113,7 +113,7 @@ pub(crate) mod library_ir_interpreter_impl {
     }
 
     // ---------------------------------------------------------------------------
-    // Inline helpers (mirroring lean.h static inlines)
+    // Inline helpers (mirroring static runtime layout static inlines)
     // ---------------------------------------------------------------------------
 
     #[inline(always)]
@@ -2582,14 +2582,6 @@ pub(crate) mod library_ir_interpreter_impl {
             _ => stub_m_aux as *mut core::ffi::c_void,
         }
     }
-
-    // ---------------------------------------------------------------------------
-    // Public exported functions
-    // ---------------------------------------------------------------------------
-
-    /// initialize_ir_interpreter — called from lib.rs initialize_library_module_body
-    #[inline]
-    pub(crate) unsafe fn initialize_ir_interpreter() {}
 
     /// finalize_ir_interpreter — called from lib.rs
     #[inline]

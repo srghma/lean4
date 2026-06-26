@@ -23,7 +23,7 @@ extern "system" {
     fn GetProcAddress(handle: *mut c_void, name: *const c_char) -> *mut c_void;
 }
 
-unsafe extern "C" fn dynlib_finalizer(handle: *mut c_void) {
+unsafe fn dynlib_finalizer(handle: *mut c_void) {
     #[cfg(unix)]
     {
         dlclose(handle);
@@ -34,8 +34,8 @@ unsafe extern "C" fn dynlib_finalizer(handle: *mut c_void) {
     }
 }
 
-unsafe extern "C" fn noop_external_finalizer(_: *mut c_void) {}
-unsafe extern "C" fn noop_external_foreach(_: *mut c_void, _: *mut LeanObject) {}
+unsafe fn noop_external_finalizer(_: *mut c_void) {}
+unsafe fn noop_external_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
 unsafe fn dynlib_error(prefix: &str, detail: *const c_char) -> *mut LeanObject {
     let detail = if detail.is_null() {
@@ -48,11 +48,7 @@ unsafe fn dynlib_error(prefix: &str, detail: *const c_char) -> *mut LeanObject {
     lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(message.as_ptr())))
 }
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean17initialize_dynlibEv"
-)]
-pub extern "C" fn initialize_dynlib() {
+pub fn initialize_dynlib() {
     unsafe {
         DYNLIB_EXTERNAL_CLASS =
             lean_register_external_class(Some(dynlib_finalizer), Some(noop_external_foreach));

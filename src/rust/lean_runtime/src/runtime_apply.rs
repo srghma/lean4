@@ -520,8 +520,7 @@ pub(crate) mod runtime_apply_impl {
 
     macro_rules! export_apply {
         ($name:ident, $n:expr, $($arg:ident),+) => {
-            #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-            pub unsafe extern "C" fn $name(f: *mut LeanObject, $($arg: *mut LeanObject),+) -> *mut LeanObject {
+            pub unsafe fn $name(f: *mut LeanObject, $($arg: *mut LeanObject),+) -> *mut LeanObject {
                 let mut args = [$($arg),+];
                 apply_generic(f, $n, args.as_mut_ptr())
             }
@@ -838,12 +837,8 @@ pub(crate) mod runtime_apply_impl {
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean5curryEPvjPP11lean_object"
-    )]
     #[allow(dead_code)]
-    pub unsafe extern "C" fn curry(
+    pub unsafe fn curry(
         fun: *mut c_void,
         n: u32,
         as_ptr: *mut *mut LeanObject,

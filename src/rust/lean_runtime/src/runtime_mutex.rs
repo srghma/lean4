@@ -223,23 +223,23 @@ pub(crate) mod runtime_mutex_impl {
     static mut BASERECMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
     static mut BASESHAREDMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 
-    unsafe extern "C" fn basemutex_finalizer(data: *mut c_void) {
+    unsafe fn basemutex_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<BaseMutex>()));
     }
 
-    unsafe extern "C" fn condvar_finalizer(data: *mut c_void) {
+    unsafe fn condvar_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<RuntimeCondvar>()));
     }
 
-    unsafe extern "C" fn baserecmutex_finalizer(data: *mut c_void) {
+    unsafe fn baserecmutex_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<BaseRecMutex>()));
     }
 
-    unsafe extern "C" fn basesharedmutex_finalizer(data: *mut c_void) {
+    unsafe fn basesharedmutex_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<BaseSharedMutex>()));
     }
 
-    unsafe extern "C" fn noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
+    unsafe fn noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
     unsafe fn external_data<T>(obj: *mut LeanObject) -> &'static T {
         &*lean_runtime_get_external_data(obj).cast::<T>()
@@ -372,11 +372,7 @@ pub(crate) mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16initialize_mutexEv"
-    )]
-    pub extern "C" fn initialize_mutex() {
+    pub fn initialize_mutex() {
         unsafe {
             BASEMUTEX_EXTERNAL_CLASS =
                 lean_register_external_class(Some(basemutex_finalizer), Some(noop_foreach));
@@ -389,11 +385,6 @@ pub(crate) mod runtime_mutex_impl {
         }
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14finalize_mutexEv"
-    )]
-    pub extern "C" fn finalize_mutex() {}
 }
 
 #[cfg(feature = "std")]

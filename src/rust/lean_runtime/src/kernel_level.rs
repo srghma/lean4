@@ -12,6 +12,7 @@ The C++ value-type facade now lives inline in kernel/level.h.
 
 pub(crate) mod kernel_level_impl {
     use super::runtime_object_name_impl::lean_name_eq;
+    use super::runtime_object_rc_impl::lean_mark_persistent;
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
     use core::ptr;
@@ -22,7 +23,6 @@ pub(crate) mod kernel_level_impl {
     extern "C" {
         fn lean_level_mk_zero() -> *mut LeanObject;
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mark_persistent(o: *mut LeanObject);
     }
 
     // Structural equality on lean Level objects (mirrors C++ operator==).
@@ -54,7 +54,7 @@ pub(crate) mod kernel_level_impl {
     }
 
     // Pack hash, depth, hasMVar, hasParam into a u64 data word stored in the
-    // level object header (see lean_level_data in lean.h).
+    // level object header (see lean_level_data in static runtime layout).
     // bits [31:0]  = h (lower 32 bits of the hash)
     // bit  32      = hasMVar
     // bit  33      = hasParam
@@ -87,8 +87,7 @@ pub(crate) mod kernel_level_impl {
         level_eq(l1, l2) as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_levelEv")]
-    pub unsafe extern "C" fn initialize_level() {
+    pub unsafe fn initialize_level() {
         if G_LEVEL_ZERO.is_null() {
             let zero = lean_level_mk_zero();
             lean_mark_persistent(zero);
@@ -100,8 +99,7 @@ pub(crate) mod kernel_level_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_levelEv")]
-    pub unsafe extern "C" fn finalize_level() {
+    pub unsafe fn finalize_level() {
         lean_dec(G_LEVEL_ONE);
         lean_dec(G_LEVEL_ZERO);
         G_LEVEL_ONE = ptr::null_mut();

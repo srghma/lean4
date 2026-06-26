@@ -22,7 +22,6 @@ fn main() {
         "LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS",
         "LEAN_RUST_LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE",
         "LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS",
-        "LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE",
         "LEAN_RUST_IS_STAGE0",
     ] {
         println!("cargo:rerun-if-env-changed={key}");
@@ -46,11 +45,6 @@ fn main() {
     println!("cargo:rustc-env=LEAN_RUST_VERSION_SPECIAL_DESC={special_desc}");
     if let Ok(target) = std::env::var("TARGET") {
         println!("cargo:rustc-env=LEAN_RUST_PLATFORM_TARGET={target}");
-    }
-    if let Ok(archive) = std::env::var("LEAN_RUST_LEANRT_INITIAL_EXEC_ARCHIVE") {
-        if !archive.is_empty() {
-            println!("cargo:rustc-link-arg={archive}");
-        }
     }
     let version_string = std::env::var("LEAN_RUST_VERSION_STRING")
         .unwrap_or_else(|_| derive_version_string_from_cmake());

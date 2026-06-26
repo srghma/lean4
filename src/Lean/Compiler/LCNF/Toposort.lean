@@ -12,7 +12,7 @@ import Lean.Compiler.InitAttr
 
 /-!
 This module "topologically sorts" an SCC of decls (an SCC of decls in the pipeline may in fact
-contain more than one SCC at the moment). This is relevant because EmitC relies on the invariant
+contain more than one SCC at the moment). This is relevant because code generation relies on the invariant
 that the constants (and in particular also the closed terms) occur in a reverse topologically sorted
 order for emitting them.
 -/

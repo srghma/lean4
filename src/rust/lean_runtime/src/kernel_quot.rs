@@ -8,15 +8,5 @@ The remaining typed quotient helpers are inline in quot.h.
 */
 
 pub(crate) mod kernel_quot_impl {
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15initialize_quotEv"
-    )]
-    pub extern "C" fn initialize_quot() {}
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean13finalize_quotEv"
-    )]
-    pub extern "C" fn finalize_quot() {}
 }

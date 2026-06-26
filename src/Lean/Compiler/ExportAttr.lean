@@ -35,17 +35,7 @@ def colorValue (properties : @& Std.HashMap String String) : UInt32 :=
   | some "blue" => 0x0000ff
   | _ => -1
 ```
-C code:
-```c
-#include <lean/lean.h>
-
-uint32_t lean_color_from_map(b_lean_obj_arg properties);
-
-void fill_rectangle_from_map(b_lean_obj_arg properties) {
-    uint32_t color = lean_color_from_map(properties);
-    // ...
-}
-```
+Rust code can import the generated Lean crate and call exported Rust functions directly.
 
 The opposite of this is `@[extern]`, which allows Lean functions to refer to functions from other
 programming languages.

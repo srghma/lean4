@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -26,16 +25,19 @@ Expression kind tags:
 Literal tags: 0 = natVal, 1 = strVal
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod kernel_equiv_manager_impl {
+    use super::kernel_level::kernel_level_impl::lean_level_eqv;
+    use super::runtime_object_string_impl::lean_string_eq_cold;
     use super::*;
     use core::ffi::c_void;
     use std::collections::HashMap;
 
+    #[cfg(lean_use_gmp)]
+    use super::runtime_object_nat_int_impl::lean_nat_big_eq;
+
+    #[cfg(not(lean_use_gmp))]
     extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
-        fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
     }
 
     use super::runtime_object_name_impl::lean_name_eq;

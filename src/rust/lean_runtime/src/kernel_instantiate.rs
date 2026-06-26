@@ -1,4 +1,3 @@
-#[cfg(feature = "export-runtime-ffi")]
 use crate::*;
 
 /*
@@ -32,8 +31,9 @@ Scalar field layout:
   Let      (4 obj fields): uint8 nondep after data u64
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 pub(crate) mod kernel_instantiate_impl {
+    use super::kernel_expr::kernel_expr_impl::lean_expr_lift_loose_bvars;
+    use super::kernel_level::kernel_level_impl::lean_level_eq;
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
@@ -43,12 +43,6 @@ pub(crate) mod kernel_instantiate_impl {
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
-        fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_expr_lift_loose_bvars(
-            e: *mut LeanObject,
-            s: *mut LeanObject,
-            d: *mut LeanObject,
-        ) -> *mut LeanObject;
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_sort(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_const(n: *mut LeanObject, us: *mut LeanObject) -> *mut LeanObject;

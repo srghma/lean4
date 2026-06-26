@@ -149,7 +149,7 @@ pub(crate) mod runtime_tcp_impl {
         result
     }
 
-    unsafe extern "C" fn lean_uv_tcp_socket_finalizer(ptr: *mut c_void) {
+    unsafe fn lean_uv_tcp_socket_finalizer(ptr: *mut c_void) {
         let tcp_socket = ptr.cast::<LeanUvTcpSocketObject>();
         assert!((*tcp_socket).m_promise_shutdown.is_null());
         assert!((*tcp_socket).m_promise_accept.is_null());
@@ -172,12 +172,8 @@ pub(crate) mod runtime_tcp_impl {
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
     }
 
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean27initialize_libuv_tcp_socketEv"
-    )]
-    pub unsafe extern "C" fn initialize_libuv_tcp_socket() {
-        unsafe extern "C" fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
+    pub unsafe fn initialize_libuv_tcp_socket() {
+        unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
             let tcp_socket = obj.cast::<LeanUvTcpSocketObject>();
             if !(*tcp_socket).m_promise_accept.is_null() {
                 lean_inc(f);
@@ -937,9 +933,6 @@ pub(crate) mod runtime_tcp_impl {
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_tcp_impl {
     use super::*;
-
-    #[inline]
-    pub(crate) fn initialize_libuv_tcp_socket() {}
 
     #[inline]
     pub(crate) fn lean_uv_tcp_new() -> *mut LeanObject {
