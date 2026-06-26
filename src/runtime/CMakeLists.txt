@@ -146,7 +146,7 @@ if(USE_MIMALLOC)
 endif()
 
 add_library(leanrt_initial-exec STATIC ${RUNTIME_OBJS})
-set_target_properties(leanrt_initial-exec PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+set_target_properties(leanrt_initial-exec PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} LINKER_LANGUAGE CXX INTERPROCEDURAL_OPTIMIZATION TRUE)
 add_dependencies(leanrt_initial-exec lean_runtime_rust)
 target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE})
 
@@ -154,7 +154,7 @@ target_link_libraries(leanrt_initial-exec PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIV
 # but introduces a measurable overhead while accessing the thread-local variable `g_heap` when allocating and deallocating. Therefore we compile
 # the runtime again with the more restrictive `local-exec` and use it when linking Lean code statically, i.e. not against `leanshared`.
 add_library(leanrt STATIC ${RUNTIME_OBJS})
-set_target_properties(leanrt PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
+set_target_properties(leanrt PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY} LINKER_LANGUAGE CXX INTERPROCEDURAL_OPTIMIZATION TRUE)
 add_dependencies(leanrt lean_runtime_rust)
 target_link_libraries(leanrt PUBLIC ${LEAN_RUNTIME_RUST_DEPS_ARCHIVE})
 if(NOT MSVC)

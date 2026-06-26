@@ -202,6 +202,8 @@ endif()
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_RELATIVE_LIBRARY_OUTPUT_DIRECTORY}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/lean")
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO ON)
 
 # OSX default thread stack size is very small. Moreover, in Debug mode, each new stack frame consumes a lot of extra memory.
 if((MULTI_THREAD MATCHES "ON") AND (CMAKE_SYSTEM_NAME MATCHES "Darwin"))
@@ -709,7 +711,7 @@ endif()
 configure_file("${LEAN_SOURCE_DIR}/config.h.in" "${LEAN_BINARY_DIR}/include/lean/config.h")
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/include/lean")
 execute_process(
-  COMMAND bash "${LEAN_SOURCE_DIR}/../srghmascripts/generate_lean_h.sh" "${CMAKE_BINARY_DIR}/include/lean/lean.h"
+  COMMAND bun "${LEAN_SOURCE_DIR}/../srghmascripts/generate_lean_h.ts" "${CMAKE_BINARY_DIR}/include/lean/lean.h"
   WORKING_DIRECTORY "${LEAN_SOURCE_DIR}/.."
   RESULT_VARIABLE LEAN_GENERATE_LEAN_H_RESULT
 )

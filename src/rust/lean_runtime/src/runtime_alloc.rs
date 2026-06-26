@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 
 pub(crate) mod runtime_alloc_impl {
+    use core::ffi::c_void;
     use std::cell::Cell;
 
     #[cfg(lean_small_allocator)]
@@ -98,6 +99,11 @@ pub(crate) mod runtime_alloc_impl {
         unsafe {
             set_heartbeats(count);
         }
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn free_sized(ptr: *mut c_void, _sz: usize) {
+        libc::free(ptr)
     }
 
     #[cfg(lean_small_allocator)]

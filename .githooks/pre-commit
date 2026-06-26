@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+"$(git rev-parse --show-toplevel)/srghmascripts/check_lean_runtime_exports.ts"
