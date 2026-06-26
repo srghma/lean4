@@ -38,8 +38,8 @@ pub(crate) unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
     lean_box(value as u32 as usize)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_box_float(value: f64) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
@@ -48,8 +48,8 @@ pub unsafe extern "C" fn lean_box_float(value: f64) -> *mut LeanObject {
     obj
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_box_float32(value: f32) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
@@ -58,93 +58,93 @@ pub unsafe extern "C" fn lean_box_float32(value: f32) -> *mut LeanObject {
     obj
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_unbox_float(o: *mut LeanObject) -> f64 {
+#[inline]
+pub(crate) unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 {
     lean_ctor_get_float(o, 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_unbox_float32(o: *mut LeanObject) -> f32 {
+#[inline]
+pub(crate) unsafe fn lean_unbox_float32(o: *mut LeanObject) -> f32 {
     lean_ctor_get_float32(o, 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_add(a: f64, b: f64) -> f64 {
+#[inline]
+pub(crate) fn lean_float_add(a: f64, b: f64) -> f64 {
     a + b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_sub(a: f64, b: f64) -> f64 {
+#[inline]
+pub(crate) fn lean_float_sub(a: f64, b: f64) -> f64 {
     a - b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_mul(a: f64, b: f64) -> f64 {
+#[inline]
+pub(crate) fn lean_float_mul(a: f64, b: f64) -> f64 {
     a * b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_div(a: f64, b: f64) -> f64 {
+#[inline]
+pub(crate) fn lean_float_div(a: f64, b: f64) -> f64 {
     a / b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_negate(a: f64) -> f64 {
+#[inline]
+pub(crate) fn lean_float_negate(a: f64) -> f64 {
     -a
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_beq(a: f64, b: f64) -> u8 {
+#[inline]
+pub(crate) fn lean_float_beq(a: f64, b: f64) -> u8 {
     (a == b) as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_decLe(a: f64, b: f64) -> u8 {
+#[inline]
+pub(crate) fn lean_float_decLe(a: f64, b: f64) -> u8 {
     (a <= b) as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_decLt(a: f64, b: f64) -> u8 {
+#[inline]
+pub(crate) fn lean_float_decLt(a: f64, b: f64) -> u8 {
     (a < b) as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_add(a: f32, b: f32) -> f32 {
+#[inline]
+pub(crate) fn lean_float32_add(a: f32, b: f32) -> f32 {
     a + b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_sub(a: f32, b: f32) -> f32 {
+#[inline]
+pub(crate) fn lean_float32_sub(a: f32, b: f32) -> f32 {
     a - b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_mul(a: f32, b: f32) -> f32 {
+#[inline]
+pub(crate) fn lean_float32_mul(a: f32, b: f32) -> f32 {
     a * b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_div(a: f32, b: f32) -> f32 {
+#[inline]
+pub(crate) fn lean_float32_div(a: f32, b: f32) -> f32 {
     a / b
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_negate(a: f32) -> f32 {
+#[inline]
+pub(crate) fn lean_float32_negate(a: f32) -> f32 {
     -a
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_beq(a: f32, b: f32) -> u8 {
+#[inline]
+pub(crate) fn lean_float32_beq(a: f32, b: f32) -> u8 {
     (a == b) as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_decLe(a: f32, b: f32) -> u8 {
+#[inline]
+pub(crate) fn lean_float32_decLe(a: f32, b: f32) -> u8 {
     (a <= b) as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_decLt(a: f32, b: f32) -> u8 {
+#[inline]
+pub(crate) fn lean_float32_decLt(a: f32, b: f32) -> u8 {
     (a < b) as u8
 }
 
@@ -158,8 +158,8 @@ pub(crate) unsafe fn lean_mk_float_exp_pair(
     pair
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_to_string(value: f64) -> *mut LeanObject {
+#[inline]
+pub(crate) fn lean_float_to_string(value: f64) -> *mut LeanObject {
     if value.is_nan() {
         float_to_string("NaN".to_owned())
     } else {
@@ -167,8 +167,8 @@ pub extern "C" fn lean_float_to_string(value: f64) -> *mut LeanObject {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
+#[inline]
+pub(crate) unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
     if lean_is_scalar(scale) {
         c_scalbn(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
@@ -178,23 +178,23 @@ pub unsafe extern "C" fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_isnan(value: f64) -> u8 {
+#[inline]
+pub(crate) fn lean_float_isnan(value: f64) -> u8 {
     value.is_nan() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_isfinite(value: f64) -> u8 {
+#[inline]
+pub(crate) fn lean_float_isfinite(value: f64) -> u8 {
     value.is_finite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_isinf(value: f64) -> u8 {
+#[inline]
+pub(crate) fn lean_float_isinf(value: f64) -> u8 {
     value.is_infinite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_of_bits(bits: u64) -> f64 {
+#[inline]
+pub(crate) fn lean_float_of_bits(bits: u64) -> f64 {
     let value = f64::from_bits(bits);
     if value.is_nan() {
         f64::NAN
@@ -203,16 +203,16 @@ pub extern "C" fn lean_float_of_bits(bits: u64) -> f64 {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float_to_bits(mut value: f64) -> u64 {
+#[inline]
+pub(crate) fn lean_float_to_bits(mut value: f64) -> u64 {
     if value.is_nan() {
         value = f64::NAN;
     }
     value.to_bits()
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float_frexp(value: f64) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject {
     let mut exp = 0;
     let significand = c_frexp(value, &mut exp);
     let exp_obj = if value.is_finite() {
@@ -223,8 +223,8 @@ pub unsafe extern "C" fn lean_float_frexp(value: f64) -> *mut LeanObject {
     lean_mk_float_exp_pair(lean_box_float(significand), exp_obj)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_to_string(value: f32) -> *mut LeanObject {
+#[inline]
+pub(crate) fn lean_float32_to_string(value: f32) -> *mut LeanObject {
     if value.is_nan() {
         float_to_string("NaN".to_owned())
     } else {
@@ -232,8 +232,8 @@ pub extern "C" fn lean_float32_to_string(value: f32) -> *mut LeanObject {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
+#[inline]
+pub(crate) unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
     if lean_is_scalar(scale) {
         c_scalbnf(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
@@ -243,23 +243,23 @@ pub unsafe extern "C" fn lean_float32_scaleb(value: f32, scale: *mut LeanObject)
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_isnan(value: f32) -> u8 {
+#[inline]
+pub(crate) fn lean_float32_isnan(value: f32) -> u8 {
     value.is_nan() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_isfinite(value: f32) -> u8 {
+#[inline]
+pub(crate) fn lean_float32_isfinite(value: f32) -> u8 {
     value.is_finite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_isinf(value: f32) -> u8 {
+#[inline]
+pub(crate) fn lean_float32_isinf(value: f32) -> u8 {
     value.is_infinite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_of_bits(bits: u32) -> f32 {
+#[inline]
+pub(crate) fn lean_float32_of_bits(bits: u32) -> f32 {
     let value = f32::from_bits(bits);
     if value.is_nan() {
         f32::NAN
@@ -268,16 +268,16 @@ pub extern "C" fn lean_float32_of_bits(bits: u32) -> f32 {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub extern "C" fn lean_float32_to_bits(mut value: f32) -> u32 {
+#[inline]
+pub(crate) fn lean_float32_to_bits(mut value: f32) -> u32 {
     if value.is_nan() {
         value = f32::NAN;
     }
     value.to_bits()
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float32_frexp(value: f32) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_float32_frexp(value: f32) -> *mut LeanObject {
     let mut exp = 0;
     let significand = c_frexpf(value, &mut exp);
     let exp_obj = if value.is_finite() {

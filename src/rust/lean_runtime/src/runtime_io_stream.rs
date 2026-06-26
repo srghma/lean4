@@ -80,8 +80,8 @@ pub(crate) mod runtime_io_stream_impl {
         lean_runtime_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_stdin() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_get_stdin() -> *mut LeanObject {
         CURRENT_STDIN.with(|stream| {
             let value = stream.get(STREAM_STDIN);
             lean_inc(value);
@@ -89,8 +89,8 @@ pub(crate) mod runtime_io_stream_impl {
         })
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_stdout() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_get_stdout() -> *mut LeanObject {
         CURRENT_STDOUT.with(|stream| {
             let value = stream.get(STREAM_STDOUT);
             lean_inc(value);
@@ -98,8 +98,8 @@ pub(crate) mod runtime_io_stream_impl {
         })
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_stderr() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_get_stderr() -> *mut LeanObject {
         CURRENT_STDERR.with(|stream| {
             let value = stream.get(STREAM_STDERR);
             lean_inc(value);
@@ -107,18 +107,18 @@ pub(crate) mod runtime_io_stream_impl {
         })
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_set_stdin(handle: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_get_set_stdin(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDIN.with(|stream| stream.set(STREAM_STDIN, handle))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_set_stdout(handle: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_get_set_stdout(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDOUT.with(|stream| stream.set(STREAM_STDOUT, handle))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDERR.with(|stream| stream.set(STREAM_STDERR, handle))
     }
 

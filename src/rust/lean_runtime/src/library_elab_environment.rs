@@ -81,8 +81,8 @@ pub(crate) mod library_elab_environment_impl {
         }
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_elab_add_decl(
+    #[inline]
+    pub(crate) unsafe fn lean_elab_add_decl(
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
@@ -104,8 +104,8 @@ pub(crate) mod library_elab_environment_impl {
         result
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_elab_add_decl_without_checking(
+    #[inline]
+    pub(crate) unsafe fn lean_elab_add_decl_without_checking(
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -115,8 +115,8 @@ pub(crate) mod library_elab_environment_impl {
     // lean_kernel_is_def_eq / lean_kernel_whnf / lean_kernel_check now in kernel_type_checker.rs
     // using the Rust TypeChecker with elab→kernel env conversion.
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
+    #[inline]
+    pub(crate) unsafe fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
         1024
     }
 }

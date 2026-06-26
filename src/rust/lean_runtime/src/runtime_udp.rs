@@ -182,8 +182,8 @@ pub(crate) mod runtime_udp_impl {
     const UV_EALREADY: c_int = -3003;
     const UV_ENOBUFS: isize = -105;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_new() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_new() -> *mut LeanObject {
         let udp_socket = libc::malloc(core::mem::size_of::<LeanUvUdpSocketObject>())
             .cast::<LeanUvUdpSocketObject>();
         if udp_socket.is_null() {
@@ -219,8 +219,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(obj)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_bind(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_bind(
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -244,8 +244,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_connect(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_connect(
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -265,8 +265,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_send(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_send(
         socket: *mut LeanObject,
         data_array: *mut LeanObject,
         opt_addr: *mut LeanObject,
@@ -395,8 +395,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_recv(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_recv(
         socket: *mut LeanObject,
         buffer_size: u64,
     ) -> *mut LeanObject {
@@ -496,8 +496,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -573,8 +573,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
         lean_inc(socket);
@@ -604,8 +604,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -626,8 +626,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_addr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -648,8 +648,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_addr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_set_broadcast(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_set_broadcast(
         socket: *mut LeanObject,
         enable: u8,
     ) -> *mut LeanObject {
@@ -666,8 +666,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_set_multicast_loop(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_set_multicast_loop(
         socket: *mut LeanObject,
         enable: u8,
     ) -> *mut LeanObject {
@@ -684,8 +684,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_set_multicast_ttl(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_set_multicast_ttl(
         socket: *mut LeanObject,
         ttl: u32,
     ) -> *mut LeanObject {
@@ -704,8 +704,8 @@ pub(crate) mod runtime_udp_impl {
 
     const INET_ADDRSTRLEN: usize = 16;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_set_membership(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_set_membership(
         socket: *mut LeanObject,
         multicast_addr: *mut LeanObject,
         interface_addr: *mut LeanObject,
@@ -752,8 +752,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_set_multicast_interface(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_set_multicast_interface(
         socket: *mut LeanObject,
         interface_addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -778,8 +778,8 @@ pub(crate) mod runtime_udp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_udp_set_ttl(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_udp_set_ttl(
         socket: *mut LeanObject,
         ttl: u32,
     ) -> *mut LeanObject {
@@ -797,73 +797,70 @@ pub(crate) mod runtime_udp_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_udp_impl::*;
-
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_udp_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn initialize_libuv_udp_socket() {}
+    #[inline]
+    pub(crate) fn initialize_libuv_udp_socket() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_new() -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_new() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_connect(
+    #[inline]
+    pub(crate) fn lean_uv_udp_connect(
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_send(
+    #[inline]
+    pub(crate) fn lean_uv_udp_send(
         _: *mut LeanObject,
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_set_membership(
+    #[inline]
+    pub(crate) fn lean_uv_udp_set_membership(
         _: *mut LeanObject,
         _: *mut LeanObject,
         _: *mut LeanObject,
@@ -871,18 +868,15 @@ pub(crate) mod runtime_udp_impl {
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_set_multicast_interface(
+    #[inline]
+    pub(crate) fn lean_uv_udp_set_multicast_interface(
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-pub use runtime_udp_impl::*;

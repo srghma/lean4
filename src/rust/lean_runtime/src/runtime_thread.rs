@@ -90,12 +90,12 @@ pub(crate) mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_initialize_thread() {}
+    #[inline]
+    pub(crate) fn lean_initialize_thread() {}
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_finalize_thread() {
+    #[inline]
+    pub(crate) unsafe fn lean_finalize_thread() {
         run_thread_finalizers_internal();
         run_post_thread_finalizers_internal();
     }
@@ -204,8 +204,8 @@ pub(crate) mod runtime_thread_impl {
         G_THREAD_STACK_SIZE.store(sz + LEAN_STACK_BUFFER_SPACE, Ordering::Relaxed);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject {
         set_thread_stack_size_internal(sz);
         lean_box(0)
     }
@@ -295,7 +295,8 @@ pub(crate) mod runtime_thread_impl {
         }
     }
 
-    type MainFn = unsafe extern "C" fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
+    pub(crate) type MainFn =
+        unsafe extern "C" fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
 
     struct SendPtr<T>(*mut T);
     unsafe impl<T> Send for SendPtr<T> {}
@@ -306,8 +307,8 @@ pub(crate) mod runtime_thread_impl {
     }
 
     #[cfg(lean_multi_thread)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_run_main(
+    #[inline]
+    pub(crate) unsafe fn lean_run_main(
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -339,8 +340,8 @@ pub(crate) mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_run_main(
+    #[inline]
+    pub(crate) unsafe fn lean_run_main(
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -350,11 +351,11 @@ pub(crate) mod runtime_thread_impl {
 
     // The C++ thread-local reset registry is currently unused in the tree.
     // Keep the hooks as no-ops so we can retire src/runtime/thread.cpp.
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn register_thread_local_reset_fn(_fn: *mut c_void) {}
+    #[inline]
+    pub(crate) unsafe fn register_thread_local_reset_fn(_fn: *mut c_void) {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn reset_thread_local() {}
+    #[inline]
+    pub(crate) unsafe fn reset_thread_local() {}
 }
 
 pub(crate) use runtime_thread_impl::{

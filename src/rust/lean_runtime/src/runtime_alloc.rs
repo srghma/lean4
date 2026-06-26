@@ -72,8 +72,8 @@ pub(crate) mod runtime_alloc_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_inc_heartbeat() {
+    #[inline]
+    pub(crate) unsafe fn lean_inc_heartbeat() {
         add_heartbeats(1);
     }
 
@@ -87,14 +87,14 @@ pub(crate) mod runtime_alloc_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_get_num_heartbeats() -> u64 {
+    #[inline]
+    pub(crate) fn lean_get_num_heartbeats() -> u64 {
         get_num_heartbeats()
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_set_heartbeats(count: u64) {
+    #[inline]
+    pub(crate) fn lean_set_heartbeats(count: u64) {
         unsafe {
             set_heartbeats(count);
         }
@@ -468,8 +468,8 @@ pub(crate) mod runtime_alloc_impl {
             result
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_alloc_small(sz: u32, slot_idx: u32) -> *mut c_void {
+        #[inline]
+        pub(crate) unsafe fn lean_alloc_small(sz: u32, slot_idx: u32) -> *mut c_void {
             let heap = get_heap();
             debug_assert!(!heap.is_null());
             (*heap).heartbeat = (*heap).heartbeat.wrapping_add(1);
@@ -543,13 +543,13 @@ pub(crate) mod runtime_alloc_impl {
             dealloc(obj, sz);
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_free_small(obj: *mut c_void) {
+        #[inline]
+        pub(crate) unsafe fn lean_free_small(obj: *mut c_void) {
             dealloc_small_core(obj.cast::<u8>());
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_small_mem_size(obj: *mut c_void) -> u32 {
+        #[inline]
+        pub(crate) unsafe fn lean_small_mem_size(obj: *mut c_void) -> u32 {
             let page = get_page_of(obj.cast::<u8>());
             (*page).header.obj_size
         }
@@ -590,8 +590,8 @@ pub(crate) mod runtime_alloc_impl {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_inc_heartbeat() {
+        #[inline]
+        pub(crate) unsafe fn lean_inc_heartbeat() {
             add_heartbeats(1);
         }
 
@@ -608,19 +608,19 @@ pub(crate) mod runtime_alloc_impl {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_get_num_heartbeats() -> u64 {
+        #[inline]
+        pub(crate) unsafe fn lean_get_num_heartbeats() -> u64 {
             get_num_heartbeats()
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_set_heartbeats(count: u64) {
+        #[inline]
+        pub(crate) unsafe fn lean_set_heartbeats(count: u64) {
             set_heartbeats(count);
         }
     }
 }
 
 #[cfg(lean_small_allocator)]
-pub use runtime_alloc_impl::small::{lean_get_num_heartbeats, lean_set_heartbeats};
+pub(crate) use runtime_alloc_impl::small::{lean_get_num_heartbeats, lean_set_heartbeats};
 #[cfg(not(lean_small_allocator))]
-pub use runtime_alloc_impl::{lean_get_num_heartbeats, lean_set_heartbeats};
+pub(crate) use runtime_alloc_impl::{lean_get_num_heartbeats, lean_set_heartbeats};

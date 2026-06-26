@@ -132,8 +132,8 @@ pub(crate) mod library_time_task_impl {
 
     /// C-callable API for runtime/interpreter callers.
     /// opts and name are borrowed (b_obj_arg). Returns 1 if profiling enabled.
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_runtime_time_task_begin(
+    #[inline]
+    pub(crate) unsafe fn lean_runtime_time_task_begin(
         category_cstr: *const core::ffi::c_char,
         opts: *mut LeanObject,
         name: *mut LeanObject,
@@ -149,16 +149,16 @@ pub(crate) mod library_time_task_impl {
         enabled as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_runtime_time_task_end(enabled: u8) {
+    #[inline]
+    pub(crate) unsafe fn lean_runtime_time_task_end(enabled: u8) {
         if enabled != 0 {
             end_impl();
         }
     }
 
     /// displayCumulativeProfilingTimes : BaseIO Unit
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_display_cumulative_profiling_times() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_display_cumulative_profiling_times() -> *mut LeanObject {
         if let Ok(cum) = CUM_TIMES.lock() {
             if !cum.is_empty() {
                 let mut s = String::from("cumulative profiling times:\n");
@@ -173,8 +173,8 @@ pub(crate) mod library_time_task_impl {
 
     /// profileit {α} (category : @& String) (opts : @& Options) (fn : Unit → α) (decl : Name) : α
     /// category and opts are b_obj_arg (borrowed); func and decl are obj_arg (owned).
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_profileit(
+    #[inline]
+    pub(crate) unsafe fn lean_profileit(
         category: *mut LeanObject,
         opts: *mut LeanObject,
         func: *mut LeanObject,

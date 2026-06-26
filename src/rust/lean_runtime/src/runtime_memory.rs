@@ -118,8 +118,8 @@ pub(crate) mod runtime_memory_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_internal_get_default_max_memory() -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_internal_get_default_max_memory() -> *mut LeanObject {
         #[cfg(feature = "default-max-memory")]
         const DEFAULT: usize = 0; // or compile config
         #[cfg(not(feature = "default-max-memory"))]
@@ -136,8 +136,8 @@ pub(crate) mod runtime_memory_impl {
         G_MAX_MEMORY.store(max, Ordering::SeqCst);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_internal_set_max_memory(max: usize) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_internal_set_max_memory(max: usize) -> *mut LeanObject {
         set_max_memory(max);
         unsafe { lean_box(0) }
     }
@@ -214,4 +214,3 @@ pub(crate) mod runtime_memory_impl {
         true
     }
 }
-pub use runtime_memory_impl::*;

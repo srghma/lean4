@@ -91,8 +91,8 @@ pub(crate) mod runtime_dns_impl {
         result
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_dns_get_info(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_dns_get_info(
         name: *mut LeanObject,
         service: *mut LeanObject,
         family: u8,
@@ -203,8 +203,8 @@ pub(crate) mod runtime_dns_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject {
         let req = libc::malloc(core::mem::size_of::<UvGetNameInfo>()).cast::<UvGetNameInfo>();
         if req.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -267,15 +267,12 @@ pub(crate) mod runtime_dns_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_dns_impl::*;
-
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_dns_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_dns_get_info(
+    #[inline]
+    pub(crate) fn lean_uv_dns_get_info(
         _: *mut LeanObject,
         _: *mut LeanObject,
         _: u8,
@@ -283,11 +280,8 @@ pub(crate) mod runtime_dns_impl {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-pub use runtime_dns_impl::*;

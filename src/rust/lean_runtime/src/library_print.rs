@@ -602,8 +602,8 @@ pub(crate) mod library_print_impl {
 
     // lean_expr_dbg_to_string: ToString Expr instance (@[extern "lean_expr_dbg_to_string"]).
     // Argument is borrowed (@&); return is owned.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_dbg_to_string(e: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_expr_dbg_to_string(e: *mut LeanObject) -> *mut LeanObject {
         let mut out = String::new();
         fmt_expr(e, &mut out);
         let cstr = std::ffi::CString::new(out)

@@ -138,8 +138,8 @@ pub(crate) mod runtime_interrupt_impl {
     }
 
     // FFI wrappers for Lean code
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_internal_get_default_max_heartbeat() -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_internal_get_default_max_heartbeat() -> *mut LeanObject {
         #[cfg(feature = "default-max-heartbeat")]
         const DEFAULT: usize = 200000; // standard Lean default
         #[cfg(not(feature = "default-max-heartbeat"))]
@@ -148,8 +148,8 @@ pub(crate) mod runtime_interrupt_impl {
         unsafe { lean_box(DEFAULT) }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_internal_set_max_heartbeat(max: usize) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_internal_set_max_heartbeat(max: usize) -> *mut LeanObject {
         set_max_heartbeat(max);
         unsafe { lean_box(0) }
     }
@@ -362,4 +362,4 @@ pub(crate) mod runtime_interrupt_impl {
         g_cancel_tk_set(old);
     }
 }
-pub use runtime_interrupt_impl::*;
+pub(crate) use runtime_interrupt_impl::*;

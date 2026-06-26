@@ -422,8 +422,8 @@ pub(crate) mod library_instantiate_mvars_impl {
     }
 
     /// `instantiateLevelMVars (mctx : MetavarContext) (l : Level) : MetavarContext × Level`
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_instantiate_level_mvars(
+    #[inline]
+    pub(crate) unsafe fn lean_instantiate_level_mvars(
         mctx: *mut LeanObject,
         l: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1621,8 +1621,8 @@ pub(crate) mod library_instantiate_mvars_impl {
     }
 
     /// `instantiateExprMVars (mctx : MetavarContext) (e : Expr) : MetavarContext × Expr`
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_instantiate_expr_mvars(
+    #[inline]
+    pub(crate) unsafe fn lean_instantiate_expr_mvars(
         mctx: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {

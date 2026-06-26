@@ -13,8 +13,8 @@ pub(crate) mod runtime_object_name_impl {
 
     // Reads the cached hash u64 stored after the 2 lean_object* fields.
     // Layout (64-bit): [LeanObject header (8)] [field0 ptr (8)] [field1 ptr (8)] [hash u64 (8)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_name_hash_ptr(n: *mut LeanObject) -> u64 {
+    #[inline]
+    pub(crate) unsafe fn lean_name_hash_ptr(n: *mut LeanObject) -> u64 {
         lean_ctor_get_uint64(n, core::mem::size_of::<*mut LeanObject>() * 2)
     }
 
@@ -84,8 +84,8 @@ pub(crate) mod runtime_object_name_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_name_hash(n: *mut LeanObject) -> u64 {
+    #[inline]
+    pub(crate) unsafe fn lean_name_hash(n: *mut LeanObject) -> u64 {
         if lean_is_scalar(n) {
             1723
         } else {

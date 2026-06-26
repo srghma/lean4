@@ -14,8 +14,6 @@ The old C++ util.cpp implementation is removed.
 */
 use crate::*;
 
-pub use library_util_impl::*;
-
 pub(crate) mod library_util_impl {
     use super::*;
     use core::ffi::c_char;
@@ -105,24 +103,24 @@ pub(crate) mod library_util_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_mk_bool_true() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_mk_bool_true() -> *mut LeanObject {
         ensure_initialized();
         let result = BOOL_TRUE.load(Ordering::Acquire);
         lean_inc(result);
         result
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_mk_bool_false() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_mk_bool_false() -> *mut LeanObject {
         ensure_initialized();
         let result = BOOL_FALSE.load(Ordering::Acquire);
         lean_inc(result);
         result
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_short_version_string() -> *const c_char {
+    #[inline]
+    pub(crate) fn lean_short_version_string() -> *const c_char {
         SHORT_VERSION_STRING.as_ptr().cast::<c_char>()
     }
 }

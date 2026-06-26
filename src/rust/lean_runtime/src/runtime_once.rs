@@ -5,21 +5,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 
-#[repr(C)]
-pub struct LeanOnceCell {
-    state: AtomicI32,
-    lock: AtomicI32,
-}
+pub(crate) type ObjInitFn = unsafe extern "C" fn() -> *mut LeanObject;
+pub(crate) type U8InitFn = unsafe extern "C" fn() -> u8;
+pub(crate) type U16InitFn = unsafe extern "C" fn() -> u16;
+pub(crate) type U32InitFn = unsafe extern "C" fn() -> u32;
+pub(crate) type U64InitFn = unsafe extern "C" fn() -> u64;
+pub(crate) type UsizeInitFn = unsafe extern "C" fn() -> usize;
+pub(crate) type F32InitFn = unsafe extern "C" fn() -> f32;
+pub(crate) type F64InitFn = unsafe extern "C" fn() -> f64;
 
-type ObjInitFn = unsafe extern "C" fn() -> *mut LeanObject;
-type U8InitFn = unsafe extern "C" fn() -> u8;
-type U16InitFn = unsafe extern "C" fn() -> u16;
-type U32InitFn = unsafe extern "C" fn() -> u32;
-type U64InitFn = unsafe extern "C" fn() -> u64;
-type UsizeInitFn = unsafe extern "C" fn() -> usize;
-type F32InitFn = unsafe extern "C" fn() -> f32;
-type F64InitFn = unsafe extern "C" fn() -> f64;
-
+#[inline]
 fn lock_once_cell(lock: &AtomicI32) {
     while lock
         .compare_exchange(0, 1, Ordering::Acquire, Ordering::Relaxed)
@@ -30,10 +25,12 @@ fn lock_once_cell(lock: &AtomicI32) {
     }
 }
 
+#[inline]
 fn unlock_once_cell(lock: &AtomicI32) {
     lock.store(0, Ordering::Release);
 }
 
+#[inline]
 unsafe fn run_once<T: Copy>(
     loc: *mut T,
     tok: *mut LeanOnceCell,
@@ -50,8 +47,8 @@ unsafe fn run_once<T: Copy>(
     result
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_obj_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_obj_once_cold(
     loc: *mut *mut LeanObject,
     tok: *mut LeanOnceCell,
     init: ObjInitFn,
@@ -68,8 +65,8 @@ pub unsafe extern "C" fn lean_obj_once_cold(
     result
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_uint8_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_uint8_once_cold(
     loc: *mut u8,
     tok: *mut LeanOnceCell,
     init: U8InitFn,
@@ -77,8 +74,8 @@ pub unsafe extern "C" fn lean_uint8_once_cold(
     run_once(loc, tok, init)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_uint16_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_uint16_once_cold(
     loc: *mut u16,
     tok: *mut LeanOnceCell,
     init: U16InitFn,
@@ -86,8 +83,8 @@ pub unsafe extern "C" fn lean_uint16_once_cold(
     run_once(loc, tok, init)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_uint32_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_uint32_once_cold(
     loc: *mut u32,
     tok: *mut LeanOnceCell,
     init: U32InitFn,
@@ -95,8 +92,8 @@ pub unsafe extern "C" fn lean_uint32_once_cold(
     run_once(loc, tok, init)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_uint64_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_uint64_once_cold(
     loc: *mut u64,
     tok: *mut LeanOnceCell,
     init: U64InitFn,
@@ -104,8 +101,8 @@ pub unsafe extern "C" fn lean_uint64_once_cold(
     run_once(loc, tok, init)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_usize_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_usize_once_cold(
     loc: *mut usize,
     tok: *mut LeanOnceCell,
     init: UsizeInitFn,
@@ -113,8 +110,8 @@ pub unsafe extern "C" fn lean_usize_once_cold(
     run_once(loc, tok, init)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float32_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_float32_once_cold(
     loc: *mut f32,
     tok: *mut LeanOnceCell,
     init: F32InitFn,
@@ -122,8 +119,8 @@ pub unsafe extern "C" fn lean_float32_once_cold(
     run_once(loc, tok, init)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float_once_cold(
+#[inline]
+pub(crate) unsafe fn lean_float_once_cold(
     loc: *mut f64,
     tok: *mut LeanOnceCell,
     init: F64InitFn,

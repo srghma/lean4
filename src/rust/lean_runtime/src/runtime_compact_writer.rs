@@ -824,8 +824,8 @@ pub(crate) mod runtime_compact_writer_impl {
     ///   CompactedRegion.save (fname : @& FilePath) (key : @& Name)
     ///       (data : @& α) (depRegions : @& Array CompactedRegion)
     ///       (prev : Option Compactor) (allowClosures := false) : IO Compactor
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_save(
+    #[inline]
+    pub(crate) unsafe fn lean_compacted_region_save(
         ofname: *mut LeanObject,
         mod_: *mut LeanObject,
         odata: *mut LeanObject,

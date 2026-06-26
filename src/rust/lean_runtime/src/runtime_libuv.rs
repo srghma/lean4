@@ -37,8 +37,8 @@ pub(crate) mod runtime_libuv_impl {
         fn uv_version() -> c_uint;
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn initialize_libuv() {
+    #[inline]
+    pub(crate) unsafe fn initialize_libuv() {
         initialize_libuv_timer();
         initialize_libuv_tcp_socket();
         initialize_libuv_udp_socket();
@@ -53,40 +53,40 @@ pub(crate) mod runtime_libuv_impl {
         });
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_setup_args(
+    #[inline]
+    pub(crate) unsafe fn lean_setup_args(
         argc: c_int,
         argv: *mut *mut c_char,
     ) -> *mut *mut c_char {
         uv_setup_args(argc, argv)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
         lean_box(uv_version() as usize)
     }
 }
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_libuv_impl::*;
+pub(crate) use runtime_libuv_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_libuv_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn initialize_libuv() {}
+    #[inline]
+    pub(crate) fn initialize_libuv() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+    #[inline]
+    pub(crate) unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         argv
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
         lean_box(0)
     }
 }
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
-pub use runtime_libuv_impl::*;
+pub(crate) use runtime_libuv_impl::*;

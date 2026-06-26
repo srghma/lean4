@@ -63,8 +63,8 @@ pub extern "C" fn initialize_dynlib() {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject {
     #[cfg(unix)]
     {
         const RTLD_LAZY: i32 = 1;
@@ -89,8 +89,8 @@ pub unsafe extern "C" fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObj
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dynlib_get(
+#[inline]
+pub(crate) unsafe fn lean_dynlib_get(
     dynlib: *mut LeanObject,
     name: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -123,8 +123,8 @@ pub unsafe extern "C" fn lean_dynlib_get(
     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dynlib_symbol_run_as_init(
+#[inline]
+pub(crate) unsafe fn lean_dynlib_symbol_run_as_init(
     _: *mut LeanObject,
     symbol: *mut LeanObject,
 ) -> *mut LeanObject {

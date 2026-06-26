@@ -20,8 +20,8 @@ pub(crate) mod runtime_object_size_impl {
         fn lean_small_mem_size(o: *mut LeanObject) -> c_uint;
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_small_object_size(o: *mut LeanObject) -> c_uint {
+    #[inline]
+    pub(crate) unsafe fn lean_small_object_size(o: *mut LeanObject) -> c_uint {
         #[cfg(lean_small_allocator)]
         {
             return lean_small_mem_size(o);
@@ -83,8 +83,8 @@ pub(crate) mod runtime_object_size_impl {
             + core::mem::size_of::<*mut LeanObject>() * (*closure).num_fixed as usize
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_object_byte_size(o: *mut LeanObject) -> usize {
+    #[inline]
+    pub(crate) unsafe fn lean_object_byte_size(o: *mut LeanObject) -> usize {
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_array_byte_size(o),
             LEAN_SCALAR_ARRAY_TAG => lean_sarray_byte_size(o),
@@ -100,8 +100,8 @@ pub(crate) mod runtime_object_size_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_object_data_byte_size(o: *mut LeanObject) -> usize {
+    #[inline]
+    pub(crate) unsafe fn lean_object_data_byte_size(o: *mut LeanObject) -> usize {
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_array_data_byte_size(o),
             LEAN_SCALAR_ARRAY_TAG => lean_sarray_data_byte_size(o),

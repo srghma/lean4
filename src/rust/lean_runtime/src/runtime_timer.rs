@@ -123,8 +123,8 @@ pub(crate) mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
         let timer =
             libc::malloc(core::mem::size_of::<LeanUvTimerObject>()).cast::<LeanUvTimerObject>();
         if timer.is_null() {
@@ -196,8 +196,8 @@ pub(crate) mod runtime_timer_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -251,8 +251,8 @@ pub(crate) mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -284,8 +284,8 @@ pub(crate) mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -309,8 +309,8 @@ pub(crate) mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -341,6 +341,3 @@ pub(crate) mod runtime_timer_impl {
         assert!(core::mem::align_of::<UvTimer>() == 8);
     };
 }
-
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_timer_impl::*;

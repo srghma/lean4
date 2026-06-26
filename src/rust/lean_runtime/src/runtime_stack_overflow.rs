@@ -124,8 +124,8 @@ pub(crate) mod runtime_stack_overflow_impl {
         stackaddr.wrapping_sub(guardsize) <= addr && addr < stackaddr
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn segv_handler(
+    #[inline]
+    pub(crate) unsafe fn segv_handler(
         signum: c_int,
         info: *mut libc::siginfo_t,
         _: *mut c_void,
@@ -181,7 +181,7 @@ pub(crate) mod runtime_stack_overflow_impl {
 }
 
 #[cfg(all(feature = "std", unix))]
-pub use runtime_stack_overflow_impl::*;
+pub(crate) use runtime_stack_overflow_impl::*;
 
 #[cfg(all(feature = "std", windows))]
 pub(crate) mod runtime_stack_overflow_impl {
@@ -278,4 +278,4 @@ pub(crate) mod runtime_stack_overflow_impl {
 }
 
 #[cfg(all(feature = "std", windows))]
-pub use runtime_stack_overflow_impl::*;
+pub(crate) use runtime_stack_overflow_impl::*;

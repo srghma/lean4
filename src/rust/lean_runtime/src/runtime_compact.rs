@@ -66,8 +66,8 @@ pub(crate) mod runtime_compact_impl {
     use super::*;
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
         if region == 0 {
             return 0;
         }
@@ -76,8 +76,8 @@ pub(crate) mod runtime_compact_impl {
     }
 
     // lean_compacted_region_size(region : USize) : USize
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_compacted_region_size(region: usize) -> usize {
+    #[inline]
+    pub(crate) unsafe fn lean_compacted_region_size(region: usize) -> usize {
         if region == 0 {
             return 0;
         }
@@ -86,8 +86,8 @@ pub(crate) mod runtime_compact_impl {
     }
 
     // lean_compacted_region_free(region : USize) : IO Unit
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_compacted_region_free(
+    #[inline]
+    pub(crate) unsafe fn lean_compacted_region_free(
         region: usize,
         _io: *mut LeanObject,
     ) -> *mut LeanObject {

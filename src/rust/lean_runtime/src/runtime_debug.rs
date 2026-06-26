@@ -101,8 +101,8 @@ pub(crate) mod runtime_debug_impl {
         debug_tags().lock().unwrap().insert(cstr_to_string(tag));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_enable_debug(tag: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_internal_enable_debug(tag: *mut LeanObject) -> *mut LeanObject {
         enable_debug(lean_string_cstr(tag));
         lean_box(0)
     }
@@ -168,8 +168,8 @@ pub(crate) mod runtime_debug_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_notify_assert(
+    #[inline]
+    pub(crate) unsafe fn lean_notify_assert(
         file_name: *const c_char,
         line: c_int,
         condition: *const c_char,
@@ -180,7 +180,7 @@ pub(crate) mod runtime_debug_impl {
 }
 
 #[cfg(feature = "std")]
-pub use runtime_debug_impl::*;
+pub(crate) use runtime_debug_impl::*;
 
 unsafe fn io_eprintln_checked(msg: *mut LeanObject) {
     let result = lean_io_eprintln(msg);
@@ -192,18 +192,18 @@ unsafe fn lean_is_shared_obj(obj: *mut LeanObject) -> bool {
     !lean_is_scalar(obj) && (*obj).rc > 1
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(16)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(usize::MAX >> 1)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dbg_trace(
+#[inline]
+pub(crate) unsafe fn lean_dbg_trace(
     msg: *mut LeanObject,
     action: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -211,14 +211,14 @@ pub unsafe extern "C" fn lean_dbg_trace(
     lean_apply_1(action, lean_box(0))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dbg_sleep(ms: u32, action: *mut LeanObject) -> *mut LeanObject {
+#[inline]
+pub(crate) unsafe fn lean_dbg_sleep(ms: u32, action: *mut LeanObject) -> *mut LeanObject {
     std::thread::sleep(std::time::Duration::from_millis(ms as u64));
     lean_apply_1(action, lean_box(0))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dbg_trace_if_shared(
+#[inline]
+pub(crate) unsafe fn lean_dbg_trace_if_shared(
     msg: *mut LeanObject,
     value: *mut LeanObject,
 ) -> *mut LeanObject {

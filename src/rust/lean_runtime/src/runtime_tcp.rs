@@ -206,8 +206,8 @@ pub(crate) mod runtime_tcp_impl {
     const UV_ENOBUFS: isize = -105;
     const UV_EAGAIN: c_int = -11;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_new() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_new() -> *mut LeanObject {
         let tcp_socket = libc::malloc(core::mem::size_of::<LeanUvTcpSocketObject>())
             .cast::<LeanUvTcpSocketObject>();
         if tcp_socket.is_null() {
@@ -247,8 +247,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(obj)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_connect(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_connect(
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -318,8 +318,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_send(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_send(
         socket: *mut LeanObject,
         data_array: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -422,8 +422,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_recv(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_recv(
         socket: *mut LeanObject,
         buffer_size: u64,
     ) -> *mut LeanObject {
@@ -510,8 +510,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -583,8 +583,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -612,8 +612,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_bind(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_bind(
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -633,8 +633,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_listen(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_listen(
         socket: *mut LeanObject,
         backlog: i32,
     ) -> *mut LeanObject {
@@ -691,8 +691,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -733,8 +733,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -766,8 +766,8 @@ pub(crate) mod runtime_tcp_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -793,8 +793,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -855,8 +855,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -877,8 +877,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_addr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -899,8 +899,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_addr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -914,8 +914,8 @@ pub(crate) mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_keepalive(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_tcp_keepalive(
         socket: *mut LeanObject,
         enable: i32,
         delay: u32,
@@ -934,84 +934,78 @@ pub(crate) mod runtime_tcp_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_tcp_impl::*;
-
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_tcp_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn initialize_libuv_tcp_socket() {}
+    #[inline]
+    pub(crate) fn initialize_libuv_tcp_socket() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_new() -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_new() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_connect(
+    #[inline]
+    pub(crate) fn lean_uv_tcp_connect(
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-pub use runtime_tcp_impl::*;

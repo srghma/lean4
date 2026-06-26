@@ -127,8 +127,8 @@ pub(crate) mod runtime_signal_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_signal_mk(signum_obj: u32, repeating: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: u8) -> *mut LeanObject {
         let mut signum = signum_obj as c_int;
 
         #[cfg(not(target_os = "windows"))]
@@ -243,8 +243,8 @@ pub(crate) mod runtime_signal_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_signal_next(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_signal_next(obj: *mut LeanObject) -> *mut LeanObject {
         let signal = signal_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -298,8 +298,8 @@ pub(crate) mod runtime_signal_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_signal_stop(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_signal_stop(obj: *mut LeanObject) -> *mut LeanObject {
         let signal = signal_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -327,8 +327,8 @@ pub(crate) mod runtime_signal_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_signal_cancel(obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_signal_cancel(obj: *mut LeanObject) -> *mut LeanObject {
         let signal = signal_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -360,33 +360,27 @@ pub(crate) mod runtime_signal_impl {
     };
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_signal_impl::*;
-
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_signal_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_signal_next(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_signal_next(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_signal_stop(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_signal_stop(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_uv_signal_cancel(_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_uv_signal_cancel(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-pub use runtime_signal_impl::*;

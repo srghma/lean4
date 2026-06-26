@@ -468,8 +468,8 @@ pub(crate) mod library_module_impl {
     /// Port of C++ `lean_cxx_compacted_region_read` from src/library/module.cpp.
     /// Returns `IO (α × CompactedRegion)` where the second element is a boxed `USize`
     /// holding the raw `*OleanCompactedRegion` pointer.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_read(
+    #[inline]
+    pub(crate) unsafe fn lean_compacted_region_read(
         ofname: *mut LeanObject,
         odep_regions: *mut LeanObject,
         _io: *mut LeanObject,

@@ -272,14 +272,14 @@ pub(crate) mod kernel_equiv_manager_impl {
     }
 
     /// Create a new EquivManager heap-allocated, returning an opaque pointer.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_equiv_manager_new() -> *mut c_void {
+    #[inline]
+    pub(crate) unsafe fn lean_equiv_manager_new() -> *mut c_void {
         Box::into_raw(Box::new(EquivManager::new())) as *mut c_void
     }
 
     /// Free an EquivManager created by lean_equiv_manager_new.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_equiv_manager_free(mgr: *mut c_void) {
+    #[inline]
+    pub(crate) unsafe fn lean_equiv_manager_free(mgr: *mut c_void) {
         if !mgr.is_null() {
             drop(Box::from_raw(mgr as *mut EquivManager));
         }
@@ -287,8 +287,8 @@ pub(crate) mod kernel_equiv_manager_impl {
 
     /// Check if two expressions are equivalent, with optional hash pre-filter.
     /// Returns 1 if equivalent, 0 otherwise.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_equiv_manager_is_equiv(
+    #[inline]
+    pub(crate) unsafe fn lean_equiv_manager_is_equiv(
         mgr: *mut c_void,
         a: *mut LeanObject,
         b: *mut LeanObject,
@@ -299,8 +299,8 @@ pub(crate) mod kernel_equiv_manager_impl {
     }
 
     /// Record that e1 and e2 are equivalent (merges their union-find nodes).
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_equiv_manager_add_equiv(
+    #[inline]
+    pub(crate) unsafe fn lean_equiv_manager_add_equiv(
         mgr: *mut c_void,
         e1: *mut LeanObject,
         e2: *mut LeanObject,

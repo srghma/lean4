@@ -28,6 +28,60 @@ If want to run ALL tests - dont run, I will run myself (to preserve tokens), but
 
 ----------
 
+# Replace C Dependencies with Cargo Dependencies (Phase 1: mimalloc & libloading)
+
+This plan replaces the C-compiled `mimalloc` and platform-specific dynamic loading (POSIX `dlopen` / Windows `LoadLibrary`) with their corresponding safe/standard Rust crates: `mimalloc` and `libloading`.
+
+## Proposed Changes
+
+### Cargo Dependencies
+
+#### [MODIFY] [Cargo.toml](file:///home/srghma/projects/lean4/src/rust/lean_runtime/Cargo.toml)
+- Add `mimalloc = "0.1"` dependency.
+- Add `libloading = "0.8"` dependency.
+
+### mimalloc Replacement
+
+#### [MODIFY] [lib.rs](file:///home/srghma/projects/lean4/src/rust/lean_runtime/src/lib.rs)
+- Wire `#[global_allocator] static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;` conditionally when `lean_has_mimalloc` is active.
+
+#### [MODIFY] [CMakeLists.txt](file:///home/srghma/projects/lean4/CMakeLists.txt)
+- Remove `FetchContent` download, configuration, and build setup of `mimalloc`.
+- Keep `option(USE_MIMALLOC "use mimalloc" ON)` so that `lean_has_mimalloc` configuration can still be toggled.
+
+#### [MODIFY] [CMakeLists.txt](file:///home/srghma/projects/lean4/src/CMakeLists.txt)
+- Remove the `file(COPY ... mimalloc.h ...)` block.
+
+#### [MODIFY] [CMakeLists.txt](file:///home/srghma/projects/lean4/src/runtime/CMakeLists.txt)
+- Remove the compilation of `static.c` and inclusion of mimalloc directories when `USE_MIMALLOC` is true.
+- Cargo will build, link, and export mimalloc automatically.
+
+#### [MODIFY] [lean_header.template](file:///home/srghma/projects/lean4/src/include/lean/lean_header.template)
+- Remove the `#ifdef LEAN_MIMALLOC` / `#include <lean/mimalloc.h>` block because C/C++ code no longer needs compile-time allocation redirection header logic (all object allocations are encapsulated in Rust runtime).
+
+### libloading Replacement
+
+#### [MODIFY] [library_dynlib.rs](file:///home/srghma/projects/lean4/src/rust/lean_runtime/src/library_dynlib.rs)
+- Remove raw `extern "C"`/`extern "system"` imports of `dlopen`, `dlclose`, `dlsym`, `LoadLibraryA`, `FreeLibrary`, `GetProcAddress`.
+- Define an opaque handle structure wrapping `libloading::Library`.
+- Implement `lean_dynlib_load`, `lean_dynlib_get`, and `dynlib_finalizer` using `libloading` API.
+  - To preserve the FFI structure, `lean_dynlib_load` will return a `*mut c_void` pointer pointing to a heap-allocated `libloading::Library` boxed instance.
+  - `dynlib_finalizer` will drop the box, unloading the library safely.
+
+## Verification Plan
+
+### Automated Tests
+- Build stage1 target:
+  `make -C build/release lean_runtime_rust leancpp lean -j$(nproc)`
+- Run focused FFI and plugin tests:
+  `ARGS='-R "tests/lake/examples/ffi/test.sh|tests/lake/examples/reverse-ffi/test.sh|misc_dir/plugin" --timeout 240 --output-on-failure'`
+
+----------
+
+[CMakeLists.txt#L808-816](textBlock;file:///home/srghma/projects/lean4/src/CMakeLists.txt#L808-816) why we need to create empty.c file? will it be used? I think no. if no -remove
+
+----------
+
 # TASK:
 
 Now we want to remove all .h files

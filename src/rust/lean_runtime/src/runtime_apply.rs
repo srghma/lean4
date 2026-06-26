@@ -46,8 +46,8 @@ pub(crate) mod runtime_apply_impl {
         (*obj).rc == 1
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_alloc_closure(
+    #[inline]
+    pub(crate) unsafe fn lean_alloc_closure(
         fun: *mut c_void,
         arity: u32,
         num_fixed: u32,
@@ -644,8 +644,8 @@ pub(crate) mod runtime_apply_impl {
         a16
     );
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_apply_m(
+    #[inline]
+    pub(crate) unsafe fn lean_apply_m(
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -654,8 +654,8 @@ pub(crate) mod runtime_apply_impl {
         apply_generic(f, n, as_ptr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_apply_n(
+    #[inline]
+    pub(crate) unsafe fn lean_apply_n(
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -852,4 +852,4 @@ pub(crate) mod runtime_apply_impl {
     }
 }
 
-pub use runtime_apply_impl::{lean_alloc_closure, lean_apply_1, lean_apply_2};
+pub(crate) use runtime_apply_impl::{lean_alloc_closure, lean_apply_1, lean_apply_2};

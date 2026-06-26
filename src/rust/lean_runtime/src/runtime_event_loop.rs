@@ -214,8 +214,8 @@ pub(crate) mod runtime_event_loop_impl {
         lean_promise_resolve(result, promise);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_event_loop_configure(
+    #[inline]
+    pub(crate) unsafe fn lean_uv_event_loop_configure(
         options: *mut LeanObject,
     ) -> *mut LeanObject {
         let accum = lean_ctor_get_uint8(options, 0) != 0;
@@ -245,8 +245,8 @@ pub(crate) mod runtime_event_loop_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_event_loop_alive() -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_event_loop_alive() -> u8 {
         let event_loop = ptr::addr_of_mut!(_ZN4lean9global_evE);
         event_loop_lock(event_loop);
         let is_alive = uv_loop_alive((*event_loop).loop_) != 0;
@@ -267,4 +267,4 @@ pub(crate) mod runtime_event_loop_impl {
 }
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_event_loop_impl::*;
+pub(crate) use runtime_event_loop_impl::*;

@@ -14,6 +14,16 @@ pub(crate) mod kernel_level_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
+    use core::ptr;
+
+    static mut G_LEVEL_ZERO: *mut LeanObject = ptr::null_mut();
+    static mut G_LEVEL_ONE: *mut LeanObject = ptr::null_mut();
+
+    extern "C" {
+        fn lean_level_mk_zero() -> *mut LeanObject;
+        fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
+        fn lean_mark_persistent(o: *mut LeanObject);
+    }
 
     // Structural equality on lean Level objects (mirrors C++ operator==).
     // Level tags:
@@ -49,8 +59,8 @@ pub(crate) mod kernel_level_impl {
     // bit  32      = hasMVar
     // bit  33      = hasParam
     // bits [63:40] = depth (24-bit, max 16777215 = 0x00FFFFFF)
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_level_mk_data(
+    #[inline]
+    pub(crate) unsafe fn lean_level_mk_data(
         h: u64,
         depth: *mut LeanObject,
         has_mvar: u8,
@@ -67,19 +77,34 @@ pub(crate) mod kernel_level_impl {
         h1 | ((has_mvar as u64) << 32) | ((has_param as u64) << 33) | ((d as u64) << 40)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean16initialize_levelEv")]
-    pub extern "C" fn initialize_level() {}
+    pub unsafe extern "C" fn initialize_level() {
+        if G_LEVEL_ZERO.is_null() {
+            let zero = lean_level_mk_zero();
+            lean_mark_persistent(zero);
+            G_LEVEL_ZERO = zero;
+
+            let one = lean_level_mk_succ(zero);
+            lean_mark_persistent(one);
+            G_LEVEL_ONE = one;
+        }
+    }
 
     #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean14finalize_levelEv")]
-    pub extern "C" fn finalize_level() {}
+    pub unsafe extern "C" fn finalize_level() {
+        lean_dec(G_LEVEL_ONE);
+        lean_dec(G_LEVEL_ZERO);
+        G_LEVEL_ONE = ptr::null_mut();
+        G_LEVEL_ZERO = ptr::null_mut();
+    }
 }

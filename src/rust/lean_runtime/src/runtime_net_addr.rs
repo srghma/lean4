@@ -286,8 +286,8 @@ pub(crate) mod runtime_net_addr_impl {
         ctor
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_pton_v4(str_obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_pton_v4(str_obj: *mut LeanObject) -> *mut LeanObject {
         let str_ptr = lean_string_cstr(str_obj);
         if CStr::from_ptr(str_ptr).to_bytes().len() != lean_string_size(str_obj) - 1 {
             return option_none();
@@ -301,8 +301,8 @@ pub(crate) mod runtime_net_addr_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_ntop_v4(ipv4_addr: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_ntop_v4(ipv4_addr: *mut LeanObject) -> *mut LeanObject {
         let mut internal = MaybeUninit::<libc::in_addr>::uninit();
         lean_ipv4_addr_to_in_addr(ipv4_addr, internal.as_mut_ptr());
         let mut dst = [0 as c_char; INET_ADDRSTRLEN];
@@ -315,8 +315,8 @@ pub(crate) mod runtime_net_addr_impl {
         lean_mk_string(dst.as_ptr())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_pton_v6(str_obj: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_pton_v6(str_obj: *mut LeanObject) -> *mut LeanObject {
         let str_ptr = lean_string_cstr(str_obj);
         if CStr::from_ptr(str_ptr).to_bytes().len() != lean_string_size(str_obj) - 1 {
             return option_none();
@@ -330,8 +330,8 @@ pub(crate) mod runtime_net_addr_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_ntop_v6(ipv6_addr: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_ntop_v6(ipv6_addr: *mut LeanObject) -> *mut LeanObject {
         let mut internal = MaybeUninit::<libc::in6_addr>::uninit();
         lean_ipv6_addr_to_in6_addr(ipv6_addr, internal.as_mut_ptr());
         let mut dst = [0 as c_char; INET6_ADDRSTRLEN];
@@ -344,8 +344,8 @@ pub(crate) mod runtime_net_addr_impl {
         lean_mk_string(dst.as_ptr())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_interface_addresses() -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_uv_interface_addresses() -> *mut LeanObject {
         let mut info = null_mut();
         let mut count = 0;
 
@@ -405,4 +405,4 @@ pub(crate) mod runtime_net_addr_impl {
 }
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_net_addr_impl::*;
+pub(crate) use runtime_net_addr_impl::*;

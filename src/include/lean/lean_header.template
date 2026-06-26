@@ -162,7 +162,7 @@ LEAN_EXPORT lean_external_class * lean_get_external_class(lean_object * o);
 LEAN_EXPORT void * lean_get_external_data(lean_object * o);
 LEAN_EXPORT lean_object * lean_set_external_data(lean_object * o, void * data);
 
-LEAN_EXPORT bool lean_is_scalar(lean_object * o);
+LEAN_EXPORT uint8_t lean_is_scalar(lean_object * o);
 LEAN_EXPORT lean_object * lean_box(size_t n);
 LEAN_EXPORT size_t lean_unbox(lean_object * o);
 LEAN_EXPORT uint8_t lean_ptr_tag(lean_object * o);

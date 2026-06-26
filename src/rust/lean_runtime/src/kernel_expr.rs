@@ -109,8 +109,8 @@ pub(crate) mod kernel_expr_impl {
         h.wrapping_mul(M) as u32
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_expr_mk_data(
+    #[inline]
+    pub(crate) unsafe fn lean_expr_mk_data(
         hash: u64,
         bvar_range: *mut LeanObject,
         mut approx_depth: u32,
@@ -139,8 +139,8 @@ pub(crate) mod kernel_expr_impl {
             | (r << 44)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
+    #[inline]
+    pub(crate) unsafe fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
         let mut depth = ((f_data >> 32) & 0xFF).max((a_data >> 32) & 0xFF) + 1;
         if depth > 255 {
             depth = 255;
@@ -194,8 +194,8 @@ pub(crate) mod kernel_expr_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_expr_has_loose_bvar(
+    #[inline]
+    pub(crate) unsafe fn lean_expr_has_loose_bvar(
         e: *mut LeanObject,
         i: *mut LeanObject,
     ) -> u8 {
@@ -354,8 +354,8 @@ pub(crate) mod kernel_expr_impl {
 
     // lower_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), subtract d.
     // Precondition: s >= d (asserted in C++, guarded here).
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_expr_lower_loose_bvars(
+    #[inline]
+    pub(crate) unsafe fn lean_expr_lower_loose_bvars(
         e: *mut LeanObject,
         s: *mut LeanObject,
         d: *mut LeanObject,
@@ -374,8 +374,8 @@ pub(crate) mod kernel_expr_impl {
     }
 
     // lift_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), add d.
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_expr_lift_loose_bvars(
+    #[inline]
+    pub(crate) unsafe fn lean_expr_lift_loose_bvars(
         e: *mut LeanObject,
         s: *mut LeanObject,
         d: *mut LeanObject,

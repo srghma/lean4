@@ -113,8 +113,8 @@ pub(crate) mod runtime_io_error_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_decode_io_error(
+    #[inline]
+    pub(crate) unsafe fn lean_decode_io_error(
         errnum: c_int,
         fname: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -290,8 +290,8 @@ pub(crate) mod runtime_io_error_impl {
         lean_mk_string(uv_strerror(errnum))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_decode_uv_error(
+    #[inline]
+    pub(crate) unsafe fn lean_decode_uv_error(
         errnum: c_int,
         fname: *mut LeanObject,
     ) -> *mut LeanObject {

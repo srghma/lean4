@@ -48,8 +48,8 @@ pub(crate) mod runtime_io_ref_impl {
         core::ptr::addr_of_mut!((*lean_to_ref(o)).value).cast::<AtomicPtr<LeanObject>>()
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_mk_ref(a: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_st_mk_ref(a: *mut LeanObject) -> *mut LeanObject {
         let o = super::runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
             LeanRefObject,
         >()) as *mut LeanRefObject;
@@ -58,8 +58,8 @@ pub(crate) mod runtime_io_ref_impl {
         o as *mut LeanObject
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_get(ref_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_st_ref_get(ref_: *mut LeanObject) -> *mut LeanObject {
         if ref_maybe_mt(ref_) {
             let val_addr = mt_ref_val_addr(ref_);
             loop {
@@ -82,8 +82,8 @@ pub(crate) mod runtime_io_ref_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_take(ref_: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_st_ref_take(ref_: *mut LeanObject) -> *mut LeanObject {
         if ref_maybe_mt(ref_) {
             let val_addr = mt_ref_val_addr(ref_);
             loop {
@@ -101,8 +101,8 @@ pub(crate) mod runtime_io_ref_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_set(
+    #[inline]
+    pub(crate) unsafe fn lean_st_ref_set(
         ref_: *mut LeanObject,
         a: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -124,8 +124,8 @@ pub(crate) mod runtime_io_ref_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_swap(
+    #[inline]
+    pub(crate) unsafe fn lean_st_ref_swap(
         ref_: *mut LeanObject,
         a: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -149,40 +149,40 @@ pub(crate) mod runtime_io_ref_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_st_ref_ptr_eq(
+    #[inline]
+    pub(crate) unsafe fn lean_st_ref_ptr_eq(
         ref1: *mut LeanObject,
         ref2: *mut LeanObject,
     ) -> u8 {
         (lean_to_ref(ref1) == lean_to_ref(ref2)) as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_io_exit(code: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_io_exit(code: u8) -> *mut LeanObject {
         unsafe { libc::exit(code as i32) }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub extern "C" fn lean_io_force_exit(code: u8) -> *mut LeanObject {
+    #[inline]
+    pub(crate) fn lean_io_force_exit(code: u8) -> *mut LeanObject {
         unsafe { libc::_exit(code as i32) }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_runtime_mark_persistent(a: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_runtime_mark_persistent(a: *mut LeanObject) -> *mut LeanObject {
         lean_mark_persistent(a);
         a
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_runtime_mark_multi_threaded(
+    #[inline]
+    pub(crate) unsafe fn lean_runtime_mark_multi_threaded(
         a: *mut LeanObject,
     ) -> *mut LeanObject {
         lean_mark_mt(a);
         a
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_runtime_forget(o: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_runtime_forget(o: *mut LeanObject) -> *mut LeanObject {
         let _ = o;
         lean_box(0)
     }

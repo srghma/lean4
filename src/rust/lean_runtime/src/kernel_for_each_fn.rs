@@ -42,7 +42,7 @@ pub(crate) mod kernel_for_each_fn_impl {
 
     // Callback: ctx, expr_ptr, binder_offset → nonzero to recurse into children, zero to stop.
     // For BVar/Sort/Const (pure leaves), the return value is ignored.
-    type ForEachCallback = unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> u8;
+    pub type ForEachCallback = unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> u8;
 
     struct ForEachState {
         ctx: *mut c_void,
@@ -118,8 +118,8 @@ pub(crate) mod kernel_for_each_fn_impl {
 
     /// C-callable for_each traversal used by the for_each_fn.h C++ adapter.
     /// Mirrors for_each_offset_fn::apply from for_each_fn.cpp.
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_for_each_expr_with_callback(
+    #[inline]
+    pub(crate) unsafe fn lean_for_each_expr_with_callback(
         e: *mut LeanObject,
         ctx: *mut c_void,
         callback: ForEachCallback,
@@ -325,8 +325,8 @@ pub(crate) mod kernel_for_each_fn_impl {
     }
 
     // find? (p : Expr → Bool) (e : Expr) : Option Expr
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_find_expr(
+    #[inline]
+    pub(crate) unsafe fn lean_find_expr(
         p: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -336,8 +336,8 @@ pub(crate) mod kernel_for_each_fn_impl {
     }
 
     // findExt? (p : Expr → FindStep) (e : Expr) : Option Expr
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_find_ext_expr(
+    #[inline]
+    pub(crate) unsafe fn lean_find_ext_expr(
         p: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {

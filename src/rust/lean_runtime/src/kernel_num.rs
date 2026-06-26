@@ -13,10 +13,10 @@ All other num functions are unused (verified: no external callers).
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean14initialize_numEv"
 )]
-pub unsafe extern "C" fn lean_cxx_initialize_num() {}
+pub unsafe extern "C" fn initialize_num() {}
 
 #[cfg_attr(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean12finalize_numEv"
 )]
-pub unsafe extern "C" fn lean_cxx_finalize_num() {}
+pub unsafe extern "C" fn finalize_num() {}

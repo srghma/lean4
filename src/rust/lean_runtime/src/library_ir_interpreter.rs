@@ -2588,12 +2588,12 @@ pub(crate) mod library_ir_interpreter_impl {
     // ---------------------------------------------------------------------------
 
     /// initialize_ir_interpreter — called from lib.rs initialize_library_module_body
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn initialize_ir_interpreter() {}
+    #[inline]
+    pub(crate) unsafe fn initialize_ir_interpreter() {}
 
     /// finalize_ir_interpreter — called from lib.rs
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn finalize_ir_interpreter() {
+    #[inline]
+    pub(crate) unsafe fn finalize_ir_interpreter() {
         // Drop the global caches. OnceLock doesn't support resetting, so just clear contents.
         {
             let _lock = native_symbol_cache_lock();
@@ -2619,8 +2619,8 @@ pub(crate) mod library_ir_interpreter_impl {
     }
 
     /// lean_eval_main (env : Environment) (opts : Options) (args : List String) : BaseIO UInt32
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_eval_main(
+    #[inline]
+    pub(crate) unsafe fn lean_eval_main(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         args: *mut LeanObject,
@@ -2644,8 +2644,8 @@ pub(crate) mod library_ir_interpreter_impl {
     }
 
     /// lean_eval_const (env : Environment) (opts : Options) (c : Name) : Except String _
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_eval_const(
+    #[inline]
+    pub(crate) unsafe fn lean_eval_const(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         c: *mut LeanObject,
@@ -2670,8 +2670,8 @@ pub(crate) mod library_ir_interpreter_impl {
     /// Returns `Except String Object`; the C++ shim converts the error case
     /// back into a C++ exception to preserve the old `ir::run_boxed_kernel`
     /// contract.
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_eval_const_at_kernel_env(
+    #[inline]
+    pub(crate) unsafe fn lean_eval_const_at_kernel_env(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         c: *mut LeanObject,
@@ -2698,8 +2698,8 @@ pub(crate) mod library_ir_interpreter_impl {
     }
 
     /// lean_run_init (env opts decl init_decl io) : IO Unit
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_run_init(
+    #[inline]
+    pub(crate) unsafe fn lean_run_init(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         decl: *mut LeanObject,
@@ -2721,8 +2721,8 @@ pub(crate) mod library_ir_interpreter_impl {
     ///
     /// On Unix, uses dlsym(RTLD_DEFAULT, ...) directly.
     /// On Windows, uses EnumProcessModules/GetProcAddress.
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject {
         let sym_cstr = lean_string_cstr(sym);
         let init = lookup_symbol_in_cur_exe(sym_cstr);
         if init.is_null() {

@@ -349,8 +349,8 @@ pub(crate) mod runtime_object_rc_impl {
         obj as *mut LeanObject
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
         let sz = ((sz + 7) / 8) * 8;
         #[cfg(lean_small_allocator)]
         {
@@ -377,8 +377,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_free_small_object(o: *mut LeanObject) {
+    #[inline]
+    pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) {
         #[cfg(not(lean_small_allocator))]
         if UAF_DETECT {
             quar_free(o);
@@ -401,8 +401,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
         let sz1 = ((sz + 7) / 8) * 8;
         let r = lean_alloc_small_object(sz1);
         if sz1 > sz {
@@ -552,8 +552,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_alloc_object(sz: usize) -> *mut LeanObject {
+    #[inline]
+    pub(crate) unsafe fn lean_alloc_object(sz: usize) -> *mut LeanObject {
         #[cfg(lean_lazy_rc)]
         {
             G_TO_FREE.with(|cell| {
@@ -598,8 +598,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_free_object(o: *mut LeanObject) {
+    #[inline]
+    pub(crate) unsafe fn lean_free_object(o: *mut LeanObject) {
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_dealloc(o, lean_array_byte_size(o)),
             LEAN_SCALAR_ARRAY_TAG => lean_dealloc(o, lean_sarray_byte_size(o)),
@@ -614,8 +614,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_dec_ref_cold(mut o: *mut LeanObject) {
+    #[inline]
+    pub(crate) unsafe fn lean_dec_ref_cold(mut o: *mut LeanObject) {
         if lean_is_scalar(o) {
             return;
         }
@@ -655,8 +655,8 @@ pub(crate) mod runtime_object_rc_impl {
     #[inline(always)]
     unsafe fn lsan_ignore(_o: *mut LeanObject) {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_mark_persistent(o: *mut LeanObject) {
+    #[inline]
+    pub(crate) unsafe fn lean_mark_persistent(o: *mut LeanObject) {
         let mut todo = vec![o];
         while let Some(cur) = todo.pop() {
             if !lean_is_scalar(cur) && lean_has_rc(cur) {
@@ -729,12 +729,12 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_mark_mt(_o: *mut LeanObject) {}
+    #[inline]
+    pub(crate) unsafe fn lean_mark_mt(_o: *mut LeanObject) {}
 
     #[cfg(lean_multi_thread)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_mark_mt(o: *mut LeanObject) {
+    #[inline]
+    pub(crate) unsafe fn lean_mark_mt(o: *mut LeanObject) {
         if lean_is_scalar(o) || !lean_is_st(o) {
             return;
         }

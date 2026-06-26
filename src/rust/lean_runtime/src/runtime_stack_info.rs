@@ -97,8 +97,8 @@ pub(crate) mod runtime_stack_info_impl {
         G_STACK_THRESHOLD.with(|cell| cell.set(threshold));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn save_stack_info(main: bool) {
+    #[inline]
+    pub(crate) unsafe fn save_stack_info(main: bool) {
         save_stack_info_export(main);
     }
 
@@ -150,4 +150,4 @@ pub(crate) mod runtime_stack_info_impl {
         curr >= threshold
     }
 }
-pub use runtime_stack_info_impl::*;
+pub(crate) use runtime_stack_info_impl::*;

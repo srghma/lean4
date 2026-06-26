@@ -492,13 +492,13 @@ pub(crate) mod library_expr_lt_impl {
         }
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
         expr_lt(a, b, true) as u8
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
         expr_lt(a, b, false) as u8
     }
 }

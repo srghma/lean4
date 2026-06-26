@@ -29,8 +29,8 @@ pub(crate) mod kernel_environment_impl {
         lean_rust_add_decl(env, decl, check)
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_add_decl(
+    #[inline]
+    pub(crate) unsafe fn lean_add_decl(
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
@@ -52,8 +52,8 @@ pub(crate) mod kernel_environment_impl {
         result
     }
 
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_add_decl_without_checking(
+    #[inline]
+    pub(crate) unsafe fn lean_add_decl_without_checking(
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {

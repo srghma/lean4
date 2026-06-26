@@ -385,14 +385,14 @@ pub(crate) mod kernel_expr_eq_fn_impl {
     }
 
     // lean_expr_eqv (a b : @& Expr) : Bool  — structural equality, ignoring binder names/info
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
         ExprEqFn::new(false).apply(a, b, 0, true) as u8
     }
 
     // lean_expr_equal (a b : @& Expr) : Bool  — structural equality including binder names/info
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_equal(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    #[inline]
+    pub(crate) unsafe fn lean_expr_equal(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
         ExprEqFn::new(true).apply(a, b, 0, true) as u8
     }
 }
