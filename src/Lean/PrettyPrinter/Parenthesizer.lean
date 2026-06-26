@@ -6,6 +6,7 @@ Authors: Sebastian Ullrich
 module
 
 prelude
+public import Init.Notation
 public import Lean.Parser.Extension
 public import Lean.Parser.StrInterpolation
 public import Lean.ParserCompiler.Attribute
