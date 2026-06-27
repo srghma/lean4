@@ -6,7 +6,6 @@ goal is:
 
 ```
 1. stage0 is original cpp, just like in upstream/master. Never update it. It is using original cpp implementation and used to compile lean files into cpp code. we use stage0 to compile stage1.
-  - check srghmascripts/order_of_review.md to get information about dependency tree of cpp/h files. Same level means that dependencies are parallel and can be reviewed in any order.
 2. stage1 - this should have runtime of original cpp implementation (just like stage0), but here we should compile lean files not to cpp, but to rust. This is why I have removed EmitC and replaced it with EmitRust. But stage1 should not use ./src/rust/ yet which is/should be the port of original cpp directories `src/{kernel,util,shell,runtime,library,include,initialize}` (we want it but it is impossible at this stage, because src/rust/ probably has errors). This is why I have not yet removed original cpp directories.
 3. stage2 - this is lean that should use rust port of original cpp + EmitRust too.
   - Rust should agressively replace c/cpp/h/hpp. No c/cpp/h/hpp files are allowed to be used. Because in future we want remove all c/cpp/h/hpp, completely from everywhere (should should not allow to use cpp even in 3d party plugins).
