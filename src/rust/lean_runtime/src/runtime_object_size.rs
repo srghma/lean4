@@ -15,27 +15,9 @@ pub(crate) mod runtime_object_size_impl {
     const LEAN_STRING_TAG: u8 = 249;
     const LEAN_CLOSURE_TAG: u8 = 245;
 
-    extern "C" {
-        #[cfg(lean_small_allocator)]
-        fn lean_small_mem_size(o: *mut LeanObject) -> c_uint;
-    }
-
     #[inline]
     pub(crate) unsafe fn lean_small_object_size(o: *mut LeanObject) -> c_uint {
-        #[cfg(lean_small_allocator)]
-        {
-            return lean_small_mem_size(o);
-        }
-
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        {
-            return (*o).cs_size as c_uint;
-        }
-
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        {
-            return *((o as *const usize).sub(1)) as c_uint;
-        }
+        (*o).cs_size as c_uint
     }
 
     #[inline]

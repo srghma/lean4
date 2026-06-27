@@ -16,10 +16,6 @@ use core::panic::PanicInfo;
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
-#[cfg(all(feature = "std", lean_has_mimalloc))]
-#[global_allocator]
-static GLOBAL_ALLOCATOR: mimalloc::MiMalloc = mimalloc::MiMalloc;
-
 type Size = usize;
 
 const LEAN_REF_TAG: u8 = 253;
@@ -37,7 +33,6 @@ const LEAN_EXTERNAL_TAG: u8 = 254;
 const LEAN_MAX_CTOR_FIELDS: usize = 256;
 const LEAN_MAX_CTOR_SCALARS_SIZE: usize = 1024;
 const LEAN_OBJECT_SIZE_DELTA: usize = 8;
-const LEAN_MAX_SMALL_OBJECT_SIZE: usize = 4096;
 
 extern "C" {
     fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
@@ -546,10 +541,6 @@ pub(crate) unsafe fn lean_set_st_header(obj: *mut LeanObject, tag: u32, other: u
     (*obj).rc = 1;
     (*obj).tag = tag as u8;
     (*obj).other = other as u8;
-    #[cfg(not(lean_has_mimalloc))]
-    {
-        (*obj).cs_size = 0;
-    }
 }
 
 #[inline]
@@ -708,10 +699,6 @@ pub(crate) unsafe fn lean_runtime_alloc_ctor(
         .expect("constructor allocation overflow");
     let obj = runtime_object_rc_impl::lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject;
     (*obj).header.rc = 1;
-    #[cfg(not(lean_has_mimalloc))]
-    {
-        (*obj).header.cs_size = 0;
-    }
     (*obj).header.other = num_objs as u8;
     (*obj).header.tag = tag as u8;
     obj as *mut LeanObject
@@ -2494,10 +2481,6 @@ pub(crate) unsafe fn lean_runtime_alloc_external(
         LeanExternalObject,
     >()) as *mut LeanExternalObject;
     (*obj).header.rc = 1;
-    #[cfg(not(lean_has_mimalloc))]
-    {
-        (*obj).header.cs_size = 0;
-    }
     (*obj).header.other = 0;
     (*obj).header.tag = LEAN_EXTERNAL_TAG;
     (*obj).class = class;
@@ -4468,7 +4451,7 @@ unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanOb
     name_uses_registered_prefix(state, name_prefix(n))
 }
 
-unsafe fn consume_io_result(result: *mut LeanObject) {
+unsafe fn consume_io_result(label: &str, result: *mut LeanObject) {
     if lean_io_result_is_ok(result) {
         lean_dec(result);
     } else {
@@ -4480,15 +4463,16 @@ unsafe fn consume_io_result(result: *mut LeanObject) {
 
         let prefix = b"IO Error in lean_initialize: ";
         libc::write(2, prefix.as_ptr().cast(), prefix.len());
+        libc::write(2, label.as_ptr().cast(), label.len());
+        libc::write(2, b": ".as_ptr().cast(), 2);
         let bytes = text.to_bytes();
         libc::write(2, bytes.as_ptr().cast(), bytes.len());
         libc::write(2, b"\n".as_ptr().cast(), 1);
+        std::process::exit(1);
     }
 }
 
 unsafe fn initialize_runtime_module_body() {
-    #[cfg(lean_small_allocator)]
-    initialize_alloc();
     initialize_debug();
     // initialize_object was a no-op (object.cpp deleted)
     initialize_io();
@@ -4650,9 +4634,9 @@ pub fn lean_initialize() {
         save_stack_info(true);
         initialize_util_module();
         let builtin = 1u8;
-        consume_io_result(initialize_Init(builtin));
-        consume_io_result(initialize_Std(builtin));
-        consume_io_result(initialize_Lean(builtin));
+        consume_io_result("initialize_Init", initialize_Init(builtin));
+        consume_io_result("initialize_Std", initialize_Std(builtin));
+        consume_io_result("initialize_Lean", initialize_Lean(builtin));
         initialize_kernel_module();
         initialize_library_core_module();
         initialize_library_module();

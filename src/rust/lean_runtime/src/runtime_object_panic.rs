@@ -41,7 +41,7 @@ pub(crate) mod runtime_object_panic_impl {
             fn free(ptr: *mut c_void);
         }
 
-        type DemangleBacktraceLine = unsafe extern "C" fn(*mut LeanObject) -> *mut LeanObject;
+        type DemangleBacktraceLine = unsafe fn(*mut LeanObject) -> *mut LeanObject;
 
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
             let proc = libc::dlsym(

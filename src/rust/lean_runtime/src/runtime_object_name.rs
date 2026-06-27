@@ -92,4 +92,21 @@ pub(crate) mod runtime_object_name_impl {
             lean_name_hash_ptr(n)
         }
     }
+
+    pub(crate) unsafe fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject {
+        let r = lean_runtime_alloc_ctor(1, 2, 8);
+        lean_runtime_ctor_set(r, 0, prefix);
+        lean_runtime_ctor_set(r, 1, s);
+        let h = lean_hash_mix(lean_name_hash(prefix), runtime_object_string_impl::lean_string_hash(s));
+        lean_ctor_set_uint64(r, 16, h as u64);
+        r
+    }
+    pub(crate) unsafe fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject {
+        let r = lean_runtime_alloc_ctor(2, 2, 8);
+        lean_runtime_ctor_set(r, 0, prefix);
+        lean_runtime_ctor_set(r, 1, n);
+        let h = lean_hash_mix(lean_name_hash(prefix), runtime_object_nat_int_impl::lean_nat_hash(n));
+        lean_ctor_set_uint64(r, 16, h as u64);
+        r
+    }
 }

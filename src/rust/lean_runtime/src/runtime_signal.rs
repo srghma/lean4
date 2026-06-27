@@ -57,7 +57,7 @@ pub(crate) mod runtime_signal_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe extern "C" fn close_free_handle(handle: *mut UvHandle) {
+    unsafe fn close_free_handle(handle: *mut UvHandle) {
         libc::free(handle.cast());
     }
 
@@ -91,7 +91,7 @@ pub(crate) mod runtime_signal_impl {
             lean_register_external_class(Some(lean_uv_signal_finalizer), Some(signal_foreach));
     }
 
-    pub unsafe extern "C" fn handle_signal_event(handle: *mut UvSignal, signum: c_int) {
+    pub unsafe fn handle_signal_event(handle: *mut UvSignal, signum: c_int) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let signal = signal_from_obj(obj);
 

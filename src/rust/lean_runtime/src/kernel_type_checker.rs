@@ -6740,7 +6740,7 @@ pub(crate) mod kernel_type_checker_impl {
         names: &'a [*mut LeanObject],
         found: bool,
     }
-    unsafe extern "C" fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
+    unsafe fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
         let c = &mut *(ctx as *mut FindConstCtx);
         if c.found {
             return 0;
@@ -7980,7 +7980,7 @@ pub(crate) mod kernel_type_checker_impl {
                 decl_params: &'a [*mut LeanObject],
                 actual_params: &'a [*mut LeanObject],
             }
-            unsafe extern "C" fn restore_cb(
+            unsafe fn restore_cb(
                 ctx: *mut c_void,
                 t: *mut LeanObject,
                 _offset: u32,
@@ -8263,7 +8263,7 @@ pub(crate) mod kernel_type_checker_impl {
                 params_len: usize,
                 error: Option<KernelError>,
             }
-            unsafe extern "C" fn cb(
+            unsafe fn cb(
                 ctx: *mut c_void,
                 e: *mut LeanObject,
                 _offset: u32,

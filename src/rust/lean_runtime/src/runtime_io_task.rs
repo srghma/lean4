@@ -42,14 +42,14 @@ pub(crate) mod runtime_io_task_impl {
             .write(value);
     }
 
-    unsafe extern "C" fn lean_io_as_task_fn(
+    unsafe fn lean_io_as_task_fn(
         act: *mut LeanObject,
         _world: *mut LeanObject,
     ) -> *mut LeanObject {
         lean_apply_1(act, lean_io_mk_world())
     }
 
-    unsafe extern "C" fn lean_io_bind_task_fn(
+    unsafe fn lean_io_bind_task_fn(
         f: *mut LeanObject,
         a: *mut LeanObject,
     ) -> *mut LeanObject {

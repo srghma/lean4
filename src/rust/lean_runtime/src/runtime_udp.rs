@@ -90,7 +90,7 @@ pub(crate) mod runtime_udp_impl {
         ) -> c_int;
         fn uv_udp_set_ttl(handle: *mut c_void, ttl: c_int) -> c_int;
 
-        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
+        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>);
         fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t;
 
         #[link_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"]
@@ -146,7 +146,7 @@ pub(crate) mod runtime_udp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn close_cb(handle: *mut UvHandle) {
+        unsafe fn close_cb(handle: *mut UvHandle) {
             let udp_socket = (*handle).data.cast::<LeanUvUdpSocketObject>();
             libc::free((*udp_socket).m_uv_udp);
             libc::free(udp_socket.cast());
@@ -347,7 +347,7 @@ pub(crate) mod runtime_udp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn send_cb(req: *mut uv_udp_send_t, status: c_int) {
+        unsafe fn send_cb(req: *mut uv_udp_send_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
             let tup = (*req_handle).data.cast::<UdpSendData>();
             lean_promise_resolve_with_code(status, (*tup).promise);
@@ -415,7 +415,7 @@ pub(crate) mod runtime_udp_impl {
         lean_inc(promise);
         lean_inc(socket);
 
-        unsafe extern "C" fn alloc_cb(
+        unsafe fn alloc_cb(
             handle: *mut c_void,
             _suggested_size: usize,
             buf: *mut uv_buf_t,
@@ -428,7 +428,7 @@ pub(crate) mod runtime_udp_impl {
             (*buf).len = lean_sarray_capacity((*udp_socket).m_byte_array);
         }
 
-        unsafe extern "C" fn recv_cb(
+        unsafe fn recv_cb(
             handle: *mut c_void,
             nread: isize,
             _buf: *const uv_buf_t,
@@ -511,7 +511,7 @@ pub(crate) mod runtime_udp_impl {
         lean_inc(promise);
         lean_inc(socket);
 
-        unsafe extern "C" fn alloc_cb(
+        unsafe fn alloc_cb(
             _handle: *mut c_void,
             _suggested_size: usize,
             buf: *mut uv_buf_t,
@@ -520,7 +520,7 @@ pub(crate) mod runtime_udp_impl {
             (*buf).len = 0;
         }
 
-        unsafe extern "C" fn recv_cb(
+        unsafe fn recv_cb(
             handle: *mut c_void,
             nread: isize,
             _buf: *const uv_buf_t,

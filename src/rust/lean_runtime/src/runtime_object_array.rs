@@ -12,9 +12,6 @@ pub(crate) mod runtime_object_array_impl {
     use super::*;
     use core::ffi::{c_int, c_ulong};
 
-    #[cfg(not(lean_use_gmp))]
-    compile_error!("runtime_object_array.rs requires lean_use_gmp cfg flag");
-
     #[repr(C)]
     struct MpzStruct {
         _mp_alloc: c_int,
@@ -262,10 +259,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_mk_array(
-        n: *mut LeanObject,
-        v: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_mk_array(n: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
         let sz = nat_to_size_t(n);
         let r = lean_alloc_array(sz, sz);
         let dst = lean_array_cptr(r);
@@ -280,6 +274,7 @@ pub(crate) mod runtime_object_array_impl {
         r
     }
 
+    // TODO: should use EmitRust implemented lean_list_to_array
     #[inline]
     pub(crate) unsafe fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
         let mut sz = 0usize;

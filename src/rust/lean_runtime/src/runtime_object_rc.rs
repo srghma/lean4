@@ -15,8 +15,6 @@ pub(crate) mod runtime_object_rc_impl {
     use core::ptr;
     use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
 
-
-
     const LEAN_MAX_CTOR_TAG: u8 = 243;
     const LEAN_PROMISE_TAG: u8 = 244;
     const LEAN_CLOSURE_TAG: u8 = 245;
@@ -28,8 +26,6 @@ pub(crate) mod runtime_object_rc_impl {
     const LEAN_TASK_TAG: u8 = 252;
     const LEAN_REF_TAG: u8 = 253;
     const LEAN_EXTERNAL_TAG: u8 = 254;
-    const LEAN_MAX_SMALL_OBJECT_SIZE: usize = 4096;
-
     #[repr(C)]
     struct LeanArrayObject {
         header: LeanObject,
@@ -92,8 +88,8 @@ pub(crate) mod runtime_object_rc_impl {
 
     #[repr(C)]
     struct LeanExternalClass {
-        m_finalize: unsafe extern "C" fn(*mut c_void),
-        m_foreach: unsafe extern "C" fn(*mut c_void, *mut LeanObject),
+        m_finalize: unsafe fn(*mut c_void),
+        m_foreach: unsafe fn(*mut c_void, *mut LeanObject),
     }
 
     #[repr(C)]
@@ -119,15 +115,6 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     extern "C" {
-        #[cfg(lean_small_allocator)]
-        #[link_name = "_ZN4lean7deallocEPvm"]
-        fn lean_dealloc_raw(ptr: *mut u8, sz: usize);
-        fn lean_alloc_small(sz: u32, slot_idx: u32) -> *mut c_void;
-        fn lean_free_small(ptr: *mut c_void);
-        #[cfg(lean_small_allocator)]
-        fn lean_inc_heartbeat();
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        fn free_sized(ptr: *mut c_void, sz: usize);
         #[cfg(lean_has_address_sanitizer)]
         fn __lsan_ignore_object(ptr: *mut c_void);
         fn __gmpz_clear(x: *mut MpzT);
@@ -246,21 +233,9 @@ pub(crate) mod runtime_object_rc_impl {
             quar_free(o);
             return;
         }
-        #[cfg(lean_small_allocator)]
-        {
-            lean_dealloc_raw(o as *mut u8, sz);
-        }
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        {
-            lean_global_dealloc(o as *mut u8, sz);
-        }
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        {
-            free_sized(o as *mut c_void, sz);
-        }
+        lean_global_dealloc(o as *mut u8, sz);
     }
 
-    #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
     #[inline(always)]
     unsafe fn lean_global_alloc(sz: usize) -> *mut u8 {
         let layout = std::alloc::Layout::from_size_align(sz.max(1), core::mem::align_of::<usize>())
@@ -272,7 +247,6 @@ pub(crate) mod runtime_object_rc_impl {
         mem
     }
 
-    #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
     #[inline(always)]
     unsafe fn lean_global_dealloc(ptr: *mut u8, sz: usize) {
         let layout = std::alloc::Layout::from_size_align(sz.max(1), core::mem::align_of::<usize>())
@@ -351,59 +325,24 @@ pub(crate) mod runtime_object_rc_impl {
         (*obj).fun = fun;
         (*obj).arity = arity as u16;
         (*obj).num_fixed = num_fixed as u16;
-        #[cfg(not(lean_has_mimalloc))]
-        {
-            (*obj).header.cs_size = 0;
-        }
         obj as *mut LeanObject
     }
 
     #[inline]
     pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
         let sz = ((sz + 7) / 8) * 8;
-        #[cfg(lean_small_allocator)]
-        {
-            return lean_alloc_small(sz as u32, (sz / 8 - 1) as u32) as *mut LeanObject;
-        }
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        {
-            let o = lean_global_alloc(sz) as *mut LeanObject;
-            (*o).cs_size = sz as u16;
-            return o;
-        }
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        {
-            let mem = libc::malloc(core::mem::size_of::<usize>() + sz) as *mut usize;
-            if mem.is_null() {
-                lean_internal_panic_out_of_memory();
-            }
-            *mem = sz;
-            return mem.add(1) as *mut LeanObject;
-        }
+        let o = lean_global_alloc(sz) as *mut LeanObject;
+        (*o).cs_size = sz as u16;
+        o
     }
 
     #[inline]
     pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) {
-        #[cfg(not(lean_small_allocator))]
         if UAF_DETECT {
             quar_free(o);
             return;
         }
-        #[cfg(lean_small_allocator)]
-        {
-            lean_free_small(o as *mut c_void);
-            return;
-        }
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        {
-            lean_global_dealloc(o as *mut u8, (*o).cs_size as usize);
-            return;
-        }
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        {
-            let ptr = (o as *mut usize).sub(1);
-            libc::free(ptr as *mut c_void);
-        }
+        lean_global_dealloc(o as *mut u8, (*o).cs_size as usize);
     }
 
     #[inline]
@@ -527,10 +466,10 @@ pub(crate) mod runtime_object_rc_impl {
                 lean_free_small_object(o);
             }
             LEAN_TASK_TAG => {
-                lean_runtime_deactivate_task(o as *mut LeanTaskObject);
+                lean_runtime_deactivate_task(o as *mut crate::LeanTaskObject);
             }
             LEAN_PROMISE_TAG => {
-                lean_runtime_deactivate_promise(o as *mut LeanPromiseObject);
+                lean_runtime_deactivate_promise(o as *mut crate::LeanPromiseObject);
             }
             LEAN_EXTERNAL_TAG => {
                 let e = o as *mut LeanExternalObject;
@@ -570,33 +509,9 @@ pub(crate) mod runtime_object_rc_impl {
                 }
             });
         }
-
-        #[cfg(lean_small_allocator)]
-        {
-            let sz = ((sz + 7) / 8) * 8;
-            if sz > LEAN_MAX_SMALL_OBJECT_SIZE {
-                let r = libc::malloc(sz);
-                if r.is_null() {
-                    lean_internal_panic_out_of_memory();
-                }
-                return r as *mut LeanObject;
-            }
-            return lean_alloc_small(sz as u32, (sz / 8 - 1) as u32) as *mut LeanObject;
-        }
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        {
-            let o = lean_global_alloc(sz) as *mut LeanObject;
-            (*o).cs_size = 0;
-            return o;
-        }
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        {
-            let r = libc::malloc(sz);
-            if r.is_null() {
-                lean_internal_panic_out_of_memory();
-            }
-            r as *mut LeanObject
-        }
+        let o = lean_global_alloc(sz) as *mut LeanObject;
+        (*o).cs_size = 0;
+        o
     }
 
     #[inline]
@@ -724,7 +639,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    unsafe extern "C" fn mark_persistent_fn(o: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn mark_persistent_fn(o: *mut LeanObject) -> *mut LeanObject {
         lean_mark_persistent(o);
         lean_box(0)
     }
@@ -804,7 +719,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    unsafe extern "C" fn mark_mt_fn(o: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn mark_mt_fn(o: *mut LeanObject) -> *mut LeanObject {
         lean_mark_mt(o);
         lean_dec(o);
         lean_box(0)

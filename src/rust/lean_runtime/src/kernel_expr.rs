@@ -32,10 +32,15 @@ pub(crate) mod kernel_expr_impl {
     use super::*;
 
     const EXPR_BVAR: u8 = 0;
+    const EXPR_FVAR: u8 = 1;
+    const EXPR_MVAR: u8 = 2;
+    const EXPR_SORT: u8 = 3;
+    const EXPR_CONST: u8 = 4;
     const EXPR_APP: u8 = 5;
     const EXPR_LAMBDA: u8 = 6;
     const EXPR_PI: u8 = 7;
     const EXPR_LET: u8 = 8;
+    const EXPR_LIT: u8 = 9;
     const EXPR_MDATA: u8 = 10;
     const EXPR_PROJ: u8 = 11;
 

@@ -58,7 +58,7 @@ pub(crate) mod kernel_replace_fn_impl {
     }
 
     pub type ReplaceCallback =
-        unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject;
+        unsafe fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject;
 
     struct ReplaceCallbackFn {
         ctx: *mut c_void,

@@ -11,8 +11,6 @@ fn main() {
         "LEAN_RUST_MANUAL_ROOT",
         "LEAN_RUST_HAS_LLVM",
         "LEAN_RUST_HAS_ADDRESS_SANITIZER",
-        "LEAN_RUST_HAS_MIMALLOC",
-        "LEAN_RUST_SMALL_ALLOCATOR",
         "LEAN_RUST_MULTI_THREAD",
         "LEAN_RUST_DEBUG",
         "LEAN_RUST_LEANC_EXTRA_CC_FLAGS",
@@ -59,17 +57,9 @@ fn main() {
         ),
     )
     .unwrap_or_else(|_| panic!("unable to write {}", version_rs.display()));
-    println!("cargo:rustc-check-cfg=cfg(lean_small_allocator)");
-    if std::env::var("LEAN_RUST_SMALL_ALLOCATOR").as_deref() == Ok("1") {
-        println!("cargo:rustc-cfg=lean_small_allocator");
-    }
     println!("cargo:rustc-check-cfg=cfg(lean_multi_thread)");
     if std::env::var("LEAN_RUST_MULTI_THREAD").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_multi_thread");
-    }
-    println!("cargo:rustc-check-cfg=cfg(lean_has_mimalloc)");
-    if std::env::var("LEAN_RUST_HAS_MIMALLOC").as_deref() == Ok("1") {
-        println!("cargo:rustc-cfg=lean_has_mimalloc");
     }
     println!("cargo:rustc-check-cfg=cfg(lean_has_address_sanitizer)");
     if std::env::var("LEAN_RUST_HAS_ADDRESS_SANITIZER").as_deref() == Ok("1") {
@@ -82,11 +72,6 @@ fn main() {
     println!("cargo:rustc-check-cfg=cfg(lean_lazy_rc)");
     if std::env::var("LEAN_RUST_LAZY_RC").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_lazy_rc");
-    }
-    println!("cargo:rerun-if-env-changed=LEAN_RUST_USE_GMP");
-    println!("cargo:rustc-check-cfg=cfg(lean_use_gmp)");
-    if std::env::var("LEAN_RUST_USE_GMP").as_deref() == Ok("1") {
-        println!("cargo:rustc-cfg=lean_use_gmp");
     }
 }
 

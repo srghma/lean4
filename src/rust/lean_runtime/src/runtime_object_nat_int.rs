@@ -7,10 +7,6 @@ use crate::*;
 
 // Port of Natural numbers, Integers, UInt, IntX sections from src/runtime/object.cpp.
 
-#[cfg(not(lean_use_gmp))]
-compile_error!("runtime_object_nat_int.rs requires lean_use_gmp cfg flag");
-
-#[cfg(lean_use_gmp)]
 pub(crate) mod runtime_object_nat_int_impl {
     use super::*;
     use core::ffi::{c_char, c_int, c_long, c_ulong};
@@ -111,21 +107,13 @@ pub(crate) mod runtime_object_nat_int_impl {
     unsafe fn alloc_mpz(mpz: *const MpzT) -> *mut LeanObject {
         let sz = core::mem::size_of::<LeanMpzObject>();
         let obj = runtime_object_rc_impl::lean_alloc_small_object(sz);
-        #[cfg(lean_has_mimalloc)]
         let saved_cs_size = (*obj).cs_size;
         let slot = lean_mpz_val_mut(obj);
         __gmpz_init_set(slot, mpz);
         (*obj).rc = 1;
         (*obj).tag = LEAN_MPZ_TAG;
         (*obj).other = 0;
-        #[cfg(lean_has_mimalloc)]
-        {
-            (*obj).cs_size = saved_cs_size;
-        }
-        #[cfg(not(lean_has_mimalloc))]
-        {
-            (*obj).cs_size = 0;
-        }
+        (*obj).cs_size = saved_cs_size;
         obj
     }
 
@@ -230,6 +218,14 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[inline]
+    pub(crate) unsafe fn lean_nat_hash(a: *mut LeanObject) -> u64 {
+        if lean_is_scalar(a) {
+            lean_unbox(a) as u64
+        } else {
+            lean_mpz_hash(a) as u64
+        }
+    }
+
     pub(crate) unsafe fn lean_mpz_hash(o: *mut LeanObject) -> u32 {
         __gmpz_get_si(lean_mpz_val(o)) as i32 as u32
     }

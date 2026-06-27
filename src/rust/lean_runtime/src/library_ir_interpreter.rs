@@ -2340,15 +2340,15 @@ pub(crate) mod library_ir_interpreter_impl {
         with_interpreter_obj(env, opts, fn_name, |interp| interp.stub_m(args))
     }
 
-    unsafe extern "C" fn stub_1_aux(x1: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn stub_1_aux(x1: *mut LeanObject) -> *mut LeanObject {
         let mut args = [x1];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_2_aux(x1: *mut LeanObject, x2: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn stub_2_aux(x1: *mut LeanObject, x2: *mut LeanObject) -> *mut LeanObject {
         let mut args = [x1, x2];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_3_aux(
+    unsafe fn stub_3_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2356,7 +2356,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_4_aux(
+    unsafe fn stub_4_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2365,7 +2365,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_5_aux(
+    unsafe fn stub_5_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2375,7 +2375,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_6_aux(
+    unsafe fn stub_6_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2386,7 +2386,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_7_aux(
+    unsafe fn stub_7_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2398,7 +2398,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_8_aux(
+    unsafe fn stub_8_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2411,7 +2411,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_9_aux(
+    unsafe fn stub_9_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2425,7 +2425,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_10_aux(
+    unsafe fn stub_10_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2440,7 +2440,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_11_aux(
+    unsafe fn stub_11_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2456,7 +2456,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_12_aux(
+    unsafe fn stub_12_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2473,7 +2473,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_13_aux(
+    unsafe fn stub_13_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2491,7 +2491,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_14_aux(
+    unsafe fn stub_14_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2510,7 +2510,7 @@ pub(crate) mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_15_aux(
+    unsafe fn stub_15_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2532,7 +2532,7 @@ pub(crate) mod library_ir_interpreter_impl {
         ];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_16_aux(
+    unsafe fn stub_16_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2556,7 +2556,7 @@ pub(crate) mod library_ir_interpreter_impl {
         stub_m_aux_impl(args.as_mut_ptr())
     }
     // stub_m_aux with varargs via pointer
-    unsafe extern "C" fn stub_m_aux(args: *mut *mut LeanObject) -> *mut LeanObject {
+    unsafe fn stub_m_aux(args: *mut *mut LeanObject) -> *mut LeanObject {
         stub_m_aux_impl(args)
     }
 
@@ -2720,7 +2720,7 @@ pub(crate) mod library_ir_interpreter_impl {
         if init.is_null() {
             lean_io_result_mk_ok(lean_box(0)) // Bool.false: symbol not found
         } else {
-            let init_fn: unsafe extern "C" fn(u8) -> *mut LeanObject = core::mem::transmute(init);
+            let init_fn: unsafe fn(u8) -> *mut LeanObject = core::mem::transmute(init);
             let builtin: u8 = 0;
             let r = init_fn(builtin);
             if lean_io_result_is_ok(r) {

@@ -40,7 +40,7 @@ pub(crate) mod kernel_for_each_fn_impl {
 
     // Callback: ctx, expr_ptr, binder_offset → nonzero to recurse into children, zero to stop.
     // For BVar/Sort/Const (pure leaves), the return value is ignored.
-    pub type ForEachCallback = unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> u8;
+    pub type ForEachCallback = unsafe fn(*mut c_void, *mut LeanObject, u32) -> u8;
 
     struct ForEachState {
         ctx: *mut c_void,

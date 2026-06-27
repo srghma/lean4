@@ -10,7 +10,7 @@ pub(crate) mod runtime_thread_impl {
     use core::cell::Cell;
     use core::ffi::c_void;
 
-    type ThreadFinalizer = unsafe extern "C" fn(*mut c_void);
+    type ThreadFinalizer = unsafe fn(*mut c_void);
     type FinalizerList = Vec<(ThreadFinalizer, *mut c_void)>;
 
     thread_local! {
@@ -89,11 +89,9 @@ pub(crate) mod runtime_thread_impl {
         }
     }
 
-    #[cfg(not(lean_small_allocator))]
     #[inline]
     pub(crate) fn lean_initialize_thread() {}
 
-    #[cfg(not(lean_small_allocator))]
     #[inline]
     pub(crate) unsafe fn lean_finalize_thread() {
         run_thread_finalizers_internal();
@@ -143,14 +141,6 @@ pub(crate) mod runtime_thread_impl {
         fn get_max_heartbeat() -> usize;
         #[link_name = "_ZN4lean17set_max_heartbeatEm"]
         fn set_max_heartbeat(max: usize);
-
-        // lean_initialize_thread on small-allocator builds comes from C++ thread.cpp;
-        // on non-small-allocator it's the Rust no-op defined above.
-        #[cfg(lean_small_allocator)]
-        fn lean_initialize_thread();
-        // lean_finalize_thread on small-allocator builds comes from C++ thread.cpp.
-        #[cfg(lean_small_allocator)]
-        fn lean_finalize_thread();
     }
 
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024;
@@ -258,7 +248,7 @@ pub(crate) mod runtime_thread_impl {
     }
 
     pub(crate) type MainFn =
-        unsafe extern "C" fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
+        unsafe fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
 
     struct SendPtr<T>(*mut T);
     unsafe impl<T> Send for SendPtr<T> {}

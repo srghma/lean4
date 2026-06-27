@@ -46,16 +46,8 @@ pub(crate) mod kernel_expr_eq_fn_impl {
     use super::runtime_object_string_impl::lean_string_eq_cold;
     use super::*;
     use std::collections::HashSet;
-
-    #[cfg(lean_use_gmp)]
     use super::runtime_object_nat_int_impl::lean_nat_big_eq;
-
-    extern "C" {
-        // Consumes both arguments (obj_arg semantics); call lean_inc before passing borrowed refs.
-        fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
-        #[cfg(not(lean_use_gmp))]
-        fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
-    }
+    use crate::lean_data_value_beq;
 
     const EXPR_BVAR: u8 = 0;
     const EXPR_FVAR: u8 = 1;

@@ -19,6 +19,11 @@ pub(crate) mod kernel_level_impl {
 
     static mut G_LEVEL_ZERO: *mut LeanObject = ptr::null_mut();
     static mut G_LEVEL_ONE: *mut LeanObject = ptr::null_mut();
+    const LEVEL_SUCC: u8 = 1;
+    const LEVEL_MAX: u8 = 2;
+    const LEVEL_IMAX: u8 = 3;
+    const LEVEL_PARAM: u8 = 4;
+    const LEVEL_MVAR: u8 = 5;
 
     extern "C" {
         fn lean_level_mk_zero() -> *mut LeanObject;

@@ -31,15 +31,7 @@ pub(crate) mod kernel_equiv_manager_impl {
     use super::*;
     use core::ffi::c_void;
     use std::collections::HashMap;
-
-    #[cfg(lean_use_gmp)]
     use super::runtime_object_nat_int_impl::lean_nat_big_eq;
-
-    #[cfg(not(lean_use_gmp))]
-    extern "C" {
-        fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
-    }
-
     use super::runtime_object_name_impl::lean_name_eq;
 
     const EXPR_BVAR: u8 = 0;

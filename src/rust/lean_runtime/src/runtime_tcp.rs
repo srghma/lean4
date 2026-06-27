@@ -161,7 +161,7 @@ pub(crate) mod runtime_tcp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn close_cb(handle: *mut UvHandle) {
+        unsafe fn close_cb(handle: *mut UvHandle) {
             let tcp_socket = (*handle).data.cast::<LeanUvTcpSocketObject>();
             libc::free((*tcp_socket).m_uv_tcp);
             libc::free(tcp_socket.cast());

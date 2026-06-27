@@ -10,8 +10,6 @@ pub(crate) mod runtime_io_ref_impl {
     use super::*;
     use core::sync::atomic::{AtomicPtr, Ordering};
 
-    
-
     const LEAN_REF_TAG: u8 = 253;
 
     #[repr(C)]

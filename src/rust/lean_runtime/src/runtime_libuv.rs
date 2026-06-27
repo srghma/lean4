@@ -9,11 +9,14 @@ use crate::*;
 pub(crate) mod runtime_libuv_impl {
     use super::*;
     use std::thread;
-
-    #[repr(C)]
-    struct EventLoop {
-        _private: [u8; 0],
-    }
+    use crate::runtime_event_loop::runtime_event_loop_impl::{
+        event_loop_run_loop, initialize_libuv_loop, EventLoop, _ZN4lean9global_evE,
+    };
+    use crate::runtime_signal::runtime_signal_impl::initialize_libuv_signal;
+    use crate::runtime_tcp::runtime_tcp_impl::initialize_libuv_tcp_socket;
+    use crate::runtime_timer::runtime_timer_impl::initialize_libuv_timer;
+    use crate::runtime_thread_impl::{lean_finalize_thread, lean_initialize_thread};
+    use crate::runtime_udp::runtime_udp_impl::initialize_libuv_udp_socket;
 
     extern "C" {
         #[link_name = "_ZN4lean22initialize_libuv_timerEv"]

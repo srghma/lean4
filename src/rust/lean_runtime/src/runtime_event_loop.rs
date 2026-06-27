@@ -101,7 +101,7 @@ pub(crate) mod runtime_event_loop_impl {
         }
     }
 
-    unsafe extern "C" fn async_callback(handle: *mut UvAsync) {
+    unsafe fn async_callback(handle: *mut UvAsync) {
         uv_stop((*handle).prefix.loop_);
     }
 
@@ -166,8 +166,7 @@ pub(crate) mod runtime_event_loop_impl {
     pub unsafe fn initialize_libuv_loop() {
         event_loop_init(ptr::addr_of_mut!(_ZN4lean9global_evE));
     }
-
-    pub unsafe fn lean_promise_resolve_with_code(
+    pub(crate) unsafe fn lean_promise_resolve_with_code(
         status: c_int,
         promise: *mut LeanObject,
     ) {

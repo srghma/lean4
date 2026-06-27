@@ -151,7 +151,7 @@ pub(crate) mod library_instantiate_mvars_impl {
 
     // Simplified mk_max that mirrors the C++ mk_max() simplifications.
     // Consumes ownership of both lhs and rhs; returns a new owned result.
-    unsafe extern "C" fn mk_max_simplified(
+    unsafe fn mk_max_simplified(
         lhs: *mut LeanObject,
         rhs: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -201,7 +201,7 @@ pub(crate) mod library_instantiate_mvars_impl {
 
     // Simplified mk_imax that mirrors the C++ mk_imax() simplifications.
     // Consumes ownership of both lhs and rhs; returns a new owned result.
-    unsafe extern "C" fn mk_imax_simplified(
+    unsafe fn mk_imax_simplified(
         lhs: *mut LeanObject,
         rhs: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -297,7 +297,7 @@ pub(crate) mod library_instantiate_mvars_impl {
             &mut self,
             original: *mut LeanObject,
             child: *mut LeanObject,
-            mk: unsafe extern "C" fn(*mut LeanObject) -> *mut LeanObject,
+            mk: unsafe fn(*mut LeanObject) -> *mut LeanObject,
             shared: bool,
         ) -> *mut LeanObject {
             let old_child = lean_ctor_get(original, 0);
@@ -315,7 +315,7 @@ pub(crate) mod library_instantiate_mvars_impl {
             original: *mut LeanObject,
             lhs: *mut LeanObject,
             rhs: *mut LeanObject,
-            mk: unsafe extern "C" fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
+            mk: unsafe fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
             shared: bool,
         ) -> *mut LeanObject {
             let old_lhs = lean_ctor_get(original, 0);

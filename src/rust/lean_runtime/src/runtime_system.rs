@@ -646,7 +646,7 @@ pub(crate) mod runtime_system_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn random_cb(
+        unsafe fn random_cb(
             uv_req: *mut UvRandom,
             status: c_int,
             _buf: *mut c_void,

@@ -75,7 +75,7 @@ pub unsafe fn register_trace_class(
         false,
         c"(trace) enable/disable tracing for the given module and submodules".as_ptr(),
     );
-    consume_io_result(lean_register_option(opt_name, decl));
+    consume_io_result("lean_register_option", lean_register_option(opt_name, decl));
 }
 
 // is_trace_class_enabled — delegates to Lean-exported function.

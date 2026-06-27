@@ -53,7 +53,7 @@ pub(crate) mod runtime_timer_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe extern "C" fn close_free_handle(handle: *mut UvHandle) {
+    unsafe fn close_free_handle(handle: *mut UvHandle) {
         libc::free(handle.cast());
     }
 
@@ -87,7 +87,7 @@ pub(crate) mod runtime_timer_impl {
             lean_register_external_class(Some(lean_uv_timer_finalizer), Some(timer_foreach));
     }
 
-    pub unsafe extern "C" fn handle_timer_event(handle: *mut UvTimer) {
+    pub unsafe fn handle_timer_event(handle: *mut UvTimer) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);
 

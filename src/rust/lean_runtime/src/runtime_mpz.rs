@@ -12,10 +12,7 @@
 // link without modification.  The C++ shim mpz_helpers.cpp provides
 // to_string() and operator<< which need std::string/ostream ABI.
 
-#[cfg(not(lean_use_gmp))]
-compile_error!("runtime_mpz.rs requires lean_use_gmp cfg flag (build with USE_GMP=ON)");
 
-#[cfg(lean_use_gmp)]
 mod gmp_impl {
     use core::ffi::{c_int, c_long, c_ulong};
 

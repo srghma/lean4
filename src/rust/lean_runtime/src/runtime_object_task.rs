@@ -103,10 +103,6 @@ pub(crate) mod runtime_object_task_impl {
         (*obj).header.rc = 1;
         (*obj).header.other = 0;
         (*obj).header.tag = LEAN_CLOSURE_TAG;
-        #[cfg(not(lean_has_mimalloc))]
-        {
-            (*obj).header.cs_size = 0;
-        }
         (*obj).fun = fun;
         (*obj).arity = arity as u16;
         (*obj).num_fixed = num_fixed as u16;
@@ -126,7 +122,7 @@ pub(crate) mod runtime_object_task_impl {
 
     #[inline(always)]
     unsafe fn mk_closure_2_1(
-        fun: unsafe extern "C" fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
+        fun: unsafe fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
         a: *mut LeanObject,
     ) -> *mut LeanObject {
         let c = local_alloc_closure(fun as *mut c_void, 2, 1);
@@ -136,7 +132,7 @@ pub(crate) mod runtime_object_task_impl {
 
     #[inline(always)]
     unsafe fn mk_closure_3_2(
-        fun: unsafe extern "C" fn(
+        fun: unsafe fn(
             *mut LeanObject,
             *mut LeanObject,
             *mut LeanObject,
@@ -856,7 +852,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Task map ─────────────────────────────────────────────────────────────
 
-    unsafe extern "C" fn task_map_fn(
+    unsafe fn task_map_fn(
         f: *mut LeanObject,
         t: *mut LeanObject,
         _w: *mut LeanObject,
@@ -894,7 +890,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Task bind ────────────────────────────────────────────────────────────
 
-    unsafe extern "C" fn task_bind_fn2(t: *mut LeanObject, _w: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn task_bind_fn2(t: *mut LeanObject, _w: *mut LeanObject) -> *mut LeanObject {
         let v = (*(t as *mut LeanTaskObject)).value.load(Ordering::Relaxed);
         debug_assert!(!v.is_null());
         lean_inc(v);
@@ -902,7 +898,7 @@ pub(crate) mod runtime_object_task_impl {
         v
     }
 
-    unsafe extern "C" fn task_bind_fn1(
+    unsafe fn task_bind_fn1(
         x: *mut LeanObject,
         f: *mut LeanObject,
         _w: *mut LeanObject,

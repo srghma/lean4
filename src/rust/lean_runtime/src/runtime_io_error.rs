@@ -102,8 +102,8 @@ pub(crate) mod runtime_io_error_impl {
         fname: *mut LeanObject,
         errnum: c_int,
         details: *mut LeanObject,
-        plain: unsafe extern "C" fn(u32, *mut LeanObject) -> *mut LeanObject,
-        file: unsafe extern "C" fn(*mut LeanObject, u32, *mut LeanObject) -> *mut LeanObject,
+        plain: unsafe fn(u32, *mut LeanObject) -> *mut LeanObject,
+        file: unsafe fn(*mut LeanObject, u32, *mut LeanObject) -> *mut LeanObject,
     ) -> *mut LeanObject {
         if fname.is_null() {
             plain(errnum as u32, details)

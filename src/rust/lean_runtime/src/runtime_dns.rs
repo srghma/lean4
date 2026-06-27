@@ -135,7 +135,7 @@ pub(crate) mod runtime_dns_impl {
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
         lean_inc(promise);
 
-        unsafe extern "C" fn getaddrinfo_cb(
+        unsafe fn getaddrinfo_cb(
             req: *mut UvGetAddrInfo,
             status: c_int,
             res: *mut libc::addrinfo,
@@ -221,7 +221,7 @@ pub(crate) mod runtime_dns_impl {
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
         lean_inc(promise);
 
-        unsafe extern "C" fn getnameinfo_cb(
+        unsafe fn getnameinfo_cb(
             req: *mut UvGetNameInfo,
             status: c_int,
             hostname: *const c_char,

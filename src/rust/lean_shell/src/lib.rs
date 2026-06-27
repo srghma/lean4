@@ -21,23 +21,18 @@ fn debug_build() -> bool {
     option_env!("LEAN_RUST_DEBUG") == Some("1")
 }
 
-extern "C" {
-    fn lean_init_search_path() -> *mut LeanObject;
-    fn lean_enable_initializer_execution() -> *mut LeanObject;
-    fn lean_io_mark_end_initialization();
-    fn lean_shell_options_mk(unit: *mut LeanObject) -> *mut LeanObject;
-    fn lean_shell_options_process(
-        shell_opts: *mut LeanObject,
-        opt: c_uint,
-        opt_arg: *mut LeanObject,
-    ) -> *mut LeanObject;
-    fn lean_shell_options_get_run(shell_opts: *mut LeanObject) -> u8;
-    fn lean_shell_options_get_profiler(shell_opts: *mut LeanObject) -> u8;
-    fn lean_shell_options_get_num_threads(shell_opts: *mut LeanObject) -> c_uint;
-    fn lean_shell_main(args: *mut LeanObject, shell_opts: *mut LeanObject) -> *mut LeanObject;
-    fn lean_init_task_manager_using(num_workers: c_uint);
-    fn lean_finalize_task_manager();
-}
+    use lean_runtime::lean_init_search_path;
+    use lean_runtime::lean_enable_initializer_execution;
+    use lean_runtime::lean_io_mark_end_initialization;
+    use lean_runtime::lean_shell_options_mk;
+    use lean_runtime::lean_shell_options_process;
+    use lean_runtime::lean_shell_options_get_run;
+    use lean_runtime::lean_shell_options_get_profiler;
+    use lean_runtime::lean_shell_options_get_num_threads;
+    use lean_runtime::lean_shell_main;
+    use lean_runtime::lean_init_task_manager_using;
+    use lean_runtime::lean_finalize_task_manager;
+
 
 struct TaskManagerGuard;
 
@@ -51,7 +46,7 @@ struct LeanInitializerGuard;
 
 impl Drop for LeanInitializerGuard {
     fn drop(&mut self) {
-        lean_finalize()
+        unsafe { lean_finalize() }
     }
 }
 
@@ -393,6 +388,6 @@ pub fn main(argc: c_int, argv: *mut *mut c_char) -> c_int {
     main_impl(argc, argv)
 }
 
-pub fn lean_main(argc: c_int, argv: *mut *mut c_char) -> c_int {
+pub(crate) fn lean_main(argc: c_int, argv: *mut *mut c_char) -> c_int {
     main_impl(argc, argv)
 }
