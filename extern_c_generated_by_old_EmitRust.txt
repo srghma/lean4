@@ -1,0 +1,2242 @@
+# src/rust/lean_runtime/src/gen/Init/Control/EState.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Control/Id.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Control/Lawful/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Conv.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Core.rs
+fn lean_thunk_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Attach.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_swap( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/BasicAux.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/BinSearch.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/DecidableEq.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/GetLit.rs
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/InsertionSort.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Lemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Lex/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/QSort/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Range.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Set.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Array/Sort/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/BitVec/Basic.rs
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/BitVec/BasicAux.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/BitVec/Bitblast.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ByteArray/Basic.rs
+fn lean_sarray_dec_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_sarray_size(_: *mut LeanObject) -> usize;
+fn lean_byte_array_uget(_: *mut LeanObject, _: usize) -> u8;
+fn lean_byte_array_get(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_byte_array_set(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_byte_array_fset(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_byte_array_uset(_: *mut LeanObject, _: usize, _: u8) -> *mut LeanObject;
+fn lean_byte_array_hash(_: *mut LeanObject) -> u64;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ByteArray/Bootstrap.rs
+fn lean_byte_array_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ByteArray/Extra.rs
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_get(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ByteArray/Lemmas.rs
+fn lean_byte_array_data(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Dyadic/Basic.rs
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Fin/Basic.rs
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Fin/Log2.rs
+fn lean_nat_log2(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Float.rs
+fn lean_float_of_bits(_: u64) -> f64;
+fn lean_float_to_bits(_: f64) -> u64;
+fn lean_float_to_string(_: f64) -> *mut LeanObject;
+fn lean_float_isnan(_: f64) -> u8;
+fn lean_float_isfinite(_: f64) -> u8;
+fn lean_float_isinf(_: f64) -> u8;
+fn lean_float_frexp(_: f64) -> *mut LeanObject;
+fn lean_uint8_to_float(_: u8) -> f64;
+fn lean_uint16_to_float(_: u16) -> f64;
+fn lean_uint32_to_float(_: u32) -> f64;
+fn lean_usize_to_float(_: usize) -> f64;
+fn sin(_: f64) -> f64;
+fn cos(_: f64) -> f64;
+fn tan(_: f64) -> f64;
+fn asin(_: f64) -> f64;
+fn acos(_: f64) -> f64;
+fn atan(_: f64) -> f64;
+fn atan2(_: f64, _: f64) -> f64;
+fn sinh(_: f64) -> f64;
+fn cosh(_: f64) -> f64;
+fn tanh(_: f64) -> f64;
+fn asinh(_: f64) -> f64;
+fn acosh(_: f64) -> f64;
+fn atanh(_: f64) -> f64;
+fn exp(_: f64) -> f64;
+fn exp2(_: f64) -> f64;
+fn log(_: f64) -> f64;
+fn log2(_: f64) -> f64;
+fn log10(_: f64) -> f64;
+fn pow(_: f64, _: f64) -> f64;
+fn sqrt(_: f64) -> f64;
+fn cbrt(_: f64) -> f64;
+fn ceil(_: f64) -> f64;
+fn floor(_: f64) -> f64;
+fn round(_: f64) -> f64;
+fn fabs(_: f64) -> f64;
+fn lean_float_scaleb(_: f64, _: *mut LeanObject) -> f64;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Float32.rs
+fn lean_float32_add(_: f32, _: f32) -> f32;
+fn lean_float32_sub(_: f32, _: f32) -> f32;
+fn lean_float32_mul(_: f32, _: f32) -> f32;
+fn lean_float32_div(_: f32, _: f32) -> f32;
+fn lean_float32_negate(_: f32) -> f32;
+fn lean_float32_of_bits(_: u32) -> f32;
+fn lean_float32_to_bits(_: f32) -> u32;
+fn lean_float32_beq(_: f32, _: f32) -> u8;
+fn lean_float32_decLt(_: f32, _: f32) -> u8;
+fn lean_float32_decLe(_: f32, _: f32) -> u8;
+fn lean_float32_to_string(_: f32) -> *mut LeanObject;
+fn lean_float32_to_uint8(_: f32) -> u8;
+fn lean_float32_to_uint16(_: f32) -> u16;
+fn lean_float32_to_uint32(_: f32) -> u32;
+fn lean_float32_to_uint64(_: f32) -> u64;
+fn lean_float32_to_usize(_: f32) -> usize;
+fn lean_float32_isnan(_: f32) -> u8;
+fn lean_float32_isfinite(_: f32) -> u8;
+fn lean_float32_isinf(_: f32) -> u8;
+fn lean_float32_frexp(_: f32) -> *mut LeanObject;
+fn lean_uint8_to_float32(_: u8) -> f32;
+fn lean_uint16_to_float32(_: u16) -> f32;
+fn lean_uint32_to_float32(_: u32) -> f32;
+fn lean_uint64_to_float32(_: u64) -> f32;
+fn lean_usize_to_float32(_: usize) -> f32;
+fn sinf(_: f32) -> f32;
+fn cosf(_: f32) -> f32;
+fn tanf(_: f32) -> f32;
+fn asinf(_: f32) -> f32;
+fn acosf(_: f32) -> f32;
+fn atanf(_: f32) -> f32;
+fn atan2f(_: f32, _: f32) -> f32;
+fn sinhf(_: f32) -> f32;
+fn coshf(_: f32) -> f32;
+fn tanhf(_: f32) -> f32;
+fn asinhf(_: f32) -> f32;
+fn acoshf(_: f32) -> f32;
+fn atanhf(_: f32) -> f32;
+fn expf(_: f32) -> f32;
+fn exp2f(_: f32) -> f32;
+fn logf(_: f32) -> f32;
+fn log2f(_: f32) -> f32;
+fn log10f(_: f32) -> f32;
+fn powf(_: f32, _: f32) -> f32;
+fn sqrtf(_: f32) -> f32;
+fn cbrtf(_: f32) -> f32;
+fn ceilf(_: f32) -> f32;
+fn floorf(_: f32) -> f32;
+fn roundf(_: f32) -> f32;
+fn fabsf(_: f32) -> f32;
+fn lean_float32_scaleb(_: f32, _: *mut LeanObject) -> f32;
+fn lean_float32_to_float(_: f32) -> f64;
+fn lean_float_to_float32(_: f64) -> f32;
+
+# src/rust/lean_runtime/src/gen/Init/Data/FloatArray/Basic.rs
+fn lean_float_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_float_array_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_empty_float_array(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_float_array_push(_: *mut LeanObject, _: f64) -> *mut LeanObject;
+fn lean_float_array_size(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_sarray_size(_: *mut LeanObject) -> usize;
+fn lean_float_array_uget(_: *mut LeanObject, _: usize) -> f64;
+fn lean_float_array_fget(_: *mut LeanObject, _: *mut LeanObject) -> f64;
+fn lean_float_array_get(_: *mut LeanObject, _: *mut LeanObject) -> f64;
+fn lean_float_array_uset(_: *mut LeanObject, _: usize, _: f64) -> *mut LeanObject;
+fn lean_float_array_fset(_: *mut LeanObject, _: *mut LeanObject, _: f64) -> *mut LeanObject;
+fn lean_float_array_set(_: *mut LeanObject, _: *mut LeanObject, _: f64) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Format/Basic.rs
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_posof(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_offsetofpos(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_pushn(_: *mut LeanObject, _: u32, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Format/Instances.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Format/Syntax.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Int/Basic.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Int/Bitwise/Basic.rs
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Int/DivMod/Basic.rs
+fn lean_int_div_exact(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Int/Gcd.rs
+fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Int/Repr.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Iterators/Consumers/Collect.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Iterators/Consumers/Monadic/Collect.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/BasicAux.rs
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/Control.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/Impl.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/MapIdx.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/Nat/Range.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/Sort/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/Sort/Impl.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/SplitOn/Basic.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/List/ToArrayImpl.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Bitwise/Basic.rs
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Bitwise/Lemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Coprime.rs
+fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Div/Basic.rs
+fn lean_nat_div_exact(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Fold.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Gcd.rs
+fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Lcm.rs
+fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Nat/Log2.rs
+fn lean_nat_log2(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/OfScientific.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_log2(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint64_to_float32(_: u64) -> f32;
+fn lean_float32_scaleb(_: f32, _: *mut LeanObject) -> f32;
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_float_scaleb(_: f64, _: *mut LeanObject) -> f64;
+fn lean_float32_negate(_: f32) -> f32;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Option/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Ord/SInt.rs
+fn lean_int64_dec_lt(_: u64, _: u64) -> u8;
+fn lean_int64_dec_eq(_: u64, _: u64) -> u8;
+fn lean_int16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_int16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_int32_dec_lt(_: u32, _: u32) -> u8;
+fn lean_int32_dec_eq(_: u32, _: u32) -> u8;
+fn lean_int8_dec_lt(_: u8, _: u8) -> u8;
+fn lean_int8_dec_eq(_: u8, _: u8) -> u8;
+fn lean_isize_dec_lt(_: usize, _: usize) -> u8;
+fn lean_isize_dec_eq(_: usize, _: usize) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Ord/String.rs
+fn lean_string_compare(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Ord/UInt.rs
+fn lean_uint16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Order/Factories.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Order/PackageFactories.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Queue.rs
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Random.rs
+fn lean_io_get_random_bytes(_: usize) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Polymorphic/BitVec.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Polymorphic/GetElemTactic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Polymorphic/Internal/SignedBitVec.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Polymorphic/Iterators.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Polymorphic/SInt.rs
+fn lean_int8_of_nat(_: *mut LeanObject) -> u8;
+fn lean_int8_neg(_: u8) -> u8;
+fn lean_int8_add(_: u8, _: u8) -> u8;
+fn lean_int8_dec_eq(_: u8, _: u8) -> u8;
+fn lean_int8_to_int(_: u8) -> *mut LeanObject;
+fn lean_isize_to_int(_: usize) -> *mut LeanObject;
+fn lean_int64_to_int_sint(_: u64) -> *mut LeanObject;
+fn lean_int64_of_nat(_: *mut LeanObject) -> u64;
+fn lean_int64_of_int(_: *mut LeanObject) -> u64;
+fn lean_int16_to_int(_: u16) -> *mut LeanObject;
+fn lean_isize_of_int(_: *mut LeanObject) -> usize;
+fn lean_int32_to_int(_: u32) -> *mut LeanObject;
+fn lean_int64_neg(_: u64) -> u64;
+fn lean_int32_of_nat(_: *mut LeanObject) -> u32;
+fn lean_int32_neg(_: u32) -> u32;
+fn lean_isize_of_nat(_: *mut LeanObject) -> usize;
+fn lean_isize_add(_: usize, _: usize) -> usize;
+fn lean_isize_dec_eq(_: usize, _: usize) -> u8;
+fn lean_int16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_int16_neg(_: u16) -> u16;
+fn lean_int32_add(_: u32, _: u32) -> u32;
+fn lean_int32_dec_eq(_: u32, _: u32) -> u8;
+fn lean_int16_add(_: u16, _: u16) -> u16;
+fn lean_int16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_int8_of_int(_: *mut LeanObject) -> u8;
+fn lean_int64_add(_: u64, _: u64) -> u64;
+fn lean_int64_dec_eq(_: u64, _: u64) -> u8;
+fn lean_int32_of_int(_: *mut LeanObject) -> u32;
+fn lean_int16_of_int(_: *mut LeanObject) -> u16;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Range/Polymorphic/UInt.rs
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_add(_: u16, _: u16) -> u16;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Rat/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div_exact(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_div_exact(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Repr.rs
+fn lean_string_of_usize(_: usize) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_isempty(_: *mut LeanObject) -> u8;
+fn lean_string_foldl( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_tostring(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/SInt/Basic.rs
+fn lean_int8_of_int(_: *mut LeanObject) -> u8;
+fn lean_int8_of_nat(_: *mut LeanObject) -> u8;
+fn lean_int8_to_int(_: u8) -> *mut LeanObject;
+fn lean_int8_neg(_: u8) -> u8;
+fn lean_int8_add(_: u8, _: u8) -> u8;
+fn lean_int8_sub(_: u8, _: u8) -> u8;
+fn lean_int8_mul(_: u8, _: u8) -> u8;
+fn lean_int8_div(_: u8, _: u8) -> u8;
+fn lean_int8_mod(_: u8, _: u8) -> u8;
+fn lean_int8_land(_: u8, _: u8) -> u8;
+fn lean_int8_lor(_: u8, _: u8) -> u8;
+fn lean_int8_xor(_: u8, _: u8) -> u8;
+fn lean_int8_shift_left(_: u8, _: u8) -> u8;
+fn lean_int8_shift_right(_: u8, _: u8) -> u8;
+fn lean_int8_complement(_: u8) -> u8;
+fn lean_int8_abs(_: u8) -> u8;
+fn lean_int8_dec_eq(_: u8, _: u8) -> u8;
+fn lean_bool_to_int8(_: u8) -> u8;
+fn lean_int8_dec_lt(_: u8, _: u8) -> u8;
+fn lean_int8_dec_le(_: u8, _: u8) -> u8;
+fn lean_int16_of_int(_: *mut LeanObject) -> u16;
+fn lean_int16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_int16_to_int(_: u16) -> *mut LeanObject;
+fn lean_int16_to_int8(_: u16) -> u8;
+fn lean_int8_to_int16(_: u8) -> u16;
+fn lean_int16_neg(_: u16) -> u16;
+fn lean_int16_add(_: u16, _: u16) -> u16;
+fn lean_int16_sub(_: u16, _: u16) -> u16;
+fn lean_int16_mul(_: u16, _: u16) -> u16;
+fn lean_int16_div(_: u16, _: u16) -> u16;
+fn lean_int16_mod(_: u16, _: u16) -> u16;
+fn lean_int16_land(_: u16, _: u16) -> u16;
+fn lean_int16_lor(_: u16, _: u16) -> u16;
+fn lean_int16_xor(_: u16, _: u16) -> u16;
+fn lean_int16_shift_left(_: u16, _: u16) -> u16;
+fn lean_int16_shift_right(_: u16, _: u16) -> u16;
+fn lean_int16_complement(_: u16) -> u16;
+fn lean_int16_abs(_: u16) -> u16;
+fn lean_int16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_bool_to_int16(_: u8) -> u16;
+fn lean_int16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_int16_dec_le(_: u16, _: u16) -> u8;
+fn lean_int32_of_int(_: *mut LeanObject) -> u32;
+fn lean_int32_of_nat(_: *mut LeanObject) -> u32;
+fn lean_int32_to_int(_: u32) -> *mut LeanObject;
+fn lean_int32_to_int8(_: u32) -> u8;
+fn lean_int32_to_int16(_: u32) -> u16;
+fn lean_int8_to_int32(_: u8) -> u32;
+fn lean_int16_to_int32(_: u16) -> u32;
+fn lean_int32_neg(_: u32) -> u32;
+fn lean_int32_add(_: u32, _: u32) -> u32;
+fn lean_int32_sub(_: u32, _: u32) -> u32;
+fn lean_int32_mul(_: u32, _: u32) -> u32;
+fn lean_int32_div(_: u32, _: u32) -> u32;
+fn lean_int32_mod(_: u32, _: u32) -> u32;
+fn lean_int32_land(_: u32, _: u32) -> u32;
+fn lean_int32_lor(_: u32, _: u32) -> u32;
+fn lean_int32_xor(_: u32, _: u32) -> u32;
+fn lean_int32_shift_left(_: u32, _: u32) -> u32;
+fn lean_int32_shift_right(_: u32, _: u32) -> u32;
+fn lean_int32_complement(_: u32) -> u32;
+fn lean_int32_abs(_: u32) -> u32;
+fn lean_int32_dec_eq(_: u32, _: u32) -> u8;
+fn lean_bool_to_int32(_: u8) -> u32;
+fn lean_int32_dec_lt(_: u32, _: u32) -> u8;
+fn lean_int32_dec_le(_: u32, _: u32) -> u8;
+fn lean_int64_of_int(_: *mut LeanObject) -> u64;
+fn lean_int64_of_nat(_: *mut LeanObject) -> u64;
+fn lean_int64_to_int_sint(_: u64) -> *mut LeanObject;
+fn lean_int64_to_int8(_: u64) -> u8;
+fn lean_int64_to_int16(_: u64) -> u16;
+fn lean_int64_to_int32(_: u64) -> u32;
+fn lean_int8_to_int64(_: u8) -> u64;
+fn lean_int16_to_int64(_: u16) -> u64;
+fn lean_int32_to_int64(_: u32) -> u64;
+fn lean_int64_neg(_: u64) -> u64;
+fn lean_int64_add(_: u64, _: u64) -> u64;
+fn lean_int64_sub(_: u64, _: u64) -> u64;
+fn lean_int64_mul(_: u64, _: u64) -> u64;
+fn lean_int64_div(_: u64, _: u64) -> u64;
+fn lean_int64_mod(_: u64, _: u64) -> u64;
+fn lean_int64_land(_: u64, _: u64) -> u64;
+fn lean_int64_lor(_: u64, _: u64) -> u64;
+fn lean_int64_xor(_: u64, _: u64) -> u64;
+fn lean_int64_shift_left(_: u64, _: u64) -> u64;
+fn lean_int64_shift_right(_: u64, _: u64) -> u64;
+fn lean_int64_complement(_: u64) -> u64;
+fn lean_int64_abs(_: u64) -> u64;
+fn lean_int64_dec_eq(_: u64, _: u64) -> u8;
+fn lean_bool_to_int64(_: u8) -> u64;
+fn lean_int64_dec_lt(_: u64, _: u64) -> u8;
+fn lean_int64_dec_le(_: u64, _: u64) -> u8;
+fn lean_isize_of_int(_: *mut LeanObject) -> usize;
+fn lean_isize_of_nat(_: *mut LeanObject) -> usize;
+fn lean_isize_to_int(_: usize) -> *mut LeanObject;
+fn lean_isize_to_int8(_: usize) -> u8;
+fn lean_isize_to_int16(_: usize) -> u16;
+fn lean_isize_to_int32(_: usize) -> u32;
+fn lean_isize_to_int64(_: usize) -> u64;
+fn lean_int8_to_isize(_: u8) -> usize;
+fn lean_int16_to_isize(_: u16) -> usize;
+fn lean_int32_to_isize(_: u32) -> usize;
+fn lean_int64_to_isize(_: u64) -> usize;
+fn lean_isize_neg(_: usize) -> usize;
+fn lean_isize_add(_: usize, _: usize) -> usize;
+fn lean_isize_sub(_: usize, _: usize) -> usize;
+fn lean_isize_mul(_: usize, _: usize) -> usize;
+fn lean_isize_div(_: usize, _: usize) -> usize;
+fn lean_isize_mod(_: usize, _: usize) -> usize;
+fn lean_isize_land(_: usize, _: usize) -> usize;
+fn lean_isize_lor(_: usize, _: usize) -> usize;
+fn lean_isize_xor(_: usize, _: usize) -> usize;
+fn lean_isize_shift_left(_: usize, _: usize) -> usize;
+fn lean_isize_shift_right(_: usize, _: usize) -> usize;
+fn lean_isize_complement(_: usize) -> usize;
+fn lean_isize_abs(_: usize) -> usize;
+fn lean_isize_dec_eq(_: usize, _: usize) -> u8;
+fn lean_bool_to_isize(_: u8) -> usize;
+fn lean_isize_dec_lt(_: usize, _: usize) -> u8;
+fn lean_isize_dec_le(_: usize, _: usize) -> u8;
+fn lean_uint16_of_nat_mk(_: *mut LeanObject) -> u16;
+fn lean_usize_of_nat_mk(_: *mut LeanObject) -> usize;
+fn lean_uint32_of_nat_mk(_: *mut LeanObject) -> u32;
+fn lean_uint8_of_nat_mk(_: *mut LeanObject) -> u8;
+fn lean_uint64_of_nat_mk(_: *mut LeanObject) -> u64;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/SInt/Bitwise.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/SInt/Float.rs
+fn lean_float_to_int8(_: f64) -> u8;
+fn lean_float_to_int16(_: f64) -> u16;
+fn lean_float_to_int32(_: f64) -> u32;
+fn lean_float_to_int64(_: f64) -> u64;
+fn lean_float_to_isize(_: f64) -> usize;
+fn lean_int8_to_float(_: u8) -> f64;
+fn lean_int16_to_float(_: u16) -> f64;
+fn lean_int32_to_float(_: u32) -> f64;
+fn lean_int64_to_float(_: u64) -> f64;
+fn lean_isize_to_float(_: usize) -> f64;
+
+# src/rust/lean_runtime/src/gen/Init/Data/SInt/Float32.rs
+fn lean_float32_to_int8(_: f32) -> u8;
+fn lean_float32_to_int16(_: f32) -> u16;
+fn lean_float32_to_int32(_: f32) -> u32;
+fn lean_float32_to_int64(_: f32) -> u64;
+fn lean_float32_to_isize(_: f32) -> usize;
+fn lean_int8_to_float32(_: u8) -> f32;
+fn lean_int16_to_float32(_: u16) -> f32;
+fn lean_int32_to_float32(_: u32) -> f32;
+fn lean_int64_to_float32(_: u64) -> f32;
+fn lean_isize_to_float32(_: usize) -> f32;
+
+# src/rust/lean_runtime/src/gen/Init/Data/SInt/Lemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Slice/Array/Iterator.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Slice/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Slice/List/Iterator.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Slice/Operations.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Basic.rs
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_is_valid_pos(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_get_opt(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_get_bang(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_prev(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Bootstrap.rs
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_posof(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_offsetofpos(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_pushn(_: *mut LeanObject, _: u32, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_isempty(_: *mut LeanObject) -> u8;
+fn lean_string_foldl( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_isprefixof(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_any(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_contains(_: *mut LeanObject, _: u32) -> u8;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_capitalize(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_nextwhile( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_trim(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_intercalate(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_front(_: *mut LeanObject) -> u32;
+fn lean_string_drop(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_dropright(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_tostring(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_drop(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_front(_: *mut LeanObject) -> u32;
+fn lean_substring_takewhile(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_substring_all(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_substring_beq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_substring_isempty(_: *mut LeanObject) -> u8;
+fn lean_substring_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_substring_prev(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_pos_sub(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_pos_min(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Defs.rs
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Extra.rs
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/FindPos.rs
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Iter/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Iter/Intercalate.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Iterator.rs
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_utf8_prev(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Legacy.rs
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Modify.rs
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/OrderInstances.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Pattern/Basic.rs
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Pattern/String.rs
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Search.rs
+fn lean_string_is_valid_pos(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Slice.rs
+fn lean_slice_hash(_: *mut LeanObject) -> u64;
+fn lean_slice_dec_lt(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Stream.rs
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Subslice.rs
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/Substring.rs
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_prev(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_is_valid_pos(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/String/TakeDrop.rs
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ToString/Basic.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_isprefixof(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_any(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ToString/Extra.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/ToString/Name.rs
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_is_valid_pos(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Data/UInt/Basic.rs
+fn lean_bool_to_uint8(_: u8) -> u8;
+fn lean_uint16_add(_: u16, _: u16) -> u16;
+fn lean_uint16_sub(_: u16, _: u16) -> u16;
+fn lean_uint16_mul(_: u16, _: u16) -> u16;
+fn lean_uint16_div(_: u16, _: u16) -> u16;
+fn lean_uint16_mod(_: u16, _: u16) -> u16;
+fn lean_uint16_land(_: u16, _: u16) -> u16;
+fn lean_uint16_lor(_: u16, _: u16) -> u16;
+fn lean_uint16_xor(_: u16, _: u16) -> u16;
+fn lean_uint16_shift_left(_: u16, _: u16) -> u16;
+fn lean_uint16_shift_right(_: u16, _: u16) -> u16;
+fn lean_uint16_complement(_: u16) -> u16;
+fn lean_uint16_neg(_: u16) -> u16;
+fn lean_bool_to_uint16(_: u8) -> u16;
+fn lean_uint16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_le(_: u16, _: u16) -> u8;
+fn lean_bool_to_uint32(_: u8) -> u32;
+fn lean_bool_to_uint64(_: u8) -> u64;
+fn lean_usize_div(_: usize, _: usize) -> usize;
+fn lean_usize_mod(_: usize, _: usize) -> usize;
+fn lean_usize_xor(_: usize, _: usize) -> usize;
+fn lean_usize_to_uint8(_: usize) -> u8;
+fn lean_uint16_to_usize(_: u16) -> usize;
+fn lean_usize_to_uint16(_: usize) -> u16;
+fn lean_usize_to_uint32(_: usize) -> u32;
+fn lean_usize_to_uint64(_: usize) -> u64;
+fn lean_usize_complement(_: usize) -> usize;
+fn lean_usize_neg(_: usize) -> usize;
+fn lean_bool_to_usize(_: u8) -> usize;
+fn lean_uint32_of_nat_mk(_: *mut LeanObject) -> u32;
+fn lean_uint8_of_nat_mk(_: *mut LeanObject) -> u8;
+fn lean_usize_of_nat_mk(_: *mut LeanObject) -> usize;
+fn lean_uint64_of_nat_mk(_: *mut LeanObject) -> u64;
+fn lean_uint16_of_nat_mk(_: *mut LeanObject) -> u16;
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+
+# src/rust/lean_runtime/src/gen/Init/Data/UInt/BasicAux.rs
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_uint16_to_uint8(_: u16) -> u8;
+fn lean_uint8_to_uint16(_: u8) -> u16;
+fn lean_uint32_to_uint16(_: u32) -> u16;
+fn lean_uint16_to_uint32(_: u16) -> u32;
+fn lean_uint64_to_uint16(_: u64) -> u16;
+fn lean_uint16_to_uint64(_: u16) -> u64;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/UInt/Bitwise.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/UInt/Lemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/UInt/Log2.rs
+fn lean_uint8_log2(_: u8) -> u8;
+fn lean_uint16_log2(_: u16) -> u16;
+fn lean_uint32_log2(_: u32) -> u32;
+fn lean_uint64_log2(_: u64) -> u64;
+fn lean_usize_log2(_: usize) -> usize;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Vector/Algebra.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Vector/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_swap( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Vector/OfFn.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Data/Vector/Range.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Dynamic.rs
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/GetElem.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Grind/PP.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Grind/Ring/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/GrindInstances/Ring/SInt.rs
+fn lean_isize_of_int(_: *mut LeanObject) -> usize;
+fn lean_isize_mul(_: usize, _: usize) -> usize;
+fn lean_isize_of_nat(_: *mut LeanObject) -> usize;
+fn lean_int32_of_nat(_: *mut LeanObject) -> u32;
+fn lean_int32_mul(_: u32, _: u32) -> u32;
+fn lean_int16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_int16_mul(_: u16, _: u16) -> u16;
+fn lean_int16_of_int(_: *mut LeanObject) -> u16;
+fn lean_int8_of_int(_: *mut LeanObject) -> u8;
+fn lean_int8_mul(_: u8, _: u8) -> u8;
+fn lean_int32_of_int(_: *mut LeanObject) -> u32;
+fn lean_int8_of_nat(_: *mut LeanObject) -> u8;
+fn lean_int64_of_int(_: *mut LeanObject) -> u64;
+fn lean_int64_mul(_: u64, _: u64) -> u64;
+fn lean_int64_of_nat(_: *mut LeanObject) -> u64;
+
+# src/rust/lean_runtime/src/gen/Init/GrindInstances/Ring/UInt.rs
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_uint16_mul(_: u16, _: u16) -> u16;
+
+# src/rust/lean_runtime/src/gen/Init/LawfulBEqTactics.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/MacroTrace.rs
+fn lean_string_intercalate(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Meta/Defs.rs
+fn lean_version_get_major(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_version_get_minor(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_version_get_patch(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_version_get_is_release(_: *mut LeanObject) -> u8;
+fn lean_version_get_special_desc(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_internal_is_stage0(_: *mut LeanObject) -> u8;
+fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_next(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_any(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_substring_drop(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_all(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_contains(_: *mut LeanObject, _: u32) -> u8;
+fn lean_string_isprefixof(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_isempty(_: *mut LeanObject) -> u8;
+fn lean_string_nextwhile( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_substring_tostring(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_front(_: *mut LeanObject) -> u32;
+fn lean_substring_isempty(_: *mut LeanObject) -> u8;
+fn lean_substring_takewhile(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_pos_min(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_prev(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_front(_: *mut LeanObject) -> u32;
+fn lean_string_drop(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_dropright(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_pos_sub(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_nat_pred(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_substring_beq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_trim(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_intercalate(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_capitalize(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Meta.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Notation.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/NotationExtra.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/Omega/Constraint.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Omega/IntList.rs
+fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Omega/LinearCombo.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Prelude.rs
+fn lean_sorry(_: u8) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pred(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint8_of_nat_mk(_: *mut LeanObject) -> u8;
+fn lean_uint16_of_nat_mk(_: *mut LeanObject) -> u16;
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_uint32_of_nat_mk(_: *mut LeanObject) -> u32;
+fn lean_uint64_of_nat_mk(_: *mut LeanObject) -> u64;
+fn lean_usize_of_nat_mk(_: *mut LeanObject) -> usize;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/ShareCommon.rs
+fn lean_sharecommon_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_sharecommon_hash(_: *mut LeanObject) -> u64;
+fn lean_state_sharecommon( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_sharecommon_quick(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_usize_to_uint64(_: usize) -> u64;
+
+# src/rust/lean_runtime/src/gen/Init/Simproc.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/System/CancelToken.rs
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/System/FilePath.rs
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/System/IO.rs
+fn lean_io_timeit(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_allocprof(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_initializing() -> u8;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_map_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_mono_ms_now() -> *mut LeanObject;
+fn lean_io_mono_nanos_now() -> *mut LeanObject;
+fn lean_io_get_random_bytes(_: usize) -> *mut LeanObject;
+fn lean_io_check_canceled() -> u8;
+fn lean_io_cancel(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_get_task_state(_: *mut LeanObject) -> u8;
+fn lean_io_wait(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_wait_any(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_get_num_heartbeats() -> *mut LeanObject;
+fn lean_io_set_heartbeats(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_get_stdin() -> *mut LeanObject;
+fn lean_get_stdout() -> *mut LeanObject;
+fn lean_get_stderr() -> *mut LeanObject;
+fn lean_get_set_stdin(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_get_set_stdout(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_get_set_stderr(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_mk(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_io_prim_handle_lock(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_io_prim_handle_try_lock(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_io_prim_handle_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_is_tty(_: *mut LeanObject) -> u8;
+fn lean_io_prim_handle_flush(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_rewind(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_truncate(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_read(_: *mut LeanObject, _: usize) -> *mut LeanObject;
+fn lean_io_prim_handle_write(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_get_line(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_prim_handle_put_str(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_realpath(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_remove_file(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_remove_dir(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_create_dir(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_rename(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_hard_link(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_create_tempfile() -> *mut LeanObject;
+fn lean_io_create_tempdir() -> *mut LeanObject;
+fn lean_io_getenv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_app_path() -> *mut LeanObject;
+fn lean_io_current_dir() -> *mut LeanObject;
+fn lean_io_read_dir(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_metadata(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_symlink_metadata(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_get_current_dir() -> *mut LeanObject;
+fn lean_io_process_set_current_dir(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_get_pid() -> u32;
+fn lean_io_process_spawn(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_child_wait(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_child_try_wait(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_child_kill(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_child_take_stdin(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_process_child_pid(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_io_exit(_: u8) -> *mut LeanObject;
+fn lean_io_force_exit(_: u8) -> *mut LeanObject;
+fn lean_io_get_tid() -> u64;
+fn lean_chmod(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_runtime_mark_multi_threaded(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_runtime_mark_persistent(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_runtime_forget(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_runtime_hold(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_byte_array_get(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_dbg_sleep(_: u32, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/System/IOError.rs
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/System/Platform.rs
+fn lean_system_platform_windows(_: *mut LeanObject) -> u8;
+fn lean_system_platform_osx(_: *mut LeanObject) -> u8;
+fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8;
+fn lean_system_platform_target(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/System/Promise.rs
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_option_get_or_block(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_get_task_state(_: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/System/ST.rs
+fn lean_void_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_swap(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_ptr_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Init/System/Uri.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+fn lean_byte_array_uget(_: *mut LeanObject, _: usize) -> u8;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Tactics.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/TacticsExtra.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Task.rs
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/Util.rs
+fn lean_dbg_trace(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_dbg_trace_if_shared(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_dbg_stack_trace(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_dbg_sleep(_: u32, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_is_exclusive_obj(_: *mut LeanObject) -> u8;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Init/WFTactics.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/Basic.rs
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_get_task_state(_: *mut LeanObject) -> u8;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_map_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/ContextAsync.rs
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/DNS.rs
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_dns_get_info(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/Process.rs
+fn lean_uv_chdir(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_set_process_title(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_get_free_memory() -> *mut LeanObject;
+fn lean_uv_get_process_title() -> *mut LeanObject;
+fn lean_uv_os_getpid() -> *mut LeanObject;
+fn lean_uv_cwd() -> *mut LeanObject;
+fn lean_uv_get_total_memory() -> *mut LeanObject;
+fn lean_uv_os_getpriority(_: u64) -> *mut LeanObject;
+fn lean_uv_exepath() -> *mut LeanObject;
+fn lean_uv_os_getppid() -> *mut LeanObject;
+fn lean_uv_get_available_memory() -> *mut LeanObject;
+fn lean_uv_get_constrained_memory() -> *mut LeanObject;
+fn lean_uv_os_setpriority(_: u64, _: u64) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/Select.rs
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_array_swap( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_io_get_random_bytes(_: usize) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/Signal.rs
+fn lean_uv_signal_cancel(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int32_of_nat(_: *mut LeanObject) -> u32;
+fn lean_io_map_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_get_task_state(_: *mut LeanObject) -> u8;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_signal_next(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_signal_stop(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/System.rs
+fn lean_uv_os_environ() -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_hrtime() -> *mut LeanObject;
+fn lean_uv_os_tmpdir() -> *mut LeanObject;
+fn lean_uv_os_uname() -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_cpu_info() -> *mut LeanObject;
+fn lean_uv_uptime() -> *mut LeanObject;
+fn lean_uv_os_get_passwd() -> *mut LeanObject;
+fn lean_uv_os_getenv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_get_group(_: u64) -> *mut LeanObject;
+fn lean_uv_os_homedir() -> *mut LeanObject;
+fn lean_uv_os_unsetenv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_setenv(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_gethostname() -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/TCP.rs
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_new() -> *mut LeanObject;
+fn lean_bool_to_int8(_: u8) -> u8;
+fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: u8, _: u32) -> *mut LeanObject;
+fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_map_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_listen(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_tcp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/Timer.rs
+fn lean_uv_timer_cancel(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_timer_next(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_timer_reset(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_timer_mk(_: u64, _: u8) -> *mut LeanObject;
+fn lean_uv_timer_stop(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Async/UDP.rs
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject;
+fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_send( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_map_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_new() -> *mut LeanObject;
+fn lean_uv_udp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_set_multicast_interface( _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_set_membership( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ByteSlice.rs
+fn lean_byteslice_beq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DHashMap/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DHashMap/Internal/Defs.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DHashMap/Internal/RawLemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DHashMap/Internal/WF.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DHashMap/Raw.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DHashMap/RawLemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Internal/Balancing.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Internal/Lemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Internal/Operations.rs
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Internal/Queries.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Lemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Raw/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Raw/Slice.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/DTreeMap/Slice.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ExtDHashMap/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ExtDTreeMap/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ExtHashMap/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ExtHashSet/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ExtTreeMap/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/ExtTreeSet/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/HashMap/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/HashMap/Raw.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/HashSet/Basic.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/HashSet/Raw.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/Iterators/Consumers/Monadic/Set.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/Iterators/Consumers/Set.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeMap/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeMap/Raw/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeMap/Raw/Slice.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeMap/Slice.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeSet/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeSet/Raw/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeSet/Raw/Slice.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Data/TreeSet/Slice.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Do/PostCond.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Do/Triple/SpecLemmas.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Body/Basic.rs
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Body/Empty.rs
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Body/Full.rs
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Body/Stream.rs
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Chunk.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Headers/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Headers/Name.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Headers/Value.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Headers.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Method.rs
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Request.rs
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Response.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Status.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_dec_le(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/URI/Basic.rs
+fn lean_sarray_dec_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/URI/Encoding.rs
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_byte_array_uget(_: *mut LeanObject, _: usize) -> u8;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_hash(_: *mut LeanObject) -> u64;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/URI/Parser.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_pton_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_pton_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/URI.rs
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Data/Version.rs
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Internal/ChunkedBuffer.rs
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Internal/Encode.rs
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Internal/IndexMultiMap.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Internal/LowerCase.rs
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Internal/String.rs
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Protocol/H1/Error.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Protocol/H1/Message.rs
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Protocol/H1/Parser.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_data(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Protocol/H1/Reader.rs
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Protocol/H1/Writer.rs
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Protocol/H1.rs
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_get(_: *mut LeanObject, _: *mut LeanObject) -> u32;
+fn lean_string_utf8_set(_: *mut LeanObject, _: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_dec_le(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Server/Connection.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_get_current_time() -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_dec_le(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Server.rs
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_listen(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_new() -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Test/Helpers.rs
+fn lean_string_validate_utf8(_: *mut LeanObject) -> u8;
+fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_get_current_time() -> *mut LeanObject;
+fn lean_string_hash(_: *mut LeanObject) -> u64;
+fn lean_uint16_dec_le(_: u16, _: u16) -> u8;
+fn lean_uint16_dec_lt(_: u16, _: u16) -> u8;
+fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_cancel(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_get_task_state(_: *mut LeanObject) -> u8;
+fn lean_io_wait(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+
+# src/rust/lean_runtime/src/gen/Std/Http/Transport.rs
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_copy_slice( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject;
+fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/Do/Triple/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/Parsec/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/Parsec/ByteArray.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/Parsec/String.rs
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/DNS.rs
+fn lean_uv_dns_get_info(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/Loop.rs
+fn lean_uv_event_loop_configure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_event_loop_alive() -> u8;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/Signal.rs
+fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject;
+fn lean_uv_signal_next(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_signal_stop(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_signal_cancel(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/System.rs
+fn lean_uv_get_process_title() -> *mut LeanObject;
+fn lean_uv_set_process_title(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_uptime() -> *mut LeanObject;
+fn lean_uv_os_getpid() -> *mut LeanObject;
+fn lean_uv_os_getppid() -> *mut LeanObject;
+fn lean_uv_cpu_info() -> *mut LeanObject;
+fn lean_uv_cwd() -> *mut LeanObject;
+fn lean_uv_chdir(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_homedir() -> *mut LeanObject;
+fn lean_uv_os_tmpdir() -> *mut LeanObject;
+fn lean_uv_os_get_passwd() -> *mut LeanObject;
+fn lean_uv_os_get_group(_: u64) -> *mut LeanObject;
+fn lean_uv_os_environ() -> *mut LeanObject;
+fn lean_uv_os_getenv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_setenv(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_unsetenv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_os_gethostname() -> *mut LeanObject;
+fn lean_uv_os_getpriority(_: u64) -> *mut LeanObject;
+fn lean_uv_os_setpriority(_: u64, _: u64) -> *mut LeanObject;
+fn lean_uv_os_uname() -> *mut LeanObject;
+fn lean_uv_hrtime() -> *mut LeanObject;
+fn lean_uv_random(_: u64) -> *mut LeanObject;
+fn lean_uv_getrusage() -> *mut LeanObject;
+fn lean_uv_exepath() -> *mut LeanObject;
+fn lean_uv_get_free_memory() -> *mut LeanObject;
+fn lean_uv_get_total_memory() -> *mut LeanObject;
+fn lean_uv_get_constrained_memory() -> *mut LeanObject;
+fn lean_uv_get_available_memory() -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/TCP.rs
+fn lean_uv_tcp_new() -> *mut LeanObject;
+fn lean_uv_tcp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject;
+fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_listen(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: u8, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/Timer.rs
+fn lean_uv_timer_mk(_: u64, _: u8) -> *mut LeanObject;
+fn lean_uv_timer_next(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_timer_reset(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_timer_stop(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_timer_cancel(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Internal/UV/UDP.rs
+fn lean_uv_udp_new() -> *mut LeanObject;
+fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_send( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject;
+fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_uv_udp_set_membership( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_uv_udp_set_multicast_interface( _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Net/Addr.rs
+fn lean_uv_pton_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v4(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_pton_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_ntop_v6(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_uv_interface_addresses() -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_of_nat(_: *mut LeanObject) -> u16;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_uint16_dec_eq(_: u16, _: u16) -> u8;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/CNF.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/Cached.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/If.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/RefVec.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/RefVecOperator/Map.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/RefVecOperator/Zip.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/Relabel.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/AIG/RelabelNat.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/CNF/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/CNF/Dimacs.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sat/CNF/RelabelFin.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/Barrier.rs
+fn lean_io_condvar_wait(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_condvar_notify_all(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_condvar_new() -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/Broadcast.rs
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_wait(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/CancellationContext.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/CancellationToken.rs
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/Channel.rs
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_swap(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_wait(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/Mutex.rs
+fn lean_io_basemutex_new() -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_try_lock(_: *mut LeanObject) -> u8;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_condvar_new() -> *mut LeanObject;
+fn lean_io_condvar_wait(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_condvar_notify_one(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_condvar_notify_all(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/Notify.rs
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_bind_task( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8, ) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/RecursiveMutex.rs
+fn lean_io_baserecmutex_new() -> *mut LeanObject;
+fn lean_io_baserecmutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_baserecmutex_try_lock(_: *mut LeanObject) -> u8;
+fn lean_io_baserecmutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/Semaphore.rs
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_new() -> *mut LeanObject;
+fn lean_st_ref_set(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_promise_resolve(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_lock(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basemutex_unlock(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/SharedMutex.rs
+fn lean_io_basesharedmutex_new() -> *mut LeanObject;
+fn lean_io_basesharedmutex_write(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basesharedmutex_try_write(_: *mut LeanObject) -> u8;
+fn lean_io_basesharedmutex_unlock_write(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basesharedmutex_read(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_basesharedmutex_try_read(_: *mut LeanObject) -> u8;
+fn lean_io_basesharedmutex_unlock_read(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_mk_ref(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_st_ref_get(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Sync/StreamMap.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Basic.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Const.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Expr.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Add.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Extract.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/RotateLeft.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/RotateRight.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ShiftLeft.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ShiftRight.rs
+fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Udiv.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ZeroExtend.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Pred.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Substructure.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Var.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Bitblast/BoolExpr/Basic.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/LRAT/Actions.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/LRAT/Internal/Clause.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/LRAT/Internal/Convert.rs
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/Implementation.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/LRAT/Parser.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/BVDecide/Reflect.rs
+fn lean_mk_array(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Tactic/Do/Syntax.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Date/Basic.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Date/PlainDate.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Date/Unit/Day.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Date/Unit/Month.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Date/Unit/Week.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Date/Unit/Year.rs
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/DateTime/PlainDateTime.rs
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/DateTime/Timestamp.rs
+fn lean_get_current_time() -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/DateTime/WallTime.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/DateTime.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Duration.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Format/Basic.rs
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Format/DateFormat.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Format.rs
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Internal/Bounded.rs
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Internal/UnitVal.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Notation/Spec.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Notation.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Time/PlainTime.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Time/Unit/Basic.rs
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/Database/Basic.rs
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/Database/TZdb.rs
+fn lean_io_getenv(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_memcmp( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> u8;
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_io_realpath(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_utf8_extract( _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, ) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/Database/TzIf.rs
+fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_string_push(_: *mut LeanObject, _: u32) -> *mut LeanObject;
+fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_byte_array_get(_: *mut LeanObject, _: *mut LeanObject) -> u8;
+fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/Database/Windows.rs
+fn lean_windows_get_next_transition(_: *mut LeanObject, _: u64, _: u8) -> *mut LeanObject;
+fn lean_get_windows_local_timezone_id_at(_: u64) -> *mut LeanObject;
+fn lean_int64_of_nat(_: *mut LeanObject) -> u64;
+fn lean_int64_neg(_: u64) -> u64;
+fn lean_int64_to_int_sint(_: u64) -> *mut LeanObject;
+fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int64_dec_le(_: u64, _: u64) -> u8;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/Database.rs
+fn lean_int64_of_nat(_: *mut LeanObject) -> u64;
+fn lean_int64_neg(_: u64) -> u64;
+fn lean_get_windows_local_timezone_id_at(_: u64) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/DateTime.rs
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/Offset.rs
+fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/ZoneRules.rs
+fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned/ZonedDateTime.rs
+fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject;
+
+# src/rust/lean_runtime/src/gen/Std/Time/Zoned.rs
+fn lean_get_current_time() -> *mut LeanObject;

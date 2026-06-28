@@ -135,6 +135,74 @@ if(USE_MIMALLOC)
   FetchContent_MakeAvailable(mimalloc)
 endif()
 
+set(LEAN_STAGE1_SOURCE_DIR "${CMAKE_BINARY_DIR}/stage1-src")
+# If the Rust emitter changes, reconfigure so stage1 picks up the new compiler
+# and regenerates its Rust outputs on the next build.
+set_property(
+  DIRECTORY
+  APPEND
+  PROPERTY
+    CMAKE_CONFIGURE_DEPENDS
+    "${CMAKE_SOURCE_DIR}/src/Lean/Compiler/LCNF/EmitRust.lean"
+    "${CMAKE_SOURCE_DIR}/src/rust/lean_runtime/src/leanh.rs"
+    "${CMAKE_SOURCE_DIR}/srghmascripts/generate_leanh_extern_names.ts"
+)
+find_program(BUN_EXECUTABLE bun REQUIRED)
+execute_process(
+  COMMAND ${BUN_EXECUTABLE} srghmascripts/generate_leanh_extern_names.ts
+  WORKING_DIRECTORY "${LEAN_SOURCE_DIR}"
+  COMMAND_ERROR_IS_FATAL ANY
+)
+# stage1 should build from the upstream C++ tree, but with the current Lean sources and Rust-emission
+# templates overlaid on top.
+file(REMOVE_RECURSE "${LEAN_STAGE1_SOURCE_DIR}")
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E copy_directory "${LEAN_SOURCE_DIR}/origin-master-src" "${LEAN_STAGE1_SOURCE_DIR}"
+)
+file(REMOVE_RECURSE "${LEAN_STAGE1_SOURCE_DIR}/out")
+file(READ "${LEAN_STAGE1_SOURCE_DIR}/CMakeLists.txt" LEAN_STAGE1_CMAKELISTS)
+string(
+  REPLACE
+    "if(NOT STAGE EQUAL 0)\n  add_subdirectory(../tests \"\${CMAKE_CURRENT_BINARY_DIR}/tests\")\nendif()"
+    "if(NOT STAGE EQUAL 0 AND EXISTS \"\${CMAKE_CURRENT_SOURCE_DIR}/../tests\")\n  add_subdirectory(../tests \"\${CMAKE_CURRENT_BINARY_DIR}/tests\")\nendif()"
+    LEAN_STAGE1_CMAKELISTS
+    "${LEAN_STAGE1_CMAKELISTS}"
+)
+string(
+  REPLACE
+    "set(LEAN_EXTRA_LINKER_FLAGS \${LEAN_EXTRA_LINKER_FLAGS_DEFAULT} CACHE STRING \"Additional flags used by the linker\")"
+    "set(LEAN_EXTRA_LINKER_FLAGS \${LEAN_EXTRA_LINKER_FLAGS_DEFAULT} CACHE STRING \"Additional flags used by the linker\")"
+    LEAN_STAGE1_CMAKELISTS
+    "${LEAN_STAGE1_CMAKELISTS}"
+)
+string(
+  REPLACE
+    "configure_file(\${LEAN_SOURCE_DIR}/bin/leanc.in \${CMAKE_BINARY_DIR}/leanc.sh @ONLY)"
+    "set(LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE \"\${LEAN_EXTRA_LINKER_FLAGS}\")\nconfigure_file(\${LEAN_SOURCE_DIR}/bin/leanc.in \${CMAKE_BINARY_DIR}/leanc.sh @ONLY)"
+    LEAN_STAGE1_CMAKELISTS
+    "${LEAN_STAGE1_CMAKELISTS}"
+)
+file(WRITE "${LEAN_STAGE1_SOURCE_DIR}/CMakeLists.txt" "${LEAN_STAGE1_CMAKELISTS}")
+file(GLOB_RECURSE LEAN_STAGE1_OVERLAY_FILES RELATIVE "${LEAN_SOURCE_DIR}/src" "${LEAN_SOURCE_DIR}/src/*")
+list(FILTER LEAN_STAGE1_OVERLAY_FILES EXCLUDE REGEX "^(CMakeLists\\.txt|lean\\.mk\\.in|rust/|runtime/|shell/|library/|util/|include/|initialize/|kernel/)")
+foreach(stage1_overlay_file IN LISTS LEAN_STAGE1_OVERLAY_FILES)
+  set(stage1_overlay_src "${LEAN_SOURCE_DIR}/src/${stage1_overlay_file}")
+  set(stage1_overlay_dst "${LEAN_STAGE1_SOURCE_DIR}/${stage1_overlay_file}")
+  get_filename_component(stage1_overlay_dst_dir "${stage1_overlay_dst}" DIRECTORY)
+  file(MAKE_DIRECTORY "${stage1_overlay_dst_dir}")
+  configure_file("${stage1_overlay_src}" "${stage1_overlay_dst}" COPYONLY)
+endforeach()
+
+file(READ "${LEAN_STAGE1_SOURCE_DIR}/stdlib.make.in" LEAN_STAGE1_STDLIB_MAKE_IN)
+string(
+  REPLACE
+    "libleanmain.rlib"
+    "libleanmain.a"
+    LEAN_STAGE1_STDLIB_MAKE_IN
+    "${LEAN_STAGE1_STDLIB_MAKE_IN}"
+)
+file(WRITE "${LEAN_STAGE1_SOURCE_DIR}/stdlib.make.in" "${LEAN_STAGE1_STDLIB_MAKE_IN}")
+
 if(NOT STAGE1_PREV_STAGE)
   ExternalProject_Add(
     stage0
@@ -155,12 +223,15 @@ if(NOT STAGE1_PREV_STAGE)
 endif()
 ExternalProject_Add(
   stage1
-  SOURCE_DIR "${LEAN_SOURCE_DIR}"
-  SOURCE_SUBDIR src
+  SOURCE_DIR "${LEAN_STAGE1_SOURCE_DIR}"
   BINARY_DIR stage1
   CMAKE_ARGS
     -DSTAGE=1 -DPREV_STAGE=${CMAKE_BINARY_DIR}/stage0
-    -DPREV_STAGE_CMAKE_EXECUTABLE_SUFFIX=${STAGE0_CMAKE_EXECUTABLE_SUFFIX} ${CL_ARGS} ${STAGE1_ARGS}
+    -DPREV_STAGE_CMAKE_EXECUTABLE_SUFFIX=${STAGE0_CMAKE_EXECUTABLE_SUFFIX}
+    ${CL_ARGS}
+    ${STAGE1_ARGS}
+    -DLEAN_SOURCE_DIR=${LEAN_STAGE1_SOURCE_DIR}
+    -DLEAN_RUST_GEN_DIR=${LEAN_SOURCE_DIR}/src/rust/lean_runtime/src/gen
   BUILD_ALWAYS ON
   INSTALL_COMMAND ""
   DEPENDS ${EXTRA_DEPENDS}

@@ -5,35 +5,27 @@ const options = {
     "help": { type: "boolean", short: "h" },
 
     // Summary visibility toggles
-    "show-summary": { type: "boolean" },
     "hide-summary": { type: "boolean" },
-    "show-only-summary": { type: "boolean" },
+    "only-summary": { type: "boolean" },
 
-    // Group visibility presets
-    "extern-all": { type: "boolean" },
-    "extern-none": { type: "boolean" },
-    "export-all": { type: "boolean" },
-    "export-none": { type: "boolean" },
+    // Group visibility filters
+    "only-extern": { type: "boolean" },
+    "only-export": { type: "boolean" },
 
-    // Individual [extern] Leaf toggles
-    "show-extern-ok": { type: "boolean" },
-    "hide-extern-ok": { type: "boolean" },
-    "show-extern-empty": { type: "boolean" },
-    "hide-extern-empty": { type: "boolean" },
-    "show-extern-missing": { type: "boolean" },
-    "hide-extern-missing": { type: "boolean" },
+    // Only Toggles
+    "only-extern-ok": { type: "boolean" },
+    "only-extern-empty": { type: "boolean" },
+    "only-extern-missing": { type: "boolean" },
 
-    // Individual [export] Leaf toggles
-    "show-export-correct": { type: "boolean" },
-    "hide-export-correct": { type: "boolean" },
-    "show-export-wrong": { type: "boolean" },
-    "hide-export-wrong": { type: "boolean" },
-    "show-export-defined": { type: "boolean" },
-    "hide-export-defined": { type: "boolean" },
-    "show-export-externc": { type: "boolean" },
-    "hide-export-externc": { type: "boolean" },
-    "show-export-missing": { type: "boolean" },
-    "hide-export-missing": { type: "boolean" },
+    "only-export-correct": { type: "boolean" },
+    "only-export-wrong": { type: "boolean" },
+    "only-export-defined": { type: "boolean" },
+    "only-export-externc": { type: "boolean" },
+    "only-export-dynamic": { type: "boolean" },
+    "only-export-missing": { type: "boolean" },
+
+    // Stub Generation Option
+    "gen-lean-imports-rs-stubs": { type: "boolean" },
 } as const;
 
 /**
@@ -45,30 +37,29 @@ Usage: ./srghmascripts/exported_imported_lean_rust_fns.ts [options]
 
 Options:
   -h, --help                               Show this help message
+  --gen-lean-imports-rs-stubs            Generate Rust stub files in lean_imports_rs for extern Lean imports
 
   Summary Visibility:
-    --show-summary                         Always print the summary block (default: true)
     --hide-summary                         Do not print the summary block
-    --show-only-summary                    Only print the summary block (hides detail listings)
+    --only-summary                         Only print the summary block (hides all details)
 
-  Group Visibility Presets:
-    --extern-all                           Show all Lean imports from Rust (extern)
-    --extern-none                          Hide all Lean imports from Rust (extern) by default
-    --export-all                           Show all Rust imports from Lean (export)
-    --export-none                          Hide all Rust imports from Lean (export) by default
+  Group Filters:
+    --only-extern                          Only show Lean imports from Rust (extern) details
+    --only-export                          Only show Rust imports from Lean (export) details
 
-  Detailed Leaf Toggles:
+  Detailed Filters (disables other categories when used):
     Lean imports from Rust ([extern]):
-      --show-extern-ok / --hide-extern-ok
-      --show-extern-empty / --hide-extern-empty
-      --show-extern-missing / --hide-extern-missing
+      --only-extern-ok                     Only show "Rust defined this function and function body is not empty (✅)"
+      --only-extern-empty                  Only show "Rust defined this function but function body is empty (⚠️)"
+      --only-extern-missing                Only show "Rust does not define this function (❌)"
 
     Rust should import from Lean ([export]):
-      --show-export-correct / --hide-export-correct
-      --show-export-wrong / --hide-export-wrong
-      --show-export-defined / --hide-export-defined
-      --show-export-externc / --hide-export-externc
-      --show-export-missing / --hide-export-missing
+      --only-export-correct                Only show "Function is found in rust code and import is correct (✅)"
+      --only-export-wrong                  Only show "Function is found in rust code, but import is wrong (⚠️)"
+      --only-export-defined                Only show "Function is found in rust code, but is defined in rust (🛠️)"
+      --only-export-externc                Only show "Function is found inside of extern "C" block / FFI (🔌)"
+      --only-export-dynamic                Only show "Function is referenced via dynamic string lookup (🔍)"
+      --only-export-missing                Only show "Function is not found in rust code (❌)"
 `);
 }
 
@@ -89,7 +80,8 @@ export function validateAndProcessOptions(args: string[]) {
             showSummary: false,
             showDetails: false,
             externConfig: { rustOk: false, rustEmpty: false, rustMissing: false },
-            exportConfig: { importCorrect: false, importWrong: false, definedInRust: false, externC: false, missing: false },
+            exportConfig: { importCorrect: false, importWrong: false, definedInRust: false, externC: false, dynamicLookup: false, missing: false },
+            genLeanImportsRsStubs: false,
         };
     }
 
@@ -97,119 +89,62 @@ export function validateAndProcessOptions(args: string[]) {
         keys.some(k => values[k] !== undefined);
 
     // --- Check 1: Contradictory Summary Parameters ---
-    if (values["show-summary"] && values["hide-summary"]) {
-        throw new Error("Conflict: Cannot specify both --show-summary and --hide-summary.");
-    }
-    if (values["show-only-summary"] && values["hide-summary"]) {
-        throw new Error("Conflict: Cannot specify both --show-only-summary and --hide-summary.");
+    if (values["only-summary"] && values["hide-summary"]) {
+        throw new Error("Conflict: Cannot specify both --only-summary and --hide-summary.");
     }
 
     // --- Check 2: Detail Filtering Redundancy ---
     const detailKeys: (keyof typeof options)[] = [
-        "extern-all", "extern-none", "export-all", "export-none",
-        "show-extern-ok", "hide-extern-ok",
-        "show-extern-empty", "hide-extern-empty",
-        "show-extern-missing", "hide-extern-missing",
-        "show-export-correct", "hide-export-correct",
-        "show-export-wrong", "hide-export-wrong",
-        "show-export-defined", "hide-export-defined",
-        "show-export-externc", "hide-export-externc",
-        "show-export-missing", "hide-export-missing"
+        "only-extern", "only-export",
+        "only-extern-ok", "only-extern-empty", "only-extern-missing",
+        "only-export-correct", "only-export-wrong", "only-export-defined", "only-export-externc", "only-export-dynamic", "only-export-missing"
     ];
 
-    if (values["show-only-summary"] && wasPassed(detailKeys)) {
-        throw new Error("Conflict: Cannot specify individual visibility flags when --show-only-summary is active.");
+    if (values["only-summary"] && wasPassed(detailKeys)) {
+        throw new Error("Conflict: Cannot specify detail filters when --only-summary is active.");
     }
 
     // --- Check 3: Mutually Exclusive Group Presets ---
-    if (values["extern-all"] && values["extern-none"]) {
-        throw new Error("Conflict: Cannot specify both --extern-all and --extern-none.");
-    }
-    if (values["export-all"] && values["export-none"]) {
-        throw new Error("Conflict: Cannot specify both --export-all and --export-none.");
+    if (values["only-extern"] && values["only-export"]) {
+        throw new Error("Conflict: Cannot specify both --only-extern and --only-export.");
     }
 
-    // --- Check 4: Opposite Leaf Toggle Pairs ---
-    const opposingPairs: [keyof typeof options, keyof typeof options][] = [
-        ["show-extern-ok", "hide-extern-ok"],
-        ["show-extern-empty", "hide-extern-empty"],
-        ["show-extern-missing", "hide-extern-missing"],
-        ["show-export-correct", "hide-export-correct"],
-        ["show-export-wrong", "hide-export-wrong"],
-        ["show-export-defined", "hide-export-defined"],
-        ["show-export-externc", "hide-export-externc"],
-        ["show-export-missing", "hide-export-missing"],
-    ];
+    // --- Determine Active Sections ---
+    const hasExternLeaf = wasPassed(["only-extern-ok", "only-extern-empty", "only-extern-missing"]);
+    const hasExportLeaf = wasPassed(["only-export-correct", "only-export-wrong", "only-export-defined", "only-export-externc", "only-export-dynamic", "only-export-missing"]);
 
-    for (const [showKey, hideKey] of opposingPairs) {
-        if (values[showKey] && values[hideKey]) {
-            throw new Error(`Conflict: Cannot specify both --${showKey} and --${hideKey}.`);
-        }
-    }
+    const hasAnyExtern = !!values["only-extern"] || hasExternLeaf;
+    const hasAnyExport = !!values["only-export"] || hasExportLeaf;
+
+    // Show a section's details if we explicitly asked for its details, OR if we didn't filter to only show the other section.
+    const showExternDetails = hasAnyExtern || !hasAnyExport;
+    const showExportDetails = hasAnyExport || !hasAnyExtern;
 
     // --- Options Merging and Resolution ---
-    let showSummary = true;
-    if (values["hide-summary"]) showSummary = false;
-    if (values["show-only-summary"]) showSummary = true;
+    const showSummary = !values["hide-summary"];
+    const showDetails = !values["only-summary"];
 
-    // Initialize defaults
     const externConfig = {
-        rustOk: true,
-        rustEmpty: true,
-        rustMissing: true,
+        rustOk: showExternDetails && (hasExternLeaf ? !!values["only-extern-ok"] : true),
+        rustEmpty: showExternDetails && (hasExternLeaf ? !!values["only-extern-empty"] : true),
+        rustMissing: showExternDetails && (hasExternLeaf ? !!values["only-extern-missing"] : true),
     };
-
-    if (values["extern-none"]) {
-        externConfig.rustOk = false;
-        externConfig.rustEmpty = false;
-        externConfig.rustMissing = false;
-    }
-
-    // Evaluate explicit overrides for Lean-from-Rust (externs)
-    if (values["show-extern-ok"] !== undefined) externConfig.rustOk = values["show-extern-ok"];
-    if (values["hide-extern-ok"] !== undefined) externConfig.rustOk = !values["hide-extern-ok"];
-    if (values["show-extern-empty"] !== undefined) externConfig.rustEmpty = values["show-extern-empty"];
-    if (values["hide-extern-empty"] !== undefined) externConfig.rustEmpty = !values["hide-extern-empty"];
-    if (values["show-extern-missing"] !== undefined) externConfig.rustMissing = values["show-extern-missing"];
-    if (values["hide-extern-missing"] !== undefined) externConfig.rustMissing = !values["hide-extern-missing"];
 
     const exportConfig = {
-        importCorrect: true,
-        importWrong: true,
-        definedInRust: true,
-        externC: true,
-        missing: true,
+        importCorrect: showExportDetails && (hasExportLeaf ? !!values["only-export-correct"] : true),
+        importWrong: showExportDetails && (hasExportLeaf ? !!values["only-export-wrong"] : true),
+        definedInRust: showExportDetails && (hasExportLeaf ? !!values["only-export-defined"] : true),
+        externC: showExportDetails && (hasExportLeaf ? !!values["only-export-externc"] : true),
+        dynamicLookup: showExportDetails && (hasExportLeaf ? !!values["only-export-dynamic"] : true),
+        missing: showExportDetails && (hasExportLeaf ? !!values["only-export-missing"] : true),
     };
-
-    if (values["export-none"]) {
-        exportConfig.importCorrect = false;
-        exportConfig.importWrong = false;
-        exportConfig.definedInRust = false;
-        exportConfig.externC = false;
-        exportConfig.missing = false;
-    }
-
-    // Evaluate explicit overrides for Rust-from-Lean (exports)
-    if (values["show-export-correct"] !== undefined) exportConfig.importCorrect = values["show-export-correct"];
-    if (values["hide-export-correct"] !== undefined) exportConfig.importCorrect = !values["hide-export-correct"];
-
-    if (values["show-export-wrong"] !== undefined) exportConfig.importWrong = values["show-export-wrong"];
-    if (values["hide-export-wrong"] !== undefined) exportConfig.importWrong = !values["hide-export-wrong"];
-
-    if (values["show-export-defined"] !== undefined) exportConfig.definedInRust = values["show-export-defined"];
-    if (values["hide-export-defined"] !== undefined) exportConfig.definedInRust = !values["hide-export-defined"];
-
-    if (values["show-export-externc"] !== undefined) exportConfig.externC = values["show-export-externc"];
-    if (values["hide-export-externc"] !== undefined) exportConfig.externC = !values["hide-export-externc"];
-
-    if (values["show-export-missing"] !== undefined) exportConfig.missing = values["show-export-missing"];
-    if (values["hide-export-missing"] !== undefined) exportConfig.missing = !values["hide-export-missing"];
 
     return {
         help: false,
         showSummary,
-        showDetails: !values["show-only-summary"],
+        showDetails,
         externConfig,
         exportConfig,
+        genLeanImportsRsStubs: !!values["gen-lean-imports-rs-stubs"],
     };
 }

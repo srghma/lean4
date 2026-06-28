@@ -19,3 +19,12 @@ libloading = "0.9"
 
 [lib]
 crate-type = ["rlib"]
+
+[lints.rust]
+unused_imports = "warn"    # Or "deny" to break the build on unused imports
+redundant_imports = "warn" # Or "deny" to break on redundant imports
+
+[lints.clippy]
+missing_safety_doc = "allow"
+wildcard_imports = "deny"
+enum_glob_use = "deny"

@@ -11,10 +11,11 @@ export interface RustSearchResult {
   isDefinition: boolean;
   hasBody: boolean;
   snippet: string;
+  isStringLiteral: boolean;
 }
 
 export interface ExportClassification {
-  status: "correct" | "wrong_import" | "defined_in_rust" | "extern_c";
+  status: "correct" | "wrong_import" | "defined_in_rust" | "extern_c" | "dynamic_lookup";
   snippet: string;
   currentImport?: string;
 }
@@ -157,6 +158,60 @@ export function stripRustComments(content: string): string {
 }
 
 /**
+ * Helper tracking state to determine if a target index lies inside a Rust string literal
+ */
+export function isIndexInRustString(content: string, targetIndex: number): boolean {
+  let i = 0;
+  let insideBlockComment = false;
+  let insideLineComment = false;
+  let insideString = false;
+
+  while (i < content.length) {
+    if (i === targetIndex) {
+      return insideString;
+    }
+
+    const char = content[i];
+    const nextChar = content[i + 1] || "";
+
+    if (insideLineComment) {
+      if (char === "\n") insideLineComment = false;
+      i++;
+    } else if (insideBlockComment) {
+      if (char === "*" && nextChar === "/") {
+        insideBlockComment = false;
+        i += 2;
+      } else {
+        i++;
+      }
+    } else if (insideString) {
+      if (char === "\\") {
+        i += 2;
+      } else if (char === '"') {
+        insideString = false;
+        i++;
+      } else {
+        i++;
+      }
+    } else {
+      if (char === "/" && nextChar === "/") {
+        insideLineComment = true;
+        i += 2;
+      } else if (char === "/" && nextChar === "*") {
+        insideBlockComment = true;
+        i += 2;
+      } else if (char === '"') {
+        insideString = true;
+        i++;
+      } else {
+        i++;
+      }
+    }
+  }
+  return false;
+}
+
+/**
  * Calculates 1-based line number for a character index
  */
 export function getLineNumber(content: string, index: number): number {
@@ -209,14 +264,29 @@ export function checkHasBody(textAfter: string): boolean {
 export function* scanLeanFile(content: string): Generator<LeanOccurrence> {
   const stripped = stripLeanComments(content);
 
-  const attrExternRegex = /\battribute\s+\[\s*extern\s+"([^"]+)"\s*\]\s*([a-zA-Z0-9._']+)/g;
-  for (const match of stripped.matchAll(attrExternRegex)) {
-    yield {
-      type: "extern",
-      symbolName: match[1],
-      leanName: match[2],
-      lineNum: getLineNumber(stripped, match.index!),
-    };
+  const attrRegex = /\battribute\s+\[([^\]]*)\]\s*([a-zA-Z0-9._']+)/g;
+  for (const match of stripped.matchAll(attrRegex)) {
+    const attrs = match[1];
+    const leanName = match[2];
+    const lineNum = getLineNumber(stripped, match.index!);
+
+    for (const externMatch of attrs.matchAll(/\bextern\s+"([^"]+)"/g)) {
+      yield {
+        type: "extern",
+        symbolName: externMatch[1],
+        leanName,
+        lineNum,
+      };
+    }
+
+    for (const exportMatch of attrs.matchAll(/\bexport\s+([a-zA-Z0-9_]+)/g)) {
+      yield {
+        type: "export",
+        symbolName: exportMatch[1],
+        leanName,
+        lineNum,
+      };
+    }
   }
 
   const decoratorExternRegex = /@\[([^\]]*\bextern\s+"([^"]+)"[^\]]*)\]/g;
@@ -269,6 +339,7 @@ export function* findSymbolsInRust(
       const preContext = stripped.substring(Math.max(0, index - 30), index);
       const isDefinition = /\bfn\s+$/.test(preContext) || /\bfn\s*$/.test(preContext);
       const hasBody = isDefinition && checkHasBody(stripped.substring(index + symbol.length));
+      const isStringLiteral = isIndexInRustString(stripped, index);
 
       yield {
         symbol,
@@ -278,6 +349,7 @@ export function* findSymbolsInRust(
           isDefinition,
           hasBody,
           snippet: originalLine.trim(),
+          isStringLiteral,
         },
       };
     }
@@ -285,17 +357,24 @@ export function* findSymbolsInRust(
 }
 
 /**
- * Classifies Rust occurrences of an exported symbol into the 4 validation cases
+ * Classifies Rust occurrences of an exported symbol into standard verification cases
  */
 export function classifyRustLine(
   line: string,
   symbolName: string,
   correctUsePath: string,
   hasBody: boolean,
-  isDefinition: boolean
+  isDefinition: boolean,
+  isStringLiteral: boolean = false
 ): ExportClassification {
   const trimmed = line.trim();
 
+  // Case 1: Mapped via #[link_name = "..."] attributes
+  if (trimmed.includes("#[link_name") && trimmed.includes(symbolName)) {
+    return { status: "extern_c", snippet: trimmed };
+  }
+
+  // Case 2: Defined functions
   if (isDefinition) {
     if (hasBody) {
       return { status: "defined_in_rust", snippet: trimmed };
@@ -304,17 +383,31 @@ export function classifyRustLine(
     }
   }
 
+  // Case 3: use imports
   const isUse = /\buse\s+/.test(trimmed) && trimmed.includes(symbolName);
   if (isUse) {
     const cleanUse = trimmed.replace(/^use\s+/, "").replace(/;$/, "").trim();
+
     const expectedWithCrate = correctUsePath;
     const expectedNoCrate = correctUsePath.replace(/^crate::/, "");
+    const expectedRootUse = `crate::${symbolName}`;
+    const expectedCrossCrate = `lean_runtime::${symbolName}`;
 
-    if (cleanUse === expectedWithCrate || cleanUse === expectedNoCrate) {
+    if (
+      cleanUse === expectedWithCrate ||
+      cleanUse === expectedNoCrate ||
+      cleanUse === expectedRootUse ||
+      cleanUse === expectedCrossCrate
+    ) {
       return { status: "correct", snippet: trimmed };
     } else {
       return { status: "wrong_import", snippet: trimmed, currentImport: trimmed };
     }
+  }
+
+  // Case 4: Matched within string literal context (dlsym, backtrace lookups)
+  if (isStringLiteral) {
+    return { status: "dynamic_lookup", snippet: trimmed };
   }
 
   return { status: "wrong_import", snippet: trimmed, currentImport: trimmed };

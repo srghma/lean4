@@ -13,6 +13,8 @@ endif
 LEAN = lean
 LEANC = leanc
 LEAN_AR = @CMAKE_AR@
+LEAN_RUST_GEN_DIR = @LEAN_RUST_GEN_DIR@
+LEAN_RUST_COMPILER_PATH = @LEAN_RUST_COMPILER_PATH@
 OUT = build
 OLEAN_OUT = $(OUT)
 TEMP_OUT = $(OUT)/temp
@@ -44,6 +46,12 @@ NAT_OBJS = $(patsubst %.lean,$(TEMP_OUT)/%.o,$(shell find $(PKG) $(PKG).lean -na
 ALL_NAT_OBJS = $(patsubst %.lean,$(TEMP_OUT)/%.o,$(SRCS))
 endif
 
+ifneq ($(strip $(LEAN_RUST_COMPILER_PATH)),)
+LEAN_RUST_REGEN_DEPS = $(LEAN_RUST_COMPILER_PATH)
+else
+LEAN_RUST_REGEN_DEPS =
+endif
+
 SHELL = /usr/bin/env bash -euo pipefail
 
 .PHONY: all bin lib depends clean
@@ -64,23 +72,26 @@ $(OLEAN_OUT)/$(PKG) $(LIB_OUT) $(BIN_OUT):
 
 # Make sure the .olean output directory exists so that `lean --deps` knows where this package's
 # .olean files will be located even before any of them are actually built.
-$(TEMP_OUT)/%.depend: %.lean | $(OLEAN_OUT)/$(PKG)
+$(TEMP_OUT)/%.depend: %.lean $(LEAN_RUST_REGEN_DEPS) | $(OLEAN_OUT)/$(PKG)
 	@mkdir -p "$(TEMP_OUT)/$(*D)"
 # convert path separators and newlines on Windows
 	deps=`$(LEAN) --deps $<` || (echo "$(LEAN) --deps $< failed ($$?): $$deps"; exit 1); \
   deps=`echo "$$deps" | tr '\\\\' / | tr -d '\\r'`; \
   echo $(OLEAN_OUT)/$*.olean: $$deps > $@
 
-$(OLEAN_OUT)/%.olean: %.lean $(TEMP_OUT)/%.depend $(MORE_DEPS)
+$(OLEAN_OUT)/%.olean: %.lean $(TEMP_OUT)/%.depend $(MORE_DEPS) $(LEAN_RUST_REGEN_DEPS)
 ifdef CMAKE_LIKE_OUTPUT
 	@echo "[    ] Building $<"
 endif
 	@mkdir -p $(OLEAN_OUT)/$(*D)
 	LEAN_OPTS="$(LEAN_OPTS)"; \
 	[[ -z "$(LLVM)" ]] || LEAN_OPTS+=" --bc=$(TEMP_OUT)/$*.bc.tmp"; \
-	$(LEAN) $$LEAN_OPTS -o "$@" -i "$(OLEAN_OUT)/$*.ilean" --rust="$(TEMP_OUT)/$*.rs.tmp" "$<"
-# create the .rs file atomically
-	@mv "$(TEMP_OUT)/$*.rs.tmp" "$(C_OUT)/$*.rs"
+	$(LEAN) $$LEAN_OPTS -o "$@" -i "$(OLEAN_OUT)/$*.ilean" -c "$(TEMP_OUT)/$*.rs.tmp" "$<"
+# Format generated Rust before publishing it to the checked-in gen tree.
+	@rustfmt --edition 2024 "$(TEMP_OUT)/$*.rs.tmp"
+# create the .rs file atomically in the generated Rust tree
+	@mkdir -p "$(LEAN_RUST_GEN_DIR)/$(*D)"
+	@mv "$(TEMP_OUT)/$*.rs.tmp" "$(LEAN_RUST_GEN_DIR)/$*.rs"
 ifdef LLVM
 	@mv "$(TEMP_OUT)/$*.bc.tmp" "$(BC_OUT)/$*.bc"
 endif

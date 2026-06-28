@@ -1,0 +1,547 @@
+// Lean compiler output
+// Module: Lean.Data.LBool
+// Imports: Init.Data.ToString.Basic
+use crate::r#gen::Init::Data::ToString::Basic::{
+    initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
+};
+use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
+use crate::leanh::{
+    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
+    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
+    LeanTaskObject, LeanThunkObject, lean_alloc_closure, lean_apply_2, lean_apply_4, lean_box,
+    lean_closure_set, lean_ctor_get, lean_dec, lean_dec_ref, lean_inc, lean_inc_ref,
+    lean_io_result_is_error, lean_io_result_mk_ok, lean_unbox, lean_unsigned_to_nat,
+};
+pub static mut l_Lean_instInhabitedLBool_default: u8 = 0;
+pub static mut l_Lean_instInhabitedLBool: u8 = 0;
+pub static l_Lean_instBEqLBool___closed__0_value: LeanClosureObject<0> = LeanClosureObject {
+    m_header: LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<LeanObject>()
+            + core::mem::size_of::<*const core::ffi::c_void>()
+            + 4
+            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+        other: 0,
+        tag: 245,
+    },
+    m_fun: l_Lean_instBEqLBool_beq___boxed as *const core::ffi::c_void,
+    m_arity: 2,
+    m_num_fixed: 0,
+    m_objs: [],
+};
+static mut l_Lean_instBEqLBool___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_instBEqLBool___closed__0_value) as *mut LeanObject;
+pub static mut l_Lean_instBEqLBool: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_instBEqLBool___closed__0_value) as *mut LeanObject;
+pub static l_Lean_LBool_toString___closed__0_value: LeanStringObject<6> = LeanStringObject {
+    m_header: LeanObject {
+        rc: 0,
+        cs_size: (0) as u16,
+        other: 0,
+        tag: 249,
+    },
+    m_size: 6,
+    m_capacity: 6,
+    m_length: 5,
+    m_data: [102, 97, 108, 115, 101, 0],
+};
+static mut l_Lean_LBool_toString___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_LBool_toString___closed__0_value) as *mut LeanObject;
+pub static l_Lean_LBool_toString___closed__1_value: LeanStringObject<5> = LeanStringObject {
+    m_header: LeanObject {
+        rc: 0,
+        cs_size: (0) as u16,
+        other: 0,
+        tag: 249,
+    },
+    m_size: 5,
+    m_capacity: 5,
+    m_length: 4,
+    m_data: [116, 114, 117, 101, 0],
+};
+static mut l_Lean_LBool_toString___closed__1: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_LBool_toString___closed__1_value) as *mut LeanObject;
+pub static l_Lean_LBool_toString___closed__2_value: LeanStringObject<6> = LeanStringObject {
+    m_header: LeanObject {
+        rc: 0,
+        cs_size: (0) as u16,
+        other: 0,
+        tag: 249,
+    },
+    m_size: 6,
+    m_capacity: 6,
+    m_length: 5,
+    m_data: [117, 110, 100, 101, 102, 0],
+};
+static mut l_Lean_LBool_toString___closed__2: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_LBool_toString___closed__2_value) as *mut LeanObject;
+pub static l_Lean_LBool_instToString___closed__0_value: LeanClosureObject<0> = LeanClosureObject {
+    m_header: LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<LeanObject>()
+            + core::mem::size_of::<*const core::ffi::c_void>()
+            + 4
+            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+        other: 0,
+        tag: 245,
+    },
+    m_fun: l_Lean_LBool_toString___boxed as *const core::ffi::c_void,
+    m_arity: 1,
+    m_num_fixed: 0,
+    m_objs: [],
+};
+static mut l_Lean_LBool_instToString___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_LBool_instToString___closed__0_value) as *mut LeanObject;
+pub static mut l_Lean_LBool_instToString: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_LBool_instToString___closed__0_value) as *mut LeanObject;
+pub unsafe fn l_Lean_LBool_ctorIdx(mut v_x_140_: u8) -> *mut LeanObject {
+    match v_x_140_ {
+        0 => {
+            let mut v___x_141_: *mut LeanObject = core::ptr::null_mut();
+            v___x_141_ = lean_unsigned_to_nat(0);
+            return v___x_141_;
+        }
+        1 => {
+            let mut v___x_142_: *mut LeanObject = core::ptr::null_mut();
+            v___x_142_ = lean_unsigned_to_nat(1);
+            return v___x_142_;
+        }
+        _ => {
+            let mut v___x_143_: *mut LeanObject = core::ptr::null_mut();
+            v___x_143_ = lean_unsigned_to_nat(2);
+            return v___x_143_;
+        }
+    }
+}
+pub unsafe fn l_Lean_LBool_ctorIdx___boxed(mut v_x_144_: *mut LeanObject) -> *mut LeanObject {
+    let mut v_x_boxed_145_: u8 = 0;
+    let mut v_res_146_: *mut LeanObject = core::ptr::null_mut();
+    v_x_boxed_145_ = (lean_unbox(v_x_144_) as u8);
+    v_res_146_ = l_Lean_LBool_ctorIdx(v_x_boxed_145_);
+    return v_res_146_;
+}
+pub unsafe fn l_Lean_LBool_toCtorIdx(mut v_x_147_: u8) -> *mut LeanObject {
+    let mut v___x_148_: *mut LeanObject = core::ptr::null_mut();
+    v___x_148_ = l_Lean_LBool_ctorIdx(v_x_147_);
+    return v___x_148_;
+}
+pub unsafe fn l_Lean_LBool_toCtorIdx___boxed(mut v_x_149_: *mut LeanObject) -> *mut LeanObject {
+    let mut v_x_4__boxed_150_: u8 = 0;
+    let mut v_res_151_: *mut LeanObject = core::ptr::null_mut();
+    v_x_4__boxed_150_ = (lean_unbox(v_x_149_) as u8);
+    v_res_151_ = l_Lean_LBool_toCtorIdx(v_x_4__boxed_150_);
+    return v_res_151_;
+}
+pub unsafe fn l_Lean_LBool_ctorElim___redArg(mut v_k_152_: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(v_k_152_);
+    return v_k_152_;
+}
+pub unsafe fn l_Lean_LBool_ctorElim___redArg___boxed(
+    mut v_k_153_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_154_: *mut LeanObject = core::ptr::null_mut();
+    v_res_154_ = l_Lean_LBool_ctorElim___redArg(v_k_153_);
+    lean_dec(v_k_153_);
+    return v_res_154_;
+}
+pub unsafe fn l_Lean_LBool_ctorElim(
+    mut v_motive_155_: *mut LeanObject,
+    mut v_ctorIdx_156_: *mut LeanObject,
+    mut v_t_157_: u8,
+    mut v_h_158_: *mut LeanObject,
+    mut v_k_159_: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(v_k_159_);
+    return v_k_159_;
+}
+pub unsafe fn l_Lean_LBool_ctorElim___boxed(
+    mut v_motive_160_: *mut LeanObject,
+    mut v_ctorIdx_161_: *mut LeanObject,
+    mut v_t_162_: *mut LeanObject,
+    mut v_h_163_: *mut LeanObject,
+    mut v_k_164_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_t_boxed_165_: u8 = 0;
+    let mut v_res_166_: *mut LeanObject = core::ptr::null_mut();
+    v_t_boxed_165_ = (lean_unbox(v_t_162_) as u8);
+    v_res_166_ = l_Lean_LBool_ctorElim(
+        v_motive_160_,
+        v_ctorIdx_161_,
+        v_t_boxed_165_,
+        v_h_163_,
+        v_k_164_,
+    );
+    lean_dec(v_k_164_);
+    lean_dec(v_ctorIdx_161_);
+    return v_res_166_;
+}
+pub unsafe fn l_Lean_LBool_false_elim___redArg(
+    mut v_false_167_: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(v_false_167_);
+    return v_false_167_;
+}
+pub unsafe fn l_Lean_LBool_false_elim___redArg___boxed(
+    mut v_false_168_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_169_: *mut LeanObject = core::ptr::null_mut();
+    v_res_169_ = l_Lean_LBool_false_elim___redArg(v_false_168_);
+    lean_dec(v_false_168_);
+    return v_res_169_;
+}
+pub unsafe fn l_Lean_LBool_false_elim(
+    mut v_motive_170_: *mut LeanObject,
+    mut v_t_171_: u8,
+    mut v_h_172_: *mut LeanObject,
+    mut v_false_173_: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(v_false_173_);
+    return v_false_173_;
+}
+pub unsafe fn l_Lean_LBool_false_elim___boxed(
+    mut v_motive_174_: *mut LeanObject,
+    mut v_t_175_: *mut LeanObject,
+    mut v_h_176_: *mut LeanObject,
+    mut v_false_177_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_t_boxed_178_: u8 = 0;
+    let mut v_res_179_: *mut LeanObject = core::ptr::null_mut();
+    v_t_boxed_178_ = (lean_unbox(v_t_175_) as u8);
+    v_res_179_ = l_Lean_LBool_false_elim(v_motive_174_, v_t_boxed_178_, v_h_176_, v_false_177_);
+    lean_dec(v_false_177_);
+    return v_res_179_;
+}
+pub unsafe fn l_Lean_LBool_true_elim___redArg(mut v_true_180_: *mut LeanObject) -> *mut LeanObject {
+    lean_inc(v_true_180_);
+    return v_true_180_;
+}
+pub unsafe fn l_Lean_LBool_true_elim___redArg___boxed(
+    mut v_true_181_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_182_: *mut LeanObject = core::ptr::null_mut();
+    v_res_182_ = l_Lean_LBool_true_elim___redArg(v_true_181_);
+    lean_dec(v_true_181_);
+    return v_res_182_;
+}
+pub unsafe fn l_Lean_LBool_true_elim(
+    mut v_motive_183_: *mut LeanObject,
+    mut v_t_184_: u8,
+    mut v_h_185_: *mut LeanObject,
+    mut v_true_186_: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(v_true_186_);
+    return v_true_186_;
+}
+pub unsafe fn l_Lean_LBool_true_elim___boxed(
+    mut v_motive_187_: *mut LeanObject,
+    mut v_t_188_: *mut LeanObject,
+    mut v_h_189_: *mut LeanObject,
+    mut v_true_190_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_t_boxed_191_: u8 = 0;
+    let mut v_res_192_: *mut LeanObject = core::ptr::null_mut();
+    v_t_boxed_191_ = (lean_unbox(v_t_188_) as u8);
+    v_res_192_ = l_Lean_LBool_true_elim(v_motive_187_, v_t_boxed_191_, v_h_189_, v_true_190_);
+    lean_dec(v_true_190_);
+    return v_res_192_;
+}
+pub unsafe fn l_Lean_LBool_undef_elim___redArg(
+    mut v_undef_193_: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(v_undef_193_);
+    return v_undef_193_;
+}
+pub unsafe fn l_Lean_LBool_undef_elim___redArg___boxed(
+    mut v_undef_194_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_195_: *mut LeanObject = core::ptr::null_mut();
+    v_res_195_ = l_Lean_LBool_undef_elim___redArg(v_undef_194_);
+    lean_dec(v_undef_194_);
+    return v_res_195_;
+}
+pub unsafe fn l_Lean_LBool_undef_elim(
+    mut v_motive_196_: *mut LeanObject,
+    mut v_t_197_: u8,
+    mut v_h_198_: *mut LeanObject,
+    mut v_undef_199_: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(v_undef_199_);
+    return v_undef_199_;
+}
+pub unsafe fn l_Lean_LBool_undef_elim___boxed(
+    mut v_motive_200_: *mut LeanObject,
+    mut v_t_201_: *mut LeanObject,
+    mut v_h_202_: *mut LeanObject,
+    mut v_undef_203_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_t_boxed_204_: u8 = 0;
+    let mut v_res_205_: *mut LeanObject = core::ptr::null_mut();
+    v_t_boxed_204_ = (lean_unbox(v_t_201_) as u8);
+    v_res_205_ = l_Lean_LBool_undef_elim(v_motive_200_, v_t_boxed_204_, v_h_202_, v_undef_203_);
+    lean_dec(v_undef_203_);
+    return v_res_205_;
+}
+pub unsafe fn _init_l_Lean_instInhabitedLBool_default() -> u8 {
+    let mut v___x_206_: u8 = 0;
+    v___x_206_ = 0;
+    return v___x_206_;
+}
+pub unsafe fn _init_l_Lean_instInhabitedLBool() -> u8 {
+    let mut v___x_207_: u8 = 0;
+    v___x_207_ = 0;
+    return v___x_207_;
+}
+pub unsafe fn l_Lean_instBEqLBool_beq(mut v_x_208_: u8, mut v_y_209_: u8) -> u8 {
+    let mut v___x_210_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_211_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_212_: u8 = 0;
+    v___x_210_ = l_Lean_LBool_ctorIdx(v_x_208_);
+    v___x_211_ = l_Lean_LBool_ctorIdx(v_y_209_);
+    v___x_212_ = lean_nat_dec_eq(v___x_210_, v___x_211_);
+    lean_dec(v___x_211_);
+    lean_dec(v___x_210_);
+    return v___x_212_;
+}
+pub unsafe fn l_Lean_instBEqLBool_beq___boxed(
+    mut v_x_213_: *mut LeanObject,
+    mut v_y_214_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_x_17__boxed_215_: u8 = 0;
+    let mut v_y_18__boxed_216_: u8 = 0;
+    let mut v_res_217_: u8 = 0;
+    let mut v_r_218_: *mut LeanObject = core::ptr::null_mut();
+    v_x_17__boxed_215_ = (lean_unbox(v_x_213_) as u8);
+    v_y_18__boxed_216_ = (lean_unbox(v_y_214_) as u8);
+    v_res_217_ = l_Lean_instBEqLBool_beq(v_x_17__boxed_215_, v_y_18__boxed_216_);
+    v_r_218_ = lean_box((v_res_217_) as usize);
+    return v_r_218_;
+}
+pub unsafe fn l_Lean_LBool_neg(mut v_x_221_: u8) -> u8 {
+    match v_x_221_ {
+        0 => {
+            let mut v___x_222_: u8 = 0;
+            v___x_222_ = 1;
+            return v___x_222_;
+        }
+        1 => {
+            let mut v___x_223_: u8 = 0;
+            v___x_223_ = 0;
+            return v___x_223_;
+        }
+        _ => {
+            return v_x_221_;
+        }
+    }
+}
+pub unsafe fn l_Lean_LBool_neg___boxed(mut v_x_224_: *mut LeanObject) -> *mut LeanObject {
+    let mut v_x_25__boxed_225_: u8 = 0;
+    let mut v_res_226_: u8 = 0;
+    let mut v_r_227_: *mut LeanObject = core::ptr::null_mut();
+    v_x_25__boxed_225_ = (lean_unbox(v_x_224_) as u8);
+    v_res_226_ = l_Lean_LBool_neg(v_x_25__boxed_225_);
+    v_r_227_ = lean_box((v_res_226_) as usize);
+    return v_r_227_;
+}
+pub unsafe fn l_Lean_LBool_and(mut v_x_228_: u8, mut v_x_229_: u8) -> u8 {
+    if v_x_228_ == 1 {
+        return v_x_229_;
+    } else {
+        return v_x_228_;
+    }
+}
+pub unsafe fn l_Lean_LBool_and___boxed(
+    mut v_x_230_: *mut LeanObject,
+    mut v_x_231_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_x_16__boxed_232_: u8 = 0;
+    let mut v_x_17__boxed_233_: u8 = 0;
+    let mut v_res_234_: u8 = 0;
+    let mut v_r_235_: *mut LeanObject = core::ptr::null_mut();
+    v_x_16__boxed_232_ = (lean_unbox(v_x_230_) as u8);
+    v_x_17__boxed_233_ = (lean_unbox(v_x_231_) as u8);
+    v_res_234_ = l_Lean_LBool_and(v_x_16__boxed_232_, v_x_17__boxed_233_);
+    v_r_235_ = lean_box((v_res_234_) as usize);
+    return v_r_235_;
+}
+pub unsafe fn l_Lean_LBool_toString(mut v_x_239_: u8) -> *mut LeanObject {
+    match v_x_239_ {
+        0 => {
+            let mut v___x_240_: *mut LeanObject = core::ptr::null_mut();
+            v___x_240_ = l_Lean_LBool_toString___closed__0;
+            return v___x_240_;
+        }
+        1 => {
+            let mut v___x_241_: *mut LeanObject = core::ptr::null_mut();
+            v___x_241_ = l_Lean_LBool_toString___closed__1;
+            return v___x_241_;
+        }
+        _ => {
+            let mut v___x_242_: *mut LeanObject = core::ptr::null_mut();
+            v___x_242_ = l_Lean_LBool_toString___closed__2;
+            return v___x_242_;
+        }
+    }
+}
+pub unsafe fn l_Lean_LBool_toString___boxed(mut v_x_243_: *mut LeanObject) -> *mut LeanObject {
+    let mut v_x_31__boxed_244_: u8 = 0;
+    let mut v_res_245_: *mut LeanObject = core::ptr::null_mut();
+    v_x_31__boxed_244_ = (lean_unbox(v_x_243_) as u8);
+    v_res_245_ = l_Lean_LBool_toString(v_x_31__boxed_244_);
+    return v_res_245_;
+}
+pub unsafe fn l_Bool_toLBool(mut v_x_248_: u8) -> u8 {
+    if v_x_248_ == 0 {
+        let mut v___x_249_: u8 = 0;
+        v___x_249_ = 0;
+        return v___x_249_;
+    } else {
+        let mut v___x_250_: u8 = 0;
+        v___x_250_ = 1;
+        return v___x_250_;
+    }
+}
+pub unsafe fn l_Bool_toLBool___boxed(mut v_x_251_: *mut LeanObject) -> *mut LeanObject {
+    let mut v_x_18__boxed_252_: u8 = 0;
+    let mut v_res_253_: u8 = 0;
+    let mut v_r_254_: *mut LeanObject = core::ptr::null_mut();
+    v_x_18__boxed_252_ = (lean_unbox(v_x_251_) as u8);
+    v_res_253_ = l_Bool_toLBool(v_x_18__boxed_252_);
+    v_r_254_ = lean_box((v_res_253_) as usize);
+    return v_r_254_;
+}
+pub unsafe fn l_toLBoolM___redArg___lam__0(
+    mut v_toPure_255_: *mut LeanObject,
+    mut v_b_256_: u8,
+) -> *mut LeanObject {
+    let mut v___x_257_: u8 = 0;
+    let mut v___x_258_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_259_: *mut LeanObject = core::ptr::null_mut();
+    v___x_257_ = l_Bool_toLBool(v_b_256_);
+    v___x_258_ = lean_box((v___x_257_) as usize);
+    v___x_259_ = lean_apply_2(v_toPure_255_, lean_box(0), v___x_258_);
+    return v___x_259_;
+}
+pub unsafe fn l_toLBoolM___redArg___lam__0___boxed(
+    mut v_toPure_260_: *mut LeanObject,
+    mut v_b_261_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_b_boxed_262_: u8 = 0;
+    let mut v_res_263_: *mut LeanObject = core::ptr::null_mut();
+    v_b_boxed_262_ = (lean_unbox(v_b_261_) as u8);
+    v_res_263_ = l_toLBoolM___redArg___lam__0(v_toPure_260_, v_b_boxed_262_);
+    return v_res_263_;
+}
+pub unsafe fn l_toLBoolM___redArg(
+    mut v_inst_264_: *mut LeanObject,
+    mut v_x_265_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_toApplicative_266_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_toBind_267_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_toPure_268_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___f_269_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_270_: *mut LeanObject = core::ptr::null_mut();
+    v_toApplicative_266_ = lean_ctor_get(v_inst_264_, 0);
+    lean_inc_ref(v_toApplicative_266_);
+    v_toBind_267_ = lean_ctor_get(v_inst_264_, 1);
+    lean_inc(v_toBind_267_);
+    lean_dec_ref(v_inst_264_);
+    v_toPure_268_ = lean_ctor_get(v_toApplicative_266_, 1);
+    lean_inc(v_toPure_268_);
+    lean_dec_ref(v_toApplicative_266_);
+    v___f_269_ = lean_alloc_closure(
+        l_toLBoolM___redArg___lam__0___boxed as *mut core::ffi::c_void,
+        2,
+        1,
+    );
+    lean_closure_set(v___f_269_, 0, v_toPure_268_);
+    v___x_270_ = lean_apply_4(
+        v_toBind_267_,
+        lean_box(0),
+        lean_box(0),
+        v_x_265_,
+        v___f_269_,
+    );
+    return v___x_270_;
+}
+pub unsafe fn l_toLBoolM(
+    mut v_m_271_: *mut LeanObject,
+    mut v_inst_272_: *mut LeanObject,
+    mut v_x_273_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_toApplicative_274_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_toBind_275_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_toPure_276_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___f_277_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_278_: *mut LeanObject = core::ptr::null_mut();
+    v_toApplicative_274_ = lean_ctor_get(v_inst_272_, 0);
+    lean_inc_ref(v_toApplicative_274_);
+    v_toBind_275_ = lean_ctor_get(v_inst_272_, 1);
+    lean_inc(v_toBind_275_);
+    lean_dec_ref(v_inst_272_);
+    v_toPure_276_ = lean_ctor_get(v_toApplicative_274_, 1);
+    lean_inc(v_toPure_276_);
+    lean_dec_ref(v_toApplicative_274_);
+    v___f_277_ = lean_alloc_closure(
+        l_toLBoolM___redArg___lam__0___boxed as *mut core::ffi::c_void,
+        2,
+        1,
+    );
+    lean_closure_set(v___f_277_, 0, v_toPure_276_);
+    v___x_278_ = lean_apply_4(
+        v_toBind_275_,
+        lean_box(0),
+        lean_box(0),
+        v_x_273_,
+        v___f_277_,
+    );
+    return v___x_278_;
+}
+static mut _G_runtime_initialized: bool = false;
+pub unsafe fn runtime_initialize_Lean_Data_LBool(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_runtime_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_runtime_initialized = true;
+    res = runtime_initialize_Init_Data_ToString_Basic(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    l_Lean_instInhabitedLBool_default = _init_l_Lean_instInhabitedLBool_default();
+    l_Lean_instInhabitedLBool = _init_l_Lean_instInhabitedLBool();
+    return lean_io_result_mk_ok(lean_box(0));
+}
+static mut _G_meta_initialized: bool = false;
+pub unsafe fn meta_initialize_Lean_Data_LBool(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_meta_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_meta_initialized = true;
+    return lean_io_result_mk_ok(lean_box(0));
+}
+static mut _G_initialized: bool = false;
+pub unsafe fn initialize_Lean_Data_LBool(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_initialized = true;
+    res = initialize_Init_Data_ToString_Basic(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Lean_Data_LBool(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = meta_initialize_Lean_Data_LBool(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    return initialize_Lean_Data_LBool(builtin);
+}

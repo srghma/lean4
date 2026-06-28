@@ -64,6 +64,7 @@
             scip-clang
             rustc
             cargo
+            clippy
             rustfmt
             rust-analyzer
             clang-tools

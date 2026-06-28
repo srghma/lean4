@@ -1,0 +1,476 @@
+// Lean compiler output
+// Module: Lean.InternalExceptionId
+// Imports: Init.System.IO Init.Data.ToString.Name Init.Data.ToString.Macro
+use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
+use crate::r#gen::Init::Data::ToString::Macro::{
+    initialize_Init_Data_ToString_Macro, runtime_initialize_Init_Data_ToString_Macro,
+};
+use crate::r#gen::Init::Data::ToString::Name::{
+    initialize_Init_Data_ToString_Name,
+    l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
+    runtime_initialize_Init_Data_ToString_Name,
+};
+use crate::r#gen::Init::System::IO::{
+    initialize_Init_System_IO, runtime_initialize_Init_System_IO,
+};
+use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
+use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
+use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
+use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
+use crate::lean_imports_rs::Init::Prelude::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
+};
+use crate::lean_imports_rs::Init::System::ST::{
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
+use crate::leanh::{
+    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
+    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
+    LeanTaskObject, LeanThunkObject, lean_alloc_ctor, lean_box, lean_ctor_set, lean_dec,
+    lean_dec_ref, lean_io_result_get_value, lean_io_result_is_error, lean_io_result_mk_ok,
+    lean_mark_persistent, lean_obj_once, lean_unbox_usize, lean_unsigned_to_nat,
+};
+pub static mut l_Lean_instInhabitedInternalExceptionId_default: *mut LeanObject =
+    core::ptr::null_mut();
+pub static mut l_Lean_instInhabitedInternalExceptionId: *mut LeanObject = core::ptr::null_mut();
+pub static l_Lean_instBEqInternalExceptionId___closed__0_value: LeanClosureObject<0> =
+    LeanClosureObject {
+        m_header: LeanObject {
+            rc: 0,
+            cs_size: (core::mem::size_of::<LeanObject>()
+                + core::mem::size_of::<*const core::ffi::c_void>()
+                + 4
+                + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            other: 0,
+            tag: 245,
+        },
+        m_fun: l_Lean_instBEqInternalExceptionId_beq___boxed as *const core::ffi::c_void,
+        m_arity: 2,
+        m_num_fixed: 0,
+        m_objs: [],
+    };
+static mut l_Lean_instBEqInternalExceptionId___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_instBEqInternalExceptionId___closed__0_value) as *mut LeanObject;
+pub static mut l_Lean_instBEqInternalExceptionId: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_instBEqInternalExceptionId___closed__0_value) as *mut LeanObject;
+pub static l___private_Lean_InternalExceptionId_0__Lean_initFn___closed__0_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2__value: LeanArrayObject<0> = LeanArrayObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
+static mut l___private_Lean_InternalExceptionId_0__Lean_initFn___closed__0_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_InternalExceptionId_0__Lean_initFn___closed__0_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2__value) as *mut LeanObject;
+pub static l_Lean_registerInternalExceptionId___closed__0_value: LeanStringObject<33> =
+    LeanStringObject {
+        m_header: LeanObject {
+            rc: 0,
+            cs_size: (0) as u16,
+            other: 0,
+            tag: 249,
+        },
+        m_size: 33,
+        m_capacity: 33,
+        m_length: 32,
+        m_data: [
+            105, 110, 118, 97, 108, 105, 100, 32, 105, 110, 116, 101, 114, 110, 97, 108, 32, 101,
+            120, 99, 101, 112, 116, 105, 111, 110, 32, 105, 100, 44, 32, 39, 0,
+        ],
+    };
+static mut l_Lean_registerInternalExceptionId___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_registerInternalExceptionId___closed__0_value) as *mut LeanObject;
+pub static l_Lean_registerInternalExceptionId___closed__1_value: LeanStringObject<24> =
+    LeanStringObject {
+        m_header: LeanObject {
+            rc: 0,
+            cs_size: (0) as u16,
+            other: 0,
+            tag: 249,
+        },
+        m_size: 24,
+        m_capacity: 24,
+        m_length: 23,
+        m_data: [
+            39, 32, 104, 97, 115, 32, 97, 108, 114, 101, 97, 100, 121, 32, 98, 101, 101, 110, 32,
+            117, 115, 101, 100, 0,
+        ],
+    };
+static mut l_Lean_registerInternalExceptionId___closed__1: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_registerInternalExceptionId___closed__1_value) as *mut LeanObject;
+pub static l_Lean_InternalExceptionId_toString___closed__0_value: LeanStringObject<21> =
+    LeanStringObject {
+        m_header: LeanObject {
+            rc: 0,
+            cs_size: (0) as u16,
+            other: 0,
+            tag: 249,
+        },
+        m_size: 21,
+        m_capacity: 21,
+        m_length: 20,
+        m_data: [
+            105, 110, 116, 101, 114, 110, 97, 108, 32, 101, 120, 99, 101, 112, 116, 105, 111, 110,
+            32, 35, 0,
+        ],
+    };
+static mut l_Lean_InternalExceptionId_toString___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_InternalExceptionId_toString___closed__0_value) as *mut LeanObject;
+pub static l_Lean_InternalExceptionId_getName___closed__0_value: LeanStringObject<30> =
+    LeanStringObject {
+        m_header: LeanObject {
+            rc: 0,
+            cs_size: (0) as u16,
+            other: 0,
+            tag: 249,
+        },
+        m_size: 30,
+        m_capacity: 30,
+        m_length: 29,
+        m_data: [
+            105, 110, 118, 97, 108, 105, 100, 32, 105, 110, 116, 101, 114, 110, 97, 108, 32, 101,
+            120, 99, 101, 112, 116, 105, 111, 110, 32, 105, 100, 0,
+        ],
+    };
+static mut l_Lean_InternalExceptionId_getName___closed__0: *mut LeanObject =
+    core::ptr::addr_of!(l_Lean_InternalExceptionId_getName___closed__0_value) as *mut LeanObject;
+static mut l_Lean_InternalExceptionId_getName___closed__1_once: LeanOnceCell = LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Lean_InternalExceptionId_getName___closed__1: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn _init_l_Lean_instInhabitedInternalExceptionId_default() -> *mut LeanObject {
+    let mut v___x_94_: *mut LeanObject = core::ptr::null_mut();
+    v___x_94_ = lean_unsigned_to_nat(0);
+    return v___x_94_;
+}
+pub unsafe fn _init_l_Lean_instInhabitedInternalExceptionId() -> *mut LeanObject {
+    let mut v___x_95_: *mut LeanObject = core::ptr::null_mut();
+    v___x_95_ = lean_unsigned_to_nat(0);
+    return v___x_95_;
+}
+pub unsafe fn l_Lean_instBEqInternalExceptionId_beq(
+    mut v_x_96_: *mut LeanObject,
+    mut v_x_97_: *mut LeanObject,
+) -> u8 {
+    let mut v___x_98_: u8 = 0;
+    v___x_98_ = lean_nat_dec_eq(v_x_96_, v_x_97_);
+    return v___x_98_;
+}
+pub unsafe fn l_Lean_instBEqInternalExceptionId_beq___boxed(
+    mut v_x_99_: *mut LeanObject,
+    mut v_x_100_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_101_: u8 = 0;
+    let mut v_r_102_: *mut LeanObject = core::ptr::null_mut();
+    v_res_101_ = l_Lean_instBEqInternalExceptionId_beq(v_x_99_, v_x_100_);
+    lean_dec(v_x_100_);
+    lean_dec(v_x_99_);
+    v_r_102_ = lean_box((v_res_101_) as usize);
+    return v_r_102_;
+}
+pub unsafe fn l___private_Lean_InternalExceptionId_0__Lean_initFn_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2_()
+-> *mut LeanObject {
+    let mut v___x_108_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_109_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_110_: *mut LeanObject = core::ptr::null_mut();
+    v___x_108_ = l___private_Lean_InternalExceptionId_0__Lean_initFn___closed__0_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2_;
+    v___x_109_ = lean_st_mk_ref(v___x_108_);
+    v___x_110_ = lean_alloc_ctor(0, 1, (0) as u32);
+    lean_ctor_set(v___x_110_, 0, v___x_109_);
+    return v___x_110_;
+}
+pub unsafe fn l___private_Lean_InternalExceptionId_0__Lean_initFn_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2____boxed(
+    mut v_a_111_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_112_: *mut LeanObject = core::ptr::null_mut();
+    v_res_112_ = l___private_Lean_InternalExceptionId_0__Lean_initFn_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2_();
+    return v_res_112_;
+}
+pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_anyMUnsafe_any___at___00Array_contains___at___00Lean_registerInternalExceptionId_spec__0_spec__0(
+    mut v_a_113_: *mut LeanObject,
+    mut v_as_114_: *mut LeanObject,
+    mut v_i_115_: usize,
+    mut v_stop_116_: usize,
+) -> u8 {
+    let mut v___x_117_: u8 = 0;
+    let mut v___x_118_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_119_: u8 = 0;
+    let mut v___x_120_: usize = 0;
+    let mut v___x_121_: usize = 0;
+    let mut v___x_123_: u8 = 0;
+    let mut state = 0;
+    loop {
+        match state {
+            0 => {
+                v___x_117_ = lean_usize_dec_eq(v_i_115_, v_stop_116_);
+                if v___x_117_ == 0 {
+                    v___x_118_ = lean_array_uget_borrowed(v_as_114_, v_i_115_);
+                    v___x_119_ = lean_name_eq(v_a_113_, v___x_118_);
+                    if v___x_119_ == 0 {
+                        v___x_120_ = 1usize;
+                        v___x_121_ = lean_usize_add(v_i_115_, v___x_120_);
+                        v_i_115_ = v___x_121_;
+                        state = 0;
+                        continue;
+                    } else {
+                        return v___x_119_;
+                    }
+                } else {
+                    v___x_123_ = 0;
+                    return v___x_123_;
+                }
+            }
+            _ => {}
+        }
+    }
+}
+pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_anyMUnsafe_any___at___00Array_contains___at___00Lean_registerInternalExceptionId_spec__0_spec__0___boxed(
+    mut v_a_124_: *mut LeanObject,
+    mut v_as_125_: *mut LeanObject,
+    mut v_i_126_: *mut LeanObject,
+    mut v_stop_127_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_i_boxed_128_: usize = 0;
+    let mut v_stop_boxed_129_: usize = 0;
+    let mut v_res_130_: u8 = 0;
+    let mut v_r_131_: *mut LeanObject = core::ptr::null_mut();
+    v_i_boxed_128_ = lean_unbox_usize(v_i_126_);
+    lean_dec(v_i_126_);
+    v_stop_boxed_129_ = lean_unbox_usize(v_stop_127_);
+    lean_dec(v_stop_127_);
+    v_res_130_ = l___private_Init_Data_Array_Basic_0__Array_anyMUnsafe_any___at___00Array_contains___at___00Lean_registerInternalExceptionId_spec__0_spec__0(v_a_124_, v_as_125_, v_i_boxed_128_, v_stop_boxed_129_);
+    lean_dec_ref(v_as_125_);
+    lean_dec(v_a_124_);
+    v_r_131_ = lean_box((v_res_130_) as usize);
+    return v_r_131_;
+}
+pub unsafe fn l_Array_contains___at___00Lean_registerInternalExceptionId_spec__0(
+    mut v_as_132_: *mut LeanObject,
+    mut v_a_133_: *mut LeanObject,
+) -> u8 {
+    let mut v___x_134_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_135_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_136_: u8 = 0;
+    v___x_134_ = lean_unsigned_to_nat(0);
+    v___x_135_ = lean_array_get_size(v_as_132_);
+    v___x_136_ = lean_nat_dec_lt(v___x_134_, v___x_135_);
+    if v___x_136_ == 0 {
+        return v___x_136_;
+    } else {
+        if v___x_136_ == 0 {
+            return v___x_136_;
+        } else {
+            let mut v___x_137_: usize = 0;
+            let mut v___x_138_: usize = 0;
+            let mut v___x_139_: u8 = 0;
+            v___x_137_ = 0usize;
+            v___x_138_ = lean_usize_of_nat(v___x_135_);
+            v___x_139_ = l___private_Init_Data_Array_Basic_0__Array_anyMUnsafe_any___at___00Array_contains___at___00Lean_registerInternalExceptionId_spec__0_spec__0(v_a_133_, v_as_132_, v___x_137_, v___x_138_);
+            return v___x_139_;
+        }
+    }
+}
+pub unsafe fn l_Array_contains___at___00Lean_registerInternalExceptionId_spec__0___boxed(
+    mut v_as_140_: *mut LeanObject,
+    mut v_a_141_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_142_: u8 = 0;
+    let mut v_r_143_: *mut LeanObject = core::ptr::null_mut();
+    v_res_142_ =
+        l_Array_contains___at___00Lean_registerInternalExceptionId_spec__0(v_as_140_, v_a_141_);
+    lean_dec(v_a_141_);
+    lean_dec_ref(v_as_140_);
+    v_r_143_ = lean_box((v_res_142_) as usize);
+    return v_r_143_;
+}
+pub unsafe fn l_Lean_registerInternalExceptionId(
+    mut v_name_146_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v___x_148_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_149_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_150_: u8 = 0;
+    v___x_148_ = l_Lean_internalExceptionsRef;
+    v___x_149_ = lean_st_ref_get(v___x_148_);
+    v___x_150_ =
+        l_Array_contains___at___00Lean_registerInternalExceptionId_spec__0(v___x_149_, v_name_146_);
+    if v___x_150_ == 0 {
+        let mut v___x_151_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_152_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_153_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_154_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_155_: *mut LeanObject = core::ptr::null_mut();
+        v___x_151_ = lean_st_ref_take(v___x_148_);
+        v___x_152_ = lean_array_push(v___x_151_, v_name_146_);
+        v___x_153_ = lean_st_ref_set(v___x_148_, v___x_152_);
+        v___x_154_ = lean_array_get_size(v___x_149_);
+        lean_dec(v___x_149_);
+        v___x_155_ = lean_alloc_ctor(0, 1, (0) as u32);
+        lean_ctor_set(v___x_155_, 0, v___x_154_);
+        return v___x_155_;
+    } else {
+        let mut v___x_156_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_157_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_158_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_159_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_160_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_161_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_162_: *mut LeanObject = core::ptr::null_mut();
+        lean_dec(v___x_149_);
+        v___x_156_ = l_Lean_registerInternalExceptionId___closed__0;
+        v___x_157_ = l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0(
+            v_name_146_,
+            v___x_150_,
+        );
+        v___x_158_ = lean_string_append(v___x_156_, v___x_157_);
+        lean_dec_ref(v___x_157_);
+        v___x_159_ = l_Lean_registerInternalExceptionId___closed__1;
+        v___x_160_ = lean_string_append(v___x_158_, v___x_159_);
+        v___x_161_ = lean_mk_io_user_error(v___x_160_);
+        v___x_162_ = lean_alloc_ctor(1, 1, (0) as u32);
+        lean_ctor_set(v___x_162_, 0, v___x_161_);
+        return v___x_162_;
+    }
+}
+pub unsafe fn l_Lean_registerInternalExceptionId___boxed(
+    mut v_name_163_: *mut LeanObject,
+    mut v_a_164_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_165_: *mut LeanObject = core::ptr::null_mut();
+    v_res_165_ = l_Lean_registerInternalExceptionId(v_name_163_);
+    return v_res_165_;
+}
+pub unsafe fn l_Lean_InternalExceptionId_toString(
+    mut v_id_167_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v___x_168_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_169_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_170_: *mut LeanObject = core::ptr::null_mut();
+    v___x_168_ = l_Lean_InternalExceptionId_toString___closed__0;
+    v___x_169_ = l_Nat_reprFast(v_id_167_);
+    v___x_170_ = lean_string_append(v___x_168_, v___x_169_);
+    lean_dec_ref(v___x_169_);
+    return v___x_170_;
+}
+pub unsafe fn _init_l_Lean_InternalExceptionId_getName___closed__1() -> *mut LeanObject {
+    let mut v___x_172_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_173_: *mut LeanObject = core::ptr::null_mut();
+    v___x_172_ = l_Lean_InternalExceptionId_getName___closed__0;
+    v___x_173_ = lean_mk_io_user_error(v___x_172_);
+    return v___x_173_;
+}
+pub unsafe fn l_Lean_InternalExceptionId_getName(
+    mut v_id_174_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v___x_176_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_177_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_178_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_179_: u8 = 0;
+    v___x_176_ = l_Lean_internalExceptionsRef;
+    v___x_177_ = lean_st_ref_get(v___x_176_);
+    v___x_178_ = lean_array_get_size(v___x_177_);
+    v___x_179_ = lean_nat_dec_lt(v_id_174_, v___x_178_);
+    if v___x_179_ == 0 {
+        let mut v___x_180_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_181_: *mut LeanObject = core::ptr::null_mut();
+        lean_dec(v___x_177_);
+        v___x_180_ = lean_obj_once(
+            core::ptr::addr_of_mut!(l_Lean_InternalExceptionId_getName___closed__1),
+            core::ptr::addr_of_mut!(l_Lean_InternalExceptionId_getName___closed__1_once),
+            _init_l_Lean_InternalExceptionId_getName___closed__1,
+        );
+        v___x_181_ = lean_alloc_ctor(1, 1, (0) as u32);
+        lean_ctor_set(v___x_181_, 0, v___x_180_);
+        return v___x_181_;
+    } else {
+        let mut v___x_182_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_183_: *mut LeanObject = core::ptr::null_mut();
+        v___x_182_ = lean_array_fget(v___x_177_, v_id_174_);
+        lean_dec(v___x_177_);
+        v___x_183_ = lean_alloc_ctor(0, 1, (0) as u32);
+        lean_ctor_set(v___x_183_, 0, v___x_182_);
+        return v___x_183_;
+    }
+}
+pub unsafe fn l_Lean_InternalExceptionId_getName___boxed(
+    mut v_id_184_: *mut LeanObject,
+    mut v_a_185_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_186_: *mut LeanObject = core::ptr::null_mut();
+    v_res_186_ = l_Lean_InternalExceptionId_getName(v_id_184_);
+    lean_dec(v_id_184_);
+    return v_res_186_;
+}
+static mut _G_runtime_initialized: bool = false;
+pub unsafe fn runtime_initialize_Lean_InternalExceptionId(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_runtime_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_runtime_initialized = true;
+    res = runtime_initialize_Init_System_IO(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Init_Data_ToString_Name(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Init_Data_ToString_Macro(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    l_Lean_instInhabitedInternalExceptionId_default =
+        _init_l_Lean_instInhabitedInternalExceptionId_default();
+    lean_mark_persistent(l_Lean_instInhabitedInternalExceptionId_default);
+    l_Lean_instInhabitedInternalExceptionId = _init_l_Lean_instInhabitedInternalExceptionId();
+    lean_mark_persistent(l_Lean_instInhabitedInternalExceptionId);
+    res = l___private_Lean_InternalExceptionId_0__Lean_initFn_00___x40_Lean_InternalExceptionId_3474817028____hygCtx___hyg_2_();
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    l_Lean_internalExceptionsRef = lean_io_result_get_value(res);
+    lean_mark_persistent(l_Lean_internalExceptionsRef);
+    lean_dec_ref(res);
+    return lean_io_result_mk_ok(lean_box(0));
+}
+static mut _G_meta_initialized: bool = false;
+pub unsafe fn meta_initialize_Lean_InternalExceptionId(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_meta_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_meta_initialized = true;
+    return lean_io_result_mk_ok(lean_box(0));
+}
+static mut _G_initialized: bool = false;
+pub unsafe fn initialize_Lean_InternalExceptionId(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_initialized = true;
+    res = initialize_Init_System_IO(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = initialize_Init_Data_ToString_Name(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = initialize_Init_Data_ToString_Macro(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Lean_InternalExceptionId(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = meta_initialize_Lean_InternalExceptionId(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    return initialize_Lean_InternalExceptionId(builtin);
+}

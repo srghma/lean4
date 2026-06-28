@@ -112,12 +112,23 @@ instance : Inhabited OptionDecls := ⟨({} : NameMap OptionDecl)⟩
 
 private builtin_initialize optionDeclsRef : IO.Ref OptionDecls ← IO.mkRef (mkNameMap OptionDecl)
 
+private def OptionDecl.sameDecl (a b : OptionDecl) : Bool :=
+  a.name == b.name &&
+  a.defValue == b.defValue &&
+  a.descr == b.descr &&
+  match a.deprecation?, b.deprecation? with
+  | none, none => true
+  | some a, some b => a.since == b.since && a.text? == b.text?
+  | _, _ => false
+
 @[export lean_register_option]
 def registerOption (name : Name) (decl : OptionDecl) : IO Unit := do
   unless (← initializing) do
     throw (IO.userError "Failed to register option: Options can only be registered during initialization")
   let decls ← optionDeclsRef.get
-  if decls.contains name then
+  if let some decl' := decls.find? name then
+    if decl.sameDecl decl' then
+      return ()
     throw $ IO.userError s!"Invalid option declaration `{name}`: Option already exists"
   optionDeclsRef.set $ decls.insert name decl
 

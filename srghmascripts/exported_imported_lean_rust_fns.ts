@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { Glob } from "bun";
+import { glob } from "node:fs/promises";
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -13,17 +13,33 @@ import {
 } from "./exported_imported_lean_rust_fns/lib";
 import { validateAndProcessOptions, printHelp } from "./exported_imported_lean_rust_fns/parse_args";
 
-const colors = {
-    reset: "\x1b[0m",
-    bold: "\x1b[1m",
-    dim: "\x1b[2m",
-    cyan: "\x1b[36m",
-    green: "\x1b[32m",
-    yellow: "\x1b[33m",
-    red: "\x1b[31m",
-    magenta: "\x1b[35m",
-    blue: "\x1b[34m",
-};
+// Detect if output is being redirected or piped (like to copyq)
+// or if the user has requested no colors via env variables
+const useColors = !!process.stdout.isTTY && !process.env.NO_COLOR;
+
+const colors = useColors
+    ? {
+        reset: "\x1b[0m",
+        bold: "\x1b[1m",
+        dim: "\x1b[2m",
+        cyan: "\x1b[36m",
+        green: "\x1b[32m",
+        yellow: "\x1b[33m",
+        red: "\x1b[31m",
+        magenta: "\x1b[35m",
+        blue: "\x1b[34m",
+    }
+    : {
+        reset: "",
+        bold: "",
+        dim: "",
+        cyan: "",
+        green: "",
+        yellow: "",
+        red: "",
+        magenta: "",
+        blue: "",
+    };
 
 const c = {
     header: (text: string) => `${colors.magenta}${colors.bold}${text}${colors.reset}`,
@@ -35,6 +51,165 @@ const c = {
     warning: (text: string) => `${colors.red}${colors.bold}${text}${colors.reset}`,
     ok: (text: string) => `${colors.green}${text}${colors.reset}`,
     dim: (text: string) => `${colors.dim}${text}${colors.reset}`,
+};
+
+/**
+ * Alignment helper that formats label and value columns uniformly.
+ * Accounts for 2-column terminal display width of emojis to ensure precise margins.
+ */
+const alignLine = (label: string, value: number, valueColorFn?: (val: string) => string): string => {
+    const targetWidth = 78;
+    const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+    const charCount = Array.from(segmenter.segment(label)).length;
+
+    // Explicitly detect 2-cell emojis used in the summary output
+    const emojiRegex = /[✅⚠️❌🛠️🔌🔍]/gu;
+    const emojiCount = (label.match(emojiRegex) || []).length;
+
+    const displayWidth = charCount + emojiCount;
+    const padding = " ".repeat(Math.max(1, targetWidth - displayWidth));
+
+    const formattedValue = valueColorFn ? valueColorFn(value.toString()) : value.toString();
+    return `${label}${padding}${formattedValue}`;
+};
+
+type LeanFileInfo = {
+    relativePath: string;
+    absolutePath: string;
+    moduleName: string;
+    occurrences: LeanOccurrence[];
+    imports: string[];
+};
+
+const stripLeanCommentsKeepLines = (content: string) => {
+    let result = "";
+    let i = 0;
+    let insideBlockComment = 0;
+    let insideLineComment = false;
+    let insideString = false;
+
+    while (i < content.length) {
+        const char = content[i];
+        const nextChar = content[i + 1] || "";
+
+        if (insideLineComment) {
+            if (char === "\n") {
+                insideLineComment = false;
+                result += "\n";
+            } else {
+                result += " ";
+            }
+            i++;
+        } else if (insideBlockComment > 0) {
+            if (char === "/" && nextChar === "-") {
+                insideBlockComment++;
+                result += "  ";
+                i += 2;
+            } else if (char === "-" && nextChar === "/") {
+                insideBlockComment--;
+                result += "  ";
+                i += 2;
+            } else {
+                result += char === "\n" ? "\n" : " ";
+                i++;
+            }
+        } else if (insideString) {
+            if (char === "\\") {
+                result += char + nextChar;
+                i += 2;
+            } else if (char === '"') {
+                insideString = false;
+                result += char;
+                i++;
+            } else {
+                result += char;
+                i++;
+            }
+        } else {
+            if (char === "-" && nextChar === "-") {
+                insideLineComment = true;
+                result += "  ";
+                i += 2;
+            } else if (char === "/" && nextChar === "-") {
+                insideBlockComment = 1;
+                result += "  ";
+                i += 2;
+            } else if (char === '"') {
+                insideString = true;
+                result += char;
+                i++;
+            } else {
+                result += char;
+                i++;
+            }
+        }
+    }
+    return result;
+};
+
+const parseLeanImports = (content: string): string[] => {
+    const cleaned = stripLeanCommentsKeepLines(content);
+    const imports = new Set<string>();
+    for (const line of cleaned.split("\n")) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith("import ")) continue;
+        const rest = trimmed.slice("import ".length).trim();
+        for (const item of rest.split(/\s+/)) {
+            if (item) imports.add(item);
+        }
+    }
+    return [...imports];
+};
+
+const moduleNameFromLeanPath = (absolutePath: string, rootDir: string) => {
+    const rel = path.relative(rootDir, absolutePath).replaceAll(path.sep, "/");
+    return rel.replace(/\.lean$/, "").split("/").join(".");
+};
+
+const topoSortLeanFiles = (files: LeanFileInfo[]) => {
+    const byModule = new Map(files.map((file) => [file.moduleName, file] as const));
+    const inDegree = new Map<string, number>();
+    const reverse = new Map<string, string[]>();
+
+    for (const file of files) {
+        inDegree.set(file.moduleName, 0);
+        reverse.set(file.moduleName, []);
+    }
+
+    for (const file of files) {
+        for (const imp of file.imports) {
+            if (!byModule.has(imp) || imp === file.moduleName) continue;
+            reverse.get(imp)!.push(file.moduleName);
+            inDegree.set(file.moduleName, (inDegree.get(file.moduleName) ?? 0) + 1);
+        }
+    }
+
+    const queue = [...files]
+        .filter((file) => (inDegree.get(file.moduleName) ?? 0) === 0)
+        .map((file) => file.moduleName)
+        .sort();
+    const ordered: string[] = [];
+
+    while (queue.length > 0) {
+        queue.sort();
+        const cur = queue.shift()!;
+        ordered.push(cur);
+        for (const next of reverse.get(cur) ?? []) {
+            const deg = (inDegree.get(next) ?? 0) - 1;
+            inDegree.set(next, deg);
+            if (deg === 0) queue.push(next);
+        }
+    }
+
+    const seen = new Set(ordered);
+    const remaining = files
+        .map((file) => file.moduleName)
+        .filter((name) => !seen.has(name))
+        .sort();
+
+    return [...ordered, ...remaining]
+        .map((name) => byModule.get(name)!)
+        .filter(Boolean);
 };
 
 (async () => {
@@ -51,7 +226,7 @@ const c = {
         process.exit(1);
     }
 
-    const { help, showSummary, showDetails, externConfig, exportConfig } = config;
+    const { help, showSummary, showDetails, externConfig, exportConfig, genLeanImportsRsStubs } = config;
 
     // Handle Help Request
     if (help) {
@@ -63,47 +238,70 @@ const c = {
         console.log(c.dim(`Scanning Lean codebase under: ${leanDir}...`));
     }
 
-    const leanGlob = new Glob("**/*.lean");
-    const rustGlob = new Glob("**/*.rs");
-
     const targetSymbols = new Set<string>();
-    interface LeanFileInfo {
-        relativePath: string;
-        occurrences: LeanOccurrence[];
-    }
     const leanFilesData: LeanFileInfo[] = [];
 
-    // Parse Lean files
-    for (const file of leanGlob.scanSync({ cwd: leanDir, absolute: true })) {
-        try {
-            const content = fs.readFileSync(file, "utf8");
-            const occurrences = Array.from(scanLeanFile(content));
-            if (occurrences.length > 0) {
-                occurrences.forEach(occ => targetSymbols.add(occ.symbolName));
-                leanFilesData.push({
-                    relativePath: path.relative(rootDir, file),
-                    occurrences,
-                });
-            }
-        } catch (e) {
-            console.error(`Warning: Failed to parse Lean file ${file}:`, e);
-        }
+    // Collect all Lean files
+    const leanFilePaths: string[] = [];
+    for await (const file of glob("**/*.lean", { cwd: leanDir })) {
+        leanFilePaths.push(path.join(leanDir, file));
     }
 
-    // Parse Rust files and build matched lookup index
-    const rustIndex = new Map<string, RustSearchResult[]>();
-    for (const file of rustGlob.scanSync({ cwd: rustDir, absolute: true })) {
-        try {
-            const content = fs.readFileSync(file, "utf8");
-            for (const item of findSymbolsInRust(file, content, targetSymbols)) {
-                if (!rustIndex.has(item.symbol)) {
-                    rustIndex.set(item.symbol, []);
+    // Parallelize Lean files parsing
+    await Promise.all(
+        leanFilePaths.map(async (absoluteFile) => {
+            try {
+                const content = await fs.promises.readFile(absoluteFile, "utf8");
+                const occurrences = Array.from(scanLeanFile(content));
+                if (occurrences.length > 0) {
+                    occurrences.forEach(occ => targetSymbols.add(occ.symbolName));
+                    leanFilesData.push({
+                        relativePath: path.relative(rootDir, absoluteFile),
+                        absolutePath: absoluteFile,
+                        moduleName: moduleNameFromLeanPath(absoluteFile, rootDir),
+                        occurrences,
+                        imports: parseLeanImports(content),
+                    });
                 }
-                rustIndex.get(item.symbol)!.push(item.result);
+            } catch (e) {
+                console.error(`Warning: Failed to parse Lean file ${absoluteFile}:`, e);
             }
-        } catch (e) {
-            console.error(`Warning: Failed to parse Rust file ${file}:`, e);
+        })
+    );
+
+    const orderedLeanFilesData = topoSortLeanFiles(leanFilesData);
+
+    // Collect all Rust files
+    const rustFilePaths: string[] = [];
+    for await (const file of glob("**/*.rs", {
+        cwd: rustDir,
+        exclude: (entry) => {
+            return entry.startsWith('lean_runtime/src/gen') || entry.startsWith('lean_runtime/src/lean_imports_rs')
         }
+    })) {
+        rustFilePaths.push(path.join(rustDir, file));
+    }
+
+    // Parallelize Rust files reading and indexing
+    const rustIndex = new Map<string, RustSearchResult[]>();
+    await Promise.all(
+        rustFilePaths.map(async (absoluteFile) => {
+            try {
+                const content = await fs.promises.readFile(absoluteFile, "utf8");
+                for (const item of findSymbolsInRust(absoluteFile, content, targetSymbols)) {
+                    if (!rustIndex.has(item.symbol)) {
+                        rustIndex.set(item.symbol, []);
+                    }
+                    rustIndex.get(item.symbol)!.push(item.result);
+                }
+            } catch (e) {
+                console.error(`Warning: Failed to parse Rust file ${absoluteFile}:`, e);
+            }
+        })
+    );
+
+    if (showDetails) {
+        console.log(c.dim(`Processed ${leanFilesData.length} Lean files and indexed ${rustFilePaths.length} Rust files.`));
     }
 
     const getBestRustMatch = (symbol: string): RustSearchResult | null => {
@@ -120,13 +318,13 @@ const c = {
 
     const stats = {
         extern: { total: 0, ok: 0, empty: 0, missing: 0 },
-        export: { total: 0, ok: 0, wrong: 0, definedRust: 0, externC: 0, missing: 0 },
+        export: { total: 0, ok: 0, wrong: 0, definedRust: 0, externC: 0, dynamicLookup: 0, missing: 0 },
     };
 
     // Section 1: Lean imports from Rust [extern] (Lean <- Rust)
     const externOutputBlocks: { relativePath: string; lines: string[] }[] = [];
 
-    for (const fileData of leanFilesData) {
+    for (const fileData of orderedLeanFilesData) {
         const externs = fileData.occurrences.filter(o => o.type === "extern");
         if (externs.length === 0) continue;
 
@@ -175,7 +373,7 @@ const c = {
     // Section 2: Rust imports from Lean [export] (Lean -> Rust)
     const exportOutputBlocks: { relativePath: string; lines: string[] }[] = [];
 
-    for (const fileData of leanFilesData) {
+    for (const fileData of orderedLeanFilesData) {
         const exports = fileData.occurrences.filter(o => o.type === "export");
         if (exports.length === 0) continue;
 
@@ -194,7 +392,7 @@ const c = {
                 continue;
             }
 
-            const classification = classifyRustLine(match.snippet, occ.symbolName, correctUsePath, match.hasBody, match.isDefinition);
+            const classification = classifyRustLine(match.snippet, occ.symbolName, correctUsePath, match.hasBody, match.isDefinition, match.isStringLiteral);
             const relRust = path.relative(rootDir, match.filePath);
             const linePrefix = `  ${c.line(occ.lineNum)} @[export ${c.symbol(occ.symbolName)}] ${c.name(occ.leanName)} -> ${c.path(relRust)}:${match.lineNum}`;
 
@@ -203,12 +401,26 @@ const c = {
             else if (classification.status === "wrong_import") stats.export.wrong++;
             else if (classification.status === "defined_in_rust") stats.export.definedRust++;
             else if (classification.status === "extern_c") stats.export.externC++;
+            else if (classification.status === "dynamic_lookup") stats.export.dynamicLookup++;
 
             // Evaluate Leaf Filters
             if (classification.status === "correct" && !exportConfig.importCorrect) continue;
             if (classification.status === "wrong_import" && !exportConfig.importWrong) continue;
             if (classification.status === "defined_in_rust" && !exportConfig.definedInRust) continue;
             if (classification.status === "extern_c" && !exportConfig.externC) continue;
+            if (classification.status === "dynamic_lookup" && !exportConfig.dynamicLookup) continue;
+
+            if (classification.status === "correct") {
+                printedLines.push(`${linePrefix} (${classification.snippet}) ✅`);
+            } else if (classification.status === "wrong_import") {
+                printedLines.push(`${linePrefix} -> ⚠️ (Wrong import: \`${classification.snippet}\`, should be \`use ${correctUsePath};\`)`);
+            } else if (classification.status === "defined_in_rust") {
+                printedLines.push(`${linePrefix} -> 🛠️ (Defined in Rust: \`${classification.snippet}\`, should be \`use ${correctUsePath};\`)`);
+            } else if (classification.status === "extern_c") {
+                printedLines.push(`${linePrefix} -> 🔌 (FFI Declaration: \`${classification.snippet}\`) ✅`);
+            } else if (classification.status === "dynamic_lookup") {
+                printedLines.push(`${linePrefix} -> 🔍 (Dynamic string lookup: \`${classification.snippet}\`) ✅`);
+            }
         }
 
         if (printedLines.length > 0) {
@@ -240,20 +452,114 @@ const c = {
         console.log(colors.bold + "========================================================================" + colors.reset);
 
         console.log(`${colors.bold}Lean imports from Rust ([extern]): (Lean <- Rust)${colors.reset}`);
-        console.log(`  Total occurrences:                                                 ${stats.extern.total}`);
-        console.log(`  Rust defined this function and function body is not empty (✅):     ${c.ok(stats.extern.ok.toString())}`);
-        console.log(`  Rust defined this function but function body is empty (⚠️):       ${stats.extern.empty > 0 ? c.warning(stats.extern.empty.toString()) : stats.extern.empty}`);
-        console.log(`  Rust does not define this function (❌):                            ${stats.extern.missing > 0 ? c.warning(stats.extern.missing.toString()) : stats.extern.missing}`);
+        console.log(alignLine(`  Total occurrences:`, stats.extern.total));
+        console.log(alignLine(`  Rust defined this function and function body is not empty (correct) (✅):`, stats.extern.ok, c.ok));
+        console.log(alignLine(`  Rust defined this function but function body is empty (empty) (⚠️):`, stats.extern.empty, c.warning));
+        console.log(alignLine(`  Rust does not define this function (missing) (❌):`, stats.extern.missing, c.warning));
 
         console.log();
 
         console.log(`${colors.bold}Rust should import from Lean ([export]): (Lean -> Rust)${colors.reset}`);
-        console.log(`  Total occurrences:                                                 ${stats.export.total}`);
-        console.log(`  Function is found in rust code and import is correct (✅):          ${c.ok(stats.export.ok.toString())}`);
-        console.log(`  Function is found in rust code, but import is wrong (⚠️):            ${stats.export.wrong > 0 ? c.warning(stats.export.wrong.toString()) : stats.export.wrong}`);
-        console.log(`  Function is found in rust code, but is defined in rust (🛠️):         ${stats.export.definedRust > 0 ? c.warning(stats.export.definedRust.toString()) : stats.export.definedRust}`);
-        console.log(`  Function is found inside of extern "C" block (🔌):                  ${stats.export.externC > 0 ? c.warning(stats.export.externC.toString()) : stats.export.externC}`);
-        console.log(`  Function is not found in rust code (❌):                            ${stats.export.missing > 0 ? c.warning(stats.export.missing.toString()) : stats.export.missing}`);
+        console.log(alignLine(`  Total occurrences:`, stats.export.total));
+        console.log(alignLine(`  Function is found in rust code and import is correct (correct) (✅):`, stats.export.ok, c.ok));
+        console.log(alignLine(`  Function is found in rust code, but import is wrong (wrong) (⚠️):`, stats.export.wrong, c.warning));
+        console.log(alignLine(`  Function is found in rust code, but is defined in rust (defined) (🛠️):`, stats.export.definedRust, c.warning));
+        console.log(alignLine(`  Function is found inside of extern "C" block / FFI (externc) (🔌):`, stats.export.externC, c.ok));
+        console.log(alignLine(`  Function is referenced via dynamic string lookup (dynamic) (🔍):`, stats.export.dynamicLookup, c.ok));
+        console.log(alignLine(`  Function is not found in rust code (missing) (❌):`, stats.export.missing, c.warning));
         console.log(colors.bold + "========================================================================" + colors.reset);
+    }
+
+    // --- SELF-CONSISTENCY INTEGRITY VALIDATION ---
+    const validationErrors: string[] = [];
+
+    // Verification 1: Sum of metrics must equal reported totals
+    const sumExternMetric = stats.extern.ok + stats.extern.empty + stats.extern.missing;
+    if (stats.extern.total !== sumExternMetric) {
+        validationErrors.push(`Extern total (${stats.extern.total}) does not match the sum of its category metrics (${sumExternMetric}).`);
+    }
+
+    const sumExportMetric = stats.export.ok + stats.export.wrong + stats.export.definedRust + stats.export.externC + stats.export.dynamicLookup + stats.export.missing;
+    if (stats.export.total !== sumExportMetric) {
+        validationErrors.push(`Export total (${stats.export.total}) does not match the sum of its category metrics (${sumExportMetric}).`);
+    }
+
+    // Verification 2: Reported totals must match raw occurrences parsed from files
+    const totalParsedExterns = leanFilesData.reduce((acc, f) => acc + f.occurrences.filter(o => o.type === "extern").length, 0);
+    if (stats.extern.total !== totalParsedExterns) {
+        validationErrors.push(`Extern total (${stats.extern.total}) does not match parsed occurrences in Lean codebase (${totalParsedExterns}).`);
+    }
+
+    const totalParsedExports = leanFilesData.reduce((acc, f) => acc + f.occurrences.filter(o => o.type === "export").length, 0);
+    if (stats.export.total !== totalParsedExports) {
+        validationErrors.push(`Export total (${stats.export.total}) does not match parsed occurrences in Lean codebase (${totalParsedExports}).`);
+    }
+
+    // Verification 3: If filters are wide-open, populated output block lines must match totals
+    const isExternUnfiltered = externConfig.rustOk && externConfig.rustEmpty && externConfig.rustMissing;
+    if (isExternUnfiltered) {
+        const totalExternLines = externOutputBlocks.reduce((acc, b) => acc + b.lines.length, 0);
+        if (stats.extern.total !== totalExternLines) {
+            validationErrors.push(`Extern total (${stats.extern.total}) does not match lines in detail output blocks (${totalExternLines}) under unfiltered mode.`);
+        }
+    }
+
+    const isExportUnfiltered = exportConfig.importCorrect && exportConfig.importWrong && exportConfig.definedInRust && exportConfig.externC && exportConfig.dynamicLookup && exportConfig.missing;
+    if (isExportUnfiltered) {
+        const totalExportLines = exportOutputBlocks.reduce((acc, b) => acc + b.lines.length, 0);
+        if (stats.export.total !== totalExportLines) {
+            validationErrors.push(`Export total (${stats.export.total}) does not match lines in detail output blocks (${totalExportLines}) under unfiltered mode.`);
+        }
+    }
+
+    if (validationErrors.length > 0) {
+        console.error(c.warning("\n❌ Validation Mismatch Error: Summary stats and detailed item structures do not align!"));
+        for (const err of validationErrors) {
+            console.error(c.warning(`  - ${err}`));
+        }
+        process.exit(1);
+    }
+
+    // --- STUB GENERATION FOR LEAN IMPORTS ---
+    if (genLeanImportsRsStubs) {
+        console.log(c.header(`\nGenerating Lean-to-Rust stub files under: ${path.join(rootDir, "src/rust/lean_runtime/src/lean_imports_rs")}`));
+        let generatedFileCount = 0;
+
+        for (const fileData of leanFilesData) {
+            const externs = fileData.occurrences.filter(o => o.type === "extern");
+            if (externs.length === 0) continue;
+
+            // Compute relative path from src/
+            let leanRelToSrc = fileData.relativePath;
+            if (leanRelToSrc.startsWith("src/")) {
+                leanRelToSrc = leanRelToSrc.substring(4);
+            }
+
+            const rustStubRelPath = leanRelToSrc.replace(/\.lean$/, ".rs");
+            const stubDestPath = path.join(rootDir, "src/rust/lean_runtime/src/lean_imports_rs", rustStubRelPath);
+
+            // Deduplicate symbols to avoid repeated definitions
+            const uniqueSymbols = Array.from(new Set(externs.map(o => o.symbolName)));
+
+            // Construct file contents
+            let content = `// Generated stub file for Lean FFI imports\n// Source: ${fileData.relativePath}\n\n`;
+            for (const sym of uniqueSymbols) {
+                content += `pub fn ${sym}() {\n    todo!("Stub for ${sym}");\n}\n\n`;
+            }
+
+            // Write file
+            try {
+                const destDir = path.dirname(stubDestPath);
+                if (!fs.existsSync(destDir)) {
+                    fs.mkdirSync(destDir, { recursive: true });
+                }
+                fs.writeFileSync(stubDestPath, content, "utf8");
+                generatedFileCount++;
+            } catch (e) {
+                console.error(c.warning(`Error generating stub file ${stubDestPath}: ${e}`));
+            }
+        }
+
+        console.log(c.ok(`Successfully generated FFI stubs across ${generatedFileCount} files.`));
     }
 })();

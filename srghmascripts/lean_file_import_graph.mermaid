@@ -1,0 +1,37 @@
+graph TD
+  classDef active fill:#d7f7d7,stroke:#277d27,color:#111;
+  classDef ready fill:#fff2b8,stroke:#9f7a00,color:#111;
+  classDef later fill:#eef2f7,stroke:#64748b,color:#111;
+
+  m_Init_Coe["Init.Coe<br/>.rs_, wave 1"];
+  m_Init_Data_Cast["Init.Data.Cast<br/>.rs_, wave 2"];
+  m_Init_Data_Option_Coe["Init.Data.Option.Coe<br/>.rs_, wave 2"];
+  m_Init_MethodSpecsSimp["Init.MethodSpecsSimp<br/>.rs_, wave 1"];
+  m_Init_Notation["Init.Notation<br/>.rs_, wave 2"];
+  m_Init_Prelude["Init.Prelude<br/>.rs"];
+  m_Lake_Config_Kinds["Lake.Config.Kinds<br/>.rs_, wave 1"];
+  m_Lake_Util_Store["Lake.Util.Store<br/>.rs_, wave 1"];
+  m_Lean_Runtime["Lean.Runtime<br/>.rs_, wave 1"];
+  m_Lean_Server_Test_Refs["Lean.Server.Test.Refs<br/>.rs_, wave 1"];
+
+  m_Init_Prelude --> m_Init_Coe;
+  m_Init_Coe --> m_Init_Data_Cast;
+  m_Init_Coe --> m_Init_Data_Option_Coe;
+  m_Init_Prelude --> m_Init_MethodSpecsSimp;
+  m_Init_Coe --> m_Init_Notation;
+  m_Init_Prelude --> m_Init_Notation;
+  m_Init_Prelude --> m_Lake_Config_Kinds;
+  m_Init_Prelude --> m_Lake_Util_Store;
+  m_Init_Prelude --> m_Lean_Runtime;
+  m_Init_Prelude --> m_Lean_Server_Test_Refs;
+
+  class m_Init_Coe ready;
+  class m_Init_Data_Cast later;
+  class m_Init_Data_Option_Coe later;
+  class m_Init_MethodSpecsSimp ready;
+  class m_Init_Notation later;
+  class m_Init_Prelude active;
+  class m_Lake_Config_Kinds ready;
+  class m_Lake_Util_Store ready;
+  class m_Lean_Runtime ready;
+  class m_Lean_Server_Test_Refs ready;

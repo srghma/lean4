@@ -46,7 +46,12 @@ wdOut.txt
 /srghmascripts/*.html
 /srghmascripts/*.dot
 /srghmascripts/*.svg
-/package.json
 /pnpm-lock.yaml
 /node_modules/
 
+/src/build
+
+/src/rust/target/
+/src/rust/lean_runtime/src/gen/.regen-stamp
+# /src/rust/lean_runtime/src/gen/
+# /extern_c_generated_by_old_EmitRust.txt

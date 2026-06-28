@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # used only for building Lean itself
 root=$(dirname $0)
-ldflags=(@LEANC_INTERNAL_LINKER_FLAGS@ "-L$root/lib/lean" @LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE@)
+ldflags=(@LEANC_INTERNAL_LINKER_FLAGS@ "-L$root/lib/lean" @LEAN_EXTRA_LINKER_FLAGS@ @LEAN_EXTRA_LINKER_FLAGS_WITHOUT_RUST_ARCHIVE@)
 for arg in "$@"; do
     # ccache doesn't like linker flags being passed here
     [[ "$arg" = "-c" ]] && ldflags=()

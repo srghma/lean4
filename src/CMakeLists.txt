@@ -688,6 +688,13 @@ else()
   set(LEAN_PATH_SEPARATOR ":")
 endif()
 
+if(NOT DEFINED LEAN_RUST_GEN_DIR)
+  set(LEAN_RUST_GEN_DIR "${CMAKE_SOURCE_DIR}/src/rust/lean_runtime/src/gen")
+endif()
+if(NOT DEFINED LEAN_RUST_COMPILER_PATH)
+  set(LEAN_RUST_COMPILER_PATH "${CMAKE_BINARY_DIR}/bin/lean")
+endif()
+
 # inherit genral options for lean.mk.in and stdlib.make.in
 string(APPEND LEAN_EXTRA_MAKE_OPTS " ${LEAN_EXTRA_OPTS}")
 
@@ -723,7 +730,7 @@ add_subdirectory(shell)
 
 # The relative path doesn't work once the CMakeLists.txt files have been copied into the stage0 dir.
 # Since stage0 needs no tests, we just ignore them instead of fixing the path.
-if(NOT STAGE EQUAL 0)
+if(NOT STAGE EQUAL 0 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../tests")
   add_subdirectory(../tests "${CMAKE_CURRENT_BINARY_DIR}/tests")
 endif()
 

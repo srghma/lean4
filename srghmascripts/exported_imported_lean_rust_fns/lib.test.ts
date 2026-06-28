@@ -6,6 +6,7 @@ import {
     getCorrectRustUsePath,
     stripRustComments,
     stripLeanComments,
+    isIndexInRustString,
     type RustSearchResult
 } from "./lib";
 
@@ -24,6 +25,17 @@ describe("FFI Checker Parser & Classification Engine", () => {
             const stripped = stripRustComments(code);
             expect(stripped).not.toContain("this is a line comment");
             expect(stripped).toContain("fn foo");
+        });
+    });
+
+    describe("String Detection in Rust Context", () => {
+        it("should accurately determine if an index points inside a string literal", () => {
+            const code = 'const A: &str = "symbol_name";\nconst B: u32 = 42;';
+            const indexInside = code.indexOf("symbol_name");
+            const indexOutside = code.indexOf("B");
+
+            expect(isIndexInRustString(code, indexInside)).toBe(true);
+            expect(isIndexInRustString(code, indexOutside)).toBe(false);
         });
     });
 
@@ -48,6 +60,18 @@ describe("FFI Checker Parser & Classification Engine", () => {
             });
         });
 
+        it("should parse [extern] declarations in mixed attribute lists", () => {
+            const code = 'attribute [extern "lean_task_pure", inline] Task.pure';
+            const occurrences = Array.from(scanLeanFile(code));
+            expect(occurrences).toHaveLength(1);
+            expect(occurrences[0]).toEqual({
+                type: "extern",
+                symbolName: "lean_task_pure",
+                leanName: "Task.pure",
+                lineNum: 1
+            });
+        });
+
         it("should parse decorator @[extern] declarations", () => {
             const code = '@[extern "lean_task_pure"] def Task.pure (a : α) : Task α';
             const occurrences = Array.from(scanLeanFile(code));
@@ -56,6 +80,18 @@ describe("FFI Checker Parser & Classification Engine", () => {
                 type: "extern",
                 symbolName: "lean_task_pure",
                 leanName: "Task.pure",
+                lineNum: 1
+            });
+        });
+
+        it("should parse attribute [export] declarations", () => {
+            const code = 'attribute [export lean_enable_initializer_execution] enableInitializerExecution';
+            const occurrences = Array.from(scanLeanFile(code));
+            expect(occurrences).toHaveLength(1);
+            expect(occurrences[0]).toEqual({
+                type: "export",
+                symbolName: "lean_enable_initializer_execution",
+                leanName: "enableInitializerExecution",
                 lineNum: 1
             });
         });
@@ -73,32 +109,56 @@ describe("FFI Checker Parser & Classification Engine", () => {
         });
     });
 
-    describe("Rust Should Import from Lean ([export]) - 5 Verification States", () => {
+    describe("Rust Should Import from Lean ([export]) - Verification States", () => {
         const correctUsePath = "crate::Init::Data::Array::Basic::lean_array_to_list_impl";
 
-        it("State 1 (✅): Function is found in rust code and import is correct", () => {
+        it("State 1 (✅): Function is found in rust code and import is correct (absolute path)", () => {
             const line = "use crate::Init::Data::Array::Basic::lean_array_to_list_impl;";
-            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false);
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false, false);
+            expect(classification.status).toBe("correct");
+        });
+
+        it("State 1b (✅): Function is found in rust code and import is correct (root re-export)", () => {
+            const line = "use crate::lean_array_to_list_impl;";
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false, false);
+            expect(classification.status).toBe("correct");
+        });
+
+        it("State 1c (✅): Function is found in rust code and import is correct (cross-crate runtime resolution)", () => {
+            const line = "use lean_runtime::lean_array_to_list_impl;";
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false, false);
             expect(classification.status).toBe("correct");
         });
 
         it("State 2 (⚠️): Function is found in rust code, but import is wrong", () => {
             const line = "use wrong::module::path::lean_array_to_list_impl;";
-            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false);
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false, false);
             expect(classification.status).toBe("wrong_import");
             expect(classification.currentImport).toBe(line);
         });
 
         it("State 3 (🛠️): Function is found in rust code, but is defined directly in Rust", () => {
             const line = "pub fn lean_array_to_list_impl() { return 0; }";
-            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, true, true);
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, true, true, false);
             expect(classification.status).toBe("defined_in_rust");
         });
 
-        it("State 4 (🔌): Function is found in rust code and is imported inside extern C", () => {
+        it("State 4 (🔌): Function is found inside of standard extern C signature block", () => {
             const line = "fn lean_array_to_list_impl();";
-            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, true);
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, true, false);
             expect(classification.status).toBe("extern_c");
+        });
+
+        it("State 4b (🔌): Function is resolved via link_name attribute", () => {
+            const line = '#[link_name = "lean_array_to_list_impl"]';
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false, false);
+            expect(classification.status).toBe("extern_c");
+        });
+
+        it("State 5 (🔍): Function is resolved via dynamic string lookup", () => {
+            const line = 'c_char_ptr(b"lean_array_to_list_impl\\0")';
+            const classification = classifyRustLine(line, "lean_array_to_list_impl", correctUsePath, false, false, true);
+            expect(classification.status).toBe("dynamic_lookup");
         });
     });
 });
@@ -212,7 +272,7 @@ describe("FFI Checker Parser & Classification Engine", () => {
         });
     });
 
-    describe("E2E Rust to Lean (export) Pipeline - 5 Verification States", () => {
+    describe("E2E Rust to Lean (export) Pipeline - Scenarios", () => {
         const leanFilePath = "src/Init/Data/Array/Basic.lean";
         const leanSource = `
       @[export lean_array_to_list_impl] def Array.toList (a : Array α) : List α
@@ -242,7 +302,7 @@ describe("FFI Checker Parser & Classification Engine", () => {
       // Case 5: lean_array_set is entirely missing from Rust code
     `;
 
-        it("should classify all 5 export scenarios based on the generated indexes", () => {
+        it("should classify export scenarios based on the generated indexes", () => {
             const occurrences = Array.from(scanLeanFile(leanSource));
             const targetSymbols = new Set(occurrences.map(o => o.symbolName));
             const rustIndex = buildMockRustIndex(rustSource, targetSymbols);
@@ -261,7 +321,8 @@ describe("FFI Checker Parser & Classification Engine", () => {
                     occ.symbolName,
                     correctUsePath,
                     bestMatch.hasBody,
-                    bestMatch.isDefinition
+                    bestMatch.isDefinition,
+                    bestMatch.isStringLiteral
                 );
 
                 return {

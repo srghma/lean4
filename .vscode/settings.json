@@ -1,4 +1,7 @@
 {
+  "rust-analyzer.check.allTargets": true,
+  "rust-analyzer.cargo.allTargets": true,
+  "rust-analyzer.cargo.features": "all",
 	"files.insertFinalNewline": true,
 	"files.trimTrailingWhitespace": true,
 	// These require the CMake Tools extension (ms-vscode.cmake-tools).

@@ -21,6 +21,7 @@ import Init.Omega
 import Init.While
 import Lean.Compiler.LCNF.SimpCase
 import Lean.Compiler.LCNF.PrettyPrinter
+import Lean.Compiler.LCNF.EmitRust.LeanhGenerated
 
 namespace Lean.Compiler.LCNF
 
@@ -120,6 +121,7 @@ structure Context where
 
 structure State where
   buf : String := ""
+  leanhImports : Array String := #[]
   varMangleCache : Std.HashMap Name String := {}
   funMangleCache : Std.HashMap Name String := {}
   funInitMangleCache : Std.HashMap Name String := {}
@@ -161,10 +163,25 @@ instance : EmitToString Name where
 instance : EmitToString FVarId where
   toEmitString fvarId := do EmitToString.toEmitString (← getBinderName fvarId)
 
+def addImportName (imports : Array String) (name : String) : Array String :=
+  if imports.contains name then imports else imports.push name
+
+def recordLeanhImport (name : String) : EmitM Unit := do
+  modify fun s => { s with leanhImports := addImportName s.leanhImports name }
+
+def recordLeanhImports (names : Array String) : EmitM Unit := do
+  for name in names do
+    recordLeanhImport name
+
+def shouldImportFromLeanh (name : String) : Bool :=
+  !leanImportsFromRust.contains name && !rustShouldImportFromLean.contains name
+
 def Arg.toRustString (a : Arg .impure) : EmitM String := do
   match a with
   | .fvar fvarId => EmitToString.toEmitString fvarId
-  | .erased => return "lean_box(0)"
+  | .erased =>
+    recordLeanhImport "lean_box"
+    return "lean_box(0)"
 
 instance : EmitToString (Arg .impure) where
   toEmitString a := a.toRustString
@@ -178,16 +195,19 @@ instance : EmitToString (Arg .impure) where
 
 @[inline]
 def emitCApp1 {α : Type} [EmitToString α] (fn : String) (arg : α) : EmitM Unit := do
+  recordLeanhImport fn
   emit fn; emit "("; emit arg; emit ")"
 
 @[inline]
 def emitCApp2 {α β : Type} [EmitToString α] [EmitToString β] (fn : String) (arg1 : α) (arg2 : β) :
     EmitM Unit := do
+  recordLeanhImport fn
   emit fn; emit "("; emit arg1; emit ", "; emit arg2; emit ")"
 
 @[inline]
 def emitCApp3 {α β γ : Type} [EmitToString α] [EmitToString β] [EmitToString γ] (fn : String)
     (arg1 : α) (arg2 : β) (arg3 : γ) : EmitM Unit := do
+  recordLeanhImport fn
   emit fn; emit "("; emit arg1; emit ", "; emit arg2; emit ", "; emit arg3; emit ")"
 
 def toStringArgs (ys : Array (Arg .impure)) : EmitM (List String) :=
@@ -274,46 +294,64 @@ def leanModuleToRustPackage (name : Name) : String :=
   else if s.startsWith "Lake" then "lean_lake"
   else ""
 
-def emitFileHeader : EmitM Unit := do
-  let env ← getEnv
-  let modName ← getModName
-  emitLn "// Lean compiler output"
-  emitLn s!"// Module: {modName}"
-  emit "// Imports:"
-  env.imports.forM fun m => emit (" " ++ toString m.module)
-  emitLn ""
-  emitLn "use lean_runtime::generated_abi::*;"
-  -- Emit `use` imports for all modules whose symbols appear in this module.
-  -- Two sources:
-  --  1. env.imports (direct imports) — ensures dep init functions are in scope.
-  --  2. otherModuleDecls — covers LCNF-inlined refs from transitive deps.
-  let myPkg := leanModuleToRustPackage modName
-  let mut seenMods : Array Name := #[]
-  -- 1. Direct imports
-  for imp in env.imports do
-    let depMod := imp.module
-    if !seenMods.contains depMod then
-      seenMods := seenMods.push depMod
-      let impPkg := leanModuleToRustPackage depMod
-      let rustPath := (toString depMod).replace "." "::"
-      if impPkg == myPkg && !myPkg.isEmpty then
-        emitLn s!"use crate::{rustPath}::*;"
-      else if !impPkg.isEmpty then
-        emitLn s!"use {impPkg}::{rustPath}::*;"
-      -- else: user package; Rust crate imports emitted by emitFnDecls
-  -- 2. otherModuleDecls (handles inlined transitive refs)
-  for sig in (← getOtherModuleDecls) do
-    if let some idx := env.getModuleIdxFor? sig.name then
-      if let some depMod := env.header.moduleNames[idx]? then
-        if !seenMods.contains depMod then
-          seenMods := seenMods.push depMod
-          let impPkg := leanModuleToRustPackage depMod
-          let rustPath := (toString depMod).replace "." "::"
-          if impPkg == myPkg && !myPkg.isEmpty then
-            emitLn s!"use crate::{rustPath}::*;"
-          else if !impPkg.isEmpty then
-            emitLn s!"use {impPkg}::{rustPath}::*;"
-          -- else: user package; Rust crate imports emitted by emitFnDecls
+def leanModuleToRustPath (name : Name) : String :=
+  (toString name).replace "." "::"
+
+def UseGroups := Array (String × Array String)
+
+def addUseItem (groups : UseGroups) (path : String) (item : String) : UseGroups := Id.run do
+  let mut out := #[]
+  let mut inserted := false
+  for group in groups.toList do
+    if group.1 == path then
+      inserted := true
+      if group.2.contains item then
+        out := out.push group
+      else
+        out := out.push (group.1, group.2.push item)
+    else
+      out := out.push group
+  if inserted then out else out.push (path, #[item])
+
+def addUseItemFrom (groups : UseGroups) (root : String) (modName : Name) (item : String) :
+    UseGroups :=
+  addUseItem groups s!"{root}::{leanModuleToRustPath modName}" item
+
+def formatUseGroup (path : String) (items : Array String) : String :=
+  let items := items.qsort (· < ·)
+  if h : items.size = 0 then
+    ""
+  else if h : items.size = 1 then
+    s!"use {path}::{items[0]};"
+  else
+    "use " ++ path ++ "::{" ++ String.intercalate ", " items.toList ++ "};"
+
+def emitUseGroups (groups : UseGroups) : EmitM Unit := do
+  for group in groups.toList do
+    let line := formatUseGroup group.1 group.2
+    unless line.isEmpty do
+      emitLn line
+
+def leanhImportPlaceholder : String := "/* __LEANH_IMPORTS__ */"
+
+private def leanhTypeImportNames : Array String := #[
+  "LeanArrayObject",
+  "LeanClosureObject",
+  "LeanCtorObject",
+  "LeanExternalClass",
+  "LeanExternalObject",
+  "LeanObject",
+  "LeanOnceCell",
+  "LeanPromiseObject",
+  "LeanRefObject",
+  "LeanScalarArray",
+  "LeanStringObject",
+  "LeanTaskObject",
+  "LeanThunkObject"
+]
+
+def formatLeanhImport (imports : Array String) : String :=
+  formatUseGroup "crate::leanh" imports
 
 def ctorScalarSizeExpression (usize : Nat) (ssize : Nat) : String :=
   if usize == 0 then
@@ -488,375 +526,62 @@ def paramsWithoutVoid (ps : Array (Param .impure)) :=
 def paramsWithoutErased (ps : Array (Param .impure)) :=
   ps.filter (!·.type.isErased)
 
--- Names already provided by the runtime import; must not be re-declared.
--- This list covers both the low-level functions imported via `use lean_runtime::generated_abi::*;`
--- and any other names that should not appear in per-module declaration blocks.
--- BEGIN GENERATED headerExternNames
-private def headerExternNames : Array String := #[
-  "lean_alloc_array",
-  "lean_alloc_closure",
-  "lean_alloc_ctor",
-  "lean_alloc_sarray",
-  "lean_apply_1",
-  "lean_apply_10",
-  "lean_apply_11",
-  "lean_apply_12",
-  "lean_apply_13",
-  "lean_apply_14",
-  "lean_apply_15",
-  "lean_apply_16",
-  "lean_apply_2",
-  "lean_apply_3",
-  "lean_apply_4",
-  "lean_apply_5",
-  "lean_apply_6",
-  "lean_apply_7",
-  "lean_apply_8",
-  "lean_apply_9",
-  "lean_array_fget",
-  "lean_array_fget_borrowed",
-  "lean_array_fset",
-  "lean_array_fswap",
-  "lean_array_get",
-  "lean_array_get_borrowed",
-  "lean_array_get_size",
-  "lean_array_pop",
-  "lean_array_set",
-  "lean_array_size",
-  "lean_array_size_raw",
-  "lean_array_uget",
-  "lean_array_uget_borrowed",
-  "lean_array_uset",
-  "lean_array_uswap",
-  "lean_box",
-  "lean_box_float",
-  "lean_box_float32",
-  "lean_box_uint32",
-  "lean_box_uint64",
-  "lean_box_usize",
-  "lean_byte_array_fget",
-  "lean_byte_array_size",
-  "lean_closure_set",
-  "lean_ctor_get",
-  "lean_ctor_get_float",
-  "lean_ctor_get_float32",
-  "lean_ctor_get_uint16",
-  "lean_ctor_get_uint32",
-  "lean_ctor_get_uint64",
-  "lean_ctor_get_uint8",
-  "lean_ctor_get_usize",
-  "lean_ctor_release",
-  "lean_ctor_set",
-  "lean_ctor_set_float",
-  "lean_ctor_set_float32",
-  "lean_ctor_set_tag",
-  "lean_ctor_set_uint16",
-  "lean_ctor_set_uint32",
-  "lean_ctor_set_uint64",
-  "lean_ctor_set_uint8",
-  "lean_ctor_set_usize",
-  "lean_dec",
-  "lean_dec_ref",
-  "lean_dec_ref_known",
-  "lean_del_object",
-  "lean_float32_once",
-  "lean_float32_once_cold",
-  "lean_float_add",
-  "lean_float_beq",
-  "lean_float_decLe",
-  "lean_float_decLt",
-  "lean_float_div",
-  "lean_float_mul",
-  "lean_float_negate",
-  "lean_float_once",
-  "lean_float_once_cold",
-  "lean_float_sub",
-  "lean_float_to_uint16",
-  "lean_float_to_uint32",
-  "lean_float_to_uint64",
-  "lean_float_to_uint8",
-  "lean_float_to_usize",
-  "lean_hashmap_mk_idx",
-  "lean_hashset_mk_idx",
-  "lean_inc",
-  "lean_inc_n",
-  "lean_inc_ref",
-  "lean_inc_ref_n",
-  "lean_int64_to_int",
-  "lean_int_add",
-  "lean_int_dec_eq",
-  "lean_int_dec_le",
-  "lean_int_dec_lt",
-  "lean_int_dec_nonneg",
-  "lean_int_ediv",
-  "lean_int_emod",
-  "lean_int_eq",
-  "lean_int_le",
-  "lean_int_lt",
-  "lean_int_mul",
-  "lean_int_neg",
-  "lean_int_neg_succ_of_nat",
-  "lean_int_sub",
-  "lean_int_to_nat",
-  "lean_io_result_get_error",
-  "lean_io_result_get_value",
-  "lean_io_result_is_error",
-  "lean_io_result_is_ok",
-  "lean_io_result_mk_error",
-  "lean_io_result_mk_ok",
-  "lean_is_exclusive",
-  "lean_is_scalar",
-  "lean_is_st",
-  "lean_mk_empty_array",
-  "lean_mk_empty_array_with_capacity",
-  "lean_mk_empty_byte_array",
-  "lean_mk_thunk",
-  "lean_nat_abs",
-  "lean_nat_add",
-  "lean_nat_dec_eq",
-  "lean_nat_dec_le",
-  "lean_nat_dec_lt",
-  "lean_nat_div",
-  "lean_nat_eq",
-  "lean_nat_land",
-  "lean_nat_le",
-  "lean_nat_lor",
-  "lean_nat_lxor",
-  "lean_nat_mod",
-  "lean_nat_mul",
-  "lean_nat_shiftr",
-  "lean_nat_sub",
-  "lean_nat_succ",
-  "lean_nat_to_int",
-  "lean_obj_once",
-  "lean_obj_tag",
-  "lean_ptr_addr",
-  "lean_ptr_tag",
-  "lean_scalar_to_int",
-  "lean_scalar_to_int64",
-  "lean_strict_and",
-  "lean_strict_or",
-  "lean_string_dec_eq",
-  "lean_string_dec_lt",
-  "lean_string_get_byte_fast",
-  "lean_string_length",
-  "lean_string_utf8_at_end",
-  "lean_string_utf8_byte_size",
-  "lean_string_utf8_get_fast",
-  "lean_string_utf8_next_fast",
-  "lean_task_bind",
-  "lean_task_get_own",
-  "lean_task_map",
-  "lean_task_spawn",
-  "lean_thunk_get_own",
-  "lean_uint16_once",
-  "lean_uint16_once_cold",
-  "lean_uint16_to_nat",
-  "lean_uint32_add",
-  "lean_uint32_complement",
-  "lean_uint32_dec_eq",
-  "lean_uint32_dec_le",
-  "lean_uint32_dec_lt",
-  "lean_uint32_div",
-  "lean_uint32_land",
-  "lean_uint32_lor",
-  "lean_uint32_mod",
-  "lean_uint32_mul",
-  "lean_uint32_neg",
-  "lean_uint32_of_big_nat",
-  "lean_uint32_of_nat",
-  "lean_uint32_once",
-  "lean_uint32_once_cold",
-  "lean_uint32_shift_left",
-  "lean_uint32_shift_right",
-  "lean_uint32_sub",
-  "lean_uint32_to_nat",
-  "lean_uint32_to_uint64",
-  "lean_uint32_to_uint8",
-  "lean_uint32_to_usize",
-  "lean_uint32_xor",
-  "lean_uint64_add",
-  "lean_uint64_complement",
-  "lean_uint64_dec_eq",
-  "lean_uint64_dec_le",
-  "lean_uint64_dec_lt",
-  "lean_uint64_div",
-  "lean_uint64_land",
-  "lean_uint64_lor",
-  "lean_uint64_mix_hash",
-  "lean_uint64_mod",
-  "lean_uint64_mul",
-  "lean_uint64_neg",
-  "lean_uint64_of_big_nat",
-  "lean_uint64_of_nat",
-  "lean_uint64_once",
-  "lean_uint64_once_cold",
-  "lean_uint64_shift_left",
-  "lean_uint64_shift_right",
-  "lean_uint64_sub",
-  "lean_uint64_to_float",
-  "lean_uint64_to_nat",
-  "lean_uint64_to_uint32",
-  "lean_uint64_to_uint8",
-  "lean_uint64_to_usize",
-  "lean_uint64_xor",
-  "lean_uint8_add",
-  "lean_uint8_complement",
-  "lean_uint8_dec_eq",
-  "lean_uint8_dec_le",
-  "lean_uint8_dec_lt",
-  "lean_uint8_div",
-  "lean_uint8_land",
-  "lean_uint8_lor",
-  "lean_uint8_mod",
-  "lean_uint8_mul",
-  "lean_uint8_neg",
-  "lean_uint8_of_big_nat",
-  "lean_uint8_of_nat",
-  "lean_uint8_once",
-  "lean_uint8_once_cold",
-  "lean_uint8_shift_left",
-  "lean_uint8_shift_right",
-  "lean_uint8_sub",
-  "lean_uint8_to_nat",
-  "lean_uint8_to_uint32",
-  "lean_uint8_to_uint64",
-  "lean_uint8_to_usize",
-  "lean_uint8_xor",
-  "lean_unbox",
-  "lean_unbox_float",
-  "lean_unbox_float32",
-  "lean_unbox_uint32",
-  "lean_unbox_uint64",
-  "lean_unbox_usize",
-  "lean_unsigned_to_nat",
-  "lean_usize_add",
-  "lean_usize_dec_eq",
-  "lean_usize_dec_le",
-  "lean_usize_dec_lt",
-  "lean_usize_land",
-  "lean_usize_lor",
-  "lean_usize_lxor",
-  "lean_usize_mul",
-  "lean_usize_of_nat",
-  "lean_usize_once",
-  "lean_usize_once_cold",
-  "lean_usize_shift_left",
-  "lean_usize_shift_right",
-  "lean_usize_sub",
-  "lean_usize_to_nat"
-]
--- END GENERATED headerExternNames
-
-def emitFnDecls : EmitM Unit := do
-  -- Pre-seed with header names so we never re-declare them.
-  let mut seenExterns : Array String := headerExternNames
-  -- Compute locally-exported names up front so we can skip extern declarations
-  -- for functions whose definitions appear in this same file.
-  let localDecls ← getLocalDecls
+def emitFileHeader : EmitM Unit := do
   let env ← getEnv
-  let localExportedNames := localDecls.foldl (init := #[]) fun acc d =>
-    match getExportNameFor? env d.name with
-    | some (.str .anonymous s) => acc.push s
-    | _ => acc
-  emitLn "extern \"C\" {"
-  -- 1. Local functions with @[extern "name"] need a declaration (they won't be defined here).
-  -- Skip if the name is also locally exported (via @[export]): the definition is in this file.
-  for decl in localDecls do
-    if let some externName := getExternNameFor env `c decl.name then
-      if !decl.params.isEmpty && !seenExterns.contains externName
-         && !localExportedNames.contains externName then
-        seenExterns := seenExterns.push externName
-        emitFnDeclAux decl.toSignature externName true
-  -- 2. Other-module @[extern "name"] functions still need explicit declarations while
-  --    the crate graph migration is incomplete.
-  --    Skip if the name is locally exported (@[export]) — the definition is already in this file.
-  for sig in (← getOtherModuleDecls) do
-    if let some externName := getExternNameFor env `c sig.name then
-      if !sig.params.isEmpty && !seenExterns.contains externName
-         && !localExportedNames.contains externName then
-        seenExterns := seenExterns.push externName
-        emitFnDeclAux sig externName true
-  -- 3. User-package init functions.
+  let modName ← getModName
+  recordLeanhImports leanhTypeImportNames
+  emitLn "// Lean compiler output"
+  emitLn s!"// Module: {modName}"
+  emit "// Imports:"
+  env.imports.forM fun m => emit (" " ++ toString m.module)
+  emitLn ""
+  emitLn leanhImportPlaceholder
+  let mut useGroups : UseGroups := #[]
+  -- 1. Direct imports: imported module initialization functions.
   for imp in env.imports do
-    if let some idx := env.getModuleIdx? imp.module then
-      let pkg? := env.getModulePackageByIdx? idx
-      if (leanModuleToRustPackage imp.module).isEmpty then  -- user package
-        for phases in [IRPhases.runtime, IRPhases.comptime, IRPhases.all] do
-          let fnName := mkModuleInitializationFunctionName (phases := phases) imp.module pkg?
-          if !seenExterns.contains fnName then
-            seenExterns := seenExterns.push fnName
-            emitLn s!"    fn {fnName}(_: u8) -> *mut LeanObject;"
-  -- 4. User-package lp_* statics and Lean functions from otherModuleDecls.
-  --    (Skip those that have @[extern "name"] — already declared in section 2.)
+    let depMod := imp.module
+    let some idx := env.getModuleIdx? depMod
+      | throwError "(internal) import without module index"
+    let pkg? := env.getModulePackageByIdx? idx
+    if env.header.isModule then
+      let fnName :=
+        mkModuleInitializationFunctionName
+          (phases := if imp.isMeta then .comptime else .runtime)
+          depMod pkg?
+      useGroups := addUseItemFrom useGroups "crate::r#gen" depMod fnName
+      useGroups := addUseItemFrom useGroups "crate::r#gen" depMod
+        (mkModuleInitializationFunctionName depMod pkg?)
+    else
+      let fnName := mkModuleInitializationFunctionName (phases := .all) depMod pkg?
+      useGroups := addUseItemFrom useGroups "crate::r#gen" depMod fnName
+  -- 2. otherModuleDecls (handles inlined transitive refs).
   for sig in (← getOtherModuleDecls) do
     if (getExternNameFor env `c sig.name).isNone then
       if let some idx := env.getModuleIdxFor? sig.name then
         if let some depMod := env.header.moduleNames[idx]? then
-          if (leanModuleToRustPackage depMod).isEmpty then  -- user package
-            let cppBaseName ← toCName sig.name
-            if !seenExterns.contains cppBaseName && !localExportedNames.contains cppBaseName then
-              seenExterns := seenExterns.push cppBaseName
-              emitFnDeclAux sig cppBaseName true
-  emitLn "}"
-
+          useGroups := addUseItemFrom useGroups "crate::r#gen" depMod (← toCName sig.name)
+  -- 3. Imports for declarations with runtime symbol names.
+  --    `@[extern]` names are imported through per-module lean_imports_rs stubs.
+  --    Names in neither generated list are runtime helpers from crate::leanh.
   for decl in (← getLocalDecls) do
-    match getExternNameFor (← getEnv) `c decl.name with
-    | some externName => emitFnDeclAux decl.toSignature externName false
-    | none => emitFnDecl decl false
-where
-  emitExternDecl (sig : Signature .impure) (externName : String) : EmitM Unit := do
-    emitFnDeclAux sig externName true
-
-  emitFnDecl (decl : Decl .impure) (isExternal : Bool) : EmitM Unit := do
-    let env ← getEnv
-    let cppBaseName ← toCName decl.name
-    if isSimpleGroundDecl env decl.name then
-      emitGroundDecl decl cppBaseName
-    else if isClosedTermName env decl.name then
-      emitFnDeclClosed decl cppBaseName
-    else
-      emitFnDeclStandard decl.toSignature isExternal
-
-  emitFnDeclClosed (decl : Decl .impure) (cppBaseName : String) : EmitM Unit := do
-    emitLn s!"static mut {toOnceTokenName cppBaseName}: LeanOnceCell = LeanOnceCell \{ state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };"
-    emitLn s!"static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
-
-  emitFnDeclStandard (sig : Signature .impure) (isExternal : Bool) : EmitM Unit := do
-    let cppBaseName ← toCName sig.name
-    emitFnDeclAux sig cppBaseName isExternal
-
-  emitFnDeclAux (sig : Signature .impure) (cppBaseName : String) (isExternal : Bool) :
-      EmitM Unit := do
-    let ps := sig.params
-    let env ← getEnv
-
-    if ps.isEmpty then
-      if isExternal then
-        emitLn s!"    static mut {cppBaseName}: {sig.type.toRustType};"
-        if isSimpleGroundDecl env sig.name then
-          emitLn s!"    static {cppBaseName}_value: LeanObject;"
-      else
-        if isClosedTermName env sig.name then
-          emitLn s!"static mut {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
-        else
-          emitLn s!"pub static mut {cppBaseName}: {sig.type.toRustType} = {defaultInitializer sig.type};"
-    else
-      if isExternal then
-        emit s!"    fn {cppBaseName}"
-        unless ps.isEmpty do
-          emit "("
-          let ps := paramsWithoutVoid ps
-          let ps := if isExternC env sig.name then paramsWithoutErased ps else ps
-          if ps.size > closureMaxArgs && isBoxedName sig.name then
-            emit "_: *mut *mut LeanObject"
-          else
-            ps.size.forM fun i _ => do
-              if i > 0 then emit ", "
-              emit s!"_: {ps[i].type.toRustType}"
-          emit ")"
-        emit s!" -> {sig.type.toRustType};"
-        emitLn ""
+    if let some externName := getExternNameFor env `c decl.name then
+      if let some idx := env.getModuleIdxFor? decl.name then
+        if let some depMod := env.header.moduleNames[idx]? then
+          if !decl.params.isEmpty then
+            if leanImportsFromRust.contains externName then
+              useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" depMod externName
+            else if shouldImportFromLeanh externName then
+              recordLeanhImport externName
+  for sig in (← getOtherModuleDecls) do
+    if let some externName := getExternNameFor env `c sig.name then
+      if let some idx := env.getModuleIdxFor? sig.name then
+        if let some depMod := env.header.moduleNames[idx]? then
+          if !sig.params.isEmpty then
+            if leanImportsFromRust.contains externName then
+              useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" depMod externName
+            else if shouldImportFromLeanh externName then
+              recordLeanhImport externName
+  emitUseGroups useGroups
 
 def offsetExpression (i : Nat) (offset : Nat) : String :=
   if i > 0 then
@@ -1002,7 +727,9 @@ where
     emit "else"
     withEmitBlock do
       emitCApp1 "lean_dec_ref" fvarId; emitLn ";"
-      withEmitAssignment do emit "lean_box(0)"
+      withEmitAssignment do
+        recordLeanhImport "lean_box"
+        emit "lean_box(0)"
 
   emitReuse (fvarId : FVarId) (info : CtorInfo) (update : Bool) (args : Array (Arg .impure)) :
       EmitM Unit := do
@@ -1045,13 +772,19 @@ where
     let some sig ← getImpureSignature? fn | unreachable!
     let ps := sig.params
     withEmitAssignment do
+      let castBoolResult := decl.type == ImpureType.uint8 && sig.type.isConstOf ``Bool
+      if castBoolResult then
+        emit "("
       match getExternAttrData? (← getEnv) fn |>.bind (getExternEntryFor · `c) with
       | some (.standard _ fn) =>
+        if shouldImportFromLeanh fn then
+          recordLeanhImport fn
         let (_, args) :=
           ps.zip args
             |>.filter (fun (p, _) => !(p.type.isVoid || p.type.isErased))
             |>.unzip
-        emit fn; emit "("
+        emit fn
+        emit "("
         for h : i in 0...args.size do
           if i > 0 then emit ", "
           emit args[i]
@@ -1067,6 +800,8 @@ where
               |>.unzip
           emit "("; emitArgs args; emit ")"
       | _ => throwError s!"failed to emit extern application '{fn}'"
+      if castBoolResult then
+        emit " as u8)"
 
   emitPap (fn : Name) (args : Array (Arg .impure)) : EmitM Unit := do
     let some sig ← getImpureSignature? fn | unreachable!
@@ -1083,15 +818,18 @@ where
       withEmitBlock do
         emit "let mut _aargs = ["; emitArgs args; emitLn "];"
         let fvarIdStr ← EmitToString.toEmitString fvarId
+        recordLeanhImport "lean_apply_m"
         withEmitAssignment do
           emit s!"lean_apply_m({fvarIdStr}, {args.size}, _aargs.as_mut_ptr())"
     else
       withEmitAssignment do
+        recordLeanhImport s!"lean_apply_{args.size}"
         emit s!"lean_apply_{args.size}("; emit fvarId; emit ", "; emitArgs args; emit ")"
 
   emitBox (ty : Expr) (fvarId : FVarId) : EmitM Unit := do
     withEmitAssignment do
-      if ty == ImpureType.uint8 || ty == ImpureType.uint16 then
+      if ty == ImpureType.uint8 || ty == ImpureType.uint16 then do
+        recordLeanhImport ty.boxOpName
         emit ty.boxOpName; emit "(("; emit fvarId; emit ") as usize)"
       else
         emitCApp1 ty.boxOpName fvarId
@@ -1099,13 +837,15 @@ where
   emitUnbox (fvarId : FVarId) : EmitM Unit := do
     withEmitAssignment do
       let ty := decl.type
-      if ty == ImpureType.uint8 || ty == ImpureType.uint16 then
+      if ty == ImpureType.uint8 || ty == ImpureType.uint16 then do
+        recordLeanhImport ty.unboxOpName
         emit "("; emit ty.unboxOpName; emit "("; emit fvarId; emit ") as "; emit ty.toRustType; emit ")"
       else
         emitCApp1 ty.unboxOpName fvarId
 
   emitIsShared (fvarId : FVarId) : EmitM Unit := do
     withEmitAssignment do
+      recordLeanhImport "lean_is_exclusive"
       emit "(!lean_is_exclusive("; emit fvarId; emit ")) as u8"
 
   emitLit (v : LitValue) : EmitM Unit := do
@@ -1115,15 +855,18 @@ where
       | .uint64 v => emit v; emit "u64"
       | .usize v => emit v; emit "usize"
       | .nat v =>
-        if v < UInt32.size then
+        if v < UInt32.size then do
+          recordLeanhImport "lean_unsigned_to_nat"
           emit "lean_unsigned_to_nat("; emit v; emit ")"
-        else
+        else do
+          recordLeanhImport "lean_cstr_to_nat"
           emit "lean_cstr_to_nat(b\""; emit v; emit "\\0\".as_ptr().cast())"
       | .str v =>
         emitCApp3 "lean_mk_string_unchecked" s!"b\"{quoteString v}\\0\".as_ptr().cast()" v.utf8ByteSize v.length
 
   emitErased : EmitM Unit := do
     withEmitAssignment do
+      recordLeanhImport "lean_box"
       emit "lean_box(0)"
 
   emitLhs (binderName : Name) : EmitM Unit := do
@@ -1392,7 +1135,7 @@ def emitDecl (decl : Decl .impure) : EmitM Unit := do
         ps.size.forM fun i _ => do
           let p := ps[i]
           emit "let mut "; emit p.binderName; emit s!": {p.type.toRustType} = *_args.add("; emit i; emitLn ");"
-      
+
       modify fun s => { s with stateIds := {}, nextStateId := 1 }
       assignStateIds code
       withReader (fun ctx => { ctx with currFn := decl.name, currParams := ps }) do
@@ -1410,6 +1153,7 @@ where
 
 def withErrRet (emitIORes : EmitM Unit) : EmitM Unit := do
   emit "res = "; emitIORes; emitLn ";"
+  recordLeanhImport "lean_io_result_is_error"
   emitLn "if lean_io_result_is_error(res) { return res; }"
 
 def emitMarkPersistent (decl : Decl .impure) : EmitM Unit := do
@@ -1419,22 +1163,27 @@ def emitMarkPersistent (decl : Decl .impure) : EmitM Unit := do
 def emitDeclInit (decl : Decl .impure) (isBuiltin : Bool) : EmitM Unit := do
   let env ← getEnv
   if (isBuiltin && isIOUnitBuiltinInitFn env decl.name) || isIOUnitInitFn env decl.name then
-    withErrRet do
-      emitCName decl.name; emit "()"
-    emitLn "lean_dec_ref(res);"
+      withErrRet do
+        emitCName decl.name; emit "()"
+      recordLeanhImport "lean_dec_ref"
+      emitLn "lean_dec_ref(res);"
   else if decl.params.isEmpty then
     if let some initFn := (guard isBuiltin *> getBuiltinInitFnNameFor? env decl.name) <|> getInitFnNameFor? env decl.name then
       withErrRet do
         emitCName initFn; emit "()"
       emit s!"{← toCName decl.name}"
       if decl.type.isScalar then
+        recordLeanhImport decl.type.unboxOpName
+        recordLeanhImport "lean_io_result_get_value"
         if decl.type == ImpureType.uint8 || decl.type == ImpureType.uint16 then
           emitLn <| " = (" ++ decl.type.unboxOpName ++ "(lean_io_result_get_value(res)) as " ++ decl.type.toRustType ++ ");"
         else
           emitLn <| " = " ++ decl.type.unboxOpName ++ "(lean_io_result_get_value(res));"
       else
+        recordLeanhImport "lean_io_result_get_value"
         emitLn " = lean_io_result_get_value(res);"
         emitMarkPersistent decl
+      recordLeanhImport "lean_dec_ref"
       emitLn "lean_dec_ref(res);"
     else if !(isClosedTermName env decl.name || isSimpleGroundDecl env decl.name) then
       emit s!"{← toCName decl.name}"; emit " = "; emitCInitName decl.name; emitLn "();"
@@ -1468,6 +1217,7 @@ def getLegacyInitFnNames : EmitM (List String) := do
 def emitInitFn (phases : IRPhases) (impInitFns : List String) : EmitM Unit := do
   let env ← getEnv
   let initialized := s!"_G_{mkModuleInitializationPrefix phases}initialized"
+  recordLeanhImports #["lean_box", "lean_io_result_mk_ok", "lean_dec_ref"]
   emitLns [
     s!"static mut {initialized}: bool = false;",
     s!"pub unsafe fn {← getModInitFn (phases := phases)}(builtin: u8) -> *mut LeanObject \{",
@@ -1487,6 +1237,7 @@ def emitInitFn (phases : IRPhases) (impInitFns : List String) : EmitM Unit := do
 
 def emitLegacyInitFn (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_initialized"
+  recordLeanhImports #["lean_box", "lean_io_result_mk_ok", "lean_dec_ref"]
   emitLns [
     s!"static mut {initialized}: bool = false;",
     s!"pub unsafe fn {← getModInitFn (phases := .all)}(builtin: u8) -> *mut LeanObject \{",
@@ -1507,6 +1258,19 @@ def emitLegacyInitFn (impInitFns : List String) : EmitM Unit := do
   emitLn s!"return {← getModInitFn (phases := .all)}(builtin);"
   emitLn "}"
 
+def emitFnDecls : EmitM Unit := do
+  for decl in (← getLocalDecls) do
+    let decl ← decl.internalize (uniqueIdents := true)
+    let env ← getEnv
+    let cppBaseName ← toCName decl.name
+    if isSimpleGroundDecl env decl.name then
+      emitGroundDecl decl cppBaseName
+    else if isClosedTermName env decl.name then
+      emitLn s!"static mut {toOnceTokenName cppBaseName}: LeanOnceCell = LeanOnceCell \{ state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };"
+      emitLn s!"static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
+    else if decl.params.isEmpty && !hasInitAttr env decl.name then
+      emitLn s!"pub static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
+
 def emitMainFnIfNeeded : EmitM Unit := do
   if let some mainFn ← hasMainFn then
     emitMainFn mainFn
@@ -1521,11 +1285,30 @@ where
       throwError "invalid main function, incorrect arity when generating code"
     let env ← getEnv
     let usesLeanAPI := usesModuleFrom env `Lean
-    
+
     -- Determine exit code type
     let retTy := env.find? `main |>.get! |>.type |>.getForallBody
     let retTy := retTy.appArg!
     let hasExitCode := retTy.isConstOf ``UInt32
+
+    recordLeanhImports #[
+      "lean_alloc_ctor",
+      "lean_box",
+      "lean_ctor_set",
+      "lean_dec",
+      "lean_finalize_task_manager",
+      "lean_init_task_manager",
+      "lean_initialize",
+      "lean_initialize_runtime_module",
+      "lean_io_mark_end_initialization",
+      "lean_io_result_get_value",
+      "lean_io_result_is_ok",
+      "lean_io_result_show_error",
+      "lean_mk_string",
+      "lean_run_main",
+      "lean_setup_args",
+      "lean_unbox_uint32"
+    ]
 
     emitLns [
       "unsafe fn run_main(argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> *mut LeanObject {",
@@ -1610,12 +1393,12 @@ public def emitRustForDecls (modName : Name) (decls : Array Name) : CoreM String
   let env ← getEnv
   let indexMap := getImpureDeclIndices env decls
   let localDecls := localDecls.qsort fun l r => indexMap[l.name]! < indexMap[r.name]!
-  let (_, { buf, .. }) ←
+  let (_, { buf, leanhImports, .. }) ←
     main
       |>.run { localDecls, otherModuleDecls, modName }
       |>.run {}
       |>.run (phase := .impure)
-  return buf
+  return buf.replace leanhImportPlaceholder (formatLeanhImport leanhImports)
 
 public def emitRust (modName : Name) : CoreM String := do
   emitRustForDecls modName (← getLocalImpureDecls)

@@ -1,0 +1,146 @@
+// Lean compiler output
+// Module: Std.Tactic.BVDecide.LRAT.Checker
+// Imports: Std.Tactic.BVDecide.LRAT.Internal.Convert Std.Tactic.BVDecide.LRAT.Internal.LRATCheckerSound Std.Tactic.BVDecide.LRAT.Internal.CompactLRATChecker Std.Tactic.BVDecide.LRAT.Internal.CompactLRATCheckerSound
+use crate::r#gen::Std::Sat::CNF::RelabelFin::l_Std_Sat_CNF_numLiterals;
+use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::CompactLRATChecker::{
+    initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATChecker,
+    l_Std_Tactic_BVDecide_LRAT_Internal_compactLratChecker,
+    runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATChecker,
+};
+use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::CompactLRATCheckerSound::{
+    initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATCheckerSound,
+    runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATCheckerSound,
+};
+use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Convert::{
+    initialize_Std_Tactic_BVDecide_LRAT_Internal_Convert,
+    l_Std_Tactic_BVDecide_LRAT_Internal_CNF_convertLRAT,
+    runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_Convert,
+};
+use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::LRATChecker::l_Std_Tactic_BVDecide_LRAT_Internal_instDecidableEqResult;
+use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::LRATCheckerSound::{
+    initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound,
+    runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound,
+};
+use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::leanh::{
+    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
+    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
+    LeanTaskObject, LeanThunkObject, lean_box, lean_dec, lean_dec_ref, lean_inc_ref,
+    lean_io_result_is_error, lean_io_result_mk_ok, lean_unsigned_to_nat,
+};
+pub unsafe fn l_Std_Tactic_BVDecide_LRAT_check(
+    mut v_lratProof_14_: *mut LeanObject,
+    mut v_cnf_15_: *mut LeanObject,
+) -> u8 {
+    let mut v_internalFormula_16_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_17_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_18_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_19_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_checkerResult_20_: u8 = 0;
+    let mut v___x_21_: u8 = 0;
+    let mut v___x_22_: u8 = 0;
+    lean_inc_ref(v_cnf_15_);
+    v_internalFormula_16_ = l_Std_Tactic_BVDecide_LRAT_Internal_CNF_convertLRAT(v_cnf_15_);
+    v___x_17_ = l_Std_Sat_CNF_numLiterals(v_cnf_15_);
+    lean_dec_ref(v_cnf_15_);
+    v___x_18_ = lean_unsigned_to_nat(1);
+    v___x_19_ = lean_nat_add(v___x_17_, v___x_18_);
+    lean_dec(v___x_17_);
+    v_checkerResult_20_ = l_Std_Tactic_BVDecide_LRAT_Internal_compactLratChecker(
+        v___x_19_,
+        v_internalFormula_16_,
+        v_lratProof_14_,
+    );
+    v___x_21_ = 0;
+    v___x_22_ =
+        l_Std_Tactic_BVDecide_LRAT_Internal_instDecidableEqResult(v_checkerResult_20_, v___x_21_);
+    return v___x_22_;
+}
+pub unsafe fn l_Std_Tactic_BVDecide_LRAT_check___boxed(
+    mut v_lratProof_23_: *mut LeanObject,
+    mut v_cnf_24_: *mut LeanObject,
+) -> *mut LeanObject {
+    let mut v_res_25_: u8 = 0;
+    let mut v_r_26_: *mut LeanObject = core::ptr::null_mut();
+    v_res_25_ = l_Std_Tactic_BVDecide_LRAT_check(v_lratProof_23_, v_cnf_24_);
+    lean_dec_ref(v_lratProof_23_);
+    v_r_26_ = lean_box((v_res_25_) as usize);
+    return v_r_26_;
+}
+static mut _G_runtime_initialized: bool = false;
+pub unsafe fn runtime_initialize_Std_Tactic_BVDecide_LRAT_Checker(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_runtime_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_runtime_initialized = true;
+    res = runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_Convert(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATChecker(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATCheckerSound(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    return lean_io_result_mk_ok(lean_box(0));
+}
+static mut _G_meta_initialized: bool = false;
+pub unsafe fn meta_initialize_Std_Tactic_BVDecide_LRAT_Checker(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_meta_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_meta_initialized = true;
+    return lean_io_result_mk_ok(lean_box(0));
+}
+static mut _G_initialized: bool = false;
+pub unsafe fn initialize_Std_Tactic_BVDecide_LRAT_Checker(builtin: u8) -> *mut LeanObject {
+    let mut res: *mut LeanObject = core::ptr::null_mut();
+    if _G_initialized {
+        return lean_io_result_mk_ok(lean_box(0));
+    }
+    _G_initialized = true;
+    res = initialize_Std_Tactic_BVDecide_LRAT_Internal_Convert(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATChecker(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATCheckerSound(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = runtime_initialize_Std_Tactic_BVDecide_LRAT_Checker(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    res = meta_initialize_Std_Tactic_BVDecide_LRAT_Checker(builtin);
+    if lean_io_result_is_error(res) {
+        return res;
+    }
+    lean_dec_ref(res);
+    return initialize_Std_Tactic_BVDecide_LRAT_Checker(builtin);
+}
