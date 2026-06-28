@@ -40,4 +40,3 @@ pub fn lean_int64_to_float32(_: u64) -> f32 {
 pub fn lean_isize_to_float32(_: usize) -> f32 {
     todo!("Stub for lean_isize_to_float32");
 }
-

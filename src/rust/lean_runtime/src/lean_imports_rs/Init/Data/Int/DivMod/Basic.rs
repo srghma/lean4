@@ -21,4 +21,3 @@ pub fn lean_int_div(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_int_mod(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_int_mod");
 }
-

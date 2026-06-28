@@ -22,41 +22,35 @@ use crate::r#gen::Init::Data::Nat::MinMax::{
 };
 use crate::r#gen::Init::GetElem::{initialize_Init_GetElem, runtime_initialize_Init_GetElem};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_apply_1, lean_box, lean_dec, lean_dec_ref,
-    lean_io_result_is_error, lean_io_result_mk_ok, lean_unbox,
-};
 pub unsafe fn l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_splitter___redArg(
     mut v_x_27_: u8,
-    mut v_h__1_28_: *mut LeanObject,
-    mut v_h__2_29_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_h__1_28_: *mut crate::leanh::LeanObject,
+    mut v_h__2_29_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     if v_x_27_ == 0 {
-        let mut v___x_30_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_31_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__1_28_);
-        v___x_30_ = lean_box(0);
-        v___x_31_ = lean_apply_1(v_h__2_29_, v___x_30_);
+        let mut v___x_30_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_31_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__1_28_);
+        v___x_30_ = crate::leanh::lean_box(0);
+        v___x_31_ = crate::leanh::lean_apply_1(v_h__2_29_, v___x_30_);
         return v___x_31_;
     } else {
-        let mut v___x_32_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_33_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__2_29_);
-        v___x_32_ = lean_box(0);
-        v___x_33_ = lean_apply_1(v_h__1_28_, v___x_32_);
+        let mut v___x_32_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_33_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__2_29_);
+        v___x_32_ = crate::leanh::lean_box(0);
+        v___x_33_ = crate::leanh::lean_apply_1(v_h__1_28_, v___x_32_);
         return v___x_33_;
     }
 }
 pub unsafe fn l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_splitter___redArg___boxed(
-    mut v_x_34_: *mut LeanObject,
-    mut v_h__1_35_: *mut LeanObject,
-    mut v_h__2_36_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_x_34_: *mut crate::leanh::LeanObject,
+    mut v_h__1_35_: *mut crate::leanh::LeanObject,
+    mut v_h__2_36_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_x_26__boxed_37_: u8 = 0;
-    let mut v_res_38_: *mut LeanObject = core::ptr::null_mut();
-    v_x_26__boxed_37_ = (lean_unbox(v_x_34_) as u8);
+    let mut v_res_38_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_x_26__boxed_37_ = (crate::leanh::lean_unbox(v_x_34_) as u8);
     v_res_38_ = l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_splitter___redArg(
         v_x_26__boxed_37_,
         v_h__1_35_,
@@ -65,36 +59,36 @@ pub unsafe fn l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_split
     return v_res_38_;
 }
 pub unsafe fn l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_splitter(
-    mut v_motive_39_: *mut LeanObject,
+    mut v_motive_39_: *mut crate::leanh::LeanObject,
     mut v_x_40_: u8,
-    mut v_h__1_41_: *mut LeanObject,
-    mut v_h__2_42_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_h__1_41_: *mut crate::leanh::LeanObject,
+    mut v_h__2_42_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     if v_x_40_ == 0 {
-        let mut v___x_43_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_44_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__1_41_);
-        v___x_43_ = lean_box(0);
-        v___x_44_ = lean_apply_1(v_h__2_42_, v___x_43_);
+        let mut v___x_43_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_44_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__1_41_);
+        v___x_43_ = crate::leanh::lean_box(0);
+        v___x_44_ = crate::leanh::lean_apply_1(v_h__2_42_, v___x_43_);
         return v___x_44_;
     } else {
-        let mut v___x_45_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_46_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__2_42_);
-        v___x_45_ = lean_box(0);
-        v___x_46_ = lean_apply_1(v_h__1_41_, v___x_45_);
+        let mut v___x_45_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_46_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__2_42_);
+        v___x_45_ = crate::leanh::lean_box(0);
+        v___x_46_ = crate::leanh::lean_apply_1(v_h__1_41_, v___x_45_);
         return v___x_46_;
     }
 }
 pub unsafe fn l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_splitter___boxed(
-    mut v_motive_47_: *mut LeanObject,
-    mut v_x_48_: *mut LeanObject,
-    mut v_h__1_49_: *mut LeanObject,
-    mut v_h__2_50_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_motive_47_: *mut crate::leanh::LeanObject,
+    mut v_x_48_: *mut crate::leanh::LeanObject,
+    mut v_h__1_49_: *mut crate::leanh::LeanObject,
+    mut v_h__2_50_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_x_37__boxed_51_: u8 = 0;
-    let mut v_res_52_: *mut LeanObject = core::ptr::null_mut();
-    v_x_37__boxed_51_ = (lean_unbox(v_x_48_) as u8);
+    let mut v_res_52_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_x_37__boxed_51_ = (crate::leanh::lean_unbox(v_x_48_) as u8);
     v_res_52_ = l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_splitter(
         v_motive_47_,
         v_x_37__boxed_51_,
@@ -104,129 +98,133 @@ pub unsafe fn l___private_Init_Data_List_Nat_Count_0__List_filter_match__1_split
     return v_res_52_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Init_Data_List_Nat_Count(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Init_Data_List_Nat_Count(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_GetElem(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_ByCases(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Bool(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Count(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Sublist(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Nat_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Nat_MinMax(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Omega(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Init_Data_List_Nat_Count(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Init_Data_List_Nat_Count(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Init_Data_List_Nat_Count(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Init_Data_List_Nat_Count(builtin: u8) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_GetElem(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_ByCases(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Bool(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_List_Count(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_List_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_List_Sublist(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Nat_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Nat_MinMax(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Omega(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Nat_Count(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Init_Data_List_Nat_Count(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Init_Data_List_Nat_Count(builtin);
 }

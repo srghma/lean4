@@ -4,4 +4,3 @@
 pub fn lean_get_structural_rec_arg_pos() {
     todo!("Stub for lean_get_structural_rec_arg_pos");
 }
-

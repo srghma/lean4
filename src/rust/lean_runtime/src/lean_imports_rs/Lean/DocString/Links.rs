@@ -4,4 +4,3 @@
 pub fn lean_manual_get_root() {
     todo!("Stub for lean_manual_get_root");
 }
-

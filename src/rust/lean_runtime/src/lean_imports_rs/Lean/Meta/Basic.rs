@@ -24,4 +24,3 @@ pub fn lean_synth_pending() {
 pub fn lean_checked_assign() {
     todo!("Stub for lean_checked_assign");
 }
-

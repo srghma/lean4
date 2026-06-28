@@ -1,244 +1,315 @@
-use crate::leanh::*;
-// Generated stub file for Lean FFI imports
-// Source: src/Init/Prelude.lean
+use crate::leanh::{self, LeanObject};
 
-pub fn lean_uint8_of_nat_mk(_: *mut LeanObject) -> u8 {
-    todo!("Stub for lean_uint8_of_nat_mk");
+#[inline]
+pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_uint8_of_nat_mk(n) }
 }
 
-pub fn lean_uint8_to_nat() {
-    todo!("Stub for lean_uint8_to_nat");
+#[inline]
+pub unsafe fn lean_uint8_to_nat(n: u8) -> *mut LeanObject {
+    unsafe { leanh::lean_uint8_to_nat(n) }
 }
 
-pub fn lean_uint16_of_nat_mk(_: *mut LeanObject) -> u16 {
-    todo!("Stub for lean_uint16_of_nat_mk");
+#[inline]
+pub unsafe fn lean_uint16_of_nat_mk(n: *mut LeanObject) -> u16 {
+    unsafe { leanh::lean_uint16_of_nat_mk(n) }
 }
 
-pub fn lean_uint16_to_nat() {
-    todo!("Stub for lean_uint16_to_nat");
+#[inline]
+pub unsafe fn lean_uint16_to_nat(n: u16) -> *mut LeanObject {
+    unsafe { leanh::lean_uint16_to_nat(n) }
 }
 
-pub fn lean_uint32_of_nat_mk(_: *mut LeanObject) -> u32 {
-    todo!("Stub for lean_uint32_of_nat_mk");
+#[inline]
+pub unsafe fn lean_uint32_of_nat_mk(n: *mut LeanObject) -> u32 {
+    unsafe { leanh::lean_uint32_of_nat_mk(n) }
 }
 
-pub fn lean_uint32_to_nat() {
-    todo!("Stub for lean_uint32_to_nat");
+#[inline]
+pub unsafe fn lean_uint32_to_nat(n: u32) -> *mut LeanObject {
+    unsafe { leanh::lean_uint32_to_nat(n) }
 }
 
-pub fn lean_uint64_of_nat_mk(_: *mut LeanObject) -> u64 {
-    todo!("Stub for lean_uint64_of_nat_mk");
+#[inline]
+pub unsafe fn lean_uint64_of_nat_mk(n: *mut LeanObject) -> u64 {
+    unsafe { leanh::lean_uint64_of_nat_mk(n) }
 }
 
-pub fn lean_uint64_to_nat() {
-    todo!("Stub for lean_uint64_to_nat");
+#[inline]
+pub unsafe fn lean_uint64_to_nat(n: u64) -> *mut LeanObject {
+    unsafe { leanh::lean_uint64_to_nat(n) }
 }
 
-pub fn lean_usize_of_nat_mk(_: *mut LeanObject) -> usize {
-    todo!("Stub for lean_usize_of_nat_mk");
+#[inline]
+pub unsafe fn lean_usize_of_nat_mk(n: *mut LeanObject) -> usize {
+    unsafe { leanh::lean_usize_of_nat_mk(n) }
 }
 
-pub fn lean_usize_to_nat() {
-    todo!("Stub for lean_usize_to_nat");
+#[inline]
+pub unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
+    unsafe { leanh::lean_usize_to_nat(n) }
 }
 
-pub fn lean_array_to_list(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_array_to_list");
+#[inline]
+pub unsafe fn lean_array_to_list(array: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_array_to_list(array) }
 }
 
-pub fn lean_array_mk(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_array_mk");
+#[inline]
+pub unsafe fn lean_array_mk(list: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_array_mk(list) }
 }
 
-pub fn lean_byte_array_mk(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_byte_array_mk");
+#[inline]
+pub unsafe fn lean_byte_array_mk(data: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_byte_array_mk(data) }
 }
 
-pub fn lean_byte_array_data(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_byte_array_data");
+#[inline]
+pub unsafe fn lean_byte_array_data(array: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_byte_array_data(array) }
 }
 
-pub fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_string_to_utf8");
+#[inline]
+pub unsafe fn lean_string_to_utf8(s: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_string_to_utf8(s) }
 }
 
-pub fn lean_string_from_utf8_unchecked(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_string_from_utf8_unchecked");
+#[inline]
+pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_string_from_utf8_unchecked(bytes) }
 }
 
-pub fn lean_is_scalar() {
-    todo!("Stub for lean_is_scalar");
+#[inline]
+pub unsafe fn lean_is_scalar(obj: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_is_scalar(obj) }
 }
 
-pub fn lean_sorry(_: u8) -> *mut LeanObject {
-    todo!("Stub for lean_sorry");
+#[inline]
+pub unsafe fn lean_sorry(synthetic: u8) -> *mut LeanObject {
+    unsafe { leanh::lean_sorry(synthetic) }
 }
 
-pub fn lean_nat_add() {
-    todo!("Stub for lean_nat_add");
+#[inline]
+pub unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_add(a, b) }
 }
 
-pub fn lean_nat_mul() {
-    todo!("Stub for lean_nat_mul");
+#[inline]
+pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_mul(a, b) }
 }
 
-pub fn lean_nat_pow(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_nat_pow");
+#[inline]
+pub unsafe fn lean_nat_pow(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_pow(a, b) }
 }
 
-pub fn lean_nat_dec_eq() {
-    todo!("Stub for lean_nat_dec_eq");
+#[inline]
+pub unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_nat_dec_eq(a, b) }
 }
 
-pub fn lean_nat_dec_le() {
-    todo!("Stub for lean_nat_dec_le");
+#[inline]
+pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_nat_dec_le(a, b) }
 }
 
-pub fn lean_nat_pred(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_nat_pred");
+#[inline]
+pub unsafe fn lean_nat_pred(a: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_pred(a) }
 }
 
-pub fn lean_nat_dec_lt() {
-    todo!("Stub for lean_nat_dec_lt");
+#[inline]
+pub unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_nat_dec_lt(a, b) }
 }
 
-pub fn lean_nat_sub() {
-    todo!("Stub for lean_nat_sub");
+#[inline]
+pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_sub(a, b) }
 }
 
-pub fn lean_nat_div() {
-    todo!("Stub for lean_nat_div");
+#[inline]
+pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_div(a, b) }
 }
 
-pub fn lean_nat_mod() {
-    todo!("Stub for lean_nat_mod");
+#[inline]
+pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_mod(a, b) }
 }
 
-pub fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_system_platform_nbits");
+#[inline]
+pub unsafe fn lean_system_platform_nbits(unit: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_system_platform_nbits(unit) }
 }
 
-pub fn lean_uint8_of_nat() {
-    todo!("Stub for lean_uint8_of_nat");
+#[inline]
+pub unsafe fn lean_uint8_of_nat(n: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_uint8_of_nat(n) }
 }
 
-pub fn lean_uint8_dec_eq() {
-    todo!("Stub for lean_uint8_dec_eq");
+#[inline]
+pub unsafe fn lean_uint8_dec_eq(a: u8, b: u8) -> u8 {
+    unsafe { leanh::lean_uint8_dec_eq(a, b) }
 }
 
-pub fn lean_uint8_dec_lt() {
-    todo!("Stub for lean_uint8_dec_lt");
+#[inline]
+pub unsafe fn lean_uint8_dec_lt(a: u8, b: u8) -> u8 {
+    unsafe { leanh::lean_uint8_dec_lt(a, b) }
 }
 
-pub fn lean_uint8_dec_le() {
-    todo!("Stub for lean_uint8_dec_le");
+#[inline]
+pub unsafe fn lean_uint8_dec_le(a: u8, b: u8) -> u8 {
+    unsafe { leanh::lean_uint8_dec_le(a, b) }
 }
 
-pub fn lean_uint16_of_nat(_: *mut LeanObject) -> u16 {
-    todo!("Stub for lean_uint16_of_nat");
+#[inline]
+pub unsafe fn lean_uint16_of_nat(n: *mut LeanObject) -> u16 {
+    unsafe { leanh::lean_uint16_of_nat(n) }
 }
 
-pub fn lean_uint16_dec_eq(_: u16, _: u16) -> u8 {
-    todo!("Stub for lean_uint16_dec_eq");
+#[inline]
+pub unsafe fn lean_uint16_dec_eq(a: u16, b: u16) -> u8 {
+    unsafe { leanh::lean_uint16_dec_eq(a, b) }
 }
 
-pub fn lean_uint32_of_nat() {
-    todo!("Stub for lean_uint32_of_nat");
+#[inline]
+pub unsafe fn lean_uint32_of_nat(n: *mut LeanObject) -> u32 {
+    unsafe { leanh::lean_uint32_of_nat(n) }
 }
 
-pub fn lean_uint32_dec_eq() {
-    todo!("Stub for lean_uint32_dec_eq");
+#[inline]
+pub unsafe fn lean_uint32_dec_eq(a: u32, b: u32) -> u8 {
+    unsafe { leanh::lean_uint32_dec_eq(a, b) }
 }
 
-pub fn lean_uint32_dec_lt() {
-    todo!("Stub for lean_uint32_dec_lt");
+#[inline]
+pub unsafe fn lean_uint32_dec_lt(a: u32, b: u32) -> u8 {
+    unsafe { leanh::lean_uint32_dec_lt(a, b) }
 }
 
-pub fn lean_uint32_dec_le() {
-    todo!("Stub for lean_uint32_dec_le");
+#[inline]
+pub unsafe fn lean_uint32_dec_le(a: u32, b: u32) -> u8 {
+    unsafe { leanh::lean_uint32_dec_le(a, b) }
 }
 
-pub fn lean_uint64_of_nat() {
-    todo!("Stub for lean_uint64_of_nat");
+#[inline]
+pub unsafe fn lean_uint64_of_nat(n: *mut LeanObject) -> u64 {
+    unsafe { leanh::lean_uint64_of_nat(n) }
 }
 
-pub fn lean_uint64_dec_eq() {
-    todo!("Stub for lean_uint64_dec_eq");
+#[inline]
+pub unsafe fn lean_uint64_dec_eq(a: u64, b: u64) -> u8 {
+    unsafe { leanh::lean_uint64_dec_eq(a, b) }
 }
 
-pub fn lean_usize_of_nat() {
-    todo!("Stub for lean_usize_of_nat");
+#[inline]
+pub unsafe fn lean_usize_of_nat(n: *mut LeanObject) -> usize {
+    unsafe { leanh::lean_usize_of_nat(n) }
 }
 
-pub fn lean_usize_dec_eq() {
-    todo!("Stub for lean_usize_dec_eq");
+#[inline]
+pub unsafe fn lean_usize_dec_eq(a: usize, b: usize) -> u8 {
+    unsafe { leanh::lean_usize_dec_eq(a, b) }
 }
 
-pub fn lean_mk_empty_array_with_capacity() {
-    todo!("Stub for lean_mk_empty_array_with_capacity");
+#[inline]
+pub unsafe fn lean_mk_empty_array_with_capacity(capacity: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_mk_empty_array_with_capacity(capacity) }
 }
 
-pub fn lean_array_get_size() {
-    todo!("Stub for lean_array_get_size");
+#[inline]
+pub unsafe fn lean_array_get_size(array: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_array_get_size(array) }
 }
 
-pub fn lean_array_fget_borrowed() {
-    todo!("Stub for lean_array_fget_borrowed");
+#[inline]
+pub unsafe fn lean_array_fget_borrowed(
+    array: *mut LeanObject,
+    idx: *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe { leanh::lean_array_fget_borrowed(array, idx) }
 }
 
-pub fn lean_array_fget() {
-    todo!("Stub for lean_array_fget");
+#[inline]
+pub unsafe fn lean_array_fget(array: *mut LeanObject, idx: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_array_fget(array, idx) }
 }
 
-pub fn lean_array_get_borrowed() {
-    todo!("Stub for lean_array_get_borrowed");
+#[inline]
+pub unsafe fn lean_array_get_borrowed(
+    default: *mut LeanObject,
+    array: *mut LeanObject,
+    idx: *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe { leanh::lean_array_get_borrowed(default, array, idx) }
 }
 
-pub fn lean_array_get() {
-    todo!("Stub for lean_array_get");
+#[inline]
+pub unsafe fn lean_array_get(
+    default: *mut LeanObject,
+    array: *mut LeanObject,
+    idx: *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe { leanh::lean_array_get(default, array, idx) }
 }
 
-pub fn lean_array_push(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_array_push");
+#[inline]
+pub unsafe fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_array_push(array, value) }
 }
 
-pub fn lean_mk_empty_byte_array() {
-    todo!("Stub for lean_mk_empty_byte_array");
+#[inline]
+pub unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_mk_empty_byte_array(capacity) }
 }
 
-pub fn lean_byte_array_push(_: *mut LeanObject, _: u8) -> *mut LeanObject {
-    todo!("Stub for lean_byte_array_push");
+#[inline]
+pub unsafe fn lean_byte_array_push(array: *mut LeanObject, value: u8) -> *mut LeanObject {
+    unsafe { leanh::lean_byte_array_push(array, value) }
 }
 
-pub fn lean_byte_array_size() {
-    todo!("Stub for lean_byte_array_size");
+#[inline]
+pub unsafe fn lean_byte_array_size(array: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_byte_array_size(array) }
 }
 
-pub fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_string_mk");
+#[inline]
+pub unsafe fn lean_string_mk(chars: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_string_mk(chars) }
 }
 
-pub fn lean_string_dec_eq() {
-    todo!("Stub for lean_string_dec_eq");
+#[inline]
+pub unsafe fn lean_string_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_string_dec_eq(a, b) }
 }
 
-pub fn lean_string_utf8_byte_size() {
-    todo!("Stub for lean_string_utf8_byte_size");
+#[inline]
+pub unsafe fn lean_string_utf8_byte_size(s: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_string_utf8_byte_size(s) }
 }
 
-pub fn lean_panic_fn_borrowed(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_panic_fn_borrowed");
+#[inline]
+pub unsafe fn lean_panic_fn_borrowed(
+    default_val: *mut LeanObject,
+    msg: *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe { leanh::lean_panic_fn_borrowed(default_val, msg) }
 }
 
-pub fn lean_uint64_mix_hash() {
-    todo!("Stub for lean_uint64_mix_hash");
+#[inline]
+pub fn lean_uint64_mix_hash(a: u64, b: u64) -> u64 {
+    leanh::lean_uint64_mix_hash(a, b)
 }
 
-pub fn lean_string_hash(_: *mut LeanObject) -> u64 {
-    todo!("Stub for lean_string_hash");
+#[inline]
+pub unsafe fn lean_string_hash(s: *mut LeanObject) -> u64 {
+    unsafe { leanh::lean_string_hash(s) }
 }
 
-pub fn lean_name_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
-    todo!("Stub for lean_name_eq");
+#[inline]
+pub unsafe fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    unsafe { leanh::lean_name_eq(a, b) }
 }
-

@@ -21,4 +21,3 @@ pub fn lean_uv_timer_stop(_: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_uv_timer_cancel(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_uv_timer_cancel");
 }
-

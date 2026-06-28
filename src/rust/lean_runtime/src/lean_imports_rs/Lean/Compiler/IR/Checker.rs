@@ -16,4 +16,3 @@ pub fn lean_get_max_ctor_tag() {
 pub fn lean_get_usize_size() {
     todo!("Stub for lean_get_usize_size");
 }
-

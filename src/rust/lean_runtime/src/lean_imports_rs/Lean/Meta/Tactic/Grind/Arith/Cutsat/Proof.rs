@@ -4,4 +4,3 @@
 pub fn lean_cutsat_eq_cnstr_to_proof() {
     todo!("Stub for lean_cutsat_eq_cnstr_to_proof");
 }
-

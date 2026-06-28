@@ -5,4 +5,3 @@ use crate::leanh::*;
 pub fn lean_nat_div_exact(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_nat_div_exact");
 }
-

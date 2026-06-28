@@ -5,4 +5,3 @@ use crate::leanh::*;
 pub fn lean_get_current_time() -> *mut LeanObject {
     todo!("Stub for lean_get_current_time");
 }
-

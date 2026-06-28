@@ -8,4 +8,3 @@ pub fn lean_profileit() {
 pub fn lean_display_cumulative_profiling_times() {
     todo!("Stub for lean_display_cumulative_profiling_times");
 }
-

@@ -76,4 +76,3 @@ pub fn lean_internal_get_believer_trust_level() {
 pub fn lean_internal_get_hardware_concurrency() {
     todo!("Stub for lean_internal_get_hardware_concurrency");
 }
-

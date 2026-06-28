@@ -44,4 +44,3 @@ pub fn lean_int_dec_lt() {
 pub fn lean_nat_abs() {
     todo!("Stub for lean_nat_abs");
 }
-

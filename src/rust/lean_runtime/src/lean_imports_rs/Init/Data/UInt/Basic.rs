@@ -296,4 +296,3 @@ pub fn lean_usize_neg(_: usize) -> usize {
 pub fn lean_bool_to_usize(_: u8) -> usize {
     todo!("Stub for lean_bool_to_usize");
 }
-

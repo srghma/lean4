@@ -60,4 +60,3 @@ pub fn lean_kernel_whnf() {
 pub fn lean_kernel_check() {
     todo!("Stub for lean_kernel_check");
 }
-

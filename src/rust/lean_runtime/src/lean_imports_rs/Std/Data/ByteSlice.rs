@@ -5,4 +5,3 @@ use crate::leanh::*;
 pub fn lean_byteslice_beq(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
     todo!("Stub for lean_byteslice_beq");
 }
-

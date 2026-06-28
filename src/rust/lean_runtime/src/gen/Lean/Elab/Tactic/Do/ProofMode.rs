@@ -73,226 +73,226 @@ use crate::r#gen::Lean::Elab::Tactic::Do::ProofMode::Specialize::{
     initialize_Lean_Elab_Tactic_Do_ProofMode_Specialize,
     runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Specialize,
 };
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_box, lean_dec_ref, lean_io_result_is_error,
-    lean_io_result_mk_ok,
-};
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Lean_Elab_Tactic_Do_ProofMode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Lean_Elab_Tactic_Do_ProofMode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_MGoal(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Delab(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Clear(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Intro(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Revert(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Exact(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Assumption(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Pure(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Frame(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_LeftRight(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Constructor(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_RenameI(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Specialize(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Cases(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Exfalso(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Have(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode_Refine(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Lean_Elab_Tactic_Do_ProofMode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Lean_Elab_Tactic_Do_ProofMode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Lean_Elab_Tactic_Do_ProofMode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Lean_Elab_Tactic_Do_ProofMode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_MGoal(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Delab(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Clear(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Intro(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Revert(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Exact(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Assumption(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Pure(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Frame(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_LeftRight(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Constructor(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_RenameI(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Specialize(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Cases(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Exfalso(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Have(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Lean_Elab_Tactic_Do_ProofMode_Refine(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_Tactic_Do_ProofMode(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Lean_Elab_Tactic_Do_ProofMode(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Lean_Elab_Tactic_Do_ProofMode(builtin);
 }

@@ -30,7 +30,10 @@ pub fn lean_array_fswap() {
     todo!("Stub for lean_array_fswap");
 }
 
-pub fn lean_array_swap(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject,) -> *mut LeanObject {
+pub fn lean_array_swap(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+) -> *mut LeanObject {
     todo!("Stub for lean_array_swap");
 }
-

@@ -42,24 +42,14 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub,
 };
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_alloc_closure, lean_alloc_ctor, lean_apply_1,
-    lean_apply_2, lean_box, lean_closure_set, lean_ctor_get, lean_ctor_set, lean_ctor_set_tag,
-    lean_ctor_set_uint8, lean_dec, lean_dec_ref, lean_dec_ref_known, lean_inc, lean_inc_ref,
-    lean_io_result_is_error, lean_io_result_mk_ok, lean_is_exclusive, lean_obj_once, lean_obj_tag,
-    lean_unbox, lean_unsigned_to_nat,
-};
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -68,18 +58,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -88,18 +78,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -108,18 +98,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -128,18 +118,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -148,18 +138,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -168,18 +158,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6_value: LeanClosureObject<
-    0,
-> = LeanClosureObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -188,88 +178,82 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7_value: LeanCtorObject<2> =
-    LeanCtorObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*mut LeanObject>() * 2
-                + 0) as u16,
-            other: 2,
-            tag: 0,
-        },
-        m_objs: [
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0_value
-            ) as *mut LeanObject,
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1_value
-            ) as *mut LeanObject,
-        ],
-    };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7_value:
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            + 0) as u16,
+        other: 2,
+        tag: 0,
+    },
+    m_objs: [
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__0_value)
+            as *mut crate::leanh::LeanObject,
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__1_value)
+            as *mut crate::leanh::LeanObject,
+    ],
+};
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8_value: LeanCtorObject<5> =
-    LeanCtorObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*mut LeanObject>() * 5
-                + 0) as u16,
-            other: 5,
-            tag: 0,
-        },
-        m_objs: [
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7_value
-            ) as *mut LeanObject,
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2_value
-            ) as *mut LeanObject,
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3_value
-            ) as *mut LeanObject,
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4_value
-            ) as *mut LeanObject,
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5_value
-            ) as *mut LeanObject,
-        ],
-    };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8_value:
+    crate::leanh::LeanCtorObject<5> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 5
+            + 0) as u16,
+        other: 5,
+        tag: 0,
+    },
+    m_objs: [
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__7_value)
+            as *mut crate::leanh::LeanObject,
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__2_value)
+            as *mut crate::leanh::LeanObject,
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__3_value)
+            as *mut crate::leanh::LeanObject,
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__4_value)
+            as *mut crate::leanh::LeanObject,
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__5_value)
+            as *mut crate::leanh::LeanObject,
+    ],
+};
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9_value: LeanCtorObject<2> =
-    LeanCtorObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*mut LeanObject>() * 2
-                + 0) as u16,
-            other: 2,
-            tag: 0,
-        },
-        m_objs: [
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8_value
-            ) as *mut LeanObject,
-            core::ptr::addr_of!(
-                l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6_value
-            ) as *mut LeanObject,
-        ],
-    };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9_value:
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            + 0) as u16,
+        other: 2,
+        tag: 0,
+    },
+    m_objs: [
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__8_value)
+            as *mut crate::leanh::LeanObject,
+        core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__6_value)
+            as *mut crate::leanh::LeanObject,
+    ],
+};
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10_value: LeanStringObject<
-    8,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10_value:
+    crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -280,51 +264,51 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10_value
     m_length: 7,
     m_data: [101, 110, 116, 114, 105, 101, 115, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__11_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__11_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__10_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__11: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__11:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__11_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__12_value: LeanCtorObject<
-    2,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__12_value:
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 2
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 5,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut LeanObject,
+        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__11_value)
-            as *mut LeanObject,
+            as *mut crate::leanh::LeanObject,
     ],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__12: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__12:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__12_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13_value: LeanStringObject<
-    5,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13_value:
+    crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -335,56 +319,57 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13_value
     m_length: 4,
     m_data: [32, 58, 61, 32, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__13_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__15_value: LeanCtorObject<
-    2,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__15_value:
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 2
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 5,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__12_value)
-            as *mut LeanObject,
+            as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14_value)
-            as *mut LeanObject,
+            as *mut crate::leanh::LeanObject,
     ],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__15: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__15:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__15_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__16_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -393,17 +378,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__16_value
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__16: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__16:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__16_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__17_value:
-    LeanClosureObject<1> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 1) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u16,
         other: 0,
         tag: 245,
     },
@@ -412,15 +398,15 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__17_value
     m_num_fixed: 1,
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__16_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__17: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__17:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__17_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18_value: LeanStringObject<
-    3,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18_value:
+    crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -431,20 +417,20 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18_value
     m_length: 2,
     m_data: [123, 32, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18_value)
-        as *mut LeanObject;
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__19_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__19: *mut LeanObject =
-    core::ptr::null_mut();
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20_value: LeanStringObject<
-    2,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__19_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__19:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20_value:
+    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -455,31 +441,31 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20_value
     m_length: 1,
     m_data: [44, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__21_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__21_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__20_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__21: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__21:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__21_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22_value: LeanStringObject<
-    8,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22_value:
+    crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -490,35 +476,36 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22_value
     m_length: 7,
     m_data: [105, 110, 100, 101, 120, 101, 115, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__23_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__23_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__22_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__23: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__23:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__23_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__24_value:
-    LeanClosureObject<1> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 1) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u16,
         other: 0,
         tag: 245,
     },
@@ -527,15 +514,15 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__24_value
     m_num_fixed: 1,
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__17_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__24: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__24:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__24_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25_value: LeanStringObject<
-    20,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25_value:
+    crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -548,31 +535,31 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25_value
         83, 116, 100, 46, 72, 97, 115, 104, 77, 97, 112, 46, 111, 102, 76, 105, 115, 116, 32, 0,
     ],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__26_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__26_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__25_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__26: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__26:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__26_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27_value: LeanStringObject<
-    9,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27_value:
+    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -583,31 +570,31 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27_value
     m_length: 8,
     m_data: [118, 97, 108, 105, 100, 105, 116, 121, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__28_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__28_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__27_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__28: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__28:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__28_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29_value: LeanStringObject<
-    2,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29_value:
+    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -618,31 +605,31 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29_value
     m_length: 1,
     m_data: [95, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__30_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__30_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__29_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__30: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__30:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__30_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31_value: LeanStringObject<
-    3,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31_value:
+    crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -653,67 +640,68 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31_value
     m_length: 2,
     m_data: [32, 125, 0],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31_value)
-        as *mut LeanObject;
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32: *mut LeanObject =
-    core::ptr::null_mut();
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33: *mut LeanObject =
-    core::ptr::null_mut();
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__34_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__34_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__34: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__34:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__34_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__35_value: LeanCtorObject<
-    1,
-> = LeanCtorObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__35_value:
+    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 1
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__31_value
-    ) as *mut LeanObject],
+    ) as *mut crate::leanh::LeanObject],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__35: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__35:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__35_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__36_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -722,17 +710,18 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__36_value
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__36: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__36:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__36_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__37_value:
-    LeanClosureObject<2> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<2> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 2) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2) as u16,
         other: 0,
         tag: 245,
     },
@@ -741,152 +730,157 @@ pub static l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__37_value
     m_num_fixed: 2,
     m_objs: [
         core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9_value)
-            as *mut LeanObject,
+            as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__36_value)
-            as *mut LeanObject,
+            as *mut crate::leanh::LeanObject,
     ],
 };
-static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__37: *mut LeanObject =
+static mut l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__37:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__37_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_instInhabitedIndexMultiMap___closed__0_value: LeanArrayObject<0> =
-    LeanArrayObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<usize>() * 2
-                + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
-            other: 0,
-            tag: 246,
-        },
-        m_size: 0,
-        m_capacity: 0,
-        m_data: [],
-    };
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__0: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_instInhabitedIndexMultiMap___closed__0_value:
+    crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<usize>() * 2
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+        other: 0,
+        tag: 246,
+    },
+    m_size: 0,
+    m_capacity: 0,
+    m_data: [],
+};
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__0: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_instInhabitedIndexMultiMap___closed__0_value)
-        as *mut LeanObject;
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__1_once: LeanOnceCell =
-    LeanOnceCell {
+        as *mut crate::leanh::LeanObject;
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__1_once: crate::leanh::LeanOnceCell =
+    crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__1: *mut LeanObject =
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__1: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__2_once: LeanOnceCell =
-    LeanOnceCell {
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__2_once: crate::leanh::LeanOnceCell =
+    crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__2: *mut LeanObject =
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__2: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__3_once: LeanOnceCell =
-    LeanOnceCell {
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__3_once: crate::leanh::LeanOnceCell =
+    crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__3: *mut LeanObject =
+static mut l_Std_Internal_instInhabitedIndexMultiMap___closed__3: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
-pub static l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0_value: LeanCtorObject<2> =
-    LeanCtorObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*mut LeanObject>() * 2
-                + 0) as u16,
-            other: 2,
-            tag: 0,
-        },
-        m_objs: [
-            (((0 as usize) << 1) | 1) as *mut LeanObject,
-            (((0 as usize) << 1) | 1) as *mut LeanObject,
-        ],
-    };
-static mut l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0: *mut LeanObject =
+pub static l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0_value:
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            + 0) as u16,
+        other: 2,
+        tag: 0,
+    },
+    m_objs: [
+        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+    ],
+};
+static mut l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__0_value: LeanStringObject<26> =
-    LeanStringObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (0) as u16,
-            other: 0,
-            tag: 249,
-        },
-        m_size: 26,
-        m_capacity: 26,
-        m_length: 25,
-        m_data: [
-            73, 110, 105, 116, 46, 68, 97, 116, 97, 46, 79, 112, 116, 105, 111, 110, 46, 66, 97,
-            115, 105, 99, 65, 117, 120, 0,
-        ],
-    };
-static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__0: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__0_value:
+    crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (0) as u16,
+        other: 0,
+        tag: 249,
+    },
+    m_size: 26,
+    m_capacity: 26,
+    m_length: 25,
+    m_data: [
+        73, 110, 105, 116, 46, 68, 97, 116, 97, 46, 79, 112, 116, 105, 111, 110, 46, 66, 97, 115,
+        105, 99, 65, 117, 120, 0,
+    ],
+};
+static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__0:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__0_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__1_value: LeanStringObject<12> =
-    LeanStringObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (0) as u16,
-            other: 0,
-            tag: 249,
-        },
-        m_size: 12,
-        m_capacity: 12,
-        m_length: 11,
-        m_data: [79, 112, 116, 105, 111, 110, 46, 103, 101, 116, 33, 0],
-    };
-static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__1: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__1_value:
+    crate::leanh::LeanStringObject<12> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (0) as u16,
+        other: 0,
+        tag: 249,
+    },
+    m_size: 12,
+    m_capacity: 12,
+    m_length: 11,
+    m_data: [79, 112, 116, 105, 111, 110, 46, 103, 101, 116, 33, 0],
+};
+static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__1:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__1_value)
-        as *mut LeanObject;
-pub static l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__2_value: LeanStringObject<14> =
-    LeanStringObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (0) as u16,
-            other: 0,
-            tag: 249,
-        },
-        m_size: 14,
-        m_capacity: 14,
-        m_length: 13,
-        m_data: [
-            118, 97, 108, 117, 101, 32, 105, 115, 32, 110, 111, 110, 101, 0,
-        ],
-    };
-static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__2: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__2_value:
+    crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (0) as u16,
+        other: 0,
+        tag: 249,
+    },
+    m_size: 14,
+    m_capacity: 14,
+    m_length: 13,
+    m_data: [
+        118, 97, 108, 117, 101, 32, 105, 115, 32, 110, 111, 110, 101, 0,
+    ],
+};
+static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__2:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__2_value)
-        as *mut LeanObject;
-static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3: *mut LeanObject =
-    core::ptr::null_mut();
+        as *mut crate::leanh::LeanObject;
+static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg___lam__0(
-    mut v_a_1267_: *mut LeanObject,
-    mut v_b_1268_: *mut LeanObject,
-    mut v_d_1269_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1270_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1271_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1270_ = lean_alloc_ctor(0, 2, (0) as u32);
-    lean_ctor_set(v___x_1270_, 0, v_a_1267_);
-    lean_ctor_set(v___x_1270_, 1, v_b_1268_);
-    v___x_1271_ = lean_alloc_ctor(1, 2, (0) as u32);
-    lean_ctor_set(v___x_1271_, 0, v___x_1270_);
-    lean_ctor_set(v___x_1271_, 1, v_d_1269_);
+    mut v_a_1267_: *mut crate::leanh::LeanObject,
+    mut v_b_1268_: *mut crate::leanh::LeanObject,
+    mut v_d_1269_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1270_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1271_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1270_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+    crate::leanh::lean_ctor_set(v___x_1270_, 0, v_a_1267_);
+    crate::leanh::lean_ctor_set(v___x_1270_, 1, v_b_1268_);
+    v___x_1271_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
+    crate::leanh::lean_ctor_set(v___x_1271_, 0, v___x_1270_);
+    crate::leanh::lean_ctor_set(v___x_1271_, 1, v_d_1269_);
     return v___x_1271_;
 }
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg___lam__1(
-    mut v___x_1272_: *mut LeanObject,
-    mut v___f_1273_: *mut LeanObject,
-    mut v_l_1274_: *mut LeanObject,
-    mut v_acc_1275_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1276_: *mut LeanObject = core::ptr::null_mut();
+    mut v___x_1272_: *mut crate::leanh::LeanObject,
+    mut v___f_1273_: *mut crate::leanh::LeanObject,
+    mut v_l_1274_: *mut crate::leanh::LeanObject,
+    mut v_acc_1275_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1276_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_1276_ = l_Std_DHashMap_Internal_AssocList_foldrM___redArg(
         v___x_1272_,
         v___f_1273_,
@@ -896,26 +890,26 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg___lam__1(
     return v___x_1276_;
 }
 pub unsafe fn _init_l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__19()
--> *mut LeanObject {
-    let mut v___x_1312_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1313_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1312_ = lean_unsigned_to_nat(11);
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1312_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1313_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1312_ = crate::leanh::lean_unsigned_to_nat(11);
     v___x_1313_ = lean_nat_to_int(v___x_1312_);
     return v___x_1313_;
 }
 pub unsafe fn _init_l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32()
--> *mut LeanObject {
-    let mut v___x_1332_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1333_: *mut LeanObject = core::ptr::null_mut();
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1332_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1333_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_1332_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__18;
     v___x_1333_ = lean_string_length(v___x_1332_);
     return v___x_1333_;
 }
 pub unsafe fn _init_l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33()
--> *mut LeanObject {
-    let mut v___x_1334_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1335_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1334_ = lean_obj_once(
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1334_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1335_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1334_ = crate::leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32),
         core::ptr::addr_of_mut!(
             l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__32_once
@@ -926,89 +920,89 @@ pub unsafe fn _init_l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed_
     return v___x_1335_;
 }
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
-    mut v_inst_1344_: *mut LeanObject,
-    mut v_inst_1345_: *mut LeanObject,
-    mut v_x_1346_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1347_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1348_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1350_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1344_: *mut crate::leanh::LeanObject,
+    mut v_inst_1345_: *mut crate::leanh::LeanObject,
+    mut v_x_1346_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1347_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1348_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1350_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1351_: u8 = 0;
-    let mut v___x_1352_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_buckets_1353_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1355_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_1352_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_buckets_1353_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1355_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1356_: u8 = 0;
-    let mut v___x_1357_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1358_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_1359_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1360_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1361_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1362_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1364_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_1357_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1358_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_1359_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1360_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1361_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1362_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1364_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1365_: u8 = 0;
-    let mut v___x_1366_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1368_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1369_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1370_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1371_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1372_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1373_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1374_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1375_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_1376_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1377_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1378_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1379_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_1381_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1382_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1383_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1384_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1385_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1386_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1387_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1388_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1389_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1390_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1391_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1392_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1393_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1394_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1395_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1396_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1397_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1398_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1399_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1400_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1401_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1402_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1403_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_1366_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1368_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1369_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1370_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1371_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1372_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1373_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1374_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1375_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_1376_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1377_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1378_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1379_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1381_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1382_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1383_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1384_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1385_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1386_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1387_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1388_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1389_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1390_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1391_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1392_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1393_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1394_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1395_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1396_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1397_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1398_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1399_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1400_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1401_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1402_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1403_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1404_: u8 = 0;
-    let mut v___f_1405_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___f_1405_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1406_: usize = 0;
     let mut v___x_1407_: usize = 0;
-    let mut v___x_1408_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1409_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1410_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_1408_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1409_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1410_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1411_: u8 = 0;
-    let mut v_unused_1412_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_unused_1412_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1413_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_entries_1347_ = lean_ctor_get(v_x_1346_, 0);
-                v_indexes_1348_ = lean_ctor_get(v_x_1346_, 1);
-                v_isSharedCheck_1413_ = (!lean_is_exclusive(v_x_1346_)) as u8;
+                v_entries_1347_ = crate::leanh::lean_ctor_get(v_x_1346_, 0);
+                v_indexes_1348_ = crate::leanh::lean_ctor_get(v_x_1346_, 1);
+                v_isSharedCheck_1413_ = (!crate::leanh::lean_is_exclusive(v_x_1346_)) as u8;
                 if v_isSharedCheck_1413_ == 0 {
                     v___x_1350_ = v_x_1346_;
                     v_isShared_1351_ = v_isSharedCheck_1413_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_1348_);
-                    lean_inc(v_entries_1347_);
-                    lean_dec(v_x_1346_);
-                    v___x_1350_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_1348_);
+                    crate::leanh::lean_inc(v_entries_1347_);
+                    crate::leanh::lean_dec(v_x_1346_);
+                    v___x_1350_ = crate::leanh::lean_box(0);
                     v_isShared_1351_ = v_isSharedCheck_1413_;
                     state = 1;
                     continue;
@@ -1016,19 +1010,19 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
             }
             1 => {
                 v___x_1352_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
-                v_buckets_1353_ = lean_ctor_get(v_indexes_1348_, 1);
-                v_isSharedCheck_1411_ = (!lean_is_exclusive(v_indexes_1348_)) as u8;
+                v_buckets_1353_ = crate::leanh::lean_ctor_get(v_indexes_1348_, 1);
+                v_isSharedCheck_1411_ = (!crate::leanh::lean_is_exclusive(v_indexes_1348_)) as u8;
                 if v_isSharedCheck_1411_ == 0 {
-                    v_unused_1412_ = lean_ctor_get(v_indexes_1348_, 0);
-                    lean_dec(v_unused_1412_);
+                    v_unused_1412_ = crate::leanh::lean_ctor_get(v_indexes_1348_, 0);
+                    crate::leanh::lean_dec(v_unused_1412_);
                     v___x_1355_ = v_indexes_1348_;
                     v_isShared_1356_ = v_isSharedCheck_1411_;
                     state = 2;
                     continue;
                 } else {
-                    lean_inc(v_buckets_1353_);
-                    lean_dec(v_indexes_1348_);
-                    v___x_1355_ = lean_box(0);
+                    crate::leanh::lean_inc(v_buckets_1353_);
+                    crate::leanh::lean_dec(v_indexes_1348_);
+                    v___x_1355_ = crate::leanh::lean_box(0);
                     v_isShared_1356_ = v_isSharedCheck_1411_;
                     state = 2;
                     continue;
@@ -1037,20 +1031,23 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
             2 => {
                 v___x_1357_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__14;
                 v___x_1358_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__15;
-                v___f_1359_ = lean_alloc_closure(
+                v___f_1359_ = crate::leanh::lean_alloc_closure(
                     l_instReprTupleOfRepr___redArg___lam__0 as *mut core::ffi::c_void,
                     3,
                     1,
                 );
-                lean_closure_set(v___f_1359_, 0, v_inst_1345_);
-                lean_inc_ref(v_inst_1344_);
-                v___x_1360_ =
-                    lean_alloc_closure(l_Prod_repr___boxed as *mut core::ffi::c_void, 6, 4);
-                lean_closure_set(v___x_1360_, 0, lean_box(0));
-                lean_closure_set(v___x_1360_, 1, lean_box(0));
-                lean_closure_set(v___x_1360_, 2, v_inst_1344_);
-                lean_closure_set(v___x_1360_, 3, v___f_1359_);
-                v___x_1361_ = lean_obj_once(
+                crate::leanh::lean_closure_set(v___f_1359_, 0, v_inst_1345_);
+                crate::leanh::lean_inc_ref(v_inst_1344_);
+                v___x_1360_ = crate::leanh::lean_alloc_closure(
+                    l_Prod_repr___boxed as *mut core::ffi::c_void,
+                    6,
+                    4,
+                );
+                crate::leanh::lean_closure_set(v___x_1360_, 0, crate::leanh::lean_box(0));
+                crate::leanh::lean_closure_set(v___x_1360_, 1, crate::leanh::lean_box(0));
+                crate::leanh::lean_closure_set(v___x_1360_, 2, v_inst_1344_);
+                crate::leanh::lean_closure_set(v___x_1360_, 3, v___f_1359_);
+                v___x_1361_ = crate::leanh::lean_obj_once(
                     core::ptr::addr_of_mut!(
                         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__19
                     ),
@@ -1061,16 +1058,16 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
                 );
                 v___x_1362_ = l_Array_repr___redArg(v___x_1360_, v_entries_1347_);
                 if v_isShared_1356_ == 0 {
-                    lean_ctor_set_tag(v___x_1355_, 4);
-                    lean_ctor_set(v___x_1355_, 1, v___x_1362_);
-                    lean_ctor_set(v___x_1355_, 0, v___x_1361_);
+                    crate::leanh::lean_ctor_set_tag(v___x_1355_, 4);
+                    crate::leanh::lean_ctor_set(v___x_1355_, 1, v___x_1362_);
+                    crate::leanh::lean_ctor_set(v___x_1355_, 0, v___x_1361_);
                     v___x_1364_ = v___x_1355_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1410_ = lean_alloc_ctor(4, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_1410_, 0, v___x_1361_);
-                    lean_ctor_set(v_reuseFailAlloc_1410_, 1, v___x_1362_);
+                    v_reuseFailAlloc_1410_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1410_, 0, v___x_1361_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1410_, 1, v___x_1362_);
                     v___x_1364_ = v_reuseFailAlloc_1410_;
                     state = 3;
                     continue;
@@ -1078,24 +1075,24 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
             }
             3 => {
                 v___x_1365_ = 0;
-                v___x_1366_ = lean_alloc_ctor(6, 1, (1) as u32);
-                lean_ctor_set(v___x_1366_, 0, v___x_1364_);
-                lean_ctor_set_uint8(
+                v___x_1366_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                crate::leanh::lean_ctor_set(v___x_1366_, 0, v___x_1364_);
+                crate::leanh::lean_ctor_set_uint8(
                     v___x_1366_,
-                    (core::mem::size_of::<*mut LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
                     v___x_1365_,
                 );
                 if v_isShared_1351_ == 0 {
-                    lean_ctor_set_tag(v___x_1350_, 5);
-                    lean_ctor_set(v___x_1350_, 1, v___x_1366_);
-                    lean_ctor_set(v___x_1350_, 0, v___x_1358_);
+                    crate::leanh::lean_ctor_set_tag(v___x_1350_, 5);
+                    crate::leanh::lean_ctor_set(v___x_1350_, 1, v___x_1366_);
+                    crate::leanh::lean_ctor_set(v___x_1350_, 0, v___x_1358_);
                     v___x_1368_ = v___x_1350_;
                     state = 4;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1409_ = lean_alloc_ctor(5, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_1409_, 0, v___x_1358_);
-                    lean_ctor_set(v_reuseFailAlloc_1409_, 1, v___x_1366_);
+                    v_reuseFailAlloc_1409_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1409_, 0, v___x_1358_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1409_, 1, v___x_1366_);
                     v___x_1368_ = v_reuseFailAlloc_1409_;
                     state = 4;
                     continue;
@@ -1103,34 +1100,37 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
             }
             4 => {
                 v___x_1369_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__21;
-                v___x_1370_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1370_, 0, v___x_1368_);
-                lean_ctor_set(v___x_1370_, 1, v___x_1369_);
-                v___x_1371_ = lean_box(1);
-                v___x_1372_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1372_, 0, v___x_1370_);
-                lean_ctor_set(v___x_1372_, 1, v___x_1371_);
+                v___x_1370_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1370_, 0, v___x_1368_);
+                crate::leanh::lean_ctor_set(v___x_1370_, 1, v___x_1369_);
+                v___x_1371_ = crate::leanh::lean_box(1);
+                v___x_1372_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1372_, 0, v___x_1370_);
+                crate::leanh::lean_ctor_set(v___x_1372_, 1, v___x_1371_);
                 v___x_1373_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__23;
-                v___x_1374_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1374_, 0, v___x_1372_);
-                lean_ctor_set(v___x_1374_, 1, v___x_1373_);
-                v___x_1375_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1375_, 0, v___x_1374_);
-                lean_ctor_set(v___x_1375_, 1, v___x_1357_);
+                v___x_1374_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1374_, 0, v___x_1372_);
+                crate::leanh::lean_ctor_set(v___x_1374_, 1, v___x_1373_);
+                v___x_1375_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1375_, 0, v___x_1374_);
+                crate::leanh::lean_ctor_set(v___x_1375_, 1, v___x_1357_);
                 v___f_1376_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__24;
-                v___x_1377_ =
-                    lean_alloc_closure(l_Prod_repr___boxed as *mut core::ffi::c_void, 6, 4);
-                lean_closure_set(v___x_1377_, 0, lean_box(0));
-                lean_closure_set(v___x_1377_, 1, lean_box(0));
-                lean_closure_set(v___x_1377_, 2, v_inst_1344_);
-                lean_closure_set(v___x_1377_, 3, v___f_1376_);
-                v___x_1378_ = lean_unsigned_to_nat(0);
+                v___x_1377_ = crate::leanh::lean_alloc_closure(
+                    l_Prod_repr___boxed as *mut core::ffi::c_void,
+                    6,
+                    4,
+                );
+                crate::leanh::lean_closure_set(v___x_1377_, 0, crate::leanh::lean_box(0));
+                crate::leanh::lean_closure_set(v___x_1377_, 1, crate::leanh::lean_box(0));
+                crate::leanh::lean_closure_set(v___x_1377_, 2, v_inst_1344_);
+                crate::leanh::lean_closure_set(v___x_1377_, 3, v___f_1376_);
+                v___x_1378_ = crate::leanh::lean_unsigned_to_nat(0);
                 v___x_1379_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__26;
-                v___x_1402_ = lean_box(0);
+                v___x_1402_ = crate::leanh::lean_box(0);
                 v___x_1403_ = lean_array_get_size(v_buckets_1353_);
                 v___x_1404_ = lean_nat_dec_lt(v___x_1378_, v___x_1403_);
                 if v___x_1404_ == 0 {
-                    lean_dec_ref(v_buckets_1353_);
+                    crate::leanh::lean_dec_ref(v_buckets_1353_);
                     v___y_1381_ = v___x_1402_;
                     state = 5;
                     continue;
@@ -1139,9 +1139,9 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
                     v___x_1406_ = lean_usize_of_nat(v___x_1403_);
                     v___x_1407_ = 0usize;
                     v___x_1408_ = l___private_Init_Data_Array_Basic_0__Array_foldrMUnsafe_fold(
-                        lean_box(0),
-                        lean_box(0),
-                        lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
                         v___x_1352_,
                         v___f_1405_,
                         v_buckets_1353_,
@@ -1156,41 +1156,41 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
             }
             5 => {
                 v___x_1382_ = l_List_repr___redArg(v___x_1377_, v___y_1381_);
-                v___x_1383_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1383_, 0, v___x_1379_);
-                lean_ctor_set(v___x_1383_, 1, v___x_1382_);
+                v___x_1383_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1383_, 0, v___x_1379_);
+                crate::leanh::lean_ctor_set(v___x_1383_, 1, v___x_1382_);
                 v___x_1384_ = l_Repr_addAppParen(v___x_1383_, v___x_1378_);
-                v___x_1385_ = lean_alloc_ctor(4, 2, (0) as u32);
-                lean_ctor_set(v___x_1385_, 0, v___x_1361_);
-                lean_ctor_set(v___x_1385_, 1, v___x_1384_);
-                v___x_1386_ = lean_alloc_ctor(6, 1, (1) as u32);
-                lean_ctor_set(v___x_1386_, 0, v___x_1385_);
-                lean_ctor_set_uint8(
+                v___x_1385_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1385_, 0, v___x_1361_);
+                crate::leanh::lean_ctor_set(v___x_1385_, 1, v___x_1384_);
+                v___x_1386_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                crate::leanh::lean_ctor_set(v___x_1386_, 0, v___x_1385_);
+                crate::leanh::lean_ctor_set_uint8(
                     v___x_1386_,
-                    (core::mem::size_of::<*mut LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
                     v___x_1365_,
                 );
-                v___x_1387_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1387_, 0, v___x_1375_);
-                lean_ctor_set(v___x_1387_, 1, v___x_1386_);
-                v___x_1388_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1388_, 0, v___x_1387_);
-                lean_ctor_set(v___x_1388_, 1, v___x_1369_);
-                v___x_1389_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1389_, 0, v___x_1388_);
-                lean_ctor_set(v___x_1389_, 1, v___x_1371_);
+                v___x_1387_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1387_, 0, v___x_1375_);
+                crate::leanh::lean_ctor_set(v___x_1387_, 1, v___x_1386_);
+                v___x_1388_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1388_, 0, v___x_1387_);
+                crate::leanh::lean_ctor_set(v___x_1388_, 1, v___x_1369_);
+                v___x_1389_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1389_, 0, v___x_1388_);
+                crate::leanh::lean_ctor_set(v___x_1389_, 1, v___x_1371_);
                 v___x_1390_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__28;
-                v___x_1391_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1391_, 0, v___x_1389_);
-                lean_ctor_set(v___x_1391_, 1, v___x_1390_);
-                v___x_1392_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1392_, 0, v___x_1391_);
-                lean_ctor_set(v___x_1392_, 1, v___x_1357_);
+                v___x_1391_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1391_, 0, v___x_1389_);
+                crate::leanh::lean_ctor_set(v___x_1391_, 1, v___x_1390_);
+                v___x_1392_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1392_, 0, v___x_1391_);
+                crate::leanh::lean_ctor_set(v___x_1392_, 1, v___x_1357_);
                 v___x_1393_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__30;
-                v___x_1394_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1394_, 0, v___x_1392_);
-                lean_ctor_set(v___x_1394_, 1, v___x_1393_);
-                v___x_1395_ = lean_obj_once(
+                v___x_1394_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1394_, 0, v___x_1392_);
+                crate::leanh::lean_ctor_set(v___x_1394_, 1, v___x_1393_);
+                v___x_1395_ = crate::leanh::lean_obj_once(
                     core::ptr::addr_of_mut!(
                         l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33
                     ),
@@ -1200,21 +1200,21 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
                     _init_l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__33,
                 );
                 v___x_1396_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__34;
-                v___x_1397_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1397_, 0, v___x_1396_);
-                lean_ctor_set(v___x_1397_, 1, v___x_1394_);
+                v___x_1397_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1397_, 0, v___x_1396_);
+                crate::leanh::lean_ctor_set(v___x_1397_, 1, v___x_1394_);
                 v___x_1398_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__35;
-                v___x_1399_ = lean_alloc_ctor(5, 2, (0) as u32);
-                lean_ctor_set(v___x_1399_, 0, v___x_1397_);
-                lean_ctor_set(v___x_1399_, 1, v___x_1398_);
-                v___x_1400_ = lean_alloc_ctor(4, 2, (0) as u32);
-                lean_ctor_set(v___x_1400_, 0, v___x_1395_);
-                lean_ctor_set(v___x_1400_, 1, v___x_1399_);
-                v___x_1401_ = lean_alloc_ctor(6, 1, (1) as u32);
-                lean_ctor_set(v___x_1401_, 0, v___x_1400_);
-                lean_ctor_set_uint8(
+                v___x_1399_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1399_, 0, v___x_1397_);
+                crate::leanh::lean_ctor_set(v___x_1399_, 1, v___x_1398_);
+                v___x_1400_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1400_, 0, v___x_1395_);
+                crate::leanh::lean_ctor_set(v___x_1400_, 1, v___x_1399_);
+                v___x_1401_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                crate::leanh::lean_ctor_set(v___x_1401_, 0, v___x_1400_);
+                crate::leanh::lean_ctor_set_uint8(
                     v___x_1401_,
-                    (core::mem::size_of::<*mut LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
                     v___x_1365_,
                 );
                 return v___x_1401_;
@@ -1224,31 +1224,31 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr(
-    mut v_00_u03b1_1414_: *mut LeanObject,
-    mut v_00_u03b2_1415_: *mut LeanObject,
-    mut v_inst_1416_: *mut LeanObject,
-    mut v_inst_1417_: *mut LeanObject,
-    mut v_inst_1418_: *mut LeanObject,
-    mut v_inst_1419_: *mut LeanObject,
-    mut v_x_1420_: *mut LeanObject,
-    mut v_prec_1421_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1422_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1414_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1415_: *mut crate::leanh::LeanObject,
+    mut v_inst_1416_: *mut crate::leanh::LeanObject,
+    mut v_inst_1417_: *mut crate::leanh::LeanObject,
+    mut v_inst_1418_: *mut crate::leanh::LeanObject,
+    mut v_inst_1419_: *mut crate::leanh::LeanObject,
+    mut v_x_1420_: *mut crate::leanh::LeanObject,
+    mut v_prec_1421_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1422_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_1422_ =
         l_Std_Internal_instReprIndexMultiMap_repr___redArg(v_inst_1418_, v_inst_1419_, v_x_1420_);
     return v___x_1422_;
 }
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___boxed(
-    mut v_00_u03b1_1423_: *mut LeanObject,
-    mut v_00_u03b2_1424_: *mut LeanObject,
-    mut v_inst_1425_: *mut LeanObject,
-    mut v_inst_1426_: *mut LeanObject,
-    mut v_inst_1427_: *mut LeanObject,
-    mut v_inst_1428_: *mut LeanObject,
-    mut v_x_1429_: *mut LeanObject,
-    mut v_prec_1430_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1431_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1423_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1424_: *mut crate::leanh::LeanObject,
+    mut v_inst_1425_: *mut crate::leanh::LeanObject,
+    mut v_inst_1426_: *mut crate::leanh::LeanObject,
+    mut v_inst_1427_: *mut crate::leanh::LeanObject,
+    mut v_inst_1428_: *mut crate::leanh::LeanObject,
+    mut v_x_1429_: *mut crate::leanh::LeanObject,
+    mut v_prec_1430_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1431_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1431_ = l_Std_Internal_instReprIndexMultiMap_repr(
         v_00_u03b1_1423_,
         v_00_u03b2_1424_,
@@ -1259,102 +1259,105 @@ pub unsafe fn l_Std_Internal_instReprIndexMultiMap_repr___boxed(
         v_x_1429_,
         v_prec_1430_,
     );
-    lean_dec(v_prec_1430_);
-    lean_dec_ref(v_inst_1426_);
-    lean_dec_ref(v_inst_1425_);
+    crate::leanh::lean_dec(v_prec_1430_);
+    crate::leanh::lean_dec_ref(v_inst_1426_);
+    crate::leanh::lean_dec_ref(v_inst_1425_);
     return v_res_1431_;
 }
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap___redArg(
-    mut v_inst_1432_: *mut LeanObject,
-    mut v_inst_1433_: *mut LeanObject,
-    mut v_inst_1434_: *mut LeanObject,
-    mut v_inst_1435_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1436_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1436_ = lean_alloc_closure(
+    mut v_inst_1432_: *mut crate::leanh::LeanObject,
+    mut v_inst_1433_: *mut crate::leanh::LeanObject,
+    mut v_inst_1434_: *mut crate::leanh::LeanObject,
+    mut v_inst_1435_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1436_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1436_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_instReprIndexMultiMap_repr___boxed as *mut core::ffi::c_void,
         8,
         6,
     );
-    lean_closure_set(v___x_1436_, 0, lean_box(0));
-    lean_closure_set(v___x_1436_, 1, lean_box(0));
-    lean_closure_set(v___x_1436_, 2, v_inst_1432_);
-    lean_closure_set(v___x_1436_, 3, v_inst_1433_);
-    lean_closure_set(v___x_1436_, 4, v_inst_1434_);
-    lean_closure_set(v___x_1436_, 5, v_inst_1435_);
+    crate::leanh::lean_closure_set(v___x_1436_, 0, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_1436_, 1, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_1436_, 2, v_inst_1432_);
+    crate::leanh::lean_closure_set(v___x_1436_, 3, v_inst_1433_);
+    crate::leanh::lean_closure_set(v___x_1436_, 4, v_inst_1434_);
+    crate::leanh::lean_closure_set(v___x_1436_, 5, v_inst_1435_);
     return v___x_1436_;
 }
 pub unsafe fn l_Std_Internal_instReprIndexMultiMap(
-    mut v_00_u03b1_1437_: *mut LeanObject,
-    mut v_00_u03b2_1438_: *mut LeanObject,
-    mut v_inst_1439_: *mut LeanObject,
-    mut v_inst_1440_: *mut LeanObject,
-    mut v_inst_1441_: *mut LeanObject,
-    mut v_inst_1442_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1443_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1443_ = lean_alloc_closure(
+    mut v_00_u03b1_1437_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1438_: *mut crate::leanh::LeanObject,
+    mut v_inst_1439_: *mut crate::leanh::LeanObject,
+    mut v_inst_1440_: *mut crate::leanh::LeanObject,
+    mut v_inst_1441_: *mut crate::leanh::LeanObject,
+    mut v_inst_1442_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1443_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1443_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_instReprIndexMultiMap_repr___boxed as *mut core::ffi::c_void,
         8,
         6,
     );
-    lean_closure_set(v___x_1443_, 0, lean_box(0));
-    lean_closure_set(v___x_1443_, 1, lean_box(0));
-    lean_closure_set(v___x_1443_, 2, v_inst_1439_);
-    lean_closure_set(v___x_1443_, 3, v_inst_1440_);
-    lean_closure_set(v___x_1443_, 4, v_inst_1441_);
-    lean_closure_set(v___x_1443_, 5, v_inst_1442_);
+    crate::leanh::lean_closure_set(v___x_1443_, 0, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_1443_, 1, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_1443_, 2, v_inst_1439_);
+    crate::leanh::lean_closure_set(v___x_1443_, 3, v_inst_1440_);
+    crate::leanh::lean_closure_set(v___x_1443_, 4, v_inst_1441_);
+    crate::leanh::lean_closure_set(v___x_1443_, 5, v_inst_1442_);
     return v___x_1443_;
 }
-pub unsafe fn _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__1() -> *mut LeanObject {
-    let mut v___x_1446_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1447_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1448_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1446_ = lean_box(0);
-    v___x_1447_ = lean_unsigned_to_nat(16);
+pub unsafe fn _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__1()
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1446_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1447_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1448_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1446_ = crate::leanh::lean_box(0);
+    v___x_1447_ = crate::leanh::lean_unsigned_to_nat(16);
     v___x_1448_ = lean_mk_array(v___x_1447_, v___x_1446_);
     return v___x_1448_;
 }
-pub unsafe fn _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__2() -> *mut LeanObject {
-    let mut v___x_1449_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1450_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1451_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1449_ = lean_obj_once(
+pub unsafe fn _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__2()
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1449_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1450_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1451_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1449_ = crate::leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__1),
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__1_once),
         _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__1,
     );
-    v___x_1450_ = lean_unsigned_to_nat(0);
-    v___x_1451_ = lean_alloc_ctor(0, 2, (0) as u32);
-    lean_ctor_set(v___x_1451_, 0, v___x_1450_);
-    lean_ctor_set(v___x_1451_, 1, v___x_1449_);
+    v___x_1450_ = crate::leanh::lean_unsigned_to_nat(0);
+    v___x_1451_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+    crate::leanh::lean_ctor_set(v___x_1451_, 0, v___x_1450_);
+    crate::leanh::lean_ctor_set(v___x_1451_, 1, v___x_1449_);
     return v___x_1451_;
 }
-pub unsafe fn _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__3() -> *mut LeanObject {
-    let mut v___x_1452_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1453_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1454_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1452_ = lean_obj_once(
+pub unsafe fn _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__3()
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1452_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1453_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1454_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1452_ = crate::leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__2),
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__2_once),
         _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__2,
     );
     v___x_1453_ = l_Std_Internal_instInhabitedIndexMultiMap___closed__0;
-    v___x_1454_ = lean_alloc_ctor(0, 2, (0) as u32);
-    lean_ctor_set(v___x_1454_, 0, v___x_1453_);
-    lean_ctor_set(v___x_1454_, 1, v___x_1452_);
+    v___x_1454_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+    crate::leanh::lean_ctor_set(v___x_1454_, 0, v___x_1453_);
+    crate::leanh::lean_ctor_set(v___x_1454_, 1, v___x_1452_);
     return v___x_1454_;
 }
 pub unsafe fn l_Std_Internal_instInhabitedIndexMultiMap(
-    mut v_00_u03b1_1455_: *mut LeanObject,
-    mut v_00_u03b2_1456_: *mut LeanObject,
-    mut v_inst_1457_: *mut LeanObject,
-    mut v_inst_1458_: *mut LeanObject,
-    mut v_inst_1459_: *mut LeanObject,
-    mut v_inst_1460_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1461_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1461_ = lean_obj_once(
+    mut v_00_u03b1_1455_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1456_: *mut crate::leanh::LeanObject,
+    mut v_inst_1457_: *mut crate::leanh::LeanObject,
+    mut v_inst_1458_: *mut crate::leanh::LeanObject,
+    mut v_inst_1459_: *mut crate::leanh::LeanObject,
+    mut v_inst_1460_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1461_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1461_ = crate::leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__3),
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__3_once),
         _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__3,
@@ -1362,14 +1365,14 @@ pub unsafe fn l_Std_Internal_instInhabitedIndexMultiMap(
     return v___x_1461_;
 }
 pub unsafe fn l_Std_Internal_instInhabitedIndexMultiMap___boxed(
-    mut v_00_u03b1_1462_: *mut LeanObject,
-    mut v_00_u03b2_1463_: *mut LeanObject,
-    mut v_inst_1464_: *mut LeanObject,
-    mut v_inst_1465_: *mut LeanObject,
-    mut v_inst_1466_: *mut LeanObject,
-    mut v_inst_1467_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1468_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1462_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1463_: *mut crate::leanh::LeanObject,
+    mut v_inst_1464_: *mut crate::leanh::LeanObject,
+    mut v_inst_1465_: *mut crate::leanh::LeanObject,
+    mut v_inst_1466_: *mut crate::leanh::LeanObject,
+    mut v_inst_1467_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1468_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1468_ = l_Std_Internal_instInhabitedIndexMultiMap(
         v_00_u03b1_1462_,
         v_00_u03b2_1463_,
@@ -1378,48 +1381,48 @@ pub unsafe fn l_Std_Internal_instInhabitedIndexMultiMap___boxed(
         v_inst_1466_,
         v_inst_1467_,
     );
-    lean_dec(v_inst_1467_);
-    lean_dec(v_inst_1466_);
-    lean_dec_ref(v_inst_1465_);
-    lean_dec_ref(v_inst_1464_);
+    crate::leanh::lean_dec(v_inst_1467_);
+    crate::leanh::lean_dec(v_inst_1466_);
+    crate::leanh::lean_dec_ref(v_inst_1465_);
+    crate::leanh::lean_dec_ref(v_inst_1464_);
     return v_res_1468_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instMembership(
-    mut v_00_u03b1_1469_: *mut LeanObject,
-    mut v_00_u03b2_1470_: *mut LeanObject,
-    mut v_inst_1471_: *mut LeanObject,
-    mut v_inst_1472_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1473_: *mut LeanObject = core::ptr::null_mut();
-    v___x_1473_ = lean_box(0);
+    mut v_00_u03b1_1469_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1470_: *mut crate::leanh::LeanObject,
+    mut v_inst_1471_: *mut crate::leanh::LeanObject,
+    mut v_inst_1472_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1473_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_1473_ = crate::leanh::lean_box(0);
     return v___x_1473_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instMembership___boxed(
-    mut v_00_u03b1_1474_: *mut LeanObject,
-    mut v_00_u03b2_1475_: *mut LeanObject,
-    mut v_inst_1476_: *mut LeanObject,
-    mut v_inst_1477_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1478_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1474_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1475_: *mut crate::leanh::LeanObject,
+    mut v_inst_1476_: *mut crate::leanh::LeanObject,
+    mut v_inst_1477_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1478_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1478_ = l_Std_Internal_IndexMultiMap_instMembership(
         v_00_u03b1_1474_,
         v_00_u03b2_1475_,
         v_inst_1476_,
         v_inst_1477_,
     );
-    lean_dec_ref(v_inst_1477_);
-    lean_dec_ref(v_inst_1476_);
+    crate::leanh::lean_dec_ref(v_inst_1477_);
+    crate::leanh::lean_dec_ref(v_inst_1476_);
     return v_res_1478_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
-    mut v_inst_1479_: *mut LeanObject,
-    mut v_inst_1480_: *mut LeanObject,
-    mut v_key_1481_: *mut LeanObject,
-    mut v_map_1482_: *mut LeanObject,
+    mut v_inst_1479_: *mut crate::leanh::LeanObject,
+    mut v_inst_1480_: *mut crate::leanh::LeanObject,
+    mut v_key_1481_: *mut crate::leanh::LeanObject,
+    mut v_map_1482_: *mut crate::leanh::LeanObject,
 ) -> u8 {
-    let mut v_indexes_1483_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1483_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1484_: u8 = 0;
-    v_indexes_1483_ = lean_ctor_get(v_map_1482_, 1);
+    v_indexes_1483_ = crate::leanh::lean_ctor_get(v_map_1482_, 1);
     v___x_1484_ = l_Std_DHashMap_Internal_Raw_u2080_contains___redArg(
         v_inst_1479_,
         v_inst_1480_,
@@ -1429,30 +1432,30 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
     return v___x_1484_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem___redArg___boxed(
-    mut v_inst_1485_: *mut LeanObject,
-    mut v_inst_1486_: *mut LeanObject,
-    mut v_key_1487_: *mut LeanObject,
-    mut v_map_1488_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1485_: *mut crate::leanh::LeanObject,
+    mut v_inst_1486_: *mut crate::leanh::LeanObject,
+    mut v_key_1487_: *mut crate::leanh::LeanObject,
+    mut v_map_1488_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_1489_: u8 = 0;
-    let mut v_r_1490_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_1490_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1489_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1485_,
         v_inst_1486_,
         v_key_1487_,
         v_map_1488_,
     );
-    lean_dec_ref(v_map_1488_);
-    v_r_1490_ = lean_box((v_res_1489_) as usize);
+    crate::leanh::lean_dec_ref(v_map_1488_);
+    v_r_1490_ = crate::leanh::lean_box((v_res_1489_) as usize);
     return v_r_1490_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem(
-    mut v_00_u03b1_1491_: *mut LeanObject,
-    mut v_00_u03b2_1492_: *mut LeanObject,
-    mut v_inst_1493_: *mut LeanObject,
-    mut v_inst_1494_: *mut LeanObject,
-    mut v_key_1495_: *mut LeanObject,
-    mut v_map_1496_: *mut LeanObject,
+    mut v_00_u03b1_1491_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1492_: *mut crate::leanh::LeanObject,
+    mut v_inst_1493_: *mut crate::leanh::LeanObject,
+    mut v_inst_1494_: *mut crate::leanh::LeanObject,
+    mut v_key_1495_: *mut crate::leanh::LeanObject,
+    mut v_map_1496_: *mut crate::leanh::LeanObject,
 ) -> u8 {
     let mut v___x_1497_: u8 = 0;
     v___x_1497_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
@@ -1464,15 +1467,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem(
     return v___x_1497_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem___boxed(
-    mut v_00_u03b1_1498_: *mut LeanObject,
-    mut v_00_u03b2_1499_: *mut LeanObject,
-    mut v_inst_1500_: *mut LeanObject,
-    mut v_inst_1501_: *mut LeanObject,
-    mut v_key_1502_: *mut LeanObject,
-    mut v_map_1503_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1498_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1499_: *mut crate::leanh::LeanObject,
+    mut v_inst_1500_: *mut crate::leanh::LeanObject,
+    mut v_inst_1501_: *mut crate::leanh::LeanObject,
+    mut v_key_1502_: *mut crate::leanh::LeanObject,
+    mut v_map_1503_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_1504_: u8 = 0;
-    let mut v_r_1505_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_1505_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1504_ = l_Std_Internal_IndexMultiMap_instDecidableMem(
         v_00_u03b1_1498_,
         v_00_u03b2_1499_,
@@ -1481,34 +1484,34 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instDecidableMem___boxed(
         v_key_1502_,
         v_map_1503_,
     );
-    lean_dec_ref(v_map_1503_);
-    v_r_1505_ = lean_box((v_res_1504_) as usize);
+    crate::leanh::lean_dec_ref(v_map_1503_);
+    v_r_1505_ = crate::leanh::lean_box((v_res_1504_) as usize);
     return v_r_1505_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0(
-    mut v___x_1506_: *mut LeanObject,
-    mut v_entries_1507_: *mut LeanObject,
-    mut v_x1_1508_: *mut LeanObject,
-    mut v_x2_1509_: *mut LeanObject,
-    mut v_x3_1510_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1511_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1512_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_snd_1513_: *mut LeanObject = core::ptr::null_mut();
+    mut v___x_1506_: *mut crate::leanh::LeanObject,
+    mut v_entries_1507_: *mut crate::leanh::LeanObject,
+    mut v_x1_1508_: *mut crate::leanh::LeanObject,
+    mut v_x2_1509_: *mut crate::leanh::LeanObject,
+    mut v_x3_1510_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1511_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1512_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1513_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_1511_ = lean_array_fget_borrowed(v___x_1506_, v_x1_1508_);
     v___x_1512_ = lean_array_fget_borrowed(v_entries_1507_, v___x_1511_);
-    v_snd_1513_ = lean_ctor_get(v___x_1512_, 1);
-    lean_inc(v_snd_1513_);
+    v_snd_1513_ = crate::leanh::lean_ctor_get(v___x_1512_, 1);
+    crate::leanh::lean_inc(v_snd_1513_);
     return v_snd_1513_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed(
-    mut v___x_1514_: *mut LeanObject,
-    mut v_entries_1515_: *mut LeanObject,
-    mut v_x1_1516_: *mut LeanObject,
-    mut v_x2_1517_: *mut LeanObject,
-    mut v_x3_1518_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1519_: *mut LeanObject = core::ptr::null_mut();
+    mut v___x_1514_: *mut crate::leanh::LeanObject,
+    mut v_entries_1515_: *mut crate::leanh::LeanObject,
+    mut v_x1_1516_: *mut crate::leanh::LeanObject,
+    mut v_x2_1517_: *mut crate::leanh::LeanObject,
+    mut v_x3_1518_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1519_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1519_ = l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0(
         v___x_1514_,
         v_entries_1515_,
@@ -1516,50 +1519,50 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed(
         v_x2_1517_,
         v_x3_1518_,
     );
-    lean_dec(v_x2_1517_);
-    lean_dec(v_x1_1516_);
-    lean_dec_ref(v_entries_1515_);
-    lean_dec_ref(v___x_1514_);
+    crate::leanh::lean_dec(v_x2_1517_);
+    crate::leanh::lean_dec(v_x1_1516_);
+    crate::leanh::lean_dec_ref(v_entries_1515_);
+    crate::leanh::lean_dec_ref(v___x_1514_);
     return v_res_1519_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getAll___redArg(
-    mut v_inst_1520_: *mut LeanObject,
-    mut v_inst_1521_: *mut LeanObject,
-    mut v_map_1522_: *mut LeanObject,
-    mut v_key_1523_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1524_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1525_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1526_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_1527_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1528_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1529_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1530_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1531_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_1532_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_1524_ = lean_ctor_get(v_map_1522_, 0);
-    lean_inc_ref(v_entries_1524_);
-    v_indexes_1525_ = lean_ctor_get(v_map_1522_, 1);
-    lean_inc_ref(v_indexes_1525_);
-    lean_dec_ref(v_map_1522_);
+    mut v_inst_1520_: *mut crate::leanh::LeanObject,
+    mut v_inst_1521_: *mut crate::leanh::LeanObject,
+    mut v_map_1522_: *mut crate::leanh::LeanObject,
+    mut v_key_1523_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1524_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1525_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1526_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_1527_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1528_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1529_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1530_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1531_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_1532_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_1524_ = crate::leanh::lean_ctor_get(v_map_1522_, 0);
+    crate::leanh::lean_inc_ref(v_entries_1524_);
+    v_indexes_1525_ = crate::leanh::lean_ctor_get(v_map_1522_, 1);
+    crate::leanh::lean_inc_ref(v_indexes_1525_);
+    crate::leanh::lean_dec_ref(v_map_1522_);
     v___x_1526_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
         v_inst_1520_,
         v_inst_1521_,
         v_indexes_1525_,
         v_key_1523_,
     );
-    lean_dec_ref(v_indexes_1525_);
-    lean_inc(v___x_1526_);
-    v___f_1527_ = lean_alloc_closure(
+    crate::leanh::lean_dec_ref(v_indexes_1525_);
+    crate::leanh::lean_inc(v___x_1526_);
+    v___f_1527_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
         5,
         2,
     );
-    lean_closure_set(v___f_1527_, 0, v___x_1526_);
-    lean_closure_set(v___f_1527_, 1, v_entries_1524_);
+    crate::leanh::lean_closure_set(v___f_1527_, 0, v___x_1526_);
+    crate::leanh::lean_closure_set(v___f_1527_, 1, v_entries_1524_);
     v___x_1528_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
     v___x_1529_ = lean_array_get_size(v___x_1526_);
-    v___x_1530_ = lean_unsigned_to_nat(0);
+    v___x_1530_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_1531_ = lean_mk_empty_array_with_capacity(v___x_1529_);
     v_entries_1532_ = l_Array_mapFinIdxM_map___redArg(
         v___x_1528_,
@@ -1572,46 +1575,46 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll___redArg(
     return v_entries_1532_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getAll(
-    mut v_00_u03b1_1533_: *mut LeanObject,
-    mut v_00_u03b2_1534_: *mut LeanObject,
-    mut v_inst_1535_: *mut LeanObject,
-    mut v_inst_1536_: *mut LeanObject,
-    mut v_map_1537_: *mut LeanObject,
-    mut v_key_1538_: *mut LeanObject,
-    mut v_h_1539_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1540_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1541_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1542_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_1543_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1544_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1545_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1546_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1547_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_1548_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_1540_ = lean_ctor_get(v_map_1537_, 0);
-    lean_inc_ref(v_entries_1540_);
-    v_indexes_1541_ = lean_ctor_get(v_map_1537_, 1);
-    lean_inc_ref(v_indexes_1541_);
-    lean_dec_ref(v_map_1537_);
+    mut v_00_u03b1_1533_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1534_: *mut crate::leanh::LeanObject,
+    mut v_inst_1535_: *mut crate::leanh::LeanObject,
+    mut v_inst_1536_: *mut crate::leanh::LeanObject,
+    mut v_map_1537_: *mut crate::leanh::LeanObject,
+    mut v_key_1538_: *mut crate::leanh::LeanObject,
+    mut v_h_1539_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1540_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1541_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1542_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_1543_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1544_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1545_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1546_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1547_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_1548_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_1540_ = crate::leanh::lean_ctor_get(v_map_1537_, 0);
+    crate::leanh::lean_inc_ref(v_entries_1540_);
+    v_indexes_1541_ = crate::leanh::lean_ctor_get(v_map_1537_, 1);
+    crate::leanh::lean_inc_ref(v_indexes_1541_);
+    crate::leanh::lean_dec_ref(v_map_1537_);
     v___x_1542_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
         v_inst_1535_,
         v_inst_1536_,
         v_indexes_1541_,
         v_key_1538_,
     );
-    lean_dec_ref(v_indexes_1541_);
-    lean_inc(v___x_1542_);
-    v___f_1543_ = lean_alloc_closure(
+    crate::leanh::lean_dec_ref(v_indexes_1541_);
+    crate::leanh::lean_inc(v___x_1542_);
+    v___f_1543_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
         5,
         2,
     );
-    lean_closure_set(v___f_1543_, 0, v___x_1542_);
-    lean_closure_set(v___f_1543_, 1, v_entries_1540_);
+    crate::leanh::lean_closure_set(v___f_1543_, 0, v___x_1542_);
+    crate::leanh::lean_closure_set(v___f_1543_, 1, v_entries_1540_);
     v___x_1544_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
     v___x_1545_ = lean_array_get_size(v___x_1542_);
-    v___x_1546_ = lean_unsigned_to_nat(0);
+    v___x_1546_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_1547_ = lean_mk_empty_array_with_capacity(v___x_1545_);
     v_entries_1548_ = l_Array_mapFinIdxM_map___redArg(
         v___x_1544_,
@@ -1624,94 +1627,94 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll(
     return v_entries_1548_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get___redArg(
-    mut v_inst_1549_: *mut LeanObject,
-    mut v_inst_1550_: *mut LeanObject,
-    mut v_map_1551_: *mut LeanObject,
-    mut v_key_1552_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1553_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1554_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1555_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1556_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entry_1557_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1558_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_snd_1559_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_1553_ = lean_ctor_get(v_map_1551_, 0);
-    v_indexes_1554_ = lean_ctor_get(v_map_1551_, 1);
+    mut v_inst_1549_: *mut crate::leanh::LeanObject,
+    mut v_inst_1550_: *mut crate::leanh::LeanObject,
+    mut v_map_1551_: *mut crate::leanh::LeanObject,
+    mut v_key_1552_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1553_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1554_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1555_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1556_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entry_1557_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1558_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1559_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_1553_ = crate::leanh::lean_ctor_get(v_map_1551_, 0);
+    v_indexes_1554_ = crate::leanh::lean_ctor_get(v_map_1551_, 1);
     v___x_1555_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
         v_inst_1549_,
         v_inst_1550_,
         v_indexes_1554_,
         v_key_1552_,
     );
-    v___x_1556_ = lean_unsigned_to_nat(0);
+    v___x_1556_ = crate::leanh::lean_unsigned_to_nat(0);
     v_entry_1557_ = lean_array_fget(v___x_1555_, v___x_1556_);
-    lean_dec(v___x_1555_);
+    crate::leanh::lean_dec(v___x_1555_);
     v___x_1558_ = lean_array_fget_borrowed(v_entries_1553_, v_entry_1557_);
-    lean_dec(v_entry_1557_);
-    v_snd_1559_ = lean_ctor_get(v___x_1558_, 1);
-    lean_inc(v_snd_1559_);
+    crate::leanh::lean_dec(v_entry_1557_);
+    v_snd_1559_ = crate::leanh::lean_ctor_get(v___x_1558_, 1);
+    crate::leanh::lean_inc(v_snd_1559_);
     return v_snd_1559_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get___redArg___boxed(
-    mut v_inst_1560_: *mut LeanObject,
-    mut v_inst_1561_: *mut LeanObject,
-    mut v_map_1562_: *mut LeanObject,
-    mut v_key_1563_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1564_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1560_: *mut crate::leanh::LeanObject,
+    mut v_inst_1561_: *mut crate::leanh::LeanObject,
+    mut v_map_1562_: *mut crate::leanh::LeanObject,
+    mut v_key_1563_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1564_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1564_ = l_Std_Internal_IndexMultiMap_get___redArg(
         v_inst_1560_,
         v_inst_1561_,
         v_map_1562_,
         v_key_1563_,
     );
-    lean_dec_ref(v_map_1562_);
+    crate::leanh::lean_dec_ref(v_map_1562_);
     return v_res_1564_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get(
-    mut v_00_u03b1_1565_: *mut LeanObject,
-    mut v_00_u03b2_1566_: *mut LeanObject,
-    mut v_inst_1567_: *mut LeanObject,
-    mut v_inst_1568_: *mut LeanObject,
-    mut v_map_1569_: *mut LeanObject,
-    mut v_key_1570_: *mut LeanObject,
-    mut v_h_1571_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1572_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1573_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1574_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1575_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entry_1576_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1577_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_snd_1578_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_1572_ = lean_ctor_get(v_map_1569_, 0);
-    v_indexes_1573_ = lean_ctor_get(v_map_1569_, 1);
+    mut v_00_u03b1_1565_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1566_: *mut crate::leanh::LeanObject,
+    mut v_inst_1567_: *mut crate::leanh::LeanObject,
+    mut v_inst_1568_: *mut crate::leanh::LeanObject,
+    mut v_map_1569_: *mut crate::leanh::LeanObject,
+    mut v_key_1570_: *mut crate::leanh::LeanObject,
+    mut v_h_1571_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1572_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1573_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1574_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1575_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entry_1576_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1577_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1578_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_1572_ = crate::leanh::lean_ctor_get(v_map_1569_, 0);
+    v_indexes_1573_ = crate::leanh::lean_ctor_get(v_map_1569_, 1);
     v___x_1574_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
         v_inst_1567_,
         v_inst_1568_,
         v_indexes_1573_,
         v_key_1570_,
     );
-    v___x_1575_ = lean_unsigned_to_nat(0);
+    v___x_1575_ = crate::leanh::lean_unsigned_to_nat(0);
     v_entry_1576_ = lean_array_fget(v___x_1574_, v___x_1575_);
-    lean_dec(v___x_1574_);
+    crate::leanh::lean_dec(v___x_1574_);
     v___x_1577_ = lean_array_fget_borrowed(v_entries_1572_, v_entry_1576_);
-    lean_dec(v_entry_1576_);
-    v_snd_1578_ = lean_ctor_get(v___x_1577_, 1);
-    lean_inc(v_snd_1578_);
+    crate::leanh::lean_dec(v_entry_1576_);
+    v_snd_1578_ = crate::leanh::lean_ctor_get(v___x_1577_, 1);
+    crate::leanh::lean_inc(v_snd_1578_);
     return v_snd_1578_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get___boxed(
-    mut v_00_u03b1_1579_: *mut LeanObject,
-    mut v_00_u03b2_1580_: *mut LeanObject,
-    mut v_inst_1581_: *mut LeanObject,
-    mut v_inst_1582_: *mut LeanObject,
-    mut v_map_1583_: *mut LeanObject,
-    mut v_key_1584_: *mut LeanObject,
-    mut v_h_1585_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1586_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1579_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1580_: *mut crate::leanh::LeanObject,
+    mut v_inst_1581_: *mut crate::leanh::LeanObject,
+    mut v_inst_1582_: *mut crate::leanh::LeanObject,
+    mut v_map_1583_: *mut crate::leanh::LeanObject,
+    mut v_key_1584_: *mut crate::leanh::LeanObject,
+    mut v_h_1585_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1586_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1586_ = l_Std_Internal_IndexMultiMap_get(
         v_00_u03b1_1579_,
         v_00_u03b2_1580_,
@@ -1721,19 +1724,19 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get___boxed(
         v_key_1584_,
         v_h_1585_,
     );
-    lean_dec_ref(v_map_1583_);
+    crate::leanh::lean_dec_ref(v_map_1583_);
     return v_res_1586_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getAll_x3f___redArg(
-    mut v_inst_1587_: *mut LeanObject,
-    mut v_inst_1588_: *mut LeanObject,
-    mut v_map_1589_: *mut LeanObject,
-    mut v_key_1590_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1587_: *mut crate::leanh::LeanObject,
+    mut v_inst_1588_: *mut crate::leanh::LeanObject,
+    mut v_map_1589_: *mut crate::leanh::LeanObject,
+    mut v_key_1590_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1591_: u8 = 0;
-    lean_inc(v_key_1590_);
-    lean_inc_ref(v_inst_1588_);
-    lean_inc_ref(v_inst_1587_);
+    crate::leanh::lean_inc(v_key_1590_);
+    crate::leanh::lean_inc_ref(v_inst_1588_);
+    crate::leanh::lean_inc_ref(v_inst_1587_);
     v___x_1591_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1587_,
         v_inst_1588_,
@@ -1741,47 +1744,47 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll_x3f___redArg(
         v_map_1589_,
     );
     if v___x_1591_ == 0 {
-        let mut v___x_1592_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1590_);
-        lean_dec_ref(v_map_1589_);
-        lean_dec_ref(v_inst_1588_);
-        lean_dec_ref(v_inst_1587_);
-        v___x_1592_ = lean_box(0);
+        let mut v___x_1592_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1590_);
+        crate::leanh::lean_dec_ref(v_map_1589_);
+        crate::leanh::lean_dec_ref(v_inst_1588_);
+        crate::leanh::lean_dec_ref(v_inst_1587_);
+        v___x_1592_ = crate::leanh::lean_box(0);
         return v___x_1592_;
     } else {
-        let mut v_entries_1593_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1594_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1595_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1596_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1597_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1598_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1599_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1600_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entries_1601_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1602_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1593_ = lean_ctor_get(v_map_1589_, 0);
-        lean_inc_ref(v_entries_1593_);
-        v_indexes_1594_ = lean_ctor_get(v_map_1589_, 1);
-        lean_inc_ref(v_indexes_1594_);
-        lean_dec_ref(v_map_1589_);
+        let mut v_entries_1593_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1594_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1595_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1596_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1597_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1598_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1599_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1600_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entries_1601_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1602_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1593_ = crate::leanh::lean_ctor_get(v_map_1589_, 0);
+        crate::leanh::lean_inc_ref(v_entries_1593_);
+        v_indexes_1594_ = crate::leanh::lean_ctor_get(v_map_1589_, 1);
+        crate::leanh::lean_inc_ref(v_indexes_1594_);
+        crate::leanh::lean_dec_ref(v_map_1589_);
         v___x_1595_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1587_,
             v_inst_1588_,
             v_indexes_1594_,
             v_key_1590_,
         );
-        lean_dec_ref(v_indexes_1594_);
-        lean_inc(v___x_1595_);
-        v___f_1596_ = lean_alloc_closure(
+        crate::leanh::lean_dec_ref(v_indexes_1594_);
+        crate::leanh::lean_inc(v___x_1595_);
+        v___f_1596_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
             5,
             2,
         );
-        lean_closure_set(v___f_1596_, 0, v___x_1595_);
-        lean_closure_set(v___f_1596_, 1, v_entries_1593_);
+        crate::leanh::lean_closure_set(v___f_1596_, 0, v___x_1595_);
+        crate::leanh::lean_closure_set(v___f_1596_, 1, v_entries_1593_);
         v___x_1597_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_1598_ = lean_array_get_size(v___x_1595_);
-        v___x_1599_ = lean_unsigned_to_nat(0);
+        v___x_1599_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_1600_ = lean_mk_empty_array_with_capacity(v___x_1598_);
         v_entries_1601_ = l_Array_mapFinIdxM_map___redArg(
             v___x_1597_,
@@ -1791,23 +1794,23 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll_x3f___redArg(
             v___x_1599_,
             v___x_1600_,
         );
-        v___x_1602_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1602_, 0, v_entries_1601_);
+        v___x_1602_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1602_, 0, v_entries_1601_);
         return v___x_1602_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getAll_x3f(
-    mut v_00_u03b1_1603_: *mut LeanObject,
-    mut v_00_u03b2_1604_: *mut LeanObject,
-    mut v_inst_1605_: *mut LeanObject,
-    mut v_inst_1606_: *mut LeanObject,
-    mut v_map_1607_: *mut LeanObject,
-    mut v_key_1608_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1603_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1604_: *mut crate::leanh::LeanObject,
+    mut v_inst_1605_: *mut crate::leanh::LeanObject,
+    mut v_inst_1606_: *mut crate::leanh::LeanObject,
+    mut v_map_1607_: *mut crate::leanh::LeanObject,
+    mut v_key_1608_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1609_: u8 = 0;
-    lean_inc(v_key_1608_);
-    lean_inc_ref(v_inst_1606_);
-    lean_inc_ref(v_inst_1605_);
+    crate::leanh::lean_inc(v_key_1608_);
+    crate::leanh::lean_inc_ref(v_inst_1606_);
+    crate::leanh::lean_inc_ref(v_inst_1605_);
     v___x_1609_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1605_,
         v_inst_1606_,
@@ -1815,47 +1818,47 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll_x3f(
         v_map_1607_,
     );
     if v___x_1609_ == 0 {
-        let mut v___x_1610_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1608_);
-        lean_dec_ref(v_map_1607_);
-        lean_dec_ref(v_inst_1606_);
-        lean_dec_ref(v_inst_1605_);
-        v___x_1610_ = lean_box(0);
+        let mut v___x_1610_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1608_);
+        crate::leanh::lean_dec_ref(v_map_1607_);
+        crate::leanh::lean_dec_ref(v_inst_1606_);
+        crate::leanh::lean_dec_ref(v_inst_1605_);
+        v___x_1610_ = crate::leanh::lean_box(0);
         return v___x_1610_;
     } else {
-        let mut v_entries_1611_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1612_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1613_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1614_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1615_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1616_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1617_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1618_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entries_1619_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1620_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1611_ = lean_ctor_get(v_map_1607_, 0);
-        lean_inc_ref(v_entries_1611_);
-        v_indexes_1612_ = lean_ctor_get(v_map_1607_, 1);
-        lean_inc_ref(v_indexes_1612_);
-        lean_dec_ref(v_map_1607_);
+        let mut v_entries_1611_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1612_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1613_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1614_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1615_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1616_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1617_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1618_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entries_1619_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1620_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1611_ = crate::leanh::lean_ctor_get(v_map_1607_, 0);
+        crate::leanh::lean_inc_ref(v_entries_1611_);
+        v_indexes_1612_ = crate::leanh::lean_ctor_get(v_map_1607_, 1);
+        crate::leanh::lean_inc_ref(v_indexes_1612_);
+        crate::leanh::lean_dec_ref(v_map_1607_);
         v___x_1613_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1605_,
             v_inst_1606_,
             v_indexes_1612_,
             v_key_1608_,
         );
-        lean_dec_ref(v_indexes_1612_);
-        lean_inc(v___x_1613_);
-        v___f_1614_ = lean_alloc_closure(
+        crate::leanh::lean_dec_ref(v_indexes_1612_);
+        crate::leanh::lean_inc(v___x_1613_);
+        v___f_1614_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
             5,
             2,
         );
-        lean_closure_set(v___f_1614_, 0, v___x_1613_);
-        lean_closure_set(v___f_1614_, 1, v_entries_1611_);
+        crate::leanh::lean_closure_set(v___f_1614_, 0, v___x_1613_);
+        crate::leanh::lean_closure_set(v___f_1614_, 1, v_entries_1611_);
         v___x_1615_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_1616_ = lean_array_get_size(v___x_1613_);
-        v___x_1617_ = lean_unsigned_to_nat(0);
+        v___x_1617_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_1618_ = lean_mk_empty_array_with_capacity(v___x_1616_);
         v_entries_1619_ = l_Array_mapFinIdxM_map___redArg(
             v___x_1615_,
@@ -1865,21 +1868,21 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getAll_x3f(
             v___x_1617_,
             v___x_1618_,
         );
-        v___x_1620_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1620_, 0, v_entries_1619_);
+        v___x_1620_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1620_, 0, v_entries_1619_);
         return v___x_1620_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f___redArg(
-    mut v_inst_1621_: *mut LeanObject,
-    mut v_inst_1622_: *mut LeanObject,
-    mut v_map_1623_: *mut LeanObject,
-    mut v_key_1624_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1621_: *mut crate::leanh::LeanObject,
+    mut v_inst_1622_: *mut crate::leanh::LeanObject,
+    mut v_map_1623_: *mut crate::leanh::LeanObject,
+    mut v_key_1624_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1625_: u8 = 0;
-    lean_inc(v_key_1624_);
-    lean_inc_ref(v_inst_1622_);
-    lean_inc_ref(v_inst_1621_);
+    crate::leanh::lean_inc(v_key_1624_);
+    crate::leanh::lean_inc_ref(v_inst_1622_);
+    crate::leanh::lean_inc_ref(v_inst_1621_);
     v___x_1625_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1621_,
         v_inst_1622_,
@@ -1887,69 +1890,69 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f___redArg(
         v_map_1623_,
     );
     if v___x_1625_ == 0 {
-        let mut v___x_1626_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1624_);
-        lean_dec_ref(v_inst_1622_);
-        lean_dec_ref(v_inst_1621_);
-        v___x_1626_ = lean_box(0);
+        let mut v___x_1626_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1624_);
+        crate::leanh::lean_dec_ref(v_inst_1622_);
+        crate::leanh::lean_dec_ref(v_inst_1621_);
+        v___x_1626_ = crate::leanh::lean_box(0);
         return v___x_1626_;
     } else {
-        let mut v_entries_1627_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1628_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1629_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1630_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entry_1631_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1632_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_snd_1633_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1634_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1627_ = lean_ctor_get(v_map_1623_, 0);
-        v_indexes_1628_ = lean_ctor_get(v_map_1623_, 1);
+        let mut v_entries_1627_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1628_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1629_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1630_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entry_1631_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1632_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_snd_1633_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1634_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1627_ = crate::leanh::lean_ctor_get(v_map_1623_, 0);
+        v_indexes_1628_ = crate::leanh::lean_ctor_get(v_map_1623_, 1);
         v___x_1629_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1621_,
             v_inst_1622_,
             v_indexes_1628_,
             v_key_1624_,
         );
-        v___x_1630_ = lean_unsigned_to_nat(0);
+        v___x_1630_ = crate::leanh::lean_unsigned_to_nat(0);
         v_entry_1631_ = lean_array_fget(v___x_1629_, v___x_1630_);
-        lean_dec(v___x_1629_);
+        crate::leanh::lean_dec(v___x_1629_);
         v___x_1632_ = lean_array_fget_borrowed(v_entries_1627_, v_entry_1631_);
-        lean_dec(v_entry_1631_);
-        v_snd_1633_ = lean_ctor_get(v___x_1632_, 1);
-        lean_inc(v_snd_1633_);
-        v___x_1634_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1634_, 0, v_snd_1633_);
+        crate::leanh::lean_dec(v_entry_1631_);
+        v_snd_1633_ = crate::leanh::lean_ctor_get(v___x_1632_, 1);
+        crate::leanh::lean_inc(v_snd_1633_);
+        v___x_1634_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1634_, 0, v_snd_1633_);
         return v___x_1634_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f___redArg___boxed(
-    mut v_inst_1635_: *mut LeanObject,
-    mut v_inst_1636_: *mut LeanObject,
-    mut v_map_1637_: *mut LeanObject,
-    mut v_key_1638_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1639_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1635_: *mut crate::leanh::LeanObject,
+    mut v_inst_1636_: *mut crate::leanh::LeanObject,
+    mut v_map_1637_: *mut crate::leanh::LeanObject,
+    mut v_key_1638_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1639_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1639_ = l_Std_Internal_IndexMultiMap_get_x3f___redArg(
         v_inst_1635_,
         v_inst_1636_,
         v_map_1637_,
         v_key_1638_,
     );
-    lean_dec_ref(v_map_1637_);
+    crate::leanh::lean_dec_ref(v_map_1637_);
     return v_res_1639_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f(
-    mut v_00_u03b1_1640_: *mut LeanObject,
-    mut v_00_u03b2_1641_: *mut LeanObject,
-    mut v_inst_1642_: *mut LeanObject,
-    mut v_inst_1643_: *mut LeanObject,
-    mut v_map_1644_: *mut LeanObject,
-    mut v_key_1645_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1640_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1641_: *mut crate::leanh::LeanObject,
+    mut v_inst_1642_: *mut crate::leanh::LeanObject,
+    mut v_inst_1643_: *mut crate::leanh::LeanObject,
+    mut v_map_1644_: *mut crate::leanh::LeanObject,
+    mut v_key_1645_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1646_: u8 = 0;
-    lean_inc(v_key_1645_);
-    lean_inc_ref(v_inst_1643_);
-    lean_inc_ref(v_inst_1642_);
+    crate::leanh::lean_inc(v_key_1645_);
+    crate::leanh::lean_inc_ref(v_inst_1643_);
+    crate::leanh::lean_inc_ref(v_inst_1642_);
     v___x_1646_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1642_,
         v_inst_1643_,
@@ -1957,50 +1960,50 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f(
         v_map_1644_,
     );
     if v___x_1646_ == 0 {
-        let mut v___x_1647_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1645_);
-        lean_dec_ref(v_inst_1643_);
-        lean_dec_ref(v_inst_1642_);
-        v___x_1647_ = lean_box(0);
+        let mut v___x_1647_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1645_);
+        crate::leanh::lean_dec_ref(v_inst_1643_);
+        crate::leanh::lean_dec_ref(v_inst_1642_);
+        v___x_1647_ = crate::leanh::lean_box(0);
         return v___x_1647_;
     } else {
-        let mut v_entries_1648_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1649_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1650_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1651_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entry_1652_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1653_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_snd_1654_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1655_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1648_ = lean_ctor_get(v_map_1644_, 0);
-        v_indexes_1649_ = lean_ctor_get(v_map_1644_, 1);
+        let mut v_entries_1648_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1649_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1650_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1651_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entry_1652_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1653_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_snd_1654_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1655_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1648_ = crate::leanh::lean_ctor_get(v_map_1644_, 0);
+        v_indexes_1649_ = crate::leanh::lean_ctor_get(v_map_1644_, 1);
         v___x_1650_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1642_,
             v_inst_1643_,
             v_indexes_1649_,
             v_key_1645_,
         );
-        v___x_1651_ = lean_unsigned_to_nat(0);
+        v___x_1651_ = crate::leanh::lean_unsigned_to_nat(0);
         v_entry_1652_ = lean_array_fget(v___x_1650_, v___x_1651_);
-        lean_dec(v___x_1650_);
+        crate::leanh::lean_dec(v___x_1650_);
         v___x_1653_ = lean_array_fget_borrowed(v_entries_1648_, v_entry_1652_);
-        lean_dec(v_entry_1652_);
-        v_snd_1654_ = lean_ctor_get(v___x_1653_, 1);
-        lean_inc(v_snd_1654_);
-        v___x_1655_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1655_, 0, v_snd_1654_);
+        crate::leanh::lean_dec(v_entry_1652_);
+        v_snd_1654_ = crate::leanh::lean_ctor_get(v___x_1653_, 1);
+        crate::leanh::lean_inc(v_snd_1654_);
+        v___x_1655_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1655_, 0, v_snd_1654_);
         return v___x_1655_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f___boxed(
-    mut v_00_u03b1_1656_: *mut LeanObject,
-    mut v_00_u03b2_1657_: *mut LeanObject,
-    mut v_inst_1658_: *mut LeanObject,
-    mut v_inst_1659_: *mut LeanObject,
-    mut v_map_1660_: *mut LeanObject,
-    mut v_key_1661_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1662_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1656_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1657_: *mut crate::leanh::LeanObject,
+    mut v_inst_1658_: *mut crate::leanh::LeanObject,
+    mut v_inst_1659_: *mut crate::leanh::LeanObject,
+    mut v_map_1660_: *mut crate::leanh::LeanObject,
+    mut v_key_1661_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1662_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1662_ = l_Std_Internal_IndexMultiMap_get_x3f(
         v_00_u03b1_1656_,
         v_00_u03b2_1657_,
@@ -2009,57 +2012,57 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x3f___boxed(
         v_map_1660_,
         v_key_1661_,
     );
-    lean_dec_ref(v_map_1660_);
+    crate::leanh::lean_dec_ref(v_map_1660_);
     return v_res_1662_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg___lam__1(
-    mut v_inst_1663_: *mut LeanObject,
-    mut v_value_1664_: *mut LeanObject,
-    mut v___x_1665_: *mut LeanObject,
-    mut v___x_1666_: *mut LeanObject,
-    mut v_a_1667_: *mut LeanObject,
-    mut v_x_1668_: *mut LeanObject,
-    mut v___y_1669_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1670_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1663_: *mut crate::leanh::LeanObject,
+    mut v_value_1664_: *mut crate::leanh::LeanObject,
+    mut v___x_1665_: *mut crate::leanh::LeanObject,
+    mut v___x_1666_: *mut crate::leanh::LeanObject,
+    mut v_a_1667_: *mut crate::leanh::LeanObject,
+    mut v_x_1668_: *mut crate::leanh::LeanObject,
+    mut v___y_1669_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1670_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1671_: u8 = 0;
-    lean_inc(v_a_1667_);
-    v___x_1670_ = lean_apply_2(v_inst_1663_, v_a_1667_, v_value_1664_);
-    v___x_1671_ = (lean_unbox(v___x_1670_) as u8);
+    crate::leanh::lean_inc(v_a_1667_);
+    v___x_1670_ = crate::leanh::lean_apply_2(v_inst_1663_, v_a_1667_, v_value_1664_);
+    v___x_1671_ = (crate::leanh::lean_unbox(v___x_1670_) as u8);
     if v___x_1671_ == 0 {
-        let mut v___x_1672_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_a_1667_);
-        v___x_1672_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1672_, 0, v___x_1665_);
+        let mut v___x_1672_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_a_1667_);
+        v___x_1672_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1672_, 0, v___x_1665_);
         return v___x_1672_;
     } else {
-        let mut v___x_1673_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1674_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1675_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1676_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec_ref(v___x_1665_);
-        v___x_1673_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1673_, 0, v_a_1667_);
-        v___x_1674_ = lean_alloc_ctor(1, 1, (0) as u32);
-        lean_ctor_set(v___x_1674_, 0, v___x_1673_);
-        v___x_1675_ = lean_alloc_ctor(0, 2, (0) as u32);
-        lean_ctor_set(v___x_1675_, 0, v___x_1674_);
-        lean_ctor_set(v___x_1675_, 1, v___x_1666_);
-        v___x_1676_ = lean_alloc_ctor(0, 1, (0) as u32);
-        lean_ctor_set(v___x_1676_, 0, v___x_1675_);
+        let mut v___x_1673_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1674_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1675_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1676_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec_ref(v___x_1665_);
+        v___x_1673_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1673_, 0, v_a_1667_);
+        v___x_1674_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1674_, 0, v___x_1673_);
+        v___x_1675_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1675_, 0, v___x_1674_);
+        crate::leanh::lean_ctor_set(v___x_1675_, 1, v___x_1666_);
+        v___x_1676_ = crate::leanh::lean_alloc_ctor(0, 1, (0) as u32);
+        crate::leanh::lean_ctor_set(v___x_1676_, 0, v___x_1675_);
         return v___x_1676_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg___lam__1___boxed(
-    mut v_inst_1677_: *mut LeanObject,
-    mut v_value_1678_: *mut LeanObject,
-    mut v___x_1679_: *mut LeanObject,
-    mut v___x_1680_: *mut LeanObject,
-    mut v_a_1681_: *mut LeanObject,
-    mut v_x_1682_: *mut LeanObject,
-    mut v___y_1683_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1684_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1677_: *mut crate::leanh::LeanObject,
+    mut v_value_1678_: *mut crate::leanh::LeanObject,
+    mut v___x_1679_: *mut crate::leanh::LeanObject,
+    mut v___x_1680_: *mut crate::leanh::LeanObject,
+    mut v_a_1681_: *mut crate::leanh::LeanObject,
+    mut v_x_1682_: *mut crate::leanh::LeanObject,
+    mut v___y_1683_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1684_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1684_ = l_Std_Internal_IndexMultiMap_hasEntry___redArg___lam__1(
         v_inst_1677_,
         v_value_1678_,
@@ -2069,21 +2072,21 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg___lam__1___boxed(
         v_x_1682_,
         v___y_1683_,
     );
-    lean_dec_ref(v___y_1683_);
+    crate::leanh::lean_dec_ref(v___y_1683_);
     return v_res_1684_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg(
-    mut v_inst_1688_: *mut LeanObject,
-    mut v_inst_1689_: *mut LeanObject,
-    mut v_map_1690_: *mut LeanObject,
-    mut v_inst_1691_: *mut LeanObject,
-    mut v_key_1692_: *mut LeanObject,
-    mut v_value_1693_: *mut LeanObject,
+    mut v_inst_1688_: *mut crate::leanh::LeanObject,
+    mut v_inst_1689_: *mut crate::leanh::LeanObject,
+    mut v_map_1690_: *mut crate::leanh::LeanObject,
+    mut v_inst_1691_: *mut crate::leanh::LeanObject,
+    mut v_key_1692_: *mut crate::leanh::LeanObject,
+    mut v_value_1693_: *mut crate::leanh::LeanObject,
 ) -> u8 {
     let mut v___x_1694_: u8 = 0;
-    lean_inc(v_key_1692_);
-    lean_inc_ref(v_inst_1689_);
-    lean_inc_ref(v_inst_1688_);
+    crate::leanh::lean_inc(v_key_1692_);
+    crate::leanh::lean_inc_ref(v_inst_1689_);
+    crate::leanh::lean_inc_ref(v_inst_1688_);
     v___x_1694_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1688_,
         v_inst_1689_,
@@ -2091,53 +2094,53 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg(
         v_map_1690_,
     );
     if v___x_1694_ == 0 {
-        lean_dec(v_value_1693_);
-        lean_dec(v_key_1692_);
-        lean_dec_ref(v_inst_1691_);
-        lean_dec_ref(v_map_1690_);
-        lean_dec_ref(v_inst_1689_);
-        lean_dec_ref(v_inst_1688_);
+        crate::leanh::lean_dec(v_value_1693_);
+        crate::leanh::lean_dec(v_key_1692_);
+        crate::leanh::lean_dec_ref(v_inst_1691_);
+        crate::leanh::lean_dec_ref(v_map_1690_);
+        crate::leanh::lean_dec_ref(v_inst_1689_);
+        crate::leanh::lean_dec_ref(v_inst_1688_);
         return v___x_1694_;
     } else {
-        let mut v_entries_1695_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1696_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1697_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1698_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1699_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1700_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1701_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1702_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entries_1703_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1704_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1705_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1706_: *mut LeanObject = core::ptr::null_mut();
+        let mut v_entries_1695_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1696_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1697_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1698_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1699_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1700_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1701_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1702_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entries_1703_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1704_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1705_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1706_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v_sz_1707_: usize = 0;
         let mut v___x_1708_: usize = 0;
-        let mut v___x_1709_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_fst_1710_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1695_ = lean_ctor_get(v_map_1690_, 0);
-        lean_inc_ref(v_entries_1695_);
-        v_indexes_1696_ = lean_ctor_get(v_map_1690_, 1);
-        lean_inc_ref(v_indexes_1696_);
-        lean_dec_ref(v_map_1690_);
+        let mut v___x_1709_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_fst_1710_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1695_ = crate::leanh::lean_ctor_get(v_map_1690_, 0);
+        crate::leanh::lean_inc_ref(v_entries_1695_);
+        v_indexes_1696_ = crate::leanh::lean_ctor_get(v_map_1690_, 1);
+        crate::leanh::lean_inc_ref(v_indexes_1696_);
+        crate::leanh::lean_dec_ref(v_map_1690_);
         v___x_1697_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1688_,
             v_inst_1689_,
             v_indexes_1696_,
             v_key_1692_,
         );
-        lean_dec_ref(v_indexes_1696_);
-        lean_inc(v___x_1697_);
-        v___f_1698_ = lean_alloc_closure(
+        crate::leanh::lean_dec_ref(v_indexes_1696_);
+        crate::leanh::lean_inc(v___x_1697_);
+        v___f_1698_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
             5,
             2,
         );
-        lean_closure_set(v___f_1698_, 0, v___x_1697_);
-        lean_closure_set(v___f_1698_, 1, v_entries_1695_);
+        crate::leanh::lean_closure_set(v___f_1698_, 0, v___x_1697_);
+        crate::leanh::lean_closure_set(v___f_1698_, 1, v_entries_1695_);
         v___x_1699_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_1700_ = lean_array_get_size(v___x_1697_);
-        v___x_1701_ = lean_unsigned_to_nat(0);
+        v___x_1701_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_1702_ = lean_mk_empty_array_with_capacity(v___x_1700_);
         v_entries_1703_ = l_Array_mapFinIdxM_map___redArg(
             v___x_1699_,
@@ -2147,24 +2150,24 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg(
             v___x_1701_,
             v___x_1702_,
         );
-        v___x_1704_ = lean_box(0);
+        v___x_1704_ = crate::leanh::lean_box(0);
         v___x_1705_ = l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0;
-        v___f_1706_ = lean_alloc_closure(
+        v___f_1706_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_hasEntry___redArg___lam__1___boxed
                 as *mut core::ffi::c_void,
             7,
             4,
         );
-        lean_closure_set(v___f_1706_, 0, v_inst_1691_);
-        lean_closure_set(v___f_1706_, 1, v_value_1693_);
-        lean_closure_set(v___f_1706_, 2, v___x_1705_);
-        lean_closure_set(v___f_1706_, 3, v___x_1704_);
+        crate::leanh::lean_closure_set(v___f_1706_, 0, v_inst_1691_);
+        crate::leanh::lean_closure_set(v___f_1706_, 1, v_value_1693_);
+        crate::leanh::lean_closure_set(v___f_1706_, 2, v___x_1705_);
+        crate::leanh::lean_closure_set(v___f_1706_, 3, v___x_1704_);
         v_sz_1707_ = lean_array_size(v_entries_1703_);
         v___x_1708_ = 0usize;
         v___x_1709_ = l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop(
-            lean_box(0),
-            lean_box(0),
-            lean_box(0),
+            crate::leanh::lean_box(0),
+            crate::leanh::lean_box(0),
+            crate::leanh::lean_box(0),
             v___x_1699_,
             v_entries_1703_,
             v___f_1706_,
@@ -2172,39 +2175,39 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg(
             v___x_1708_,
             v___x_1705_,
         );
-        v_fst_1710_ = lean_ctor_get(v___x_1709_, 0);
-        lean_inc(v_fst_1710_);
-        lean_dec(v___x_1709_);
-        if lean_obj_tag(v_fst_1710_) == 0 {
+        v_fst_1710_ = crate::leanh::lean_ctor_get(v___x_1709_, 0);
+        crate::leanh::lean_inc(v_fst_1710_);
+        crate::leanh::lean_dec(v___x_1709_);
+        if crate::leanh::lean_obj_tag(v_fst_1710_) == 0 {
             let mut v___x_1711_: u8 = 0;
             v___x_1711_ = 0;
             return v___x_1711_;
         } else {
-            let mut v_val_1712_: *mut LeanObject = core::ptr::null_mut();
-            v_val_1712_ = lean_ctor_get(v_fst_1710_, 0);
-            lean_inc(v_val_1712_);
-            lean_dec_ref_known(v_fst_1710_, 1);
-            if lean_obj_tag(v_val_1712_) == 0 {
+            let mut v_val_1712_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            v_val_1712_ = crate::leanh::lean_ctor_get(v_fst_1710_, 0);
+            crate::leanh::lean_inc(v_val_1712_);
+            crate::leanh::lean_dec_ref_known(v_fst_1710_, 1);
+            if crate::leanh::lean_obj_tag(v_val_1712_) == 0 {
                 let mut v___x_1713_: u8 = 0;
                 v___x_1713_ = 0;
                 return v___x_1713_;
             } else {
-                lean_dec_ref_known(v_val_1712_, 1);
+                crate::leanh::lean_dec_ref_known(v_val_1712_, 1);
                 return v___x_1694_;
             }
         }
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg___boxed(
-    mut v_inst_1714_: *mut LeanObject,
-    mut v_inst_1715_: *mut LeanObject,
-    mut v_map_1716_: *mut LeanObject,
-    mut v_inst_1717_: *mut LeanObject,
-    mut v_key_1718_: *mut LeanObject,
-    mut v_value_1719_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1714_: *mut crate::leanh::LeanObject,
+    mut v_inst_1715_: *mut crate::leanh::LeanObject,
+    mut v_map_1716_: *mut crate::leanh::LeanObject,
+    mut v_inst_1717_: *mut crate::leanh::LeanObject,
+    mut v_key_1718_: *mut crate::leanh::LeanObject,
+    mut v_value_1719_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_1720_: u8 = 0;
-    let mut v_r_1721_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_1721_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1720_ = l_Std_Internal_IndexMultiMap_hasEntry___redArg(
         v_inst_1714_,
         v_inst_1715_,
@@ -2213,23 +2216,23 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___redArg___boxed(
         v_key_1718_,
         v_value_1719_,
     );
-    v_r_1721_ = lean_box((v_res_1720_) as usize);
+    v_r_1721_ = crate::leanh::lean_box((v_res_1720_) as usize);
     return v_r_1721_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry(
-    mut v_00_u03b1_1722_: *mut LeanObject,
-    mut v_00_u03b2_1723_: *mut LeanObject,
-    mut v_inst_1724_: *mut LeanObject,
-    mut v_inst_1725_: *mut LeanObject,
-    mut v_map_1726_: *mut LeanObject,
-    mut v_inst_1727_: *mut LeanObject,
-    mut v_key_1728_: *mut LeanObject,
-    mut v_value_1729_: *mut LeanObject,
+    mut v_00_u03b1_1722_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1723_: *mut crate::leanh::LeanObject,
+    mut v_inst_1724_: *mut crate::leanh::LeanObject,
+    mut v_inst_1725_: *mut crate::leanh::LeanObject,
+    mut v_map_1726_: *mut crate::leanh::LeanObject,
+    mut v_inst_1727_: *mut crate::leanh::LeanObject,
+    mut v_key_1728_: *mut crate::leanh::LeanObject,
+    mut v_value_1729_: *mut crate::leanh::LeanObject,
 ) -> u8 {
     let mut v___x_1730_: u8 = 0;
-    lean_inc(v_key_1728_);
-    lean_inc_ref(v_inst_1725_);
-    lean_inc_ref(v_inst_1724_);
+    crate::leanh::lean_inc(v_key_1728_);
+    crate::leanh::lean_inc_ref(v_inst_1725_);
+    crate::leanh::lean_inc_ref(v_inst_1724_);
     v___x_1730_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1724_,
         v_inst_1725_,
@@ -2237,53 +2240,53 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry(
         v_map_1726_,
     );
     if v___x_1730_ == 0 {
-        lean_dec(v_value_1729_);
-        lean_dec(v_key_1728_);
-        lean_dec_ref(v_inst_1727_);
-        lean_dec_ref(v_map_1726_);
-        lean_dec_ref(v_inst_1725_);
-        lean_dec_ref(v_inst_1724_);
+        crate::leanh::lean_dec(v_value_1729_);
+        crate::leanh::lean_dec(v_key_1728_);
+        crate::leanh::lean_dec_ref(v_inst_1727_);
+        crate::leanh::lean_dec_ref(v_map_1726_);
+        crate::leanh::lean_dec_ref(v_inst_1725_);
+        crate::leanh::lean_dec_ref(v_inst_1724_);
         return v___x_1730_;
     } else {
-        let mut v_entries_1731_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1732_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1733_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1734_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1735_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1736_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1737_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1738_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entries_1739_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1740_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1741_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1742_: *mut LeanObject = core::ptr::null_mut();
+        let mut v_entries_1731_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1732_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1733_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1734_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1735_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1736_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1737_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1738_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entries_1739_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1740_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1741_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1742_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v_sz_1743_: usize = 0;
         let mut v___x_1744_: usize = 0;
-        let mut v___x_1745_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_fst_1746_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1731_ = lean_ctor_get(v_map_1726_, 0);
-        lean_inc_ref(v_entries_1731_);
-        v_indexes_1732_ = lean_ctor_get(v_map_1726_, 1);
-        lean_inc_ref(v_indexes_1732_);
-        lean_dec_ref(v_map_1726_);
+        let mut v___x_1745_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_fst_1746_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1731_ = crate::leanh::lean_ctor_get(v_map_1726_, 0);
+        crate::leanh::lean_inc_ref(v_entries_1731_);
+        v_indexes_1732_ = crate::leanh::lean_ctor_get(v_map_1726_, 1);
+        crate::leanh::lean_inc_ref(v_indexes_1732_);
+        crate::leanh::lean_dec_ref(v_map_1726_);
         v___x_1733_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1724_,
             v_inst_1725_,
             v_indexes_1732_,
             v_key_1728_,
         );
-        lean_dec_ref(v_indexes_1732_);
-        lean_inc(v___x_1733_);
-        v___f_1734_ = lean_alloc_closure(
+        crate::leanh::lean_dec_ref(v_indexes_1732_);
+        crate::leanh::lean_inc(v___x_1733_);
+        v___f_1734_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
             5,
             2,
         );
-        lean_closure_set(v___f_1734_, 0, v___x_1733_);
-        lean_closure_set(v___f_1734_, 1, v_entries_1731_);
+        crate::leanh::lean_closure_set(v___f_1734_, 0, v___x_1733_);
+        crate::leanh::lean_closure_set(v___f_1734_, 1, v_entries_1731_);
         v___x_1735_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_1736_ = lean_array_get_size(v___x_1733_);
-        v___x_1737_ = lean_unsigned_to_nat(0);
+        v___x_1737_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_1738_ = lean_mk_empty_array_with_capacity(v___x_1736_);
         v_entries_1739_ = l_Array_mapFinIdxM_map___redArg(
             v___x_1735_,
@@ -2293,24 +2296,24 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry(
             v___x_1737_,
             v___x_1738_,
         );
-        v___x_1740_ = lean_box(0);
+        v___x_1740_ = crate::leanh::lean_box(0);
         v___x_1741_ = l_Std_Internal_IndexMultiMap_hasEntry___redArg___closed__0;
-        v___f_1742_ = lean_alloc_closure(
+        v___f_1742_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_hasEntry___redArg___lam__1___boxed
                 as *mut core::ffi::c_void,
             7,
             4,
         );
-        lean_closure_set(v___f_1742_, 0, v_inst_1727_);
-        lean_closure_set(v___f_1742_, 1, v_value_1729_);
-        lean_closure_set(v___f_1742_, 2, v___x_1741_);
-        lean_closure_set(v___f_1742_, 3, v___x_1740_);
+        crate::leanh::lean_closure_set(v___f_1742_, 0, v_inst_1727_);
+        crate::leanh::lean_closure_set(v___f_1742_, 1, v_value_1729_);
+        crate::leanh::lean_closure_set(v___f_1742_, 2, v___x_1741_);
+        crate::leanh::lean_closure_set(v___f_1742_, 3, v___x_1740_);
         v_sz_1743_ = lean_array_size(v_entries_1739_);
         v___x_1744_ = 0usize;
         v___x_1745_ = l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop(
-            lean_box(0),
-            lean_box(0),
-            lean_box(0),
+            crate::leanh::lean_box(0),
+            crate::leanh::lean_box(0),
+            crate::leanh::lean_box(0),
             v___x_1735_,
             v_entries_1739_,
             v___f_1742_,
@@ -2318,41 +2321,41 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry(
             v___x_1744_,
             v___x_1741_,
         );
-        v_fst_1746_ = lean_ctor_get(v___x_1745_, 0);
-        lean_inc(v_fst_1746_);
-        lean_dec(v___x_1745_);
-        if lean_obj_tag(v_fst_1746_) == 0 {
+        v_fst_1746_ = crate::leanh::lean_ctor_get(v___x_1745_, 0);
+        crate::leanh::lean_inc(v_fst_1746_);
+        crate::leanh::lean_dec(v___x_1745_);
+        if crate::leanh::lean_obj_tag(v_fst_1746_) == 0 {
             let mut v___x_1747_: u8 = 0;
             v___x_1747_ = 0;
             return v___x_1747_;
         } else {
-            let mut v_val_1748_: *mut LeanObject = core::ptr::null_mut();
-            v_val_1748_ = lean_ctor_get(v_fst_1746_, 0);
-            lean_inc(v_val_1748_);
-            lean_dec_ref_known(v_fst_1746_, 1);
-            if lean_obj_tag(v_val_1748_) == 0 {
+            let mut v_val_1748_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            v_val_1748_ = crate::leanh::lean_ctor_get(v_fst_1746_, 0);
+            crate::leanh::lean_inc(v_val_1748_);
+            crate::leanh::lean_dec_ref_known(v_fst_1746_, 1);
+            if crate::leanh::lean_obj_tag(v_val_1748_) == 0 {
                 let mut v___x_1749_: u8 = 0;
                 v___x_1749_ = 0;
                 return v___x_1749_;
             } else {
-                lean_dec_ref_known(v_val_1748_, 1);
+                crate::leanh::lean_dec_ref_known(v_val_1748_, 1);
                 return v___x_1730_;
             }
         }
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___boxed(
-    mut v_00_u03b1_1750_: *mut LeanObject,
-    mut v_00_u03b2_1751_: *mut LeanObject,
-    mut v_inst_1752_: *mut LeanObject,
-    mut v_inst_1753_: *mut LeanObject,
-    mut v_map_1754_: *mut LeanObject,
-    mut v_inst_1755_: *mut LeanObject,
-    mut v_key_1756_: *mut LeanObject,
-    mut v_value_1757_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1750_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1751_: *mut crate::leanh::LeanObject,
+    mut v_inst_1752_: *mut crate::leanh::LeanObject,
+    mut v_inst_1753_: *mut crate::leanh::LeanObject,
+    mut v_map_1754_: *mut crate::leanh::LeanObject,
+    mut v_inst_1755_: *mut crate::leanh::LeanObject,
+    mut v_key_1756_: *mut crate::leanh::LeanObject,
+    mut v_value_1757_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_1758_: u8 = 0;
-    let mut v_r_1759_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_1759_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1758_ = l_Std_Internal_IndexMultiMap_hasEntry(
         v_00_u03b1_1750_,
         v_00_u03b2_1751_,
@@ -2363,19 +2366,19 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_hasEntry___boxed(
         v_key_1756_,
         v_value_1757_,
     );
-    v_r_1759_ = lean_box((v_res_1758_) as usize);
+    v_r_1759_ = crate::leanh::lean_box((v_res_1758_) as usize);
     return v_r_1759_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getLast_x3f___redArg(
-    mut v_inst_1760_: *mut LeanObject,
-    mut v_inst_1761_: *mut LeanObject,
-    mut v_map_1762_: *mut LeanObject,
-    mut v_key_1763_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1760_: *mut crate::leanh::LeanObject,
+    mut v_inst_1761_: *mut crate::leanh::LeanObject,
+    mut v_map_1762_: *mut crate::leanh::LeanObject,
+    mut v_key_1763_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1764_: u8 = 0;
-    lean_inc(v_key_1763_);
-    lean_inc_ref(v_inst_1761_);
-    lean_inc_ref(v_inst_1760_);
+    crate::leanh::lean_inc(v_key_1763_);
+    crate::leanh::lean_inc_ref(v_inst_1761_);
+    crate::leanh::lean_inc_ref(v_inst_1760_);
     v___x_1764_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1760_,
         v_inst_1761_,
@@ -2383,50 +2386,50 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getLast_x3f___redArg(
         v_map_1762_,
     );
     if v___x_1764_ == 0 {
-        let mut v___x_1765_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1763_);
-        lean_dec_ref(v_map_1762_);
-        lean_dec_ref(v_inst_1761_);
-        lean_dec_ref(v_inst_1760_);
-        v___x_1765_ = lean_box(0);
+        let mut v___x_1765_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1763_);
+        crate::leanh::lean_dec_ref(v_map_1762_);
+        crate::leanh::lean_dec_ref(v_inst_1761_);
+        crate::leanh::lean_dec_ref(v_inst_1760_);
+        v___x_1765_ = crate::leanh::lean_box(0);
         return v___x_1765_;
     } else {
-        let mut v_entries_1766_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1767_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1768_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1769_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1770_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1771_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1772_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1773_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entries_1774_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1775_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1776_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1777_: *mut LeanObject = core::ptr::null_mut();
+        let mut v_entries_1766_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1767_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1768_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1769_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1770_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1771_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1772_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1773_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entries_1774_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1775_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1776_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1777_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1778_: u8 = 0;
-        v_entries_1766_ = lean_ctor_get(v_map_1762_, 0);
-        lean_inc_ref(v_entries_1766_);
-        v_indexes_1767_ = lean_ctor_get(v_map_1762_, 1);
-        lean_inc_ref(v_indexes_1767_);
-        lean_dec_ref(v_map_1762_);
+        v_entries_1766_ = crate::leanh::lean_ctor_get(v_map_1762_, 0);
+        crate::leanh::lean_inc_ref(v_entries_1766_);
+        v_indexes_1767_ = crate::leanh::lean_ctor_get(v_map_1762_, 1);
+        crate::leanh::lean_inc_ref(v_indexes_1767_);
+        crate::leanh::lean_dec_ref(v_map_1762_);
         v___x_1768_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1760_,
             v_inst_1761_,
             v_indexes_1767_,
             v_key_1763_,
         );
-        lean_dec_ref(v_indexes_1767_);
-        lean_inc(v___x_1768_);
-        v___f_1769_ = lean_alloc_closure(
+        crate::leanh::lean_dec_ref(v_indexes_1767_);
+        crate::leanh::lean_inc(v___x_1768_);
+        v___f_1769_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
             5,
             2,
         );
-        lean_closure_set(v___f_1769_, 0, v___x_1768_);
-        lean_closure_set(v___f_1769_, 1, v_entries_1766_);
+        crate::leanh::lean_closure_set(v___f_1769_, 0, v___x_1768_);
+        crate::leanh::lean_closure_set(v___f_1769_, 1, v_entries_1766_);
         v___x_1770_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_1771_ = lean_array_get_size(v___x_1768_);
-        v___x_1772_ = lean_unsigned_to_nat(0);
+        v___x_1772_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_1773_ = lean_mk_empty_array_with_capacity(v___x_1771_);
         v_entries_1774_ = l_Array_mapFinIdxM_map___redArg(
             v___x_1770_,
@@ -2437,39 +2440,39 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getLast_x3f___redArg(
             v___x_1773_,
         );
         v___x_1775_ = lean_array_get_size(v_entries_1774_);
-        v___x_1776_ = lean_unsigned_to_nat(1);
+        v___x_1776_ = crate::leanh::lean_unsigned_to_nat(1);
         v___x_1777_ = lean_nat_sub(v___x_1775_, v___x_1776_);
         v___x_1778_ = lean_nat_dec_lt(v___x_1777_, v___x_1775_);
         if v___x_1778_ == 0 {
-            let mut v___x_1779_: *mut LeanObject = core::ptr::null_mut();
-            lean_dec(v___x_1777_);
-            lean_dec(v_entries_1774_);
-            v___x_1779_ = lean_box(0);
+            let mut v___x_1779_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            crate::leanh::lean_dec(v___x_1777_);
+            crate::leanh::lean_dec(v_entries_1774_);
+            v___x_1779_ = crate::leanh::lean_box(0);
             return v___x_1779_;
         } else {
-            let mut v___x_1780_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_1781_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_1780_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1781_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_1780_ = lean_array_fget(v_entries_1774_, v___x_1777_);
-            lean_dec(v___x_1777_);
-            lean_dec(v_entries_1774_);
-            v___x_1781_ = lean_alloc_ctor(1, 1, (0) as u32);
-            lean_ctor_set(v___x_1781_, 0, v___x_1780_);
+            crate::leanh::lean_dec(v___x_1777_);
+            crate::leanh::lean_dec(v_entries_1774_);
+            v___x_1781_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+            crate::leanh::lean_ctor_set(v___x_1781_, 0, v___x_1780_);
             return v___x_1781_;
         }
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getLast_x3f(
-    mut v_00_u03b1_1782_: *mut LeanObject,
-    mut v_00_u03b2_1783_: *mut LeanObject,
-    mut v_inst_1784_: *mut LeanObject,
-    mut v_inst_1785_: *mut LeanObject,
-    mut v_map_1786_: *mut LeanObject,
-    mut v_key_1787_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1782_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1783_: *mut crate::leanh::LeanObject,
+    mut v_inst_1784_: *mut crate::leanh::LeanObject,
+    mut v_inst_1785_: *mut crate::leanh::LeanObject,
+    mut v_map_1786_: *mut crate::leanh::LeanObject,
+    mut v_key_1787_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1788_: u8 = 0;
-    lean_inc(v_key_1787_);
-    lean_inc_ref(v_inst_1785_);
-    lean_inc_ref(v_inst_1784_);
+    crate::leanh::lean_inc(v_key_1787_);
+    crate::leanh::lean_inc_ref(v_inst_1785_);
+    crate::leanh::lean_inc_ref(v_inst_1784_);
     v___x_1788_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1784_,
         v_inst_1785_,
@@ -2477,50 +2480,50 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getLast_x3f(
         v_map_1786_,
     );
     if v___x_1788_ == 0 {
-        let mut v___x_1789_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1787_);
-        lean_dec_ref(v_map_1786_);
-        lean_dec_ref(v_inst_1785_);
-        lean_dec_ref(v_inst_1784_);
-        v___x_1789_ = lean_box(0);
+        let mut v___x_1789_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1787_);
+        crate::leanh::lean_dec_ref(v_map_1786_);
+        crate::leanh::lean_dec_ref(v_inst_1785_);
+        crate::leanh::lean_dec_ref(v_inst_1784_);
+        v___x_1789_ = crate::leanh::lean_box(0);
         return v___x_1789_;
     } else {
-        let mut v_entries_1790_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1791_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1792_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___f_1793_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1794_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1795_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1796_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1797_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entries_1798_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1799_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1800_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1801_: *mut LeanObject = core::ptr::null_mut();
+        let mut v_entries_1790_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1791_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1792_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___f_1793_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1794_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1795_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1796_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1797_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entries_1798_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1799_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1800_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1801_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1802_: u8 = 0;
-        v_entries_1790_ = lean_ctor_get(v_map_1786_, 0);
-        lean_inc_ref(v_entries_1790_);
-        v_indexes_1791_ = lean_ctor_get(v_map_1786_, 1);
-        lean_inc_ref(v_indexes_1791_);
-        lean_dec_ref(v_map_1786_);
+        v_entries_1790_ = crate::leanh::lean_ctor_get(v_map_1786_, 0);
+        crate::leanh::lean_inc_ref(v_entries_1790_);
+        v_indexes_1791_ = crate::leanh::lean_ctor_get(v_map_1786_, 1);
+        crate::leanh::lean_inc_ref(v_indexes_1791_);
+        crate::leanh::lean_dec_ref(v_map_1786_);
         v___x_1792_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1784_,
             v_inst_1785_,
             v_indexes_1791_,
             v_key_1787_,
         );
-        lean_dec_ref(v_indexes_1791_);
-        lean_inc(v___x_1792_);
-        v___f_1793_ = lean_alloc_closure(
+        crate::leanh::lean_dec_ref(v_indexes_1791_);
+        crate::leanh::lean_inc(v___x_1792_);
+        v___f_1793_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_getAll___redArg___lam__0___boxed as *mut core::ffi::c_void,
             5,
             2,
         );
-        lean_closure_set(v___f_1793_, 0, v___x_1792_);
-        lean_closure_set(v___f_1793_, 1, v_entries_1790_);
+        crate::leanh::lean_closure_set(v___f_1793_, 0, v___x_1792_);
+        crate::leanh::lean_closure_set(v___f_1793_, 1, v_entries_1790_);
         v___x_1794_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_1795_ = lean_array_get_size(v___x_1792_);
-        v___x_1796_ = lean_unsigned_to_nat(0);
+        v___x_1796_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_1797_ = lean_mk_empty_array_with_capacity(v___x_1795_);
         v_entries_1798_ = l_Array_mapFinIdxM_map___redArg(
             v___x_1794_,
@@ -2531,38 +2534,38 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getLast_x3f(
             v___x_1797_,
         );
         v___x_1799_ = lean_array_get_size(v_entries_1798_);
-        v___x_1800_ = lean_unsigned_to_nat(1);
+        v___x_1800_ = crate::leanh::lean_unsigned_to_nat(1);
         v___x_1801_ = lean_nat_sub(v___x_1799_, v___x_1800_);
         v___x_1802_ = lean_nat_dec_lt(v___x_1801_, v___x_1799_);
         if v___x_1802_ == 0 {
-            let mut v___x_1803_: *mut LeanObject = core::ptr::null_mut();
-            lean_dec(v___x_1801_);
-            lean_dec(v_entries_1798_);
-            v___x_1803_ = lean_box(0);
+            let mut v___x_1803_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            crate::leanh::lean_dec(v___x_1801_);
+            crate::leanh::lean_dec(v_entries_1798_);
+            v___x_1803_ = crate::leanh::lean_box(0);
             return v___x_1803_;
         } else {
-            let mut v___x_1804_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_1805_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_1804_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1805_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_1804_ = lean_array_fget(v_entries_1798_, v___x_1801_);
-            lean_dec(v___x_1801_);
-            lean_dec(v_entries_1798_);
-            v___x_1805_ = lean_alloc_ctor(1, 1, (0) as u32);
-            lean_ctor_set(v___x_1805_, 0, v___x_1804_);
+            crate::leanh::lean_dec(v___x_1801_);
+            crate::leanh::lean_dec(v_entries_1798_);
+            v___x_1805_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+            crate::leanh::lean_ctor_set(v___x_1805_, 0, v___x_1804_);
             return v___x_1805_;
         }
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getD___redArg(
-    mut v_inst_1806_: *mut LeanObject,
-    mut v_inst_1807_: *mut LeanObject,
-    mut v_map_1808_: *mut LeanObject,
-    mut v_key_1809_: *mut LeanObject,
-    mut v_d_1810_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1806_: *mut crate::leanh::LeanObject,
+    mut v_inst_1807_: *mut crate::leanh::LeanObject,
+    mut v_map_1808_: *mut crate::leanh::LeanObject,
+    mut v_key_1809_: *mut crate::leanh::LeanObject,
+    mut v_d_1810_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1811_: u8 = 0;
-    lean_inc(v_key_1809_);
-    lean_inc_ref(v_inst_1807_);
-    lean_inc_ref(v_inst_1806_);
+    crate::leanh::lean_inc(v_key_1809_);
+    crate::leanh::lean_inc_ref(v_inst_1807_);
+    crate::leanh::lean_inc_ref(v_inst_1806_);
     v___x_1811_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1806_,
         v_inst_1807_,
@@ -2570,45 +2573,45 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getD___redArg(
         v_map_1808_,
     );
     if v___x_1811_ == 0 {
-        lean_dec(v_key_1809_);
-        lean_dec_ref(v_inst_1807_);
-        lean_dec_ref(v_inst_1806_);
-        lean_inc(v_d_1810_);
+        crate::leanh::lean_dec(v_key_1809_);
+        crate::leanh::lean_dec_ref(v_inst_1807_);
+        crate::leanh::lean_dec_ref(v_inst_1806_);
+        crate::leanh::lean_inc(v_d_1810_);
         return v_d_1810_;
     } else {
-        let mut v_entries_1812_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1813_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1814_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1815_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entry_1816_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1817_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_snd_1818_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1812_ = lean_ctor_get(v_map_1808_, 0);
-        v_indexes_1813_ = lean_ctor_get(v_map_1808_, 1);
+        let mut v_entries_1812_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1813_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1814_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1815_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entry_1816_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1817_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_snd_1818_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1812_ = crate::leanh::lean_ctor_get(v_map_1808_, 0);
+        v_indexes_1813_ = crate::leanh::lean_ctor_get(v_map_1808_, 1);
         v___x_1814_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1806_,
             v_inst_1807_,
             v_indexes_1813_,
             v_key_1809_,
         );
-        v___x_1815_ = lean_unsigned_to_nat(0);
+        v___x_1815_ = crate::leanh::lean_unsigned_to_nat(0);
         v_entry_1816_ = lean_array_fget(v___x_1814_, v___x_1815_);
-        lean_dec(v___x_1814_);
+        crate::leanh::lean_dec(v___x_1814_);
         v___x_1817_ = lean_array_fget_borrowed(v_entries_1812_, v_entry_1816_);
-        lean_dec(v_entry_1816_);
-        v_snd_1818_ = lean_ctor_get(v___x_1817_, 1);
-        lean_inc(v_snd_1818_);
+        crate::leanh::lean_dec(v_entry_1816_);
+        v_snd_1818_ = crate::leanh::lean_ctor_get(v___x_1817_, 1);
+        crate::leanh::lean_inc(v_snd_1818_);
         return v_snd_1818_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getD___redArg___boxed(
-    mut v_inst_1819_: *mut LeanObject,
-    mut v_inst_1820_: *mut LeanObject,
-    mut v_map_1821_: *mut LeanObject,
-    mut v_key_1822_: *mut LeanObject,
-    mut v_d_1823_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1824_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1819_: *mut crate::leanh::LeanObject,
+    mut v_inst_1820_: *mut crate::leanh::LeanObject,
+    mut v_map_1821_: *mut crate::leanh::LeanObject,
+    mut v_key_1822_: *mut crate::leanh::LeanObject,
+    mut v_d_1823_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1824_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1824_ = l_Std_Internal_IndexMultiMap_getD___redArg(
         v_inst_1819_,
         v_inst_1820_,
@@ -2616,23 +2619,23 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getD___redArg___boxed(
         v_key_1822_,
         v_d_1823_,
     );
-    lean_dec(v_d_1823_);
-    lean_dec_ref(v_map_1821_);
+    crate::leanh::lean_dec(v_d_1823_);
+    crate::leanh::lean_dec_ref(v_map_1821_);
     return v_res_1824_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getD(
-    mut v_00_u03b1_1825_: *mut LeanObject,
-    mut v_00_u03b2_1826_: *mut LeanObject,
-    mut v_inst_1827_: *mut LeanObject,
-    mut v_inst_1828_: *mut LeanObject,
-    mut v_map_1829_: *mut LeanObject,
-    mut v_key_1830_: *mut LeanObject,
-    mut v_d_1831_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1825_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1826_: *mut crate::leanh::LeanObject,
+    mut v_inst_1827_: *mut crate::leanh::LeanObject,
+    mut v_inst_1828_: *mut crate::leanh::LeanObject,
+    mut v_map_1829_: *mut crate::leanh::LeanObject,
+    mut v_key_1830_: *mut crate::leanh::LeanObject,
+    mut v_d_1831_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1832_: u8 = 0;
-    lean_inc(v_key_1830_);
-    lean_inc_ref(v_inst_1828_);
-    lean_inc_ref(v_inst_1827_);
+    crate::leanh::lean_inc(v_key_1830_);
+    crate::leanh::lean_inc_ref(v_inst_1828_);
+    crate::leanh::lean_inc_ref(v_inst_1827_);
     v___x_1832_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1827_,
         v_inst_1828_,
@@ -2640,47 +2643,47 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getD(
         v_map_1829_,
     );
     if v___x_1832_ == 0 {
-        lean_dec(v_key_1830_);
-        lean_dec_ref(v_inst_1828_);
-        lean_dec_ref(v_inst_1827_);
-        lean_inc(v_d_1831_);
+        crate::leanh::lean_dec(v_key_1830_);
+        crate::leanh::lean_dec_ref(v_inst_1828_);
+        crate::leanh::lean_dec_ref(v_inst_1827_);
+        crate::leanh::lean_inc(v_d_1831_);
         return v_d_1831_;
     } else {
-        let mut v_entries_1833_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1834_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1835_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1836_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entry_1837_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1838_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_snd_1839_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1833_ = lean_ctor_get(v_map_1829_, 0);
-        v_indexes_1834_ = lean_ctor_get(v_map_1829_, 1);
+        let mut v_entries_1833_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1834_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1835_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1836_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entry_1837_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1838_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_snd_1839_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1833_ = crate::leanh::lean_ctor_get(v_map_1829_, 0);
+        v_indexes_1834_ = crate::leanh::lean_ctor_get(v_map_1829_, 1);
         v___x_1835_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1827_,
             v_inst_1828_,
             v_indexes_1834_,
             v_key_1830_,
         );
-        v___x_1836_ = lean_unsigned_to_nat(0);
+        v___x_1836_ = crate::leanh::lean_unsigned_to_nat(0);
         v_entry_1837_ = lean_array_fget(v___x_1835_, v___x_1836_);
-        lean_dec(v___x_1835_);
+        crate::leanh::lean_dec(v___x_1835_);
         v___x_1838_ = lean_array_fget_borrowed(v_entries_1833_, v_entry_1837_);
-        lean_dec(v_entry_1837_);
-        v_snd_1839_ = lean_ctor_get(v___x_1838_, 1);
-        lean_inc(v_snd_1839_);
+        crate::leanh::lean_dec(v_entry_1837_);
+        v_snd_1839_ = crate::leanh::lean_ctor_get(v___x_1838_, 1);
+        crate::leanh::lean_inc(v_snd_1839_);
         return v_snd_1839_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_getD___boxed(
-    mut v_00_u03b1_1840_: *mut LeanObject,
-    mut v_00_u03b2_1841_: *mut LeanObject,
-    mut v_inst_1842_: *mut LeanObject,
-    mut v_inst_1843_: *mut LeanObject,
-    mut v_map_1844_: *mut LeanObject,
-    mut v_key_1845_: *mut LeanObject,
-    mut v_d_1846_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1847_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1840_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1841_: *mut crate::leanh::LeanObject,
+    mut v_inst_1842_: *mut crate::leanh::LeanObject,
+    mut v_inst_1843_: *mut crate::leanh::LeanObject,
+    mut v_map_1844_: *mut crate::leanh::LeanObject,
+    mut v_key_1845_: *mut crate::leanh::LeanObject,
+    mut v_d_1846_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1847_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1847_ = l_Std_Internal_IndexMultiMap_getD(
         v_00_u03b1_1840_,
         v_00_u03b2_1841_,
@@ -2690,20 +2693,21 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_getD___boxed(
         v_key_1845_,
         v_d_1846_,
     );
-    lean_dec(v_d_1846_);
-    lean_dec_ref(v_map_1844_);
+    crate::leanh::lean_dec(v_d_1846_);
+    crate::leanh::lean_dec_ref(v_map_1844_);
     return v_res_1847_;
 }
-pub unsafe fn _init_l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3() -> *mut LeanObject {
-    let mut v___x_1851_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1852_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1853_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1854_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1855_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1856_: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn _init_l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3()
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_1851_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1852_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1853_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1854_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1855_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1856_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_1851_ = l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__2;
-    v___x_1852_ = lean_unsigned_to_nat(14);
-    v___x_1853_ = lean_unsigned_to_nat(22);
+    v___x_1852_ = crate::leanh::lean_unsigned_to_nat(14);
+    v___x_1853_ = crate::leanh::lean_unsigned_to_nat(22);
     v___x_1854_ = l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__1;
     v___x_1855_ = l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__0;
     v___x_1856_ = l_mkPanicMessageWithDecl(
@@ -2716,16 +2720,16 @@ pub unsafe fn _init_l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3() 
     return v___x_1856_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___redArg(
-    mut v_inst_1857_: *mut LeanObject,
-    mut v_inst_1858_: *mut LeanObject,
-    mut v_inst_1859_: *mut LeanObject,
-    mut v_map_1860_: *mut LeanObject,
-    mut v_key_1861_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_1857_: *mut crate::leanh::LeanObject,
+    mut v_inst_1858_: *mut crate::leanh::LeanObject,
+    mut v_inst_1859_: *mut crate::leanh::LeanObject,
+    mut v_map_1860_: *mut crate::leanh::LeanObject,
+    mut v_key_1861_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1862_: u8 = 0;
-    lean_inc(v_key_1861_);
-    lean_inc_ref(v_inst_1858_);
-    lean_inc_ref(v_inst_1857_);
+    crate::leanh::lean_inc(v_key_1861_);
+    crate::leanh::lean_inc_ref(v_inst_1858_);
+    crate::leanh::lean_inc_ref(v_inst_1857_);
     v___x_1862_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1857_,
         v_inst_1858_,
@@ -2733,12 +2737,12 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___redArg(
         v_map_1860_,
     );
     if v___x_1862_ == 0 {
-        let mut v___x_1863_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1864_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1861_);
-        lean_dec_ref(v_inst_1858_);
-        lean_dec_ref(v_inst_1857_);
-        v___x_1863_ = lean_obj_once(
+        let mut v___x_1863_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1864_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1861_);
+        crate::leanh::lean_dec_ref(v_inst_1858_);
+        crate::leanh::lean_dec_ref(v_inst_1857_);
+        v___x_1863_ = crate::leanh::lean_obj_once(
             core::ptr::addr_of_mut!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3),
             core::ptr::addr_of_mut!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3_once),
             _init_l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3,
@@ -2746,39 +2750,39 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___redArg(
         v___x_1864_ = l_panic___redArg(v_inst_1859_, v___x_1863_);
         return v___x_1864_;
     } else {
-        let mut v_entries_1865_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1866_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1867_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1868_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entry_1869_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1870_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_snd_1871_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1865_ = lean_ctor_get(v_map_1860_, 0);
-        v_indexes_1866_ = lean_ctor_get(v_map_1860_, 1);
+        let mut v_entries_1865_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1866_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1867_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1868_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entry_1869_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1870_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_snd_1871_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1865_ = crate::leanh::lean_ctor_get(v_map_1860_, 0);
+        v_indexes_1866_ = crate::leanh::lean_ctor_get(v_map_1860_, 1);
         v___x_1867_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1857_,
             v_inst_1858_,
             v_indexes_1866_,
             v_key_1861_,
         );
-        v___x_1868_ = lean_unsigned_to_nat(0);
+        v___x_1868_ = crate::leanh::lean_unsigned_to_nat(0);
         v_entry_1869_ = lean_array_fget(v___x_1867_, v___x_1868_);
-        lean_dec(v___x_1867_);
+        crate::leanh::lean_dec(v___x_1867_);
         v___x_1870_ = lean_array_fget_borrowed(v_entries_1865_, v_entry_1869_);
-        lean_dec(v_entry_1869_);
-        v_snd_1871_ = lean_ctor_get(v___x_1870_, 1);
-        lean_inc(v_snd_1871_);
+        crate::leanh::lean_dec(v_entry_1869_);
+        v_snd_1871_ = crate::leanh::lean_ctor_get(v___x_1870_, 1);
+        crate::leanh::lean_inc(v_snd_1871_);
         return v_snd_1871_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___redArg___boxed(
-    mut v_inst_1872_: *mut LeanObject,
-    mut v_inst_1873_: *mut LeanObject,
-    mut v_inst_1874_: *mut LeanObject,
-    mut v_map_1875_: *mut LeanObject,
-    mut v_key_1876_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1877_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1872_: *mut crate::leanh::LeanObject,
+    mut v_inst_1873_: *mut crate::leanh::LeanObject,
+    mut v_inst_1874_: *mut crate::leanh::LeanObject,
+    mut v_map_1875_: *mut crate::leanh::LeanObject,
+    mut v_key_1876_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1877_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1877_ = l_Std_Internal_IndexMultiMap_get_x21___redArg(
         v_inst_1872_,
         v_inst_1873_,
@@ -2786,23 +2790,23 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___redArg___boxed(
         v_map_1875_,
         v_key_1876_,
     );
-    lean_dec_ref(v_map_1875_);
-    lean_dec(v_inst_1874_);
+    crate::leanh::lean_dec_ref(v_map_1875_);
+    crate::leanh::lean_dec(v_inst_1874_);
     return v_res_1877_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21(
-    mut v_00_u03b1_1878_: *mut LeanObject,
-    mut v_00_u03b2_1879_: *mut LeanObject,
-    mut v_inst_1880_: *mut LeanObject,
-    mut v_inst_1881_: *mut LeanObject,
-    mut v_inst_1882_: *mut LeanObject,
-    mut v_map_1883_: *mut LeanObject,
-    mut v_key_1884_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_1878_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1879_: *mut crate::leanh::LeanObject,
+    mut v_inst_1880_: *mut crate::leanh::LeanObject,
+    mut v_inst_1881_: *mut crate::leanh::LeanObject,
+    mut v_inst_1882_: *mut crate::leanh::LeanObject,
+    mut v_map_1883_: *mut crate::leanh::LeanObject,
+    mut v_key_1884_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_1885_: u8 = 0;
-    lean_inc(v_key_1884_);
-    lean_inc_ref(v_inst_1881_);
-    lean_inc_ref(v_inst_1880_);
+    crate::leanh::lean_inc(v_key_1884_);
+    crate::leanh::lean_inc_ref(v_inst_1881_);
+    crate::leanh::lean_inc_ref(v_inst_1880_);
     v___x_1885_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_1880_,
         v_inst_1881_,
@@ -2810,12 +2814,12 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21(
         v_map_1883_,
     );
     if v___x_1885_ == 0 {
-        let mut v___x_1886_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1887_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_key_1884_);
-        lean_dec_ref(v_inst_1881_);
-        lean_dec_ref(v_inst_1880_);
-        v___x_1886_ = lean_obj_once(
+        let mut v___x_1886_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1887_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_key_1884_);
+        crate::leanh::lean_dec_ref(v_inst_1881_);
+        crate::leanh::lean_dec_ref(v_inst_1880_);
+        v___x_1886_ = crate::leanh::lean_obj_once(
             core::ptr::addr_of_mut!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3),
             core::ptr::addr_of_mut!(l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3_once),
             _init_l_Std_Internal_IndexMultiMap_get_x21___redArg___closed__3,
@@ -2823,41 +2827,41 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21(
         v___x_1887_ = l_panic___redArg(v_inst_1882_, v___x_1886_);
         return v___x_1887_;
     } else {
-        let mut v_entries_1888_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_indexes_1889_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1890_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1891_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_entry_1892_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1893_: *mut LeanObject = core::ptr::null_mut();
-        let mut v_snd_1894_: *mut LeanObject = core::ptr::null_mut();
-        v_entries_1888_ = lean_ctor_get(v_map_1883_, 0);
-        v_indexes_1889_ = lean_ctor_get(v_map_1883_, 1);
+        let mut v_entries_1888_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_indexes_1889_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1890_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1891_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_entry_1892_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1893_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_snd_1894_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        v_entries_1888_ = crate::leanh::lean_ctor_get(v_map_1883_, 0);
+        v_indexes_1889_ = crate::leanh::lean_ctor_get(v_map_1883_, 1);
         v___x_1890_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
             v_inst_1880_,
             v_inst_1881_,
             v_indexes_1889_,
             v_key_1884_,
         );
-        v___x_1891_ = lean_unsigned_to_nat(0);
+        v___x_1891_ = crate::leanh::lean_unsigned_to_nat(0);
         v_entry_1892_ = lean_array_fget(v___x_1890_, v___x_1891_);
-        lean_dec(v___x_1890_);
+        crate::leanh::lean_dec(v___x_1890_);
         v___x_1893_ = lean_array_fget_borrowed(v_entries_1888_, v_entry_1892_);
-        lean_dec(v_entry_1892_);
-        v_snd_1894_ = lean_ctor_get(v___x_1893_, 1);
-        lean_inc(v_snd_1894_);
+        crate::leanh::lean_dec(v_entry_1892_);
+        v_snd_1894_ = crate::leanh::lean_ctor_get(v___x_1893_, 1);
+        crate::leanh::lean_inc(v_snd_1894_);
         return v_snd_1894_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___boxed(
-    mut v_00_u03b1_1895_: *mut LeanObject,
-    mut v_00_u03b2_1896_: *mut LeanObject,
-    mut v_inst_1897_: *mut LeanObject,
-    mut v_inst_1898_: *mut LeanObject,
-    mut v_inst_1899_: *mut LeanObject,
-    mut v_map_1900_: *mut LeanObject,
-    mut v_key_1901_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_1902_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1895_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1896_: *mut crate::leanh::LeanObject,
+    mut v_inst_1897_: *mut crate::leanh::LeanObject,
+    mut v_inst_1898_: *mut crate::leanh::LeanObject,
+    mut v_inst_1899_: *mut crate::leanh::LeanObject,
+    mut v_map_1900_: *mut crate::leanh::LeanObject,
+    mut v_key_1901_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_1902_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_1902_ = l_Std_Internal_IndexMultiMap_get_x21(
         v_00_u03b1_1895_,
         v_00_u03b2_1896_,
@@ -2867,95 +2871,95 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_get_x21___boxed(
         v_map_1900_,
         v_key_1901_,
     );
-    lean_dec_ref(v_map_1900_);
-    lean_dec(v_inst_1899_);
+    crate::leanh::lean_dec_ref(v_map_1900_);
+    crate::leanh::lean_dec(v_inst_1899_);
     return v_res_1902_;
 }
 pub unsafe fn l___private_Std_Http_Internal_IndexMultiMap_0__Std_Internal_IndexMultiMap_insert_match__1_splitter___redArg(
-    mut v_x_1903_: *mut LeanObject,
-    mut v_h__1_1904_: *mut LeanObject,
-    mut v_h__2_1905_: *mut LeanObject,
-) -> *mut LeanObject {
-    if lean_obj_tag(v_x_1903_) == 0 {
-        let mut v___x_1906_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1907_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__1_1904_);
-        v___x_1906_ = lean_box(0);
-        v___x_1907_ = lean_apply_1(v_h__2_1905_, v___x_1906_);
+    mut v_x_1903_: *mut crate::leanh::LeanObject,
+    mut v_h__1_1904_: *mut crate::leanh::LeanObject,
+    mut v_h__2_1905_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    if crate::leanh::lean_obj_tag(v_x_1903_) == 0 {
+        let mut v___x_1906_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1907_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__1_1904_);
+        v___x_1906_ = crate::leanh::lean_box(0);
+        v___x_1907_ = crate::leanh::lean_apply_1(v_h__2_1905_, v___x_1906_);
         return v___x_1907_;
     } else {
-        let mut v_val_1908_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1909_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__2_1905_);
-        v_val_1908_ = lean_ctor_get(v_x_1903_, 0);
-        lean_inc(v_val_1908_);
-        lean_dec_ref_known(v_x_1903_, 1);
-        v___x_1909_ = lean_apply_1(v_h__1_1904_, v_val_1908_);
+        let mut v_val_1908_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1909_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__2_1905_);
+        v_val_1908_ = crate::leanh::lean_ctor_get(v_x_1903_, 0);
+        crate::leanh::lean_inc(v_val_1908_);
+        crate::leanh::lean_dec_ref_known(v_x_1903_, 1);
+        v___x_1909_ = crate::leanh::lean_apply_1(v_h__1_1904_, v_val_1908_);
         return v___x_1909_;
     }
 }
 pub unsafe fn l___private_Std_Http_Internal_IndexMultiMap_0__Std_Internal_IndexMultiMap_insert_match__1_splitter(
-    mut v_motive_1910_: *mut LeanObject,
-    mut v_x_1911_: *mut LeanObject,
-    mut v_h__1_1912_: *mut LeanObject,
-    mut v_h__2_1913_: *mut LeanObject,
-) -> *mut LeanObject {
-    if lean_obj_tag(v_x_1911_) == 0 {
-        let mut v___x_1914_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1915_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__1_1912_);
-        v___x_1914_ = lean_box(0);
-        v___x_1915_ = lean_apply_1(v_h__2_1913_, v___x_1914_);
+    mut v_motive_1910_: *mut crate::leanh::LeanObject,
+    mut v_x_1911_: *mut crate::leanh::LeanObject,
+    mut v_h__1_1912_: *mut crate::leanh::LeanObject,
+    mut v_h__2_1913_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    if crate::leanh::lean_obj_tag(v_x_1911_) == 0 {
+        let mut v___x_1914_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1915_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__1_1912_);
+        v___x_1914_ = crate::leanh::lean_box(0);
+        v___x_1915_ = crate::leanh::lean_apply_1(v_h__2_1913_, v___x_1914_);
         return v___x_1915_;
     } else {
-        let mut v_val_1916_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_1917_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec(v_h__2_1913_);
-        v_val_1916_ = lean_ctor_get(v_x_1911_, 0);
-        lean_inc(v_val_1916_);
-        lean_dec_ref_known(v_x_1911_, 1);
-        v___x_1917_ = lean_apply_1(v_h__1_1912_, v_val_1916_);
+        let mut v_val_1916_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1917_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec(v_h__2_1913_);
+        v_val_1916_ = crate::leanh::lean_ctor_get(v_x_1911_, 0);
+        crate::leanh::lean_inc(v_val_1916_);
+        crate::leanh::lean_dec_ref_known(v_x_1911_, 1);
+        v___x_1917_ = crate::leanh::lean_apply_1(v_h__1_1912_, v_val_1916_);
         return v___x_1917_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg___lam__0(
-    mut v_i_1918_: *mut LeanObject,
-    mut v_x_1919_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1920_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1921_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1922_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1923_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_val_1924_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1926_: *mut LeanObject = core::ptr::null_mut();
+    mut v_i_1918_: *mut crate::leanh::LeanObject,
+    mut v_x_1919_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1920_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1921_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1922_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1923_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_val_1924_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1926_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1927_: u8 = 0;
-    let mut v___x_1928_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1930_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1931_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_1928_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1930_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1931_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1932_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                if lean_obj_tag(v_x_1919_) == 0 {
-                    v___x_1920_ = lean_unsigned_to_nat(1);
+                if crate::leanh::lean_obj_tag(v_x_1919_) == 0 {
+                    v___x_1920_ = crate::leanh::lean_unsigned_to_nat(1);
                     v___x_1921_ = lean_mk_empty_array_with_capacity(v___x_1920_);
                     v___x_1922_ = lean_array_push(v___x_1921_, v_i_1918_);
-                    v___x_1923_ = lean_alloc_ctor(1, 1, (0) as u32);
-                    lean_ctor_set(v___x_1923_, 0, v___x_1922_);
+                    v___x_1923_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+                    crate::leanh::lean_ctor_set(v___x_1923_, 0, v___x_1922_);
                     return v___x_1923_;
                 } else {
-                    v_val_1924_ = lean_ctor_get(v_x_1919_, 0);
-                    v_isSharedCheck_1932_ = (!lean_is_exclusive(v_x_1919_)) as u8;
+                    v_val_1924_ = crate::leanh::lean_ctor_get(v_x_1919_, 0);
+                    v_isSharedCheck_1932_ = (!crate::leanh::lean_is_exclusive(v_x_1919_)) as u8;
                     if v_isSharedCheck_1932_ == 0 {
                         v___x_1926_ = v_x_1919_;
                         v_isShared_1927_ = v_isSharedCheck_1932_;
                         state = 1;
                         continue;
                     } else {
-                        lean_inc(v_val_1924_);
-                        lean_dec(v_x_1919_);
-                        v___x_1926_ = lean_box(0);
+                        crate::leanh::lean_inc(v_val_1924_);
+                        crate::leanh::lean_dec(v_x_1919_);
+                        v___x_1926_ = crate::leanh::lean_box(0);
                         v_isShared_1927_ = v_isSharedCheck_1932_;
                         state = 1;
                         continue;
@@ -2965,13 +2969,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg___lam__0(
             1 => {
                 v___x_1928_ = lean_array_push(v_val_1924_, v_i_1918_);
                 if v_isShared_1927_ == 0 {
-                    lean_ctor_set(v___x_1926_, 0, v___x_1928_);
+                    crate::leanh::lean_ctor_set(v___x_1926_, 0, v___x_1928_);
                     v___x_1930_ = v___x_1926_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1931_ = lean_alloc_ctor(1, 1, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_1931_, 0, v___x_1928_);
+                    v_reuseFailAlloc_1931_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1931_, 0, v___x_1928_);
                     v___x_1930_ = v_reuseFailAlloc_1931_;
                     state = 2;
                     continue;
@@ -2985,41 +2989,41 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg___lam__0(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg(
-    mut v_inst_1933_: *mut LeanObject,
-    mut v_inst_1934_: *mut LeanObject,
-    mut v_map_1935_: *mut LeanObject,
-    mut v_key_1936_: *mut LeanObject,
-    mut v_value_1937_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1938_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1939_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1941_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1933_: *mut crate::leanh::LeanObject,
+    mut v_inst_1934_: *mut crate::leanh::LeanObject,
+    mut v_map_1935_: *mut crate::leanh::LeanObject,
+    mut v_key_1936_: *mut crate::leanh::LeanObject,
+    mut v_value_1937_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1938_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1939_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1941_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1942_: u8 = 0;
-    let mut v_i_1943_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_1944_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1945_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_1946_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1947_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1949_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1950_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_1943_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_1944_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1945_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_1946_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1947_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1949_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1950_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1951_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_entries_1938_ = lean_ctor_get(v_map_1935_, 0);
-                v_indexes_1939_ = lean_ctor_get(v_map_1935_, 1);
-                v_isSharedCheck_1951_ = (!lean_is_exclusive(v_map_1935_)) as u8;
+                v_entries_1938_ = crate::leanh::lean_ctor_get(v_map_1935_, 0);
+                v_indexes_1939_ = crate::leanh::lean_ctor_get(v_map_1935_, 1);
+                v_isSharedCheck_1951_ = (!crate::leanh::lean_is_exclusive(v_map_1935_)) as u8;
                 if v_isSharedCheck_1951_ == 0 {
                     v___x_1941_ = v_map_1935_;
                     v_isShared_1942_ = v_isSharedCheck_1951_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_1939_);
-                    lean_inc(v_entries_1938_);
-                    lean_dec(v_map_1935_);
-                    v___x_1941_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_1939_);
+                    crate::leanh::lean_inc(v_entries_1938_);
+                    crate::leanh::lean_dec(v_map_1935_);
+                    v___x_1941_ = crate::leanh::lean_box(0);
                     v_isShared_1942_ = v_isSharedCheck_1951_;
                     state = 1;
                     continue;
@@ -3027,16 +3031,16 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg(
             }
             1 => {
                 v_i_1943_ = lean_array_get_size(v_entries_1938_);
-                v_f_1944_ = lean_alloc_closure(
+                v_f_1944_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_1944_, 0, v_i_1943_);
-                lean_inc(v_key_1936_);
-                v___x_1945_ = lean_alloc_ctor(0, 2, (0) as u32);
-                lean_ctor_set(v___x_1945_, 0, v_key_1936_);
-                lean_ctor_set(v___x_1945_, 1, v_value_1937_);
+                crate::leanh::lean_closure_set(v_f_1944_, 0, v_i_1943_);
+                crate::leanh::lean_inc(v_key_1936_);
+                v___x_1945_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1945_, 0, v_key_1936_);
+                crate::leanh::lean_ctor_set(v___x_1945_, 1, v_value_1937_);
                 v_entries_1946_ = lean_array_push(v_entries_1938_, v___x_1945_);
                 v_indexes_1947_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_1933_,
@@ -3046,15 +3050,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg(
                     v_f_1944_,
                 );
                 if v_isShared_1942_ == 0 {
-                    lean_ctor_set(v___x_1941_, 1, v_indexes_1947_);
-                    lean_ctor_set(v___x_1941_, 0, v_entries_1946_);
+                    crate::leanh::lean_ctor_set(v___x_1941_, 1, v_indexes_1947_);
+                    crate::leanh::lean_ctor_set(v___x_1941_, 0, v_entries_1946_);
                     v___x_1949_ = v___x_1941_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1950_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_1950_, 0, v_entries_1946_);
-                    lean_ctor_set(v_reuseFailAlloc_1950_, 1, v_indexes_1947_);
+                    v_reuseFailAlloc_1950_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1950_, 0, v_entries_1946_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1950_, 1, v_indexes_1947_);
                     v___x_1949_ = v_reuseFailAlloc_1950_;
                     state = 2;
                     continue;
@@ -3068,45 +3072,45 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_insert(
-    mut v_00_u03b1_1952_: *mut LeanObject,
-    mut v_00_u03b2_1953_: *mut LeanObject,
-    mut v_inst_1954_: *mut LeanObject,
-    mut v_inst_1955_: *mut LeanObject,
-    mut v_inst_1956_: *mut LeanObject,
-    mut v_inst_1957_: *mut LeanObject,
-    mut v_map_1958_: *mut LeanObject,
-    mut v_key_1959_: *mut LeanObject,
-    mut v_value_1960_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1961_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1962_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1964_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_1952_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_1953_: *mut crate::leanh::LeanObject,
+    mut v_inst_1954_: *mut crate::leanh::LeanObject,
+    mut v_inst_1955_: *mut crate::leanh::LeanObject,
+    mut v_inst_1956_: *mut crate::leanh::LeanObject,
+    mut v_inst_1957_: *mut crate::leanh::LeanObject,
+    mut v_map_1958_: *mut crate::leanh::LeanObject,
+    mut v_key_1959_: *mut crate::leanh::LeanObject,
+    mut v_value_1960_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1961_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1962_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1964_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1965_: u8 = 0;
-    let mut v_i_1966_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_1967_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1968_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_1969_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1970_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1972_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1973_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_1966_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_1967_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1968_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_1969_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1970_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1972_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1973_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1974_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_entries_1961_ = lean_ctor_get(v_map_1958_, 0);
-                v_indexes_1962_ = lean_ctor_get(v_map_1958_, 1);
-                v_isSharedCheck_1974_ = (!lean_is_exclusive(v_map_1958_)) as u8;
+                v_entries_1961_ = crate::leanh::lean_ctor_get(v_map_1958_, 0);
+                v_indexes_1962_ = crate::leanh::lean_ctor_get(v_map_1958_, 1);
+                v_isSharedCheck_1974_ = (!crate::leanh::lean_is_exclusive(v_map_1958_)) as u8;
                 if v_isSharedCheck_1974_ == 0 {
                     v___x_1964_ = v_map_1958_;
                     v_isShared_1965_ = v_isSharedCheck_1974_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_1962_);
-                    lean_inc(v_entries_1961_);
-                    lean_dec(v_map_1958_);
-                    v___x_1964_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_1962_);
+                    crate::leanh::lean_inc(v_entries_1961_);
+                    crate::leanh::lean_dec(v_map_1958_);
+                    v___x_1964_ = crate::leanh::lean_box(0);
                     v_isShared_1965_ = v_isSharedCheck_1974_;
                     state = 1;
                     continue;
@@ -3114,16 +3118,16 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert(
             }
             1 => {
                 v_i_1966_ = lean_array_get_size(v_entries_1961_);
-                v_f_1967_ = lean_alloc_closure(
+                v_f_1967_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_1967_, 0, v_i_1966_);
-                lean_inc(v_key_1959_);
-                v___x_1968_ = lean_alloc_ctor(0, 2, (0) as u32);
-                lean_ctor_set(v___x_1968_, 0, v_key_1959_);
-                lean_ctor_set(v___x_1968_, 1, v_value_1960_);
+                crate::leanh::lean_closure_set(v_f_1967_, 0, v_i_1966_);
+                crate::leanh::lean_inc(v_key_1959_);
+                v___x_1968_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1968_, 0, v_key_1959_);
+                crate::leanh::lean_ctor_set(v___x_1968_, 1, v_value_1960_);
                 v_entries_1969_ = lean_array_push(v_entries_1961_, v___x_1968_);
                 v_indexes_1970_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_1954_,
@@ -3133,15 +3137,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert(
                     v_f_1967_,
                 );
                 if v_isShared_1965_ == 0 {
-                    lean_ctor_set(v___x_1964_, 1, v_indexes_1970_);
-                    lean_ctor_set(v___x_1964_, 0, v_entries_1969_);
+                    crate::leanh::lean_ctor_set(v___x_1964_, 1, v_indexes_1970_);
+                    crate::leanh::lean_ctor_set(v___x_1964_, 0, v_entries_1969_);
                     v___x_1972_ = v___x_1964_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1973_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_1973_, 0, v_entries_1969_);
-                    lean_ctor_set(v_reuseFailAlloc_1973_, 1, v_indexes_1970_);
+                    v_reuseFailAlloc_1973_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1973_, 0, v_entries_1969_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1973_, 1, v_indexes_1970_);
                     v___x_1972_ = v_reuseFailAlloc_1973_;
                     state = 2;
                     continue;
@@ -3155,41 +3159,41 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insert(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg___lam__1(
-    mut v_key_1975_: *mut LeanObject,
-    mut v_inst_1976_: *mut LeanObject,
-    mut v_inst_1977_: *mut LeanObject,
-    mut v_x1_1978_: *mut LeanObject,
-    mut v_x2_1979_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_1980_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1981_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1983_: *mut LeanObject = core::ptr::null_mut();
+    mut v_key_1975_: *mut crate::leanh::LeanObject,
+    mut v_inst_1976_: *mut crate::leanh::LeanObject,
+    mut v_inst_1977_: *mut crate::leanh::LeanObject,
+    mut v_x1_1978_: *mut crate::leanh::LeanObject,
+    mut v_x2_1979_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_1980_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1981_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1983_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1984_: u8 = 0;
-    let mut v_i_1985_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_1986_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1987_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_1988_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_1989_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_1991_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1992_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_1985_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_1986_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1987_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_1988_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_1989_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1991_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1992_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1993_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_entries_1980_ = lean_ctor_get(v_x1_1978_, 0);
-                v_indexes_1981_ = lean_ctor_get(v_x1_1978_, 1);
-                v_isSharedCheck_1993_ = (!lean_is_exclusive(v_x1_1978_)) as u8;
+                v_entries_1980_ = crate::leanh::lean_ctor_get(v_x1_1978_, 0);
+                v_indexes_1981_ = crate::leanh::lean_ctor_get(v_x1_1978_, 1);
+                v_isSharedCheck_1993_ = (!crate::leanh::lean_is_exclusive(v_x1_1978_)) as u8;
                 if v_isSharedCheck_1993_ == 0 {
                     v___x_1983_ = v_x1_1978_;
                     v_isShared_1984_ = v_isSharedCheck_1993_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_1981_);
-                    lean_inc(v_entries_1980_);
-                    lean_dec(v_x1_1978_);
-                    v___x_1983_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_1981_);
+                    crate::leanh::lean_inc(v_entries_1980_);
+                    crate::leanh::lean_dec(v_x1_1978_);
+                    v___x_1983_ = crate::leanh::lean_box(0);
                     v_isShared_1984_ = v_isSharedCheck_1993_;
                     state = 1;
                     continue;
@@ -3197,16 +3201,16 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg___lam__1(
             }
             1 => {
                 v_i_1985_ = lean_array_get_size(v_entries_1980_);
-                v_f_1986_ = lean_alloc_closure(
+                v_f_1986_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_1986_, 0, v_i_1985_);
-                lean_inc(v_key_1975_);
-                v___x_1987_ = lean_alloc_ctor(0, 2, (0) as u32);
-                lean_ctor_set(v___x_1987_, 0, v_key_1975_);
-                lean_ctor_set(v___x_1987_, 1, v_x2_1979_);
+                crate::leanh::lean_closure_set(v_f_1986_, 0, v_i_1985_);
+                crate::leanh::lean_inc(v_key_1975_);
+                v___x_1987_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_1987_, 0, v_key_1975_);
+                crate::leanh::lean_ctor_set(v___x_1987_, 1, v_x2_1979_);
                 v_entries_1988_ = lean_array_push(v_entries_1980_, v___x_1987_);
                 v_indexes_1989_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_1976_,
@@ -3216,15 +3220,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg___lam__1(
                     v_f_1986_,
                 );
                 if v_isShared_1984_ == 0 {
-                    lean_ctor_set(v___x_1983_, 1, v_indexes_1989_);
-                    lean_ctor_set(v___x_1983_, 0, v_entries_1988_);
+                    crate::leanh::lean_ctor_set(v___x_1983_, 1, v_indexes_1989_);
+                    crate::leanh::lean_ctor_set(v___x_1983_, 0, v_entries_1988_);
                     v___x_1991_ = v___x_1983_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1992_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_1992_, 0, v_entries_1988_);
-                    lean_ctor_set(v_reuseFailAlloc_1992_, 1, v_indexes_1989_);
+                    v_reuseFailAlloc_1992_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1992_, 0, v_entries_1988_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1992_, 1, v_indexes_1989_);
                     v___x_1991_ = v_reuseFailAlloc_1992_;
                     state = 2;
                     continue;
@@ -3238,53 +3242,53 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg___lam__1(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg(
-    mut v_inst_1994_: *mut LeanObject,
-    mut v_inst_1995_: *mut LeanObject,
-    mut v_map_1996_: *mut LeanObject,
-    mut v_key_1997_: *mut LeanObject,
-    mut v_values_1998_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_1999_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2000_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2001_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_1994_: *mut crate::leanh::LeanObject,
+    mut v_inst_1995_: *mut crate::leanh::LeanObject,
+    mut v_map_1996_: *mut crate::leanh::LeanObject,
+    mut v_key_1997_: *mut crate::leanh::LeanObject,
+    mut v_values_1998_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_1999_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2000_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2001_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2002_: u8 = 0;
-    v___x_1999_ = lean_unsigned_to_nat(0);
+    v___x_1999_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_2000_ = lean_array_get_size(v_values_1998_);
     v___x_2001_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
     v___x_2002_ = lean_nat_dec_lt(v___x_1999_, v___x_2000_);
     if v___x_2002_ == 0 {
-        lean_dec_ref(v_values_1998_);
-        lean_dec(v_key_1997_);
-        lean_dec_ref(v_inst_1995_);
-        lean_dec_ref(v_inst_1994_);
+        crate::leanh::lean_dec_ref(v_values_1998_);
+        crate::leanh::lean_dec(v_key_1997_);
+        crate::leanh::lean_dec_ref(v_inst_1995_);
+        crate::leanh::lean_dec_ref(v_inst_1994_);
         return v_map_1996_;
     } else {
-        let mut v___f_2003_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___f_2003_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2004_: u8 = 0;
-        v___f_2003_ = lean_alloc_closure(
+        v___f_2003_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_insertMany___redArg___lam__1 as *mut core::ffi::c_void,
             5,
             3,
         );
-        lean_closure_set(v___f_2003_, 0, v_key_1997_);
-        lean_closure_set(v___f_2003_, 1, v_inst_1994_);
-        lean_closure_set(v___f_2003_, 2, v_inst_1995_);
+        crate::leanh::lean_closure_set(v___f_2003_, 0, v_key_1997_);
+        crate::leanh::lean_closure_set(v___f_2003_, 1, v_inst_1994_);
+        crate::leanh::lean_closure_set(v___f_2003_, 2, v_inst_1995_);
         v___x_2004_ = lean_nat_dec_le(v___x_2000_, v___x_2000_);
         if v___x_2004_ == 0 {
             if v___x_2002_ == 0 {
-                lean_dec_ref(v___f_2003_);
-                lean_dec_ref(v_values_1998_);
+                crate::leanh::lean_dec_ref(v___f_2003_);
+                crate::leanh::lean_dec_ref(v_values_1998_);
                 return v_map_1996_;
             } else {
                 let mut v___x_2005_: usize = 0;
                 let mut v___x_2006_: usize = 0;
-                let mut v___x_2007_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_2007_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_2005_ = 0usize;
                 v___x_2006_ = lean_usize_of_nat(v___x_2000_);
                 v___x_2007_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_2001_,
                     v___f_2003_,
                     v_values_1998_,
@@ -3297,13 +3301,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg(
         } else {
             let mut v___x_2008_: usize = 0;
             let mut v___x_2009_: usize = 0;
-            let mut v___x_2010_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_2010_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_2008_ = 0usize;
             v___x_2009_ = lean_usize_of_nat(v___x_2000_);
             v___x_2010_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                lean_box(0),
-                lean_box(0),
-                lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
                 v___x_2001_,
                 v___f_2003_,
                 v_values_1998_,
@@ -3316,57 +3320,57 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany(
-    mut v_00_u03b1_2011_: *mut LeanObject,
-    mut v_00_u03b2_2012_: *mut LeanObject,
-    mut v_inst_2013_: *mut LeanObject,
-    mut v_inst_2014_: *mut LeanObject,
-    mut v_inst_2015_: *mut LeanObject,
-    mut v_inst_2016_: *mut LeanObject,
-    mut v_map_2017_: *mut LeanObject,
-    mut v_key_2018_: *mut LeanObject,
-    mut v_values_2019_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2020_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2021_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2022_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2011_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2012_: *mut crate::leanh::LeanObject,
+    mut v_inst_2013_: *mut crate::leanh::LeanObject,
+    mut v_inst_2014_: *mut crate::leanh::LeanObject,
+    mut v_inst_2015_: *mut crate::leanh::LeanObject,
+    mut v_inst_2016_: *mut crate::leanh::LeanObject,
+    mut v_map_2017_: *mut crate::leanh::LeanObject,
+    mut v_key_2018_: *mut crate::leanh::LeanObject,
+    mut v_values_2019_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2020_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2021_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2022_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2023_: u8 = 0;
-    v___x_2020_ = lean_unsigned_to_nat(0);
+    v___x_2020_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_2021_ = lean_array_get_size(v_values_2019_);
     v___x_2022_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
     v___x_2023_ = lean_nat_dec_lt(v___x_2020_, v___x_2021_);
     if v___x_2023_ == 0 {
-        lean_dec_ref(v_values_2019_);
-        lean_dec(v_key_2018_);
-        lean_dec_ref(v_inst_2014_);
-        lean_dec_ref(v_inst_2013_);
+        crate::leanh::lean_dec_ref(v_values_2019_);
+        crate::leanh::lean_dec(v_key_2018_);
+        crate::leanh::lean_dec_ref(v_inst_2014_);
+        crate::leanh::lean_dec_ref(v_inst_2013_);
         return v_map_2017_;
     } else {
-        let mut v___f_2024_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___f_2024_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2025_: u8 = 0;
-        v___f_2024_ = lean_alloc_closure(
+        v___f_2024_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_insertMany___redArg___lam__1 as *mut core::ffi::c_void,
             5,
             3,
         );
-        lean_closure_set(v___f_2024_, 0, v_key_2018_);
-        lean_closure_set(v___f_2024_, 1, v_inst_2013_);
-        lean_closure_set(v___f_2024_, 2, v_inst_2014_);
+        crate::leanh::lean_closure_set(v___f_2024_, 0, v_key_2018_);
+        crate::leanh::lean_closure_set(v___f_2024_, 1, v_inst_2013_);
+        crate::leanh::lean_closure_set(v___f_2024_, 2, v_inst_2014_);
         v___x_2025_ = lean_nat_dec_le(v___x_2021_, v___x_2021_);
         if v___x_2025_ == 0 {
             if v___x_2023_ == 0 {
-                lean_dec_ref(v___f_2024_);
-                lean_dec_ref(v_values_2019_);
+                crate::leanh::lean_dec_ref(v___f_2024_);
+                crate::leanh::lean_dec_ref(v_values_2019_);
                 return v_map_2017_;
             } else {
                 let mut v___x_2026_: usize = 0;
                 let mut v___x_2027_: usize = 0;
-                let mut v___x_2028_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_2028_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_2026_ = 0usize;
                 v___x_2027_ = lean_usize_of_nat(v___x_2021_);
                 v___x_2028_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_2022_,
                     v___f_2024_,
                     v_values_2019_,
@@ -3379,13 +3383,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany(
         } else {
             let mut v___x_2029_: usize = 0;
             let mut v___x_2030_: usize = 0;
-            let mut v___x_2031_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_2031_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_2029_ = 0usize;
             v___x_2030_ = lean_usize_of_nat(v___x_2021_);
             v___x_2031_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                lean_box(0),
-                lean_box(0),
-                lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
                 v___x_2022_,
                 v___f_2024_,
                 v_values_2019_,
@@ -3398,13 +3402,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_insertMany(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_empty(
-    mut v_00_u03b1_2032_: *mut LeanObject,
-    mut v_00_u03b2_2033_: *mut LeanObject,
-    mut v_inst_2034_: *mut LeanObject,
-    mut v_inst_2035_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2036_: *mut LeanObject = core::ptr::null_mut();
-    v___x_2036_ = lean_obj_once(
+    mut v_00_u03b1_2032_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2033_: *mut crate::leanh::LeanObject,
+    mut v_inst_2034_: *mut crate::leanh::LeanObject,
+    mut v_inst_2035_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2036_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_2036_ = crate::leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__3),
         core::ptr::addr_of_mut!(l_Std_Internal_instInhabitedIndexMultiMap___closed__3_once),
         _init_l_Std_Internal_instInhabitedIndexMultiMap___closed__3,
@@ -3412,59 +3416,59 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_empty(
     return v___x_2036_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_empty___boxed(
-    mut v_00_u03b1_2037_: *mut LeanObject,
-    mut v_00_u03b2_2038_: *mut LeanObject,
-    mut v_inst_2039_: *mut LeanObject,
-    mut v_inst_2040_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2041_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2037_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2038_: *mut crate::leanh::LeanObject,
+    mut v_inst_2039_: *mut crate::leanh::LeanObject,
+    mut v_inst_2040_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2041_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2041_ = l_Std_Internal_IndexMultiMap_empty(
         v_00_u03b1_2037_,
         v_00_u03b2_2038_,
         v_inst_2039_,
         v_inst_2040_,
     );
-    lean_dec_ref(v_inst_2040_);
-    lean_dec_ref(v_inst_2039_);
+    crate::leanh::lean_dec_ref(v_inst_2040_);
+    crate::leanh::lean_dec_ref(v_inst_2039_);
     return v_res_2041_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_ofList___redArg___lam__1(
-    mut v_inst_2042_: *mut LeanObject,
-    mut v_inst_2043_: *mut LeanObject,
-    mut v_acc_2044_: *mut LeanObject,
-    mut v_x_2045_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_fst_2046_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2047_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2048_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2050_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2042_: *mut crate::leanh::LeanObject,
+    mut v_inst_2043_: *mut crate::leanh::LeanObject,
+    mut v_acc_2044_: *mut crate::leanh::LeanObject,
+    mut v_x_2045_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_fst_2046_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2047_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2048_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2050_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2051_: u8 = 0;
-    let mut v_i_2052_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_2053_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2054_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2055_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2057_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2058_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_2052_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_2053_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2054_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2055_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2057_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2058_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2059_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_fst_2046_ = lean_ctor_get(v_x_2045_, 0);
-                lean_inc(v_fst_2046_);
-                v_entries_2047_ = lean_ctor_get(v_acc_2044_, 0);
-                v_indexes_2048_ = lean_ctor_get(v_acc_2044_, 1);
-                v_isSharedCheck_2059_ = (!lean_is_exclusive(v_acc_2044_)) as u8;
+                v_fst_2046_ = crate::leanh::lean_ctor_get(v_x_2045_, 0);
+                crate::leanh::lean_inc(v_fst_2046_);
+                v_entries_2047_ = crate::leanh::lean_ctor_get(v_acc_2044_, 0);
+                v_indexes_2048_ = crate::leanh::lean_ctor_get(v_acc_2044_, 1);
+                v_isSharedCheck_2059_ = (!crate::leanh::lean_is_exclusive(v_acc_2044_)) as u8;
                 if v_isSharedCheck_2059_ == 0 {
                     v___x_2050_ = v_acc_2044_;
                     v_isShared_2051_ = v_isSharedCheck_2059_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_2048_);
-                    lean_inc(v_entries_2047_);
-                    lean_dec(v_acc_2044_);
-                    v___x_2050_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_2048_);
+                    crate::leanh::lean_inc(v_entries_2047_);
+                    crate::leanh::lean_dec(v_acc_2044_);
+                    v___x_2050_ = crate::leanh::lean_box(0);
                     v_isShared_2051_ = v_isSharedCheck_2059_;
                     state = 1;
                     continue;
@@ -3472,12 +3476,12 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_ofList___redArg___lam__1(
             }
             1 => {
                 v_i_2052_ = lean_array_get_size(v_entries_2047_);
-                v_f_2053_ = lean_alloc_closure(
+                v_f_2053_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_2053_, 0, v_i_2052_);
+                crate::leanh::lean_closure_set(v_f_2053_, 0, v_i_2052_);
                 v_entries_2054_ = lean_array_push(v_entries_2047_, v_x_2045_);
                 v_indexes_2055_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_2042_,
@@ -3487,15 +3491,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_ofList___redArg___lam__1(
                     v_f_2053_,
                 );
                 if v_isShared_2051_ == 0 {
-                    lean_ctor_set(v___x_2050_, 1, v_indexes_2055_);
-                    lean_ctor_set(v___x_2050_, 0, v_entries_2054_);
+                    crate::leanh::lean_ctor_set(v___x_2050_, 1, v_indexes_2055_);
+                    crate::leanh::lean_ctor_set(v___x_2050_, 0, v_entries_2054_);
                     v___x_2057_ = v___x_2050_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2058_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2058_, 0, v_entries_2054_);
-                    lean_ctor_set(v_reuseFailAlloc_2058_, 1, v_indexes_2055_);
+                    v_reuseFailAlloc_2058_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2058_, 0, v_entries_2054_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2058_, 1, v_indexes_2055_);
                     v___x_2057_ = v_reuseFailAlloc_2058_;
                     state = 2;
                     continue;
@@ -3509,52 +3513,56 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_ofList___redArg___lam__1(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_ofList___redArg(
-    mut v_inst_2060_: *mut LeanObject,
-    mut v_inst_2061_: *mut LeanObject,
-    mut v_pairs_2062_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2063_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2064_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2065_: *mut LeanObject = core::ptr::null_mut();
-    lean_inc_ref(v_inst_2061_);
-    lean_inc_ref(v_inst_2060_);
-    v___f_2063_ = lean_alloc_closure(
+    mut v_inst_2060_: *mut crate::leanh::LeanObject,
+    mut v_inst_2061_: *mut crate::leanh::LeanObject,
+    mut v_pairs_2062_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2063_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2064_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2065_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    crate::leanh::lean_inc_ref(v_inst_2061_);
+    crate::leanh::lean_inc_ref(v_inst_2060_);
+    v___f_2063_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_ofList___redArg___lam__1 as *mut core::ffi::c_void,
         4,
         2,
     );
-    lean_closure_set(v___f_2063_, 0, v_inst_2060_);
-    lean_closure_set(v___f_2063_, 1, v_inst_2061_);
-    v___x_2064_ =
-        l_Std_Internal_IndexMultiMap_empty(lean_box(0), lean_box(0), v_inst_2060_, v_inst_2061_);
-    lean_dec_ref(v_inst_2061_);
-    lean_dec_ref(v_inst_2060_);
+    crate::leanh::lean_closure_set(v___f_2063_, 0, v_inst_2060_);
+    crate::leanh::lean_closure_set(v___f_2063_, 1, v_inst_2061_);
+    v___x_2064_ = l_Std_Internal_IndexMultiMap_empty(
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
+        v_inst_2060_,
+        v_inst_2061_,
+    );
+    crate::leanh::lean_dec_ref(v_inst_2061_);
+    crate::leanh::lean_dec_ref(v_inst_2060_);
     v___x_2065_ = l_List_foldl___redArg(v___f_2063_, v___x_2064_, v_pairs_2062_);
     return v___x_2065_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_ofList(
-    mut v_00_u03b1_2066_: *mut LeanObject,
-    mut v_00_u03b2_2067_: *mut LeanObject,
-    mut v_inst_2068_: *mut LeanObject,
-    mut v_inst_2069_: *mut LeanObject,
-    mut v_inst_2070_: *mut LeanObject,
-    mut v_inst_2071_: *mut LeanObject,
-    mut v_pairs_2072_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2073_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2066_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2067_: *mut crate::leanh::LeanObject,
+    mut v_inst_2068_: *mut crate::leanh::LeanObject,
+    mut v_inst_2069_: *mut crate::leanh::LeanObject,
+    mut v_inst_2070_: *mut crate::leanh::LeanObject,
+    mut v_inst_2071_: *mut crate::leanh::LeanObject,
+    mut v_pairs_2072_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2073_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_2073_ =
         l_Std_Internal_IndexMultiMap_ofList___redArg(v_inst_2068_, v_inst_2069_, v_pairs_2072_);
     return v___x_2073_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_contains___redArg(
-    mut v_inst_2074_: *mut LeanObject,
-    mut v_inst_2075_: *mut LeanObject,
-    mut v_map_2076_: *mut LeanObject,
-    mut v_key_2077_: *mut LeanObject,
+    mut v_inst_2074_: *mut crate::leanh::LeanObject,
+    mut v_inst_2075_: *mut crate::leanh::LeanObject,
+    mut v_map_2076_: *mut crate::leanh::LeanObject,
+    mut v_key_2077_: *mut crate::leanh::LeanObject,
 ) -> u8 {
-    let mut v_indexes_2078_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2078_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2079_: u8 = 0;
-    v_indexes_2078_ = lean_ctor_get(v_map_2076_, 1);
+    v_indexes_2078_ = crate::leanh::lean_ctor_get(v_map_2076_, 1);
     v___x_2079_ = l_Std_DHashMap_Internal_Raw_u2080_contains___redArg(
         v_inst_2074_,
         v_inst_2075_,
@@ -3564,34 +3572,34 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_contains___redArg(
     return v___x_2079_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_contains___redArg___boxed(
-    mut v_inst_2080_: *mut LeanObject,
-    mut v_inst_2081_: *mut LeanObject,
-    mut v_map_2082_: *mut LeanObject,
-    mut v_key_2083_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_2080_: *mut crate::leanh::LeanObject,
+    mut v_inst_2081_: *mut crate::leanh::LeanObject,
+    mut v_map_2082_: *mut crate::leanh::LeanObject,
+    mut v_key_2083_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_2084_: u8 = 0;
-    let mut v_r_2085_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_2085_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2084_ = l_Std_Internal_IndexMultiMap_contains___redArg(
         v_inst_2080_,
         v_inst_2081_,
         v_map_2082_,
         v_key_2083_,
     );
-    lean_dec_ref(v_map_2082_);
-    v_r_2085_ = lean_box((v_res_2084_) as usize);
+    crate::leanh::lean_dec_ref(v_map_2082_);
+    v_r_2085_ = crate::leanh::lean_box((v_res_2084_) as usize);
     return v_r_2085_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_contains(
-    mut v_00_u03b1_2086_: *mut LeanObject,
-    mut v_00_u03b2_2087_: *mut LeanObject,
-    mut v_inst_2088_: *mut LeanObject,
-    mut v_inst_2089_: *mut LeanObject,
-    mut v_map_2090_: *mut LeanObject,
-    mut v_key_2091_: *mut LeanObject,
+    mut v_00_u03b1_2086_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2087_: *mut crate::leanh::LeanObject,
+    mut v_inst_2088_: *mut crate::leanh::LeanObject,
+    mut v_inst_2089_: *mut crate::leanh::LeanObject,
+    mut v_map_2090_: *mut crate::leanh::LeanObject,
+    mut v_key_2091_: *mut crate::leanh::LeanObject,
 ) -> u8 {
-    let mut v_indexes_2092_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2092_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2093_: u8 = 0;
-    v_indexes_2092_ = lean_ctor_get(v_map_2090_, 1);
+    v_indexes_2092_ = crate::leanh::lean_ctor_get(v_map_2090_, 1);
     v___x_2093_ = l_Std_DHashMap_Internal_Raw_u2080_contains___redArg(
         v_inst_2088_,
         v_inst_2089_,
@@ -3601,15 +3609,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_contains(
     return v___x_2093_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_contains___boxed(
-    mut v_00_u03b1_2094_: *mut LeanObject,
-    mut v_00_u03b2_2095_: *mut LeanObject,
-    mut v_inst_2096_: *mut LeanObject,
-    mut v_inst_2097_: *mut LeanObject,
-    mut v_map_2098_: *mut LeanObject,
-    mut v_key_2099_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_2094_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2095_: *mut crate::leanh::LeanObject,
+    mut v_inst_2096_: *mut crate::leanh::LeanObject,
+    mut v_inst_2097_: *mut crate::leanh::LeanObject,
+    mut v_map_2098_: *mut crate::leanh::LeanObject,
+    mut v_key_2099_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_2100_: u8 = 0;
-    let mut v_r_2101_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_2101_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2100_ = l_Std_Internal_IndexMultiMap_contains(
         v_00_u03b1_2094_,
         v_00_u03b2_2095_,
@@ -3618,93 +3626,93 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_contains___boxed(
         v_map_2098_,
         v_key_2099_,
     );
-    lean_dec_ref(v_map_2098_);
-    v_r_2101_ = lean_box((v_res_2100_) as usize);
+    crate::leanh::lean_dec_ref(v_map_2098_);
+    v_r_2101_ = crate::leanh::lean_box((v_res_2100_) as usize);
     return v_r_2101_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg___lam__1(
-    mut v_inst_2102_: *mut LeanObject,
-    mut v_inst_2103_: *mut LeanObject,
-    mut v_key_2104_: *mut LeanObject,
-    mut v_f_2105_: *mut LeanObject,
-    mut v_x1_2106_: *mut LeanObject,
-    mut v_x2_2107_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_fst_2108_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_snd_2109_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2111_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2102_: *mut crate::leanh::LeanObject,
+    mut v_inst_2103_: *mut crate::leanh::LeanObject,
+    mut v_key_2104_: *mut crate::leanh::LeanObject,
+    mut v_f_2105_: *mut crate::leanh::LeanObject,
+    mut v_x1_2106_: *mut crate::leanh::LeanObject,
+    mut v_x2_2107_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_fst_2108_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_2109_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2111_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2112_: u8 = 0;
-    let mut v___y_2114_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2115_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2116_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2118_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___y_2114_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2115_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2116_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2118_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2119_: u8 = 0;
-    let mut v_i_2120_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_2121_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2123_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2124_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2125_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2127_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2128_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2129_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_2120_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_2121_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2123_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2124_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2125_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2127_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2128_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2129_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2130_: u8 = 0;
-    let mut v___x_2131_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2131_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2132_: u8 = 0;
-    let mut v___x_2133_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2133_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2134_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_fst_2108_ = lean_ctor_get(v_x2_2107_, 0);
-                v_snd_2109_ = lean_ctor_get(v_x2_2107_, 1);
-                v_isSharedCheck_2134_ = (!lean_is_exclusive(v_x2_2107_)) as u8;
+                v_fst_2108_ = crate::leanh::lean_ctor_get(v_x2_2107_, 0);
+                v_snd_2109_ = crate::leanh::lean_ctor_get(v_x2_2107_, 1);
+                v_isSharedCheck_2134_ = (!crate::leanh::lean_is_exclusive(v_x2_2107_)) as u8;
                 if v_isSharedCheck_2134_ == 0 {
                     v___x_2111_ = v_x2_2107_;
                     v_isShared_2112_ = v_isSharedCheck_2134_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_snd_2109_);
-                    lean_inc(v_fst_2108_);
-                    lean_dec(v_x2_2107_);
-                    v___x_2111_ = lean_box(0);
+                    crate::leanh::lean_inc(v_snd_2109_);
+                    crate::leanh::lean_inc(v_fst_2108_);
+                    crate::leanh::lean_dec(v_x2_2107_);
+                    v___x_2111_ = crate::leanh::lean_box(0);
                     v_isShared_2112_ = v_isSharedCheck_2134_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                lean_inc_ref(v_inst_2102_);
-                lean_inc(v_fst_2108_);
-                v___x_2131_ = lean_apply_2(v_inst_2102_, v_fst_2108_, v_key_2104_);
-                v___x_2132_ = (lean_unbox(v___x_2131_) as u8);
+                crate::leanh::lean_inc_ref(v_inst_2102_);
+                crate::leanh::lean_inc(v_fst_2108_);
+                v___x_2131_ = crate::leanh::lean_apply_2(v_inst_2102_, v_fst_2108_, v_key_2104_);
+                v___x_2132_ = (crate::leanh::lean_unbox(v___x_2131_) as u8);
                 if v___x_2132_ == 0 {
-                    lean_dec(v_f_2105_);
+                    crate::leanh::lean_dec(v_f_2105_);
                     v___y_2114_ = v_snd_2109_;
                     state = 2;
                     continue;
                 } else {
-                    v___x_2133_ = lean_apply_1(v_f_2105_, v_snd_2109_);
+                    v___x_2133_ = crate::leanh::lean_apply_1(v_f_2105_, v_snd_2109_);
                     v___y_2114_ = v___x_2133_;
                     state = 2;
                     continue;
                 }
             }
             2 => {
-                v_entries_2115_ = lean_ctor_get(v_x1_2106_, 0);
-                v_indexes_2116_ = lean_ctor_get(v_x1_2106_, 1);
-                v_isSharedCheck_2130_ = (!lean_is_exclusive(v_x1_2106_)) as u8;
+                v_entries_2115_ = crate::leanh::lean_ctor_get(v_x1_2106_, 0);
+                v_indexes_2116_ = crate::leanh::lean_ctor_get(v_x1_2106_, 1);
+                v_isSharedCheck_2130_ = (!crate::leanh::lean_is_exclusive(v_x1_2106_)) as u8;
                 if v_isSharedCheck_2130_ == 0 {
                     v___x_2118_ = v_x1_2106_;
                     v_isShared_2119_ = v_isSharedCheck_2130_;
                     state = 3;
                     continue;
                 } else {
-                    lean_inc(v_indexes_2116_);
-                    lean_inc(v_entries_2115_);
-                    lean_dec(v_x1_2106_);
-                    v___x_2118_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_2116_);
+                    crate::leanh::lean_inc(v_entries_2115_);
+                    crate::leanh::lean_dec(v_x1_2106_);
+                    v___x_2118_ = crate::leanh::lean_box(0);
                     v_isShared_2119_ = v_isSharedCheck_2130_;
                     state = 3;
                     continue;
@@ -3712,22 +3720,22 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg___lam__1(
             }
             3 => {
                 v_i_2120_ = lean_array_get_size(v_entries_2115_);
-                v_f_2121_ = lean_alloc_closure(
+                v_f_2121_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_2121_, 0, v_i_2120_);
-                lean_inc(v_fst_2108_);
+                crate::leanh::lean_closure_set(v_f_2121_, 0, v_i_2120_);
+                crate::leanh::lean_inc(v_fst_2108_);
                 if v_isShared_2112_ == 0 {
-                    lean_ctor_set(v___x_2111_, 1, v___y_2114_);
+                    crate::leanh::lean_ctor_set(v___x_2111_, 1, v___y_2114_);
                     v___x_2123_ = v___x_2111_;
                     state = 4;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2129_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2129_, 0, v_fst_2108_);
-                    lean_ctor_set(v_reuseFailAlloc_2129_, 1, v___y_2114_);
+                    v_reuseFailAlloc_2129_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2129_, 0, v_fst_2108_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2129_, 1, v___y_2114_);
                     v___x_2123_ = v_reuseFailAlloc_2129_;
                     state = 4;
                     continue;
@@ -3743,15 +3751,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg___lam__1(
                     v_f_2121_,
                 );
                 if v_isShared_2119_ == 0 {
-                    lean_ctor_set(v___x_2118_, 1, v_indexes_2125_);
-                    lean_ctor_set(v___x_2118_, 0, v_entries_2124_);
+                    crate::leanh::lean_ctor_set(v___x_2118_, 1, v_indexes_2125_);
+                    crate::leanh::lean_ctor_set(v___x_2118_, 0, v_entries_2124_);
                     v___x_2127_ = v___x_2118_;
                     state = 5;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2128_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2128_, 0, v_entries_2124_);
-                    lean_ctor_set(v_reuseFailAlloc_2128_, 1, v_indexes_2125_);
+                    v_reuseFailAlloc_2128_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2128_, 0, v_entries_2124_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2128_, 1, v_indexes_2125_);
                     v___x_2127_ = v_reuseFailAlloc_2128_;
                     state = 5;
                     continue;
@@ -3765,16 +3773,16 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg___lam__1(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg(
-    mut v_inst_2135_: *mut LeanObject,
-    mut v_inst_2136_: *mut LeanObject,
-    mut v_map_2137_: *mut LeanObject,
-    mut v_key_2138_: *mut LeanObject,
-    mut v_f_2139_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_2135_: *mut crate::leanh::LeanObject,
+    mut v_inst_2136_: *mut crate::leanh::LeanObject,
+    mut v_map_2137_: *mut crate::leanh::LeanObject,
+    mut v_key_2138_: *mut crate::leanh::LeanObject,
+    mut v_f_2139_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_2140_: u8 = 0;
-    lean_inc(v_key_2138_);
-    lean_inc_ref(v_inst_2136_);
-    lean_inc_ref(v_inst_2135_);
+    crate::leanh::lean_inc(v_key_2138_);
+    crate::leanh::lean_inc_ref(v_inst_2136_);
+    crate::leanh::lean_inc_ref(v_inst_2135_);
     v___x_2140_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_2135_,
         v_inst_2136_,
@@ -3782,66 +3790,66 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg(
         v_map_2137_,
     );
     if v___x_2140_ == 0 {
-        lean_dec(v_f_2139_);
-        lean_dec(v_key_2138_);
-        lean_dec_ref(v_inst_2136_);
-        lean_dec_ref(v_inst_2135_);
+        crate::leanh::lean_dec(v_f_2139_);
+        crate::leanh::lean_dec(v_key_2138_);
+        crate::leanh::lean_dec_ref(v_inst_2136_);
+        crate::leanh::lean_dec_ref(v_inst_2135_);
         return v_map_2137_;
     } else {
-        let mut v_entries_2141_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2142_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2143_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2144_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2145_: *mut LeanObject = core::ptr::null_mut();
+        let mut v_entries_2141_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2142_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2143_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2144_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2145_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2146_: u8 = 0;
-        v_entries_2141_ = lean_ctor_get(v_map_2137_, 0);
-        lean_inc_ref(v_entries_2141_);
-        lean_dec_ref(v_map_2137_);
+        v_entries_2141_ = crate::leanh::lean_ctor_get(v_map_2137_, 0);
+        crate::leanh::lean_inc_ref(v_entries_2141_);
+        crate::leanh::lean_dec_ref(v_map_2137_);
         v___x_2142_ = l_Std_Internal_IndexMultiMap_empty(
-            lean_box(0),
-            lean_box(0),
+            crate::leanh::lean_box(0),
+            crate::leanh::lean_box(0),
             v_inst_2135_,
             v_inst_2136_,
         );
-        v___x_2143_ = lean_unsigned_to_nat(0);
+        v___x_2143_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_2144_ = lean_array_get_size(v_entries_2141_);
         v___x_2145_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_2146_ = lean_nat_dec_lt(v___x_2143_, v___x_2144_);
         if v___x_2146_ == 0 {
-            lean_dec_ref(v_entries_2141_);
-            lean_dec(v_f_2139_);
-            lean_dec(v_key_2138_);
-            lean_dec_ref(v_inst_2136_);
-            lean_dec_ref(v_inst_2135_);
+            crate::leanh::lean_dec_ref(v_entries_2141_);
+            crate::leanh::lean_dec(v_f_2139_);
+            crate::leanh::lean_dec(v_key_2138_);
+            crate::leanh::lean_dec_ref(v_inst_2136_);
+            crate::leanh::lean_dec_ref(v_inst_2135_);
             return v___x_2142_;
         } else {
-            let mut v___f_2147_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___f_2147_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             let mut v___x_2148_: u8 = 0;
-            v___f_2147_ = lean_alloc_closure(
+            v___f_2147_ = crate::leanh::lean_alloc_closure(
                 l_Std_Internal_IndexMultiMap_update___redArg___lam__1 as *mut core::ffi::c_void,
                 6,
                 4,
             );
-            lean_closure_set(v___f_2147_, 0, v_inst_2135_);
-            lean_closure_set(v___f_2147_, 1, v_inst_2136_);
-            lean_closure_set(v___f_2147_, 2, v_key_2138_);
-            lean_closure_set(v___f_2147_, 3, v_f_2139_);
+            crate::leanh::lean_closure_set(v___f_2147_, 0, v_inst_2135_);
+            crate::leanh::lean_closure_set(v___f_2147_, 1, v_inst_2136_);
+            crate::leanh::lean_closure_set(v___f_2147_, 2, v_key_2138_);
+            crate::leanh::lean_closure_set(v___f_2147_, 3, v_f_2139_);
             v___x_2148_ = lean_nat_dec_le(v___x_2144_, v___x_2144_);
             if v___x_2148_ == 0 {
                 if v___x_2146_ == 0 {
-                    lean_dec_ref(v___f_2147_);
-                    lean_dec_ref(v_entries_2141_);
+                    crate::leanh::lean_dec_ref(v___f_2147_);
+                    crate::leanh::lean_dec_ref(v_entries_2141_);
                     return v___x_2142_;
                 } else {
                     let mut v___x_2149_: usize = 0;
                     let mut v___x_2150_: usize = 0;
-                    let mut v___x_2151_: *mut LeanObject = core::ptr::null_mut();
+                    let mut v___x_2151_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                     v___x_2149_ = 0usize;
                     v___x_2150_ = lean_usize_of_nat(v___x_2144_);
                     v___x_2151_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                        lean_box(0),
-                        lean_box(0),
-                        lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
                         v___x_2145_,
                         v___f_2147_,
                         v_entries_2141_,
@@ -3854,13 +3862,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg(
             } else {
                 let mut v___x_2152_: usize = 0;
                 let mut v___x_2153_: usize = 0;
-                let mut v___x_2154_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_2154_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_2152_ = 0usize;
                 v___x_2153_ = lean_usize_of_nat(v___x_2144_);
                 v___x_2154_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_2145_,
                     v___f_2147_,
                     v_entries_2141_,
@@ -3874,20 +3882,20 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_update(
-    mut v_00_u03b1_2155_: *mut LeanObject,
-    mut v_00_u03b2_2156_: *mut LeanObject,
-    mut v_inst_2157_: *mut LeanObject,
-    mut v_inst_2158_: *mut LeanObject,
-    mut v_inst_2159_: *mut LeanObject,
-    mut v_inst_2160_: *mut LeanObject,
-    mut v_map_2161_: *mut LeanObject,
-    mut v_key_2162_: *mut LeanObject,
-    mut v_f_2163_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_2155_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2156_: *mut crate::leanh::LeanObject,
+    mut v_inst_2157_: *mut crate::leanh::LeanObject,
+    mut v_inst_2158_: *mut crate::leanh::LeanObject,
+    mut v_inst_2159_: *mut crate::leanh::LeanObject,
+    mut v_inst_2160_: *mut crate::leanh::LeanObject,
+    mut v_map_2161_: *mut crate::leanh::LeanObject,
+    mut v_key_2162_: *mut crate::leanh::LeanObject,
+    mut v_f_2163_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_2164_: u8 = 0;
-    lean_inc(v_key_2162_);
-    lean_inc_ref(v_inst_2158_);
-    lean_inc_ref(v_inst_2157_);
+    crate::leanh::lean_inc(v_key_2162_);
+    crate::leanh::lean_inc_ref(v_inst_2158_);
+    crate::leanh::lean_inc_ref(v_inst_2157_);
     v___x_2164_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
         v_inst_2157_,
         v_inst_2158_,
@@ -3895,66 +3903,66 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update(
         v_map_2161_,
     );
     if v___x_2164_ == 0 {
-        lean_dec(v_f_2163_);
-        lean_dec(v_key_2162_);
-        lean_dec_ref(v_inst_2158_);
-        lean_dec_ref(v_inst_2157_);
+        crate::leanh::lean_dec(v_f_2163_);
+        crate::leanh::lean_dec(v_key_2162_);
+        crate::leanh::lean_dec_ref(v_inst_2158_);
+        crate::leanh::lean_dec_ref(v_inst_2157_);
         return v_map_2161_;
     } else {
-        let mut v_entries_2165_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2166_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2167_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2168_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_2169_: *mut LeanObject = core::ptr::null_mut();
+        let mut v_entries_2165_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2166_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2167_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2168_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2169_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2170_: u8 = 0;
-        v_entries_2165_ = lean_ctor_get(v_map_2161_, 0);
-        lean_inc_ref(v_entries_2165_);
-        lean_dec_ref(v_map_2161_);
+        v_entries_2165_ = crate::leanh::lean_ctor_get(v_map_2161_, 0);
+        crate::leanh::lean_inc_ref(v_entries_2165_);
+        crate::leanh::lean_dec_ref(v_map_2161_);
         v___x_2166_ = l_Std_Internal_IndexMultiMap_empty(
-            lean_box(0),
-            lean_box(0),
+            crate::leanh::lean_box(0),
+            crate::leanh::lean_box(0),
             v_inst_2157_,
             v_inst_2158_,
         );
-        v___x_2167_ = lean_unsigned_to_nat(0);
+        v___x_2167_ = crate::leanh::lean_unsigned_to_nat(0);
         v___x_2168_ = lean_array_get_size(v_entries_2165_);
         v___x_2169_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
         v___x_2170_ = lean_nat_dec_lt(v___x_2167_, v___x_2168_);
         if v___x_2170_ == 0 {
-            lean_dec_ref(v_entries_2165_);
-            lean_dec(v_f_2163_);
-            lean_dec(v_key_2162_);
-            lean_dec_ref(v_inst_2158_);
-            lean_dec_ref(v_inst_2157_);
+            crate::leanh::lean_dec_ref(v_entries_2165_);
+            crate::leanh::lean_dec(v_f_2163_);
+            crate::leanh::lean_dec(v_key_2162_);
+            crate::leanh::lean_dec_ref(v_inst_2158_);
+            crate::leanh::lean_dec_ref(v_inst_2157_);
             return v___x_2166_;
         } else {
-            let mut v___f_2171_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___f_2171_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             let mut v___x_2172_: u8 = 0;
-            v___f_2171_ = lean_alloc_closure(
+            v___f_2171_ = crate::leanh::lean_alloc_closure(
                 l_Std_Internal_IndexMultiMap_update___redArg___lam__1 as *mut core::ffi::c_void,
                 6,
                 4,
             );
-            lean_closure_set(v___f_2171_, 0, v_inst_2157_);
-            lean_closure_set(v___f_2171_, 1, v_inst_2158_);
-            lean_closure_set(v___f_2171_, 2, v_key_2162_);
-            lean_closure_set(v___f_2171_, 3, v_f_2163_);
+            crate::leanh::lean_closure_set(v___f_2171_, 0, v_inst_2157_);
+            crate::leanh::lean_closure_set(v___f_2171_, 1, v_inst_2158_);
+            crate::leanh::lean_closure_set(v___f_2171_, 2, v_key_2162_);
+            crate::leanh::lean_closure_set(v___f_2171_, 3, v_f_2163_);
             v___x_2172_ = lean_nat_dec_le(v___x_2168_, v___x_2168_);
             if v___x_2172_ == 0 {
                 if v___x_2170_ == 0 {
-                    lean_dec_ref(v___f_2171_);
-                    lean_dec_ref(v_entries_2165_);
+                    crate::leanh::lean_dec_ref(v___f_2171_);
+                    crate::leanh::lean_dec_ref(v_entries_2165_);
                     return v___x_2166_;
                 } else {
                     let mut v___x_2173_: usize = 0;
                     let mut v___x_2174_: usize = 0;
-                    let mut v___x_2175_: *mut LeanObject = core::ptr::null_mut();
+                    let mut v___x_2175_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                     v___x_2173_ = 0usize;
                     v___x_2174_ = lean_usize_of_nat(v___x_2168_);
                     v___x_2175_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                        lean_box(0),
-                        lean_box(0),
-                        lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
                         v___x_2169_,
                         v___f_2171_,
                         v_entries_2165_,
@@ -3967,13 +3975,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update(
             } else {
                 let mut v___x_2176_: usize = 0;
                 let mut v___x_2177_: usize = 0;
-                let mut v___x_2178_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_2178_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_2176_ = 0usize;
                 v___x_2177_ = lean_usize_of_nat(v___x_2168_);
                 v___x_2178_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_2169_,
                     v___f_2171_,
                     v_entries_2165_,
@@ -3987,34 +3995,34 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_update(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast___redArg(
-    mut v_inst_2179_: *mut LeanObject,
-    mut v_inst_2180_: *mut LeanObject,
-    mut v_map_2181_: *mut LeanObject,
-    mut v_key_2182_: *mut LeanObject,
-    mut v_value_2183_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_2179_: *mut crate::leanh::LeanObject,
+    mut v_inst_2180_: *mut crate::leanh::LeanObject,
+    mut v_map_2181_: *mut crate::leanh::LeanObject,
+    mut v_key_2182_: *mut crate::leanh::LeanObject,
+    mut v_value_2183_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_2184_: u8 = 0;
-    let mut v_entries_2185_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2186_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2188_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_entries_2185_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2186_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2188_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2189_: u8 = 0;
-    let mut v_idxs_2190_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2191_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2192_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2193_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_lastIdx_2194_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2195_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2196_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2198_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2199_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_idxs_2190_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2191_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2192_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2193_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_lastIdx_2194_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2195_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2196_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2198_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2199_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2200_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                lean_inc(v_key_2182_);
-                lean_inc_ref(v_inst_2180_);
-                lean_inc_ref(v_inst_2179_);
+                crate::leanh::lean_inc(v_key_2182_);
+                crate::leanh::lean_inc_ref(v_inst_2180_);
+                crate::leanh::lean_inc_ref(v_inst_2179_);
                 v___x_2184_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
                     v_inst_2179_,
                     v_inst_2180_,
@@ -4022,25 +4030,25 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast___redArg(
                     v_map_2181_,
                 );
                 if v___x_2184_ == 0 {
-                    lean_dec(v_value_2183_);
-                    lean_dec(v_key_2182_);
-                    lean_dec_ref(v_inst_2180_);
-                    lean_dec_ref(v_inst_2179_);
+                    crate::leanh::lean_dec(v_value_2183_);
+                    crate::leanh::lean_dec(v_key_2182_);
+                    crate::leanh::lean_dec_ref(v_inst_2180_);
+                    crate::leanh::lean_dec_ref(v_inst_2179_);
                     return v_map_2181_;
                 } else {
-                    v_entries_2185_ = lean_ctor_get(v_map_2181_, 0);
-                    v_indexes_2186_ = lean_ctor_get(v_map_2181_, 1);
-                    v_isSharedCheck_2200_ = (!lean_is_exclusive(v_map_2181_)) as u8;
+                    v_entries_2185_ = crate::leanh::lean_ctor_get(v_map_2181_, 0);
+                    v_indexes_2186_ = crate::leanh::lean_ctor_get(v_map_2181_, 1);
+                    v_isSharedCheck_2200_ = (!crate::leanh::lean_is_exclusive(v_map_2181_)) as u8;
                     if v_isSharedCheck_2200_ == 0 {
                         v___x_2188_ = v_map_2181_;
                         v_isShared_2189_ = v_isSharedCheck_2200_;
                         state = 1;
                         continue;
                     } else {
-                        lean_inc(v_indexes_2186_);
-                        lean_inc(v_entries_2185_);
-                        lean_dec(v_map_2181_);
-                        v___x_2188_ = lean_box(0);
+                        crate::leanh::lean_inc(v_indexes_2186_);
+                        crate::leanh::lean_inc(v_entries_2185_);
+                        crate::leanh::lean_dec(v_map_2181_);
+                        v___x_2188_ = crate::leanh::lean_box(0);
                         v_isShared_2189_ = v_isSharedCheck_2200_;
                         state = 1;
                         continue;
@@ -4048,7 +4056,7 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast___redArg(
                 }
             }
             1 => {
-                lean_inc(v_key_2182_);
+                crate::leanh::lean_inc(v_key_2182_);
                 v_idxs_2190_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
                     v_inst_2179_,
                     v_inst_2180_,
@@ -4056,25 +4064,25 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast___redArg(
                     v_key_2182_,
                 );
                 v___x_2191_ = lean_array_get_size(v_idxs_2190_);
-                v___x_2192_ = lean_unsigned_to_nat(1);
+                v___x_2192_ = crate::leanh::lean_unsigned_to_nat(1);
                 v___x_2193_ = lean_nat_sub(v___x_2191_, v___x_2192_);
                 v_lastIdx_2194_ = lean_array_fget(v_idxs_2190_, v___x_2193_);
-                lean_dec(v___x_2193_);
-                lean_dec(v_idxs_2190_);
-                v___x_2195_ = lean_alloc_ctor(0, 2, (0) as u32);
-                lean_ctor_set(v___x_2195_, 0, v_key_2182_);
-                lean_ctor_set(v___x_2195_, 1, v_value_2183_);
+                crate::leanh::lean_dec(v___x_2193_);
+                crate::leanh::lean_dec(v_idxs_2190_);
+                v___x_2195_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_2195_, 0, v_key_2182_);
+                crate::leanh::lean_ctor_set(v___x_2195_, 1, v_value_2183_);
                 v_entries_2196_ = lean_array_fset(v_entries_2185_, v_lastIdx_2194_, v___x_2195_);
-                lean_dec(v_lastIdx_2194_);
+                crate::leanh::lean_dec(v_lastIdx_2194_);
                 if v_isShared_2189_ == 0 {
-                    lean_ctor_set(v___x_2188_, 0, v_entries_2196_);
+                    crate::leanh::lean_ctor_set(v___x_2188_, 0, v_entries_2196_);
                     v___x_2198_ = v___x_2188_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2199_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2199_, 0, v_entries_2196_);
-                    lean_ctor_set(v_reuseFailAlloc_2199_, 1, v_indexes_2186_);
+                    v_reuseFailAlloc_2199_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2199_, 0, v_entries_2196_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2199_, 1, v_indexes_2186_);
                     v___x_2198_ = v_reuseFailAlloc_2199_;
                     state = 2;
                     continue;
@@ -4088,36 +4096,36 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast(
-    mut v_00_u03b1_2201_: *mut LeanObject,
-    mut v_00_u03b2_2202_: *mut LeanObject,
-    mut v_inst_2203_: *mut LeanObject,
-    mut v_inst_2204_: *mut LeanObject,
-    mut v_map_2205_: *mut LeanObject,
-    mut v_key_2206_: *mut LeanObject,
-    mut v_value_2207_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_2201_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2202_: *mut crate::leanh::LeanObject,
+    mut v_inst_2203_: *mut crate::leanh::LeanObject,
+    mut v_inst_2204_: *mut crate::leanh::LeanObject,
+    mut v_map_2205_: *mut crate::leanh::LeanObject,
+    mut v_key_2206_: *mut crate::leanh::LeanObject,
+    mut v_value_2207_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_2208_: u8 = 0;
-    let mut v_entries_2209_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2210_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2212_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_entries_2209_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2210_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2212_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2213_: u8 = 0;
-    let mut v_idxs_2214_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2215_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2216_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2217_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_lastIdx_2218_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2219_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2220_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2222_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2223_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_idxs_2214_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2215_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2216_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2217_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_lastIdx_2218_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2219_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2220_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2222_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2223_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2224_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                lean_inc(v_key_2206_);
-                lean_inc_ref(v_inst_2204_);
-                lean_inc_ref(v_inst_2203_);
+                crate::leanh::lean_inc(v_key_2206_);
+                crate::leanh::lean_inc_ref(v_inst_2204_);
+                crate::leanh::lean_inc_ref(v_inst_2203_);
                 v___x_2208_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
                     v_inst_2203_,
                     v_inst_2204_,
@@ -4125,25 +4133,25 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast(
                     v_map_2205_,
                 );
                 if v___x_2208_ == 0 {
-                    lean_dec(v_value_2207_);
-                    lean_dec(v_key_2206_);
-                    lean_dec_ref(v_inst_2204_);
-                    lean_dec_ref(v_inst_2203_);
+                    crate::leanh::lean_dec(v_value_2207_);
+                    crate::leanh::lean_dec(v_key_2206_);
+                    crate::leanh::lean_dec_ref(v_inst_2204_);
+                    crate::leanh::lean_dec_ref(v_inst_2203_);
                     return v_map_2205_;
                 } else {
-                    v_entries_2209_ = lean_ctor_get(v_map_2205_, 0);
-                    v_indexes_2210_ = lean_ctor_get(v_map_2205_, 1);
-                    v_isSharedCheck_2224_ = (!lean_is_exclusive(v_map_2205_)) as u8;
+                    v_entries_2209_ = crate::leanh::lean_ctor_get(v_map_2205_, 0);
+                    v_indexes_2210_ = crate::leanh::lean_ctor_get(v_map_2205_, 1);
+                    v_isSharedCheck_2224_ = (!crate::leanh::lean_is_exclusive(v_map_2205_)) as u8;
                     if v_isSharedCheck_2224_ == 0 {
                         v___x_2212_ = v_map_2205_;
                         v_isShared_2213_ = v_isSharedCheck_2224_;
                         state = 1;
                         continue;
                     } else {
-                        lean_inc(v_indexes_2210_);
-                        lean_inc(v_entries_2209_);
-                        lean_dec(v_map_2205_);
-                        v___x_2212_ = lean_box(0);
+                        crate::leanh::lean_inc(v_indexes_2210_);
+                        crate::leanh::lean_inc(v_entries_2209_);
+                        crate::leanh::lean_dec(v_map_2205_);
+                        v___x_2212_ = crate::leanh::lean_box(0);
                         v_isShared_2213_ = v_isSharedCheck_2224_;
                         state = 1;
                         continue;
@@ -4151,7 +4159,7 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast(
                 }
             }
             1 => {
-                lean_inc(v_key_2206_);
+                crate::leanh::lean_inc(v_key_2206_);
                 v_idxs_2214_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___redArg(
                     v_inst_2203_,
                     v_inst_2204_,
@@ -4159,25 +4167,25 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast(
                     v_key_2206_,
                 );
                 v___x_2215_ = lean_array_get_size(v_idxs_2214_);
-                v___x_2216_ = lean_unsigned_to_nat(1);
+                v___x_2216_ = crate::leanh::lean_unsigned_to_nat(1);
                 v___x_2217_ = lean_nat_sub(v___x_2215_, v___x_2216_);
                 v_lastIdx_2218_ = lean_array_fget(v_idxs_2214_, v___x_2217_);
-                lean_dec(v___x_2217_);
-                lean_dec(v_idxs_2214_);
-                v___x_2219_ = lean_alloc_ctor(0, 2, (0) as u32);
-                lean_ctor_set(v___x_2219_, 0, v_key_2206_);
-                lean_ctor_set(v___x_2219_, 1, v_value_2207_);
+                crate::leanh::lean_dec(v___x_2217_);
+                crate::leanh::lean_dec(v_idxs_2214_);
+                v___x_2219_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                crate::leanh::lean_ctor_set(v___x_2219_, 0, v_key_2206_);
+                crate::leanh::lean_ctor_set(v___x_2219_, 1, v_value_2207_);
                 v_entries_2220_ = lean_array_fset(v_entries_2209_, v_lastIdx_2218_, v___x_2219_);
-                lean_dec(v_lastIdx_2218_);
+                crate::leanh::lean_dec(v_lastIdx_2218_);
                 if v_isShared_2213_ == 0 {
-                    lean_ctor_set(v___x_2212_, 0, v_entries_2220_);
+                    crate::leanh::lean_ctor_set(v___x_2212_, 0, v_entries_2220_);
                     v___x_2222_ = v___x_2212_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2223_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2223_, 0, v_entries_2220_);
-                    lean_ctor_set(v_reuseFailAlloc_2223_, 1, v_indexes_2210_);
+                    v_reuseFailAlloc_2223_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2223_, 0, v_entries_2220_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2223_, 1, v_indexes_2210_);
                     v___x_2222_ = v_reuseFailAlloc_2223_;
                     state = 2;
                     continue;
@@ -4191,42 +4199,42 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_replaceLast(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg___lam__1(
-    mut v_inst_2225_: *mut LeanObject,
-    mut v_inst_2226_: *mut LeanObject,
-    mut v_x1_2227_: *mut LeanObject,
-    mut v_x2_2228_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_fst_2229_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2230_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2231_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2233_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2225_: *mut crate::leanh::LeanObject,
+    mut v_inst_2226_: *mut crate::leanh::LeanObject,
+    mut v_x1_2227_: *mut crate::leanh::LeanObject,
+    mut v_x2_2228_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_fst_2229_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2230_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2231_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2233_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2234_: u8 = 0;
-    let mut v_i_2235_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_2236_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2237_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2238_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2240_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2241_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_2235_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_2236_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2237_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2238_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2240_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2241_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2242_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_fst_2229_ = lean_ctor_get(v_x2_2228_, 0);
-                lean_inc(v_fst_2229_);
-                v_entries_2230_ = lean_ctor_get(v_x1_2227_, 0);
-                v_indexes_2231_ = lean_ctor_get(v_x1_2227_, 1);
-                v_isSharedCheck_2242_ = (!lean_is_exclusive(v_x1_2227_)) as u8;
+                v_fst_2229_ = crate::leanh::lean_ctor_get(v_x2_2228_, 0);
+                crate::leanh::lean_inc(v_fst_2229_);
+                v_entries_2230_ = crate::leanh::lean_ctor_get(v_x1_2227_, 0);
+                v_indexes_2231_ = crate::leanh::lean_ctor_get(v_x1_2227_, 1);
+                v_isSharedCheck_2242_ = (!crate::leanh::lean_is_exclusive(v_x1_2227_)) as u8;
                 if v_isSharedCheck_2242_ == 0 {
                     v___x_2233_ = v_x1_2227_;
                     v_isShared_2234_ = v_isSharedCheck_2242_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_2231_);
-                    lean_inc(v_entries_2230_);
-                    lean_dec(v_x1_2227_);
-                    v___x_2233_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_2231_);
+                    crate::leanh::lean_inc(v_entries_2230_);
+                    crate::leanh::lean_dec(v_x1_2227_);
+                    v___x_2233_ = crate::leanh::lean_box(0);
                     v_isShared_2234_ = v_isSharedCheck_2242_;
                     state = 1;
                     continue;
@@ -4234,12 +4242,12 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg___lam__1(
             }
             1 => {
                 v_i_2235_ = lean_array_get_size(v_entries_2230_);
-                v_f_2236_ = lean_alloc_closure(
+                v_f_2236_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_2236_, 0, v_i_2235_);
+                crate::leanh::lean_closure_set(v_f_2236_, 0, v_i_2235_);
                 v_entries_2237_ = lean_array_push(v_entries_2230_, v_x2_2228_);
                 v_indexes_2238_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_2225_,
@@ -4249,15 +4257,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg___lam__1(
                     v_f_2236_,
                 );
                 if v_isShared_2234_ == 0 {
-                    lean_ctor_set(v___x_2233_, 1, v_indexes_2238_);
-                    lean_ctor_set(v___x_2233_, 0, v_entries_2237_);
+                    crate::leanh::lean_ctor_set(v___x_2233_, 1, v_indexes_2238_);
+                    crate::leanh::lean_ctor_set(v___x_2233_, 0, v_entries_2237_);
                     v___x_2240_ = v___x_2233_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2241_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2241_, 0, v_entries_2237_);
-                    lean_ctor_set(v_reuseFailAlloc_2241_, 1, v_indexes_2238_);
+                    v_reuseFailAlloc_2241_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2241_, 0, v_entries_2237_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2241_, 1, v_indexes_2238_);
                     v___x_2240_ = v_reuseFailAlloc_2241_;
                     state = 2;
                     continue;
@@ -4271,68 +4279,68 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg___lam__1(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg___lam__0(
-    mut v_inst_2243_: *mut LeanObject,
-    mut v_key_2244_: *mut LeanObject,
-    mut v_x1_2245_: *mut LeanObject,
-    mut v_x2_2246_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_fst_2247_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2248_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2243_: *mut crate::leanh::LeanObject,
+    mut v_key_2244_: *mut crate::leanh::LeanObject,
+    mut v_x1_2245_: *mut crate::leanh::LeanObject,
+    mut v_x2_2246_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_fst_2247_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2248_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2249_: u8 = 0;
-    v_fst_2247_ = lean_ctor_get(v_x2_2246_, 0);
-    lean_inc(v_fst_2247_);
-    v___x_2248_ = lean_apply_2(v_inst_2243_, v_fst_2247_, v_key_2244_);
-    v___x_2249_ = (lean_unbox(v___x_2248_) as u8);
+    v_fst_2247_ = crate::leanh::lean_ctor_get(v_x2_2246_, 0);
+    crate::leanh::lean_inc(v_fst_2247_);
+    v___x_2248_ = crate::leanh::lean_apply_2(v_inst_2243_, v_fst_2247_, v_key_2244_);
+    v___x_2249_ = (crate::leanh::lean_unbox(v___x_2248_) as u8);
     if v___x_2249_ == 0 {
-        let mut v___x_2250_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_2250_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         v___x_2250_ = lean_array_push(v_x1_2245_, v_x2_2246_);
         return v___x_2250_;
     } else {
-        lean_dec_ref(v_x2_2246_);
+        crate::leanh::lean_dec_ref(v_x2_2246_);
         return v_x1_2245_;
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
-    mut v_inst_2251_: *mut LeanObject,
-    mut v_inst_2252_: *mut LeanObject,
-    mut v_map_2253_: *mut LeanObject,
-    mut v_key_2254_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_inst_2251_: *mut crate::leanh::LeanObject,
+    mut v_inst_2252_: *mut crate::leanh::LeanObject,
+    mut v_map_2253_: *mut crate::leanh::LeanObject,
+    mut v_key_2254_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_2255_: u8 = 0;
-    let mut v_entries_2256_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_2257_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2258_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2259_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_2261_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2262_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2263_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_entries_2256_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2257_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2258_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2259_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_2261_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2262_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2263_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2264_: u8 = 0;
     let mut v___x_2265_: u8 = 0;
     let mut v___x_2266_: usize = 0;
     let mut v___x_2267_: usize = 0;
-    let mut v___x_2268_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2268_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2269_: usize = 0;
     let mut v___x_2270_: usize = 0;
-    let mut v___x_2271_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2272_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2273_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2274_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2271_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2272_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2273_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2274_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2275_: u8 = 0;
-    let mut v___f_2276_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___f_2276_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2277_: u8 = 0;
     let mut v___x_2278_: usize = 0;
     let mut v___x_2279_: usize = 0;
-    let mut v___x_2280_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2280_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2281_: usize = 0;
     let mut v___x_2282_: usize = 0;
-    let mut v___x_2283_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2283_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                lean_inc(v_key_2254_);
-                lean_inc_ref(v_inst_2252_);
-                lean_inc_ref(v_inst_2251_);
+                crate::leanh::lean_inc(v_key_2254_);
+                crate::leanh::lean_inc_ref(v_inst_2252_);
+                crate::leanh::lean_inc_ref(v_inst_2251_);
                 v___x_2255_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
                     v_inst_2251_,
                     v_inst_2252_,
@@ -4340,57 +4348,57 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
                     v_map_2253_,
                 );
                 if v___x_2255_ == 0 {
-                    lean_dec(v_key_2254_);
-                    lean_dec_ref(v_inst_2252_);
-                    lean_dec_ref(v_inst_2251_);
+                    crate::leanh::lean_dec(v_key_2254_);
+                    crate::leanh::lean_dec_ref(v_inst_2252_);
+                    crate::leanh::lean_dec_ref(v_inst_2251_);
                     return v_map_2253_;
                 } else {
-                    v_entries_2256_ = lean_ctor_get(v_map_2253_, 0);
-                    lean_inc_ref(v_entries_2256_);
-                    lean_dec_ref(v_map_2253_);
-                    lean_inc_ref(v_inst_2252_);
-                    lean_inc_ref(v_inst_2251_);
-                    v___f_2257_ = lean_alloc_closure(
+                    v_entries_2256_ = crate::leanh::lean_ctor_get(v_map_2253_, 0);
+                    crate::leanh::lean_inc_ref(v_entries_2256_);
+                    crate::leanh::lean_dec_ref(v_map_2253_);
+                    crate::leanh::lean_inc_ref(v_inst_2252_);
+                    crate::leanh::lean_inc_ref(v_inst_2251_);
+                    v___f_2257_ = crate::leanh::lean_alloc_closure(
                         l_Std_Internal_IndexMultiMap_erase___redArg___lam__1
                             as *mut core::ffi::c_void,
                         4,
                         2,
                     );
-                    lean_closure_set(v___f_2257_, 0, v_inst_2251_);
-                    lean_closure_set(v___f_2257_, 1, v_inst_2252_);
+                    crate::leanh::lean_closure_set(v___f_2257_, 0, v_inst_2251_);
+                    crate::leanh::lean_closure_set(v___f_2257_, 1, v_inst_2252_);
                     v___x_2258_ = l_Std_Internal_IndexMultiMap_empty(
-                        lean_box(0),
-                        lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
                         v_inst_2251_,
                         v_inst_2252_,
                     );
-                    lean_dec_ref(v_inst_2252_);
-                    v___x_2259_ = lean_unsigned_to_nat(0);
+                    crate::leanh::lean_dec_ref(v_inst_2252_);
+                    v___x_2259_ = crate::leanh::lean_unsigned_to_nat(0);
                     v___x_2272_ = lean_array_get_size(v_entries_2256_);
                     v___x_2273_ = l_Std_Internal_instInhabitedIndexMultiMap___closed__0;
                     v___x_2274_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
                     v___x_2275_ = lean_nat_dec_lt(v___x_2259_, v___x_2272_);
                     if v___x_2275_ == 0 {
-                        lean_dec_ref(v_entries_2256_);
-                        lean_dec(v_key_2254_);
-                        lean_dec_ref(v_inst_2251_);
+                        crate::leanh::lean_dec_ref(v_entries_2256_);
+                        crate::leanh::lean_dec(v_key_2254_);
+                        crate::leanh::lean_dec_ref(v_inst_2251_);
                         v___y_2261_ = v___x_2273_;
                         state = 1;
                         continue;
                     } else {
-                        v___f_2276_ = lean_alloc_closure(
+                        v___f_2276_ = crate::leanh::lean_alloc_closure(
                             l_Std_Internal_IndexMultiMap_erase___redArg___lam__0
                                 as *mut core::ffi::c_void,
                             4,
                             2,
                         );
-                        lean_closure_set(v___f_2276_, 0, v_inst_2251_);
-                        lean_closure_set(v___f_2276_, 1, v_key_2254_);
+                        crate::leanh::lean_closure_set(v___f_2276_, 0, v_inst_2251_);
+                        crate::leanh::lean_closure_set(v___f_2276_, 1, v_key_2254_);
                         v___x_2277_ = lean_nat_dec_le(v___x_2272_, v___x_2272_);
                         if v___x_2277_ == 0 {
                             if v___x_2275_ == 0 {
-                                lean_dec_ref(v___f_2276_);
-                                lean_dec_ref(v_entries_2256_);
+                                crate::leanh::lean_dec_ref(v___f_2276_);
+                                crate::leanh::lean_dec_ref(v_entries_2256_);
                                 v___y_2261_ = v___x_2273_;
                                 state = 1;
                                 continue;
@@ -4399,9 +4407,9 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
                                 v___x_2279_ = lean_usize_of_nat(v___x_2272_);
                                 v___x_2280_ =
                                     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                        lean_box(0),
-                                        lean_box(0),
-                                        lean_box(0),
+                                        crate::leanh::lean_box(0),
+                                        crate::leanh::lean_box(0),
+                                        crate::leanh::lean_box(0),
                                         v___x_2274_,
                                         v___f_2276_,
                                         v_entries_2256_,
@@ -4418,9 +4426,9 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
                             v___x_2282_ = lean_usize_of_nat(v___x_2272_);
                             v___x_2283_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    lean_box(0),
-                                    lean_box(0),
-                                    lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
                                     v___x_2274_,
                                     v___f_2276_,
                                     v_entries_2256_,
@@ -4440,24 +4448,24 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
                 v___x_2263_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
                 v___x_2264_ = lean_nat_dec_lt(v___x_2259_, v___x_2262_);
                 if v___x_2264_ == 0 {
-                    lean_dec_ref(v___y_2261_);
-                    lean_dec_ref(v___f_2257_);
+                    crate::leanh::lean_dec_ref(v___y_2261_);
+                    crate::leanh::lean_dec_ref(v___f_2257_);
                     return v___x_2258_;
                 } else {
                     v___x_2265_ = lean_nat_dec_le(v___x_2262_, v___x_2262_);
                     if v___x_2265_ == 0 {
                         if v___x_2264_ == 0 {
-                            lean_dec_ref(v___y_2261_);
-                            lean_dec_ref(v___f_2257_);
+                            crate::leanh::lean_dec_ref(v___y_2261_);
+                            crate::leanh::lean_dec_ref(v___f_2257_);
                             return v___x_2258_;
                         } else {
                             v___x_2266_ = 0usize;
                             v___x_2267_ = lean_usize_of_nat(v___x_2262_);
                             v___x_2268_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    lean_box(0),
-                                    lean_box(0),
-                                    lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
                                     v___x_2263_,
                                     v___f_2257_,
                                     v___y_2261_,
@@ -4471,9 +4479,9 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
                         v___x_2269_ = 0usize;
                         v___x_2270_ = lean_usize_of_nat(v___x_2262_);
                         v___x_2271_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                            lean_box(0),
-                            lean_box(0),
-                            lean_box(0),
+                            crate::leanh::lean_box(0),
+                            crate::leanh::lean_box(0),
+                            crate::leanh::lean_box(0),
                             v___x_2263_,
                             v___f_2257_,
                             v___y_2261_,
@@ -4490,50 +4498,50 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
-    mut v_00_u03b1_2284_: *mut LeanObject,
-    mut v_00_u03b2_2285_: *mut LeanObject,
-    mut v_inst_2286_: *mut LeanObject,
-    mut v_inst_2287_: *mut LeanObject,
-    mut v_inst_2288_: *mut LeanObject,
-    mut v_inst_2289_: *mut LeanObject,
-    mut v_map_2290_: *mut LeanObject,
-    mut v_key_2291_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_2284_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2285_: *mut crate::leanh::LeanObject,
+    mut v_inst_2286_: *mut crate::leanh::LeanObject,
+    mut v_inst_2287_: *mut crate::leanh::LeanObject,
+    mut v_inst_2288_: *mut crate::leanh::LeanObject,
+    mut v_inst_2289_: *mut crate::leanh::LeanObject,
+    mut v_map_2290_: *mut crate::leanh::LeanObject,
+    mut v_key_2291_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_2292_: u8 = 0;
-    let mut v_entries_2293_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_2294_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2295_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2296_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_2298_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2299_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2300_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_entries_2293_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2294_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2295_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2296_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_2298_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2299_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2300_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2301_: u8 = 0;
     let mut v___x_2302_: u8 = 0;
     let mut v___x_2303_: usize = 0;
     let mut v___x_2304_: usize = 0;
-    let mut v___x_2305_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2305_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2306_: usize = 0;
     let mut v___x_2307_: usize = 0;
-    let mut v___x_2308_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2309_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2310_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2311_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2308_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2309_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2310_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2311_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2312_: u8 = 0;
-    let mut v___f_2313_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___f_2313_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2314_: u8 = 0;
     let mut v___x_2315_: usize = 0;
     let mut v___x_2316_: usize = 0;
-    let mut v___x_2317_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2317_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2318_: usize = 0;
     let mut v___x_2319_: usize = 0;
-    let mut v___x_2320_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_2320_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                lean_inc(v_key_2291_);
-                lean_inc_ref(v_inst_2287_);
-                lean_inc_ref(v_inst_2286_);
+                crate::leanh::lean_inc(v_key_2291_);
+                crate::leanh::lean_inc_ref(v_inst_2287_);
+                crate::leanh::lean_inc_ref(v_inst_2286_);
                 v___x_2292_ = l_Std_Internal_IndexMultiMap_instDecidableMem___redArg(
                     v_inst_2286_,
                     v_inst_2287_,
@@ -4541,57 +4549,57 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
                     v_map_2290_,
                 );
                 if v___x_2292_ == 0 {
-                    lean_dec(v_key_2291_);
-                    lean_dec_ref(v_inst_2287_);
-                    lean_dec_ref(v_inst_2286_);
+                    crate::leanh::lean_dec(v_key_2291_);
+                    crate::leanh::lean_dec_ref(v_inst_2287_);
+                    crate::leanh::lean_dec_ref(v_inst_2286_);
                     return v_map_2290_;
                 } else {
-                    v_entries_2293_ = lean_ctor_get(v_map_2290_, 0);
-                    lean_inc_ref(v_entries_2293_);
-                    lean_dec_ref(v_map_2290_);
-                    lean_inc_ref(v_inst_2287_);
-                    lean_inc_ref(v_inst_2286_);
-                    v___f_2294_ = lean_alloc_closure(
+                    v_entries_2293_ = crate::leanh::lean_ctor_get(v_map_2290_, 0);
+                    crate::leanh::lean_inc_ref(v_entries_2293_);
+                    crate::leanh::lean_dec_ref(v_map_2290_);
+                    crate::leanh::lean_inc_ref(v_inst_2287_);
+                    crate::leanh::lean_inc_ref(v_inst_2286_);
+                    v___f_2294_ = crate::leanh::lean_alloc_closure(
                         l_Std_Internal_IndexMultiMap_erase___redArg___lam__1
                             as *mut core::ffi::c_void,
                         4,
                         2,
                     );
-                    lean_closure_set(v___f_2294_, 0, v_inst_2286_);
-                    lean_closure_set(v___f_2294_, 1, v_inst_2287_);
+                    crate::leanh::lean_closure_set(v___f_2294_, 0, v_inst_2286_);
+                    crate::leanh::lean_closure_set(v___f_2294_, 1, v_inst_2287_);
                     v___x_2295_ = l_Std_Internal_IndexMultiMap_empty(
-                        lean_box(0),
-                        lean_box(0),
+                        crate::leanh::lean_box(0),
+                        crate::leanh::lean_box(0),
                         v_inst_2286_,
                         v_inst_2287_,
                     );
-                    lean_dec_ref(v_inst_2287_);
-                    v___x_2296_ = lean_unsigned_to_nat(0);
+                    crate::leanh::lean_dec_ref(v_inst_2287_);
+                    v___x_2296_ = crate::leanh::lean_unsigned_to_nat(0);
                     v___x_2309_ = lean_array_get_size(v_entries_2293_);
                     v___x_2310_ = l_Std_Internal_instInhabitedIndexMultiMap___closed__0;
                     v___x_2311_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
                     v___x_2312_ = lean_nat_dec_lt(v___x_2296_, v___x_2309_);
                     if v___x_2312_ == 0 {
-                        lean_dec_ref(v_entries_2293_);
-                        lean_dec(v_key_2291_);
-                        lean_dec_ref(v_inst_2286_);
+                        crate::leanh::lean_dec_ref(v_entries_2293_);
+                        crate::leanh::lean_dec(v_key_2291_);
+                        crate::leanh::lean_dec_ref(v_inst_2286_);
                         v___y_2298_ = v___x_2310_;
                         state = 1;
                         continue;
                     } else {
-                        v___f_2313_ = lean_alloc_closure(
+                        v___f_2313_ = crate::leanh::lean_alloc_closure(
                             l_Std_Internal_IndexMultiMap_erase___redArg___lam__0
                                 as *mut core::ffi::c_void,
                             4,
                             2,
                         );
-                        lean_closure_set(v___f_2313_, 0, v_inst_2286_);
-                        lean_closure_set(v___f_2313_, 1, v_key_2291_);
+                        crate::leanh::lean_closure_set(v___f_2313_, 0, v_inst_2286_);
+                        crate::leanh::lean_closure_set(v___f_2313_, 1, v_key_2291_);
                         v___x_2314_ = lean_nat_dec_le(v___x_2309_, v___x_2309_);
                         if v___x_2314_ == 0 {
                             if v___x_2312_ == 0 {
-                                lean_dec_ref(v___f_2313_);
-                                lean_dec_ref(v_entries_2293_);
+                                crate::leanh::lean_dec_ref(v___f_2313_);
+                                crate::leanh::lean_dec_ref(v_entries_2293_);
                                 v___y_2298_ = v___x_2310_;
                                 state = 1;
                                 continue;
@@ -4600,9 +4608,9 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
                                 v___x_2316_ = lean_usize_of_nat(v___x_2309_);
                                 v___x_2317_ =
                                     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                        lean_box(0),
-                                        lean_box(0),
-                                        lean_box(0),
+                                        crate::leanh::lean_box(0),
+                                        crate::leanh::lean_box(0),
+                                        crate::leanh::lean_box(0),
                                         v___x_2311_,
                                         v___f_2313_,
                                         v_entries_2293_,
@@ -4619,9 +4627,9 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
                             v___x_2319_ = lean_usize_of_nat(v___x_2309_);
                             v___x_2320_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    lean_box(0),
-                                    lean_box(0),
-                                    lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
                                     v___x_2311_,
                                     v___f_2313_,
                                     v_entries_2293_,
@@ -4641,24 +4649,24 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
                 v___x_2300_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
                 v___x_2301_ = lean_nat_dec_lt(v___x_2296_, v___x_2299_);
                 if v___x_2301_ == 0 {
-                    lean_dec_ref(v___y_2298_);
-                    lean_dec_ref(v___f_2294_);
+                    crate::leanh::lean_dec_ref(v___y_2298_);
+                    crate::leanh::lean_dec_ref(v___f_2294_);
                     return v___x_2295_;
                 } else {
                     v___x_2302_ = lean_nat_dec_le(v___x_2299_, v___x_2299_);
                     if v___x_2302_ == 0 {
                         if v___x_2301_ == 0 {
-                            lean_dec_ref(v___y_2298_);
-                            lean_dec_ref(v___f_2294_);
+                            crate::leanh::lean_dec_ref(v___y_2298_);
+                            crate::leanh::lean_dec_ref(v___f_2294_);
                             return v___x_2295_;
                         } else {
                             v___x_2303_ = 0usize;
                             v___x_2304_ = lean_usize_of_nat(v___x_2299_);
                             v___x_2305_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    lean_box(0),
-                                    lean_box(0),
-                                    lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
                                     v___x_2300_,
                                     v___f_2294_,
                                     v___y_2298_,
@@ -4672,9 +4680,9 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
                         v___x_2306_ = 0usize;
                         v___x_2307_ = lean_usize_of_nat(v___x_2299_);
                         v___x_2308_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                            lean_box(0),
-                            lean_box(0),
-                            lean_box(0),
+                            crate::leanh::lean_box(0),
+                            crate::leanh::lean_box(0),
+                            crate::leanh::lean_box(0),
                             v___x_2300_,
                             v___f_2294_,
                             v___y_2298_,
@@ -4691,43 +4699,43 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_erase(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_size___redArg(
-    mut v_map_2321_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2322_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2323_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_2322_ = lean_ctor_get(v_map_2321_, 0);
+    mut v_map_2321_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2322_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2323_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_2322_ = crate::leanh::lean_ctor_get(v_map_2321_, 0);
     v___x_2323_ = lean_array_get_size(v_entries_2322_);
     return v___x_2323_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_size___redArg___boxed(
-    mut v_map_2324_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2325_: *mut LeanObject = core::ptr::null_mut();
+    mut v_map_2324_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2325_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2325_ = l_Std_Internal_IndexMultiMap_size___redArg(v_map_2324_);
-    lean_dec_ref(v_map_2324_);
+    crate::leanh::lean_dec_ref(v_map_2324_);
     return v_res_2325_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_size(
-    mut v_00_u03b1_2326_: *mut LeanObject,
-    mut v_00_u03b2_2327_: *mut LeanObject,
-    mut v_inst_2328_: *mut LeanObject,
-    mut v_inst_2329_: *mut LeanObject,
-    mut v_map_2330_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2331_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2332_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_2331_ = lean_ctor_get(v_map_2330_, 0);
+    mut v_00_u03b1_2326_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2327_: *mut crate::leanh::LeanObject,
+    mut v_inst_2328_: *mut crate::leanh::LeanObject,
+    mut v_inst_2329_: *mut crate::leanh::LeanObject,
+    mut v_map_2330_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2331_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2332_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_2331_ = crate::leanh::lean_ctor_get(v_map_2330_, 0);
     v___x_2332_ = lean_array_get_size(v_entries_2331_);
     return v___x_2332_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_size___boxed(
-    mut v_00_u03b1_2333_: *mut LeanObject,
-    mut v_00_u03b2_2334_: *mut LeanObject,
-    mut v_inst_2335_: *mut LeanObject,
-    mut v_inst_2336_: *mut LeanObject,
-    mut v_map_2337_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2338_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2333_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2334_: *mut crate::leanh::LeanObject,
+    mut v_inst_2335_: *mut crate::leanh::LeanObject,
+    mut v_inst_2336_: *mut crate::leanh::LeanObject,
+    mut v_map_2337_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2338_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2338_ = l_Std_Internal_IndexMultiMap_size(
         v_00_u03b1_2333_,
         v_00_u03b2_2334_,
@@ -4735,60 +4743,60 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_size___boxed(
         v_inst_2336_,
         v_map_2337_,
     );
-    lean_dec_ref(v_map_2337_);
-    lean_dec_ref(v_inst_2336_);
-    lean_dec_ref(v_inst_2335_);
+    crate::leanh::lean_dec_ref(v_map_2337_);
+    crate::leanh::lean_dec_ref(v_inst_2336_);
+    crate::leanh::lean_dec_ref(v_inst_2335_);
     return v_res_2338_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_isEmpty___redArg(
-    mut v_map_2339_: *mut LeanObject,
+    mut v_map_2339_: *mut crate::leanh::LeanObject,
 ) -> u8 {
-    let mut v_entries_2340_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2341_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2342_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_entries_2340_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2341_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2342_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2343_: u8 = 0;
-    v_entries_2340_ = lean_ctor_get(v_map_2339_, 0);
+    v_entries_2340_ = crate::leanh::lean_ctor_get(v_map_2339_, 0);
     v___x_2341_ = lean_array_get_size(v_entries_2340_);
-    v___x_2342_ = lean_unsigned_to_nat(0);
+    v___x_2342_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_2343_ = lean_nat_dec_eq(v___x_2341_, v___x_2342_);
     return v___x_2343_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_isEmpty___redArg___boxed(
-    mut v_map_2344_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_map_2344_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_2345_: u8 = 0;
-    let mut v_r_2346_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_2346_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2345_ = l_Std_Internal_IndexMultiMap_isEmpty___redArg(v_map_2344_);
-    lean_dec_ref(v_map_2344_);
-    v_r_2346_ = lean_box((v_res_2345_) as usize);
+    crate::leanh::lean_dec_ref(v_map_2344_);
+    v_r_2346_ = crate::leanh::lean_box((v_res_2345_) as usize);
     return v_r_2346_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_isEmpty(
-    mut v_00_u03b1_2347_: *mut LeanObject,
-    mut v_00_u03b2_2348_: *mut LeanObject,
-    mut v_inst_2349_: *mut LeanObject,
-    mut v_inst_2350_: *mut LeanObject,
-    mut v_map_2351_: *mut LeanObject,
+    mut v_00_u03b1_2347_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2348_: *mut crate::leanh::LeanObject,
+    mut v_inst_2349_: *mut crate::leanh::LeanObject,
+    mut v_inst_2350_: *mut crate::leanh::LeanObject,
+    mut v_map_2351_: *mut crate::leanh::LeanObject,
 ) -> u8 {
-    let mut v_entries_2352_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2353_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2354_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_entries_2352_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2353_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2354_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2355_: u8 = 0;
-    v_entries_2352_ = lean_ctor_get(v_map_2351_, 0);
+    v_entries_2352_ = crate::leanh::lean_ctor_get(v_map_2351_, 0);
     v___x_2353_ = lean_array_get_size(v_entries_2352_);
-    v___x_2354_ = lean_unsigned_to_nat(0);
+    v___x_2354_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_2355_ = lean_nat_dec_eq(v___x_2353_, v___x_2354_);
     return v___x_2355_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_isEmpty___boxed(
-    mut v_00_u03b1_2356_: *mut LeanObject,
-    mut v_00_u03b2_2357_: *mut LeanObject,
-    mut v_inst_2358_: *mut LeanObject,
-    mut v_inst_2359_: *mut LeanObject,
-    mut v_map_2360_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_00_u03b1_2356_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2357_: *mut crate::leanh::LeanObject,
+    mut v_inst_2358_: *mut crate::leanh::LeanObject,
+    mut v_inst_2359_: *mut crate::leanh::LeanObject,
+    mut v_map_2360_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_2361_: u8 = 0;
-    let mut v_r_2362_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_2362_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2361_ = l_Std_Internal_IndexMultiMap_isEmpty(
         v_00_u03b1_2356_,
         v_00_u03b2_2357_,
@@ -4796,48 +4804,48 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_isEmpty___boxed(
         v_inst_2359_,
         v_map_2360_,
     );
-    lean_dec_ref(v_map_2360_);
-    lean_dec_ref(v_inst_2359_);
-    lean_dec_ref(v_inst_2358_);
-    v_r_2362_ = lean_box((v_res_2361_) as usize);
+    crate::leanh::lean_dec_ref(v_map_2360_);
+    crate::leanh::lean_dec_ref(v_inst_2359_);
+    crate::leanh::lean_dec_ref(v_inst_2358_);
+    v_r_2362_ = crate::leanh::lean_box((v_res_2361_) as usize);
     return v_r_2362_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toArray___redArg(
-    mut v_map_2363_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2364_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_2364_ = lean_ctor_get(v_map_2363_, 0);
-    lean_inc_ref(v_entries_2364_);
+    mut v_map_2363_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2364_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_2364_ = crate::leanh::lean_ctor_get(v_map_2363_, 0);
+    crate::leanh::lean_inc_ref(v_entries_2364_);
     return v_entries_2364_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toArray___redArg___boxed(
-    mut v_map_2365_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2366_: *mut LeanObject = core::ptr::null_mut();
+    mut v_map_2365_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2366_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2366_ = l_Std_Internal_IndexMultiMap_toArray___redArg(v_map_2365_);
-    lean_dec_ref(v_map_2365_);
+    crate::leanh::lean_dec_ref(v_map_2365_);
     return v_res_2366_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toArray(
-    mut v_00_u03b1_2367_: *mut LeanObject,
-    mut v_00_u03b2_2368_: *mut LeanObject,
-    mut v_inst_2369_: *mut LeanObject,
-    mut v_inst_2370_: *mut LeanObject,
-    mut v_map_2371_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2372_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_2372_ = lean_ctor_get(v_map_2371_, 0);
-    lean_inc_ref(v_entries_2372_);
+    mut v_00_u03b1_2367_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2368_: *mut crate::leanh::LeanObject,
+    mut v_inst_2369_: *mut crate::leanh::LeanObject,
+    mut v_inst_2370_: *mut crate::leanh::LeanObject,
+    mut v_map_2371_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2372_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_2372_ = crate::leanh::lean_ctor_get(v_map_2371_, 0);
+    crate::leanh::lean_inc_ref(v_entries_2372_);
     return v_entries_2372_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toArray___boxed(
-    mut v_00_u03b1_2373_: *mut LeanObject,
-    mut v_00_u03b2_2374_: *mut LeanObject,
-    mut v_inst_2375_: *mut LeanObject,
-    mut v_inst_2376_: *mut LeanObject,
-    mut v_map_2377_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2378_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2373_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2374_: *mut crate::leanh::LeanObject,
+    mut v_inst_2375_: *mut crate::leanh::LeanObject,
+    mut v_inst_2376_: *mut crate::leanh::LeanObject,
+    mut v_map_2377_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2378_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2378_ = l_Std_Internal_IndexMultiMap_toArray(
         v_00_u03b1_2373_,
         v_00_u03b2_2374_,
@@ -4845,41 +4853,41 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_toArray___boxed(
         v_inst_2376_,
         v_map_2377_,
     );
-    lean_dec_ref(v_map_2377_);
-    lean_dec_ref(v_inst_2376_);
-    lean_dec_ref(v_inst_2375_);
+    crate::leanh::lean_dec_ref(v_map_2377_);
+    crate::leanh::lean_dec_ref(v_inst_2376_);
+    crate::leanh::lean_dec_ref(v_inst_2375_);
     return v_res_2378_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toList___redArg(
-    mut v_map_2379_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2380_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2381_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_2380_ = lean_ctor_get(v_map_2379_, 0);
-    lean_inc_ref(v_entries_2380_);
-    lean_dec_ref(v_map_2379_);
+    mut v_map_2379_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2380_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2381_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_2380_ = crate::leanh::lean_ctor_get(v_map_2379_, 0);
+    crate::leanh::lean_inc_ref(v_entries_2380_);
+    crate::leanh::lean_dec_ref(v_map_2379_);
     v___x_2381_ = lean_array_to_list(v_entries_2380_);
     return v___x_2381_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toList(
-    mut v_00_u03b1_2382_: *mut LeanObject,
-    mut v_00_u03b2_2383_: *mut LeanObject,
-    mut v_inst_2384_: *mut LeanObject,
-    mut v_inst_2385_: *mut LeanObject,
-    mut v_map_2386_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2387_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2382_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2383_: *mut crate::leanh::LeanObject,
+    mut v_inst_2384_: *mut crate::leanh::LeanObject,
+    mut v_inst_2385_: *mut crate::leanh::LeanObject,
+    mut v_map_2386_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2387_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_2387_ = l_Std_Internal_IndexMultiMap_toList___redArg(v_map_2386_);
     return v___x_2387_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_toList___boxed(
-    mut v_00_u03b1_2388_: *mut LeanObject,
-    mut v_00_u03b2_2389_: *mut LeanObject,
-    mut v_inst_2390_: *mut LeanObject,
-    mut v_inst_2391_: *mut LeanObject,
-    mut v_map_2392_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2393_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2388_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2389_: *mut crate::leanh::LeanObject,
+    mut v_inst_2390_: *mut crate::leanh::LeanObject,
+    mut v_inst_2391_: *mut crate::leanh::LeanObject,
+    mut v_map_2392_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2393_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2393_ = l_Std_Internal_IndexMultiMap_toList(
         v_00_u03b1_2388_,
         v_00_u03b2_2389_,
@@ -4887,59 +4895,59 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_toList___boxed(
         v_inst_2391_,
         v_map_2392_,
     );
-    lean_dec_ref(v_inst_2391_);
-    lean_dec_ref(v_inst_2390_);
+    crate::leanh::lean_dec_ref(v_inst_2391_);
+    crate::leanh::lean_dec_ref(v_inst_2390_);
     return v_res_2393_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_merge___redArg(
-    mut v_inst_2394_: *mut LeanObject,
-    mut v_inst_2395_: *mut LeanObject,
-    mut v_m1_2396_: *mut LeanObject,
-    mut v_m2_2397_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2398_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2399_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2400_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2401_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2394_: *mut crate::leanh::LeanObject,
+    mut v_inst_2395_: *mut crate::leanh::LeanObject,
+    mut v_m1_2396_: *mut crate::leanh::LeanObject,
+    mut v_m2_2397_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2398_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2399_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2400_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2401_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2402_: u8 = 0;
-    v_entries_2398_ = lean_ctor_get(v_m2_2397_, 0);
-    lean_inc_ref(v_entries_2398_);
-    lean_dec_ref(v_m2_2397_);
-    v___x_2399_ = lean_unsigned_to_nat(0);
+    v_entries_2398_ = crate::leanh::lean_ctor_get(v_m2_2397_, 0);
+    crate::leanh::lean_inc_ref(v_entries_2398_);
+    crate::leanh::lean_dec_ref(v_m2_2397_);
+    v___x_2399_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_2400_ = lean_array_get_size(v_entries_2398_);
     v___x_2401_ = l_Std_Internal_instReprIndexMultiMap_repr___redArg___closed__9;
     v___x_2402_ = lean_nat_dec_lt(v___x_2399_, v___x_2400_);
     if v___x_2402_ == 0 {
-        lean_dec_ref(v_entries_2398_);
-        lean_dec_ref(v_inst_2395_);
-        lean_dec_ref(v_inst_2394_);
+        crate::leanh::lean_dec_ref(v_entries_2398_);
+        crate::leanh::lean_dec_ref(v_inst_2395_);
+        crate::leanh::lean_dec_ref(v_inst_2394_);
         return v_m1_2396_;
     } else {
-        let mut v___f_2403_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___f_2403_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2404_: u8 = 0;
-        v___f_2403_ = lean_alloc_closure(
+        v___f_2403_ = crate::leanh::lean_alloc_closure(
             l_Std_Internal_IndexMultiMap_erase___redArg___lam__1 as *mut core::ffi::c_void,
             4,
             2,
         );
-        lean_closure_set(v___f_2403_, 0, v_inst_2394_);
-        lean_closure_set(v___f_2403_, 1, v_inst_2395_);
+        crate::leanh::lean_closure_set(v___f_2403_, 0, v_inst_2394_);
+        crate::leanh::lean_closure_set(v___f_2403_, 1, v_inst_2395_);
         v___x_2404_ = lean_nat_dec_le(v___x_2400_, v___x_2400_);
         if v___x_2404_ == 0 {
             if v___x_2402_ == 0 {
-                lean_dec_ref(v___f_2403_);
-                lean_dec_ref(v_entries_2398_);
+                crate::leanh::lean_dec_ref(v___f_2403_);
+                crate::leanh::lean_dec_ref(v_entries_2398_);
                 return v_m1_2396_;
             } else {
                 let mut v___x_2405_: usize = 0;
                 let mut v___x_2406_: usize = 0;
-                let mut v___x_2407_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_2407_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_2405_ = 0usize;
                 v___x_2406_ = lean_usize_of_nat(v___x_2400_);
                 v___x_2407_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_2401_,
                     v___f_2403_,
                     v_entries_2398_,
@@ -4952,13 +4960,13 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_merge___redArg(
         } else {
             let mut v___x_2408_: usize = 0;
             let mut v___x_2409_: usize = 0;
-            let mut v___x_2410_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_2410_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_2408_ = 0usize;
             v___x_2409_ = lean_usize_of_nat(v___x_2400_);
             v___x_2410_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                lean_box(0),
-                lean_box(0),
-                lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
                 v___x_2401_,
                 v___f_2403_,
                 v_entries_2398_,
@@ -4971,16 +4979,16 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_merge___redArg(
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_merge(
-    mut v_00_u03b1_2411_: *mut LeanObject,
-    mut v_00_u03b2_2412_: *mut LeanObject,
-    mut v_inst_2413_: *mut LeanObject,
-    mut v_inst_2414_: *mut LeanObject,
-    mut v_inst_2415_: *mut LeanObject,
-    mut v_inst_2416_: *mut LeanObject,
-    mut v_m1_2417_: *mut LeanObject,
-    mut v_m2_2418_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2419_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2411_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2412_: *mut crate::leanh::LeanObject,
+    mut v_inst_2413_: *mut crate::leanh::LeanObject,
+    mut v_inst_2414_: *mut crate::leanh::LeanObject,
+    mut v_inst_2415_: *mut crate::leanh::LeanObject,
+    mut v_inst_2416_: *mut crate::leanh::LeanObject,
+    mut v_m1_2417_: *mut crate::leanh::LeanObject,
+    mut v_m2_2418_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2419_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_2419_ = l_Std_Internal_IndexMultiMap_merge___redArg(
         v_inst_2413_,
         v_inst_2414_,
@@ -4990,96 +4998,104 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_merge(
     return v___x_2419_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instEmptyCollection___redArg(
-    mut v_inst_2420_: *mut LeanObject,
-    mut v_inst_2421_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2422_: *mut LeanObject = core::ptr::null_mut();
-    v___x_2422_ =
-        l_Std_Internal_IndexMultiMap_empty(lean_box(0), lean_box(0), v_inst_2420_, v_inst_2421_);
+    mut v_inst_2420_: *mut crate::leanh::LeanObject,
+    mut v_inst_2421_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2422_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_2422_ = l_Std_Internal_IndexMultiMap_empty(
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
+        v_inst_2420_,
+        v_inst_2421_,
+    );
     return v___x_2422_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instEmptyCollection___redArg___boxed(
-    mut v_inst_2423_: *mut LeanObject,
-    mut v_inst_2424_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2425_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2423_: *mut crate::leanh::LeanObject,
+    mut v_inst_2424_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2425_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2425_ =
         l_Std_Internal_IndexMultiMap_instEmptyCollection___redArg(v_inst_2423_, v_inst_2424_);
-    lean_dec_ref(v_inst_2424_);
-    lean_dec_ref(v_inst_2423_);
+    crate::leanh::lean_dec_ref(v_inst_2424_);
+    crate::leanh::lean_dec_ref(v_inst_2423_);
     return v_res_2425_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instEmptyCollection(
-    mut v_00_u03b1_2426_: *mut LeanObject,
-    mut v_00_u03b2_2427_: *mut LeanObject,
-    mut v_inst_2428_: *mut LeanObject,
-    mut v_inst_2429_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2430_: *mut LeanObject = core::ptr::null_mut();
-    v___x_2430_ =
-        l_Std_Internal_IndexMultiMap_empty(lean_box(0), lean_box(0), v_inst_2428_, v_inst_2429_);
+    mut v_00_u03b1_2426_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2427_: *mut crate::leanh::LeanObject,
+    mut v_inst_2428_: *mut crate::leanh::LeanObject,
+    mut v_inst_2429_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2430_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_2430_ = l_Std_Internal_IndexMultiMap_empty(
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
+        v_inst_2428_,
+        v_inst_2429_,
+    );
     return v___x_2430_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instEmptyCollection___boxed(
-    mut v_00_u03b1_2431_: *mut LeanObject,
-    mut v_00_u03b2_2432_: *mut LeanObject,
-    mut v_inst_2433_: *mut LeanObject,
-    mut v_inst_2434_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2435_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2431_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2432_: *mut crate::leanh::LeanObject,
+    mut v_inst_2433_: *mut crate::leanh::LeanObject,
+    mut v_inst_2434_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2435_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2435_ = l_Std_Internal_IndexMultiMap_instEmptyCollection(
         v_00_u03b1_2431_,
         v_00_u03b2_2432_,
         v_inst_2433_,
         v_inst_2434_,
     );
-    lean_dec_ref(v_inst_2434_);
-    lean_dec_ref(v_inst_2433_);
+    crate::leanh::lean_dec_ref(v_inst_2434_);
+    crate::leanh::lean_dec_ref(v_inst_2433_);
     return v_res_2435_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHashable___redArg___lam__1(
-    mut v_inst_2436_: *mut LeanObject,
-    mut v_inst_2437_: *mut LeanObject,
-    mut v_x_2438_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_fst_2439_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2440_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2441_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2442_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2444_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2436_: *mut crate::leanh::LeanObject,
+    mut v_inst_2437_: *mut crate::leanh::LeanObject,
+    mut v_x_2438_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_fst_2439_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2440_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2441_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2442_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2444_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2445_: u8 = 0;
-    let mut v_i_2446_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_2447_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2448_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2449_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2451_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2452_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_2446_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_2447_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2448_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2449_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2451_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2452_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2453_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_fst_2439_ = lean_ctor_get(v_x_2438_, 0);
-                lean_inc(v_fst_2439_);
+                v_fst_2439_ = crate::leanh::lean_ctor_get(v_x_2438_, 0);
+                crate::leanh::lean_inc(v_fst_2439_);
                 v___x_2440_ = l_Std_Internal_IndexMultiMap_empty(
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v_inst_2436_,
                     v_inst_2437_,
                 );
-                v_entries_2441_ = lean_ctor_get(v___x_2440_, 0);
-                v_indexes_2442_ = lean_ctor_get(v___x_2440_, 1);
-                v_isSharedCheck_2453_ = (!lean_is_exclusive(v___x_2440_)) as u8;
+                v_entries_2441_ = crate::leanh::lean_ctor_get(v___x_2440_, 0);
+                v_indexes_2442_ = crate::leanh::lean_ctor_get(v___x_2440_, 1);
+                v_isSharedCheck_2453_ = (!crate::leanh::lean_is_exclusive(v___x_2440_)) as u8;
                 if v_isSharedCheck_2453_ == 0 {
                     v___x_2444_ = v___x_2440_;
                     v_isShared_2445_ = v_isSharedCheck_2453_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_2442_);
-                    lean_inc(v_entries_2441_);
-                    lean_dec(v___x_2440_);
-                    v___x_2444_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_2442_);
+                    crate::leanh::lean_inc(v_entries_2441_);
+                    crate::leanh::lean_dec(v___x_2440_);
+                    v___x_2444_ = crate::leanh::lean_box(0);
                     v_isShared_2445_ = v_isSharedCheck_2453_;
                     state = 1;
                     continue;
@@ -5087,12 +5103,12 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHa
             }
             1 => {
                 v_i_2446_ = lean_array_get_size(v_entries_2441_);
-                v_f_2447_ = lean_alloc_closure(
+                v_f_2447_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_2447_, 0, v_i_2446_);
+                crate::leanh::lean_closure_set(v_f_2447_, 0, v_i_2446_);
                 v_entries_2448_ = lean_array_push(v_entries_2441_, v_x_2438_);
                 v_indexes_2449_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_2436_,
@@ -5102,15 +5118,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHa
                     v_f_2447_,
                 );
                 if v_isShared_2445_ == 0 {
-                    lean_ctor_set(v___x_2444_, 1, v_indexes_2449_);
-                    lean_ctor_set(v___x_2444_, 0, v_entries_2448_);
+                    crate::leanh::lean_ctor_set(v___x_2444_, 1, v_indexes_2449_);
+                    crate::leanh::lean_ctor_set(v___x_2444_, 0, v_entries_2448_);
                     v___x_2451_ = v___x_2444_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2452_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2452_, 0, v_entries_2448_);
-                    lean_ctor_set(v_reuseFailAlloc_2452_, 1, v_indexes_2449_);
+                    v_reuseFailAlloc_2452_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2452_, 0, v_entries_2448_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2452_, 1, v_indexes_2449_);
                     v___x_2451_ = v_reuseFailAlloc_2452_;
                     state = 2;
                     continue;
@@ -5124,76 +5140,76 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHa
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHashable___redArg(
-    mut v_inst_2454_: *mut LeanObject,
-    mut v_inst_2455_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2456_: *mut LeanObject = core::ptr::null_mut();
-    v___f_2456_ = lean_alloc_closure(
+    mut v_inst_2454_: *mut crate::leanh::LeanObject,
+    mut v_inst_2455_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2456_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_2456_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHashable___redArg___lam__1
             as *mut core::ffi::c_void,
         3,
         2,
     );
-    lean_closure_set(v___f_2456_, 0, v_inst_2454_);
-    lean_closure_set(v___f_2456_, 1, v_inst_2455_);
+    crate::leanh::lean_closure_set(v___f_2456_, 0, v_inst_2454_);
+    crate::leanh::lean_closure_set(v___f_2456_, 1, v_inst_2455_);
     return v___f_2456_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHashable(
-    mut v_00_u03b1_2457_: *mut LeanObject,
-    mut v_00_u03b2_2458_: *mut LeanObject,
-    mut v_inst_2459_: *mut LeanObject,
-    mut v_inst_2460_: *mut LeanObject,
-    mut v_inst_2461_: *mut LeanObject,
-    mut v_inst_2462_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2463_: *mut LeanObject = core::ptr::null_mut();
-    v___f_2463_ = lean_alloc_closure(
+    mut v_00_u03b1_2457_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2458_: *mut crate::leanh::LeanObject,
+    mut v_inst_2459_: *mut crate::leanh::LeanObject,
+    mut v_inst_2460_: *mut crate::leanh::LeanObject,
+    mut v_inst_2461_: *mut crate::leanh::LeanObject,
+    mut v_inst_2462_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2463_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_2463_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instSingletonProdOfEquivBEqOfLawfulHashable___redArg___lam__1
             as *mut core::ffi::c_void,
         3,
         2,
     );
-    lean_closure_set(v___f_2463_, 0, v_inst_2459_);
-    lean_closure_set(v___f_2463_, 1, v_inst_2460_);
+    crate::leanh::lean_closure_set(v___f_2463_, 0, v_inst_2459_);
+    crate::leanh::lean_closure_set(v___f_2463_, 1, v_inst_2460_);
     return v___f_2463_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHashable___redArg___lam__1(
-    mut v_inst_2464_: *mut LeanObject,
-    mut v_inst_2465_: *mut LeanObject,
-    mut v_x_2466_: *mut LeanObject,
-    mut v_m_2467_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_fst_2468_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2469_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2470_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2472_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2464_: *mut crate::leanh::LeanObject,
+    mut v_inst_2465_: *mut crate::leanh::LeanObject,
+    mut v_x_2466_: *mut crate::leanh::LeanObject,
+    mut v_m_2467_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_fst_2468_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2469_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2470_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2472_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2473_: u8 = 0;
-    let mut v_i_2474_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_f_2475_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_entries_2476_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2477_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_2479_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2480_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_i_2474_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_f_2475_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2476_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2477_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2479_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2480_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2481_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_fst_2468_ = lean_ctor_get(v_x_2466_, 0);
-                lean_inc(v_fst_2468_);
-                v_entries_2469_ = lean_ctor_get(v_m_2467_, 0);
-                v_indexes_2470_ = lean_ctor_get(v_m_2467_, 1);
-                v_isSharedCheck_2481_ = (!lean_is_exclusive(v_m_2467_)) as u8;
+                v_fst_2468_ = crate::leanh::lean_ctor_get(v_x_2466_, 0);
+                crate::leanh::lean_inc(v_fst_2468_);
+                v_entries_2469_ = crate::leanh::lean_ctor_get(v_m_2467_, 0);
+                v_indexes_2470_ = crate::leanh::lean_ctor_get(v_m_2467_, 1);
+                v_isSharedCheck_2481_ = (!crate::leanh::lean_is_exclusive(v_m_2467_)) as u8;
                 if v_isSharedCheck_2481_ == 0 {
                     v___x_2472_ = v_m_2467_;
                     v_isShared_2473_ = v_isSharedCheck_2481_;
                     state = 1;
                     continue;
                 } else {
-                    lean_inc(v_indexes_2470_);
-                    lean_inc(v_entries_2469_);
-                    lean_dec(v_m_2467_);
-                    v___x_2472_ = lean_box(0);
+                    crate::leanh::lean_inc(v_indexes_2470_);
+                    crate::leanh::lean_inc(v_entries_2469_);
+                    crate::leanh::lean_dec(v_m_2467_);
+                    v___x_2472_ = crate::leanh::lean_box(0);
                     v_isShared_2473_ = v_isSharedCheck_2481_;
                     state = 1;
                     continue;
@@ -5201,12 +5217,12 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHasha
             }
             1 => {
                 v_i_2474_ = lean_array_get_size(v_entries_2469_);
-                v_f_2475_ = lean_alloc_closure(
+                v_f_2475_ = crate::leanh::lean_alloc_closure(
                     l_Std_Internal_IndexMultiMap_insert___redArg___lam__0 as *mut core::ffi::c_void,
                     2,
                     1,
                 );
-                lean_closure_set(v_f_2475_, 0, v_i_2474_);
+                crate::leanh::lean_closure_set(v_f_2475_, 0, v_i_2474_);
                 v_entries_2476_ = lean_array_push(v_entries_2469_, v_x_2466_);
                 v_indexes_2477_ = l_Std_DHashMap_Internal_Raw_u2080_Const_alter___redArg(
                     v_inst_2464_,
@@ -5216,15 +5232,15 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHasha
                     v_f_2475_,
                 );
                 if v_isShared_2473_ == 0 {
-                    lean_ctor_set(v___x_2472_, 1, v_indexes_2477_);
-                    lean_ctor_set(v___x_2472_, 0, v_entries_2476_);
+                    crate::leanh::lean_ctor_set(v___x_2472_, 1, v_indexes_2477_);
+                    crate::leanh::lean_ctor_set(v___x_2472_, 0, v_entries_2476_);
                     v___x_2479_ = v___x_2472_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2480_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_2480_, 0, v_entries_2476_);
-                    lean_ctor_set(v_reuseFailAlloc_2480_, 1, v_indexes_2477_);
+                    v_reuseFailAlloc_2480_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2480_, 0, v_entries_2476_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2480_, 1, v_indexes_2477_);
                     v___x_2479_ = v_reuseFailAlloc_2480_;
                     state = 2;
                     continue;
@@ -5238,117 +5254,117 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHasha
     }
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHashable___redArg(
-    mut v_inst_2482_: *mut LeanObject,
-    mut v_inst_2483_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2484_: *mut LeanObject = core::ptr::null_mut();
-    v___f_2484_ = lean_alloc_closure(
+    mut v_inst_2482_: *mut crate::leanh::LeanObject,
+    mut v_inst_2483_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2484_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_2484_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHashable___redArg___lam__1
             as *mut core::ffi::c_void,
         4,
         2,
     );
-    lean_closure_set(v___f_2484_, 0, v_inst_2482_);
-    lean_closure_set(v___f_2484_, 1, v_inst_2483_);
+    crate::leanh::lean_closure_set(v___f_2484_, 0, v_inst_2482_);
+    crate::leanh::lean_closure_set(v___f_2484_, 1, v_inst_2483_);
     return v___f_2484_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHashable(
-    mut v_00_u03b1_2485_: *mut LeanObject,
-    mut v_00_u03b2_2486_: *mut LeanObject,
-    mut v_inst_2487_: *mut LeanObject,
-    mut v_inst_2488_: *mut LeanObject,
-    mut v_inst_2489_: *mut LeanObject,
-    mut v_inst_2490_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2491_: *mut LeanObject = core::ptr::null_mut();
-    v___f_2491_ = lean_alloc_closure(
+    mut v_00_u03b1_2485_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2486_: *mut crate::leanh::LeanObject,
+    mut v_inst_2487_: *mut crate::leanh::LeanObject,
+    mut v_inst_2488_: *mut crate::leanh::LeanObject,
+    mut v_inst_2489_: *mut crate::leanh::LeanObject,
+    mut v_inst_2490_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2491_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_2491_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instInsertProdOfEquivBEqOfLawfulHashable___redArg___lam__1
             as *mut core::ffi::c_void,
         4,
         2,
     );
-    lean_closure_set(v___f_2491_, 0, v_inst_2487_);
-    lean_closure_set(v___f_2491_, 1, v_inst_2488_);
+    crate::leanh::lean_closure_set(v___f_2491_, 0, v_inst_2487_);
+    crate::leanh::lean_closure_set(v___f_2491_, 1, v_inst_2488_);
     return v___f_2491_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instUnionOfEquivBEqOfLawfulHashable___redArg(
-    mut v_inst_2492_: *mut LeanObject,
-    mut v_inst_2493_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2494_: *mut LeanObject = core::ptr::null_mut();
-    v___x_2494_ = lean_alloc_closure(
+    mut v_inst_2492_: *mut crate::leanh::LeanObject,
+    mut v_inst_2493_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2494_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_2494_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_merge as *mut core::ffi::c_void,
         8,
         6,
     );
-    lean_closure_set(v___x_2494_, 0, lean_box(0));
-    lean_closure_set(v___x_2494_, 1, lean_box(0));
-    lean_closure_set(v___x_2494_, 2, v_inst_2492_);
-    lean_closure_set(v___x_2494_, 3, v_inst_2493_);
-    lean_closure_set(v___x_2494_, 4, lean_box(0));
-    lean_closure_set(v___x_2494_, 5, lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2494_, 0, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2494_, 1, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2494_, 2, v_inst_2492_);
+    crate::leanh::lean_closure_set(v___x_2494_, 3, v_inst_2493_);
+    crate::leanh::lean_closure_set(v___x_2494_, 4, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2494_, 5, crate::leanh::lean_box(0));
     return v___x_2494_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instUnionOfEquivBEqOfLawfulHashable(
-    mut v_00_u03b1_2495_: *mut LeanObject,
-    mut v_00_u03b2_2496_: *mut LeanObject,
-    mut v_inst_2497_: *mut LeanObject,
-    mut v_inst_2498_: *mut LeanObject,
-    mut v_inst_2499_: *mut LeanObject,
-    mut v_inst_2500_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2501_: *mut LeanObject = core::ptr::null_mut();
-    v___x_2501_ = lean_alloc_closure(
+    mut v_00_u03b1_2495_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2496_: *mut crate::leanh::LeanObject,
+    mut v_inst_2497_: *mut crate::leanh::LeanObject,
+    mut v_inst_2498_: *mut crate::leanh::LeanObject,
+    mut v_inst_2499_: *mut crate::leanh::LeanObject,
+    mut v_inst_2500_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2501_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_2501_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_merge as *mut core::ffi::c_void,
         8,
         6,
     );
-    lean_closure_set(v___x_2501_, 0, lean_box(0));
-    lean_closure_set(v___x_2501_, 1, lean_box(0));
-    lean_closure_set(v___x_2501_, 2, v_inst_2497_);
-    lean_closure_set(v___x_2501_, 3, v_inst_2498_);
-    lean_closure_set(v___x_2501_, 4, lean_box(0));
-    lean_closure_set(v___x_2501_, 5, lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2501_, 0, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2501_, 1, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2501_, 2, v_inst_2497_);
+    crate::leanh::lean_closure_set(v___x_2501_, 3, v_inst_2498_);
+    crate::leanh::lean_closure_set(v___x_2501_, 4, crate::leanh::lean_box(0));
+    crate::leanh::lean_closure_set(v___x_2501_, 5, crate::leanh::lean_box(0));
     return v___x_2501_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg___lam__0(
-    mut v_f_2502_: *mut LeanObject,
-    mut v_a_2503_: *mut LeanObject,
-    mut v_x_2504_: *mut LeanObject,
-    mut v___y_2505_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_2506_: *mut LeanObject = core::ptr::null_mut();
-    v___x_2506_ = lean_apply_2(v_f_2502_, v_a_2503_, v___y_2505_);
+    mut v_f_2502_: *mut crate::leanh::LeanObject,
+    mut v_a_2503_: *mut crate::leanh::LeanObject,
+    mut v_x_2504_: *mut crate::leanh::LeanObject,
+    mut v___y_2505_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_2506_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_2506_ = crate::leanh::lean_apply_2(v_f_2502_, v_a_2503_, v___y_2505_);
     return v___x_2506_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg___lam__1(
-    mut v_inst_2507_: *mut LeanObject,
-    mut v_00_u03b2_2508_: *mut LeanObject,
-    mut v_map_2509_: *mut LeanObject,
-    mut v_b_2510_: *mut LeanObject,
-    mut v_f_2511_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_entries_2512_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_2513_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_2507_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2508_: *mut crate::leanh::LeanObject,
+    mut v_map_2509_: *mut crate::leanh::LeanObject,
+    mut v_b_2510_: *mut crate::leanh::LeanObject,
+    mut v_f_2511_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_entries_2512_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2513_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_sz_2514_: usize = 0;
     let mut v___x_2515_: usize = 0;
-    let mut v___x_2516_: *mut LeanObject = core::ptr::null_mut();
-    v_entries_2512_ = lean_ctor_get(v_map_2509_, 0);
-    lean_inc_ref(v_entries_2512_);
-    lean_dec_ref(v_map_2509_);
-    v___f_2513_ = lean_alloc_closure(
+    let mut v___x_2516_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_entries_2512_ = crate::leanh::lean_ctor_get(v_map_2509_, 0);
+    crate::leanh::lean_inc_ref(v_entries_2512_);
+    crate::leanh::lean_dec_ref(v_map_2509_);
+    v___f_2513_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg___lam__0
             as *mut core::ffi::c_void,
         4,
         1,
     );
-    lean_closure_set(v___f_2513_, 0, v_f_2511_);
+    crate::leanh::lean_closure_set(v___f_2513_, 0, v_f_2511_);
     v_sz_2514_ = lean_array_size(v_entries_2512_);
     v___x_2515_ = 0usize;
     v___x_2516_ = l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop(
-        lean_box(0),
-        lean_box(0),
-        lean_box(0),
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
         v_inst_2507_,
         v_entries_2512_,
         v___f_2513_,
@@ -5359,45 +5375,45 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg___lam__
     return v___x_2516_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg(
-    mut v_inst_2517_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2518_: *mut LeanObject = core::ptr::null_mut();
-    v___f_2518_ = lean_alloc_closure(
+    mut v_inst_2517_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2518_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_2518_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg___lam__1
             as *mut core::ffi::c_void,
         5,
         1,
     );
-    lean_closure_set(v___f_2518_, 0, v_inst_2517_);
+    crate::leanh::lean_closure_set(v___f_2518_, 0, v_inst_2517_);
     return v___f_2518_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad(
-    mut v_00_u03b1_2519_: *mut LeanObject,
-    mut v_00_u03b2_2520_: *mut LeanObject,
-    mut v_inst_2521_: *mut LeanObject,
-    mut v_inst_2522_: *mut LeanObject,
-    mut v_m_2523_: *mut LeanObject,
-    mut v_inst_2524_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___f_2525_: *mut LeanObject = core::ptr::null_mut();
-    v___f_2525_ = lean_alloc_closure(
+    mut v_00_u03b1_2519_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2520_: *mut crate::leanh::LeanObject,
+    mut v_inst_2521_: *mut crate::leanh::LeanObject,
+    mut v_inst_2522_: *mut crate::leanh::LeanObject,
+    mut v_m_2523_: *mut crate::leanh::LeanObject,
+    mut v_inst_2524_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___f_2525_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_2525_ = crate::leanh::lean_alloc_closure(
         l_Std_Internal_IndexMultiMap_instForInProdOfMonad___redArg___lam__1
             as *mut core::ffi::c_void,
         5,
         1,
     );
-    lean_closure_set(v___f_2525_, 0, v_inst_2524_);
+    crate::leanh::lean_closure_set(v___f_2525_, 0, v_inst_2524_);
     return v___f_2525_;
 }
 pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad___boxed(
-    mut v_00_u03b1_2526_: *mut LeanObject,
-    mut v_00_u03b2_2527_: *mut LeanObject,
-    mut v_inst_2528_: *mut LeanObject,
-    mut v_inst_2529_: *mut LeanObject,
-    mut v_m_2530_: *mut LeanObject,
-    mut v_inst_2531_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_2532_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_2526_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_2527_: *mut crate::leanh::LeanObject,
+    mut v_inst_2528_: *mut crate::leanh::LeanObject,
+    mut v_inst_2529_: *mut crate::leanh::LeanObject,
+    mut v_m_2530_: *mut crate::leanh::LeanObject,
+    mut v_inst_2531_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_2532_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_2532_ = l_Std_Internal_IndexMultiMap_instForInProdOfMonad(
         v_00_u03b1_2526_,
         v_00_u03b2_2527_,
@@ -5406,74 +5422,80 @@ pub unsafe fn l_Std_Internal_IndexMultiMap_instForInProdOfMonad___boxed(
         v_m_2530_,
         v_inst_2531_,
     );
-    lean_dec_ref(v_inst_2529_);
-    lean_dec_ref(v_inst_2528_);
+    crate::leanh::lean_dec_ref(v_inst_2529_);
+    crate::leanh::lean_dec_ref(v_inst_2528_);
     return v_res_2532_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Std_Http_Internal_IndexMultiMap(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Std_Http_Internal_IndexMultiMap(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Grind(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Int_OfNat(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Data_HashMap(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Http_Internal_IndexMultiMap(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Http_Internal_IndexMultiMap(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Http_Internal_IndexMultiMap(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Http_Internal_IndexMultiMap(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Grind(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Int_OfNat(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Std_Data_HashMap(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Internal_IndexMultiMap(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Http_Internal_IndexMultiMap(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Std_Http_Internal_IndexMultiMap(builtin);
 }

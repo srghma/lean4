@@ -4,4 +4,3 @@
 pub fn lean_string_length() {
     todo!("Stub for lean_string_length");
 }
-

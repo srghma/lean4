@@ -33,4 +33,3 @@ pub fn lean_internal_is_stage0(_: *mut LeanObject) -> u8 {
 pub fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
     todo!("Stub for lean_internal_has_llvm_backend");
 }
-

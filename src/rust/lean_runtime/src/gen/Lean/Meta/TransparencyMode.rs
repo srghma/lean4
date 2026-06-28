@@ -5,34 +5,29 @@ use crate::r#gen::Init::Data::UInt::Basic::{
     initialize_Init_Data_UInt_Basic, runtime_initialize_Init_Data_UInt_Basic,
 };
 use crate::r#gen::Init::MetaTypes::{initialize_Init_MetaTypes, runtime_initialize_Init_MetaTypes};
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_box, lean_box_uint64, lean_dec_ref,
-    lean_io_result_is_error, lean_io_result_mk_ok, lean_unbox,
+pub static l_Lean_Meta_TransparencyMode_instHashable__lean___closed__0_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*const core::ffi::c_void>()
+            + 4
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+        other: 0,
+        tag: 245,
+    },
+    m_fun: l_Lean_Meta_TransparencyMode_hash___boxed as *const core::ffi::c_void,
+    m_arity: 1,
+    m_num_fixed: 0,
+    m_objs: [],
 };
-pub static l_Lean_Meta_TransparencyMode_instHashable__lean___closed__0_value: LeanClosureObject<0> =
-    LeanClosureObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*const core::ffi::c_void>()
-                + 4
-                + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
-            other: 0,
-            tag: 245,
-        },
-        m_fun: l_Lean_Meta_TransparencyMode_hash___boxed as *const core::ffi::c_void,
-        m_arity: 1,
-        m_num_fixed: 0,
-        m_objs: [],
-    };
-static mut l_Lean_Meta_TransparencyMode_instHashable__lean___closed__0: *mut LeanObject =
+static mut l_Lean_Meta_TransparencyMode_instHashable__lean___closed__0:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Meta_TransparencyMode_instHashable__lean___closed__0_value)
-        as *mut LeanObject;
-pub static mut l_Lean_Meta_TransparencyMode_instHashable__lean: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_Meta_TransparencyMode_instHashable__lean: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Meta_TransparencyMode_instHashable__lean___closed__0_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub unsafe fn l_Lean_Meta_TransparencyMode_hash(mut v_x_39_: u8) -> u64 {
     match v_x_39_ {
         0 => {
@@ -63,14 +58,14 @@ pub unsafe fn l_Lean_Meta_TransparencyMode_hash(mut v_x_39_: u8) -> u64 {
     }
 }
 pub unsafe fn l_Lean_Meta_TransparencyMode_hash___boxed(
-    mut v_x_45_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_x_45_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_x_64__boxed_46_: u8 = 0;
     let mut v_res_47_: u64 = 0;
-    let mut v_r_48_: *mut LeanObject = core::ptr::null_mut();
-    v_x_64__boxed_46_ = (lean_unbox(v_x_45_) as u8);
+    let mut v_r_48_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_x_64__boxed_46_ = (crate::leanh::lean_unbox(v_x_45_) as u8);
     v_res_47_ = l_Lean_Meta_TransparencyMode_hash(v_x_64__boxed_46_);
-    v_r_48_ = lean_box_uint64(v_res_47_);
+    v_r_48_ = crate::leanh::lean_box_uint64(v_res_47_);
     return v_r_48_;
 }
 pub unsafe fn l_Lean_Meta_TransparencyMode_lt(mut v_x_51_: u8, mut v_x_52_: u8) -> u8 {
@@ -176,73 +171,77 @@ pub unsafe fn l_Lean_Meta_TransparencyMode_lt(mut v_x_51_: u8, mut v_x_52_: u8) 
     }
 }
 pub unsafe fn l_Lean_Meta_TransparencyMode_lt___boxed(
-    mut v_x_71_: *mut LeanObject,
-    mut v_x_72_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_x_71_: *mut crate::leanh::LeanObject,
+    mut v_x_72_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_x_104__boxed_73_: u8 = 0;
     let mut v_x_105__boxed_74_: u8 = 0;
     let mut v_res_75_: u8 = 0;
-    let mut v_r_76_: *mut LeanObject = core::ptr::null_mut();
-    v_x_104__boxed_73_ = (lean_unbox(v_x_71_) as u8);
-    v_x_105__boxed_74_ = (lean_unbox(v_x_72_) as u8);
+    let mut v_r_76_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_x_104__boxed_73_ = (crate::leanh::lean_unbox(v_x_71_) as u8);
+    v_x_105__boxed_74_ = (crate::leanh::lean_unbox(v_x_72_) as u8);
     v_res_75_ = l_Lean_Meta_TransparencyMode_lt(v_x_104__boxed_73_, v_x_105__boxed_74_);
-    v_r_76_ = lean_box((v_res_75_) as usize);
+    v_r_76_ = crate::leanh::lean_box((v_res_75_) as usize);
     return v_r_76_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Lean_Meta_TransparencyMode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Lean_Meta_TransparencyMode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_UInt_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_MetaTypes(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Lean_Meta_TransparencyMode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Lean_Meta_TransparencyMode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Lean_Meta_TransparencyMode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Lean_Meta_TransparencyMode(builtin: u8) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_UInt_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_MetaTypes(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Meta_TransparencyMode(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Lean_Meta_TransparencyMode(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Lean_Meta_TransparencyMode(builtin);
 }

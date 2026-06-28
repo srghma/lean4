@@ -5,4 +5,3 @@ use crate::leanh::*;
 pub fn lean_string_compare(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
     todo!("Stub for lean_string_compare");
 }
-

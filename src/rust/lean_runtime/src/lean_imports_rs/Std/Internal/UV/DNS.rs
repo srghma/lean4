@@ -9,4 +9,3 @@ pub fn lean_uv_dns_get_info(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *m
 pub fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_uv_dns_get_name");
 }
-

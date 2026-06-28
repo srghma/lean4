@@ -4,4 +4,3 @@
 pub fn lean_sym_def_eq() {
     todo!("Stub for lean_sym_def_eq");
 }
-

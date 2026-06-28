@@ -25,170 +25,178 @@ use crate::r#gen::Std::Data::DHashMap::Internal::RawLemmas::{
     initialize_Std_Data_DHashMap_Internal_RawLemmas,
     runtime_initialize_Std_Data_DHashMap_Internal_RawLemmas,
 };
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_box, lean_dec_ref, lean_io_result_is_error,
-    lean_io_result_mk_ok,
-};
 pub unsafe fn l_Std_DHashMap_Equiv_instTrans(
-    mut v_00_u03b1_21_: *mut LeanObject,
-    mut v_00_u03b2_22_: *mut LeanObject,
-    mut v_x_23_: *mut LeanObject,
-    mut v_x_24_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_25_: *mut LeanObject = core::ptr::null_mut();
-    v___x_25_ = lean_box(0);
+    mut v_00_u03b1_21_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_22_: *mut crate::leanh::LeanObject,
+    mut v_x_23_: *mut crate::leanh::LeanObject,
+    mut v_x_24_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_25_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_25_ = crate::leanh::lean_box(0);
     return v___x_25_;
 }
 pub unsafe fn l_Std_DHashMap_Equiv_instTrans___boxed(
-    mut v_00_u03b1_26_: *mut LeanObject,
-    mut v_00_u03b2_27_: *mut LeanObject,
-    mut v_x_28_: *mut LeanObject,
-    mut v_x_29_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_30_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_26_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_27_: *mut crate::leanh::LeanObject,
+    mut v_x_28_: *mut crate::leanh::LeanObject,
+    mut v_x_29_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_30_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_30_ = l_Std_DHashMap_Equiv_instTrans(v_00_u03b1_26_, v_00_u03b2_27_, v_x_28_, v_x_29_);
-    lean_dec_ref(v_x_29_);
-    lean_dec_ref(v_x_28_);
+    crate::leanh::lean_dec_ref(v_x_29_);
+    crate::leanh::lean_dec_ref(v_x_28_);
     return v_res_30_;
 }
 pub unsafe fn l_Std_DHashMap_isSetoid(
-    mut v_00_u03b1_31_: *mut LeanObject,
-    mut v_00_u03b2_32_: *mut LeanObject,
-    mut v_inst_33_: *mut LeanObject,
-    mut v_inst_34_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_35_: *mut LeanObject = core::ptr::null_mut();
-    v___x_35_ = lean_box(0);
+    mut v_00_u03b1_31_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_32_: *mut crate::leanh::LeanObject,
+    mut v_inst_33_: *mut crate::leanh::LeanObject,
+    mut v_inst_34_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_35_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_35_ = crate::leanh::lean_box(0);
     return v___x_35_;
 }
 pub unsafe fn l_Std_DHashMap_isSetoid___boxed(
-    mut v_00_u03b1_36_: *mut LeanObject,
-    mut v_00_u03b2_37_: *mut LeanObject,
-    mut v_inst_38_: *mut LeanObject,
-    mut v_inst_39_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_40_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_36_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_37_: *mut crate::leanh::LeanObject,
+    mut v_inst_38_: *mut crate::leanh::LeanObject,
+    mut v_inst_39_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_40_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_40_ = l_Std_DHashMap_isSetoid(v_00_u03b1_36_, v_00_u03b2_37_, v_inst_38_, v_inst_39_);
-    lean_dec_ref(v_inst_39_);
-    lean_dec_ref(v_inst_38_);
+    crate::leanh::lean_dec_ref(v_inst_39_);
+    crate::leanh::lean_dec_ref(v_inst_38_);
     return v_res_40_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Std_Data_DHashMap_Lemmas(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Std_Data_DHashMap_Lemmas(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Std_Data_DHashMap_Internal_RawLemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Data_DHashMap_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Data_DHashMap_AdditionalOperations(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
+    res = runtime_initialize_Std_Data_DHashMap_AdditionalOperations(builtin);
+    if crate::leanh::lean_io_result_is_error(res) {
+        return res;
+    }
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_ByCases(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Find(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Impl(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_List_Pairwise(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Prod(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Data_DHashMap_Lemmas(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Data_DHashMap_Lemmas(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Data_DHashMap_Lemmas(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Data_DHashMap_Lemmas(builtin: u8) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Std_Data_DHashMap_Internal_RawLemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Std_Data_DHashMap_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Std_Data_DHashMap_AdditionalOperations(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
+    res = initialize_Std_Data_DHashMap_AdditionalOperations(builtin);
+    if crate::leanh::lean_io_result_is_error(res) {
+        return res;
+    }
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_ByCases(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_List_Find(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_List_Impl(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_List_Pairwise(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Prod(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Data_DHashMap_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Data_DHashMap_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Std_Data_DHashMap_Lemmas(builtin);
 }

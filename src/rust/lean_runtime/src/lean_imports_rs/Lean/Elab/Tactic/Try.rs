@@ -4,4 +4,3 @@
 pub fn lean_eval_suggest_tactic() {
     todo!("Stub for lean_eval_suggest_tactic");
 }
-

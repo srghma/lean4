@@ -9,4 +9,3 @@ pub fn lean_string_to_utf8(_: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_string_append");
 }
-

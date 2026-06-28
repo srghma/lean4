@@ -7,56 +7,50 @@ use crate::r#gen::Std::Internal::Do::Frame::{
 use crate::r#gen::Std::Internal::Do::Triple::Basic::{
     initialize_Std_Internal_Do_Triple_Basic, runtime_initialize_Std_Internal_Do_Triple_Basic,
 };
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_apply_2, lean_box, lean_ctor_get, lean_dec, lean_dec_ref,
-    lean_inc, lean_inc_ref, lean_io_result_is_error, lean_io_result_mk_ok,
-};
 pub unsafe fn l_Std_Internal_Do_assertGadget___redArg(
-    mut v_inst_26_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_toApplicative_27_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_toPure_28_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_29_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_30_: *mut LeanObject = core::ptr::null_mut();
-    v_toApplicative_27_ = lean_ctor_get(v_inst_26_, 0);
-    lean_inc_ref(v_toApplicative_27_);
-    lean_dec_ref(v_inst_26_);
-    v_toPure_28_ = lean_ctor_get(v_toApplicative_27_, 1);
-    lean_inc(v_toPure_28_);
-    lean_dec_ref(v_toApplicative_27_);
-    v___x_29_ = lean_box(0);
-    v___x_30_ = lean_apply_2(v_toPure_28_, lean_box(0), v___x_29_);
+    mut v_inst_26_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_toApplicative_27_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_toPure_28_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_29_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_30_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_toApplicative_27_ = crate::leanh::lean_ctor_get(v_inst_26_, 0);
+    crate::leanh::lean_inc_ref(v_toApplicative_27_);
+    crate::leanh::lean_dec_ref(v_inst_26_);
+    v_toPure_28_ = crate::leanh::lean_ctor_get(v_toApplicative_27_, 1);
+    crate::leanh::lean_inc(v_toPure_28_);
+    crate::leanh::lean_dec_ref(v_toApplicative_27_);
+    v___x_29_ = crate::leanh::lean_box(0);
+    v___x_30_ = crate::leanh::lean_apply_2(v_toPure_28_, crate::leanh::lean_box(0), v___x_29_);
     return v___x_30_;
 }
 pub unsafe fn l_Std_Internal_Do_assertGadget(
-    mut v_m_31_: *mut LeanObject,
-    mut v_Pred_32_: *mut LeanObject,
-    mut v_EPred_33_: *mut LeanObject,
-    mut v_inst_34_: *mut LeanObject,
-    mut v_inst_35_: *mut LeanObject,
-    mut v_inst_36_: *mut LeanObject,
-    mut v_inst_37_: *mut LeanObject,
-    mut v_name_38_: *mut LeanObject,
-    mut v_as_39_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_40_: *mut LeanObject = core::ptr::null_mut();
+    mut v_m_31_: *mut crate::leanh::LeanObject,
+    mut v_Pred_32_: *mut crate::leanh::LeanObject,
+    mut v_EPred_33_: *mut crate::leanh::LeanObject,
+    mut v_inst_34_: *mut crate::leanh::LeanObject,
+    mut v_inst_35_: *mut crate::leanh::LeanObject,
+    mut v_inst_36_: *mut crate::leanh::LeanObject,
+    mut v_inst_37_: *mut crate::leanh::LeanObject,
+    mut v_name_38_: *mut crate::leanh::LeanObject,
+    mut v_as_39_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_40_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_40_ = l_Std_Internal_Do_assertGadget___redArg(v_inst_34_);
     return v___x_40_;
 }
 pub unsafe fn l_Std_Internal_Do_assertGadget___boxed(
-    mut v_m_41_: *mut LeanObject,
-    mut v_Pred_42_: *mut LeanObject,
-    mut v_EPred_43_: *mut LeanObject,
-    mut v_inst_44_: *mut LeanObject,
-    mut v_inst_45_: *mut LeanObject,
-    mut v_inst_46_: *mut LeanObject,
-    mut v_inst_47_: *mut LeanObject,
-    mut v_name_48_: *mut LeanObject,
-    mut v_as_49_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_50_: *mut LeanObject = core::ptr::null_mut();
+    mut v_m_41_: *mut crate::leanh::LeanObject,
+    mut v_Pred_42_: *mut crate::leanh::LeanObject,
+    mut v_EPred_43_: *mut crate::leanh::LeanObject,
+    mut v_inst_44_: *mut crate::leanh::LeanObject,
+    mut v_inst_45_: *mut crate::leanh::LeanObject,
+    mut v_inst_46_: *mut crate::leanh::LeanObject,
+    mut v_inst_47_: *mut crate::leanh::LeanObject,
+    mut v_name_48_: *mut crate::leanh::LeanObject,
+    mut v_as_49_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_50_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_50_ = l_Std_Internal_Do_assertGadget(
         v_m_41_,
         v_Pred_42_,
@@ -68,65 +62,71 @@ pub unsafe fn l_Std_Internal_Do_assertGadget___boxed(
         v_name_48_,
         v_as_49_,
     );
-    lean_dec(v_as_49_);
-    lean_dec(v_name_48_);
-    lean_dec(v_inst_47_);
+    crate::leanh::lean_dec(v_as_49_);
+    crate::leanh::lean_dec(v_name_48_);
+    crate::leanh::lean_dec(v_inst_47_);
     return v_res_50_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Std_Internal_Do_Triple_Gadget(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Std_Internal_Do_Triple_Gadget(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Std_Internal_Do_Triple_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Internal_Do_Frame(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Internal_Do_Triple_Gadget(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Internal_Do_Triple_Gadget(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Internal_Do_Triple_Gadget(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Internal_Do_Triple_Gadget(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Std_Internal_Do_Triple_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Std_Internal_Do_Frame(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Internal_Do_Triple_Gadget(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Internal_Do_Triple_Gadget(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Std_Internal_Do_Triple_Gadget(builtin);
 }

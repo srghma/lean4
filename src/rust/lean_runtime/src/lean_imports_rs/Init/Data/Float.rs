@@ -205,4 +205,3 @@ pub fn fabs(_: f64) -> f64 {
 pub fn lean_float_scaleb(_: f64, _: *mut LeanObject) -> f64 {
     todo!("Stub for lean_float_scaleb");
 }
-

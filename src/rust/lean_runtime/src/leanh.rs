@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
 
-use core::ffi::{c_char, c_void};
+use core::ffi::{c_char, c_int, c_void};
 use core::ptr;
 use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
 use std::alloc::{Layout, alloc, dealloc, handle_alloc_error};
@@ -419,7 +419,9 @@ pub unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize {
     debug_assert!(idx >= lean_ctor_num_objs(obj));
     let mut value = 0usize;
     ptr::copy_nonoverlapping(
-        lean_ctor_obj_cptr(obj).cast::<u8>().add(idx * core::mem::size_of::<usize>()),
+        lean_ctor_obj_cptr(obj)
+            .cast::<u8>()
+            .add(idx * core::mem::size_of::<usize>()),
         &mut value as *mut usize as *mut u8,
         core::mem::size_of::<usize>(),
     );
@@ -431,25 +433,30 @@ pub unsafe fn lean_ctor_set_usize(obj: *mut LeanObject, idx: usize, value: usize
     debug_assert!(idx >= lean_ctor_num_objs(obj));
     ptr::copy_nonoverlapping(
         &value as *const usize as *const u8,
-        lean_ctor_obj_cptr(obj).cast::<u8>().add(idx * core::mem::size_of::<usize>()),
+        lean_ctor_obj_cptr(obj)
+            .cast::<u8>()
+            .add(idx * core::mem::size_of::<usize>()),
         core::mem::size_of::<usize>(),
     );
 }
 
 #[inline]
-pub unsafe fn lean_ctor_get_uint8(obj: *mut LeanObject, offset: usize) -> u8 {
+pub unsafe fn lean_ctor_get_uint8(obj: *mut LeanObject, offset: u32) -> u8 {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     *lean_ctor_scalar_cptr(obj, offset)
 }
 
 #[inline]
-pub unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
+pub unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: u32, value: u8) {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     *lean_ctor_scalar_cptr(obj, offset) = value;
 }
 
 #[inline]
-pub unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: usize) -> u16 {
+pub unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: u32) -> u16 {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     let mut value = 0u16;
     ptr::copy_nonoverlapping(
@@ -461,7 +468,8 @@ pub unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: usize) -> u16 {
 }
 
 #[inline]
-pub unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) {
+pub unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: u32, value: u16) {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     ptr::copy_nonoverlapping(
         &value as *const u16 as *const u8,
@@ -471,7 +479,8 @@ pub unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u
 }
 
 #[inline]
-pub unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, offset: usize) -> u32 {
+pub unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, offset: u32) -> u32 {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     let mut value = 0u32;
     ptr::copy_nonoverlapping(
@@ -483,7 +492,8 @@ pub unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, offset: usize) -> u32 {
 }
 
 #[inline]
-pub unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u32) {
+pub unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, offset: u32, value: u32) {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     ptr::copy_nonoverlapping(
         &value as *const u32 as *const u8,
@@ -493,7 +503,8 @@ pub unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u
 }
 
 #[inline]
-pub unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
+pub unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: u32) -> u64 {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     let mut value = 0u64;
     ptr::copy_nonoverlapping(
@@ -505,7 +516,8 @@ pub unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
 }
 
 #[inline]
-pub unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
+pub unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: u32, value: u64) {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     ptr::copy_nonoverlapping(
         &value as *const u64 as *const u8,
@@ -515,7 +527,8 @@ pub unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u
 }
 
 #[inline]
-pub unsafe fn lean_ctor_get_float(obj: *mut LeanObject, offset: usize) -> f64 {
+pub unsafe fn lean_ctor_get_float(obj: *mut LeanObject, offset: u32) -> f64 {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     let mut value = 0.0f64;
     ptr::copy_nonoverlapping(
@@ -527,7 +540,8 @@ pub unsafe fn lean_ctor_get_float(obj: *mut LeanObject, offset: usize) -> f64 {
 }
 
 #[inline]
-pub unsafe fn lean_ctor_set_float(obj: *mut LeanObject, offset: usize, value: f64) {
+pub unsafe fn lean_ctor_set_float(obj: *mut LeanObject, offset: u32, value: f64) {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     ptr::copy_nonoverlapping(
         &value as *const f64 as *const u8,
@@ -537,7 +551,8 @@ pub unsafe fn lean_ctor_set_float(obj: *mut LeanObject, offset: usize, value: f6
 }
 
 #[inline]
-pub unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, offset: usize) -> f32 {
+pub unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, offset: u32) -> f32 {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     let mut value = 0.0f32;
     ptr::copy_nonoverlapping(
@@ -549,7 +564,8 @@ pub unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, offset: usize) -> f32 
 }
 
 #[inline]
-pub unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, offset: usize, value: f32) {
+pub unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, offset: u32, value: f32) {
+    let offset = offset as usize;
     debug_assert!(offset >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>());
     ptr::copy_nonoverlapping(
         &value as *const f32 as *const u8,
@@ -1274,7 +1290,7 @@ pub unsafe fn lean_box_uint32(value: u32) -> *mut LeanObject {
     let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<u32>() as u32);
     ptr::copy_nonoverlapping(
         &value as *const u32 as *const u8,
-        lean_ctor_scalar_cptr(obj),
+        lean_ctor_scalar_cptr(obj, 0),
         core::mem::size_of::<u32>(),
     );
     obj
@@ -1284,7 +1300,7 @@ pub unsafe fn lean_box_uint32(value: u32) -> *mut LeanObject {
 pub unsafe fn lean_unbox_uint32(obj: *mut LeanObject) -> u32 {
     let mut value = 0u32;
     ptr::copy_nonoverlapping(
-        lean_ctor_scalar_cptr(obj),
+        lean_ctor_scalar_cptr(obj, 0),
         &mut value as *mut u32 as *mut u8,
         core::mem::size_of::<u32>(),
     );
@@ -1308,7 +1324,7 @@ pub unsafe fn lean_box_usize(value: usize) -> *mut LeanObject {
     let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<usize>() as u32);
     ptr::copy_nonoverlapping(
         &value as *const usize as *const u8,
-        lean_ctor_scalar_cptr(obj),
+        lean_ctor_scalar_cptr(obj, 0),
         core::mem::size_of::<usize>(),
     );
     obj
@@ -1318,7 +1334,7 @@ pub unsafe fn lean_box_usize(value: usize) -> *mut LeanObject {
 pub unsafe fn lean_unbox_usize(obj: *mut LeanObject) -> usize {
     let mut value = 0usize;
     ptr::copy_nonoverlapping(
-        lean_ctor_scalar_cptr(obj),
+        lean_ctor_scalar_cptr(obj, 0),
         &mut value as *mut usize as *mut u8,
         core::mem::size_of::<usize>(),
     );
@@ -1603,6 +1619,12 @@ pub unsafe fn lean_mk_string_unchecked(
 }
 
 #[inline]
+pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
+    let len = libc::strlen(s);
+    lean_mk_string_unchecked(s, len, len)
+}
+
+#[inline]
 pub unsafe fn lean_string_utf8_byte_size(obj: *mut LeanObject) -> *mut LeanObject {
     lean_box(
         (*(obj as *const LeanStringObject<0>))
@@ -1670,6 +1692,54 @@ pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
 #[inline]
 pub unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
     lean_obj_tag(obj) == 1
+}
+
+#[inline]
+pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
+    lean_obj_tag(obj) == 0
+}
+
+#[inline]
+pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
+    debug_assert!(lean_io_result_is_ok(obj));
+    lean_ctor_get(obj, 0)
+}
+
+#[inline]
+pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
+    debug_assert!(lean_io_result_is_error(r));
+    eprintln!("Lean IO error: {r:p}");
+}
+
+#[inline]
+pub unsafe fn lean_io_mark_end_initialization() {}
+
+#[inline]
+pub unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+    argv
+}
+
+#[inline]
+pub unsafe fn lean_initialize_runtime_module() {}
+
+#[inline]
+pub unsafe fn lean_initialize() {
+    lean_initialize_runtime_module();
+}
+
+#[inline]
+pub unsafe fn lean_init_task_manager() {}
+
+#[inline]
+pub unsafe fn lean_finalize_task_manager() {}
+
+#[inline]
+pub unsafe fn lean_run_main(
+    main_fn: unsafe fn(c_int, *mut *mut c_char) -> *mut LeanObject,
+    argc: c_int,
+    argv: *mut *mut c_char,
+) -> *mut LeanObject {
+    main_fn(argc, argv)
 }
 
 #[inline]
@@ -1983,22 +2053,20 @@ pub unsafe fn lean_usize_once(loc: *mut usize, tok: *mut LeanOnceCell, init: Usi
     }
 }
 
-#[cfg(false)]
 #[inline]
 pub unsafe fn lean_float32_once(loc: *mut f32, tok: *mut LeanOnceCell, init: F32InitFn) -> f32 {
     if (*tok).state.load(Ordering::Acquire) == 1 {
         *loc
     } else {
-        crate::lean_float32_once_cold(loc, tok, init)
+        run_once(loc, tok, init)
     }
 }
 
-#[cfg(false)]
 #[inline]
 pub unsafe fn lean_float_once(loc: *mut f64, tok: *mut LeanOnceCell, init: F64InitFn) -> f64 {
     if (*tok).state.load(Ordering::Acquire) == 1 {
         *loc
     } else {
-        crate::lean_float_once_cold(loc, tok, init)
+        run_once(loc, tok, init)
     }
 }

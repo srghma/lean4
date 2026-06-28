@@ -5,4 +5,3 @@ use crate::leanh::*;
 pub fn lean_nat_log2(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_nat_log2");
 }
-

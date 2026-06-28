@@ -8,4 +8,3 @@ pub fn lean_find_expr() {
 pub fn lean_find_ext_expr() {
     todo!("Stub for lean_find_ext_expr");
 }
-

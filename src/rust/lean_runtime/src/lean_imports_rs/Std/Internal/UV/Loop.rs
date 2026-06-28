@@ -9,4 +9,3 @@ pub fn lean_uv_event_loop_configure(_: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_uv_event_loop_alive() -> u8 {
     todo!("Stub for lean_uv_event_loop_alive");
 }
-

@@ -328,4 +328,3 @@ pub fn lean_llvm_set_dll_storage_class() {
 pub fn lean_llvm_set_linkage() {
     todo!("Stub for lean_llvm_set_linkage");
 }
-

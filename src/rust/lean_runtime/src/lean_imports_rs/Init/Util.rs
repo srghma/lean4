@@ -25,4 +25,3 @@ pub fn lean_ptr_addr() {
 pub fn lean_is_exclusive_obj(_: *mut LeanObject) -> u8 {
     todo!("Stub for lean_is_exclusive_obj");
 }
-

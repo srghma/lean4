@@ -41,4 +41,3 @@ pub fn lean_strict_or() {
 pub fn lean_strict_and() {
     todo!("Stub for lean_strict_and");
 }
-

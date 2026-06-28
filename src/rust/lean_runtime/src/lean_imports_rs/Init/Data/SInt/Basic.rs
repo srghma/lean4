@@ -481,4 +481,3 @@ pub fn lean_isize_dec_lt(_: usize, _: usize) -> u8 {
 pub fn lean_isize_dec_le(_: usize, _: usize) -> u8 {
     todo!("Stub for lean_isize_dec_le");
 }
-

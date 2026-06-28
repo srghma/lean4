@@ -5,4 +5,3 @@ use crate::leanh::*;
 pub fn lean_string_of_usize(_: usize) -> *mut LeanObject {
     todo!("Stub for lean_string_of_usize");
 }
-

@@ -20,4 +20,3 @@ pub fn lean_uint64_log2(_: u64) -> u64 {
 pub fn lean_usize_log2(_: usize) -> usize {
     todo!("Stub for lean_usize_log2");
 }
-

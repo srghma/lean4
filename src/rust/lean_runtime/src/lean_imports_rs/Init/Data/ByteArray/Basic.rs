@@ -38,7 +38,13 @@ pub fn lean_byte_array_hash(_: *mut LeanObject) -> u64 {
     todo!("Stub for lean_byte_array_hash");
 }
 
-pub fn lean_byte_array_copy_slice(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8,) -> *mut LeanObject {
+pub fn lean_byte_array_copy_slice(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: u8,
+) -> *mut LeanObject {
     todo!("Stub for lean_byte_array_copy_slice");
 }
-

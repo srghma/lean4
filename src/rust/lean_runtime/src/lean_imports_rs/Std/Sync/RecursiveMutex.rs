@@ -17,4 +17,3 @@ pub fn lean_io_baserecmutex_try_lock(_: *mut LeanObject) -> u8 {
 pub fn lean_io_baserecmutex_unlock(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_baserecmutex_unlock");
 }
-

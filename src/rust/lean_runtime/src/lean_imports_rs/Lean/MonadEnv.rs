@@ -4,4 +4,3 @@
 pub fn lean_has_compile_error() {
     todo!("Stub for lean_has_compile_error");
 }
-

@@ -18,7 +18,11 @@ pub fn lean_string_is_valid_pos(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
     todo!("Stub for lean_string_is_valid_pos");
 }
 
-pub fn lean_string_utf8_extract(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject,) -> *mut LeanObject {
+pub fn lean_string_utf8_extract(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+) -> *mut LeanObject {
     todo!("Stub for lean_string_utf8_extract");
 }
 
@@ -53,4 +57,3 @@ pub fn lean_string_utf8_prev(_: *mut LeanObject, _: *mut LeanObject) -> *mut Lea
 pub fn lean_string_utf8_at_end() {
     todo!("Stub for lean_string_utf8_at_end");
 }
-

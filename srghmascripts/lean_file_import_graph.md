@@ -18,10 +18,10 @@ Edges in the Mermaid graph point from dependency to importer.
 
 - `Init.Coe` (src/rust/lean_runtime/src/gen/Init/Coe.rs_); deps: `Init.Prelude`
 - `Init.MethodSpecsSimp` (src/rust/lean_runtime/src/gen/Init/MethodSpecsSimp.rs_); deps: `Init.Prelude`
-- `Lake.Config.Kinds` (src/rust/lean_runtime/src/gen/Lake/Config/Kinds.rs_); deps: `Init.Prelude`
-- `Lake.Util.Store` (src/rust/lean_runtime/src/gen/Lake/Util/Store.rs_); deps: `Init.Prelude`
-- `Lean.Runtime` (src/rust/lean_runtime/src/gen/Lean/Runtime.rs_); deps: `Init.Prelude`
-- `Lean.Server.Test.Refs` (src/rust/lean_runtime/src/gen/Lean/Server/Test/Refs.rs_); deps: `Init.Prelude`
+<!-- - `Lake.Config.Kinds` (src/rust/lean_runtime/src/gen/Lake/Config/Kinds.rs_); deps: `Init.Prelude` -->
+<!-- - `Lake.Util.Store` (src/rust/lean_runtime/src/gen/Lake/Util/Store.rs_); deps: `Init.Prelude` -->
+<!-- - `Lean.Runtime` (src/rust/lean_runtime/src/gen/Lean/Runtime.rs_); deps: `Init.Prelude` -->
+<!-- - `Lean.Server.Test.Refs` (src/rust/lean_runtime/src/gen/Lean/Server/Test/Refs.rs_); deps: `Init.Prelude` -->
 
 ## Unblock Waves
 

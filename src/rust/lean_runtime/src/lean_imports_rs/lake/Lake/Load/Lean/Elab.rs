@@ -4,4 +4,3 @@
 pub fn lake_environment_add() {
     todo!("Stub for lake_environment_add");
 }
-

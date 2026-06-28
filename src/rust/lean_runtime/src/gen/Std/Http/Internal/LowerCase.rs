@@ -17,34 +17,30 @@ use crate::r#gen::Init::Data::UInt::Lemmas::{
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
 use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_data;
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_box, lean_dec_ref, lean_io_result_is_error,
-    lean_io_result_mk_ok,
+pub static l_Std_Http_Internal_instDecidableIsLowerCase___closed__0_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*const core::ffi::c_void>()
+            + 4
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+        other: 0,
+        tag: 245,
+    },
+    m_fun: l_Char_isUpper___boxed as *const core::ffi::c_void,
+    m_arity: 1,
+    m_num_fixed: 0,
+    m_objs: [],
 };
-pub static l_Std_Http_Internal_instDecidableIsLowerCase___closed__0_value: LeanClosureObject<0> =
-    LeanClosureObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*const core::ffi::c_void>()
-                + 4
-                + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
-            other: 0,
-            tag: 245,
-        },
-        m_fun: l_Char_isUpper___boxed as *const core::ffi::c_void,
-        m_arity: 1,
-        m_num_fixed: 0,
-        m_objs: [],
-    };
-static mut l_Std_Http_Internal_instDecidableIsLowerCase___closed__0: *mut LeanObject =
+static mut l_Std_Http_Internal_instDecidableIsLowerCase___closed__0: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instDecidableIsLowerCase___closed__0_value)
-        as *mut LeanObject;
-pub unsafe fn l_Std_Http_Internal_instDecidableIsLowerCase(mut v_s_12_: *mut LeanObject) -> u8 {
-    let mut v___x_13_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_14_: *mut LeanObject = core::ptr::null_mut();
+        as *mut crate::leanh::LeanObject;
+pub unsafe fn l_Std_Http_Internal_instDecidableIsLowerCase(
+    mut v_s_12_: *mut crate::leanh::LeanObject,
+) -> u8 {
+    let mut v___x_13_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_14_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_15_: u8 = 0;
     v___x_13_ = lean_string_data(v_s_12_);
     v___x_14_ = l_Std_Http_Internal_instDecidableIsLowerCase___closed__0;
@@ -60,98 +56,102 @@ pub unsafe fn l_Std_Http_Internal_instDecidableIsLowerCase(mut v_s_12_: *mut Lea
     }
 }
 pub unsafe fn l_Std_Http_Internal_instDecidableIsLowerCase___boxed(
-    mut v_s_18_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_s_18_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_19_: u8 = 0;
-    let mut v_r_20_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_20_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_19_ = l_Std_Http_Internal_instDecidableIsLowerCase(v_s_18_);
-    v_r_20_ = lean_box((v_res_19_) as usize);
+    v_r_20_ = crate::leanh::lean_box((v_res_19_) as usize);
     return v_r_20_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Std_Http_Internal_LowerCase(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Std_Http_Internal_LowerCase(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Grind(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Int_OfNat(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_UInt_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_String_Modify(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_String_Lemmas_Modify(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Http_Internal_LowerCase(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Http_Internal_LowerCase(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Http_Internal_LowerCase(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Http_Internal_LowerCase(builtin: u8) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Grind(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Int_OfNat(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_UInt_Lemmas(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_String_Modify(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Init_Data_String_Lemmas_Modify(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Internal_LowerCase(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Http_Internal_LowerCase(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Std_Http_Internal_LowerCase(builtin);
 }

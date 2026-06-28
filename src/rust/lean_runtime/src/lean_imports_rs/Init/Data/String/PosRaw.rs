@@ -4,4 +4,3 @@
 pub fn lean_string_get_byte_fast() {
     todo!("Stub for lean_string_get_byte_fast");
 }
-

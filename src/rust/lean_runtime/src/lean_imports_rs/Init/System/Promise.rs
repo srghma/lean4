@@ -17,4 +17,3 @@ pub fn lean_io_promise_result_opt(_: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_option_get_or_block(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_option_get_or_block");
 }
-

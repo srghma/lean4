@@ -18,11 +18,21 @@ pub fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObjec
     todo!("Stub for lean_io_as_task");
 }
 
-pub fn lean_io_map_task(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8,) -> *mut LeanObject {
+pub fn lean_io_map_task(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: u8,
+) -> *mut LeanObject {
     todo!("Stub for lean_io_map_task");
 }
 
-pub fn lean_io_bind_task(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject, _: u8,) -> *mut LeanObject {
+pub fn lean_io_bind_task(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: u8,
+) -> *mut LeanObject {
     todo!("Stub for lean_io_bind_task");
 }
 
@@ -261,4 +271,3 @@ pub fn lean_runtime_forget(_: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_runtime_hold(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_runtime_hold");
 }
-

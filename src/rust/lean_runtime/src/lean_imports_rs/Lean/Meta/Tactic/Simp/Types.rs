@@ -8,4 +8,3 @@ pub fn lean_simp() {
 pub fn lean_dsimp() {
     todo!("Stub for lean_dsimp");
 }
-

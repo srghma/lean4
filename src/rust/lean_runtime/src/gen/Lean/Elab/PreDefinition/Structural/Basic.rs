@@ -34,21 +34,13 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Lean::Util::FindExpr::lean_find_expr;
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_alloc_closure, lean_apply_1, lean_apply_2, lean_box,
-    lean_closure_set, lean_dec, lean_dec_ref, lean_dec_ref_known, lean_inc, lean_inc_ref,
-    lean_io_result_is_error, lean_io_result_mk_ok, lean_obj_once, lean_obj_tag, lean_unbox,
-    lean_unbox_usize, lean_unsigned_to_nat,
-};
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__0_value:
-    LeanArrayObject<0> = LeanArrayObject {
-    m_header: LeanObject {
+    crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<usize>() * 2
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 246,
     },
@@ -57,17 +49,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_data: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__0:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__0_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__1_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -77,17 +69,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__1:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__1_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__2_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -97,17 +89,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__2:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__2_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__3_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -117,17 +109,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__3:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__3_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__4_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -137,17 +129,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__4:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__4_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__5_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -157,17 +149,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__5:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__5_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__6_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -177,17 +169,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__6:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__6_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__7_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -197,15 +189,15 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__7:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__7_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__8_value:
-    LeanCtorObject<2> = LeanCtorObject {
-    m_header: LeanObject {
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 2
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
@@ -213,22 +205,22 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__1_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__2_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
     ],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__8:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__8_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__9_value:
-    LeanCtorObject<5> = LeanCtorObject {
-    m_header: LeanObject {
+    crate::leanh::LeanCtorObject<5> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 5
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 5
             + 0) as u16,
         other: 5,
         tag: 0,
@@ -236,31 +228,31 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__8_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__3_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__4_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__5_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__6_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
     ],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__9:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__9_value
-) as *mut LeanObject;
+) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__10_value:
-    LeanCtorObject<2> = LeanCtorObject {
-    m_header: LeanObject {
+    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * 2
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
@@ -268,26 +260,26 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___clo
     m_objs: [
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__9_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
         core::ptr::addr_of!(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__7_value
-        ) as *mut LeanObject,
+        ) as *mut crate::leanh::LeanObject,
     ],
 };
 static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__10:
-    *mut LeanObject = core::ptr::addr_of!(
+    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__10_value
-) as *mut LeanObject;
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0: *mut LeanObject =
-    core::ptr::null_mut();
+) as *mut crate::leanh::LeanObject;
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1_value:
-    LeanStringObject<41> = LeanStringObject {
-    m_header: LeanObject {
+    crate::leanh::LeanStringObject<41> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -302,12 +294,13 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1_va
         0,
     ],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__2_value:
-    LeanStringObject<44> = LeanStringObject {
-    m_header: LeanObject {
+    crate::leanh::LeanStringObject<44> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -322,12 +315,13 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__2_va
         83, 111, 114, 116, 0,
     ],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__2: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__2:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__2_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__3_value:
-    LeanStringObject<79> = LeanStringObject {
-    m_header: LeanObject {
+    crate::leanh::LeanStringObject<79> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -344,24 +338,25 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__3_va
         0,
     ],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__3: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__3:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__3_value)
-        as *mut LeanObject;
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__4_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__4: *mut LeanObject =
-    core::ptr::null_mut();
+        as *mut crate::leanh::LeanObject;
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__4_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__4:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__5_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -370,17 +365,18 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__5_va
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__5: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__5:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__5_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__6_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -389,16 +385,17 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__6_va
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__6: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__6:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__6_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__7_value:
-    LeanArrayObject<0> = LeanArrayObject {
-    m_header: LeanObject {
+    crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<usize>() * 2
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 246,
     },
@@ -406,17 +403,18 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__7_va
     m_capacity: 0,
     m_data: [],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__7: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__7:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__7_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__8_value:
-    LeanClosureObject<0> = LeanClosureObject {
-    m_header: LeanObject {
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -425,20 +423,20 @@ pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__8_va
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__8: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__8:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__8_value)
-        as *mut LeanObject;
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0: *mut LeanObject =
-    core::ptr::null_mut();
-pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1_value: LeanStringObject<
-    40,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1_value:
+    crate::leanh::LeanStringObject<40> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -453,13 +451,13 @@ pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1_value:
         0,
     ],
 };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1_value)
-        as *mut LeanObject;
-pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2_value: LeanStringObject<
-    49,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2_value:
+    crate::leanh::LeanStringObject<49> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -474,20 +472,20 @@ pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2_value:
         121, 115, 46, 115, 105, 122, 101, 10, 32, 32, 0,
     ],
 };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2_value)
-        as *mut LeanObject;
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3: *mut LeanObject =
-    core::ptr::null_mut();
-pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4_value: LeanStringObject<
-    55,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4_value:
+    crate::leanh::LeanStringObject<55> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -502,24 +500,24 @@ pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4_value:
         99, 101, 115, 32, 61, 32, 120, 115, 46, 115, 105, 122, 101, 10, 32, 32, 0,
     ],
 };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4_value)
-        as *mut LeanObject;
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5_once: LeanOnceCell =
-    LeanOnceCell {
-        state: core::sync::atomic::AtomicI32::new(0),
-        lock: core::sync::atomic::AtomicI32::new(0),
-    };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5: *mut LeanObject =
-    core::ptr::null_mut();
-pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6_value: LeanArrayObject<
-    0,
-> = LeanArrayObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5_once:
+    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    state: core::sync::atomic::AtomicI32::new(0),
+    lock: core::sync::atomic::AtomicI32::new(0),
+};
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6_value:
+    crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<LeanObject>()
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
             + core::mem::size_of::<usize>() * 2
-            + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 246,
     },
@@ -527,87 +525,88 @@ pub static l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6_value:
     m_capacity: 0,
     m_data: [],
 };
-static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6: *mut LeanObject =
+static mut l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6_value)
-        as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<5> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [69, 108, 97, 98, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<11> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [100, 101, 102, 105, 110, 105, 116, 105, 111, 110, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<11> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [115, 116, 114, 117, 99, 116, 117, 114, 97, 108, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_0: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,12843180897352504333 as *mut LeanObject] };
-static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_1: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_0) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,6897119537390546559 as *mut LeanObject] };
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_1) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,14406337792964512117 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<9> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,11079354408986465895 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<5> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,10352885018404983386 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,5444244426488757208 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<14> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [80, 114, 101, 68, 101, 102, 105, 110, 105, 116, 105, 111, 110, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,13137517462150097927 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<11> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [83, 116, 114, 117, 99, 116, 117, 114, 97, 108, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,12626132471895931337 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<6> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [66, 97, 115, 105, 99, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,13654521671067000126 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 2 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,((( 0 as usize) << 1) | 1) as *mut LeanObject,9807102839232842375 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<7> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [105, 110, 105, 116, 70, 110, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,521675044554151734 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<3> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [95, 64, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,12511094988777517575 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,2877139833357715066 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,7571840887366567224 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,2190320298132512551 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,1645003010576900649 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,10689395642969904926 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 2 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,((( 2093547783 as usize) << 1) | 1) as *mut LeanObject,1351251855787739013 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<8> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [95, 104, 121, 103, 67, 116, 120, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,3046785150952533782 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanStringObject<5> = LeanStringObject { m_header: LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [95, 104, 121, 103, 0]};
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,7324067734669508202 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
-pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: LeanCtorObject<3> = LeanCtorObject { m_header: LeanObject { rc: 0, cs_size: (core::mem::size_of::<LeanObject>() + core::mem::size_of::<*mut LeanObject>()*2 + 8) as u16, other: 2, tag: 2 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject,((( 2 as usize) << 1) | 1) as *mut LeanObject,9807608616392736339 as *mut LeanObject] };
-static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [69, 108, 97, 98, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [100, 101, 102, 105, 110, 105, 116, 105, 111, 110, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [115, 116, 114, 117, 99, 116, 117, 114, 97, 108, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,12843180897352504333 as *mut crate::leanh::LeanObject] };
+static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__1_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,6897119537390546559 as *mut crate::leanh::LeanObject] };
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__2_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,14406337792964512117 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__4_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,11079354408986465895 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__5_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,10352885018404983386 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__7_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,5444244426488757208 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [80, 114, 101, 68, 101, 102, 105, 110, 105, 116, 105, 111, 110, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__8_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,13137517462150097927 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [83, 116, 114, 117, 99, 116, 117, 114, 97, 108, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__10_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,12626132471895931337 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [66, 97, 115, 105, 99, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__12_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,13654521671067000126 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 2 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__14_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,9807102839232842375 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [105, 110, 105, 116, 70, 110, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__15_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__16_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,521675044554151734 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [95, 64, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__17_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__18_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,12511094988777517575 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__19_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__6_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,2877139833357715066 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__20_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__0_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,7571840887366567224 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__21_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__9_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,2190320298132512551 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__22_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__11_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,1645003010576900649 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__23_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__13_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,10689395642969904926 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 2 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__24_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,((( 2093547783 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,1351251855787739013 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [95, 104, 121, 103, 67, 116, 120, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__25_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__26_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,3046785150952533782 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [95, 104, 121, 103, 0]};
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__27_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__28_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,7324067734669508202 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 2 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__29_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,((( 2 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,9807608616392736339 as *mut crate::leanh::LeanObject] };
+static mut l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0(
-    mut v_recArgPos_351_: *mut LeanObject,
-    mut v_recFnName_352_: *mut LeanObject,
-    mut v_e_353_: *mut LeanObject,
+    mut v_recArgPos_351_: *mut crate::leanh::LeanObject,
+    mut v_recFnName_352_: *mut crate::leanh::LeanObject,
+    mut v_e_353_: *mut crate::leanh::LeanObject,
 ) -> u8 {
     let mut v___y_355_: u8 = 0;
-    let mut v___x_356_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_357_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_358_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_359_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_360_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_356_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_357_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_358_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_359_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_360_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_361_: u8 = 0;
     let mut v___x_362_: u8 = 0;
-    let mut v___x_363_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_363_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_364_: u8 = 0;
     let mut state = 0;
     loop {
@@ -621,7 +620,7 @@ pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0(
                 } else {
                     v___x_363_ = l_Lean_Expr_getAppNumArgs(v_e_353_);
                     v___x_364_ = lean_nat_dec_lt(v_recArgPos_351_, v___x_363_);
-                    lean_dec(v___x_363_);
+                    crate::leanh::lean_dec(v___x_363_);
                     v___y_355_ = v___x_364_;
                     state = 1;
                     continue;
@@ -633,13 +632,13 @@ pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0(
                 } else {
                     v___x_356_ = l_Lean_Expr_getAppNumArgs(v_e_353_);
                     v___x_357_ = lean_nat_sub(v___x_356_, v_recArgPos_351_);
-                    lean_dec(v___x_356_);
-                    v___x_358_ = lean_unsigned_to_nat(1);
+                    crate::leanh::lean_dec(v___x_356_);
+                    v___x_358_ = crate::leanh::lean_unsigned_to_nat(1);
                     v___x_359_ = lean_nat_sub(v___x_357_, v___x_358_);
-                    lean_dec(v___x_357_);
+                    crate::leanh::lean_dec(v___x_357_);
                     v___x_360_ = l_Lean_Expr_getRevArg_x21(v_e_353_, v___x_359_);
                     v___x_361_ = l_Lean_Expr_hasLooseBVars(v___x_360_);
-                    lean_dec_ref(v___x_360_);
+                    crate::leanh::lean_dec_ref(v___x_360_);
                     return v___x_361_;
                 }
             }
@@ -648,73 +647,73 @@ pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0(
     }
 }
 pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0___boxed(
-    mut v_recArgPos_365_: *mut LeanObject,
-    mut v_recFnName_366_: *mut LeanObject,
-    mut v_e_367_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_recArgPos_365_: *mut crate::leanh::LeanObject,
+    mut v_recFnName_366_: *mut crate::leanh::LeanObject,
+    mut v_e_367_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_368_: u8 = 0;
-    let mut v_r_369_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_369_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_368_ = l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0(
         v_recArgPos_365_,
         v_recFnName_366_,
         v_e_367_,
     );
-    lean_dec_ref(v_e_367_);
-    lean_dec(v_recFnName_366_);
-    lean_dec(v_recArgPos_365_);
-    v_r_369_ = lean_box((v_res_368_) as usize);
+    crate::leanh::lean_dec_ref(v_e_367_);
+    crate::leanh::lean_dec(v_recFnName_366_);
+    crate::leanh::lean_dec(v_recArgPos_365_);
+    v_r_369_ = crate::leanh::lean_box((v_res_368_) as usize);
     return v_r_369_;
 }
 pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt(
-    mut v_recFnName_370_: *mut LeanObject,
-    mut v_recArgPos_371_: *mut LeanObject,
-    mut v_e_372_: *mut LeanObject,
+    mut v_recFnName_370_: *mut crate::leanh::LeanObject,
+    mut v_recArgPos_371_: *mut crate::leanh::LeanObject,
+    mut v_e_372_: *mut crate::leanh::LeanObject,
 ) -> u8 {
-    let mut v___f_373_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_app_x3f_374_: *mut LeanObject = core::ptr::null_mut();
-    v___f_373_ = lean_alloc_closure(
+    let mut v___f_373_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_app_x3f_374_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___f_373_ = crate::leanh::lean_alloc_closure(
         l_Lean_Elab_Structural_recArgHasLooseBVarsAt___lam__0___boxed as *mut core::ffi::c_void,
         3,
         2,
     );
-    lean_closure_set(v___f_373_, 0, v_recArgPos_371_);
-    lean_closure_set(v___f_373_, 1, v_recFnName_370_);
+    crate::leanh::lean_closure_set(v___f_373_, 0, v_recArgPos_371_);
+    crate::leanh::lean_closure_set(v___f_373_, 1, v_recFnName_370_);
     v_app_x3f_374_ = lean_find_expr(v___f_373_, v_e_372_);
-    lean_dec_ref(v___f_373_);
-    if lean_obj_tag(v_app_x3f_374_) == 0 {
+    crate::leanh::lean_dec_ref(v___f_373_);
+    if crate::leanh::lean_obj_tag(v_app_x3f_374_) == 0 {
         let mut v___x_375_: u8 = 0;
         v___x_375_ = 0;
         return v___x_375_;
     } else {
         let mut v___x_376_: u8 = 0;
-        lean_dec_ref_known(v_app_x3f_374_, 1);
+        crate::leanh::lean_dec_ref_known(v_app_x3f_374_, 1);
         v___x_376_ = 1;
         return v___x_376_;
     }
 }
 pub unsafe fn l_Lean_Elab_Structural_recArgHasLooseBVarsAt___boxed(
-    mut v_recFnName_377_: *mut LeanObject,
-    mut v_recArgPos_378_: *mut LeanObject,
-    mut v_e_379_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_recFnName_377_: *mut crate::leanh::LeanObject,
+    mut v_recArgPos_378_: *mut crate::leanh::LeanObject,
+    mut v_e_379_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_res_380_: u8 = 0;
-    let mut v_r_381_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_r_381_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_380_ =
         l_Lean_Elab_Structural_recArgHasLooseBVarsAt(v_recFnName_377_, v_recArgPos_378_, v_e_379_);
-    lean_dec_ref(v_e_379_);
-    v_r_381_ = lean_box((v_res_380_) as usize);
+    crate::leanh::lean_dec_ref(v_e_379_);
+    v_r_381_ = crate::leanh::lean_box((v_res_380_) as usize);
     return v_r_381_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Structural_Positions_numIndices_spec__0(
-    mut v_as_382_: *mut LeanObject,
+    mut v_as_382_: *mut crate::leanh::LeanObject,
     mut v_i_383_: usize,
     mut v_stop_384_: usize,
-    mut v_b_385_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_b_385_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___x_386_: u8 = 0;
-    let mut v___x_387_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_388_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_389_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_387_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_388_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_389_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_390_: usize = 0;
     let mut v___x_391_: usize = 0;
     let mut state = 0;
@@ -726,7 +725,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                     v___x_387_ = lean_array_uget_borrowed(v_as_382_, v_i_383_);
                     v___x_388_ = lean_array_get_size(v___x_387_);
                     v___x_389_ = lean_nat_add(v_b_385_, v___x_388_);
-                    lean_dec(v_b_385_);
+                    crate::leanh::lean_dec(v_b_385_);
                     v___x_390_ = 1usize;
                     v___x_391_ = lean_usize_add(v_i_383_, v___x_390_);
                     v_i_383_ = v___x_391_;
@@ -742,29 +741,29 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Structural_Positions_numIndices_spec__0___boxed(
-    mut v_as_393_: *mut LeanObject,
-    mut v_i_394_: *mut LeanObject,
-    mut v_stop_395_: *mut LeanObject,
-    mut v_b_396_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_as_393_: *mut crate::leanh::LeanObject,
+    mut v_i_394_: *mut crate::leanh::LeanObject,
+    mut v_stop_395_: *mut crate::leanh::LeanObject,
+    mut v_b_396_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v_i_boxed_397_: usize = 0;
     let mut v_stop_boxed_398_: usize = 0;
-    let mut v_res_399_: *mut LeanObject = core::ptr::null_mut();
-    v_i_boxed_397_ = lean_unbox_usize(v_i_394_);
-    lean_dec(v_i_394_);
-    v_stop_boxed_398_ = lean_unbox_usize(v_stop_395_);
-    lean_dec(v_stop_395_);
+    let mut v_res_399_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_397_ = crate::leanh::lean_unbox_usize(v_i_394_);
+    crate::leanh::lean_dec(v_i_394_);
+    v_stop_boxed_398_ = crate::leanh::lean_unbox_usize(v_stop_395_);
+    crate::leanh::lean_dec(v_stop_395_);
     v_res_399_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Structural_Positions_numIndices_spec__0(v_as_393_, v_i_boxed_397_, v_stop_boxed_398_, v_b_396_);
-    lean_dec_ref(v_as_393_);
+    crate::leanh::lean_dec_ref(v_as_393_);
     return v_res_399_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_numIndices(
-    mut v_positions_400_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_401_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_402_: *mut LeanObject = core::ptr::null_mut();
+    mut v_positions_400_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_401_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_402_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_403_: u8 = 0;
-    v___x_401_ = lean_unsigned_to_nat(0);
+    v___x_401_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_402_ = lean_array_get_size(v_positions_400_);
     v___x_403_ = lean_nat_dec_lt(v___x_401_, v___x_402_);
     if v___x_403_ == 0 {
@@ -778,7 +777,7 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_numIndices(
             } else {
                 let mut v___x_405_: usize = 0;
                 let mut v___x_406_: usize = 0;
-                let mut v___x_407_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_407_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_405_ = 0usize;
                 v___x_406_ = lean_usize_of_nat(v___x_402_);
                 v___x_407_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Structural_Positions_numIndices_spec__0(v_positions_400_, v___x_405_, v___x_406_, v___x_401_);
@@ -787,7 +786,7 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_numIndices(
         } else {
             let mut v___x_408_: usize = 0;
             let mut v___x_409_: usize = 0;
-            let mut v___x_410_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_410_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_408_ = 0usize;
             v___x_409_ = lean_usize_of_nat(v___x_402_);
             v___x_410_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Structural_Positions_numIndices_spec__0(v_positions_400_, v___x_408_, v___x_409_, v___x_401_);
@@ -796,50 +795,50 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_numIndices(
     }
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_numIndices___boxed(
-    mut v_positions_411_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_412_: *mut LeanObject = core::ptr::null_mut();
+    mut v_positions_411_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_412_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_412_ = l_Lean_Elab_Structural_Positions_numIndices(v_positions_411_);
-    lean_dec_ref(v_positions_411_);
+    crate::leanh::lean_dec_ref(v_positions_411_);
     return v_res_412_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__0(
-    mut v_inst_413_: *mut LeanObject,
-    mut v_xs_414_: *mut LeanObject,
-    mut v_f_415_: *mut LeanObject,
-    mut v_inst_416_: *mut LeanObject,
-    mut v_x_417_: *mut LeanObject,
-    mut v_x1_418_: *mut LeanObject,
-    mut v_x2_419_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_420_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_421_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_422_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_413_: *mut crate::leanh::LeanObject,
+    mut v_xs_414_: *mut crate::leanh::LeanObject,
+    mut v_f_415_: *mut crate::leanh::LeanObject,
+    mut v_inst_416_: *mut crate::leanh::LeanObject,
+    mut v_x_417_: *mut crate::leanh::LeanObject,
+    mut v_x1_418_: *mut crate::leanh::LeanObject,
+    mut v_x2_419_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_420_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_421_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_422_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_423_: u8 = 0;
     v___x_420_ = lean_array_get_borrowed(v_inst_413_, v_xs_414_, v_x2_419_);
-    lean_inc(v___x_420_);
-    v___x_421_ = lean_apply_1(v_f_415_, v___x_420_);
-    v___x_422_ = lean_apply_2(v_inst_416_, v___x_421_, v_x_417_);
-    v___x_423_ = (lean_unbox(v___x_422_) as u8);
+    crate::leanh::lean_inc(v___x_420_);
+    v___x_421_ = crate::leanh::lean_apply_1(v_f_415_, v___x_420_);
+    v___x_422_ = crate::leanh::lean_apply_2(v_inst_416_, v___x_421_, v_x_417_);
+    v___x_423_ = (crate::leanh::lean_unbox(v___x_422_) as u8);
     if v___x_423_ == 0 {
-        lean_dec(v_x2_419_);
+        crate::leanh::lean_dec(v_x2_419_);
         return v_x1_418_;
     } else {
-        let mut v___x_424_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_424_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         v___x_424_ = lean_array_push(v_x1_418_, v_x2_419_);
         return v___x_424_;
     }
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__0___boxed(
-    mut v_inst_425_: *mut LeanObject,
-    mut v_xs_426_: *mut LeanObject,
-    mut v_f_427_: *mut LeanObject,
-    mut v_inst_428_: *mut LeanObject,
-    mut v_x_429_: *mut LeanObject,
-    mut v_x1_430_: *mut LeanObject,
-    mut v_x2_431_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_432_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_425_: *mut crate::leanh::LeanObject,
+    mut v_xs_426_: *mut crate::leanh::LeanObject,
+    mut v_f_427_: *mut crate::leanh::LeanObject,
+    mut v_inst_428_: *mut crate::leanh::LeanObject,
+    mut v_x_429_: *mut crate::leanh::LeanObject,
+    mut v_x1_430_: *mut crate::leanh::LeanObject,
+    mut v_x2_431_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_432_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_432_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__0(
         v_inst_425_,
         v_xs_426_,
@@ -849,69 +848,69 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__0___
         v_x1_430_,
         v_x2_431_,
     );
-    lean_dec_ref(v_xs_426_);
-    lean_dec(v_inst_425_);
+    crate::leanh::lean_dec_ref(v_xs_426_);
+    crate::leanh::lean_dec(v_inst_425_);
     return v_res_432_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1(
-    mut v_xs_454_: *mut LeanObject,
-    mut v_inst_455_: *mut LeanObject,
-    mut v_f_456_: *mut LeanObject,
-    mut v_inst_457_: *mut LeanObject,
-    mut v_x_458_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_459_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_460_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_461_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_462_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_463_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_464_: *mut LeanObject = core::ptr::null_mut();
+    mut v_xs_454_: *mut crate::leanh::LeanObject,
+    mut v_inst_455_: *mut crate::leanh::LeanObject,
+    mut v_f_456_: *mut crate::leanh::LeanObject,
+    mut v_inst_457_: *mut crate::leanh::LeanObject,
+    mut v_x_458_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_459_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_460_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_461_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_462_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_463_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_464_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_465_: u8 = 0;
     v___x_459_ = lean_array_get_size(v_xs_454_);
     v___x_460_ = l_Array_range(v___x_459_);
-    v___x_461_ = lean_unsigned_to_nat(0);
+    v___x_461_ = crate::leanh::lean_unsigned_to_nat(0);
     v___x_462_ = lean_array_get_size(v___x_460_);
     v___x_463_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__0;
     v___x_464_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__10;
     v___x_465_ = lean_nat_dec_lt(v___x_461_, v___x_462_);
     if v___x_465_ == 0 {
-        lean_dec_ref(v___x_460_);
-        lean_dec(v_x_458_);
-        lean_dec_ref(v_inst_457_);
-        lean_dec(v_f_456_);
-        lean_dec(v_inst_455_);
-        lean_dec_ref(v_xs_454_);
+        crate::leanh::lean_dec_ref(v___x_460_);
+        crate::leanh::lean_dec(v_x_458_);
+        crate::leanh::lean_dec_ref(v_inst_457_);
+        crate::leanh::lean_dec(v_f_456_);
+        crate::leanh::lean_dec(v_inst_455_);
+        crate::leanh::lean_dec_ref(v_xs_454_);
         return v___x_463_;
     } else {
-        let mut v___f_466_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___f_466_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_467_: u8 = 0;
-        v___f_466_ = lean_alloc_closure(
+        v___f_466_ = crate::leanh::lean_alloc_closure(
             l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__0___boxed
                 as *mut core::ffi::c_void,
             7,
             5,
         );
-        lean_closure_set(v___f_466_, 0, v_inst_455_);
-        lean_closure_set(v___f_466_, 1, v_xs_454_);
-        lean_closure_set(v___f_466_, 2, v_f_456_);
-        lean_closure_set(v___f_466_, 3, v_inst_457_);
-        lean_closure_set(v___f_466_, 4, v_x_458_);
+        crate::leanh::lean_closure_set(v___f_466_, 0, v_inst_455_);
+        crate::leanh::lean_closure_set(v___f_466_, 1, v_xs_454_);
+        crate::leanh::lean_closure_set(v___f_466_, 2, v_f_456_);
+        crate::leanh::lean_closure_set(v___f_466_, 3, v_inst_457_);
+        crate::leanh::lean_closure_set(v___f_466_, 4, v_x_458_);
         v___x_467_ = lean_nat_dec_le(v___x_462_, v___x_462_);
         if v___x_467_ == 0 {
             if v___x_465_ == 0 {
-                lean_dec_ref(v___f_466_);
-                lean_dec_ref(v___x_460_);
+                crate::leanh::lean_dec_ref(v___f_466_);
+                crate::leanh::lean_dec_ref(v___x_460_);
                 return v___x_463_;
             } else {
                 let mut v___x_468_: usize = 0;
                 let mut v___x_469_: usize = 0;
-                let mut v___x_470_: *mut LeanObject = core::ptr::null_mut();
+                let mut v___x_470_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
                 v___x_468_ = 0usize;
                 v___x_469_ = lean_usize_of_nat(v___x_462_);
                 v___x_470_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_464_,
                     v___f_466_,
                     v___x_460_,
@@ -924,13 +923,13 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1(
         } else {
             let mut v___x_471_: usize = 0;
             let mut v___x_472_: usize = 0;
-            let mut v___x_473_: *mut LeanObject = core::ptr::null_mut();
+            let mut v___x_473_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
             v___x_471_ = 0usize;
             v___x_472_ = lean_usize_of_nat(v___x_462_);
             v___x_473_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                lean_box(0),
-                lean_box(0),
-                lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
+                crate::leanh::lean_box(0),
                 v___x_464_,
                 v___f_466_,
                 v___x_460_,
@@ -943,22 +942,22 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1(
     }
 }
 pub unsafe fn _init_l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0()
--> *mut LeanObject {
-    let mut v___x_474_: *mut LeanObject = core::ptr::null_mut();
-    v___x_474_ = l_Array_instInhabited(lean_box(0));
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_474_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_474_ = l_Array_instInhabited(crate::leanh::lean_box(0));
     return v___x_474_;
 }
 pub unsafe fn _init_l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__4()
--> *mut LeanObject {
-    let mut v___x_478_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_479_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_480_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_481_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_482_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_483_: *mut LeanObject = core::ptr::null_mut();
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_478_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_479_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_480_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_481_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_482_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_483_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_478_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__3;
-    v___x_479_ = lean_unsigned_to_nat(2);
-    v___x_480_ = lean_unsigned_to_nat(63);
+    v___x_479_ = crate::leanh::lean_unsigned_to_nat(2);
+    v___x_480_ = crate::leanh::lean_unsigned_to_nat(63);
     v___x_481_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__2;
     v___x_482_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1;
     v___x_483_ =
@@ -966,82 +965,82 @@ pub unsafe fn _init_l_Lean_Elab_Structural_Positions_groupAndSort___redArg___clo
     return v___x_483_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
-    mut v_inst_489_: *mut LeanObject,
-    mut v_inst_490_: *mut LeanObject,
-    mut v_f_491_: *mut LeanObject,
-    mut v_xs_492_: *mut LeanObject,
-    mut v_ys_493_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_495_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_496_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_497_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_498_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___f_499_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_500_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_489_: *mut crate::leanh::LeanObject,
+    mut v_inst_490_: *mut crate::leanh::LeanObject,
+    mut v_f_491_: *mut crate::leanh::LeanObject,
+    mut v_xs_492_: *mut crate::leanh::LeanObject,
+    mut v_ys_493_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_495_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_496_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_497_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_498_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_499_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_500_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_sz_501_: usize = 0;
     let mut v___x_502_: usize = 0;
-    let mut v_positions_503_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_504_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_505_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_507_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_508_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_509_: *mut LeanObject = core::ptr::null_mut();
+    let mut v_positions_503_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_504_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_505_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_507_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_508_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_509_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_510_: u8 = 0;
     let mut v___x_511_: u8 = 0;
-    let mut v___y_513_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_514_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_515_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_516_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_517_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_518_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_520_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_521_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_522_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_523_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___y_524_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___y_513_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_514_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_515_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_516_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_517_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_518_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_520_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_521_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_522_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_523_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_524_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_525_: u8 = 0;
-    let mut v___y_527_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_528_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_529_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___y_527_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_528_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_529_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_530_: u8 = 0;
-    let mut v___x_531_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_532_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_533_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_531_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_532_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_533_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_534_: u8 = 0;
-    let mut v___x_535_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_536_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_537_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_535_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_536_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_537_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_538_: u8 = 0;
-    let mut v___f_539_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___f_539_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_540_: u8 = 0;
     let mut v___x_541_: usize = 0;
-    let mut v___x_542_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_542_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_543_: usize = 0;
-    let mut v___x_544_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_544_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
                 v___f_498_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__5;
-                lean_inc_ref(v_xs_492_);
-                v___f_499_ = lean_alloc_closure(
+                crate::leanh::lean_inc_ref(v_xs_492_);
+                v___f_499_ = crate::leanh::lean_alloc_closure(
                     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1
                         as *mut core::ffi::c_void,
                     5,
                     4,
                 );
-                lean_closure_set(v___f_499_, 0, v_xs_492_);
-                lean_closure_set(v___f_499_, 1, v_inst_489_);
-                lean_closure_set(v___f_499_, 2, v_f_491_);
-                lean_closure_set(v___f_499_, 3, v_inst_490_);
+                crate::leanh::lean_closure_set(v___f_499_, 0, v_xs_492_);
+                crate::leanh::lean_closure_set(v___f_499_, 1, v_inst_489_);
+                crate::leanh::lean_closure_set(v___f_499_, 2, v_f_491_);
+                crate::leanh::lean_closure_set(v___f_499_, 3, v_inst_490_);
                 v___x_500_ =
                     l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__10;
                 v_sz_501_ = lean_array_size(v_ys_493_);
                 v___x_502_ = 0usize;
                 v_positions_503_ = l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map(
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___x_500_,
                     v___f_499_,
                     v_sz_501_,
@@ -1049,9 +1048,9 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                     v_ys_493_,
                 );
                 v___x_504_ = lean_array_get_size(v_xs_492_);
-                lean_dec_ref(v_xs_492_);
+                crate::leanh::lean_dec_ref(v_xs_492_);
                 v___x_505_ = l_Array_range(v___x_504_);
-                v___x_535_ = lean_unsigned_to_nat(0);
+                v___x_535_ = crate::leanh::lean_unsigned_to_nat(0);
                 v___x_536_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__7;
                 v___x_537_ = lean_array_get_size(v_positions_503_);
                 v___x_538_ = lean_nat_dec_lt(v___x_535_, v___x_537_);
@@ -1069,12 +1068,12 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                             continue;
                         } else {
                             v___x_541_ = lean_usize_of_nat(v___x_537_);
-                            lean_inc(v_positions_503_);
+                            crate::leanh::lean_inc(v_positions_503_);
                             v___x_542_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    lean_box(0),
-                                    lean_box(0),
-                                    lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
+                                    crate::leanh::lean_box(0),
                                     v___x_500_,
                                     v___f_539_,
                                     v_positions_503_,
@@ -1088,11 +1087,11 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                         }
                     } else {
                         v___x_543_ = lean_usize_of_nat(v___x_537_);
-                        lean_inc(v_positions_503_);
+                        crate::leanh::lean_inc(v_positions_503_);
                         v___x_544_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                            lean_box(0),
-                            lean_box(0),
-                            lean_box(0),
+                            crate::leanh::lean_box(0),
+                            crate::leanh::lean_box(0),
+                            crate::leanh::lean_box(0),
                             v___x_500_,
                             v___f_539_,
                             v_positions_503_,
@@ -1107,7 +1106,7 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                 }
             }
             1 => {
-                v___x_495_ = lean_obj_once(
+                v___x_495_ = crate::leanh::lean_obj_once(
                     core::ptr::addr_of_mut!(
                         l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0
                     ),
@@ -1116,7 +1115,7 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                     ),
                     _init_l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__0,
                 );
-                v___x_496_ = lean_obj_once(
+                v___x_496_ = crate::leanh::lean_obj_once(
                     core::ptr::addr_of_mut!(
                         l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__4
                     ),
@@ -1133,18 +1132,18 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                 v___x_509_ = lean_array_get_size(v___y_507_);
                 v___x_510_ = lean_nat_dec_eq(v___x_508_, v___x_509_);
                 if v___x_510_ == 0 {
-                    lean_dec_ref(v___y_507_);
-                    lean_dec_ref(v___x_505_);
-                    lean_dec(v_positions_503_);
+                    crate::leanh::lean_dec_ref(v___y_507_);
+                    crate::leanh::lean_dec_ref(v___x_505_);
+                    crate::leanh::lean_dec(v_positions_503_);
                     state = 1;
                     continue;
                 } else {
                     v___x_511_ =
                         l_Array_isEqvAux___redArg(v___x_505_, v___y_507_, v___f_498_, v___x_508_);
-                    lean_dec_ref(v___y_507_);
-                    lean_dec_ref(v___x_505_);
+                    crate::leanh::lean_dec_ref(v___y_507_);
+                    crate::leanh::lean_dec_ref(v___x_505_);
                     if v___x_511_ == 0 {
-                        lean_dec(v_positions_503_);
+                        crate::leanh::lean_dec(v_positions_503_);
                         state = 1;
                         continue;
                     } else {
@@ -1153,20 +1152,20 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
                 }
             }
             3 => {
-                lean_inc_ref(v___y_513_);
+                crate::leanh::lean_inc_ref(v___y_513_);
                 v___x_518_ = l___private_Init_Data_Array_QSort_Basic_0__Array_qsort_sort(
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
                     v___y_513_,
                     v___y_514_,
                     v___y_516_,
                     v___y_515_,
                     v___y_517_,
-                    lean_box(0),
-                    lean_box(0),
-                    lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
+                    crate::leanh::lean_box(0),
                 );
-                lean_dec(v___y_517_);
-                lean_dec(v___y_514_);
+                crate::leanh::lean_dec(v___y_517_);
+                crate::leanh::lean_dec(v___y_514_);
                 v___y_507_ = v___x_518_;
                 state = 2;
                 continue;
@@ -1174,8 +1173,8 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
             4 => {
                 v___x_525_ = lean_nat_dec_le(v___y_524_, v___y_521_);
                 if v___x_525_ == 0 {
-                    lean_dec(v___y_521_);
-                    lean_inc(v___y_524_);
+                    crate::leanh::lean_dec(v___y_521_);
+                    crate::leanh::lean_inc(v___y_524_);
                     v___y_513_ = v___y_520_;
                     v___y_514_ = v___y_522_;
                     v___y_515_ = v___y_524_;
@@ -1195,15 +1194,15 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
             }
             5 => {
                 v___x_528_ = lean_array_get_size(v___y_527_);
-                v___x_529_ = lean_unsigned_to_nat(0);
+                v___x_529_ = crate::leanh::lean_unsigned_to_nat(0);
                 v___x_530_ = lean_nat_dec_eq(v___x_528_, v___x_529_);
                 if v___x_530_ == 0 {
                     v___x_531_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__6;
-                    v___x_532_ = lean_unsigned_to_nat(1);
+                    v___x_532_ = crate::leanh::lean_unsigned_to_nat(1);
                     v___x_533_ = lean_nat_sub(v___x_528_, v___x_532_);
                     v___x_534_ = lean_nat_dec_le(v___x_529_, v___x_533_);
                     if v___x_534_ == 0 {
-                        lean_inc(v___x_533_);
+                        crate::leanh::lean_inc(v___x_533_);
                         v___y_520_ = v___x_531_;
                         v___y_521_ = v___x_533_;
                         v___y_522_ = v___x_528_;
@@ -1231,15 +1230,15 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
     }
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort(
-    mut v_00_u03b1_545_: *mut LeanObject,
-    mut v_00_u03b2_546_: *mut LeanObject,
-    mut v_inst_547_: *mut LeanObject,
-    mut v_inst_548_: *mut LeanObject,
-    mut v_f_549_: *mut LeanObject,
-    mut v_xs_550_: *mut LeanObject,
-    mut v_ys_551_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_552_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_545_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_546_: *mut crate::leanh::LeanObject,
+    mut v_inst_547_: *mut crate::leanh::LeanObject,
+    mut v_inst_548_: *mut crate::leanh::LeanObject,
+    mut v_f_549_: *mut crate::leanh::LeanObject,
+    mut v_xs_550_: *mut crate::leanh::LeanObject,
+    mut v_ys_551_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_552_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_552_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg(
         v_inst_547_,
         v_inst_548_,
@@ -1250,75 +1249,75 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_groupAndSort(
     return v___x_552_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg___lam__0(
-    mut v_inst_553_: *mut LeanObject,
-    mut v_xs_554_: *mut LeanObject,
-    mut v_x_555_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_556_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_553_: *mut crate::leanh::LeanObject,
+    mut v_xs_554_: *mut crate::leanh::LeanObject,
+    mut v_x_555_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_556_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_556_ = lean_array_get_borrowed(v_inst_553_, v_xs_554_, v_x_555_);
-    lean_inc(v___x_556_);
+    crate::leanh::lean_inc(v___x_556_);
     return v___x_556_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg___lam__0___boxed(
-    mut v_inst_557_: *mut LeanObject,
-    mut v_xs_558_: *mut LeanObject,
-    mut v_x_559_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_560_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_557_: *mut crate::leanh::LeanObject,
+    mut v_xs_558_: *mut crate::leanh::LeanObject,
+    mut v_x_559_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_560_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_560_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg___lam__0(
         v_inst_557_,
         v_xs_558_,
         v_x_559_,
     );
-    lean_dec(v_x_559_);
-    lean_dec_ref(v_xs_558_);
-    lean_dec(v_inst_557_);
+    crate::leanh::lean_dec(v_x_559_);
+    crate::leanh::lean_dec_ref(v_xs_558_);
+    crate::leanh::lean_dec(v_inst_557_);
     return v_res_560_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg___lam__1(
-    mut v___f_561_: *mut LeanObject,
-    mut v_f_562_: *mut LeanObject,
-    mut v_y_563_: *mut LeanObject,
-    mut v_poss_564_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_565_: *mut LeanObject = core::ptr::null_mut();
+    mut v___f_561_: *mut crate::leanh::LeanObject,
+    mut v_f_562_: *mut crate::leanh::LeanObject,
+    mut v_y_563_: *mut crate::leanh::LeanObject,
+    mut v_poss_564_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_565_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_sz_566_: usize = 0;
     let mut v___x_567_: usize = 0;
-    let mut v___x_568_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_569_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_568_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_569_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_565_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__10;
     v_sz_566_ = lean_array_size(v_poss_564_);
     v___x_567_ = 0usize;
     v___x_568_ = l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map(
-        lean_box(0),
-        lean_box(0),
-        lean_box(0),
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
+        crate::leanh::lean_box(0),
         v___x_565_,
         v___f_561_,
         v_sz_566_,
         v___x_567_,
         v_poss_564_,
     );
-    v___x_569_ = lean_apply_2(v_f_562_, v_y_563_, v___x_568_);
+    v___x_569_ = crate::leanh::lean_apply_2(v_f_562_, v_y_563_, v___x_568_);
     return v___x_569_;
 }
 pub unsafe fn _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0()
--> *mut LeanObject {
-    let mut v___x_570_: *mut LeanObject = core::ptr::null_mut();
-    v___x_570_ = l_Array_instInhabited(lean_box(0));
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_570_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___x_570_ = l_Array_instInhabited(crate::leanh::lean_box(0));
     return v___x_570_;
 }
 pub unsafe fn _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3()
--> *mut LeanObject {
-    let mut v___x_573_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_574_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_575_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_576_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_577_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_578_: *mut LeanObject = core::ptr::null_mut();
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_573_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_574_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_575_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_576_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_577_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_578_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_573_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__2;
-    v___x_574_ = lean_unsigned_to_nat(2);
-    v___x_575_ = lean_unsigned_to_nat(73);
+    v___x_574_ = crate::leanh::lean_unsigned_to_nat(2);
+    v___x_575_ = crate::leanh::lean_unsigned_to_nat(73);
     v___x_576_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1;
     v___x_577_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1;
     v___x_578_ =
@@ -1326,16 +1325,16 @@ pub unsafe fn _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed_
     return v___x_578_;
 }
 pub unsafe fn _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5()
--> *mut LeanObject {
-    let mut v___x_580_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_581_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_582_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_583_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_584_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_585_: *mut LeanObject = core::ptr::null_mut();
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_580_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_581_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_582_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_583_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_584_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_585_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_580_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__4;
-    v___x_581_ = lean_unsigned_to_nat(2);
-    v___x_582_ = lean_unsigned_to_nat(74);
+    v___x_581_ = crate::leanh::lean_unsigned_to_nat(2);
+    v___x_582_ = crate::leanh::lean_unsigned_to_nat(74);
     v___x_583_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__1;
     v___x_584_ = l_Lean_Elab_Structural_Positions_groupAndSort___redArg___closed__1;
     v___x_585_ =
@@ -1343,30 +1342,30 @@ pub unsafe fn _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed_
     return v___x_585_;
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg(
-    mut v_inst_588_: *mut LeanObject,
-    mut v_inst_589_: *mut LeanObject,
-    mut v_f_590_: *mut LeanObject,
-    mut v_positions_591_: *mut LeanObject,
-    mut v_ys_592_: *mut LeanObject,
-    mut v_xs_593_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_594_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_595_: *mut LeanObject = core::ptr::null_mut();
+    mut v_inst_588_: *mut crate::leanh::LeanObject,
+    mut v_inst_589_: *mut crate::leanh::LeanObject,
+    mut v_f_590_: *mut crate::leanh::LeanObject,
+    mut v_positions_591_: *mut crate::leanh::LeanObject,
+    mut v_ys_592_: *mut crate::leanh::LeanObject,
+    mut v_xs_593_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_594_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_595_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_596_: u8 = 0;
     v___x_594_ = lean_array_get_size(v_positions_591_);
     v___x_595_ = lean_array_get_size(v_ys_592_);
     v___x_596_ = lean_nat_dec_eq(v___x_594_, v___x_595_);
     if v___x_596_ == 0 {
-        let mut v___x_597_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_598_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_599_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_600_: *mut LeanObject = core::ptr::null_mut();
-        lean_dec_ref(v_xs_593_);
-        lean_dec_ref(v_ys_592_);
-        lean_dec_ref(v_positions_591_);
-        lean_dec(v_f_590_);
-        lean_dec(v_inst_589_);
-        v___x_597_ = lean_obj_once(
+        let mut v___x_597_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_598_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_599_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_600_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        crate::leanh::lean_dec_ref(v_xs_593_);
+        crate::leanh::lean_dec_ref(v_ys_592_);
+        crate::leanh::lean_dec_ref(v_positions_591_);
+        crate::leanh::lean_dec(v_f_590_);
+        crate::leanh::lean_dec(v_inst_589_);
+        v___x_597_ = crate::leanh::lean_obj_once(
             core::ptr::addr_of_mut!(l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0),
             core::ptr::addr_of_mut!(
                 l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0_once
@@ -1374,7 +1373,7 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg(
             _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0,
         );
         v___x_598_ = l_instInhabitedOfMonad___redArg(v_inst_588_, v___x_597_);
-        v___x_599_ = lean_obj_once(
+        v___x_599_ = crate::leanh::lean_obj_once(
             core::ptr::addr_of_mut!(l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3),
             core::ptr::addr_of_mut!(
                 l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3_once
@@ -1382,27 +1381,27 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg(
             _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__3,
         );
         v___x_600_ = l_panic___redArg(v___x_598_, v___x_599_);
-        lean_dec(v___x_598_);
+        crate::leanh::lean_dec(v___x_598_);
         return v___x_600_;
     } else {
-        let mut v___x_601_: *mut LeanObject = core::ptr::null_mut();
-        let mut v___x_602_: *mut LeanObject = core::ptr::null_mut();
+        let mut v___x_601_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_602_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_603_: u8 = 0;
         v___x_601_ = l_Lean_Elab_Structural_Positions_numIndices(v_positions_591_);
         v___x_602_ = lean_array_get_size(v_xs_593_);
         v___x_603_ = lean_nat_dec_eq(v___x_601_, v___x_602_);
-        lean_dec(v___x_601_);
+        crate::leanh::lean_dec(v___x_601_);
         if v___x_603_ == 0 {
-            let mut v___x_604_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_605_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_606_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_607_: *mut LeanObject = core::ptr::null_mut();
-            lean_dec_ref(v_xs_593_);
-            lean_dec_ref(v_ys_592_);
-            lean_dec_ref(v_positions_591_);
-            lean_dec(v_f_590_);
-            lean_dec(v_inst_589_);
-            v___x_604_ = lean_obj_once(
+            let mut v___x_604_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_605_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_606_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_607_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            crate::leanh::lean_dec_ref(v_xs_593_);
+            crate::leanh::lean_dec_ref(v_ys_592_);
+            crate::leanh::lean_dec_ref(v_positions_591_);
+            crate::leanh::lean_dec(v_f_590_);
+            crate::leanh::lean_dec(v_inst_589_);
+            v___x_604_ = crate::leanh::lean_obj_once(
                 core::ptr::addr_of_mut!(
                     l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0
                 ),
@@ -1412,7 +1411,7 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg(
                 _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__0,
             );
             v___x_605_ = l_instInhabitedOfMonad___redArg(v_inst_588_, v___x_604_);
-            v___x_606_ = lean_obj_once(
+            v___x_606_ = crate::leanh::lean_obj_once(
                 core::ptr::addr_of_mut!(
                     l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5
                 ),
@@ -1422,31 +1421,31 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg(
                 _init_l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__5,
             );
             v___x_607_ = l_panic___redArg(v___x_605_, v___x_606_);
-            lean_dec(v___x_605_);
+            crate::leanh::lean_dec(v___x_605_);
             return v___x_607_;
         } else {
-            let mut v___f_608_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___f_609_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_610_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_611_: *mut LeanObject = core::ptr::null_mut();
-            let mut v___x_612_: *mut LeanObject = core::ptr::null_mut();
-            v___f_608_ = lean_alloc_closure(
+            let mut v___f_608_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___f_609_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_610_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_611_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_612_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            v___f_608_ = crate::leanh::lean_alloc_closure(
                 l_Lean_Elab_Structural_Positions_mapMwith___redArg___lam__0___boxed
                     as *mut core::ffi::c_void,
                 3,
                 2,
             );
-            lean_closure_set(v___f_608_, 0, v_inst_589_);
-            lean_closure_set(v___f_608_, 1, v_xs_593_);
-            v___f_609_ = lean_alloc_closure(
+            crate::leanh::lean_closure_set(v___f_608_, 0, v_inst_589_);
+            crate::leanh::lean_closure_set(v___f_608_, 1, v_xs_593_);
+            v___f_609_ = crate::leanh::lean_alloc_closure(
                 l_Lean_Elab_Structural_Positions_mapMwith___redArg___lam__1
                     as *mut core::ffi::c_void,
                 4,
                 2,
             );
-            lean_closure_set(v___f_609_, 0, v___f_608_);
-            lean_closure_set(v___f_609_, 1, v_f_590_);
-            v___x_610_ = lean_unsigned_to_nat(0);
+            crate::leanh::lean_closure_set(v___f_609_, 0, v___f_608_);
+            crate::leanh::lean_closure_set(v___f_609_, 1, v_f_590_);
+            v___x_610_ = crate::leanh::lean_unsigned_to_nat(0);
             v___x_611_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg___closed__6;
             v___x_612_ = l_Array_zipWithMAux___redArg(
                 v_inst_588_,
@@ -1461,18 +1460,18 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith___redArg(
     }
 }
 pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith(
-    mut v_00_u03b3_613_: *mut LeanObject,
-    mut v_00_u03b1_614_: *mut LeanObject,
-    mut v_00_u03b2_615_: *mut LeanObject,
-    mut v_m_616_: *mut LeanObject,
-    mut v_inst_617_: *mut LeanObject,
-    mut v_inst_618_: *mut LeanObject,
-    mut v_f_619_: *mut LeanObject,
-    mut v_positions_620_: *mut LeanObject,
-    mut v_ys_621_: *mut LeanObject,
-    mut v_xs_622_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v___x_623_: *mut LeanObject = core::ptr::null_mut();
+    mut v_00_u03b3_613_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b1_614_: *mut crate::leanh::LeanObject,
+    mut v_00_u03b2_615_: *mut crate::leanh::LeanObject,
+    mut v_m_616_: *mut crate::leanh::LeanObject,
+    mut v_inst_617_: *mut crate::leanh::LeanObject,
+    mut v_inst_618_: *mut crate::leanh::LeanObject,
+    mut v_f_619_: *mut crate::leanh::LeanObject,
+    mut v_positions_620_: *mut crate::leanh::LeanObject,
+    mut v_ys_621_: *mut crate::leanh::LeanObject,
+    mut v_xs_622_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v___x_623_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_623_ = l_Lean_Elab_Structural_Positions_mapMwith___redArg(
         v_inst_617_,
         v_inst_618_,
@@ -1484,11 +1483,11 @@ pub unsafe fn l_Lean_Elab_Structural_Positions_mapMwith(
     return v___x_623_;
 }
 pub unsafe fn l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_()
--> *mut LeanObject {
-    let mut v___x_695_: *mut LeanObject = core::ptr::null_mut();
+-> *mut crate::leanh::LeanObject {
+    let mut v___x_695_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_696_: u8 = 0;
-    let mut v___x_697_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_698_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_697_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_698_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_695_ = l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__3_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_;
     v___x_696_ = 0;
     v___x_697_ = l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn___closed__30_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_;
@@ -1496,65 +1495,67 @@ pub unsafe fn l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn_00_
     return v___x_698_;
 }
 pub unsafe fn l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2____boxed(
-    mut v_a_699_: *mut LeanObject,
-) -> *mut LeanObject {
-    let mut v_res_700_: *mut LeanObject = core::ptr::null_mut();
+    mut v_a_699_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
+    let mut v_res_700_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v_res_700_ = l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_();
     return v_res_700_;
 }
 static mut _G_runtime_initialized: bool = false;
 pub unsafe fn runtime_initialize_Lean_Elab_PreDefinition_Structural_Basic(
     builtin: u8,
-) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Lean_Meta_ForEachExpr(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = l___private_Lean_Elab_PreDefinition_Structural_Basic_0__initFn_00___x40_Lean_Elab_PreDefinition_Structural_Basic_2093547783____hygCtx___hyg_2_();
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
 pub unsafe fn meta_initialize_Lean_Elab_PreDefinition_Structural_Basic(
     builtin: u8,
-) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Lean_Elab_PreDefinition_Structural_Basic(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Lean_Elab_PreDefinition_Structural_Basic(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Lean_Meta_ForEachExpr(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Elab_PreDefinition_Structural_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Lean_Elab_PreDefinition_Structural_Basic(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Lean_Elab_PreDefinition_Structural_Basic(builtin);
 }

@@ -9,17 +9,9 @@ use crate::r#gen::Std::Http::Internal::ChunkedBuffer::{
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_to_utf8;
 use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_byte_array_size, lean_nat_add};
-use crate::leanh::{
-    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass, LeanExternalObject,
-    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, lean_alloc_ctor, lean_box, lean_ctor_get, lean_ctor_set,
-    lean_dec, lean_dec_ref, lean_inc, lean_inc_ref, lean_io_result_is_error, lean_io_result_mk_ok,
-    lean_is_exclusive, lean_unbox,
-};
-pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0_value: LeanStringObject<
-    9,
-> = LeanStringObject {
-    m_header: LeanObject {
+pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0_value:
+    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -30,13 +22,13 @@ pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0_value: 
     m_length: 8,
     m_data: [72, 84, 84, 80, 47, 49, 46, 48, 0],
 };
-static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0: *mut LeanObject =
+static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0_value)
-        as *mut LeanObject;
-pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__1_value: LeanStringObject<
-    9,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__1_value:
+    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -47,13 +39,13 @@ pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__1_value: 
     m_length: 8,
     m_data: [72, 84, 84, 80, 47, 49, 46, 49, 0],
 };
-static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__1: *mut LeanObject =
+static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__1:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__1_value)
-        as *mut LeanObject;
-pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__2_value: LeanStringObject<
-    9,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__2_value:
+    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -64,13 +56,13 @@ pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__2_value: 
     m_length: 8,
     m_data: [72, 84, 84, 80, 47, 50, 46, 48, 0],
 };
-static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__2: *mut LeanObject =
+static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__2:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__2_value)
-        as *mut LeanObject;
-pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__3_value: LeanStringObject<
-    9,
-> = LeanStringObject {
-    m_header: LeanObject {
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__3_value:
+    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
+    m_header: crate::leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -81,52 +73,52 @@ pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__3_value: 
     m_length: 8,
     m_data: [72, 84, 84, 80, 47, 51, 46, 48, 0],
 };
-static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__3: *mut LeanObject =
+static mut l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__3:
+    *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__3_value)
-        as *mut LeanObject;
-pub static l_Std_Http_Internal_instEncodeV11Version___closed__0_value: LeanClosureObject<0> =
-    LeanClosureObject {
-        m_header: LeanObject {
-            rc: 0,
-            cs_size: (core::mem::size_of::<LeanObject>()
-                + core::mem::size_of::<*const core::ffi::c_void>()
-                + 4
-                + core::mem::size_of::<*mut LeanObject>() * 0) as u16,
-            other: 0,
-            tag: 245,
-        },
-        m_fun: l_Std_Http_Internal_instEncodeV11Version___lam__0___boxed
-            as *const core::ffi::c_void,
-        m_arity: 2,
-        m_num_fixed: 0,
-        m_objs: [],
-    };
-static mut l_Std_Http_Internal_instEncodeV11Version___closed__0: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static l_Std_Http_Internal_instEncodeV11Version___closed__0_value:
+    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
+    m_header: crate::leanh::LeanObject {
+        rc: 0,
+        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            + core::mem::size_of::<*const core::ffi::c_void>()
+            + 4
+            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+        other: 0,
+        tag: 245,
+    },
+    m_fun: l_Std_Http_Internal_instEncodeV11Version___lam__0___boxed as *const core::ffi::c_void,
+    m_arity: 2,
+    m_num_fixed: 0,
+    m_objs: [],
+};
+static mut l_Std_Http_Internal_instEncodeV11Version___closed__0: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instEncodeV11Version___closed__0_value)
-        as *mut LeanObject;
-pub static mut l_Std_Http_Internal_instEncodeV11Version: *mut LeanObject =
+        as *mut crate::leanh::LeanObject;
+pub static mut l_Std_Http_Internal_instEncodeV11Version: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Internal_instEncodeV11Version___closed__0_value)
-        as *mut LeanObject;
+        as *mut crate::leanh::LeanObject;
 pub unsafe fn l_Std_Http_Internal_instEncodeV11Version___lam__0(
-    mut v_buffer_36_: *mut LeanObject,
+    mut v_buffer_36_: *mut crate::leanh::LeanObject,
     mut v___y_37_: u8,
-) -> *mut LeanObject {
-    let mut v___y_39_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_data_40_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_size_41_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_43_: *mut LeanObject = core::ptr::null_mut();
+) -> *mut crate::leanh::LeanObject {
+    let mut v___y_39_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_40_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_41_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_43_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_44_: u8 = 0;
-    let mut v___x_45_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_46_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_47_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_48_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_50_: *mut LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_51_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_45_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_46_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_47_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_48_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_50_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_51_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_52_: u8 = 0;
-    let mut v___x_53_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_54_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_55_: *mut LeanObject = core::ptr::null_mut();
-    let mut v___x_56_: *mut LeanObject = core::ptr::null_mut();
+    let mut v___x_53_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_54_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_55_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_56_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
@@ -157,19 +149,19 @@ pub unsafe fn l_Std_Http_Internal_instEncodeV11Version___lam__0(
                 }
             },
             1 => {
-                v_data_40_ = lean_ctor_get(v_buffer_36_, 0);
-                v_size_41_ = lean_ctor_get(v_buffer_36_, 1);
-                v_isSharedCheck_52_ = (!lean_is_exclusive(v_buffer_36_)) as u8;
+                v_data_40_ = crate::leanh::lean_ctor_get(v_buffer_36_, 0);
+                v_size_41_ = crate::leanh::lean_ctor_get(v_buffer_36_, 1);
+                v_isSharedCheck_52_ = (!crate::leanh::lean_is_exclusive(v_buffer_36_)) as u8;
                 if v_isSharedCheck_52_ == 0 {
                     v___x_43_ = v_buffer_36_;
                     v_isShared_44_ = v_isSharedCheck_52_;
                     state = 2;
                     continue;
                 } else {
-                    lean_inc(v_size_41_);
-                    lean_inc(v_data_40_);
-                    lean_dec(v_buffer_36_);
-                    v___x_43_ = lean_box(0);
+                    crate::leanh::lean_inc(v_size_41_);
+                    crate::leanh::lean_inc(v_data_40_);
+                    crate::leanh::lean_dec(v_buffer_36_);
+                    v___x_43_ = crate::leanh::lean_box(0);
                     v_isShared_44_ = v_isSharedCheck_52_;
                     state = 2;
                     continue;
@@ -177,22 +169,22 @@ pub unsafe fn l_Std_Http_Internal_instEncodeV11Version___lam__0(
             }
             2 => {
                 v___x_45_ = lean_string_to_utf8(v___y_39_);
-                lean_inc_ref(v___x_45_);
+                crate::leanh::lean_inc_ref(v___x_45_);
                 v___x_46_ = lean_array_push(v_data_40_, v___x_45_);
                 v___x_47_ = lean_byte_array_size(v___x_45_);
-                lean_dec_ref(v___x_45_);
+                crate::leanh::lean_dec_ref(v___x_45_);
                 v___x_48_ = lean_nat_add(v_size_41_, v___x_47_);
-                lean_dec(v_size_41_);
+                crate::leanh::lean_dec(v_size_41_);
                 if v_isShared_44_ == 0 {
-                    lean_ctor_set(v___x_43_, 1, v___x_48_);
-                    lean_ctor_set(v___x_43_, 0, v___x_46_);
+                    crate::leanh::lean_ctor_set(v___x_43_, 1, v___x_48_);
+                    crate::leanh::lean_ctor_set(v___x_43_, 0, v___x_46_);
                     v___x_50_ = v___x_43_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_51_ = lean_alloc_ctor(0, 2, (0) as u32);
-                    lean_ctor_set(v_reuseFailAlloc_51_, 0, v___x_46_);
-                    lean_ctor_set(v_reuseFailAlloc_51_, 1, v___x_48_);
+                    v_reuseFailAlloc_51_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_51_, 0, v___x_46_);
+                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_51_, 1, v___x_48_);
                     v___x_50_ = v_reuseFailAlloc_51_;
                     state = 3;
                     continue;
@@ -206,70 +198,74 @@ pub unsafe fn l_Std_Http_Internal_instEncodeV11Version___lam__0(
     }
 }
 pub unsafe fn l_Std_Http_Internal_instEncodeV11Version___lam__0___boxed(
-    mut v_buffer_57_: *mut LeanObject,
-    mut v___y_58_: *mut LeanObject,
-) -> *mut LeanObject {
+    mut v_buffer_57_: *mut crate::leanh::LeanObject,
+    mut v___y_58_: *mut crate::leanh::LeanObject,
+) -> *mut crate::leanh::LeanObject {
     let mut v___y_52__boxed_59_: u8 = 0;
-    let mut v_res_60_: *mut LeanObject = core::ptr::null_mut();
-    v___y_52__boxed_59_ = (lean_unbox(v___y_58_) as u8);
+    let mut v_res_60_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    v___y_52__boxed_59_ = (crate::leanh::lean_unbox(v___y_58_) as u8);
     v_res_60_ =
         l_Std_Http_Internal_instEncodeV11Version___lam__0(v_buffer_57_, v___y_52__boxed_59_);
     return v_res_60_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Std_Http_Internal_Encode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Std_Http_Internal_Encode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Std_Http_Internal_ChunkedBuffer(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Data_Version(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
-    return lean_io_result_mk_ok(lean_box(0));
+    crate::leanh::lean_dec_ref(res);
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Http_Internal_Encode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Http_Internal_Encode(
+    builtin: u8,
+) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return lean_io_result_mk_ok(lean_box(0));
+    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Http_Internal_Encode(builtin: u8) -> *mut LeanObject {
-    let mut res: *mut LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Http_Internal_Encode(builtin: u8) -> *mut crate::leanh::LeanObject {
+    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return lean_io_result_mk_ok(lean_box(0));
+        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Std_Http_Internal_ChunkedBuffer(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Data_Version(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Internal_Encode(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Http_Internal_Encode(builtin);
-    if lean_io_result_is_error(res) {
+    if crate::leanh::lean_io_result_is_error(res) {
         return res;
     }
-    lean_dec_ref(res);
+    crate::leanh::lean_dec_ref(res);
     return initialize_Std_Http_Internal_Encode(builtin);
 }

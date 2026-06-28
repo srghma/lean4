@@ -14,7 +14,11 @@ pub fn lean_string_offsetofpos(_: *mut LeanObject, _: *mut LeanObject) -> *mut L
     todo!("Stub for lean_string_offsetofpos");
 }
 
-pub fn lean_string_utf8_extract(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject,) -> *mut LeanObject {
+pub fn lean_string_utf8_extract(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+) -> *mut LeanObject {
     todo!("Stub for lean_string_utf8_extract");
 }
 
@@ -38,7 +42,11 @@ pub fn lean_string_isempty(_: *mut LeanObject) -> u8 {
     todo!("Stub for lean_string_isempty");
 }
 
-pub fn lean_string_foldl(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject,) -> *mut LeanObject {
+pub fn lean_string_foldl(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+) -> *mut LeanObject {
     todo!("Stub for lean_string_foldl");
 }
 
@@ -66,7 +74,11 @@ pub fn lean_string_utf8_at_end() {
     todo!("Stub for lean_string_utf8_at_end");
 }
 
-pub fn lean_string_nextwhile(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject,) -> *mut LeanObject {
+pub fn lean_string_nextwhile(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+) -> *mut LeanObject {
     todo!("Stub for lean_string_nextwhile");
 }
 
@@ -114,7 +126,11 @@ pub fn lean_substring_takewhile(_: *mut LeanObject, _: *mut LeanObject) -> *mut 
     todo!("Stub for lean_substring_takewhile");
 }
 
-pub fn lean_substring_extract(_: *mut LeanObject, _: *mut LeanObject, _: *mut LeanObject,) -> *mut LeanObject {
+pub fn lean_substring_extract(
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+    _: *mut LeanObject,
+) -> *mut LeanObject {
     todo!("Stub for lean_substring_extract");
 }
 
@@ -145,4 +161,3 @@ pub fn lean_string_pos_sub(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanO
 pub fn lean_string_pos_min(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_string_pos_min");
 }
-

@@ -29,4 +29,3 @@ pub fn lean_st_ref_take(_: *mut LeanObject) -> *mut LeanObject {
 pub fn lean_st_ref_ptr_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
     todo!("Stub for lean_st_ref_ptr_eq");
 }
-

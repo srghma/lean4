@@ -12,4 +12,3 @@ pub fn lean_dynlib_get() {
 pub fn lean_dynlib_symbol_run_as_init() {
     todo!("Stub for lean_dynlib_symbol_run_as_init");
 }
-

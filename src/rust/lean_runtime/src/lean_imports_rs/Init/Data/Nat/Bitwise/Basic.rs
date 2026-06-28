@@ -21,4 +21,3 @@ pub fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObjec
 pub fn lean_nat_shiftr() {
     todo!("Stub for lean_nat_shiftr");
 }
-
