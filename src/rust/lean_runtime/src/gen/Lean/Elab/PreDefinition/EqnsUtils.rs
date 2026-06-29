@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.EqnsUtils
 // Imports: Lean.Meta.Basic Lean.Meta.Tactic.Split Lean.Meta.Tactic.Refl Lean.Meta.Tactic.Delta Lean.Meta.Tactic.SplitIf Lean.Meta.Tactic.Contradiction
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::{l_Lean_Exception_isRuntime, l_Lean_diagnostics};
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isPrefixOf;

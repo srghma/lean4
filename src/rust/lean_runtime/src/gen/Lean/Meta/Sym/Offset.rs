@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Offset
 // Imports: Lean.Meta.Sym.LitValues
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf,

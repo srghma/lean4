@@ -3,8 +3,7 @@
 // Imports: Lean.Parser.Command
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getKind,
-    l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind,
 };
 use crate::r#gen::Lean::Data::Lsp::Utf16::l_Lean_DeclarationRange_ofStringPositions;
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addDeclarationRanges___redArg;

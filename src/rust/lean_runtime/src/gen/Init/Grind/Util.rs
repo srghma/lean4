@@ -9,9 +9,9 @@ use crate::r#gen::Init::Grind::Tactics::{
     initialize_Init_Grind_Tactics, runtime_initialize_Init_Grind_Tactics,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
+    l_Lean_Syntax_node5,
 };
 use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
 pub static l_Lean_Grind_nestedProofUnexpander___closed__0_value: crate::leanh::LeanStringObject<5> =

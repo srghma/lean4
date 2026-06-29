@@ -12,9 +12,7 @@ use crate::r#gen::Init::Data::Repr::{
     l_List_repr___redArg, l_Prod_repr___boxed, l_Repr_addAppParen,
     l_instReprTupleOfRepr___redArg___lam__0,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom, l_panic___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Data::DTreeMap::Basic::{
     l_Std_DTreeMap_Internal_Impl_diff___at___00Std_DTreeMap_diff_spec__0___redArg,

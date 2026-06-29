@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Parser.Tactic
 // Imports: Lean.Parser.Term Lean.Parser.Tactic.Doc Std.Tactic.Do.Syntax
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;

@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lake.DSL.AttributesCore
 // Imports: Lake.Util.OrderedTagAttribute
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lake::Util::OrderedTagAttribute::{
     initialize_Lake_Util_OrderedTagAttribute, l_Lake_OrderedTagAttribute_hasTag,
     l_Lake_registerOrderedTagAttribute, runtime_initialize_Lake_Util_OrderedTagAttribute,

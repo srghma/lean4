@@ -17,8 +17,7 @@ use crate::r#gen::Init::Grind::Ordered::Linarith::{
     l_Lean_Grind_Linarith_instBEqPoly_beq,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Name_append, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

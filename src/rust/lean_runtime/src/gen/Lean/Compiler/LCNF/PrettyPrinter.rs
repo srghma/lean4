@@ -10,7 +10,6 @@ use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_String_quote};
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{
     l_Lean_Compiler_LCNF_CompilerM_run___redArg, l_Lean_Compiler_LCNF_getBinderName,
     l_Lean_Compiler_LCNF_getPurity___redArg,

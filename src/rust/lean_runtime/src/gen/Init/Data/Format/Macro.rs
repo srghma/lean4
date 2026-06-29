@@ -5,8 +5,7 @@ use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_expandInterpolatedStr;
 use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Meta};
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_addMacroScope,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_addMacroScope,
     l_String_toRawSubstring_x27,
 };
 pub static l_Std_termF_x21___00__closed__0_value: crate::leanh::LeanStringObject<4> =

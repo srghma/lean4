@@ -3,8 +3,7 @@
 // Imports: Lean.Elab.Term
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isIdent, l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isIdent, l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;

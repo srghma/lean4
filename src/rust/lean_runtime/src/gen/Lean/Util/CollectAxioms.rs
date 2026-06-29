@@ -14,7 +14,6 @@ use crate::r#gen::Init::Control::State::{
 use crate::r#gen::Init::Data::Array::Basic::l_Array_instInhabited;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_instInhabitedForall___redArg___lam__0___boxed, l_instInhabitedOfMonad___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

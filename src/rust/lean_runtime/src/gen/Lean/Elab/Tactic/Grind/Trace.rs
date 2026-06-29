@@ -5,8 +5,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_TSepArray_getElems___redArg, l_Lean_Syntax_isNone,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Name_mkStr5, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;

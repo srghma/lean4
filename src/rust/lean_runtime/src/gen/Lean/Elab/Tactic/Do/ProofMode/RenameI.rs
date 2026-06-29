@@ -2,7 +2,6 @@
 // Module: Lean.Elab.Tactic.Do.ProofMode.RenameI
 // Imports: Lean.Elab.Tactic.Do.ProofMode.Basic
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind,
 };
 use crate::r#gen::Lean::Data::PersistentHashMap::{

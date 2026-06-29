@@ -21,8 +21,8 @@ use crate::r#gen::Lake::Util::Task::{
 use crate::lean_imports_rs::Init::Core::{lean_task_get_own, lean_task_map, lean_task_pure};
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_string_utf8_byte_size,
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_string_utf8_byte_size,
 };
 pub static mut l_Lake_instInhabitedJobAction_default: u8 = 0;
 pub static mut l_Lake_instInhabitedJobAction: u8 = 0;

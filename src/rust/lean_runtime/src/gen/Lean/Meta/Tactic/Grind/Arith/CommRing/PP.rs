@@ -8,7 +8,6 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_str___override,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
@@ -55,8 +54,8 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 pub static l___private_Lean_Meta_Tactic_Grind_Arith_CommRing_PP_0__Lean_Meta_Grind_Arith_CommRing_instMonadCanonM___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l___private_Lean_Meta_Tactic_Grind_Arith_CommRing_PP_0__Lean_Meta_Grind_Arith_CommRing_instMonadCanonM___lam__0___boxed as *const core::ffi::c_void, m_arity: 7, m_num_fixed: 0, m_objs: [] };

@@ -2,7 +2,7 @@
 // Module: Lean.Elab.Tactic.Do.Internal.VCGen.Entails
 // Imports: Lean.Elab.Tactic.Do.Internal.VCGen.Context Lean.Elab.Tactic.Do.Internal.VCGen.Util Lean.Meta.Sym.Util
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr4;
 use crate::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Context::{
     initialize_Lean_Elab_Tactic_Do_Internal_VCGen_Context,
     runtime_initialize_Lean_Elab_Tactic_Do_Internal_VCGen_Context,
@@ -36,8 +36,8 @@ use crate::r#gen::Lean::Meta::Sym::Util::{
 use crate::r#gen::Lean::Meta::Tactic::Replace::l_Lean_MVarId_replaceTargetDefEq;
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
+    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_string_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 pub static l_Lean_Elab_Tactic_Do_Internal_VCGen_tripleOfWP___lam__0___closed__0_value:

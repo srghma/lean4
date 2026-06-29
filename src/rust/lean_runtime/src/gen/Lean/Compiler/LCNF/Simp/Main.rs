@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_updateAltCodeImp___redArg,

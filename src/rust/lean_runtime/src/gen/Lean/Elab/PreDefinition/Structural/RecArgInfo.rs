@@ -27,8 +27,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_Elab_Structural_instInhabitedRecArgInfo_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

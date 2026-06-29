@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR
 // Imports: Lean.Compiler.IR.Basic Lean.Compiler.IR.Format Lean.Compiler.IR.CompilerM Lean.Compiler.IR.NormIds Lean.Compiler.IR.Checker Lean.Compiler.IR.UnboxResult Lean.Compiler.IR.Sorry Lean.Compiler.IR.ToIR Lean.Compiler.IR.ToIRType Lean.Compiler.IR.Meta Lean.Compiler.IR.LLVMBindings Lean.Compiler.IR.EmitLLVM
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::Compiler::IR::Basic::{
     initialize_Lean_Compiler_IR_Basic, runtime_initialize_Lean_Compiler_IR_Basic,
 };

@@ -7,8 +7,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_isNatLit_x3f, l_Lean_Syntax_isNone, l_Lean_Syntax_isStrLit_x3f,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Name_append, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

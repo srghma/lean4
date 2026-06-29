@@ -5,7 +5,7 @@ use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_unzip___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

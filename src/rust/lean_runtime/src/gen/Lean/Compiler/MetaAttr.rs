@@ -6,9 +6,7 @@ use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
     l_Id_instMonad___lam__6,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_instInhabitedOfMonad___redArg,
-};
+use crate::r#gen::Init::Prelude::l_instInhabitedOfMonad___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_quickLt;
 use crate::r#gen::Lean::Data::NameMap::Basic::{

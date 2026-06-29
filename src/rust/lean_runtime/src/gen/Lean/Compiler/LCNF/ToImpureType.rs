@@ -9,8 +9,8 @@ use crate::r#gen::Init::Data::List::Impl::l___private_Init_Data_List_Impl_0__Lis
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-    l_Lean_Name_str___override, l_List_lengthTR___redArg,
+    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_str___override,
+    l_List_lengthTR___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::LCNF::BaseTypes::l_Lean_Compiler_LCNF_getOtherDeclBaseType;

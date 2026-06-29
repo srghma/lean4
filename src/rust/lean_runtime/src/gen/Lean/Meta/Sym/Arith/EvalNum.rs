@@ -3,7 +3,6 @@
 // Imports: Lean.Meta.Sym.Arith.Types Lean.Meta.Sym.LitValues Lean.Meta.IntInstTesters Lean.Meta.NatInstTesters
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_pow, l_Int_toNat};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf,

@@ -16,7 +16,6 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_TSepArray_getElems___redArg, l_Lean_TSyntax_getId, l_Lean_TSyntax_getId___boxed,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,

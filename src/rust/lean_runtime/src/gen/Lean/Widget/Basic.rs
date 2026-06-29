@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Widget.Basic
 // Imports: Lean.Elab.InfoTree Lean.Server.InfoUtils
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::Elab::InfoTree::{
     initialize_Lean_Elab_InfoTree, runtime_initialize_Lean_Elab_InfoTree,
 };

@@ -2,9 +2,8 @@
 // Module: Init.Try
 // Imports: Init.Tactics
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node5, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node5, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::Tactics::{
     initialize_Init_Tactics, l_Lean_Parser_Tactic_optConfig, runtime_initialize_Init_Tactics,

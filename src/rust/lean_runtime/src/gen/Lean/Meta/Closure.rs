@@ -21,8 +21,8 @@ use crate::r#gen::Init::Data::Nat::Fold::l_Nat_foldRev___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Name_append, l_Lean_Name_num___override,
+    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

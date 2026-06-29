@@ -3,7 +3,6 @@
 // Imports: Lean.EnvExtension
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Nat_reprFast};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::EnvExtension::{
     initialize_Lean_EnvExtension, l_Lean_MapDeclarationExtension_contains___redArg,
     l_Lean_MapDeclarationExtension_find_x3f___redArg,
@@ -16,8 +15,7 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_instInhabitedProjectionFunctionInfo_default___closed__0_value:
     crate::leanh::LeanCtorObject<4> = crate::leanh::LeanCtorObject {

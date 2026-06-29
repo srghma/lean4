@@ -18,9 +18,9 @@ use crate::r#gen::Init::Data::List::Control::l_List_instForIn_x27InferInstanceMe
 use crate::r#gen::Init::Data::Nat::Power2::Basic::l_Nat_nextPowerOfTwo;
 use crate::r#gen::Init::Data::Repr::{l_List_repr___redArg, l_Repr_addAppParen};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
-    l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
+    l_Lean_replaceRef, l_String_toRawSubstring_x27,
     l_instBEqOfDecidableEq___redArg___lam__0___boxed,
 };
 use crate::r#gen::Std::Data::DHashMap::Internal::AssocList::Basic::{

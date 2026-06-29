@@ -14,7 +14,7 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::SInt::Basic::{
     lean_int64_dec_le, lean_int64_neg, lean_int64_of_nat, lean_int64_to_int_sint,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::lean_imports_rs::Init::Prelude::lean_array_push;
 use crate::lean_imports_rs::Std::Time::Zoned::Database::Windows::{
     lean_get_windows_local_timezone_id_at, lean_windows_get_next_transition,
 };

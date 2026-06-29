@@ -2,10 +2,7 @@
 // Module: Lean.Meta.Tactic.Acyclic
 // Imports: Lean.Meta.MatchUtil Lean.Meta.Tactic.Simp.Main
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;

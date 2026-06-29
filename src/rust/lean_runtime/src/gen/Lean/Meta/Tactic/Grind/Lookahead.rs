@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::List::Basic::{
     l_List_appendTR___redArg, l_List_isEmpty___redArg, l_List_reverse___redArg,
 };
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::CoreM::l_Lean_mkArrow;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
@@ -41,7 +41,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

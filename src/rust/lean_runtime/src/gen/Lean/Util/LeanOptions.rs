@@ -7,7 +7,6 @@ use crate::r#gen::Init::Data::Repr::{
 };
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::Json::Basic::l_Lean_JsonNumber_fromNat;
 use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
     initialize_Lean_Data_Json_FromToJson_Basic, l_Lean_NameMap_fromJson_x3f___redArg,

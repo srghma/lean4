@@ -3,8 +3,7 @@
 // Imports: Lean.Elab.Tactic.Grind.Basic Lean.Meta.Tactic.Grind.Filter
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getNat;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr5, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-    l_Lean_replaceRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::Elab::Tactic::Grind::Basic::{

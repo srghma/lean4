@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.DocString.Syntax
 // Imports: Lean.Parser.Term.Basic Lean.Parser.Term.Basic
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::Parser::Basic::{
     l_Lean_Parser_andthen, l_Lean_Parser_checkColEq, l_Lean_Parser_checkColGe,

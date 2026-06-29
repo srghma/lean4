@@ -18,9 +18,8 @@ use crate::lean_imports_rs::Init::Core::{lean_task_map, lean_task_pure};
 use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_validate_utf8;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_from_utf8_unchecked,
-    lean_string_utf8_byte_size,
+    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
+    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
 };
 use crate::lean_imports_rs::Init::System::IO::{lean_get_set_stderr, lean_get_set_stdout};
 use crate::lean_imports_rs::Init::System::ST::{

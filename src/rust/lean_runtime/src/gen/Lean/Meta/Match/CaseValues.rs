@@ -2,7 +2,6 @@
 // Module: Lean.Meta.Match.CaseValues
 // Imports: Lean.Meta.Basic Lean.Meta.Tactic.FVarSubst Lean.Meta.Tactic.Subst
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,
     l_Lean_PersistentHashMap_mkCollisionNode___redArg, l_Lean_PersistentHashMap_mkEmptyEntries,

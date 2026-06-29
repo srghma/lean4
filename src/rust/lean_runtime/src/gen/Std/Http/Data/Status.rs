@@ -2,7 +2,7 @@
 // Module: Std.Http.Data.Status
 // Imports: Std.Http.Internal
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen, l_String_quote};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
 };

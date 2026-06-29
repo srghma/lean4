@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_re
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Meta::Defs::lean_name_append_after;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_str___override};
+use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
 use crate::r#gen::Lean::AddDecl::l_Lean_addDecl;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Environment::l_Lean_Environment_hasUnsafe;

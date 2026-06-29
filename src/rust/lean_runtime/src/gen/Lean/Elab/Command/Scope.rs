@@ -5,7 +5,6 @@ use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Parser::Term::{
     initialize_Lean_Parser_Term, runtime_initialize_Lean_Parser_Term,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_Lean_Elab_Command_instInhabitedScope_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

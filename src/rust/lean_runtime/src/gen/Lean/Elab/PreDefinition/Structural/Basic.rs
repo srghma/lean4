@@ -14,7 +14,6 @@ use crate::r#gen::Init::Data::Array::Basic::{
 use crate::r#gen::Init::Data::Array::QSort::Basic::l___private_Init_Data_Array_QSort_Basic_0__Array_qsort_sort;
 use crate::r#gen::Init::Data::Nat::Basic::l_Nat_blt___boxed;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr3, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Nat_decEq___boxed, l_instInhabitedOfMonad___redArg, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -29,9 +28,8 @@ use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
 use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Lean::Util::FindExpr::lean_find_expr;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__0_value:

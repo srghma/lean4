@@ -50,8 +50,7 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_getPos_x3f, l_Lean_SourceInfo_getTailPos_x3f,
+    l_Lean_Name_append, l_Lean_SourceInfo_getPos_x3f, l_Lean_SourceInfo_getTailPos_x3f,
     l_Lean_SourceInfo_getTrailingTailPos_x3f, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
     l_Lean_Syntax_getId, l_Lean_Syntax_getNumArgs, l_Lean_Syntax_getPos_x3f,
     l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isIdent, l_Lean_Syntax_isMissing,

@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.ModPkgExt
 // Imports: Lean.Environment Lean.Compiler.NameMangling
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_mkAtom,
-};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lean::Compiler::NameMangling::{
     initialize_Lean_Compiler_NameMangling, l_Lean_Name_mangle, l_Lean_mkPackageSymbolPrefix,
     runtime_initialize_Lean_Compiler_NameMangling,

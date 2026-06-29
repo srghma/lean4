@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Cbv
 // Imports: Lean.Meta.Tactic.Cbv.Main Lean.Meta.Tactic.Cbv.Util Lean.Meta.Tactic.Cbv.CbvEvalExt
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override,
-    l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Lean::Meta::Tactic::Cbv::CbvEvalExt::{
     initialize_Lean_Meta_Tactic_Cbv_CbvEvalExt, runtime_initialize_Lean_Meta_Tactic_Cbv_CbvEvalExt,
 };

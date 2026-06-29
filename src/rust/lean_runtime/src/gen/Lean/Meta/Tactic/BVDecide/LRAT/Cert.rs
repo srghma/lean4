@@ -3,10 +3,7 @@
 // Imports: Std.Tactic.BVDecide.LRAT.Checker Lean.CoreM Std.Tactic.BVDecide.Syntax Lean.Meta.Tactic.BVDecide.LRAT.Trim Std.Tactic.BVDecide.LRAT.Parser Lean.Meta.Tactic.BVDecide.External
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr5, l_Lean_Name_mkStr6, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
 use crate::r#gen::Init::System::IO::{l_IO_FS_readBinFile, l_IO_lazyPure___redArg};
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Lean::CoreM::{initialize_Lean_CoreM, runtime_initialize_Lean_CoreM};

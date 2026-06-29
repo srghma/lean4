@@ -7,10 +7,7 @@ use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Internal::Order::{
     initialize_Init_Internal_Order, runtime_initialize_Init_Internal_Order,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr3, l_Lean_replaceRef};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;

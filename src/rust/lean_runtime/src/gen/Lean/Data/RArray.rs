@@ -5,7 +5,6 @@ use crate::r#gen::Init::Data::RArray::{
     initialize_Init_Data_RArray, runtime_initialize_Init_Data_RArray,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr3;
 use crate::r#gen::Lean::Expr::{l_Lean_mkApp4, l_Lean_mkAppB, l_Lean_mkConst, l_Lean_mkRawNatLit};
 use crate::r#gen::Lean::Meta::DecLevel::{
     initialize_Lean_Meta_DecLevel, l_Lean_Meta_getDecLevel, runtime_initialize_Lean_Meta_DecLevel,

@@ -1,9 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Parser
 // Imports: Lean.Parser.Command
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_mkStr6,
-};
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
 use crate::r#gen::Lean::Parser::Basic::{

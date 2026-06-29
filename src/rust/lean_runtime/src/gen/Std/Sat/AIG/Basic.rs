@@ -24,8 +24,7 @@ use crate::r#gen::Init::Data::Vector::Basic::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesIdent, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_Syntax_node7,
     l_Lean_addMacroScope, l_String_toRawSubstring_x27,
@@ -50,9 +49,8 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_uint64_of_nat, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_mul, lean_uint64_mix_hash,
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_uint64_mix_hash,
 };
 pub static l_Std_Sat_AIG_instHashableFanin___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

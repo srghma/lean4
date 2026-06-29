@@ -22,8 +22,8 @@ use crate::r#gen::Init::Data::String::TakeDrop::{
 };
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Array_extract___redArg, l_ByteArray_empty, l_Char_utf8Size, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_ReaderT_instMonad___redArg, l_panic___redArg,
+    l_Array_extract___redArg, l_ByteArray_empty, l_Char_utf8Size, l_ReaderT_instMonad___redArg,
+    l_panic___redArg,
 };
 use crate::r#gen::Init::System::IO::{
     l_IO_FS_Stream_ofBuffer, l_IO_FS_Stream_putStrLn, l_IO_mkRef___boxed, l_IO_setStderr___boxed,
@@ -69,10 +69,10 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint32_add, lean_usize_add, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-    lean_uint32_dec_le, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
+    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint32_dec_le,
+    lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::{lean_get_stderr, lean_get_stdout};
 use crate::lean_imports_rs::Init::System::ST::{

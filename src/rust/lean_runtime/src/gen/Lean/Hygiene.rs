@@ -14,10 +14,9 @@ use crate::r#gen::Init::Control::State::{
 use crate::r#gen::Init::Data::Repr::l_Nat_toSuperscriptString;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_mkIdentFrom, lean_name_append_after};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr3, l_Lean_Name_num___override, l_Lean_firstFrontendMacroScope,
-    l_ReaderT_bind___boxed, l_ReaderT_pure___boxed, l_ReaderT_read___boxed,
-    lean_erase_macro_scopes,
+    l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_num___override,
+    l_Lean_firstFrontendMacroScope, l_ReaderT_bind___boxed, l_ReaderT_pure___boxed,
+    l_ReaderT_read___boxed, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::Data::Format::{
     initialize_Lean_Data_Format, l_Std_Format_getUnicode, runtime_initialize_Lean_Data_Format,

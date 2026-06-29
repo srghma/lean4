@@ -13,10 +13,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_githash, l_Lean_version_isRelease, l_Lean_version_specialDesc, l_Lean_versionStringCore,
     l_String_toName,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_firstFrontendMacroScope, l_System_Platform_numBits,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_firstFrontendMacroScope, l_System_Platform_numBits};
 use crate::r#gen::Init::System::IO::{
     l_IO_FS_Stream_lines, l_IO_FS_Stream_putStrLn, l_IO_FS_Stream_readBinToEnd,
     l_IO_FS_readBinFile, l_IO_eprint___redArg,

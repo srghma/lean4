@@ -12,10 +12,9 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getString;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getId,
-    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind,
-    l_Lean_replaceRef, l_List_lengthTR___redArg,
-    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getId, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
+    l_List_lengthTR___redArg, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

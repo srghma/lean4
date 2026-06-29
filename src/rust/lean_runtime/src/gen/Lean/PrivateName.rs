@@ -6,7 +6,7 @@ use crate::r#gen::Init::Data::Option::Coe::{
 };
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
 };
 use crate::lean_imports_rs::Init::Prelude::{lean_name_eq, lean_nat_dec_eq};
 pub static l_Lean_privateHeader___closed__0_value: crate::leanh::LeanStringObject<9> =

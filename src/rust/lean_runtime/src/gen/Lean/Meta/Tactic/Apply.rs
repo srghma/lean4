@@ -8,8 +8,7 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_List_get___redArg,
-    l_List_lengthTR___redArg,
+    l_Lean_Name_append, l_List_get___redArg, l_List_lengthTR___redArg,
 };
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;

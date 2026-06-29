@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.CtorIdx
 // Imports: Lean.Meta.Tactic.Simp.Simproc Init.Simproc Lean.Meta.Constructions.CtorIdx Lean.Meta.CtorRecognizer
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Init::Simproc::{initialize_Init_Simproc, runtime_initialize_Init_Simproc};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_constName_x3f, l_Lean_Expr_getAppNumArgs, l_Lean_Expr_sort___override,
@@ -22,8 +21,7 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
 use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
+    lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
 pub static l_Lean_Expr_withAppAux___at___00reduceCtorIdx_spec__0___redArg___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {

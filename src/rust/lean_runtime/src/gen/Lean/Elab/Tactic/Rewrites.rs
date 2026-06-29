@@ -5,9 +5,9 @@ use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::GetElem::l_List_get_x3fInternal___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_mkOptionalNode};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_getId, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
-    l_Lean_Syntax_node1, l_Lean_Syntax_node2,
+    l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getId, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::{l_Lean_NameSet_empty, l_Lean_NameSet_insert};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
@@ -52,8 +52,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

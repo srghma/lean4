@@ -10,9 +10,6 @@ use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
 use crate::r#gen::Init::Grind::Ring::Basic::{
     initialize_Init_Grind_Ring_Basic, runtime_initialize_Init_Grind_Ring_Basic,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
 use crate::r#gen::Lean::Data::PersistentArray::{
     l_Lean_PersistentArray_forIn___redArg, l_Lean_PersistentArray_pop___redArg,
     l_Lean_PersistentArray_push___redArg,

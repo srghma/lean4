@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::String::Search::{
 };
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_String_toName;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_id___boxed};
+use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Lean::Data::Json::Basic::{
     l___private_Lean_Data_Json_Basic_0__Lean_Json_beq_x27,
     l___private_Lean_Data_Json_Basic_0__Lean_Json_hash_x27, l_Lean_Json_getBool_x3f,

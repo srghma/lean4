@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Grind::Propagator::{
     initialize_Init_Grind_Propagator, runtime_initialize_Init_Grind_Propagator,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::LeCnstr::{
     initialize_Lean_Meta_Tactic_Grind_Arith_Cutsat_LeCnstr,
     l_Lean_Meta_Grind_Arith_Cutsat_propagateLe, l_Lean_Meta_Grind_Arith_Cutsat_propagateLt,

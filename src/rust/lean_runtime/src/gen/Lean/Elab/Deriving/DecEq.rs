@@ -12,8 +12,7 @@ use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_mkCIdent, l_Lean_mkSepArray, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Array_mkArray3___redArg, l_Lean_Name_append, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
+    l_Array_mkArray0, l_Array_mkArray3___redArg, l_Lean_Name_append, l_Lean_Name_num___override,
     l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1,
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
     l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_Syntax_node8, l_Lean_addMacroScope,

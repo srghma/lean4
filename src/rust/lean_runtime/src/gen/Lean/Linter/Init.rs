@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Function::{
     initialize_Init_Data_Function, runtime_initialize_Init_Data_Function,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg,
@@ -24,8 +23,8 @@ use crate::r#gen::Lean::MonadEnv::{initialize_Lean_MonadEnv, runtime_initialize_
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_name_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static mut l_Lean_Linter_instEmptyCollectionLinterSets___aux__1: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();

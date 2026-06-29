@@ -22,8 +22,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Name_replacePrefix, l_String_toName};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_instMonadLiftT___lam__0___boxed,
-    l_instMonadLiftTOfMonadLift___redArg___lam__0,
+    l_instMonadLiftT___lam__0___boxed, l_instMonadLiftTOfMonadLift___redArg___lam__0,
 };
 use crate::r#gen::Init::System::CancelToken::{
     l_IO_CancelToken_isSet, l_IO_CancelToken_new, l_IO_CancelToken_set,

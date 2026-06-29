@@ -6,9 +6,7 @@ use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_re
 use crate::r#gen::Init::Data::Repr::l_Nat_toSuperscriptString;
 use crate::r#gen::Init::Meta::Defs::{lean_mk_syntax_ident, lean_name_append_after};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Array_mkArray0, l_Lean_Name_hasMacroScopes, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
     l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesIdent,
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
     l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_addMacroScope,
@@ -50,8 +48,7 @@ use crate::r#gen::Lean::PrettyPrinter::Delaborator::Basic::{
 use crate::r#gen::Lean::SubExpr::l_Lean_SubExpr_Pos_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_panic_fn_borrowed,
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_panic_fn_borrowed,
 };
 static mut l_panic___at___00Lean_PrettyPrinter_Delaborator_SubExpr_withMDataExpr___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Delab_0__Lean_Elab_Tactic_Do_ProofMode_delabMGoal_delabHypotheses_spec__1_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_panic___at___00Lean_PrettyPrinter_Delaborator_SubExpr_withMDataExpr___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Delab_0__Lean_Elab_Tactic_Do_ProofMode_delabMGoal_delabHypotheses_spec__1_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

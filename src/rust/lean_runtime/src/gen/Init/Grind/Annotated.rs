@@ -2,7 +2,6 @@
 // Module: Init.Grind.Annotated
 // Imports: Init.Notation
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4};
 pub static l_Lean_Parser_Command_grindAnnotated___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

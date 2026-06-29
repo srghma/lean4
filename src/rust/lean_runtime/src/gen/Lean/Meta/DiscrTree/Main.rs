@@ -4,7 +4,7 @@
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_isEqvAux___redArg};
 use crate::r#gen::Init::Data::Array::BinSearch::l_Array_binSearchAux___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_id___boxed};
+use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Lean::Class::lean_is_class;
 use crate::r#gen::Lean::Expr::{
     l___private_Lean_Expr_0__Lean_Expr_getAppArgsAux,

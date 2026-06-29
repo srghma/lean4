@@ -4,9 +4,7 @@
 use crate::r#gen::Init::Data::Int::Linear::l_Int_Linear_instBEqPoly_beq;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::Data::PersistentArray::{
     l_Lean_PersistentArray_get_x21___redArg, l_Lean_PersistentArray_push___redArg,
 };
@@ -73,9 +71,7 @@ use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTr
 use crate::lean_imports_rs::Init::Data::Int::Basic::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_Lean_Meta_instInhabitedArgsPacker_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

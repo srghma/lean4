@@ -37,8 +37,7 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_string_dec_eq,
+    lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

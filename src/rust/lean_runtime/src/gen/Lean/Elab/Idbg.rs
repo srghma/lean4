@@ -11,8 +11,7 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_mkStrLit;
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_ByteArray_empty, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Array_mkArray0, l_ByteArray_empty, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getPos_x3f,
     l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
     l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_addMacroScope, l_Lean_firstFrontendMacroScope,

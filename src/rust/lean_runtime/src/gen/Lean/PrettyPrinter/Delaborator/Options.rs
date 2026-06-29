@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter.Delaborator.Options
 // Imports: Lean.Data.Options
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
 use crate::r#gen::Lean::Data::Options::{
     initialize_Lean_Data_Options, lean_register_option, runtime_initialize_Lean_Data_Options,

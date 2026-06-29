@@ -55,10 +55,10 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_push,
-    lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-    lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
+    lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_from_utf8_unchecked,
+    lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_to_nat,
 };
 use crate::lean_imports_rs::Std::Net::Addr::{lean_uv_pton_v4, lean_uv_pton_v6};
 pub static l_panic___at___00__private_Std_Http_Data_URI_Parser_0__Std_Http_URI_Parser_parseScheme_spec__2___closed__0_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};

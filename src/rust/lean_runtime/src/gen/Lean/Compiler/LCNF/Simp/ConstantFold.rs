@@ -26,8 +26,7 @@ use crate::r#gen::Init::Data::UInt::Log2::{
 };
 use crate::r#gen::Init::Prelude::{
     l_Char_ofNat, l_Char_ofNat___boxed, l_Lean_Name_beq___boxed,
-    l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr6, l_Lean_mkAtom, l_List_lengthTR___redArg,
+    l_Lean_Name_hash___override___boxed, l_Lean_mkAtom, l_List_lengthTR___redArg,
     l_Nat_add___boxed, l_Nat_div___boxed, l_Nat_mul___boxed, l_Nat_pow___boxed, l_Nat_sub___boxed,
     l_Pi_instInhabited___redArg___lam__0, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,

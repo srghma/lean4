@@ -20,11 +20,10 @@ use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_repr};
 use crate::r#gen::Init::GetElem::{initialize_Init_GetElem, runtime_initialize_Init_GetElem};
 use crate::r#gen::Init::MetaTypes::{initialize_Init_MetaTypes, runtime_initialize_Init_MetaTypes};
 use crate::r#gen::Init::Prelude::{
-    l_Array_appendCore___redArg, l_Array_extract___redArg, l_Array_mkArray0, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node3, l_Lean_addMacroScope, l_Lean_mkAtom, l_String_toRawSubstring_x27,
-    l_panic___redArg,
+    l_Array_appendCore___redArg, l_Array_extract___redArg, l_Array_mkArray0,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
+    l_Lean_mkAtom, l_String_toRawSubstring_x27, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WF::{initialize_Init_WF, runtime_initialize_Init_WF};

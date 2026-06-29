@@ -43,8 +43,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_sub,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_string_dec_eq, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_string_dec_eq, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Std::Internal::UV::System::{
     lean_uv_cpu_info, lean_uv_hrtime, lean_uv_os_environ, lean_uv_os_get_group,

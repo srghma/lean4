@@ -3,10 +3,7 @@
 // Imports: Lean.Compiler.LCNF.ReduceJpArity Lean.Compiler.LCNF.Simp.Basic Lean.Compiler.LCNF.Simp.FunDeclInfo Lean.Compiler.LCNF.Simp.JpCases Lean.Compiler.LCNF.Simp.Config Lean.Compiler.LCNF.Simp.InlineCandidate Lean.Compiler.LCNF.Simp.SimpM Lean.Compiler.LCNF.Simp.Main Lean.Compiler.LCNF.Simp.InlineProj Lean.Compiler.LCNF.Simp.DefaultAlt Lean.Compiler.LCNF.Simp.SimpValue Lean.Compiler.LCNF.Simp.Used
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     l_Lean_Compiler_LCNF_Code_size, l_Lean_Compiler_LCNF_Decl_isTemplateLike___redArg,
 };
@@ -77,7 +74,6 @@ use crate::r#gen::Lean::Util::Trace::{
 };
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

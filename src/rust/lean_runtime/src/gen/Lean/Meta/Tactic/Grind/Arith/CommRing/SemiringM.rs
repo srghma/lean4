@@ -2,10 +2,7 @@
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.SemiringM
 // Imports: Lean.Meta.Tactic.Grind.Arith.CommRing.RingM Lean.Meta.Tactic.Grind.Arith.CommRing.MonadSemiring Lean.Meta.Tactic.Grind.Arith.CommRing.DenoteExpr Lean.Meta.Tactic.Grind.Arith.CommRing.Functions
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5, l_instInhabitedForall___redArg___lam__0___boxed,
-};
+use crate::r#gen::Init::Prelude::l_instInhabitedForall___redArg___lam__0___boxed;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::PersistentArray::{
     l_Lean_PersistentArray_get_x21___redArg, l_Lean_PersistentArray_push___redArg,

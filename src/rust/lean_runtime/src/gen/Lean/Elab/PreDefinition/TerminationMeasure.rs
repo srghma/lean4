@@ -7,9 +7,8 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node4,
-    l_Lean_replaceRef,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node4, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isSuffixOf;
@@ -55,8 +54,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
+    lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;

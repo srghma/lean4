@@ -3,16 +3,13 @@
 // Imports: Lean.Data.JsonRpc
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::Data::Json::Basic::{l_Lean_Json_getObjValD, l_Lean_Json_mkObj};
 use crate::r#gen::Lean::Data::JsonRpc::{
     initialize_Lean_Data_JsonRpc, l_Lean_JsonRpc_instBEqRequestID_beq,
     l_Lean_JsonRpc_instInhabitedRequestID_default, runtime_initialize_Lean_Data_JsonRpc,
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_to_list, lean_mk_empty_array_with_capacity,
-};
+use crate::lean_imports_rs::Init::Prelude::lean_array_to_list;
 pub static mut l_Lean_Lsp_instInhabitedCancelParams_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Lsp_instInhabitedCancelParams: *mut crate::leanh::LeanObject =

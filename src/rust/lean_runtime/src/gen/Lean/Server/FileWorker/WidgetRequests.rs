@@ -12,9 +12,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_instInhabitedUInt8,
-};
+use crate::r#gen::Init::Prelude::l_instInhabitedUInt8;
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
 use crate::r#gen::Lean::Data::Json::Basic::{

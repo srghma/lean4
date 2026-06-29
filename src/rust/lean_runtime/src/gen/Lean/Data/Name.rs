@@ -22,9 +22,7 @@ use crate::r#gen::Init::Data::String::Search::{
 use crate::r#gen::Init::Data::String::TakeDrop::{
     initialize_Init_Data_String_TakeDrop, runtime_initialize_Init_Data_String_TakeDrop,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
 use crate::lean_imports_rs::Init::Data::String::Basic::{

@@ -3,9 +3,7 @@
 // Imports: Lean.Meta.Basic Init.While
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Rat::Basic::{l_Rat_div, l_Rat_neg, l_Rat_ofInt};
-use crate::r#gen::Init::Prelude::{
-    l_BitVec_ofNat, l_Char_ofNat, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-};
+use crate::r#gen::Init::Prelude::{l_BitVec_ofNat, l_Char_ofNat};
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appArg_x21, l_Lean_Expr_appFnCleanup___redArg,
@@ -29,8 +27,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint64_of_nat, lean_uint64_to_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_mod, lean_nat_sub, lean_uint8_of_nat, lean_uint32_to_nat,
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_mod, lean_nat_sub, lean_uint8_of_nat,
+    lean_uint32_to_nat,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

@@ -3,10 +3,7 @@
 // Imports: Std.Tactic.BVDecide.Normalize Lean.Meta.Tactic.BVDecide.Attr Init.Omega
 use crate::r#gen::Init::Data::BitVec::Basic::{l_BitVec_neg, l_BitVec_not, l_BitVec_shiftLeft};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_BitVec_ofNat, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr6, l_Lean_Name_mkStr7,
-    l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_const___override, l_Lean_Expr_constLevels_x21, l_Lean_Expr_getAppFn,

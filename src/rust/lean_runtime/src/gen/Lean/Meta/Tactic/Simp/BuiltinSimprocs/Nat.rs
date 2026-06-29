@@ -7,7 +7,6 @@ use crate::r#gen::Init::Data::Nat::Dvd::{
 use crate::r#gen::Init::Data::Nat::Simproc::{
     initialize_Init_Data_Nat_Simproc, runtime_initialize_Init_Data_Nat_Simproc,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3};
 use crate::r#gen::Init::Simproc::{initialize_Init_Simproc, runtime_initialize_Init_Simproc};
 use crate::r#gen::Lean::Environment::l_Lean_Environment_contains;
 use crate::r#gen::Lean::Expr::{

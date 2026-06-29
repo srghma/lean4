@@ -35,7 +35,6 @@ use crate::r#gen::Init::Meta::Defs::{l_Lean_Name_replacePrefix, l_Lean_TSyntax_g
 use crate::r#gen::Init::Prelude::{
     l_Lean_MacroScopesView_review, l_Lean_Name_append, l_Lean_Name_appendCore,
     l_Lean_Name_beq___boxed, l_Lean_Name_hasMacroScopes, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
     l_Lean_Name_str___override, l_Lean_extractMacroScopes, l_Lean_replaceRef,
     l_instInhabitedOfMonad___redArg, l_panic___redArg,
 };
@@ -116,9 +115,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed,
-    lean_uint64_of_nat, lean_usize_dec_eq,
+    lean_array_mk, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed, lean_uint64_of_nat, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

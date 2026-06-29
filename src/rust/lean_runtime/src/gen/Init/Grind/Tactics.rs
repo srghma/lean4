@@ -6,7 +6,6 @@ use crate::r#gen::Init::Grind::Interactive::{
     initialize_Init_Grind_Interactive, l_Lean_Parser_Tactic_Grind_grindSeq,
     l_Lean_Parser_Tactic_grindParam, runtime_initialize_Init_Grind_Interactive,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4};
 use crate::r#gen::Init::Tactics::l_Lean_Parser_Tactic_optConfig;
 pub static l_Lean_Parser_Tactic_grind___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

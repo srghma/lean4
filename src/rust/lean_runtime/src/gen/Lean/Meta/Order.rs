@@ -6,7 +6,6 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Internal::Order::Basic::{
     initialize_Init_Internal_Order_Basic, runtime_initialize_Init_Internal_Order_Basic,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr3, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_isAppOf, l_Lean_instInhabitedExpr};
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofExpr, l_Lean_MessageData_ofList, l_Lean_stringToMessageData,

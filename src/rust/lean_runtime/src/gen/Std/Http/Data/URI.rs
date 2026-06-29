@@ -14,9 +14,7 @@ use crate::r#gen::Std::Http::Data::URI::Parser::{
 };
 use crate::r#gen::Std::Internal::Parsec::ByteArray::l_Std_Internal_Parsec_ByteArray_Parser_run___redArg;
 use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_dec_lt,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_byte_array_size, lean_nat_dec_lt};
 pub static l_Std_Http_RequestTarget_parse_x3f___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<22> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

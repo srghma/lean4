@@ -8,8 +8,7 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_nextn;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_isNat;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr5,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Lean::AddDecl::l_Lean_addDecl;

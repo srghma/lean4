@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_insertIdx_loop;
 use crate::r#gen::Init::Meta::Defs::lean_name_append_after;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_replaceRef,
+    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;

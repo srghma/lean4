@@ -27,11 +27,10 @@ use crate::r#gen::Init::Meta::Defs::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
     l_Lean_MacroScopesView_review, l_Lean_Name_append, l_Lean_Name_appendCore,
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
-    l_Lean_extractMacroScopes, l_Lean_replaceRef, lean_erase_macro_scopes,
+    l_Lean_Name_hasMacroScopes, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull, l_Lean_extractMacroScopes, l_Lean_replaceRef,
+    lean_erase_macro_scopes,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;

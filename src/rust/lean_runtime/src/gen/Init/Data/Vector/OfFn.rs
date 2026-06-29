@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::Vector::Basic::{
 use crate::r#gen::Init::Data::Vector::Monadic::{
     initialize_Init_Data_Vector_Monadic, runtime_initialize_Init_Data_Vector_Monadic,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };

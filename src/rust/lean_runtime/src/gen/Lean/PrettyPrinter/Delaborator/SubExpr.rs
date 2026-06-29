@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter.Delaborator.SubExpr
 // Imports: Lean.SubExpr
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_instInhabitedOfMonad___redArg, l_panic___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_instInhabitedOfMonad___redArg, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isPrefixOf;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;

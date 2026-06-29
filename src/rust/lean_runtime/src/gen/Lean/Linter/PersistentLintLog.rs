@@ -2,7 +2,7 @@
 // Module: Lean.Linter.PersistentLintLog
 // Imports: Lean.Environment Lean.Message Lean.Linter.Init
 use crate::r#gen::Init::Data::Array::Basic::l_Array_instInhabited;
-use crate::r#gen::Init::Prelude::{l_Array_push___boxed, l_Lean_Name_mkStr3};
+use crate::r#gen::Init::Prelude::l_Array_push___boxed;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_instInhabitedPersistentArrayNode_default;
 use crate::r#gen::Lean::Environment::{

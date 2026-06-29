@@ -3,7 +3,6 @@
 // Imports: Lean.Elab.PreDefinition.Basic
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::CoreM::{l_Lean_diagnostics, l_Lean_enableRealizationsForConst};
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isPrefixOf;
 use crate::r#gen::Lean::Data::NameMap::Basic::{

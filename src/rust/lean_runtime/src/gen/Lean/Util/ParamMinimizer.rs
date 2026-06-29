@@ -24,9 +24,8 @@ use crate::r#gen::Init::While::{
 use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub,
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_nat_add,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static mut l_Lean_Util_ParamMinimizer_instInhabitedStatus_default: u8 = 0;
 pub static mut l_Lean_Util_ParamMinimizer_instInhabitedStatus: u8 = 0;

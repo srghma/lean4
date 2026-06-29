@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Rat::Basic::{
     l_Rat_div, l_Rat_neg, l_Rat_ofInt, l_instDecidableEqRat_decEq, l_mkRat,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21, l_Lean_Expr_getAppFn, l_Lean_Expr_getAppNumArgs,
     l_Lean_Expr_getRevArg_x21, l_Lean_Expr_isAppOfArity, l_Lean_Expr_isConstOf,

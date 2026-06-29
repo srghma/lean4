@@ -11,7 +11,6 @@ use crate::r#gen::Init::Data::ToString::Name::{
     initialize_Init_Data_ToString_Name, l_Lean_Name_toString,
     runtime_initialize_Init_Data_ToString_Name,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lake::Config::Meta::{
     initialize_Lake_Config_Meta, runtime_initialize_Lake_Config_Meta,
 };
@@ -24,8 +23,7 @@ use crate::r#gen::Lake::Config::Pattern::{
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Lake_InputFileConfig_path___proj___closed__0_value: crate::leanh::LeanClosureObject<
     0,

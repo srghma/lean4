@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.UnboxResult
 // Imports: Lean.Compiler.IR.Basic
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Lean::Attributes::{l_Lean_TagAttribute_hasTag, l_Lean_registerTagAttribute};
 use crate::r#gen::Lean::Compiler::IR::Basic::{
     initialize_Lean_Compiler_IR_Basic, runtime_initialize_Lean_Compiler_IR_Basic,

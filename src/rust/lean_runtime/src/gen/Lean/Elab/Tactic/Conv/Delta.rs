@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Conv.Delta
 // Imports: Lean.Elab.Tactic.Delta Lean.Elab.Tactic.Conv.Basic
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr5, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::Elab::InfoTree::Main::l_Lean_Elab_realizeGlobalConstNoOverloadWithInfo;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{

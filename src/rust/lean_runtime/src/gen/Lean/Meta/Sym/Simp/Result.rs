@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.Result
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.Sym.InferType
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Expr::{l_Lean_mkApp6, l_Lean_mkConst};
 use crate::r#gen::Lean::Meta::Sym::InferType::{
     initialize_Lean_Meta_Sym_InferType, l_Lean_Meta_Sym_getLevel___redArg,

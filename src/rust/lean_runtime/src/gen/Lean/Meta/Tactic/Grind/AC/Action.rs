@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.AC.Action
 // Imports: Lean.Meta.Tactic.Grind.Action Lean.Meta.Tactic.Grind.AC.Eq
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr5, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1};
 use crate::r#gen::Lean::Meta::Tactic::Grind::AC::Eq::{
     initialize_Lean_Meta_Tactic_Grind_AC_Eq, l_Lean_Meta_Grind_AC_check___boxed,
     runtime_initialize_Lean_Meta_Tactic_Grind_AC_Eq,

@@ -17,7 +17,7 @@ use crate::r#gen::Lean::SubExpr::{
     l_Lean_SubExpr_Pos_pushLetVarType, l_Lean_SubExpr_Pos_pushProj, l_Lean_SubExpr_Pos_root,
     runtime_initialize_Lean_SubExpr,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::lean_imports_rs::Init::Prelude::lean_array_push;
 use crate::lean_imports_rs::Lean::Expr::lean_expr_instantiate_rev;
 pub static l_Lean_Meta_traverseLambdaWithPos___redArg___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

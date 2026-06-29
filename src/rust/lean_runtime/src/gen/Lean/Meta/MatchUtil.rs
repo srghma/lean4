@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.MatchUtil
 // Imports: Lean.Util.Recognizers Lean.Meta.CtorRecognizer
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21, l_Lean_Expr_hasLooseBVars,
     l_Lean_Expr_isAppOfArity, l_Lean_Expr_isFalse,

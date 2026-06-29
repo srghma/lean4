@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Arith.DenoteExpr
 // Imports: Lean.Meta.Sym.Arith.Functions Lean.Meta.Sym.Arith.MonadVar
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_instInhabitedExpr, l_Lean_mkApp3, l_Lean_mkAppB,
     l_Lean_mkConst, l_Lean_mkIntLit, l_Lean_mkNatLit, l_Lean_mkRawNatLit,

@@ -24,7 +24,6 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;

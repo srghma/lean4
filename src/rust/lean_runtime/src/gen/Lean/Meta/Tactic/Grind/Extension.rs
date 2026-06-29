@@ -10,9 +10,7 @@ use crate::r#gen::Init::Data::Array::Basic::l_Array_eraseIdx___redArg;
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom, l_instInhabitedOfMonad___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_instInhabitedOfMonad___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::NameMap::Basic::{l_Lean_NameSet_empty, l_Lean_NameSet_insert};
 use crate::r#gen::Lean::Data::PersistentHashMap::{

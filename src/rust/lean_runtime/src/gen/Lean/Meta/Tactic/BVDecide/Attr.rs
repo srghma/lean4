@@ -3,9 +3,8 @@
 // Imports: Lean.Elab.Tactic.Basic Lean.Meta.Tactic.Simp Std.Tactic.BVDecide.Syntax Lean.Elab.ConfigEval
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_mkStr6, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_mkStr6, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;
 use crate::r#gen::Lean::Compiler::InitAttr::l_Lean_declareBuiltin;

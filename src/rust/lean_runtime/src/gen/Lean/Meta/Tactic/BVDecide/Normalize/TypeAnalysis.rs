@@ -8,8 +8,7 @@ use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reve
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr6, l_Lean_Name_str___override, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_str___override, l_Lean_replaceRef,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

@@ -12,7 +12,7 @@ use crate::r#gen::Init::Data::Nat::Linear::{
 };
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
 use crate::r#gen::Lean::Data::PersistentArray::{

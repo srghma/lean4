@@ -31,7 +31,7 @@ use crate::r#gen::Init::Data::Subtype::Basic::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
+    lean_array_get_size, lean_array_push, lean_array_to_list,
 };
 pub static l_List_mapFinIdx___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {

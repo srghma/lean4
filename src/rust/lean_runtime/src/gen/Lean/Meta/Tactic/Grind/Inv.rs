@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Grind::Util::{
     initialize_Init_Grind_Util, runtime_initialize_Init_Grind_Util,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
 use crate::r#gen::Lean::Data::PersistentArray::{
@@ -55,9 +55,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_sub, lean_usize_to_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_nat_sub, lean_panic_fn_borrowed,
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

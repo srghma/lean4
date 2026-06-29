@@ -2,8 +2,8 @@
 // Module: Lake.DSL.Attributes
 // Imports: Lake.DSL.AttributesCore
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
+    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
 };
 use crate::r#gen::Lake::DSL::AttributesCore::{
     initialize_Lake_DSL_AttributesCore, l_Lake_testDriverAttr,

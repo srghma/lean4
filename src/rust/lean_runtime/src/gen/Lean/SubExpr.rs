@@ -12,9 +12,7 @@ use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_toString;
 use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{
-    l_Array_push___boxed, l_Function_comp, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3,
-};
+use crate::r#gen::Init::Prelude::{l_Array_push___boxed, l_Function_comp};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Json::Basic::{
     l_Lean_Json_getObjValD, l_Lean_Json_getStr_x3f, l_Lean_Json_mkObj,

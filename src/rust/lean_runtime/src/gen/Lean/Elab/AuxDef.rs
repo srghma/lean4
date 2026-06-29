@@ -9,11 +9,11 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Name_replacePrefix, l_Lean_Syntax_isNone, l_Lean_TSyntax_getId, l_Lean_mkIdentFrom,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Name_append, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr4, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
-    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
-    l_Lean_Syntax_node7, lean_erase_macro_scopes,
+    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Name_append, l_Lean_Name_mkStr4,
+    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node7,
+    lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::CoreM::{
     l_Lean_DeclNameGenerator_mkUniqueName, l_Lean_DeclNameGenerator_ofPrefix,
@@ -36,8 +36,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_usize_dec_eq,
+    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 pub static l_Lean_Elab_Command_aux__def___closed__0_value: crate::leanh::LeanStringObject<5> =

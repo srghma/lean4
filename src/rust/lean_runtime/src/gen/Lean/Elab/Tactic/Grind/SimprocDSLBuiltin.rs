@@ -3,7 +3,6 @@
 // Imports: Lean.Elab.Tactic.Grind.SimprocDSL Init.Sym.Simp.SimprocDSL Lean.Meta.Sym.Simp.EvalGround Lean.Meta.Sym.Simp.Telescope Lean.Meta.Sym.Simp.ControlFlow Lean.Meta.Sym.Simp.Forall Lean.Meta.Sym.Simp.Rewrite
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_TSyntax_getId};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
     l_Lean_replaceRef,
 };
@@ -60,8 +59,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 pub static l___private_Lean_Elab_Tactic_Grind_SimprocDSLBuiltin_0__Lean_Elab_Tactic_Grind_elabSimprocGround___redArg___closed__0_value: crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Meta_Sym_Simp_evalGround___boxed as *const core::ffi::c_void, m_arity: 12, m_num_fixed: 1, m_objs: [((( 255 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };

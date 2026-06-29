@@ -10,7 +10,7 @@ use crate::r#gen::Init::Data::String::FindPos::l_String_Slice_Pos_prevn;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_ReaderT_instMonad___redArg};
+use crate::r#gen::Init::Prelude::l_ReaderT_instMonad___redArg;
 use crate::r#gen::Init::System::FilePath::{
     l_System_FilePath_addExtension, l_System_FilePath_normalize,
 };

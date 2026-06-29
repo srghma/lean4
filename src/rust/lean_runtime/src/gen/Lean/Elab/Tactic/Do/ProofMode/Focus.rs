@@ -2,7 +2,6 @@
 // Module: Lean.Elab.Tactic.Do.ProofMode.Focus
 // Imports: Lean.Elab.Tactic.Do.ProofMode.MGoal
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr5, l_Lean_Name_mkStr6};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Elab::Tactic::Do::ProofMode::MGoal::{
     initialize_Lean_Elab_Tactic_Do_ProofMode_MGoal, l_Lean_Elab_Tactic_Do_ProofMode_SPred_mkAnd,

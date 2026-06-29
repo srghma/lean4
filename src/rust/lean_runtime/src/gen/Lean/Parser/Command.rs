@@ -5,9 +5,8 @@ use crate::r#gen::Init::Data::List::Basic::l_List_elem___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_mkNumLit;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_node2, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
-    l_instDecidableEqChar___boxed,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node2,
+    l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqChar___boxed,
 };
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;

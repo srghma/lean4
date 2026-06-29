@@ -10,7 +10,6 @@ use crate::r#gen::Init::Data::Nat::Order::{
 use crate::r#gen::Init::Data::Order::Lemmas::{
     initialize_Init_Data_Order_Lemmas, runtime_initialize_Init_Data_Order_Lemmas,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_instInhabitedPersistentArrayNode_default;
 use crate::r#gen::Lean::Data::PersistentHashMap::{

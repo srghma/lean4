@@ -1,10 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Reflect.SatAtBVLogical
 // Imports: Lean.Meta.Tactic.BVDecide.Reflect.Reify
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_Name_mkStr6,
-};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_hasMVar, l_Lean_Expr_isApp, l_Lean_Expr_isConstOf, l_Lean_mkApp3, l_Lean_mkApp4,

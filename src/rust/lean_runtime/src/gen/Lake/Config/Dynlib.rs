@@ -10,7 +10,7 @@ use crate::r#gen::Lake::Config::OutFormat::{
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq,
 };
 pub static l_Lake_instInhabitedDynlib_default___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {

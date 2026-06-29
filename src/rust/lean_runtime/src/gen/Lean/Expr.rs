@@ -20,9 +20,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Name_reprPrec, l_Lean_Name_reprPrec___boxed, l_Lean_mkFreshId___redArg,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_UInt64_decEq___boxed, l_panic___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_UInt64_decEq___boxed, l_panic___redArg};
 use crate::r#gen::Init::Util::{l_mkPanicMessageWithDecl, l_ptrEqList___redArg};
 use crate::r#gen::Lean::Data::KVMap::{
     l_Lean_KVMap_empty, l_Lean_KVMap_find, l_Lean_KVMap_getBool, l_Lean_KVMap_insert,

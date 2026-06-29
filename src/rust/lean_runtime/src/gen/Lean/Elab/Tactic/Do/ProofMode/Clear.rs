@@ -2,8 +2,7 @@
 // Module: Lean.Elab.Tactic.Do.ProofMode.Clear
 // Imports: Std.Tactic.Do.Syntax Lean.Elab.Tactic.Do.ProofMode.Focus
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr6, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind,
+    l_Lean_Name_mkStr6, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
 };
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,

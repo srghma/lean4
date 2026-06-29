@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Parser
 // Imports: Lean.Parser.Basic Lean.Parser.Level Lean.Parser.Term Lean.Parser.Tactic Lean.Parser.Command Lean.Parser.Module Lean.Parser.Syntax Lean.Parser.Do Lean.Parser.Tactic.Doc
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr5};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
 use crate::r#gen::Lean::Message::l_Lean_MessageData_ofFormat;

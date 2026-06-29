@@ -8,10 +8,9 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_TSyntax_getId,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Char_utf8Size, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_getHeadInfo_x3f, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull,
+    l_Char_utf8Size, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getHeadInfo_x3f, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
+    l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Init::System::IO::l_IO_FS_readFile;
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;

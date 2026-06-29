@@ -8,7 +8,7 @@ use crate::r#gen::Init::Meta::Defs::{
 use crate::r#gen::Init::Prelude::{
     initialize_Init_Prelude, l_Array_mkArray0, l_Array_mkArray1___redArg,
     l_Lean_MacroScopesView_review, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
+    l_Lean_Name_mkStr4, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getOptional_x3f,
     l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
     l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7,

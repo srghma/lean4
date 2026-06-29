@@ -41,10 +41,9 @@ use crate::r#gen::Init::Data::ToString::Macro::{
     initialize_Init_Data_ToString_Macro, runtime_initialize_Init_Data_ToString_Macro,
 };
 use crate::r#gen::Init::Prelude::{
-    l_ByteArray_empty, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_addMacroScope,
-    l_Lean_mkAtom, l_MonadExcept_orElse, l_String_toRawSubstring_x27,
+    l_ByteArray_empty, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5,
+    l_Lean_addMacroScope, l_Lean_mkAtom, l_MonadExcept_orElse, l_String_toRawSubstring_x27,
     l_instMonadExceptOfMonadExceptOf___redArg, l_panic___redArg,
 };
 use crate::r#gen::Init::System::FilePath::{
@@ -77,10 +76,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_size,
-    lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_lt, lean_uint32_of_nat,
-    lean_uint32_to_nat,
+    lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint8_dec_eq,
+    lean_uint32_dec_eq, lean_uint32_dec_lt, lean_uint32_of_nat, lean_uint32_to_nat,
 };
 use crate::lean_imports_rs::Init::System::IO::{
     lean_chmod, lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout, lean_get_stderr,

@@ -2,7 +2,6 @@
 // Module: Lean.Compiler.LCNF.Bind
 // Imports: Lean.Compiler.LCNF.InferType
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Compiler::BorrowedAnnotation::l_Lean_isMarkedBorrowed;
 use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{
     l___private_Lean_Compiler_LCNF_CompilerM_0__Lean_Compiler_LCNF_updateFunDeclImp___redArg,
@@ -29,8 +28,7 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 use crate::lean_imports_rs::Init::Util::lean_ptr_addr;

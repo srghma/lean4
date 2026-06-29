@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lake.Build.Infos
 // Imports: Lake.Build.Info Lake.Config.LeanExe Lake.Config.ExternLib Lake.Config.InputFile Lake.Build.Data
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lake::Build::Data::{
     initialize_Lake_Build_Data, runtime_initialize_Lake_Build_Data,
 };

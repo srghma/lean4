@@ -6,9 +6,8 @@ use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_mkStr2, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
+    l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_new;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;

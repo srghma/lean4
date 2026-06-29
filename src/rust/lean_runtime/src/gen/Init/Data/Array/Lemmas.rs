@@ -68,15 +68,14 @@ use crate::r#gen::Init::Data::Prod::{
     initialize_Init_Data_Prod, runtime_initialize_Init_Data_Prod,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub,
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Array_filterMap__replicate___auto__7___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

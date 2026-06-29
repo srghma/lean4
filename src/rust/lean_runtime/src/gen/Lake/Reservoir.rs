@@ -34,8 +34,8 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_string_dec_eq, lean_string_utf8_byte_size,
+    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_string_dec_eq,
+    lean_string_utf8_byte_size,
 };
 pub static l_Lake_instInhabitedRegistrySrc_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

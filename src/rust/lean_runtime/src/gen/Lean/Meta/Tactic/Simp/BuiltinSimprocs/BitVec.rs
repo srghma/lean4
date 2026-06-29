@@ -16,7 +16,7 @@ use crate::r#gen::Init::Data::BitVec::Lemmas::{
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Nat::Bitwise::Basic::l_Nat_testBit;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{l_BitVec_ofNat, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
+use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21,
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,

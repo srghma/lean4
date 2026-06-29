@@ -5,9 +5,7 @@ use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr5, lean_erase_macro_scopes,
-};
+use crate::r#gen::Init::Prelude::lean_erase_macro_scopes;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,
     l_Lean_PersistentHashMap_mkCollisionNode___redArg, l_Lean_PersistentHashMap_mkEmptyEntries,

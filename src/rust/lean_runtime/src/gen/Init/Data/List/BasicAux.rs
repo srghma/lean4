@@ -14,16 +14,15 @@ use crate::r#gen::Init::GetElem::{
     initialize_Init_GetElem, l_List_get_x3fInternal___redArg, runtime_initialize_Init_GetElem,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6,
-    l_Lean_addMacroScope, l_String_toRawSubstring_x27, l_panic___redArg,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
+    l_Lean_Syntax_node6, l_Lean_addMacroScope, l_String_toRawSubstring_x27, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
+    lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
 pub static l_List_getLast_x21___redArg___closed__0_value: crate::leanh::LeanStringObject<24> =

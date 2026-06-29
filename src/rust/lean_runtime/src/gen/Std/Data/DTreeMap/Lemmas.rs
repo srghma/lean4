@@ -10,7 +10,7 @@ use crate::r#gen::Init::Data::List::Pairwise::{
 use crate::r#gen::Init::Data::Prod::{
     initialize_Init_Data_Prod, runtime_initialize_Init_Data_Prod,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Data::DTreeMap::AdditionalOperations::{
     initialize_Std_Data_DTreeMap_AdditionalOperations,
     runtime_initialize_Std_Data_DTreeMap_AdditionalOperations,
@@ -19,9 +19,7 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Lemmas::{
     initialize_Std_Data_DTreeMap_Internal_Lemmas,
     runtime_initialize_Std_Data_DTreeMap_Internal_Lemmas,
 };
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_utf8_byte_size,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_DTreeMap_isSetoid___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

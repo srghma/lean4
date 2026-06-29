@@ -7,7 +7,6 @@ use crate::r#gen::Init::Data::Vector::Extract::{
 use crate::r#gen::Std::Time::Date::Unit::Weekday::{
     initialize_Std_Time_Date_Unit_Weekday, runtime_initialize_Std_Time_Date_Unit_Weekday,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Std_Time_DateFormatSymbols_enUS___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

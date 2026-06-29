@@ -11,8 +11,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Name_replacePrefix, l_Lean_Syntax_isNone};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5, l_Lean_Name_mkStr6, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};

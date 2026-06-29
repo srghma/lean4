@@ -39,10 +39,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_byte_array_push, lean_byte_array_size, lean_mk_empty_array_with_capacity,
-    lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_mul, lean_panic_fn_borrowed, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint64_dec_eq,
-    lean_usize_dec_eq,
+    lean_byte_array_push, lean_byte_array_size, lean_mk_empty_byte_array, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed,
+    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint64_dec_eq, lean_usize_dec_eq,
 };
 static mut l___private_Std_Tactic_BVDecide_LRAT_Parser_0__Std_Tactic_BVDecide_LRAT_Parser_getPivot___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Std_Tactic_BVDecide_LRAT_Parser_0__Std_Tactic_BVDecide_LRAT_Parser_getPivot___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

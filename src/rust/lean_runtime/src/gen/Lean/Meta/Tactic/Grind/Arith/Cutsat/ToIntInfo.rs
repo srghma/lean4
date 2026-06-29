@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.ToIntInfo
 // Imports: Lean.Meta.Tactic.Grind.Arith.Util Lean.Meta.LitValues
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_mkIntAdd, l_Lean_mkIntLit, l_Lean_mkIntMod,
     l_Lean_mkIntSub,

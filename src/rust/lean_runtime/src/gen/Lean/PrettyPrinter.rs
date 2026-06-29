@@ -4,10 +4,7 @@
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::lean_mk_syntax_ident;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_firstFrontendMacroScope, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_firstFrontendMacroScope, l_Lean_replaceRef};
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::{

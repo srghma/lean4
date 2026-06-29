@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.BoolToPropSimps
 // Imports: Lean.Meta.Tactic.Simp.Attr
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Meta::Tactic::Simp::Attr::{
     initialize_Lean_Meta_Tactic_Simp_Attr, l_Lean_Meta_registerSimpAttr,
     runtime_initialize_Lean_Meta_Tactic_Simp_Attr,

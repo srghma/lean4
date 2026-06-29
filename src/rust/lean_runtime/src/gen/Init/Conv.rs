@@ -6,8 +6,7 @@ use crate::r#gen::Init::Meta::Defs::l_Lean_Parser_Tactic_getConfigItems;
 use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Meta};
 use crate::r#gen::Init::Notation::{l_Lean_Parser_Tactic_caseArg, l_Lean_binderIdent};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
     l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
     l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };

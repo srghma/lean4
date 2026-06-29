@@ -10,7 +10,6 @@ use crate::r#gen::Init::Data::Array::Basic::{
     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold, l_Array_append___redArg,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     initialize_Lean_Compiler_LCNF_Basic, l_Lean_Compiler_LCNF_Arg_toExpr___redArg,
     l_Lean_Compiler_LCNF_LetValue_toExpr, l_Lean_Compiler_LCNF_instInhabitedParam_default,

@@ -26,8 +26,7 @@ use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::lean_imports_rs::Init::Core::lean_task_pure;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_lt, lean_nat_mul,
+    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_lt, lean_nat_mul,
 };
 use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lake_Build_Index_0__Lake_recBuildWithIndex___closed__0_value:

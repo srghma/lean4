@@ -7,8 +7,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_mkStrLit, l_Lean_TSyntax_getId, l_Lean_mkSepArray,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Macro_throwUnsupported___redArg, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
+    l_Array_mkArray0, l_Lean_Macro_throwUnsupported___redArg, l_Lean_SourceInfo_fromRef,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
     l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
     l_Lean_mkAtom, l_String_toRawSubstring_x27,
@@ -27,8 +26,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_Json_json_quot___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

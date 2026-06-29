@@ -10,16 +10,15 @@ use crate::r#gen::Init::Meta::Defs::{
     runtime_initialize_Init_Meta_Defs,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node7, l_Lean_Syntax_node8,
+    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node7,
+    l_Lean_Syntax_node8,
 };
 use crate::r#gen::Init::Tactics::{
     initialize_Init_Tactics, l_Lean_Parser_Tactic_simpPost, l_Lean_Parser_Tactic_simpPre,
     runtime_initialize_Init_Tactics,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_Lean_Parser_cbvSimprocEval___closed__0_value: crate::leanh::LeanStringObject<15> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

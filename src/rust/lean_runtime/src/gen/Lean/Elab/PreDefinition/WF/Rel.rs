@@ -3,7 +3,7 @@
 // Imports: Lean.Meta.Tactic.Rename Lean.Elab.PreDefinition.TerminationMeasure Lean.Elab.PreDefinition.FixedParams Lean.Meta.ArgsPacker
 use crate::r#gen::Init::Data::Array::Basic::l_Array_instInhabited;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
 use crate::r#gen::Lean::Elab::PreDefinition::FixedParams::{

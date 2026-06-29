@@ -2,7 +2,6 @@
 // Module: Lean.Elab.InfoTree.Types
 // Imports: Lean.Data.DeclarationRange Lean.Data.OpenDecl Lean.Data.PPContext Lean.MetavarContext Lean.Environment Lean.Widget.Types
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::DeclarationRange::{
     initialize_Lean_Data_DeclarationRange, runtime_initialize_Lean_Data_DeclarationRange,
 };

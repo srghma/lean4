@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.SynthInstance
 // Imports: Lean.Meta.Sym.SymM Lean.Meta.SynthInstance
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Exception::l_Lean_Exception_isInterrupt;
 use crate::r#gen::Lean::Expr::{

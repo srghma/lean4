@@ -10,8 +10,7 @@ use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::MetaTypes::l_Lean_Meta_Simp_neutralConfig;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

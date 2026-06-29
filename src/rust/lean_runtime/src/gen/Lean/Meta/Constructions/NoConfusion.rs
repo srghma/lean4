@@ -13,8 +13,7 @@ use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
 use crate::r#gen::Init::Meta::Defs::{lean_name_append_after, lean_name_append_index_after};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef, l_List_lengthTR___redArg,
+    l_Lean_Name_append, l_Lean_Name_str___override, l_Lean_replaceRef, l_List_lengthTR___redArg,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

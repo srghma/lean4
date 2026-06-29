@@ -2,7 +2,6 @@
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.Power
 // Imports: Init.Grind Lean.Meta.Tactic.Grind.Arith.Simproc Lean.Meta.NatInstTesters Lean.Meta.Tactic.Grind.PropagatorAttr
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFn_x21, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_isApp, l_Lean_Expr_isConstOf, l_Lean_mkApp7, l_Lean_mkAppB,

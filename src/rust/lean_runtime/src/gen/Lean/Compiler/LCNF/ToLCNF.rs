@@ -12,8 +12,7 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
+    l_Lean_Name_hasMacroScopes, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

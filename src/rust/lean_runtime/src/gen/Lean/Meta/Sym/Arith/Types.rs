@@ -5,7 +5,6 @@ use crate::r#gen::Init::Grind::Ring::CommSemiringAdapter::{
     initialize_Init_Grind_Ring_CommSemiringAdapter,
     runtime_initialize_Init_Grind_Ring_CommSemiringAdapter,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::l_Lean_Expr_const___override;
 use crate::r#gen::Lean::Meta::Sym::SymM::{
@@ -14,7 +13,6 @@ use crate::r#gen::Lean::Meta::Sym::SymM::{
     l_Lean_Meta_Sym_SymExtension_getState___redArg, l_Lean_Meta_Sym_registerSymExtension___redArg,
     runtime_initialize_Lean_Meta_Sym_SymM,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_Lean_Meta_Sym_Arith_instInhabitedSemiring_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

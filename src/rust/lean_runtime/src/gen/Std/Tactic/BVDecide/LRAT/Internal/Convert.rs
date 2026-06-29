@@ -19,8 +19,8 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Formula::{
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_CNF_lift___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

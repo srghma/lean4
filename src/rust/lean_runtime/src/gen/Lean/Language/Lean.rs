@@ -15,8 +15,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Name_getRoot, l_Lean_Name_replacePrefix, l_Lean_Syntax_unsetTrailing,
 };
 use crate::r#gen::Init::Prelude::{
-    l_ByteArray_empty, l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_ByteArray_empty, l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getPos_x3f,
     l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_firstFrontendMacroScope,
     l_Lean_replaceRef,

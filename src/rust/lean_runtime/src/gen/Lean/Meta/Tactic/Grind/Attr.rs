@@ -8,8 +8,8 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull, l_Lean_mkAtom, l_Lean_replaceRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_mkAtom,
+    l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;
 use crate::r#gen::Lean::Compiler::MetaAttr::l_Lean_isMarkedMeta;

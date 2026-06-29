@@ -22,11 +22,10 @@ use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_EStateM_bind, l_EStateM_instMonad___lam__0, l_EStateM_instMonad___lam__1,
     l_EStateM_instMonad___lam__2, l_EStateM_map, l_EStateM_pure, l_EStateM_seqRight,
     l_Lean_Macro_instMonadRefMacroM, l_Lean_Name_append, l_Lean_Name_beq___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
-    l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7,
-    l_Lean_addMacroScope, l_ReaderT_instMonad___redArg, l_String_toRawSubstring_x27,
+    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4,
+    l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope,
+    l_ReaderT_instMonad___redArg, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::System::FilePath::l_System_FilePath_normalize;
 use crate::r#gen::Lake::Build::Key::{l_Lake_BuildKey_toString, l_Lake_PartialBuildKey_toString};

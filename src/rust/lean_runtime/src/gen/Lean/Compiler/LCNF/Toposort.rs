@@ -2,7 +2,6 @@
 // Module: Lean.Compiler.LCNF.Toposort
 // Imports: Lean.Compiler.LCNF.CompilerM Lean.Compiler.LCNF.PassManager Lean.Compiler.InitAttr
 use crate::r#gen::Init::Data::Nat::Power2::Basic::l_Nat_nextPowerOfTwo;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Compiler::InitAttr::{
     initialize_Lean_Compiler_InitAttr, l_Lean_getBuiltinInitFnNameFor_x3f,
     lean_get_init_fn_name_for, runtime_initialize_Lean_Compiler_InitAttr,

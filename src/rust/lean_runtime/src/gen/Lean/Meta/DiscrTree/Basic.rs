@@ -17,10 +17,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_String_quote};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_replaceRef, l_panic___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_replaceRef, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::{initialize_Lean_CoreM, runtime_initialize_Lean_CoreM};
 use crate::r#gen::Lean::Data::Name::{l_Lean_Name_isAnonymous, l_Lean_Name_quickLt};

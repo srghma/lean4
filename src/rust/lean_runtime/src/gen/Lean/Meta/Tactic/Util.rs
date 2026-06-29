@@ -3,9 +3,7 @@
 // Imports: Lean.Util.ForEachExprWhere Lean.Meta.PPGoal Lean.Meta.AppBuilder
 use crate::r#gen::Init::Prelude::{
     l_Lean_MacroScopesView_review, l_Lean_Name_append, l_Lean_Name_hasMacroScopes,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_extractMacroScopes, l_Lean_maxRecDepthErrorMessage,
-    lean_erase_macro_scopes,
+    l_Lean_extractMacroScopes, l_Lean_maxRecDepthErrorMessage, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;

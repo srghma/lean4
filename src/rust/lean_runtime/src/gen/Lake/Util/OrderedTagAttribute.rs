@@ -3,7 +3,7 @@
 // Imports: Lean.Attributes
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_instInhabited};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, l_Lean_Attribute_Builtin_ensureNoArgs,
     l_Lean_instBEqAttributeKind_beq, l_Lean_instInhabitedAttributeImpl_default,

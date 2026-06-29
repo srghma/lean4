@@ -17,9 +17,8 @@ use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_firstFrontendMacroScope, l_Lean_maxRecDepthErrorMessage,
-    l_Lean_replaceRef,
+    l_Lean_Name_num___override, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
+    l_Lean_firstFrontendMacroScope, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_isSet;
 use crate::r#gen::Init::System::IO::l_BaseIO_asTask___boxed;

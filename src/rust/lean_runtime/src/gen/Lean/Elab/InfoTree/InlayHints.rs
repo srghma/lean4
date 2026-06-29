@@ -2,7 +2,6 @@
 // Module: Lean.Elab.InfoTree.InlayHints
 // Imports: Lean.Meta.Basic
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr3;
 use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, runtime_initialize_Lean_Meta_Basic,
 };

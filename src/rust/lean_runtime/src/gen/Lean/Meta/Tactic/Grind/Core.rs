@@ -5,9 +5,7 @@ use crate::r#gen::Init::Data::Array::Basic::{l_Array_eraseIdx___redArg, l_Array_
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_checkSystem;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
@@ -100,8 +98,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_nat_sub,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

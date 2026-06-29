@@ -3,8 +3,7 @@
 // Imports: Lean.Meta.Tactic.Congr Lean.Elab.Tactic.Basic
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_TSyntax_getNat};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr7, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;

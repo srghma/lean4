@@ -7,9 +7,6 @@ use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
 use crate::r#gen::Init::System::FilePath::l_System_FilePath_join;
 use crate::r#gen::Init::System::IO::l_IO_FS_Handle_putStrLn;
 use crate::r#gen::Lean::Data::Json::Basic::{

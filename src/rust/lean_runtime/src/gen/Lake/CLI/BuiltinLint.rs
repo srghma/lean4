@@ -4,9 +4,7 @@
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_getRoot;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_firstFrontendMacroScope,
-};
+use crate::r#gen::Init::Prelude::l_Lean_firstFrontendMacroScope;
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Lake::Config::Workspace::{
     initialize_Lake_Config_Workspace, runtime_initialize_Lake_Config_Workspace,

@@ -30,8 +30,7 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub,
+    lean_array_get, lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 static mut l___private_Lean_Meta_Tactic_CasesOnStuckLHS_0__Lean_Meta_casesOnStuckLHS_findFVar_x3f___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

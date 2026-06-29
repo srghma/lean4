@@ -12,8 +12,8 @@ use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_ReaderT_instMonad___redArg,
-    l_instInhabitedForall___redArg___lam__0___boxed, l_instInhabitedOfMonad___redArg,
+    l_ReaderT_instMonad___redArg, l_instInhabitedForall___redArg___lam__0___boxed,
+    l_instInhabitedOfMonad___redArg,
 };
 use crate::r#gen::Init::System::IO::{l_instInhabitedEIO___aux__1___boxed, l_instMonadEIO};
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;

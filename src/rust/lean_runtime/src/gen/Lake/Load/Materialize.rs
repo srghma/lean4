@@ -54,8 +54,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
+    lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
+    lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::lean_io_realpath;
 pub static l___private_Lake_Load_Materialize_0__Lake_updateGitPkg___closed__0_value:

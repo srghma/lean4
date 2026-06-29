@@ -16,10 +16,9 @@ use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Name_append, l_Lean_Name_beq___boxed,
     l_Lean_Name_hasMacroScopes, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
     l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
-    l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope, l_Lean_replaceRef,
-    l_String_toRawSubstring_x27,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
+    l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7,
+    l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::MetaAttr::l_Lean_isMarkedMeta;

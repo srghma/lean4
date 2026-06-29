@@ -11,8 +11,8 @@ use crate::r#gen::Init::Data::String::FindPos::l_String_Slice_posGE___redArg;
 use crate::r#gen::Init::Data::String::Pattern::String::l_String_Slice_Pattern_ForwardSliceSearcher_buildTable;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_hasArgs;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Lean::Data::Lsp::{initialize_Lean_Data_Lsp, runtime_initialize_Lean_Data_Lsp};
 use crate::r#gen::Lean::Data::Position::{l_Lean_FileMap_lineStart, l_Lean_FileMap_toPosition};

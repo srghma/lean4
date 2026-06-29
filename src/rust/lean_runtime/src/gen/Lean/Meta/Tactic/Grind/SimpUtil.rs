@@ -8,9 +8,6 @@ use crate::r#gen::Init::Grind::Config::{
 use crate::r#gen::Init::Grind::Norm::{
     initialize_Init_Grind_Norm, runtime_initialize_Init_Grind_Norm,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-};
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_Node_isEmpty___redArg, l_Lean_PersistentHashMap_mkEmptyEntriesArray,

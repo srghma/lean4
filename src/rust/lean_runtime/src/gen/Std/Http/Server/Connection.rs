@@ -18,7 +18,7 @@ use crate::r#gen::Init::Data::ByteArray::Basic::{l_ByteArray_extract, l_ByteArra
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{
-    l_Function_comp, l_Lean_Name_mkStr4, l_String_decEq___boxed, l_String_hash___boxed,
+    l_Function_comp, l_String_decEq___boxed, l_String_hash___boxed,
     l_instMonadLiftT___lam__0___boxed, l_instMonadLiftTOfMonadLift___redArg___lam__0,
 };
 use crate::r#gen::Init::System::IO::{

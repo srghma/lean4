@@ -2,7 +2,6 @@
 // Module: Lean.Meta.Tactic.Grind.AC.DenoteExpr
 // Imports: Lean.Meta.Tactic.Grind.AC.Util
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_get_x21___redArg;
 use crate::r#gen::Lean::Expr::{
     l_Lean_instInhabitedExpr, l_Lean_mkApp3, l_Lean_mkAppB, l_Lean_mkConst,

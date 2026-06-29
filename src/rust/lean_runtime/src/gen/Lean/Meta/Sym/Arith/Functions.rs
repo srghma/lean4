@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Arith.Functions
 // Imports: Lean.Meta.Sym.Arith.MonadRing Lean.Meta.Sym.Arith.MonadSemiring
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Exception::l_Lean_throwError___redArg;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Nat_mkType, l_Lean_mkApp3, l_Lean_mkApp4, l_Lean_mkAppB,

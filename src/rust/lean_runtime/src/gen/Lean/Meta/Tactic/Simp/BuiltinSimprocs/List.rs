@@ -2,7 +2,6 @@
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.List
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat
 use crate::r#gen::Init::Data::List::Basic::l_List_replicateTR___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf,
@@ -18,7 +17,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_List_reduceReplicate___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

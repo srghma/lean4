@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Init.Grind.Lint
 // Imports: Init.Tactics
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
 use crate::r#gen::Init::Tactics::{
     initialize_Init_Tactics, l_Lean_Parser_Tactic_configItem, runtime_initialize_Init_Tactics,
 };

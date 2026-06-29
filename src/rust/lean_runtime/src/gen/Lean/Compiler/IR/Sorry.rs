@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.Sorry
 // Imports: Lean.Compiler.IR.CompilerM
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Compiler::IR::Basic::{
     l_Lean_IR_Alt_body, l_Lean_IR_FnBody_body, l_Lean_IR_FnBody_isTerminal,
 };

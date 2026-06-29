@@ -14,8 +14,8 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_structEq;
 use crate::r#gen::Init::Prelude::{
-    l_Array_extract___redArg, l_Char_utf8Size, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Syntax_getPos_x3f, l_Lean_mkAtom, l_String_decEq___boxed,
+    l_Array_extract___redArg, l_Char_utf8Size, l_Lean_Syntax_getPos_x3f, l_Lean_mkAtom,
+    l_String_decEq___boxed,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::PersistentHashMap::{

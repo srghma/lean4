@@ -24,7 +24,7 @@ use crate::r#gen::Init::Data::Ord::String::l_String_compare___boxed;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_id___boxed};
+use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Lean::Data::DeclarationRange::{
     initialize_Lean_Data_DeclarationRange, runtime_initialize_Lean_Data_DeclarationRange,
 };

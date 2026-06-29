@@ -13,9 +13,7 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_EnvExtension_modifyState___redArg, l_Lean_Environment_header,
     l_Lean_registerEnvExtension___redArg, runtime_initialize_Lean_Environment,
 };
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_mk_empty_array_with_capacity, lean_nat_sub, lean_string_dec_eq,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_nat_sub, lean_string_dec_eq};
 pub static l_Lean_Compiler_LCNF_mkOrderedDeclSetExt___lam__0___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

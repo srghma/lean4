@@ -1,3 +1,8 @@
+#![allow(unused_variables)]
+#![allow(unused_assignments)]
+#![allow(unused_parens)]
+#![allow(unused_mut)]
+
 pub mod Init {
     #[path = "Core.rs"]
     pub mod Core;
@@ -266,3 +271,5 @@ pub mod Std {
         }
     }
 }
+
+pub use lake::Lake;

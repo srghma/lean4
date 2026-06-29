@@ -6,8 +6,7 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Syntax_getId, l_Lean_mkAtom,
-    l_Lean_replaceRef,
+    l_Lean_Syntax_getId, l_Lean_mkAtom, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Lean::Attributes::{

@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Match
 // Imports: Lean.Meta.Match.MatchPatternAttr Lean.Meta.Match.Match Lean.Meta.Match.CaseValues Lean.Meta.Match.CaseArraySizes Lean.Meta.Match.MatchEqs
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Lean::Meta::Match::CaseArraySizes::{
     initialize_Lean_Meta_Match_CaseArraySizes, runtime_initialize_Lean_Meta_Match_CaseArraySizes,
 };

@@ -9,11 +9,9 @@ use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_mkCIdent, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
-    l_Lean_Syntax_node4, l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope,
-    l_Lean_replaceRef, l_String_toRawSubstring_x27,
+    l_Array_mkArray0, l_Lean_Name_append, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node6,
+    l_Lean_Syntax_node7, l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::System::ST::l_runST___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

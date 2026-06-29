@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Eval
 // Imports: Lean.AddDecl Lean.Meta.Check Lean.Util.CollectLevelParams Lean.Compiler.Options
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::AddDecl::{
     initialize_Lean_AddDecl, l_Lean_addAndCompile, runtime_initialize_Lean_AddDecl,
 };
@@ -43,8 +42,7 @@ use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_uget_borrowed, lean_mk_array};
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_lt,
-    lean_usize_dec_eq,
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

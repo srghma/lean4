@@ -4,9 +4,8 @@
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_unsetTrailing;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_setKind,
-    l_Lean_mkAtom, l_String_toRawSubstring_x27,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_setKind, l_Lean_mkAtom, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::Syntax::l_Lean_Syntax_setArg;
 use crate::r#gen::Lean::Elab::Tactic::Basic::l_Lean_Elab_Tactic_tacticElabAttribute;

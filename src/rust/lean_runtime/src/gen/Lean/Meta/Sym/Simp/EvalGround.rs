@@ -27,11 +27,9 @@ use crate::r#gen::Init::Data::UInt::Basic::{
     l_UInt8_pow, l_UInt16_pow, l_UInt32_pow, l_UInt64_pow,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
-    l_Lean_Syntax_node7, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4,
+    l_Lean_Syntax_node5, l_Lean_Syntax_node7, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::Sym::Lemmas::{
     initialize_Init_Sym_Lemmas, runtime_initialize_Init_Sym_Lemmas,

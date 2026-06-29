@@ -2,7 +2,6 @@
 // Module: Lake.Build.Facets
 // Imports: Lake.Build.Job.Basic Lake.Build.ModuleArtifacts Lake.Build.Data
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4};
 use crate::r#gen::Lake::Build::Data::{
     initialize_Lake_Build_Data, runtime_initialize_Lake_Build_Data,
 };

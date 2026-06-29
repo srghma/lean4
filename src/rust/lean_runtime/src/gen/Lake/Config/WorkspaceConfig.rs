@@ -8,7 +8,6 @@ use crate::r#gen::Init::Control::Id::{
 };
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold;
 use crate::r#gen::Init::Data::Repr::{l_Repr_addAppParen, l_String_quote};
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lake::Config::Defaults::{
     initialize_Lake_Config_Defaults, l_Lake_defaultPackagesDir,
     runtime_initialize_Lake_Config_Defaults,
@@ -24,8 +23,7 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static mut l_Lake_instInhabitedWorkspaceConfig_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();

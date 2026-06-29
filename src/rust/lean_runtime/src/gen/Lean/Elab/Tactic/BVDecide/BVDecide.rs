@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.BVDecide.BVDecide
 // Imports: Lean.Meta.Tactic.BVDecide.Main
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{

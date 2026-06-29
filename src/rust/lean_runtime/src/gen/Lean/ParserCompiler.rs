@@ -7,10 +7,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
 };
 use crate::r#gen::Init::Meta::Defs::lean_mk_syntax_ident;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
 use crate::r#gen::Lean::AddDecl::l_Lean_addAndCompile;
 use crate::r#gen::Lean::Attributes::l_Lean_Attribute_add;
 use crate::r#gen::Lean::Compiler::MetaAttr::l_Lean_isMarkedMeta;

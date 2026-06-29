@@ -11,9 +11,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
 };
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage,
-};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_isSet;
 use crate::r#gen::Init::System::ST::{
     l_ST_Prim_Ref_get___boxed, l_ST_Prim_Ref_modifyGetUnsafe___boxed, l_ST_Prim_mkRef___boxed,

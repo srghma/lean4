@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lake.DSL.Syntax
 // Imports: Lake.DSL.DeclUtil
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4};
 use crate::r#gen::Lake::DSL::DeclUtil::{
     initialize_Lake_DSL_DeclUtil, l_Lake_DSL_declValDo, l_Lake_DSL_identOrStr,
     l_Lake_DSL_optConfig, l_Lake_DSL_simpleBinder, runtime_initialize_Lake_DSL_DeclUtil,

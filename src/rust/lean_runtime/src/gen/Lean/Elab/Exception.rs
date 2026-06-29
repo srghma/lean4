@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Exception
 // Imports: Lean.Exception
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::KVMap::{
     l_Lean_KVMap_empty, l_Lean_KVMap_getName, l_Lean_KVMap_insert,
 };

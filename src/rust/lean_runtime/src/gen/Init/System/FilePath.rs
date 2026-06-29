@@ -57,9 +57,8 @@ use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
 use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_hash,
+    lean_array_fget_borrowed, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_hash,
     lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le,
     lean_uint64_mix_hash,
 };

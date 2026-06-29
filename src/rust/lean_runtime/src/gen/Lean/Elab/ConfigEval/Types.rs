@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.ConfigEval.Types
 // Imports: Lean.Elab.Term.TermElabM Lean.Parser.Term
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Elab::Term::TermElabM::{
     initialize_Lean_Elab_Term_TermElabM, runtime_initialize_Lean_Elab_Term_TermElabM,
 };

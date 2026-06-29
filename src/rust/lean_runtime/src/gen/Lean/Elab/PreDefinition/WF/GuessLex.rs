@@ -20,8 +20,7 @@ use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::lean_name_append_after;
 use crate::r#gen::Init::Prelude::{
-    l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
+    l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Name_hasMacroScopes,
     l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getPos_x3f,
     l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_node1, l_Lean_replaceRef, l_List_lengthTR___redArg,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,

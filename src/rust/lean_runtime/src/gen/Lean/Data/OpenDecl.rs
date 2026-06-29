@@ -12,7 +12,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
     runtime_initialize_Init_Data_ToString_Name,
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_replacePrefix;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_beq___boxed, l_Lean_Name_mkStr1};
+use crate::r#gen::Init::Prelude::l_Lean_Name_beq___boxed;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::lean_name_eq;
 pub static l_Lean_instBEqOpenDecl___closed__0_value: crate::leanh::LeanClosureObject<0> =

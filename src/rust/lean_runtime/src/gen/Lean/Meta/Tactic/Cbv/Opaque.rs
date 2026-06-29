@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Cbv.Opaque
 // Imports: Lean.ScopedEnvExtension Lean.ReducibilityAttrs
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed};
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofConstName, l_Lean_stringToMessageData};

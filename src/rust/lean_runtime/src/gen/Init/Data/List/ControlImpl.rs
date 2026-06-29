@@ -10,7 +10,6 @@ use crate::r#gen::Init::Data::List::Impl::{
     runtime_initialize_Init_Data_List_Impl,
 };
 use crate::r#gen::Init::Prelude::l_id___boxed;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_List_flatMapMTR_loop___redArg___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

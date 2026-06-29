@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.ExposeNames
 // Imports: Lean.Meta.Tactic.ExposeNames Lean.Elab.Tactic.Basic
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr4;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{
     initialize_Lean_Elab_Tactic_Basic, l_Lean_Elab_Tactic_getMainGoal___redArg,
     l_Lean_Elab_Tactic_replaceMainGoal___redArg, l_Lean_Elab_Tactic_tacticElabAttribute,

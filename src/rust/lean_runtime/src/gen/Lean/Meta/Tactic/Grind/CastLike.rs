@@ -7,7 +7,6 @@ use crate::r#gen::Init::Grind::Module::Envelope::{
 use crate::r#gen::Init::Grind::Ring::Envelope::{
     initialize_Init_Grind_Ring_Envelope, runtime_initialize_Init_Grind_Ring_Envelope,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5};
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_getAppFn, runtime_initialize_Lean_Expr,
 };

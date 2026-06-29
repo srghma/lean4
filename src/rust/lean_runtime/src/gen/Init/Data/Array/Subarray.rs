@@ -16,15 +16,14 @@ use crate::r#gen::Init::Data::Slice::Operations::{
     initialize_Init_Data_Slice_Operations, runtime_initialize_Init_Data_Slice_Operations,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_addMacroScope,
-    l_String_toRawSubstring_x27,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5,
+    l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Subarray_instSliceSizeSubarrayData___closed__0_value: crate::leanh::LeanClosureObject<
     0,

@@ -2,8 +2,7 @@
 // Module: Lean.Elab.Tactic.Do.ProofMode.Frame
 // Imports: Std.Tactic.Do.Syntax Lean.Elab.Tactic.Do.ProofMode.Focus
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_Name_mkStr6, l_Lean_Name_num___override,
+    l_Lean_Name_mkStr5, l_Lean_Name_mkStr6, l_Lean_Name_num___override,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_mkFreshUserName;

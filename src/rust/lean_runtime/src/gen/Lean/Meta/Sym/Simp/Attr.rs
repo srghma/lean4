@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.Attr
 // Imports: Lean.Meta.Sym.Simp.Theorems Lean.Meta.Tactic.Simp.SimpTheorems Lean.Meta.Eqns
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_mkAtom, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_Lean_replaceRef};
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;

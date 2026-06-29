@@ -3,9 +3,7 @@
 // Imports: Lean.Elab.InfoTree
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_replaceRef, l_List_lengthTR___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_replaceRef, l_List_lengthTR___redArg};
 use crate::r#gen::Lean::Attributes::{
     l_Lean_Attribute_Builtin_getIdent, l_Lean_ParametricAttribute_getParam_x3f___redArg,
     l_Lean_ParametricAttribute_setParam___redArg, l_Lean_registerParametricAttribute___redArg,

@@ -3,7 +3,7 @@
 // Imports: Lean.Elab.Do.Basic Lean.Parser.Do
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Lean::Elab::Do::Basic::{
     initialize_Lean_Elab_Do_Basic, l_Lean_Elab_Do_DoElemCont_elabAsSyntacticallyDeadCode,

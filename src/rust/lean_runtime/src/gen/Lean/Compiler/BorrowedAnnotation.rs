@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Compiler.BorrowedAnnotation
 // Imports: Lean.Expr
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_annotation_x3f, l_Lean_mkAnnotation, runtime_initialize_Lean_Expr,
 };

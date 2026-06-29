@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.SearchM
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_num___override};
+use crate::r#gen::Init::Prelude::l_Lean_Name_num___override;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_const___override, l_Lean_FVarIdSet_insert};
 use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::LinearM::{

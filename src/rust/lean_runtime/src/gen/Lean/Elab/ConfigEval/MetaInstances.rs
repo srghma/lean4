@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.ConfigEval.MetaInstances
 // Imports: Lean.Elab.ConfigEval.Commands Lean.Elab.ConfigEval.Instances Lean.Elab.ConfigEval.DeriveEvalTerm Lean.Elab.ConfigEval.DeriveEvalExpr
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr4;
 use crate::r#gen::Lean::Elab::ConfigEval::Commands::{
     initialize_Lean_Elab_ConfigEval_Commands, runtime_initialize_Lean_Elab_ConfigEval_Commands,
 };

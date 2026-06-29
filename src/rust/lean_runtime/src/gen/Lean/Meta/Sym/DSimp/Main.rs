@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.DSimp.Main
 // Imports: Lean.Meta.Sym.DSimp.DSimpM Lean.Meta.Sym.DSimp.DSimproc Lean.Meta.Sym.DSimp.App Lean.Meta.Sym.DSimp.Lambda Lean.Meta.Sym.DSimp.Forall Lean.Meta.Sym.DSimp.Let Lean.Meta.Sym.AlphaShareBuilder
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_checkSystem;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,

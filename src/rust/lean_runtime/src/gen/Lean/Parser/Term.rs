@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Parser.Term
 // Imports: Lean.Parser.Term.Basic Lean.Parser.Term.Doc Lean.DocString.Parser Lean.DocString.Formatter
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Syntax_isIdent,
-    l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::DocString::Formatter::{
@@ -204,8 +201,7 @@ use crate::lean_imports_rs::Init::Data::String::Basic::{
     lean_string_utf8_extract, lean_string_utf8_prev,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_string_utf8_byte_size,
+    lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_string_utf8_byte_size,
 };
 use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
 pub static l_Lean_Parser_Command_versoCommentBodyFn___closed__0_value:

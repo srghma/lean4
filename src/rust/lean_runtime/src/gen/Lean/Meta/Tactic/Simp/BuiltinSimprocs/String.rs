@@ -2,7 +2,6 @@
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.String
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Char Lean.Meta.StringLitProof
 use crate::r#gen::Init::Data::String::Basic::l_String_decLE;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21,
     l_Lean_Expr_isAppOfArity, l_Lean_mkAppB, l_Lean_mkConst, l_Lean_mkRawNatLit, l_Lean_mkStrLit,
@@ -29,9 +28,7 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
 use crate::lean_imports_rs::Init::Data::String::Basic::{lean_string_data, lean_string_dec_lt};
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_dec_eq, lean_uint32_to_nat,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_string_dec_eq, lean_uint32_to_nat};
 pub static l_String_reduceAppend___redArg___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

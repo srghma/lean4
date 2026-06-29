@@ -11,8 +11,8 @@ use crate::r#gen::Init::Data::Array::BinSearch::l_Array_binSearchAux___redArg;
 use crate::r#gen::Init::Data::Nat::Power2::Basic::l_Nat_nextPowerOfTwo;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr4, l_Lean_mkAtom, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_mkAtom,
+    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Refl
 // Imports: Lean.Meta.Reduce Lean.Meta.Tactic.Apply
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,

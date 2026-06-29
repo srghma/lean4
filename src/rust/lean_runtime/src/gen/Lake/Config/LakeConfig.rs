@@ -7,7 +7,6 @@ use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__6,
 };
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lake::Config::Cache::{
     initialize_Lake_Config_Cache, runtime_initialize_Lake_Config_Cache,
 };
@@ -20,8 +19,7 @@ use crate::r#gen::Lake::Config::MetaClasses::{
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_string_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
 };
 pub static mut l_Lake_instInhabitedCacheServiceKind_default: u8 = 0;
 pub static mut l_Lake_instInhabitedCacheServiceKind: u8 = 0;

@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.OriginalConstKind
 // Imports: Lean.Environment Lean.EnvExtension
-use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Lean::EnvExtension::{
     initialize_Lean_EnvExtension, l_Lean_MapDeclarationExtension_find_x3f___redArg,
     l_Lean_mkMapDeclarationExtension___redArg, runtime_initialize_Lean_EnvExtension,

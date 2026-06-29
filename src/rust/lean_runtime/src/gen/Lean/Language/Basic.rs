@@ -6,9 +6,7 @@ use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_mkAtom,
-};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_set;
 use crate::r#gen::Init::System::IO::{l_BaseIO_chainTask___redArg, l_instMonadBaseIO};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;

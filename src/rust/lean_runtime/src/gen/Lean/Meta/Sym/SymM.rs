@@ -10,8 +10,7 @@ use crate::r#gen::Init::Control::StateRef::{
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node5, l_Lean_addMacroScope,
     l_Lean_instMonadQuotationOfMonadFunctorOfMonadLift___redArg,
@@ -83,8 +82,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_lt, lean_uint64_mix_hash,
+    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
+    lean_uint64_mix_hash,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

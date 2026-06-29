@@ -61,10 +61,7 @@ use crate::r#gen::Init::Internal::Order::While::{
     initialize_Init_Internal_Order_While, runtime_initialize_Init_Internal_Order_While,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom, l_List_get___redArg,
-    l_List_lengthTR___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_List_get___redArg, l_List_lengthTR___redArg};
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
 use crate::r#gen::Std::Do::PostCond::l_Std_Do_PostShape_args;
 use crate::r#gen::Std::Do::SPred::Laws::l_Std_Do_SVal_evalsTo___redArg;
@@ -76,8 +73,7 @@ use crate::r#gen::Std::Do::Triple::Basic::{
     initialize_Std_Do_Triple_Basic, runtime_initialize_Std_Do_Triple_Basic,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_div, lean_nat_mul,
-    lean_nat_sub,
+    lean_array_push, lean_nat_add, lean_nat_div, lean_nat_mul, lean_nat_sub,
 };
 pub static l_List_Cursor_current___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

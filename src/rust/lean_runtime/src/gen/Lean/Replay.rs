@@ -5,8 +5,7 @@ use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_instInhabitedForall___redArg___lam__0___boxed,
-    l_instInhabitedOfMonad___redArg,
+    l_instInhabitedForall___redArg___lam__0___boxed, l_instInhabitedOfMonad___redArg,
 };
 use crate::r#gen::Init::System::IO::l_instMonadEIO;
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};

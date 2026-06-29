@@ -3,9 +3,6 @@
 // Imports: Lean.Compiler.LCNF.InferType
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_collectType,
     l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_updateAltCodeImp___redArg,
@@ -39,9 +36,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_usize_dec_eq,
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
 pub static l_Lean_Compiler_LCNF_ReduceJpArity_reduce___closed__0_value:

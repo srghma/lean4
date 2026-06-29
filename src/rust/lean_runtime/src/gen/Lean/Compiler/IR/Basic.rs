@@ -14,7 +14,6 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
 };
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::ExternAttr::{
     initialize_Lean_Compiler_ExternAttr, runtime_initialize_Lean_Compiler_ExternAttr,

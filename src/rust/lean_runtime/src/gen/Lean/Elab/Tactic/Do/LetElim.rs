@@ -5,8 +5,7 @@ use crate::r#gen::Init::Data::Array::Basic::l_Array_ofFn___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_maxRecDepthErrorMessage, l_Lean_mkAtom,
+    l_Lean_Name_num___override, l_Lean_maxRecDepthErrorMessage, l_Lean_mkAtom,
 };
 use crate::r#gen::Init::System::ST::{l_ST_Prim_Ref_get___boxed, l_ST_Prim_mkRef___boxed};
 use crate::r#gen::Lean::CoreM::l_Lean_Core_checkSystem;

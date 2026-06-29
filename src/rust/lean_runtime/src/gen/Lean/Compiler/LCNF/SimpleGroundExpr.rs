@@ -6,8 +6,8 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::List::Impl::l___private_Init_Data_List_Impl_0__List_takeTR_go;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_List_lengthTR___redArg,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_List_lengthTR___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};

@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.WithGrindTacticM
 // Imports: Lean.Elab.Tactic.Grind.Basic Lean.Elab.Command
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Elab::Command::{
     initialize_Lean_Elab_Command, l_Lean_Elab_Command_liftTermElabM___redArg,

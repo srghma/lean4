@@ -2,7 +2,7 @@
 // Module: Lean.Meta.Tactic.BVDecide.TacticContext
 // Imports: Lean.Meta.Tactic.BVDecide.Attr
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::System::FilePath::{
     l_System_FilePath_exeExtension, l_System_FilePath_join, l_System_FilePath_parent,
     l_System_FilePath_withExtension,
@@ -19,9 +19,7 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Attr::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Attr,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_mk_empty_array_with_capacity, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_panic_fn_borrowed, lean_string_dec_eq};
 use crate::lean_imports_rs::Init::System::IO::lean_io_app_path;
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize.ShortCircuit
 // Imports: Lean.Meta.Tactic.BVDecide.Normalize.Basic Std.Tactic.BVDecide.Normalize.BitVec
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr6};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr6;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::l_Lean_mkConst;

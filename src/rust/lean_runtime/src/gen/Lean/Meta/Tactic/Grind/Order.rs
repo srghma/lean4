@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Order
 // Imports: Lean.Meta.Tactic.Grind.Order.Types Lean.Meta.Tactic.Grind.Order.Internalize Lean.Meta.Tactic.Grind.Order.StructId Lean.Meta.Tactic.Grind.Order.OrderM Lean.Meta.Tactic.Grind.Order.Assert Lean.Meta.Tactic.Grind.Order.Util
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Lean::Meta::Tactic::Grind::Order::Assert::{
     initialize_Lean_Meta_Tactic_Grind_Order_Assert, l_Lean_Meta_Grind_Order_processNewEq___boxed,
     runtime_initialize_Lean_Meta_Tactic_Grind_Order_Assert,

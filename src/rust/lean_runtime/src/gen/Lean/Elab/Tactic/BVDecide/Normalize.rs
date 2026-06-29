@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.BVDecide.Normalize
 // Imports: Lean.Meta.Tactic.BVDecide.Normalize
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{
     l_Lean_Elab_Tactic_getMainGoal___redArg, l_Lean_Elab_Tactic_replaceMainGoal___redArg,

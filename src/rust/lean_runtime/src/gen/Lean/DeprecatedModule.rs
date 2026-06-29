@@ -2,9 +2,6 @@
 // Module: Lean.DeprecatedModule
 // Imports: Lean.Compiler.ModPkgExt
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-};
 use crate::r#gen::Lean::Compiler::ModPkgExt::{
     initialize_Lean_Compiler_ModPkgExt, l_Lean_ModuleEnvExtension_getStateByIdx_x3f___redArg,
     l_Lean_registerModuleEnvExtension___redArg, runtime_initialize_Lean_Compiler_ModPkgExt,
@@ -18,8 +15,8 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_instInhabitedDeprecatedModuleEntry_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {

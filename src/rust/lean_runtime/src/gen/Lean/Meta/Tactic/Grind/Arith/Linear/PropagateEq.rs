@@ -13,8 +13,7 @@ use crate::r#gen::Init::Grind::Ring::CommSolver::{
     l_Lean_Grind_CommRing_Expr_toPoly, l_Lean_Grind_CommRing_Poly_mulConst,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_maxRecDepthErrorMessage,
+    l_Lean_Name_append, l_Lean_maxRecDepthErrorMessage,
     l_instInhabitedForall___redArg___lam__0___boxed,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

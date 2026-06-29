@@ -14,9 +14,9 @@ use crate::r#gen::Init::Internal::Order::Basic::{
     initialize_Init_Internal_Order_Basic, runtime_initialize_Init_Internal_Order_Basic,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
-    l_Pi_instInhabited___redArg___lam__0, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Name_append, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_str___override,
+    l_Lean_replaceRef, l_Pi_instInhabited___redArg___lam__0,
+    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

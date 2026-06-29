@@ -12,8 +12,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNatLit_x3f;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
+    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_num___override,
     l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getId,
     l_Lean_Syntax_getKind, l_Lean_Syntax_getNumArgs, l_Lean_mkAtom, l_Lean_replaceRef,
     lean_erase_macro_scopes,

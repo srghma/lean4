@@ -3,9 +3,8 @@
 // Imports: Lean.Meta.Tactic.Simp.Simproc
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getKind, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_mkAtom,
-    l_Lean_replaceRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_mkAtom, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_Attribute_add, l_Lean_Attribute_erase, l_Lean_getAttrParamOptPrio,

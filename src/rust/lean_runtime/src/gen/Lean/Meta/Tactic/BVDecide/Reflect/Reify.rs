@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Reflect.Reify
 // Imports: Lean.Meta.Tactic.BVDecide.Reflect.ReifiedLemmas Lean.Meta.LitValues
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr5, l_Lean_Name_mkStr6,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr6;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_checkSystem;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,

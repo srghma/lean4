@@ -9,8 +9,7 @@ use crate::r#gen::Init::Control::Id::{
 use crate::r#gen::Init::Core::l_instDecidableEqPUnit___boxed;
 use crate::r#gen::Init::Data::Repr::{l_List_repr___redArg, l_Repr_addAppParen};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom,
-    l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_panic___redArg,
+    l_Lean_mkAtom, l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Data::DTreeMap::Basic::{

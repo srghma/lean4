@@ -4,7 +4,7 @@
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_isLetterLike, l_Lean_isSubScriptAlnum};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_str___override};
+use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
 use crate::r#gen::Init::System::IO::l_IO_FS_readFile;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Data::Json::Basic::l_Lean_Json_mkObj;

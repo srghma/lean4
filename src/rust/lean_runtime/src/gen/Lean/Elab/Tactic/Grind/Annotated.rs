@@ -6,10 +6,7 @@ use crate::r#gen::Init::Grind::Annotated::{
     initialize_Init_Grind_Annotated, runtime_initialize_Init_Grind_Annotated,
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getString;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     l_Lean_NameSet_contains, l_Lean_NameSet_empty, l_Lean_NameSet_insert,
     l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg,

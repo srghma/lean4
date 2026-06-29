@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     initialize_Init_Data_Range_Polymorphic_Iterators,
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_isSet;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Exception::l_Lean_interruptExceptionId;

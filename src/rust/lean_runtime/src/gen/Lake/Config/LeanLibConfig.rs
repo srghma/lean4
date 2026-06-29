@@ -10,7 +10,6 @@ use crate::r#gen::Init::Data::Array::Basic::{
     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold,
     l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map, l_Array_append___redArg,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lake::Build::Facets::{
     initialize_Lake_Build_Facets, l_Lake_LeanLib_leanArtsFacet, l_Lake_Module_oExportFacet,
     l_Lake_Module_oFacet, runtime_initialize_Lake_Build_Facets,

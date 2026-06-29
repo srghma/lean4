@@ -19,11 +19,9 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_isNone, l_Lean_mkSepArray, lean_mk_syntax_ident,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Array_mkArray2___redArg, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_mkStr6, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_Syntax_node6,
-    l_Lean_mkAtom,
+    l_Array_mkArray0, l_Array_mkArray2___redArg, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
+    l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_mkAtom,
 };
 use crate::r#gen::Std::Data::DHashMap::Internal::Raw::{
     initialize_Std_Data_DHashMap_Internal_Raw, runtime_initialize_Std_Data_DHashMap_Internal_Raw,

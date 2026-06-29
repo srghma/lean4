@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Init.Coe
 // Imports: Init.Prelude Init.Prelude
-use crate::r#gen::Init::Prelude::{
-    initialize_Init_Prelude, l_Lean_Name_mkStr1, runtime_initialize_Init_Prelude,
-};
+use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
 pub static l_instCoeTC___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

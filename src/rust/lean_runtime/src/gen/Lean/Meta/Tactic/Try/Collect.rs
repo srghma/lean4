@@ -2,7 +2,7 @@
 // Module: Lean.Meta.Tactic.Try.Collect
 // Imports: Init.Try Lean.Meta.Tactic.LibrarySearch Lean.Meta.Tactic.FunIndCollect
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::Try::{initialize_Init_Try, runtime_initialize_Init_Try};
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;

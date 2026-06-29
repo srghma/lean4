@@ -11,9 +11,8 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_getSepArgs;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getHeadInfo,
-    l_Lean_Syntax_getKind, l_Lean_Syntax_getNumArgs, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getHeadInfo, l_Lean_Syntax_getKind,
+    l_Lean_Syntax_getNumArgs, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::l_Lean_diagnostics;

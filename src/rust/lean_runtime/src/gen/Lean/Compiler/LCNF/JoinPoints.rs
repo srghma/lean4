@@ -11,8 +11,7 @@ use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_zi
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_mkAtom,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_mkAtom,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

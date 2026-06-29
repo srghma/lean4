@@ -24,8 +24,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_isNone, l_Lean_TSyntax_getNat, lean_name_append_index_after,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr6, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Name_mkStr6, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
     l_Lean_instMonadQuotationOfMonadFunctorOfMonadLift___redArg,
     l_Pi_instInhabited___redArg___lam__0, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,

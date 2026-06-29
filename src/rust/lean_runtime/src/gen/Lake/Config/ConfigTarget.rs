@@ -13,8 +13,8 @@ use crate::r#gen::Lake::Config::Package::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_uint64_of_nat,
+    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_uint64_of_nat,
 };
 static mut l_Lake_instHashableConfigTarget___lam__0___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

@@ -28,13 +28,11 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_mkIdentFrom,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getId, l_Lean_Syntax_getKind,
-    l_Lean_Syntax_getNumArgs, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_Syntax_isIdent, l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull, l_Lean_mkAtomFrom, l_Lean_replaceRef, l_List_lengthTR___redArg,
-    lean_erase_macro_scopes,
+    l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getId, l_Lean_Syntax_getKind, l_Lean_Syntax_getNumArgs, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isIdent, l_Lean_Syntax_isMissing,
+    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_mkAtomFrom, l_Lean_replaceRef,
+    l_List_lengthTR___redArg, lean_erase_macro_scopes,
 };
 use crate::r#gen::Init::Syntax::l_Lean_Syntax_setArg;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;

@@ -6,10 +6,7 @@ use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendLi
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::{l_String_Slice_Pos_nextn, l_String_Slice_pos_x21};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Nat_decLt___boxed,
-    l_instDecidableEqNat___boxed,
-};
+use crate::r#gen::Init::Prelude::{l_Nat_decLt___boxed, l_instDecidableEqNat___boxed};
 use crate::r#gen::Lean::Data::Json::Basic::{
     l_Lean_Json_getNat_x3f, l_Lean_Json_getObjValD, l_Lean_Json_mkObj, l_Lean_JsonNumber_fromNat,
 };

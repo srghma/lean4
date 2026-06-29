@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lake.Toml.Load
 // Imports: Lean.Parser.Types Lake.Toml.Data.Value Lake.Toml.Elab Lake.Util.Message Std.Do
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_firstFrontendMacroScope};
+use crate::r#gen::Init::Prelude::l_Lean_firstFrontendMacroScope;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lake::Toml::Data::Value::{
     initialize_Lake_Toml_Data_Value, runtime_initialize_Lake_Toml_Data_Value,

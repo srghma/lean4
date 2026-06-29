@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Meta::Defs::{l_Lean_idBeginEscape, l_Lean_idEndEscape};
 use crate::r#gen::Init::Prelude::{
-    l_Char_utf8Size, l_Lean_Name_mkStr1, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
+    l_Char_utf8Size, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
     l_instDecidableEqChar___boxed, l_instDecidableEqString___boxed,
 };
 use crate::r#gen::Init::System::FilePath::{
@@ -62,10 +62,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint32_add, lean_usize_add, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
-    lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
+    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::{
     lean_io_prim_handle_mk, lean_io_prim_handle_put_str, lean_io_realpath,

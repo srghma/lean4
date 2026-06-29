@@ -2,8 +2,8 @@
 // Module: Lean.Elab.Tactic.Calc
 // Imports: Lean.Elab.Calc Lean.Elab.Tactic.ElabTerm
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_mkStr2, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_replaceRef,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;

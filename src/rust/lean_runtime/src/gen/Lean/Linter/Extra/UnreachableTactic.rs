@@ -8,8 +8,7 @@ use crate::r#gen::Init::Data::Ord::Basic::{
     l_instOrdInt___lam__0___boxed, l_instOrdNat___lam__0___boxed, l_lexOrd___redArg,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_Name_mkStr6, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::IO::l_instMonadEIO;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;

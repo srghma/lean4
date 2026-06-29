@@ -6,7 +6,7 @@ use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_firstFrontendMacroScope};
+use crate::r#gen::Init::Prelude::l_Lean_firstFrontendMacroScope;
 use crate::r#gen::Init::System::IO::l_IO_FS_writeFile;
 use crate::r#gen::Lean::Compiler::Options::{
     initialize_Lean_Compiler_Options, l_Lean_Compiler_compiler_postponeCompile,

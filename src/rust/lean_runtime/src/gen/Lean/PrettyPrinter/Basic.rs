@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter.Basic
 // Imports: Lean.KeyedDeclsAttribute
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;

@@ -13,7 +13,7 @@ use crate::r#gen::Init::Grind::Ring::CommSolver::{
     l_Lean_Grind_CommRing_Poly_mulMonC, l_Lean_Grind_CommRing_Poly_ofMon,
     l_Lean_Grind_CommRing_Poly_ofVar,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_checkSystem;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_get_x21___redArg;
 use crate::r#gen::Lean::Expr::{

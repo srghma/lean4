@@ -17,7 +17,6 @@ use crate::r#gen::Init::Data::Repr::{
     l_Bool_repr___redArg, l_Nat_reprFast, l_Repr_addAppParen, l_String_quote,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_addMacroScope,
     l_Lean_replaceRef, l_String_toRawSubstring_x27, l_instInhabitedUInt8, l_instInhabitedUInt32,
 };
@@ -43,9 +42,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_size,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_uint8_dec_eq, lean_uint8_of_nat, lean_uint32_of_nat,
-    lean_uint32_to_nat,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_uint8_dec_eq, lean_uint8_of_nat, lean_uint32_of_nat, lean_uint32_to_nat,
 };
 pub static l___private_Std_Time_Zoned_Database_TzIf_0__Std_Time_TimeZone_TZif_termInt32___closed__0_value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 0]};
 static mut l___private_Std_Time_Zoned_Database_TzIf_0__Std_Time_TimeZone_TZif_termInt32___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Std_Time_Zoned_Database_TzIf_0__Std_Time_TimeZone_TZif_termInt32___closed__0_value) as *mut crate::leanh::LeanObject;

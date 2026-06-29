@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.AuxLemma
 // Imports: Lean.AddDecl Lean.DefEqAttrib
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::AddDecl::{
     initialize_Lean_AddDecl, l_Lean_addDecl, runtime_initialize_Lean_AddDecl,
 };

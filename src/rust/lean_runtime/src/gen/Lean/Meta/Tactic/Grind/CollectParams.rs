@@ -7,10 +7,9 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_isNone, l_Lean_Syntax_structEq,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node3, l_Lean_Syntax_node4,
-    l_Lean_Syntax_node5,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node3,
+    l_Lean_Syntax_node4, l_Lean_Syntax_node5,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types, runtime_initialize_Lean_Meta_Tactic_Grind_Types,

@@ -2,7 +2,6 @@
 // Module: Lake.Config.Script
 // Imports: Init.Dynamic Init.System.IO Lake.Util.Exit Lake.Config.Context
 use crate::r#gen::Init::Dynamic::{initialize_Init_Dynamic, runtime_initialize_Init_Dynamic};
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };

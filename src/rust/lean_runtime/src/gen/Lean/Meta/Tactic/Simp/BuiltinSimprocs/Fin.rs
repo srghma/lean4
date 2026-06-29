@@ -7,7 +7,6 @@ use crate::r#gen::Init::Data::Fin::Basic::{
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21,
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
@@ -32,8 +31,8 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_sub,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod,
+    lean_nat_sub,
 };
 pub static l_Fin_instReprValue_repr___redArg___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {

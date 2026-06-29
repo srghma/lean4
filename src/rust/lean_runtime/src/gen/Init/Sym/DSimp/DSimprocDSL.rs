@@ -1,9 +1,6 @@
 // Lean compiler output
 // Module: Init.Sym.DSimp.DSimprocDSL
 // Imports: Init.Tactics
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-};
 use crate::r#gen::Init::Tactics::{initialize_Init_Tactics, runtime_initialize_Init_Tactics};
 pub static l_Lean_Parser_Sym_DSimp_sym__dsimproc_quot___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

@@ -7,9 +7,6 @@ use crate::r#gen::Init::Data::Int::Linear::{
     l_Int_Linear_Poly_getConst, l_Int_Linear_Poly_isUnsatEq, l_Int_Linear_Poly_isUnsatLe,
     l_Int_Linear_Poly_isValidEq, l_Int_Linear_Poly_isValidLe, l_Int_Linear_instBEqExpr_beq,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_const___override, l_Lean_Expr_isApp, l_Lean_Expr_isAppOf, l_Lean_Expr_isAppOfArity,

@@ -10,8 +10,7 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1,
+    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1,
     l_Lean_Syntax_node2, l_Lean_Syntax_node4, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
     l_id___boxed,
 };

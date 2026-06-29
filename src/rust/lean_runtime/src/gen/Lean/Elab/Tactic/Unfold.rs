@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Unfold
 // Imports: Lean.Meta.Tactic.Unfold Lean.Elab.Tactic.Location
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-    l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_replaceRef};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{

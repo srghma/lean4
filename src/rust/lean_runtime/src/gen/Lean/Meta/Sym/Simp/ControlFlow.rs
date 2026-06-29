@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.ControlFlow
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.Sym.AlphaShareBuilder Lean.Meta.Sym.InferType Lean.Meta.Sym.Simp.App Lean.Meta.Sym.Util Lean.Meta.WHNF Lean.Meta.AppBuilder Init.Sym.Lemmas
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3};
 use crate::r#gen::Init::Sym::Lemmas::{
     initialize_Init_Sym_Lemmas, runtime_initialize_Init_Sym_Lemmas,
 };

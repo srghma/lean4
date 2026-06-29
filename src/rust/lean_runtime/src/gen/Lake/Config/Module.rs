@@ -7,9 +7,7 @@ use crate::r#gen::Init::Data::String::Slice::l_String_Slice_toString;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_str___override};
 use crate::r#gen::Init::System::FilePath::{
     l_System_FilePath_addExtension, l_System_FilePath_components, l_System_FilePath_extension,
     l_System_FilePath_normalize, l_System_FilePath_pathSeparator, l_System_FilePath_withExtension,
@@ -44,10 +42,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Meta::Defs::lean_internal_has_llvm_backend;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size,
-    lean_uint64_of_nat, lean_usize_dec_eq,
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
+    lean_string_utf8_byte_size, lean_uint64_of_nat, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::lean_io_read_dir;
 pub static l_Lake_instToJsonModule___closed__0_value: crate::leanh::LeanClosureObject<0> =

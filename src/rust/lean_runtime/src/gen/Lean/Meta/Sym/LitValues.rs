@@ -3,9 +3,7 @@
 // Imports: Lean.Expr Init.Data.Rat
 use crate::r#gen::Init::Data::Rat::Basic::{l_Rat_div, l_Rat_ofInt};
 use crate::r#gen::Init::Data::Rat::{initialize_Init_Data_Rat, runtime_initialize_Init_Data_Rat};
-use crate::r#gen::Init::Prelude::{
-    l_BitVec_ofNat, l_Char_ofNat, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-};
+use crate::r#gen::Init::Prelude::{l_BitVec_ofNat, l_Char_ofNat};
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_isApp, l_Lean_Expr_isConstOf, runtime_initialize_Lean_Expr,

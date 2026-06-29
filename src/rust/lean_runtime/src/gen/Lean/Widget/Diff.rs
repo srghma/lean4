@@ -10,10 +10,7 @@ use crate::r#gen::Init::Data::Array::Basic::l_Array_zip___redArg;
 use crate::r#gen::Init::Data::List::Basic::{l_List_mapTR_loop___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Data::ToString::Basic::l_instToStringString___lam__0___boxed;
 use crate::r#gen::Init::Data::ToString::Extra::l_List_toString___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_List_lengthTR___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_str___override, l_List_lengthTR___redArg};
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;

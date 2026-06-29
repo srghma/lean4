@@ -15,9 +15,9 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_TSyntax_getId, l_Lean_TSyntax_getString};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-    l_Lean_Syntax_isOfKind, l_Lean_replaceRef, l_List_lengthTR___redArg, l_id___boxed,
+    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
+    l_List_lengthTR___redArg, l_id___boxed,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_instBEqAttributeKind_beq, l_Lean_registerBuiltinAttribute,

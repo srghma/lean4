@@ -17,8 +17,7 @@ use crate::r#gen::Init::Data::String::Slice::l_String_Slice_splitToSubslice___re
 use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Data::UInt::BasicAux::l_UInt32_toUInt8___boxed;
 use crate::r#gen::Init::Prelude::{
-    l_ByteArray_empty, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom,
-    l_String_decEq___boxed, l_String_hash___boxed,
+    l_ByteArray_empty, l_Lean_mkAtom, l_String_decEq___boxed, l_String_hash___boxed,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;

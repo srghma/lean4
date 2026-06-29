@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_mkCIdent, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
     l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node6, l_Lean_Syntax_node7,
     l_Lean_addMacroScope, l_String_toRawSubstring_x27, lean_erase_macro_scopes,
 };
@@ -41,8 +40,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 use crate::lean_imports_rs::Lean::Meta::Basic::{lean_infer_type, lean_whnf};

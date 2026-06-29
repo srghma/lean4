@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Int::Linear::{
     initialize_Init_Data_Int_Linear, runtime_initialize_Init_Data_Int_Linear,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::l_Lean_Expr_const___override;
 use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Types::{

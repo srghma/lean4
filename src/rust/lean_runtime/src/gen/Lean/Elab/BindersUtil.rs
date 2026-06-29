@@ -6,10 +6,9 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_getSepArgs, l_Lean_Syntax_isNone, l_Lean_mkHole,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node4, l_Lean_Syntax_node6,
-    l_Lean_Syntax_node7, l_Lean_firstFrontendMacroScope,
+    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node4, l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_firstFrontendMacroScope,
 };
 use crate::r#gen::Init::Syntax::{
     initialize_Init_Syntax, l_Lean_Syntax_setArg, runtime_initialize_Init_Syntax,

@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Parser.StrInterpolation
 // Imports: Lean.Parser.Basic
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::Parser::Basic::{
     initialize_Lean_Parser_Basic, l_Lean_Parser_andthenFn, l_Lean_Parser_isQuotableCharDefault,

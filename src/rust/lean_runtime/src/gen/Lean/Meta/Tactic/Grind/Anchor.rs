@@ -11,9 +11,8 @@ use crate::r#gen::Init::Data::Hashable::l_instHashableUInt64___lam__0___boxed;
 use crate::r#gen::Init::Meta::Defs::lean_is_inaccessible_user_name;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_node2, l_Lean_mkAtom, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
-    l_instDecidableEqUInt64___boxed,
+    l_Lean_Name_hasMacroScopes, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node2, l_Lean_mkAtom,
+    l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqUInt64___boxed,
 };
 use crate::r#gen::Lean::Data::Name::{l_Lean_Name_isImplementationDetail, l_Lean_Name_isInternal};
 use crate::r#gen::Lean::Data::PersistentHashMap::{

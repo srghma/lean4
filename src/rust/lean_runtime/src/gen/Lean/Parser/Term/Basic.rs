@@ -2,8 +2,8 @@
 // Module: Lean.Parser.Term.Basic
 // Imports: Lean.Parser.Attr Lean.Parser.Level Lean.Parser.Term.Doc Lean.Parser.Basic
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_isOfKind,
 };
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;

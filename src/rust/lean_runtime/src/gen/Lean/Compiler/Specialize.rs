@@ -6,8 +6,7 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNatLit_x3f;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-    l_Lean_Syntax_getId, l_Lean_replaceRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getId, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_ParametricAttribute_getParam_x3f___redArg, l_Lean_TagAttribute_hasTag,

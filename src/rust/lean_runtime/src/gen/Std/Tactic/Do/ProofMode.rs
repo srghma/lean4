@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Std.Tactic.Do.ProofMode
 // Imports: Std.Do.SPred.SPred
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4};
 use crate::r#gen::Std::Do::SPred::SPred::{
     initialize_Std_Do_SPred_SPred, runtime_initialize_Std_Do_SPred_SPred,
 };

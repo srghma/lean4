@@ -6,11 +6,9 @@ use crate::r#gen::Init::Data::List::Basic::{l_List_elem___redArg, l_List_reverse
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_find_x3f, l_Lean_Syntax_structEq};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_getKind, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
-    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Name_beq___boxed, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getKind,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind,
+    l_Lean_replaceRef, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

@@ -35,9 +35,9 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hasMacroScopes,
-    l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Name_hash___override___boxed, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Init::System::IO::{l_IO_FS_readFile, l_IO_FS_writeFile};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;

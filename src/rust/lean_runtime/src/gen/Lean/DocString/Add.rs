@@ -6,10 +6,9 @@ use crate::r#gen::Init::Data::String::Extra::l_String_removeLeadingSpaces;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getDocString;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_str___override,
-    l_Lean_SourceInfo_getPos_x3f, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-    l_Lean_Syntax_getHeadInfo_x3f, l_Lean_Syntax_getKind, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
+    l_Lean_Name_str___override, l_Lean_SourceInfo_getPos_x3f, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_getArgs, l_Lean_Syntax_getHeadInfo_x3f, l_Lean_Syntax_getKind,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::IO::l_instMonadEIO___aux__5___boxed;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
@@ -80,9 +79,8 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_string_dec_eq, lean_string_utf8_byte_size,
+    lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

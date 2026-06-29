@@ -10,7 +10,6 @@ use crate::r#gen::Init::Data::ToString::Name::{
     runtime_initialize_Init_Data_ToString_Name,
 };
 use crate::r#gen::Init::Dynamic::{initialize_Init_Dynamic, runtime_initialize_Init_Dynamic};
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Init::System::FilePath::{
     initialize_Init_System_FilePath, runtime_initialize_Init_System_FilePath,
 };

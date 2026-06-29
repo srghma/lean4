@@ -3,10 +3,7 @@
 // Imports: Lean.Elab.Tactic.Basic Lean.Meta.Tactic.Refl
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_insertIdx_loop;
 use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_str___override, l_Lean_replaceRef};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Attributes::l_Lean_registerBuiltinAttribute;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;

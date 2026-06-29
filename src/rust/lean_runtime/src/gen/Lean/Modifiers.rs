@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Modifiers
 // Imports: Lean.EnvExtension
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::EnvExtension::{
     initialize_Lean_EnvExtension, l_Lean_TagDeclarationExtension_isTagged,
     l_Lean_TagDeclarationExtension_tag, l_Lean_mkTagDeclarationExtension,

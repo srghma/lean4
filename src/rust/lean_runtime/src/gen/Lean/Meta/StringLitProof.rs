@@ -6,9 +6,7 @@ use crate::r#gen::Init::Data::List::BasicAux::{
     l_List_head_x21___redArg, l_List_tail_x21___redArg,
 };
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_List_lengthTR___redArg,
-};
+use crate::r#gen::Init::Prelude::l_List_lengthTR___redArg;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_mkApp3, l_Lean_mkApp4, l_Lean_mkApp5, l_Lean_mkAppB,
     l_Lean_mkBVar, l_Lean_mkConst, l_Lean_mkLambda, l_Lean_mkNatLit, l_Lean_mkRawNatLit,

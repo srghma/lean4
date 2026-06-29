@@ -9,8 +9,7 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::GetElem::{l_List_get_x21Internal___redArg, l_outOfBounds___redArg};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_appendCore, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef, l_List_lengthTR___redArg,
+    l_Lean_Name_appendCore, l_Lean_Name_str___override, l_Lean_replaceRef, l_List_lengthTR___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::AddDecl::l_Lean_addAndCompile;

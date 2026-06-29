@@ -8,7 +8,6 @@ use crate::r#gen::Init::Data::Int::DivMod::Basic::{
 use crate::r#gen::Init::Data::Int::DivMod::{
     initialize_Init_Data_Int_DivMod, runtime_initialize_Init_Data_Int_DivMod,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21, l_Lean_Expr_appFnCleanup___redArg,
     l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_const___override, l_Lean_Expr_isApp,
@@ -42,7 +41,6 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::{
 use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
     lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Int_reduceUnary___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

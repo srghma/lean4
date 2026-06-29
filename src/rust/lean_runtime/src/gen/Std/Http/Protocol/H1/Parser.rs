@@ -42,11 +42,11 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint32_to_uint8,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_byte_array_push, lean_byte_array_size,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-    lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
+    lean_array_get_size, lean_array_push, lean_byte_array_push, lean_byte_array_size, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
+    lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
+    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_to_nat,
 };
 pub static l___private_Std_Http_Protocol_H1_Parser_0__Std_Http_Protocol_H1_manyItems_go___redArg___closed__0_value: crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 13, m_capacity: 13, m_length: 12, m_data: [101, 110, 100, 32, 111, 102, 32, 105, 116, 101, 109, 115, 0]};
 static mut l___private_Std_Http_Protocol_H1_Parser_0__Std_Http_Protocol_H1_manyItems_go___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Std_Http_Protocol_H1_Parser_0__Std_Http_Protocol_H1_manyItems_go___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

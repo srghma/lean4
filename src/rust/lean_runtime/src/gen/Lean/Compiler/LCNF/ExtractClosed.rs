@@ -6,10 +6,7 @@ use crate::r#gen::Init::Data::FloatArray::Basic::{
     initialize_Init_Data_FloatArray_Basic, runtime_initialize_Init_Data_FloatArray_Basic,
 };
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_str___override};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::ClosedTermCache::{
     initialize_Lean_Compiler_ClosedTermCache, l_Lean_cacheClosedTermName,

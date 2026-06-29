@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.DeclarationRange
 // Imports: Lean.MonadEnv
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::AuxRecursor::{l_Lean_isAuxRecursor, l_Lean_isNoConfusion};
 use crate::r#gen::Lean::Data::DeclarationRange::l_Lean_instInhabitedDeclarationRanges_default;
 use crate::r#gen::Lean::Data::Name::{l_Lean_Name_getPrefix, l_Lean_Name_isAnonymous};
@@ -16,7 +15,7 @@ use crate::r#gen::Lean::EnvExtension::{
 use crate::r#gen::Lean::MonadEnv::{
     initialize_Lean_MonadEnv, l_Lean_isRec___redArg, runtime_initialize_Lean_MonadEnv,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::lean_imports_rs::Init::Prelude::lean_array_push;
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

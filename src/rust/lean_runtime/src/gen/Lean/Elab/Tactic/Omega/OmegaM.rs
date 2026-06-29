@@ -9,8 +9,7 @@ use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reve
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Nat_add___boxed, l_Nat_div___boxed, l_Nat_mul___boxed, l_Nat_pow___boxed,
+    l_Lean_Name_append, l_Nat_add___boxed, l_Nat_div___boxed, l_Nat_mul___boxed, l_Nat_pow___boxed,
     l_Nat_sub___boxed,
 };
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;

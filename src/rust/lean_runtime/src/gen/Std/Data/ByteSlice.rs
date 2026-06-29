@@ -22,8 +22,8 @@ use crate::r#gen::Init::Data::Slice::Notation::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_uint8_dec_eq,
+    lean_byte_array_size, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_uint8_dec_eq,
 };
 use crate::lean_imports_rs::Std::Data::ByteSlice::lean_byteslice_beq;
 pub static l_ByteSlice_instGetElemNatUInt8LtSize___closed__0_value:

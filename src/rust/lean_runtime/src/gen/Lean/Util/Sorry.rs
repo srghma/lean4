@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Util.Sorry
 // Imports: Lean.Util.FindExpr Lean.Declaration
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Declaration::{
     initialize_Lean_Declaration, runtime_initialize_Lean_Declaration,
 };

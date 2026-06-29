@@ -4,7 +4,7 @@
 use crate::r#gen::Init::Grind::Ring::{
     initialize_Init_Grind_Ring, runtime_initialize_Init_Grind_Ring,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
+use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr3;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_hasMVar, l_Lean_mkApp3, l_Lean_mkAppB, l_Lean_mkConst,
 };

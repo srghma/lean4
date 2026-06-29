@@ -12,9 +12,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_getSepArgs, l_Lean_Syntax_isNone, l_Lean_expandMacros,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Macro_getCurrNamespace, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4,
-    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getId, l_Lean_Syntax_getKind,
-    l_Lean_replaceRef, lean_erase_macro_scopes,
+    l_Lean_Macro_getCurrNamespace, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_getId, l_Lean_Syntax_getKind, l_Lean_replaceRef, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_ParametricAttribute_getParam_x3f___redArg, l_Lean_getAttributeImpl,
@@ -42,8 +41,8 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_lt,
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_name_eq,
+    lean_nat_dec_lt,
 };
 pub static l_Lean_Elab_instInhabitedAttribute_default___closed__0_value:
     crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {

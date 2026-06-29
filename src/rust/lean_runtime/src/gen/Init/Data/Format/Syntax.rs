@@ -19,7 +19,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
     runtime_initialize_Init_Data_ToString_Name,
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_replacePrefix;
-use crate::r#gen::Init::Prelude::{l_Function_comp, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
+use crate::r#gen::Init::Prelude::l_Function_comp;
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;

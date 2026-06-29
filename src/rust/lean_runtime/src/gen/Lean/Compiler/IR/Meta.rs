@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_num___override,
-    l_Lean_Name_str___override,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
 };
 use crate::r#gen::Lean::Compiler::IR::Basic::{
     l_Lean_IR_Alt_body, l_Lean_IR_Decl_name, l_Lean_IR_FnBody_body, l_Lean_IR_FnBody_isTerminal,

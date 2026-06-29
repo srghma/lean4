@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lake.Toml.Grammar
 // Imports: Lake.Toml.ParserUtil Lean.Parser Lean.PrettyPrinter.Formatter Lean.PrettyPrinter.Parenthesizer
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Syntax_isOfKind};
+use crate::r#gen::Init::Prelude::l_Lean_Syntax_isOfKind;
 use crate::r#gen::Lake::Toml::ParserUtil::{
     initialize_Lake_Toml_ParserUtil, l_Lake_Toml_chAtom, l_Lake_Toml_chAtom_formatter___boxed,
     l_Lake_Toml_chAtom_parenthesizer___boxed, l_Lake_Toml_chFn, l_Lake_Toml_digitFn,

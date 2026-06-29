@@ -6,10 +6,7 @@ use crate::r#gen::Init::CbvSimproc::{
 };
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::MetaTypes::l_Lean_Meta_instBEqTransparencyMode_beq;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr3};
 use crate::r#gen::Init::Sym::Lemmas::{
     initialize_Init_Sym_Lemmas, runtime_initialize_Init_Sym_Lemmas,
 };

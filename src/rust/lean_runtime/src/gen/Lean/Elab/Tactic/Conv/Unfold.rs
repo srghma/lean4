@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Conv.Unfold
 // Imports: Lean.Elab.Tactic.Unfold Lean.Elab.Tactic.Conv.Simp
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr5, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_replaceRef};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{
     l_Lean_Elab_Tactic_tacticElabAttribute, l_Lean_Elab_Tactic_withMainContext___redArg,

@@ -2,9 +2,6 @@
 // Module: Lean.Compiler.LCNF.PushProj
 // Imports: Lean.Compiler.LCNF.PassManager Lean.Compiler.LCNF.Internalize
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_reverse___redArg};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_updateAltCodeImp___redArg,
     l_Lean_Compiler_LCNF_Code_collectUsed, l_Lean_Compiler_LCNF_CodeDecl_collectUsed,

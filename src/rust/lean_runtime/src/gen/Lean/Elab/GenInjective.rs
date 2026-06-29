@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.GenInjective
 // Imports: Lean.Elab.Command Lean.Meta.Injective Lean.Meta.Constructions.CtorIdx
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Syntax_getArg;
 use crate::r#gen::Lean::Elab::Command::{
     initialize_Lean_Elab_Command, l_Lean_Elab_Command_commandElabAttribute,
     l_Lean_Elab_Command_liftTermElabM___redArg, runtime_initialize_Lean_Elab_Command,

@@ -11,8 +11,7 @@ use crate::r#gen::Init::Data::String::Basic::l_String_Slice_pos_x21;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_isNat;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

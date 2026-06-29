@@ -9,8 +9,7 @@ use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNatLit_x3f, l_Lean_Syntax_isStrLit_x3f};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr5, l_Lean_Syntax_getArgs,
-    l_Lean_Syntax_getId, l_panic___redArg, lean_erase_macro_scopes,
+    l_Lean_Syntax_getArgs, l_Lean_Syntax_getId, l_panic___redArg, lean_erase_macro_scopes,
 };
 use crate::r#gen::Init::Syntax::{
     initialize_Init_Syntax, l_Lean_Syntax_setArgs, runtime_initialize_Init_Syntax,

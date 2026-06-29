@@ -3,10 +3,7 @@
 // Imports: Lean.Compiler.LCNF Lean.Compiler.Options
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
 use crate::r#gen::Lean::Compiler::LCNF::Main::l_Lean_Compiler_LCNF_main;
 use crate::r#gen::Lean::Compiler::LCNF::{
     initialize_Lean_Compiler_LCNF, runtime_initialize_Lean_Compiler_LCNF,

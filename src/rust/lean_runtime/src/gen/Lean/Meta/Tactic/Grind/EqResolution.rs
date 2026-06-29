@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.EqResolution
 // Imports: Lean.Meta.Basic Lean.Meta.AppBuilder Lean.Meta.MatchUtil Lean.Util.ForEachExpr
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_hasExprMVar,
     l_Lean_Expr_hasMVar, l_Lean_Expr_hash, l_Lean_Expr_isApp, l_Lean_Expr_isConstOf,

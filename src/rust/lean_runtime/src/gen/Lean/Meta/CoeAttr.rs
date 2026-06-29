@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef,
+    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_instBEqAttributeKind_beq, l_Lean_registerBuiltinAttribute,

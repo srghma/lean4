@@ -27,12 +27,10 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_monadNameGeneratorLift___redArg, lean_name_append_index_after,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
-    l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope,
-    l_Lean_instMonadQuotationOfMonadFunctorOfMonadLift___redArg,
+    l_Array_mkArray0, l_Lean_Name_num___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
+    l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7,
+    l_Lean_addMacroScope, l_Lean_instMonadQuotationOfMonadFunctorOfMonadLift___redArg,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

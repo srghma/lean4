@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_replaceRef,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::CoreM::{
     initialize_Lean_CoreM, l_Lean_logMessageKind___redArg, runtime_initialize_Lean_CoreM,

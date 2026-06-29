@@ -2,7 +2,7 @@
 // Module: Std.Async.Timer
 // Imports: Std.Time Std.Internal.UV.Timer Std.Async.Select
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::System::IO::l_BaseIO_chainTask___redArg;
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Init::System::Promise::l_IO_Promise_isResolved___redArg;
@@ -16,7 +16,7 @@ use crate::r#gen::Std::Internal::UV::Timer::{
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
 use crate::lean_imports_rs::Init::Core::lean_task_map;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::lean_imports_rs::Init::Prelude::lean_array_push;
 use crate::lean_imports_rs::Init::System::Promise::{
     lean_io_promise_resolve, lean_io_promise_result_opt,
 };

@@ -12,7 +12,7 @@ use crate::r#gen::Init::Data::Slice::Array::{
     initialize_Init_Data_Slice_Array, runtime_initialize_Init_Data_Slice_Array,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,

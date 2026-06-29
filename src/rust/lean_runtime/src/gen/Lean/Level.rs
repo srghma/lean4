@@ -19,8 +19,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_mkNumLit, lean_mk_syntax_ident,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node2,
+    l_Array_mkArray0, l_Lean_Name_num___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node2,
     l_Lean_Syntax_node3, l_UInt64_decEq___boxed, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -46,10 +45,10 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint32_dec_eq, lean_uint32_to_nat, lean_uint64_dec_eq,
-    lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
+    lean_array_mk, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_dec_eq,
+    lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat,
+    lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
 use crate::lean_imports_rs::Lean::Level::{lean_level_eq, lean_level_mk_data};

@@ -14,8 +14,7 @@ use crate::r#gen::Init::Data::ToString::Extra::l_List_toString___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNatLit_x3f;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getKind, l_Lean_replaceRef, l_List_lengthTR___redArg,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_replaceRef, l_List_lengthTR___redArg,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,

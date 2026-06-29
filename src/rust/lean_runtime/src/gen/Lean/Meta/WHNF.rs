@@ -18,8 +18,7 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::MetaTypes::l_Lean_Meta_instBEqTransparencyMode_beq;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef, l_List_lengthTR___redArg, l_Nat_add___boxed,
     l_Nat_beq___boxed, l_Nat_ble___boxed, l_Nat_div___boxed, l_Nat_mod___boxed, l_Nat_mul___boxed,
     l_Nat_sub___boxed, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,

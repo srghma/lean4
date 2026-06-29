@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_Name_mkStr3, l_Lean_Name_mkStr5, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::FilePath::l_System_FilePath_join;
 use crate::r#gen::Init::System::IO::{l_IO_FS_writeFile, l_IO_lazyPure___redArg};

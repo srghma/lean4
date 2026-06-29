@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.SimprocDSL
 // Imports: Lean.Elab.Tactic.Grind.Basic Lean.Meta.Sym.Simp.Discharger Init.Sym.Simp.SimprocDSL
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Syntax_getKind,
-    l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getKind, l_Lean_replaceRef};
 use crate::r#gen::Init::Sym::Simp::SimprocDSL::{
     initialize_Init_Sym_Simp_SimprocDSL, runtime_initialize_Init_Sym_Simp_SimprocDSL,
 };

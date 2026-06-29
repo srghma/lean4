@@ -18,7 +18,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Lemmas::{
     initialize_Init_Data_Range_Polymorphic_Lemmas,
     runtime_initialize_Init_Data_Range_Polymorphic_Lemmas,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_str___override};
+use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
 use crate::r#gen::Init::System::FilePath::{
     l_System_FilePath_normalize, l_System_SearchPath_toString,
 };

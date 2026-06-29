@@ -22,8 +22,7 @@ use crate::r#gen::Init::Grind::Ring::CommSolver::{
     l_Lean_Grind_CommRing_instHashablePoly_hash,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Lean_Name_append, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

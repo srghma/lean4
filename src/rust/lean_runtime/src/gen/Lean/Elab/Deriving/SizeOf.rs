@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Deriving.SizeOf
 // Imports: Lean.Meta.SizeOf Lean.Elab.Deriving.Basic Lean.Elab.Deriving.Util
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Elab::Command::l_Lean_Elab_Command_liftTermElabM___boxed;
 use crate::r#gen::Lean::Elab::Deriving::Basic::{
     initialize_Lean_Elab_Deriving_Basic, l_Lean_Elab_registerDerivingHandler,

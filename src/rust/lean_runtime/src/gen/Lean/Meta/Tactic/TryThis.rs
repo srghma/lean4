@@ -7,11 +7,10 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_SepArray_ofElems, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4,
-    l_Lean_Syntax_node5, l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
+    l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_addMacroScope, l_Lean_replaceRef,
+    l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Lean::CoreM::{l_Lean_Exception_isRuntime, l_Lean_diagnostics};
 use crate::r#gen::Lean::Data::Lsp::Basic::l_Lean_Lsp_WorkspaceEdit_ofTextEdit;

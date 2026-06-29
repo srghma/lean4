@@ -57,9 +57,8 @@ use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memc
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Meta::Defs::lean_internal_is_stage0;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::{
     lean_io_current_dir, lean_io_getenv, lean_io_realpath,

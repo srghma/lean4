@@ -11,9 +11,7 @@ use crate::r#gen::Init::Data::Fin::Lemmas::{
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom, l_panic___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::LCNF::Basic::l_Lean_Compiler_LCNF_instDecidableEqPurity;
 use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{

@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.SearchM
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Lean.Meta.Tactic.Grind.Arith.Cutsat.Util
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_num___override};
+use crate::r#gen::Init::Prelude::l_Lean_Name_num___override;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_const___override, l_Lean_FVarIdSet_insert};
 use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Types::{
@@ -16,9 +16,7 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::{
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg;
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_eq};
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

@@ -20,8 +20,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_mkLit, l_Lean_Syntax_mkNumLit, l_Lean_isLetterLike,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_getPos_x3f,
+    l_Lean_Name_mkStr4, l_Lean_Name_str___override, l_Lean_SourceInfo_getPos_x3f,
     l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqChar___boxed,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

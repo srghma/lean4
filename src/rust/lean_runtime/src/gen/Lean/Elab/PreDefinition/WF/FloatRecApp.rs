@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.WF.FloatRecApp
 // Imports: Lean.Meta.Transform Lean.Elab.RecAppSyntax
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_isSet;
 use crate::r#gen::Init::System::ST::{l_ST_Prim_Ref_get___boxed, l_ST_Prim_mkRef___boxed};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

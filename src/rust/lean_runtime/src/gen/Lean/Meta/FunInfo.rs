@@ -8,10 +8,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
 };
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_firstFrontendMacroScope,
-};
+use crate::r#gen::Init::Prelude::l_Lean_firstFrontendMacroScope;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Init::System::Promise::l_IO_Promise_result_x21___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

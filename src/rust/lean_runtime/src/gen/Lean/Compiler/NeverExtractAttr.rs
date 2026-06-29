@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Compiler.NeverExtractAttr
 // Imports: Lean.Attributes
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, l_Lean_TagAttribute_hasTag, l_Lean_registerTagAttribute,
     runtime_initialize_Lean_Attributes,

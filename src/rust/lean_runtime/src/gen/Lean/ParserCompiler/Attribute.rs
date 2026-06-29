@@ -3,8 +3,7 @@
 // Imports: Lean.Compiler.InitAttr Lean.ExtraModUses
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom,
+    l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_mkAtom,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_Attribute_Builtin_getIdent, l_Lean_instInhabitedAttributeImpl_default,

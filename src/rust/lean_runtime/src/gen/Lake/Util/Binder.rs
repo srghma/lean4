@@ -8,13 +8,12 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Array_mkArray1___redArg, l_Lean_Macro_throwErrorAt___redArg,
-    l_Lean_Macro_throwUnsupported___redArg, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-    l_Lean_Syntax_getKind, l_Lean_Syntax_getNumArgs, l_Lean_Syntax_getOptional_x3f,
-    l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_addMacroScope,
-    l_Lean_firstFrontendMacroScope, l_Lean_mkAtomFrom, l_Lean_replaceRef,
-    l_String_toRawSubstring_x27,
+    l_Lean_Macro_throwUnsupported___redArg, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_getArgs, l_Lean_Syntax_getKind, l_Lean_Syntax_getNumArgs,
+    l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4,
+    l_Lean_Syntax_node5, l_Lean_addMacroScope, l_Lean_firstFrontendMacroScope, l_Lean_mkAtomFrom,
+    l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Lean::Expr::l_Lean_instReprBinderInfo_repr;
 use crate::r#gen::Lean::Parser::Basic::l_Lean_Parser_orelse;

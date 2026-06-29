@@ -10,8 +10,7 @@ use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Char_utf8Size, l_Function_comp, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom,
-    l_String_hash___boxed,
+    l_Char_utf8Size, l_Function_comp, l_Lean_mkAtom, l_String_hash___boxed,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Internal::{
@@ -26,9 +25,8 @@ use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint32_dec_le,
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_panic_fn_borrowed, lean_string_dec_eq,
+    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Std_Http_Header_Value_isValidHeaderValue___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

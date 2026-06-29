@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.DSimp.Variant
 // Imports: Lean.Meta.Sym.DSimp.DSimpM Lean.ScopedEnvExtension
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed};
 use crate::r#gen::Lean::Meta::Sym::DSimp::DSimpM::{
     initialize_Lean_Meta_Sym_DSimp_DSimpM, runtime_initialize_Lean_Meta_Sym_DSimp_DSimpM,
 };

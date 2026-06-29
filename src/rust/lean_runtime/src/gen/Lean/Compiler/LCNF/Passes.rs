@@ -3,8 +3,7 @@
 // Imports: Lean.Compiler.LCNF.PullLetDecls Lean.Compiler.LCNF.CSE Lean.Compiler.LCNF.JoinPoints Lean.Compiler.LCNF.Specialize Lean.Compiler.LCNF.ToMono Lean.Compiler.LCNF.LambdaLifting Lean.Compiler.LCNF.FloatLetIn Lean.Compiler.LCNF.ReduceArity Lean.Compiler.LCNF.ElimDeadBranches Lean.Compiler.LCNF.StructProjCases Lean.Compiler.LCNF.ExtractClosed Lean.Compiler.LCNF.Visibility Lean.Compiler.LCNF.Simp Lean.Compiler.LCNF.ToImpure Lean.Compiler.LCNF.PushProj Lean.Compiler.LCNF.ResetReuse Lean.Compiler.LCNF.SimpCase Lean.Compiler.LCNF.InferBorrow Lean.Compiler.LCNF.ExplicitBoxing Lean.Compiler.LCNF.ExplicitRC Lean.Compiler.LCNF.CoalesceRC Lean.Compiler.LCNF.Toposort Lean.Compiler.LCNF.ExpandResetReuse Lean.Compiler.LCNF.SimpleGroundExpr
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_replaceRef,
+    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_Attribute_Builtin_ensureNoArgs, l_Lean_ensureAttrDeclIsMeta,

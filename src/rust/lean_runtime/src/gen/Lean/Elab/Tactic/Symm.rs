@@ -2,7 +2,7 @@
 // Module: Lean.Elab.Tactic.Symm
 // Imports: Lean.Meta.Tactic.Symm Lean.Elab.Tactic.Location
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_isOfKind,
 };
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
@@ -20,7 +20,6 @@ use crate::r#gen::Lean::Meta::Tactic::Symm::{
     initialize_Lean_Meta_Tactic_Symm, l_Lean_MVarId_applySymm, l_Lean_MVarId_applySymmAt,
     l_Lean_MVarId_symmSaturate, runtime_initialize_Lean_Meta_Tactic_Symm,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_evalSymm_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_evalSymm_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -3,9 +3,7 @@
 // Imports: Lean.Meta.AppBuilder Lean.PrettyPrinter Init.Omega
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage,
-};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Exception::l_Lean_Exception_isInterrupt;
 use crate::r#gen::Lean::Expr::{
@@ -30,8 +28,8 @@ use crate::r#gen::Lean::PrettyPrinter::{
     initialize_Lean_PrettyPrinter, runtime_initialize_Lean_PrettyPrinter,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;

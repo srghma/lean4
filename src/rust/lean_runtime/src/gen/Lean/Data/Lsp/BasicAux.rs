@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::Data::Json::Basic::{
     l_Lean_Json_getNat_x3f, l_Lean_Json_getObjValD, l_Lean_Json_mkObj, l_Lean_JsonNumber_fromNat,
 };
@@ -16,8 +15,7 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_uint64_mix_hash,
+    lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_uint64_mix_hash,
 };
 pub static l_Lean_Lsp_instInhabitedPosition_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {

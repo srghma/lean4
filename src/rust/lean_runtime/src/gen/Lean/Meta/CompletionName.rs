@@ -2,7 +2,6 @@
 // Module: Lean.Meta.CompletionName
 // Imports: Lean.Meta.Match.MatcherInfo
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr3;
 use crate::r#gen::Lean::AuxRecursor::{l_Lean_isAuxRecursor, l_Lean_isNoConfusion};
 use crate::r#gen::Lean::EnvExtension::{
     l_Lean_TagDeclarationExtension_isTagged, l_Lean_TagDeclarationExtension_tag,

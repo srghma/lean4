@@ -2,7 +2,6 @@
 // Module: Lean.Meta.GeneralizeTelescope
 // Imports: Lean.Meta.KAbstract Lean.Meta.Check
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_mkFreshUserName;
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_hasLooseBVars, l_Lean_Expr_hasMVar};
 use crate::r#gen::Lean::LocalContext::l_Lean_LocalDecl_userName;
@@ -26,7 +25,7 @@ use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
+    lean_array_to_list, lean_nat_add, lean_nat_dec_lt,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

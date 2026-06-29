@@ -27,9 +27,7 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_isIdRest___boxed, l_Lean_isLetterLike, l_Lean_isSubScriptAlnum,
     lean_is_inaccessible_user_name,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_panic___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_hasMacroScopes, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::lean_imports_rs::Init::Data::String::Basic::{
     lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,

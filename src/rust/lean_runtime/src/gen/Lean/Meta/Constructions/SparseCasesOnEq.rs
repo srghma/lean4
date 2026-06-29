@@ -4,8 +4,7 @@
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_contains___redArg};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_str___override,
-    l_Lean_replaceRef,
+    l_Lean_Name_beq___boxed, l_Lean_Name_str___override, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::AddDecl::l_Lean_addDecl;

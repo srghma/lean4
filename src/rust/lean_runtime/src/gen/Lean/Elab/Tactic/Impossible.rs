@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Impossible
 // Imports: Lean.Elab.Tactic.Basic Lean.Elab.ConfigEval Lean.Meta.Tactic.Cleanup Lean.Meta.Tactic.Revert Lean.Meta.Tactic.Intro Lean.Meta.Closure
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Syntax_getArg,
-    l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_replaceRef};
 use crate::r#gen::Lean::AddDecl::l_Lean_addDecl;
 use crate::r#gen::Lean::CoreM::{
     l_Lean_DeclNameGenerator_mkUniqueName, l_Lean_Elab_async, l_Lean_Exception_isRuntime,

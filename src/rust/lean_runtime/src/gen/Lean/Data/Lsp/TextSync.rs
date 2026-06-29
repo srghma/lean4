@@ -3,7 +3,6 @@
 // Imports: Lean.Data.Lsp.Basic
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::Data::Json::Basic::{
     l_Lean_Json_getBool_x3f, l_Lean_Json_getNat_x3f, l_Lean_Json_getObjValD,
     l_Lean_Json_getStr_x3f, l_Lean_Json_mkObj, l_Lean_JsonNumber_fromNat,
@@ -28,9 +27,7 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_array_to_list, lean_nat_dec_eq};
 pub static l_Lean_Lsp_instFromJsonTextDocumentSyncKind___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<29> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

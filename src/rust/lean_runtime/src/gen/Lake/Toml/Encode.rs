@@ -25,8 +25,8 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_string_utf8_byte_size,
+    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_string_utf8_byte_size,
 };
 pub static l_Lake_instToTomlValue___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {

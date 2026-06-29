@@ -7,10 +7,9 @@ use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Name_replacePrefix, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node2,
-    l_Lean_addMacroScope, l_Lean_reservedMacroScope, l_List_lengthTR___redArg,
-    lean_erase_macro_scopes,
+    l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_num___override,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node2, l_Lean_addMacroScope,
+    l_Lean_reservedMacroScope, l_List_lengthTR___redArg, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Elab::ErrorUtils::{
@@ -58,9 +57,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_usize_dec_eq,
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

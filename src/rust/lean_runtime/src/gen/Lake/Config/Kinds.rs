@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lake.Config.Kinds
 // Imports: Init.Prelude
-use crate::r#gen::Init::Prelude::{
-    initialize_Init_Prelude, l_Lean_Name_mkStr1, runtime_initialize_Init_Prelude,
-};
+use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
 use crate::lean_imports_rs::Init::Prelude::lean_string_dec_eq;
 pub static l_Lake_Package_keyword___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {

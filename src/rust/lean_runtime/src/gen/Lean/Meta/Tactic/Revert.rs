@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Revert
 // Imports: Lean.Meta.Tactic.Clear
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_instInhabitedPersistentArrayNode_default;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_fvarId_x21, l_Lean_Expr_getAppFn, l_Lean_Expr_mvarId_x21, l_Lean_mkFVar,

@@ -9,9 +9,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_mkNameLit, l_Lean_Syntax_setHeadInfo, l_Lean_quoteNameMk, l_String_toName,
 };
 use crate::r#gen::Init::Prelude::{
-    initialize_Init_Prelude, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_id___boxed,
-    runtime_initialize_Init_Prelude,
+    initialize_Init_Prelude, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_SourceInfo_fromRef, l_id___boxed, runtime_initialize_Init_Prelude,
 };
 use crate::r#gen::Lake::Util::RBArray::{
     initialize_Lake_Util_RBArray, l_Lake_RBArray_empty, runtime_initialize_Lake_Util_RBArray,

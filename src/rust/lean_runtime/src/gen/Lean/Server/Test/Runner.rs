@@ -29,9 +29,8 @@ use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_decodeStrLit;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr6,
-    l_Lean_Name_str___override, l_ReaderT_instMonad___redArg, l_instInhabitedOfMonad___redArg,
-    l_instInhabitedUInt64,
+    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_str___override,
+    l_ReaderT_instMonad___redArg, l_instInhabitedOfMonad___redArg, l_instInhabitedUInt64,
 };
 use crate::r#gen::Init::System::FilePath::{
     l_System_FilePath_components, l_System_FilePath_normalize,

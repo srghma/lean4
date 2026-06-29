@@ -3,8 +3,7 @@
 // Imports: Init.Coe
 use crate::r#gen::Init::Coe::{initialize_Init_Coe, runtime_initialize_Init_Coe};
 use crate::r#gen::Init::Prelude::{
-    l_Array_appendCore___redArg, l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Array_appendCore___redArg, l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
     l_Lean_Syntax_getArgs, l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
     l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7,

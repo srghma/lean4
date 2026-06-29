@@ -2,7 +2,7 @@
 // Module: Lean.Meta.Native
 // Imports: Lean.Meta.Basic Lean.Util.CollectLevelParams Lean.Elab.DeclarationRange Lean.Compiler.Options
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::AddDecl::{l_Lean_addAndCompile, l_Lean_addDecl};
 use crate::r#gen::Lean::Compiler::MetaAttr::l_Lean_markMeta;
 use crate::r#gen::Lean::Compiler::Options::{
@@ -49,9 +49,7 @@ use crate::r#gen::Lean::Util::CollectLevelParams::{
 };
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_to_list, lean_mk_empty_array_with_capacity,
-};
+use crate::lean_imports_rs::Init::Prelude::lean_array_to_list;
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

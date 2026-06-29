@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.CoalesceRC
 // Imports: Lean.Compiler.LCNF.CompilerM Lean.Compiler.LCNF.PassManager
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Compiler::LCNF::Basic::l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_updateAltCodeImp___redArg;
 use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{

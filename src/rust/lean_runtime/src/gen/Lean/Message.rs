@@ -39,9 +39,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_copyHeadTailInfoFrom, l_Lean_TSyntax_expandInterpolatedStr,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Function_comp, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_addMacroScope,
+    l_Function_comp, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_addMacroScope,
     l_String_toRawSubstring_x27, l_id___boxed, l_instInhabitedOfMonad___redArg,
 };
 use crate::r#gen::Init::System::IO::l_instMonadBaseIO;

@@ -10,10 +10,9 @@ use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0_
 use crate::r#gen::Init::Data::List::Control::l_List_forIn_x27_loop___redArg;
 use crate::r#gen::Init::Data::Repr::{l_List_repr___redArg, l_Repr_addAppParen};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
-    l_Lean_addMacroScope, l_Lean_mkAtom, l_Lean_replaceRef, l_String_toRawSubstring_x27,
-    l_panic___redArg,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
+    l_Lean_mkAtom, l_Lean_replaceRef, l_String_toRawSubstring_x27, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
@@ -56,7 +55,7 @@ use crate::r#gen::Std::Data::TreeSet::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_utf8_byte_size,
+    lean_array_push, lean_nat_dec_eq, lean_string_utf8_byte_size,
 };
 pub static l_Std_TreeSet_Raw___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

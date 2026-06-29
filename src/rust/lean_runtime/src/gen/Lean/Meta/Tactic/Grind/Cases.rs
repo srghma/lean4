@@ -2,9 +2,7 @@
 // Module: Lean.Meta.Tactic.Grind.Cases
 // Imports: Lean.Meta.Tactic.Cases Lean.Meta.Tactic.Grind.Extension
 use crate::r#gen::Init::Data::Array::Basic::l_Array_eraseIdx___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_replaceRef};
 use crate::r#gen::Lean::AuxRecursor::l_Lean_mkCasesOnName;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_mkFreshUserName;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;

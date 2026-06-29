@@ -2,9 +2,7 @@
 // Module: Lean.Meta.Tactic.ExposeNames
 // Imports: Lean.Meta.Tactic.Util Init.While
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, lean_erase_macro_scopes,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_hasMacroScopes, lean_erase_macro_scopes};
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_set___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
@@ -44,9 +42,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_to_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_uint64_of_nat,
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_name_eq,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_nat_sub, lean_uint64_of_nat,
 };
 use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
 static mut l_Std_DHashMap_Internal_AssocList_foldlM___at___00__private_Std_Data_DHashMap_Internal_Defs_0__Std_DHashMap_Internal_Raw_u2080_expand_go___at___00Std_DHashMap_Internal_Raw_u2080_expand___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_ExposeNames_0__Lean_Meta_getLCtxWithExposedNames_spec__0_spec__1_spec__2_spec__10___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

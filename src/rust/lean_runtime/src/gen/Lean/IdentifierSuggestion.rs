@@ -15,7 +15,6 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_num___override, l_Lean_Name_str___override,
     l_Lean_Syntax_getId, l_Lean_replaceRef, l_List_lengthTR___redArg, l_id___boxed,
 };
 use crate::r#gen::Lean::Attributes::{

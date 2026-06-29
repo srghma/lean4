@@ -5,7 +5,6 @@ use crate::r#gen::Init::Grind::AC::{
     initialize_Init_Grind_AC, l_Lean_Grind_AC_instInhabitedExpr_default,
     l_Lean_Grind_AC_instInhabitedSeq_default, runtime_initialize_Init_Grind_AC,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::l_Lean_Expr_const___override;
 use crate::r#gen::Lean::Meta::Tactic::Grind::AC::Seq::{

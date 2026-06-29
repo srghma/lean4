@@ -20,9 +20,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_setTailInfo, l_Lean_isLetterLike, l_Lean_isSubScriptAlnum,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getNumArgs, l_Lean_Syntax_isOfKind,
-    l_Pi_instInhabited___redArg___lam__0,
+    l_Lean_Name_append, l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getNumArgs, l_Lean_Syntax_isOfKind, l_Pi_instInhabited___redArg___lam__0,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;

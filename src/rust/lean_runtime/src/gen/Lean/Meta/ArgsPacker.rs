@@ -7,7 +7,7 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at
 use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_str___override, l_List_lengthTR___redArg,
+    l_Lean_Name_mkStr2, l_Lean_Name_str___override, l_List_lengthTR___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};

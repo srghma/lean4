@@ -4,7 +4,7 @@
 use crate::r#gen::Init::Data::List::Basic::{l_List_elem___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
+    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
     l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_replaceRef,
     l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqString___boxed,
 };

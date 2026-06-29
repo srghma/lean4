@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.RecDepth
 // Imports: Lean.Data.Options
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_defaultMaxRecDepth,
-};
+use crate::r#gen::Init::Prelude::l_Lean_defaultMaxRecDepth;
 use crate::r#gen::Lean::Data::Options::{
     initialize_Lean_Data_Options, lean_register_option, runtime_initialize_Lean_Data_Options,
 };

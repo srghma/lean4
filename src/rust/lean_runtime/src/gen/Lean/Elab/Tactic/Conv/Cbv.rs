@@ -2,7 +2,7 @@
 // Module: Lean.Elab.Tactic.Conv.Cbv
 // Imports: Lean.Meta.Tactic.Cbv Lean.Elab.Tactic.Conv.Basic
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr5, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
 use crate::r#gen::Lean::Data::Position::l_Lean_FileMap_toPosition;

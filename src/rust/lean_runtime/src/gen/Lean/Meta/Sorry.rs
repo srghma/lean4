@@ -2,9 +2,8 @@
 // Module: Lean.Meta.Sorry
 // Imports: Lean.Data.Lsp.Utf16 Lean.Meta.ForEachExpr Lean.Meta.InferType Lean.Util.Recognizers
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    lean_erase_macro_scopes,
+    l_Lean_Name_hasMacroScopes, l_Lean_Name_num___override, l_Lean_Name_str___override,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::CoreM::l_Lean_Core_mkFreshUserName;
 use crate::r#gen::Lean::Data::Lsp::Utf16::{

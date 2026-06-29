@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.TreeTacAttr
 // Imports: Lean.Meta.Tactic.Simp
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::Meta::Tactic::Simp::Attr::l_Lean_Meta_registerSimpAttr;
 use crate::r#gen::Lean::Meta::Tactic::Simp::{
     initialize_Lean_Meta_Tactic_Simp, runtime_initialize_Lean_Meta_Tactic_Simp,

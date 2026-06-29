@@ -2,9 +2,9 @@
 // Module: Std.Internal.Do.Frame
 // Imports: Std.Internal.Do.Assertion
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node3, l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
+    l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Std::Internal::Do::Assertion::{
     initialize_Std_Internal_Do_Assertion, runtime_initialize_Std_Internal_Do_Assertion,

@@ -4,9 +4,7 @@
 use crate::r#gen::Init::Data::String::TakeDrop::{
     initialize_Init_Data_String_TakeDrop, runtime_initialize_Init_Data_String_TakeDrop,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::EnvExtension::{
     initialize_Lean_EnvExtension, l_Lean_MapDeclarationExtension_contains___redArg,
@@ -21,9 +19,8 @@ use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_usize_dec_eq,
+    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
 pub static l_Lean_casesOnSuffix___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {

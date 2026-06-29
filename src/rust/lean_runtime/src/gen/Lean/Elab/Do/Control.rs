@@ -5,7 +5,7 @@ use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Syntax_getId};
+use crate::r#gen::Init::Prelude::l_Lean_Syntax_getId;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_mkFreshUserName;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Lean_NameSet_contains;
 use crate::r#gen::Lean::Elab::Do::Basic::{

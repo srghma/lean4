@@ -8,8 +8,7 @@ use crate::r#gen::Init::Data::Array::Basic::{
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
+    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
     l_Lean_replaceRef, l_id___boxed,
 };
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;

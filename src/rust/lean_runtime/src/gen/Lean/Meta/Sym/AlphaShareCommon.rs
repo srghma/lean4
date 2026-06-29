@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.AlphaShareCommon
 // Imports: Lean.Meta.Sym.ExprPtr
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Data::KVMap::l_Lean_KVMap_eqv;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_findEntry_x3f___redArg, l_Lean_PersistentHashMap_findKeyDAux___redArg,

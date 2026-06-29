@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.CtorRecognizer
 // Imports: Lean.Meta.LitValues Lean.Meta.Offset
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;

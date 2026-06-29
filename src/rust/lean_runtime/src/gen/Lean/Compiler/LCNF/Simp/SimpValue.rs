@@ -16,8 +16,7 @@ use crate::r#gen::Lean::Compiler::LCNF::Simp::SimpM::{
 };
 use crate::r#gen::Lean::Environment::l_Lean_Environment_find_x3f;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq,
+    lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 pub static l_Lean_Compiler_LCNF_Simp_simpAppApp_x3f___redArg___closed__0_value:

@@ -4,7 +4,6 @@
 use crate::r#gen::Lean::Elab::Term::{
     initialize_Lean_Elab_Term, runtime_initialize_Lean_Elab_Term,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_Lean_Elab_Term_instInhabitedMatchAltView_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

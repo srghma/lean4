@@ -11,7 +11,7 @@ use crate::r#gen::Init::Data::Int::DivMod::Basic::l_Int_ediv___boxed;
 use crate::r#gen::Init::Data::Int::Repr::{l_Int_repr, l_Int_repr___boxed};
 use crate::r#gen::Init::Data::Rat::Basic::{l_Rat_div, l_Rat_instNatCast___lam__0, l_Rat_ofInt};
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Time::Date::Unit::Day::{
     initialize_Std_Time_Date_Unit_Day, l_Std_Time_Day_instInhabitedOffset,
     runtime_initialize_Std_Time_Date_Unit_Day,

@@ -14,7 +14,6 @@ use crate::r#gen::Init::Data::ToString::Name::{
     l___private_Init_Data_ToString_Name_0__Lean_Name_toStringWithSep_maybeEscape,
     l_Lean_Name_toStringWithSep,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lake::Build::Facets::{
     initialize_Lake_Build_Facets, l_Lake_Module_oExportFacet, l_Lake_Module_oFacet,
     runtime_initialize_Lake_Build_Facets,

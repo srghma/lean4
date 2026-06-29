@@ -7,9 +7,7 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f};
 use crate::r#gen::Lean::Compiler::MetaAttr::l_Lean_isMarkedMeta;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_compress;

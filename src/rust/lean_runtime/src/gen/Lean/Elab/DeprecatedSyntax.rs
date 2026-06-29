@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.DeprecatedSyntax
 // Imports: Lean.MonadEnv Lean.Linter.Init Lean.Elab.Util
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr3, l_Lean_Name_mkStr5, l_Lean_Syntax_getKind};
+use crate::r#gen::Init::Prelude::l_Lean_Syntax_getKind;
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg,
     l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg,

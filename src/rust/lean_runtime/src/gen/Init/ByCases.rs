@@ -5,10 +5,9 @@ use crate::r#gen::Init::Grind::Tactics::{
     initialize_Init_Grind_Tactics, runtime_initialize_Init_Grind_Tactics,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1,
-    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node8,
-    l_Lean_addMacroScope, l_String_toRawSubstring_x27,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
+    l_Lean_Syntax_node4, l_Lean_Syntax_node8, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,

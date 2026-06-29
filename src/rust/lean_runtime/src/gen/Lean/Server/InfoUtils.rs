@@ -19,10 +19,10 @@ use crate::r#gen::Init::Data::Option::Basic::l_Option_instBEq_beq___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_getTrailingSize, l_Lean_Syntax_structEq};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getKind, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind, l_Lean_replaceRef, l_id___boxed,
-    l_instInhabitedOfMonad___redArg, l_panic___redArg,
+    l_Lean_Name_hasMacroScopes, l_Lean_Syntax_getArg, l_Lean_Syntax_getKind,
+    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isIdent,
+    l_Lean_Syntax_isOfKind, l_Lean_replaceRef, l_id___boxed, l_instInhabitedOfMonad___redArg,
+    l_panic___redArg,
 };
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

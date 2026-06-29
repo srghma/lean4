@@ -7,9 +7,7 @@ use crate::r#gen::Init::Grind::Lemmas::{
 use crate::r#gen::Init::Grind::Util::{
     initialize_Init_Grind_Util, runtime_initialize_Init_Grind_Util,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_maxRecDepthErrorMessage,
-};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::{l_Lean_Core_mkFreshUserName, l_Lean_Exception_isRuntime};
 use crate::r#gen::Lean::Exception::l_Lean_Exception_isInterrupt;

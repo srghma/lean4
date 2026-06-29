@@ -3,9 +3,8 @@
 // Imports: Lean.Elab.Tactic.BVDecide.BVDecide Lean.Meta.Tactic.TryThis Lean.Meta.Tactic.BVDecide.TacticContext Lean.Meta.Tactic.BVDecide.Normalize
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getString;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_mkStr6, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node2, l_Lean_replaceRef,
+    l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node2, l_Lean_replaceRef,
 };
 use crate::r#gen::Init::System::FilePath::{l_System_FilePath_join, l_System_FilePath_parent};
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;

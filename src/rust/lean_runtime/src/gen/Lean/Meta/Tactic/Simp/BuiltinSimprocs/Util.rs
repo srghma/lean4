@@ -2,7 +2,6 @@
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Util
 // Imports: Lean.Meta.Tactic.Simp.Simproc
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21, l_Lean_Expr_constLevels_x21, l_Lean_mkApp3,
     l_Lean_mkAppB, l_Lean_mkAppN, l_Lean_mkConst,

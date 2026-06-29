@@ -11,7 +11,6 @@ use crate::r#gen::Init::Data::Array::Subarray::{
     l_Array_toSubarray___redArg, l_Subarray_get___redArg,
 };
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Data::Json::Basic::l_Lean_Json_mkObj;
 use crate::r#gen::Lean::Data::Lsp::BasicAux::l_Lean_Lsp_instToJsonRange_toJson;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;

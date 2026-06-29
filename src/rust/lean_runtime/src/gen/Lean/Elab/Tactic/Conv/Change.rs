@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Conv.Change
 // Imports: Lean.Elab.Tactic.Change Lean.Elab.Tactic.Conv.Basic
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr5, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::Elab::Tactic::Basic::{

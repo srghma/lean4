@@ -2,7 +2,7 @@
 // Module: Lake.Build.Targets
 // Imports: Lake.Config.Monad Lake.Config.InputFile Lake.Build.Infos
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lake::Build::Facets::{
     l_Lake_InputDir_defaultFacet, l_Lake_InputFile_defaultFacet, l_Lake_LeanExe_exeFacet,
     l_Lake_LeanLib_defaultFacet,

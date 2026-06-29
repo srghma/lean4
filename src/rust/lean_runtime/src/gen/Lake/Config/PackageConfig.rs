@@ -11,7 +11,6 @@ use crate::r#gen::Init::Data::Array::Basic::{
 };
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Dynamic::{initialize_Init_Dynamic, runtime_initialize_Init_Dynamic};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, l_System_Platform_target,
     runtime_initialize_Init_System_Platform,

@@ -4,9 +4,7 @@
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_trimAscii;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_firstFrontendMacroScope, lean_erase_macro_scopes,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_firstFrontendMacroScope, lean_erase_macro_scopes};
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Lake::CLI::Translate::Lean::{
     initialize_Lake_CLI_Translate_Lean, l_Lake_Package_mkLeanConfig,

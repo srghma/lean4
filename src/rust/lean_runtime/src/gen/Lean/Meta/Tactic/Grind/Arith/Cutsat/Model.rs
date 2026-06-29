@@ -2,9 +2,6 @@
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.Model
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Lean.Meta.Tactic.Grind.Arith.ModelUtil
 use crate::r#gen::Init::Data::Rat::Basic::{l_Rat_ofInt, l_instInhabitedRat};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-};
 use crate::r#gen::Init::System::IO::l_instInhabitedEIO___aux__1___boxed;
 use crate::r#gen::Init::System::IOError::{l_instInhabitedError, lean_io_error_to_string};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

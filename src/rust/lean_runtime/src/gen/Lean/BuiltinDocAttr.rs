@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.BuiltinDocAttr
 // Imports: Lean.Compiler.InitAttr
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_num___override, l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Attributes::{
     l_Lean_Attribute_Builtin_ensureNoArgs, l_Lean_registerBuiltinAttribute,

@@ -9,7 +9,6 @@ use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
 use crate::r#gen::Init::Meta::Defs::l_String_toName;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Init::System::FilePath::l_System_FilePath_normalize;
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Lake::Build::Actions::{

@@ -8,10 +8,9 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_TSyntax_getId, l_Lean_mkCIdentFrom, l_Lean_quoteNameMk, lean_mk_syntax_ident,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node5, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
+    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
+    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node5,
+    l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Lake::DSL::DeclUtil::l_Lake_DSL_packageDeclName;
 use crate::r#gen::Lake::DSL::Extensions::{

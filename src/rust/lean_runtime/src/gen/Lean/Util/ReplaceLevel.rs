@@ -2,7 +2,6 @@
 // Module: Lean.Util.ReplaceLevel
 // Imports: Lean.Expr
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Init::Util::l_ptrEqList___redArg;
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_app___override, l_Lean_Expr_const___override,

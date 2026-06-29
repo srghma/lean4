@@ -29,10 +29,7 @@ use crate::r#gen::Init::Data::String::Extra::{
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_typeNameImpl;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_beq___boxed, l_Lean_Syntax_getArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::DeclarationRange::{
     l_Lean_instInhabitedDeclarationRange_default, l_Lean_instReprDeclarationRange_repr___redArg,

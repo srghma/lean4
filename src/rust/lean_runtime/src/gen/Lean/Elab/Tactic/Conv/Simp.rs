@@ -4,10 +4,10 @@
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Array_mkArray3___redArg, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_isOfKind,
-    l_Lean_Syntax_matchesNull, l_Lean_Syntax_node6,
+    l_Array_mkArray0, l_Array_mkArray1___redArg, l_Array_mkArray3___redArg, l_Lean_Name_mkStr4,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
+    l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Syntax_node6,
 };
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;

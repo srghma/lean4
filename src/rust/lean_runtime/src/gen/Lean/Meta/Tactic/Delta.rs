@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Delta
 // Imports: Lean.Meta.Tactic.Replace Lean.Meta.Transform
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage,
-    l_List_lengthTR___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_maxRecDepthErrorMessage, l_List_lengthTR___redArg};
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_isSet;
 use crate::r#gen::Init::System::ST::{l_ST_Prim_Ref_get___boxed, l_ST_Prim_mkRef___boxed};
 use crate::r#gen::Lean::CoreM::{l_Lean_Core_checkSystem, l_Lean_Core_instantiateValueLevelParams};

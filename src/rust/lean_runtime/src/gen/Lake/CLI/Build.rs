@@ -10,7 +10,7 @@ use crate::r#gen::Init::Data::String::Slice::{l_String_Slice_toName, l_String_Sl
 use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::l_String_toName;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::System::IO::l_System_FilePath_isDir;
 use crate::r#gen::Lake::Build::Facets::l_Lake_Module_leanArtsFacet;
 use crate::r#gen::Lake::Build::Info::l_Lake_BuildInfo_key;

@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.ConfigEval.Extra
 // Imports: Lean.Elab.ConfigEval.Instances
-use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Data::KVMap::{
     l_Lean_KVMap_instValueBool, l_Lean_KVMap_instValueInt, l_Lean_KVMap_instValueName,

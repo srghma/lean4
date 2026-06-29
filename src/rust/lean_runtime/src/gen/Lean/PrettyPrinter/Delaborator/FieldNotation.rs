@@ -6,8 +6,8 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f,
-    l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
+    l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
+    l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Class::lean_is_class;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;

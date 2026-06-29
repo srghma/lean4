@@ -7,10 +7,7 @@ use crate::r#gen::Init::Data::Rat::Basic::{
     initialize_Init_Data_Rat_Basic, runtime_initialize_Init_Data_Rat_Basic,
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_const___override, l_Lean_Expr_lit___override,
@@ -33,9 +30,8 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_to_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_uint32_to_nat,
+    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_to_nat,
 };
 pub static l_Lean_instToExprNat___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

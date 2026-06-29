@@ -11,10 +11,7 @@ use crate::r#gen::Init::Data::List::Sort::Basic::{
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_id___boxed,
-    l_instInhabitedForall___redArg___lam__0___boxed,
-};
+use crate::r#gen::Init::Prelude::{l_id___boxed, l_instInhabitedForall___redArg___lam__0___boxed};
 use crate::r#gen::Init::System::IO::{l_instInhabitedEIO___aux__1___boxed, lean_stream_of_handle};
 use crate::r#gen::Init::System::IOError::{l_instInhabitedError, lean_mk_io_user_error};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -71,8 +68,8 @@ use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
+    lean_array_mk, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_lt,
+    lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::{lean_io_process_child_wait, lean_io_process_spawn};
 pub static l_Lean_Lsp_Ipc_ipcStdioConfig___closed__0_value: crate::leanh::LeanCtorObject<1> =

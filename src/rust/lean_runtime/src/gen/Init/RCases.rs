@@ -2,9 +2,6 @@
 // Module: Init.RCases
 // Imports: Init.Meta
 use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Meta};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-};
 use crate::r#gen::Init::Tactics::l_Lean_Parser_Tactic_elimTarget;
 pub static l_Lean_Parser_Tactic_rcasesPat_quot___closed__0_value: crate::leanh::LeanStringObject<
     5,

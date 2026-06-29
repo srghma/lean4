@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.Internal.VCGen.RuleCache
 // Imports: Lean.Elab.Tactic.Do.VCGen.Split Lean.Elab.Tactic.Do.Internal.VCGen.Context Lean.Elab.Tactic.Do.Internal.VCGen.RuleConstruction Lean.Elab.Tactic.Do.Internal.VCGen.Util
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Context::{
     initialize_Lean_Elab_Tactic_Do_Internal_VCGen_Context,
     runtime_initialize_Lean_Elab_Tactic_Do_Internal_VCGen_Context,

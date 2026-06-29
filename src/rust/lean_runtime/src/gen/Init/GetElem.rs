@@ -5,18 +5,16 @@ use crate::r#gen::Init::Data::Option::Basic::{
     initialize_Init_Data_Option_Basic, runtime_initialize_Init_Data_Option_Basic,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_addMacroScope, l_Lean_mkAtom,
-    l_List_get___redArg, l_String_toRawSubstring_x27, l_panic___redArg,
+    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5, l_Lean_addMacroScope,
+    l_Lean_mkAtom, l_List_get___redArg, l_String_toRawSubstring_x27, l_panic___redArg,
 };
 use crate::r#gen::Init::Util::{
     initialize_Init_Util, l_mkPanicMessageWithDecl, runtime_initialize_Init_Util,
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_utf8_byte_size,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub static l_outOfBounds___redArg___closed__0_value: crate::leanh::LeanStringObject<13> =
     crate::leanh::LeanStringObject {

@@ -6,9 +6,6 @@ use crate::r#gen::Init::Grind::Ring::CommSemiringAdapter::{
     initialize_Init_Grind_Ring_CommSemiringAdapter,
     runtime_initialize_Init_Grind_Ring_CommSemiringAdapter,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
-};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_const___override, l_Lean_mkApp3, l_Lean_mkAppB,
     l_Lean_mkConst, l_Lean_mkNatLit,

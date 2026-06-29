@@ -4,9 +4,7 @@
 use crate::r#gen::Init::Control::MonadAttach::{
     initialize_Init_Control_MonadAttach, runtime_initialize_Init_Control_MonadAttach,
 };
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_array_to_list};
 pub static l_Id_instMonad___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

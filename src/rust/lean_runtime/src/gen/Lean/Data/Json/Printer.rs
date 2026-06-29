@@ -36,9 +36,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_byte_array_mk, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat, lean_usize_dec_eq,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_to_nat, lean_usize_dec_eq,
 };
 pub static l___private_Lean_Data_Json_Printer_0__Lean_Json_escapeTable___closed__0_value:
     crate::leanh::LeanScalarArray<256> = crate::leanh::LeanScalarArray {

@@ -12,7 +12,6 @@ use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Repr_addAppParen, l
 use crate::r#gen::Init::Data::String::Modify::{
     initialize_Init_Data_String_Modify, runtime_initialize_Init_Data_String_Modify,
 };
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lake::Build::Target::Basic::{
     initialize_Lake_Build_Target_Basic, l_Lake_Target_repr___redArg,
     runtime_initialize_Lake_Build_Target_Basic,
@@ -37,8 +36,8 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_uint32_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq, lean_uint32_dec_le,
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_string_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Lake_instReprBackend_repr___closed__0_value: crate::leanh::LeanStringObject<15> =
     crate::leanh::LeanStringObject {

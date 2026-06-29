@@ -2,7 +2,6 @@
 // Module: Lean.Elab.Tactic.Do.ProofMode.Exact
 // Imports: Lean.Elab.Tactic.Do.ProofMode.Basic Lean.Elab.Tactic.Do.ProofMode.Focus Lean.Elab.Tactic.ElabTerm
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_mkStr6,
     l_Lean_Syntax_getArg, l_Lean_Syntax_getId, l_Lean_Syntax_isOfKind,
 };
 use crate::r#gen::Lean::Data::PersistentHashMap::{

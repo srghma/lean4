@@ -24,8 +24,8 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_maxRecDepthErrorMessage, l_instInhabitedOfMonad___redArg,
+    l_Lean_Name_append, l_Lean_Name_mkStr4, l_Lean_maxRecDepthErrorMessage,
+    l_instInhabitedOfMonad___redArg,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::LBool::l_Lean_instBEqLBool_beq;

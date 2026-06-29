@@ -10,8 +10,8 @@ use crate::r#gen::Init::Grind::Tactics::{
 };
 use crate::r#gen::Init::Meta::Defs::{l_Lean_TSyntax_getNat, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull,
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 pub static l_Lean_Grind_nodeDefUnexpander___redArg___closed__0_value:

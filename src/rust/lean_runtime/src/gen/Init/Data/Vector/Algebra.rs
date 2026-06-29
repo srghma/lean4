@@ -18,7 +18,6 @@ use crate::r#gen::Init::Data::Vector::Lemmas::{
 use crate::r#gen::Init::Grind::Module::Basic::l_Lean_Grind_IntModule_toNatModule___redArg;
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
 use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_mk_array};
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l_Vector_add___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -8,9 +8,8 @@ use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_mkStrLit;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_num___override,
-    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node3,
-    l_Lean_Syntax_node6, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
+    l_Lean_Name_append, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_node3, l_Lean_Syntax_node6,
+    l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::CoreM::{
     l_Lean_Core_withFreshMacroScope___redArg, l_Lean_Exception_isRuntime,

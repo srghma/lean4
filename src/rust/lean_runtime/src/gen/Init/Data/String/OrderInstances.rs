@@ -24,10 +24,10 @@ use crate::r#gen::Init::Grind::ToInt::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
-    l_Lean_Syntax_node3, l_Lean_Syntax_node6, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
-    l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqRaw___boxed,
+    l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
+    l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node6, l_Lean_addMacroScope,
+    l_String_toRawSubstring_x27, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
+    l_instDecidableEqRaw___boxed,
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,

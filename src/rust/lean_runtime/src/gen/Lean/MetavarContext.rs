@@ -39,7 +39,7 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::Prelude::{
     l_EStateM_bind, l_EStateM_instMonad___lam__0, l_EStateM_instMonad___lam__1,
     l_EStateM_instMonad___lam__2, l_EStateM_map, l_EStateM_pure, l_EStateM_seqRight,
-    l_Lean_Name_mkStr1, l_Lean_Name_num___override, l_Lean_addMacroScope, l_ReaderT_bind___boxed,
+    l_Lean_Name_num___override, l_Lean_addMacroScope, l_ReaderT_bind___boxed,
     l_instInhabitedOfMonad___redArg, l_instMonadLiftT___lam__0___boxed,
     l_instMonadStateOfMonadStateOf___redArg, l_modify, l_panic___redArg,
 };

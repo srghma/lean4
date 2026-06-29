@@ -2,7 +2,6 @@
 // Module: Init.Linter
 // Imports: Init.Notation
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 pub static l_builtin__nolint___closed__0_value: crate::leanh::LeanStringObject<15> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -25,47 +25,50 @@ regenerate-gen-tree:
     bun srghmascripts/regenerate_module_tree.ts gen
 
 # Regenerate src/rust/lean_runtime/src/lean_imports_rs.rs from the files under src/rust/lean_runtime/src/lean_imports_rs.
-regenerate-lean-imports-rs-tree roots:
-    bun srghmascripts/regenerate_module_tree.ts lean_imports_rs --roots={{ roots }}
+regenerate-lean-imports-rs-tree:
+    # e.g. bun srghmascripts/regenerate_module_tree.ts lean_imports_rs --roots="Init,Lean" will generete 2 trees
+    bun srghmascripts/regenerate_module_tree.ts lean_imports_rs
 
 cargo-build:
     #!/usr/bin/env bash
     set -euo pipefail
     cd /home/srghma/projects/lean4/src/rust/lean_runtime
-    cargo build
+    CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo build
 
 # Build and print only unique error signatures
 cargo-build-errors-short:
     #!/usr/bin/env bash
     set -euo pipefail
     cd /home/srghma/projects/lean4/src/rust/lean_runtime
-    cargo build --message-format=short 2>&1 | grep 'error\[' | sed -E 's/^[^:]+:[0-9]+:[0-9]+: //' | sort -u
+    CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo build --message-format=short 2>&1 | grep 'error\[' | sed -E 's/^[^:]+:[0-9]+:[0-9]+: //' | sort -u
 
 cargo-build-ai:
     #!/usr/bin/env bash
     set -euo pipefail
     cd /home/srghma/projects/lean4/src/rust/lean_runtime
-    cargo build --message-format=json | python3 -c '
+    CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo build --message-format=json | python3 -c '
     import sys, json
     from collections import defaultdict
 
-    errors = defaultdict(list)
+    messages = defaultdict(list)
 
     for line in sys.stdin:
         try:
             data = json.loads(line)
             if data.get("reason") == "compiler-message":
                 msg = data.get("message", {})
-                # Only keep actual errors (ignore warnings)
-                if msg.get("level") == "error":
+                level = msg.get("level")
+                if level in ("error", "warning"):
                     code = msg.get("code", {}).get("code", "UNKNOWN") if msg.get("code") else "UNKNOWN"
                     rendered = msg.get("rendered", "")
-                    errors[code].append(rendered)
+                    messages[(level, code)].append(rendered)
         except Exception:
             pass
 
-    for code, items in errors.items():
-        print(f"\n=================== Error Code: {code} (Showing {min(len(items), 5)} of {len(items)}) ===================")
+    # Sorting keys puts "error" before "warning" alphabetically
+    for (level, code), items in sorted(messages.items()):
+        label = f"{level.capitalize()} Code: {code}"
+        print(f"\n=================== {label} (Showing {min(len(items), 5)} of {len(items)}) ===================")
         for item in items[:5]:
             print(item)
     ' | copyq add -
@@ -81,9 +84,6 @@ cargo-build-ai:
 # # Type-check the whole generated tree. This is memory-heavy.
 # check-gen-full:
 #     bun srghmascripts/check_gen.ts --full
-
-# Convenience alias for doing both in sequence.
-update-and-regenerate: update-stage1 regenerate-gen
 
 # Run all tests, tee full output to a log file, and print only failures to stdout.
 test-all:

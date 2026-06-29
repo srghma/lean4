@@ -20,10 +20,7 @@ use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
 };
 use crate::r#gen::Init::Meta::Defs::l_String_toName;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Syntax_getHeadInfo,
-    l_instInhabitedOfMonad___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getHeadInfo, l_instInhabitedOfMonad___redArg};
 use crate::r#gen::Init::System::CancelToken::l_IO_CancelToken_isSet;
 use crate::r#gen::Init::System::IO::l_IO_FS_readFile;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;

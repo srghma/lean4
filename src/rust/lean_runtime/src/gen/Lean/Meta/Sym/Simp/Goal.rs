@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.Goal
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.Tactic.Util Lean.Meta.Sym.InferType
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,
     l_Lean_PersistentHashMap_mkCollisionNode___redArg, l_Lean_PersistentHashMap_mkEmptyEntries,

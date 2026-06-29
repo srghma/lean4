@@ -50,9 +50,8 @@ use crate::r#gen::Init::Dynamic::{
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_mkAtom, l_Nat_decEq___boxed,
-    l_instInhabitedOfMonad___redArg, l_panic___redArg, lean_erase_macro_scopes,
+    l_Lean_mkAtom, l_Nat_decEq___boxed, l_instInhabitedOfMonad___redArg, l_panic___redArg,
+    lean_erase_macro_scopes,
 };
 use crate::r#gen::Init::System::CancelToken::{
     initialize_Init_System_CancelToken, runtime_initialize_Init_System_CancelToken,

@@ -17,8 +17,7 @@ use crate::r#gen::Std::Sat::CNF::{initialize_Std_Sat_CNF, runtime_initialize_Std
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_le,
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
 };
 pub static l_Std_Tactic_BVDecide_LRAT_instInhabitedAction_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

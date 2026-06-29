@@ -3,8 +3,8 @@
 // Imports: Lean.ScopedEnvExtension
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
+    l_Lean_Name_beq___boxed, l_Lean_Name_hash___override___boxed, l_Lean_Name_num___override,
+    l_Lean_Name_str___override, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::Attributes::{
     l_Lean_Attribute_Builtin_ensureNoArgs, l_Lean_registerBuiltinAttribute,

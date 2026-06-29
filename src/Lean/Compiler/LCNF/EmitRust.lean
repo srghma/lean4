@@ -320,6 +320,57 @@ def addUseItemFrom (groups : UseGroups) (root : String) (modName : Name) (item :
 def useGroupsContainsItem (groups : UseGroups) (item : String) : Bool :=
   groups.any fun group => group.2.contains item
 
+def collectDirectGroundArgDecls (arg : SimpleGroundArg) (s : NameSet) : NameSet :=
+  match arg with
+  | .reference declName => s.insert declName
+  | .tagged .. | .rawReference .. => s
+
+def collectDirectGroundArgsDecls (args : Array SimpleGroundArg) (s : NameSet) : NameSet :=
+  args.foldl (init := s) fun s arg => collectDirectGroundArgDecls arg s
+
+def collectDirectGroundDecls (ground : SimpleGroundExpr) (s : NameSet) : NameSet :=
+  match ground with
+  | .ctor (objArgs := objArgs) .. => collectDirectGroundArgsDecls objArgs s
+  | .pap func args => collectDirectGroundArgsDecls args (s.insert func)
+  | .nameMkStr args => args.foldl (init := s) fun s (ref, _) => s.insert ref
+  | .reference declName => s.insert declName
+  | .array elems => collectDirectGroundArgsDecls elems s
+  | .string .. | .byteArray .. => s
+
+def collectDirectLetValueDecls (value : LetValue .impure) (s : NameSet) : NameSet :=
+  match value with
+  | .const declName .. | .fap declName .. | .pap declName .. => s.insert declName
+  | _ => s
+
+mutual
+partial def collectDirectFunDecls (decl : FunDecl .impure) (s : NameSet) : NameSet :=
+  collectDirectCodeDecls decl.value s
+
+partial def collectDirectCodeDecls (code : Code .impure) (s : NameSet) : NameSet :=
+  match code with
+  | .let decl k =>
+    collectDirectCodeDecls k <| collectDirectLetValueDecls decl.value s
+  | .jp decl k =>
+    collectDirectCodeDecls k <| collectDirectFunDecls decl s
+  | .cases c =>
+    c.alts.foldl (init := s) fun s alt => collectDirectCodeDecls alt.getCode s
+  | .oset (k := k) .. | .uset (k := k) .. | .sset (k := k) ..
+  | .inc (k := k) .. | .dec (k := k) .. | .del (k := k) .. | .setTag (k := k) .. =>
+    collectDirectCodeDecls k s
+  | .jmp .. | .return .. | .unreach .. => s
+end
+
+def collectDirectDecls (env : Environment) (decl : Decl .impure) (s : NameSet) : NameSet :=
+  if let some ground := getSimpleGroundExpr env decl.name then
+    collectDirectGroundDecls ground s
+  else
+    match decl.value with
+    | .code code => collectDirectCodeDecls code s
+    | .extern .. => s
+
+def collectDirectUsedDecls (env : Environment) (decls : Array (Decl .impure)) : NameSet :=
+  decls.foldl (init := {}) fun s decl => collectDirectDecls env decl s
+
 def formatUseGroup (path : String) (items : Array String) : String :=
   let items := items.qsort (· < ·)
   if h : items.size = 0 then
@@ -531,7 +582,7 @@ def paramsWithoutVoid (ps : Array (Param .impure)) :=
 def paramsWithoutErased (ps : Array (Param .impure)) :=
   ps.filter (!·.type.isErased)
 
-def emitFileHeader : EmitM Unit := do
+def emitFileHeader (body : String) : EmitM Unit := do
   let env ← getEnv
   let modName ← getModName
   emitLn "// Lean compiler output"
@@ -540,6 +591,13 @@ def emitFileHeader : EmitM Unit := do
   env.imports.forM fun m => emit (" " ++ toString m.module)
   emitLn ""
   let mut useGroups : UseGroups := #[]
+  let mut localDefinedNames : Array String := #[]
+  for decl in (← getLocalDecls) do
+    match decl.value with
+    | .extern .. => pure ()
+    | .code .. =>
+      if !(hasInitAttr env decl.name || isSimpleGroundDecl env decl.name) then
+        localDefinedNames := addImportName localDefinedNames (← toCName decl.name)
   -- 1. Direct imports: imported module initialization functions.
   let neededInitFns ←
     if env.header.isModule then
@@ -559,12 +617,13 @@ def emitFileHeader : EmitM Unit := do
       if neededInitFns.contains fnName then
         useGroups := addUseItemFrom useGroups "crate::r#gen" depMod fnName
   -- 2. otherModuleDecls (handles inlined transitive refs).
+  let directlyUsedDecls := collectDirectUsedDecls env (← getLocalDecls)
   for sig in (← getOtherModuleDecls) do
-    if (getExternNameFor env `c sig.name).isNone then
+    if directlyUsedDecls.contains sig.name && (getExternNameFor env `c sig.name).isNone then
       if let some idx := env.getModuleIdxFor? sig.name then
         if let some depMod := env.header.moduleNames[idx]? then
           let item ← toCName sig.name
-          if !useGroupsContainsItem useGroups item then
+          if body.contains item && !useGroupsContainsItem useGroups item then
             useGroups := addUseItemFrom useGroups "crate::r#gen" depMod item
   -- 3. Imports for declarations with runtime symbol names.
   --    `@[extern]` names are imported through per-module lean_imports_rs stubs.
@@ -572,14 +631,14 @@ def emitFileHeader : EmitM Unit := do
   for decl in (← getLocalDecls) do
     if let some externName := getExternNameFor env `c decl.name then
       if !decl.params.isEmpty then
-        if !useGroupsContainsItem useGroups externName then
+        if body.contains externName && !localDefinedNames.contains externName && !useGroupsContainsItem useGroups externName then
           useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" modName externName
   for sig in (← getOtherModuleDecls) do
     if let some externName := getExternNameFor env `c sig.name then
       if let some idx := env.getModuleIdxFor? sig.name then
         if let some depMod := env.header.moduleNames[idx]? then
           if !sig.params.isEmpty then
-            if !useGroupsContainsItem useGroups externName then
+            if body.contains externName && !localDefinedNames.contains externName && !useGroupsContainsItem useGroups externName then
               useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" depMod externName
   emitUseGroups useGroups
 
@@ -1225,6 +1284,8 @@ def emitFnDecls : EmitM Unit := do
     else if isClosedTermName env decl.name then
       emitLn s!"static mut {toOnceTokenName cppBaseName}: {leanh "LeanOnceCell"} = {leanh "LeanOnceCell"} \{ state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };"
       emitLn s!"static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
+    else if decl.params.isEmpty && hasInitAttr env decl.name && !(isIOUnitBuiltinInitFn env decl.name || isIOUnitInitFn env decl.name) then
+      emitLn s!"pub static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
     else if decl.params.isEmpty && !hasInitAttr env decl.name then
       emitLn s!"pub static mut {cppBaseName}: {decl.type.toRustType} = {defaultInitializer decl.type};"
 
@@ -1309,8 +1370,7 @@ where
 
 def emitFileFooter : EmitM Unit := return ()
 
-def main : EmitM Unit := do
-  emitFileHeader
+def emitFileBody : EmitM Unit := do
   emitFnDecls
   emitFns
   if (← getEnv).header.isModule then
@@ -1326,14 +1386,24 @@ def main : EmitM Unit := do
   emitMainFnIfNeeded
   emitFileFooter
 
+def main (body : String) : EmitM Unit := do
+  emitFileHeader body
+  emit body
+
 public def emitRustForDecls (modName : Name) (decls : Array Name) : CoreM String := do
   let (localDecls, otherModuleDecls) ← collectUsedDecls decls
   let env ← getEnv
   let indexMap := getImpureDeclIndices env decls
   let localDecls := localDecls.qsort fun l r => indexMap[l.name]! < indexMap[r.name]!
+  let ctx := { localDecls, otherModuleDecls, modName }
+  let (_, { buf := body, .. }) ←
+    emitFileBody
+      |>.run ctx
+      |>.run {}
+      |>.run (phase := .impure)
   let (_, { buf, .. }) ←
-    main
-      |>.run { localDecls, otherModuleDecls, modName }
+    main body
+      |>.run ctx
       |>.run {}
       |>.run (phase := .impure)
   return buf

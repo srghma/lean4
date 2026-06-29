@@ -3,7 +3,6 @@
 // Imports: Lean.Data.Position
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr3};
 use crate::r#gen::Lean::Data::Position::{
     initialize_Lean_Data_Position, l_Lean_instDecidableEqPosition_decEq,
     l_Lean_instInhabitedPosition_default, l_Lean_instReprPosition_repr___redArg,

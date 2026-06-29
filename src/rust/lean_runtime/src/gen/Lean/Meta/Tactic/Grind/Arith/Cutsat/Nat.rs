@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::Int::OfNat::{
     initialize_Init_Data_Int_OfNat, runtime_initialize_Init_Data_Int_OfNat,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,

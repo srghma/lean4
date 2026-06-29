@@ -5,8 +5,8 @@ use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Forma
 use crate::r#gen::Init::Data::Format::Syntax::l_Lean_Syntax_formatStx;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getId,
-    l_Lean_Syntax_getKind, l_Lean_Syntax_isOfKind, l_Lean_replaceRef, lean_erase_macro_scopes,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getId, l_Lean_Syntax_getKind,
+    l_Lean_Syntax_isOfKind, l_Lean_replaceRef, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::Elab::Term::{
     initialize_Lean_Elab_Term, runtime_initialize_Lean_Elab_Term,
@@ -19,9 +19,8 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_pop, lean_arra
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 use crate::lean_imports_rs::Lean::Expr::lean_expr_dbg_to_string;

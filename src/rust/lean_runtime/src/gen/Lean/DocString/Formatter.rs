@@ -11,8 +11,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_decodeStrLit, l_Lean_TSyntax_getNat, l_Lean_TSyntax_getString,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
-    l_Lean_Syntax_getKind, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getKind, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_matchesNull,
 };
 use crate::r#gen::Lean::DocString::Parser::{
     initialize_Lean_DocString_Parser, l_Lean_Doc_Parser_metadataContents_formatter,
@@ -36,10 +36,9 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_usize_dec_eq,
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_name_eq,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

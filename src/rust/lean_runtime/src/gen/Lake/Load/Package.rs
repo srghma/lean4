@@ -30,8 +30,8 @@ use crate::r#gen::Lake::Util::IO::{
 use crate::r#gen::Lean::Util::Path::l_Lean_searchPathRef;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_string_dec_eq, lean_string_utf8_byte_size,
+    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_string_dec_eq,
+    lean_string_utf8_byte_size,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_set;
 pub static l_Lake_mkPackage___closed__0_value: crate::leanh::LeanArrayObject<0> =

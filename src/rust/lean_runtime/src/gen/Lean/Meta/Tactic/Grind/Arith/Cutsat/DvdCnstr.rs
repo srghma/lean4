@@ -18,8 +18,7 @@ use crate::r#gen::Init::Grind::Propagator::{
     initialize_Init_Grind_Propagator, runtime_initialize_Init_Grind_Propagator,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_maxRecDepthErrorMessage,
+    l_Lean_Name_append, l_Lean_Name_mkStr4, l_Lean_maxRecDepthErrorMessage,
 };
 use crate::r#gen::Lean::Data::LBool::l_Lean_instBEqLBool_beq;
 use crate::r#gen::Lean::Data::PersistentArray::{
@@ -107,9 +106,7 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::{
     lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_abs, lean_nat_to_int,
 };
 use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt};
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

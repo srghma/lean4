@@ -4,7 +4,6 @@
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Init::Data::String::Defs::l_String_instInhabitedSlice;
 use crate::r#gen::Init::Data::String::Substring::l_Substring_Raw_nextn;
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr2};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, l_Lean_Attribute_Builtin_getId,

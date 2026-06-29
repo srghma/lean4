@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.DSimprocDSLBuiltin
 // Imports: Lean.Elab.Tactic.Grind.DSimprocDSL Init.Sym.DSimp.DSimprocDSL Lean.Meta.Sym.DSimp.Reduce Lean.Meta.Sym.DSimp.DSimproc
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr5, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Init::Sym::DSimp::DSimprocDSL::{
     initialize_Init_Sym_DSimp_DSimprocDSL, runtime_initialize_Init_Sym_DSimp_DSimprocDSL,
 };

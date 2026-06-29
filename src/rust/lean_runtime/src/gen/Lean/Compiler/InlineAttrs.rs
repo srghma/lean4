@@ -1,9 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.InlineAttrs
 // Imports: Lean.Attributes Lean.Meta.RecExt
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_replaceRef, l_List_lengthTR___redArg,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_replaceRef, l_List_lengthTR___redArg};
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, l_Lean_EnumAttributes_getValue___redArg,
     l_Lean_EnumAttributes_setValue___redArg, l_Lean_registerEnumAttributes___redArg,

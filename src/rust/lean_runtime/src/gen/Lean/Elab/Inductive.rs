@@ -14,12 +14,11 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{
     l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Name_beq___boxed,
-    l_Lean_Name_hasMacroScopes, l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_getHeadInfo, l_Lean_Syntax_getId, l_Lean_Syntax_getKind,
-    l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
-    l_Lean_Syntax_isOfKind, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
-    lean_erase_macro_scopes,
+    l_Lean_Name_hasMacroScopes, l_Lean_Name_hash___override___boxed, l_Lean_Name_str___override,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getHeadInfo, l_Lean_Syntax_getId,
+    l_Lean_Syntax_getKind, l_Lean_Syntax_getOptional_x3f, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_maxRecDepthErrorMessage,
+    l_Lean_replaceRef, lean_erase_macro_scopes,
 };
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Init::System::ST::{l_ST_Prim_Ref_get___boxed, l_ST_Prim_mkRef___boxed};

@@ -2,9 +2,7 @@
 // Module: Lean.Util.TestExtern
 // Imports: Lean.Meta.Tactic.Unfold Lean.Meta.Eval Lean.Compiler.ImplementedByAttr Lean.Elab.Command Init.Notation Lean.Exception Lean.Compiler.ExternAttr
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::Compiler::ExternAttr::{
     initialize_Lean_Compiler_ExternAttr, l_Lean_isExtern,
     runtime_initialize_Lean_Compiler_ExternAttr,

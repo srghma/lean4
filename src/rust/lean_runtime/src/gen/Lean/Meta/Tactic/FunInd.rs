@@ -21,10 +21,10 @@ use crate::r#gen::Init::GetElem::l_List_get_x21Internal___redArg;
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Name_hasMacroScopes, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_num___override, l_Lean_Name_str___override,
-    l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef, l_List_lengthTR___redArg,
-    l_Pi_instInhabited___redArg___lam__0, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Array_extract___redArg, l_Lean_Name_append, l_Lean_Name_hasMacroScopes,
+    l_Lean_Name_str___override, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
+    l_List_lengthTR___redArg, l_Pi_instInhabited___redArg___lam__0,
+    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

@@ -36,8 +36,8 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_MonadExcept_ofExcept___redArg,
-    l_ReaderT_instMonad___redArg, l_id___boxed, l_instMonadExceptOfMonadExceptOf___redArg,
+    l_MonadExcept_ofExcept___redArg, l_ReaderT_instMonad___redArg, l_id___boxed,
+    l_instMonadExceptOfMonadExceptOf___redArg,
 };
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Lean::Data::Json::Basic::{

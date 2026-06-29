@@ -32,11 +32,10 @@ use crate::r#gen::Init::Omega::LinearCombo::{
     l_Lean_Omega_LinearCombo_neg, l_Lean_Omega_LinearCombo_sub,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Char_ofNat, l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-    l_Lean_Name_mkStr4, l_Lean_Name_mkStr5, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind,
-    l_Lean_replaceRef, l_List_lengthTR___redArg,
-    l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
+    l_Char_ofNat, l_Lean_Name_append, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4,
+    l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getPos_x3f,
+    l_Lean_Syntax_getTailPos_x3f, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
+    l_List_lengthTR___redArg, l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__3,
     l_ReaderT_instApplicativeOfMonad___redArg___lam__4,
     l_ReaderT_instFunctorOfMonad___redArg___lam__0, l_ReaderT_instFunctorOfMonad___redArg___lam__1,

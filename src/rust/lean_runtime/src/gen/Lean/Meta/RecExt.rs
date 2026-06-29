@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Meta.RecExt
 // Imports: Lean.Attributes
-use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr1;
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, runtime_initialize_Lean_Attributes,
 };

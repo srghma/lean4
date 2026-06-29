@@ -1,10 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.AC
 // Imports: Lean.Meta.Tactic.Grind.AC.Types Lean.Meta.Tactic.Grind.AC.Util Lean.Meta.Tactic.Grind.AC.Var Lean.Meta.Tactic.Grind.AC.Internalize Lean.Meta.Tactic.Grind.AC.Eq Lean.Meta.Tactic.Grind.AC.Seq Lean.Meta.Tactic.Grind.AC.Proof Lean.Meta.Tactic.Grind.AC.DenoteExpr Lean.Meta.Tactic.Grind.AC.ToExpr Lean.Meta.Tactic.Grind.AC.VarRename Lean.Meta.Tactic.Grind.AC.PP Lean.Meta.Tactic.Grind.AC.Inv Lean.Meta.Tactic.Grind.AC.Action
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_Name_num___override,
-    l_Lean_Name_str___override,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Lean::Meta::Tactic::Grind::AC::Action::{
     initialize_Lean_Meta_Tactic_Grind_AC_Action, l_Lean_Meta_Grind_Action_ac___boxed,
     runtime_initialize_Lean_Meta_Tactic_Grind_AC_Action,

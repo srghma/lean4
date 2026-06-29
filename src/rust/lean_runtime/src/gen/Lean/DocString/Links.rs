@@ -38,11 +38,10 @@ use crate::lean_imports_rs::Init::Data::UInt::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
-    lean_usize_dec_eq,
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::IO::lean_io_getenv;
 use crate::lean_imports_rs::Lean::DocString::Links::lean_manual_get_root;

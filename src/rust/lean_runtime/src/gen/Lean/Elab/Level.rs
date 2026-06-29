@@ -7,9 +7,8 @@ use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNatLit_x3f, lean_mk_syntax_
 use crate::r#gen::Init::Prelude::{
     l_EStateM_bind, l_EStateM_instMonad___lam__0, l_EStateM_instMonad___lam__1,
     l_EStateM_instMonad___lam__2, l_EStateM_map, l_EStateM_pure, l_EStateM_seqRight,
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_Name_num___override, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_getArgs, l_Lean_Syntax_getId, l_Lean_Syntax_getKind, l_Lean_replaceRef,
-    l_ReaderT_bind___boxed, l_ReaderT_read___boxed,
+    l_Lean_Name_num___override, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs, l_Lean_Syntax_getId,
+    l_Lean_Syntax_getKind, l_Lean_replaceRef, l_ReaderT_bind___boxed, l_ReaderT_read___boxed,
 };
 use crate::r#gen::Lean::Data::KVMap::l_Lean_KVMap_instValueNat;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;

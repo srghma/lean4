@@ -1,7 +1,6 @@
 // Lean compiler output
 // Module: Lean.Compiler.Options
 // Imports: Lean.Util.Trace
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Name_mkStr4};
 use crate::r#gen::Lean::Data::Options::lean_register_option;
 use crate::r#gen::Lean::Util::Trace::{
     initialize_Lean_Util_Trace, runtime_initialize_Lean_Util_Trace,

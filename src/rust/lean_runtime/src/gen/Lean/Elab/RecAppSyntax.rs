@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.RecAppSyntax
 // Imports: Lean.Expr
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Syntax_getPos_x3f};
+use crate::r#gen::Init::Prelude::l_Lean_Syntax_getPos_x3f;
 use crate::r#gen::Lean::Data::KVMap::{
     l_Lean_KVMap_contains, l_Lean_KVMap_empty, l_Lean_KVMap_find, l_Lean_KVMap_insert,
 };

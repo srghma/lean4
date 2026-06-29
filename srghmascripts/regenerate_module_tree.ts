@@ -123,6 +123,8 @@ const emitTree = (node: Tree, physicalDir: string, attrBaseDir: string, indent =
 const main = async () => {
   const tree = await buildModuleTree(targetRoot);
   const lines = emitTree(tree, targetRoot, path.dirname(targetOutput));
+  const extraLines =
+    targetArg === "lean_imports_rs" && tree.children.has("lake") ? ["", "pub use lake::Lake;"] : [];
   const content = [
     "#![allow(unused_variables)]",
     "#![allow(unused_assignments)]",
@@ -130,6 +132,7 @@ const main = async () => {
     "#![allow(unused_mut)]",
     "",
     ...lines,
+    ...extraLines,
     "",
   ].join("\n");
   await fs.writeFile(targetOutput, content);

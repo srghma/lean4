@@ -8,9 +8,7 @@ use crate::r#gen::Init::Grind::Injective::{
 use crate::r#gen::Init::Grind::Propagator::{
     initialize_Init_Grind_Propagator, runtime_initialize_Init_Grind_Propagator,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3,
-};
+use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
@@ -60,8 +58,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
-    lean_nat_sub, lean_panic_fn_borrowed,
+    lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
 };
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,

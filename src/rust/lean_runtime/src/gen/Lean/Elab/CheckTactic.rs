@@ -2,10 +2,9 @@
 // Module: Lean.Elab.CheckTactic
 // Imports: Lean.Elab.Tactic.ElabTerm Lean.Elab.Command Lean.Elab.Tactic.Meta Lean.Meta.CheckTactic
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Macro_throwUnsupported___redArg, l_Lean_Name_mkStr1,
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node4, l_Lean_Syntax_node6,
-    l_Lean_replaceRef,
+    l_Array_mkArray0, l_Lean_Macro_throwUnsupported___redArg, l_Lean_SourceInfo_fromRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node4,
+    l_Lean_Syntax_node6, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
@@ -51,7 +50,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };

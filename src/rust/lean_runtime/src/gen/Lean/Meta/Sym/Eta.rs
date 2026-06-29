@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Eta
 // Imports: Lean.Meta.Sym.ExprPtr Lean.Meta.Basic Lean.Meta.Transform
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_maxRecDepthErrorMessage};
+use crate::r#gen::Init::Prelude::l_Lean_maxRecDepthErrorMessage;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_forallE___override, l_Lean_Expr_hasLooseBVars,
     l_Lean_Expr_isLambda, l_Lean_Expr_lam___override, l_Lean_Expr_letE___override,

@@ -10,10 +10,6 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
 };
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
-    l_Lean_Name_mkStr5,
-};
 use crate::r#gen::Init::System::CancelToken::{
     l_IO_CancelToken_isSet, l_IO_CancelToken_new, l_IO_CancelToken_set,
 };

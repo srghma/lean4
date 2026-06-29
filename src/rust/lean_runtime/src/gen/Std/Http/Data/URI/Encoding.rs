@@ -45,10 +45,10 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint32_to_uint8, lean_usize_add, lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_get_size, lean_array_push, lean_byte_array_data, lean_byte_array_mk,
-    lean_byte_array_push, lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_from_utf8_unchecked,
-    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt, lean_usize_dec_eq,
+    lean_array_get_size, lean_byte_array_data, lean_byte_array_push, lean_byte_array_size,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed,
+    lean_string_from_utf8_unchecked, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,
+    lean_usize_dec_eq,
 };
 static mut l_Std_Http_URI_isEncodedChar___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

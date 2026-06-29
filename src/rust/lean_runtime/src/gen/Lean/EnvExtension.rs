@@ -13,9 +13,7 @@ use crate::r#gen::Init::Data::List::Impl::l___private_Init_Data_List_Impl_0__Lis
 use crate::r#gen::Init::Data::Option::Basic::l_Option_isSome___boxed;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom, l_List_lengthTR___redArg, l_id___boxed,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_List_lengthTR___redArg, l_id___boxed};
 use crate::r#gen::Init::System::IO::l_instMonadEIO___aux__5___boxed;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Name::{l_Lean_Name_isAnonymous, l_Lean_Name_quickLt};

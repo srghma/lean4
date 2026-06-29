@@ -6,10 +6,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Stream::{
     initialize_Init_Data_Range_Polymorphic_Stream,
     runtime_initialize_Init_Data_Range_Polymorphic_Stream,
 };
-use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_append, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_mkAtom,
-    l_Lean_replaceRef,
-};
+use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_mkAtom, l_Lean_replaceRef};
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Lean::AddDecl::{
     initialize_Lean_AddDecl, l_Lean_addAndCompile, runtime_initialize_Lean_AddDecl,

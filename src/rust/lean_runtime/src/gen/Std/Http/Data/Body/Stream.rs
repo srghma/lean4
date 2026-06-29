@@ -10,7 +10,7 @@ use crate::r#gen::Init::Data::ByteArray::{
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{
-    l_ByteArray_empty, l_Lean_Name_mkStr4, l_instMonadLiftT___lam__0___boxed,
+    l_ByteArray_empty, l_instMonadLiftT___lam__0___boxed,
     l_instMonadLiftTOfMonadLift___redArg___lam__0,
 };
 use crate::r#gen::Init::System::IO::l_IO_instMonadLiftSTRealWorldBaseIO___lam__0___boxed;

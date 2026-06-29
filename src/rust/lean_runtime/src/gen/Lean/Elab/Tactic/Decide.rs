@@ -3,7 +3,6 @@
 // Imports: Lean.Elab.Tactic.Basic Lean.Meta.Tactic.Cleanup Lean.Meta.Native Lean.Elab.Tactic.ElabTerm Lean.Elab.ConfigEval
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr4, l_Lean_Name_mkStr5,
     l_Lean_Syntax_getArg, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
 };
 use crate::r#gen::Lean::CoreM::{

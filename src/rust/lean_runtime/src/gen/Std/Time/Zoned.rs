@@ -27,7 +27,6 @@ use crate::lean_imports_rs::Init::Core::{lean_mk_thunk, lean_thunk_get_own};
 use crate::lean_imports_rs::Init::Data::Int::Basic::{
     lean_int_add, lean_int_mul, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 use crate::lean_imports_rs::Std::Time::DateTime::Timestamp::lean_get_current_time;
 static mut l_Std_Time_PlainDateTime_now___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

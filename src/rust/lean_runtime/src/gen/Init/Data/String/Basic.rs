@@ -53,10 +53,10 @@ use crate::lean_imports_rs::Init::Data::UInt::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint8_to_uint32;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_from_utf8_unchecked, lean_string_to_utf8, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt,
+    lean_array_push, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_from_utf8_unchecked,
+    lean_string_to_utf8, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_dec_lt,
 };
 pub static l_ByteArray_utf8Decode_x3f___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {

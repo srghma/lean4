@@ -13,7 +13,7 @@ use crate::r#gen::Lean::Meta::Sym::InstantiateS::{
     initialize_Lean_Meta_Sym_InstantiateS, l_Lean_Meta_Sym_instantiateRevBetaS___redArg,
     runtime_initialize_Lean_Meta_Sym_InstantiateS,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::lean_imports_rs::Init::Prelude::lean_array_push;
 use crate::lean_imports_rs::Lean::Meta::Sym::DSimp::DSimpM::lean_sym_dsimp;
 pub static l_Lean_Meta_Sym_DSimp_dsimpForall___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {

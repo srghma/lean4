@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::Option::Coe::{
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lean::Data::Format::{
     initialize_Lean_Data_Format, runtime_initialize_Lean_Data_Format,
 };

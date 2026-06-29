@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.CheckTactic
 // Imports: Lean.Meta.Basic
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr4, l_Lean_replaceRef};
+use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_Expr_sort___override, l_Lean_mkAppB, l_Lean_mkAppN,
     l_Lean_mkConst,

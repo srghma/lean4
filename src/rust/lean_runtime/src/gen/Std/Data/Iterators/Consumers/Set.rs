@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Total::{
     initialize_Init_Data_Iterators_Consumers_Total,
     runtime_initialize_Init_Data_Iterators_Consumers_Total,
 };
-use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr1, l_Lean_Name_mkStr4, l_Lean_mkAtom};
+use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Data::DHashMap::Internal::Defs::l_Std_DHashMap_Internal_Raw_u2080_insertIfNew___redArg;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::l_Std_DTreeMap_Internal_Impl_insert___redArg;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_contains___redArg;
@@ -14,9 +14,7 @@ use crate::r#gen::Std::Data::Iterators::Consumers::Monadic::Set::{
     runtime_initialize_Std_Data_Iterators_Consumers_Monadic_Set,
 };
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_utf8_byte_size,
-};
+use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_Iter_toHashSet___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

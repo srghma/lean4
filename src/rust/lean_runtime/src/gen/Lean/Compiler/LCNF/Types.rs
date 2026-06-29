@@ -5,9 +5,8 @@ use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_addMacroScope, l_Lean_replaceRef,
-    l_String_toRawSubstring_x27,
+    l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind,
+    l_Lean_Syntax_node1, l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Lean::Class::lean_is_class;
 use crate::r#gen::Lean::Compiler::BorrowedAnnotation::{

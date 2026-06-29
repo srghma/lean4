@@ -9,8 +9,7 @@ use crate::r#gen::Init::Data::List::Impl::l___private_Init_Data_List_Impl_0__Lis
 use crate::r#gen::Init::Data::Option::Basic::l_Option_instBEq_beq___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
-    l_Lean_Name_mkStr1, l_Lean_Name_mkStr3, l_id___boxed,
-    l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqBool___boxed,
+    l_id___boxed, l_instBEqOfDecidableEq___redArg___lam__0___boxed, l_instDecidableEqBool___boxed,
     l_instDecidableEqString___boxed,
 };
 use crate::r#gen::Lean::Data::Json::Basic::{
@@ -50,9 +49,8 @@ use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_dec_eq,
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_to_list, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
 };
 pub static mut l_Lean_Lsp_instInhabitedDiagnosticSeverity_default: u8 = 0;
 pub static mut l_Lean_Lsp_instInhabitedDiagnosticSeverity: u8 = 0;

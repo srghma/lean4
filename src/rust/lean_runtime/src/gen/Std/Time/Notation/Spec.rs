@@ -9,10 +9,9 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_TSyntax_getString,
 };
 use crate::r#gen::Init::Prelude::{
-    l_Array_mkArray0, l_Lean_Macro_throwErrorAt___redArg, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_mkStr3, l_Lean_Name_mkStr4, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
-    l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
-    l_Lean_Syntax_node6, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
+    l_Array_mkArray0, l_Lean_Macro_throwErrorAt___redArg, l_Lean_SourceInfo_fromRef,
+    l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
+    l_Lean_Syntax_node3, l_Lean_Syntax_node6, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Std::Time::Format::Basic::{
     initialize_Std_Time_Format_Basic, l_Std_Time_GenericFormat_spec___redArg,
@@ -20,7 +19,6 @@ use crate::r#gen::Std::Time::Format::Basic::{
 };
 use crate::r#gen::Std::Time::Format::DateFormat::l_Std_Time_DateFormat_enUS;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
 pub static l___private_Std_Time_Notation_Spec_0__Std_Time_convertText___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

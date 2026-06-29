@@ -10,9 +10,8 @@ use crate::r#gen::Init::Meta::Defs::l_Lean_Name_getRoot;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_beq___boxed, l_Lean_Name_hasMacroScopes,
-    l_Lean_Name_hash___override___boxed, l_Lean_Name_mkStr1, l_Lean_Name_mkStr2,
-    l_Lean_Name_str___override, l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef,
-    lean_erase_macro_scopes,
+    l_Lean_Name_hash___override___boxed, l_Lean_Name_str___override,
+    l_Lean_maxRecDepthErrorMessage, l_Lean_replaceRef, lean_erase_macro_scopes,
 };
 use crate::r#gen::Lean::Compiler::MetaAttr::l_Lean_isMarkedMeta;
 use crate::r#gen::Lean::CoreM::{l_Lean_Core_mkFreshUserName, l_Lean_Exception_isRuntime};
