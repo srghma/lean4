@@ -152,8 +152,9 @@ const parseLeanImports = (content: string): string[] => {
     const imports = new Set<string>();
     for (const line of cleaned.split("\n")) {
         const trimmed = line.trim();
-        if (!trimmed.startsWith("import ")) continue;
-        const rest = trimmed.slice("import ".length).trim();
+        const match = trimmed.match(/^(?:public\s+)?import\s+(.+)$/);
+        if (!match) continue;
+        const rest = match[1]!.trim();
         for (const item of rest.split(/\s+/)) {
             if (item) imports.add(item);
         }
@@ -170,28 +171,37 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     const byModule = new Map(files.map((file) => [file.moduleName, file] as const));
     const inDegree = new Map<string, number>();
     const reverse = new Map<string, string[]>();
+    const reverseCount = new Map<string, number>();
 
     for (const file of files) {
         inDegree.set(file.moduleName, 0);
         reverse.set(file.moduleName, []);
+        reverseCount.set(file.moduleName, 0);
     }
 
     for (const file of files) {
         for (const imp of file.imports) {
             if (!byModule.has(imp) || imp === file.moduleName) continue;
             reverse.get(imp)!.push(file.moduleName);
+            reverseCount.set(imp, (reverseCount.get(imp) ?? 0) + 1);
             inDegree.set(file.moduleName, (inDegree.get(file.moduleName) ?? 0) + 1);
         }
     }
 
+    const compareModules = (a: string, b: string) => {
+        const byDependents = (reverseCount.get(b) ?? 0) - (reverseCount.get(a) ?? 0);
+        if (byDependents !== 0) return byDependents;
+        return a.localeCompare(b);
+    };
+
     const queue = [...files]
         .filter((file) => (inDegree.get(file.moduleName) ?? 0) === 0)
         .map((file) => file.moduleName)
-        .sort();
+        .sort(compareModules);
     const ordered: string[] = [];
 
     while (queue.length > 0) {
-        queue.sort();
+        queue.sort(compareModules);
         const cur = queue.shift()!;
         ordered.push(cur);
         for (const next of reverse.get(cur) ?? []) {
@@ -205,7 +215,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     const remaining = files
         .map((file) => file.moduleName)
         .filter((name) => !seen.has(name))
-        .sort();
+        .sort(compareModules);
 
     return [...ordered, ...remaining]
         .map((name) => byModule.get(name)!)
@@ -239,6 +249,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     }
 
     const targetSymbols = new Set<string>();
+    const allLeanFilesData: LeanFileInfo[] = [];
     const leanFilesData: LeanFileInfo[] = [];
 
     // Collect all Lean files
@@ -253,15 +264,17 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
             try {
                 const content = await fs.promises.readFile(absoluteFile, "utf8");
                 const occurrences = Array.from(scanLeanFile(content));
+                const fileInfo = {
+                    relativePath: path.relative(rootDir, absoluteFile),
+                    absolutePath: absoluteFile,
+                    moduleName: moduleNameFromLeanPath(absoluteFile, leanDir),
+                    occurrences,
+                    imports: parseLeanImports(content),
+                };
+                allLeanFilesData.push(fileInfo);
                 if (occurrences.length > 0) {
                     occurrences.forEach(occ => targetSymbols.add(occ.symbolName));
-                    leanFilesData.push({
-                        relativePath: path.relative(rootDir, absoluteFile),
-                        absolutePath: absoluteFile,
-                        moduleName: moduleNameFromLeanPath(absoluteFile, rootDir),
-                        occurrences,
-                        imports: parseLeanImports(content),
-                    });
+                    leanFilesData.push(fileInfo);
                 }
             } catch (e) {
                 console.error(`Warning: Failed to parse Lean file ${absoluteFile}:`, e);
@@ -269,7 +282,9 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
         })
     );
 
-    const orderedLeanFilesData = topoSortLeanFiles(leanFilesData);
+    const modulesWithOccurrences = new Set(leanFilesData.map(file => file.moduleName));
+    const orderedLeanFilesData = topoSortLeanFiles(allLeanFilesData)
+        .filter(file => modulesWithOccurrences.has(file.moduleName));
 
     // Collect all Rust files
     const rustFilePaths: string[] = [];
@@ -301,7 +316,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     );
 
     if (showDetails) {
-        console.log(c.dim(`Processed ${leanFilesData.length} Lean files and indexed ${rustFilePaths.length} Rust files.`));
+        console.log(c.dim(`Processed ${leanFilesData.length} Lean files with symbols (${allLeanFilesData.length} total Lean files) and indexed ${rustFilePaths.length} Rust files.`));
     }
 
     const getBestRustMatch = (symbol: string): RustSearchResult | null => {

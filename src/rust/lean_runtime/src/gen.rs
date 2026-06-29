@@ -2,8 +2,7 @@
 #![allow(unused_assignments)]
 #![allow(unused_parens)]
 #![allow(unused_mut)]
-#![allow(unused_imports
-)]
+#![allow(unused_imports)]
 
 pub mod Init {
     #[path = "../Init.rs"]
