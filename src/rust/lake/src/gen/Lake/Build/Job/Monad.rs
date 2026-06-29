@@ -32,27 +32,27 @@ use crate::r#gen::Lake::Util::EquipT::{
     l_Lake_EquipT_instMonad___redArg, l_Lake_EquipT_lift___boxed,
 };
 use crate::r#gen::Lake::Util::Log::l_Lake_pushLogEntry;
-use crate::lean_imports_rs::Init::Core::{lean_task_bind, lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure};
+use crate::ffi::{
     lean_array_uget, lean_array_uget_borrowed, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_validate_utf8;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_string_validate_utf8;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_usize_add, lean_usize_of_nat, lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_from_utf8_unchecked,
     lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_get_set_stderr, lean_get_set_stdout, lean_io_as_task, lean_io_bind_task, lean_io_map_task,
     lean_io_wait,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get};
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 pub static l_Lake_instMonadStateOfJobStateJobM___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

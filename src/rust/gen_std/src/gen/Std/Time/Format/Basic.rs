@@ -65,23 +65,23 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
 use crate::r#gen::Std::Time::Zoned::{
     initialize_Std_Time_Zoned, runtime_initialize_Std_Time_Zoned,
 };
-use crate::lean_imports_rs::Init::Core::{lean_mk_thunk, lean_thunk_get_own};
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
+use crate::ffi::{
     lean_int_div, lean_int_emod, lean_int_mod,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_length;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_panic_fn_borrowed,

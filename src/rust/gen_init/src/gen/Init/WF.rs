@@ -11,7 +11,7 @@ use crate::r#gen::Init::Data::Nat::Basic::{
 use crate::r#gen::Init::Grind::Tactics::{
     initialize_Init_Grind_Tactics, runtime_initialize_Init_Grind_Tactics,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub static mut l_Nat_lt__wfRel: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_WellFounded_Nat_fix_go___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

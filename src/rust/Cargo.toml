@@ -3,11 +3,16 @@
 
 [workspace]
 members = [
-  "lean_gen_init",
-  "lean_gen_std",
-  "lean_runtime",
-  "lean_runtime_common",
+  "leanh",
+  "runtime",
+  "gen_init",
+  "gen_std",
+  "gen_lean",
+  "lake",
+  "lean_checker",
+  "lean_ir",
   "lean_shell",
+  "leanc",
 ]
 resolver = "2"
 

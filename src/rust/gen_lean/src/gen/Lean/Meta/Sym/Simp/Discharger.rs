@@ -14,15 +14,15 @@ use crate::r#gen::Lean::Meta::Sym::Simp::SimpM::{
     initialize_Lean_Meta_Sym_Simp_SimpM, l_Lean_Meta_Sym_Simp_getConfig___redArg,
     runtime_initialize_Lean_Meta_Sym_Simp_SimpM,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_lt};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Meta::Sym::Simp::SimpM::lean_sym_simp;
+use crate::ffi::lean_sym_simp;
 pub static l_Lean_Meta_Sym_Simp_dischargeSimpSelf___closed__0_value: crate::leanh::LeanCtorObject<
     1,
 > = crate::leanh::LeanCtorObject {

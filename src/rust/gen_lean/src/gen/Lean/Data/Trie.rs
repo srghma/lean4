@@ -17,15 +17,15 @@ use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lean::Data::Format::{
     initialize_Lean_Data_Format, runtime_initialize_Lean_Data_Format,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_uint8_to_nat, lean_usize_add, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_array_to_list, lean_byte_array_mk, lean_byte_array_push, lean_byte_array_size,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,

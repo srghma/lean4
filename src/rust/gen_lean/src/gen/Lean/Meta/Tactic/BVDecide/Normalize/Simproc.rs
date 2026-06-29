@@ -28,13 +28,13 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getPr
 use crate::r#gen::Std::Tactic::BVDecide::Normalize::{
     initialize_Std_Tactic_BVDecide_Normalize, runtime_initialize_Std_Tactic_BVDecide_Normalize,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Log2::lean_nat_log2;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_log2;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_pow, lean_nat_sub,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Simp::Types::lean_simp;
+use crate::ffi::lean_expr_eqv;
+use crate::ffi::lean_simp;
 pub static l___private_Lean_Meta_Tactic_BVDecide_Normalize_Simproc_0__Lean_Meta_Tactic_BVDecide_Normalize_mkDecideProofWith___closed__0_value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [68, 101, 99, 105, 100, 97, 98, 108, 101, 0]};
 static mut l___private_Lean_Meta_Tactic_BVDecide_Normalize_Simproc_0__Lean_Meta_Tactic_BVDecide_Normalize_mkDecideProofWith___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_BVDecide_Normalize_Simproc_0__Lean_Meta_Tactic_BVDecide_Normalize_mkDecideProofWith___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_BVDecide_Normalize_Simproc_0__Lean_Meta_Tactic_BVDecide_Normalize_mkDecideProofWith___closed__1_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [100, 101, 99, 105, 100, 101, 0]};

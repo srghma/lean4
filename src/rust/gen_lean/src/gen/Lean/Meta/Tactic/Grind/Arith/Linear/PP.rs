@@ -22,12 +22,12 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Util::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Util,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_getStateCoreImpl___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
 };
 pub static l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Grind_Arith_Linear_ppStruct_x3f_spec__0___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };

@@ -39,7 +39,7 @@ use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
 use crate::r#gen::Init::Prelude::l_instHAdd___redArg___lam__0;
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::{
     lean_int8_mul, lean_int8_of_int, lean_int8_of_nat, lean_int16_mul, lean_int16_of_int,
     lean_int16_of_nat, lean_int32_mul, lean_int32_of_int, lean_int32_of_nat, lean_int64_mul,
     lean_int64_of_int, lean_int64_of_nat, lean_isize_mul, lean_isize_of_int, lean_isize_of_nat,

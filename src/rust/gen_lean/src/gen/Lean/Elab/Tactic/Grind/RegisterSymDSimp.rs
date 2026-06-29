@@ -37,10 +37,10 @@ use crate::r#gen::Lean::Meta::Sym::DSimp::Variant::{
     l_Lean_Meta_Sym_DSimp_symDSimpVariantExtension, runtime_initialize_Lean_Meta_Sym_DSimp_Variant,
 };
 use crate::r#gen::Lean::ScopedEnvExtension::l_Lean_ScopedEnvExtension_addEntry___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::lean_mk_empty_array_with_capacity;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_throwErrorAt___at___00__private_Lean_Elab_Tactic_Grind_RegisterSymDSimp_0__Lean_Elab_Command_elabRegisterSymDSimp_spec__0_spec__0_spec__2_spec__5___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

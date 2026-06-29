@@ -7,10 +7,10 @@ use crate::r#gen::Init::Data::Nat::Div::Basic::{
 use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_uint32, lean_uint32_add, lean_uint32_to_uint8,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt, lean_uint32_to_nat,
 };
 pub static mut l_Char_instLT: *mut crate::leanh::LeanObject = core::ptr::null_mut();

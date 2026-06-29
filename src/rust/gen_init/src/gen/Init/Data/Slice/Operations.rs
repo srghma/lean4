@@ -16,7 +16,7 @@ use crate::r#gen::Init::Data::Slice::Basic::{
     initialize_Init_Data_Slice_Basic, runtime_initialize_Init_Data_Slice_Basic,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_array_to_list};
+use crate::ffi::{lean_array_push, lean_array_to_list};
 pub static l_Std_Slice_toArray___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

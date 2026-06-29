@@ -27,8 +27,8 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashMap::Basic::{
     initialize_Std_Data_HashMap_Basic, runtime_initialize_Std_Data_HashMap_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_lt};
+use crate::ffi::lean_mk_array;
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
 pub static l___private_Lean_Util_SCC_0__Lean_SCC_getDataOf___redArg___closed__0_value:
     crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

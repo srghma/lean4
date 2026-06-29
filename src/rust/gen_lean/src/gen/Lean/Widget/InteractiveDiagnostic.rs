@@ -101,21 +101,21 @@ use crate::r#gen::Lean::Widget::Types::{
     l_Lean_Widget_instRpcEncodableWidgetInstance_dec___redArg_00___x40_Lean_Widget_Types_2243429567____hygCtx___hyg_1_,
     l_Lean_Widget_instRpcEncodableWidgetInstance_enc_00___x40_Lean_Widget_Types_2243429567____hygCtx___hyg_1_,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Float::{
+use crate::ffi::{
     lean_float_beq, lean_float_sub, lean_float_to_string,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_fget, lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_dbg_to_string;
+use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_InteractiveDiagnostic_29703178____hygCtx___hyg_17__value: crate::leanh::LeanStringObject<23> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 23, m_capacity: 23, m_length: 22, m_data: [110, 111, 32, 105, 110, 100, 117, 99, 116, 105, 118, 101, 32, 116, 97, 103, 32, 102, 111, 117, 110, 100, 0]};
 static mut l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_InteractiveDiagnostic_29703178____hygCtx___hyg_17_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_InteractiveDiagnostic_29703178____hygCtx___hyg_17__value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__1_00___x40_Lean_Widget_InteractiveDiagnostic_29703178____hygCtx___hyg_17__value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 0 }, m_objs: [core::ptr::addr_of!(l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_InteractiveDiagnostic_29703178____hygCtx___hyg_17__value) as *mut crate::leanh::LeanObject] };

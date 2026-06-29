@@ -33,17 +33,17 @@ use crate::r#gen::Lean::Meta::Basic::{
 };
 use crate::r#gen::Lean::Meta::DecLevel::l_Lean_Meta_decLevel_x3f;
 use crate::r#gen::Lean::MonadEnv::{l_Lean_isInductiveCore, l_Lean_isInductiveCore_x3f};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_mk, lean_array_push, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Basic::{lean_infer_type, lean_whnf};
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00__private_Lean_Elab_Deriving_Nonempty_0__Lean_Elab_Deriving_mkNonemptyInstance_spec__5___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00__private_Lean_Elab_Deriving_Nonempty_0__Lean_Elab_Deriving_mkNonemptyInstance_spec__5___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00__private_Lean_Elab_Deriving_Nonempty_0__Lean_Elab_Deriving_mkNonemptyInstance_spec__5___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00__private_Lean_Elab_Deriving_Nonempty_0__Lean_Elab_Deriving_mkNonemptyInstance_spec__5___closed__1_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [80, 97, 114, 115, 101, 114, 0]};

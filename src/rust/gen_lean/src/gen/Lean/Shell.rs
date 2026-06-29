@@ -71,30 +71,30 @@ use crate::r#gen::Lean::Util::Path::{
 use crate::r#gen::Lean::Util::Profile::{l_Lean_profileitIOUnsafe___redArg, l_Lean_profiler};
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::l_Lean_inheritedTraceOptions;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_usize_mul;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
-use crate::lean_imports_rs::Init::Meta::Defs::lean_internal_has_llvm_backend;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::lean_usize_mul;
+use crate::ffi::lean_uint32_add;
+use crate::ffi::lean_internal_has_llvm_backend;
+use crate::ffi::{
     lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_pow,
     lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
     lean_uint32_of_nat, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_get_stderr, lean_get_stdin, lean_get_stdout, lean_io_exit, lean_io_get_num_heartbeats,
     lean_io_prim_handle_mk, lean_io_prim_handle_write,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Shell::{
+use crate::ffi::{
     lean_decode_lossy_utf8, lean_emit_llvm, lean_eval_main, lean_init_llvm,
     lean_internal_enable_debug, lean_internal_get_believer_trust_level,
     lean_internal_get_build_type, lean_internal_get_default_max_heartbeat,
@@ -104,7 +104,7 @@ use crate::lean_imports_rs::Lean::Shell::{
     lean_internal_set_exit_on_panic, lean_internal_set_max_heartbeat, lean_internal_set_max_memory,
     lean_internal_set_thread_stack_size,
 };
-use crate::lean_imports_rs::Lean::Util::Profile::lean_display_cumulative_profiling_times;
+use crate::ffi::lean_display_cumulative_profiling_times;
 pub static l___private_Lean_Shell_0__Lean_shortVersionString___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Array::Subarray::{
     initialize_Init_Data_Array_Subarray, runtime_initialize_Init_Data_Array_Subarray,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_le};
+use crate::ffi::{lean_nat_add, lean_nat_dec_le};
 pub unsafe fn l_Subarray_drop___redArg(
     mut v_arr_73_: *mut crate::leanh::LeanObject,
     mut v_i_74_: *mut crate::leanh::LeanObject,

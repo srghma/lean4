@@ -43,7 +43,7 @@ use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Data::String::Termination::{
     initialize_Init_Data_String_Termination, runtime_initialize_Init_Data_String_Termination,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_nat_sub;
 pub unsafe fn l___private_Init_Data_String_Lemmas_Pattern_Split_Basic_0__String_Slice_Pattern_Model_split_match__1_splitter___redArg(
     mut v_x_164_: *mut crate::leanh::LeanObject,
     mut v_h__1_165_: *mut crate::leanh::LeanObject,

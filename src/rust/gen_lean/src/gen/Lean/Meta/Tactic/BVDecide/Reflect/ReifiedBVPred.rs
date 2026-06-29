@@ -14,8 +14,8 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::ReifiedBVExpr::{
     l_Lean_Meta_Tactic_BVDecide_ReifiedBVExpr_mkEvalExpr,
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedBVExpr,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
+use crate::ffi::lean_nat_dec_eq;
+use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_Tactic_BVDecide_ReifiedBVPred_boolAtom___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

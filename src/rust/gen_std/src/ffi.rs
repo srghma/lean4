@@ -3,6 +3,7 @@
 // Auto-generated from src/rust/lean_gen_std/src/ffi
 // Re-exports the current FFI function surface as ffi::{...}
 
+pub use gen_init::ffi::*;
 #[path = "ffi/Std/Data/ByteSlice.rs"]
 mod ffi_Std_Data_ByteSlice;
 pub use ffi_Std_Data_ByteSlice::*;

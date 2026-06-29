@@ -29,7 +29,7 @@ use crate::r#gen::Init::Prelude::{
     l_String_toRawSubstring_x27, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
     l_instDecidableEqRaw___boxed,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
 };
 pub static l_String_Internal_tacticOrder___closed__0_value: crate::leanh::LeanStringObject<7> =

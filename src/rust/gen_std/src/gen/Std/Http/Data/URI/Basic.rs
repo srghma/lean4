@@ -51,23 +51,23 @@ use crate::r#gen::Std::Net::Addr::{
     l_Std_Net_instInhabitedIPv4Addr_default,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_sarray_dec_eq;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_sarray_dec_eq;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_data, lean_string_utf8_extract, lean_string_utf8_get_fast,
     lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_length;
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{
     lean_uint16_to_nat, lean_uint32_add, lean_uint32_to_uint8, lean_usize_add, lean_usize_dec_lt,
     lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
     lean_array_to_list, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
@@ -75,7 +75,7 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_uint8_dec_le, lean_uint16_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le,
     lean_uint32_to_nat, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Std::Net::Addr::{lean_uv_ntop_v4, lean_uv_ntop_v6};
+use crate::ffi::{lean_uv_ntop_v4, lean_uv_ntop_v6};
 pub static l_Std_Http_URI_instInhabitedScheme___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

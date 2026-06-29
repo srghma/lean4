@@ -3,7 +3,7 @@
 // Imports: Init.Core
 use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
 use crate::r#gen::Init::Prelude::{l_instDecidableEqList___redArg, l_instDecidableEqNat___boxed};
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
+use crate::ffi::lean_nat_dec_eq;
 pub static l_Lean_instInhabitedNameGenerator_default___closed__0_value:
     crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -15,18 +15,18 @@ use crate::r#gen::Std::Sync::Channel::{
     l_Std_CloseableChannel_recvSelector___redArg, l_Std_CloseableChannel_send___redArg,
     l_Std_CloseableChannel_tryRecv___redArg,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_copy_slice;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_uint64_dec_le;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_task_map;
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::lean_byte_array_copy_slice;
+use crate::ffi::lean_uint64_dec_le;
+use crate::ffi::{
     lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_byte_array_size;
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::lean_byte_array_size;
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Std::Internal::UV::TCP::{lean_uv_tcp_recv, lean_uv_tcp_send};
+use crate::ffi::{lean_uv_tcp_recv, lean_uv_tcp_send};
 pub static l_Std_Http_instTransportClient___lam__2___closed__0_value:
     crate::leanh::LeanStringObject<44> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

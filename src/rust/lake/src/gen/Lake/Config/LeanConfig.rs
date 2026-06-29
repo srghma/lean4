@@ -30,12 +30,12 @@ use crate::r#gen::Lake::Util::Name::{
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
 use crate::r#gen::Lean::Util::LeanOptions::l_Lean_instReprLeanOption_repr___redArg;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_get;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_uint32_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_utf8_get;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{lean_uint32_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_string_dec_eq, lean_uint32_dec_le,
 };

@@ -37,24 +37,24 @@ use crate::r#gen::Std::Async::IO::{initialize_Std_Async_IO, runtime_initialize_S
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::lean_imports_rs::Init::Core::{lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{lean_task_map, lean_task_pure};
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_io_bind_task, lean_io_wait};
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{lean_io_bind_task, lean_io_wait};
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_swap, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Std::Sync::Mutex::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
+use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l_Std_CloseableChannel_instReprError_repr___closed__0_value:
     crate::leanh::LeanStringObject<34> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

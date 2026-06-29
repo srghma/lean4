@@ -9,14 +9,14 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Std::Time::Date::Unit::Month::{
     initialize_Std_Time_Date_Unit_Month, runtime_initialize_Std_Time_Date_Unit_Month,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
+use crate::ffi::{
     lean_int_ediv, lean_int_emod, lean_int_mod,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_le;
+use crate::ffi::lean_nat_dec_le;
 pub static l_Std_Time_Year_instReprEra_repr___closed__0_value: crate::leanh::LeanStringObject<22> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

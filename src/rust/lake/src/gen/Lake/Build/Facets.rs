@@ -13,8 +13,8 @@ use crate::r#gen::Lake::Build::ModuleArtifacts::{
 };
 use crate::r#gen::Lake::Build::Trace::l_Lake_BuildTrace_nil;
 use crate::r#gen::Lean::Setup::l_Lean_instInhabitedImportArtifacts_default;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
 pub static l_Lake_instReprModuleFacet_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

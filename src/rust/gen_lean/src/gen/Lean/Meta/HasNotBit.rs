@@ -16,11 +16,11 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Meta::MatchUtil::{
     initialize_Lean_Meta_MatchUtil, l_Lean_Meta_matchNe_x3f, runtime_initialize_Lean_Meta_MatchUtil,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{lean_nat_lor, lean_nat_shiftl};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::lean_panic_fn_borrowed;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_whnf;
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{lean_nat_lor, lean_nat_shiftl};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::lean_panic_fn_borrowed;
+use crate::ffi::lean_whnf;
 pub static l_mkHasNotBit___closed__0_value: crate::leanh::LeanStringObject<4> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

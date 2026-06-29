@@ -31,7 +31,7 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_Erase_0__List_filterMap_match__1_splitter___redArg(
     mut v_x_78_: *mut crate::leanh::LeanObject,
     mut v_h__1_79_: *mut crate::leanh::LeanObject,

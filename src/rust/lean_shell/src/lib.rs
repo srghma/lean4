@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 use core::ffi::{c_char, c_int, c_uint};
-use lean_runtime::{
+use runtime::{
     lean_box, lean_dec, lean_finalize, lean_inc, lean_initialize, lean_io_error_to_string_rust,
     lean_io_result_get_error, lean_io_result_get_value, lean_io_result_is_ok, lean_mk_string,
     lean_runtime_mk_cnstr, lean_string_cstr, lean_unbox, LeanObject,
@@ -21,17 +21,17 @@ fn debug_build() -> bool {
     option_env!("LEAN_RUST_DEBUG") == Some("1")
 }
 
-    use lean_runtime::lean_init_search_path;
-    use lean_runtime::lean_enable_initializer_execution;
-    use lean_runtime::lean_io_mark_end_initialization;
-    use lean_runtime::lean_shell_options_mk;
-    use lean_runtime::lean_shell_options_process;
-    use lean_runtime::lean_shell_options_get_run;
-    use lean_runtime::lean_shell_options_get_profiler;
-    use lean_runtime::lean_shell_options_get_num_threads;
-    use lean_runtime::lean_shell_main;
-    use lean_runtime::lean_init_task_manager_using;
-    use lean_runtime::lean_finalize_task_manager;
+    use runtime::lean_init_search_path;
+    use runtime::lean_enable_initializer_execution;
+    use runtime::lean_io_mark_end_initialization;
+    use runtime::lean_shell_options_mk;
+    use runtime::lean_shell_options_process;
+    use runtime::lean_shell_options_get_run;
+    use runtime::lean_shell_options_get_profiler;
+    use runtime::lean_shell_options_get_num_threads;
+    use runtime::lean_shell_main;
+    use runtime::lean_init_task_manager_using;
+    use runtime::lean_finalize_task_manager;
 
 
 struct TaskManagerGuard;

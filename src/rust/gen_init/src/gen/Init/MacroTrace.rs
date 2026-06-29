@@ -15,10 +15,10 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
     lean_erase_macro_scopes,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::{
     lean_string_append, lean_string_intercalate,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_termMacro_x2etrace_x5b___x5d___00__closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

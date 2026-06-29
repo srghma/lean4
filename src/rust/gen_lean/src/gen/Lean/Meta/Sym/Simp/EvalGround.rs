@@ -71,18 +71,18 @@ use crate::r#gen::Lean::ToExpr::{
     l_Lean_instToExprInt_mkNat, l_Lean_instToExprInt8_mkNat, l_Lean_instToExprInt16_mkNat,
     l_Lean_instToExprInt32_mkNat, l_Lean_instToExprInt64_mkNat, l_Lean_instToExprRat_mkInt,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
+use crate::ffi::{
     lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{
+use crate::ffi::{
     lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftl, lean_nat_shiftr,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Gcd::lean_nat_gcd;
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::lean_nat_gcd;
+use crate::ffi::{
     lean_int8_add, lean_int8_complement, lean_int8_dec_eq, lean_int8_dec_le, lean_int8_dec_lt,
     lean_int8_div, lean_int8_land, lean_int8_lor, lean_int8_mod, lean_int8_mul, lean_int8_neg,
     lean_int8_of_nat, lean_int8_shift_left, lean_int8_shift_right, lean_int8_sub, lean_int8_to_int,
@@ -98,8 +98,8 @@ use crate::lean_imports_rs::Init::Data::SInt::Basic::{
     lean_int64_mod, lean_int64_mul, lean_int64_neg, lean_int64_of_nat, lean_int64_shift_left,
     lean_int64_shift_right, lean_int64_sub, lean_int64_to_int_sint, lean_int64_xor,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_dec_lt;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_dec_lt;
+use crate::ffi::{
     lean_uint8_add, lean_uint8_complement, lean_uint8_div, lean_uint8_land, lean_uint8_lor,
     lean_uint8_mod, lean_uint8_mul, lean_uint8_neg, lean_uint8_shift_left, lean_uint8_shift_right,
     lean_uint8_sub, lean_uint8_xor, lean_uint16_add, lean_uint16_complement, lean_uint16_dec_le,
@@ -112,10 +112,10 @@ use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_mod, lean_uint64_mul, lean_uint64_neg, lean_uint64_shift_left,
     lean_uint64_shift_right, lean_uint64_sub, lean_uint64_xor,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_add, lean_uint32_sub, lean_uint64_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow,
     lean_nat_sub, lean_string_dec_eq, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,

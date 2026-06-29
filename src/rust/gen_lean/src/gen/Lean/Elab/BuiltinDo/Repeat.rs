@@ -27,8 +27,8 @@ use crate::r#gen::Lean::Meta::Basic::l_Lean_Meta_isExprDefEqGuarded;
 use crate::r#gen::Lean::Parser::Do::{
     initialize_Lean_Parser_Do, runtime_initialize_Lean_Parser_Do,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_mk_empty_array_with_capacity;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Do_elabDoRepeat_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

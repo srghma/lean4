@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Float::{
+use crate::ffi::{
     acos, acosh, asin, asinh, atan, atan2, atanh, cbrt, ceil, cos, cosh, exp, exp2, fabs, floor,
     lean_float_add, lean_float_beq, lean_float_decLe, lean_float_decLt, lean_float_div,
     lean_float_frexp, lean_float_isfinite, lean_float_isinf, lean_float_isnan, lean_float_mul,

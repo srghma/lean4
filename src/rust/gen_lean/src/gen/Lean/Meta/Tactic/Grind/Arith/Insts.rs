@@ -21,7 +21,7 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::SynthInstance::{
     runtime_initialize_Lean_Meta_Tactic_Grind_SynthInstance,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Meta_Grind_Arith_getIsCharInst_x3f___lam__0___closed__0_value:

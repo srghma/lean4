@@ -7,7 +7,7 @@ use crate::r#gen::Init::System::IO::{
 use crate::r#gen::Lean::Data::Name::{
     initialize_Lean_Data_Name, runtime_initialize_Lean_Data_Name,
 };
-use crate::lean_imports_rs::Lean::CompactedRegion::{
+use crate::ffi::{
     lean_compacted_region_free, lean_compacted_region_is_memory_mapped, lean_compacted_region_read,
     lean_compacted_region_save, lean_compacted_region_size,
 };

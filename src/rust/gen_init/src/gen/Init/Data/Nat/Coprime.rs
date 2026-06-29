@@ -7,8 +7,8 @@ use crate::r#gen::Init::Data::Nat::Dvd::{
 use crate::r#gen::Init::Data::Nat::Gcd::{
     initialize_Init_Data_Nat_Gcd, runtime_initialize_Init_Data_Nat_Gcd,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Gcd::lean_nat_gcd;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
+use crate::ffi::lean_nat_gcd;
+use crate::ffi::lean_nat_dec_eq;
 pub unsafe fn l_Nat_instDecidableCoprime(
     mut v_m_10_: *mut crate::leanh::LeanObject,
     mut v_n_11_: *mut crate::leanh::LeanObject,

@@ -37,8 +37,8 @@ use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getNondepPropHyps;
 use crate::r#gen::Lean::Meta::Tactic::{
     initialize_Lean_Meta_Tactic, runtime_initialize_Lean_Meta_Tactic,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_string_dec_eq;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_string_dec_eq;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_logAt___at___00Lean_logWarningAt___at___00Lean_Elab_Tactic_Cbv_evalCbv_spec__1_spec__1___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [69, 108, 97, 98, 0]};

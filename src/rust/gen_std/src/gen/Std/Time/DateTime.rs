@@ -25,10 +25,10 @@ use crate::r#gen::Std::Time::Time::PlainTime::{
 use crate::r#gen::Std::Time::Zoned::Offset::{
     initialize_Std_Time_Zoned_Offset, runtime_initialize_Std_Time_Zoned_Offset,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_div, lean_int_emod};
+use crate::ffi::{lean_int_div, lean_int_emod};
 static mut l_Std_Time_Timestamp_toWallTime___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

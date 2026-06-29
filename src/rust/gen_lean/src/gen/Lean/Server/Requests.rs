@@ -69,22 +69,22 @@ use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_atomically___redArg, l_Std_Mutex_new___redArg,
     runtime_initialize_Std_Sync_Mutex,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_pure;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_uget, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_task_pure;
+use crate::ffi::{lean_array_uget, lean_array_uget_borrowed};
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Language_SnapshotTree_foldSnaps___redArg___closed__0_value:

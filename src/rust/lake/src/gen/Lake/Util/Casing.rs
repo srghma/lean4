@@ -16,14 +16,14 @@ use crate::r#gen::Init::Data::String::Search::{
 };
 use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
     lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::lean_uint32_add;
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
     lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };

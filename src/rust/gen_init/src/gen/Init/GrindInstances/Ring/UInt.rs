@@ -31,13 +31,13 @@ use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
 use crate::r#gen::Init::Prelude::{l_UInt8_ofNat___boxed, l_instHAdd___redArg___lam__0};
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint8_mul, lean_uint16_mul, lean_uint32_mul, lean_uint64_mul, lean_usize_mul,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint16_of_nat, lean_uint32_of_nat, lean_uint64_of_nat, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_uint8_of_nat;
+use crate::ffi::lean_uint8_of_nat;
 pub static l_UInt8_natCast___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

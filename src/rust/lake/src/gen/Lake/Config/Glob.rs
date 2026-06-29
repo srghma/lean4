@@ -19,9 +19,9 @@ use crate::r#gen::Lean::Util::Path::{
     initialize_Lean_Util_Path, l_Lean_forEachModuleInDir___redArg, l_Lean_modToFilePath,
     runtime_initialize_Lean_Util_Path,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le,
 };
 pub static l_Lake_instInhabitedGlob_default___closed__0_value: crate::leanh::LeanCtorObject<1> =

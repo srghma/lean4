@@ -4,9 +4,9 @@
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::System::IO::lean_io_get_task_state;
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::lean_task_map;
+use crate::ffi::lean_io_get_task_state;
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
     lean_option_get_or_block,
 };

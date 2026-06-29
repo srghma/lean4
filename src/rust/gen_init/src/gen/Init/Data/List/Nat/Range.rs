@@ -35,7 +35,7 @@ use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
+use crate::ffi::lean_array_push;
 pub static l_List_pairwise__lt__range_x27___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

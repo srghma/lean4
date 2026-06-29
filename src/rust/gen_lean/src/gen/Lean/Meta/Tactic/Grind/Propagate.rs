@@ -61,18 +61,18 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_pushEqTrue___redArg, l_Lean_Meta_Grind_registerParent___redArg,
 };
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
     lean_nat_sub,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::{
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_expr_eqv;
+use crate::ffi::{
     lean_grind_internalize, lean_grind_mk_eq_proof, lean_grind_mk_heq_proof, lean_grind_preprocess,
 };
 pub static l_Lean_Meta_Grind_propagateAndUp___closed__0_value: crate::leanh::LeanStringObject<4> =

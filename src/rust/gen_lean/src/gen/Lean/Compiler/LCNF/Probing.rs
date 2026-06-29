@@ -54,17 +54,17 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
     l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___redArg,
     l_Std_DHashMap_Internal_Raw_u2080_insert___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
     lean_nat_sub, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Compiler_LCNF_Probe_map___redArg___closed__0_once: crate::leanh::LeanOnceCell =

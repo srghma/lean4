@@ -12,8 +12,8 @@ use crate::r#gen::Init::System::Promise::{
 use crate::r#gen::Lean::Server::ServerTask::{
     initialize_Lean_Server_ServerTask, runtime_initialize_Lean_Server_ServerTask,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::lean_task_map;
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
 pub static l_Lean_Server_RequestCancellationToken_requestCancellationTask___closed__0_value:

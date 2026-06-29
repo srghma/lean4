@@ -9,8 +9,8 @@ use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_to_uint8;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_uint32_to_uint8;
+use crate::ffi::{
     lean_nat_dec_le, lean_nat_dec_lt, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,
     lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
 };

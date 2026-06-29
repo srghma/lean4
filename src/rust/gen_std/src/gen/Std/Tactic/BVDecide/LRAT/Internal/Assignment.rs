@@ -10,7 +10,7 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::PosFin::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_PosFin,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_PosFin,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static mut l_Std_Tactic_BVDecide_LRAT_Internal_instInhabitedAssignment_default: u8 = 0;
 pub static mut l_Std_Tactic_BVDecide_LRAT_Internal_instInhabitedAssignment: u8 = 0;
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_instBEqAssignment___closed__0_value:

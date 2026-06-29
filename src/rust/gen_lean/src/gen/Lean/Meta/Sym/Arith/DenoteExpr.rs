@@ -16,10 +16,10 @@ use crate::r#gen::Lean::Meta::Sym::Arith::Functions::{
 use crate::r#gen::Lean::Meta::Sym::Arith::MonadVar::{
     initialize_Lean_Meta_Sym_Arith_MonadVar, runtime_initialize_Lean_Meta_Sym_Arith_MonadVar,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_borrowed, lean_nat_dec_eq};
+use crate::ffi::{lean_array_get_borrowed, lean_nat_dec_eq};
 pub static l_Lean_Meta_Sym_Arith_denoteNum___redArg___lam__1___closed__0_value:
     crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

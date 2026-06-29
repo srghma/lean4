@@ -10,7 +10,7 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::WF::{initialize_Init_WF, runtime_initialize_Init_WF};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_tacticSimp__wf___closed__0_value: crate::leanh::LeanStringObject<14> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

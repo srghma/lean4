@@ -17,17 +17,17 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::Repr::lean_string_of_usize;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::lean_string_of_usize;
+use crate::ffi::{
     lean_string_append, lean_string_foldl, lean_string_isempty, lean_string_length,
     lean_string_push, lean_substring_tostring,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_of_nat, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_pow, lean_nat_sub,
     lean_string_mk, lean_uint32_dec_eq, lean_uint32_to_nat,

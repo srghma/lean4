@@ -20,9 +20,9 @@ use crate::r#gen::Lean::Linter::Init::{
 };
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofName, l_Lean_stringToMessageData};
 use crate::r#gen::Lean::MonadEnv::{initialize_Lean_MonadEnv, runtime_initialize_Lean_MonadEnv};
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get_size, lean_array_mk, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_usize_dec_eq,
 };

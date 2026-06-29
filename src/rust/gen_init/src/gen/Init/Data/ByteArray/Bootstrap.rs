@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::List::Basic::{
     initialize_Init_Data_List_Basic, l_List_appendTR___redArg,
     runtime_initialize_Init_Data_List_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_mk, lean_array_to_list, lean_byte_array_data, lean_byte_array_mk,
 };
 pub unsafe fn l_ByteArray_append(

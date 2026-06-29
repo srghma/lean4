@@ -28,12 +28,12 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 };
 use crate::r#gen::Lean::Data::Json::Parser::l_Lean_Json_parse;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_string_dec_eq,
     lean_string_utf8_byte_size,
 };

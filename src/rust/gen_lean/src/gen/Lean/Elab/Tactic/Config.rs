@@ -76,18 +76,18 @@ use crate::r#gen::Lean::Structure::{
     l_Lean_findField_x3f, l_Lean_getFieldInfo_x3f, l_Lean_getPathToBaseStructure_x3f,
     l_Lean_instInhabitedStructureFieldInfo_default, l_Lean_isStructure,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
     lean_name_eq, lean_nat_dec_eq, lean_panic_fn_borrowed, lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
+use crate::ffi::lean_expr_eqv;
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Tactic_mkConfigItemViews_spec__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Tactic_mkConfigItemViews_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Tactic_mkConfigItemViews_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Tactic_mkConfigItemViews_spec__0___closed__1_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [80, 97, 114, 115, 101, 114, 0]};

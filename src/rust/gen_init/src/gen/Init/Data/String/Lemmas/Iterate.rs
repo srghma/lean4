@@ -40,8 +40,8 @@ use crate::r#gen::Init::Data::String::Termination::{
 use crate::r#gen::Init::Data::Subtype::Basic::{
     initialize_Init_Data_Subtype_Basic, runtime_initialize_Init_Data_Subtype_Basic,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_next_fast;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_utf8_next_fast;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub unsafe fn l_String_Slice_Model_positionsFrom(

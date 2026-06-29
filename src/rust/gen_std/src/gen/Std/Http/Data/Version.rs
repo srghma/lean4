@@ -9,9 +9,9 @@ use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_panic_fn_borrowed, lean_string_dec_eq,
 };
 pub static l_Std_Http_instReprVersion_repr___closed__0_value: crate::leanh::LeanStringObject<21> =

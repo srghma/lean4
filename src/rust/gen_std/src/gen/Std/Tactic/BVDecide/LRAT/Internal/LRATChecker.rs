@@ -9,7 +9,7 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Formula::Class::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_Formula_Class,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_Formula_Class,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static mut l_Std_Tactic_BVDecide_LRAT_Internal_instInhabitedResult_default: u8 = 0;
 pub static mut l_Std_Tactic_BVDecide_LRAT_Internal_instInhabitedResult: u8 = 0;
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_instToStringResult___lam__0___closed__0_value:

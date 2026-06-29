@@ -24,10 +24,10 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_nat_sub;
 static mut l___private_Init_Data_Rat_Lemmas_0__Rat_divInt_match__3_splitter___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_Data_Rat_Lemmas_0__Rat_divInt_match__3_splitter___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

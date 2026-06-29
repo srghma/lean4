@@ -6,7 +6,7 @@ use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{
     l_Lean_Compiler_LCNF_findLetValue_x3f___redArg,
     runtime_initialize_Lean_Compiler_LCNF_CompilerM,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_size, lean_nat_dec_eq};
+use crate::ffi::{lean_array_get_size, lean_nat_dec_eq};
 pub unsafe fn l_Lean_Compiler_LCNF_Simp_findFunDecl_x27_x3f___redArg(
     mut v_pu_56_: u8,
     mut v_fvarId_57_: *mut crate::leanh::LeanObject,

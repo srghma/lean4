@@ -38,7 +38,7 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
     initialize_Init_Data_String_OrderInstances, runtime_initialize_Init_Data_String_OrderInstances,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_string_utf8_byte_size};
+use crate::ffi::{lean_nat_add, lean_string_utf8_byte_size};
 pub unsafe fn l_String_Slice_Pos_Splits_rotateRight___redArg(
     mut v_p_109_: *mut crate::leanh::LeanObject,
     mut v_t_u2082_110_: *mut crate::leanh::LeanObject,

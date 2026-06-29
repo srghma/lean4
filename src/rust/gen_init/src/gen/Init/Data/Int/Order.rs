@@ -14,10 +14,10 @@ use crate::r#gen::Init::Data::Order::Lemmas::{
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub static mut l_Int_instTransLe: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Int_instTransLtLe: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Int_instTransLeLt: *mut crate::leanh::LeanObject = core::ptr::null_mut();

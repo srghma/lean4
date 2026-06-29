@@ -36,10 +36,10 @@ use crate::r#gen::Init::Data::String::Termination::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_next_fast;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_utf8_next_fast;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_uint8_dec_eq,
 };
 pub static l_String_Slice_Pattern_instInhabitedSearchStep_default___closed__0_value:

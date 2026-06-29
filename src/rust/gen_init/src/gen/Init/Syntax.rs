@@ -5,8 +5,8 @@ use crate::r#gen::Init::Data::Array::Set::{
     initialize_Init_Data_Array_Set, runtime_initialize_Init_Data_Array_Set,
 };
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_size, lean_nat_dec_lt};
+use crate::ffi::lean_array_fset;
+use crate::ffi::{lean_array_get_size, lean_nat_dec_lt};
 pub unsafe fn l_Lean_Syntax_setArgs(
     mut v_stx_36_: *mut crate::leanh::LeanObject,
     mut v_args_37_: *mut crate::leanh::LeanObject,

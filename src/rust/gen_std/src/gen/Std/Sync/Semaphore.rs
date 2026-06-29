@@ -11,10 +11,10 @@ use crate::r#gen::Init::System::Promise::{
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_lt, lean_nat_sub};
-use crate::lean_imports_rs::Init::System::Promise::{lean_io_promise_new, lean_io_promise_resolve};
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_get, lean_st_ref_set};
-use crate::lean_imports_rs::Std::Sync::Mutex::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt, lean_nat_sub};
+use crate::ffi::{lean_io_promise_new, lean_io_promise_resolve};
+use crate::ffi::{lean_st_ref_get, lean_st_ref_set};
+use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 static mut l_Std_Semaphore_new___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

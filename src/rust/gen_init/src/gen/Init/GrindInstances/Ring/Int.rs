@@ -21,7 +21,7 @@ use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Met
 use crate::r#gen::Init::Prelude::{
     l_instHAdd___redArg___lam__0, l_instPowNat___redArg___lam__0, l_instSMulOfMul___redArg___lam__0,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_mul, lean_nat_to_int};
+use crate::ffi::{lean_int_mul, lean_nat_to_int};
 pub static l_Lean_Grind_instCommRingInt___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

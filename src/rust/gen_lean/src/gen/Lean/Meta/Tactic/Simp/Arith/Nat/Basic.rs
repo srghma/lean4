@@ -36,20 +36,20 @@ use crate::r#gen::Lean::Meta::Offset::{
 use crate::r#gen::Lean::Util::SortExprs::{
     initialize_Lean_Util_SortExprs, l_Lean_sortExprs, runtime_initialize_Lean_Util_SortExprs,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint64_of_nat, lean_usize_of_nat, lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static l_Lean_Meta_Simp_Arith_Nat_instReprExpr__lean_repr___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

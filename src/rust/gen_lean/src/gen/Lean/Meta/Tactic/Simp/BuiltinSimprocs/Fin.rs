@@ -28,9 +28,9 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod,
     lean_nat_sub,
 };

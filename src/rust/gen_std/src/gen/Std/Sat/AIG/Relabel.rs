@@ -12,7 +12,7 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Std::Sat::AIG::Lemmas::{
     initialize_Std_Sat_AIG_Lemmas, runtime_initialize_Std_Sat_AIG_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_mk_array};
+use crate::ffi::{lean_array_size, lean_mk_array};
 pub static l_Std_Sat_AIG_relabel___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

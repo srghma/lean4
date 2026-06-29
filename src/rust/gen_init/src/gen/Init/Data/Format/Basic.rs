@@ -24,14 +24,14 @@ use crate::r#gen::Init::Data::String::Bootstrap::{
 use crate::r#gen::Init::Prelude::{
     l_List_foldl___redArg, l_instInhabitedOfMonad___redArg, l_panic___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_lt, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::{
     lean_string_append, lean_string_length, lean_string_offsetofpos, lean_string_posof,
     lean_string_pushn, lean_string_utf8_extract, lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size,
 };

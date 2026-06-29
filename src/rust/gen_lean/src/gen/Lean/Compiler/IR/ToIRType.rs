@@ -8,7 +8,7 @@ use crate::r#gen::Lean::Compiler::IR::Format::{
 use crate::r#gen::Lean::Compiler::LCNF::MonoTypes::{
     initialize_Lean_Compiler_LCNF_MonoTypes, runtime_initialize_Lean_Compiler_LCNF_MonoTypes,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_panic_fn_borrowed, lean_string_dec_eq};
+use crate::ffi::{lean_panic_fn_borrowed, lean_string_dec_eq};
 pub static l_Lean_IR_nameToIRType___closed__0_value: crate::leanh::LeanStringObject<26> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

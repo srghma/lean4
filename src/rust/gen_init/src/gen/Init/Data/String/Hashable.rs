@@ -7,8 +7,8 @@ use crate::r#gen::Init::Data::Hashable::{
 use crate::r#gen::Init::Data::String::Defs::{
     initialize_Init_Data_String_Defs, runtime_initialize_Init_Data_String_Defs,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::lean_uint64_mix_hash;
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::lean_uint64_mix_hash;
 pub static l_String_instHashableRaw___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

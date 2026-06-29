@@ -35,8 +35,8 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_getEntry_x3f___redArg,
     runtime_initialize_Std_Data_DTreeMap_Internal_Queries,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
     lean_panic_fn_borrowed,
 };

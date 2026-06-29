@@ -10,7 +10,7 @@ use crate::r#gen::Init::Data::Nat::MinMax::{
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_String_Lemmas_Basic_0__String_Slice_Pos_nextn_match__1_splitter___redArg(
     mut v_n_31_: *mut crate::leanh::LeanObject,
     mut v_h__1_32_: *mut crate::leanh::LeanObject,

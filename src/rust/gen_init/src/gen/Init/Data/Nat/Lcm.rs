@@ -11,8 +11,8 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Data::Nat::Gcd::lean_nat_gcd;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_div, lean_nat_mul};
+use crate::ffi::lean_nat_gcd;
+use crate::ffi::{lean_nat_div, lean_nat_mul};
 pub unsafe fn l_Nat_lcm(
     mut v_m_9_: *mut crate::leanh::LeanObject,
     mut v_n_10_: *mut crate::leanh::LeanObject,

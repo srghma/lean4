@@ -9,12 +9,12 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_instBEqMVarId_beq, l_Lean_instHashableFVarId_hash, l_Lean_instHashableMVarId_hash,
     l_Lean_instReprLiteral_repr, runtime_initialize_Lean_Expr,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_panic_fn_borrowed,
     lean_uint64_mix_hash, lean_uint64_of_nat,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_instantiate1;
+use crate::ffi::lean_expr_instantiate1;
 pub static l_Lean_instInhabitedHeadIndex_default___closed__0_value: crate::leanh::LeanCtorObject<
     1,
 > = crate::leanh::LeanCtorObject {

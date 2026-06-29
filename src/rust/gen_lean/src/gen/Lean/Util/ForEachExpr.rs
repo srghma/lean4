@@ -15,7 +15,7 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
     l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___redArg,
     l_Std_DHashMap_Internal_Raw_u2080_insert___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
+use crate::ffi::lean_mk_array;
 pub static l_Lean_ForEachExpr_visit___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

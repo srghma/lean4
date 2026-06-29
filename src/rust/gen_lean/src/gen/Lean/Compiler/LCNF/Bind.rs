@@ -23,16 +23,16 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_fvar___override, l_Lean_Expr_headBeta, l_Lean_FVarIdSet_insert, l_Lean_mkFVar,
 };
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Expr::{lean_expr_eqv, lean_expr_instantiate_rev};
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::{lean_expr_eqv, lean_expr_instantiate_rev};
 static mut l_Lean_throwError___at___00__private_Lean_Compiler_LCNF_Bind_0__Lean_Compiler_LCNF_CompilerM_codeBind_go_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_throwError___at___00__private_Lean_Compiler_LCNF_Bind_0__Lean_Compiler_LCNF_CompilerM_codeBind_go_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_throwError___at___00__private_Lean_Compiler_LCNF_Bind_0__Lean_Compiler_LCNF_CompilerM_codeBind_go_spec__1___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

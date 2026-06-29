@@ -25,7 +25,7 @@ use crate::r#gen::Init::Data::Option::Lemmas::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Array_push___boxed;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_sub,
 };
 pub unsafe fn l___private_Init_Data_Array_OfFn_0__Array_ofFn_go_match__1_splitter___redArg(

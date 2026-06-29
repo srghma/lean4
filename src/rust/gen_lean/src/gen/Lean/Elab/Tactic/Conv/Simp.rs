@@ -37,7 +37,7 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Main::{l_Lean_Meta_dsimp, l_Lean_Met
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
 use crate::r#gen::Lean::Meta::Tactic::Split::l_Lean_Meta_Split_simpMatch;
 use crate::r#gen::Lean::Meta::Tactic::TryThis::l_Lean_Meta_Tactic_TryThis_addSuggestion;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
+use crate::ffi::lean_mk_empty_array_with_capacity;
 static mut l_Lean_Elab_Tactic_Conv_evalSimp___lam__0___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

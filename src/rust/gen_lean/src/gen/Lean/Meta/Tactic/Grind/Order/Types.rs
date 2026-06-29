@@ -10,8 +10,8 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_registerSolverExtension___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_mk_empty_array_with_capacity;
 pub static mut l_Lean_Meta_Grind_Order_instInhabitedCnstrKind_default: u8 = 0;
 pub static mut l_Lean_Meta_Grind_Order_instInhabitedCnstrKind: u8 = 0;
 static mut l_Lean_Meta_Grind_Order_instInhabitedCnstr_default___redArg___closed__0_once:

@@ -15,8 +15,8 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
     l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Lean_Grind_AC_instOrdSeq__lean___closed__0_value: crate::leanh::LeanClosureObject<0> =

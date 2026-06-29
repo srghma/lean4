@@ -15,7 +15,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::RangeIterator::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le,
     lean_nat_dec_lt, lean_string_utf8_byte_size,
 };

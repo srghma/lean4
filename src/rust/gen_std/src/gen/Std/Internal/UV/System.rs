@@ -10,13 +10,13 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_to_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_uint64_to_nat;
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_uint64_of_nat,
 };
-use crate::lean_imports_rs::Std::Internal::UV::System::{
+use crate::ffi::{
     lean_uv_chdir, lean_uv_cpu_info, lean_uv_cwd, lean_uv_exepath, lean_uv_get_available_memory,
     lean_uv_get_constrained_memory, lean_uv_get_free_memory, lean_uv_get_process_title,
     lean_uv_get_total_memory, lean_uv_getrusage, lean_uv_hrtime, lean_uv_os_environ,

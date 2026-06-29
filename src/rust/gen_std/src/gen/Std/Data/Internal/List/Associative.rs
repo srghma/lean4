@@ -48,7 +48,7 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Data::Internal::List::Defs::{
     initialize_Std_Data_Internal_List_Defs, runtime_initialize_Std_Data_Internal_List_Defs,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static l_Std_Internal_List_getEntry_x21___redArg___closed__0_value:
     crate::leanh::LeanStringObject<35> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -31,24 +31,24 @@ use crate::r#gen::Lean::Server::Completion::CompletionUtils::{
     initialize_Lean_Server_Completion_CompletionUtils, l_String_charactersIn,
     runtime_initialize_Lean_Server_Completion_CompletionUtils,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Data::Float::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_float_decLe, lean_float_decLt, lean_float_div,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_mul, lean_nat_to_int};
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::{lean_int_mul, lean_nat_to_int};
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_int16_add, lean_int16_dec_eq, lean_int16_dec_le, lean_int16_neg, lean_int16_of_nat,
     lean_int16_sub, lean_int16_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_get_fast,
     lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_uint32_add;
+use crate::ffi::{
     lean_array_get, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,

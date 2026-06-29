@@ -20,7 +20,7 @@ use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::Parser::Do::{
     initialize_Lean_Parser_Do, runtime_initialize_Lean_Parser_Do,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Do_elabDoReturn_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Do_elabDoReturn_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Do_elabDoReturn___closed__0_value: crate::leanh::LeanStringObject<5> =

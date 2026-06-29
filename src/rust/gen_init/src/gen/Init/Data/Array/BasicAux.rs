@@ -16,12 +16,12 @@ use crate::r#gen::Init::Data::Nat::Linear::{
     initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear,
 };
 use crate::r#gen::Init::Util::{initialize_Init_Util, runtime_initialize_Init_Util};
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 pub static l_Array_mapMono___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

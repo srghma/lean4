@@ -39,16 +39,16 @@ use crate::r#gen::Lean::Data::Lsp::BasicAux::{
 use crate::r#gen::Lean::Data::Lsp::Utf16::{
     initialize_Lean_Data_Lsp_Utf16, runtime_initialize_Lean_Data_Lsp_Utf16,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_compare;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_to_list, lean_nat_dec_eq,
     lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
 };

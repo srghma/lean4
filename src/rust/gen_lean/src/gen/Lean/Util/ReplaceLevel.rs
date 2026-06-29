@@ -12,13 +12,13 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Level::{
     l_Lean_Level_succ___override, l_Lean_mkLevelIMax_x27, l_Lean_mkLevelMax_x27,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_usize_mod;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_sub, lean_usize_to_nat};
-use crate::lean_imports_rs::Init::Prelude::lean_usize_dec_eq;
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_usize_mod;
+use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
+use crate::ffi::lean_usize_dec_eq;
+use crate::ffi::lean_ptr_addr;
 static mut l_Lean_Expr_ReplaceLevelImpl_cacheSize___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

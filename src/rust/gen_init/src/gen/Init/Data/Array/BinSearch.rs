@@ -17,9 +17,9 @@ use crate::r#gen::Init::Data::Option::Basic::l_Option_isSome___boxed;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };

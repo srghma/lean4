@@ -40,12 +40,12 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Simp::{
     initialize_Lean_Meta_Tactic_Grind_Simp, l_Lean_Meta_Grind_preprocessLight___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Simp,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_lt};
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_internalize;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt};
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_grind_internalize;
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Grind_Linarith_Poly_denoteExpr_denoteTerm___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Grind_Linarith_Poly_denoteExpr_denoteTerm___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Meta_Grind_Arith_Linear_mkEq___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [69, 113, 0]};

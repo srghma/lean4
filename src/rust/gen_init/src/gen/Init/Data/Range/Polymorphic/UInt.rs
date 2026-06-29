@@ -16,14 +16,14 @@ use crate::r#gen::Init::Data::UInt::{
     initialize_Init_Data_UInt, runtime_initialize_Init_Data_UInt,
 };
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint8_add, lean_uint16_add, lean_uint64_add,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_add, lean_uint64_to_nat, lean_usize_add,
     lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub, lean_uint8_dec_eq,
     lean_uint8_of_nat, lean_uint16_dec_eq, lean_uint16_of_nat, lean_uint32_dec_eq,
     lean_uint32_of_nat, lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_of_nat,

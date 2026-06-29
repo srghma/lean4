@@ -3,8 +3,8 @@
 // Imports: Init.Tactics
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::Tactics::{initialize_Init_Tactics, runtime_initialize_Init_Tactics};
-use crate::lean_imports_rs::Init::Data::Array::Set::{lean_array_fset, lean_array_set};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_array_fset, lean_array_set};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_lt,
 };
 pub static l_Array_set___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =

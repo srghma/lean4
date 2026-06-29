@@ -29,15 +29,15 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{l_Lean_Name_hasMacroScopes, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_to_uint8;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::lean_uint32_to_uint8;
+use crate::ffi::{
     lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint8_dec_le,
     lean_uint32_dec_eq, lean_uint32_dec_le,

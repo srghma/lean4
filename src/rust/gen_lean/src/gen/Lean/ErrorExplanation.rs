@@ -27,14 +27,14 @@ use crate::r#gen::Lean::Message::{
     runtime_initialize_Lean_Message,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_foldl___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_fswap, lean_array_uget_borrowed,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_dec_lt;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::lean_string_dec_lt;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
     lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_sub, lean_usize_dec_eq,

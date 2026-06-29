@@ -12,8 +12,8 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Meta::InferType::{
     initialize_Lean_Meta_InferType, l_Lean_Meta_getLevel, runtime_initialize_Lean_Meta_InferType,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
     lean_nat_sub, lean_panic_fn_borrowed,
 };

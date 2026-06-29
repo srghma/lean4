@@ -11,9 +11,9 @@ use crate::r#gen::Init::Data::ToString::Macro::{
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_push;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
 };
 pub static l_Std_Internal_Parsec_instReprError_repr___closed__0_value:

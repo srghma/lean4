@@ -36,9 +36,9 @@ use crate::r#gen::Lean::Compiler::NameMangling::l_Lean_mkModuleInitializationSte
 use crate::r#gen::Lean::Util::LeanOptions::{
     l_Lean_LeanOptions_append, l_Lean_LeanOptions_appendArray, l_Lean_LeanOptions_ofArray,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq, lean_string_utf8_byte_size,
 };

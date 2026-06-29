@@ -18,9 +18,9 @@ use crate::r#gen::Lake::Util::Opaque::{
 use crate::r#gen::Lake::Util::Task::{
     initialize_Lake_Util_Task, runtime_initialize_Lake_Util_Task,
 };
-use crate::lean_imports_rs::Init::Core::{lean_task_get_own, lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_task_get_own, lean_task_map, lean_task_pure};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_string_utf8_byte_size,
 };

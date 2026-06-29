@@ -3,7 +3,7 @@
 // Imports: Init.Prelude Init.Core
 use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::lean_imports_rs::Init::Prelude::lean_name_eq;
+use crate::ffi::lean_name_eq;
 pub static mut l___private_Init_Dynamic_0__DynamicPointed: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub unsafe fn l_TypeNameData(

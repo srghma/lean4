@@ -21,7 +21,7 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::LRATCheckerSound::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub unsafe fn l_Std_Tactic_BVDecide_LRAT_check(
     mut v_lratProof_14_: *mut crate::leanh::LeanObject,
     mut v_cnf_15_: *mut crate::leanh::LeanObject,

@@ -13,7 +13,7 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashMap::Basic::{
     initialize_Std_Data_HashMap_Basic, runtime_initialize_Std_Data_HashMap_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
+use crate::ffi::lean_mk_array;
 pub static l_Lean_instMonadCacheExceptTOfMonad___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

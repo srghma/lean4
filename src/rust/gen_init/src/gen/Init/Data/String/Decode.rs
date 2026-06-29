@@ -35,15 +35,15 @@ use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::{
     lean_uint8_land, lean_uint8_lor, lean_uint32_lor, lean_uint32_shift_left,
     lean_uint32_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_uint32, lean_uint32_to_uint8,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_byte_array_size, lean_nat_add, lean_nat_dec_lt, lean_uint8_dec_eq, lean_uint32_dec_le,
     lean_uint32_dec_lt,
 };

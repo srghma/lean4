@@ -19,15 +19,15 @@ use crate::r#gen::Lean::PrettyPrinter::{
     initialize_Lean_PrettyPrinter, l_Lean_PrettyPrinter_ppCategory,
     runtime_initialize_Lean_PrettyPrinter,
 };
-use crate::lean_imports_rs::Init::Data::Float::{
+use crate::ffi::{
     lean_float_add, lean_float_decLe, lean_float_mul, lean_float_sub, lean_float_to_string, pow,
     round,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l_Lean_Meta_Tactic_TryThis_instInhabitedSuggestionText_default___closed__0_value:

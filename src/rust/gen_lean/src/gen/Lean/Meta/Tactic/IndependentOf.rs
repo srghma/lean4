@@ -15,16 +15,16 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
     runtime_initialize_Lean_Meta_Tactic_Util,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::lean_array_get_size;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::lean_array_get_size;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
+use crate::ffi::lean_infer_type;
 pub unsafe fn l_Lean_instantiateMVars___at___00Lean_MVarId_isIndependentOf_spec__0___redArg(
     mut v_e_276_: *mut crate::leanh::LeanObject,
     mut v___y_277_: *mut crate::leanh::LeanObject,

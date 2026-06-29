@@ -57,26 +57,26 @@ use crate::r#gen::Lean::ResolveName::{
     l_Lean_ResolveName_backward_privateInPublic_warn, l_Lean_ResolveName_resolveGlobalName,
 };
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{
     lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
     lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
     lean_uint64_of_nat,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_dbg_to_string;
+use crate::ffi::lean_expr_dbg_to_string;
 static mut l_Std_DHashMap_Internal_AssocList_foldlM___at___00__private_Std_Data_DHashMap_Internal_Defs_0__Std_DHashMap_Internal_Raw_u2080_expand_go___at___00Std_DHashMap_Internal_Raw_u2080_expand___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_PropagatorMap_insert_spec__0_spec__1_spec__2_spec__4___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Std_DHashMap_Internal_AssocList_foldlM___at___00__private_Std_Data_DHashMap_Internal_Defs_0__Std_DHashMap_Internal_Raw_u2080_expand_go___at___00Std_DHashMap_Internal_Raw_u2080_expand___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_PropagatorMap_insert_spec__0_spec__1_spec__2_spec__4___redArg___closed__0: u64 = 0;
 static mut l_Lean_Meta_Grind_instInhabitedBuiltinPropagators_default___closed__0_once:

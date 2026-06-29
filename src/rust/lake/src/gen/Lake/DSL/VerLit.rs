@@ -29,8 +29,8 @@ use crate::r#gen::Lean::Meta::Eval::{
     initialize_Lean_Meta_Eval, l_Lean_Meta_evalExpr___redArg, runtime_initialize_Lean_Meta_Eval,
 };
 use crate::r#gen::Lean::ToExpr::{initialize_Lean_ToExpr, runtime_initialize_Lean_ToExpr};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::lean_st_ref_get;
 pub static l_Lake_DSL_instToExprSemVerCore___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

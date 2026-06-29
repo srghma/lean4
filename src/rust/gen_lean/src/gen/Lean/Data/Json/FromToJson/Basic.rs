@@ -44,17 +44,17 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_foldl___redArg, l_Std_DTreeMap_Internal_Impl_foldlM___redArg,
     l_Std_DTreeMap_Internal_Impl_minKey_x3f___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Float::{lean_float_div, lean_float_negate};
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{lean_float_div, lean_float_negate};
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
     lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
     lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_pow, lean_string_dec_eq,

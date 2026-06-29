@@ -51,22 +51,22 @@ use crate::r#gen::Lean::Meta::Instances::{
 };
 use crate::r#gen::Lean::ReducibilityAttrs::l_Lean_isImplicitReducibleCore;
 use crate::r#gen::Lean::Util::InstantiateLevelParams::l_Lean_Expr_instantiateLevelParamsNoCache;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint8_to_uint64, lean_uint16_of_nat, lean_uint16_to_nat,
     lean_uint16_to_uint64, lean_uint32_of_nat, lean_uint32_to_uint64, lean_uint64_of_nat,
     lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
@@ -74,13 +74,13 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_uint8_of_nat, lean_uint16_dec_eq, lean_uint32_dec_eq, lean_uint32_to_nat,
     lean_uint64_dec_eq, lean_uint64_mix_hash, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Expr::{
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::{
     lean_expr_dbg_to_string, lean_expr_eqv, lean_expr_instantiate_range,
     lean_expr_instantiate_rev_range,
 };
-use crate::lean_imports_rs::Lean::Level::lean_level_eq;
+use crate::ffi::lean_level_eq;
 pub static mut l_Lean_Compiler_LCNF_instInhabitedPurity_default: u8 = 0;
 pub static mut l_Lean_Compiler_LCNF_instInhabitedPurity: u8 = 0;
 pub static l_Lean_Compiler_LCNF_instHashablePurity___closed__0_value:

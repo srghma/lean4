@@ -11,7 +11,7 @@ use crate::r#gen::Init::NotationExtra::{
 };
 use crate::r#gen::Init::Prelude::l_panic___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub static l_Std_DHashMap_Internal_AssocList_foldl___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

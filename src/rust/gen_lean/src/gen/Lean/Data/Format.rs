@@ -15,8 +15,8 @@ use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const
 use crate::r#gen::Lean::Data::Options::{
     initialize_Lean_Data_Options, lean_register_option, runtime_initialize_Lean_Data_Options,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
 pub static l_Std_Format_getWidth___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

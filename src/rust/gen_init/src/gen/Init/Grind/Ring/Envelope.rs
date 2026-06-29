@@ -11,10 +11,10 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l_Lean_Grind_Ring_OfSemiring_intCast___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

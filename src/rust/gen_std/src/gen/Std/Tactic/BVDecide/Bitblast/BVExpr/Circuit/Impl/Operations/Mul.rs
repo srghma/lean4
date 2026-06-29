@@ -23,8 +23,8 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Circuit::Impl::Operat
     l_Std_Tactic_BVDecide_BVExpr_bitblast_blastShiftLeftConst___redArg,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Circuit_Impl_Operations_ShiftLeft,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{lean_nat_land, lean_nat_shiftr};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_nat_land, lean_nat_shiftr};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub unsafe fn l_Std_Tactic_BVDecide_BVExpr_bitblast_blastMul_go___redArg(

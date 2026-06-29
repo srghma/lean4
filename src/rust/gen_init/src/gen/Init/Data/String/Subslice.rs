@@ -11,8 +11,8 @@ use crate::r#gen::Init::Data::String::Lemmas::IsEmpty::{
     initialize_Init_Data_String_Lemmas_IsEmpty, runtime_initialize_Init_Data_String_Lemmas_IsEmpty,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_le, lean_nat_sub, lean_panic_fn_borrowed,
 };
 pub static l_String_Slice_subslice_x21___closed__0_value: crate::leanh::LeanStringObject<26> =

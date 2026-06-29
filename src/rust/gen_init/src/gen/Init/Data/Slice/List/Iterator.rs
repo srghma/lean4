@@ -31,8 +31,8 @@ use crate::r#gen::Init::WFExtrinsicFix::{
     l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg,
     l_WellFounded_opaqueFix_u2083___redArg,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
 pub static l_ListSlice_instToIterator___closed__0_value: crate::leanh::LeanClosureObject<0> =

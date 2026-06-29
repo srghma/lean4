@@ -15,8 +15,8 @@ use crate::r#gen::Init::While::{
 use crate::r#gen::Std::Sync::Basic::{
     initialize_Std_Sync_Basic, runtime_initialize_Std_Sync_Basic,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_mk_ref;
-use crate::lean_imports_rs::Std::Sync::Mutex::{
+use crate::ffi::lean_st_mk_ref;
+use crate::ffi::{
     lean_io_basemutex_lock, lean_io_basemutex_new, lean_io_basemutex_try_lock,
     lean_io_basemutex_unlock, lean_io_condvar_new, lean_io_condvar_notify_all,
     lean_io_condvar_notify_one, lean_io_condvar_wait,

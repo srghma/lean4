@@ -10,14 +10,14 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Clause::{
     l_Std_Tactic_BVDecide_LRAT_Internal_DefaultClause_ofArray,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_Clause,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_lt};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt};
 static mut l_Std_Tactic_BVDecide_LRAT_Internal_intToLiteral___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

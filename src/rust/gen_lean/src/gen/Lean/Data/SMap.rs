@@ -52,9 +52,9 @@ use crate::r#gen::Std::Data::HashMap::Basic::{
 use crate::r#gen::Std::Data::HashMap::Iterator::{
     initialize_Std_Data_HashMap_Iterator, runtime_initialize_Std_Data_HashMap_Iterator,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
 };
 static mut l_Lean_SMap_instInhabited___closed__0_once: crate::leanh::LeanOnceCell =

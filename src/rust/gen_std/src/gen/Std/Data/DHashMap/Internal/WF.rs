@@ -39,9 +39,9 @@ use crate::r#gen::Std::Data::Internal::List::Associative::{
     initialize_Std_Data_Internal_List_Associative,
     runtime_initialize_Std_Data_Internal_List_Associative,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Std_DHashMap_Internal_Raw_u2080_interSmaller_u2098___redArg___closed__0_value:

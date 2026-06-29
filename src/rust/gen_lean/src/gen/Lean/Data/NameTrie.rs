@@ -12,9 +12,9 @@ use crate::r#gen::Lean::Data::PrefixTree::{
     l___private_Lean_Data_PrefixTree_0__Lean_PrefixTreeNode_foldMatchingM_find,
     l_Lean_PrefixTreeNode_empty, runtime_initialize_Lean_Data_PrefixTree,
 };
-use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_dec_lt;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_compare;
+use crate::ffi::lean_string_dec_lt;
+use crate::ffi::{
     lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
     lean_panic_fn_borrowed, lean_string_dec_eq,
 };

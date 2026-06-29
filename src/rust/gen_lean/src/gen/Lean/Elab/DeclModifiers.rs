@@ -78,19 +78,19 @@ use crate::r#gen::Lean::PrivateName::{
 };
 use crate::r#gen::Lean::ResolveName::lean_is_reserved_name;
 use crate::r#gen::Lean::Structure::{l_Lean_getStructureFieldsFlattened, l_Lean_isStructure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
     lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Elab_DeclModifiers_0__Lean_initFn___closed__0_00___x40_Lean_Elab_DeclModifiers_1403674367____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [108, 105, 110, 116, 101, 114, 0]};

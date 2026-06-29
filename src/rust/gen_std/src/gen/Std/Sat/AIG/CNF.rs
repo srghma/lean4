@@ -10,10 +10,10 @@ use crate::r#gen::Std::Sat::AIG::Lemmas::{
 };
 use crate::r#gen::Std::Sat::CNF::Basic::l_Std_Sat_CNF_eval___redArg;
 use crate::r#gen::Std::Sat::CNF::{initialize_Std_Sat_CNF, runtime_initialize_Std_Sat_CNF};
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{lean_nat_land, lean_nat_shiftr};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_array_fset;
+use crate::ffi::{lean_nat_land, lean_nat_shiftr};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
     lean_nat_mul, lean_nat_sub,

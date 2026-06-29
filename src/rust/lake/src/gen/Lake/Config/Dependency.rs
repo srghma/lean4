@@ -17,9 +17,9 @@ use crate::r#gen::Lake::Util::Git::{initialize_Lake_Util_Git, runtime_initialize
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     initialize_Lean_Data_NameMap_Basic, runtime_initialize_Lean_Data_NameMap_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_le;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_nat_dec_le;
 pub static l_Lake_instInhabitedDependencySrc_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

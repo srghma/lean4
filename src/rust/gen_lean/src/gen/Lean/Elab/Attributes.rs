@@ -37,10 +37,10 @@ use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofName, l_Lean_stringToMess
 use crate::r#gen::Lean::Parser::Term::{
     initialize_Lean_Parser_Term, runtime_initialize_Lean_Parser_Term,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_name_eq,
     lean_nat_dec_lt,
 };

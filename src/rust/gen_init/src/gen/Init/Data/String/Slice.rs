@@ -56,16 +56,16 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::Prelude::l_panic___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::String::Slice::{lean_slice_dec_lt, lean_slice_hash};
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_uint8_add;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{lean_slice_dec_lt, lean_slice_hash};
+use crate::ffi::lean_uint8_add;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
     lean_panic_fn_borrowed, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_uint32_to_nat,

@@ -20,7 +20,7 @@ use crate::r#gen::Std::Data::Iterators::Producers::Repeat::{
     initialize_Std_Data_Iterators_Producers_Repeat,
     runtime_initialize_Std_Data_Iterators_Producers_Repeat,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Std_Data_Iterators_Lemmas_Producers_Repeat_0__Nat_repeat_match__1_splitter___redArg(
     mut v_x_35_: *mut crate::leanh::LeanObject,
     mut v_x_36_: *mut crate::leanh::LeanObject,

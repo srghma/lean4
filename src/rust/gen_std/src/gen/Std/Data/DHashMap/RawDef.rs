@@ -17,9 +17,9 @@ use crate::r#gen::Std::Data::DHashMap::Internal::AssocList::Basic::{
     l_Std_DHashMap_Internal_AssocList_foldlM___redArg,
     runtime_initialize_Std_Data_DHashMap_Internal_AssocList_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Std_DHashMap_Raw_fold___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =

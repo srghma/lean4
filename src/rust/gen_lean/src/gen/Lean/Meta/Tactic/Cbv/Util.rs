@@ -28,11 +28,11 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
 use crate::r#gen::Lean::Meta::Sym::Simp::SimpM::{
     initialize_Lean_Meta_Sym_Simp_SimpM, runtime_initialize_Lean_Meta_Sym_Simp_SimpM,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_array_push;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::MetavarContext::lean_instantiate_level_mvars;
+use crate::ffi::lean_instantiate_level_mvars;
 pub static l_Lean_Meta_Tactic_Cbv_isVal___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

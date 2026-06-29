@@ -68,14 +68,14 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_getGeneration___redArg,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_internalize;
+use crate::ffi::lean_grind_internalize;
 pub static l_Int_Linear_Poly_isNonlinear___redArg___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

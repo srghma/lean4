@@ -6,7 +6,7 @@ use crate::r#gen::Init::Data::Hashable::{
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::UInt::BasicAux::l_UInt64_ofNat___boxed;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
+use crate::ffi::lean_nat_dec_eq;
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_instCoeOutPosFinNat___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

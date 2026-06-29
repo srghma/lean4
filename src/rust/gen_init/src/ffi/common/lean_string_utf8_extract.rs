@@ -2,8 +2,8 @@
 // source: Init/Data/String/Basic.rs:30-45
 // exact-text variant: no
 
-use crate::leanh::*;
-use crate::leanh;
+use runtime::leanh_extra::*;
+use runtime::leanh_extra as leanh;
 
 pub unsafe fn lean_string_utf8_extract(
     s: *mut LeanObject,

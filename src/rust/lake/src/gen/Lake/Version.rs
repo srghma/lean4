@@ -14,8 +14,8 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_githash, l_Lean_version_isRelease, l_Lean_versionString,
 };
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_dec_eq, lean_string_dec_eq, lean_string_utf8_byte_size,
 };
 pub static mut l_Lake_version_major: *mut crate::leanh::LeanObject = core::ptr::null_mut();

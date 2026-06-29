@@ -24,12 +24,12 @@ use crate::r#gen::Lean::ScopedEnvExtension::{
     l_Lean_ScopedEnvExtension_pushScope, l_Lean_ScopedEnvExtension_pushScope___redArg,
 };
 use crate::r#gen::Lean::Syntax::{l_Lean_Syntax_eqWithInfoAndTraceReuse, l_Lean_Syntax_hasMissing};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::lean_mk_empty_array_with_capacity;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Elab_Tactic_classical___redArg___lam__3___closed__0_value:

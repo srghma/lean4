@@ -18,9 +18,9 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     initialize_Lean_Meta_Tactic_Simp_Simproc, l_Lean_Meta_Simp_registerBuiltinDSimproc,
     runtime_initialize_Lean_Meta_Tactic_Simp_Simproc,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
 pub static l_Lean_Expr_withAppAux___at___00reduceCtorIdx_spec__0___redArg___closed__0_value:

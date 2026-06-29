@@ -9,8 +9,8 @@ use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const
 use crate::r#gen::Lean::Data::Options::{
     initialize_Lean_Data_Options, lean_register_option, runtime_initialize_Lean_Data_Options,
 };
-use crate::lean_imports_rs::Init::Data::Float::lean_float_div;
-use crate::lean_imports_rs::Lean::Util::Profile::{
+use crate::ffi::lean_float_div;
+use crate::ffi::{
     lean_display_cumulative_profiling_times, lean_profileit,
 };
 pub static l___private_Lean_Util_Profile_0__Lean_initFn___closed__0_00___x40_Lean_Util_Profile_2256275618____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [112, 114, 111, 102, 105, 108, 101, 114, 0]};

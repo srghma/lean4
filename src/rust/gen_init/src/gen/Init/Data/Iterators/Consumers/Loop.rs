@@ -14,7 +14,7 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Total::{
     initialize_Init_Data_Iterators_Consumers_Total,
     runtime_initialize_Init_Data_Iterators_Consumers_Total,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub static l_Std_Iter_instForIn_x27___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

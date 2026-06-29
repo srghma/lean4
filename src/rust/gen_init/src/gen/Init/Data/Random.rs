@@ -10,17 +10,17 @@ use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_lt, lean_int_mul, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_to_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_uint64_to_nat;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul,
     lean_nat_sub,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_get_random_bytes;
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
+use crate::ffi::lean_io_get_random_bytes;
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 static mut l_instInhabitedStdGen___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

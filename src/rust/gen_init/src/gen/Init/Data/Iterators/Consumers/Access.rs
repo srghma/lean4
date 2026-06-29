@@ -19,7 +19,7 @@ use crate::r#gen::Init::WFExtrinsicFix::{
     l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg,
     runtime_initialize_Init_WFExtrinsicFix,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_Std_Iter_atIdxSlow_x3f___redArg___lam__0(
     mut v_inst_148_: *mut crate::leanh::LeanObject,
     mut v_it_149_: *mut crate::leanh::LeanObject,

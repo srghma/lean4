@@ -8,7 +8,7 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::lean_imports_rs::Std::Internal::UV::TCP::{
+use crate::ffi::{
     lean_uv_tcp_accept, lean_uv_tcp_bind, lean_uv_tcp_cancel_accept, lean_uv_tcp_cancel_recv,
     lean_uv_tcp_connect, lean_uv_tcp_getpeername, lean_uv_tcp_getsockname, lean_uv_tcp_keepalive,
     lean_uv_tcp_listen, lean_uv_tcp_new, lean_uv_tcp_nodelay, lean_uv_tcp_recv, lean_uv_tcp_send,

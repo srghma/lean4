@@ -5,7 +5,7 @@ use crate::r#gen::Lake::Build::Job::Basic::{
     initialize_Lake_Build_Job_Basic, l_Lake_instInhabitedJobState_default,
     runtime_initialize_Lake_Build_Job_Basic,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_pure;
+use crate::ffi::lean_task_pure;
 static mut l_Lake_instInhabitedExternLibConfig_default___lam__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

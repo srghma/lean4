@@ -23,28 +23,28 @@ use crate::r#gen::Init::Data::ToString::Macro::{
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
 use crate::r#gen::Lean::Syntax::{initialize_Lean_Syntax, runtime_initialize_Lean_Syntax};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
     lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_getenv;
-use crate::lean_imports_rs::Lean::DocString::Links::lean_manual_get_root;
+use crate::ffi::lean_io_getenv;
+use crate::ffi::lean_manual_get_root;
 pub static l___private_Lean_DocString_Links_0__Lean_fallbackManualRoot___closed__0_value:
     crate::leanh::LeanStringObject<44> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

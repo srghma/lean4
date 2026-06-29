@@ -15,7 +15,7 @@ use crate::r#gen::Init::Omega::IntList::{
     runtime_initialize_Init_Omega_IntList,
 };
 use crate::r#gen::Init::Prelude::l_List_lengthTR___redArg;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_int_sub;
+use crate::ffi::lean_int_sub;
 pub unsafe fn l_Lean_Omega_Coeffs_toList(
     mut v_xs_98_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

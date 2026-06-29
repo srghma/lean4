@@ -21,10 +21,10 @@ use crate::r#gen::Init::Data::String::Basic::{
 use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_copy_slice;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_to_utf8;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_uint32_to_uint8, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_byte_array_copy_slice;
+use crate::ffi::lean_string_to_utf8;
+use crate::ffi::{lean_uint32_to_uint8, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_byte_array_mk,
     lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,

@@ -31,15 +31,15 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_pushEqCore___redArg, runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_executeReservedNameAction;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_sub, lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::{
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_infer_type;
+use crate::ffi::{
     lean_grind_internalize, lean_grind_mk_eq_proof,
 };
 static mut l_panic___at___00Lean_Meta_Grind_propagateCtorIdxUp_spec__0___closed__0_once:

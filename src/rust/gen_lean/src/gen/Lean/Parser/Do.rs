@@ -129,11 +129,11 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_PrettyPrinter_parenthesizerAttribute,
     l_Lean_Syntax_MonadTraverser_goLeft___at___00Lean_PrettyPrinter_Parenthesizer_visitArgs_spec__1___boxed,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::lean_name_eq;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::lean_name_eq;
 pub static l___private_Lean_Parser_Do_0__Lean_Parser_initFn___closed__0_00___x40_Lean_Parser_Do_3778045372____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<22> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 22, m_capacity: 22, m_length: 21, m_data: [98, 117, 105, 108, 116, 105, 110, 95, 100, 111, 69, 108, 101, 109, 95, 112, 97, 114, 115, 101, 114, 0]};
 static mut l___private_Lean_Parser_Do_0__Lean_Parser_initFn___closed__0_00___x40_Lean_Parser_Do_3778045372____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Parser_Do_0__Lean_Parser_initFn___closed__0_00___x40_Lean_Parser_Do_3778045372____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Parser_Do_0__Lean_Parser_initFn___closed__1_00___x40_Lean_Parser_Do_3778045372____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Parser_Do_0__Lean_Parser_initFn___closed__0_00___x40_Lean_Parser_Do_3778045372____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,3888354763378238729 as *mut crate::leanh::LeanObject] };

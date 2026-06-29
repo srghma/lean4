@@ -18,8 +18,8 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
 use crate::r#gen::Std::Data::TreeMap::{
     initialize_Std_Data_TreeMap, runtime_initialize_Std_Data_TreeMap,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_dec_lt;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq};
+use crate::ffi::lean_string_dec_lt;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq};
 pub static mut l_Std_Http_instInhabitedExtensions_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Http_instInhabitedExtensions: *mut crate::leanh::LeanObject =

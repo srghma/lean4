@@ -59,8 +59,8 @@ use crate::r#gen::Lean::Parser::Basic::{
 };
 use crate::r#gen::Lean::Parser::Extra::l_Lean_Parser_ident;
 use crate::r#gen::Lean::Parser::Types::l_Lean_Parser_withCache;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Prelude::lean_name_eq;
+use crate::ffi::lean_array_size;
+use crate::ffi::lean_name_eq;
 pub static l___private_Lean_Elab_DocString_Builtin_Scopes_0__Lean_Doc_imports___closed__0_value:
     crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

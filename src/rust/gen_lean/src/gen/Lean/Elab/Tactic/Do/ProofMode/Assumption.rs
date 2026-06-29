@@ -49,23 +49,23 @@ use crate::r#gen::Lean::Meta::Tactic::Assumption::{
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
     lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
     lean_nat_dec_lt, lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_dbg_to_string;
+use crate::ffi::lean_expr_dbg_to_string;
 static mut l_panic___at___00Lean_Elab_Tactic_Do_ProofMode_MGoal_assumption_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_panic___at___00Lean_Elab_Tactic_Do_ProofMode_MGoal_assumption_spec__0___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

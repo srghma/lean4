@@ -8,14 +8,14 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::VarRename::{
     initialize_Lean_Meta_Tactic_Grind_VarRename, l_Lean_Meta_Grind_collectVar,
     runtime_initialize_Lean_Meta_Tactic_Grind_VarRename,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint64_of_nat, lean_usize_of_nat, lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_size, lean_nat_dec_eq};
+use crate::ffi::{lean_array_get_size, lean_nat_dec_eq};
 pub static l_Lean_Grind_Linarith_Expr_renameVars___closed__0_value: crate::leanh::LeanCtorObject<
     1,
 > = crate::leanh::LeanCtorObject {

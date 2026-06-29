@@ -11,8 +11,8 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Circuit::Impl::Operations::Add::l_Std_Tactic_BVDecide_BVExpr_bitblast_blastAdd___redArg;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub};
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub};
+use crate::ffi::lean_nat_shiftr;
 static mut l_Std_Tactic_BVDecide_BVExpr_bitblast_blastExtractAndExtend___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

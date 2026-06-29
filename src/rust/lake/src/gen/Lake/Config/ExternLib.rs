@@ -13,8 +13,8 @@ use crate::r#gen::Lake::Config::ConfigTarget::{
 };
 use crate::r#gen::Lake::Config::Kinds::l_Lake_ExternLib_keyword;
 use crate::r#gen::Lake::Config::Package::l_Lake_Package_findTargetDecl_x3f;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Lake_Package_externLibs___closed__0_value: crate::leanh::LeanArrayObject<0> =

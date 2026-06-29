@@ -5,7 +5,7 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::lean_imports_rs::Std::Internal::UV::UDP::{
+use crate::ffi::{
     lean_uv_udp_bind, lean_uv_udp_cancel_recv, lean_uv_udp_connect, lean_uv_udp_getpeername,
     lean_uv_udp_getsockname, lean_uv_udp_new, lean_uv_udp_recv, lean_uv_udp_send,
     lean_uv_udp_set_broadcast, lean_uv_udp_set_membership, lean_uv_udp_set_multicast_interface,

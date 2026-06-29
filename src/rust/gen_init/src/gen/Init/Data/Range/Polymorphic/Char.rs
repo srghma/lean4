@@ -21,7 +21,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Fin::{
 use crate::r#gen::Init::Data::Range::Polymorphic::Map::{
     initialize_Init_Data_Range_Polymorphic_Map, runtime_initialize_Init_Data_Range_Polymorphic_Map,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_sub};
+use crate::ffi::{lean_nat_add, lean_nat_sub};
 pub static l_Char_instUpwardEnumerable___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -26,8 +26,8 @@ use crate::r#gen::Lean::Data::Name::{
     l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl___boxed,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_get_x3f___redArg;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_size, lean_array_push};
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_array_get_size, lean_array_push};
 pub static l_Lake_KConfigDecl_get___redArg___lam__1___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

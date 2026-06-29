@@ -29,31 +29,31 @@ use crate::r#gen::Lean::Structure::{
     l___private_Lean_Structure_0__Lean_getStructureResolutionOrder_x3f,
     l_Lean_getStructureParentInfo, l_Lean_isStructure, l_Lean_structureResolutionExt,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_uint8_add, lean_uint8_land, lean_uint64_to_usize, lean_usize_land, lean_usize_mul,
     lean_usize_shift_left, lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint32_add, lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat,
     lean_usize_sub, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
     lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
     lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_uint64_of_nat, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l___private_Lean_Data_PersistentHashMap_0__Lean_PersistentHashMap_insertAux_traverse___at___00Lean_PersistentHashMap_insertAux___at___00Lean_PersistentHashMap_insert___at___00__private_Lean_Structure_0__Lean_setStructureResolutionOrder___at___00Lean_computeStructureResolutionOrder___at___00Lean_getStructureResolutionOrder___at___00Lean_getAllParentStructures___at___00__private_Lean_Server_Completion_CompletionUtils_0__Lean_Server_Completion_getDotCompletionTypeNames_visit_spec__0_spec__0_spec__1_spec__5_spec__20_spec__30_spec__36___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

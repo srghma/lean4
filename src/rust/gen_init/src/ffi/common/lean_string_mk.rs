@@ -2,8 +2,8 @@
 // source: Init/Prelude.rs:279-282
 // exact-text variant: no
 
-use crate::leanh::*;
-use crate::leanh;
+use runtime::leanh_extra::*;
+use runtime::leanh_extra as leanh;
 
 #[inline]
 pub unsafe fn lean_string_mk(chars: *mut LeanObject) -> *mut LeanObject {

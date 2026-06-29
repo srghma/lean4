@@ -7,12 +7,12 @@ use crate::r#gen::Init::Control::State::{
 use crate::r#gen::Init::Data::UInt::Basic::{
     initialize_Init_Data_UInt_Basic, runtime_initialize_Init_Data_UInt_Basic,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_usize_to_uint64;
-use crate::lean_imports_rs::Init::Prelude::lean_usize_dec_eq;
-use crate::lean_imports_rs::Init::ShareCommon::{
+use crate::ffi::lean_usize_to_uint64;
+use crate::ffi::lean_usize_dec_eq;
+use crate::ffi::{
     lean_sharecommon_eq, lean_sharecommon_hash, lean_sharecommon_quick, lean_state_sharecommon,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 pub static mut l_ShareCommon_StateFactoryPointed: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static l_ShareCommon_StateFactory_mkImpl___lam__2___closed__0_value:

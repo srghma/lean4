@@ -21,13 +21,13 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_Expr_constName_x21, l_Lean_Expr_getAppFn,
     l_Lean_instInhabitedExpr, runtime_initialize_Lean_Expr,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_dec_eq, lean_uint32_dec_lt,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
+use crate::ffi::lean_expr_eqv;
 pub static mut l_Lean_instInhabitedReducibilityHints_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_instInhabitedReducibilityHints: *mut crate::leanh::LeanObject =

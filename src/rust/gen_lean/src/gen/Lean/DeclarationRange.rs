@@ -15,8 +15,8 @@ use crate::r#gen::Lean::EnvExtension::{
 use crate::r#gen::Lean::MonadEnv::{
     initialize_Lean_MonadEnv, l_Lean_isRec___redArg, runtime_initialize_Lean_MonadEnv,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_array_push;
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static mut l_Lean_builtinDeclRanges: *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -24,18 +24,18 @@ use crate::r#gen::Init::Data::String::TakeDrop::{
 };
 use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_string_compare;
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_uint64_dec_lt;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::lean_uint64_dec_lt;
+use crate::ffi::{
     lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_uint64_dec_eq, lean_uint64_of_nat, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 static mut l_Lean_Name_hashEx___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

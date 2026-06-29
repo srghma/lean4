@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Float::{
     initialize_Init_Data_Float, runtime_initialize_Init_Data_Float,
 };
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
-use crate::lean_imports_rs::Init::Data::Float32::{
+use crate::ffi::{
     acosf, acoshf, asinf, asinhf, atan2f, atanf, atanhf, cbrtf, ceilf, cosf, coshf, exp2f, expf,
     fabsf, floorf, lean_float_to_float32, lean_float32_add, lean_float32_beq, lean_float32_decLe,
     lean_float32_decLt, lean_float32_div, lean_float32_frexp, lean_float32_isfinite,

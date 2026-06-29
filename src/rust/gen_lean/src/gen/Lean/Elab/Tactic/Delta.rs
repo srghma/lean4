@@ -28,16 +28,16 @@ use crate::r#gen::Lean::Meta::Tactic::Replace::{
     l_Lean_MVarId_replaceLocalDeclDefEq, l_Lean_MVarId_replaceTargetDefEq,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_Meta_throwTacticEx___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_name_eq, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
+use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Elab_Tactic_deltaLocalDecl___redArg___closed__0_value:
     crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

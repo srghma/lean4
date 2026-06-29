@@ -22,7 +22,7 @@ use crate::r#gen::Init::System::IO::{
 use crate::r#gen::Init::System::ST::{
     initialize_Init_System_ST, runtime_initialize_Init_System_ST,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub static l_Lean_Order_term___u2291___00__closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

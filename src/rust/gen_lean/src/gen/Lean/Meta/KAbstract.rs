@@ -17,15 +17,15 @@ use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, l_Lean_Meta_isExprDefEq, runtime_initialize_Lean_Meta_Basic,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Expr::lean_expr_abstract;
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::lean_expr_abstract;
 pub unsafe fn l___private_Lean_Meta_KAbstract_0__Lean_Meta_kabstract_visit(
     mut v_p_318_: *mut crate::leanh::LeanObject,
     mut v_occs_319_: *mut crate::leanh::LeanObject,

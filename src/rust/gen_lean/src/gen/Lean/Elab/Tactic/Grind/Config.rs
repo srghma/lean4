@@ -54,12 +54,12 @@ use crate::r#gen::Lean::Message::{
 use crate::r#gen::Lean::Meta::CollectMVars::l_Lean_Meta_getMVars;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_dec_lt;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_dec_lt;
+use crate::ffi::{
     lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_throwAbortTerm___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_Grind_Config_0__Lean_Elab_Tactic_elabGrindConfigCore_evalConfigItem_spec__0_spec__0_spec__3___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

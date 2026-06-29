@@ -14,7 +14,7 @@ use crate::r#gen::Init::Data::String::Lemmas::StringOrder::{
     initialize_Init_Data_String_Lemmas_StringOrder,
     runtime_initialize_Init_Data_String_Lemmas_StringOrder,
 };
-use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
+use crate::ffi::lean_string_compare;
 pub static l_String_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -11,7 +11,7 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
     l_Lean_instFromJsonJson___lam__0, l_Option_fromJson_x3f___redArg,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
+use crate::ffi::lean_string_append;
 pub static l_Lake_Reservoir_lakeHeaders___closed__0_value: crate::leanh::LeanStringObject<30> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

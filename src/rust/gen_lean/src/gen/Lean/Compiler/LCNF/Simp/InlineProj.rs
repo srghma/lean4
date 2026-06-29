@@ -38,11 +38,11 @@ use crate::r#gen::Lean::CoreM::{
     l_Lean_Core_instMonadCoreM___lam__0___boxed, l_Lean_Core_instMonadCoreM___lam__1___boxed,
 };
 use crate::r#gen::Lean::Environment::l_Lean_Environment_find_x3f;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
     lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_panic___at___00__private_Lean_Compiler_LCNF_Simp_InlineProj_0__Lean_Compiler_LCNF_Simp_inlineProjInst_x3f_visit_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

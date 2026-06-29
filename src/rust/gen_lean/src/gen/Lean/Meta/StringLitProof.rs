@@ -15,8 +15,8 @@ use crate::r#gen::Lean::Level::l_Lean_Level_succ___override;
 use crate::r#gen::Lean::Meta::AppBuilder::{
     initialize_Lean_Meta_AppBuilder, l_Lean_Meta_mkEqRefl, runtime_initialize_Lean_Meta_AppBuilder,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_data;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_data;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_uint32_dec_eq, lean_uint32_to_nat,
 };
 pub static l___private_Init_Data_Range_Basic_0__Std_Legacy_Range_forIn_x27_loop___at___00Lean_Meta_mkStringLitNeProof_spec__1___redArg___closed__0_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };

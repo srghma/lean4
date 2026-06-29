@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Basic::{
     runtime_initialize_Init_Data_Range_Polymorphic_Basic,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_nat_sub;
 pub unsafe fn l_Std_Rxo_HasSize_ofClosed___redArg___lam__0(
     mut v_inst_12_: *mut crate::leanh::LeanObject,
     mut v_lo_13_: *mut crate::leanh::LeanObject,

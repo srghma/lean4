@@ -57,14 +57,14 @@ use crate::r#gen::Std::Data::DHashMap::Lemmas::{
     initialize_Std_Data_DHashMap_Lemmas, runtime_initialize_Std_Data_DHashMap_Lemmas,
 };
 use crate::r#gen::Std::Data::DHashMap::RawDef::l_Std_DHashMap_Raw_instForInSigmaOfMonad___redArg___lam__2;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{
     lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_div, lean_nat_mul,
 };
 static mut l_Std_ExtDHashMap_instEmptyCollection___closed__0_once: crate::leanh::LeanOnceCell =

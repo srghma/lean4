@@ -16,7 +16,7 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Main::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Main,
 };
 use crate::r#gen::Lean::Meta::Tactic::BVDecide::TacticContext::l_Lean_Meta_Tactic_BVDecide_TacticContext_new;
-use crate::lean_imports_rs::Init::System::IO::{lean_io_create_tempfile, lean_io_remove_file};
+use crate::ffi::{lean_io_create_tempfile, lean_io_remove_file};
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_BVDecide_evalBvDecide_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_BVDecide_evalBvDecide_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Tactic_BVDecide_evalBvDecide___closed__0_value:

@@ -10,7 +10,7 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Std::Internal::Do::WP::{
     initialize_Std_Internal_Do_WP, runtime_initialize_Std_Internal_Do_WP,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Std_Internal_Do_term_u2983___u2984___u2983___u2984___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -11,10 +11,10 @@ use crate::r#gen::Lean::Server::ServerTask::{
     l_Lean_Server_ServerTask_mapCheap___redArg, l_Lean_Server_ServerTask_waitAny___redArg,
     runtime_initialize_Lean_Server_ServerTask,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_pure;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_sub, lean_uint32_dec_eq, lean_uint32_to_nat};
-use crate::lean_imports_rs::Init::System::IO::{lean_io_mono_ms_now, lean_io_wait};
+use crate::ffi::lean_task_pure;
+use crate::ffi::lean_uint32_of_nat;
+use crate::ffi::{lean_nat_sub, lean_uint32_dec_eq, lean_uint32_to_nat};
+use crate::ffi::{lean_io_mono_ms_now, lean_io_wait};
 pub static l_IO_AsyncList_instCoeList___closed__0_value: crate::leanh::LeanClosureObject<2> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

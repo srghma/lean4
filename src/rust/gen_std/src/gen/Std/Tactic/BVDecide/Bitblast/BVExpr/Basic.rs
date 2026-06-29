@@ -30,18 +30,18 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BoolExpr::Basic::{
     l_Std_Tactic_BVDecide_BoolExpr_eval___redArg,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BoolExpr_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftr,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod,
     lean_uint64_dec_eq, lean_uint64_mix_hash, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 pub static l_Std_Tactic_BVDecide_instHashableBVBit___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

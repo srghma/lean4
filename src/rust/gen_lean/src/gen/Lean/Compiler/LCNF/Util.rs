@@ -24,13 +24,13 @@ use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::Util::Recognizers::{
     initialize_Lean_Util_Recognizers, runtime_initialize_Lean_Util_Recognizers,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq,
     lean_nat_add, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Compiler_LCNF_isLcCast_x3f___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

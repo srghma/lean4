@@ -9,7 +9,7 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_lt};
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
 pub unsafe fn l_Fin_hIterateFrom___redArg(
     mut v_n_48_: *mut crate::leanh::LeanObject,
     mut v_f_49_: *mut crate::leanh::LeanObject,

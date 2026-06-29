@@ -8,14 +8,14 @@ use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_isApp, l_Lean_Expr_isConstOf, runtime_initialize_Lean_Expr,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_neg, lean_nat_to_int};
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::{lean_int_neg, lean_nat_to_int};
+use crate::ffi::{
     lean_int8_of_int, lean_int16_of_int, lean_int32_of_int, lean_int64_of_int,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint16_of_nat, lean_uint32_of_nat, lean_uint64_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_mod, lean_uint8_of_nat};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_mod, lean_uint8_of_nat};
 pub static l_Lean_Meta_Sym_getNatValue_x3f___closed__0_value: crate::leanh::LeanStringObject<6> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

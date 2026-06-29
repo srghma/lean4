@@ -6,8 +6,8 @@ use crate::r#gen::Lean::Message::{
     initialize_Lean_Message, l_Lean_MessageData_nil, l_Lean_MessageData_ofFormat,
     l_Lean_stringToMessageData, runtime_initialize_Lean_Message,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mod};
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mod};
 pub static l___private_Lean_Elab_ErrorUtils_0__Nat_toOrdinal___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

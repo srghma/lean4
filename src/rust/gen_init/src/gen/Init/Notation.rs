@@ -9,7 +9,7 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node4, l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7,
     l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
+use crate::ffi::lean_array_push;
 pub static mut l_Lean_Parser_Category_command: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Parser_Category_term: *mut crate::leanh::LeanObject = core::ptr::null_mut();

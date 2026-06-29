@@ -9,9 +9,9 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Util::PtrSet::{
     initialize_Lean_Util_PtrSet, runtime_initialize_Lean_Util_PtrSet,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_usize_dec_eq;
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Util::ReplaceExpr::lean_replace_expr;
+use crate::ffi::lean_usize_dec_eq;
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::lean_replace_expr;
 pub unsafe fn l_Lean_Expr_replaceImpl___boxed(
     mut v_f_x3f_101_: *mut crate::leanh::LeanObject,
     mut v_e_102_: *mut crate::leanh::LeanObject,

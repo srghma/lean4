@@ -10,12 +10,12 @@ use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_W
 use crate::r#gen::Std::Time::Zoned::Database::Basic::{
     initialize_Std_Time_Zoned_Database_Basic, runtime_initialize_Std_Time_Zoned_Database_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_int64_dec_le, lean_int64_neg, lean_int64_of_nat, lean_int64_to_int_sint,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
-use crate::lean_imports_rs::Std::Time::Zoned::Database::Windows::{
+use crate::ffi::lean_array_push;
+use crate::ffi::{
     lean_get_windows_local_timezone_id_at, lean_windows_get_next_transition,
 };
 static mut l___private_Init_While_0__whileM_erased___at___00Std_Time_Database_Windows_getZoneRules_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

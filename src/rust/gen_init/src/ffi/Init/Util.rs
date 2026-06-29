@@ -1,4 +1,4 @@
-use crate::leanh::*;
+use runtime::leanh_extra::*;
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Util.lean
 

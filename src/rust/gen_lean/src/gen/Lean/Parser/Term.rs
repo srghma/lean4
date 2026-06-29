@@ -197,13 +197,13 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_Syntax_MonadTraverser_goLeft___at___00Lean_PrettyPrinter_Parenthesizer_visitArgs_spec__1___boxed,
 };
 use crate::r#gen::Lean::Syntax::{l_Lean_Syntax_Traverser_left, l_Lean_Syntax_isAntiquot};
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
+use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l_Lean_Parser_Command_versoCommentBodyFn___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

@@ -19,11 +19,11 @@ use crate::r#gen::Lean::Widget::InteractiveDiagnostic::{
     initialize_Lean_Widget_InteractiveDiagnostic,
     runtime_initialize_Lean_Widget_InteractiveDiagnostic,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_get_own;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_task_get_own;
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get};
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 pub static l_Lean_Server_Snapshots_Snapshot_infoTree___closed__0_value:
     crate::leanh::LeanStringObject<22> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

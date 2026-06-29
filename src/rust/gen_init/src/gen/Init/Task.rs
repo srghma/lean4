@@ -9,7 +9,7 @@ use crate::r#gen::Init::Data::List::Basic::{
 use crate::r#gen::Init::Data::Nat::Bitwise::Basic::{
     initialize_Init_Data_Nat_Bitwise_Basic, runtime_initialize_Init_Data_Nat_Bitwise_Basic,
 };
-use crate::lean_imports_rs::Init::Core::{
+use crate::ffi::{
     lean_task_bind, lean_task_map, lean_task_pure, lean_task_spawn,
 };
 pub unsafe fn l___private_Init_Task_0__Task_mapList_go___redArg___lam__0(

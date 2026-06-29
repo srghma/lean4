@@ -10,11 +10,11 @@ use crate::r#gen::Init::Data::Int::Gcd::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_mul, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Prelude::lean_nat_mod;
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::lean_nat_mod;
 pub unsafe fn l_Int_add__of__le___redArg(
     mut v_a_80_: *mut crate::leanh::LeanObject,
     mut v_b_81_: *mut crate::leanh::LeanObject,

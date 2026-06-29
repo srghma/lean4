@@ -7,8 +7,8 @@ use crate::r#gen::Std::Http::Data::Version::{
 use crate::r#gen::Std::Http::Internal::ChunkedBuffer::{
     initialize_Std_Http_Internal_ChunkedBuffer, runtime_initialize_Std_Http_Internal_ChunkedBuffer,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_to_utf8;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_byte_array_size, lean_nat_add};
+use crate::ffi::lean_string_to_utf8;
+use crate::ffi::{lean_array_push, lean_byte_array_size, lean_nat_add};
 pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

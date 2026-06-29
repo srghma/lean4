@@ -20,11 +20,11 @@ use crate::r#gen::Init::Data::List::Attach::{
     initialize_Init_Data_List_Attach, runtime_initialize_Init_Data_List_Attach,
 };
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_mk, lean_array_to_list};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_array_mk, lean_array_to_list};
 pub static l_Array_pmapImpl___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

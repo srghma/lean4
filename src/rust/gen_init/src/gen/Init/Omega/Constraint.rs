@@ -32,15 +32,15 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_ediv;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::lean_int_ediv;
+use crate::ffi::{
     lean_string_append, lean_string_length,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_sub};
 pub static l___private_Init_Omega_Constraint_0__Lean_Omega_instAppendString___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

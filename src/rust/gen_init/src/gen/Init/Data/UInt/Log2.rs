@@ -8,7 +8,7 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::lean_imports_rs::Init::Data::UInt::Log2::{
+use crate::ffi::{
     lean_uint8_log2, lean_uint16_log2, lean_uint32_log2, lean_uint64_log2, lean_usize_log2,
 };
 pub unsafe fn l_UInt8_log2___boxed(

@@ -12,9 +12,9 @@ use crate::r#gen::Lean::Data::RBMap::{
     l_Lean_RBNode_max___redArg, l_Lean_RBNode_min___redArg, l_Lean_RBNode_revFold___redArg,
     l_Lean_RBNode_setBlack___redArg, runtime_initialize_Lean_Data_RBMap,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_RBTree_toList___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =

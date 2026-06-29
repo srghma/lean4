@@ -23,10 +23,10 @@ use crate::r#gen::Init::Data::String::Slice::{
     l_String_Slice_toNat_x21, runtime_initialize_Init_Data_String_Slice,
 };
 use crate::r#gen::Init::Prelude::l_panic___redArg;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_utf8_byte_size,
     lean_uint32_dec_eq,
 };

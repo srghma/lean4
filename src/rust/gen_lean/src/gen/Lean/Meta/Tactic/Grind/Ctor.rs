@@ -58,19 +58,19 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_executeReservedNameAction;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_sub,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::{
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_expr_eqv;
+use crate::ffi::lean_infer_type;
+use crate::ffi::{
     lean_grind_internalize, lean_grind_mk_eq_proof,
 };
 pub static l___private_Lean_Meta_Tactic_Grind_Ctor_0__Lean_Meta_Grind_propagateInjEqs___closed__0_value: crate::leanh::LeanStringObject<43> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 43, m_capacity: 43, m_length: 42, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 105, 110, 106, 101, 99, 116, 105, 118, 105, 116, 121, 32, 116, 104, 101, 111, 114, 101, 109, 32, 114, 101, 115, 117, 108, 116, 32, 116, 121, 112, 101, 0]};

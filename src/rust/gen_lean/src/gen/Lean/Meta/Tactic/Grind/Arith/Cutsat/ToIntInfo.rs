@@ -14,11 +14,11 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Util::{
     initialize_Lean_Meta_Tactic_Grind_Arith_Util,
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Util,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_emod;
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_int_emod;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_Cutsat_instInhabitedToIntThms_default___closed__0_value:
     crate::leanh::LeanCtorObject<4> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

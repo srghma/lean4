@@ -54,7 +54,7 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_ToArray_0__Array_forIn_x27_loop_match__3_splitter___redArg(
     mut v_i_293_: *mut crate::leanh::LeanObject,
     mut v_h__1_294_: *mut crate::leanh::LeanObject,

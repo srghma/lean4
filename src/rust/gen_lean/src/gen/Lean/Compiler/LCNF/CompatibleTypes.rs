@@ -13,11 +13,11 @@ use crate::r#gen::Lean::Expr::{
 };
 use crate::r#gen::Lean::Level::l_Lean_Level_isEquiv;
 use crate::r#gen::Lean::LocalContext::l_Lean_LocalContext_mkLocalDecl;
-use crate::lean_imports_rs::Init::Prelude::{lean_name_eq, lean_nat_add};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_name_eq, lean_nat_add};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::{lean_expr_eqv, lean_expr_instantiate1};
+use crate::ffi::{lean_expr_eqv, lean_expr_instantiate1};
 static mut l___private_Lean_Compiler_LCNF_CompatibleTypes_0__Lean_Compiler_LCNF_InferType_Pure_compatibleTypesFull_etaExpand_x3f___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Compiler_LCNF_CompatibleTypes_0__Lean_Compiler_LCNF_InferType_Pure_compatibleTypesFull_etaExpand_x3f___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_List_isEqv___at___00Lean_Compiler_LCNF_compatibleTypesQuick_spec__0(

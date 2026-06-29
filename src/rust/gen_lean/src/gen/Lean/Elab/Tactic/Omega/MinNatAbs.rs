@@ -21,8 +21,8 @@ use crate::r#gen::Init::Data::Option::Lemmas::{
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_abs;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le};
+use crate::ffi::lean_nat_abs;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub unsafe fn l_List_filterTR_loop___at___00Lean_Elab_Tactic_Omega_List_nonzeroMinimum_spec__0(
     mut v_a_83_: *mut crate::leanh::LeanObject,
     mut v_a_84_: *mut crate::leanh::LeanObject,

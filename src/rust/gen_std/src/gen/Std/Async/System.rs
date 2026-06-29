@@ -33,20 +33,20 @@ use crate::r#gen::Std::Time::Time::Unit::Millisecond::{
     l_Std_Time_Millisecond_instInhabitedOffset, l_Std_Time_Millisecond_instReprOrdinal___lam__0,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_dec_eq, lean_nat_to_int};
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{lean_int_dec_eq, lean_nat_to_int};
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
     lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div,
     lean_nat_mul, lean_string_dec_eq, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Std::Internal::UV::System::{
+use crate::ffi::{
     lean_uv_cpu_info, lean_uv_hrtime, lean_uv_os_environ, lean_uv_os_get_group,
     lean_uv_os_get_passwd, lean_uv_os_getenv, lean_uv_os_gethostname, lean_uv_os_homedir,
     lean_uv_os_setenv, lean_uv_os_tmpdir, lean_uv_os_uname, lean_uv_os_unsetenv, lean_uv_uptime,

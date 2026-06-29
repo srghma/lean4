@@ -14,21 +14,21 @@ use crate::r#gen::Lean::Parser::Module::{
     initialize_Lean_Parser_Module, runtime_initialize_Lean_Parser_Module,
 };
 use crate::r#gen::Lean::Setup::l_Lean_instToJsonModuleHeader_toJson;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
     lean_string_utf8_get_fast, lean_string_utf8_next, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
     lean_nat_dec_eq, lean_nat_sub, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_get_stdout;
+use crate::ffi::lean_get_stdout;
 pub static l_Lean_ParseImports_instInhabitedState_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

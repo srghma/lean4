@@ -15,7 +15,7 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Prover::Bitblast::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Prover_Bitblast,
 };
 use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::Basic::l_Lean_Meta_Tactic_BVDecide_M_run___redArg;
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Tactic_BVDecide_bvDecide_x27___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

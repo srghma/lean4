@@ -15,7 +15,7 @@ use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_forIn___redArg, l_Lean_PersistentHashMap_insert___redArg,
     l_Lean_PersistentHashMap_toList___redArg, runtime_initialize_Lean_Data_PersistentHashMap,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_uint64_to_usize;
+use crate::ffi::lean_uint64_to_usize;
 pub static l_Lean_PersistentHashSet_fold___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

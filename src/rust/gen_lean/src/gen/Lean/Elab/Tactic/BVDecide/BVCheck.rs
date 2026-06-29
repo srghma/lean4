@@ -45,8 +45,8 @@ use crate::r#gen::Lean::Meta::Tactic::TryThis::{
     initialize_Lean_Meta_Tactic_TryThis, l_Lean_Meta_Tactic_TryThis_addSuggestion,
     runtime_initialize_Lean_Meta_Tactic_TryThis,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_string_dec_eq;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_string_dec_eq;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_Tactic_BVDecide_BVCheck_getSrcDir_spec__0_spec__1_spec__3___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

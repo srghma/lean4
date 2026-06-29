@@ -11,12 +11,12 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Internal::Char::{
     initialize_Std_Http_Internal_Char, runtime_initialize_Std_Http_Internal_Char,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_data, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
     lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };

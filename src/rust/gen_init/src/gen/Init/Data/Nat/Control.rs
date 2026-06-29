@@ -3,7 +3,7 @@
 // Imports: Init.Notation Init.Omega
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_Nat_Control_0__Nat_forM_loop___redArg___lam__0___boxed(
     mut v_inst_363_: *mut crate::leanh::LeanObject,
     mut v_n_364_: *mut crate::leanh::LeanObject,

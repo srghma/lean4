@@ -72,7 +72,7 @@ use crate::r#gen::Std::Do::SPred::SPred::{
 use crate::r#gen::Std::Do::Triple::Basic::{
     initialize_Std_Do_Triple_Basic, runtime_initialize_Std_Do_Triple_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_nat_add, lean_nat_div, lean_nat_mul, lean_nat_sub,
 };
 pub static l_List_Cursor_current___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =

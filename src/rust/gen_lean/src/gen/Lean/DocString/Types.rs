@@ -15,12 +15,12 @@ use crate::r#gen::Init::Data::Option::Basic::l_Option_instBEq_beq___redArg;
 use crate::r#gen::Init::Data::Ord::Array::l_Array_compareLex___redArg;
 use crate::r#gen::Init::Data::Ord::{initialize_Init_Data_Ord, runtime_initialize_Init_Data_Ord};
 use crate::r#gen::Init::Data::Repr::{l_Option_repr___redArg, l_Repr_addAppParen, l_String_quote};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_compare;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
 };

@@ -10,11 +10,11 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
     initialize_Lean_Data_Json_FromToJson_Basic, runtime_initialize_Lean_Data_Json_FromToJson_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::{
     lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_uint64_mix_hash,
 };
 pub static l_Lean_Lsp_instInhabitedPosition_default___closed__0_value:

@@ -55,32 +55,32 @@ use crate::r#gen::Init::System::IOError::{
     runtime_initialize_Init_System_IOError,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Core::{lean_task_get_own, lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::{
+use crate::ffi::{lean_task_get_own, lean_task_map, lean_task_pure};
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{
     lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_get,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_validate_utf8,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_length, lean_string_push};
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{lean_string_length, lean_string_push};
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::{
     lean_uint32_lor, lean_uint32_shift_left, lean_uint64_to_usize,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_size,
     lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint8_dec_eq,
     lean_uint32_dec_eq, lean_uint32_dec_lt, lean_uint32_of_nat, lean_uint32_to_nat,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_chmod, lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout, lean_get_stderr,
     lean_get_stdin, lean_get_stdout, lean_io_allocprof, lean_io_app_path, lean_io_as_task,
     lean_io_bind_task, lean_io_cancel, lean_io_check_canceled, lean_io_create_dir,
@@ -100,10 +100,10 @@ use crate::lean_imports_rs::Init::System::IO::{
     lean_io_timeit, lean_io_wait, lean_io_wait_any, lean_runtime_forget, lean_runtime_hold,
     lean_runtime_mark_multi_threaded, lean_runtime_mark_persistent,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Init::Util::lean_dbg_sleep;
+use crate::ffi::lean_dbg_sleep;
 pub static mut l_IO_RealWorld_nonemptyType: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_instMonadBaseIO___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

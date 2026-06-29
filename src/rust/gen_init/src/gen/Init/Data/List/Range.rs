@@ -20,7 +20,7 @@ use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_Range_0__List_range_x27_match__1_splitter___redArg(
     mut v_x_37_: *mut crate::leanh::LeanObject,
     mut v_x_38_: *mut crate::leanh::LeanObject,

@@ -5,10 +5,10 @@ use crate::r#gen::Init::System::IO::l_BaseIO_chainTask___redArg;
 use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub unsafe fn l_IO_CancelToken_new() -> *mut crate::leanh::LeanObject {
     let mut v___x_59_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_60_: u8 = 0;

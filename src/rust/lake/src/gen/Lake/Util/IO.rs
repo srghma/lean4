@@ -7,10 +7,10 @@ use crate::r#gen::Init::System::IO::{
     l_IO_FS_instBEqFileType_beq, l_IO_FS_readBinFile, l_IO_FS_writeBinFile,
     l_System_FilePath_pathExists, runtime_initialize_Init_System_IO,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_string_utf8_byte_size};
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_nat_dec_eq, lean_string_utf8_byte_size};
+use crate::ffi::{
     lean_io_prim_handle_mk, lean_io_prim_handle_put_str, lean_io_prim_handle_write,
     lean_io_read_dir, lean_io_realpath, lean_io_remove_dir, lean_io_remove_file,
     lean_io_symlink_metadata,

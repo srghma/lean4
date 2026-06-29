@@ -53,8 +53,8 @@ use crate::r#gen::Std::Data::TreeMap::Raw::Basic::{
 use crate::r#gen::Std::Data::TreeSet::Basic::{
     initialize_Std_Data_TreeSet_Basic, runtime_initialize_Std_Data_TreeSet_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::{
     lean_array_push, lean_nat_dec_eq, lean_string_utf8_byte_size,
 };
 pub static l_Std_TreeSet_Raw___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =

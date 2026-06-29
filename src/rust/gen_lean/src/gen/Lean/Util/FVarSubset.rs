@@ -10,8 +10,8 @@ use crate::r#gen::Lean::Util::CollectFVars::{
 use crate::r#gen::Lean::Util::FindExpr::{
     initialize_Lean_Util_FindExpr, runtime_initialize_Lean_Util_FindExpr,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Lean::Util::FindExpr::lean_find_ext_expr;
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_find_ext_expr;
 static mut l_Lean_Expr_fvarsSubset___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

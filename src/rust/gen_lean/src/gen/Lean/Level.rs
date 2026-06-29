@@ -31,27 +31,27 @@ use crate::r#gen::Lean::Data::PersistentHashSet::{
 };
 use crate::r#gen::Lean::Hygiene::{initialize_Lean_Hygiene, runtime_initialize_Lean_Hygiene};
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_forInStep___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{lean_uint64_land, lean_uint64_shift_right};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_uint64_land, lean_uint64_shift_right};
+use crate::ffi::{
     lean_uint32_to_uint64, lean_uint64_to_nat, lean_uint64_to_uint32, lean_usize_add,
     lean_usize_dec_lt,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
     lean_array_mk, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_dec_eq,
     lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Level::{lean_level_eq, lean_level_mk_data};
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::{lean_level_eq, lean_level_mk_data};
 static mut l_Lean_instInhabitedData___aux__1___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

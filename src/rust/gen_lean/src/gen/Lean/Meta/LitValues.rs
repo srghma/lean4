@@ -19,18 +19,18 @@ use crate::r#gen::Lean::Meta::Basic::{
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint16_of_nat, lean_uint16_to_nat, lean_uint32_of_nat,
     lean_uint64_of_nat, lean_uint64_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_mod, lean_nat_sub, lean_uint8_of_nat,
     lean_uint32_to_nat,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Meta_getOfNatValue_x3f___closed__0_value: crate::leanh::LeanStringObject<6> =

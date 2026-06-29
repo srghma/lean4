@@ -15,12 +15,12 @@ use crate::r#gen::Lean::Level::l___private_Lean_Level_0__Lean_Level_substParams_
 use crate::r#gen::Lean::Util::ReplaceExpr::{
     initialize_Lean_Util_ReplaceExpr, runtime_initialize_Lean_Util_ReplaceExpr,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Util::ReplaceExpr::lean_replace_expr;
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::lean_replace_expr;
 pub unsafe fn l___private_Lean_Util_InstantiateLevelParams_0__Lean_Expr_instantiateLevelParamsCore_replaceFn___lam__0(
     mut v_s_301_: *mut crate::leanh::LeanObject,
     mut v_u_302_: *mut crate::leanh::LeanObject,

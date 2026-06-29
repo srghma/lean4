@@ -58,12 +58,12 @@ use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quic
 use crate::r#gen::Lean::Util::LeanOptions::{
     l_Lean_LeanOptions_appendArray, l_Lean_LeanOptions_ofArray,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_mul, lean_string_utf8_byte_size, lean_uint64_of_nat,
     lean_usize_dec_eq,

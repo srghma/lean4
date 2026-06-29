@@ -11,7 +11,7 @@ use crate::r#gen::Init::Data::Stream::{
 use crate::r#gen::Init::Data::Vector::Basic::{
     initialize_Init_Data_Vector_Basic, runtime_initialize_Init_Data_Vector_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_get_size;
+use crate::ffi::lean_array_get_size;
 pub static l_Vector_instToStreamSubarray___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

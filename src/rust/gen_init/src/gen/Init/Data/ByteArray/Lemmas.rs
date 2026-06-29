@@ -15,7 +15,7 @@ use crate::r#gen::Init::Data::ByteArray::Basic::{
     initialize_Init_Data_ByteArray_Basic, runtime_initialize_Init_Data_ByteArray_Basic,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Prelude::lean_byte_array_data;
+use crate::ffi::lean_byte_array_data;
 pub unsafe fn l___private_Init_Data_ByteArray_Lemmas_0__ByteArray_set_match__1_splitter___redArg(
     mut v_x_40_: *mut crate::leanh::LeanObject,
     mut v_x_41_: *mut crate::leanh::LeanObject,

@@ -14,12 +14,12 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashSet::Basic::{
     initialize_Std_Data_HashSet_Basic, runtime_initialize_Std_Data_HashSet_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_usize_to_uint64;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_usize_to_uint64;
+use crate::ffi::{
     lean_nat_div, lean_nat_mul, lean_uint64_mix_hash, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 pub static l_Lean_instHashablePtr___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

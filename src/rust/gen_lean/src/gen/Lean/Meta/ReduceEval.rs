@@ -16,15 +16,15 @@ use crate::r#gen::Lean::Meta::Offset::{
     initialize_Lean_Meta_Offset, l_Lean_Meta_evalNat, runtime_initialize_Lean_Meta_Offset,
 };
 use crate::r#gen::Lean::Meta::TransparencyMode::l_Lean_Meta_TransparencyMode_lt;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_mod, lean_nat_pow, lean_nat_sub,
     lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_whnf;
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_whnf;
 pub static l___private_Lean_Meta_ReduceEval_0__Lean_Meta_throwFailedToEval___redArg___closed__0_value: crate::leanh::LeanStringObject<40> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 40, m_capacity: 40, m_length: 39, m_data: [114, 101, 100, 117, 99, 101, 69, 118, 97, 108, 58, 32, 102, 97, 105, 108, 101, 100, 32, 116, 111, 32, 101, 118, 97, 108, 117, 97, 116, 101, 32, 97, 114, 103, 117, 109, 101, 110, 116, 0]};
 static mut l___private_Lean_Meta_ReduceEval_0__Lean_Meta_throwFailedToEval___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

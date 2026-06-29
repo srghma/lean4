@@ -23,8 +23,8 @@ use crate::r#gen::Init::Data::Repr::{
 use crate::r#gen::Init::Prelude::{l_List_foldl___redArg, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Lean_RBNode_toArray___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =

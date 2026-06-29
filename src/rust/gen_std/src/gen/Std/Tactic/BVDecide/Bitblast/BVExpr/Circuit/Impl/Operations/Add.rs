@@ -15,10 +15,10 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Basic::{
     initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{
+use crate::ffi::{
     lean_nat_land, lean_nat_lor, lean_nat_shiftr,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
 };

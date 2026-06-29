@@ -18,7 +18,7 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::MonadRing::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_CommRing_MonadRing,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l_Lean_Meta_Grind_internalize___boxed;
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_CommRing_checkInst___closed__0_value:
     crate::leanh::LeanStringObject<64> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

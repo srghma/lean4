@@ -15,13 +15,13 @@ use crate::r#gen::Std::Time::Duration::{
     l_Std_Time_instToStringDuration_leftPad, runtime_initialize_Std_Time_Duration,
 };
 use crate::r#gen::Std::Time::Time::Unit::Nanosecond::l_Std_Time_Nanosecond_instReprOrdinal___lam__0;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_div;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Std::Time::DateTime::Timestamp::lean_get_current_time;
+use crate::ffi::lean_int_div;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_get_current_time;
 pub static l_Std_Time_instReprTimestamp_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

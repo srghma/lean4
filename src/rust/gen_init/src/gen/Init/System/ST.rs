@@ -8,7 +8,7 @@ use crate::r#gen::Init::Control::Except::{
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_ptr_eq, lean_st_ref_set, lean_st_ref_swap,
     lean_st_ref_take, lean_void_mk,
 };

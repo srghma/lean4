@@ -29,19 +29,19 @@ use crate::r#gen::Lake::Config::Kinds::{l_Lake_InputDir_keyword, l_Lake_InputFil
 use crate::r#gen::Lake::Util::FilePath::{l_Lake_joinRelative, l_Lake_mkRelPathString};
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_compress;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_mul, lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
+use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l_Lake_InputFile_defaultFacetConfig___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

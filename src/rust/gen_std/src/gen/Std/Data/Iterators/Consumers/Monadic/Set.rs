@@ -21,8 +21,8 @@ use crate::r#gen::Std::Data::HashSet::Basic::{
 use crate::r#gen::Std::Data::TreeSet::Basic::{
     initialize_Std_Data_TreeSet_Basic, runtime_initialize_Std_Data_TreeSet_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_string_utf8_byte_size};
+use crate::ffi::lean_mk_array;
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 static mut l_Std_IterM_toHashSet___redArg___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

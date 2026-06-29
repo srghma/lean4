@@ -38,14 +38,14 @@ use crate::r#gen::Lean::Data::JsonRpc::{
     l_IO_FS_Stream_readNotificationAs___redArg, l_IO_FS_Stream_readRequestAs___redArg,
     l_IO_FS_Stream_readResponseAs___redArg, runtime_initialize_Lean_Data_JsonRpc,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_neg, lean_nat_to_int};
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{lean_int_neg, lean_nat_to_int};
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size,
     lean_uint8_dec_eq,

@@ -30,11 +30,11 @@ use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_uint32_to_nat;
+use crate::ffi::lean_uint32_to_nat;
 pub static l_Lean_Grind_instToIntIntIi___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

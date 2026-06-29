@@ -6,7 +6,7 @@ use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, runtime_initialize_Lean_Meta_Basic,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_instBEqRange_beq;
-use crate::lean_imports_rs::Init::Prelude::lean_string_dec_eq;
+use crate::ffi::lean_string_dec_eq;
 pub static l_Lean_Elab_instBEqInlayHintTextEdit___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

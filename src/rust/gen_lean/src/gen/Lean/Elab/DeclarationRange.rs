@@ -11,7 +11,7 @@ use crate::r#gen::Lean::Parser::Command::{
     initialize_Lean_Parser_Command, runtime_initialize_Lean_Parser_Command,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_getRange_x3f;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
 };
 pub static l_Lean_Elab_getDeclarationSelectionRef___closed__0_value:

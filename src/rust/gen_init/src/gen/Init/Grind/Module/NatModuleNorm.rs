@@ -15,7 +15,7 @@ use crate::r#gen::Init::Grind::Ordered::Linarith::{
     runtime_initialize_Init_Grind_Ordered_Linarith,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
 static mut l_Lean_Grind_Linarith_Poly_denoteN___redArg___closed__0_once:

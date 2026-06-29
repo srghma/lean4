@@ -25,10 +25,10 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{lean_string_data, lean_string_dec_lt};
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_string_dec_eq, lean_uint32_to_nat};
+use crate::ffi::{lean_string_data, lean_string_dec_lt};
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_string_dec_eq, lean_uint32_to_nat};
 pub static l_String_reduceAppend___redArg___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

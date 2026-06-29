@@ -33,7 +33,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::BitVec::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub,
 };
 pub unsafe fn l_Nat_cast___at___00__private_Init_Data_Range_Polymorphic_Internal_SignedBitVec_0__BitVec_Signed_intMinSealed_spec__0(

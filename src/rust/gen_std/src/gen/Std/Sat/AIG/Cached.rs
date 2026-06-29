@@ -15,8 +15,8 @@ use crate::r#gen::Std::Sat::AIG::Basic::{
 use crate::r#gen::Std::Sat::AIG::Lemmas::{
     initialize_Std_Sat_AIG_Lemmas, runtime_initialize_Std_Sat_AIG_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_lor;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_lor;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
 };
 pub static l_Std_Sat_AIG_mkGateCached_go___redArg___closed__0_value: crate::leanh::LeanCtorObject<

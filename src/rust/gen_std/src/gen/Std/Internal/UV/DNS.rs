@@ -8,7 +8,7 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::lean_imports_rs::Std::Internal::UV::DNS::{lean_uv_dns_get_info, lean_uv_dns_get_name};
+use crate::ffi::{lean_uv_dns_get_info, lean_uv_dns_get_name};
 pub unsafe fn l_Std_Internal_UV_DNS_getAddrInfo___boxed(
     mut v_host_20_: *mut crate::leanh::LeanObject,
     mut v_service_21_: *mut crate::leanh::LeanObject,

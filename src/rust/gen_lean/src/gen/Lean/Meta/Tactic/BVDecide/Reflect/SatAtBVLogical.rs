@@ -25,11 +25,11 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::Reify::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Reflect_Reify,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_nat_dec_eq;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
+use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_Tactic_BVDecide_SatAtBVLogical_of___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
-use crate::lean_imports_rs::Init::Prelude::lean_uint32_dec_eq;
+use crate::ffi::lean_uint32_dec_eq;
 pub unsafe fn l_Lake_instMonadExitOfMonadLift___redArg___lam__0(
     mut v_inst_52_: *mut crate::leanh::LeanObject,
     mut v_inst_53_: *mut crate::leanh::LeanObject,

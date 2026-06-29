@@ -17,13 +17,13 @@ use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_div, lean_nat_mul, lean_nat_sub,
     lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_get_num_heartbeats;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_io_get_num_heartbeats;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_withHeartbeats___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =

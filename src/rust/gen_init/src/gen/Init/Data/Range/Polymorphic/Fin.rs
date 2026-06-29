@@ -21,7 +21,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Instances::{
     runtime_initialize_Init_Data_Range_Polymorphic_Instances,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
 };
 pub static mut l_Fin_instLeast_x3fOfNatNat: *mut crate::leanh::LeanObject = core::ptr::null_mut();

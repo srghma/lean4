@@ -25,11 +25,11 @@ use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq, l_Lean_stringToMessageData,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_mk_empty_array_with_capacity, lean_nat_sub, lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_mono_ms_now;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_io_mono_ms_now;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Time_elabTimeCmd_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

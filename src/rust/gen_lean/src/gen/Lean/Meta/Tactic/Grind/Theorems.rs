@@ -84,23 +84,23 @@ use crate::r#gen::Lean::MonadEnv::l_Lean_getConstVal___redArg;
 use crate::r#gen::Lean::OriginalConstKind::l_Lean_wasOriginallyTheorem;
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::Util::InstantiateLevelParams::l_Lean_Expr_instantiateLevelParamsArray;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::Array::Set::{lean_array_fset, lean_array_set};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{lean_array_fset, lean_array_set};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
     lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_le, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
     lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_uint64_of_nat,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_instInhabitedOrigin_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

@@ -72,8 +72,8 @@ use crate::r#gen::Std::Data::DTreeMap::Raw::Basic::{
     l_Std_DTreeMap_Internal_Impl_union_x21___at___00Std_DTreeMap_Raw_union_spec__0___redArg,
     runtime_initialize_Std_Data_DTreeMap_Raw_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_utf8_byte_size,
 };
 pub static l_Std_TreeMap_Raw___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =

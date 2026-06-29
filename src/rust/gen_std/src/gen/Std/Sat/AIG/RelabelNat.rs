@@ -12,8 +12,8 @@ use crate::r#gen::Std::Sat::AIG::Relabel::{
     initialize_Std_Sat_AIG_Relabel, l_Std_Sat_AIG_relabel___redArg,
     runtime_initialize_Std_Sat_AIG_Relabel,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
 };
 static mut l_Std_Sat_AIG_RelabelNat_State_empty___closed__0_once: crate::leanh::LeanOnceCell =

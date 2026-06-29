@@ -7,7 +7,7 @@ use crate::r#gen::Init::Data::List::Basic::{
 use crate::r#gen::Init::Prelude::{
     initialize_Init_Prelude, l_List_lengthTR___redArg, runtime_initialize_Init_Prelude,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub unsafe fn l_List_toArrayAux___redArg(
     mut v_x_20_: *mut crate::leanh::LeanObject,
     mut v_x_21_: *mut crate::leanh::LeanObject,

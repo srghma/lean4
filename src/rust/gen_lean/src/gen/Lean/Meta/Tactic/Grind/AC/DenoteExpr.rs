@@ -9,7 +9,7 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Meta::Tactic::Grind::AC::Util::{
     initialize_Lean_Meta_Tactic_Grind_AC_Util, runtime_initialize_Lean_Meta_Tactic_Grind_AC_Util,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_lt;
+use crate::ffi::lean_nat_dec_lt;
 pub static l_Lean_Meta_Grind_AC_EqCnstr_denoteExpr___redArg___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

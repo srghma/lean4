@@ -55,15 +55,15 @@ use crate::r#gen::Std::Sync::Semaphore::{
     initialize_Std_Sync_Semaphore, l_Std_Semaphore_acquire, l_Std_Semaphore_new,
     l_Std_Semaphore_release, runtime_initialize_Std_Sync_Semaphore,
 };
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_task_map;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_as_task;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_io_as_task;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Std::Internal::UV::TCP::{
+use crate::ffi::{
     lean_uv_tcp_bind, lean_uv_tcp_getpeername, lean_uv_tcp_getsockname, lean_uv_tcp_listen,
     lean_uv_tcp_new, lean_uv_tcp_nodelay,
 };

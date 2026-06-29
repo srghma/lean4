@@ -8,8 +8,8 @@ use crate::r#gen::Lean::Data::JsonRpc::{
     initialize_Lean_Data_JsonRpc, l_Lean_JsonRpc_instBEqRequestID_beq,
     l_Lean_JsonRpc_instInhabitedRequestID_default, runtime_initialize_Lean_Data_JsonRpc,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_array_to_list;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_array_to_list;
 pub static mut l_Lean_Lsp_instInhabitedCancelParams_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Lsp_instInhabitedCancelParams: *mut crate::leanh::LeanObject =

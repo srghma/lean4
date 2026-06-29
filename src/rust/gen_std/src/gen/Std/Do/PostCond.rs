@@ -13,11 +13,11 @@ use crate::r#gen::Std::Do::SPred::SPred::{
 };
 use crate::r#gen::Std::Do::SPred::SVal::l_Std_Do_SVal_curry___redArg;
 use crate::r#gen::Std::Do::SPred::{initialize_Std_Do_SPred, runtime_initialize_Std_Do_SPred};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::lean_array_push;
 pub static l_Std_Do_term___u22a2_u2091___00__closed__0_value: crate::leanh::LeanStringObject<4> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

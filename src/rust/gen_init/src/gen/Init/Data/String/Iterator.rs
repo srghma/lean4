@@ -9,12 +9,12 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
     l_Lean_Syntax_node3, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
     lean_string_utf8_next, lean_string_utf8_next_fast, lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
     lean_string_utf8_byte_size,
 };

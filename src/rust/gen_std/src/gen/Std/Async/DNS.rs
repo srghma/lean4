@@ -15,9 +15,9 @@ use crate::r#gen::Std::Internal::UV::{
     initialize_Std_Internal_UV, runtime_initialize_Std_Internal_UV,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::System::Promise::lean_io_promise_result_opt;
-use crate::lean_imports_rs::Std::Internal::UV::DNS::{lean_uv_dns_get_info, lean_uv_dns_get_name};
+use crate::ffi::lean_task_map;
+use crate::ffi::lean_io_promise_result_opt;
+use crate::ffi::{lean_uv_dns_get_info, lean_uv_dns_get_name};
 pub static l_Std_Async_DNS_getAddrInfo___closed__0_value: crate::leanh::LeanStringObject<44> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -14,11 +14,11 @@ use crate::r#gen::Lean::Data::Lsp::LanguageFeatures::{
     initialize_Lean_Data_Lsp_LanguageFeatures, l_Lean_Lsp_CompletionItemKind_ctorIdx,
     runtime_initialize_Lean_Data_Lsp_LanguageFeatures,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
     lean_nat_sub, lean_string_utf8_byte_size,
 };

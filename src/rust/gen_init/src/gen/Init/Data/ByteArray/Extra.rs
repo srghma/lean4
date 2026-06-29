@@ -12,10 +12,10 @@ use crate::r#gen::Init::Data::UInt::Basic::{
 };
 use crate::r#gen::Init::Prelude::l_instInhabitedUInt64;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_get;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{lean_uint64_lor, lean_uint64_shift_left};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint8_to_uint64;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_byte_array_get;
+use crate::ffi::{lean_uint64_lor, lean_uint64_shift_left};
+use crate::ffi::lean_uint8_to_uint64;
+use crate::ffi::{
     lean_byte_array_size, lean_nat_dec_eq, lean_panic_fn_borrowed,
 };
 pub static mut l_panic___at___00ByteArray_toUInt64LE_x21_spec__0___boxed__const__1:

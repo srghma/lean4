@@ -19,11 +19,11 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg,
     l_Lean_Meta_Grind_SolverExtension_getState___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_nat_dec_lt,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_Linear_LinearM_getStruct___closed__0_value:
     crate::leanh::LeanStringObject<45> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

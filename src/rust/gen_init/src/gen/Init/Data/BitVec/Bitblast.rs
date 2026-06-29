@@ -51,8 +51,8 @@ use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{lean_nat_land, lean_nat_shiftr};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_nat_land, lean_nat_shiftr};
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_mul,
     lean_nat_pow, lean_nat_sub,
 };

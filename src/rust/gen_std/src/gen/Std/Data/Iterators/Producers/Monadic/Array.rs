@@ -6,7 +6,7 @@ use crate::r#gen::Init::Data::Iterators::Consumers::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
 };
 pub unsafe fn l_Array_iterFromIdxM___redArg(

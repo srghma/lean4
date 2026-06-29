@@ -10,8 +10,8 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Util::ReplaceExpr::{
     initialize_Lean_Util_ReplaceExpr, runtime_initialize_Lean_Util_ReplaceExpr,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_panic_fn_borrowed;
-use crate::lean_imports_rs::Lean::Util::ReplaceExpr::lean_replace_expr;
+use crate::ffi::lean_panic_fn_borrowed;
+use crate::ffi::lean_replace_expr;
 pub static l_Lean_Meta_MVarRenaming_find_x21___closed__0_value: crate::leanh::LeanStringObject<26> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

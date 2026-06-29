@@ -17,7 +17,7 @@ use crate::r#gen::Lean::Parser::Term::Doc::{
     initialize_Lean_Parser_Term_Doc, l_Lean_Parser_Term_Doc_getRecommendedSpellingString,
     runtime_initialize_Lean_Parser_Term_Doc,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
+use crate::ffi::lean_string_append;
 pub unsafe fn l_Lean_findDocString_x3f(
     mut v_env_38_: *mut crate::leanh::LeanObject,
     mut v_declName_39_: *mut crate::leanh::LeanObject,

@@ -23,13 +23,13 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_mkApp5, l_Lean_mkAppB, l_Lean_mkAppN, l_Lean_mkConst, l_Lean_mkNatLit,
     l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_instSingletonFVarIdFVarIdSet_spec__1___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_sub, lean_usize_dec_eq,

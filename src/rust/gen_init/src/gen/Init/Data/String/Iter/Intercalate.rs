@@ -12,8 +12,8 @@ use crate::r#gen::Init::Data::String::Slice::{
     initialize_Init_Data_String_Slice, runtime_initialize_Init_Data_String_Slice,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_append;
 pub static l_Std_Iter_joinString___redArg___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

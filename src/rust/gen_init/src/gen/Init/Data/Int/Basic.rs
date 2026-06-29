@@ -12,12 +12,12 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
     l_Lean_addMacroScope, l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_dec_nonneg,
     lean_int_mul, lean_int_neg, lean_int_neg_succ_of_nat, lean_int_sub, lean_nat_abs,
     lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_mod, lean_nat_pow, lean_nat_sub,
 };
 pub static l_instNatCastInt_value: crate::leanh::LeanClosureObject<0> =

@@ -5,7 +5,7 @@ use crate::r#gen::Std::Data::Iterators::Combinators::Monadic::StepSize::{
     initialize_Std_Data_Iterators_Combinators_Monadic_StepSize,
     runtime_initialize_Std_Data_Iterators_Combinators_Monadic_StepSize,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_nat_sub;
 pub unsafe fn l_Std_Iter_stepSize___redArg(
     mut v_it_27_: *mut crate::leanh::LeanObject,
     mut v_n_28_: *mut crate::leanh::LeanObject,

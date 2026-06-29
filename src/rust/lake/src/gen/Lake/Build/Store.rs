@@ -14,7 +14,7 @@ use crate::r#gen::Lake::Util::Store::{
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_forInStep___redArg;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_name_eq};
+use crate::ffi::{lean_array_push, lean_name_eq};
 pub static mut l_Lake_BuildStore_empty: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lake_BuildStore_collectModuleFacetArray___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

@@ -5,7 +5,7 @@ use crate::r#gen::Init::Data::Nat::Log2::{
     initialize_Init_Data_Nat_Log2, runtime_initialize_Init_Data_Nat_Log2,
 };
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::lean_imports_rs::Init::Data::Nat::Log2::lean_nat_log2;
+use crate::ffi::lean_nat_log2;
 pub unsafe fn l_Fin_log2___redArg(
     mut v_n_11_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

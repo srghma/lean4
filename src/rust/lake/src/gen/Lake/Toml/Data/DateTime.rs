@@ -32,11 +32,11 @@ use crate::r#gen::Lake::Util::Date::{
 use crate::r#gen::Lake::Util::String::{
     initialize_Lake_Util_String, l_Lake_rpadAscii, l_Lake_zpad, runtime_initialize_Lake_Util_String,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };

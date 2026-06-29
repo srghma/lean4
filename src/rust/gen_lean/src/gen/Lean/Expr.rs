@@ -42,23 +42,23 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
 use crate::r#gen::Std::Data::TreeSet::Basic::{
     l_Std_TreeSet_ofArray___redArg, l_Std_TreeSet_ofList___redArg,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_int_dec_lt, lean_int_neg, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_dec_lt;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{lean_uint64_land, lean_uint64_shift_right};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_dec_lt;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_uint64_land, lean_uint64_shift_right};
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint32_add, lean_uint32_to_uint64,
     lean_uint64_to_nat, lean_uint64_to_uint8, lean_uint64_to_uint32, lean_usize_add,
     lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed,
@@ -66,8 +66,8 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_uint32_dec_le, lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_mix_hash,
     lean_uint64_of_nat, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Expr::{
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::{
     lean_expr_abstract, lean_expr_abstract_range, lean_expr_data, lean_expr_dbg_to_string,
     lean_expr_equal, lean_expr_eqv, lean_expr_has_loose_bvar, lean_expr_instantiate,
     lean_expr_instantiate_range, lean_expr_instantiate_rev, lean_expr_instantiate_rev_range,

@@ -7,9 +7,9 @@ use crate::r#gen::Init::System::FilePath::l_System_FilePath_parent;
 use crate::r#gen::Lake::Config::OutFormat::{
     initialize_Lake_Config_OutFormat, runtime_initialize_Lake_Config_OutFormat,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_nat_dec_eq,
 };
 pub static l_Lake_instInhabitedDynlib_default___closed__0_value: crate::leanh::LeanStringObject<1> =

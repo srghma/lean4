@@ -1,4 +1,5 @@
-use crate::leanh::{self, LeanObject};
+use crate::leanh::LeanObject;
+use runtime::leanh_extra as leanh;
 
 #[inline]
 pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {

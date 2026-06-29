@@ -15,14 +15,14 @@ use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
 };
 use crate::r#gen::Lean::Expr::{l_Lean_mkAppN, l_Lean_mkConst, l_Lean_mkNatLit};
 use crate::r#gen::Lean::ToExpr::{initialize_Lean_ToExpr, runtime_initialize_Lean_ToExpr};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
     lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,

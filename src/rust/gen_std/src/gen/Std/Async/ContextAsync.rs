@@ -30,10 +30,10 @@ use crate::r#gen::Std::Sync::CancellationToken::{
     l_Std_CancellationToken_getCancellationReason, l_Std_CancellationToken_isCancelled,
     l_Std_CancellationToken_selector, l_Std_CancellationToken_wait,
 };
-use crate::lean_imports_rs::Init::Core::{lean_task_bind, lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::System::IO::lean_io_as_task;
-use crate::lean_imports_rs::Init::System::Promise::{lean_io_promise_new, lean_io_promise_resolve};
+use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure};
+use crate::ffi::lean_array_size;
+use crate::ffi::lean_io_as_task;
+use crate::ffi::{lean_io_promise_new, lean_io_promise_resolve};
 pub static l_Std_Async_ContextAsync_isCancelled___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

@@ -11,13 +11,13 @@ use crate::r#gen::Init::Data::String::TakeDrop::{
 use crate::r#gen::Init::System::IO::l_IO_Process_output;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lake::Util::Log::{initialize_Lake_Util_Log, runtime_initialize_Lake_Util_Log};
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_string_dec_eq,
     lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_to_nat,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_io_process_child_wait, lean_io_process_spawn};
+use crate::ffi::{lean_io_process_child_wait, lean_io_process_spawn};
 pub static l_List_mapTR_loop___at___00Lake_mkCmdLog_spec__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

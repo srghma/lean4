@@ -23,22 +23,22 @@ use crate::r#gen::Std::Async::Basic::{
     l___private_Std_Async_Basic_0__Std_Async_BaseAsync_bind_bindAsyncTask,
     runtime_initialize_Std_Async_Basic,
 };
-use crate::lean_imports_rs::Init::Core::{lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{lean_task_map, lean_task_pure};
+use crate::ffi::{
     lean_array_size, lean_array_swap, lean_array_uget_borrowed,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div,
     lean_nat_mod, lean_nat_mul, lean_nat_sub,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_io_bind_task, lean_io_get_random_bytes};
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{lean_io_bind_task, lean_io_get_random_bytes};
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get};
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 pub static l_Std_Async_Waiter_race___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

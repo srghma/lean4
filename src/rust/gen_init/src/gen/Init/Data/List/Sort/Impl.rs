@@ -13,8 +13,8 @@ use crate::r#gen::Init::Data::Nat::Linear::{
     initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear,
 };
 use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_List_lengthTR___redArg};
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub static l_List_MergeSort_Internal_mergeSortTR___auto__1___closed__0_value:

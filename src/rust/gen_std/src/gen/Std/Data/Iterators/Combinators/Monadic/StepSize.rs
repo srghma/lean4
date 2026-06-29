@@ -14,7 +14,7 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Loop::{
     runtime_initialize_Init_Data_Iterators_Consumers_Monadic_Loop,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_nat_sub;
 pub unsafe fn l_Std_IterM_stepSize___redArg(
     mut v_it_193_: *mut crate::leanh::LeanObject,
     mut v_n_194_: *mut crate::leanh::LeanObject,

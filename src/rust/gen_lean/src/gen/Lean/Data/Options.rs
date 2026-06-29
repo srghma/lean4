@@ -54,13 +54,13 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_foldrM___redArg, l_Std_DTreeMap_Internal_Impl_forInStep___redArg,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_intercalate;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_intercalate;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_string_dec_eq, lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static l_Lean_Options_empty___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

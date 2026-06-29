@@ -9,9 +9,9 @@ use crate::r#gen::Lean::Data::Position::{
     runtime_initialize_Lean_Data_Position,
 };
 use crate::r#gen::Lean::Expr::{l_Lean_mkAppN, l_Lean_mkConst, l_Lean_mkNatLit};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
 };
 static mut l_Lean_instInhabitedDeclarationRange_default___closed__0_once:

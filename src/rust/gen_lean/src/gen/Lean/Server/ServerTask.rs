@@ -7,13 +7,13 @@ use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
 use crate::r#gen::Init::Task::{initialize_Init_Task, runtime_initialize_Init_Task};
-use crate::lean_imports_rs::Init::Core::{
+use crate::ffi::{
     lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_string_utf8_byte_size};
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
+use crate::ffi::{
     lean_io_as_task, lean_io_bind_task, lean_io_cancel, lean_io_get_task_state, lean_io_map_task,
     lean_io_wait, lean_io_wait_any,
 };

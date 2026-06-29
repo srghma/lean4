@@ -35,8 +35,8 @@ use crate::r#gen::Init::Data::String::Slice::{
 use crate::r#gen::Init::Data::Vector::Lemmas::{
     initialize_Init_Data_Vector_Lemmas, runtime_initialize_Init_Data_Vector_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::{
     lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub,
     lean_uint8_dec_eq,
 };

@@ -21,8 +21,8 @@ use crate::r#gen::Std::Http::Protocol::H1::Parser::{
     initialize_Std_Http_Protocol_H1_Parser, runtime_initialize_Std_Http_Protocol_H1_Parser,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_le;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_nat_dec_le;
 pub static l_Std_Http_Protocol_H1_instInhabitedEvent_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

@@ -8,11 +8,11 @@ use crate::r#gen::Init::Data::Repr::{
 use crate::r#gen::Init::Data::String::Defs::{
     initialize_Init_Data_String_Defs, runtime_initialize_Init_Data_String_Defs,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_sub};
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_nat_add, lean_nat_sub};
 static mut l_Int_repr___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),

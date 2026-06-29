@@ -14,9 +14,9 @@ use crate::r#gen::Init::Data::ToString::Extra::{
 };
 use crate::r#gen::Init::Prelude::l_Nat_decEq___boxed;
 use crate::r#gen::Std::Sat::CNF::{initialize_Std_Sat_CNF, runtime_initialize_Std_Sat_CNF};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
 };
 pub static l_Std_Tactic_BVDecide_LRAT_instInhabitedAction_default___closed__0_value:

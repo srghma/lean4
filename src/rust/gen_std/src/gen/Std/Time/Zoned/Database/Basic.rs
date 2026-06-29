@@ -13,10 +13,10 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
     initialize_Std_Time_Zoned_ZoneRules, l_Std_Time_TimeZone_instInhabitedLocalTimeType_default,
     runtime_initialize_Std_Time_Zoned_ZoneRules,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint8_to_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_uint8_to_nat;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
     lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_uint32_to_nat,
 };

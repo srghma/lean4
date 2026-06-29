@@ -23,13 +23,13 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_registerBuiltinSimproc, runtime_initialize_Lean_Meta_Tactic_Simp_Simproc,
 };
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
 };
-use crate::lean_imports_rs::Lean::Meta::Tactic::Simp::Types::lean_simp;
+use crate::ffi::lean_simp;
 pub static l_reduceIte___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

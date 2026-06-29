@@ -28,15 +28,15 @@ use crate::r#gen::Lean::Data::Json::Stream::{
 use crate::r#gen::Std::Internal::Parsec::String::{
     l_Std_Internal_Parsec_String_Parser_run___redArg, l_Std_Internal_Parsec_String_pstring,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_string_compare;
+use crate::ffi::{
     lean_string_dec_lt, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_dec_eq, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
     lean_uint32_dec_eq, lean_uint64_mix_hash,
 };

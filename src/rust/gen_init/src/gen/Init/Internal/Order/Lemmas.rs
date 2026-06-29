@@ -19,7 +19,7 @@ use crate::r#gen::Init::Data::Option::Basic::{
 use crate::r#gen::Init::Internal::Order::Basic::{
     initialize_Init_Internal_Order_Basic, runtime_initialize_Init_Internal_Order_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Internal_Order_Lemmas_0__Array_forIn_x27_loop_match__3_splitter___redArg(
     mut v_i_151_: *mut crate::leanh::LeanObject,
     mut v_h__1_152_: *mut crate::leanh::LeanObject,

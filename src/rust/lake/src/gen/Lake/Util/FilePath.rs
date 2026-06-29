@@ -21,14 +21,14 @@ use crate::r#gen::Init::System::Platform::{
 use crate::r#gen::Lean::Data::Json::{
     initialize_Lean_Data_Json, runtime_initialize_Lean_Data_Json,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
     lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_dec_eq,
     lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };

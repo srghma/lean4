@@ -53,14 +53,14 @@ use crate::r#gen::Lean::Meta::Sym::SymM::{
     l_Lean_Meta_Sym_getTrueExpr___redArg, l_Lean_Meta_Sym_isFalseExpr___redArg,
     l_Lean_Meta_Sym_isTrueExpr___redArg, l_Lean_Meta_Sym_shareCommon___redArg,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_has_loose_bvar;
-use crate::lean_imports_rs::Lean::Meta::Sym::Simp::SimpM::lean_sym_simp;
+use crate::ffi::lean_expr_has_loose_bvar;
+use crate::ffi::lean_sym_simp;
 pub static l___private_Lean_Meta_Sym_Simp_Forall_0__Lean_Meta_Sym_Simp_mkForallCongrFor___lam__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [108, 105, 102, 116, 0]};
 static mut l___private_Lean_Meta_Sym_Simp_Forall_0__Lean_Meta_Sym_Simp_mkForallCongrFor___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Sym_Simp_Forall_0__Lean_Meta_Sym_Simp_mkForallCongrFor___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Sym_Simp_Forall_0__Lean_Meta_Sym_Simp_mkForallCongrFor___lam__0___closed__1_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [115, 111, 117, 110, 100, 0]};

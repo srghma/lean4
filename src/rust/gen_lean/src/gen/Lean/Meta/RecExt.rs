@@ -9,7 +9,7 @@ use crate::r#gen::Lean::EnvExtension::{
     l_Lean_TagDeclarationExtension_isTagged, l_Lean_TagDeclarationExtension_tag,
     l_Lean_mkTagDeclarationExtension,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Meta_RecExt_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_RecExt_2067193597____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [114, 101, 99, 69, 120, 116, 0]};

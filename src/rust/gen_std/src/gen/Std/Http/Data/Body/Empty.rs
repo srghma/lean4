@@ -23,7 +23,7 @@ use crate::r#gen::Std::Http::Data::Response::{
     initialize_Std_Http_Data_Response, l_Std_Http_Response_Builder_body___redArg,
     runtime_initialize_Std_Http_Data_Response,
 };
-use crate::lean_imports_rs::Init::System::Promise::lean_io_promise_resolve;
+use crate::ffi::lean_io_promise_resolve;
 pub static mut l_Std_Http_Body_instInhabitedEmpty_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Http_Body_instInhabitedEmpty: *mut crate::leanh::LeanObject =

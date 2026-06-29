@@ -5,9 +5,9 @@ use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_hasLevelMVar, runtime_initialize_Lean_Expr,
 };
 use crate::r#gen::Lean::Level::l_Lean_Level_hasMVar;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{
     lean_array_get_size, lean_array_mk, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_FindLevelMVar_main___closed__0_value: crate::leanh::LeanClosureObject<0> =

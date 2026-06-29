@@ -3,8 +3,8 @@
 // source: Init/Data/String/Bootstrap.rs:73-77
 // exact-text variant: yes
 
-use crate::leanh::*;
-use crate::leanh;
+use runtime::leanh_extra::*;
+use runtime::leanh_extra as leanh;
 
 pub unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
     let pos = unsafe { lean_unbox(pos) };

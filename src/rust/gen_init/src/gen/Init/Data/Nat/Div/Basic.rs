@@ -7,8 +7,8 @@ use crate::r#gen::Init::Data::NeZero::{
 use crate::r#gen::Init::MetaTypes::{initialize_Init_MetaTypes, runtime_initialize_Init_MetaTypes};
 use crate::r#gen::Init::WF::{initialize_Init_WF, runtime_initialize_Init_WF};
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Data::Nat::Div::Basic::lean_nat_div_exact;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_div_exact;
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static mut l_Nat_instDvd: *mut crate::leanh::LeanObject = core::ptr::null_mut();

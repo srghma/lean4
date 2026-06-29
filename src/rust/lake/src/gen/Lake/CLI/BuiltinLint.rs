@@ -44,25 +44,25 @@ use crate::r#gen::Lean::Util::LeanOptions::l_Lean_LeanOptions_ofArray;
 use crate::r#gen::Lean::Util::Path::l_Lean_findOLean;
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::l_Lean_inheritedTraceOptions;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_get_stderr, lean_get_stdout, lean_io_get_num_heartbeats,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::CompactedRegion::lean_compacted_region_free;
+use crate::ffi::lean_compacted_region_free;
 pub static l_Lake_BuiltinLint_leanOptOverrides___closed__0_value: crate::leanh::LeanStringObject<
     7,
 > = crate::leanh::LeanStringObject {

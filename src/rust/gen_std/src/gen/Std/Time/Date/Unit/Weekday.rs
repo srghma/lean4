@@ -9,12 +9,12 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Time::Date::Unit::Day::{
     initialize_Std_Time_Date_Unit_Day, runtime_initialize_Std_Time_Date_Unit_Day,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_sub, lean_nat_abs,
     lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_emod;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub};
+use crate::ffi::lean_int_emod;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub};
 pub static l_Std_Time_instReprWeekday_repr___closed__0_value: crate::leanh::LeanStringObject<24> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

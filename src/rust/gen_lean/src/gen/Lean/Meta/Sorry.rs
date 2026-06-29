@@ -34,8 +34,8 @@ use crate::r#gen::Lean::Util::Recognizers::{
     runtime_initialize_Lean_Util_Recognizers,
 };
 use crate::r#gen::Lean::Util::Sorry::l_Lean_Expr_isSorry;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_le, lean_nat_sub, lean_string_dec_eq};
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::{lean_nat_dec_le, lean_nat_sub, lean_string_dec_eq};
+use crate::ffi::lean_st_ref_get;
 static mut l_Lean_Elab_throwAbortCommand___at___00Lean_Meta_mkSorry_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwAbortCommand___at___00Lean_Meta_mkSorry_spec__1___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

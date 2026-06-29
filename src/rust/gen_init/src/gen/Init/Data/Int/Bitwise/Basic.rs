@@ -7,11 +7,11 @@ use crate::r#gen::Init::Data::Int::Basic::{
 use crate::r#gen::Init::Data::Nat::Bitwise::Basic::{
     initialize_Init_Data_Nat_Bitwise_Basic, runtime_initialize_Init_Data_Nat_Bitwise_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_int_neg_succ_of_nat, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{lean_nat_shiftl, lean_nat_shiftr};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_sub};
+use crate::ffi::{lean_nat_shiftl, lean_nat_shiftr};
+use crate::ffi::{lean_nat_add, lean_nat_sub};
 static mut l_Int_not___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),

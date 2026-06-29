@@ -12,12 +12,12 @@ use crate::r#gen::Std::Time::Date::Unit::Day::{
     initialize_Std_Time_Date_Unit_Day, runtime_initialize_Std_Time_Date_Unit_Day,
 };
 use crate::r#gen::Std::Time::Internal::UnitVal::l_Std_Time_Internal_instInhabitedUnitVal_default;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_nat_dec_le};
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::{lean_array_push, lean_nat_dec_le};
 static mut l_Std_Time_Week_instReprOrdinal___aux__1___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

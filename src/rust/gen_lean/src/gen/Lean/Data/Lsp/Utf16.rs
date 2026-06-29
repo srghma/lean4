@@ -14,10 +14,10 @@ use crate::r#gen::Lean::DeclarationRange::{
     initialize_Lean_DeclarationRange, runtime_initialize_Lean_DeclarationRange,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_getRange_x3f;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_le,
     lean_uint32_to_nat,

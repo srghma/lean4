@@ -7,8 +7,8 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Instances::{
     runtime_initialize_Init_Data_Range_Polymorphic_Instances,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_add, lean_int_sub, lean_nat_to_int};
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::{lean_int_add, lean_int_sub, lean_nat_to_int};
+use crate::ffi::lean_nat_sub;
 static mut l_Std_PRange_instUpwardEnumerableInt___lam__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

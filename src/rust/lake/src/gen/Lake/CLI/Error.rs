@@ -12,10 +12,10 @@ use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::System::FilePath::{
     initialize_Init_System_FilePath, runtime_initialize_Init_System_FilePath,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_length, lean_string_push};
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{lean_string_length, lean_string_push};
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_string_utf8_byte_size,
 };
 pub static mut l_Lake_instInhabitedCliError_default: *mut crate::leanh::LeanObject =

@@ -24,7 +24,7 @@ use crate::r#gen::Init::Grind::Ring::Basic::{
 use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_mod;
+use crate::ffi::lean_nat_mod;
 pub unsafe fn l_Lean_Grind_Fin_npow___redArg(
     mut v_n_72_: *mut crate::leanh::LeanObject,
     mut v_x_73_: *mut crate::leanh::LeanObject,

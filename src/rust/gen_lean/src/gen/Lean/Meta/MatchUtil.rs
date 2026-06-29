@@ -13,7 +13,7 @@ use crate::r#gen::Lean::Meta::CtorRecognizer::{
 use crate::r#gen::Lean::Util::Recognizers::{
     initialize_Lean_Util_Recognizers, runtime_initialize_Lean_Util_Recognizers,
 };
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_whnf;
+use crate::ffi::lean_whnf;
 pub static l_Lean_Meta_matchEq_x3f___lam__0___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -12,9 +12,9 @@ use crate::r#gen::Lean::Meta::AppBuilder::l_Lean_Meta_mkAppOptM;
 use crate::r#gen::Lean::Meta::Tactic::Simp::{
     initialize_Lean_Meta_Tactic_Simp, runtime_initialize_Lean_Meta_Tactic_Simp,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_pop, lean_mk_array};
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_array_pop, lean_mk_array};
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };

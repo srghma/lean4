@@ -26,11 +26,11 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Name_reprPrec, l_Lean_Syntax_instRepr_repr, l_Lean_Syntax_structEq,
 };
 use crate::r#gen::Init::Prelude::{l_List_lengthTR___redArg, l_id___boxed};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq,
 };
 pub static l_Lean_instInhabitedDataValue_default___closed__0_value: crate::leanh::LeanStringObject<

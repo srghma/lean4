@@ -17,15 +17,15 @@ use crate::r#gen::Std::Async::Select::{
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::lean_imports_rs::Init::Core::{lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::System::IO::lean_io_bind_task;
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{lean_task_map, lean_task_pure};
+use crate::ffi::lean_io_bind_task;
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Std::Sync::Mutex::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
+use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l_Std_Notify_Consumer_resolve___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

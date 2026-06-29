@@ -16,7 +16,7 @@ use crate::r#gen::Init::Data::SInt::Basic::{
 use crate::r#gen::Init::Data::SInt::Lemmas::{
     initialize_Init_Data_SInt_Lemmas, runtime_initialize_Init_Data_SInt_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::{
     lean_int8_dec_eq, lean_int8_dec_lt, lean_int16_dec_eq, lean_int16_dec_lt, lean_int32_dec_eq,
     lean_int32_dec_lt, lean_int64_dec_eq, lean_int64_dec_lt, lean_isize_dec_eq, lean_isize_dec_lt,
 };

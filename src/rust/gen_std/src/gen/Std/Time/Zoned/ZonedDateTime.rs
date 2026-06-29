@@ -30,11 +30,11 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
     l_Std_Time_TimeZone_instInhabitedZoneRules_default,
     runtime_initialize_Std_Time_Zoned_ZoneRules,
 };
-use crate::lean_imports_rs::Init::Core::{lean_mk_thunk, lean_thunk_get_own};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
+use crate::ffi::{
     lean_int_ediv, lean_int_emod, lean_int_mod,
 };
 pub static l_Std_Time_instInhabitedZonedDateTime___private__1___closed__0_value:

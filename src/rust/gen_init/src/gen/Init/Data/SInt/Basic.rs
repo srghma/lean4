@@ -16,10 +16,10 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
     l_UInt8_toUInt64___boxed, l_UInt16_toUInt64___boxed, l_UInt32_toUInt64___boxed,
 };
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::{
     lean_bool_to_int8, lean_bool_to_int16, lean_bool_to_int32, lean_bool_to_int64,
     lean_bool_to_isize, lean_int8_abs, lean_int8_add, lean_int8_complement, lean_int8_dec_eq,
     lean_int8_dec_le, lean_int8_dec_lt, lean_int8_div, lean_int8_land, lean_int8_lor,
@@ -47,7 +47,7 @@ use crate::lean_imports_rs::Init::Data::SInt::Basic::{
     lean_isize_shift_right, lean_isize_sub, lean_isize_to_int, lean_isize_to_int8,
     lean_isize_to_int16, lean_isize_to_int32, lean_isize_to_int64, lean_isize_xor,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_pow, lean_nat_sub, lean_uint8_of_nat_mk, lean_uint8_to_nat,
     lean_uint16_of_nat_mk, lean_uint16_to_nat, lean_uint32_of_nat_mk, lean_uint32_to_nat,
     lean_uint64_of_nat_mk, lean_uint64_to_nat, lean_usize_of_nat_mk, lean_usize_to_nat,

@@ -1,7 +1,7 @@
 // Lean compiler output
 // Module: Init.Prelude
 // Imports:
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
     lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list, lean_byte_array_data,
     lean_byte_array_mk, lean_byte_array_push, lean_byte_array_size, lean_is_scalar,

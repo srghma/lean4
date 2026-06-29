@@ -38,14 +38,14 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_admit;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
     lean_nat_dec_eq, lean_nat_sub, lean_string_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_process_new_facts;
+use crate::ffi::lean_grind_process_new_facts;
 pub static l_Lean_Meta_Grind_ActionResult_toMessageData___closed__0_value:
     crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

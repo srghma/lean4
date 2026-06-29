@@ -2,8 +2,8 @@
 // source: Init/Prelude.rs:38-41
 // exact-text variant: no
 
-use crate::leanh::*;
-use crate::leanh;
+use runtime::leanh_extra::*;
+use runtime::leanh_extra as leanh;
 
 #[inline]
 pub unsafe fn lean_uint64_to_nat(n: u64) -> *mut LeanObject {

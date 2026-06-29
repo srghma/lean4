@@ -20,11 +20,11 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 pub static l_List_getLast_x21___redArg___closed__0_value: crate::leanh::LeanStringObject<24> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

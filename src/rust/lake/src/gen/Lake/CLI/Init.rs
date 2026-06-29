@@ -50,23 +50,23 @@ use crate::r#gen::Lake::Util::Version::{
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Lean_NameSet_empty;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Util::Path::l_Lean_modToFilePath;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{
     lean_uint32_add, lean_usize_add, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
     lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_io_prim_handle_mk, lean_io_prim_handle_put_str, lean_io_realpath,
 };
 pub static l_Lake_defaultExeRoot___closed__0_value: crate::leanh::LeanStringObject<5> =

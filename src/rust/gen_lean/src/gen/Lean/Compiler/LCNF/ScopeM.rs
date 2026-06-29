@@ -6,7 +6,7 @@ use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{
 };
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Expr::l_Lean_FVarIdSet_insert;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Compiler_LCNF_ScopeM_withBackTrackingScope___redArg___closed__0_value:

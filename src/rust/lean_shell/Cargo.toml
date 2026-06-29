@@ -8,7 +8,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-lean_runtime = { path = "../lean_runtime", features = ["std"] }
+runtime = { path = "../runtime", features = ["std"] }
 
 [lib]
 crate-type = ["rlib"]

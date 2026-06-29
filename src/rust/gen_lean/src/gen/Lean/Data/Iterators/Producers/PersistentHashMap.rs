@@ -27,7 +27,7 @@ use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     initialize_Lean_Data_PersistentHashMap, runtime_initialize_Lean_Data_PersistentHashMap,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_array_to_list, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
 };

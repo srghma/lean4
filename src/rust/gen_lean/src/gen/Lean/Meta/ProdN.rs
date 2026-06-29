@@ -21,13 +21,13 @@ use crate::r#gen::Lean::Meta::DecLevel::{
 use crate::r#gen::Lean::Meta::InferType::{
     initialize_Lean_Meta_InferType, runtime_initialize_Lean_Meta_InferType,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_pop;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_pop;
+use crate::ffi::{
     lean_array_fget, lean_array_get_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
     lean_nat_sub,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_infer_type;
 pub static l_WellFounded_opaqueFix_u2083___at___00Lean_Meta_mkProdN_spec__0___redArg___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [80, 114, 111, 100, 0]};
 static mut l_WellFounded_opaqueFix_u2083___at___00Lean_Meta_mkProdN_spec__0___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

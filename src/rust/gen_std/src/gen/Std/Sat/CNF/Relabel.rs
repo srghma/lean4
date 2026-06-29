@@ -5,10 +5,10 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Std::Sat::CNF::Basic::{
     initialize_Std_Sat_CNF_Basic, runtime_initialize_Std_Sat_CNF_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
 pub unsafe fn l_List_mapTR_loop___at___00Std_Sat_CNF_Clause_relabel_spec__0___redArg(
     mut v_r_86_: *mut crate::leanh::LeanObject,
     mut v_a_87_: *mut crate::leanh::LeanObject,

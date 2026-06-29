@@ -8,20 +8,20 @@ use crate::r#gen::Init::Data::Nat::Log2::{
     initialize_Init_Data_Nat_Log2, runtime_initialize_Init_Data_Nat_Log2,
 };
 use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Meta};
-use crate::lean_imports_rs::Init::Data::Float::{
+use crate::ffi::{
     lean_float_negate, lean_float_scaleb, lean_uint64_to_float,
 };
-use crate::lean_imports_rs::Init::Data::Float32::{
+use crate::ffi::{
     lean_float32_negate, lean_float32_scaleb, lean_uint64_to_float32,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs,
     lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{lean_nat_shiftl, lean_nat_shiftr};
-use crate::lean_imports_rs::Init::Data::Nat::Log2::lean_nat_log2;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_nat_shiftl, lean_nat_shiftr};
+use crate::ffi::lean_nat_log2;
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::{
     lean_nat_add, lean_nat_div, lean_nat_mul, lean_nat_pow, lean_nat_sub,
 };
 static mut l_Float_ofScientific___closed__0_once: crate::leanh::LeanOnceCell =

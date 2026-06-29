@@ -20,8 +20,8 @@ use crate::r#gen::Std::Time::Zoned::Database::Windows::{
 use crate::r#gen::Std::Time::Zoned::ZonedDateTime::{
     initialize_Std_Time_Zoned_ZonedDateTime, runtime_initialize_Std_Time_Zoned_ZonedDateTime,
 };
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{lean_int64_neg, lean_int64_of_nat};
-use crate::lean_imports_rs::Std::Time::Zoned::Database::Windows::lean_get_windows_local_timezone_id_at;
+use crate::ffi::{lean_int64_neg, lean_int64_of_nat};
+use crate::ffi::lean_get_windows_local_timezone_id_at;
 static mut l_Std_Time_Database_defaultGetLocalZoneRules___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

@@ -170,7 +170,7 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_PrettyPrinter_Parenthesizer_withPosition_parenthesizer___boxed,
     l_Lean_PrettyPrinter_parenthesizerAttribute,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_uint32_dec_eq;
+use crate::ffi::lean_uint32_dec_eq;
 pub static l_Lean_Parser_Term_quot___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

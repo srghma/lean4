@@ -17,14 +17,14 @@ use crate::r#gen::Init::System::Promise::{
     runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
-use crate::lean_imports_rs::Init::Core::{
+use crate::ffi::{
     lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::lean_array_size;
+use crate::ffi::{
     lean_io_as_task, lean_io_bind_task, lean_io_get_task_state, lean_io_map_task,
 };
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
 pub static l_Std_Async_instMonadAwaitExceptTOfMonad___redArg___closed__0_value:

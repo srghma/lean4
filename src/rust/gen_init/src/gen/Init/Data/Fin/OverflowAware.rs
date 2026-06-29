@@ -7,7 +7,7 @@ use crate::r#gen::Init::Data::Fin::Basic::{
 use crate::r#gen::Init::Data::Fin::Lemmas::{
     initialize_Init_Data_Fin_Lemmas, runtime_initialize_Init_Data_Fin_Lemmas,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_lt};
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
 pub unsafe fn l_Fin_addNat_x3f(
     mut v_n_12_: *mut crate::leanh::LeanObject,
     mut v_i_13_: *mut crate::leanh::LeanObject,

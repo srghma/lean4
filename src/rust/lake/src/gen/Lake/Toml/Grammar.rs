@@ -59,12 +59,12 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_PrettyPrinter_Parenthesizer_withAntiquot_parenthesizer,
     runtime_initialize_Lean_PrettyPrinter_Parenthesizer,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_uint32_dec_lt,
 };

@@ -4,7 +4,7 @@
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
+use crate::ffi::lean_nat_dec_eq;
 pub static mut l_Lean_instInhabitedLBool_default: u8 = 0;
 pub static mut l_Lean_instInhabitedLBool: u8 = 0;
 pub static l_Lean_instBEqLBool___closed__0_value: crate::leanh::LeanClosureObject<0> =

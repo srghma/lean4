@@ -49,23 +49,23 @@ use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
 use crate::r#gen::Lean::Server::Rpc::Basic::{
     initialize_Lean_Server_Rpc_Basic, runtime_initialize_Lean_Server_Rpc_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_pop, lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_array_set;
+use crate::ffi::{
     lean_int_add, lean_int_dec_lt, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::{
     lean_string_posof, lean_string_push, lean_string_pushn, lean_string_utf8_extract,
     lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,

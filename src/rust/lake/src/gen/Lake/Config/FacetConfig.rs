@@ -8,8 +8,8 @@ use crate::r#gen::Lake::Build::Fetch::{
 use crate::r#gen::Lake::Build::Job::Basic::l_Lake_instInhabitedJobState_default;
 use crate::r#gen::Lake::Config::OutFormat::l_Lake_formatQuery___boxed;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
-use crate::lean_imports_rs::Init::Core::lean_task_pure;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_task_pure;
+use crate::ffi::{
     lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_lt, lean_nat_mul,
 };
 static mut l_Lake_instInhabitedFacetConfig_default___lam__0___closed__0_once:

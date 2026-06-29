@@ -11,10 +11,10 @@ use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_uint32_dec_eq, lean_uint32_dec_lt,
 };
 pub static mut l_instInhabitedOrdering_default: u8 = 0;

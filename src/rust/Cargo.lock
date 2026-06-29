@@ -9,77 +9,91 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 
 [[package]]
-name = "lean_gen_init"
+name = "gen_init"
 version = "0.1.0"
 dependencies = [
- "lean_runtime_common",
+ "leanh",
+ "runtime",
 ]
 
 [[package]]
-name = "lean_gen_lake"
+name = "gen_lean"
 version = "0.1.0"
 dependencies = [
- "lean_gen_init",
- "lean_gen_lean",
- "lean_gen_std",
- "lean_runtime_common",
+ "gen_init",
+ "gen_std",
+ "leanh",
+ "runtime",
 ]
 
 [[package]]
-name = "lean_gen_lean"
+name = "gen_std"
 version = "0.1.0"
 dependencies = [
- "lean_gen_init",
- "lean_gen_std",
- "lean_runtime_common",
+ "gen_init",
+ "leanh",
+ "runtime",
 ]
 
 [[package]]
-name = "lean_gen_std"
+name = "lake"
 version = "0.1.0"
 dependencies = [
- "lean_gen_init",
- "lean_runtime_common",
+ "gen_init",
+ "gen_lean",
+ "gen_std",
+ "leanh",
+ "runtime",
 ]
 
 [[package]]
-name = "lean_gen_tools"
+name = "lean_checker"
 version = "0.1.0"
 dependencies = [
- "lean_gen_init",
- "lean_gen_lake",
- "lean_gen_lean",
- "lean_gen_std",
- "lean_runtime_common",
+ "gen_init",
+ "gen_lean",
+ "gen_std",
+ "lake",
+ "leanh",
+ "runtime",
 ]
 
 [[package]]
-name = "lean_runtime"
+name = "lean_ir"
 version = "0.1.0"
 dependencies = [
- "lean_gen_init",
- "lean_gen_lake",
- "lean_gen_lean",
- "lean_gen_std",
- "lean_gen_tools",
- "lean_runtime_common",
- "libc",
- "libloading",
-]
-
-[[package]]
-name = "lean_runtime_common"
-version = "0.1.0"
-dependencies = [
- "libc",
- "libloading",
+ "gen_init",
+ "gen_lean",
+ "gen_std",
+ "lake",
+ "leanh",
+ "runtime",
 ]
 
 [[package]]
 name = "lean_shell"
 version = "0.1.0"
 dependencies = [
- "lean_runtime",
+ "runtime",
+]
+
+[[package]]
+name = "leanc"
+version = "0.1.0"
+dependencies = [
+ "gen_init",
+ "gen_lean",
+ "gen_std",
+ "lake",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "leanh"
+version = "0.1.0"
+dependencies = [
+ "libc",
 ]
 
 [[package]]
@@ -96,6 +110,15 @@ checksum = "754ca22de805bb5744484a5b151a9e1a8e837d5dc232c2d7d8c2e3492edc8b60"
 dependencies = [
  "cfg-if",
  "windows-link",
+]
+
+[[package]]
+name = "runtime"
+version = "0.1.0"
+dependencies = [
+ "leanh",
+ "libc",
+ "libloading",
 ]
 
 [[package]]

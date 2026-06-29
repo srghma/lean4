@@ -18,7 +18,7 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub,
 };
 pub unsafe fn l___private_Init_Data_Array_DecidableEq_0__Array_isEqvAux_match__1_splitter___redArg(

@@ -32,9 +32,9 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_mk_empty_array_with_capacity;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_mk_empty_array_with_capacity;
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_Term_expandDeclId_spec__0_spec__1_spec__3___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

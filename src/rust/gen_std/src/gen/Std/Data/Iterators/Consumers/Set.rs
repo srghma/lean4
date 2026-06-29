@@ -13,8 +13,8 @@ use crate::r#gen::Std::Data::Iterators::Consumers::Monadic::Set::{
     initialize_Std_Data_Iterators_Consumers_Monadic_Set,
     runtime_initialize_Std_Data_Iterators_Consumers_Monadic_Set,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_string_utf8_byte_size};
+use crate::ffi::lean_mk_array;
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_Iter_toHashSet___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

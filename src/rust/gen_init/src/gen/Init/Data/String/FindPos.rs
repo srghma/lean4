@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed, lean_string_utf8_byte_size,
 };
 pub static l_String_Slice_Pos_prev_x21___closed__0_value: crate::leanh::LeanStringObject<25> =

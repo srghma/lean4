@@ -45,18 +45,18 @@ use crate::r#gen::Lean::PrettyPrinter::{
 };
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::l_Lean_inheritedTraceOptions;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
     lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_get_num_heartbeats;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_io_get_num_heartbeats;
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lake_Package_mkConfigString___closed__0_value: crate::leanh::LeanStringObject<55> =

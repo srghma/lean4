@@ -42,7 +42,7 @@ use crate::r#gen::Init::Data::Vector::Basic::{
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_fget_borrowed;
+use crate::ffi::lean_array_fget_borrowed;
 pub unsafe fn l_Vector_instDecidableForallForallMemOfDecidablePred___redArg___lam__0(
     mut v_xs_160_: *mut crate::leanh::LeanObject,
     mut v_inst_161_: *mut crate::leanh::LeanObject,

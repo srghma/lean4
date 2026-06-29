@@ -13,11 +13,11 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types, l_Lean_Meta_Grind_registerSolverExtension___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::{
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_mul, lean_nat_sub,
     lean_uint64_mix_hash,
 };

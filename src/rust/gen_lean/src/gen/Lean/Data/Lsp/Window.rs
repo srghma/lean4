@@ -11,15 +11,15 @@ use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
     l_Option_toJson___redArg, runtime_initialize_Lean_Data_Json_FromToJson_Basic,
 };
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_to_list, lean_nat_dec_eq};
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_array_to_list, lean_nat_dec_eq};
 pub static l_instFromJsonMessageType___lam__0___closed__0_value: crate::leanh::LeanStringObject<
     23,
 > = crate::leanh::LeanStringObject {

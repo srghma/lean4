@@ -15,10 +15,10 @@ use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0_
 use crate::r#gen::Init::Data::Vector::Lemmas::{
     initialize_Init_Data_Vector_Lemmas, runtime_initialize_Init_Data_Vector_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
 pub static l_Vector_pmapImpl___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

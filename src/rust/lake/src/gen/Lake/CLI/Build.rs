@@ -49,24 +49,24 @@ use crate::r#gen::Lake::Util::IO::{
 use crate::r#gen::Lake::Util::Name::l_Lake_stringToLegalOrSimpleName;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_compress;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::lean_task_map;
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
     lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
+use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l_Lake_buildSpecs___closed__0_value: crate::leanh::LeanStringObject<13> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

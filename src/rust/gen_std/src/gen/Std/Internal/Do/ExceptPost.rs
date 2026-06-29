@@ -12,7 +12,7 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Std::Internal::Do::Assertion::{
     initialize_Std_Internal_Do_Assertion, runtime_initialize_Std_Internal_Do_Assertion,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_le;
+use crate::ffi::lean_nat_dec_le;
 pub static mut l_Std_Internal_Do_instPartialOrderNil: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Internal_Do_instCompleteLatticeNil: *mut crate::leanh::LeanObject =

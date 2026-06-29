@@ -23,12 +23,12 @@ use crate::r#gen::Lean::SubExpr::{
     initialize_Lean_SubExpr, l_Lean_SubExpr_Pos_foldlM___redArg, l_Lean_SubExpr_Pos_toArray,
     runtime_initialize_Lean_SubExpr,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Expr::{lean_expr_instantiate_rev, lean_expr_instantiate1};
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::{lean_expr_instantiate_rev, lean_expr_instantiate1};
 pub static l___private_Lean_Meta_ExprLens_0__Lean_Meta_lensCoord___redArg___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

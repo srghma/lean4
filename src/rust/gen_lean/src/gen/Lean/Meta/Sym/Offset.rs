@@ -9,7 +9,7 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
     initialize_Lean_Meta_Sym_LitValues, l_Lean_Meta_Sym_getNatValue_x3f,
     runtime_initialize_Lean_Meta_Sym_LitValues,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_name_eq, lean_nat_add};
+use crate::ffi::{lean_name_eq, lean_nat_add};
 pub static l_Lean_Meta_Sym_instInhabitedOffset_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

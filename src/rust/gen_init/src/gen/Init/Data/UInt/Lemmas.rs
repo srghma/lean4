@@ -43,7 +43,7 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_commandDeclare__uint__theorems_____00__closed__0_value:

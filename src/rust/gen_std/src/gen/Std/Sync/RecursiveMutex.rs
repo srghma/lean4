@@ -4,8 +4,8 @@
 use crate::r#gen::Std::Sync::Basic::{
     initialize_Std_Sync_Basic, runtime_initialize_Std_Sync_Basic,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_mk_ref;
-use crate::lean_imports_rs::Std::Sync::RecursiveMutex::{
+use crate::ffi::lean_st_mk_ref;
+use crate::ffi::{
     lean_io_baserecmutex_lock, lean_io_baserecmutex_new, lean_io_baserecmutex_try_lock,
     lean_io_baserecmutex_unlock,
 };

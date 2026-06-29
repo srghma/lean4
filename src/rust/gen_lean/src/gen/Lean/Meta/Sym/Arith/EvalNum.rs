@@ -33,11 +33,11 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
 use crate::r#gen::Lean::Meta::Sym::SymM::{
     l_Lean_Meta_Sym_getConfig___redArg, l_Lean_Meta_Sym_reportIssue,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow,
     lean_nat_sub,
 };

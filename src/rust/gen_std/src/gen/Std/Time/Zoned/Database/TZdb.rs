@@ -17,18 +17,18 @@ use crate::r#gen::Std::Time::Zoned::Database::Basic::{
     runtime_initialize_Std_Time_Zoned_Database_Basic,
 };
 use crate::r#gen::Std::Time::Zoned::Database::TzIf::l_Std_Time_TimeZone_TZif_parse;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_mk, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_io_getenv, lean_io_realpath};
+use crate::ffi::{lean_io_getenv, lean_io_realpath};
 pub static l_Std_Time_Database_TZdb_parseTZif___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

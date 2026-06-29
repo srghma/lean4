@@ -14,14 +14,14 @@ use crate::r#gen::Std::Internal::UV::Timer::{
     initialize_Std_Internal_UV_Timer, runtime_initialize_Std_Internal_UV_Timer,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Core::lean_task_map;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::lean_task_map;
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::lean_array_push;
+use crate::ffi::{
     lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
-use crate::lean_imports_rs::Std::Internal::UV::Timer::{
+use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
+use crate::ffi::{
     lean_uv_timer_cancel, lean_uv_timer_mk, lean_uv_timer_next, lean_uv_timer_reset,
     lean_uv_timer_stop,
 };

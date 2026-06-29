@@ -35,7 +35,7 @@ use crate::r#gen::Lean::Meta::Tactic::Unfold::{
     initialize_Lean_Meta_Tactic_Unfold, l_Lean_Meta_unfold,
     runtime_initialize_Lean_Meta_Tactic_Unfold,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_testExternCmd___closed__0_value: crate::leanh::LeanStringObject<14> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

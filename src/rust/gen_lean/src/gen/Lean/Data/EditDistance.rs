@@ -21,14 +21,14 @@ use crate::r#gen::Init::Data::Vector::Basic::{
     initialize_Init_Data_Vector_Basic, runtime_initialize_Init_Data_Vector_Basic,
 };
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_uget_borrowed, lean_mk_array};
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{lean_array_uget_borrowed, lean_mk_array};
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size,
     lean_uint32_dec_eq, lean_usize_dec_eq,

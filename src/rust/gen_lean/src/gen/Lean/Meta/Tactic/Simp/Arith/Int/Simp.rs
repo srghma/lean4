@@ -32,13 +32,13 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Arith::Util::{
     runtime_initialize_Lean_Meta_Tactic_Simp_Arith_Util,
 };
 use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_le, lean_int_neg, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Data::Nat::Gcd::lean_nat_gcd;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_borrowed, lean_nat_dec_eq};
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::lean_nat_gcd;
+use crate::ffi::{lean_array_get_borrowed, lean_nat_dec_eq};
+use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Simp_Arith_Int_simpEq_x3f___closed__0_value: crate::leanh::LeanStringObject<
     4,
 > = crate::leanh::LeanStringObject {

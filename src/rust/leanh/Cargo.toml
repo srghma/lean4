@@ -1,9 +1,8 @@
 [package]
-name = "lean_gen_std"
+name = "leanh"
 version = "0.1.0"
 edition = "2021"
 publish = false
 
 [dependencies]
-lean_runtime_common = { path = "../lean_runtime_common" }
-lean_gen_init = { path = "../lean_gen_init" }
+libc = "0.2"

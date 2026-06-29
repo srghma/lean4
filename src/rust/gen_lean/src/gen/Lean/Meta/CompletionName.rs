@@ -13,7 +13,7 @@ use crate::r#gen::Lean::Meta::Match::MatcherInfo::{
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_isRecCore;
 use crate::r#gen::Lean::PrivateName::l_Lean_privateHeader;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_name_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l___private_Lean_Meta_CompletionName_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_CompletionName_3302084676____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};

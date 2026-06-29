@@ -28,12 +28,12 @@ use crate::r#gen::Lean::Server::Completion::CompletionInfoSelection::{
     l_Lean_Server_Completion_findCompletionInfosAt,
     runtime_initialize_Lean_Server_Completion_CompletionInfoSelection,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_nat_dec_lt,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Expr::lean_expr_instantiate1;
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_expr_instantiate1;
 pub static l_Lean_Lsp_CompletionItem_resolve___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

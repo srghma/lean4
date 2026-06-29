@@ -8,11 +8,11 @@ use crate::r#gen::Init::Data::String::Modify::{
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_get;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
-use crate::lean_imports_rs::Init::Prelude::{lean_uint32_dec_le, lean_uint32_to_nat};
+use crate::ffi::lean_string_utf8_get;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::lean_uint32_add;
+use crate::ffi::{lean_uint32_dec_le, lean_uint32_to_nat};
 pub static l_instInhabitedError___closed__0_value: crate::leanh::LeanStringObject<37> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

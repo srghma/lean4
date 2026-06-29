@@ -30,18 +30,18 @@ use crate::r#gen::Std::Internal::Parsec::ByteArray::{
 use crate::r#gen::Std::Internal::Parsec::{
     initialize_Std_Internal_Parsec, runtime_initialize_Std_Internal_Parsec,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::{
     lean_string_data, lean_string_utf8_get_fast, lean_string_validate_utf8,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{lean_uint8_add, lean_uint8_sub};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{lean_uint8_add, lean_uint8_sub};
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint16_of_nat, lean_uint32_add,
     lean_uint32_to_uint8,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_byte_array_push, lean_byte_array_size, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
     lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,

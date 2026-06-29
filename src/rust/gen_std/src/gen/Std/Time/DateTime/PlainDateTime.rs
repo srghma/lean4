@@ -26,15 +26,15 @@ use crate::r#gen::Std::Time::Time::PlainTime::{
     l_Std_Time_instOrdPlainTime, l_Std_Time_instReprPlainTime_repr___redArg,
 };
 use crate::r#gen::Std::Time::Time::Unit::Second::l_Std_Time_Second_instOfNatOrdinal;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
+use crate::ffi::{
     lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
 };
 static mut l_Std_Time_instInhabitedPlainDateTime_default___closed__0_once:

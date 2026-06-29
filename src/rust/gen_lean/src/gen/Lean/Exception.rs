@@ -29,7 +29,7 @@ use crate::r#gen::Lean::Message::{
     l_Lean_kindOfErrorName, l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
 };
 static mut l_Lean_instInhabitedException___closed__0_once: crate::leanh::LeanOnceCell =

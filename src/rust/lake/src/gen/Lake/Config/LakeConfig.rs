@@ -17,8 +17,8 @@ use crate::r#gen::Lake::Config::MetaClasses::{
     initialize_Lake_Config_MetaClasses, runtime_initialize_Lake_Config_MetaClasses,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
 };
 pub static mut l_Lake_instInhabitedCacheServiceKind_default: u8 = 0;

@@ -10,7 +10,7 @@ use crate::r#gen::Init::Data::Array::OfFn::{
 use crate::r#gen::Init::Data::List::MapIdx::{
     initialize_Init_Data_List_MapIdx, runtime_initialize_Init_Data_List_MapIdx,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_Array_MapIdx_0__Array_mapFinIdxM_map_match__1_splitter___redArg(
     mut v_i_87_: *mut crate::leanh::LeanObject,
     mut v_h__1_88_: *mut crate::leanh::LeanObject,

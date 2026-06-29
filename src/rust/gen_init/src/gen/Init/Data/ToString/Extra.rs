@@ -10,9 +10,9 @@ use crate::r#gen::Init::Data::String::Defs::{
 };
 use crate::r#gen::Init::Data::ToString::Basic::l_instToStringUInt8___lam__0___boxed;
 use crate::r#gen::Init::Prelude::l_List_foldl___redArg;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_array_to_list;
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_array_to_list;
 pub static l_List_toString___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

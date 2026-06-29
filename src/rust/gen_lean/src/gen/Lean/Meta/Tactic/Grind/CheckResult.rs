@@ -5,8 +5,8 @@ use crate::r#gen::Init::Data::Repr::{
     initialize_Init_Data_Repr, l_Repr_addAppParen, runtime_initialize_Init_Data_Repr,
 };
 use crate::r#gen::Init::MetaTypes::{initialize_Init_MetaTypes, runtime_initialize_Init_MetaTypes};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static l_Lean_Meta_Grind_instBEqCheckResult___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

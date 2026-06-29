@@ -7,7 +7,7 @@ use crate::r#gen::Init::Data::ByteArray::Bootstrap::{
 use crate::r#gen::Init::Data::Char::Basic::{
     initialize_Init_Data_Char_Basic, runtime_initialize_Init_Data_Char_Basic,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::{
     lean_string_any, lean_string_append, lean_string_capitalize, lean_string_contains,
     lean_string_drop, lean_string_dropright, lean_string_foldl, lean_string_front,
     lean_string_get_byte_fast, lean_string_intercalate, lean_string_isempty,

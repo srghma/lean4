@@ -5,8 +5,8 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq};
 pub static l_Lake_instReprConfigLang_repr___closed__0_value: crate::leanh::LeanStringObject<21> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

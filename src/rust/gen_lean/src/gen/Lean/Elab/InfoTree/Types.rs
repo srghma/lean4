@@ -24,8 +24,8 @@ use crate::r#gen::Lean::MetavarContext::{
 use crate::r#gen::Lean::Widget::Types::{
     initialize_Lean_Widget_Types, runtime_initialize_Lean_Widget_Types,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{lean_mk_empty_array_with_capacity, lean_nat_dec_le};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_dec_le};
 pub static l_Lean_Elab_instInhabitedElabInfo_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

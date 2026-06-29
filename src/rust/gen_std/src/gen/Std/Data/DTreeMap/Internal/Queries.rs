@@ -39,7 +39,7 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Ordered::{
     initialize_Std_Data_DTreeMap_Internal_Ordered,
     runtime_initialize_Std_Data_DTreeMap_Internal_Ordered,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
     lean_nat_sub,
 };

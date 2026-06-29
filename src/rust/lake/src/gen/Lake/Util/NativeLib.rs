@@ -12,8 +12,8 @@ use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, l_System_Platform_isOSX, l_System_Platform_isWindows,
     runtime_initialize_Init_System_Platform,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::System::IO::lean_io_getenv;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_io_getenv;
 pub static l_Lake_sharedLibExt___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

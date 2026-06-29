@@ -19,9 +19,9 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Attr::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Attr,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::lean_imports_rs::Init::Prelude::{lean_panic_fn_borrowed, lean_string_dec_eq};
-use crate::lean_imports_rs::Init::System::IO::lean_io_app_path;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_panic_fn_borrowed, lean_string_dec_eq};
+use crate::ffi::lean_io_app_path;
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_panic___at___00__private_Lean_Meta_Tactic_BVDecide_TacticContext_0__Lean_Meta_Tactic_BVDecide_TacticContext_new_determineSolver_spec__1___closed__0_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};

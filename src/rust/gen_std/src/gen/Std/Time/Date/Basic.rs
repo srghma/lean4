@@ -8,10 +8,10 @@ use crate::r#gen::Std::Time::Date::Unit::Basic::{
 use crate::r#gen::Std::Time::Date::ValidDate::{
     initialize_Std_Time_Date_ValidDate, runtime_initialize_Std_Time_Date_ValidDate,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_mul, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_div;
+use crate::ffi::lean_int_div;
 static mut l_Std_Time_Nanosecond_Offset_toDays___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

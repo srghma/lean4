@@ -10,7 +10,7 @@ use crate::r#gen::Init::Grind::Tactics::{
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub,
 };
 pub static mut l_Nat_instTransLt: *mut crate::leanh::LeanObject = core::ptr::null_mut();

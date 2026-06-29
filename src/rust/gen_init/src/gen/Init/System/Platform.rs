@@ -13,7 +13,7 @@ use crate::r#gen::Init::Data::String::Bootstrap::{
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,
 };
-use crate::lean_imports_rs::Init::System::Platform::{
+use crate::ffi::{
     lean_system_platform_emscripten, lean_system_platform_osx, lean_system_platform_target,
     lean_system_platform_windows,
 };

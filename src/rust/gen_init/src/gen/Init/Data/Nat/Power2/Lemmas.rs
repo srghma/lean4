@@ -22,8 +22,8 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_land;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::lean_nat_land;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_Nat_instDecidableIsPowerOfTwo(mut v_n_12_: *mut crate::leanh::LeanObject) -> u8 {
     let mut v___x_13_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_14_: u8 = 0;

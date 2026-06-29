@@ -84,8 +84,8 @@ use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofFormat, l_Lean_MessageData_ofSyntax, l_Lean_indentD,
     l_Lean_stringToMessageData,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lake_DSL_Targets_0__Lake_DSL_expandModuleFacetDecl___lam__0___closed__0_value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [95, 109, 111, 100, 70, 97, 99, 101, 116, 0]};

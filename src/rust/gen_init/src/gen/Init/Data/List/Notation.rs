@@ -10,7 +10,7 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArgs, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node2, l_Lean_Syntax_node5,
     l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_borrowed, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mod,
     lean_nat_sub,
 };

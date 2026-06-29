@@ -21,23 +21,23 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Actions::{
     initialize_Std_Tactic_BVDecide_LRAT_Actions,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Actions,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::{
     lean_int_dec_lt, lean_int_neg, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::{
     lean_uint8_complement, lean_uint8_land, lean_uint8_lor, lean_uint8_sub, lean_uint64_add,
     lean_uint64_dec_lt, lean_uint64_land, lean_uint64_lor, lean_uint64_shift_left,
     lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint8_to_uint64, lean_uint32_to_uint8,
     lean_uint64_of_nat, lean_uint64_to_nat, lean_uint64_to_uint8, lean_usize_add,
     lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
     lean_byte_array_push, lean_byte_array_size, lean_mk_empty_byte_array, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed,

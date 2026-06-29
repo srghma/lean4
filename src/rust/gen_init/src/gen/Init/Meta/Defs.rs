@@ -40,12 +40,12 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_any, lean_string_append, lean_string_capitalize, lean_string_contains,
     lean_string_drop, lean_string_dropright, lean_string_front, lean_string_get_byte_fast,
     lean_string_intercalate, lean_string_isempty, lean_string_isprefixof, lean_string_length,
@@ -55,15 +55,15 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
     lean_substring_extract, lean_substring_front, lean_substring_get, lean_substring_isempty,
     lean_substring_prev, lean_substring_takewhile, lean_substring_tostring,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint32_to_uint8, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Meta::Defs::{
+use crate::ffi::{
     lean_get_githash, lean_internal_has_llvm_backend, lean_internal_is_stage0,
     lean_version_get_is_release, lean_version_get_major, lean_version_get_minor,
     lean_version_get_patch, lean_version_get_special_desc,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_mul, lean_nat_pred,

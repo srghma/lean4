@@ -14,7 +14,7 @@ use crate::r#gen::Lean::Level::l_Lean_Level_ofNat;
 use crate::r#gen::Lean::ToExpr::{
     initialize_Lean_ToExpr, l_Lean_instToExprInt_mkNat, runtime_initialize_Lean_ToExpr,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_le, lean_int_neg, lean_nat_to_int,
 };
 pub static l_Lean_Meta_Sym_Arith_ofPower___closed__0_value: crate::leanh::LeanStringObject<5> =

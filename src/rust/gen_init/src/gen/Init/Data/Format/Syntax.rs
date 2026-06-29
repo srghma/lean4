@@ -20,10 +20,10 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_replacePrefix;
 use crate::r#gen::Init::Prelude::l_Function_comp;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_array_get_size, lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
 };
 pub static l___private_Init_Data_Format_Syntax_0__Lean_Syntax_formatInfo___closed__0_value:

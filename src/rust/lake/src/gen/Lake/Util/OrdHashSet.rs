@@ -19,9 +19,9 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashSet::Basic::{
     initialize_Std_Data_HashSet_Basic, runtime_initialize_Std_Data_HashSet_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_mk_array};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_array_size, lean_mk_array};
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
     lean_nat_dec_lt,
 };

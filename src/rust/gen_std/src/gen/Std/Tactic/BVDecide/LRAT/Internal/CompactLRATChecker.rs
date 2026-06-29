@@ -25,7 +25,7 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::LRATChecker::{
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATChecker,
 };
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::PosFin::l_Std_Tactic_BVDecide_LRAT_Internal_instDecidableEqPosFin___boxed;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
 };
 pub unsafe fn l_Std_Tactic_BVDecide_LRAT_Internal_compactLratChecker_go___lam__0(

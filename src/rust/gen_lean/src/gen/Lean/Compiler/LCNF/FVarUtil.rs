@@ -43,12 +43,12 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_hasFVar, l_Lean_Expr_lam___override, l_Lean_instBEqBinderInfo_beq,
     l_Lean_instBEqFVarId_beq, l_Lean_instInhabitedExpr,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
+use crate::ffi::lean_ptr_addr;
 pub static l_Lean_Compiler_LCNF_Expr_mapFVarM___redArg___closed__2_value:
     crate::leanh::LeanStringObject<34> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

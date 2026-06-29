@@ -23,7 +23,7 @@ use crate::r#gen::Init::Grind::Module::Basic::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_string_utf8_byte_size};
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Lean_Grind_Semiring_ofNat__succ___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

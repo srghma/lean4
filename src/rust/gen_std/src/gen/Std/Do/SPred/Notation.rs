@@ -14,11 +14,11 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Std::Do::SPred::Notation::Basic::{
     initialize_Std_Do_SPred_Notation_Basic, runtime_initialize_Std_Do_SPred_Notation_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le,
 };
 pub static l_Std_Do_term_u231c___u231d___closed__0_value: crate::leanh::LeanStringObject<4> =

@@ -21,13 +21,13 @@ use crate::r#gen::Std::Async::Select::{
     l_Std_Async_Selectable_tryOne___redArg,
 };
 use crate::r#gen::Std::Data::{initialize_Std_Data, runtime_initialize_Std_Data};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_usize_dec_eq,
 };

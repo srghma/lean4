@@ -15,9 +15,9 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Cutsat_Util,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_eq};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Meta_Grind_Arith_Cutsat_instInhabitedCaseKind_default___closed__0_once:

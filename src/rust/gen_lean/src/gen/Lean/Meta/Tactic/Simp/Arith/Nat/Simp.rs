@@ -31,7 +31,7 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Arith::Util::{
     initialize_Lean_Meta_Tactic_Simp_Arith_Util,
     runtime_initialize_Lean_Meta_Tactic_Simp_Arith_Util,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
+use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Simp_Arith_Nat_simpCnstrPos_x3f___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

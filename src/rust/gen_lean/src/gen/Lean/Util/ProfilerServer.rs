@@ -87,54 +87,54 @@ use crate::r#gen::Std::Sync::Channel::{
 };
 use crate::r#gen::Std::Sync::Semaphore::{l_Std_Semaphore_acquire, l_Std_Semaphore_release};
 use crate::r#gen::Std::Time::Duration::l_Std_Time_Duration_ofNanoseconds;
-use crate::lean_imports_rs::Init::Core::{
+use crate::ffi::{
     lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_copy_slice;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_byte_array_copy_slice;
+use crate::ffi::{
     lean_int_add, lean_int_mul, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_ediv;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_int_ediv;
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_uint16_dec_le, lean_uint16_dec_lt, lean_uint64_shift_right, lean_uint64_to_usize,
     lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint16_to_nat, lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
     lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
     lean_nat_sub, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
     lean_uint8_dec_eq, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_get_stderr, lean_io_as_task, lean_io_process_child_wait, lean_io_process_spawn,
 };
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{
     lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Std::Internal::UV::TCP::{
+use crate::ffi::{
     lean_uv_tcp_bind, lean_uv_tcp_getpeername, lean_uv_tcp_getsockname, lean_uv_tcp_listen,
     lean_uv_tcp_new, lean_uv_tcp_nodelay, lean_uv_tcp_send,
 };
-use crate::lean_imports_rs::Std::Sync::Mutex::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
-use crate::lean_imports_rs::Std::Time::DateTime::Timestamp::lean_get_current_time;
+use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
+use crate::ffi::lean_get_current_time;
 pub static l___private_Lean_Util_ProfilerServer_0__Lean_Firefox_openInBrowser___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

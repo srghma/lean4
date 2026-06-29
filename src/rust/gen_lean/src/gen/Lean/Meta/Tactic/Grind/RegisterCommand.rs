@@ -18,10 +18,10 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Lean::Meta::Tactic::Grind::Attr::{
     initialize_Lean_Meta_Tactic_Grind_Attr, runtime_initialize_Lean_Meta_Tactic_Grind_Attr,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::{
     lean_string_append, lean_string_intercalate,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_Parser_Command_registerGrindAttr___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

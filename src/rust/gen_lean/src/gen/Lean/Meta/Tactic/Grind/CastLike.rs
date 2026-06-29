@@ -10,7 +10,7 @@ use crate::r#gen::Init::Grind::Ring::Envelope::{
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_getAppFn, runtime_initialize_Lean_Expr,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_name_eq;
+use crate::ffi::lean_name_eq;
 pub static l_Lean_Meta_Grind_isCastLikeDeclName___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

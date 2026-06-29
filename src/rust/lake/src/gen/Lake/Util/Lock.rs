@@ -12,9 +12,9 @@ use crate::r#gen::Init::System::IO::{
     l_IO_FS_createDirAll, l_IO_FS_removeFile___boxed, l_IO_eprintln___redArg, l_IO_sleep,
     l_instMonadExceptOfEIO___aux__3___boxed, runtime_initialize_Init_System_IO,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_uint32_to_nat;
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_uint32_to_nat;
+use crate::ffi::{
     lean_get_stderr, lean_io_prim_handle_mk, lean_io_process_get_pid,
 };
 pub static l___private_Lake_Util_Lock_0__Lake_busyAcquireLockFile_busyLoop___closed__0_value:

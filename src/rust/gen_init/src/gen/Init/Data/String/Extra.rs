@@ -17,18 +17,18 @@ use crate::r#gen::Init::Data::String::Search::{
 use crate::r#gen::Init::Data::String::Termination::{
     initialize_Init_Data_String_Termination, runtime_initialize_Init_Data_String_Termination,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
     lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_validate_utf8,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint8_land, lean_uint32_lor, lean_uint32_shift_left,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint8_to_uint32;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_uint8_to_uint32;
+use crate::ffi::{
     lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_sub, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_uint32_dec_lt,

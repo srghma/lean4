@@ -28,8 +28,8 @@ use crate::r#gen::Init::Data::Order::Classes::{
 use crate::r#gen::Init::Data::Order::Lemmas::{
     initialize_Init_Data_Order_Lemmas, runtime_initialize_Init_Data_Order_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Array_min___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =

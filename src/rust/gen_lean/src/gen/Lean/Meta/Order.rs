@@ -18,18 +18,18 @@ use crate::r#gen::Lean::Meta::PProdN::{
     initialize_Lean_Meta_PProdN, l_Lean_Meta_PProdN_genMk___redArg,
     runtime_initialize_Lean_Meta_PProdN,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
     lean_nat_dec_lt, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_mkInstPiOfInstForall___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

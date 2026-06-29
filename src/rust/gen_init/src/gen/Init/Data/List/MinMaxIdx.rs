@@ -19,7 +19,7 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{l_List_get___redArg, l_List_lengthTR___redArg};
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub unsafe fn l___private_Init_Data_List_MinMaxIdx_0__List_minIdxOn_go___redArg(
     mut v_inst_205_: *mut crate::leanh::LeanObject,
     mut v_f_206_: *mut crate::leanh::LeanObject,

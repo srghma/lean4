@@ -8,10 +8,10 @@ use crate::r#gen::Init::Data::UInt::Bitwise::{
 use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
 pub unsafe fn l_Std_DHashMap_Internal_scrambleHash(mut v_hash_50_: u64) -> u64 {
     let mut v___x_51_: u64 = 0;
     let mut v___x_52_: u64 = 0;

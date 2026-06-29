@@ -22,16 +22,16 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_isEqv___redArg, l_Lean_Meta_Grind_mkEqFalseProof,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_sub, lean_usize_to_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
     lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_mk_eq_proof;
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_grind_mk_eq_proof;
 pub static l___private_Lean_Meta_Tactic_Grind_Diseq_0__Lean_Meta_Grind_dummyEq___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

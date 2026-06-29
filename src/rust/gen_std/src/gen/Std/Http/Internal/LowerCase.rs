@@ -16,7 +16,7 @@ use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_data;
+use crate::ffi::lean_string_data;
 pub static l_Std_Http_Internal_instDecidableIsLowerCase___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

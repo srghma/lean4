@@ -17,8 +17,8 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::LinearM::{
     l_Lean_Meta_Grind_Arith_Linear_withRingM___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Linear_LinearM,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_eq;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_nat_dec_eq;
 pub static l_Lean_Meta_Grind_Arith_Linear_RingIneqCnstr_cleanupDenominators___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

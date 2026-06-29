@@ -12,12 +12,12 @@ use crate::r#gen::Lake::Util::JsonObject::{
 use crate::r#gen::Lake::Util::String::l_Lake_lowerHexUInt64;
 use crate::r#gen::Lean::Data::Json::Basic::{l_Lean_Json_getBool_x3f, l_Lean_Json_getObj_x3f};
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
     lean_string_utf8_byte_size,

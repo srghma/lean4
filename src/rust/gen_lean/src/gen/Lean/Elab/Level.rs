@@ -27,9 +27,9 @@ use crate::r#gen::Lean::Message::{
     l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_MetavarContext_addLevelMVarDecl;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
 };

@@ -42,7 +42,7 @@ use crate::r#gen::Std::Data::Iterators::Lemmas::Producers::Slice::{
     initialize_Std_Data_Iterators_Lemmas_Producers_Slice,
     runtime_initialize_Std_Data_Iterators_Lemmas_Producers_Slice,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_add;
+use crate::ffi::lean_nat_add;
 pub static l_Std_DTreeMap_Internal_instIteratorZipperIdSigma___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

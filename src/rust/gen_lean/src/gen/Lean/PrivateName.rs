@@ -8,7 +8,7 @@ use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_num___override, l_Lean_Name_str___override,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_name_eq, lean_nat_dec_eq};
+use crate::ffi::{lean_name_eq, lean_nat_dec_eq};
 pub static l_Lean_privateHeader___closed__0_value: crate::leanh::LeanStringObject<9> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

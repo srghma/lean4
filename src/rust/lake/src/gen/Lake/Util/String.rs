@@ -17,16 +17,16 @@ use crate::r#gen::Init::Data::ToString::Basic::{
 use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_uint8_add, lean_uint64_land, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_uint32, lean_uint64_to_uint8,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_mk_empty_byte_array, lean_nat_dec_eq, lean_nat_sub, lean_string_from_utf8_unchecked,
     lean_string_utf8_byte_size, lean_uint8_dec_le,
 };

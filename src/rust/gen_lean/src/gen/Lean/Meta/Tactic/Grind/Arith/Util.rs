@@ -22,25 +22,25 @@ use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofExpr, l_Lean_aquote};
 use crate::r#gen::Lean::Meta::SynthInstance::{
     initialize_Lean_Meta_SynthInstance, runtime_initialize_Lean_Meta_SynthInstance,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_int_dec_eq, lean_int_mul, lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
     lean_usize_to_uint64,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_of_nat, lean_usize_sub};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_uint64_dec_eq,
 };
-use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
+use crate::ffi::lean_ptr_addr;
+use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Grind_Arith_isNatNum___closed__0_value: crate::leanh::LeanStringObject<6> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

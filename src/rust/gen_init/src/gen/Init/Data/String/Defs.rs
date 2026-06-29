@@ -13,10 +13,10 @@ use crate::r#gen::Init::Prelude::{
     l_List_foldl___redArg, l_String_toRawSubstring_x27, l_instInhabitedUInt8,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_push;
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
 };

@@ -6,8 +6,8 @@ use crate::r#gen::Lake::Build::Key::{
     initialize_Lake_Build_Key, l_Lake_PartialBuildKey_toString, l_Lake_instReprBuildKey_repr,
     runtime_initialize_Lake_Build_Key,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_dec_le;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_nat_dec_le;
 pub static l_Lake_Target_repr___redArg___closed__0_value: crate::leanh::LeanStringObject<15> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

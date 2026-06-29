@@ -83,23 +83,23 @@ use crate::r#gen::Lean::Parser::Types::{
 use crate::r#gen::Lean::PrettyPrinter::Basic::l_Lean_PrettyPrinter_backtrackExceptionId;
 use crate::r#gen::Lean::PrettyPrinter::Formatter::l_Lean_PrettyPrinter_Formatter_registerAlias;
 use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::l_Lean_PrettyPrinter_Parenthesizer_registerAlias;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_data, lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
     lean_string_utf8_next_fast, lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_length, lean_string_push};
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_string_length, lean_string_push};
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_mk, lean_string_utf8_byte_size,
     lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_get, lean_st_ref_set};
+use crate::ffi::{lean_st_ref_get, lean_st_ref_set};
 pub static l___private_Lean_DocString_Parser_0__Lean_Doc_Parser_instCoeCharParserFn___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l___private_Lean_DocString_Parser_0__Lean_Doc_Parser_instCoeCharParserFn___lam__0___boxed as *const core::ffi::c_void, m_arity: 3, m_num_fixed: 0, m_objs: [] };
 static mut l___private_Lean_DocString_Parser_0__Lean_Doc_Parser_instCoeCharParserFn___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

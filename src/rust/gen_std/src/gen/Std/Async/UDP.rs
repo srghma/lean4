@@ -11,16 +11,16 @@ use crate::r#gen::Std::Internal::UV::UDP::{
     initialize_Std_Internal_UV_UDP, runtime_initialize_Std_Internal_UV_UDP,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Core::{
+use crate::ffi::{
     lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::lean_imports_rs::Init::System::IO::{lean_io_as_task, lean_io_map_task};
-use crate::lean_imports_rs::Init::System::Promise::{
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::{lean_io_as_task, lean_io_map_task};
+use crate::ffi::{
     lean_io_promise_resolve, lean_io_promise_result_opt,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_ref_set, lean_st_ref_take};
-use crate::lean_imports_rs::Std::Internal::UV::UDP::{
+use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
+use crate::ffi::{
     lean_uv_udp_bind, lean_uv_udp_cancel_recv, lean_uv_udp_connect, lean_uv_udp_getpeername,
     lean_uv_udp_getsockname, lean_uv_udp_new, lean_uv_udp_recv, lean_uv_udp_send,
     lean_uv_udp_set_broadcast, lean_uv_udp_set_membership, lean_uv_udp_set_multicast_interface,

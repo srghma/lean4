@@ -87,20 +87,20 @@ use crate::r#gen::Lean::Util::ShareCommon::{
     initialize_Lean_Util_ShareCommon, runtime_initialize_Lean_Util_ShareCommon,
 };
 use crate::r#gen::Lean::Util::Trace::{l_Lean_inheritedTraceOptions, l_Lean_registerTraceClass};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get, lean_mk_empty_array_with_capacity, lean_nat_add, lean_panic_fn_borrowed,
 };
-use crate::lean_imports_rs::Init::ShareCommon::lean_sharecommon_quick;
-use crate::lean_imports_rs::Init::System::IO::lean_io_get_num_heartbeats;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_sharecommon_quick;
+use crate::ffi::lean_io_get_num_heartbeats;
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_dbg_to_string;
+use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_PrettyPrinter_ppTerm___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

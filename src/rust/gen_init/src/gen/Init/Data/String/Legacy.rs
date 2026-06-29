@@ -5,10 +5,10 @@ use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_sub, lean_string_dec_eq, lean_uint32_dec_eq};
+use crate::ffi::{lean_nat_sub, lean_string_dec_eq, lean_uint32_dec_eq};
 pub static l_String_splitOn___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

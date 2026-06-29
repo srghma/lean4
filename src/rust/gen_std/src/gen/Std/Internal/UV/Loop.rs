@@ -4,7 +4,7 @@
 use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
-use crate::lean_imports_rs::Std::Internal::UV::Loop::{
+use crate::ffi::{
     lean_uv_event_loop_alive, lean_uv_event_loop_configure,
 };
 pub unsafe fn l_Std_Internal_UV_Loop_configure___boxed(

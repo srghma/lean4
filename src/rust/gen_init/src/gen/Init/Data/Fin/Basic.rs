@@ -10,10 +10,10 @@ use crate::r#gen::Init::Data::Nat::Bitwise::Basic::{
 use crate::r#gen::Init::Data::Nat::Div::Basic::{
     initialize_Init_Data_Nat_Div_Basic, runtime_initialize_Init_Data_Nat_Div_Basic,
 };
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{
+use crate::ffi::{
     lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftl, lean_nat_shiftr,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_sub,
 };
 pub static l_Fin_coeToNat___closed__0_value: crate::leanh::LeanClosureObject<0> =

@@ -40,8 +40,8 @@ use crate::r#gen::Lean::Meta::Sym::ExprPtr::{
 use crate::r#gen::Lean::Meta::Sym::SymM::{
     initialize_Lean_Meta_Sym_SymM, runtime_initialize_Lean_Meta_Sym_SymM,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get};
-use crate::lean_imports_rs::Lean::Meta::Sym::DSimp::DSimpM::lean_sym_dsimp;
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
+use crate::ffi::lean_sym_dsimp;
 pub static mut l_Lean_Meta_Sym_DSimp_instInhabitedConfig_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Meta_Sym_DSimp_instInhabitedConfig: *mut crate::leanh::LeanObject =

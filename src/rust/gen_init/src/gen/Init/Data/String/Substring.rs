@@ -24,12 +24,12 @@ use crate::r#gen::Init::Data::String::Slice::{
 use crate::r#gen::Init::Prelude::l_panic___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_is_valid_pos, lean_string_utf8_at_end, lean_string_utf8_extract,
     lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next,
     lean_string_utf8_next_fast, lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
     lean_uint32_dec_le, lean_uint32_to_nat,

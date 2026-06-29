@@ -28,10 +28,10 @@ use crate::r#gen::Lean::Meta::Tactic::Intro::{
     runtime_initialize_Lean_Meta_Tactic_Intro,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_panic_fn_borrowed, lean_string_dec_eq};
+use crate::ffi::{lean_panic_fn_borrowed, lean_string_dec_eq};
 pub static l_panic___at___00Lean_MVarId_falseOrByContra_spec__0___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

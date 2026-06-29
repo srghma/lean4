@@ -7,7 +7,7 @@ use crate::r#gen::Lean::Meta::Sym::SymM::{
     runtime_initialize_Lean_Meta_Sym_SymM,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub unsafe fn l_Lean_instantiateMVars___at___00Lean_Meta_Sym_instantiateMVarsS_spec__0___redArg(

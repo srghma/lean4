@@ -48,15 +48,15 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Meta::CollectMVars::l_Lean_Meta_getMVars;
 use crate::r#gen::Lean::Meta::Eval::l_Lean_Meta_evalExpr___redArg;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_get_size, lean_nat_dec_eq};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_array_get_size, lean_nat_dec_eq};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
+use crate::ffi::lean_expr_eqv;
+use crate::ffi::lean_infer_type;
 pub static l_Lean_Elab_Tactic_GuardExpr_colon_toMatchKind___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

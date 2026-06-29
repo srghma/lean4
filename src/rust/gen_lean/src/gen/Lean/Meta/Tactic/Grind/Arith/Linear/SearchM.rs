@@ -14,11 +14,11 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Types::{
     l_Lean_Meta_Grind_Arith_Linear_linearExt,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Meta_Grind_Arith_Linear_instInhabitedCase_default___closed__0_value:

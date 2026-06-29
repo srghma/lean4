@@ -2,7 +2,7 @@
 // Module: Init.Data.Zero
 // Imports: Init.Tactics
 use crate::r#gen::Init::Tactics::{initialize_Init_Tactics, runtime_initialize_Init_Tactics};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_Zero_toOfNat0___redArg(
     mut v_inst_87_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

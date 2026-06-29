@@ -38,24 +38,24 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
     l_Std_Time_TimeZone_LocalTimeType_getTimeZone, l_Std_Time_TimeZone_Transition_timezoneAt,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Core::lean_mk_thunk;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_mk_thunk;
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_mul, lean_int_neg, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_of_nat, lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
     lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq, lean_string_hash, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::lean_io_prim_handle_flush;
-use crate::lean_imports_rs::Std::Time::DateTime::Timestamp::lean_get_current_time;
+use crate::ffi::lean_io_prim_handle_flush;
+use crate::ffi::lean_get_current_time;
 static mut l_Lean_Server_Logging_LogConfig_ofLspLogConfig___lam__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

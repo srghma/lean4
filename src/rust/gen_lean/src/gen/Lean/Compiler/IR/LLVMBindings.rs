@@ -4,8 +4,8 @@
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_usize_dec_eq;
-use crate::lean_imports_rs::Lean::Compiler::IR::LLVMBindings::{
+use crate::ffi::lean_usize_dec_eq;
+use crate::ffi::{
     lean_llvm_add_attribute_at_index, lean_llvm_add_case, lean_llvm_add_function,
     lean_llvm_add_global, lean_llvm_append_basic_block_in_context, lean_llvm_array_type,
     lean_llvm_build_add, lean_llvm_build_alloca, lean_llvm_build_br, lean_llvm_build_call2,

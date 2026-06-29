@@ -15,7 +15,7 @@ use crate::r#gen::Init::Prelude::{
     l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_nat_div, lean_nat_sub,
 };
 pub static mut l_Std_Legacy_instMembershipNatRange: *mut crate::leanh::LeanObject =

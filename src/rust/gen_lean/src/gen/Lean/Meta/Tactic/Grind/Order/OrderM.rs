@@ -15,16 +15,16 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Order::Types::{
     l_Lean_Meta_Grind_Order_orderExt, runtime_initialize_Lean_Meta_Tactic_Grind_Order_Types,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_sub, lean_usize_to_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
 };
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Order_getStruct___closed__0_value: crate::leanh::LeanStringObject<51> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

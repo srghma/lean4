@@ -20,7 +20,7 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_get, lean_array_get_size, lean_nat_dec_lt,
 };
 pub static l_Array_reduceGetElem___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =

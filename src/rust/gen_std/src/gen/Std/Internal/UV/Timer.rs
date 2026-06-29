@@ -4,7 +4,7 @@
 use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
-use crate::lean_imports_rs::Std::Internal::UV::Timer::{
+use crate::ffi::{
     lean_uv_timer_cancel, lean_uv_timer_mk, lean_uv_timer_next, lean_uv_timer_reset,
     lean_uv_timer_stop,
 };

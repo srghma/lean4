@@ -6,15 +6,15 @@ use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_data;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_to_utf8;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{lean_uint16_dec_le, lean_uint16_dec_lt};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_data;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_to_utf8;
+use crate::ffi::{lean_uint16_dec_le, lean_uint16_dec_lt};
+use crate::ffi::{
     lean_uint16_to_nat, lean_uint32_to_uint8,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq, lean_uint16_dec_eq,
     lean_uint32_dec_eq, lean_uint32_dec_le,

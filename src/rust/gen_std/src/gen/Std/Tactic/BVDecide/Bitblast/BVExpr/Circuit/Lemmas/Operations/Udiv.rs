@@ -10,7 +10,7 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Circuit::Impl::Operat
 use crate::r#gen::Std::Tactic::BVDecide::Normalize::BitVec::{initialize_Std_Tactic_BVDecide_Normalize_BitVec, runtime_initialize_Std_Tactic_BVDecide_Normalize_BitVec};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Nat::Linear::{initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Std_Tactic_BVDecide_Bitblast_BVExpr_Circuit_Lemmas_Operations_Udiv_0__Std_Tactic_BVDecide_BVExpr_bitblast_blastUdiv_go_match__1_splitter___redArg(
     mut v_curr_31_: *mut crate::leanh::LeanObject,
     mut v_h__1_32_: *mut crate::leanh::LeanObject,

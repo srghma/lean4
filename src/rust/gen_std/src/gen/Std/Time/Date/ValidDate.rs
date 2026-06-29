@@ -11,11 +11,11 @@ use crate::r#gen::Std::Time::Date::Unit::Month::{
     l_Std_Time_Month_Ordinal_days, l_Std_Time_Month_instDecidableEqOrdinal___boxed,
     runtime_initialize_Std_Time_Date_Unit_Month,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_int_sub,
     lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::lean_int_emod;
+use crate::ffi::lean_int_emod;
 static mut l_Std_Time_instInhabitedValidDate___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

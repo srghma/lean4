@@ -40,14 +40,14 @@ use crate::r#gen::Lean::Structure::l_Lean_isStructure;
 use crate::r#gen::Lean::Syntax::{
     l_Lean_Syntax_Range_contains, l_Lean_Syntax_findStack_x3f, l_Lean_Syntax_getRange_x3f,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{
     lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
     lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
     lean_panic_fn_borrowed, lean_uint32_dec_eq, lean_usize_dec_eq,

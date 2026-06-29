@@ -9,7 +9,7 @@ use crate::r#gen::Init::Data::List::Control::{
     initialize_Init_Data_List_Control, l_List_filterAuxM___redArg,
     runtime_initialize_Init_Data_List_Control,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_mk;
+use crate::ffi::lean_array_mk;
 pub static l_Std_Queue_empty___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

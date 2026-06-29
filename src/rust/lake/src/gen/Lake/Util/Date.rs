@@ -23,13 +23,13 @@ use crate::r#gen::Lake::Util::String::{
 use crate::r#gen::Lean::Data::Json::{
     initialize_Lean_Data_Json, runtime_initialize_Lean_Data_Json,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };

@@ -11,8 +11,8 @@ use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, l_Lean_Meta_isExprDefEq, l_Lean_Meta_mkFreshExprMVar,
     l_Lean_Meta_mkFreshLevelMVar, runtime_initialize_Lean_Meta_Basic,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_CheckTactic_mkCheckGoalType___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

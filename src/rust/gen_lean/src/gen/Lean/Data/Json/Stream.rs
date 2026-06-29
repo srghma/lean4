@@ -9,9 +9,9 @@ use crate::r#gen::Lean::Data::Json::Printer::{
     initialize_Lean_Data_Json_Printer, l_Lean_Json_compress,
     runtime_initialize_Lean_Data_Json_Printer,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_validate_utf8;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::lean_string_from_utf8_unchecked;
+use crate::ffi::lean_string_validate_utf8;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::lean_string_from_utf8_unchecked;
 pub static l_IO_FS_Stream_readUTF8___closed__0_value: crate::leanh::LeanStringObject<14> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

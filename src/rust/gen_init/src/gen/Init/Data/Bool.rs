@@ -9,7 +9,7 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
     l_Lean_replaceRef, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
+use crate::ffi::lean_nat_to_int;
 pub static l_Bool_term___x5e_x5e___00__closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

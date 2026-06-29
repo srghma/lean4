@@ -7,9 +7,9 @@ use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Literal_hash, l_Lean_instBEqFVarId_beq, l_Lean_instBEqLiteral_beq,
     l_Lean_instHashableFVarId_hash, l_Lean_instReprLiteral_repr, runtime_initialize_Lean_Expr,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_uint64_of_nat;
+use crate::ffi::{
     lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_uint64_mix_hash,
 };
 pub static mut l_Lean_Meta_DiscrTree_instInhabitedKey_default: *mut crate::leanh::LeanObject =

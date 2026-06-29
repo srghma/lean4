@@ -24,15 +24,15 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{l_ByteArray_empty, l_Lean_mkAtom};
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::{
+use crate::ffi::{
     lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_fset, lean_byte_array_get,
     lean_byte_array_hash, lean_byte_array_set, lean_byte_array_uget, lean_byte_array_uset,
     lean_sarray_dec_eq, lean_sarray_size,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_nat_sub, lean_uint8_of_nat, lean_usize_dec_eq,
 };

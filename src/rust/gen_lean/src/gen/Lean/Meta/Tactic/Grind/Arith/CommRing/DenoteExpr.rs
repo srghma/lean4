@@ -22,10 +22,10 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Functions::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_CommRing_Functions,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Types::l_Lean_Meta_Grind_Arith_CommRing_PolyDerivation_p;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_borrowed, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub static l_Lean_Meta_Grind_Arith_CommRing_denoteNum___redArg___lam__1___closed__0_value:

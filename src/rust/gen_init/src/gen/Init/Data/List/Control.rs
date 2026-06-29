@@ -8,7 +8,7 @@ use crate::r#gen::Init::Data::List::Basic::{
     l_List_mapTR, l_List_mapTR_loop___redArg, l_List_reverse___redArg,
 };
 use crate::r#gen::Init::Prelude::l_Function_const___boxed;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_array_to_list};
+use crate::ffi::{lean_array_push, lean_array_to_list};
 pub static l_List_mapA___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

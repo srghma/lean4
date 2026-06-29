@@ -7,8 +7,8 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 };
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
 use crate::r#gen::Lean::Data::Lsp::{initialize_Lean_Data_Lsp, runtime_initialize_Lean_Data_Lsp};
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_panic_fn_borrowed;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_panic_fn_borrowed;
 pub static l_Lean_Lsp_instFileSourceLocation___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

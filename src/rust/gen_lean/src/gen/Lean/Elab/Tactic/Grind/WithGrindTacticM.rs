@@ -13,8 +13,8 @@ use crate::r#gen::Lean::Elab::Tactic::Grind::Basic::{
 use crate::r#gen::Lean::Meta::Tactic::Grind::Main::{
     l_Lean_Meta_Grind_GrindM_run___redArg, l_Lean_Meta_Grind_mkDefaultParams,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Elab_Command_withGrindTacticM___redArg___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -3,8 +3,8 @@
 // source: Init/Data/String/Length.rs:6-8
 // exact-text variant: yes
 
-use crate::leanh::*;
-use crate::leanh;
+use runtime::leanh_extra::*;
+use runtime::leanh_extra as leanh;
 
 pub unsafe fn lean_string_length(s: *mut LeanObject) -> *mut LeanObject {
     unsafe { lean_box((*(s as *mut LeanStringObject<0>)).m_length) }

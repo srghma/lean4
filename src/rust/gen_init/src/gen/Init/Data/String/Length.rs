@@ -7,8 +7,8 @@ use crate::r#gen::Init::Data::Char::Lemmas::{
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::lean_string_length;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_String_length___boxed(
     mut v_b_39_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

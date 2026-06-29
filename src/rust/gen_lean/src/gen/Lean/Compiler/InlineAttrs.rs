@@ -28,11 +28,11 @@ use crate::r#gen::Lean::Meta::RecExt::{
     runtime_initialize_Lean_Meta_RecExt,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_get, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static mut l_Lean_Compiler_instInhabitedInlineAttributeKind_default: u8 = 0;

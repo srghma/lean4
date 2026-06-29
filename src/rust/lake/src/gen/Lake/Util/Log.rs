@@ -58,24 +58,24 @@ use crate::r#gen::Lean::Message::{
     initialize_Lean_Message, l_Lean_MessageData_toString, l_Lean_mkErrorStringWithPos,
     runtime_initialize_Lean_Message,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_validate_utf8,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{
     lean_uint32_add, lean_usize_add, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
     lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint32_dec_le,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_get_stderr, lean_get_stdout};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_get_stderr, lean_get_stdout};
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lake_instReprVerbosity_repr___closed__0_value: crate::leanh::LeanStringObject<21> =

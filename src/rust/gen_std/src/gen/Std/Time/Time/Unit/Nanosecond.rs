@@ -11,11 +11,11 @@ use crate::r#gen::Std::Time::Internal::UnitVal::l_Std_Time_Internal_instInhabite
 use crate::r#gen::Std::Time::Internal::{
     initialize_Std_Time_Internal, runtime_initialize_Std_Time_Internal,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_int_sub,
     lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_mod;
+use crate::ffi::lean_nat_mod;
 static mut l_Std_Time_Nanosecond_instReprOrdinal___aux__1___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

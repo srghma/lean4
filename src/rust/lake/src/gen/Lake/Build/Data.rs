@@ -34,8 +34,8 @@ use crate::r#gen::Lake::Util::Name::{
     initialize_Lake_Util_Name, l_Lake_Name_quoteFrom, runtime_initialize_Lake_Util_Name,
 };
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lake_OptDataKind_instCoeOutName___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

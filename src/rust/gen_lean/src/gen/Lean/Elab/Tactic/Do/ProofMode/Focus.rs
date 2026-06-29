@@ -15,10 +15,10 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_mkApp6, l_Lean_mkApp8, l_Lean_mkAppB, l_Lean_mkConst,
 };
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofSyntax, l_Lean_stringToMessageData};
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_name_eq, lean_panic_fn_borrowed};
-use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
-use crate::lean_imports_rs::Lean::Expr::lean_expr_dbg_to_string;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_name_eq, lean_panic_fn_borrowed};
+use crate::ffi::lean_st_ref_get;
+use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_Elab_Tactic_Do_ProofMode_instInhabitedFocusResult_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

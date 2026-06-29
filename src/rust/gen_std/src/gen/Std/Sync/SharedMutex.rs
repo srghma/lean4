@@ -4,8 +4,8 @@
 use crate::r#gen::Std::Sync::Basic::{
     initialize_Std_Sync_Basic, runtime_initialize_Std_Sync_Basic,
 };
-use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get};
-use crate::lean_imports_rs::Std::Sync::SharedMutex::{
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
+use crate::ffi::{
     lean_io_basesharedmutex_new, lean_io_basesharedmutex_read, lean_io_basesharedmutex_try_read,
     lean_io_basesharedmutex_try_write, lean_io_basesharedmutex_unlock_read,
     lean_io_basesharedmutex_unlock_write, lean_io_basesharedmutex_write,

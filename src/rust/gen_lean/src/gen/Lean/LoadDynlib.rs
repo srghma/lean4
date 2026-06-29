@@ -14,13 +14,13 @@ use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_le, lean_nat_sub, lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_io_realpath, lean_runtime_mark_persistent};
-use crate::lean_imports_rs::Lean::LoadDynlib::{
+use crate::ffi::{lean_io_realpath, lean_runtime_mark_persistent};
+use crate::ffi::{
     lean_dynlib_get, lean_dynlib_load, lean_dynlib_symbol_run_as_init,
 };
 pub static mut l___private_Lean_LoadDynlib_0__Lean_DynlibImpl: *mut crate::leanh::LeanObject =

@@ -29,10 +29,10 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_le, lean_int_neg, lean_int_sub, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::SInt::Basic::{
+use crate::ffi::{
     lean_int8_add, lean_int8_dec_eq, lean_int8_neg, lean_int8_of_int, lean_int8_of_nat,
     lean_int8_to_int, lean_int16_add, lean_int16_dec_eq, lean_int16_neg, lean_int16_of_int,
     lean_int16_of_nat, lean_int16_to_int, lean_int32_add, lean_int32_dec_eq, lean_int32_neg,
@@ -40,7 +40,7 @@ use crate::lean_imports_rs::Init::Data::SInt::Basic::{
     lean_int64_neg, lean_int64_of_int, lean_int64_of_nat, lean_int64_to_int_sint, lean_isize_add,
     lean_isize_dec_eq, lean_isize_of_int, lean_isize_of_nat, lean_isize_to_int,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_nat_sub;
 static mut l___private_Init_Data_Range_Polymorphic_SInt_0__HasModel_instHasSizeInt8___lam__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_Data_Range_Polymorphic_SInt_0__HasModel_instHasSizeInt8___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Init_Data_Range_Polymorphic_SInt_0__HasModel_instHasSizeInt8___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l___private_Init_Data_Range_Polymorphic_SInt_0__HasModel_instHasSizeInt8___lam__0___boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 0, m_objs: [] };

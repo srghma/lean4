@@ -65,9 +65,9 @@ use crate::r#gen::Lean::ResolveName::{
     l_Lean_resolveUniqueNamespace___redArg,
 };
 use crate::r#gen::Lean::ScopedEnvExtension::l_Lean_activateScoped___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_size;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_usize_of_nat;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_size;
+use crate::ffi::lean_usize_of_nat;
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt,
 };

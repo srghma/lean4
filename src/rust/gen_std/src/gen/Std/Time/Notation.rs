@@ -17,12 +17,12 @@ use crate::r#gen::Std::Time::Format::{
     l_Std_Time_ZonedDateTime_fromLeanDateTimeWithIdentifierString,
     l_Std_Time_ZonedDateTime_fromLeanDateTimeWithZoneString, runtime_initialize_Std_Time_Format,
 };
-use crate::lean_imports_rs::Init::Core::lean_thunk_get_own;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::lean_thunk_get_own;
+use crate::ffi::{
     lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_nat_sub;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_nat_sub;
 pub static l___private_Std_Time_Notation_0__Std_Time_convertText___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

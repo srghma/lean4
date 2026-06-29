@@ -14,15 +14,15 @@ use crate::r#gen::Lake::Build::Job::Basic::{
     l_Lake_Job_toOpaque___redArg, l_Lake_JobResult_prependLog___redArg,
 };
 use crate::r#gen::Lake::Build::Trace::l_Lake_BuildTrace_nil;
-use crate::lean_imports_rs::Init::Core::{lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_validate_utf8;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_task_map, lean_task_pure};
+use crate::ffi::lean_string_validate_utf8;
+use crate::ffi::lean_string_append;
+use crate::ffi::{
     lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
     lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::IO::{lean_get_set_stderr, lean_get_set_stdout};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_get_set_stderr, lean_get_set_stdout};
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lake_JobState_renew___closed__0_value: crate::leanh::LeanArrayObject<0> =

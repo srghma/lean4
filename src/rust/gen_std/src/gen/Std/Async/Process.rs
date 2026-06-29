@@ -18,12 +18,12 @@ use crate::r#gen::Std::Time::Time::Unit::Millisecond::{
     l_Std_Time_Millisecond_instInhabitedOffset, l_Std_Time_Millisecond_instReprOrdinal___lam__0,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_uint64_dec_lt;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_to_nat;
-use crate::lean_imports_rs::Init::Prelude::{lean_uint64_dec_eq, lean_uint64_of_nat};
-use crate::lean_imports_rs::Std::Internal::UV::System::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_uint64_dec_lt;
+use crate::ffi::lean_uint64_to_nat;
+use crate::ffi::{lean_uint64_dec_eq, lean_uint64_of_nat};
+use crate::ffi::{
     lean_uv_chdir, lean_uv_cwd, lean_uv_exepath, lean_uv_get_available_memory,
     lean_uv_get_constrained_memory, lean_uv_get_free_memory, lean_uv_get_process_title,
     lean_uv_get_total_memory, lean_uv_os_getpid, lean_uv_os_getppid, lean_uv_os_getpriority,

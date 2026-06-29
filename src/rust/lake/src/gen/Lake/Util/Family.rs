@@ -22,8 +22,8 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node4, l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope,
     l_Lean_extractMacroScopes, l_String_toRawSubstring_x27,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_array_push, lean_mk_empty_array_with_capacity};
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lake_familyDef___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

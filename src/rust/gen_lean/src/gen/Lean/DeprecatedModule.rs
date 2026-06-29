@@ -11,10 +11,10 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_Environment_header, l_Lean_PersistentEnvExtension_setState___redArg,
     l_Lean_instInhabitedModuleData_default,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le,
     lean_nat_dec_lt, lean_usize_dec_eq,
 };

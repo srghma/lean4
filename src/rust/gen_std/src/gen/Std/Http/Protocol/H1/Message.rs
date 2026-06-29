@@ -41,21 +41,21 @@ use crate::r#gen::Std::Http::Data::URI::Encoding::l_Std_Http_URI_EncodedFragment
 use crate::r#gen::Std::Http::Data::Version::l_Std_Http_instBEqVersion_beq;
 use crate::r#gen::Std::Http::Data::{initialize_Std_Http_Data, runtime_initialize_Std_Http_Data};
 use crate::r#gen::Std::Http::Internal::IndexMultiMap::l_Std_Internal_IndexMultiMap_instDecidableMem___redArg;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{
     lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
     lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint16_to_nat, lean_uint32_add, lean_uint32_to_uint8, lean_usize_add, lean_usize_of_nat,
     lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_array_to_list, lean_byte_array_mk, lean_byte_array_size,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
@@ -63,7 +63,7 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Std::Net::Addr::{lean_uv_ntop_v4, lean_uv_ntop_v6};
+use crate::ffi::{lean_uv_ntop_v4, lean_uv_ntop_v6};
 pub static l_Std_Http_Protocol_H1_instBEqDirection___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

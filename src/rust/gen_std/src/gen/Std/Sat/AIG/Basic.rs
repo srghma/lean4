@@ -40,15 +40,15 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashSet::{
     initialize_Std_Data_HashSet, runtime_initialize_Std_Data_HashSet,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_mk_array;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::{
+use crate::ffi::lean_mk_array;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftr,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_uint64_of_nat, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_uint64_of_nat, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_uint64_mix_hash,
 };

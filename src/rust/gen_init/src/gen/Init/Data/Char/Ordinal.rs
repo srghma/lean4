@@ -36,8 +36,8 @@ use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_uint32_add;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_lt, lean_nat_sub, lean_uint32_dec_eq, lean_uint32_dec_lt,
     lean_uint32_of_nat, lean_uint32_to_nat,
 };

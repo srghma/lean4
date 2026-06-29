@@ -36,14 +36,14 @@ use crate::r#gen::Lean::Parser::Types::{
     l_Lean_Parser_ParserState_setPos, l_Lean_Parser_ParserState_toErrorMsg,
     l_Lean_Parser_SyntaxStack_back,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_get, lean_string_utf8_next, lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };

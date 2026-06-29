@@ -22,8 +22,8 @@ use crate::r#gen::Lean::Meta::Sym::Util::{
     initialize_Lean_Meta_Sym_Util, l_Lean_Meta_Sym_preprocessMVar,
     runtime_initialize_Lean_Meta_Sym_Util,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{lean_array_size, lean_array_uget_borrowed};
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
 static mut l_Lean_Meta_Sym_mkSimprocFor___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

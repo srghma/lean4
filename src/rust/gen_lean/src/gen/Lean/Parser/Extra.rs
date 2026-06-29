@@ -123,19 +123,19 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     runtime_initialize_Lean_PrettyPrinter_Parenthesizer,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_Traverser_left;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_sub, lean_nat_to_int};
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_intercalate;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_array_fset;
+use crate::ffi::{lean_int_sub, lean_nat_to_int};
+use crate::ffi::lean_string_utf8_extract;
+use crate::ffi::lean_string_intercalate;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
     lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Parser_termParser_formatter___redArg___closed__0_value:

@@ -52,20 +52,20 @@ use crate::r#gen::Lean::Meta::Tactic::FVarSubst::{
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::CollectFVars::l_Lean_CollectFVars_State_add;
 use crate::r#gen::Lean::Util::Recognizers::l_Lean_Expr_arrayLit_x3f;
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_dec_lt};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
+use crate::ffi::{
     lean_array_get_size, lean_array_mk, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_sub, lean_string_utf8_byte_size,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
-use crate::lean_imports_rs::Lean::Meta::Basic::{lean_infer_type, lean_whnf};
+use crate::ffi::lean_expr_eqv;
+use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l_Lean_Meta_Match_instInhabitedPattern_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -16,15 +16,15 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_string_data, lean_string_utf8_get_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_string_length;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_utf8_set;
+use crate::ffi::lean_uint32_add;
+use crate::ffi::{
     lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_panic_fn_borrowed, lean_string_dec_eq,
     lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };

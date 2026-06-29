@@ -5,8 +5,8 @@ use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
 };
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_fswap;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_fswap;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
 };

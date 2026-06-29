@@ -22,12 +22,12 @@ use crate::r#gen::Init::Data::RArray::{
 use crate::r#gen::Init::LawfulBEqTactics::{
     initialize_Init_LawfulBEqTactics, runtime_initialize_Init_LawfulBEqTactics,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l_Int_Linear_instInhabitedExpr_default___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

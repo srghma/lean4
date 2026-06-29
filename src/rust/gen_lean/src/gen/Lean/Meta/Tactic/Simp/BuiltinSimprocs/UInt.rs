@@ -37,21 +37,21 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
+use crate::ffi::{
     lean_string_append, lean_string_intercalate,
 };
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::{
     lean_uint8_add, lean_uint8_div, lean_uint8_mod, lean_uint8_mul, lean_uint8_sub,
     lean_uint16_add, lean_uint16_dec_le, lean_uint16_dec_lt, lean_uint16_div, lean_uint16_mod,
     lean_uint16_mul, lean_uint16_sub, lean_uint32_div, lean_uint32_mod, lean_uint32_mul,
     lean_uint64_add, lean_uint64_dec_le, lean_uint64_dec_lt, lean_uint64_div, lean_uint64_mod,
     lean_uint64_mul, lean_uint64_sub,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint16_of_nat, lean_uint16_to_nat, lean_uint32_add, lean_uint32_of_nat,
     lean_uint32_sub, lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_uint8_dec_eq,
     lean_uint8_dec_le, lean_uint8_dec_lt, lean_uint8_of_nat, lean_uint16_dec_eq,
     lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt, lean_uint32_to_nat,

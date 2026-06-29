@@ -32,13 +32,13 @@ use crate::r#gen::Init::Data::Rat::Lemmas::{
     initialize_Init_Data_Rat_Lemmas, runtime_initialize_Init_Data_Rat_Lemmas,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{lean_int_ediv, lean_int_emod};
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftl;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{lean_int_ediv, lean_int_emod};
+use crate::ffi::lean_nat_shiftl;
+use crate::ffi::{
     lean_nat_add, lean_nat_dec_eq, lean_nat_pow, lean_nat_sub,
 };
 static mut l_Int_trailingZeros_aux___redArg___closed__0_once: crate::leanh::LeanOnceCell =

@@ -4,11 +4,11 @@
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt};
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt};
+use crate::ffi::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Std::Sync::Mutex::{
+use crate::ffi::{
     lean_io_basemutex_lock, lean_io_basemutex_unlock, lean_io_condvar_new,
     lean_io_condvar_notify_all, lean_io_condvar_wait,
 };

@@ -5,7 +5,7 @@ use crate::r#gen::Init::Grind::Tactics::{
     initialize_Init_Grind_Tactics, runtime_initialize_Init_Grind_Tactics,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_le, lean_nat_dec_lt};
+use crate::ffi::{lean_nat_dec_le, lean_nat_dec_lt};
 pub unsafe fn l_Lean_Grind_isLt(
     mut v_x_15_: *mut crate::leanh::LeanObject,
     mut v_y_16_: *mut crate::leanh::LeanObject,

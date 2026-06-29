@@ -22,7 +22,7 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_registerSolverExtension___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub static l_Lean_Meta_Grind_Arith_CommRing_instInhabitedEqCnstrProof___closed__0_value:

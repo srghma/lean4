@@ -16,9 +16,9 @@ use crate::r#gen::Std::Http::Protocol::H1::Parser::{
     initialize_Std_Http_Protocol_H1_Parser, runtime_initialize_Std_Http_Protocol_H1_Parser,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq};
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::lean_string_append;
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq};
 pub static l_Std_Http_Protocol_H1_instReprError_repr___closed__0_value:
     crate::leanh::LeanStringObject<43> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

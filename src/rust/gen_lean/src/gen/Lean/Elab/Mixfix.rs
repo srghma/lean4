@@ -22,7 +22,7 @@ use crate::r#gen::Lean::Elab::Attributes::{
 };
 use crate::r#gen::Lean::Elab::Util::l_Lean_Elab_macroAttribute;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
 };
 pub static l_Lean_Elab_Command_expandMixfix___lam__0___closed__0_value:

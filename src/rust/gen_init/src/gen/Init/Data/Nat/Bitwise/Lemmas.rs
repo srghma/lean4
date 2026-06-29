@@ -26,7 +26,7 @@ use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_array_push;
+use crate::ffi::lean_array_push;
 pub static l_Nat_bitwise__div__two__pow___auto__9___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -33,18 +33,18 @@ use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_W
 use crate::r#gen::Std::Http::Internal::Char::{
     initialize_Std_Http_Internal_Char, runtime_initialize_Std_Http_Internal_Char,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::{
+use crate::ffi::{
     lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_hash, lean_byte_array_uget,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_validate_utf8;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_to_utf8;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_validate_utf8;
+use crate::ffi::lean_string_to_utf8;
+use crate::ffi::{
     lean_uint8_add, lean_uint8_land, lean_uint8_shift_left, lean_uint8_shift_right, lean_uint8_sub,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint32_to_uint8, lean_usize_add, lean_usize_of_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_byte_array_data, lean_byte_array_push, lean_byte_array_size,
     lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed,
     lean_string_from_utf8_unchecked, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,

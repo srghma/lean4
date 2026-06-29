@@ -63,18 +63,18 @@ use crate::r#gen::Lean::ResolveName::lean_is_reserved_name;
 use crate::r#gen::Lean::Structure::{
     initialize_Lean_Structure, l_Lean_isSubobjectField_x3f, runtime_initialize_Lean_Structure,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::lean_string_memcmp;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get, lean_array_get_size, lean_array_mk, lean_mk_empty_array_with_capacity,
     lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq, lean_string_utf8_byte_size,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::MonadEnv::lean_has_compile_error;
+use crate::ffi::lean_has_compile_error;
 pub static l_Lean_Linter_EnvLinter_isAutoDecl___redArg___closed__0_value:
     crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

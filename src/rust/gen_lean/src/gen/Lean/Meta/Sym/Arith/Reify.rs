@@ -25,7 +25,7 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
     l_Lean_Meta_Sym_getNatValue_x3f, runtime_initialize_Lean_Meta_Sym_LitValues,
 };
 use crate::r#gen::Lean::Meta::Sym::SymM::l_Lean_Meta_Sym_reportIssueIfVerbose___boxed;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
+use crate::ffi::lean_nat_to_int;
 pub static l___private_Lean_Meta_Sym_Arith_Reify_0__Lean_Meta_Sym_Arith_reportRingAppIssue___redArg___closed__0_value: crate::leanh::LeanStringObject<35> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 35, m_capacity: 35, m_length: 34, m_data: [114, 105, 110, 103, 32, 116, 101, 114, 109, 32, 119, 105, 116, 104, 32, 117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 105, 110, 115, 116, 97, 110, 99, 101, 0]};
 static mut l___private_Lean_Meta_Sym_Arith_Reify_0__Lean_Meta_Sym_Arith_reportRingAppIssue___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Sym_Arith_Reify_0__Lean_Meta_Sym_Arith_reportRingAppIssue___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Lean_Meta_Sym_Arith_Reify_0__Lean_Meta_Sym_Arith_reportRingAppIssue___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

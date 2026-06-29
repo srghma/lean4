@@ -12,9 +12,9 @@ use crate::r#gen::Lake::Util::Log::{
     l_Lake_OutStream_logEntry, l_Lake_instOrdLogLevel_ord, l_Lake_logToStream,
     runtime_initialize_Lake_Util_Log,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_uget_borrowed;
+use crate::ffi::{lean_usize_add, lean_usize_of_nat};
+use crate::ffi::{
     lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_uint32_dec_eq, lean_usize_dec_eq,
 };
 pub static l_Lake_instMonadMainM___closed__0_value: crate::leanh::LeanClosureObject<0> =

@@ -89,25 +89,25 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Runtime::{
     initialize_Lean_Runtime, l_Lean_closureMaxArgs, runtime_initialize_Lean_Runtime,
 };
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{
     lean_array_pop, lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::lean_nat_shiftr;
+use crate::ffi::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_push;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_length;
+use crate::ffi::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
     lean_usize_sub,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
     lean_array_get_size, lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity,
     lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
@@ -115,10 +115,10 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_to_nat, lean_uint64_dec_eq,
     lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Compiler::IR::LLVMBindings::{
+use crate::ffi::{
     lean_llvm_add_attribute_at_index, lean_llvm_add_case, lean_llvm_add_function,
     lean_llvm_add_global, lean_llvm_append_basic_block_in_context, lean_llvm_array_type,
     lean_llvm_build_add, lean_llvm_build_alloca, lean_llvm_build_br, lean_llvm_build_call2,

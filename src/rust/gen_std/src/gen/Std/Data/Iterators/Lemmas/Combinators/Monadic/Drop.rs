@@ -9,7 +9,7 @@ use crate::r#gen::Std::Data::Iterators::Combinators::Monadic::Drop::{
     initialize_Std_Data_Iterators_Combinators_Monadic_Drop,
     runtime_initialize_Std_Data_Iterators_Combinators_Monadic_Drop,
 };
-use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Std_Data_Iterators_Lemmas_Combinators_Monadic_Drop_0__Std_Iterators_Types_Drop_instIterator_match__3_splitter___redArg(
     mut v_x_131_: *mut crate::leanh::LeanObject,
     mut v_h__1_132_: *mut crate::leanh::LeanObject,

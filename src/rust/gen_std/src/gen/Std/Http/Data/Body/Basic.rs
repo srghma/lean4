@@ -16,8 +16,8 @@ use crate::r#gen::Std::Http::Data::Chunk::{
 use crate::r#gen::Std::Http::Data::Headers::{
     initialize_Std_Http_Data_Headers, runtime_initialize_Std_Http_Data_Headers,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_validate_utf8;
-use crate::lean_imports_rs::Init::Prelude::lean_string_from_utf8_unchecked;
+use crate::ffi::lean_string_validate_utf8;
+use crate::ffi::lean_string_from_utf8_unchecked;
 pub static l_Std_Http_Body_instToByteArrayByteArray___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

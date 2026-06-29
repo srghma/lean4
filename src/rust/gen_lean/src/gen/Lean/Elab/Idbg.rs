@@ -110,45 +110,45 @@ use crate::r#gen::Std::Async::Basic::{
 };
 use crate::r#gen::Std::Async::TCP::{initialize_Std_Async_TCP, runtime_initialize_Std_Async_TCP};
 use crate::r#gen::Std::Net::Addr::l_Std_Net_IPv4Addr_ofParts;
-use crate::lean_imports_rs::Init::Core::{lean_task_map, lean_task_pure};
-use crate::lean_imports_rs::Init::Data::Array::Basic::{
+use crate::ffi::{lean_task_map, lean_task_pure};
+use crate::ffi::{
     lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::{
+use crate::ffi::lean_array_fset;
+use crate::ffi::{
     lean_byte_array_copy_slice, lean_byte_array_fget,
 };
-use crate::lean_imports_rs::Init::Data::String::Basic::{
+use crate::ffi::{
     lean_string_utf8_next_fast, lean_string_validate_utf8,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
-use crate::lean_imports_rs::Init::Data::UInt::Basic::{
+use crate::ffi::lean_string_push;
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_string_get_byte_fast;
+use crate::ffi::{
     lean_uint64_add, lean_uint64_mod, lean_uint64_to_usize, lean_usize_land, lean_usize_mul,
     lean_usize_shift_left, lean_usize_shift_right,
 };
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::{
     lean_uint32_to_uint8, lean_uint64_of_nat, lean_uint64_to_nat, lean_uint64_to_uint16,
     lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
     lean_usize_to_nat,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
     lean_array_to_list, lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add,
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
     lean_string_from_utf8_unchecked, lean_string_hash, lean_string_utf8_byte_size,
     lean_uint8_dec_eq, lean_usize_dec_eq,
 };
-use crate::lean_imports_rs::Init::System::IO::{
+use crate::ffi::{
     lean_get_stderr, lean_io_as_task, lean_io_get_num_heartbeats, lean_io_realpath,
 };
-use crate::lean_imports_rs::Init::System::Promise::lean_io_promise_result_opt;
-use crate::lean_imports_rs::Init::System::ST::{
+use crate::ffi::lean_io_promise_result_opt;
+use crate::ffi::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Std::Internal::UV::TCP::{
+use crate::ffi::lean_infer_type;
+use crate::ffi::{
     lean_uv_tcp_accept, lean_uv_tcp_bind, lean_uv_tcp_connect, lean_uv_tcp_listen, lean_uv_tcp_new,
     lean_uv_tcp_recv, lean_uv_tcp_send, lean_uv_tcp_shutdown,
 };

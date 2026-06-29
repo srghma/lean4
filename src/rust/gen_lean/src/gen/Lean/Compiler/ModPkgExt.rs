@@ -13,7 +13,7 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_PersistentEnvExtension_setState___redArg, l_Lean_instInhabitedEnvExtension_default,
     l_Lean_registerPersistentEnvExtensionUnsafe___redArg, runtime_initialize_Lean_Environment,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
     lean_nat_dec_lt,
 };

@@ -16,14 +16,14 @@ use crate::r#gen::Std::Time::Date::Unit::Day::{
     initialize_Std_Time_Date_Unit_Day, l_Std_Time_Day_instInhabitedOffset,
     runtime_initialize_Std_Time_Date_Unit_Day,
 };
-use crate::lean_imports_rs::Init::Data::Int::Basic::{
+use crate::ffi::{
     lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
     lean_int_sub, lean_nat_abs, lean_nat_to_int,
 };
-use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
+use crate::ffi::{
     lean_int_div, lean_int_ediv, lean_int_emod,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_push,
     lean_mk_empty_array_with_capacity, lean_nat_dec_le,
 };

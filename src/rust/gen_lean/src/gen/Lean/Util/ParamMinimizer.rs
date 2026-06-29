@@ -21,9 +21,9 @@ use crate::r#gen::Init::While::{
     initialize_Init_While, l___private_Init_While_0__whileM_erased___redArg,
     runtime_initialize_Init_While,
 };
-use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_set;
-use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::lean_array_set;
+use crate::ffi::lean_nat_to_int;
+use crate::ffi::{
     lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_nat_add,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };

@@ -6,24 +6,22 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
 
 pub mod leanh {
-    pub use lean_runtime_common::leanh::*;
+    pub use leanh::*;
 }
 
-pub mod lean_imports_rs {
-    pub use lean_runtime_common::lean_imports_rs::*;
-}
+pub mod leanh_extra;
 
 pub mod r#gen {
     #[cfg(feature = "gen-init")]
-    pub use lean_gen_init::r#gen::Init;
+    pub mod Init {}
     #[cfg(feature = "gen-lake")]
-    pub use lean_gen_lake::r#gen::{Lake, LakeMain};
+    pub mod Lake {}
     #[cfg(feature = "gen-lean")]
-    pub use lean_gen_lean::r#gen::Lean;
+    pub mod Lean {}
     #[cfg(feature = "gen-std")]
-    pub use lean_gen_std::r#gen::Std;
+    pub mod Std {}
     #[cfg(feature = "gen-tools")]
-    pub use lean_gen_tools::r#gen::{LeanChecker, LeanIR, Leanc};
+    pub mod LeanChecker {}
 }
 // mod runtime;
 // mod kernel;

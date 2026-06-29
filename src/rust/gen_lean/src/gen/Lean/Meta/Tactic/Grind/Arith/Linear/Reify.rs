@@ -31,9 +31,9 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_addNewRawFact, l_Lean_Meta_Grind_alreadyInternalized___redArg,
     l_Lean_Meta_Grind_getGeneration___redArg,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_panic_fn_borrowed;
-use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_internalize;
+use crate::ffi::lean_panic_fn_borrowed;
+use crate::ffi::lean_infer_type;
+use crate::ffi::lean_grind_internalize;
 pub static l_Lean_Meta_Grind_Arith_Linear_reportInstIssue___redArg___closed__0_value:
     crate::leanh::LeanStringObject<47> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

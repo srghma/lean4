@@ -16,14 +16,14 @@ use crate::r#gen::Std::Data::ByteSlice::{
 use crate::r#gen::Std::Internal::Parsec::Basic::{
     initialize_Std_Internal_Parsec_Basic, runtime_initialize_Std_Internal_Parsec_Basic,
 };
-use crate::lean_imports_rs::Init::Data::ByteArray::Basic::lean_byte_array_fget;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
-use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
-use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_uint8_sub;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
+use crate::ffi::lean_byte_array_fget;
+use crate::ffi::lean_string_push;
+use crate::ffi::{lean_string_append, lean_string_to_utf8};
+use crate::ffi::lean_uint8_sub;
+use crate::ffi::{
     lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint32_to_uint8,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
     lean_nat_mul, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_of_nat,
 };

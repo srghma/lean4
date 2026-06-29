@@ -7,8 +7,8 @@ use crate::r#gen::Init::Data::ToString::{
 use crate::r#gen::Lake::Version::{
     initialize_Lake_Version, l_Lake_uiVersionString, runtime_initialize_Lake_Version,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_string_dec_eq;
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_string_dec_eq;
 pub static l_Lake_usage___closed__0_value: crate::leanh::LeanStringObject<3580> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

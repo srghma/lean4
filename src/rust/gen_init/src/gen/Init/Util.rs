@@ -6,9 +6,9 @@ use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
 use crate::r#gen::Init::Prelude::l_panic___redArg;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_append;
-use crate::lean_imports_rs::Init::Prelude::lean_usize_dec_eq;
-use crate::lean_imports_rs::Init::Util::{
+use crate::ffi::lean_string_append;
+use crate::ffi::lean_usize_dec_eq;
+use crate::ffi::{
     lean_dbg_sleep, lean_dbg_stack_trace, lean_dbg_trace, lean_dbg_trace_if_shared,
     lean_is_exclusive_obj, lean_ptr_addr,
 };

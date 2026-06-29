@@ -11,7 +11,7 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Nat::{
 use crate::r#gen::Init::Data::Slice::Notation::{
     initialize_Init_Data_Slice_Notation, runtime_initialize_Init_Data_Slice_Notation,
 };
-use crate::lean_imports_rs::Init::Prelude::{
+use crate::ffi::{
     lean_array_get_size, lean_nat_add, lean_nat_dec_le, lean_nat_sub,
 };
 pub static l_instSliceableArrayNatSubarray___closed__0_value: crate::leanh::LeanClosureObject<0> =
