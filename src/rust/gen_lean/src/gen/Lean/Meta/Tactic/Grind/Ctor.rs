@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Ctor
 // Imports: Lean.Meta.Tactic.Grind.Types Lean.Meta.Injective Lean.Meta.Tactic.Grind.Simp
+use crate::ffi::{
+    lean_array_get, lean_array_set, lean_expr_eqv, lean_grind_internalize, lean_grind_mk_eq_proof,
+    lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_st_ref_get, lean_uint64_lor,
+    lean_uint64_shift_left, lean_uint64_shift_right,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_zipWith___at___00List_zip_spec__0;
@@ -58,21 +64,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_executeReservedNameAction;
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_sub,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::lean_infer_type;
-use crate::ffi::{
-    lean_grind_internalize, lean_grind_mk_eq_proof,
-};
 pub static l___private_Lean_Meta_Tactic_Grind_Ctor_0__Lean_Meta_Grind_propagateInjEqs___closed__0_value: crate::leanh::LeanStringObject<43> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 43, m_capacity: 43, m_length: 42, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 105, 110, 106, 101, 99, 116, 105, 118, 105, 116, 121, 32, 116, 104, 101, 111, 114, 101, 109, 32, 114, 101, 115, 117, 108, 116, 32, 116, 121, 112, 101, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_Ctor_0__Lean_Meta_Grind_propagateInjEqs___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Grind_Ctor_0__Lean_Meta_Grind_propagateInjEqs___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Lean_Meta_Tactic_Grind_Ctor_0__Lean_Meta_Grind_propagateInjEqs___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

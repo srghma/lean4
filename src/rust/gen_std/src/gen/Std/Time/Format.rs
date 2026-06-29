@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Time.Format
 // Imports: Std.Time.Notation.Spec Std.Time.Format.Basic Std.Time.Format.Basic
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_emod, lean_int_mod, lean_int_mul,
+    lean_int_neg, lean_mk_thunk, lean_nat_mod, lean_nat_to_int, lean_string_append,
+    lean_thunk_get_own,
+};
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Std::Time::Date::PlainDate::{
     l_Std_Time_PlainDate_alignedWeekOfMonth, l_Std_Time_PlainDate_dayOfYear,
@@ -37,13 +42,6 @@ use crate::r#gen::Std::Time::Time::Unit::Hour::{
 };
 use crate::r#gen::Std::Time::Zoned::Offset::l_Std_Time_TimeZone_Offset_toIsoString;
 use crate::r#gen::Std::Time::Zoned::TimeZone::{l_Std_Time_TimeZone_GMT, l_Std_Time_TimeZone_UTC};
-use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_mul, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_emod, lean_int_mod};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_nat_mod;
 static mut l_Std_Time_Formats_iso8601___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

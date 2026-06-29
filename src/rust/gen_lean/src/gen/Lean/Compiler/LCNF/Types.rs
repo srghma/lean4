@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Types
 // Imports: Lean.Compiler.BorrowedAnnotation Lean.Meta.InferType Init.Omega Lean.OriginalConstKind
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_set, lean_array_size, lean_array_to_list, lean_array_uget_borrowed,
+    lean_expr_abstract, lean_expr_eqv, lean_expr_instantiate_rev, lean_expr_instantiate1,
+    lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_uint64_lor, lean_uint64_of_nat,
+    lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
@@ -56,30 +67,6 @@ use crate::r#gen::Lean::OriginalConstKind::{
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_dec_eq, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_expr_abstract, lean_expr_eqv, lean_expr_instantiate_rev, lean_expr_instantiate1,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l_Lean_Compiler_term_u25fe___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

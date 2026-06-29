@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Server.Completion.CompletionItemCompression
 // Imports: Lean.Data.Lsp.LanguageFeatures Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_nat_sub, lean_string_append, lean_string_utf8_byte_size, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Iterate::l_String_Slice_positions;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
@@ -13,14 +18,6 @@ use crate::r#gen::Lean::Data::Json::Printer::{
 use crate::r#gen::Lean::Data::Lsp::LanguageFeatures::{
     initialize_Lean_Data_Lsp_LanguageFeatures, l_Lean_Lsp_CompletionItemKind_ctorIdx,
     runtime_initialize_Lean_Data_Lsp_LanguageFeatures,
-};
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub static l___private_Lean_Server_Completion_CompletionItemCompression_0__Lean_Lsp_ResolvableCompletionList_compressItemDataFast___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [93, 0]};
 static mut l___private_Lean_Server_Completion_CompletionItemCompression_0__Lean_Lsp_ResolvableCompletionList_compressItemDataFast___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Server_Completion_CompletionItemCompression_0__Lean_Lsp_ResolvableCompletionList_compressItemDataFast___closed__0_value) as *mut crate::leanh::LeanObject;

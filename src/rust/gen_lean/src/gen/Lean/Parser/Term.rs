@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Parser.Term
 // Imports: Lean.Parser.Term.Basic Lean.Parser.Term.Doc Lean.DocString.Parser Lean.DocString.Formatter
+use crate::ffi::{
+    lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_st_ref_set, lean_st_ref_take,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_prev,
+};
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
@@ -197,13 +201,6 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_Syntax_MonadTraverser_goLeft___at___00Lean_PrettyPrinter_Parenthesizer_visitArgs_spec__1___boxed,
 };
 use crate::r#gen::Lean::Syntax::{l_Lean_Syntax_Traverser_left, l_Lean_Syntax_isAntiquot};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_prev,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_string_utf8_byte_size,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l_Lean_Parser_Command_versoCommentBodyFn___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

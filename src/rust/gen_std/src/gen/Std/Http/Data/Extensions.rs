@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Http.Data.Extensions
 // Imports: Init.Dynamic Init.Data.String.Basic Std.Data.TreeMap
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq, lean_string_dec_lt};
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
@@ -18,8 +19,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
 use crate::r#gen::Std::Data::TreeMap::{
     initialize_Std_Data_TreeMap, runtime_initialize_Std_Data_TreeMap,
 };
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq};
 pub static mut l_Std_Http_instInhabitedExtensions_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Http_instInhabitedExtensions: *mut crate::leanh::LeanObject =

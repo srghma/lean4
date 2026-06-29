@@ -1,6 +1,37 @@
 // Lean compiler output
 // Module: Init.System.IO
 // Imports: Init.Control.Do Init.System.IOError Init.System.FilePath Init.Data.String.TakeDrop Init.Data.String.Search Init.Data.Ord.Basic Init.Data.String.Basic Init.Data.List.MapIdx Init.Data.Ord.UInt Init.Data.ToString.Macro Init.Data.List.Impl Init.Data.Int.Repr
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_byte_array_copy_slice, lean_byte_array_fget,
+    lean_byte_array_get, lean_byte_array_size, lean_chmod, lean_dbg_sleep, lean_get_set_stderr,
+    lean_get_set_stdin, lean_get_set_stdout, lean_get_stderr, lean_get_stdin, lean_get_stdout,
+    lean_int_dec_eq, lean_int_dec_lt, lean_io_allocprof, lean_io_app_path, lean_io_as_task,
+    lean_io_bind_task, lean_io_cancel, lean_io_check_canceled, lean_io_create_dir,
+    lean_io_create_tempdir, lean_io_create_tempfile, lean_io_current_dir, lean_io_exit,
+    lean_io_force_exit, lean_io_get_num_heartbeats, lean_io_get_random_bytes,
+    lean_io_get_task_state, lean_io_get_tid, lean_io_getenv, lean_io_hard_link,
+    lean_io_initializing, lean_io_map_task, lean_io_metadata, lean_io_mono_ms_now,
+    lean_io_mono_nanos_now, lean_io_prim_handle_flush, lean_io_prim_handle_get_line,
+    lean_io_prim_handle_is_tty, lean_io_prim_handle_lock, lean_io_prim_handle_mk,
+    lean_io_prim_handle_put_str, lean_io_prim_handle_read, lean_io_prim_handle_rewind,
+    lean_io_prim_handle_truncate, lean_io_prim_handle_try_lock, lean_io_prim_handle_unlock,
+    lean_io_prim_handle_write, lean_io_process_child_kill, lean_io_process_child_pid,
+    lean_io_process_child_take_stdin, lean_io_process_child_try_wait, lean_io_process_child_wait,
+    lean_io_process_get_current_dir, lean_io_process_get_pid, lean_io_process_set_current_dir,
+    lean_io_process_spawn, lean_io_read_dir, lean_io_realpath, lean_io_remove_dir,
+    lean_io_remove_file, lean_io_rename, lean_io_set_heartbeats, lean_io_symlink_metadata,
+    lean_io_timeit, lean_io_wait, lean_io_wait_any, lean_mk_empty_byte_array, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int, lean_runtime_forget,
+    lean_runtime_hold, lean_runtime_mark_multi_threaded, lean_runtime_mark_persistent,
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_append,
+    lean_string_from_utf8_unchecked, lean_string_length, lean_string_push, lean_string_to_utf8,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_validate_utf8,
+    lean_task_get_own, lean_task_map, lean_task_pure, lean_uint8_dec_eq, lean_uint32_dec_eq,
+    lean_uint32_dec_lt, lean_uint32_lor, lean_uint32_of_nat, lean_uint32_shift_left,
+    lean_uint32_to_nat, lean_uint64_to_nat, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_lt, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
@@ -55,55 +86,6 @@ use crate::r#gen::Init::System::IOError::{
     runtime_initialize_Init_System_IOError,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::{lean_task_get_own, lean_task_map, lean_task_pure};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_get,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_validate_utf8,
-};
-use crate::ffi::{lean_string_length, lean_string_push};
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::{
-    lean_uint32_lor, lean_uint32_shift_left, lean_uint64_to_usize,
-};
-use crate::ffi::{
-    lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_size,
-    lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-    lean_uint32_dec_eq, lean_uint32_dec_lt, lean_uint32_of_nat, lean_uint32_to_nat,
-};
-use crate::ffi::{
-    lean_chmod, lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout, lean_get_stderr,
-    lean_get_stdin, lean_get_stdout, lean_io_allocprof, lean_io_app_path, lean_io_as_task,
-    lean_io_bind_task, lean_io_cancel, lean_io_check_canceled, lean_io_create_dir,
-    lean_io_create_tempdir, lean_io_create_tempfile, lean_io_current_dir, lean_io_exit,
-    lean_io_force_exit, lean_io_get_num_heartbeats, lean_io_get_random_bytes,
-    lean_io_get_task_state, lean_io_get_tid, lean_io_getenv, lean_io_hard_link,
-    lean_io_initializing, lean_io_map_task, lean_io_metadata, lean_io_mono_ms_now,
-    lean_io_mono_nanos_now, lean_io_prim_handle_flush, lean_io_prim_handle_get_line,
-    lean_io_prim_handle_is_tty, lean_io_prim_handle_lock, lean_io_prim_handle_mk,
-    lean_io_prim_handle_put_str, lean_io_prim_handle_read, lean_io_prim_handle_rewind,
-    lean_io_prim_handle_truncate, lean_io_prim_handle_try_lock, lean_io_prim_handle_unlock,
-    lean_io_prim_handle_write, lean_io_process_child_kill, lean_io_process_child_pid,
-    lean_io_process_child_take_stdin, lean_io_process_child_try_wait, lean_io_process_child_wait,
-    lean_io_process_get_current_dir, lean_io_process_get_pid, lean_io_process_set_current_dir,
-    lean_io_process_spawn, lean_io_read_dir, lean_io_realpath, lean_io_remove_dir,
-    lean_io_remove_file, lean_io_rename, lean_io_set_heartbeats, lean_io_symlink_metadata,
-    lean_io_timeit, lean_io_wait, lean_io_wait_any, lean_runtime_forget, lean_runtime_hold,
-    lean_runtime_mark_multi_threaded, lean_runtime_mark_persistent,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_dbg_sleep;
 pub static mut l_IO_RealWorld_nonemptyType: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_instMonadBaseIO___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.SimpM
 // Imports: Lean.Meta.Sym.Pattern
+use crate::ffi::{
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_sym_simp,
+};
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___redArg,
     l_StateRefT_x27_instMonadExceptOf___redArg___lam__0___boxed,
@@ -37,10 +40,6 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Meta::Sym::Pattern::{
     initialize_Lean_Meta_Sym_Pattern, runtime_initialize_Lean_Meta_Sym_Pattern,
 };
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_sym_simp;
 pub static l_Lean_Meta_Sym_Simp_instInhabitedConfig_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

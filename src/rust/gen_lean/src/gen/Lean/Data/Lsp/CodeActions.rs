@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.Lsp.CodeActions
 // Imports: Lean.Data.Lsp.Diagnostics
+use crate::ffi::{
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_nat_dec_eq, lean_string_append, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -26,12 +30,6 @@ use crate::r#gen::Lean::Data::Lsp::Diagnostics::{
     l_Lean_Lsp_instToJsonDiagnosticRelatedInformation_toJson,
     runtime_initialize_Lean_Data_Lsp_Diagnostics,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_array_to_list, lean_nat_dec_eq};
 static mut l_Lean_Lsp_instToJsonCodeActionTriggerKind___lam__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Do.Control
 // Imports: Lean.Meta.ProdN Lean.Elab.Do.Basic Init.Control.Do
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_infer_type, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
@@ -36,18 +42,6 @@ use crate::r#gen::Lean::Meta::ProdN::{
     initialize_Lean_Meta_ProdN, l_Lean_Meta_mkProdMkN, l_Lean_Meta_mkProdN,
     runtime_initialize_Lean_Meta_ProdN,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Elab_Do_ControlStack_unStM___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

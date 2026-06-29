@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Util.FilePath
 // Imports: Lean.Data.Json Init.Data.String.TakeDrop Init.Data.String.Modify Init.System.Platform
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_dec_eq,
+    lean_string_memcmp, lean_string_push, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_prev, lean_string_utf8_set,
+    lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::String::Basic::{l_String_Slice_Pos_nextn, l_String_Slice_pos_x21};
 use crate::r#gen::Init::Data::String::Modify::{
     initialize_Init_Data_String_Modify, runtime_initialize_Init_Data_String_Modify,
@@ -20,17 +26,6 @@ use crate::r#gen::Init::System::Platform::{
 };
 use crate::r#gen::Lean::Data::Json::{
     initialize_Lean_Data_Json, runtime_initialize_Lean_Data_Json,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_prev,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l_Lake_instToJsonFilePath__lake___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

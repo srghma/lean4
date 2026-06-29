@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Beta
 // Imports: Lean.Meta.Tactic.Grind.Types
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget_borrowed,
+    lean_grind_mk_eq_proof, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
@@ -34,18 +40,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_updateLastTag, runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_grind_mk_eq_proof;
 static mut l_panic___at___00Lean_Meta_Grind_getEqcLambdas_spec__1___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

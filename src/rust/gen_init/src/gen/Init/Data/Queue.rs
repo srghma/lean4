@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Queue
 // Imports: Init.Data.List.Control
+use crate::ffi::lean_array_mk;
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_reverse___redArg};
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_appendTR___redArg, l_List_isEmpty___redArg, l_List_reverse___redArg,
@@ -9,7 +10,6 @@ use crate::r#gen::Init::Data::List::Control::{
     initialize_Init_Data_List_Control, l_List_filterAuxM___redArg,
     runtime_initialize_Init_Data_List_Control,
 };
-use crate::ffi::lean_array_mk;
 pub static l_Std_Queue_empty___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

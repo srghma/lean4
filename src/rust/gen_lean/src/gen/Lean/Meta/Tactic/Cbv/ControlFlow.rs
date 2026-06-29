@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Cbv.ControlFlow
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.Sym.Simp.Result Lean.Meta.Sym.Simp.Rewrite Lean.Meta.Sym.Simp.ControlFlow Lean.Meta.Sym.AlphaShareBuilder Lean.Meta.Sym.InstantiateS Lean.Meta.Sym.InferType Lean.Meta.Sym.Simp.App Lean.Meta.SynthInstance Lean.Meta.WHNF Lean.Meta.AppBuilder Init.Sym.Lemmas Lean.Meta.Tactic.Cbv.TheoremsLookup Lean.Meta.Tactic.Cbv.Opaque Lean.Meta.Tactic.Cbv.CbvEvalExt Lean.Compiler.NoncomputableAttr Init.CbvSimproc Lean.Meta.Tactic.Cbv.CbvSimproc
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_sym_simp, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::CbvSimproc::{
     initialize_Init_CbvSimproc, runtime_initialize_Init_CbvSimproc,
 };
@@ -102,16 +108,6 @@ use crate::r#gen::Lean::ReducibilityAttrs::{
 };
 use crate::r#gen::Lean::Util::FoldConsts::l_Lean_Expr_getUsedConstants;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_sym_simp;
 pub static l___private_Lean_Meta_Tactic_Cbv_ControlFlow_0__Lean_Meta_Sym_Simp_trySynthComputableInstance___closed__0_value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [68, 101, 99, 105, 100, 97, 98, 108, 101, 0]};
 static mut l___private_Lean_Meta_Tactic_Cbv_ControlFlow_0__Lean_Meta_Sym_Simp_trySynthComputableInstance___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Cbv_ControlFlow_0__Lean_Meta_Sym_Simp_trySynthComputableInstance___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Cbv_ControlFlow_0__Lean_Meta_Sym_Simp_trySynthComputableInstance___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Cbv_ControlFlow_0__Lean_Meta_Sym_Simp_trySynthComputableInstance___closed__0_value) as *mut crate::leanh::LeanObject,4342836574150310743 as *mut crate::leanh::LeanObject] };

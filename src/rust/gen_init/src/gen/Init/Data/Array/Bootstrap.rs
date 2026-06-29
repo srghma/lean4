@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Array.Bootstrap
 // Imports: Init.Data.Array.Basic Init.Data.List.Control Init.Data.List.Lemmas Init.Data.List.TakeDrop
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
 };
@@ -13,7 +14,6 @@ use crate::r#gen::Init::Data::List::Lemmas::{
 use crate::r#gen::Init::Data::List::TakeDrop::{
     initialize_Init_Data_List_TakeDrop, runtime_initialize_Init_Data_List_TakeDrop,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_Array_Bootstrap_0__Array_foldlM_loop_match__1_splitter___redArg(
     mut v_i_65_: *mut crate::leanh::LeanObject,
     mut v_h__1_66_: *mut crate::leanh::LeanObject,

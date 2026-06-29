@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Conv
 // Imports: Init.Tactics Init.Meta
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uset, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Parser_Tactic_getConfigItems;
 use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Meta};
@@ -16,11 +20,6 @@ use crate::r#gen::Init::Tactics::{
     l_Lean_Parser_Tactic_simpErase, l_Lean_Parser_Tactic_simpLemma, l_Lean_Parser_Tactic_simpStar,
     runtime_initialize_Init_Tactics,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_array_push;
 pub static l_Lean_Parser_Tactic_Conv_conv_quot___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.GeneralizeTelescope
 // Imports: Lean.Meta.KAbstract Lean.Meta.Check
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_instantiate1, lean_infer_type,
+    lean_nat_add, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Lean::CoreM::l_Lean_Core_mkFreshUserName;
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_hasLooseBVars, l_Lean_Expr_hasMVar};
@@ -18,20 +25,6 @@ use crate::r#gen::Lean::Meta::KAbstract::{
     initialize_Lean_Meta_KAbstract, l_Lean_Meta_kabstract, runtime_initialize_Lean_Meta_KAbstract,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_nat_add, lean_nat_dec_lt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_instantiate1;
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_GeneralizeTelescope_generalizeTelescopeAux___redArg___closed__0_value:
     crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Meta.Match.CaseArraySizes
 // Imports: Lean.Meta.Basic Lean.Meta.Tactic.FVarSubst Lean.Meta.Match.CaseValues Lean.Meta.Tactic.Subst
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uset,
+    lean_infer_type, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Meta::Defs::lean_name_append_index_after;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,
@@ -39,26 +48,6 @@ use crate::r#gen::Lean::Meta::Tactic::Subst::{
 use crate::r#gen::Lean::Meta::Tactic::Util::{
     l_Lean_MVarId_getTag, l_Lean_MVarId_getType, l_Lean_Meta_mkFreshExprSyntheticOpaqueMVar,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_sub,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_instInhabitedCaseArraySizesSubgoal_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

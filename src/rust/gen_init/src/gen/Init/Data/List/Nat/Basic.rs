@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.Nat.Basic
 // Imports: Init.Data.List.MinMax Init.Data.Bool Init.Data.List.Count Init.Data.Nat.Lemmas Init.Data.Nat.Linear Init.Data.Nat.MinMax Init.Data.Option.Lemmas Init.Omega
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
 };
@@ -23,7 +24,6 @@ use crate::r#gen::Init::Data::Option::Lemmas::{
     initialize_Init_Data_Option_Lemmas, runtime_initialize_Init_Data_Option_Lemmas,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_Nat_Basic_0__List_filterMap_match__1_splitter___redArg(
     mut v_x_71_: *mut crate::leanh::LeanObject,
     mut v_h__1_72_: *mut crate::leanh::LeanObject,

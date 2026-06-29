@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Closure
 // Imports: Lean.Util.ForEachExprWhere Lean.Compiler.LCNF.CompilerM
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_mk_array,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_mod,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Prelude::{
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
@@ -32,25 +41,6 @@ use crate::r#gen::Lean::Util::ForEachExprWhere::{
     initialize_Lean_Util_ForEachExprWhere, l_Lean_ForEachExprWhere_initCache,
     runtime_initialize_Lean_Util_ForEachExprWhere,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land, lean_usize_mod,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::lean_expr_eqv;
 static mut l_panic___at___00Lean_Compiler_LCNF_Closure_collectFVar_spec__5___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

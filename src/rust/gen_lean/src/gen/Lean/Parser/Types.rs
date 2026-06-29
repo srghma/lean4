@@ -1,6 +1,20 @@
 // Lean compiler output
 // Module: Lean.Parser.Types
 // Imports: Lean.Data.Trie Lean.DocString.Extension Init.Data.String.OrderInstances
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push,
+    lean_array_size, lean_array_to_list, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq, lean_string_dec_lt,
+    lean_string_push, lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next, lean_string_utf8_next_fast,
+    lean_string_utf8_prev, lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt,
+    lean_usize_land, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_shrink___redArg};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::List::Basic::{
@@ -33,33 +47,6 @@ use crate::r#gen::Lean::DocString::Extension::{
     runtime_initialize_Lean_DocString_Extension,
 };
 use crate::r#gen::Lean::Message::l_Lean_mkErrorStringWithPos;
-use crate::ffi::{
-    lean_array_fswap, lean_array_pop, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_dec_lt, lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next, lean_string_utf8_next_fast, lean_string_utf8_prev,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
-    lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint64_mix_hash, lean_uint64_of_nat,
-};
 pub static mut l_Lean_Parser_maxPrec: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Lean_Parser_argPrec: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Lean_Parser_leadPrec: *mut crate::leanh::LeanObject = core::ptr::null_mut();

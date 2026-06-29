@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Arith.Poly
 // Imports: Init.Grind.Ring.CommSolver Init.Data.Nat.Gcd Init.Data.Nat.Lemmas Init.Data.Nat.Linear Init.WFTactics
+use crate::ffi::{
+    lean_int_dec_eq, lean_int_ediv, lean_int_neg, lean_nat_abs, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_gcd, lean_nat_sub, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Nat::Gcd::{
     initialize_Init_Data_Nat_Gcd, runtime_initialize_Init_Data_Nat_Gcd,
 };
@@ -18,14 +22,6 @@ use crate::r#gen::Init::Grind::Ring::CommSolver::{
     l_Lean_Grind_CommRing_Poly_mulMonC, runtime_initialize_Init_Grind_Ring_CommSolver,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_int_ediv;
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-};
 static mut l_Lean_Grind_CommRing_Poly_spol___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.LibrarySuggestions.MePo
 // Imports: Lean.LibrarySuggestions.Basic Lean.LibrarySuggestions.SymbolFrequency
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_float_add, lean_float_decLe, lean_float_decLt,
+    lean_float_div, lean_float_sub, lean_float_to_string, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_log2, lean_nat_mul,
+    lean_nat_shiftr, lean_nat_sub, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::{l_Float_ofScientific, lean_float_of_nat};
 use crate::r#gen::Init::Prelude::{l_Array_extract___redArg, l_Lean_Name_append};
@@ -32,26 +41,6 @@ use crate::r#gen::Lean::Util::Trace::{
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
     l_Std_DTreeMap_Internal_Impl_maxView___redArg, l_Std_DTreeMap_Internal_Impl_minView___redArg,
-};
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_float_add, lean_float_decLe, lean_float_decLt, lean_float_div, lean_float_sub,
-    lean_float_to_string,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_nat_log2;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_LibrarySuggestions_MePo_0__Lean_LibrarySuggestions_MePo_initFn___closed__0_00___x40_Lean_LibrarySuggestions_MePo_1610293474____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [109, 101, 112, 111, 0]};
 static mut l___private_Lean_LibrarySuggestions_MePo_0__Lean_LibrarySuggestions_MePo_initFn___closed__0_00___x40_Lean_LibrarySuggestions_MePo_1610293474____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_LibrarySuggestions_MePo_0__Lean_LibrarySuggestions_MePo_initFn___closed__0_00___x40_Lean_LibrarySuggestions_MePo_1610293474____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;

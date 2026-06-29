@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Elab.DocString.Builtin.Postponed
 // Imports: Lean.Elab.Term.TermElabM
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_has_compile_error, lean_name_eq, lean_nat_add,
+    lean_nat_dec_lt, lean_nat_to_int, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_dec_eq, lean_string_length, lean_uint64_mix_hash,
+    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_repr___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -39,22 +47,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_instBEqMessageSeverity_beq, l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
-    lean_string_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_has_compile_error;
 pub static l_Lean_Doc_instBEqPostponedImport___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

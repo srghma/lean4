@@ -1,10 +1,6 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.LLVMBindings
 // Imports: Init.System.IO
-use crate::r#gen::Init::System::IO::{
-    initialize_Init_System_IO, runtime_initialize_Init_System_IO,
-};
-use crate::ffi::lean_usize_dec_eq;
 use crate::ffi::{
     lean_llvm_add_attribute_at_index, lean_llvm_add_case, lean_llvm_add_function,
     lean_llvm_add_global, lean_llvm_append_basic_block_in_context, lean_llvm_array_type,
@@ -33,7 +29,11 @@ use crate::ffi::{
     lean_llvm_set_dll_storage_class, lean_llvm_set_initializer, lean_llvm_set_linkage,
     lean_llvm_set_tail_call, lean_llvm_set_visibility, lean_llvm_target_machine_emit_to_file,
     lean_llvm_type_of, lean_llvm_verify_module, lean_llvm_void_type_in_context,
-    lean_llvm_write_bitcode_to_file, llvm_count_params, llvm_get_param, llvm_is_declaration,
+    lean_llvm_write_bitcode_to_file, lean_usize_dec_eq, llvm_count_params, llvm_get_param,
+    llvm_is_declaration,
+};
+use crate::r#gen::Init::System::IO::{
+    initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
 pub static mut l_LLVM_CodegenFileType_AssemblyFile: u64 = 0;
 pub static mut l_LLVM_CodegenFileType_ObjectFile: u64 = 0;

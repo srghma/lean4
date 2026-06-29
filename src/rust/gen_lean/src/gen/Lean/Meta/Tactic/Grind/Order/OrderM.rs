@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Order.OrderM
 // Imports: Lean.Meta.Tactic.Grind.Order.Types
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_st_ref_get,
+    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
+    lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_get_x21___redArg;
 use crate::r#gen::Lean::Expr::l_Lean_instInhabitedExpr;
@@ -15,16 +21,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Order::Types::{
     l_Lean_Meta_Grind_Order_orderExt, runtime_initialize_Lean_Meta_Tactic_Grind_Order_Types,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Order_getStruct___closed__0_value: crate::leanh::LeanStringObject<51> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

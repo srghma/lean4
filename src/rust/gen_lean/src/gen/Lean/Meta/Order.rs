@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Order
 // Imports: Lean.Meta.PProdN Lean.Meta.AppBuilder Init.Internal.Order.Basic
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_array_uset, lean_infer_type, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_lt, lean_st_ref_get, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Internal::Order::Basic::{
@@ -18,18 +24,6 @@ use crate::r#gen::Lean::Meta::PProdN::{
     initialize_Lean_Meta_PProdN, l_Lean_Meta_PProdN_genMk___redArg,
     runtime_initialize_Lean_Meta_PProdN,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_mkInstPiOfInstForall___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

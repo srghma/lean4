@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Checker
 // Imports: Std.Tactic.BVDecide.LRAT.Internal.Convert Std.Tactic.BVDecide.LRAT.Internal.LRATCheckerSound Std.Tactic.BVDecide.LRAT.Internal.CompactLRATChecker Std.Tactic.BVDecide.LRAT.Internal.CompactLRATCheckerSound
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Std::Sat::CNF::RelabelFin::l_Std_Sat_CNF_numLiterals;
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::CompactLRATChecker::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_CompactLRATChecker,
@@ -21,7 +22,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::LRATCheckerSound::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATCheckerSound,
 };
-use crate::ffi::lean_nat_add;
 pub unsafe fn l_Std_Tactic_BVDecide_LRAT_check(
     mut v_lratProof_14_: *mut crate::leanh::LeanObject,
     mut v_cnf_15_: *mut crate::leanh::LeanObject,

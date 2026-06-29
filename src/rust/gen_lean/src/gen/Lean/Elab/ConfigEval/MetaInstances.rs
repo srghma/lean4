@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.ConfigEval.MetaInstances
 // Imports: Lean.Elab.ConfigEval.Commands Lean.Elab.ConfigEval.Instances Lean.Elab.ConfigEval.DeriveEvalTerm Lean.Elab.ConfigEval.DeriveEvalExpr
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_nat_dec_eq, lean_st_ref_get,
+    lean_string_dec_eq,
+};
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr4;
 use crate::r#gen::Lean::Elab::ConfigEval::Commands::{
     initialize_Lean_Elab_ConfigEval_Commands, runtime_initialize_Lean_Elab_ConfigEval_Commands,
@@ -29,10 +33,6 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_mkConst,
 };
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_nat_dec_eq, lean_string_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_ConfigEval_instEvalTermApplyNewGoals_evalTerm_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_ConfigEval_instEvalTermApplyNewGoals_evalTerm_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_ConfigEval_instEvalTermApplyNewGoals_evalTerm___lam__0___closed__0_value:

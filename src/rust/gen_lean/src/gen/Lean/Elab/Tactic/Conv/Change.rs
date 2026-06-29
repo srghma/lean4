@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Conv.Change
 // Imports: Lean.Elab.Tactic.Change Lean.Elab.Tactic.Conv.Basic
+use crate::ffi::lean_st_ref_get;
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
@@ -20,7 +21,6 @@ use crate::r#gen::Lean::Elab::Tactic::ElabTerm::{
 };
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
 use crate::r#gen::Lean::Meta::CollectMVars::l_Lean_Meta_getMVars;
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_Conv_evalChange_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_Conv_evalChange_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Tactic_Conv_evalChange___lam__0___closed__0_value:

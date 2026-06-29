@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Lean.Server.FileSource
 // Imports: Lean.Data.Lsp
+use crate::ffi::{lean_panic_fn_borrowed, lean_string_append};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Json::Basic::{
     l_Lean_Json_getArrVal_x3f, l_Lean_Json_getObjValD, l_Lean_Json_getStr_x3f,
 };
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
 use crate::r#gen::Lean::Data::Lsp::{initialize_Lean_Data_Lsp, runtime_initialize_Lean_Data_Lsp};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_panic_fn_borrowed;
 pub static l_Lean_Lsp_instFileSourceLocation___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

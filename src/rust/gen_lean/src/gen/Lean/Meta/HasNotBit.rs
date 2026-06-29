@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.HasNotBit
 // Imports: Lean.Meta.Basic Lean.Meta.MatchUtil
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_nat_lor, lean_nat_shiftl,
+    lean_panic_fn_borrowed, lean_usize_add, lean_usize_dec_lt, lean_whnf,
+};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_hasFVar,
@@ -16,11 +20,6 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Meta::MatchUtil::{
     initialize_Lean_Meta_MatchUtil, l_Lean_Meta_matchNe_x3f, runtime_initialize_Lean_Meta_MatchUtil,
 };
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_nat_lor, lean_nat_shiftl};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_panic_fn_borrowed;
-use crate::ffi::lean_whnf;
 pub static l_mkHasNotBit___closed__0_value: crate::leanh::LeanStringObject<4> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

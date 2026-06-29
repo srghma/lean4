@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Data.Json.Elab
 // Imports: Lean.Data.Json.FromToJson Lean.Syntax
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_zip___redArg};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::{
@@ -18,15 +23,6 @@ use crate::r#gen::Lean::Data::Json::FromToJson::{
 use crate::r#gen::Lean::Syntax::{
     initialize_Lean_Syntax, l_Lean_Syntax_getAntiquotTerm, l_Lean_Syntax_isAntiquot,
     runtime_initialize_Lean_Syntax,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_Json_json_quot___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

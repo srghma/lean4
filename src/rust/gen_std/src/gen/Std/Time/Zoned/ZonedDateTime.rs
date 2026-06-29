@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.ZonedDateTime
 // Imports: Std.Time.Zoned.DateTime Std.Time.Zoned.ZoneRules Std.Time.DateTime.PlainDateTime
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_ediv, lean_int_emod, lean_int_mod,
+    lean_int_mul, lean_int_neg, lean_mk_thunk, lean_nat_to_int, lean_thunk_get_own,
+};
 use crate::r#gen::Std::Time::Date::PlainDate::{
     l_Std_Time_PlainDate_addMonthsClip, l_Std_Time_PlainDate_addMonthsRollOver,
     l_Std_Time_PlainDate_alignedWeekOfMonth, l_Std_Time_PlainDate_ofEpochDay,
@@ -29,13 +33,6 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
     l_Std_Time_TimeZone_ZoneRules_findLocalTimeTypeForWallTime,
     l_Std_Time_TimeZone_instInhabitedZoneRules_default,
     runtime_initialize_Std_Time_Zoned_ZoneRules,
-};
-use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_ediv, lean_int_emod, lean_int_mod,
 };
 pub static l_Std_Time_instInhabitedZonedDateTime___private__1___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

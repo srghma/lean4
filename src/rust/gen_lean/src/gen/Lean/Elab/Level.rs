@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Level
 // Imports: Lean.Elab.AutoBound
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_uget_borrowed, lean_name_eq, lean_nat_add,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNatLit_x3f, lean_mk_syntax_ident};
@@ -27,12 +32,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_MetavarContext_addLevelMVarDecl;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
 pub static l_Lean_Elab_Level_instMonadOptionsLevelElabM___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

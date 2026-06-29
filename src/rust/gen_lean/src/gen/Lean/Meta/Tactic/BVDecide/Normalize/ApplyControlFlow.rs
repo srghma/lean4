@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize.ApplyControlFlow
 // Imports: Lean.Meta.Tactic.Simp Init.ByCases Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_pop, lean_array_push, lean_array_set,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Lean::Expr::{
@@ -11,12 +15,6 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Meta::AppBuilder::l_Lean_Meta_mkAppOptM;
 use crate::r#gen::Lean::Meta::Tactic::Simp::{
     initialize_Lean_Meta_Tactic_Simp, runtime_initialize_Lean_Meta_Tactic_Simp,
-};
-use crate::ffi::{lean_array_pop, lean_mk_array};
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
 pub static l_Lean_Expr_withAppAux___at___00Lean_Meta_Tactic_BVDecide_Normalize_applyIteSimproc_spec__0___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 2 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l_Lean_Expr_withAppAux___at___00Lean_Meta_Tactic_BVDecide_Normalize_applyIteSimproc_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Expr_withAppAux___at___00Lean_Meta_Tactic_BVDecide_Normalize_applyIteSimproc_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.DeclHash
 // Imports: Lean.Compiler.LCNF.Basic
+use crate::ffi::{
+    lean_array_get_size, lean_array_uget_borrowed, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Lean::Compiler::ExternAttr::l_Lean_instHashableExternAttrData_hash;
 use crate::r#gen::Lean::Compiler::InlineAttrs::l_Lean_Compiler_instHashableInlineAttributeKind_hash;
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
@@ -9,12 +13,6 @@ use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     runtime_initialize_Lean_Compiler_LCNF_Basic,
 };
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_hash, l_Lean_instHashableFVarId_hash};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_uint64_mix_hash,
-    lean_uint64_of_nat, lean_usize_dec_eq,
-};
 pub static l_Lean_Compiler_LCNF_instHashableParam___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

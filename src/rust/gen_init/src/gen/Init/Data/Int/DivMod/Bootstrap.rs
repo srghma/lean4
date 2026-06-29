@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Int.DivMod.Bootstrap
 // Imports: Init.Data.Int.DivMod.Basic Init.Data.Nat.Div.Basic Init.ByCases Init.Data.Int.Lemmas Init.Data.Int.Order Init.Data.Nat.Dvd Init.RCases
+use crate::ffi::{lean_int_dec_lt, lean_nat_abs, lean_nat_dec_eq, lean_nat_sub, lean_nat_to_int};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Int::DivMod::Basic::{
     initialize_Init_Data_Int_DivMod_Basic, runtime_initialize_Init_Data_Int_DivMod_Basic,
@@ -18,10 +19,6 @@ use crate::r#gen::Init::Data::Nat::Dvd::{
     initialize_Init_Data_Nat_Dvd, runtime_initialize_Init_Data_Nat_Dvd,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l___private_Init_Data_Int_DivMod_Bootstrap_0__Int_ediv_match__1_splitter___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_Data_Int_DivMod_Bootstrap_0__Int_ediv_match__1_splitter___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn _init_l___private_Init_Data_Int_DivMod_Bootstrap_0__Int_ediv_match__1_splitter___redArg___closed__0()

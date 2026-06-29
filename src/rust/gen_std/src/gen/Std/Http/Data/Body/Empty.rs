@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Http.Data.Body.Empty
 // Imports: Std.Http.Data.Request Std.Http.Data.Response Std.Http.Data.Body.Any
+use crate::ffi::lean_io_promise_resolve;
 use crate::r#gen::Init::Prelude::{
     l_instMonadLiftT___lam__0___boxed, l_instMonadLiftTOfMonadLift___redArg___lam__0,
 };
@@ -23,7 +24,6 @@ use crate::r#gen::Std::Http::Data::Response::{
     initialize_Std_Http_Data_Response, l_Std_Http_Response_Builder_body___redArg,
     runtime_initialize_Std_Http_Data_Response,
 };
-use crate::ffi::lean_io_promise_resolve;
 pub static mut l_Std_Http_Body_instInhabitedEmpty_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Http_Body_instInhabitedEmpty: *mut crate::leanh::LeanObject =

@@ -1,6 +1,40 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.EmitLLVM
 // Imports: Lean.Compiler.NameMangling Lean.Compiler.IR.EmitUtil Lean.Compiler.IR.NormIds Lean.Compiler.IR.LLVMBindings Lean.Compiler.LCNF.Types Lean.Compiler.ModPkgExt Lean.Runtime Lean.Compiler.ClosedTermCache Init.Data.Range.Polymorphic.Iterators
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push,
+    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_llvm_add_attribute_at_index,
+    lean_llvm_add_case, lean_llvm_add_function, lean_llvm_add_global,
+    lean_llvm_append_basic_block_in_context, lean_llvm_array_type, lean_llvm_build_add,
+    lean_llvm_build_alloca, lean_llvm_build_br, lean_llvm_build_call2, lean_llvm_build_cond_br,
+    lean_llvm_build_gep2, lean_llvm_build_global_string, lean_llvm_build_icmp,
+    lean_llvm_build_inbounds_gep2, lean_llvm_build_load2, lean_llvm_build_mul, lean_llvm_build_not,
+    lean_llvm_build_ret, lean_llvm_build_sext, lean_llvm_build_sext_or_trunc,
+    lean_llvm_build_store, lean_llvm_build_sub, lean_llvm_build_switch,
+    lean_llvm_build_unreachable, lean_llvm_build_zext, lean_llvm_clear_insertion_position,
+    lean_llvm_const_int, lean_llvm_count_basic_blocks, lean_llvm_create_builder_in_context,
+    lean_llvm_create_context, lean_llvm_create_module, lean_llvm_create_string_attribute,
+    lean_llvm_double_type_in_context, lean_llvm_float_type_in_context, lean_llvm_function_type,
+    lean_llvm_get_basic_block_parent, lean_llvm_get_entry_basic_block,
+    lean_llvm_get_first_function, lean_llvm_get_first_global, lean_llvm_get_first_instruction,
+    lean_llvm_get_insert_block, lean_llvm_get_named_function, lean_llvm_get_named_global,
+    lean_llvm_get_next_function, lean_llvm_get_next_global, lean_llvm_get_undef,
+    lean_llvm_get_value_name2, lean_llvm_initialize_target_info, lean_llvm_int_type_in_context,
+    lean_llvm_opaque_pointer_type_in_context, lean_llvm_pointer_type,
+    lean_llvm_position_builder_at_end, lean_llvm_position_builder_before,
+    lean_llvm_set_dll_storage_class, lean_llvm_set_initializer, lean_llvm_set_linkage,
+    lean_llvm_set_tail_call, lean_llvm_set_visibility, lean_llvm_void_type_in_context,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_shiftr,
+    lean_nat_sub, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_length, lean_string_push,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_nat, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_sub, llvm_count_params, llvm_get_param, llvm_is_declaration,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_zip___redArg};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::List::Basic::{
@@ -88,58 +122,6 @@ use crate::r#gen::Lean::Expr::{
 };
 use crate::r#gen::Lean::Runtime::{
     initialize_Lean_Runtime, l_Lean_closureMaxArgs, runtime_initialize_Lean_Runtime,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-    lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
-    lean_nat_mod, lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_to_nat, lean_uint64_dec_eq,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_llvm_add_attribute_at_index, lean_llvm_add_case, lean_llvm_add_function,
-    lean_llvm_add_global, lean_llvm_append_basic_block_in_context, lean_llvm_array_type,
-    lean_llvm_build_add, lean_llvm_build_alloca, lean_llvm_build_br, lean_llvm_build_call2,
-    lean_llvm_build_cond_br, lean_llvm_build_gep2, lean_llvm_build_global_string,
-    lean_llvm_build_icmp, lean_llvm_build_inbounds_gep2, lean_llvm_build_load2,
-    lean_llvm_build_mul, lean_llvm_build_not, lean_llvm_build_ret, lean_llvm_build_sext,
-    lean_llvm_build_sext_or_trunc, lean_llvm_build_store, lean_llvm_build_sub,
-    lean_llvm_build_switch, lean_llvm_build_unreachable, lean_llvm_build_zext,
-    lean_llvm_clear_insertion_position, lean_llvm_const_int, lean_llvm_count_basic_blocks,
-    lean_llvm_create_builder_in_context, lean_llvm_create_context, lean_llvm_create_module,
-    lean_llvm_create_string_attribute, lean_llvm_double_type_in_context,
-    lean_llvm_float_type_in_context, lean_llvm_function_type, lean_llvm_get_basic_block_parent,
-    lean_llvm_get_entry_basic_block, lean_llvm_get_first_function, lean_llvm_get_first_global,
-    lean_llvm_get_first_instruction, lean_llvm_get_insert_block, lean_llvm_get_named_function,
-    lean_llvm_get_named_global, lean_llvm_get_next_function, lean_llvm_get_next_global,
-    lean_llvm_get_undef, lean_llvm_get_value_name2, lean_llvm_initialize_target_info,
-    lean_llvm_int_type_in_context, lean_llvm_opaque_pointer_type_in_context,
-    lean_llvm_pointer_type, lean_llvm_position_builder_at_end, lean_llvm_position_builder_before,
-    lean_llvm_set_dll_storage_class, lean_llvm_set_initializer, lean_llvm_set_linkage,
-    lean_llvm_set_tail_call, lean_llvm_set_visibility, lean_llvm_void_type_in_context,
-    llvm_count_params, llvm_get_param, llvm_is_declaration,
 };
 pub static l_Lean_IR_leanMainFn___closed__0_value: crate::leanh::LeanStringObject<11> =
     crate::leanh::LeanStringObject {

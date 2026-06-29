@@ -1,12 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.CheckResult
 // Imports: Init.Data.Repr Init.MetaTypes
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int};
 use crate::r#gen::Init::Data::Repr::{
     initialize_Init_Data_Repr, l_Repr_addAppParen, runtime_initialize_Init_Data_Repr,
 };
 use crate::r#gen::Init::MetaTypes::{initialize_Init_MetaTypes, runtime_initialize_Init_MetaTypes};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static l_Lean_Meta_Grind_instBEqCheckResult___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

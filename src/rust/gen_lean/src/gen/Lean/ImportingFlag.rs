@@ -1,11 +1,10 @@
 // Lean compiler output
 // Module: Lean.ImportingFlag
 // Imports: Init.System.IO
+use crate::ffi::{lean_io_initializing, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
-use crate::ffi::lean_io_initializing;
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static mut l___private_Lean_ImportingFlag_0__Lean_importingRef: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l___private_Lean_ImportingFlag_0__Lean_runInitializersRef:

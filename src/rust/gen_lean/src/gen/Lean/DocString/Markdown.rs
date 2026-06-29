@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.DocString.Markdown
 // Imports: Lean.DocString.Types Init.Data.String.TakeDrop Init.Data.String.Search Init.Data.String.Length Init.Data.ToString.Macro Init.While
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_string_append, lean_string_memcmp, lean_string_push,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -39,25 +49,6 @@ use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_W
 use crate::r#gen::Lean::DocString::Types::{
     initialize_Lean_DocString_Types, l_Lean_Doc_Inline_empty,
     runtime_initialize_Lean_DocString_Types,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_mk,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
 };
 pub static l_Lean_Doc_MarkdownM_instInhabitedInlineCtx_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {

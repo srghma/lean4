@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.LCtx
 // Imports: Lean.Compiler.LCNF.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     initialize_Lean_Compiler_LCNF_Basic, l_Lean_Compiler_LCNF_LetValue_toExpr,
     runtime_initialize_Lean_Compiler_LCNF_Basic,
@@ -8,20 +15,6 @@ use crate::r#gen::Lean::Compiler::LCNF::Basic::{
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::{l_Lean_instBEqFVarId_beq, l_Lean_instHashableFVarId_hash};
 use crate::r#gen::Lean::LocalContext::l_Lean_LocalContext_addDecl;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_usize_dec_eq,
-};
 static mut l_Lean_Compiler_LCNF_instInhabitedLCtx_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

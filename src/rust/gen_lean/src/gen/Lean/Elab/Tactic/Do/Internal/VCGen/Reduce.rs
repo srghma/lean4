@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.Internal.VCGen.Reduce
 // Imports: Lean.Meta.Sym.SymM Lean.Meta.WHNF Lean.Meta.Sym
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
+    lean_st_ref_get, lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_whnf,
+};
 use crate::r#gen::Lean::Expr::{
     l___private_Lean_Expr_0__Lean_Expr_getAppRevArgsAux, l_Lean_Expr_betaRev, l_Lean_Expr_getAppFn,
     l_Lean_Expr_getAppNumArgs, l_Lean_mkAppRev,
@@ -21,14 +25,6 @@ use crate::r#gen::Lean::Meta::WHNF::{
     l_Lean_Meta_unfoldDefinition_x3f, runtime_initialize_Lean_Meta_WHNF,
 };
 use crate::r#gen::Lean::ProjFns::l_Lean_Environment_isProjectionFn;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_whnf;
 static mut l___private_Lean_Elab_Tactic_Do_Internal_VCGen_Reduce_0__Lean_Elab_Tactic_Do_Internal_VCGen_reduceHead_x3f_go___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Elab_Tactic_Do_Internal_VCGen_Reduce_0__Lean_Elab_Tactic_Do_Internal_VCGen_reduceHead_x3f_go___closed__0: u64 = 0;
 static mut l_Lean_Elab_Tactic_Do_Internal_VCGen_reduceHead_x3f___closed__0_once:

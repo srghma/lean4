@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.FVarSubset
 // Imports: Lean.Util.CollectFVars Lean.Util.FindExpr
+use crate::ffi::{lean_find_ext_expr, lean_mk_array};
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_fvarId_x21, l_Lean_Expr_hasFVar, l_Lean_Expr_isFVar};
 use crate::r#gen::Lean::Util::CollectFVars::{
@@ -10,8 +11,6 @@ use crate::r#gen::Lean::Util::CollectFVars::{
 use crate::r#gen::Lean::Util::FindExpr::{
     initialize_Lean_Util_FindExpr, runtime_initialize_Lean_Util_FindExpr,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_find_ext_expr;
 static mut l_Lean_Expr_fvarsSubset___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

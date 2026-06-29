@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lake.Version
 // Imports: Init.Prelude Init.Data.ToString Init.Data.String.TakeDrop
+use crate::ffi::{
+    lean_nat_dec_eq, lean_string_append, lean_string_dec_eq, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_nextn;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_toString;
@@ -14,10 +17,6 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_githash, l_Lean_version_isRelease, l_Lean_versionString,
 };
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_string_dec_eq, lean_string_utf8_byte_size,
-};
 pub static mut l_Lake_version_major: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Lake_version_minor: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Lake_version_patch: *mut crate::leanh::LeanObject = core::ptr::null_mut();

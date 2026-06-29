@@ -1,21 +1,16 @@
 // Lean compiler output
 // Module: Init.Data.Int.DivMod.Basic
 // Imports: Init.Data.Int.Basic Init.Data.Nat.Div.Basic
+use crate::ffi::{
+    lean_int_add, lean_int_dec_lt, lean_int_div, lean_int_div_exact, lean_int_ediv, lean_int_emod,
+    lean_int_mod, lean_int_neg, lean_int_neg_succ_of_nat, lean_int_sub, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_div, lean_nat_mod, lean_nat_sub, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::{
     initialize_Init_Data_Int_Basic, l_Int_subNatNat, runtime_initialize_Init_Data_Int_Basic,
 };
 use crate::r#gen::Init::Data::Nat::Div::Basic::{
     initialize_Init_Data_Nat_Div_Basic, runtime_initialize_Init_Data_Nat_Div_Basic,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_lt, lean_int_neg, lean_int_neg_succ_of_nat, lean_int_sub,
-    lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_div_exact, lean_int_ediv, lean_int_emod, lean_int_mod,
-};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_div, lean_nat_mod, lean_nat_sub,
 };
 pub static l_Int_instDiv___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.DSimp.DSimpM
 // Imports: Lean.Meta.Sym.SymM Lean.Meta.Sym.ExprPtr
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_sym_dsimp};
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___redArg,
     l_StateRefT_x27_instMonadExceptOf___redArg___lam__0___boxed,
@@ -40,8 +41,6 @@ use crate::r#gen::Lean::Meta::Sym::ExprPtr::{
 use crate::r#gen::Lean::Meta::Sym::SymM::{
     initialize_Lean_Meta_Sym_SymM, runtime_initialize_Lean_Meta_Sym_SymM,
 };
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
-use crate::ffi::lean_sym_dsimp;
 pub static mut l_Lean_Meta_Sym_DSimp_instInhabitedConfig_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Meta_Sym_DSimp_instInhabitedConfig: *mut crate::leanh::LeanObject =

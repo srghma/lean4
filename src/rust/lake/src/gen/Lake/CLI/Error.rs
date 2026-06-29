@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.CLI.Error
 // Imports: Init.Data.ToString Init.System.FilePath
+use crate::ffi::{
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int, lean_string_append, lean_string_length,
+    lean_string_push, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Repr::{l_Char_quote, l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
@@ -11,12 +15,6 @@ use crate::r#gen::Init::Data::ToString::{
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::System::FilePath::{
     initialize_Init_System_FilePath, runtime_initialize_Init_System_FilePath,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_string_length, lean_string_push};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_dec_le, lean_string_utf8_byte_size,
 };
 pub static mut l_Lake_instInhabitedCliError_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();

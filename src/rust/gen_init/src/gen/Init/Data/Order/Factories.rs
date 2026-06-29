@@ -1,12 +1,12 @@
 // Lean compiler output
 // Module: Init.Data.Order.Factories
 // Imports: Init.Data.Order.Classes Init.Classical
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Order::Classes::{
     initialize_Init_Data_Order_Classes, runtime_initialize_Init_Data_Order_Classes,
 };
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_IsPreorder_of__le___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

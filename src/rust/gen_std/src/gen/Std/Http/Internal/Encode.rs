@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Std.Http.Internal.Encode
 // Imports: Std.Http.Internal.ChunkedBuffer Std.Http.Data.Version
+use crate::ffi::{lean_array_push, lean_byte_array_size, lean_nat_add, lean_string_to_utf8};
 use crate::r#gen::Std::Http::Data::Version::{
     initialize_Std_Http_Data_Version, runtime_initialize_Std_Http_Data_Version,
 };
 use crate::r#gen::Std::Http::Internal::ChunkedBuffer::{
     initialize_Std_Http_Internal_ChunkedBuffer, runtime_initialize_Std_Http_Internal_ChunkedBuffer,
 };
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::{lean_array_push, lean_byte_array_size, lean_nat_add};
 pub static l_Std_Http_Internal_instEncodeV11Version___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

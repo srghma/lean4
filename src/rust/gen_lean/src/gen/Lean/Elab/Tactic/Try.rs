@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Try
 // Imports: Lean.Meta.Tactic.ExposeNames Lean.Meta.Tactic.Try Lean.Meta.TryThis Lean.Server.InfoUtils Lean.Elab.Tactic.SimpTrace Lean.Elab.Tactic.LibrarySearch Lean.Elab.Tactic.Grind.Main Lean.Elab.Parallel Lean.Elab.Command Lean.Elab.BuiltinTerm Init.Omega Lean.Elab.ConfigEval
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_has_compile_error, lean_io_as_task, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr,
+    lean_nat_sub, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq, lean_string_dec_lt, lean_string_hash,
+    lean_uint64_to_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_Array_contains___redArg, l_Array_instInhabited,
     l_Array_reverse___redArg,
@@ -227,28 +237,6 @@ use crate::r#gen::Lean::Server::InfoUtils::{
 use crate::r#gen::Lean::Util::Heartbeats::l_Lean_getMaxHeartbeats___redArg;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_hash,
-    lean_usize_dec_eq,
-};
-use crate::ffi::lean_io_as_task;
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_has_compile_error;
 pub static l___private_Lean_Elab_Tactic_Try_0__Lean_Elab_Tactic_initFn___closed__0_00___x40_Lean_Elab_Tactic_Try_1610017672____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [100, 101, 98, 117, 103, 0]};
 static mut l___private_Lean_Elab_Tactic_Try_0__Lean_Elab_Tactic_initFn___closed__0_00___x40_Lean_Elab_Tactic_Try_1610017672____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Try_0__Lean_Elab_Tactic_initFn___closed__0_00___x40_Lean_Elab_Tactic_Try_1610017672____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Tactic_Try_0__Lean_Elab_Tactic_initFn___closed__1_00___x40_Lean_Elab_Tactic_Try_1610017672____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [116, 97, 99, 116, 105, 99, 0]};

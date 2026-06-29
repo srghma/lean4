@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.AuxDef
 // Imports: Lean.Elab.Command
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
@@ -29,16 +34,6 @@ use crate::r#gen::Lean::Elab::Command::{
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::Environment::{l_Lean_Environment_header, l_Lean_Environment_setExporting};
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Elab_Command_aux__def___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

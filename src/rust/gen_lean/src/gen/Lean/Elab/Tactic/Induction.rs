@@ -1,6 +1,19 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Induction
 // Imports: Lean.Parser.Tactic Lean.Meta.Tactic.ElimInfo Lean.Elab.Tactic.ElabTerm Lean.Meta.Tactic.FunIndCollect Init.Data.Nat.Order Init.Data.Order.Lemmas Lean.Elab.Binders Lean.Meta.Tactic.Generalize
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_set, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_dbg_trace,
+    lean_expr_eqv, lean_expr_instantiate1, lean_infer_type, lean_io_promise_new,
+    lean_io_promise_resolve, lean_io_promise_result_opt, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+    lean_task_map, lean_uint64_to_usize, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_le,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l___private_Init_Data_Array_Basic_0__Array_findFinIdx_x3f_loop, l_Array_append___redArg,
     l_Array_eraseIdx___redArg, l_Array_reverse___redArg, l_Array_zip___redArg,
@@ -199,35 +212,6 @@ use crate::r#gen::Lean::Syntax::{l_Lean_Syntax_eqWithInfoAndTraceReuse, l_Lean_S
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
 };
-use crate::ffi::lean_task_map;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_dbg_trace;
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate1};
-use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l___private_Lean_Elab_Tactic_Induction_0__initFn___closed__0_00___x40_Lean_Elab_Tactic_Induction_2568370297____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [116, 97, 99, 116, 105, 99, 0]};
 static mut l___private_Lean_Elab_Tactic_Induction_0__initFn___closed__0_00___x40_Lean_Elab_Tactic_Induction_2568370297____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Induction_0__initFn___closed__0_00___x40_Lean_Elab_Tactic_Induction_2568370297____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Tactic_Induction_0__initFn___closed__1_00___x40_Lean_Elab_Tactic_Induction_2568370297____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<18> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 18, m_capacity: 18, m_length: 17, m_data: [99, 117, 115, 116, 111, 109, 69, 108, 105, 109, 105, 110, 97, 116, 111, 114, 115, 0]};

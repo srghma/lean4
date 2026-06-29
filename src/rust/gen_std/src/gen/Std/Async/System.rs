@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Std.Async.System
 // Imports: Std.Time Std.Internal.UV.System Std.Data.HashMap
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_to_list, lean_array_uget_borrowed,
+    lean_array_uset, lean_int_dec_eq, lean_mk_array, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_nat_div, lean_nat_mul, lean_nat_to_int, lean_string_dec_eq, lean_string_length,
+    lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat, lean_usize_sub, lean_uv_cpu_info, lean_uv_hrtime, lean_uv_os_environ,
+    lean_uv_os_get_group, lean_uv_os_get_passwd, lean_uv_os_getenv, lean_uv_os_gethostname,
+    lean_uv_os_homedir, lean_uv_os_setenv, lean_uv_os_tmpdir, lean_uv_os_uname,
+    lean_uv_os_unsetenv, lean_uv_uptime,
+};
 use crate::r#gen::Init::Control::Basic::l_instForInOfForIn_x27___redArg___lam__1;
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
@@ -33,24 +43,6 @@ use crate::r#gen::Std::Time::Time::Unit::Millisecond::{
     l_Std_Time_Millisecond_instInhabitedOffset, l_Std_Time_Millisecond_instReprOrdinal___lam__0,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_int_dec_eq, lean_nat_to_int};
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-    lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div,
-    lean_nat_mul, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_uv_cpu_info, lean_uv_hrtime, lean_uv_os_environ, lean_uv_os_get_group,
-    lean_uv_os_get_passwd, lean_uv_os_getenv, lean_uv_os_gethostname, lean_uv_os_homedir,
-    lean_uv_os_setenv, lean_uv_os_tmpdir, lean_uv_os_uname, lean_uv_os_unsetenv, lean_uv_uptime,
-};
 pub static mut l_Std_Async_System_instInhabitedGroupId_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Async_System_instInhabitedGroupId: *mut crate::leanh::LeanObject =

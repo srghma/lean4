@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.DocString.Add
 // Imports: Lean.Elab.DocString Lean.DocString.Parser Lean.Elab.Term.TermElabM
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_mul, lean_nat_sub, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_prev, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop;
 use crate::r#gen::Init::Data::String::Extra::l_String_removeLeadingSpaces;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -68,22 +76,6 @@ use crate::r#gen::Lean::Parser::Types::{
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
     l_Std_DTreeMap_Internal_Impl_maxView___redArg, l_Std_DTreeMap_Internal_Impl_minView___redArg,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_prev,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_parseVersoDocString___redArg___lam__3___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

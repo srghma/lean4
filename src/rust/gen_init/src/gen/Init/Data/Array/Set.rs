@@ -1,12 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Array.Set
 // Imports: Init.Tactics
+use crate::ffi::{
+    lean_array_fset, lean_array_get_size, lean_array_push, lean_array_set, lean_nat_dec_lt,
+};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::Tactics::{initialize_Init_Tactics, runtime_initialize_Init_Tactics};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_lt,
-};
 pub static l_Array_set___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.Iterators.Lemmas.Combinators.TakeWhile
 // Imports: Std.Data.Iterators.Combinators.TakeWhile Std.Data.Iterators.Lemmas.Combinators.Monadic.TakeWhile Std.Data.Iterators.Lemmas.Consumers Init.Data.List.TakeDrop Init.Data.List.ToArray Init.Data.Option.Lemmas Init.Omega
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::List::TakeDrop::{
     initialize_Init_Data_List_TakeDrop, runtime_initialize_Init_Data_List_TakeDrop,
 };
@@ -23,7 +24,6 @@ use crate::r#gen::Std::Data::Iterators::Lemmas::Consumers::{
     initialize_Std_Data_Iterators_Lemmas_Consumers,
     runtime_initialize_Std_Data_Iterators_Lemmas_Consumers,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Std_Data_Iterators_Lemmas_Combinators_TakeWhile_0__Std_IterM_step__takeWhileWithPostcondition_match__3_splitter___redArg(
     mut v_x_223_: *mut crate::leanh::LeanObject,
     mut v_h__1_224_: *mut crate::leanh::LeanObject,

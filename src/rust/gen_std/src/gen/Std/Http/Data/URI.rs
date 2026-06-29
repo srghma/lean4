@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Http.Data.URI
 // Imports: Std.Http.Data.URI.Basic Std.Http.Data.URI.Parser
+use crate::ffi::{lean_byte_array_size, lean_nat_dec_lt, lean_string_append, lean_string_to_utf8};
 use crate::r#gen::Init::Prelude::l_panic___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Data::URI::Basic::{
@@ -13,8 +14,6 @@ use crate::r#gen::Std::Http::Data::URI::Parser::{
     runtime_initialize_Std_Http_Data_URI_Parser,
 };
 use crate::r#gen::Std::Internal::Parsec::ByteArray::l_Std_Internal_Parsec_ByteArray_Parser_run___redArg;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::{lean_byte_array_size, lean_nat_dec_lt};
 pub static l_Std_Http_RequestTarget_parse_x3f___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<22> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

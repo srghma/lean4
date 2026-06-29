@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Data.TreeSet.Basic
 // Imports: Std.Data.TreeMap.Basic
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_string_utf8_byte_size,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -46,12 +51,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
 };
 use crate::r#gen::Std::Data::TreeMap::Basic::{
     initialize_Std_Data_TreeMap_Basic, runtime_initialize_Std_Data_TreeMap_Basic,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_mul, lean_string_utf8_byte_size,
 };
 pub static l_Std_TreeSet___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

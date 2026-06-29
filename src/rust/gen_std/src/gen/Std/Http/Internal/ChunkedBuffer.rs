@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Http.Internal.ChunkedBuffer
 // Imports: Init.Data.ToString Init.Data.Array.Lemmas Init.Data.String.Basic Init.Data.ByteArray
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_byte_array_copy_slice,
+    lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity,
+    lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_string_to_utf8, lean_uint32_to_uint8, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -20,14 +26,6 @@ use crate::r#gen::Init::Data::String::Basic::{
 };
 use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
-};
-use crate::ffi::lean_byte_array_copy_slice;
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::{lean_uint32_to_uint8, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_byte_array_mk,
-    lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Std_Http_Internal_ChunkedBuffer_empty___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

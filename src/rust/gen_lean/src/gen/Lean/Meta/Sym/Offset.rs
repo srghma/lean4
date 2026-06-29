@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Offset
 // Imports: Lean.Meta.Sym.LitValues
+use crate::ffi::{lean_name_eq, lean_nat_add};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf,
@@ -9,7 +10,6 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
     initialize_Lean_Meta_Sym_LitValues, l_Lean_Meta_Sym_getNatValue_x3f,
     runtime_initialize_Lean_Meta_Sym_LitValues,
 };
-use crate::ffi::{lean_name_eq, lean_nat_add};
 pub static l_Lean_Meta_Sym_instInhabitedOffset_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Time.Date.Unit.Basic
 // Imports: Std.Time.Date.Unit.Year Std.Time.Date.Unit.Weekday Std.Time.Date.Unit.Week
+use crate::ffi::{lean_int_ediv, lean_int_mul, lean_nat_to_int};
 use crate::r#gen::Std::Time::Date::Unit::Week::{
     initialize_Std_Time_Date_Unit_Week, runtime_initialize_Std_Time_Date_Unit_Week,
 };
@@ -10,8 +11,6 @@ use crate::r#gen::Std::Time::Date::Unit::Weekday::{
 use crate::r#gen::Std::Time::Date::Unit::Year::{
     initialize_Std_Time_Date_Unit_Year, runtime_initialize_Std_Time_Date_Unit_Year,
 };
-use crate::ffi::{lean_int_mul, lean_nat_to_int};
-use crate::ffi::lean_int_ediv;
 static mut l_Std_Time_Day_Offset_ofWeeks___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

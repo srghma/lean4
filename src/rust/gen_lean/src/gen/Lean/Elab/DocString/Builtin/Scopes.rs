@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.DocString.Builtin.Scopes
 // Imports: Lean.Elab.DocString Lean.Elab.DocString.Builtin.Parsing
+use crate::ffi::{lean_array_size, lean_name_eq};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -59,8 +60,6 @@ use crate::r#gen::Lean::Parser::Basic::{
 };
 use crate::r#gen::Lean::Parser::Extra::l_Lean_Parser_ident;
 use crate::r#gen::Lean::Parser::Types::l_Lean_Parser_withCache;
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_name_eq;
 pub static l___private_Lean_Elab_DocString_Builtin_Scopes_0__Lean_Doc_imports___closed__0_value:
     crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

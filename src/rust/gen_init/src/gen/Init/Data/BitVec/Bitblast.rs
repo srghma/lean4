@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.BitVec.Bitblast
 // Imports: Init.Data.Nat.Bitwise.Basic Init.Data.Int.DivMod Init.Data.BitVec.Basic Init.Data.BitVec.Folds Init.BinderPredicates Init.Data.BitVec.Lemmas Init.Data.Nat.Lemmas Init.ByCases Init.Data.BitVec.Bootstrap Init.Data.BitVec.Decidable Init.Data.Int.Pow Init.Data.Nat.Div.Lemmas Init.Data.Nat.Mod Init.Data.Nat.Simproc Init.TacticsExtra
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_land, lean_nat_mod,
+    lean_nat_mul, lean_nat_pow, lean_nat_shiftr, lean_nat_sub,
+};
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -50,11 +54,6 @@ use crate::r#gen::Init::Data::Nat::Simproc::{
 use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
-};
-use crate::ffi::{lean_nat_land, lean_nat_shiftr};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_mul,
-    lean_nat_pow, lean_nat_sub,
 };
 static mut l_BitVec_extractAndExtend___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

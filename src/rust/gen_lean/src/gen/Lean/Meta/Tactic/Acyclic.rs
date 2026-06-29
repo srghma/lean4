@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Acyclic
 // Imports: Lean.Meta.MatchUtil Lean.Meta.Tactic.Simp.Main
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land, lean_usize_mul,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
@@ -42,23 +49,6 @@ use crate::r#gen::Lean::Util::FindExpr::l_Lean_Expr_occurs;
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Acyclic_0__Lean_MVarId_acyclic_go_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Acyclic_0__Lean_MVarId_acyclic_go_spec__0___closed__0: f64 = 0.0;
 pub static l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Acyclic_0__Lean_MVarId_acyclic_go_spec__0___closed__1_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};

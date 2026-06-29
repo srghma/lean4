@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Data.SMap
 // Imports: Std.Data.HashMap.Basic Lean.Data.PersistentHashMap Std.Data.HashMap.Iterator Lean.Data.Iterators.Producers.PersistentHashMap Init.Data.Iterators.Combinators.Append
+use crate::ffi::{
+    lean_array_get_size, lean_mk_array, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Except::{
     l_ExceptT_bind, l_ExceptT_instMonad___redArg___lam__1, l_ExceptT_instMonad___redArg___lam__4,
     l_ExceptT_instMonad___redArg___lam__7, l_ExceptT_instMonad___redArg___lam__9, l_ExceptT_map,
@@ -51,11 +54,6 @@ use crate::r#gen::Std::Data::HashMap::Basic::{
 };
 use crate::r#gen::Std::Data::HashMap::Iterator::{
     initialize_Std_Data_HashMap_Iterator, runtime_initialize_Std_Data_HashMap_Iterator,
-};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
 };
 static mut l_Lean_SMap_instInhabited___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

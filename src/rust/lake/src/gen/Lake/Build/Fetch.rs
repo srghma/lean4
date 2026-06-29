@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Build.Fetch
 // Imports: Lake.Build.Info Lake.Build.Store Lake.Build.Context Lake.Config.Module Lake.Util.EquipT Lake.Util.Cycle Lake.Build.Infos
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
@@ -34,7 +35,6 @@ use crate::r#gen::Lake::Util::Cycle::{
 use crate::r#gen::Lake::Util::EquipT::{
     initialize_Lake_Util_EquipT, runtime_initialize_Lake_Util_EquipT,
 };
-use crate::ffi::lean_string_append;
 pub static l_List_mapTR_loop___at___00Lake_formatCycle___at___00Lake_buildCycleError_spec__0_spec__0___closed__0_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [32, 32, 0]};
 static mut l_List_mapTR_loop___at___00Lake_formatCycle___at___00Lake_buildCycleError_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_List_mapTR_loop___at___00Lake_formatCycle___at___00Lake_buildCycleError_spec__0_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lake_formatCycle___at___00Lake_buildCycleError_spec__0___closed__0_value:

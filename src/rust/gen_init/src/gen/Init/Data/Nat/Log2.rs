@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Log2
 // Imports: Init.Grind.Tactics Init.Data.Nat.Div.Basic Init.NotationExtra Init.WFTactics
+use crate::ffi::lean_nat_log2;
 use crate::r#gen::Init::Data::Nat::Div::Basic::{
     initialize_Init_Data_Nat_Div_Basic, runtime_initialize_Init_Data_Nat_Div_Basic,
 };
@@ -11,7 +12,6 @@ use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::lean_nat_log2;
 pub unsafe fn l_Nat_log2___boxed(
     mut v_n_5_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

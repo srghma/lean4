@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize.EmbeddedConstraint
 // Imports: Std.Tactic.BVDecide.Normalize.Bool Lean.Meta.Tactic.BVDecide.Normalize.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::{
@@ -28,21 +36,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Normalize::Bool::{
     initialize_Std_Tactic_BVDecide_Normalize_Bool,
     runtime_initialize_Std_Tactic_BVDecide_Normalize_Bool,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Tactic_BVDecide_Normalize_embeddedConstraintPass_spec__2___redArg___closed__0_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [69, 113, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Tactic_BVDecide_Normalize_embeddedConstraintPass_spec__2___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Tactic_BVDecide_Normalize_embeddedConstraintPass_spec__2___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Tactic_BVDecide_Normalize_embeddedConstraintPass_spec__2___redArg___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Tactic_BVDecide_Normalize_embeddedConstraintPass_spec__2___redArg___closed__0_value) as *mut crate::leanh::LeanObject,16122875713692181903 as *mut crate::leanh::LeanObject] };

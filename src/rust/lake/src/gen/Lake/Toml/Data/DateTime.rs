@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Toml.Data.DateTime
 // Imports: Lake.Util.Date Lake.Util.String Init.Data.String.Search Init.Data.Iterators.Consumers.Collect Init.Data.Iterators.Consumers.Loop Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_sub, lean_string_append, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Core::l_instDecidableEqProd___redArg;
 use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     initialize_Init_Data_Iterators_Consumers_Collect,
@@ -31,14 +36,6 @@ use crate::r#gen::Lake::Util::Date::{
 };
 use crate::r#gen::Lake::Util::String::{
     initialize_Lake_Util_String, l_Lake_rpadAscii, l_Lake_zpad, runtime_initialize_Lake_Util_String,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l_Lake_Toml_instInhabitedTime_default___closed__0_value: crate::leanh::LeanCtorObject<
     5,

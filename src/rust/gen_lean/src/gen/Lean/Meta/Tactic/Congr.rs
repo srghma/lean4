@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Congr
 // Imports: Lean.Meta.CongrTheorems Lean.Meta.Tactic.Assert Lean.Meta.Tactic.Refl Lean.Meta.Tactic.Assumption
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_lor, lean_uint64_shift_left,
+    lean_uint64_shift_right,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::MetaTypes::l_Lean_Meta_instBEqTransparencyMode_beq;
 use crate::r#gen::Lean::CoreM::{l_Lean_Core_mkFreshUserName, l_Lean_Exception_isRuntime};
@@ -40,15 +45,6 @@ use crate::r#gen::Lean::Meta::Tactic::Refl::{
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::{
     l_Lean_MVarId_checkNotAssigned, l_Lean_MVarId_getType_x27, l_Lean_Meta_throwTacticEx___redArg,
-};
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Meta_Tactic_Congr_0__Lean_applyCongrThm_x3f___closed__0_value:
     crate::leanh::LeanStringObject<12> = crate::leanh::LeanStringObject {

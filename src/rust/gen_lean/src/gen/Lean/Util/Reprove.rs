@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Util.Reprove
 // Imports: Lean.Elab.Command Init.Notation Lean.Exception
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs};
@@ -30,12 +34,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::Meta::Basic::l_Lean_Meta_mkFreshExprMVar;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_mk_empty_array_with_capacity;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Elab_Command_reproveDecl_spec__1_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Elab_Command_reproveDecl_spec__1_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Elab_Command_reproveDecl_spec__1_spec__1___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

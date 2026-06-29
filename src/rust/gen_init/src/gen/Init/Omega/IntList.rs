@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Omega.IntList
 // Imports: Init.Data.Int.DivMod.Bootstrap Init.Data.Nat.Gcd Init.Data.Int.Lemmas Init.Data.Int.Order Init.Data.Nat.Dvd Init.PropLemmas Init.RCases
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_ediv, lean_int_mul, lean_int_neg, lean_int_sub,
+    lean_nat_abs, lean_nat_dec_eq, lean_nat_gcd, lean_nat_sub, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::DivMod::Basic::l_Int_bmod;
 use crate::r#gen::Init::Data::Int::DivMod::Bootstrap::{
     initialize_Init_Data_Int_DivMod_Bootstrap, runtime_initialize_Init_Data_Int_DivMod_Bootstrap,
@@ -23,13 +27,6 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs,
-    lean_nat_to_int,
-};
-use crate::ffi::lean_int_ediv;
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l_Lean_Omega_IntList_get___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Data.ExtDTreeMap.Basic
 // Imports: Std.Data.DTreeMap.Lemmas
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
+    lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -99,10 +103,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
 };
 use crate::r#gen::Std::Data::DTreeMap::Lemmas::{
     initialize_Std_Data_DTreeMap_Lemmas, runtime_initialize_Std_Data_DTreeMap_Lemmas,
-};
-use crate::ffi::lean_array_size;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_utf8_byte_size,
 };
 pub static l_Std_ExtDTreeMap___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

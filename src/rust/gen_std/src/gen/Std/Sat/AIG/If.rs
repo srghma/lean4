@@ -1,19 +1,16 @@
 // Lean compiler output
 // Module: Std.Sat.AIG.If
 // Imports: Std.Sat.AIG.LawfulVecOperator Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land, lean_nat_lor, lean_nat_mul, lean_nat_shiftr,
+};
 use crate::r#gen::Init::Data::Bool::l_Bool_toNat;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Std::Sat::AIG::Cached::l_Std_Sat_AIG_mkGateCached___redArg;
 use crate::r#gen::Std::Sat::AIG::CachedGates::l_Std_Sat_AIG_mkOrCached___redArg;
 use crate::r#gen::Std::Sat::AIG::LawfulVecOperator::{
     initialize_Std_Sat_AIG_LawfulVecOperator, runtime_initialize_Std_Sat_AIG_LawfulVecOperator,
-};
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_shiftr,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
 };
 pub unsafe fn l_Std_Sat_AIG_mkIfCached___redArg(
     mut v_inst_193_: *mut crate::leanh::LeanObject,

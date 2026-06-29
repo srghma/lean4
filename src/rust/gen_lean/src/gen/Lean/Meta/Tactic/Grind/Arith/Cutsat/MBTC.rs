@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.MBTC
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Util Lean.Meta.Tactic.Grind.MBTC Lean.Meta.Tactic.Grind.Arith.ModelUtil Lean.Meta.Tactic.Grind.Arith.Cutsat.Model
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_expr_eqv,
+    lean_infer_type, lean_nat_add, lean_nat_dec_lt, lean_st_ref_get, lean_uint64_to_usize,
+    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Rat::Basic::{l_Rat_ofInt, l_instDecidableEqRat_decEq};
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
 use crate::r#gen::Lean::Exception::l_Lean_Exception_isInterrupt;
@@ -39,17 +45,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_ParentSet_elems, l_Lean_Meta_Grind_SolverExtension_hasTermAtRoot___redArg,
     l_Lean_Meta_Grind_alreadyInternalized___redArg, l_Lean_Meta_Grind_getParents___redArg,
 };
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_nat_add,
-    lean_nat_dec_lt,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::lean_infer_type;
 pub static l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_MBTC_0__Lean_Meta_Grind_Arith_Cutsat_getAssignmentExt_x3f_spec__2___redArg___closed__0_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_MBTC_0__Lean_Meta_Grind_Arith_Cutsat_getAssignmentExt_x3f_spec__2___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_MBTC_0__Lean_Meta_Grind_Arith_Cutsat_getAssignmentExt_x3f_spec__2___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_List_forIn_x27_loop___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_MBTC_0__Lean_Meta_Grind_Arith_Cutsat_getAssignmentExt_x3f_spec__2___redArg___closed__1_value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [78, 97, 116, 67, 97, 115, 116, 0]};

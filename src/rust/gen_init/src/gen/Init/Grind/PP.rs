@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Grind.PP
 // Imports: Init.Data.String.Defs Init.Grind.Tactics
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Defs::{
     initialize_Init_Data_String_Defs, runtime_initialize_Init_Data_String_Defs,
@@ -13,7 +14,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Name_str___override, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull,
 };
-use crate::ffi::lean_string_append;
 pub static l_Lean_Grind_nodeDefUnexpander___redArg___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Config.LeanExe
 // Imports: Lake.Config.Module
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_strict_and,
+    lean_string_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -23,18 +29,6 @@ use crate::r#gen::Lake::Config::Module::{
 use crate::r#gen::Lake::Config::Package::l_Lake_Package_findTargetDecl_x3f;
 use crate::r#gen::Lake::Util::FilePath::l_Lake_joinRelative;
 use crate::r#gen::Lean::Util::Path::l_Lean_modToFilePath;
-use crate::ffi::lean_strict_and;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_usize_dec_eq,
-};
 pub static l_Lake_Package_leanExes___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

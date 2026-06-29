@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.Lambda
 // Imports: Lean.Meta.Sym.Simp.SimpM
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_infer_type, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land, lean_usize_mul,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
@@ -26,22 +33,6 @@ use crate::r#gen::Lean::Meta::Sym::Simp::SimpM::{
     l_Lean_Meta_Sym_Simp_simp___boxed, runtime_initialize_Lean_Meta_Sym_Simp_SimpM,
 };
 use crate::r#gen::Lean::Meta::Sym::SymM::l_Lean_Meta_Sym_shareCommon___redArg;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l___private_Lean_Meta_Sym_Simp_Lambda_0__Lean_Meta_Sym_Simp_mkFunextFor___lam__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [108, 105, 102, 116, 0]};
 static mut l___private_Lean_Meta_Sym_Simp_Lambda_0__Lean_Meta_Sym_Simp_mkFunextFor___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Sym_Simp_Lambda_0__Lean_Meta_Sym_Simp_mkFunextFor___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Lean_Meta_Sym_Simp_Lambda_0__Lean_Meta_Sym_Simp_mkFunextFor___lam__0___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

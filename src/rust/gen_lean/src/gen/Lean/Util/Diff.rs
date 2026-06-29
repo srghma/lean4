@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Util.Diff
 // Imports: Init.Data.Array.Subarray.Split Init.Data.Slice.Array.Iterator Init.Data.Range Std.Data.HashMap.Basic Init.Data.String.Basic Init.Data.Range.Polymorphic.RangeIterator Init.While Init.Data.Range.Polymorphic.Iterators Init.Data.Range.Polymorphic.Nat Init.Data.ToString.Macro Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_string_append, lean_string_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -59,15 +65,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 };
 use crate::r#gen::Std::Data::HashMap::Basic::{
     initialize_Std_Data_HashMap_Basic, runtime_initialize_Std_Data_HashMap_Basic,
-};
-use crate::ffi::{lean_array_size, lean_mk_array};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
 };
 pub static l_Lean_Diff_instReprAction_repr___closed__0_value: crate::leanh::LeanStringObject<24> =
     crate::leanh::LeanStringObject {

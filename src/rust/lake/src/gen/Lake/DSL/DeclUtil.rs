@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.DSL.DeclUtil
 // Imports: Lake.Util.Binder Lake.Config.MetaClasses Lean.Elab.Command
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Meta::Defs::{
@@ -58,14 +63,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofConstName, l_Lean_MessageData_ofFormat, l_Lean_MessageData_ofName,
     l_Lean_MessageData_ofSyntax, l_Lean_MessageLog_add, l_Lean_indentD,
     l_Lean_instBEqMessageSeverity_beq, l_Lean_stringToMessageData,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lake_DSL_packageDeclName___closed__0_value: crate::leanh::LeanStringObject<9> =
     crate::leanh::LeanStringObject {

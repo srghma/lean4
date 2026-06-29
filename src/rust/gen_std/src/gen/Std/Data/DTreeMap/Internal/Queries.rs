@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Data.DTreeMap.Internal.Queries
 // Imports: Init.Data.Nat.Compare Std.Data.DTreeMap.Internal.Balanced Std.Data.DTreeMap.Internal.Ordered Init.BinderPredicates Init.Data.Option.BasicAux Init.Data.Nat.Lemmas Init.Data.Nat.Linear Init.Omega Init.RCases Init.WFTactics
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_nat_sub,
+};
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -38,10 +42,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Balanced::{
 use crate::r#gen::Std::Data::DTreeMap::Internal::Ordered::{
     initialize_Std_Data_DTreeMap_Internal_Ordered,
     runtime_initialize_Std_Data_DTreeMap_Internal_Ordered,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_nat_sub,
 };
 pub static l_Std_DTreeMap_Internal_Impl_term___x7em___00__closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {

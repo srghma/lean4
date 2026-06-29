@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Http.Data.Body.Basic
 // Imports: Std.Async Std.Async.ContextAsync Std.Http.Data.Chunk Std.Http.Data.Headers Std.Http.Data.Body.Length
+use crate::ffi::{lean_string_from_utf8_unchecked, lean_string_validate_utf8};
 use crate::r#gen::Init::Data::String::Defs::l_String_toUTF8___boxed;
 use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Std::Async::ContextAsync::{
@@ -16,8 +17,6 @@ use crate::r#gen::Std::Http::Data::Chunk::{
 use crate::r#gen::Std::Http::Data::Headers::{
     initialize_Std_Http_Data_Headers, runtime_initialize_Std_Http_Data_Headers,
 };
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::lean_string_from_utf8_unchecked;
 pub static l_Std_Http_Body_instToByteArrayByteArray___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

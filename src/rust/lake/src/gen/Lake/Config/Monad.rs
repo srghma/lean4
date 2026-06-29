@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Config.Monad
 // Imports: Lake.Config.Workspace
+use crate::ffi::{lean_array_fget_borrowed, lean_array_size, lean_name_eq};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -27,8 +28,6 @@ use crate::r#gen::Lean::Util::LeanOptions::{
     l_Lean_LeanOptions_appendArray, l_Lean_LeanOptions_ofArray,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_get_x3f___redArg;
-use crate::ffi::lean_array_size;
-use crate::ffi::{lean_array_fget_borrowed, lean_name_eq};
 pub static l_Lake_instMonadLakeOfMonadWorkspaceOfFunctor___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

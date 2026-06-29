@@ -1,9 +1,15 @@
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
-#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports)]
+#![allow(
+    unused_variables,
+    unused_assignments,
+    unused_parens,
+    unused_mut,
+    unused_imports
+)]
 
 pub use gen_init::r#gen::Init;
-pub use gen_std::r#gen::Std;
 pub use gen_lean::r#gen::Lean;
+pub use gen_std::r#gen::Std;
 pub mod Lake {
     pub mod index {
         include!("gen/Lake.rs");
@@ -431,14 +437,14 @@ pub mod Lake {
         pub mod Date {
             include!("gen/Lake/Util/Date.rs");
         }
-        pub mod EStateT {
-            include!("gen/Lake/Util/EStateT.rs");
-        }
         pub mod EquipT {
             include!("gen/Lake/Util/EquipT.rs");
         }
         pub mod Error {
             include!("gen/Lake/Util/Error.rs");
+        }
+        pub mod EStateT {
+            include!("gen/Lake/Util/EStateT.rs");
         }
         pub mod Exit {
             include!("gen/Lake/Util/Exit.rs");
@@ -485,11 +491,11 @@ pub mod Lake {
         pub mod OpaqueType {
             include!("gen/Lake/Util/OpaqueType.rs");
         }
-        pub mod OrdHashSet {
-            include!("gen/Lake/Util/OrdHashSet.rs");
-        }
         pub mod OrderedTagAttribute {
             include!("gen/Lake/Util/OrderedTagAttribute.rs");
+        }
+        pub mod OrdHashSet {
+            include!("gen/Lake/Util/OrdHashSet.rs");
         }
         pub mod Proc {
             include!("gen/Lake/Util/Proc.rs");

@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Init.System.Uri
 // Imports: Init.System.FilePath Init.Data.String.TakeDrop Init.Data.String.Modify Init.Data.String.Search Init.Omega Init.System.Platform Init.While Init.Data.String.Length Init.Data.Iterators.Combinators.Take
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_byte_array_fget, lean_byte_array_push,
+    lean_byte_array_size, lean_byte_array_uget, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_append,
+    lean_string_from_utf8_unchecked, lean_string_memcmp, lean_string_push, lean_string_to_utf8,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set,
+    lean_string_validate_utf8, lean_uint8_add, lean_uint8_dec_eq, lean_uint8_dec_le,
+    lean_uint8_mod, lean_uint8_of_nat, lean_uint8_shift_left, lean_uint8_shift_right,
+    lean_uint8_sub, lean_uint8_to_nat, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_dec_lt, lean_uint32_to_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Iterators::Combinators::Take::{
     initialize_Init_Data_Iterators_Combinators_Take,
     runtime_initialize_Init_Data_Iterators_Combinators_Take,
@@ -32,30 +44,6 @@ use crate::r#gen::Init::System::Platform::{
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
-use crate::ffi::{
-    lean_byte_array_fget, lean_byte_array_uget,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast, lean_string_validate_utf8,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_uint8_add, lean_uint8_mod, lean_uint8_shift_left, lean_uint8_shift_right, lean_uint8_sub,
-};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint32_add, lean_usize_add, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_byte_array_push, lean_byte_array_size, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-    lean_uint8_dec_le, lean_uint8_of_nat, lean_uint32_dec_eq, lean_uint32_dec_le,
-    lean_uint32_dec_lt, lean_uint32_to_nat, lean_usize_dec_eq,
-};
 pub static mut l_System_Uri_UriEscape_zero: u8 = 0;
 pub static mut l_System_Uri_UriEscape_nine: u8 = 0;
 pub static mut l_System_Uri_UriEscape_lettera: u8 = 0;

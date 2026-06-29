@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.IneqCnstr
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM Lean.Meta.Tactic.Grind.Arith.CommRing.Reify Lean.Meta.Tactic.Grind.Arith.Linear.Den Lean.Meta.Tactic.Grind.Arith.Linear.StructId Lean.Meta.Tactic.Grind.Arith.Linear.Reify Lean.Meta.Tactic.Grind.Arith.Linear.Proof
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_expr_eqv, lean_int_dec_eq,
+    lean_int_dec_lt, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_nat_to_int, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_land,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Grind::Ordered::Linarith::l_Lean_Grind_Linarith_Expr_norm;
@@ -62,24 +69,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_getConfig___redArg, l_Lean_Meta_Grind_getGeneration___redArg,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Grind_Linarith_Poly_denoteExpr_denoteTerm___at___00Lean_Grind_Linarith_Poly_denoteExpr___at___00__private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Meta_Grind_Arith_Linear_denoteIneq___at___00Lean_Meta_Grind_Arith_Linear_IneqCnstr_denoteExpr___at___00Lean_Meta_Grind_Arith_Linear_IneqCnstr_assert_spec__0_spec__0_spec__2_spec__7___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Grind_Linarith_Poly_denoteExpr_denoteTerm___at___00Lean_Grind_Linarith_Poly_denoteExpr___at___00__private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Meta_Grind_Arith_Linear_denoteIneq___at___00Lean_Meta_Grind_Arith_Linear_IneqCnstr_denoteExpr___at___00Lean_Meta_Grind_Arith_Linear_IneqCnstr_assert_spec__0_spec__0_spec__2_spec__7___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Meta_Grind_Arith_Linear_getLtFn___at___00__private_Lean_Meta_Tactic_Grind_Arith_Linear_DenoteExpr_0__Lean_Meta_Grind_Arith_Linear_denoteIneq___at___00Lean_Meta_Grind_Arith_Linear_IneqCnstr_denoteExpr___at___00Lean_Meta_Grind_Arith_Linear_IneqCnstr_assert_spec__0_spec__0_spec__3___closed__0_value: crate::leanh::LeanStringObject<68> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 68, m_capacity: 68, m_length: 67, m_data: [96, 103, 114, 105, 110, 100, 32, 108, 105, 110, 97, 114, 105, 116, 104, 96, 32, 105, 110, 116, 101, 114, 110, 97, 108, 32, 101, 114, 114, 111, 114, 44, 32, 115, 116, 114, 117, 99, 116, 117, 114, 101, 32, 105, 115, 32, 110, 111, 116, 32, 97, 110, 32, 111, 114, 100, 101, 114, 101, 100, 32, 109, 111, 100, 117, 108, 101, 0]};

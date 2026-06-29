@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Init.Data.UInt.BasicAux
 // Imports: Init.Data.BitVec.BasicAux Init.Data.Fin.Basic Init.Data.Nat.Div.Basic
+use crate::ffi::{
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub, lean_uint8_of_nat,
+    lean_uint8_to_nat, lean_uint8_to_uint16, lean_uint8_to_uint32, lean_uint8_to_uint64,
+    lean_uint16_of_nat, lean_uint16_to_nat, lean_uint16_to_uint8, lean_uint16_to_uint32,
+    lean_uint16_to_uint64, lean_uint32_add, lean_uint32_of_nat, lean_uint32_sub,
+    lean_uint32_to_nat, lean_uint32_to_uint8, lean_uint32_to_uint16, lean_uint32_to_uint64,
+    lean_uint64_of_nat, lean_uint64_to_nat, lean_uint64_to_uint8, lean_uint64_to_uint16,
+    lean_uint64_to_uint32, lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat,
+    lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::BitVec::BasicAux::{
     initialize_Init_Data_BitVec_BasicAux, runtime_initialize_Init_Data_BitVec_BasicAux,
 };
@@ -11,19 +21,6 @@ use crate::r#gen::Init::Data::Nat::Div::Basic::{
     initialize_Init_Data_Nat_Div_Basic, runtime_initialize_Init_Data_Nat_Div_Basic,
 };
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint8_to_uint16, lean_uint8_to_uint32, lean_uint8_to_uint64,
-    lean_uint16_of_nat, lean_uint16_to_nat, lean_uint16_to_uint8, lean_uint16_to_uint32,
-    lean_uint16_to_uint64, lean_uint32_add, lean_uint32_of_nat, lean_uint32_sub,
-    lean_uint32_to_uint8, lean_uint32_to_uint16, lean_uint32_to_uint64, lean_uint64_of_nat,
-    lean_uint64_to_nat, lean_uint64_to_uint8, lean_uint64_to_uint16, lean_uint64_to_uint32,
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub, lean_uint8_of_nat,
-    lean_uint32_to_nat,
-};
 static mut l_UInt8_ofNatClamp___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Util.Message
 // Imports: Lean.Parser.Basic
+use crate::ffi::{
+    lean_nat_dec_eq, lean_string_append, lean_string_dec_eq, lean_string_utf8_byte_size,
+    lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Init::Data::String::FindPos::l_String_Slice_Pos_prev_x3f;
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f};
@@ -14,10 +18,6 @@ use crate::r#gen::Lean::Parser::Basic::{
     initialize_Lean_Parser_Basic, runtime_initialize_Lean_Parser_Basic,
 };
 use crate::r#gen::Lean::Parser::Types::l_Lean_Parser_Error_toString;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-};
 pub static l_Lake_mkParserErrorMessage___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

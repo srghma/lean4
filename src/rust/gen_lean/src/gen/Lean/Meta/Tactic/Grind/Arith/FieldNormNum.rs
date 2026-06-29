@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.FieldNormNum
 // Imports: Lean.Meta.Basic Init.Grind.FieldNormNum Lean.Meta.Tactic.Grind.SynthInstance Lean.Meta.AppBuilder Lean.Meta.LitValues Lean.Util.SafeExponentiation
+use crate::ffi::{
+    lean_array_push, lean_int_dec_eq, lean_int_dec_le, lean_int_neg,
+    lean_mk_empty_array_with_capacity, lean_nat_abs, lean_nat_dec_eq, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Rat::Basic::{
     l_Rat_add, l_Rat_div___boxed, l_Rat_inv, l_Rat_mul___boxed, l_Rat_neg, l_Rat_ofInt, l_Rat_pow,
@@ -41,12 +45,6 @@ use crate::r#gen::Lean::ToExpr::{l_Lean_instToExprInt_mkNat, l_Lean_instToExprRa
 use crate::r#gen::Lean::Util::SafeExponentiation::{
     initialize_Lean_Util_SafeExponentiation, l_Lean_checkExponent,
     runtime_initialize_Lean_Util_SafeExponentiation,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
 };
 pub static l___private_Lean_Meta_Tactic_Grind_Arith_FieldNormNum_0__Lean_Meta_Grind_Arith_FieldNormNum_run_x3f___redArg___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_FieldNormNum_0__Lean_Meta_Grind_Arith_FieldNormNum_run_x3f___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Grind_Arith_FieldNormNum_0__Lean_Meta_Grind_Arith_FieldNormNum_run_x3f___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

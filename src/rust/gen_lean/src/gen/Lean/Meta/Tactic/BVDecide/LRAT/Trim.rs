@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.LRAT.Trim
 // Imports: Std.Tactic.BVDecide.LRAT.Actions Init.Data.Nat.Fold Std.Data.HashMap Init.Data.Range.Polymorphic Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_pop, lean_array_push, lean_array_set,
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_byte_array_fget, lean_byte_array_push, lean_byte_array_set, lean_byte_array_size,
+    lean_int_dec_eq, lean_int_dec_le, lean_int_neg, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_uint8_dec_eq, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -36,30 +48,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Actions::{
     initialize_Std_Tactic_BVDecide_LRAT_Actions,
     l_Std_Tactic_BVDecide_LRAT_instInhabitedAction_default,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Actions,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{
-    lean_byte_array_fget, lean_byte_array_set,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_byte_array_push, lean_byte_array_size,
-    lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint8_dec_eq, lean_usize_dec_eq,
 };
 pub static l___private_Lean_Meta_Tactic_BVDecide_LRAT_Trim_0__Lean_Meta_Tactic_BVDecide_LRAT_trim_M_findInitialId___closed__0_value: crate::leanh::LeanStringObject<54> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 54, m_capacity: 54, m_length: 53, m_data: [76, 82, 65, 84, 32, 112, 114, 111, 111, 102, 32, 100, 111, 101, 115, 110, 39, 116, 32, 99, 111, 110, 116, 97, 105, 110, 32, 97, 32, 112, 114, 111, 112, 101, 114, 32, 102, 105, 114, 115, 116, 32, 112, 114, 111, 111, 102, 32, 115, 116, 101, 112, 46, 0]};
 static mut l___private_Lean_Meta_Tactic_BVDecide_LRAT_Trim_0__Lean_Meta_Tactic_BVDecide_LRAT_trim_M_findInitialId___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_BVDecide_LRAT_Trim_0__Lean_Meta_Tactic_BVDecide_LRAT_trim_M_findInitialId___closed__0_value) as *mut crate::leanh::LeanObject;

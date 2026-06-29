@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.ProofMode.Frame
 // Imports: Std.Tactic.Do.Syntax Lean.Elab.Tactic.Do.ProofMode.Focus
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land, lean_usize_mul,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_mkStr5, l_Lean_Name_mkStr6, l_Lean_Name_num___override,
 };
@@ -49,21 +56,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Std::Tactic::Do::Syntax::{
     initialize_Std_Tactic_Do_Syntax, runtime_initialize_Std_Tactic_Do_Syntax,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt, lean_panic_fn_borrowed,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_panic___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Frame_0__Lean_Elab_Tactic_Do_ProofMode_transferHypNames_label_spec__2___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Meta_instInhabitedMetaM___lam__0___boxed as *const core::ffi::c_void, m_arity: 5, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Frame_0__Lean_Elab_Tactic_Do_ProofMode_transferHypNames_label_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_panic___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Frame_0__Lean_Elab_Tactic_Do_ProofMode_transferHypNames_label_spec__2___closed__0_value) as *mut crate::leanh::LeanObject;

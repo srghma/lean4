@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Native
 // Imports: Lean.Meta.Basic Lean.Util.CollectLevelParams Lean.Elab.DeclarationRange Lean.Compiler.Options
+use crate::ffi::{
+    lean_array_to_list, lean_has_compile_error, lean_mk_array, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lean::AddDecl::{l_Lean_addAndCompile, l_Lean_addDecl};
@@ -48,12 +52,6 @@ use crate::r#gen::Lean::Util::CollectLevelParams::{
     runtime_initialize_Lean_Util_CollectLevelParams,
 };
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_to_list;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_has_compile_error;
 static mut l_Lean_Elab_throwAbortCommand___at___00Lean_evalConst___at___00__private_Lean_Meta_Native_0__Lean_Meta_nativeEqTrue_unsafe__1_spec__0_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwAbortCommand___at___00Lean_evalConst___at___00__private_Lean_Meta_Native_0__Lean_Meta_nativeEqTrue_unsafe__1_spec__0_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_nativeEqTrue_spec__2_spec__2___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [116, 114, 97, 99, 101, 0]};

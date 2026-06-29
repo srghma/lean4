@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Http.Data.Method
 // Imports: Init.Data.ToString Std.Http.Internal
+use crate::ffi::{
+    lean_array_push, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq,
+    lean_string_to_utf8,
+};
 use crate::r#gen::Init::Data::Repr::{l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
@@ -8,12 +13,6 @@ use crate::r#gen::Init::Data::ToString::{
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::{
-    lean_array_push, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_panic_fn_borrowed, lean_string_dec_eq,
 };
 pub static l_Std_Http_instReprMethod_repr___closed__0_value: crate::leanh::LeanStringObject<20> =
     crate::leanh::LeanStringObject {

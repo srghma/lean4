@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Repeat
 // Imports: Lean.Meta.Tactic.Repeat Lean.Elab.Tactic.Basic
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_to_list, lean_array_uget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
@@ -20,19 +27,6 @@ use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::Meta::Tactic::Repeat::{
     initialize_Lean_Meta_Tactic_Repeat, runtime_initialize_Lean_Meta_Tactic_Repeat,
 };
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_evalRepeat_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_evalRepeat_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Tactic_evalRepeat___closed__0_value: crate::leanh::LeanStringObject<5> =

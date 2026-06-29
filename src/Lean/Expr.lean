@@ -160,7 +160,8 @@ def Expr.Data.hasLevelParam (c : Expr.Data) : Bool :=
 
 -- NOTE: the `extern` clause of `BinderInfo.toUInt64` is ABI sensitive.
 -- It exploits the fact that a small enum compiles to `uint8`.
-@[extern "lean_uint8_to_uint64"]
+-- @[extern "lean_uint8_to_uint64"] -- duplicated ffi impl, same like in src/Init/Data/UInt/BasicAux.lean
+-- @[implemented_by UInt8.toUInt64] ??
 def BinderInfo.toUInt64 : BinderInfo → UInt64
   | .default        => 0
   | .implicit       => 1

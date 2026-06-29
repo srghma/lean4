@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.Instances
 // Imports: Init.Data.Range.Polymorphic.Basic Init.Data.Nat.Lemmas Init.ByCases Init.Data.Option.Lemmas Init.Omega
+use crate::ffi::lean_nat_sub;
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
@@ -13,7 +14,6 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Basic::{
     runtime_initialize_Init_Data_Range_Polymorphic_Basic,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::lean_nat_sub;
 pub unsafe fn l_Std_Rxo_HasSize_ofClosed___redArg___lam__0(
     mut v_inst_12_: *mut crate::leanh::LeanObject,
     mut v_lo_13_: *mut crate::leanh::LeanObject,

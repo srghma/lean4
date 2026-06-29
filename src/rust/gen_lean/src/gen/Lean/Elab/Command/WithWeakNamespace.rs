@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Command.WithWeakNamespace
 // Imports: Lean.Elab.Command
+use crate::ffi::{lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq};
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getArg,
@@ -14,8 +15,6 @@ use crate::r#gen::Lean::Elab::Command::{
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
 use crate::r#gen::Lean::Namespace::l_Lean_Environment_registerNamespace;
-use crate::ffi::lean_string_dec_eq;
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lean_Elab_Command_WithWeakNamespace_0__Lean_Elab_Command_resolveNamespaceRelative___closed__0_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [95, 114, 111, 111, 116, 95, 0]};
 static mut l___private_Lean_Elab_Command_WithWeakNamespace_0__Lean_Elab_Command_resolveNamespaceRelative___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Command_WithWeakNamespace_0__Lean_Elab_Command_resolveNamespaceRelative___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00__private_Lean_Elab_Command_WithWeakNamespace_0__Lean_Elab_Command_elabWithWeakNamespace_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

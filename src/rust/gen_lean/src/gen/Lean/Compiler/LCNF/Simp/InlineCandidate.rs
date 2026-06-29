@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Simp.InlineCandidate
 // Imports: Lean.Compiler.LCNF.Simp.SimpM
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_name_eq,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Prelude::{
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
@@ -54,13 +59,6 @@ use crate::r#gen::Lean::Environment::{
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofName, l_Lean_stringToMessageData};
 use crate::r#gen::Lean::Meta::Instances::l_Lean_Meta_isInstance___redArg;
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_throwError___at___00Lean_Compiler_LCNF_Simp_inlineCandidate_x3f_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_throwError___at___00Lean_Compiler_LCNF_Simp_inlineCandidate_x3f_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_throwError___at___00Lean_Compiler_LCNF_Simp_inlineCandidate_x3f_spec__1___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

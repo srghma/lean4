@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lean.Server.Completion.CompletionCollectors
 // Imports: Lean.Data.FuzzyMatching Lean.Elab.Tactic.Doc Lean.Server.Completion.CompletionResolution Lean.Server.Completion.EligibleHeaderDecls Lean.Server.RequestCancellation
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_infer_type, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_compare, lean_string_dec_eq, lean_string_dec_lt,
+    lean_string_length, lean_string_utf8_at_end, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_get, lean_uint32_dec_eq, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::State::{
     l_StateT_bind, l_StateT_instMonad___redArg___lam__1, l_StateT_instMonad___redArg___lam__4,
     l_StateT_instMonad___redArg___lam__7, l_StateT_instMonad___redArg___lam__9, l_StateT_lift,
@@ -103,31 +115,6 @@ use crate::r#gen::Lean::Server::RequestCancellation::{
 use crate::r#gen::Lean::Structure::l_Lean_getStructureFieldsFlattened;
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_getRange_x3f;
 use crate::r#gen::Std::Data::TreeSet::Basic::l_Std_TreeSet_ofArray___redArg;
-use crate::ffi::{
-    lean_array_fswap, lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
-    lean_array_uset,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_compare;
-use crate::ffi::{
-    lean_string_dec_lt, lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l___private_Lean_Server_Completion_CompletionCollectors_0__Lean_Server_Completion_addItem___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Server_Completion_CompletionCollectors_0__Lean_Server_Completion_addItem___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Server_Completion_CompletionCollectors_0__Lean_Server_Completion_addItem___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Server_Completion_CompletionCollectors_0__Lean_Server_Completion_addKeywordCompletionItem___redArg___closed__0_value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [107, 101, 121, 119, 111, 114, 100, 0]};

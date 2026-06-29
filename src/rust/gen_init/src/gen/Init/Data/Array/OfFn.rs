@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Array.OfFn
 // Imports: Init.Data.Array.Basic Init.Data.List.OfFn Init.Data.Array.Bootstrap Init.Data.Array.Monadic Init.Data.Fin.Lemmas Init.Data.List.FinRange Init.Data.Option.Lemmas Init.Omega
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
 };
@@ -25,9 +26,6 @@ use crate::r#gen::Init::Data::Option::Lemmas::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Array_push___boxed;
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_sub,
-};
 pub unsafe fn l___private_Init_Data_Array_OfFn_0__Array_ofFn_go_match__1_splitter___redArg(
     mut v_x_56_: *mut crate::leanh::LeanObject,
     mut v_h__1_57_: *mut crate::leanh::LeanObject,

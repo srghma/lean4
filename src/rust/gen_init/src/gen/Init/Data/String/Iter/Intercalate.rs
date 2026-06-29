@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.String.Iter.Intercalate
 // Imports: Init.Data.Iterators.Combinators.Monadic.FilterMap Init.Data.String.Basic Init.Data.String.Slice
+use crate::ffi::{lean_string_append, lean_string_utf8_extract};
 use crate::r#gen::Init::Data::Iterators::Combinators::Monadic::FilterMap::{
     initialize_Init_Data_Iterators_Combinators_Monadic_FilterMap,
     runtime_initialize_Init_Data_Iterators_Combinators_Monadic_FilterMap,
@@ -12,8 +13,6 @@ use crate::r#gen::Init::Data::String::Slice::{
     initialize_Init_Data_String_Slice, runtime_initialize_Init_Data_String_Slice,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
 pub static l_Std_Iter_joinString___redArg___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

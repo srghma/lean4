@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize
 // Imports: Lean.Elab.Tactic.FalseOrByContra Lean.Meta.Tactic.BVDecide.Normalize.Basic Lean.Meta.Tactic.BVDecide.Normalize.ApplyControlFlow Lean.Meta.Tactic.BVDecide.Normalize.Simproc Lean.Meta.Tactic.BVDecide.Normalize.Rewrite Lean.Meta.Tactic.BVDecide.Normalize.AndFlatten Lean.Meta.Tactic.BVDecide.Normalize.EmbeddedConstraint Lean.Meta.Tactic.BVDecide.Normalize.AC Lean.Meta.Tactic.BVDecide.Normalize.Structures Lean.Meta.Tactic.BVDecide.Normalize.IntToBitVec Lean.Meta.Tactic.BVDecide.Normalize.Enums Lean.Meta.Tactic.BVDecide.Normalize.TypeAnalysis Lean.Meta.Tactic.BVDecide.Normalize.ShortCircuit
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
+    lean_float_decLt, lean_float_div, lean_float_sub, lean_io_get_num_heartbeats,
+    lean_io_mono_nanos_now, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_div,
+    lean_nat_mul, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::Nat::Power2::Basic::l_Nat_nextPowerOfTwo;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
@@ -80,20 +87,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_Meta_getPropHyps___boxed;
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_TraceResult_toEmoji,
     l_Lean_trace_profiler, l_Lean_trace_profiler_threshold, l_Lean_trace_profiler_useHeartbeats,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_div, lean_nat_mul,
-};
-use crate::ffi::{
-    lean_io_get_num_heartbeats, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l___private_Lean_Meta_Tactic_BVDecide_Normalize_0__Lean_Meta_Tactic_BVDecide_Normalize_passPipeline___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_BVDecide_Normalize_0__Lean_Meta_Tactic_BVDecide_Normalize_passPipeline___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

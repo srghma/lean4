@@ -3,7 +3,6 @@
 // exact-text variant: no
 
 use runtime::leanh_extra::*;
-use runtime::leanh_extra as leanh;
 
 pub unsafe fn lean_string_utf8_extract(
     s: *mut LeanObject,

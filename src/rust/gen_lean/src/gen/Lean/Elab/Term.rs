@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Term
 // Imports: Lean.Elab.DeclModifiers Lean.Elab.Term.TermElabM
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_mkStr3, l_Lean_Name_num___override, l_Lean_Name_str___override,
 };
@@ -32,11 +36,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_mk_empty_array_with_capacity;
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_Term_expandDeclId_spec__0_spec__1_spec__3___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_Term_expandDeclId_spec__0_spec__1_spec__3___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_Term_expandDeclId_spec__0_spec__1_spec__3___closed__1_value: crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [119, 104, 105, 108, 101, 32, 101, 120, 112, 97, 110, 100, 105, 110, 103, 0]};

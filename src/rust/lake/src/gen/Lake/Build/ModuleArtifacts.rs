@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Build.ModuleArtifacts
 // Imports: Lake.Config.Artifact Lake.Util.JsonObject
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_string_append, lean_string_utf8_byte_size,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Lake::Config::Artifact::{
     initialize_Lake_Config_Artifact, l_Lake_ArtifactDescr_fromJson_x3f,
     runtime_initialize_Lake_Config_Artifact,
@@ -12,16 +18,6 @@ use crate::r#gen::Lake::Util::JsonObject::{
 use crate::r#gen::Lake::Util::String::l_Lake_lowerHexUInt64;
 use crate::r#gen::Lean::Data::Json::Basic::{l_Lean_Json_getBool_x3f, l_Lean_Json_getObj_x3f};
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_string_utf8_byte_size,
-};
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Array_toJson___at___00Lake_ModuleOutputDescrs_toJson_spec__0_spec__0___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [46, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Array_toJson___at___00Lake_ModuleOutputDescrs_toJson_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Array_toJson___at___00Lake_ModuleOutputDescrs_toJson_spec__0_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lake_ModuleOutputDescrs_toJson___closed__0_value: crate::leanh::LeanStringObject<2> =

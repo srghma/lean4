@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.ModPkgExt
 // Imports: Lean.Environment Lean.Compiler.NameMangling
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_lt,
+};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lean::Compiler::NameMangling::{
     initialize_Lean_Compiler_NameMangling, l_Lean_Name_mangle, l_Lean_mkPackageSymbolPrefix,
@@ -12,10 +16,6 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_PersistentEnvExtension_getState___redArg,
     l_Lean_PersistentEnvExtension_setState___redArg, l_Lean_instInhabitedEnvExtension_default,
     l_Lean_registerPersistentEnvExtensionUnsafe___redArg, runtime_initialize_Lean_Environment,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_lt,
 };
 pub static l_Lean_registerModuleEnvExtension___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

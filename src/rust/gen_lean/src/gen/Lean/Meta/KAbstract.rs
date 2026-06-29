@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.KAbstract
 // Imports: Lean.HeadIndex Lean.Meta.Basic
+use crate::ffi::{
+    lean_array_push, lean_expr_abstract, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_ptr_addr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_usize_dec_eq,
+};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Meta_Occurrences_contains;
 use crate::r#gen::Init::MetaTypes::l_Lean_Meta_instBEqOccurrences_beq;
 use crate::r#gen::Lean::Expr::{
@@ -17,15 +22,6 @@ use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, l_Lean_Meta_isExprDefEq, runtime_initialize_Lean_Meta_Basic,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::lean_expr_abstract;
 pub unsafe fn l___private_Lean_Meta_KAbstract_0__Lean_Meta_kabstract_visit(
     mut v_p_318_: *mut crate::leanh::LeanObject,
     mut v_occs_319_: *mut crate::leanh::LeanObject,

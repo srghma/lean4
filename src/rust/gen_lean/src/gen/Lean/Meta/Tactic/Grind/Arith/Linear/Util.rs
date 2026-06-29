@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.Util
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM Lean.Meta.Tactic.Grind.Arith.Util Init.Data.Int.Gcd
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_int_dec_eq, lean_int_ediv, lean_int_neg,
+    lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
+    lean_nat_sub, lean_nat_to_int, lean_st_ref_get, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Int::Gcd::{
     initialize_Init_Data_Int_Gcd, l_Int_gcd, runtime_initialize_Init_Data_Int_Gcd,
 };
@@ -43,24 +51,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg,
     l_Lean_Meta_Grind_isInconsistent___redArg,
 };
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_int_ediv;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
-    lean_nat_sub,
-};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_PersistentHashMap_findAux___at___00Lean_PersistentHashMap_find_x3f___at___00Lean_Meta_Grind_Arith_Linear_getTermStructId_x3f_spec__0_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_PersistentHashMap_findAux___at___00Lean_PersistentHashMap_find_x3f___at___00Lean_Meta_Grind_Arith_Linear_getTermStructId_x3f_spec__0_spec__0___redArg___closed__0: usize = 0;
 static mut l_Lean_PersistentHashMap_findAux___at___00Lean_PersistentHashMap_find_x3f___at___00Lean_Meta_Grind_Arith_Linear_getTermStructId_x3f_spec__0_spec__0___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

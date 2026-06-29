@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Vector.Algebra
 // Imports: Init.Grind Init.Data.Vector.Basic Init.Data.Vector.Lemmas
+use crate::ffi::{lean_array_size, lean_mk_array};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -17,7 +18,6 @@ use crate::r#gen::Init::Data::Vector::Lemmas::{
 };
 use crate::r#gen::Init::Grind::Module::Basic::l_Lean_Grind_IntModule_toNatModule___redArg;
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::ffi::{lean_array_size, lean_mk_array};
 pub static l_Vector_add___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

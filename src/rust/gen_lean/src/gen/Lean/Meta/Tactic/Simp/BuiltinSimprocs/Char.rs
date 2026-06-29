@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Char
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.UInt
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_string_push, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt, lean_uint32_to_nat, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Prelude::l_Char_ofNat;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21,
@@ -22,16 +28,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::Util::l_Lean_Meta_S
 use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_string_push;
-use crate::ffi::{
-    lean_uint32_add, lean_usize_add, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_lt,
-    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt, lean_uint32_to_nat,
-    lean_usize_dec_eq,
 };
 pub static l_Char_reduceUnary___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

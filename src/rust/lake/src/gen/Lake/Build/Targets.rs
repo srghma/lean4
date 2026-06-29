@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Build.Targets
 // Imports: Lake.Config.Monad Lake.Config.InputFile Lake.Build.Infos
+use crate::ffi::{lean_array_get_size, lean_array_push, lean_string_append};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Lake::Build::Facets::{
@@ -26,8 +27,6 @@ use crate::r#gen::Lean::Data::Name::{
     l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl___boxed,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_get_x3f___redArg;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_array_get_size, lean_array_push};
 pub static l_Lake_KConfigDecl_get___redArg___lam__1___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

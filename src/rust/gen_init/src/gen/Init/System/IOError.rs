@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.System.IOError
 // Imports: Init.Data.ToString.Basic Init.Data.String.Modify
+use crate::ffi::{
+    lean_string_append, lean_string_utf8_get, lean_string_utf8_set, lean_uint32_add,
+    lean_uint32_dec_le, lean_uint32_to_nat,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Modify::{
     initialize_Init_Data_String_Modify, runtime_initialize_Init_Data_String_Modify,
@@ -8,11 +12,6 @@ use crate::r#gen::Init::Data::String::Modify::{
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
-use crate::ffi::lean_string_utf8_get;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{lean_uint32_dec_le, lean_uint32_to_nat};
 pub static l_instInhabitedError___closed__0_value: crate::leanh::LeanStringObject<37> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

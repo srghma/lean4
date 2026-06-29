@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.DSL.Attributes
 // Imports: Lake.DSL.AttributesCore
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_dec_eq,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_Syntax_getPos_x3f,
     l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
@@ -19,12 +23,6 @@ use crate::r#gen::Lean::Log::{
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq,
-};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_addMessageContextPartial___at___00Lean_logAt___at___00Lean_logWarningAt___at___00__private_Lake_DSL_Attributes_0__Lake_initFn_00___x40_Lake_DSL_Attributes_4284851756____hygCtx___hyg_2__spec__0_spec__0_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_logAt___at___00Lean_logWarningAt___at___00__private_Lake_DSL_Attributes_0__Lake_initFn_00___x40_Lake_DSL_Attributes_4284851756____hygCtx___hyg_2__spec__0_spec__0_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.Lsp.BasicAux
 // Imports: Lean.Data.Json.FromToJson.Basic
+use crate::ffi::{
+    lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_string_append,
+    lean_string_length, lean_uint64_mix_hash, lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -9,13 +13,6 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 };
 use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
     initialize_Lean_Data_Json_FromToJson_Basic, runtime_initialize_Lean_Data_Json_FromToJson_Basic,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_uint64_mix_hash,
 };
 pub static l_Lean_Lsp_instInhabitedPosition_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {

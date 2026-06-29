@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.List.Sort.Impl
 // Imports: Init.Data.List.Sort.Basic Init.Data.List.Sort.Basic Init.Data.List.Sort.Lemmas Init.Data.Nat.Linear
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_shiftr, lean_nat_sub,
+    lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverseAux___redArg;
 use crate::r#gen::Init::Data::List::Sort::Basic::{
     initialize_Init_Data_List_Sort_Basic, l_List_MergeSort_Internal_splitInTwo___redArg,
@@ -13,10 +17,6 @@ use crate::r#gen::Init::Data::Nat::Linear::{
     initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear,
 };
 use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_List_lengthTR___redArg};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size,
-};
 pub static l_List_MergeSort_Internal_mergeSortTR___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

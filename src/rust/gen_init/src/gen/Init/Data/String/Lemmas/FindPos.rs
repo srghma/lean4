@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.String.Lemmas.FindPos
 // Imports: Init.Data.String.FindPos Init.Data.String.FindPos Init.Data.String.OrderInstances Init.Data.String.Lemmas.Order Init.Data.Order.Lemmas Init.Data.Option.Lemmas Init.ByCases
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Option::Lemmas::{
     initialize_Init_Data_Option_Lemmas, runtime_initialize_Init_Data_Option_Lemmas,
@@ -17,7 +18,6 @@ use crate::r#gen::Init::Data::String::Lemmas::Order::{
 use crate::r#gen::Init::Data::String::OrderInstances::{
     initialize_Init_Data_String_OrderInstances, runtime_initialize_Init_Data_String_OrderInstances,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_String_Lemmas_FindPos_0__String_Slice_Pos_prevn_match__1_splitter___redArg(
     mut v_n_31_: *mut crate::leanh::LeanObject,
     mut v_h__1_32_: *mut crate::leanh::LeanObject,

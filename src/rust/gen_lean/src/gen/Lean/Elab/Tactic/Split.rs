@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Split
 // Imports: Lean.Meta.Tactic.Split Lean.Elab.Tactic.Location
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_st_ref_get, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, lean_mk_syntax_ident};
 use crate::r#gen::Init::Prelude::{
@@ -43,13 +48,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
     l_Lean_MVarId_getNondepPropHyps, l_Lean_MVarId_getType, l_Lean_Meta_throwTacticEx___redArg,
 };
 use crate::r#gen::Lean::Structure::{l_Lean_getStructureFields, l_Lean_isStructure};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l___private_Lean_Elab_Tactic_Split_0__Lean_Elab_Tactic_evalSplit_traceHint___lam__0___closed__0_value: crate::leanh::LeanStringObject<87> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 87, m_capacity: 87, m_length: 86, m_data: [85, 115, 101, 32, 96, 115, 101, 116, 95, 111, 112, 116, 105, 111, 110, 32, 116, 114, 97, 99, 101, 46, 115, 112, 108, 105, 116, 46, 102, 97, 105, 108, 117, 114, 101, 32, 116, 114, 117, 101, 96, 32, 116, 111, 32, 100, 105, 115, 112, 108, 97, 121, 32, 97, 100, 100, 105, 116, 105, 111, 110, 97, 108, 32, 100, 105, 97, 103, 110, 111, 115, 116, 105, 99, 32, 105, 110, 102, 111, 114, 109, 97, 116, 105, 111, 110, 0]};
 static mut l___private_Lean_Elab_Tactic_Split_0__Lean_Elab_Tactic_evalSplit_traceHint___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Split_0__Lean_Elab_Tactic_evalSplit_traceHint___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Lean_Elab_Tactic_Split_0__Lean_Elab_Tactic_evalSplit_traceHint___lam__0___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

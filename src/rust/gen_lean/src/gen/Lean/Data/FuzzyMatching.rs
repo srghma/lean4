@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Data.FuzzyMatching
 // Imports: Init.Data.Range.Polymorphic.Iterators Init.Data.Range.Polymorphic.Nat Init.Data.OfScientific Init.Data.Option.Coe Init.Data.Range Lean.Server.Completion.CompletionUtils
+use crate::ffi::{
+    lean_array_get, lean_array_push, lean_array_set, lean_float_decLe, lean_float_decLt,
+    lean_float_div, lean_int_mul, lean_int16_add, lean_int16_dec_eq, lean_int16_dec_le,
+    lean_int16_neg, lean_int16_of_nat, lean_int16_sub, lean_int16_to_int, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_nat_shiftr, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_length, lean_string_utf8_at_end,
+    lean_string_utf8_byte_size, lean_string_utf8_get, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -30,28 +40,6 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Server::Completion::CompletionUtils::{
     initialize_Lean_Server_Completion_CompletionUtils, l_String_charactersIn,
     runtime_initialize_Lean_Server_Completion_CompletionUtils,
-};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_float_decLe, lean_float_decLt, lean_float_div,
-};
-use crate::ffi::{lean_int_mul, lean_nat_to_int};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_int16_add, lean_int16_dec_eq, lean_int16_dec_le, lean_int16_neg, lean_int16_of_nat,
-    lean_int16_sub, lean_int16_to_int,
-};
-use crate::ffi::{
-    lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{
-    lean_array_get, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l___private_Lean_Data_FuzzyMatching_0__Lean_FuzzyMatching_iterateLookaround___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Id_instMonad___lam__0 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l___private_Lean_Data_FuzzyMatching_0__Lean_FuzzyMatching_iterateLookaround___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Data_FuzzyMatching_0__Lean_FuzzyMatching_iterateLookaround___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

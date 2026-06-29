@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.Notation
 // Imports: Std.Time.Format Std.Time.Format
+use crate::ffi::{
+    lean_int_dec_lt, lean_nat_abs, lean_nat_sub, lean_nat_to_int, lean_string_append,
+    lean_thunk_get_own,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_mkNumLit, l_Lean_Syntax_mkStrLit, l_Lean_TSyntax_getString,
@@ -17,12 +21,6 @@ use crate::r#gen::Std::Time::Format::{
     l_Std_Time_ZonedDateTime_fromLeanDateTimeWithIdentifierString,
     l_Std_Time_ZonedDateTime_fromLeanDateTimeWithZoneString, runtime_initialize_Std_Time_Format,
 };
-use crate::ffi::lean_thunk_get_own;
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_nat_sub;
 pub static l___private_Std_Time_Notation_0__Std_Time_convertText___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

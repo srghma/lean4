@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.RingM
 // Imports: Lean.Meta.Tactic.Grind.SynthInstance Lean.Meta.Tactic.Grind.Arith.CommRing.MonadRing Lean.Meta.Sym.Arith.Poly
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_st_ref_get, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
@@ -48,19 +55,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
     l_Std_DTreeMap_Internal_Impl_maxView___redArg, l_Std_DTreeMap_Internal_Impl_minView___redArg,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_minKey_x3f___redArg;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_CommRing_checkMaxDegree___redArg___closed__0_value:
     crate::leanh::LeanStringObject<24> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,12 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.ByteArray.Bootstrap
 // Imports: Init.Data.List.Basic
+use crate::ffi::{lean_array_mk, lean_array_to_list, lean_byte_array_data, lean_byte_array_mk};
 use crate::r#gen::Init::Data::List::Basic::{
     initialize_Init_Data_List_Basic, l_List_appendTR___redArg,
     runtime_initialize_Init_Data_List_Basic,
-};
-use crate::ffi::{
-    lean_array_mk, lean_array_to_list, lean_byte_array_data, lean_byte_array_mk,
 };
 pub unsafe fn l_ByteArray_append(
     mut v_a_27_: *mut crate::leanh::LeanObject,

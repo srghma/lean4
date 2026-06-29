@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lake.Load.Toml
 // Imports: Lake.Config.Package Lake.Config.LakefileConfig Lake.Load.Config Lake.Toml.Decode Lake.Toml.Load Lean.Parser.Extension Lake.Build.Infos Init.Omega Lake.Config.LakeConfig Lake.Config.InputFileConfig Lake.Config.LeanExeConfig Lake.Config.LeanLibConfig Lake.Config.PackageConfig
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_int_dec_lt, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq, lean_string_intercalate,
+    lean_string_utf8_at_end, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next, lean_string_utf8_set,
+    lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold, l_Array_contains___redArg,
 };
@@ -165,33 +177,6 @@ use crate::r#gen::Lean::Parser::Extension::{
     runtime_initialize_Lean_Parser_Extension,
 };
 use crate::r#gen::Lean::Util::LeanOptions::l_Lean_instInhabitedLeanOptionValue_default;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
-    lean_string_utf8_get_fast, lean_string_utf8_next,
-};
-use crate::ffi::lean_string_intercalate;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{
-    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_uint32_add, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_usize_dec_eq,
-};
 pub static l___private_Lake_Load_Toml_0__Lake_takeNamePart___closed__0_value:
     crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Deriving.TypeName
 // Imports: Lean.Elab.Deriving.Basic
+use crate::ffi::{
+    lean_array_get, lean_array_push, lean_array_size, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_string_append,
+    lean_string_intercalate, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Meta::Defs::{
@@ -44,15 +49,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get, lean_array_push, lean_mk_empty_array_with_capacity,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Options_set___at___00__private_Lean_Elab_Deriving_TypeName_0__Lean_Elab_deriveTypeNameInstance_spec__0___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [116, 114, 97, 99, 101, 0]};
 static mut l_Lean_Options_set___at___00__private_Lean_Elab_Deriving_TypeName_0__Lean_Elab_deriveTypeNameInstance_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Options_set___at___00__private_Lean_Elab_Deriving_TypeName_0__Lean_Elab_deriveTypeNameInstance_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Options_set___at___00__private_Lean_Elab_Deriving_TypeName_0__Lean_Elab_deriveTypeNameInstance_spec__0___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l_Lean_Options_set___at___00__private_Lean_Elab_Deriving_TypeName_0__Lean_Elab_deriveTypeNameInstance_spec__0___closed__0_value) as *mut crate::leanh::LeanObject,14231257465488249300 as *mut crate::leanh::LeanObject] };

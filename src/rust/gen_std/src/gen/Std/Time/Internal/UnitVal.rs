@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.Internal.UnitVal
 // Imports: Init.Data.Order.Ord Init.Data.Rat.Basic
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div, lean_int_ediv,
+    lean_int_mul, lean_int_sub, lean_nat_abs, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_neg___boxed;
 use crate::r#gen::Init::Data::Int::Repr::{l_Int_repr, l_Int_repr___boxed};
 use crate::r#gen::Init::Data::Order::Ord::{
@@ -10,11 +14,6 @@ use crate::r#gen::Init::Data::Rat::Basic::{
     initialize_Init_Data_Rat_Basic, l_Rat_div, runtime_initialize_Init_Data_Rat_Basic,
 };
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_sub,
-    lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_div, lean_int_ediv};
 static mut l_Std_Time_Internal_instInhabitedUnitVal_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

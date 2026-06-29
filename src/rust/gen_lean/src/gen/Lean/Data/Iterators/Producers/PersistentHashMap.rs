@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.Iterators.Producers.PersistentHashMap
 // Imports: Init.Data.Array.Subarray Init.Data.Array.Subarray.Split Lean.Data.PersistentHashMap Init.Data.Iterators.Consumers Init.Omega Init.Data.Slice.Array.Lemmas Init.Data.Array.Mem Init.Data.List.TakeDrop
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_to_list, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
+};
 use crate::r#gen::Init::Data::Array::Mem::{
     initialize_Init_Data_Array_Mem, runtime_initialize_Init_Data_Array_Mem,
 };
@@ -26,10 +30,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     initialize_Lean_Data_PersistentHashMap, runtime_initialize_Lean_Data_PersistentHashMap,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Lean_PersistentHashMap_instIterator___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

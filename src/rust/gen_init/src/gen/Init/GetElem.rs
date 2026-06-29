@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.GetElem
 // Imports: Init.Util Init.Data.Option.Basic
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::Option::Basic::{
     initialize_Init_Data_Option_Basic, runtime_initialize_Init_Data_Option_Basic,
 };
@@ -11,10 +15,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::Util::{
     initialize_Init_Util, l_mkPanicMessageWithDecl, runtime_initialize_Init_Util,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub static l_outOfBounds___redArg___closed__0_value: crate::leanh::LeanStringObject<13> =
     crate::leanh::LeanStringObject {

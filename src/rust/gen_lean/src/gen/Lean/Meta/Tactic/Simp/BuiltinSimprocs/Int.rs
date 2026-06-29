@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Int
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat Lean.Util.SafeExponentiation Init.Data.Int.DivMod
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div, lean_int_ediv,
+    lean_int_emod, lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_pow, l_Int_toNat};
 use crate::r#gen::Init::Data::Int::DivMod::Basic::{
     l_Int_bdiv___boxed, l_Int_bmod___boxed, l_Int_fdiv, l_Int_fmod,
@@ -33,13 +38,6 @@ use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
 use crate::r#gen::Lean::Util::SafeExponentiation::{
     initialize_Lean_Util_SafeExponentiation, l_Lean_checkExponent,
     runtime_initialize_Lean_Util_SafeExponentiation,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
 };
 pub static l_Int_reduceUnary___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

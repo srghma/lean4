@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.RevertAll
 // Imports: Lean.Meta.Tactic.Revert Init.Data.Range.Polymorphic.Iterators
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_nat_add, lean_nat_dec_lt,
+    lean_nat_sub, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_uint64_to_usize,
+    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land, lean_usize_mul,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     initialize_Init_Data_Range_Polymorphic_Iterators,
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
@@ -27,20 +34,6 @@ use crate::r#gen::Lean::Meta::Tactic::Revert::{
     runtime_initialize_Lean_Meta_Tactic_Revert,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_checkNotAssigned;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lean_Meta_Tactic_Grind_RevertAll_0__Lean_Meta_Grind_grindMark___closed__0_value: crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 13, m_capacity: 13, m_length: 12, m_data: [95, 95, 103, 114, 105, 110, 100, 95, 109, 97, 114, 107, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_RevertAll_0__Lean_Meta_Grind_grindMark___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

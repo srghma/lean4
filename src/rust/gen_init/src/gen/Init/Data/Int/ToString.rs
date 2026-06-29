@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Int.ToString
 // Imports: Init.Data.ToString.Extra Init.Data.Int.Repr Init.Data.Int.Order Init.Data.Int.LemmasAux
+use crate::ffi::{lean_int_dec_lt, lean_nat_abs, lean_nat_sub, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::LemmasAux::{
     initialize_Init_Data_Int_LemmasAux, runtime_initialize_Init_Data_Int_LemmasAux,
 };
@@ -13,10 +14,6 @@ use crate::r#gen::Init::Data::Int::Repr::{
 use crate::r#gen::Init::Data::ToString::Extra::{
     initialize_Init_Data_ToString_Extra, runtime_initialize_Init_Data_ToString_Extra,
 };
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_nat_sub;
 static mut l___private_Init_Data_Int_ToString_0__Int_repr_match__1_splitter___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_Data_Int_ToString_0__Int_repr_match__1_splitter___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

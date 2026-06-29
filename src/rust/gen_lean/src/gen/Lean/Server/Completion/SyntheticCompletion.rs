@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Server.Completion.SyntheticCompletion
 // Imports: Lean.Server.InfoUtils Lean.Server.Completion.CompletionUtils
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_next, lean_uint32_dec_eq,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -39,18 +46,6 @@ use crate::r#gen::Lean::Server::InfoUtils::{
 use crate::r#gen::Lean::Structure::l_Lean_isStructure;
 use crate::r#gen::Lean::Syntax::{
     l_Lean_Syntax_Range_contains, l_Lean_Syntax_findStack_x3f, l_Lean_Syntax_getRange_x3f,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_next,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint32_dec_eq, lean_usize_dec_eq,
 };
 pub static l_panic___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00__private_Lean_Server_Completion_SyntheticCompletion_0__Lean_Server_Completion_findBest_x3f_spec__0_spec__0___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Id_instMonad___lam__0 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00__private_Lean_Server_Completion_SyntheticCompletion_0__Lean_Server_Completion_findBest_x3f_spec__0_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_panic___at___00__private_Lean_Server_InfoUtils_0__Lean_Elab_InfoTree_visitM_go___at___00__private_Lean_Server_Completion_SyntheticCompletion_0__Lean_Server_Completion_findBest_x3f_spec__0_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

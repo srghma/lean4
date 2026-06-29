@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.PP
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.Types Lean.Meta.Tactic.Grind.Arith.Linear.Model Lean.Meta.Tactic.Grind.Arith.Util Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_nat_dec_eq, lean_string_append, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -22,14 +27,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Util::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Util,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_getStateCoreImpl___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
-};
 pub static l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Grind_Arith_Linear_ppStruct_x3f_spec__0___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Grind_Arith_Linear_ppStruct_x3f_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Grind_Arith_Linear_ppStruct_x3f_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_Meta_Grind_Arith_Linear_ppStruct_x3f_spec__0___redArg___closed__1_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [97, 115, 115, 105, 103, 110, 0]};

@@ -1,10 +1,8 @@
 // Lean compiler output
 // Module: Lean.Runtime
 // Imports: Init.Prelude
+use crate::ffi::{lean_closure_max_args, lean_libuv_version, lean_max_small_nat};
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::ffi::{
-    lean_closure_max_args, lean_libuv_version, lean_max_small_nat,
-};
 static mut l_Lean_closureMaxArgs___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

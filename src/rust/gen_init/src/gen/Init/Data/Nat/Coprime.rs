@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Coprime
 // Imports: Init.Data.Nat.Gcd Init.Data.Nat.Dvd
+use crate::ffi::{lean_nat_dec_eq, lean_nat_gcd};
 use crate::r#gen::Init::Data::Nat::Dvd::{
     initialize_Init_Data_Nat_Dvd, runtime_initialize_Init_Data_Nat_Dvd,
 };
 use crate::r#gen::Init::Data::Nat::Gcd::{
     initialize_Init_Data_Nat_Gcd, runtime_initialize_Init_Data_Nat_Gcd,
 };
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::lean_nat_dec_eq;
 pub unsafe fn l_Nat_instDecidableCoprime(
     mut v_m_10_: *mut crate::leanh::LeanObject,
     mut v_n_11_: *mut crate::leanh::LeanObject,

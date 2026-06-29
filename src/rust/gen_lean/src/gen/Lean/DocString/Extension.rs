@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.DocString.Extension
 // Imports: Lean.DeclarationRange Lean.DocString.Markdown Init.Data.String.Extra Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_array_mk,
+    lean_array_pop, lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget_borrowed,
+    lean_array_uset, lean_int_dec_lt, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq, lean_string_length, lean_string_push,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -82,24 +91,6 @@ use crate::r#gen::Lean::Message::{
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
     l_Std_DTreeMap_Internal_Impl_erase___redArg, l_Std_DTreeMap_Internal_Impl_maxView___redArg,
     l_Std_DTreeMap_Internal_Impl_minView___redArg,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_int_dec_lt, lean_nat_to_int};
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::{lean_string_length, lean_string_push};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_dec_eq, lean_string_utf8_byte_size,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_instReprElabInline___lam__0___closed__0_value: crate::leanh::LeanStringObject<
     10,

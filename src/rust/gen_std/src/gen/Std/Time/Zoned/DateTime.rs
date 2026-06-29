@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.DateTime
 // Imports: Std.Time.DateTime Std.Time.Zoned.TimeZone Std.Time.Date.Unit.Month Std.Time.Date.Unit.Year Std.Time.DateTime.PlainDateTime
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_emod, lean_int_mod, lean_int_mul,
+    lean_int_neg, lean_mk_thunk, lean_nat_to_int, lean_thunk_get_own,
+};
 use crate::r#gen::Init::Data::Ord::Basic::l_compareOn___boxed;
 use crate::r#gen::Std::Time::Date::PlainDate::{
     l_Std_Time_PlainDate_addMonthsClip, l_Std_Time_PlainDate_addMonthsRollOver,
@@ -35,11 +39,6 @@ use crate::r#gen::Std::Time::Duration::{
 use crate::r#gen::Std::Time::Zoned::TimeZone::{
     initialize_Std_Time_Zoned_TimeZone, runtime_initialize_Std_Time_Zoned_TimeZone,
 };
-use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_emod, lean_int_mod};
 pub static l_Std_Time_instBEqDateTime___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

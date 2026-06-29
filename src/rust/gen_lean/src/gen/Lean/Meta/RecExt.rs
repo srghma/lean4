@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.RecExt
 // Imports: Lean.Attributes
+use crate::ffi::{lean_st_ref_get, lean_st_ref_set, lean_st_ref_take};
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, runtime_initialize_Lean_Attributes,
 };
@@ -8,9 +9,6 @@ use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmpt
 use crate::r#gen::Lean::EnvExtension::{
     l_Lean_TagDeclarationExtension_isTagged, l_Lean_TagDeclarationExtension_tag,
     l_Lean_mkTagDeclarationExtension,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Meta_RecExt_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_RecExt_2067193597____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [114, 101, 99, 69, 120, 116, 0]};
 static mut l___private_Lean_Meta_RecExt_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_RecExt_2067193597____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_RecExt_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_RecExt_2067193597____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;

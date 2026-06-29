@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.ForEachExpr
 // Imports: Lean.Expr Lean.Util.MonadCache
+use crate::ffi::lean_mk_array;
 use crate::r#gen::Init::System::ST::{
     l_ST_Prim_Ref_get___boxed, l_ST_Prim_Ref_modifyGetUnsafe___boxed, l_ST_Prim_mkRef___boxed,
 };
@@ -15,7 +16,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
     l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___redArg,
     l_Std_DHashMap_Internal_Raw_u2080_insert___redArg,
 };
-use crate::ffi::lean_mk_array;
 pub static l_Lean_ForEachExpr_visit___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

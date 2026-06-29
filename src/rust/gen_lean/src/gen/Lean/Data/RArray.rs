@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Data.RArray
 // Imports: Lean.Meta.DecLevel Init.Data.RArray Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_shiftr,
+};
 use crate::r#gen::Init::Data::RArray::{
     initialize_Init_Data_RArray, runtime_initialize_Init_Data_RArray,
 };
@@ -8,10 +11,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Lean::Expr::{l_Lean_mkApp4, l_Lean_mkAppB, l_Lean_mkConst, l_Lean_mkRawNatLit};
 use crate::r#gen::Lean::Meta::DecLevel::{
     initialize_Lean_Meta_DecLevel, l_Lean_Meta_getDecLevel, runtime_initialize_Lean_Meta_DecLevel,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq,
 };
 pub static l_Lean_RArray_toExpr___redArg___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

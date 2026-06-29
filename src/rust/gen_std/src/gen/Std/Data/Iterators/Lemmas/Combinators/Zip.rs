@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.Iterators.Lemmas.Combinators.Zip
 // Imports: Std.Data.Iterators.Combinators.Zip Std.Data.Iterators.Lemmas.Combinators.Monadic.Zip Init.Data.Iterators.Lemmas.Combinators.Take Init.Data.Iterators.Lemmas.Basic Init.Data.Iterators.Lemmas.Consumers.Access Init.Data.Iterators.Lemmas.Consumers.Collect Init.Data.List.ToArray Init.Data.List.Zip
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Iterators::Lemmas::Basic::{
     initialize_Init_Data_Iterators_Lemmas_Basic,
     runtime_initialize_Init_Data_Iterators_Lemmas_Basic,
@@ -31,7 +32,6 @@ use crate::r#gen::Std::Data::Iterators::Lemmas::Combinators::Monadic::Zip::{
     initialize_Std_Data_Iterators_Lemmas_Combinators_Monadic_Zip,
     runtime_initialize_Std_Data_Iterators_Lemmas_Combinators_Monadic_Zip,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Std_Data_Iterators_Lemmas_Combinators_Zip_0__Std_IterM_step__intermediateZip_match__3_splitter___redArg(
     mut v_memo_262_: *mut crate::leanh::LeanObject,
     mut v_h__1_263_: *mut crate::leanh::LeanObject,

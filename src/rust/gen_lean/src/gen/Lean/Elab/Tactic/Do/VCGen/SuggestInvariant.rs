@@ -1,6 +1,19 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.VCGen.SuggestInvariant
 // Imports: Lean.Elab.Tactic.Basic Lean.Meta.Tactic.Simp.Types Lean.Meta.Tactic.Simp.Main Lean.Elab.Tactic.Do.ProofMode.MGoal Std.Tactic.Do Init.Data.Array.Mem
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_abstract, lean_expr_abstract_range,
+    lean_expr_eqv, lean_expr_has_loose_bvar, lean_expr_lower_loose_bvars, lean_infer_type,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::Mem::{
     initialize_Init_Data_Array_Mem, runtime_initialize_Init_Data_Array_Mem,
@@ -75,33 +88,6 @@ use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::PrettyPrinter::Delaborator::Basic::l_Lean_PrettyPrinter_delab;
 use crate::r#gen::Lean::Util::CollectFVars::l_Lean_collectFVars;
 use crate::r#gen::Std::Tactic::Do::{initialize_Std_Tactic_Do, runtime_initialize_Std_Tactic_Do};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_mk,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_expr_abstract, lean_expr_abstract_range, lean_expr_eqv, lean_expr_has_loose_bvar,
-    lean_expr_lower_loose_bvars,
-};
-use crate::ffi::lean_infer_type;
 pub static l___private_Lean_Elab_Tactic_Do_VCGen_SuggestInvariant_0__Lean_Elab_Tactic_Do_getSPredGoalHypsAndTarget_getULiftDownLevel___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [85, 76, 105, 102, 116, 0]};
 static mut l___private_Lean_Elab_Tactic_Do_VCGen_SuggestInvariant_0__Lean_Elab_Tactic_Do_getSPredGoalHypsAndTarget_getULiftDownLevel___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Do_VCGen_SuggestInvariant_0__Lean_Elab_Tactic_Do_getSPredGoalHypsAndTarget_getULiftDownLevel___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Tactic_Do_VCGen_SuggestInvariant_0__Lean_Elab_Tactic_Do_getSPredGoalHypsAndTarget_getULiftDownLevel___closed__1_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [100, 111, 119, 110, 0]};

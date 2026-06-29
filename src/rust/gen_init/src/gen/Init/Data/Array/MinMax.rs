@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Array.MinMax
 // Imports: Init.Data.Array.Lemmas Init.Data.List.MinMax Init.Data.Order.Classes Init.Data.Array.Bootstrap Init.Data.Array.DecidableEq Init.Data.List.TakeDrop Init.Data.Order.Lemmas
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -27,10 +31,6 @@ use crate::r#gen::Init::Data::Order::Classes::{
 };
 use crate::r#gen::Init::Data::Order::Lemmas::{
     initialize_Init_Data_Order_Lemmas, runtime_initialize_Init_Data_Order_Lemmas,
-};
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Array_min___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Syntax
 // Imports: Init.Data.Slice Init.Data.Hashable Lean.Data.Format Init.Data.Option.Coe Init.Data.String.Hashable Init.Data.Range.Polymorphic.Iterators Init.Data.ToString.Macro Init.Omega Init.Syntax
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_pop, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget_borrowed, lean_array_uset, lean_dbg_trace, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed,
+    lean_string_append, lean_string_dec_eq, lean_string_is_valid_pos, lean_string_length,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_substring_tostring, lean_uint32_dec_eq, lean_uint64_mix_hash,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -65,30 +76,6 @@ use crate::r#gen::Lean::Data::Format::{
 };
 use crate::r#gen::Lean::Data::Name::{l_Lean_Name_components, l_Lean_Name_getNumParts};
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_is_valid_pos, lean_string_utf8_extract, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::{
-    lean_string_length, lean_substring_tostring,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::lean_dbg_trace;
 pub static l_Lean_Syntax_instInhabitedRange_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

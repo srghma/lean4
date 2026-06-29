@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.Inv
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Lean.Meta.Tactic.Grind.Arith.Cutsat.Util
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_int_dec_eq, lean_int_dec_lt, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int, lean_panic_fn_borrowed, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Int::Linear::l_Int_Linear_Poly_coeff;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_get_x21___redArg;
@@ -19,19 +25,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Cutsat_Util,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l_Lean_Meta_Grind_instInhabitedGoalM;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
 static mut l_Int_Linear_Poly_checkCoeffs___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Data.Lsp.Diagnostics
 // Imports: Lean.Data.Lsp.Basic Lean.Data.Lsp.Utf16
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_int_dec_eq, lean_int_dec_lt,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_string_append,
+    lean_string_compare, lean_string_dec_eq, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_instBEq___redArg___lam__0___boxed,
     l_List_foldl___at___00Array_appendList_spec__0___redArg,
@@ -38,19 +44,6 @@ use crate::r#gen::Lean::Data::Lsp::BasicAux::{
 };
 use crate::r#gen::Lean::Data::Lsp::Utf16::{
     initialize_Lean_Data_Lsp_Utf16, runtime_initialize_Lean_Data_Lsp_Utf16,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_to_list, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
 };
 pub static mut l_Lean_Lsp_instInhabitedDiagnosticSeverity_default: u8 = 0;
 pub static mut l_Lean_Lsp_instInhabitedDiagnosticSeverity: u8 = 0;

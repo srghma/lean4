@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Util.OpaqueType
 // Imports: Lake.Util.Binder Init.Prelude
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_unzip___redArg};
 use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_mkApp, l_Lean_TSyntax_getId, l_Lean_mkIdentFrom, lean_mk_syntax_ident,
@@ -19,11 +23,6 @@ use crate::r#gen::Lake::Util::Binder::{
     initialize_Lake_Util_Binder, l_Lake_BinderSyntaxView_mkArgument,
     l_Lake_BinderSyntaxView_mkBinder, l_Lake_expandBinders, runtime_initialize_Lake_Util_Binder,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lake_nonemptyTypeCmd___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

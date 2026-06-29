@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Data.Array
 // Imports: Init.Data.Stream Init.Data.Range.Polymorphic.Nat Init.Data.Range.Polymorphic.Iterators
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
+    lean_array_push, lean_array_set, lean_array_size, lean_array_uget_borrowed, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     initialize_Init_Data_Range_Polymorphic_Iterators,
@@ -13,15 +19,6 @@ use crate::r#gen::Init::Data::Stream::{
     initialize_Init_Data_Stream, runtime_initialize_Init_Data_Stream,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
-};
 pub static l_Array_mask___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

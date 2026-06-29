@@ -1,6 +1,20 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.Proof
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Init.Data.Int.OfNat Lean.Meta.Tactic.Grind.Diseq Lean.Meta.Tactic.Grind.ProofUtil Lean.Meta.Tactic.Simp.Arith.Int.Simp Lean.Meta.Tactic.Grind.Arith.Cutsat.CommRing Lean.Meta.Tactic.Grind.Arith.Cutsat.Util Lean.Meta.Tactic.Grind.Arith.Cutsat.Nat Lean.Meta.Tactic.Grind.Arith.Cutsat.VarRename Lean.Meta.Sym.Arith.VarRename Lean.Meta.Sym.Arith.ToExpr Init.Data.Nat.Order Init.Data.Order.Lemmas
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_abstract, lean_expr_eqv,
+    lean_grind_mk_eq_proof, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_ediv,
+    lean_int_emod, lean_int_mul, lean_int_neg, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed, lean_ptr_addr,
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_dec_eq,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat, lean_usize_to_uint64,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_pow, l_Int_toNat};
@@ -147,35 +161,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Arith::Int::Simp::{
 };
 use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_abs,
-    lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_shift_left, lean_usize_shift_right, lean_usize_to_uint64,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint64_dec_eq, lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_expr_abstract, lean_expr_eqv};
-use crate::ffi::lean_grind_mk_eq_proof;
 static mut l_Lean_Meta_Grind_Arith_Cutsat_instHashableExpr__lean_hash___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

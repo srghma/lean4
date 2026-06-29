@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Widget.Types
 // Imports: Lean.Server.Rpc.Basic
+use crate::ffi::{lean_array_to_list, lean_uint64_to_nat};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Lean::Data::Json::Basic::{l_Lean_Json_getObjValD, l_Lean_Json_mkObj};
@@ -10,8 +11,6 @@ use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
 use crate::r#gen::Lean::Server::Rpc::Basic::{
     initialize_Lean_Server_Rpc_Basic, runtime_initialize_Lean_Server_Rpc_Basic,
 };
-use crate::ffi::lean_uint64_to_nat;
-use crate::ffi::lean_array_to_list;
 pub static l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_Types_3328362917____hygCtx___hyg_14__value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [105, 100, 0]};
 static mut l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_Types_3328362917____hygCtx___hyg_14_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__0_00___x40_Lean_Widget_Types_3328362917____hygCtx___hyg_14__value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Widget_instFromJsonRpcEncodablePacket_fromJson___closed__1_00___x40_Lean_Widget_Types_3328362917____hygCtx___hyg_14__value: crate::leanh::LeanStringObject<15> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 15, m_capacity: 15, m_length: 14, m_data: [106, 97, 118, 97, 115, 99, 114, 105, 112, 116, 72, 97, 115, 104, 0]};

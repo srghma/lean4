@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.TestExtern
 // Imports: Lean.Meta.Tactic.Unfold Lean.Meta.Eval Lean.Compiler.ImplementedByAttr Lean.Elab.Command Init.Notation Lean.Exception Lean.Compiler.ExternAttr
+use crate::ffi::lean_st_ref_get;
 use crate::r#gen::Init::Notation::{initialize_Init_Notation, runtime_initialize_Init_Notation};
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::Compiler::ExternAttr::{
@@ -35,7 +36,6 @@ use crate::r#gen::Lean::Meta::Tactic::Unfold::{
     initialize_Lean_Meta_Tactic_Unfold, l_Lean_Meta_unfold,
     runtime_initialize_Lean_Meta_Tactic_Unfold,
 };
-use crate::ffi::lean_st_ref_get;
 pub static l_testExternCmd___closed__0_value: crate::leanh::LeanStringObject<14> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

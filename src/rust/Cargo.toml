@@ -5,9 +5,13 @@
 members = [
   "leanh",
   "runtime",
+  "gen_init_ffi",
   "gen_init",
+  "gen_std_ffi",
   "gen_std",
+  "gen_lean_ffi",
   "gen_lean",
+  "lake_ffi",
   "lake",
   "lean_checker",
   "lean_ir",

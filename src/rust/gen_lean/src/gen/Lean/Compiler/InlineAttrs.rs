@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.InlineAttrs
 // Imports: Lean.Attributes Lean.Meta.RecExt
+use crate::ffi::{
+    lean_array_get, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append,
+};
 use crate::r#gen::Init::Prelude::{l_Lean_replaceRef, l_List_lengthTR___redArg};
 use crate::r#gen::Lean::Attributes::{
     initialize_Lean_Attributes, l_Lean_EnumAttributes_getValue___redArg,
@@ -28,13 +32,6 @@ use crate::r#gen::Lean::Meta::RecExt::{
     runtime_initialize_Lean_Meta_RecExt,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static mut l_Lean_Compiler_instInhabitedInlineAttributeKind_default: u8 = 0;
 pub static mut l_Lean_Compiler_instInhabitedInlineAttributeKind: u8 = 0;
 pub static l_Lean_Compiler_instBEqInlineAttributeKind___closed__0_value:

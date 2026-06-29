@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Ord.SInt
 // Imports: Init.Data.Order.Ord Init.Data.Order.ClassesExtra Init.Data.SInt.Basic Init.Data.SInt.Lemmas Init.Data.Order.Lemmas
+use crate::ffi::{
+    lean_int8_dec_eq, lean_int8_dec_lt, lean_int16_dec_eq, lean_int16_dec_lt, lean_int32_dec_eq,
+    lean_int32_dec_lt, lean_int64_dec_eq, lean_int64_dec_lt, lean_isize_dec_eq, lean_isize_dec_lt,
+};
 use crate::r#gen::Init::Data::Order::ClassesExtra::{
     initialize_Init_Data_Order_ClassesExtra, runtime_initialize_Init_Data_Order_ClassesExtra,
 };
@@ -15,10 +19,6 @@ use crate::r#gen::Init::Data::SInt::Basic::{
 };
 use crate::r#gen::Init::Data::SInt::Lemmas::{
     initialize_Init_Data_SInt_Lemmas, runtime_initialize_Init_Data_SInt_Lemmas,
-};
-use crate::ffi::{
-    lean_int8_dec_eq, lean_int8_dec_lt, lean_int16_dec_eq, lean_int16_dec_lt, lean_int32_dec_eq,
-    lean_int32_dec_lt, lean_int64_dec_eq, lean_int64_dec_lt, lean_isize_dec_eq, lean_isize_dec_lt,
 };
 pub static l_Int8_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

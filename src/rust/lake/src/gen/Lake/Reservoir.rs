@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Reservoir
 // Imports: Init.Control.Do Lake.Util.JsonObject Lake.Util.Version Lake.Config.Env Lake.Util.Reservoir Lake.Util.Url
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_nat_dec_eq, lean_string_append,
+    lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
@@ -28,15 +33,6 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 };
 use crate::r#gen::Lean::Data::Json::Parser::l_Lean_Json_parse;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_string_dec_eq,
-    lean_string_utf8_byte_size,
-};
 pub static l_Lake_instInhabitedRegistrySrc_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

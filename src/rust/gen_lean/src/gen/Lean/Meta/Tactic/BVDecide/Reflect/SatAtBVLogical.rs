@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Reflect.SatAtBVLogical
 // Imports: Lean.Meta.Tactic.BVDecide.Reflect.Reify
+use crate::ffi::{
+    lean_infer_type, lean_nat_dec_eq, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_hasMVar, l_Lean_Expr_isApp, l_Lean_Expr_isConstOf, l_Lean_mkApp3, l_Lean_mkApp4,
@@ -25,11 +28,6 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::Reify::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Reflect_Reify,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::lean_nat_dec_eq;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_Tactic_BVDecide_SatAtBVLogical_of___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

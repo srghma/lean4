@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Consumers.Monadic.Collect
 // Imports: Init.Data.Iterators.Consumers.Monadic.Partial Init.Data.Iterators.Consumers.Monadic.Total Init.WFExtrinsicFix Init.Ext
+use crate::ffi::{lean_array_push, lean_array_to_list};
 use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Partial::{
     initialize_Init_Data_Iterators_Consumers_Monadic_Partial,
     runtime_initialize_Init_Data_Iterators_Consumers_Monadic_Partial,
@@ -15,7 +16,6 @@ use crate::r#gen::Init::WFExtrinsicFix::{
     l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg,
     runtime_initialize_Init_WFExtrinsicFix,
 };
-use crate::ffi::{lean_array_push, lean_array_to_list};
 pub static l_Std_IterM_toArray___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

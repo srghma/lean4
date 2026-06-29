@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.AC.Seq
 // Imports: Init.Grind.AC Init.Data.Ord Init.Data.Nat.Linear
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Nat::Linear::{
     initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear,
 };
@@ -14,10 +17,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
     l_Lean_replaceRef, l_String_toRawSubstring_x27,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Lean_Grind_AC_instOrdSeq__lean___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

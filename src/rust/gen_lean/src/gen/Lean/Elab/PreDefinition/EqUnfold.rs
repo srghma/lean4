@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.EqUnfold
 // Imports: Lean.Meta.Eqns Lean.Meta.Tactic.Rfl Lean.Meta.Tactic.Intro
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget_borrowed, lean_expr_eqv, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
@@ -66,19 +73,6 @@ use crate::r#gen::Lean::PrivateName::{l_Lean_isPrivateName, l_Lean_privateToUser
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_registerReservedNameAction;
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_tryURefl_spec__0_spec__0___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [116, 114, 97, 99, 101, 0]};
 static mut l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_tryURefl_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_tryURefl_spec__0_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_tryURefl_spec__0_spec__0___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_tryURefl_spec__0_spec__0___closed__0_value) as *mut crate::leanh::LeanObject,14231257465488249300 as *mut crate::leanh::LeanObject] };

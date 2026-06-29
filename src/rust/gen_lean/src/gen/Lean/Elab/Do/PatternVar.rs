@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Do.PatternVar
 // Imports: Lean.Elab.Term Lean.Parser.Do Lean.Elab.PatternVar Lean.Elab.Quotation
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_st_ref_get, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Format::Syntax::l_Lean_Syntax_formatStx;
@@ -37,17 +43,6 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Parser::Do::{
     initialize_Lean_Parser_Do, runtime_initialize_Lean_Parser_Do,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00__private_Lean_Elab_Do_PatternVar_0__Lean_Elab_Do_getLetIdVars_spec__0_spec__1_spec__3___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00__private_Lean_Elab_Do_PatternVar_0__Lean_Elab_Do_getLetIdVars_spec__0_spec__1_spec__3___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00__private_Lean_Elab_Do_PatternVar_0__Lean_Elab_Do_getLetIdVars_spec__0_spec__1_spec__3___closed__1_value: crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [119, 104, 105, 108, 101, 32, 101, 120, 112, 97, 110, 100, 105, 110, 103, 0]};

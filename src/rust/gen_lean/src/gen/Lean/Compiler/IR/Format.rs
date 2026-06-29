@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.Format
 // Imports: Lean.Compiler.IR.Basic Init.Data.Format.Macro
+use crate::ffi::{
+    lean_array_get_size, lean_array_to_list, lean_array_uget_borrowed, lean_name_eq,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int, lean_string_append,
+    lean_string_length, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -16,15 +21,6 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Prelude::l_Function_comp;
 use crate::r#gen::Lean::Compiler::IR::Basic::{
     initialize_Lean_Compiler_IR_Basic, runtime_initialize_Lean_Compiler_IR_Basic,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l___private_Lean_Compiler_IR_Format_0__Lean_IR_formatArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {

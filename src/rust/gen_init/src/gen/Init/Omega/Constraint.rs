@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Omega.Constraint
 // Imports: Init.Omega.Coeffs Init.Data.Int.Lemmas Init.Data.Int.Order Init.Data.ToString.Macro Init.Omega.Int Init.PropLemmas Init.RCases
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_ediv, lean_int_mul,
+    lean_int_neg, lean_int_sub, lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
+    lean_nat_to_int, lean_string_append, lean_string_length,
+};
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_instDecidableEq___boxed, l_Int_neg___boxed};
 use crate::r#gen::Init::Data::Int::DivMod::Basic::l_Int_bmod;
 use crate::r#gen::Init::Data::Int::Lemmas::{
@@ -32,15 +37,6 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_int_ediv;
-use crate::ffi::{
-    lean_string_append, lean_string_length,
-};
-use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_sub};
 pub static l___private_Init_Omega_Constraint_0__Lean_Omega_instAppendString___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

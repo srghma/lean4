@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Data.Lsp.LanguageFeatures
 // Imports: Lean.Data.Lsp.Basic Lean.Expr Init.Data.String.Search Init.Data.Array.GetLit Lean.Data.Json.FromToJson.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_int_dec_lt, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_nat_to_int, lean_string_append, lean_string_dec_eq, lean_string_hash,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_uint32_dec_eq, lean_uint64_mix_hash,
+    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Array::GetLit::{
     initialize_Init_Data_Array_GetLit, runtime_initialize_Init_Data_Array_GetLit,
@@ -49,24 +58,6 @@ use crate::r#gen::Lean::Data::Lsp::BasicAux::{
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_instBEqFVarId_beq, l_Lean_instHashableFVarId_hash,
     runtime_initialize_Lean_Expr,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
 };
 pub static l_Array_fromJson_x3f___at___00Option_fromJson_x3f___at___00Lean_Json_getObjValAs_x3f___at___00Lean_Lsp_instFromJsonCompletionOptions_fromJson_spec__0_spec__0_spec__2___closed__0_value: crate::leanh::LeanStringObject<27> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 27, m_capacity: 27, m_length: 26, m_data: [101, 120, 112, 101, 99, 116, 101, 100, 32, 74, 83, 79, 78, 32, 97, 114, 114, 97, 121, 44, 32, 103, 111, 116, 32, 39, 0]};
 static mut l_Array_fromJson_x3f___at___00Option_fromJson_x3f___at___00Lean_Json_getObjValAs_x3f___at___00Lean_Lsp_instFromJsonCompletionOptions_fromJson_spec__0_spec__0_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Array_fromJson_x3f___at___00Option_fromJson_x3f___at___00Lean_Json_getObjValAs_x3f___at___00Lean_Lsp_instFromJsonCompletionOptions_fromJson_spec__0_spec__0_spec__2___closed__0_value) as *mut crate::leanh::LeanObject;

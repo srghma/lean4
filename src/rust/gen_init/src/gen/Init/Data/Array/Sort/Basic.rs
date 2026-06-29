@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Array.Sort.Basic
 // Imports: Init.Data.Array.Subarray.Split Init.Data.Slice.Array Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::Array::Subarray::Split::{
     initialize_Init_Data_Array_Subarray_Split, l_Subarray_drop___redArg,
     runtime_initialize_Init_Data_Array_Subarray_Split,
@@ -13,11 +18,6 @@ use crate::r#gen::Init::Data::Slice::Array::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-};
 pub static l___private_Init_Data_Array_Sort_Basic_0__Array_MergeSort_Internal_merge___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Init_Data_Array_Sort_Basic_0__Array_MergeSort_Internal_merge___auto__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Sort_Basic_0__Array_MergeSort_Internal_merge___auto__1___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_Data_Array_Sort_Basic_0__Array_MergeSort_Internal_merge___auto__1___closed__1_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [80, 97, 114, 115, 101, 114, 0]};

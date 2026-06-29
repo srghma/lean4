@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Elab.ErrorExplanation
 // Imports: Lean.Widget.UserWidget Lean.Widget.UserWidget
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_nat_sub, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq, lean_string_intercalate, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
@@ -86,29 +97,6 @@ use crate::r#gen::Lean::Widget::UserWidget::{
     runtime_initialize_Lean_Widget_UserWidget,
 };
 use crate::r#gen::Std::Data::HashMap::Basic::l_Std_HashMap_instInhabited;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_string_dec_eq, lean_uint64_of_nat,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l___private_Lean_Elab_ErrorExplanation_0__Lean_errorDescriptionWidget___regBuiltin_Lean_errorDescriptionWidget__1___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Lean_Elab_ErrorExplanation_0__Lean_errorDescriptionWidget___regBuiltin_Lean_errorDescriptionWidget__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_ErrorExplanation_0__Lean_errorDescriptionWidget___regBuiltin_Lean_errorDescriptionWidget__1___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_ErrorExplanation_0__Lean_errorDescriptionWidget___regBuiltin_Lean_errorDescriptionWidget__1___closed__1_value: crate::leanh::LeanStringObject<23> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 23, m_capacity: 23, m_length: 22, m_data: [101, 114, 114, 111, 114, 68, 101, 115, 99, 114, 105, 112, 116, 105, 111, 110, 87, 105, 100, 103, 101, 116, 0]};

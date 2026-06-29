@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Lake.CLI.Help
 // Imports: Init.Data.ToString Lake.Version
+use crate::ffi::{lean_string_append, lean_string_dec_eq};
 use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
 use crate::r#gen::Lake::Version::{
     initialize_Lake_Version, l_Lake_uiVersionString, runtime_initialize_Lake_Version,
 };
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_dec_eq;
 pub static l_Lake_usage___closed__0_value: crate::leanh::LeanStringObject<3580> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

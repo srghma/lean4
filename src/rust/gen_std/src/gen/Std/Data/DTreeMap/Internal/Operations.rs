@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Data.DTreeMap.Internal.Operations
 // Imports: Std.Data.DTreeMap.Internal.Balancing Std.Data.DTreeMap.Internal.Queries Init.Data.List.Control Init.Data.Nat.Lemmas Init.Data.Nat.Linear Init.Omega Init.WFTactics
+use crate::ffi::{
+    lean_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
+    lean_panic_fn_borrowed,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -34,11 +38,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_forInStep___redArg, l_Std_DTreeMap_Internal_Impl_get_x3f___redArg,
     l_Std_DTreeMap_Internal_Impl_getEntry_x3f___redArg,
     runtime_initialize_Std_Data_DTreeMap_Internal_Queries,
-};
-use crate::ffi::lean_array_size;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
-    lean_panic_fn_borrowed,
 };
 pub static l_Std_DTreeMap_Internal_Impl_minView_x21___redArg___closed__0_value:
     crate::leanh::LeanStringObject<37> = crate::leanh::LeanStringObject {

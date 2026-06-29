@@ -11,3 +11,7 @@ gen_init = { path = "../gen_init" }
 gen_std = { path = "../gen_std" }
 gen_lean = { path = "../gen_lean" }
 lake = { path = "../lake" }
+gen_init_ffi = { path = "../gen_init_ffi" }
+gen_std_ffi = { path = "../gen_std_ffi" }
+gen_lean_ffi = { path = "../gen_lean_ffi" }
+lake_ffi = { path = "../lake_ffi" }

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Util.ParamMinimizer
 // Imports: Init.While Init.Data.Range.Polymorphic
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_array_set,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+};
 use crate::r#gen::Init::Control::Except::{
     l_ExceptT_bind, l_ExceptT_instMonad___redArg___lam__1, l_ExceptT_instMonad___redArg___lam__4,
     l_ExceptT_instMonad___redArg___lam__7, l_ExceptT_instMonad___redArg___lam__9, l_ExceptT_map,
@@ -20,12 +24,6 @@ use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
 use crate::r#gen::Init::While::{
     initialize_Init_While, l___private_Init_While_0__whileM_erased___redArg,
     runtime_initialize_Init_While,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static mut l_Lean_Util_ParamMinimizer_instInhabitedStatus_default: u8 = 0;
 pub static mut l_Lean_Util_ParamMinimizer_instInhabitedStatus: u8 = 0;

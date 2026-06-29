@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Lemmas
 // Imports: Init.Data.Nat.Bitwise.Basic Init.Data.Nat.Log2 Init.Data.Nat.Log2 Init.TacticsExtra Init.Data.Nat.Div.Basic Init.PropLemmas Init.ByCases Init.Data.Nat.Dvd Init.Data.Nat.Linear Init.Data.Nat.MinMax Init.Data.Nat.Mod Init.Omega Init.RCases
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Nat::Bitwise::Basic::{
     initialize_Init_Data_Nat_Bitwise_Basic, runtime_initialize_Init_Data_Nat_Bitwise_Basic,
@@ -30,9 +31,6 @@ use crate::r#gen::Init::PropLemmas::{
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
-};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
 };
 pub unsafe fn l_Nat_decidableBallLT___redArg___lam__0(
     mut v_x_213_: *mut crate::leanh::LeanObject,

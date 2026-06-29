@@ -1,6 +1,19 @@
 // Lean compiler output
 // Module: Lean.Elab.GuardMsgs
 // Imports: Lean.Elab.Notation Lean.Server.CodeActions.Attr
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_dec_lt,
+    lean_string_get_byte_fast, lean_string_hash, lean_string_length, lean_string_memcmp,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_reverse___redArg};
 use crate::r#gen::Init::Data::Array::Subarray::Split::{
     l_Subarray_drop___redArg, l_Subarray_split___redArg, l_Subarray_take___redArg,
@@ -69,36 +82,6 @@ use crate::r#gen::Lean::Server::CodeActions::Attr::{
 };
 use crate::r#gen::Lean::Server::FileWorker::Utils::l_Lean_Server_FileWorker_EditableDocument_versionedIdentifier;
 use crate::r#gen::Lean::Util::Diff::l_Lean_Diff_Action_linePrefix;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_dec_lt, lean_string_utf8_extract, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l___private_Lean_Elab_GuardMsgs_0__initFn___closed__0_00___x40_Lean_Elab_GuardMsgs_2868335979____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [103, 117, 97, 114, 100, 95, 109, 115, 103, 115, 0]};
 static mut l___private_Lean_Elab_GuardMsgs_0__initFn___closed__0_00___x40_Lean_Elab_GuardMsgs_2868335979____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_GuardMsgs_0__initFn___closed__0_00___x40_Lean_Elab_GuardMsgs_2868335979____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_GuardMsgs_0__initFn___closed__1_00___x40_Lean_Elab_GuardMsgs_2868335979____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [100, 105, 102, 102, 0]};

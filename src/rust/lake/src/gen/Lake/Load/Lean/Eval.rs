@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lake.Load.Lean.Eval
 // Imports: Lake.Config.Workspace Lake.Config.LakefileConfig Lean.DocString Lake.DSL.AttributesCore
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_string_append,
+    lean_string_utf8_byte_size, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
@@ -48,18 +55,6 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_Environment_evalConst___redArg, l_Lean_Environment_find_x3f,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::l_Std_DTreeMap_Internal_Impl_insert___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
-    lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
 pub static l___private_Lake_Load_Lean_Eval_0__Lake_unsafeEvalConstCheck_throwUnexpectedType___redArg___closed__0_value: crate::leanh::LeanStringObject<21> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 116, 121, 112, 101, 32, 97, 116, 32, 39, 0]};
 static mut l___private_Lake_Load_Lean_Eval_0__Lake_unsafeEvalConstCheck_throwUnexpectedType___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lake_Load_Lean_Eval_0__Lake_unsafeEvalConstCheck_throwUnexpectedType___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lake_Load_Lean_Eval_0__Lake_unsafeEvalConstCheck_throwUnexpectedType___redArg___closed__1_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [39, 44, 32, 96, 0]};

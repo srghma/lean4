@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Do.Triple.SpecLemmas
 // Imports: Std.Do.Triple.Basic Init.Data.Range.Polymorphic.Iterators Init.Data.Range.Polymorphic Init.Data.Slice.Array Init.While Init.Internal.Order.While Init.Data.Iterators.Lemmas.Combinators.FilterMap Init.Data.Range Init.Data.Iterators.Lemmas Init.Data.List.Nat.Range Init.Data.List.Nat.TakeDrop Init.Data.List.Range Init.Data.List.TakeDrop Init.Data.Nat.Mod Init.Data.Slice.Lemmas Init.Omega Init.Data.String.Defs Init.Data.String.Iterate Init.Data.String.Lemmas.Splits Init.Data.String.Termination Init.Data.String.Lemmas.Iterate
+use crate::ffi::{lean_array_push, lean_nat_add, lean_nat_div, lean_nat_mul, lean_nat_sub};
 use crate::r#gen::Init::Data::Iterators::Lemmas::Combinators::FilterMap::{
     initialize_Init_Data_Iterators_Lemmas_Combinators_FilterMap,
     runtime_initialize_Init_Data_Iterators_Lemmas_Combinators_FilterMap,
@@ -71,9 +72,6 @@ use crate::r#gen::Std::Do::SPred::SPred::{
 };
 use crate::r#gen::Std::Do::Triple::Basic::{
     initialize_Std_Do_Triple_Basic, runtime_initialize_Std_Do_Triple_Basic,
-};
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_div, lean_nat_mul, lean_nat_sub,
 };
 pub static l_List_Cursor_current___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

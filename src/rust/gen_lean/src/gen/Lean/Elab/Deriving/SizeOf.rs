@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Deriving.SizeOf
 // Imports: Lean.Meta.SizeOf Lean.Elab.Deriving.Basic Lean.Elab.Deriving.Util
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed, lean_nat_dec_lt,
+    lean_st_ref_get, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Lean::Elab::Command::l_Lean_Elab_Command_liftTermElabM___boxed;
 use crate::r#gen::Lean::Elab::Deriving::Basic::{
     initialize_Lean_Elab_Deriving_Basic, l_Lean_Elab_registerDerivingHandler,
@@ -14,14 +18,6 @@ use crate::r#gen::Lean::Meta::SizeOf::{
     initialize_Lean_Meta_SizeOf, l_Lean_Meta_mkSizeOfInstances, runtime_initialize_Lean_Meta_SizeOf,
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_isInductiveCore;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l___private_Lean_Elab_Deriving_SizeOf_0__Lean_Elab_Deriving_SizeOf_initFn___closed__0_00___x40_Lean_Elab_Deriving_SizeOf_388027031____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [83, 105, 122, 101, 79, 102, 0]};
 static mut l___private_Lean_Elab_Deriving_SizeOf_0__Lean_Elab_Deriving_SizeOf_initFn___closed__0_00___x40_Lean_Elab_Deriving_SizeOf_388027031____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Deriving_SizeOf_0__Lean_Elab_Deriving_SizeOf_initFn___closed__0_00___x40_Lean_Elab_Deriving_SizeOf_388027031____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Deriving_SizeOf_0__Lean_Elab_Deriving_SizeOf_initFn___closed__1_00___x40_Lean_Elab_Deriving_SizeOf_388027031____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_Deriving_SizeOf_0__Lean_Elab_Deriving_SizeOf_initFn___closed__0_00___x40_Lean_Elab_Deriving_SizeOf_388027031____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,14284789806808743489 as *mut crate::leanh::LeanObject] };

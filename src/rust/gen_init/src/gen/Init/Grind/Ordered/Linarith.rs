@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Grind.Ordered.Linarith
 // Imports: Init.Grind.Ordered.Ring Init.Grind.Ring.Field Init.Data.Ord.Basic Init.Data.AC Init.LawfulBEqTactics Init.Data.Bool Init.Data.RArray Init.Data.Int.DivMod.Lemmas Init.Data.Nat.Lemmas Init.Grind.Ordered.Order Init.Omega Init.WFTactics Init.Data.Int.Repr
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
+    lean_nat_abs, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::AC::{initialize_Init_Data_AC, runtime_initialize_Init_Data_AC};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -38,11 +42,6 @@ use crate::r#gen::Init::LawfulBEqTactics::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
 pub static mut l_Lean_Grind_Linarith_instInhabitedExpr_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Grind_Linarith_instInhabitedExpr: *mut crate::leanh::LeanObject =

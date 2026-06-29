@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.String.Decode
 // Imports: Init.Data.Char.Lemmas Init.Data.ByteArray.Basic Init.Data.ByteArray.Lemmas Init.Data.UInt.Basic Init.Data.BitVec.Bootstrap Init.Data.BitVec.Lemmas Init.Data.Nat.Linear Init.Data.Nat.MinMax Init.Data.Option.Lemmas Init.Data.UInt.Bitwise Init.Data.UInt.Lemmas Init.Omega
+use crate::ffi::{
+    lean_byte_array_fget, lean_byte_array_size, lean_nat_add, lean_nat_dec_lt, lean_uint8_dec_eq,
+    lean_uint8_land, lean_uint8_lor, lean_uint8_to_uint32, lean_uint32_dec_le, lean_uint32_dec_lt,
+    lean_uint32_lor, lean_uint32_shift_left, lean_uint32_shift_right, lean_uint32_to_uint8,
+};
 use crate::r#gen::Init::Data::BitVec::Bootstrap::{
     initialize_Init_Data_BitVec_Bootstrap, runtime_initialize_Init_Data_BitVec_Bootstrap,
 };
@@ -35,18 +40,6 @@ use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_uint8_land, lean_uint8_lor, lean_uint32_lor, lean_uint32_shift_left,
-    lean_uint32_shift_right,
-};
-use crate::ffi::{
-    lean_uint8_to_uint32, lean_uint32_to_uint8,
-};
-use crate::ffi::{
-    lean_byte_array_size, lean_nat_add, lean_nat_dec_lt, lean_uint8_dec_eq, lean_uint32_dec_le,
-    lean_uint32_dec_lt,
-};
 pub unsafe fn l_String_utf8EncodeCharFast(mut v_c_1180_: u32) -> *mut crate::leanh::LeanObject {
     let mut v___x_1181_: u32 = 0;
     let mut v___x_1182_: u8 = 0;

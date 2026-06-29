@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.ToInt
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Util Init.Grind.ToIntLemmas Init.GrindInstances.ToInt Lean.Meta.Tactic.Grind.SynthInstance Lean.Meta.Tactic.Grind.Simp Lean.Meta.Tactic.Grind.Arith.EvalNum
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_expr_eqv, lean_grind_cutsat_assert_le,
+    lean_grind_internalize, lean_grind_preprocess, lean_int_add, lean_int_dec_eq, lean_int_neg,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land, lean_usize_mul,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Grind::ToIntLemmas::{
@@ -85,30 +95,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::lean_grind_cutsat_assert_le;
-use crate::ffi::{
-    lean_grind_internalize, lean_grind_preprocess,
-};
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_ToInt_0__Lean_Meta_Grind_Arith_Cutsat_reportMissingToIntAdapter_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_ToInt_0__Lean_Meta_Grind_Arith_Cutsat_reportMissingToIntAdapter_spec__0___closed__0: f64 = 0.0;
 pub static l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_ToInt_0__Lean_Meta_Grind_Arith_Cutsat_reportMissingToIntAdapter_spec__0___closed__1_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};

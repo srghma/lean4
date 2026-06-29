@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Server.FileWorker.SignatureHelp
 // Imports: Lean.Server.InfoUtils Lean.Data.Lsp Init.Data.List.Sort.Basic Lean.PrettyPrinter.Delaborator
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget_borrowed, lean_array_uset, lean_infer_type,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_get_byte_fast, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_next_fast, lean_uint8_dec_eq, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::List::Sort::Basic::{
     initialize_Init_Data_List_Sort_Basic, l_List_mergeSort___redArg,
@@ -33,26 +42,6 @@ use crate::r#gen::Lean::Syntax::{
     l_Lean_Syntax_Range_contains, l_Lean_Syntax_findStack_x3f,
     l_Lean_Syntax_getRangeWithTrailing_x3f, l_Lean_Syntax_instBEqRange_beq,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Server_FileWorker_SignatureHelp_determineSignatureHelp___lam__1___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_PrettyPrinter_Delaborator_delabForallWithSignature___boxed as *const core::ffi::c_void, m_arity: 7, m_num_fixed: 0, m_objs: [] };
 static mut l_Lean_Server_FileWorker_SignatureHelp_determineSignatureHelp___lam__1___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Conv.Pattern
 // Imports: Lean.Elab.Tactic.Simp Lean.Elab.Tactic.Conv.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_lor,
+    lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::{l_List_getLast_x3f___redArg, l_List_isEmpty___redArg};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_TSyntax_getNat};
@@ -56,26 +66,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::SimpCongrTheorems::l_Lean_Meta_getSi
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::{
     l_Lean_Meta_Simp_Context_setMemoize, l_Lean_Meta_Simp_Result_getProof,
     l_Lean_Meta_Simp_mkContext___redArg,
-};
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_usize_land, lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Elab_Tactic_Conv_Pattern_0__Lean_Elab_Tactic_Conv_getContext___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lean_Elab_Tactic_Conv_Pattern_0__Lean_Elab_Tactic_Conv_getContext___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Conv_Pattern_0__Lean_Elab_Tactic_Conv_getContext___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

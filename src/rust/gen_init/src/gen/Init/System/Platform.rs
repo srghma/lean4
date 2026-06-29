@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.System.Platform
 // Imports: Init.Data.Nat.Div.Basic Init.SimpLemmas Init.Data.Nat.Basic Init.Data.String.Bootstrap
+use crate::ffi::{
+    lean_system_platform_emscripten, lean_system_platform_osx, lean_system_platform_target,
+    lean_system_platform_windows,
+};
 use crate::r#gen::Init::Data::Nat::Basic::{
     initialize_Init_Data_Nat_Basic, runtime_initialize_Init_Data_Nat_Basic,
 };
@@ -12,10 +16,6 @@ use crate::r#gen::Init::Data::String::Bootstrap::{
 };
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,
-};
-use crate::ffi::{
-    lean_system_platform_emscripten, lean_system_platform_osx, lean_system_platform_target,
-    lean_system_platform_windows,
 };
 static mut l_System_Platform_isWindows___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

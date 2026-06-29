@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.OriginalConstKind
 // Imports: Lean.Environment Lean.EnvExtension
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Lean::EnvExtension::{
     initialize_Lean_EnvExtension, l_Lean_MapDeclarationExtension_find_x3f___redArg,
     l_Lean_mkMapDeclarationExtension___redArg, runtime_initialize_Lean_EnvExtension,
@@ -8,12 +13,6 @@ use crate::r#gen::Lean::EnvExtension::{
 use crate::r#gen::Lean::Environment::{
     initialize_Lean_Environment, l_Lean_Environment_contains, l_Lean_Environment_findAsync_x3f,
     l_Lean_Environment_setExporting, runtime_initialize_Lean_Environment,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l___private_Lean_OriginalConstKind_0__Lean_initFn___closed__0_00___x40_Lean_OriginalConstKind_2239415342____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 0]};
 static mut l___private_Lean_OriginalConstKind_0__Lean_initFn___closed__0_00___x40_Lean_OriginalConstKind_2239415342____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_OriginalConstKind_0__Lean_initFn___closed__0_00___x40_Lean_OriginalConstKind_2239415342____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Load.Package
 // Imports: Lake.Load.Config Lake.Config.Package Lake.Config.LakefileConfig Lake.Util.IO Lake.Load.Lean Lake.Load.Toml
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_st_ref_set, lean_string_append,
+    lean_string_dec_eq, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::System::FilePath::{
     l_System_FilePath_addExtension, l_System_FilePath_extension,
@@ -28,12 +32,6 @@ use crate::r#gen::Lake::Util::IO::{
     initialize_Lake_Util_IO, l_Lake_resolvePath, runtime_initialize_Lake_Util_IO,
 };
 use crate::r#gen::Lean::Util::Path::l_Lean_searchPathRef;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_string_dec_eq,
-    lean_string_utf8_byte_size,
-};
-use crate::ffi::lean_st_ref_set;
 pub static l_Lake_mkPackage___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

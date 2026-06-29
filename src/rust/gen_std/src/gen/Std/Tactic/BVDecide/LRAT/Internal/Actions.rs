@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Internal.Actions
 // Imports: Std.Tactic.BVDecide.LRAT.Actions Std.Tactic.BVDecide.LRAT.Internal.Clause
+use crate::ffi::{
+    lean_array_size, lean_array_uget, lean_array_uset, lean_int_dec_eq, lean_int_dec_lt,
+    lean_nat_abs, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Actions::{
     initialize_Std_Tactic_BVDecide_LRAT_Actions,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Actions,
@@ -10,14 +15,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Clause::{
     l_Std_Tactic_BVDecide_LRAT_Internal_DefaultClause_ofArray,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_Clause,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_lt};
 static mut l_Std_Tactic_BVDecide_LRAT_Internal_intToLiteral___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

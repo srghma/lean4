@@ -1,8 +1,13 @@
-Make src/rust/leanh/src/lib.rs the small top-level crate containing only functons and structures needed by EmitRust and hardcoded into it.
+src/rust/leanh/src/lib.rs should contain only these functions (structures - dont change) (they are hardcoded into EmitRust)
 
 Which are: lean_alloc_closure lean_alloc_ctor lean_apply_1 lean_apply_2 lean_apply_3 lean_apply_4 lean_apply_... lean_apply_m lean_box lean_box_float lean_box_float32 lean_box_uint32 lean_box_uint64 lean_box_usize lean_closure_set lean_cstr_to_nat lean_ctor_get lean_ctor_get_float lean_ctor_get_float32 lean_ctor_get_uint8 lean_ctor_get_uint16 lean_ctor_get_uint32 lean_ctor_get_uint64 lean_ctor_get_usize lean_ctor_release lean_ctor_set lean_ctor_set_float lean_ctor_set_float32 lean_ctor_set_tag lean_ctor_set_uint16 lean_ctor_set_uint32 lean_ctor_set_uint64 lean_ctor_set_uint8 lean_ctor_set_usize lean_dec lean_dec_ref lean_dec_ref_known lean_del_object lean_float_once lean_float32_once lean_inc lean_inc_n lean_inc_ref lean_inc_ref_n lean_io_result_is_error lean_io_result_mk_ok lean_is_exclusive lean_is_scalar lean_mark_persistent lean_mk_string_unchecked lean_obj_once lean_obj_tag lean_uint16_once lean_uint32_once lean_uint64_once lean_uint8_once lean_unbox lean_unbox_float lean_unbox_float32 lean_unbox_uint32 lean_unbox_uint64 lean_unbox_usize lean_unsigned_to_nat lean_usize_once lean_io_result_get_value lean_setup_args lean_initialize lean_initialize_runtime_module lean_mk_string lean_io_mark_end_initialization lean_io_result_is_ok lean_init_task_manager lean_run_main lean_finalize_task_manager lean_io_result_show_error
 
-Move all other public helper implementations (they were extracted from src/rust/runtime/src/{runtime,kernel,library} and later will return there) out of leanh back into src/rust/runtime/src/leanh_extra.rs, then fix imports (ffi/**/*.rs, srghmascripts/regenerate_module_tree.ts) so generated crates do not depend on runtime-only helpers through crate::leanh.
+Move all other public helper implementations out of leanh into src/rust/runtime/src/leanh_extra.rs
+
+
+, then fix imports (ffi/**/*.rs, srghmascripts/regenerate_module_tree.ts) so generated crates do not depend on runtime-only helpers through crate::leanh.
+
+(they were extracted from src/rust/runtime/src/{runtime,kernel,library} and later will return there)
 
 
 Regard current dir structure as correct and dont do any renamings/movings (If found error - tell user)

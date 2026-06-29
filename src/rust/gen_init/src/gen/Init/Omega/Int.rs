@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Omega.Int
 // Imports: Init.Data.Fin.Basic Init.Data.Int.DivMod.Basic Init.WF Init.ByCases Init.Data.Int.Lemmas Init.Data.Int.Order Init.PropLemmas
+use crate::ffi::{lean_int_dec_lt, lean_nat_abs, lean_nat_sub, lean_nat_to_int};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Fin::Basic::{
     initialize_Init_Data_Fin_Basic, runtime_initialize_Init_Data_Fin_Basic,
@@ -18,10 +19,6 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::WF::{initialize_Init_WF, runtime_initialize_Init_WF};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_nat_sub;
 static mut l___private_Init_Omega_Int_0__Int_neg_match__1_splitter___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

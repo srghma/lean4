@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lake.CLI.Init
 // Imports: Lake.Config.Env Lake.Config.Lang Lake.Util.Git Lake.Load.Workspace Init.Data.String.Modify
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_io_prim_handle_mk,
+    lean_io_prim_handle_put_str, lean_io_realpath, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed, lean_string_append,
+    lean_string_dec_eq, lean_string_push, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::List::Basic::l_List_elem___redArg;
 use crate::r#gen::Init::Data::Repr::{l_Repr_addAppParen, l_String_quote};
@@ -50,25 +58,6 @@ use crate::r#gen::Lake::Util::Version::{
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Lean_NameSet_empty;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Util::Path::l_Lean_modToFilePath;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{
-    lean_uint32_add, lean_usize_add, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_prim_handle_mk, lean_io_prim_handle_put_str, lean_io_realpath,
-};
 pub static l_Lake_defaultExeRoot___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

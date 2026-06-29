@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.Nat
 // Imports: Init.Data.Nat.Lemmas Init.Data.Range.Polymorphic.Instances Init.Data.Nat.MinMax Init.Omega Init.RCases
+use crate::ffi::{lean_nat_add, lean_nat_dec_le, lean_nat_sub};
 use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
 };
@@ -13,7 +14,6 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Instances::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{lean_nat_add, lean_nat_dec_le, lean_nat_sub};
 pub static l_Std_PRange_instUpwardEnumerableNat___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

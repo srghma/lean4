@@ -1,27 +1,19 @@
 // Lean compiler output
 // Module: Lean.Util.HasConstCache
 // Imports: Lean.Expr Std.Data.HashMap.Raw
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_mk_array, lean_name_eq, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_div, lean_nat_mul, lean_ptr_addr, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_land, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_hash, runtime_initialize_Lean_Expr,
 };
 use crate::r#gen::Std::Data::HashMap::Raw::{
     initialize_Std_Data_HashMap_Raw, runtime_initialize_Std_Data_HashMap_Raw,
 };
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
 pub unsafe fn l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Util_HasConstCache_0__Lean_HasConstCache_containsUnsafe_cache_spec__0_spec__0___redArg(
     mut v_a_356_: *mut crate::leanh::LeanObject,
     mut v_x_357_: *mut crate::leanh::LeanObject,

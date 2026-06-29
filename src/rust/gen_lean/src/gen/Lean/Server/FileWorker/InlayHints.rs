@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lean.Server.FileWorker.InlayHints
 // Imports: Lean.Server.GoTo Lean.Server.Requests
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_int_add, lean_int_sub, lean_io_basemutex_lock,
+    lean_io_basemutex_unlock, lean_io_mono_ms_now, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
+    lean_task_pure, lean_uint32_of_nat, lean_uint64_to_usize, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land, lean_usize_mul, lean_usize_of_nat,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::State::{
     l_StateT_bind, l_StateT_instMonad___redArg___lam__1, l_StateT_instMonad___redArg___lam__4,
     l_StateT_instMonad___redArg___lam__7, l_StateT_instMonad___redArg___lam__9, l_StateT_map,
@@ -63,32 +75,6 @@ use crate::r#gen::Lean::Syntax::{
     l_Lean_Syntax_Range_bsize, l_Lean_Syntax_Range_contains, l_Lean_Syntax_Range_overlaps,
 };
 use crate::r#gen::Std::Sync::Mutex::l_Std_Mutex_new___redArg;
-use crate::ffi::lean_task_pure;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_int_add, lean_int_sub, lean_nat_to_int};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_uint32_of_nat, lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat,
-    lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_hash, lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::lean_io_mono_ms_now;
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Server_FileWorker_applyEditToHint_x3f_spec__2___lam__0___closed__0_value: crate::leanh::LeanStringObject<34> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 34, m_capacity: 34, m_length: 33, m_data: [76, 101, 97, 110, 46, 83, 101, 114, 118, 101, 114, 46, 70, 105, 108, 101, 87, 111, 114, 107, 101, 114, 46, 73, 110, 108, 97, 121, 72, 105, 110, 116, 115, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Server_FileWorker_applyEditToHint_x3f_spec__2___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Server_FileWorker_applyEditToHint_x3f_spec__2___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Server_FileWorker_applyEditToHint_x3f_spec__2___lam__0___closed__1_value: crate::leanh::LeanStringObject<40> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 40, m_capacity: 40, m_length: 39, m_data: [76, 101, 97, 110, 46, 83, 101, 114, 118, 101, 114, 46, 70, 105, 108, 101, 87, 111, 114, 107, 101, 114, 46, 97, 112, 112, 108, 121, 69, 100, 105, 116, 84, 111, 72, 105, 110, 116, 63, 0]};

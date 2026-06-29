@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.String
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Char Lean.Meta.StringLitProof
+use crate::ffi::{
+    lean_string_append, lean_string_data, lean_string_dec_eq, lean_string_dec_lt, lean_string_push,
+    lean_uint32_to_nat,
+};
 use crate::r#gen::Init::Data::String::Basic::l_String_decLE;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21,
@@ -25,10 +29,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
 };
-use crate::ffi::{lean_string_data, lean_string_dec_lt};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_string_dec_eq, lean_uint32_to_nat};
 pub static l_String_reduceAppend___redArg___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

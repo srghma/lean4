@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Server.Snapshots
 // Imports: Lean.Elab.Import Lean.Elab.Command Lean.Widget.InteractiveDiagnostic
+use crate::ffi::{
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get,
+    lean_task_get_own,
+};
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getPos_x3f, l_Lean_firstFrontendMacroScope};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -19,11 +23,6 @@ use crate::r#gen::Lean::Widget::InteractiveDiagnostic::{
     initialize_Lean_Widget_InteractiveDiagnostic,
     runtime_initialize_Lean_Widget_InteractiveDiagnostic,
 };
-use crate::ffi::lean_task_get_own;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 pub static l_Lean_Server_Snapshots_Snapshot_infoTree___closed__0_value:
     crate::leanh::LeanStringObject<22> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Tactics
 // Imports: Init.Notation
+use crate::ffi::lean_array_push;
 use crate::r#gen::Init::Notation::{
     initialize_Init_Notation, l_Lean_Parser_Tactic_caseArg, l_Lean_binderIdent,
     runtime_initialize_Init_Notation,
@@ -14,7 +15,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_addMacroScope, l_Lean_replaceRef,
     l_String_toRawSubstring_x27,
 };
-use crate::ffi::lean_array_push;
 pub static l_Lean_Parser_Tactic_as__aux__lemma___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.InferType
 // Imports: Lean.Compiler.LCNF.PhaseExt Lean.Compiler.LCNF.OtherDecl Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_expr_abstract,
+    lean_expr_abstract_range, lean_expr_eqv, lean_expr_instantiate_rev,
+    lean_expr_instantiate_rev_range, lean_expr_instantiate1, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___redArg, l_StateRefT_x27_lift___boxed,
 };
@@ -80,22 +89,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_indentExpr, l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_expr_abstract, lean_expr_abstract_range, lean_expr_eqv, lean_expr_instantiate_rev,
-    lean_expr_instantiate_rev_range, lean_expr_instantiate1,
-};
 static mut l_Lean_Compiler_LCNF_InferType_Pure_mkForallParams___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

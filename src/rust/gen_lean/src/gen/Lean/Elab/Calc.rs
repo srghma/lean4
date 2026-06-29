@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Calc
 // Imports: Lean.Elab.App
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_infer_type, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_dec_eq, lean_usize_add, lean_usize_dec_lt, lean_whnf,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_str___override, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg,
     l_Lean_Syntax_getArgs, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
@@ -50,19 +56,6 @@ use crate::r#gen::Lean::Meta::Check::l_Lean_Meta_addPPExplicitToExposeDiff;
 use crate::r#gen::Lean::Meta::InferType::l_Lean_Meta_getLevel;
 use crate::r#gen::Lean::Meta::SynthInstance::l_Lean_Meta_trySynthInstance;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l___private_Lean_Elab_Calc_0__Lean_Elab_Term_getRelUniv___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<25> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

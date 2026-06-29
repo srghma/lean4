@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Time.Date.PlainDate
 // Imports: Std.Time.Date.Basic Std.Time.Date.Unit.Month Std.Time.Date.Unit.Year
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div, lean_int_ediv,
+    lean_int_emod, lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_to_int,
+    lean_string_length,
+};
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::Ord::Basic::{l_compareLex___boxed, l_compareOn___boxed};
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
@@ -24,14 +29,6 @@ use crate::r#gen::Std::Time::Date::Unit::Year::{
 use crate::r#gen::Std::Time::Date::ValidDate::{
     l_Std_Time_ValidDate_dayOfYear, l_Std_Time_ValidDate_ofOrdinal,
 };
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
-};
-use crate::ffi::lean_string_length;
 pub static l_Std_Time_instReprPlainDate_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

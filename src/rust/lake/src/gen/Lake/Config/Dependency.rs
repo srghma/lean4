@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Config.Dependency
 // Imports: Init.Dynamic Init.System.FilePath Lean.Data.NameMap.Basic Lake.Util.Git Init.Data.ToString.Name Init.Data.ToString.Macro
+use crate::ffi::{lean_nat_dec_le, lean_nat_to_int, lean_string_append};
 use crate::r#gen::Init::Data::Repr::{l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::Data::ToString::Macro::{
     initialize_Init_Data_ToString_Macro, runtime_initialize_Init_Data_ToString_Macro,
@@ -17,9 +18,6 @@ use crate::r#gen::Lake::Util::Git::{initialize_Lake_Util_Git, runtime_initialize
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     initialize_Lean_Data_NameMap_Basic, runtime_initialize_Lean_Data_NameMap_Basic,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_nat_dec_le;
 pub static l_Lake_instInhabitedDependencySrc_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Simp
 // Imports: Init.Grind.Lemmas Lean.Meta.Tactic.Simp.Main Lean.Meta.Tactic.Grind.Types Lean.Meta.Tactic.Grind.Util Lean.Meta.Tactic.Grind.MatchDiscrOnly Lean.Meta.Tactic.Grind.MarkNestedSubsingletons Lean.Meta.Sym.Util
+use crate::ffi::{
+    lean_array_push, lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Grind::Lemmas::{
     initialize_Init_Grind_Lemmas, runtime_initialize_Init_Grind_Lemmas,
@@ -42,12 +46,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_mkEqT
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Profile::l_Lean_profileitIOUnsafe___redArg;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::lean_mk_array;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 static mut l_Lean_Meta_Grind_simpCore___lam__0___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Http.Transport
 // Imports: Std.Http.Protocol.H1
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_byte_array_copy_slice, lean_byte_array_size,
+    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt, lean_task_map,
+    lean_uint64_dec_le, lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_uv_tcp_recv,
+    lean_uv_tcp_send,
+};
 use crate::r#gen::Init::System::IO::l_BaseIO_chainTask___redArg;
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Init::System::Promise::l_IO_Promise_result_x21___redArg;
@@ -15,18 +21,6 @@ use crate::r#gen::Std::Sync::Channel::{
     l_Std_CloseableChannel_recvSelector___redArg, l_Std_CloseableChannel_send___redArg,
     l_Std_CloseableChannel_tryRecv___redArg,
 };
-use crate::ffi::lean_task_map;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_byte_array_copy_slice;
-use crate::ffi::lean_uint64_dec_le;
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt,
-};
-use crate::ffi::lean_byte_array_size;
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{lean_uv_tcp_recv, lean_uv_tcp_send};
 pub static l_Std_Http_instTransportClient___lam__2___closed__0_value:
     crate::leanh::LeanStringObject<44> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

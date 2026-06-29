@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Util.Path
 // Imports: Init.System.IO Init.Control.Do Init.Data.ToString.Name Init.Data.String.TakeDrop Init.Data.List.Monadic Init.Data.Option.BasicAux Init.Data.ToString.Macro Init.Data.String.Length
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget_borrowed,
+    lean_internal_is_stage0, lean_io_current_dir, lean_io_getenv, lean_io_realpath,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_string_append, lean_string_dec_eq, lean_string_length,
+    lean_string_memcmp, lean_string_push, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
@@ -48,22 +56,6 @@ use crate::r#gen::Init::System::IO::{
 };
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::lean_internal_is_stage0;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_current_dir, lean_io_getenv, lean_io_realpath,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 static mut l_Lean_forEachModuleInDir___redArg___lam__4___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

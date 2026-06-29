@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.Database.Windows
 // Imports: Init.Data.SInt.Basic Std.Time.Zoned.Database.Basic Init.While
+use crate::ffi::{
+    lean_array_push, lean_get_windows_local_timezone_id_at, lean_int64_dec_le, lean_int64_neg,
+    lean_int64_of_nat, lean_int64_to_int_sint, lean_nat_to_int, lean_windows_get_next_transition,
+};
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
 use crate::r#gen::Init::Data::SInt::Basic::{
     initialize_Init_Data_SInt_Basic, runtime_initialize_Init_Data_SInt_Basic,
@@ -9,14 +13,6 @@ use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
 use crate::r#gen::Std::Time::Zoned::Database::Basic::{
     initialize_Std_Time_Zoned_Database_Basic, runtime_initialize_Std_Time_Zoned_Database_Basic,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_int64_dec_le, lean_int64_neg, lean_int64_of_nat, lean_int64_to_int_sint,
-};
-use crate::ffi::lean_array_push;
-use crate::ffi::{
-    lean_get_windows_local_timezone_id_at, lean_windows_get_next_transition,
 };
 static mut l___private_Init_While_0__whileM_erased___at___00Std_Time_Database_Windows_getZoneRules_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_While_0__whileM_erased___at___00Std_Time_Database_Windows_getZoneRules_spec__1___redArg___closed__0: u64 = 0;

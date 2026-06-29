@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.RBMap
 // Imports: Init.Data.Ord.Basic Init.Data.Nat.Linear Init.Data.Array.Basic Init.WFTactics
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -23,10 +27,6 @@ use crate::r#gen::Init::Data::Repr::{
 use crate::r#gen::Init::Prelude::{l_List_foldl___redArg, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-};
 pub static l_Lean_RBNode_toArray___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

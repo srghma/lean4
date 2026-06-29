@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Linter.EnvLinter.Nolint
 // Imports: Lean.Attributes Init.Linter
+use crate::ffi::{
+    lean_array_size, lean_array_uget, lean_array_uset, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_contains___redArg, l_Array_instInhabited};
 use crate::r#gen::Init::Linter::{initialize_Init_Linter, runtime_initialize_Init_Linter};
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
@@ -14,10 +17,6 @@ use crate::r#gen::Lean::Attributes::{
 };
 use crate::r#gen::Lean::Elab::Exception::l_Lean_Elab_unsupportedSyntaxExceptionId;
 use crate::r#gen::Lean::Environment::l_Lean_Environment_contains;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00__private_Lean_Linter_EnvLinter_Nolint_0__Lean_Linter_EnvLinter_initFn_00___x40_Lean_Linter_EnvLinter_Nolint_1926768071____hygCtx___hyg_2__spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00__private_Lean_Linter_EnvLinter_Nolint_0__Lean_Linter_EnvLinter_initFn_00___x40_Lean_Linter_EnvLinter_Nolint_1926768071____hygCtx___hyg_2__spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Linter_EnvLinter_Nolint_0__Lean_Linter_EnvLinter_initFn___closed__0_00___x40_Lean_Linter_EnvLinter_Nolint_1926768071____hygCtx___hyg_2__value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l___private_Lean_Linter_EnvLinter_Nolint_0__Lean_Linter_EnvLinter_initFn___lam__0_00___x40_Lean_Linter_EnvLinter_Nolint_1926768071____hygCtx___hyg_2____boxed as *const core::ffi::c_void, m_arity: 5, m_num_fixed: 0, m_objs: [] };

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Ord.UInt
 // Imports: Init.Data.Order.Ord Init.Data.Order.ClassesExtra Init.Data.UInt.Basic Init.Data.UInt.Lemmas Init.Data.Order.Lemmas
+use crate::ffi::{
+    lean_uint8_dec_eq, lean_uint8_dec_lt, lean_uint16_dec_eq, lean_uint16_dec_lt,
+    lean_uint32_dec_eq, lean_uint32_dec_lt, lean_uint64_dec_eq, lean_uint64_dec_lt,
+    lean_usize_dec_eq, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Order::ClassesExtra::{
     initialize_Init_Data_Order_ClassesExtra, runtime_initialize_Init_Data_Order_ClassesExtra,
 };
@@ -15,12 +20,6 @@ use crate::r#gen::Init::Data::UInt::Basic::{
 };
 use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
-};
-use crate::ffi::{lean_uint16_dec_lt, lean_uint64_dec_lt};
-use crate::ffi::lean_usize_dec_lt;
-use crate::ffi::{
-    lean_uint8_dec_eq, lean_uint8_dec_lt, lean_uint16_dec_eq, lean_uint32_dec_eq,
-    lean_uint32_dec_lt, lean_uint64_dec_eq, lean_usize_dec_eq,
 };
 pub static l_UInt8_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

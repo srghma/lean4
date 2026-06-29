@@ -1,15 +1,13 @@
 // Lean compiler output
 // Module: Init.Grind.Module.Envelope
 // Imports: Init.Grind.Ordered.Module Init.Data.AC Init.Omega Init.RCases
+use crate::ffi::{lean_int_dec_lt, lean_nat_abs, lean_nat_to_int};
 use crate::r#gen::Init::Data::AC::{initialize_Init_Data_AC, runtime_initialize_Init_Data_AC};
 use crate::r#gen::Init::Grind::Ordered::Module::{
     initialize_Init_Grind_Ordered_Module, runtime_initialize_Init_Grind_Ordered_Module,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
 static mut l_Lean_Grind_IntModule_OfNatModule_zsmul___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

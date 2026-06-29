@@ -1,10 +1,6 @@
 // Lean compiler output
 // Module: Init.Data.Float
 // Imports: Init.Data.ToString.Basic
-use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
-use crate::r#gen::Init::Data::ToString::Basic::{
-    initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
-};
 use crate::ffi::{
     acos, acosh, asin, asinh, atan, atan2, atanh, cbrt, ceil, cos, cosh, exp, exp2, fabs, floor,
     lean_float_add, lean_float_beq, lean_float_decLe, lean_float_decLt, lean_float_div,
@@ -14,6 +10,10 @@ use crate::ffi::{
     lean_float_to_uint64, lean_float_to_usize, lean_uint8_to_float, lean_uint16_to_float,
     lean_uint32_to_float, lean_uint64_to_float, lean_usize_to_float, log, log2, log10, pow, round,
     sin, sinh, sqrt, tan, tanh,
+};
+use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
+use crate::r#gen::Init::Data::ToString::Basic::{
+    initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
 pub static l_floatSpec___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

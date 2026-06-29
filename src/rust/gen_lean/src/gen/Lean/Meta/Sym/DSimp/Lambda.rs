@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.DSimp.Lambda
 // Imports: Lean.Meta.Sym.DSimp.DSimpM Lean.Meta.Sym.AbstractS Lean.Meta.Sym.InstantiateS
+use crate::ffi::{lean_array_push, lean_sym_dsimp};
 use crate::r#gen::Lean::Meta::Basic::l___private_Lean_Meta_Basic_0__Lean_Meta_withLocalDeclImp;
 use crate::r#gen::Lean::Meta::Sym::AbstractS::{
     initialize_Lean_Meta_Sym_AbstractS, l_Lean_Meta_Sym_mkLambdaFVarsS,
@@ -13,8 +14,6 @@ use crate::r#gen::Lean::Meta::Sym::InstantiateS::{
     initialize_Lean_Meta_Sym_InstantiateS, l_Lean_Meta_Sym_instantiateRevBetaS___redArg,
     runtime_initialize_Lean_Meta_Sym_InstantiateS,
 };
-use crate::ffi::lean_array_push;
-use crate::ffi::lean_sym_dsimp;
 pub static l_Lean_Meta_Sym_DSimp_dsimpLambda___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

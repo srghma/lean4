@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Linter.Basic
 // Imports: Lean.Linter.Init Lean.Elab.Command
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Format::Syntax::l_Lean_Syntax_formatStx;
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
@@ -40,12 +44,6 @@ use crate::r#gen::Lean::Linter::Init::{
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofExpr, l_Lean_MessageData_ofFormat, l_Lean_MessageData_ofName,
     l_Lean_MessageData_ofSyntax, l_Lean_indentD, l_Lean_indentExpr, l_Lean_stringToMessageData,
-};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_pushInfoLeaf___at___00Lean_Elab_elabSetOption___at___00Lean_withSetOptionIn_spec__0_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_pushInfoLeaf___at___00Lean_Elab_elabSetOption___at___00Lean_withSetOptionIn_spec__0_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

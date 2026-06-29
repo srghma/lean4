@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.String.Search
 // Imports: Init.Data.String.Slice Init.Data.Iterators.Consumers.Collect
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_is_valid_pos,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_instInhabited;
 use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     initialize_Init_Data_Iterators_Consumers_Collect,
@@ -23,13 +28,6 @@ use crate::r#gen::Init::Data::String::Slice::{
     l_String_Slice_toNat_x21, runtime_initialize_Init_Data_String_Slice,
 };
 use crate::r#gen::Init::Prelude::l_panic___redArg;
-use crate::ffi::{
-    lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq,
-};
 pub static l_String_Slice_Pos_find_x3f___redArg___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

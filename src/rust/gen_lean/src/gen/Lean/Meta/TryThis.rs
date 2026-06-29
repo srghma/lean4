@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.TryThis
 // Imports: Lean.Data.Lsp.Basic Lean.PrettyPrinter
+use crate::ffi::{
+    lean_float_add, lean_float_decLe, lean_float_mul, lean_float_sub, lean_float_to_string,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_append, lean_string_utf8_byte_size,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq, pow, round,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_pretty;
 use crate::r#gen::Init::Data::OfScientific::{l_Float_ofScientific, lean_float_of_nat};
 use crate::r#gen::Init::Data::String::Basic::{
@@ -18,17 +23,6 @@ use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofFormat, l_Lean_MessageDat
 use crate::r#gen::Lean::PrettyPrinter::{
     initialize_Lean_PrettyPrinter, l_Lean_PrettyPrinter_ppCategory,
     runtime_initialize_Lean_PrettyPrinter,
-};
-use crate::ffi::{
-    lean_float_add, lean_float_decLe, lean_float_mul, lean_float_sub, lean_float_to_string, pow,
-    round,
-};
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l_Lean_Meta_Tactic_TryThis_instInhabitedSuggestionText_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.AC.PP
 // Imports: Lean.Meta.Tactic.Grind.Types Lean.Meta.Tactic.Grind.AC.DenoteExpr Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_mk_thunk, lean_nat_dec_eq, lean_nat_dec_lt, lean_thunk_get_own,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::State::l_StateT_get;
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
@@ -36,12 +41,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types,
     l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_getStateCoreImpl___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
-};
-use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 static mut l___private_Lean_Meta_Tactic_Grind_AC_PP_0__Lean_Meta_Grind_AC_instMonadGetStructM___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_AC_PP_0__Lean_Meta_Grind_AC_instMonadGetStructM___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Arith.EvalNum
 // Imports: Lean.Meta.Sym.Arith.Types Lean.Meta.Sym.LitValues Lean.Meta.IntInstTesters Lean.Meta.NatInstTesters
+use crate::ffi::{
+    lean_int_add, lean_int_ediv, lean_int_emod, lean_int_mul, lean_int_neg, lean_int_sub,
+    lean_nat_abs, lean_nat_add, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul,
+    lean_nat_pow, lean_nat_sub, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_pow, l_Int_toNat};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Lean::Expr::{
@@ -32,14 +37,6 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
 };
 use crate::r#gen::Lean::Meta::Sym::SymM::{
     l_Lean_Meta_Sym_getConfig___redArg, l_Lean_Meta_Sym_reportIssue,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow,
-    lean_nat_sub,
 };
 pub static l_Lean_Meta_Sym_Arith_checkExp___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

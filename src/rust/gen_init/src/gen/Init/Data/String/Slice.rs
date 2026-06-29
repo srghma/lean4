@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.String.Slice
 // Imports: Init.Data.String.Pattern Init.Data.Ord.Basic Init.Data.Iterators.Combinators.FilterMap Init.Data.String.ToSlice Init.Data.String.Subslice Init.Data.String.Iter.Basic Init.Data.String.Iterate Init.Data.Iterators.Consumers.Collect Init.Data.Iterators.Consumers.Loop Init.Data.Option.Lemmas Init.Data.String.Termination Init.Omega
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_slice_dec_lt, lean_slice_hash, lean_string_append,
+    lean_string_get_byte_fast, lean_string_memcmp, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint8_add, lean_uint8_dec_eq,
+    lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
+};
 use crate::r#gen::Init::Data::Char::Basic::l_Char_isWhitespace___boxed;
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_instInhabited, l_Int_negOfNat};
 use crate::r#gen::Init::Data::Iterators::Combinators::FilterMap::{
@@ -56,20 +63,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::Prelude::l_panic___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{lean_slice_dec_lt, lean_slice_hash};
-use crate::ffi::lean_uint8_add;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_uint32_to_nat,
-};
 pub static l_String_Slice_instHAppend___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

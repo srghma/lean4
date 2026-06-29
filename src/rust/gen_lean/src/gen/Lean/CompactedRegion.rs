@@ -1,15 +1,15 @@
 // Lean compiler output
 // Module: Lean.CompactedRegion
 // Imports: Init.System.IO Lean.Data.Name
+use crate::ffi::{
+    lean_compacted_region_free, lean_compacted_region_is_memory_mapped, lean_compacted_region_read,
+    lean_compacted_region_save, lean_compacted_region_size,
+};
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
 use crate::r#gen::Lean::Data::Name::{
     initialize_Lean_Data_Name, runtime_initialize_Lean_Data_Name,
-};
-use crate::ffi::{
-    lean_compacted_region_free, lean_compacted_region_is_memory_mapped, lean_compacted_region_read,
-    lean_compacted_region_save, lean_compacted_region_size,
 };
 pub static mut l___private_Lean_CompactedRegion_0__Lean_CompactorSpec:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

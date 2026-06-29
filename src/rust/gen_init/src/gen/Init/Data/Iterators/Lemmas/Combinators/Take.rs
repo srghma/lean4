@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Lemmas.Combinators.Take
 // Imports: Init.Data.Iterators.Combinators.Take Init.Data.Iterators.Lemmas.Combinators.Monadic.Take Init.Data.Iterators.Consumers.Access Init.Data.Iterators.Consumers.Collect Init.Data.Array.Lemmas Init.Data.Iterators.Lemmas.Basic Init.Data.Iterators.Lemmas.Consumers.Access Init.Data.Iterators.Lemmas.Consumers.Collect Init.Data.List.Nat.TakeDrop
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Array::Lemmas::{
     initialize_Init_Data_Array_Lemmas, runtime_initialize_Init_Data_Array_Lemmas,
 };
@@ -35,7 +36,6 @@ use crate::r#gen::Init::Data::Iterators::Lemmas::Consumers::Collect::{
 use crate::r#gen::Init::Data::List::Nat::TakeDrop::{
     initialize_Init_Data_List_Nat_TakeDrop, runtime_initialize_Init_Data_List_Nat_TakeDrop,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_Iterators_Lemmas_Combinators_Take_0__Std_IterM_step__take_match__3_splitter___redArg(
     mut v_n_213_: *mut crate::leanh::LeanObject,
     mut v_h__1_214_: *mut crate::leanh::LeanObject,

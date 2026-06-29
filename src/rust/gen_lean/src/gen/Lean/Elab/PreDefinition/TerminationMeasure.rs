@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.TerminationMeasure
 // Imports: Lean.Elab.Binders Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_pop,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -46,19 +53,6 @@ use crate::r#gen::Lean::PrettyPrinter::Delaborator::Basic::{
     l_Lean_PrettyPrinter_delabCore___redArg,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_hasIdent;
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Elab_instInhabitedTerminationMeasure_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

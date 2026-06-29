@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Std.Async.UDP
 // Imports: Std.Time Std.Internal.UV.UDP Std.Async.Select
+use crate::ffi::{
+    lean_array_push, lean_io_as_task, lean_io_map_task, lean_io_promise_resolve,
+    lean_io_promise_result_opt, lean_mk_empty_array_with_capacity, lean_st_ref_set,
+    lean_st_ref_take, lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
+    lean_uv_udp_bind, lean_uv_udp_cancel_recv, lean_uv_udp_connect, lean_uv_udp_getpeername,
+    lean_uv_udp_getsockname, lean_uv_udp_new, lean_uv_udp_recv, lean_uv_udp_send,
+    lean_uv_udp_set_broadcast, lean_uv_udp_set_membership, lean_uv_udp_set_multicast_interface,
+    lean_uv_udp_set_multicast_loop, lean_uv_udp_set_multicast_ttl, lean_uv_udp_set_ttl,
+    lean_uv_udp_wait_readable,
+};
 use crate::r#gen::Init::System::IOError::{lean_io_error_to_string, lean_mk_io_user_error};
 use crate::r#gen::Init::System::Promise::l_IO_Promise_isResolved___redArg;
 use crate::r#gen::Std::Async::Basic::l___private_Std_Async_Basic_0__Std_Async_BaseAsync_bind_bindAsyncTask;
@@ -11,22 +21,6 @@ use crate::r#gen::Std::Internal::UV::UDP::{
     initialize_Std_Internal_UV_UDP, runtime_initialize_Std_Internal_UV_UDP,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::{
-    lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::{lean_io_as_task, lean_io_map_task};
-use crate::ffi::{
-    lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
-use crate::ffi::{
-    lean_uv_udp_bind, lean_uv_udp_cancel_recv, lean_uv_udp_connect, lean_uv_udp_getpeername,
-    lean_uv_udp_getsockname, lean_uv_udp_new, lean_uv_udp_recv, lean_uv_udp_send,
-    lean_uv_udp_set_broadcast, lean_uv_udp_set_membership, lean_uv_udp_set_multicast_interface,
-    lean_uv_udp_set_multicast_loop, lean_uv_udp_set_multicast_ttl, lean_uv_udp_set_ttl,
-    lean_uv_udp_wait_readable,
-};
 pub static l_Std_Async_UDP_Socket_sendAll___closed__0_value: crate::leanh::LeanStringObject<44> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

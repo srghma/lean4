@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.ReduceEval
 // Imports: Lean.Meta.Offset
+use crate::ffi::{
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_mod, lean_nat_pow, lean_nat_sub,
+    lean_st_ref_get, lean_string_dec_eq, lean_uint64_lor, lean_uint64_shift_left,
+    lean_uint64_shift_right, lean_whnf,
+};
 use crate::r#gen::Init::Prelude::{l_Lean_Name_num___override, l_Lean_Name_str___override};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_constName_x3f, l_Lean_Expr_getAppFn,
@@ -16,15 +21,6 @@ use crate::r#gen::Lean::Meta::Offset::{
     initialize_Lean_Meta_Offset, l_Lean_Meta_evalNat, runtime_initialize_Lean_Meta_Offset,
 };
 use crate::r#gen::Lean::Meta::TransparencyMode::l_Lean_Meta_TransparencyMode_lt;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_mod, lean_nat_pow, lean_nat_sub,
-    lean_string_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_whnf;
 pub static l___private_Lean_Meta_ReduceEval_0__Lean_Meta_throwFailedToEval___redArg___closed__0_value: crate::leanh::LeanStringObject<40> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 40, m_capacity: 40, m_length: 39, m_data: [114, 101, 100, 117, 99, 101, 69, 118, 97, 108, 58, 32, 102, 97, 105, 108, 101, 100, 32, 116, 111, 32, 101, 118, 97, 108, 117, 97, 116, 101, 32, 97, 114, 103, 117, 109, 101, 110, 116, 0]};
 static mut l___private_Lean_Meta_ReduceEval_0__Lean_Meta_throwFailedToEval___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

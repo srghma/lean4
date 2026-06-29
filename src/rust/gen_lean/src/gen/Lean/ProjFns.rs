@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.ProjFns
 // Imports: Lean.EnvExtension
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_to_int, lean_string_length, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Nat_reprFast};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Lean::EnvExtension::{
@@ -10,13 +15,6 @@ use crate::r#gen::Lean::EnvExtension::{
     runtime_initialize_Lean_EnvExtension,
 };
 use crate::r#gen::Lean::Environment::{l_Lean_Environment_contains, l_Lean_Environment_find_x3f};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
 pub static l_Lean_instInhabitedProjectionFunctionInfo_default___closed__0_value:
     crate::leanh::LeanCtorObject<4> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

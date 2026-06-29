@@ -1,12 +1,12 @@
 // Lean compiler output
 // Module: Std.Data.Iterators.Combinators.Monadic.Drop
 // Imports: Init.Data.Iterators.Consumers.Loop
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Iterators::Consumers::Loop::{
     initialize_Init_Data_Iterators_Consumers_Loop,
     runtime_initialize_Init_Data_Iterators_Consumers_Loop,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_Std_IterM_drop___redArg(
     mut v_n_160_: *mut crate::leanh::LeanObject,
     mut v_it_161_: *mut crate::leanh::LeanObject,

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.Types
 // Imports: Init.Grind.Ring.CommSemiringAdapter Lean.Meta.Tactic.Grind.Types Lean.Meta.Sym.Arith.Poly
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt};
 use crate::r#gen::Init::Grind::Ring::CommSemiringAdapter::{
     initialize_Init_Grind_Ring_CommSemiringAdapter,
     runtime_initialize_Init_Grind_Ring_CommSemiringAdapter,
@@ -21,9 +22,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_SolverExtension_getState___redArg,
     l_Lean_Meta_Grind_registerSolverExtension___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
-};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub static l_Lean_Meta_Grind_Arith_CommRing_instInhabitedEqCnstrProof___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {

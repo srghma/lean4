@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Actions
 // Imports: Std.Sat.CNF
+use crate::ffi::{
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int,
+    lean_string_append,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_instRepr___redArg___lam__0___boxed, l_Array_isEqvAux___redArg, l_Array_repr___redArg,
 };
@@ -14,11 +18,6 @@ use crate::r#gen::Init::Data::ToString::Extra::{
 };
 use crate::r#gen::Init::Prelude::l_Nat_decEq___boxed;
 use crate::r#gen::Std::Sat::CNF::{initialize_Std_Sat_CNF, runtime_initialize_Std_Sat_CNF};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
-};
 pub static l_Std_Tactic_BVDecide_LRAT_instInhabitedAction_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

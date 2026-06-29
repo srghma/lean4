@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize.ShortCircuit
 // Imports: Lean.Meta.Tactic.BVDecide.Normalize.Basic Std.Tactic.BVDecide.Normalize.BitVec
+use crate::ffi::lean_mk_empty_array_with_capacity;
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr6;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
@@ -21,7 +22,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Normalize::BitVec::{
     initialize_Std_Tactic_BVDecide_Normalize_BitVec,
     runtime_initialize_Std_Tactic_BVDecide_Normalize_BitVec,
 };
-use crate::ffi::lean_mk_empty_array_with_capacity;
 pub static l_Lean_Meta_Tactic_BVDecide_Normalize_shortCircuitPass___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<32> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

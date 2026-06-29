@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Linter.EnvLinter.Frontend
 // Imports: Lean.Linter.EnvLinter.Basic Lean.DeclarationRange Lean.Util.Path Lean.CoreM Lean.Elab.Command
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap, lean_array_get,
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_io_as_task, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_string_dec_lt,
+    lean_task_get_own, lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l___private_Init_Data_Array_Basic_0__Array_insertIdx_loop, l_Array_instInhabited,
 };
@@ -63,29 +74,6 @@ use crate::r#gen::Lean::Util::Path::{
     initialize_Lean_Util_Path, l_Lean_SearchPath_findWithExt, l_Lean_getSrcSearchPath,
     l_Lean_modToFilePath, runtime_initialize_Lean_Util_Path,
 };
-use crate::ffi::lean_task_get_own;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::lean_io_as_task;
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 pub static mut l_Lean_Linter_EnvLinter_instInhabitedLintVerbosity_default: u8 = 0;
 pub static mut l_Lean_Linter_EnvLinter_instInhabitedLintVerbosity: u8 = 0;
 pub static l_Lean_Linter_EnvLinter_instReprLintVerbosity_repr___closed__0_value:

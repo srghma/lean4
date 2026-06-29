@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.SimpTrace
 // Imports: Lean.Elab.ElabRules Lean.Elab.Tactic.Simp Lean.Meta.Tactic.TryThis Lean.LibrarySuggestions.Basic
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Meta::Defs::{
@@ -70,18 +76,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getNondepPropHyps;
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ResolveName::{
     l_Lean_ResolveName_backward_privateInPublic_warn, l_Lean_ResolveName_resolveGlobalName,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Tactic_filterSuggestionsAndLocalsFromSimpConfig_spec__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Tactic_filterSuggestionsAndLocalsFromSimpConfig_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Tactic_filterSuggestionsAndLocalsFromSimpConfig_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;

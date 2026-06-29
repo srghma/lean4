@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.MonadEnv
 // Imports: Init.Control.Do Lean.Elab.Exception Lean.Log Lean.AuxRecursor Lean.Compiler.Old
+use crate::ffi::{lean_array_get, lean_has_compile_error, lean_nat_dec_eq, lean_panic_fn_borrowed};
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
@@ -35,10 +36,6 @@ use crate::r#gen::Lean::Expr::{l_Lean_Expr_isProp, l_Lean_mkConst};
 use crate::r#gen::Lean::Level::l_Lean_mkLevelParam;
 use crate::r#gen::Lean::Log::{initialize_Lean_Log, runtime_initialize_Lean_Log};
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofConstName, l_Lean_stringToMessageData};
-use crate::ffi::{
-    lean_array_get, lean_nat_dec_eq, lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_has_compile_error;
 pub static l_Lean_withEnv___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

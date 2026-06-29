@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.Structural.Basic
 // Imports: Lean.Meta.ForEachExpr
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_find_expr, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -25,13 +30,6 @@ use crate::r#gen::Lean::Meta::ForEachExpr::{
     initialize_Lean_Meta_ForEachExpr, runtime_initialize_Lean_Meta_ForEachExpr,
 };
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::lean_find_expr;
 pub static l_Lean_Elab_Structural_Positions_groupAndSort___redArg___lam__1___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

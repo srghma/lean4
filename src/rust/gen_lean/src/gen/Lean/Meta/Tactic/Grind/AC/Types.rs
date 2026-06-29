@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.AC.Types
 // Imports: Init.Grind.AC Std.Data.HashMap Lean.Meta.Tactic.Grind.Types Lean.Meta.Tactic.Grind.AC.Seq
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt, lean_uint64_mix_hash,
+    lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Grind::AC::{
     initialize_Init_Grind_AC, l_Lean_Grind_AC_instInhabitedExpr_default,
     l_Lean_Grind_AC_instInhabitedSeq_default, runtime_initialize_Init_Grind_AC,
@@ -17,10 +21,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
 };
 use crate::r#gen::Std::Data::HashMap::{
     initialize_Std_Data_HashMap, runtime_initialize_Std_Data_HashMap,
-};
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_lt, lean_uint64_mix_hash,
 };
 pub static l_Lean_Meta_Grind_AC_instHashableExpr__lean___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Array
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat
+use crate::ffi::{lean_array_fget, lean_array_get, lean_array_get_size, lean_nat_dec_lt};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf, l_Lean_instInhabitedExpr,
@@ -19,9 +20,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::Nat::{
 use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get, lean_array_get_size, lean_nat_dec_lt,
 };
 pub static l_Array_reduceGetElem___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

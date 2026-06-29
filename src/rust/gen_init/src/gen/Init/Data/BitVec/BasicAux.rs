@@ -1,11 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.BitVec.BasicAux
 // Imports: Init.Grind.Tactics
+use crate::ffi::{lean_nat_add, lean_nat_pow, lean_nat_sub};
 use crate::r#gen::Init::Grind::Tactics::{
     initialize_Init_Grind_Tactics, runtime_initialize_Init_Grind_Tactics,
 };
 use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
-use crate::ffi::{lean_nat_add, lean_nat_pow, lean_nat_sub};
 pub unsafe fn l_BitVec_instOfNat(
     mut v_n_32_: *mut crate::leanh::LeanObject,
     mut v_i_33_: *mut crate::leanh::LeanObject,

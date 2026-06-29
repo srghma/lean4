@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Grind.Util
 // Imports: Init.Data.Cast Init.Grind.Tactics Init.Grind.Tactics Init.Classical
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Cast::{
     initialize_Init_Data_Cast, runtime_initialize_Init_Data_Cast,
@@ -13,7 +14,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
     l_Lean_Syntax_node5,
 };
-use crate::ffi::lean_nat_add;
 pub static l_Lean_Grind_nestedProofUnexpander___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.Nat.Range
 // Imports: Init.Data.Nat.Lemmas Init.Ext Init.ByCases Init.Data.List.Erase Init.Data.List.Find Init.Data.List.Nat.TakeDrop Init.Data.List.Pairwise Init.Data.List.Range Init.Data.List.Zip Init.Data.Nat.Dvd Init.Data.Option.Lemmas Init.Omega Init.TacticsExtra
+use crate::ffi::lean_array_push;
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::List::Erase::{
     initialize_Init_Data_List_Erase, runtime_initialize_Init_Data_List_Erase,
@@ -35,7 +36,6 @@ use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::lean_array_push;
 pub static l_List_pairwise__lt__range_x27___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

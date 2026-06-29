@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.LibrarySearch
 // Imports: Lean.Meta.Tactic.LibrarySearch Lean.Meta.Tactic.TryThis Lean.Elab.Tactic.ElabTerm Lean.Elab.ConfigEval
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
@@ -81,19 +88,6 @@ use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::FindExpr::l_Lean_Expr_occurs;
 use crate::r#gen::Lean::Util::Heartbeats::l_Lean_reportOutOfHeartbeats;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_Elab_ConfigEval_throwUnsupportedExpr___at___00__private_Lean_Elab_Tactic_LibrarySearch_0__Lean_Elab_LibrarySearch_instEvalExprLibrarySearchConfig_evalExpr_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_ConfigEval_throwUnsupportedExpr___at___00__private_Lean_Elab_Tactic_LibrarySearch_0__Lean_Elab_LibrarySearch_instEvalExprLibrarySearchConfig_evalExpr_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Elab_Tactic_LibrarySearch_0__Lean_Elab_LibrarySearch_instEvalExprLibrarySearchConfig_evalExpr___lam__0___closed__0_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [109, 107, 0]};

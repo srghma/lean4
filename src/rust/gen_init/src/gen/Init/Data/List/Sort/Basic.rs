@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.List.Sort.Basic
 // Imports: Init.Ext Init.Data.List.Nat.TakeDrop Init.Data.List.TakeDrop Init.Data.Nat.Lemmas Init.Omega
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_le, lean_nat_shiftr, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_splitAt___redArg;
 use crate::r#gen::Init::Data::List::Nat::TakeDrop::{
     initialize_Init_Data_List_Nat_TakeDrop, runtime_initialize_Init_Data_List_Nat_TakeDrop,
@@ -14,10 +17,6 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
 use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{l_Lean_mkAtom, l_List_lengthTR___redArg};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_le, lean_string_utf8_byte_size,
-};
 pub static l_List_merge___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

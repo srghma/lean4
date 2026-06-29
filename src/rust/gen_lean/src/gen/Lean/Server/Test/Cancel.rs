@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Server.Test.Cancel
 // Imports: Lean.Elab.Command Lean.Elab.Tactic.Basic Lean.Elab.Command Lean.Elab.Tactic.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_dbg_trace, lean_get_stderr, lean_io_as_task, lean_io_promise_new,
+    lean_io_promise_resolve, lean_io_promise_result_opt, lean_io_wait, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_hash,
+    lean_string_push, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getString;
 use crate::r#gen::Init::Prelude::{
@@ -47,29 +57,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq,
 };
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed,
-    lean_string_dec_eq, lean_string_hash,
-};
-use crate::ffi::{lean_get_stderr, lean_io_as_task, lean_io_wait};
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_dbg_trace;
 pub static mut l_Lean_Server_Test_Cancel_onceRef: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel_tacticWait__for__cancel__once___closed__0_value:

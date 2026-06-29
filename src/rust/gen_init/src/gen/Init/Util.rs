@@ -1,17 +1,15 @@
 // Lean compiler output
 // Module: Init.Util
 // Imports: Init.Data.ToString.Basic
+use crate::ffi::{
+    lean_dbg_sleep, lean_dbg_stack_trace, lean_dbg_trace, lean_dbg_trace_if_shared,
+    lean_is_exclusive_obj, lean_ptr_addr, lean_string_append, lean_usize_dec_eq,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
 use crate::r#gen::Init::Prelude::l_panic___redArg;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_usize_dec_eq;
-use crate::ffi::{
-    lean_dbg_sleep, lean_dbg_stack_trace, lean_dbg_trace, lean_dbg_trace_if_shared,
-    lean_is_exclusive_obj, lean_ptr_addr,
-};
 pub static l_mkPanicMessage___closed__0_value: crate::leanh::LeanStringObject<10> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

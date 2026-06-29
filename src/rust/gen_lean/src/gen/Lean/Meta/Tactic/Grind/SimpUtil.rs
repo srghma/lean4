@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.SimpUtil
 // Imports: Lean.Meta.Tactic.Simp.Simproc Lean.Meta.Tactic.Grind.MatchDiscrOnly Lean.Meta.Tactic.Grind.ForallProp Lean.Meta.Tactic.Grind.Arith.Simproc Lean.Meta.Tactic.Simp.BuiltinSimprocs.List Lean.Meta.Tactic.Simp.BuiltinSimprocs.Core Lean.Meta.Tactic.Grind.Util Lean.Meta.Sym.Util Init.Grind.Norm Init.Grind.Config Init.ByCases Lean.Meta.Tactic.Simp.Main
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_expr_eqv,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_to_int, lean_st_ref_get,
+    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Grind::Config::{
     initialize_Init_Grind_Config, runtime_initialize_Init_Grind_Config,
@@ -77,17 +83,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     runtime_initialize_Lean_Meta_Tactic_Simp_Simproc,
 };
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_mkContext___redArg;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Grind_registerNormTheorems___closed__0_value:
     crate::leanh::LeanStringObject<61> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

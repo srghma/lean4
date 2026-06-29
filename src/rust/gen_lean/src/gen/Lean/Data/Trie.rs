@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Data.Trie
 // Imports: Lean.Data.Format Init.Data.Option.Coe Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_to_list, lean_array_uget_borrowed, lean_byte_array_fget,
+    lean_byte_array_mk, lean_byte_array_push, lean_byte_array_size,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_to_int, lean_string_get_byte_fast, lean_string_utf8_byte_size, lean_uint8_dec_eq,
+    lean_uint8_to_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::ByteArray::Basic::l_ByteArray_toList;
 use crate::r#gen::Init::Data::Format::Basic::{
@@ -16,20 +24,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lean::Data::Format::{
     initialize_Lean_Data_Format, runtime_initialize_Lean_Data_Format,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_usize_add, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_byte_array_mk, lean_byte_array_push, lean_byte_array_size,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_usize_dec_eq,
 };
 pub static l_Lean_Data_Trie_empty___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Std.Http.Data.URI.Parser
 // Imports: Init.While Init.Data.String.Basic Std.Internal.Parsec Std.Internal.Parsec.ByteArray Std.Http.Data.URI.Basic Std.Http.Data.URI.Config Init.Data.String.Search
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_copy_slice,
+    lean_byte_array_fget, lean_byte_array_push, lean_byte_array_size, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_string_append, lean_string_data, lean_string_dec_eq, lean_string_from_utf8_unchecked,
+    lean_string_length, lean_string_to_utf8, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set,
+    lean_string_validate_utf8, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_to_nat,
+    lean_uint16_of_nat, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_to_nat, lean_uint32_to_uint8, lean_uv_pton_v4, lean_uv_pton_v6,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_head_x3f___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::{
@@ -40,27 +51,6 @@ use crate::r#gen::Std::Internal::Parsec::ByteArray::{
 use crate::r#gen::Std::Internal::Parsec::{
     initialize_Std_Internal_Parsec, runtime_initialize_Std_Internal_Parsec,
 };
-use crate::ffi::{
-    lean_byte_array_copy_slice, lean_byte_array_fget,
-};
-use crate::ffi::{
-    lean_string_data, lean_string_utf8_extract, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast, lean_string_validate_utf8,
-};
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_of_nat, lean_uint32_add, lean_uint32_to_uint8,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_push,
-    lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_from_utf8_unchecked,
-    lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_uint32_to_nat,
-};
-use crate::ffi::{lean_uv_pton_v4, lean_uv_pton_v6};
 pub static l_panic___at___00__private_Std_Http_Data_URI_Parser_0__Std_Http_URI_Parser_parseScheme_spec__2___closed__0_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};
 static mut l_panic___at___00__private_Std_Http_Data_URI_Parser_0__Std_Http_URI_Parser_parseScheme_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_panic___at___00__private_Std_Http_Data_URI_Parser_0__Std_Http_URI_Parser_parseScheme_spec__2___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Std_Http_Data_URI_Parser_0__Std_Http_URI_Parser_parseScheme___lam__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

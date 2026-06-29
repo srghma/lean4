@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Fold
 // Imports: Init.Data.List.FinRange Init.Data.Fin.Lemmas Init.Data.List.Lemmas Init.Omega
+use crate::ffi::{lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Fin::Lemmas::{
     initialize_Init_Data_Fin_Lemmas, runtime_initialize_Init_Data_Fin_Lemmas,
 };
@@ -12,9 +13,6 @@ use crate::r#gen::Init::Data::List::Lemmas::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
-};
 pub static l___private_Init_Data_Nat_Fold_0__Nat_dfoldCast___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

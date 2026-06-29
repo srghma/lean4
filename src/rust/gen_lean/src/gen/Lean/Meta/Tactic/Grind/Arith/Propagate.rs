@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Propagate
 // Imports: Init.Grind Lean.Meta.Tactic.Grind.Arith.CommRing.RingId Lean.Meta.Tactic.Grind.Arith.CommRing.NonCommRingM Lean.Meta.Tactic.Grind.Arith.CommRing.NonCommSemiringM Lean.Meta.Tactic.Grind.PropagatorAttr
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_grind_internalize, lean_grind_mk_eq_proof, lean_mk_array, lean_name_eq,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_nat_sub, lean_st_ref_get, lean_uint64_of_nat, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Nat::Bitwise::Basic::{
     l_Nat_land___boxed, l_Nat_lor___boxed, l_Nat_shiftLeft___boxed, l_Nat_shiftRight___boxed,
     l_Nat_xor___boxed,
@@ -41,22 +48,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::PropagatorAttr::{
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_Goal_getRoot, l_Lean_Meta_Grind_pushEqCore___redArg,
-};
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_uint64_of_nat,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::{
-    lean_grind_internalize, lean_grind_mk_eq_proof,
 };
 pub static l_Lean_Meta_Grind_Arith_propagateNatBinOp___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.DSL.Script
 // Imports: Init.Prelude Lake.Config.Package Lake.DSL.Attributes Lake.DSL.Syntax
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_SepArray_ofElems, l_Lean_Syntax_isNone};
 use crate::r#gen::Init::Prelude::{
@@ -25,7 +26,6 @@ use crate::r#gen::Lake::DSL::Syntax::{
 };
 use crate::r#gen::Lean::Elab::Util::l_Lean_Elab_macroAttribute;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l___private_Lake_DSL_Script_0__Lake_DSL_expandScriptDecl___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

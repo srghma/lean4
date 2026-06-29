@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.List.BasicAux
 // Imports: Init.GetElem Init.WFTactics Init.ByCases Init.Classical Init.Data.Array.Basic Init.Data.Nat.Linear
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_ptr_addr, lean_usize_dec_eq,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Array::Basic::{
@@ -20,11 +24,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
 pub static l_List_getLast_x21___redArg___closed__0_value: crate::leanh::LeanStringObject<24> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Omega.MinNatAbs
 // Imports: Init.Data.Int.Order Init.Data.List.MinMax Init.Data.Nat.Order Init.ByCases Init.Data.Bool Init.Data.Option.Lemmas Init.TacticsExtra
+use crate::ffi::{lean_nat_abs, lean_nat_dec_eq, lean_nat_dec_le};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -21,8 +22,6 @@ use crate::r#gen::Init::Data::Option::Lemmas::{
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::lean_nat_abs;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub unsafe fn l_List_filterTR_loop___at___00Lean_Elab_Tactic_Omega_List_nonzeroMinimum_spec__0(
     mut v_a_83_: *mut crate::leanh::LeanObject,
     mut v_a_84_: *mut crate::leanh::LeanObject,

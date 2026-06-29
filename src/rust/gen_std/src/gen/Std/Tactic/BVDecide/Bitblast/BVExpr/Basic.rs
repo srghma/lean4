@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Basic
 // Imports: Init.Data.Hashable Std.Tactic.BVDecide.Bitblast.BoolExpr.Basic Init.Data.RArray Init.Data.ToString.Macro Init.Data.BitVec.Lemmas Init.Omega
+use crate::ffi::{
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_land, lean_nat_lor,
+    lean_nat_lxor, lean_nat_mod, lean_nat_shiftr, lean_nat_to_int, lean_ptr_addr,
+    lean_string_append, lean_string_length, lean_uint64_dec_eq, lean_uint64_mix_hash,
+    lean_uint64_of_nat, lean_usize_dec_eq,
+};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     l_BitVec_append___redArg, l_BitVec_clz, l_BitVec_cpop, l_BitVec_extractLsb_x27___redArg,
     l_BitVec_hash, l_BitVec_mul, l_BitVec_not, l_BitVec_replicate, l_BitVec_repr, l_BitVec_reverse,
@@ -30,18 +36,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BoolExpr::Basic::{
     l_Std_Tactic_BVDecide_BoolExpr_eval___redArg,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BoolExpr_Basic,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftr,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod,
-    lean_uint64_dec_eq, lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
 pub static l_Std_Tactic_BVDecide_instHashableBVBit___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

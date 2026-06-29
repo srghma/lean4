@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Parser
 // Imports: Init.System.IO Std.Tactic.BVDecide.LRAT.Actions Std.Internal.Parsec
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_uget_borrowed, lean_byte_array_fget, lean_byte_array_push, lean_byte_array_size,
+    lean_int_dec_lt, lean_int_neg, lean_mk_empty_byte_array, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_to_utf8, lean_uint8_complement,
+    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_land, lean_uint8_lor, lean_uint8_sub,
+    lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint8_to_uint64, lean_uint32_to_uint8,
+    lean_uint64_add, lean_uint64_dec_eq, lean_uint64_dec_lt, lean_uint64_land, lean_uint64_lor,
+    lean_uint64_of_nat, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_nat,
+    lean_uint64_to_uint8, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_instInhabited;
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -20,28 +32,6 @@ use crate::r#gen::Std::Internal::Parsec::{
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Actions::{
     initialize_Std_Tactic_BVDecide_LRAT_Actions,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Actions,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_int_dec_lt, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::{
-    lean_uint8_complement, lean_uint8_land, lean_uint8_lor, lean_uint8_sub, lean_uint64_add,
-    lean_uint64_dec_lt, lean_uint64_land, lean_uint64_lor, lean_uint64_shift_left,
-    lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint8_to_uint64, lean_uint32_to_uint8,
-    lean_uint64_of_nat, lean_uint64_to_nat, lean_uint64_to_uint8, lean_usize_add,
-    lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_byte_array_push, lean_byte_array_size, lean_mk_empty_byte_array, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed,
-    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint64_dec_eq, lean_usize_dec_eq,
 };
 static mut l___private_Std_Tactic_BVDecide_LRAT_Parser_0__Std_Tactic_BVDecide_LRAT_Parser_getPivot___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Std_Tactic_BVDecide_LRAT_Parser_0__Std_Tactic_BVDecide_LRAT_Parser_getPivot___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

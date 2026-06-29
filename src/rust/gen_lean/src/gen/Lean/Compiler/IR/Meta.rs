@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.Meta
 // Imports: Lean.Compiler.IR.CompilerM
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
@@ -24,18 +30,6 @@ use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofName, l_Lean_stringToMess
 use crate::r#gen::Lean::Setup::l_Lean_instBEqIRPhases_beq;
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_addMessageContextPartial___at___00Lean_addTrace___at___00__private_Lean_Compiler_IR_Meta_0__Lean_IR_setClosureMeta_spec__0_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_addTrace___at___00__private_Lean_Compiler_IR_Meta_0__Lean_IR_setClosureMeta_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Unfold
 // Imports: Lean.Meta.Tactic.Delta Lean.Meta.Tactic.Simp.Main Lean.Meta.WHNF
+use crate::ffi::{
+    lean_array_push, lean_expr_eqv, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_lor,
+    lean_uint64_shift_left, lean_uint64_shift_right,
+};
 use crate::r#gen::Init::MetaTypes::l_Lean_Meta_Simp_neutralConfig;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
@@ -41,16 +46,6 @@ use crate::r#gen::Lean::Meta::WHNF::{
     initialize_Lean_Meta_WHNF, l_Lean_Meta_reduceMatcher_x3f, runtime_initialize_Lean_Meta_WHNF,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_panic_fn_borrowed,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l___private_Lean_Meta_Tactic_Unfold_0__Lean_Meta_getSimpUnfoldContext___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lean_Meta_Tactic_Unfold_0__Lean_Meta_getSimpUnfoldContext___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Unfold_0__Lean_Meta_getSimpUnfoldContext___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Unfold_0__Lean_Meta_unfold_pre___closed__0_value:

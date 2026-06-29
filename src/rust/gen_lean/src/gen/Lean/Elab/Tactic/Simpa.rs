@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Simpa
 // Imports: Lean.Meta.Tactic.TryThis Lean.Elab.Tactic.Simp Lean.Elab.App
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_infer_type,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_uint64_lor, lean_uint64_shift_left,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_isNone, l_Lean_Syntax_unsetTrailing, lean_mk_syntax_ident,
@@ -96,28 +106,6 @@ use crate::r#gen::Lean::MetavarContext::{
     l_Lean_MetavarContext_getDelayedMVarAssignmentCore_x3f,
     l_Lean_MetavarContext_getExprAssignmentCore_x3f,
 };
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_div, lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::lean_infer_type;
 pub static l___private_Lean_Elab_Tactic_Simpa_0__initFn___closed__0_00___x40_Lean_Elab_Tactic_Simpa_363244304____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [108, 105, 110, 116, 101, 114, 0]};
 static mut l___private_Lean_Elab_Tactic_Simpa_0__initFn___closed__0_00___x40_Lean_Elab_Tactic_Simpa_363244304____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Simpa_0__initFn___closed__0_00___x40_Lean_Elab_Tactic_Simpa_363244304____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Tactic_Simpa_0__initFn___closed__1_00___x40_Lean_Elab_Tactic_Simpa_363244304____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<17> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 17, m_capacity: 17, m_length: 16, m_data: [117, 110, 110, 101, 99, 101, 115, 115, 97, 114, 121, 83, 105, 109, 112, 97, 0]};

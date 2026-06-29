@@ -1,15 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.EMatchTheoremPtr
 // Imports: Lean.Meta.Tactic.Grind.EMatchTheorem
+use crate::ffi::{lean_ptr_addr, lean_usize_dec_eq, lean_usize_shift_right, lean_usize_to_uint64};
 use crate::r#gen::Lean::Meta::Tactic::Grind::EMatchTheorem::{
     initialize_Lean_Meta_Tactic_Grind_EMatchTheorem,
     runtime_initialize_Lean_Meta_Tactic_Grind_EMatchTheorem,
 };
-use crate::ffi::{
-    lean_usize_shift_right, lean_usize_to_uint64,
-};
-use crate::ffi::lean_usize_dec_eq;
-use crate::ffi::lean_ptr_addr;
 pub static l_Lean_Meta_Grind_instHashableEMatchTheoremPtr___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

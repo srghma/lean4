@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.MaxFVar
 // Imports: Lean.Meta.Sym.SymM
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_panic_fn_borrowed,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_isEmpty___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
@@ -24,21 +31,6 @@ use crate::r#gen::Lean::Meta::Sym::ExprPtr::{
 use crate::r#gen::Lean::Meta::Sym::SymM::{
     initialize_Lean_Meta_Sym_SymM, l_Lean_Meta_Sym_instInhabitedSymM,
     runtime_initialize_Lean_Meta_Sym_SymM,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_panic_fn_borrowed,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Meta_Sym_MaxFVar_0__Lean_Meta_Sym_check___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

@@ -1,15 +1,14 @@
 // Lean compiler output
 // Module: Lean.Util.FindLevelMVar
 // Imports: Lean.Expr
+use crate::ffi::{
+    lean_array_get_size, lean_array_mk, lean_array_uget_borrowed, lean_nat_dec_lt,
+    lean_usize_dec_eq, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_hasLevelMVar, runtime_initialize_Lean_Expr,
 };
 use crate::r#gen::Lean::Level::l_Lean_Level_hasMVar;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_get_size, lean_array_mk, lean_nat_dec_lt, lean_usize_dec_eq,
-};
 pub static l_Lean_FindLevelMVar_main___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

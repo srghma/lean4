@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.EqnsUtils
 // Imports: Lean.Meta.Basic Lean.Meta.Tactic.Split Lean.Meta.Tactic.Refl Lean.Meta.Tactic.Delta Lean.Meta.Tactic.SplitIf Lean.Meta.Tactic.Contradiction
+use crate::ffi::{
+    lean_expr_eqv, lean_mk_array, lean_nat_sub, lean_panic_fn_borrowed, lean_ptr_addr,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_dec_eq,
+};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::{l_Lean_Exception_isRuntime, l_Lean_diagnostics};
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isPrefixOf;
@@ -50,15 +54,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
 };
 use crate::r#gen::Lean::Meta::WHNF::l_Lean_Meta_smartUnfolding;
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
-use crate::ffi::lean_mk_array;
-use crate::ffi::{
-    lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Elab_Eqns_tryURefl_spec__0_spec__0___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [116, 114, 97, 99, 101, 0]};
 static mut l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Elab_Eqns_tryURefl_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Elab_Eqns_tryURefl_spec__0_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Elab_Eqns_tryURefl_spec__0_spec__0___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Elab_Eqns_tryURefl_spec__0_spec__0___closed__0_value) as *mut crate::leanh::LeanObject,14231257465488249300 as *mut crate::leanh::LeanObject] };
@@ -1900,7 +1895,7 @@ pub unsafe fn _init_l___private_Lean_Elab_PreDefinition_EqnsUtils_0__Lean_Elab_E
     v___x_982_ =
         l___private_Lean_Elab_PreDefinition_EqnsUtils_0__Lean_Elab_Eqns_whnfAux___closed__3;
     v___x_983_ = crate::leanh::lean_unsigned_to_nat(18);
-    v___x_984_ = crate::leanh::lean_unsigned_to_nat(1887);
+    v___x_984_ = crate::leanh::lean_unsigned_to_nat(1888);
     v___x_985_ =
         l___private_Lean_Elab_PreDefinition_EqnsUtils_0__Lean_Elab_Eqns_whnfAux___closed__2;
     v___x_986_ =

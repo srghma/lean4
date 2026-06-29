@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.Sorry
 // Imports: Lean.Util.FindExpr Lean.Declaration
+use crate::ffi::{lean_find_expr, lean_nat_dec_le, lean_nat_sub};
 use crate::r#gen::Lean::Declaration::{
     initialize_Lean_Declaration, runtime_initialize_Lean_Declaration,
 };
@@ -11,8 +12,6 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Util::FindExpr::{
     initialize_Lean_Util_FindExpr, runtime_initialize_Lean_Util_FindExpr,
 };
-use crate::ffi::{lean_nat_dec_le, lean_nat_sub};
-use crate::ffi::lean_find_expr;
 pub static l_Lean_Expr_isSorry___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

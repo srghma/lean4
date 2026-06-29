@@ -1,12 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.InfoTree.InlayHints
 // Imports: Lean.Meta.Basic
+use crate::ffi::lean_string_dec_eq;
 use crate::r#gen::Init::Dynamic::l___private_Init_Dynamic_0__Dynamic_get_x3fImpl___redArg;
 use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, runtime_initialize_Lean_Meta_Basic,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_instBEqRange_beq;
-use crate::ffi::lean_string_dec_eq;
 pub static l_Lean_Elab_instBEqInlayHintTextEdit___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

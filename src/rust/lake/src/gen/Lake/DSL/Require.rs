@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lake.DSL.Require
 // Imports: Lake.DSL.Syntax Lake.Config.Dependency
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::{
     l___private_Init_Meta_Defs_0__Lean_getEscapedNameParts_x3f, l_Lean_Syntax_isNone,
@@ -24,10 +27,6 @@ use crate::r#gen::Lake::DSL::Syntax::{
 };
 use crate::r#gen::Lean::Elab::Util::l_Lean_Elab_macroAttribute;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l___private_Lake_DSL_Require_0__Lake_DSL_quoteOptTerm___redArg___lam__1___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Lake_DSL_Require_0__Lake_DSL_quoteOptTerm___redArg___lam__1___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

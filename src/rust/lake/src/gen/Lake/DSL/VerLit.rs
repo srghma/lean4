@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.DSL.VerLit
 // Imports: Lean.ToExpr Lake.Util.Version Lake.DSL.Syntax Lean.Meta.Eval
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_st_ref_get};
 use crate::r#gen::Init::Prelude::{
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
     l_Lean_Syntax_node2, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
@@ -29,8 +30,6 @@ use crate::r#gen::Lean::Meta::Eval::{
     initialize_Lean_Meta_Eval, l_Lean_Meta_evalExpr___redArg, runtime_initialize_Lean_Meta_Eval,
 };
 use crate::r#gen::Lean::ToExpr::{initialize_Lean_ToExpr, runtime_initialize_Lean_ToExpr};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lake_DSL_instToExprSemVerCore___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

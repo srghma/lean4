@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Util.Binder
 // Imports: Lean.Parser.Term Lean.Parser.Term
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int, lean_string_length,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Meta::Defs::{
@@ -28,18 +34,6 @@ use crate::r#gen::Lean::Parser::Term::{
 };
 use crate::r#gen::Lean::PrettyPrinter::Formatter::l_Lean_PrettyPrinter_Formatter_orelse_formatter;
 use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::l_Lean_PrettyPrinter_Parenthesizer_orelse_parenthesizer;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
 pub static l_Lake_instCoeTermArgument___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

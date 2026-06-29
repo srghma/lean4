@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.ShiftLeft
 // Imports: Std.Tactic.BVDecide.Bitblast.BVExpr.Basic Std.Sat.AIG.If Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land, lean_nat_lor, lean_nat_mul, lean_nat_pow,
+    lean_nat_shiftr, lean_nat_sub,
+};
 use crate::r#gen::Init::Data::Bool::l_Bool_toNat;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Std::Sat::AIG::If::{
@@ -9,13 +14,6 @@ use crate::r#gen::Std::Sat::AIG::If::{
 use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Basic::{
     initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
-};
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_shiftr,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_nat_pow, lean_nat_sub,
 };
 static mut l_Std_Tactic_BVDecide_BVExpr_bitblast_blastShiftLeftConst_go___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Std_Tactic_BVDecide_BVExpr_bitblast_blastShiftLeftConst_go___redArg___closed__0:

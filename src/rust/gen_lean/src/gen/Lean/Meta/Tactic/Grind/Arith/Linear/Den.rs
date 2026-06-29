@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.Den
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM Lean.Meta.Tactic.Grind.Arith.CommRing.SafePoly
+use crate::ffi::{lean_nat_dec_eq, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_pow;
 use crate::r#gen::Init::Grind::Ring::CommSolver::{
     l_Lean_Grind_CommRing_Poly_cancelVar, l_Lean_Grind_CommRing_Poly_mulConst,
@@ -17,8 +18,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::LinearM::{
     l_Lean_Meta_Grind_Arith_Linear_withRingM___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Linear_LinearM,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_dec_eq;
 pub static l_Lean_Meta_Grind_Arith_Linear_RingIneqCnstr_cleanupDenominators___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

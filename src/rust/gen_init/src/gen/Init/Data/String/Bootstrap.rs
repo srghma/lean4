@@ -1,12 +1,6 @@
 // Lean compiler output
 // Module: Init.Data.String.Bootstrap
 // Imports: Init.Data.ByteArray.Bootstrap Init.Data.Char.Basic
-use crate::r#gen::Init::Data::ByteArray::Bootstrap::{
-    initialize_Init_Data_ByteArray_Bootstrap, runtime_initialize_Init_Data_ByteArray_Bootstrap,
-};
-use crate::r#gen::Init::Data::Char::Basic::{
-    initialize_Init_Data_Char_Basic, runtime_initialize_Init_Data_Char_Basic,
-};
 use crate::ffi::{
     lean_string_any, lean_string_append, lean_string_capitalize, lean_string_contains,
     lean_string_drop, lean_string_dropright, lean_string_foldl, lean_string_front,
@@ -18,6 +12,12 @@ use crate::ffi::{
     lean_substring_beq, lean_substring_drop, lean_substring_extract, lean_substring_front,
     lean_substring_get, lean_substring_isempty, lean_substring_prev, lean_substring_takewhile,
     lean_substring_tostring,
+};
+use crate::r#gen::Init::Data::ByteArray::Bootstrap::{
+    initialize_Init_Data_ByteArray_Bootstrap, runtime_initialize_Init_Data_ByteArray_Bootstrap,
+};
+use crate::r#gen::Init::Data::Char::Basic::{
+    initialize_Init_Data_Char_Basic, runtime_initialize_Init_Data_Char_Basic,
 };
 pub static mut l_String_instOfNatRaw: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_String_instInhabited___closed__0_value: crate::leanh::LeanStringObject<1> =

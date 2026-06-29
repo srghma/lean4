@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Parser.Command
 // Imports: Lean.Parser.Do Lean.DocString.Parser Lean.Parser.Do Lean.DocString.Parser
+use crate::ffi::lean_uint32_dec_eq;
 use crate::r#gen::Init::Data::List::Basic::l_List_elem___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_mkNumLit;
@@ -170,7 +171,6 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_PrettyPrinter_Parenthesizer_withPosition_parenthesizer___boxed,
     l_Lean_PrettyPrinter_parenthesizerAttribute,
 };
-use crate::ffi::lean_uint32_dec_eq;
 pub static l_Lean_Parser_Term_quot___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

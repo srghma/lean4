@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Server.Utils
 // Imports: Init.System.Uri Lean.Data.Lsp.Communication Lean.Data.Lsp.Diagnostics Lean.Data.Lsp.Extra Lean.Server.InfoUtils
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_io_realpath,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int,
+    lean_string_append, lean_string_dec_eq, lean_string_memcmp, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_pos_x21;
 use crate::r#gen::Init::Data::String::Extra::l_String_crlfToLf;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_toString;
@@ -30,17 +36,6 @@ use crate::r#gen::Lean::Server::InfoUtils::{
 use crate::r#gen::Lean::Util::Path::{
     l_Lean_SearchPath_findModuleWithExt, l_Lean_getSrcSearchPath, l_Lean_searchModuleNameOfFileName,
 };
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::lean_io_realpath;
 pub static l_Lean_Server_instInhabitedDocumentMeta_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

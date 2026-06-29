@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Match.MatcherApp.Basic
 // Imports: Lean.Meta.Match.MatcherInfo
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_mk, lean_array_size, lean_array_to_list,
+    lean_mk_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
@@ -24,11 +28,6 @@ use crate::r#gen::Lean::Meta::Match::MatcherInfo::{
     l_Lean_Meta_getMatcherInfo_x3f___redArg, runtime_initialize_Lean_Meta_Match_MatcherInfo,
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_getConstInfo___redArg;
-use crate::ffi::{lean_array_size, lean_mk_array};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_mk, lean_array_to_list, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-};
 pub static l_Lean_Meta_matchMatcherApp_x3f___redArg___lam__1___closed__0_value:
     crate::leanh::LeanStringObject<33> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

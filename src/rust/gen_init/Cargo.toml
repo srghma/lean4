@@ -7,3 +7,4 @@ publish = false
 [dependencies]
 leanh = { path = "../leanh" }
 runtime = { path = "../runtime" }
+gen_init_ffi = { path = "../gen_init_ffi" }

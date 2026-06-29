@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.GrindInstances.Ring.UInt
 // Imports: Init.GrindInstances.ToInt Init.GrindInstances.ToInt Init.Data.UInt.Basic Init.Data.UInt.Lemmas Init.Grind.Ring.Basic Init.Grind.Ring.ToInt
+use crate::ffi::{
+    lean_uint8_mul, lean_uint8_of_nat, lean_uint16_mul, lean_uint16_of_nat, lean_uint32_mul,
+    lean_uint32_of_nat, lean_uint64_mul, lean_uint64_of_nat, lean_usize_mul, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::UInt::Basic::{
     initialize_Init_Data_UInt_Basic, l_UInt8_add___boxed, l_UInt8_mul___boxed, l_UInt8_neg___boxed,
     l_UInt8_ofInt, l_UInt8_ofInt___boxed, l_UInt8_pow___boxed, l_UInt8_sub___boxed,
@@ -31,13 +35,6 @@ use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
 use crate::r#gen::Init::Prelude::{l_UInt8_ofNat___boxed, l_instHAdd___redArg___lam__0};
-use crate::ffi::{
-    lean_uint8_mul, lean_uint16_mul, lean_uint32_mul, lean_uint64_mul, lean_usize_mul,
-};
-use crate::ffi::{
-    lean_uint16_of_nat, lean_uint32_of_nat, lean_uint64_of_nat, lean_usize_of_nat,
-};
-use crate::ffi::lean_uint8_of_nat;
 pub static l_UInt8_natCast___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

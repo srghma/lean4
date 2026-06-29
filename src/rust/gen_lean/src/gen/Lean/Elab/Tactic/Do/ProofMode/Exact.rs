@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.ProofMode.Exact
 // Imports: Lean.Elab.Tactic.Do.ProofMode.Basic Lean.Elab.Tactic.Do.ProofMode.Focus Lean.Elab.Tactic.ElabTerm
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land,
+    lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArg, l_Lean_Syntax_getId, l_Lean_Syntax_isOfKind,
 };
@@ -46,21 +53,6 @@ use crate::r#gen::Lean::Meta::Basic::{
 use crate::r#gen::Lean::Meta::SynthInstance::l_Lean_Meta_synthInstance_x3f;
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
-    lean_nat_dec_lt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Elab_Tactic_Do_ProofMode_MGoal_exact___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

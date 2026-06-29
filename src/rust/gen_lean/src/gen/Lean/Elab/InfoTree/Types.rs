@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.InfoTree.Types
 // Imports: Lean.Data.DeclarationRange Lean.Data.OpenDecl Lean.Data.PPContext Lean.MetavarContext Lean.Environment Lean.Widget.Types
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_to_int};
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Lean::Data::DeclarationRange::{
     initialize_Lean_Data_DeclarationRange, runtime_initialize_Lean_Data_DeclarationRange,
@@ -24,8 +25,6 @@ use crate::r#gen::Lean::MetavarContext::{
 use crate::r#gen::Lean::Widget::Types::{
     initialize_Lean_Widget_Types, runtime_initialize_Lean_Widget_Types,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_dec_le};
 pub static l_Lean_Elab_instInhabitedElabInfo_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

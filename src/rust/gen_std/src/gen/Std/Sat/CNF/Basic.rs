@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Sat.CNF.Basic
 // Imports: Std.Sat.CNF.Literal Init.Data.Prod Init.Data.Array.Lemmas
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -26,12 +31,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Std::Sat::CNF::Literal::{
     initialize_Std_Sat_CNF_Literal, runtime_initialize_Std_Sat_CNF_Literal,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_lt,
-    lean_usize_dec_eq,
 };
 pub static l_Std_Sat_CNF_empty___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {

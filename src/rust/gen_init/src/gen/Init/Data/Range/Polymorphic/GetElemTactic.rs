@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.GetElemTactic
 // Imports: Init.Grind.Tactics Init.Data.Range.Polymorphic.Basic Init.Data.Vector.Basic Init.Data.Slice.Array.Lemmas
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Data::Range::Polymorphic::Basic::{
     initialize_Init_Data_Range_Polymorphic_Basic,
     runtime_initialize_Init_Data_Range_Polymorphic_Basic,
@@ -19,7 +20,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node6,
     l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l___aux__Init__Data__Range__Polymorphic__GetElemTactic______macroRules__tacticGet__elem__tactic__extensible__1___closed__0_value: crate::leanh::LeanStringObject<33> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 33, m_capacity: 33, m_length: 32, m_data: [116, 97, 99, 116, 105, 99, 71, 101, 116, 95, 101, 108, 101, 109, 95, 116, 97, 99, 116, 105, 99, 95, 101, 120, 116, 101, 110, 115, 105, 98, 108, 101, 0]};
 static mut l___aux__Init__Data__Range__Polymorphic__GetElemTactic______macroRules__tacticGet__elem__tactic__extensible__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__Data__Range__Polymorphic__GetElemTactic______macroRules__tacticGet__elem__tactic__extensible__1___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___aux__Init__Data__Range__Polymorphic__GetElemTactic______macroRules__tacticGet__elem__tactic__extensible__1___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__Data__Range__Polymorphic__GetElemTactic______macroRules__tacticGet__elem__tactic__extensible__1___closed__0_value) as *mut crate::leanh::LeanObject,7705027380931481693 as *mut crate::leanh::LeanObject] };

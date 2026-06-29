@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Match.MVarRenaming
 // Imports: Lean.Util.ReplaceExpr
+use crate::ffi::{lean_panic_fn_borrowed, lean_replace_expr};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Expr::{
@@ -10,8 +11,6 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Util::ReplaceExpr::{
     initialize_Lean_Util_ReplaceExpr, runtime_initialize_Lean_Util_ReplaceExpr,
 };
-use crate::ffi::lean_panic_fn_borrowed;
-use crate::ffi::lean_replace_expr;
 pub static l_Lean_Meta_MVarRenaming_find_x21___closed__0_value: crate::leanh::LeanStringObject<26> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

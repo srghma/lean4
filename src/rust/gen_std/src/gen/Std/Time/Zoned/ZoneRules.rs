@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.ZoneRules
 // Imports: Std.Time.DateTime Std.Time.Zoned.TimeZone
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_int_add, lean_int_dec_lt, lean_int_mul, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_string_length, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Repr_addAppParen, l_String_quote};
@@ -18,16 +24,6 @@ use crate::r#gen::Std::Time::Zoned::Offset::{
 };
 use crate::r#gen::Std::Time::Zoned::TimeZone::{
     initialize_Std_Time_Zoned_TimeZone, runtime_initialize_Std_Time_Zoned_TimeZone,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_lt, lean_int_mul, lean_nat_to_int,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_to_list, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Std_Time_TimeZone_instReprUTLocal_repr___closed__0_value:
     crate::leanh::LeanStringObject<29> = crate::leanh::LeanStringObject {

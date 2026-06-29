@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Combinators.Monadic.Take
 // Imports: Init.Data.Iterators.Consumers.Monadic.Loop Init.Classical Init.ByCases Init.Omega
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Loop::{
@@ -9,7 +10,6 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Loop::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_Std_IterM_take___redArg(
     mut v_n_192_: *mut crate::leanh::LeanObject,
     mut v_it_193_: *mut crate::leanh::LeanObject,

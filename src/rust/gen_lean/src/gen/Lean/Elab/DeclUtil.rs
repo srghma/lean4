@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.DeclUtil
 // Imports: Lean.Meta.Check Lean.Parser.Command
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_size,
+    lean_array_push, lean_array_to_list, lean_array_uget_borrowed, lean_expr_instantiate1,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr,
+    lean_nat_sub, lean_st_ref_get, lean_string_append, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_of_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, lean_mk_syntax_ident};
@@ -18,20 +25,6 @@ use crate::r#gen::Lean::Meta::Check::{
 use crate::r#gen::Lean::Parser::Command::{
     initialize_Lean_Parser_Command, runtime_initialize_Lean_Parser_Command,
 };
-use crate::ffi::{
-    lean_array_fswap, lean_array_uget_borrowed,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_instantiate1;
-use crate::ffi::lean_whnf;
 pub static l_Lean_Meta_forallTelescopeCompatibleAux___redArg___closed__0_value:
     crate::leanh::LeanStringObject<81> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

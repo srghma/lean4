@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.DeclarationRange
 // Imports: Lean.Data.Position
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
+    lean_nat_to_int, lean_string_length,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Lean::Data::Position::{
@@ -9,11 +13,6 @@ use crate::r#gen::Lean::Data::Position::{
     runtime_initialize_Lean_Data_Position,
 };
 use crate::r#gen::Lean::Expr::{l_Lean_mkAppN, l_Lean_mkConst, l_Lean_mkNatLit};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
-};
 static mut l_Lean_instInhabitedDeclarationRange_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

@@ -1,14 +1,12 @@
 // Lean compiler output
 // Module: Init.System.Promise
 // Imports: Init.System.IO
+use crate::ffi::{
+    lean_io_get_task_state, lean_io_promise_new, lean_io_promise_resolve,
+    lean_io_promise_result_opt, lean_option_get_or_block, lean_task_map,
+};
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
-};
-use crate::ffi::lean_task_map;
-use crate::ffi::lean_io_get_task_state;
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-    lean_option_get_or_block,
 };
 pub static mut l___private_Init_System_Promise_0__IO_PromisePointed: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();

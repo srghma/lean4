@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Build.Context
 // Imports: Lake.Config.Cache Lake.Config.Context Lake.Build.Job.Basic
+use crate::ffi::lean_st_mk_ref;
 use crate::r#gen::Lake::Build::Job::Basic::{
     initialize_Lake_Build_Job_Basic, runtime_initialize_Lake_Build_Job_Basic,
 };
@@ -11,7 +12,6 @@ use crate::r#gen::Lake::Config::Context::{
     initialize_Lake_Config_Context, runtime_initialize_Lake_Config_Context,
 };
 use crate::r#gen::Lake::Util::Log::l_Lake_instDecidableEqVerbosity;
-use crate::ffi::lean_st_mk_ref;
 pub static l_Lake_mkJobQueue___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

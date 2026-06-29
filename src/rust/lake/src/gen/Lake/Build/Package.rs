@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lake.Build.Package
 // Imports: Lake.Config.FacetConfig Lake.Build.Job.Monad Lake.Build.Infos Lake.Util.Git Lake.Util.Url Lake.Build.Common Lake.Build.Targets Lake.Build.Job.Register Lake.Reservoir
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_io_metadata, lean_io_mono_ms_now,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_nat_to_int,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_hash,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_task_pure, lean_uint64_dec_eq,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::String::FindPos::l_String_Slice_Pos_prevn;
 use crate::r#gen::Init::Data::ToString::Basic::l_instToStringBool___lam__0___boxed;
 use crate::r#gen::Init::Data::ToString::Name::{
@@ -74,28 +85,6 @@ use crate::r#gen::Lake::Util::Url::{
 use crate::r#gen::Lean::Data::Json::FromToJson::Basic::l_Lean_instToJsonBool___lam__0___boxed;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_compress;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
-use crate::ffi::lean_task_pure;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
-    lean_uint64_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_io_metadata, lean_io_mono_ms_now};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lake_Build_Package_0__Lake_Package_recFetchDeps___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lake_Build_Package_0__Lake_Package_recFetchDeps___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Compiler.Main
 // Imports: Lean.Compiler.LCNF Lean.Compiler.Options
+use crate::ffi::{
+    lean_array_size, lean_array_to_list, lean_array_uget_borrowed, lean_array_uset,
+    lean_float_decLt, lean_float_div, lean_float_sub, lean_io_get_num_heartbeats,
+    lean_io_mono_nanos_now, lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
@@ -36,20 +42,6 @@ use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_TraceResult_toEmoji,
     l_Lean_registerTraceClass, l_Lean_trace_profiler, l_Lean_trace_profiler_threshold,
     l_Lean_trace_profiler_useHeartbeats,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_to_list, lean_mk_empty_array_with_capacity,
-};
-use crate::ffi::{
-    lean_io_get_num_heartbeats, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l___private_Lean_Util_Trace_0__Lean_getResetTraces___at___00Lean_Compiler_compile_spec__4___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Util_Trace_0__Lean_getResetTraces___at___00Lean_Compiler_compile_spec__4___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

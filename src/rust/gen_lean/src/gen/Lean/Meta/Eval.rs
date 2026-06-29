@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Eval
 // Imports: Lean.AddDecl Lean.Meta.Check Lean.Util.CollectLevelParams Lean.Compiler.Options
+use crate::ffi::{
+    lean_array_get_size, lean_array_to_list, lean_array_uget_borrowed, lean_has_compile_error,
+    lean_infer_type, lean_mk_array, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Lean::AddDecl::{
     initialize_Lean_AddDecl, l_Lean_addAndCompile, runtime_initialize_Lean_AddDecl,
 };
@@ -39,16 +44,6 @@ use crate::r#gen::Lean::Util::CollectLevelParams::{
 };
 use crate::r#gen::Lean::Util::FoldConsts::l_Lean_Expr_getUsedConstants;
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
-use crate::ffi::{lean_array_uget_borrowed, lean_mk_array};
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
-use crate::ffi::lean_has_compile_error;
 static mut l_Lean_Elab_throwAbortCommand___at___00Lean_evalConst___at___00Lean_Meta_evalExprCore_spec__4_spec__6___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwAbortCommand___at___00Lean_evalConst___at___00Lean_Meta_evalExprCore_spec__4_spec__6___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Options_set___at___00Lean_Option_set___at___00Lean_Meta_evalExprCore_spec__1_spec__1___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [116, 114, 97, 99, 101, 0]};

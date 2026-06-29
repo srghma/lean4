@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.DvdCnstr
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Init.Data.Int.OfNat Init.Grind.Propagator Lean.Meta.Tactic.Grind.Simp Lean.Meta.Tactic.Grind.Arith.Cutsat.Var Lean.Meta.Tactic.Grind.Arith.Cutsat.Nat Lean.Meta.Tactic.Grind.Arith.Cutsat.Proof Lean.Meta.Tactic.Grind.Arith.Cutsat.Norm Lean.Meta.Tactic.Grind.Arith.Cutsat.CommRing Lean.Meta.NatInstTesters Lean.Meta.Tactic.Grind.PropagatorAttr Init.Data.Nat.Dvd
+use crate::ffi::{
+    lean_int_dec_eq, lean_int_dec_lt, lean_int_ediv, lean_int_emod, lean_int_mul, lean_int_neg,
+    lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::Int::Linear::{
     l_Int_Linear_Expr_norm, l_Int_Linear_Poly_coeff, l_Int_Linear_Poly_combine,
     l_Int_Linear_Poly_div, l_Int_Linear_Poly_gcdCoeffs, l_Int_Linear_Poly_getConst,
@@ -102,14 +107,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_mkEqFalseProof,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_Meta_Grind_Arith_Cutsat_DvdCnstr_norm___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Widget.TaggedText
 // Imports: Lean.Server.Rpc.Basic Init.Data.Array.GetLit Init.Data.String.Length
+use crate::ffi::{
+    lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_pop, lean_array_push,
+    lean_array_set, lean_array_size, lean_array_uget, lean_array_uset, lean_int_add,
+    lean_int_dec_lt, lean_int_sub, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq, lean_string_length,
+    lean_string_posof, lean_string_push, lean_string_pushn, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_next, lean_usize_add, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Except::{
     l_ExceptT_bind, l_ExceptT_instMonad___redArg___lam__1, l_ExceptT_instMonad___redArg___lam__4,
     l_ExceptT_instMonad___redArg___lam__7, l_ExceptT_instMonad___redArg___lam__9, l_ExceptT_map,
@@ -48,28 +58,6 @@ use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
 };
 use crate::r#gen::Lean::Server::Rpc::Basic::{
     initialize_Lean_Server_Rpc_Basic, runtime_initialize_Lean_Server_Rpc_Basic,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_int_add, lean_int_dec_lt, lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_string_posof, lean_string_push, lean_string_pushn, lean_string_utf8_extract,
-    lean_string_utf8_next,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size,
 };
 pub static l_Lean_Widget_instInhabitedTaggedText_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

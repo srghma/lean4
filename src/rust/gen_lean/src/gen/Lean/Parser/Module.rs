@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Parser.Module
 // Imports: Lean.Parser.Module.Syntax Lean.Parser.Module.Syntax Init.While Lean.Parser.Extra
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_get_stdout, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_string_append, lean_string_push, lean_string_utf8_byte_size, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Subarray_get___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Meta::Defs::{
@@ -51,22 +59,6 @@ use crate::r#gen::Lean::Parser::Types::{
 use crate::r#gen::Lean::Syntax::{
     l_Lean_Syntax_getRange_x3f, l_Lean_Syntax_isAntiquot, l_Lean_mkListNode,
 };
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_utf8_byte_size,
-    lean_usize_dec_eq,
-};
-use crate::ffi::lean_get_stdout;
 static mut l_panic___at___00Lean_Parser_Module_updateTokens_spec__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

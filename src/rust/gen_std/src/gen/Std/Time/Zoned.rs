@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.Zoned
 // Imports: Std.Time.Zoned.DateTime Std.Time.Zoned.ZoneRules Std.Time.Zoned.ZonedDateTime Std.Time.Zoned.Database
+use crate::ffi::{
+    lean_get_current_time, lean_int_add, lean_int_mul, lean_int_neg, lean_mk_thunk,
+    lean_nat_to_int, lean_thunk_get_own,
+};
 use crate::r#gen::Std::Time::DateTime::PlainDateTime::{
     l_Std_Time_PlainDateTime_ofWallTime, l_Std_Time_PlainDateTime_toWallTime,
 };
@@ -23,11 +27,6 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
 use crate::r#gen::Std::Time::Zoned::ZonedDateTime::{
     initialize_Std_Time_Zoned_ZonedDateTime, runtime_initialize_Std_Time_Zoned_ZonedDateTime,
 };
-use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
-use crate::ffi::{
-    lean_int_add, lean_int_mul, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::lean_get_current_time;
 static mut l_Std_Time_PlainDateTime_now___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

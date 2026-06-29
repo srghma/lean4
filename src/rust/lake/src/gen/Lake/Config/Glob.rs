@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Config.Glob
 // Imports: Lean.Util.Path Init.Data.ToString.Name Lean.Data.Name
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le,
+    lean_nat_to_int, lean_string_append,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_singleton;
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Data::ToString::Name::{
@@ -18,11 +22,6 @@ use crate::r#gen::Lean::Data::Name::{
 use crate::r#gen::Lean::Util::Path::{
     initialize_Lean_Util_Path, l_Lean_forEachModuleInDir___redArg, l_Lean_modToFilePath,
     runtime_initialize_Lean_Util_Path,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le,
 };
 pub static l_Lake_instInhabitedGlob_default___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

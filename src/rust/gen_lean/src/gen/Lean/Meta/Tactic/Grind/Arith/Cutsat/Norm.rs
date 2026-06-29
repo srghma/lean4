@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.Norm
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Util Lean.Meta.IntInstTesters
+use crate::ffi::{lean_grind_cutsat_mk_var, lean_grind_internalize};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf,
@@ -18,8 +19,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Cutsat_Util,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l_Lean_Meta_Grind_alreadyInternalized___redArg;
-use crate::ffi::lean_grind_cutsat_mk_var;
-use crate::ffi::lean_grind_internalize;
 pub static l_Lean_Meta_Grind_Arith_Cutsat_toLinearExpr___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

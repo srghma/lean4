@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.LooseBVarsS
 // Imports: Lean.Meta.Sym.ReplaceS
+use crate::ffi::{
+    lean_array_get_size, lean_array_uget_borrowed, lean_mk_array, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -29,20 +35,6 @@ use crate::r#gen::Lean::Meta::Sym::ExprPtr::{
 use crate::r#gen::Lean::Meta::Sym::ReplaceS::{
     initialize_Lean_Meta_Sym_ReplaceS, l___private_Lean_Meta_Sym_ReplaceS_0__Lean_Meta_Sym_save,
     runtime_initialize_Lean_Meta_Sym_ReplaceS,
-};
-use crate::ffi::{lean_array_uget_borrowed, lean_mk_array};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint64_mix_hash,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_panic___at___00__private_Lean_Meta_Sym_ReplaceS_0__Lean_Meta_Sym_visit___at___00Lean_Meta_Sym_lowerLooseBVarsS_x27_spec__1_spec__8___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Id_instMonad___lam__0 as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00__private_Lean_Meta_Sym_ReplaceS_0__Lean_Meta_Sym_visit___at___00Lean_Meta_Sym_lowerLooseBVarsS_x27_spec__1_spec__8___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_panic___at___00__private_Lean_Meta_Sym_ReplaceS_0__Lean_Meta_Sym_visit___at___00Lean_Meta_Sym_lowerLooseBVarsS_x27_spec__1_spec__8___closed__0_value) as *mut crate::leanh::LeanObject;

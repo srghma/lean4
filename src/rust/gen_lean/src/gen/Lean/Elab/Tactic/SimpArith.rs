@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.SimpArith
 // Imports: Lean.Elab.Tactic.Simp Lean.Meta.Tactic.TryThis
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_st_ref_get,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_unsetTrailing;
 use crate::r#gen::Init::Prelude::{
@@ -18,12 +22,6 @@ use crate::r#gen::Lean::Meta::Tactic::TryThis::{
     initialize_Lean_Meta_Tactic_TryThis, l_Lean_Meta_Tactic_TryThis_addSuggestions___redArg,
     runtime_initialize_Lean_Meta_Tactic_TryThis,
 };
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_lt,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l___private_Lean_Elab_Tactic_SimpArith_0__Lean_Elab_Tactic_addConfigItem___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [110, 117, 108, 108, 0]};
 static mut l___private_Lean_Elab_Tactic_SimpArith_0__Lean_Elab_Tactic_addConfigItem___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.DTreeMap.Internal.Zipper
 // Imports: Std.Data.Iterators.Lemmas.Producers.Slice Init.Data.Slice Std.Data.DTreeMap.Internal.Lemmas Init.Data.Iterators.Combinators.FilterMap Init.Data.Iterators.Lemmas.Combinators.FilterMap Init.Data.Iterators.Lemmas.Consumers.Collect Init.Data.Iterators.Lemmas.Consumers.Monadic.Collect Init.Data.List.Pairwise Init.Data.List.Sublist Init.Data.List.TakeDrop Init.Data.Slice.InternalLemmas
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Data::Iterators::Combinators::FilterMap::{
     initialize_Init_Data_Iterators_Combinators_FilterMap,
     runtime_initialize_Init_Data_Iterators_Combinators_FilterMap,
@@ -42,7 +43,6 @@ use crate::r#gen::Std::Data::Iterators::Lemmas::Producers::Slice::{
     initialize_Std_Data_Iterators_Lemmas_Producers_Slice,
     runtime_initialize_Std_Data_Iterators_Lemmas_Producers_Slice,
 };
-use crate::ffi::lean_nat_add;
 pub static l_Std_DTreeMap_Internal_instIteratorZipperIdSigma___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

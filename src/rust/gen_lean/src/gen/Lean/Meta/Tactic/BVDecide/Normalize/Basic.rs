@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize.Basic
 // Imports: Lean.Meta.Tactic.BVDecide.Attr Std.Tactic.BVDecide.Syntax
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
+    lean_float_decLt, lean_float_div, lean_float_sub, lean_io_get_num_heartbeats,
+    lean_io_mono_nanos_now, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_div,
+    lean_nat_mul, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Basic::l_instMonadControlTOfPure___redArg;
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___redArg, l_StateRefT_x27_instMonadFunctor___aux__1___boxed,
@@ -63,20 +70,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 };
 use crate::r#gen::Std::Tactic::BVDecide::Syntax::{
     initialize_Std_Tactic_BVDecide_Syntax, runtime_initialize_Std_Tactic_BVDecide_Syntax,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_nat_div, lean_nat_mul,
-};
-use crate::ffi::{
-    lean_io_get_num_heartbeats, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Meta_Tactic_BVDecide_Normalize_PreProcessM_checkRewritten___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_instBEqFVarId_beq___boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 0, m_objs: [] };
 static mut l_Lean_Meta_Tactic_BVDecide_Normalize_PreProcessM_checkRewritten___redArg___closed__0:

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.GeneralizeVars
 // Imports: Lean.Meta.Basic Lean.Util.CollectFVars
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Expr::{
     l_Lean_BinderInfo_isInstImplicit, l_Lean_Expr_fvarId_x21, l_Lean_Expr_hasFVar,
@@ -21,20 +27,6 @@ use crate::r#gen::Lean::Util::CollectFVars::{
     initialize_Lean_Util_CollectFVars, l_Lean_collectFVars,
     runtime_initialize_Lean_Util_CollectFVars,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 static mut l___private_Lean_Meta_GeneralizeVars_0__Lean_Meta_mkGeneralizationForbiddenSet_visit___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_GeneralizeVars_0__Lean_Meta_mkGeneralizationForbiddenSet_visit___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Meta_GeneralizeVars_0__Lean_Meta_mkGeneralizationForbiddenSet_visit___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

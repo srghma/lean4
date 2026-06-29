@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.MonadScope
 // Imports: Lean.Compiler.LCNF.Basic
+use crate::ffi::{lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_of_nat};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -14,10 +15,6 @@ use crate::r#gen::Lean::Compiler::LCNF::Basic::{
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl___boxed;
 use crate::r#gen::Lean::Expr::l_Lean_FVarIdSet_insert;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_contains___redArg;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
-};
 pub static l_Lean_Compiler_LCNF_instMonadScopeScopeTOfMonad___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

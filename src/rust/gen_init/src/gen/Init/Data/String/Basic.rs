@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Init.Data.String.Basic
 // Imports: Init.Data.String.Decode Init.Data.String.Defs Init.Data.ByteArray.Lemmas Init.Data.Char.Lemmas Init.Data.Char.Basic Init.ByCases Init.Data.Array.Bootstrap Init.Data.Array.Lemmas Init.Data.List.Nat.TakeDrop Init.Data.List.Sublist Init.Data.List.TakeDrop Init.Data.Option.Lemmas Init.Omega
+use crate::ffi::{
+    lean_array_push, lean_byte_array_fget, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_data,
+    lean_string_dec_lt, lean_string_from_utf8_unchecked, lean_string_get_byte_fast,
+    lean_string_is_valid_pos, lean_string_to_utf8, lean_string_utf8_at_end,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_bang, lean_string_utf8_get_fast, lean_string_utf8_get_opt,
+    lean_string_utf8_next, lean_string_utf8_next_fast, lean_string_utf8_prev,
+    lean_string_validate_utf8, lean_uint8_dec_eq, lean_uint8_land, lean_uint8_to_uint32,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt, lean_uint32_lor,
+    lean_uint32_shift_left,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Bootstrap::{
     initialize_Init_Data_Array_Bootstrap, runtime_initialize_Init_Data_Array_Bootstrap,
@@ -40,24 +52,6 @@ use crate::r#gen::Init::Data::String::Defs::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{l_Char_utf8Size, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_string_data, lean_string_dec_lt, lean_string_is_valid_pos, lean_string_utf8_at_end,
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_bang,
-    lean_string_utf8_get_fast, lean_string_utf8_get_opt, lean_string_utf8_next,
-    lean_string_utf8_next_fast, lean_string_utf8_prev, lean_string_validate_utf8,
-};
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_uint8_land, lean_uint32_lor, lean_uint32_shift_left,
-};
-use crate::ffi::lean_uint8_to_uint32;
-use crate::ffi::{
-    lean_array_push, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_from_utf8_unchecked,
-    lean_string_to_utf8, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_uint32_dec_lt,
-};
 pub static l_ByteArray_utf8Decode_x3f___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

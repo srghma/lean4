@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Data.DHashMap.Internal.Model
 // Imports: Init.Data.Array.TakeDrop Std.Data.DHashMap.Basic Std.Data.DHashMap.Internal.Defs Std.Data.DHashMap.Internal.HashesTo Std.Data.DHashMap.Internal.AssocList.Lemmas Init.Data.Array.Bootstrap Init.Data.UInt.Lemmas
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_nat_sub, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Basic::l_instForInOfForIn_x27___redArg___lam__1;
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
@@ -56,19 +62,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::DHashMap::Internal::HashesTo::{
     initialize_Std_Data_DHashMap_Internal_HashesTo,
     runtime_initialize_Std_Data_DHashMap_Internal_HashesTo,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
-    lean_nat_mul, lean_nat_sub, lean_usize_dec_eq,
 };
 pub static l_Std_DHashMap_Internal_Raw_u2080_get_x21_u2098___redArg___closed__0_value:
     crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject {

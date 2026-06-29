@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.NatTable
 // Imports: Lean.Meta.Basic Lean.Meta.InferType Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_shiftr, lean_nat_sub, lean_panic_fn_borrowed,
+};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -11,11 +15,6 @@ use crate::r#gen::Lean::Meta::Basic::{
 };
 use crate::r#gen::Lean::Meta::InferType::{
     initialize_Lean_Meta_InferType, l_Lean_Meta_getLevel, runtime_initialize_Lean_Meta_InferType,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_sub, lean_panic_fn_borrowed,
 };
 pub static l___private_Lean_Meta_NatTable_0__mkNatLookupTable___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

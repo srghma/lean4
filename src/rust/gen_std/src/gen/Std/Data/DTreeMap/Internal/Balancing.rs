@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Data.DTreeMap.Internal.Balancing
 // Imports: Init.Data.Ord.Basic Std.Data.DTreeMap.Internal.Balanced Init.ByCases Init.Data.Nat.Lemmas Init.Data.Nat.Simproc Init.Omega
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
@@ -21,10 +25,6 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Balanced::{
     initialize_Std_Data_DTreeMap_Internal_Balanced,
     runtime_initialize_Std_Data_DTreeMap_Internal_Balanced,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed,
 };
 pub static l_Std_DTreeMap_Internal_Impl_tacticTree__tac___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {

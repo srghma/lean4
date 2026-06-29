@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.IndependentOf
 // Imports: Lean.Meta.CollectMVars Lean.Meta.Tactic.Util
+use crate::ffi::{
+    lean_array_get_size, lean_array_uget_borrowed, lean_infer_type, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_hasExprMVar, l_Lean_Expr_hasMVar, l_Lean_Expr_isProp, l_Lean_instBEqMVarId_beq,
     l_Lean_instHashableMVarId_hash,
@@ -15,16 +20,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
     runtime_initialize_Lean_Meta_Tactic_Util,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::lean_array_get_size;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub unsafe fn l_Lean_instantiateMVars___at___00Lean_MVarId_isIndependentOf_spec__0___redArg(
     mut v_e_276_: *mut crate::leanh::LeanObject,
     mut v___y_277_: *mut crate::leanh::LeanObject,

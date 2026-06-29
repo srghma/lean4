@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.String.Lemmas.Pattern.String.ForwardSearcher
 // Imports: Init.Data.String.Lemmas.Pattern.String.Basic Init.Data.String.Pattern.String Init.Data.String.Slice Init.Data.String.Search Init.Data.String.Slice Init.Data.String.Search Init.Data.String.Pattern.String Init.Data.String.Lemmas.IsEmpty Init.Data.Vector.Lemmas Init.Data.Iterators.Lemmas.Basic Init.Data.Iterators.Lemmas.Consumers.Collect Init.Data.String.Lemmas.Basic Init.Data.String.OrderInstances
+use crate::ffi::{
+    lean_byte_array_fget, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_sub, lean_uint8_dec_eq,
+};
 use crate::r#gen::Init::Data::Iterators::Lemmas::Basic::{
     initialize_Init_Data_Iterators_Lemmas_Basic,
     runtime_initialize_Init_Data_Iterators_Lemmas_Basic,
@@ -34,11 +38,6 @@ use crate::r#gen::Init::Data::String::Slice::{
 };
 use crate::r#gen::Init::Data::Vector::Lemmas::{
     initialize_Init_Data_Vector_Lemmas, runtime_initialize_Init_Data_Vector_Lemmas,
-};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub,
-    lean_uint8_dec_eq,
 };
 pub unsafe fn l___private_Init_Data_String_Lemmas_Pattern_String_ForwardSearcher_0__String_Slice_Pattern_Model_ForwardSliceSearcher_instDecidablePartialMatch___lam__0(
     mut v_pat_114_: *mut crate::leanh::LeanObject,

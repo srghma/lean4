@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Internal.Assignment
 // Imports: Std.Tactic.BVDecide.LRAT.Internal.Entails Std.Tactic.BVDecide.LRAT.Internal.PosFin Init.Grind
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Entails::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_Entails,
@@ -10,7 +11,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::PosFin::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_PosFin,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_PosFin,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static mut l_Std_Tactic_BVDecide_LRAT_Internal_instInhabitedAssignment_default: u8 = 0;
 pub static mut l_Std_Tactic_BVDecide_LRAT_Internal_instInhabitedAssignment: u8 = 0;
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_instBEqAssignment___closed__0_value:

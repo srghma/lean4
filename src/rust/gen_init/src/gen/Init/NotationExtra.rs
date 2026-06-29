@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Init.NotationExtra
 // Imports: Init.Conv Init.GetElem Init.Meta.Defs
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Conv::{initialize_Init_Conv, runtime_initialize_Init_Conv};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_Array_reverse___redArg, l_Array_zip___redArg,
@@ -21,18 +27,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4,
     l_Lean_Syntax_node5, l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope,
     l_Lean_extractMacroScopes, l_Lean_mkAtom, l_String_toRawSubstring_x27,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
 };
 pub static l_Lean_unbracketedExplicitBinders___closed__0_value: crate::leanh::LeanStringObject<27> =
     crate::leanh::LeanStringObject {

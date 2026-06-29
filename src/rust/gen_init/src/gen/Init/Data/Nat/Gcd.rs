@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Gcd
 // Imports: Init.NotationExtra Init.Data.Nat.Div.Basic Init.Data.Nat.Dvd Init.RCases Init.WFTactics
+use crate::ffi::{lean_nat_dec_eq, lean_nat_div, lean_nat_gcd};
 use crate::r#gen::Init::Data::Nat::Div::Basic::{
     initialize_Init_Data_Nat_Div_Basic, runtime_initialize_Init_Data_Nat_Div_Basic,
 };
@@ -12,8 +13,6 @@ use crate::r#gen::Init::NotationExtra::{
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_div};
 pub unsafe fn l_Nat_gcd___boxed(
     mut v_m_31_: *mut crate::leanh::LeanObject,
     mut v_n_32_: *mut crate::leanh::LeanObject,

@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.ToString.Name
 // Imports: Init.Data.String.Substring Init.Data.String.TakeDrop Init.Data.String.Search
+use crate::ffi::{
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_get_byte_fast,
+    lean_string_is_valid_pos, lean_string_memcmp, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint8_dec_eq, lean_uint8_dec_le,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_uint8,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Init::Data::String::Defs::l_String_instInhabitedSlice;
@@ -29,19 +36,6 @@ use crate::r#gen::Init::Meta::Defs::{
 };
 use crate::r#gen::Init::Prelude::{l_Lean_Name_hasMacroScopes, l_panic___redArg};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::{
-    lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::lean_uint32_to_uint8;
-use crate::ffi::{
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint8_dec_le,
-    lean_uint32_dec_eq, lean_uint32_dec_le,
-};
 static mut l___private_Init_Data_ToString_Name_0__Lean_Name_needsNoEscapeAsciiRest___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_Data_ToString_Name_0__Lean_Name_needsNoEscapeAsciiRest___closed__0: u8 =
     0;

@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lake.CLI.Main
 // Imports: Lake.Util.Exit Lake.Load.Config Lake.CLI.Error Lake.CLI.Shake Lake.Version Lake.Build.Run Lake.Build.Targets Lake.Build.Target.Fetch Lake.Load.Package Lake.Load.Workspace Lake.Load.Toml Lake.Util.IO Lake.Util.Git Lake.Util.MainM Lake.Util.Cli Lake.CLI.Init Lake.CLI.Help Lake.CLI.Build Lake.CLI.Actions Lake.CLI.Translate Lake.CLI.Serve Lake.CLI.BuiltinLint Init.Data.String.Modify
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_get_stdin, lean_get_stdout, lean_io_process_child_wait,
+    lean_io_process_spawn, lean_io_rename, lean_io_wait, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_memcmp,
+    lean_string_push, lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_List_foldl___at___00Array_appendList_spec__0___redArg,
 };
@@ -175,31 +187,6 @@ use crate::r#gen::Lean::Data::NameMap::Basic::{
 use crate::r#gen::Lean::Data::Options::l_Lean_Options_empty;
 use crate::r#gen::Lean::Setup::l_Lean_instFromJsonModuleHeader_fromJson;
 use crate::r#gen::Lean::Util::Path::l_Lean_searchPathRef;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_uint32_add, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_stdin, lean_get_stdout, lean_io_process_child_wait, lean_io_process_spawn,
-    lean_io_rename, lean_io_wait,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lake_CLI_Main_0__Lake_LakeOptions_getLeanInstall___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

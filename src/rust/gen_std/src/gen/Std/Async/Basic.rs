@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Async.Basic
 // Imports: Init.System.Promise Init.While
+use crate::ffi::{
+    lean_array_size, lean_io_as_task, lean_io_bind_task, lean_io_get_task_state, lean_io_map_task,
+    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt, lean_task_bind,
+    lean_task_get_own, lean_task_map, lean_task_pure,
+};
 use crate::r#gen::Init::Control::Basic::l_Functor_mapRev___redArg;
 use crate::r#gen::Init::Control::Except::{l_Except_map, l_Except_pure};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map;
@@ -17,16 +22,6 @@ use crate::r#gen::Init::System::Promise::{
     runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
-use crate::ffi::{
-    lean_task_bind, lean_task_get_own, lean_task_map, lean_task_pure,
-};
-use crate::ffi::lean_array_size;
-use crate::ffi::{
-    lean_io_as_task, lean_io_bind_task, lean_io_get_task_state, lean_io_map_task,
-};
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
 pub static l_Std_Async_instMonadAwaitExceptTOfMonad___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

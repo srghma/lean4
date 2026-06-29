@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.Types Lean.Meta.Tactic.Grind.Arith.CommRing.RingM
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_nat_dec_lt, lean_st_ref_get,
+};
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::Meta::Sym::Canon::l_Lean_Meta_Sym_canon;
 use crate::r#gen::Lean::Meta::Sym::SymM::l_Lean_Meta_Sym_shareCommon___redArg;
@@ -19,11 +22,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg,
     l_Lean_Meta_Grind_SolverExtension_getState___redArg,
 };
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_dec_lt,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_Linear_LinearM_getStruct___closed__0_value:
     crate::leanh::LeanStringObject<45> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

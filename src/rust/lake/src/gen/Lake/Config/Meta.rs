@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Config.Meta
 // Imports: Lake.Util.Binder Lake.Config.MetaClasses Lake.Util.Binder Lean.Parser.Command Lake.Util.Name Lean.Parser.Command
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_string_append,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{
@@ -32,17 +38,6 @@ use crate::r#gen::Lake::Util::Name::{
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_getString_x21;
 use crate::r#gen::Lean::Parser::Command::{
     initialize_Lean_Parser_Command, runtime_initialize_Lean_Parser_Command,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lake_configField___closed__0_value: crate::leanh::LeanStringObject<12> =
     crate::leanh::LeanStringObject {

@@ -1,16 +1,14 @@
 // Lean compiler output
 // Module: Lake.Config.Dynlib
 // Imports: Lake.Config.OutFormat
+use crate::ffi::{
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_to_int, lean_string_length,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::System::FilePath::l_System_FilePath_parent;
 use crate::r#gen::Lake::Config::OutFormat::{
     initialize_Lake_Config_OutFormat, runtime_initialize_Lake_Config_OutFormat,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq,
 };
 pub static l_Lake_instInhabitedDynlib_default___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {

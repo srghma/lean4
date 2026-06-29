@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Control.EState
 // Imports: Init.Data.ToString.Basic Init.Control.State
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Control::State::{
     initialize_Init_Control_State, runtime_initialize_Init_Control_State,
 };
@@ -8,7 +9,6 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
-use crate::ffi::lean_string_append;
 pub static l_EStateM_instToStringResult___redArg___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.CommRing
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Lean.Meta.Tactic.Grind.Arith.CommRing.RingId Lean.Meta.Tactic.Grind.Simp Lean.Meta.Tactic.Grind.Arith.Cutsat.Util Lean.Meta.Tactic.Grind.Arith.Cutsat.Var Lean.Meta.Tactic.Grind.Arith.CommRing.Reify Lean.Meta.Tactic.Grind.Arith.CommRing.DenoteExpr Lean.Meta.Tactic.Grind.Arith.CommRing.SafePoly
+use crate::ffi::{
+    lean_grind_internalize, lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::Int::Linear::l_Int_Linear_instBEqPoly_beq;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
@@ -68,14 +73,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_getGeneration___redArg,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_grind_internalize;
 pub static l_Int_Linear_Poly_isNonlinear___redArg___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

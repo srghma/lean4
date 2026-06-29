@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.MBTC
 // Imports: Lean.Meta.Tactic.Grind.Types Lean.Meta.Tactic.Grind.MBTC Lean.Meta.Tactic.Grind.Arith.ModelUtil Lean.Meta.Tactic.Grind.Arith.Linear.Model Lean.Meta.Tactic.Grind.Arith.Linear.LinearM
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_nat_add, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_uint64_to_usize,
+    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Rat::Basic::{
     l_Rat_div, l_Rat_neg, l_Rat_ofInt, l_instDecidableEqRat_decEq, l_mkRat,
 };
@@ -38,15 +44,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types,
     l_Lean_Meta_Grind_SolverExtension_hasTermAtRoot___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l___private_Lean_Meta_Tactic_Grind_Arith_Linear_MBTC_0__Lean_Meta_Grind_Arith_Linear_toRatValue_x3f___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [90, 101, 114, 111, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Linear_MBTC_0__Lean_Meta_Grind_Arith_Linear_toRatValue_x3f___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Grind_Arith_Linear_MBTC_0__Lean_Meta_Grind_Arith_Linear_toRatValue_x3f___closed__0_value) as *mut crate::leanh::LeanObject;

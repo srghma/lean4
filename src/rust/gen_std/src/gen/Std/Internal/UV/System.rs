@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Std.Internal.UV.System
 // Imports: Init.System.Promise Init.Data.SInt Std.Net
+use crate::ffi::{
+    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_to_int, lean_string_length,
+    lean_uint64_of_nat, lean_uint64_to_nat, lean_uv_chdir, lean_uv_cpu_info, lean_uv_cwd,
+    lean_uv_exepath, lean_uv_get_available_memory, lean_uv_get_constrained_memory,
+    lean_uv_get_free_memory, lean_uv_get_process_title, lean_uv_get_total_memory,
+    lean_uv_getrusage, lean_uv_hrtime, lean_uv_os_environ, lean_uv_os_get_group,
+    lean_uv_os_get_passwd, lean_uv_os_getenv, lean_uv_os_gethostname, lean_uv_os_getpid,
+    lean_uv_os_getppid, lean_uv_os_getpriority, lean_uv_os_homedir, lean_uv_os_setenv,
+    lean_uv_os_setpriority, lean_uv_os_tmpdir, lean_uv_os_uname, lean_uv_os_unsetenv,
+    lean_uv_random, lean_uv_set_process_title, lean_uv_uptime,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::Data::SInt::{
@@ -10,21 +21,6 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_uint64_to_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_uint64_of_nat,
-};
-use crate::ffi::{
-    lean_uv_chdir, lean_uv_cpu_info, lean_uv_cwd, lean_uv_exepath, lean_uv_get_available_memory,
-    lean_uv_get_constrained_memory, lean_uv_get_free_memory, lean_uv_get_process_title,
-    lean_uv_get_total_memory, lean_uv_getrusage, lean_uv_hrtime, lean_uv_os_environ,
-    lean_uv_os_get_group, lean_uv_os_get_passwd, lean_uv_os_getenv, lean_uv_os_gethostname,
-    lean_uv_os_getpid, lean_uv_os_getppid, lean_uv_os_getpriority, lean_uv_os_homedir,
-    lean_uv_os_setenv, lean_uv_os_setpriority, lean_uv_os_tmpdir, lean_uv_os_uname,
-    lean_uv_os_unsetenv, lean_uv_random, lean_uv_set_process_title, lean_uv_uptime,
-};
 pub static l_Std_Internal_UV_System_instReprRUsage_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

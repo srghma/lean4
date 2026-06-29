@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.Internal.VCGen.Entails
 // Imports: Lean.Elab.Tactic.Do.Internal.VCGen.Context Lean.Elab.Tactic.Do.Internal.VCGen.Util Lean.Meta.Sym.Util
+use crate::ffi::{
+    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_st_ref_get, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr4;
 use crate::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Context::{
@@ -35,11 +39,6 @@ use crate::r#gen::Lean::Meta::Sym::Util::{
 };
 use crate::r#gen::Lean::Meta::Tactic::Replace::l_Lean_MVarId_replaceTargetDefEq;
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Elab_Tactic_Do_Internal_VCGen_tripleOfWP___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<25> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

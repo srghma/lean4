@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Http.Protocol.H1.Event
 // Imports: Std.Time Std.Http.Data Std.Http.Internal Std.Http.Protocol.H1.Parser Std.Http.Protocol.H1.Config Std.Http.Protocol.H1.Message Std.Http.Protocol.H1.Error
+use crate::ffi::{lean_nat_dec_le, lean_nat_to_int};
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Std::Http::Data::{initialize_Std_Http_Data, runtime_initialize_Std_Http_Data};
 use crate::r#gen::Std::Http::Internal::{
@@ -21,8 +22,6 @@ use crate::r#gen::Std::Http::Protocol::H1::Parser::{
     initialize_Std_Http_Protocol_H1_Parser, runtime_initialize_Std_Http_Protocol_H1_Parser,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_dec_le;
 pub static l_Std_Http_Protocol_H1_instInhabitedEvent_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Time.Date.Unit.Month
 // Imports: Std.Time.Date.Unit.Day Init.Data.Fin.Lemmas
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_push, lean_int_add,
+    lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div, lean_int_ediv, lean_int_emod,
+    lean_int_mul, lean_int_neg, lean_int_sub, lean_mk_empty_array_with_capacity, lean_nat_abs,
+    lean_nat_dec_le, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Fin::Lemmas::{
     initialize_Init_Data_Fin_Lemmas, runtime_initialize_Init_Data_Fin_Lemmas,
 };
@@ -15,17 +21,6 @@ use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Time::Date::Unit::Day::{
     initialize_Std_Time_Date_Unit_Day, l_Std_Time_Day_instInhabitedOffset,
     runtime_initialize_Std_Time_Date_Unit_Day,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_ediv, lean_int_emod,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_le,
 };
 static mut l_Std_Time_Month_instReprOrdinal___aux__1___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

@@ -1,11 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.RArray
 // Imports: Init.GetElem Init.PropLemmas
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
 use crate::r#gen::Init::GetElem::{initialize_Init_GetElem, runtime_initialize_Init_GetElem};
 use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
-use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
 pub static l_Lean_instGetElemRArrayNatTrue___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

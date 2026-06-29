@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.ToString
 // Imports: Init.Data.Repr Init.Data.Char.Basic Init.Data.ToString.Basic Init.Data.String.Basic Init.Data.String.Length Init.NotationExtra Init.Data.Repr Init.Omega Init.RCases Init.Data.Nat.Lemmas Init.Data.Nat.Bitwise Init.Data.Nat.Simproc Init.WFTactics Init.Data.Char.Lemmas Init.Data.Nat.Div.Lemmas
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_mul, lean_nat_sub, lean_uint32_to_nat};
 use crate::r#gen::Init::Data::Char::Basic::{
     initialize_Init_Data_Char_Basic, runtime_initialize_Init_Data_Char_Basic,
 };
@@ -37,9 +38,6 @@ use crate::r#gen::Init::NotationExtra::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_mul, lean_nat_sub, lean_uint32_to_nat,
-};
 pub unsafe fn l___private_Init_Data_Nat_ToString_0__Nat_toDigitsCore_match__1_splitter___redArg(
     mut v_x_61_: *mut crate::leanh::LeanObject,
     mut v_x_62_: *mut crate::leanh::LeanObject,

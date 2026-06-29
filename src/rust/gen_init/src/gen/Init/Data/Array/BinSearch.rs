@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Array.BinSearch
 // Imports: Init.Data.Array.Basic Init.Data.Bool Init.Omega Init.WFTactics
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_array_push, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -17,12 +21,6 @@ use crate::r#gen::Init::Data::Option::Basic::l_Option_isSome___boxed;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-};
 pub static l_Array_binSearch___redArg___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

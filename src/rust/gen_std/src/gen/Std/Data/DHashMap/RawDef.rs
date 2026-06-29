@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Std.Data.DHashMap.RawDef
 // Imports: Std.Data.DHashMap.Internal.AssocList.Basic Init.Data.Array.Basic
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -16,11 +19,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::AssocList::Basic::{
     l___private_Std_Data_DHashMap_Internal_AssocList_Basic_0__Std_DHashMap_Internal_AssocList_forInStep_go,
     l_Std_DHashMap_Internal_AssocList_foldlM___redArg,
     runtime_initialize_Std_Data_DHashMap_Internal_AssocList_Basic,
-};
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Std_DHashMap_Raw_fold___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

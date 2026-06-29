@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Basic
 // Imports: Init.SimpLemmas Init.Data.NeZero Init.Grind.Tactics
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub};
 use crate::r#gen::Init::Data::NeZero::{
     initialize_Init_Data_NeZero, runtime_initialize_Init_Data_NeZero,
 };
@@ -9,9 +10,6 @@ use crate::r#gen::Init::Grind::Tactics::{
 };
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,
-};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub,
 };
 pub static mut l_Nat_instTransLt: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Nat_instTransLe: *mut crate::leanh::LeanObject = core::ptr::null_mut();

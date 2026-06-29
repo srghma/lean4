@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Compiler.FFI
 // Imports: Init.System.FilePath Init.Data.String.Search
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_push, lean_array_size, lean_array_uget, lean_array_uset,
+    lean_get_internal_linker_flags, lean_get_leanc_extra_flags, lean_get_leanc_internal_flags,
+    lean_get_linker_flags, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_append, lean_string_get_byte_fast,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint8_dec_eq, lean_uint32_dec_eq, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::String::Basic::{l_String_Slice_pos_x21, l_String_Slice_slice_x21};
 use crate::r#gen::Init::Data::String::FindPos::l_String_Slice_posGE___redArg;
@@ -13,24 +22,6 @@ use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::System::FilePath::{
     initialize_Init_System_FilePath, l_System_FilePath_join,
     runtime_initialize_Init_System_FilePath,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_uint32_dec_eq,
-};
-use crate::ffi::{
-    lean_get_internal_linker_flags, lean_get_leanc_extra_flags, lean_get_leanc_internal_flags,
-    lean_get_linker_flags,
 };
 pub static l_String_Slice_splitToSubslice___at___00__private_Lean_Compiler_FFI_0__Lean_Compiler_FFI_flagsStringToArray_spec__0___closed__0_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l_String_Slice_splitToSubslice___at___00__private_Lean_Compiler_FFI_0__Lean_Compiler_FFI_flagsStringToArray_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_String_Slice_splitToSubslice___at___00__private_Lean_Compiler_FFI_0__Lean_Compiler_FFI_flagsStringToArray_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;

@@ -1,6 +1,20 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.SInt
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Int Init.Data.SInt.Lemmas
+use crate::ffi::{
+    lean_array_push, lean_int_dec_le, lean_int_neg, lean_int8_add, lean_int8_dec_eq,
+    lean_int8_dec_le, lean_int8_dec_lt, lean_int8_div, lean_int8_mod, lean_int8_mul, lean_int8_neg,
+    lean_int8_of_int, lean_int8_of_nat, lean_int8_sub, lean_int8_to_int, lean_int16_add,
+    lean_int16_dec_eq, lean_int16_dec_le, lean_int16_dec_lt, lean_int16_div, lean_int16_mod,
+    lean_int16_mul, lean_int16_neg, lean_int16_of_int, lean_int16_of_nat, lean_int16_sub,
+    lean_int16_to_int, lean_int32_add, lean_int32_dec_eq, lean_int32_dec_le, lean_int32_dec_lt,
+    lean_int32_div, lean_int32_mod, lean_int32_mul, lean_int32_neg, lean_int32_of_int,
+    lean_int32_of_nat, lean_int32_sub, lean_int32_to_int, lean_int64_add, lean_int64_dec_eq,
+    lean_int64_dec_le, lean_int64_dec_lt, lean_int64_div, lean_int64_mod, lean_int64_mul,
+    lean_int64_neg, lean_int64_of_int, lean_int64_of_nat, lean_int64_sub, lean_int64_to_int_sint,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int,
+    lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::SInt::Lemmas::{
     initialize_Init_Data_SInt_Lemmas, runtime_initialize_Init_Data_SInt_Lemmas,
@@ -42,27 +56,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
 use crate::r#gen::Lean::ToExpr::{
     l_Lean_instToExprInt_mkNat, l_Lean_instToExprInt8_mkNat, l_Lean_instToExprInt16_mkNat,
     l_Lean_instToExprInt32_mkNat, l_Lean_instToExprInt64_mkNat,
-};
-use crate::ffi::{
-    lean_int_dec_le, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int8_add, lean_int8_dec_eq, lean_int8_dec_le, lean_int8_dec_lt, lean_int8_div,
-    lean_int8_mod, lean_int8_mul, lean_int8_neg, lean_int8_of_int, lean_int8_of_nat, lean_int8_sub,
-    lean_int8_to_int, lean_int16_add, lean_int16_dec_eq, lean_int16_dec_le, lean_int16_dec_lt,
-    lean_int16_div, lean_int16_mod, lean_int16_mul, lean_int16_neg, lean_int16_of_int,
-    lean_int16_of_nat, lean_int16_sub, lean_int16_to_int, lean_int32_add, lean_int32_dec_eq,
-    lean_int32_dec_le, lean_int32_dec_lt, lean_int32_div, lean_int32_mod, lean_int32_mul,
-    lean_int32_neg, lean_int32_of_int, lean_int32_of_nat, lean_int32_sub, lean_int32_to_int,
-    lean_int64_add, lean_int64_dec_eq, lean_int64_dec_le, lean_int64_dec_lt, lean_int64_div,
-    lean_int64_mod, lean_int64_mul, lean_int64_neg, lean_int64_of_int, lean_int64_of_nat,
-    lean_int64_sub, lean_int64_to_int_sint,
-};
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_commandDeclare__sint__simprocs___00__closed__0_value: crate::leanh::LeanStringObject<
     30,

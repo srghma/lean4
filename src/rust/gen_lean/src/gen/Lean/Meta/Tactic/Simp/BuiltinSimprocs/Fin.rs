@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Fin
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat Init.Omega
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod,
+    lean_nat_sub, lean_nat_to_int, lean_string_length,
+};
 use crate::r#gen::Init::Data::Fin::Basic::{
     l_Fin_add, l_Fin_land, l_Fin_lor, l_Fin_mul, l_Fin_shiftLeft, l_Fin_shiftRight, l_Fin_sub,
     l_Fin_succ___redArg, l_Fin_xor,
@@ -27,12 +31,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::Util::l_Lean_Meta_S
 use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_addSEvalprocBuiltinAttr, l_Lean_Meta_Simp_addSimprocBuiltinAttr,
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod,
-    lean_nat_sub,
 };
 pub static l_Fin_instReprValue_repr___redArg___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {

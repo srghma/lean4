@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Grind.AC
 // Imports: Init.Data.Bool Init.LawfulBEqTactics Init.Data.RArray Init.Classical
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_nat_to_int};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -13,8 +14,6 @@ use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::LawfulBEqTactics::{
     initialize_Init_LawfulBEqTactics, runtime_initialize_Init_LawfulBEqTactics,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub};
 pub static l_Lean_Grind_AC_instInhabitedExpr_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lake.CLI.Translate.Toml
 // Imports: Lake.Toml.Encode Lake.Config.Package Lake.Config.LeanLibConfig Lake.Config.LeanExeConfig Lake.Config.InputFileConfig Lake.Config.PackageConfig
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_nat_to_int, lean_string_append, lean_string_dec_eq, lean_string_intercalate,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -109,21 +116,6 @@ use crate::r#gen::Lake::Util::Version::{
     l_Lake_StdVer_toString, l_Lake_instDecidableEqStdVer_decEq,
 };
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl___boxed;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_usize_dec_eq,
-};
 pub static l___private_Lake_CLI_Translate_Toml_0__Lake_instBEqFilePath__lake___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

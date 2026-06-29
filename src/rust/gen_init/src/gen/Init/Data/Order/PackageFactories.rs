@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Order.PackageFactories
 // Imports: Init.Data.Order.LemmasExtra Init.Data.Order.FactoriesExtra Init.Data.Order.Factories Init.Data.Bool Init.Data.Order.Lemmas
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
 };
@@ -17,7 +18,6 @@ use crate::r#gen::Init::Data::Order::LemmasExtra::{
     initialize_Init_Data_Order_LemmasExtra, runtime_initialize_Init_Data_Order_LemmasExtra,
 };
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_Packages_PreorderOfLEArgs_le___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

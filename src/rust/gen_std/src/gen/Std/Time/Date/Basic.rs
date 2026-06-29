@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Time.Date.Basic
 // Imports: Std.Time.Date.Unit.Basic Std.Time.Date.ValidDate
+use crate::ffi::{lean_int_add, lean_int_div, lean_int_mul, lean_int_sub, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_add___boxed, l_Int_sub___boxed};
 use crate::r#gen::Std::Time::Date::Unit::Basic::{
     initialize_Std_Time_Date_Unit_Basic, runtime_initialize_Std_Time_Date_Unit_Basic,
@@ -8,10 +9,6 @@ use crate::r#gen::Std::Time::Date::Unit::Basic::{
 use crate::r#gen::Std::Time::Date::ValidDate::{
     initialize_Std_Time_Date_ValidDate, runtime_initialize_Std_Time_Date_ValidDate,
 };
-use crate::ffi::{
-    lean_int_add, lean_int_mul, lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::lean_int_div;
 static mut l_Std_Time_Nanosecond_Offset_toDays___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

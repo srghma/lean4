@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.WithGrindTacticM
 // Imports: Lean.Elab.Tactic.Grind.Basic Lean.Elab.Command
+use crate::ffi::{lean_mk_array, lean_st_ref_get};
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Elab::Command::{
     initialize_Lean_Elab_Command, l_Lean_Elab_Command_liftTermElabM___redArg,
@@ -13,8 +14,6 @@ use crate::r#gen::Lean::Elab::Tactic::Grind::Basic::{
 use crate::r#gen::Lean::Meta::Tactic::Grind::Main::{
     l_Lean_Meta_Grind_GrindM_run___redArg, l_Lean_Meta_Grind_mkDefaultParams,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Elab_Command_withGrindTacticM___redArg___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

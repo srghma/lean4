@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Var
 // Imports: Std.Tactic.BVDecide.Bitblast.BVExpr.Basic Std.Sat.AIG.LawfulVecOperator Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_lor, lean_nat_mul,
+    lean_uint64_mix_hash, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Bool::l_Bool_toNat;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Std::Sat::AIG::Basic::{
@@ -14,20 +21,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Basic::{
     l_Std_Tactic_BVDecide_instDecidableEqBVBit___boxed,
     l_Std_Tactic_BVDecide_instHashableBVBit_hash,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
-};
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_lor;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_uint64_mix_hash,
 };
 static mut l_Std_Tactic_BVDecide_BVExpr_bitblast_blastVar_go___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {

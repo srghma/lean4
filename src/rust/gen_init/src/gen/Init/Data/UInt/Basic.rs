@@ -1,41 +1,35 @@
 // Lean compiler output
 // Module: Init.Data.UInt.Basic
 // Imports: Init.Data.BitVec.Basic
+use crate::ffi::{
+    lean_bool_to_uint8, lean_bool_to_uint16, lean_bool_to_uint32, lean_bool_to_uint64,
+    lean_bool_to_usize, lean_int_emod, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_mod, lean_nat_sub, lean_nat_to_int, lean_uint8_add, lean_uint8_complement,
+    lean_uint8_dec_le, lean_uint8_div, lean_uint8_land, lean_uint8_lor, lean_uint8_mod,
+    lean_uint8_mul, lean_uint8_neg, lean_uint8_of_nat, lean_uint8_of_nat_mk, lean_uint8_shift_left,
+    lean_uint8_shift_right, lean_uint8_sub, lean_uint8_to_nat, lean_uint8_to_usize, lean_uint8_xor,
+    lean_uint16_add, lean_uint16_complement, lean_uint16_dec_le, lean_uint16_dec_lt,
+    lean_uint16_div, lean_uint16_land, lean_uint16_lor, lean_uint16_mod, lean_uint16_mul,
+    lean_uint16_neg, lean_uint16_of_nat, lean_uint16_of_nat_mk, lean_uint16_shift_left,
+    lean_uint16_shift_right, lean_uint16_sub, lean_uint16_to_nat, lean_uint16_to_usize,
+    lean_uint16_xor, lean_uint32_complement, lean_uint32_div, lean_uint32_land, lean_uint32_lor,
+    lean_uint32_mod, lean_uint32_mul, lean_uint32_neg, lean_uint32_of_nat, lean_uint32_of_nat_mk,
+    lean_uint32_shift_left, lean_uint32_shift_right, lean_uint32_to_nat, lean_uint32_to_usize,
+    lean_uint32_xor, lean_uint64_add, lean_uint64_complement, lean_uint64_dec_le,
+    lean_uint64_dec_lt, lean_uint64_div, lean_uint64_land, lean_uint64_lor, lean_uint64_mod,
+    lean_uint64_mul, lean_uint64_neg, lean_uint64_of_nat, lean_uint64_of_nat_mk,
+    lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_sub, lean_uint64_to_nat,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_complement, lean_usize_dec_le,
+    lean_usize_div, lean_usize_land, lean_usize_lor, lean_usize_mod, lean_usize_mul,
+    lean_usize_neg, lean_usize_of_nat, lean_usize_of_nat_mk, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_to_nat, lean_usize_to_uint8, lean_usize_to_uint16,
+    lean_usize_to_uint32, lean_usize_to_uint64, lean_usize_xor,
+};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     initialize_Init_Data_BitVec_Basic, runtime_initialize_Init_Data_BitVec_Basic,
 };
 use crate::r#gen::Init::Data::Int::Basic::{l_Int_pow, l_Int_toNat};
 use crate::r#gen::Init::Prelude::{l_BitVec_ofNat, l_System_Platform_numBits};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_int_emod;
-use crate::ffi::{
-    lean_bool_to_uint8, lean_bool_to_uint16, lean_bool_to_uint32, lean_bool_to_uint64,
-    lean_bool_to_usize, lean_uint8_add, lean_uint8_complement, lean_uint8_div, lean_uint8_land,
-    lean_uint8_lor, lean_uint8_mod, lean_uint8_mul, lean_uint8_neg, lean_uint8_shift_left,
-    lean_uint8_shift_right, lean_uint8_sub, lean_uint8_to_usize, lean_uint8_xor, lean_uint16_add,
-    lean_uint16_complement, lean_uint16_dec_le, lean_uint16_dec_lt, lean_uint16_div,
-    lean_uint16_land, lean_uint16_lor, lean_uint16_mod, lean_uint16_mul, lean_uint16_neg,
-    lean_uint16_shift_left, lean_uint16_shift_right, lean_uint16_sub, lean_uint16_to_usize,
-    lean_uint16_xor, lean_uint32_complement, lean_uint32_div, lean_uint32_land, lean_uint32_lor,
-    lean_uint32_mod, lean_uint32_mul, lean_uint32_neg, lean_uint32_shift_left,
-    lean_uint32_shift_right, lean_uint32_to_usize, lean_uint32_xor, lean_uint64_add,
-    lean_uint64_complement, lean_uint64_dec_le, lean_uint64_dec_lt, lean_uint64_div,
-    lean_uint64_land, lean_uint64_lor, lean_uint64_mod, lean_uint64_mul, lean_uint64_neg,
-    lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_sub, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_complement, lean_usize_div, lean_usize_land, lean_usize_lor,
-    lean_usize_mod, lean_usize_mul, lean_usize_neg, lean_usize_of_nat, lean_usize_shift_left,
-    lean_usize_shift_right, lean_usize_to_uint8, lean_usize_to_uint16, lean_usize_to_uint32,
-    lean_usize_to_uint64, lean_usize_xor,
-};
-use crate::ffi::{
-    lean_uint16_of_nat, lean_uint32_of_nat, lean_uint64_of_nat, lean_usize_dec_le,
-};
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
-    lean_uint8_dec_le, lean_uint8_of_nat, lean_uint8_of_nat_mk, lean_uint8_to_nat,
-    lean_uint16_of_nat_mk, lean_uint16_to_nat, lean_uint32_of_nat_mk, lean_uint32_to_nat,
-    lean_uint64_of_nat_mk, lean_uint64_to_nat, lean_usize_of_nat_mk, lean_usize_to_nat,
-};
 static mut l_UInt8_ofInt___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

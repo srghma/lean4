@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Ord.String
 // Imports: Init.Data.Order.Ord Init.Data.String.Basic Init.Data.Char.Lemmas Init.Data.String.Lemmas.StringOrder
+use crate::ffi::lean_string_compare;
 use crate::r#gen::Init::Data::Char::Lemmas::{
     initialize_Init_Data_Char_Lemmas, runtime_initialize_Init_Data_Char_Lemmas,
 };
@@ -14,7 +15,6 @@ use crate::r#gen::Init::Data::String::Lemmas::StringOrder::{
     initialize_Init_Data_String_Lemmas_StringOrder,
     runtime_initialize_Init_Data_String_Lemmas_StringOrder,
 };
-use crate::ffi::lean_string_compare;
 pub static l_String_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

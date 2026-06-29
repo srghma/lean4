@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.ErrorExplanation
 // Imports: Lean.Message Lean.EnvExtension Lean.DocString.Links Lean.Message
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_size,
+    lean_array_mk, lean_array_push, lean_array_to_list, lean_array_uget_borrowed, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_string_append, lean_string_dec_lt, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Array::QSort::Basic::l___private_Init_Data_Array_QSort_Basic_0__Array_qsort_sort;
 use crate::r#gen::Init::Data::ToString::Name::{
@@ -27,18 +33,6 @@ use crate::r#gen::Lean::Message::{
     runtime_initialize_Lean_Message,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_foldl___redArg;
-use crate::ffi::{
-    lean_array_fswap, lean_array_uget_borrowed,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_usize_dec_eq,
-};
 pub static l_Option_fromJson_x3f___at___00Lean_Json_getObjValAs_x3f___at___00Lean_ErrorExplanation_instFromJsonMetadata_fromJson_spec__2_spec__2___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l_Option_fromJson_x3f___at___00Lean_Json_getObjValAs_x3f___at___00Lean_ErrorExplanation_instFromJsonMetadata_fromJson_spec__2_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Option_fromJson_x3f___at___00Lean_Json_getObjValAs_x3f___at___00Lean_ErrorExplanation_instFromJsonMetadata_fromJson_spec__2_spec__2___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_ErrorExplanation_instFromJsonMetadata_fromJson___closed__0_value:

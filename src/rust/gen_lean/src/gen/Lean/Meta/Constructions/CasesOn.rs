@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Meta.Constructions.CasesOn
 // Imports: Init.Data.Range.Basic Lean.Meta.Basic Lean.AddDecl
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_mk, lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
+    lean_expr_instantiate1, lean_float_decLt, lean_float_div, lean_float_sub, lean_infer_type,
+    lean_io_get_num_heartbeats, lean_io_mono_nanos_now, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::List::Basic::{l_List_range, l_List_reverse___redArg};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
@@ -74,26 +83,6 @@ use crate::r#gen::Lean::Util::Trace::{
     l_Lean_registerTraceClass, l_Lean_trace_profiler, l_Lean_trace_profiler_threshold,
     l_Lean_trace_profiler_useHeartbeats,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_get_num_heartbeats, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_instantiate1;
-use crate::ffi::lean_infer_type;
 pub static l___private_Lean_Meta_Constructions_CasesOn_0__Lean_Meta_processMinors___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lean_Meta_Constructions_CasesOn_0__Lean_Meta_processMinors___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Constructions_CasesOn_0__Lean_Meta_processMinors___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_getConstInfoInduct___at___00__private_Lean_Meta_Constructions_CasesOn_0__Lean_Meta_mkCasesOnDecl_spec__0___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [96, 0]};

@@ -1,6 +1,26 @@
 // Lean compiler output
 // Module: Init.Meta.Defs
 // Imports: Init.Prelude Init.Data.Array.Basic Init.MetaTypes Init.Data.Array.GetLit Init.Data.Char.Basic Init.MetaTypes Init.WFTactics
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget_borrowed,
+    lean_array_uset, lean_get_githash, lean_internal_has_llvm_backend, lean_internal_is_stage0,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_mul, lean_nat_pred, lean_nat_sub,
+    lean_nat_to_int, lean_string_any, lean_string_append, lean_string_capitalize,
+    lean_string_contains, lean_string_dec_eq, lean_string_drop, lean_string_dropright,
+    lean_string_front, lean_string_get_byte_fast, lean_string_intercalate, lean_string_isempty,
+    lean_string_isprefixof, lean_string_length, lean_string_nextwhile, lean_string_pos_min,
+    lean_string_pos_sub, lean_string_push, lean_string_trim, lean_string_utf8_at_end,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_next, lean_substring_all, lean_substring_beq, lean_substring_drop,
+    lean_substring_extract, lean_substring_front, lean_substring_get, lean_substring_isempty,
+    lean_substring_prev, lean_substring_takewhile, lean_substring_tostring, lean_uint8_dec_eq,
+    lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
+    lean_uint32_to_uint8, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+    lean_version_get_is_release, lean_version_get_major, lean_version_get_minor,
+    lean_version_get_patch, lean_version_get_special_desc,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -40,37 +60,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_any, lean_string_append, lean_string_capitalize, lean_string_contains,
-    lean_string_drop, lean_string_dropright, lean_string_front, lean_string_get_byte_fast,
-    lean_string_intercalate, lean_string_isempty, lean_string_isprefixof, lean_string_length,
-    lean_string_nextwhile, lean_string_pos_min, lean_string_pos_sub, lean_string_push,
-    lean_string_trim, lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
-    lean_string_utf8_next, lean_substring_all, lean_substring_beq, lean_substring_drop,
-    lean_substring_extract, lean_substring_front, lean_substring_get, lean_substring_isempty,
-    lean_substring_prev, lean_substring_takewhile, lean_substring_tostring,
-};
-use crate::ffi::{
-    lean_uint32_to_uint8, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_get_githash, lean_internal_has_llvm_backend, lean_internal_is_stage0,
-    lean_version_get_is_release, lean_version_get_major, lean_version_get_minor,
-    lean_version_get_patch, lean_version_get_special_desc,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_mul, lean_nat_pred,
-    lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-    lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
-    lean_usize_dec_eq,
-};
 static mut l_Lean_version_major___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

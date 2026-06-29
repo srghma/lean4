@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.SemiringM
 // Imports: Lean.Meta.Tactic.Grind.Arith.CommRing.RingM Lean.Meta.Tactic.Grind.Arith.CommRing.MonadSemiring Lean.Meta.Tactic.Grind.Arith.CommRing.DenoteExpr Lean.Meta.Tactic.Grind.Arith.CommRing.Functions
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_int_dec_lt, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land, lean_usize_mul,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::GetElem::l_outOfBounds___redArg;
 use crate::r#gen::Init::Prelude::l_instInhabitedForall___redArg___lam__0___boxed;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -59,22 +66,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_SolverExtension_markTerm___boxed,
     l_Lean_Meta_Grind_SolverExtension_markTerm___redArg, l_Lean_Meta_Grind_instInhabitedGoalM,
 };
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_CommRing_instMonadCanonSemiringM___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

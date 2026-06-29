@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Std.Internal.UV.Signal
 // Imports: Init.System.Promise Init.Data.SInt Std.Net
+use crate::ffi::{
+    lean_uv_signal_cancel, lean_uv_signal_mk, lean_uv_signal_next, lean_uv_signal_stop,
+};
 use crate::r#gen::Init::Data::SInt::{
     initialize_Init_Data_SInt, runtime_initialize_Init_Data_SInt,
 };
@@ -8,9 +11,6 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::ffi::{
-    lean_uv_signal_cancel, lean_uv_signal_mk, lean_uv_signal_next, lean_uv_signal_stop,
-};
 pub static mut l___private_Std_Internal_UV_Signal_0__Std_Internal_UV_SignalImpl:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn _init_l___private_Std_Internal_UV_Signal_0__Std_Internal_UV_SignalImpl()

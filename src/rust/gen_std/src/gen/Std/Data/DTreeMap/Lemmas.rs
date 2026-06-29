@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.DTreeMap.Lemmas
 // Imports: Std.Data.DTreeMap.Internal.Lemmas Std.Data.DTreeMap.AdditionalOperations Init.Data.Array.Perm Init.Data.List.Pairwise Init.Data.Prod
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 use crate::r#gen::Init::Data::Array::Perm::{
     initialize_Init_Data_Array_Perm, runtime_initialize_Init_Data_Array_Perm,
 };
@@ -19,7 +20,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Lemmas::{
     initialize_Std_Data_DTreeMap_Internal_Lemmas,
     runtime_initialize_Std_Data_DTreeMap_Internal_Lemmas,
 };
-use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_DTreeMap_isSetoid___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

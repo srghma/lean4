@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter.Parenthesizer
 // Imports: Init.Notation Lean.Parser.Extension Lean.Parser.StrInterpolation Lean.ParserCompiler.Attribute Lean.PrettyPrinter.Basic Lean.PrettyPrinter.Delaborator.Options Lean.ExtraModUses
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed, lean_mk_antiquot_parenthesizer,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
+    lean_pretty_printer_parenthesizer_interpret_parser_descr, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_utf8_byte_size, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___redArg, l_StateRefT_x27_instMonadFunctor___aux__1___boxed,
     l_StateRefT_x27_lift___boxed,
@@ -109,26 +120,6 @@ use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
 };
 use crate::r#gen::Std::Data::HashMap::Basic::l_Std_HashMap_instInhabited;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
-    lean_string_utf8_byte_size, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_mk_antiquot_parenthesizer, lean_pretty_printer_parenthesizer_interpret_parser_descr,
-};
 pub static l_Lean_PrettyPrinter_instOrElseParenthesizerM___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

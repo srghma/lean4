@@ -1,9 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.Slice.Basic
 // Imports: Init.Core
+use crate::ffi::lean_array_push;
 use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::lean_array_push;
 pub static l_Std_Slice_Self_eq___autoParam___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

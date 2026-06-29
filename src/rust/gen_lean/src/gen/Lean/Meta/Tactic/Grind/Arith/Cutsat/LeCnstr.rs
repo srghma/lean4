@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.LeCnstr
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.ToInt Init.Data.Int.OfNat Lean.Meta.Tactic.Simp.Arith.Int Lean.Meta.Tactic.Grind.Arith.Cutsat.Var Lean.Meta.Tactic.Grind.Arith.Cutsat.Proof Lean.Meta.Tactic.Grind.Arith.Cutsat.Nat Lean.Meta.Tactic.Grind.Arith.Cutsat.Norm Lean.Meta.Tactic.Grind.Arith.Cutsat.CommRing
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_size, lean_array_uget_borrowed, lean_grind_cutsat_assert_eq, lean_int_dec_eq,
+    lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Int::Linear::{
     l_Int_Linear_Expr_norm, l_Int_Linear_Poly_addConst, l_Int_Linear_Poly_coeff,
     l_Int_Linear_Poly_combine, l_Int_Linear_Poly_div, l_Int_Linear_Poly_isUnsatLe,
@@ -83,26 +92,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Arith::Int::{
     initialize_Lean_Meta_Tactic_Simp_Arith_Int, runtime_initialize_Lean_Meta_Tactic_Simp_Arith_Int,
 };
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_borrowed, lean_array_get_size,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_grind_cutsat_assert_eq;
 static mut l_Lean_addTrace___at___00Lean_Meta_Grind_Arith_Cutsat_LeCnstr_applyEq_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addTrace___at___00Lean_Meta_Grind_Arith_Cutsat_LeCnstr_applyEq_spec__0___redArg___closed__0: f64 = 0.0;
 pub static l_Lean_addTrace___at___00Lean_Meta_Grind_Arith_Cutsat_LeCnstr_applyEq_spec__0___redArg___closed__1_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};

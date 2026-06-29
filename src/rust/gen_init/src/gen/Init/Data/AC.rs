@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.AC
 // Imports: Init.GetElem Init.ByCases Init.PropLemmas
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
@@ -10,8 +11,6 @@ use crate::r#gen::Init::GetElem::{
 use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
 pub static l_Lean_Data_AC_instInhabitedExpr_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

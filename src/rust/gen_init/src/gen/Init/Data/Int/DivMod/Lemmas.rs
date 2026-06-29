@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Int.DivMod.Lemmas
 // Imports: Init.TacticsExtra Init.Data.Int.DivMod.Basic Init.Data.Nat.Div.Basic Init.NotationExtra Init.ByCases Init.Data.Bool Init.Data.Nat.Div.Lemmas Init.Data.Nat.Lemmas Init.Omega Init.RCases
+use crate::ffi::{
+    lean_int_dec_eq, lean_int_dec_lt, lean_int_emod, lean_nat_abs, lean_nat_dec_eq, lean_nat_sub,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -25,11 +29,6 @@ use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_int_emod;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l_Int_decidableDvd___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

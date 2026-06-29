@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Array.Lemmas
 // Imports: Init.Data.List.ToArray Init.Data.List.Control Init.Data.Array.Basic Init.Data.Array.Bootstrap Init.Data.Nat.Lemmas Init.Data.Nat.MinMax Init.ByCases Init.Data.Array.DecidableEq Init.Data.Bool Init.Data.Fin.Lemmas Init.Data.List.Find Init.Data.List.Nat.Basic Init.Data.List.Nat.Modify Init.Data.List.Nat.TakeDrop Init.Data.List.Range Init.Data.List.Zip Init.Data.Nat.Linear Init.Data.Nat.Simproc Init.Data.Option.Lemmas Init.Data.Prod Init.Omega Init.TacticsExtra
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_of_nat,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
@@ -71,11 +75,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
-};
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Array_filterMap__replicate___auto__7___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

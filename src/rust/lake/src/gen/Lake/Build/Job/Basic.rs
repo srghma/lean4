@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Build.Job.Basic
 // Imports: Lake.Util.Log Lake.Util.Task Lake.Util.Opaque Lake.Build.Trace Lake.Build.Data
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_to_int, lean_string_utf8_byte_size, lean_task_get_own, lean_task_map,
+    lean_task_pure,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Prelude::l_Function_const___boxed;
@@ -17,12 +22,6 @@ use crate::r#gen::Lake::Util::Opaque::{
 };
 use crate::r#gen::Lake::Util::Task::{
     initialize_Lake_Util_Task, runtime_initialize_Lake_Util_Task,
-};
-use crate::ffi::{lean_task_get_own, lean_task_map, lean_task_pure};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_string_utf8_byte_size,
 };
 pub static mut l_Lake_instInhabitedJobAction_default: u8 = 0;
 pub static mut l_Lake_instInhabitedJobAction: u8 = 0;

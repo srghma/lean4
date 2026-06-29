@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Time.DateTime.PlainDateTime
 // Imports: Std.Time.DateTime.WallTime
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div, lean_int_ediv,
+    lean_int_emod, lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_add,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_nat_to_int,
+    lean_string_length,
+};
 use crate::r#gen::Init::Data::Fin::Basic::{l_Fin_add, l_Fin_succ___redArg};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Ord::Basic::{l_compareLex___boxed, l_compareOn___boxed};
@@ -26,17 +32,6 @@ use crate::r#gen::Std::Time::Time::PlainTime::{
     l_Std_Time_instOrdPlainTime, l_Std_Time_instReprPlainTime_repr___redArg,
 };
 use crate::r#gen::Std::Time::Time::Unit::Second::l_Std_Time_Second_instOfNatOrdinal;
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
-};
 static mut l_Std_Time_instInhabitedPlainDateTime_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

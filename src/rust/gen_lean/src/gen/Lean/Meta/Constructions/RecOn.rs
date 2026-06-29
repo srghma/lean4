@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Constructions.RecOn
 // Imports: Lean.AddDecl Lean.Meta.CompletionName
+use crate::ffi::{
+    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
@@ -37,13 +42,6 @@ use crate::r#gen::Lean::Meta::CompletionName::{
 use crate::r#gen::Lean::Modifiers::l_Lean_addProtected;
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ReducibilityAttrs::l___private_Lean_ReducibilityAttrs_0__Lean_setReducibilityStatusCore;
-use crate::ffi::{
-    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_mkRecOn___lam__0___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

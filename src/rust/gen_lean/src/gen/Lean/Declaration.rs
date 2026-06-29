@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Declaration
 // Imports: Lean.Expr Init.Data.Ord.UInt Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_array_to_list, lean_expr_eqv, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed,
+    lean_string_append, lean_uint32_dec_eq, lean_uint32_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::List::Control::l_List_foldlM___redArg;
@@ -21,13 +26,6 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_Expr_constName_x21, l_Lean_Expr_getAppFn,
     l_Lean_instInhabitedExpr, runtime_initialize_Lean_Expr,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_dec_eq, lean_uint32_dec_lt,
-};
-use crate::ffi::lean_expr_eqv;
 pub static mut l_Lean_instInhabitedReducibilityHints_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_instInhabitedReducibilityHints: *mut crate::leanh::LeanObject =

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Sat.AIG.CNF
 // Imports: Std.Sat.CNF Std.Sat.AIG.Lemmas Init.ByCases Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_array_push, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_nat_land, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
@@ -10,14 +15,6 @@ use crate::r#gen::Std::Sat::AIG::Lemmas::{
 };
 use crate::r#gen::Std::Sat::CNF::Basic::l_Std_Sat_CNF_eval___redArg;
 use crate::r#gen::Std::Sat::CNF::{initialize_Std_Sat_CNF, runtime_initialize_Std_Sat_CNF};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_nat_land, lean_nat_shiftr};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_nat_mul, lean_nat_sub,
-};
 pub static l___private_Std_Sat_AIG_CNF_0__Std_Sat_AIG_Decl_falseToCNF___redArg___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

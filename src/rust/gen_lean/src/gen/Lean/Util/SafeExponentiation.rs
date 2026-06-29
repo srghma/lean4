@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Util.SafeExponentiation
 // Imports: Lean.CoreM
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
@@ -19,13 +23,6 @@ use crate::r#gen::Lean::Log::{
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Util_SafeExponentiation_0__Lean_initFn___closed__0_00___x40_Lean_Util_SafeExponentiation_3025597618____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<15> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 15, m_capacity: 15, m_length: 14, m_data: [101, 120, 112, 111, 110, 101, 110, 116, 105, 97, 116, 105, 111, 110, 0]};
 static mut l___private_Lean_Util_SafeExponentiation_0__Lean_initFn___closed__0_00___x40_Lean_Util_SafeExponentiation_3025597618____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Util_SafeExponentiation_0__Lean_initFn___closed__0_00___x40_Lean_Util_SafeExponentiation_3025597618____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;

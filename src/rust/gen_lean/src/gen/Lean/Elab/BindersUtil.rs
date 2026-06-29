@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.BindersUtil
 // Imports: Lean.Parser.Term Lean.Parser.Term Lean.Parser.Do Init.Syntax
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_getSepArgs, l_Lean_Syntax_isNone, l_Lean_mkHole,
@@ -19,18 +25,6 @@ use crate::r#gen::Lean::Parser::Do::{
 };
 use crate::r#gen::Lean::Parser::Term::{
     initialize_Lean_Parser_Term, runtime_initialize_Lean_Parser_Term,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Term_expandMatchAlt_spec__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [110, 117, 108, 108, 0]};
 static mut l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Term_expandMatchAlt_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Lean_Elab_Term_expandMatchAlt_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;

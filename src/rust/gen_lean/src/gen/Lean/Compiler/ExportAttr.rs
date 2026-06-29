@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Compiler.ExportAttr
 // Imports: Lean.Attributes
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_string_is_valid_pos, lean_string_utf8_byte_size, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Init::Data::String::Defs::l_String_instInhabitedSlice;
 use crate::r#gen::Init::Data::String::Substring::l_Substring_Raw_nextn;
@@ -15,15 +21,6 @@ use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::Environment::l_Lean_Environment_contains;
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofName, l_Lean_stringToMessageData};
-use crate::ffi::{
-    lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l___private_Lean_Compiler_ExportAttr_0__Lean_isValidCppId___closed__0_value:
     crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Simp.SimpValue
 // Imports: Lean.Compiler.LCNF.Simp.SimpM
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_st_ref_get,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Lean::Compiler::ImplementedByAttr::l_Lean_Compiler_getImplementedBy_x3f;
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
@@ -15,10 +18,6 @@ use crate::r#gen::Lean::Compiler::LCNF::Simp::SimpM::{
     initialize_Lean_Compiler_LCNF_Simp_SimpM, runtime_initialize_Lean_Compiler_LCNF_Simp_SimpM,
 };
 use crate::r#gen::Lean::Environment::l_Lean_Environment_find_x3f;
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Compiler_LCNF_Simp_simpAppApp_x3f___redArg___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

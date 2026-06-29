@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Hygiene
 // Imports: Lean.Data.Format
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_nat_add, lean_nat_dec_eq,
+    lean_string_append, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -27,12 +31,6 @@ use crate::r#gen::Lean::Data::NameMap::Basic::{
     l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg,
 };
 use crate::r#gen::Lean::Data::Options::lean_register_option;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_nat_add, lean_nat_dec_eq};
 pub static l_Lean_Unhygienic_instMonadQuotation___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

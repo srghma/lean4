@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Data.Position
 // Imports: Lean.Data.Json.FromToJson.Basic Lean.ToExpr
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_nat_to_int, lean_string_append, lean_string_length, lean_string_utf8_at_end,
+    lean_string_utf8_byte_size, lean_string_utf8_get, lean_string_utf8_next, lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Core::l_Prod_lexLtDec___aux__1___redArg;
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -15,19 +22,6 @@ use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
 };
 use crate::r#gen::Lean::Expr::{l_Lean_mkAppN, l_Lean_mkConst, l_Lean_mkNatLit};
 use crate::r#gen::Lean::ToExpr::{initialize_Lean_ToExpr, runtime_initialize_Lean_ToExpr};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_utf8_at_end, lean_string_utf8_get, lean_string_utf8_next,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq,
-};
 pub static l_Lean_instInhabitedPosition_default___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

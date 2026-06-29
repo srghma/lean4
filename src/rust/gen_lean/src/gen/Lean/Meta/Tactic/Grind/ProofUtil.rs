@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.ProofUtil
 // Imports: Lean.Meta.Tactic.Grind.Types
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_expr_abstract,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -17,13 +22,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types, runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
 use crate::r#gen::Std::Data::DHashMap::Internal::AssocList::Basic::l_Std_DHashMap_Internal_AssocList_foldlM___redArg;
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-};
-use crate::ffi::lean_expr_abstract;
 pub static l_Lean_Meta_Grind_mkLetOfMap___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

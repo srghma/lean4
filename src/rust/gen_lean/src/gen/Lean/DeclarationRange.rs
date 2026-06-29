@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.DeclarationRange
 // Imports: Lean.MonadEnv
+use crate::ffi::{
+    lean_array_push, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Lean::AuxRecursor::{l_Lean_isAuxRecursor, l_Lean_isNoConfusion};
 use crate::r#gen::Lean::Data::DeclarationRange::l_Lean_instInhabitedDeclarationRanges_default;
 use crate::r#gen::Lean::Data::Name::{l_Lean_Name_getPrefix, l_Lean_Name_isAnonymous};
@@ -14,10 +17,6 @@ use crate::r#gen::Lean::EnvExtension::{
 };
 use crate::r#gen::Lean::MonadEnv::{
     initialize_Lean_MonadEnv, l_Lean_isRec___redArg, runtime_initialize_Lean_MonadEnv,
-};
-use crate::ffi::lean_array_push;
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static mut l_Lean_builtinDeclRanges: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_DeclarationRange_0__Lean_initFn___lam__0___closed__0_00___x40_Lean_DeclarationRange_1764327334____hygCtx___hyg_2__value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Sat.AIG.Basic
 // Imports: Std.Data.HashSet Init.Data.Vector.Basic Init.Data.Hashable Init.Data.String.Defs Init.Data.ToString.Macro Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_mk_array, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_mul,
+    lean_nat_shiftr, lean_nat_to_int, lean_string_append, lean_string_length, lean_uint64_mix_hash,
+    lean_uint64_of_nat, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -39,18 +45,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 };
 use crate::r#gen::Std::Data::HashSet::{
     initialize_Std_Data_HashSet, runtime_initialize_Std_Data_HashSet,
-};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftr,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_uint64_of_nat, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_uint64_mix_hash,
 };
 pub static l_Std_Sat_AIG_instHashableFanin___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

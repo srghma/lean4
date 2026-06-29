@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Basic
 // Imports: Init.Control.Basic Init.Grind.Tactics Init.Grind.Tactics Init.Omega Init.WFTactics
+use crate::ffi::{lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_nat_div, lean_nat_sub};
 use crate::r#gen::Init::Control::Basic::{
     initialize_Init_Control_Basic, runtime_initialize_Init_Control_Basic,
 };
@@ -15,9 +16,6 @@ use crate::r#gen::Init::Prelude::{
     l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_nat_div, lean_nat_sub,
-};
 pub static mut l_Std_Legacy_instMembershipNatRange: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static l___private_Init_Data_Range_Basic_0__Std_Legacy_Range_forIn_x27___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};

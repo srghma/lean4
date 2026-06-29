@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lake.Util.Name
 // Imports: Lean.Data.Json Lake.Util.RBArray Init.Data.Ord.UInt Init.Prelude Lean.Data.Name
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::Ord::UInt::{
     initialize_Init_Data_Ord_UInt, runtime_initialize_Init_Data_Ord_UInt,
 };
@@ -22,10 +25,6 @@ use crate::r#gen::Lean::Data::Name::{
     initialize_Lean_Data_Name, l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl___boxed,
     l_Lean_Name_isAnonymous, runtime_initialize_Lean_Data_Name,
 };
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l___private_Lake_Util_Name_0__Lake_instCoeTreeMapNameQuickCmpNameMap__lake___closed__0_value: crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1) as u16, other: 0, tag: 245 }, m_fun: l_id___boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 1, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Lake_Util_Name_0__Lake_instCoeTreeMapNameQuickCmpNameMap__lake___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lake_Util_Name_0__Lake_instCoeTreeMapNameQuickCmpNameMap__lake___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lake_OrdNameMap_empty___closed__0_value: crate::leanh::LeanClosureObject<0> =

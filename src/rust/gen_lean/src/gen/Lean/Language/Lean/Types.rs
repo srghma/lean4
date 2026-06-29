@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Lean.Language.Lean.Types
 // Imports: Lean.Elab.Command
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_thunk_get_own};
 use crate::r#gen::Lean::Elab::Command::{
     initialize_Lean_Elab_Command, runtime_initialize_Lean_Elab_Command,
 };
 use crate::r#gen::Lean::Language::Basic::{
     l_Lean_Language_SnapshotTask_finished___redArg, l_Lean_Language_SnapshotTask_map___redArg,
 };
-use crate::ffi::lean_thunk_get_own;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_Language_Lean_instToSnapshotTreeCommandResultSnapshot___lam__0___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l_Lean_Language_Lean_instToSnapshotTreeCommandResultSnapshot___lam__0___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

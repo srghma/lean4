@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Config.Artifact
 // Imports: Lake.Build.Trace
+use crate::ffi::{
+    lean_nat_dec_eq, lean_nat_sub, lean_nat_to_int, lean_string_append, lean_string_length,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::Repr::{l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::System::IO::l_IO_FS_instReprSystemTime_repr___redArg;
 use crate::r#gen::Lake::Build::Trace::{
@@ -9,15 +14,6 @@ use crate::r#gen::Lake::Build::Trace::{
 };
 use crate::r#gen::Lake::Util::String::l_Lake_lowerHexUInt64;
 use crate::r#gen::Lean::Data::Json::Basic::l_Lean_Json_getStr_x3f;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-};
 pub static l_Lake_artifactPath___closed__0_value: crate::leanh::LeanStringObject<2> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

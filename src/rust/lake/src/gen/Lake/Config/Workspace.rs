@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Config.Workspace
 // Imports: Lake.Config.Env Lake.Config.LeanExe Lake.Config.ExternLib Lake.Config.FacetConfig Lake.Config.TargetConfig Lake.Config.LakeConfig Lake.Util.OpaqueType Lean.DocString.Syntax Init.Data.Range.Polymorphic.Iterators Init.Data.Range.Polymorphic.Lemmas
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -71,15 +77,6 @@ use crate::r#gen::Lean::Util::LeanOptions::{
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::l_Std_DTreeMap_Internal_Impl_insert___redArg;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_get_x3f___redArg;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_usize_dec_eq,
-};
 pub static l_Lake_computeLakeCache___closed__0_value: crate::leanh::LeanStringObject<6> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

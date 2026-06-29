@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.Recognizers
 // Imports: Lean.Environment
+use crate::ffi::lean_string_dec_eq;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_mkStr1, l_Lean_Name_mkStr2, l_Lean_Name_mkStr3, l_Lean_Name_mkStr4,
@@ -15,7 +16,6 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFn_x21_x27, l_Lean_Expr_hasLooseBVars, l_Lean_Expr_isAppOfArity,
     l_Lean_Expr_isAppOfArity_x27, l_Lean_Expr_nat_x3f, l_Lean_Expr_rawNatLit_x3f,
 };
-use crate::ffi::lean_string_dec_eq;
 pub static l_Lean_Expr_eq_x3f___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

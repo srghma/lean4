@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Time.Date.Unit.Day
 // Imports: Std.Time.Time
+use crate::ffi::{
+    lean_array_push, lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt,
+    lean_int_ediv, lean_int_emod, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_dec_le,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::{
     l_Int_add___boxed, l_Int_neg___boxed, l_Int_sub___boxed,
 };
@@ -10,12 +15,6 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Time::Internal::UnitVal::l_Std_Time_Internal_instInhabitedUnitVal_default;
 use crate::r#gen::Std::Time::Time::{initialize_Std_Time_Time, runtime_initialize_Std_Time_Time};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::{lean_array_push, lean_nat_dec_le};
 static mut l_Std_Time_Day_instReprOrdinal___aux__1___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

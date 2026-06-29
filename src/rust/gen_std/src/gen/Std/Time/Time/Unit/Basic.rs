@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Std.Time.Time.Unit.Basic
 // Imports: Std.Time.Time.Unit.Hour Std.Time.Time.Unit.Millisecond
+use crate::ffi::{lean_int_div, lean_int_mul, lean_nat_to_int};
 use crate::r#gen::Std::Time::Time::Unit::Hour::{
     initialize_Std_Time_Time_Unit_Hour, runtime_initialize_Std_Time_Time_Unit_Hour,
 };
 use crate::r#gen::Std::Time::Time::Unit::Millisecond::{
     initialize_Std_Time_Time_Unit_Millisecond, runtime_initialize_Std_Time_Time_Unit_Millisecond,
 };
-use crate::ffi::{lean_int_mul, lean_nat_to_int};
-use crate::ffi::lean_int_div;
 static mut l_Std_Time_Nanosecond_Offset_toMilliseconds___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Leanc
 // Imports: Init Init Lean.Compiler.FFI
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget_borrowed, lean_get_stdout, lean_io_getenv,
+    lean_io_process_child_wait, lean_io_process_spawn, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq, lean_string_memcmp,
+    lean_string_push, lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_set,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_Array_eraseIdx___redArg,
     l_List_foldl___at___00Array_appendList_spec__0___redArg,
@@ -24,24 +34,6 @@ use crate::r#gen::Lean::Compiler::FFI::{
     l_Lean_Compiler_FFI_getInternalCFlags, l_Lean_Compiler_FFI_getInternalLinkerFlags,
     l_Lean_Compiler_FFI_getLinkerFlags,
     l_String_Slice_replace___at___00Lean_Compiler_FFI_getInternalCFlags_spec__0___redArg,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_utf8_get_fast;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_stdout, lean_io_getenv, lean_io_process_child_wait, lean_io_process_spawn,
 };
 pub static l_panic___at___00main_spec__9___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {

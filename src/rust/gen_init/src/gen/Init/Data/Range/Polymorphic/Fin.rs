@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.Fin
 // Imports: Init.Data.Range.Polymorphic.Instances Init.Data.Fin.OverflowAware Init.Grind Init.Data.Fin.Lemmas Init.Data.Int.OfNat Init.Data.Nat.Linear Init.Data.Option.Lemmas
+use crate::ffi::{lean_nat_add, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub};
 use crate::r#gen::Init::Data::Fin::Lemmas::{
     initialize_Init_Data_Fin_Lemmas, runtime_initialize_Init_Data_Fin_Lemmas,
 };
@@ -21,9 +22,6 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Instances::{
     runtime_initialize_Init_Data_Range_Polymorphic_Instances,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,
-};
 pub static mut l_Fin_instLeast_x3fOfNatNat: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Fin_instHasSize___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

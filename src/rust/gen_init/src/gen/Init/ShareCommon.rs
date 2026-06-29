@@ -1,18 +1,16 @@
 // Lean compiler output
 // Module: Init.ShareCommon
 // Imports: Init.Data.UInt.Basic Init.Control.State
+use crate::ffi::{
+    lean_ptr_addr, lean_sharecommon_eq, lean_sharecommon_hash, lean_sharecommon_quick,
+    lean_state_sharecommon, lean_usize_dec_eq, lean_usize_to_uint64,
+};
 use crate::r#gen::Init::Control::State::{
     initialize_Init_Control_State, runtime_initialize_Init_Control_State,
 };
 use crate::r#gen::Init::Data::UInt::Basic::{
     initialize_Init_Data_UInt_Basic, runtime_initialize_Init_Data_UInt_Basic,
 };
-use crate::ffi::lean_usize_to_uint64;
-use crate::ffi::lean_usize_dec_eq;
-use crate::ffi::{
-    lean_sharecommon_eq, lean_sharecommon_hash, lean_sharecommon_quick, lean_state_sharecommon,
-};
-use crate::ffi::lean_ptr_addr;
 pub static mut l_ShareCommon_StateFactoryPointed: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static l_ShareCommon_StateFactory_mkImpl___lam__2___closed__0_value:

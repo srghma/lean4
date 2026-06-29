@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Data.PersistentHashSet
 // Imports: Lean.Data.PersistentHashMap
+use crate::ffi::lean_uint64_to_usize;
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -15,7 +16,6 @@ use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_forIn___redArg, l_Lean_PersistentHashMap_insert___redArg,
     l_Lean_PersistentHashMap_toList___redArg, runtime_initialize_Lean_Data_PersistentHashMap,
 };
-use crate::ffi::lean_uint64_to_usize;
 pub static l_Lean_PersistentHashSet_fold___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

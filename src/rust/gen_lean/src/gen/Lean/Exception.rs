@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Exception
 // Imports: Lean.InternalExceptionId Lean.ErrorExplanation
+use crate::ffi::{
+    lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1,
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope, l_Lean_maxRecDepthErrorMessage,
@@ -29,9 +32,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_kindOfErrorName, l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-};
 static mut l_Lean_instInhabitedException___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

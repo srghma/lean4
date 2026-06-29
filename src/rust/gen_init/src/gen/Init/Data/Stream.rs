@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.Stream
 // Imports: Init.Data.Range Init.Data.Array.Subarray Init.Data.Slice.Array.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::Array::Subarray::{
     initialize_Init_Data_Array_Subarray, l_Array_toSubarray___redArg,
     runtime_initialize_Init_Data_Array_Subarray,
@@ -10,9 +13,6 @@ use crate::r#gen::Init::Data::Range::{
 };
 use crate::r#gen::Init::Data::Slice::Array::Basic::{
     initialize_Init_Data_Slice_Array_Basic, runtime_initialize_Init_Data_Slice_Array_Basic,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt, lean_string_utf8_byte_size,
 };
 pub static l_Std_instToStreamList___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

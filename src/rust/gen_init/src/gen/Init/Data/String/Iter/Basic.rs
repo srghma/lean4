@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.String.Iter.Basic
 // Imports: Init.Data.Iterators.Combinators.FilterMap Init.Data.Iterators.Consumers.Collect
+use crate::ffi::{lean_array_push, lean_array_to_list};
 use crate::r#gen::Init::Data::Iterators::Combinators::FilterMap::{
     initialize_Init_Data_Iterators_Combinators_FilterMap,
     runtime_initialize_Init_Data_Iterators_Combinators_FilterMap,
@@ -10,7 +11,6 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     runtime_initialize_Init_Data_Iterators_Consumers_Collect,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg;
-use crate::ffi::{lean_array_push, lean_array_to_list};
 pub static l_Std_Iter_toStringList___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

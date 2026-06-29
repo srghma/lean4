@@ -1,16 +1,13 @@
 // Lean compiler output
 // Module: Std.Sat.CNF.Dimacs
 // Imports: Std.Sat.CNF.RelabelFin
+use crate::ffi::{
+    lean_array_get_size, lean_array_uget_borrowed, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_string_append, lean_string_push, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Std::Sat::CNF::RelabelFin::{
     initialize_Std_Sat_CNF_RelabelFin, runtime_initialize_Std_Sat_CNF_RelabelFin,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_List_foldlM___at___00__private_Std_Sat_CNF_Dimacs_0__Std_Sat_CNF_dimacs_go_spec__0___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [45, 0]};
 static mut l_List_foldlM___at___00__private_Std_Sat_CNF_Dimacs_0__Std_Sat_CNF_dimacs_go_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_List_foldlM___at___00__private_Std_Sat_CNF_Dimacs_0__Std_Sat_CNF_dimacs_go_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;

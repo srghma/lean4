@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.ACLt
 // Imports: Lean.Meta.DiscrTree.Main Init.Data.Range.Polymorphic.Iterators Lean.Meta.FunInfo
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_set,
+    lean_expr_eqv, lean_mk_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_uint8_dec_lt,
+};
 use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     initialize_Init_Data_Range_Polymorphic_Iterators,
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
@@ -34,13 +39,6 @@ use crate::r#gen::Lean::Meta::DiscrTree::Main::{
 use crate::r#gen::Lean::Meta::FunInfo::{
     initialize_Lean_Meta_FunInfo, l_Lean_Meta_getFunInfoNArgs, runtime_initialize_Lean_Meta_FunInfo,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_uint8_dec_lt,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l___private_Lean_Meta_ACLt_0__Lean_Meta_ACLt_config___closed__0_value:
     crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

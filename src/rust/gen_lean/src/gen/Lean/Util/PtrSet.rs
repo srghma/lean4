@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Util.PtrSet
 // Imports: Init.Data.Hashable Std.Data.HashSet.Basic
+use crate::ffi::{
+    lean_mk_array, lean_nat_div, lean_nat_mul, lean_ptr_addr, lean_uint64_mix_hash,
+    lean_usize_dec_eq, lean_usize_to_uint64,
+};
 use crate::r#gen::Init::Data::Hashable::{
     initialize_Init_Data_Hashable, runtime_initialize_Init_Data_Hashable,
 };
@@ -14,12 +18,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashSet::Basic::{
     initialize_Std_Data_HashSet_Basic, runtime_initialize_Std_Data_HashSet_Basic,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_usize_to_uint64;
-use crate::ffi::{
-    lean_nat_div, lean_nat_mul, lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
 pub static l_Lean_instHashablePtr___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

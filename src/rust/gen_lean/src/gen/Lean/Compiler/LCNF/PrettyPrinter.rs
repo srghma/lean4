@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.PrettyPrinter
 // Imports: Lean.PrettyPrinter.Delaborator.Options Lean.Compiler.LCNF.Internalize Init.Data.Format.Macro
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_length, lean_uint8_to_nat,
+    lean_uint16_to_nat, lean_uint32_to_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_indentD;
 use crate::r#gen::Init::Data::Format::Macro::{
@@ -47,22 +54,6 @@ use crate::r#gen::Lean::PrettyPrinter::Delaborator::Options::{
     runtime_initialize_Lean_PrettyPrinter_Delaborator_Options,
 };
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_uint32_to_nat,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Compiler_LCNF_PrettyPrinter_0__Lean_Compiler_LCNF_PP_join_spec__0___redArg___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [32, 0]};
 static mut l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Compiler_LCNF_PrettyPrinter_0__Lean_Compiler_LCNF_PP_join_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Compiler_LCNF_PrettyPrinter_0__Lean_Compiler_LCNF_PP_join_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Compiler_LCNF_PrettyPrinter_0__Lean_Compiler_LCNF_PP_join_spec__0___redArg___closed__1_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 3 }, m_objs: [core::ptr::addr_of!(l_WellFounded_opaqueFix_u2083___at___00__private_Lean_Compiler_LCNF_PrettyPrinter_0__Lean_Compiler_LCNF_PP_join_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject] };

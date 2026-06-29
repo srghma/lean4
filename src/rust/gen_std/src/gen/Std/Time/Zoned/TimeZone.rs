@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.TimeZone
 // Imports: Std.Time.Zoned.Offset
+use crate::ffi::{lean_int_dec_eq, lean_nat_to_int, lean_string_dec_eq, lean_string_length};
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_String_quote};
 use crate::r#gen::Std::Time::Zoned::Offset::{
@@ -8,9 +9,6 @@ use crate::r#gen::Std::Time::Zoned::Offset::{
     l_Std_Time_TimeZone_Offset_zero, l_Std_Time_TimeZone_instReprOffset_repr___redArg,
     runtime_initialize_Std_Time_Zoned_Offset,
 };
-use crate::ffi::{lean_int_dec_eq, lean_nat_to_int};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_dec_eq;
 static mut l_Std_Time_instInhabitedTimeZone_default___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

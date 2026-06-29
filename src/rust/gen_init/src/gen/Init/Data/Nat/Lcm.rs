@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Lcm
 // Imports: Init.Data.Nat.Gcd Init.Data.Nat.Dvd Init.Data.Nat.Lemmas Init.RCases
+use crate::ffi::{lean_nat_div, lean_nat_gcd, lean_nat_mul};
 use crate::r#gen::Init::Data::Nat::Dvd::{
     initialize_Init_Data_Nat_Dvd, runtime_initialize_Init_Data_Nat_Dvd,
 };
@@ -11,8 +12,6 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{lean_nat_div, lean_nat_mul};
 pub unsafe fn l_Nat_lcm(
     mut v_m_9_: *mut crate::leanh::LeanObject,
     mut v_n_10_: *mut crate::leanh::LeanObject,

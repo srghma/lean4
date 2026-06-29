@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Simp.FunDeclInfo
 // Imports: Lean.Compiler.LCNF.Simp.Basic Init.Data.Format.Macro
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_mk_array, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_nat_sub, lean_nat_to_int, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Format::Macro::{
     initialize_Init_Data_Format_Macro, runtime_initialize_Init_Data_Format_Macro,
 };
@@ -15,24 +22,6 @@ use crate::r#gen::Lean::Compiler::LCNF::Simp::Basic::{
     runtime_initialize_Lean_Compiler_LCNF_Simp_Basic,
 };
 use crate::r#gen::Lean::Expr::{l_Lean_instBEqFVarId_beq, l_Lean_instHashableFVarId_hash};
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_div, lean_nat_mul, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Compiler_LCNF_Simp_instReprFunDeclInfo_repr___closed__0_value:
     crate::leanh::LeanStringObject<41> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

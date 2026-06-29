@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Util.FoldConsts
 // Imports: Lean.Util.PtrSet Lean.Declaration
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_ptr_addr, lean_uint64_mix_hash,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_dec_eq,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub, lean_usize_to_uint64,
+};
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     l_Lean_NameHashSet_contains, l_Lean_NameHashSet_insert, l_Lean_NameSet_append,
     l_Lean_NameSet_empty, l_Lean_NameSet_insert, l_Lean_NameSet_ofList,
@@ -12,20 +19,6 @@ use crate::r#gen::Lean::Declaration::{
 use crate::r#gen::Lean::Util::PtrSet::{
     initialize_Lean_Util_PtrSet, l_Lean_mkPtrSet___redArg, runtime_initialize_Lean_Util_PtrSet,
 };
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_to_uint64,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
 static mut l_Lean_Expr_FoldConstsImpl_foldUnsafe___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

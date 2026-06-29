@@ -1,10 +1,6 @@
 // Lean compiler output
 // Module: Init.Data.Float32
 // Imports: Init.Data.Float
-use crate::r#gen::Init::Data::Float::{
-    initialize_Init_Data_Float, runtime_initialize_Init_Data_Float,
-};
-use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::ffi::{
     acosf, acoshf, asinf, asinhf, atan2f, atanf, atanhf, cbrtf, ceilf, cosf, coshf, exp2f, expf,
     fabsf, floorf, lean_float_to_float32, lean_float32_add, lean_float32_beq, lean_float32_decLe,
@@ -16,6 +12,10 @@ use crate::ffi::{
     lean_uint16_to_float32, lean_uint32_to_float32, lean_uint64_to_float32, lean_usize_to_float32,
     log2f, log10f, logf, powf, roundf, sinf, sinhf, sqrtf, tanf, tanhf,
 };
+use crate::r#gen::Init::Data::Float::{
+    initialize_Init_Data_Float, runtime_initialize_Init_Data_Float,
+};
+use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 pub static l_float32Spec___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

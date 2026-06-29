@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Grind.Ring.Basic
 // Imports: Init.Grind.Module.Basic Init.ByCases Init.Data.Int.DivMod.Lemmas Init.Data.Int.LemmasAux Init.Data.Int.Pow Init.Data.Nat.Div.Lemmas Init.Data.Nat.Lemmas Init.Omega Init.RCases
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Int::DivMod::Lemmas::{
     initialize_Init_Data_Int_DivMod_Lemmas, runtime_initialize_Init_Data_Int_DivMod_Lemmas,
@@ -23,7 +24,6 @@ use crate::r#gen::Init::Grind::Module::Basic::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Lean_Grind_Semiring_ofNat__succ___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

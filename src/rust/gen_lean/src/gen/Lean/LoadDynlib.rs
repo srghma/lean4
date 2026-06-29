@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.LoadDynlib
 // Imports: Init.System.IO Init.Data.String.TakeDrop Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_dynlib_get, lean_dynlib_load, lean_dynlib_symbol_run_as_init, lean_io_realpath,
+    lean_nat_add, lean_nat_dec_le, lean_nat_sub, lean_runtime_mark_persistent, lean_string_append,
+    lean_string_memcmp, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_pos_x21;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_toString;
 use crate::r#gen::Init::Data::String::TakeDrop::{
@@ -14,15 +19,6 @@ use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
 };
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_le, lean_nat_sub, lean_string_utf8_byte_size,
-};
-use crate::ffi::{lean_io_realpath, lean_runtime_mark_persistent};
-use crate::ffi::{
-    lean_dynlib_get, lean_dynlib_load, lean_dynlib_symbol_run_as_init,
-};
 pub static mut l___private_Lean_LoadDynlib_0__Lean_DynlibImpl: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static l_String_Slice_dropSuffix___at___00Lean_loadPlugin_spec__1___closed__0_value:

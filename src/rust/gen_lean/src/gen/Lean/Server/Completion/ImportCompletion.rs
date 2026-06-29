@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Server.Completion.ImportCompletion
 // Imports: Lean.Util.LakePath Lean.Data.Lsp Lean.Parser.Module Lean.Parser.Module
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_io_process_child_wait, lean_io_process_spawn, lean_io_read_dir,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub, lean_panic_fn_borrowed, lean_string_append,
+    lean_string_dec_eq, lean_string_memcmp, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_uint32_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_trimAscii;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
@@ -40,25 +49,6 @@ use crate::r#gen::Lean::Util::LakePath::{
     initialize_Lean_Util_LakePath, l_Lean_determineLakePath, runtime_initialize_Lean_Util_LakePath,
 };
 use crate::r#gen::Lean::Util::Path::l_Lean_getSrcSearchPath;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_process_child_wait, lean_io_process_spawn, lean_io_read_dir,
-};
 static mut l_ImportCompletion_AvailableImports_toImportTrie___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

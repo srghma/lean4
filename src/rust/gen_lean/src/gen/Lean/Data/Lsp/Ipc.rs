@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Data.Lsp.Ipc
 // Imports: Lean.Data.Lsp.Communication Lean.Data.Lsp.Diagnostics Lean.Data.Lsp.Extra Init.Data.List.Sort.Basic Lean.Data.Lsp.LanguageFeatures Init.While
+use crate::ffi::{
+    lean_array_mk, lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_int_neg, lean_io_process_child_wait,
+    lean_io_process_spawn, lean_nat_add, lean_nat_dec_lt, lean_nat_mul, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_compare, lean_string_dec_eq,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_List_foldl___at___00Array_appendList_spec__0___redArg,
 };
@@ -60,18 +67,6 @@ use crate::r#gen::Lean::Data::Lsp::LanguageFeatures::{
     l_Lean_Lsp_instToJsonCallHierarchyPrepareParams_toJson,
     runtime_initialize_Lean_Data_Lsp_LanguageFeatures,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_int_neg, lean_nat_to_int};
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_lt,
-    lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
-use crate::ffi::{lean_io_process_child_wait, lean_io_process_spawn};
 pub static l_Lean_Lsp_Ipc_ipcStdioConfig___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

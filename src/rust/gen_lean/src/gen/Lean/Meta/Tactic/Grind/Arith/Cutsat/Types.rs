@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types
 // Imports: Init.Data.Int.Linear Lean.Meta.Tactic.Grind.Arith.CommRing.Types Lean.Meta.Tactic.Grind.Arith.Cutsat.ToIntInfo
+use crate::ffi::{
+    lean_int_dec_lt, lean_mk_empty_array_with_capacity, lean_nat_abs, lean_nat_add, lean_nat_mul,
+    lean_nat_sub, lean_nat_to_int, lean_uint64_mix_hash, lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Data::Int::Linear::{
     initialize_Init_Data_Int_Linear, runtime_initialize_Init_Data_Int_Linear,
 };
@@ -15,14 +19,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::ToIntInfo::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_Cutsat_ToIntInfo,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l_Lean_Meta_Grind_registerSolverExtension___redArg;
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_mul, lean_nat_sub,
-    lean_uint64_mix_hash,
-};
 static mut l_Lean_Meta_Grind_Arith_Cutsat_instHashablePoly__lean_hash___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

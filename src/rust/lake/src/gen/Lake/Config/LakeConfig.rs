@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Config.LakeConfig
 // Imports: Lake.Config.Cache Lake.Config.MetaClasses Lake.Config.Meta
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -17,10 +21,6 @@ use crate::r#gen::Lake::Config::MetaClasses::{
     initialize_Lake_Config_MetaClasses, runtime_initialize_Lake_Config_MetaClasses,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
-};
 pub static mut l_Lake_instInhabitedCacheServiceKind_default: u8 = 0;
 pub static mut l_Lake_instInhabitedCacheServiceKind: u8 = 0;
 pub static l_Lake_CacheServiceKind_ofString_x3f___closed__0_value: crate::leanh::LeanStringObject<

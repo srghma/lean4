@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Async.ContextAsync
 // Imports: Std.Internal.UV Std.Async.Timer Std.Sync.CancellationContext
+use crate::ffi::{
+    lean_array_size, lean_io_as_task, lean_io_promise_new, lean_io_promise_resolve, lean_task_bind,
+    lean_task_map, lean_task_pure,
+};
 use crate::r#gen::Init::Control::Except::l_Except_map;
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map;
 use crate::r#gen::Init::Prelude::{
@@ -30,10 +34,6 @@ use crate::r#gen::Std::Sync::CancellationToken::{
     l_Std_CancellationToken_getCancellationReason, l_Std_CancellationToken_isCancelled,
     l_Std_CancellationToken_selector, l_Std_CancellationToken_wait,
 };
-use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure};
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_io_as_task;
-use crate::ffi::{lean_io_promise_new, lean_io_promise_resolve};
 pub static l_Std_Async_ContextAsync_isCancelled___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

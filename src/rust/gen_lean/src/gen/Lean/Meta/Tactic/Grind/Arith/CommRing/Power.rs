@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.Power
 // Imports: Init.Grind Lean.Meta.Tactic.Grind.Arith.Simproc Lean.Meta.NatInstTesters Lean.Meta.Tactic.Grind.PropagatorAttr
+use crate::ffi::{
+    lean_grind_internalize, lean_grind_mk_eq_proof, lean_grind_preprocess, lean_st_ref_get,
+};
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFn_x21, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
@@ -27,10 +30,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_pushEqCore___redArg,
 };
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::{
-    lean_grind_internalize, lean_grind_mk_eq_proof, lean_grind_preprocess,
-};
 pub static l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Grind_Arith_CommRing_propagatePower_spec__0___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Grind_Arith_CommRing_propagatePower_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Grind_Arith_CommRing_propagatePower_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Grind_Arith_CommRing_propagatePower_spec__0___redArg___closed__1_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.Structural.RecArgInfo
 // Imports: Lean.Elab.PreDefinition.FixedParams Lean.Elab.PreDefinition.Structural.IndGroupInfo
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_to_list, lean_array_uget_borrowed, lean_mk_array, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_string_length, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
@@ -17,18 +23,6 @@ use crate::r#gen::Lean::Elab::PreDefinition::Structural::IndGroupInfo::{
 };
 use crate::r#gen::Lean::Expr::{l_Lean_instInhabitedExpr, l_Lean_mkSort};
 use crate::r#gen::Lean::Level::l_Lean_Level_ofNat;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_usize_dec_eq,
-};
 pub static l_Lean_Elab_Structural_instInhabitedRecArgInfo_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

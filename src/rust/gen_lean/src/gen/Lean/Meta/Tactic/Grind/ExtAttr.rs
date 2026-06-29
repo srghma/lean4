@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.ExtAttr
 // Imports: Lean.Meta.Tactic.Ext Lean.Meta.Tactic.Grind.Extension
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_set, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
+    lean_st_ref_get, lean_uint64_of_nat, lean_uint64_to_usize, lean_usize_land,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_eraseIdx___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_isUnaryNode___redArg, l_Lean_PersistentHashMap_mkEmptyEntriesArray,
@@ -15,17 +21,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Extension::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Extension,
 };
 use crate::r#gen::Lean::Structure::l_Lean_isStructure;
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
-    lean_uint64_of_nat,
-};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Meta_Grind_validateExtAttr_spec__0_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Meta_Grind_validateExtAttr_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Meta_Grind_validateExtAttr_spec__0_spec__0___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

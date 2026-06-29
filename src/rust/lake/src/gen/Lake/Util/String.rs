@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Util.String
 // Imports: Init.Data.ToString.Basic Init.Data.UInt.Lemmas Init.Data.String.Basic Init.Data.Nat.Fold Init.Data.String.Length
+use crate::ffi::{
+    lean_mk_empty_byte_array, lean_nat_dec_eq, lean_nat_sub, lean_string_append,
+    lean_string_from_utf8_unchecked, lean_string_get_byte_fast, lean_string_push,
+    lean_string_utf8_byte_size, lean_uint8_add, lean_uint8_dec_le, lean_uint8_to_uint32,
+    lean_uint64_land, lean_uint64_shift_right, lean_uint64_to_uint8,
+};
 use crate::r#gen::Init::Data::Nat::Fold::{
     initialize_Init_Data_Nat_Fold, runtime_initialize_Init_Data_Nat_Fold,
 };
@@ -16,19 +22,6 @@ use crate::r#gen::Init::Data::ToString::Basic::{
 };
 use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_uint8_add, lean_uint64_land, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_uint8_to_uint32, lean_uint64_to_uint8,
-};
-use crate::ffi::{
-    lean_mk_empty_byte_array, lean_nat_dec_eq, lean_nat_sub, lean_string_from_utf8_unchecked,
-    lean_string_utf8_byte_size, lean_uint8_dec_le,
 };
 pub static l_Lake_lpadAscii___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {

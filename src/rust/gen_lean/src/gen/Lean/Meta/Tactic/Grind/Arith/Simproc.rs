@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Simproc
 // Imports: Init.Grind.Ring.Basic Init.Simproc Lean.Meta.Tactic.Grind.SynthInstance Init.Simproc Lean.Meta.Tactic.Simp.BuiltinSimprocs.Util Lean.Meta.LitValues Init.Grind.Ring.Field Lean.Meta.DecLevel Lean.Meta.Tactic.Grind.Arith.FieldNormNum Lean.Util.SafeExponentiation
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_set,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_int_dec_lt, lean_mk_array,
+    lean_name_eq, lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_div, lean_nat_mul, lean_nat_sub, lean_nat_to_int, lean_uint64_lor, lean_uint64_of_nat,
+    lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_zpow;
 use crate::r#gen::Init::Grind::Ring::Basic::{
     initialize_Init_Grind_Ring_Basic, runtime_initialize_Init_Grind_Ring_Basic,
@@ -61,23 +69,6 @@ use crate::r#gen::Lean::Util::SafeExponentiation::{
     initialize_Lean_Util_SafeExponentiation, l_Lean_checkExponent,
     runtime_initialize_Lean_Util_SafeExponentiation,
 };
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_uint64_of_nat,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Grind_Arith_mkSemiringThm___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

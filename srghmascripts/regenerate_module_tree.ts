@@ -28,10 +28,12 @@ const usage = () => {
   console.error(
     [
       "usage:",
-      "  bun srghmascripts/regenerate_module_tree.ts gen <crate> [--roots=Init,Lean,Std]",
+      "  bun srghmascripts/regenerate_module_tree.ts <crate> [--depends-on=gen_init,gen_std]",
+      "  bun srghmascripts/regenerate_module_tree.ts gen <crate> [--roots=Init,Lean,Std] [--depends-on=gen_init,gen_std]",
       "  bun srghmascripts/regenerate_module_tree.ts ffi <crate>",
       "",
       "examples:",
+      "  bun srghmascripts/regenerate_module_tree.ts gen_init",
       "  bun srghmascripts/regenerate_module_tree.ts gen gen_init",
       "  bun srghmascripts/regenerate_module_tree.ts ffi gen_init",
     ].join("\n"),
@@ -39,13 +41,13 @@ const usage = () => {
   process.exit(2);
 };
 
-const targetArg = process.argv[2] as TargetName | undefined;
-if (targetArg !== "gen" && targetArg !== "ffi") usage();
-
-const crateArg = process.argv[3];
+const cliArg = process.argv[2];
+const targetArg: TargetName = cliArg === "ffi" ? "ffi" : "gen";
+const crateArg = cliArg === "gen" || cliArg === "ffi" ? process.argv[3] : cliArg;
 if (!crateArg || !crateRoots.has(crateArg)) usage();
 
 const rootsArg = process.argv.find((arg) => arg.startsWith("--roots="));
+const dependsOnArg = process.argv.find((arg) => arg.startsWith("--depends-on="));
 const selectedRoots = rootsArg
   ? new Set(
       rootsArg
@@ -55,6 +57,13 @@ const selectedRoots = rootsArg
         .filter(Boolean),
     )
   : undefined;
+const dependsOn = dependsOnArg
+  ? dependsOnArg
+      .slice("--depends-on=".length)
+      .split(",")
+      .map((crate) => crate.trim())
+      .filter(Boolean)
+  : [];
 
 const crateSrcDir = path.join(rustDir, crateArg, "src");
 const targetRoot = path.join(crateSrcDir, targetArg);
@@ -176,6 +185,15 @@ const main = async () => {
   if (targetArg === "gen") {
     const roots = selectedRoots ? [...selectedRoots] : crateRoots.get(crateArg)!;
     const emitter = emitIncludeTree(targetRoot, roots);
+    for (const depCrate of dependsOn) {
+      const depRoots = crateRoots.get(depCrate);
+      if (!depRoots) {
+        throw new Error(`unknown dependency crate ${depCrate}`);
+      }
+      for (const depRoot of depRoots) {
+        emitter.lines.push(`pub use ${depCrate}::r#gen::${depRoot};`);
+      }
+    }
     for (const root of roots) {
       emitter.lines.push(`pub mod ${moduleIdent(root)} {`);
       await emitter.emitDir(root, "    ");

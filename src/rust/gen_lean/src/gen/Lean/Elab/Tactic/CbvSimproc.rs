@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.CbvSimproc
 // Imports: Init.CbvSimproc Lean.Meta.Tactic.Cbv.CbvSimproc Lean.Elab.Command
+use crate::ffi::{
+    lean_array_get, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
+    lean_st_ref_get, lean_string_dec_eq,
+};
 use crate::r#gen::Init::CbvSimproc::{
     initialize_Init_CbvSimproc, runtime_initialize_Init_CbvSimproc,
 };
@@ -52,11 +56,6 @@ use crate::r#gen::Lean::Meta::Tactic::Cbv::CbvSimproc::{
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_realizeGlobalConstNoOverload;
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
-use crate::ffi::{
-    lean_array_get, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_string_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Elab_elabCbvSimprocPattern___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -16,62 +16,79 @@ update-stage1:
 update-stage2:
     make -C build/release/stage2 lean -j{{ nproc }}
 
-# Regenerate src/rust/lean_runtime/src/gen from the current stage1 compiler.
-regenerate-gen:
-    bun srghmascripts/regenerate_gen.ts
-
-# Regenerate src/rust/lean_runtime/src/gen.rs from the files under src/rust/lean_runtime/src/gen.
-regenerate-gen-tree:
-    bun srghmascripts/regenerate_module_tree.ts gen
-
-# Regenerate src/rust/lean_runtime/src/lean_imports_rs.rs from the files under src/rust/lean_runtime/src/lean_imports_rs.
-regenerate-lean-imports-rs-tree:
-    # e.g. bun srghmascripts/regenerate_module_tree.ts lean_imports_rs --roots="Init,Lean" will generete 2 trees
-    bun srghmascripts/regenerate_module_tree.ts lean_imports_rs
-
-cargo-build:
+regenerate-gen-rs--gen_init:
     #!/usr/bin/env bash
     set -euo pipefail
-    cd /home/srghma/projects/lean4/src/rust/lean_runtime
-    CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo build
+    cd src/rust
+    bun ../../srghmascripts/regenerate_module_tree.ts gen_init
+    rustfmt --edition 2024 gen_init/src/gen.rs
 
-# Build and print only unique error signatures
-cargo-build-errors-short:
+regenerate-gen-rs--gen_std:
     #!/usr/bin/env bash
     set -euo pipefail
-    cd /home/srghma/projects/lean4/src/rust/lean_runtime
-    CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo build --message-format=short 2>&1 | grep 'error\[' | sed -E 's/^[^:]+:[0-9]+:[0-9]+: //' | sort -u
+    cd src/rust
+    bun ../../srghmascripts/regenerate_module_tree.ts gen_std --depends-on=gen_init
+    rustfmt --edition 2024 gen_std/src/gen.rs
 
-cargo-build-ai:
+regenerate-gen-rs--gen_lean:
     #!/usr/bin/env bash
     set -euo pipefail
-    cd /home/srghma/projects/lean4/src/rust/lean_runtime
-    CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo build --message-format=json | python3 -c '
-    import sys, json
-    from collections import defaultdict
+    cd src/rust
+    bun ../../srghmascripts/regenerate_module_tree.ts gen_lean --depends-on="gen_init,gen_std"
+    rustfmt --edition 2024 gen_lean/src/gen.rs
 
-    messages = defaultdict(list)
+regenerate-gen-rs--lake:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd src/rust
+    bun ../../srghmascripts/regenerate_module_tree.ts lake --depends-on="gen_init,gen_std,gen_lean"
+    rustfmt --edition 2024 lake/src/gen.rs
 
-    for line in sys.stdin:
-        try:
-            data = json.loads(line)
-            if data.get("reason") == "compiler-message":
-                msg = data.get("message", {})
-                level = msg.get("level")
-                if level in ("error", "warning"):
-                    code = msg.get("code", {}).get("code", "UNKNOWN") if msg.get("code") else "UNKNOWN"
-                    rendered = msg.get("rendered", "")
-                    messages[(level, code)].append(rendered)
-        except Exception:
-            pass
+regenerate-gen-rs:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    just regenerate-gen-rs--gen_init
+    just regenerate-gen-rs--gen_std
+    just regenerate-gen-rs--gen_lean
+    just regenerate-gen-rs--lake
 
-    # Sorting keys puts "error" before "warning" alphabetically
-    for (level, code), items in sorted(messages.items()):
-        label = f"{level.capitalize()} Code: {code}"
-        print(f"\n=================== {label} (Showing {min(len(items), 5)} of {len(items)}) ===================")
-        for item in items[:5]:
-            print(item)
-    ' | copyq add -
+cargo-do crate="" build_or_check="build" normal_or_for_ai_or_short_errors="normal":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd "src/rust"
+    crate_args=()
+    if [ -n "{{ crate }}" ]; then
+        crate_args=(-p "{{ crate }}")
+    fi
+    case "{{ normal_or_for_ai_or_short_errors }}" in
+        normal)
+            CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo {{ build_or_check }} "${crate_args[@]}"
+            ;;
+        short_errors)
+            CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo {{ build_or_check }} "${crate_args[@]}" --message-format=short 2>&1 | grep 'error\[' | sed -E 's/^[^:]+:[0-9]+:[0-9]+: //' | sort -u
+            ;;
+        for_ai)
+            CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo {{ build_or_check }} "${crate_args[@]}" --message-format=json | python3 collect-cargo-build-json-errors-and-warnings-for-ai.py | copyq add -
+            ;;
+        *)
+            echo "unknown mode: {{ normal_or_for_ai_or_short_errors }}" >&2
+            exit 2
+            ;;
+    esac
+
+cargo-do-all build_or_check="build" normal_or_for_ai_or_short_errors="normal":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} leanh
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} gen_init
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} gen_std
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} gen_lean
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} runtime
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lake
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lean_checker
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lean_ir
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lean_shell
+    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} leanc
 
 # Type-check only the generated Rust tree, without compiling lean_runtime/src/lib.rs.
 # The default checks a small generated file first; use check-gen-roots/check-gen-full for heavier checks.

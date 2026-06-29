@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.ToArray
 // Imports: Init.Data.List.Control Init.Data.List.Monadic Init.Data.Array.Basic Init.Data.Array.Set Init.ByCases Init.Data.Array.Bootstrap Init.Data.Bool Init.Data.List.Erase Init.Data.List.Find Init.Data.List.Nat.Erase Init.Data.List.Nat.InsertIdx Init.Data.List.Nat.TakeDrop Init.Data.List.Sublist Init.Data.List.TakeDrop Init.Data.List.Zip Init.Data.Nat.Lemmas Init.Data.Option.Lemmas Init.Omega Init.TacticsExtra
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
@@ -54,7 +55,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_ToArray_0__Array_forIn_x27_loop_match__3_splitter___redArg(
     mut v_i_293_: *mut crate::leanh::LeanObject,
     mut v_h__1_294_: *mut crate::leanh::LeanObject,

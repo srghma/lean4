@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.ReplaceExpr
 // Imports: Lean.Expr Lean.Util.PtrSet
+use crate::ffi::{lean_ptr_addr, lean_replace_expr, lean_usize_dec_eq};
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_app___override, l_Lean_Expr_forallE___override,
     l_Lean_Expr_lam___override, l_Lean_Expr_letE___override, l_Lean_Expr_mdata___override,
@@ -9,9 +10,6 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Util::PtrSet::{
     initialize_Lean_Util_PtrSet, runtime_initialize_Lean_Util_PtrSet,
 };
-use crate::ffi::lean_usize_dec_eq;
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::lean_replace_expr;
 pub unsafe fn l_Lean_Expr_replaceImpl___boxed(
     mut v_f_x3f_101_: *mut crate::leanh::LeanObject,
     mut v_e_102_: *mut crate::leanh::LeanObject,

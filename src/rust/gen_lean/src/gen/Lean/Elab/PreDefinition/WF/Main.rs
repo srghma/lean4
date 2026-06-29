@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.WF.Main
 // Imports: Lean.Elab.PreDefinition.WF.PackMutual Lean.Elab.PreDefinition.WF.FloatRecApp Lean.Elab.PreDefinition.WF.Rel Lean.Elab.PreDefinition.WF.Fix Lean.Elab.PreDefinition.WF.Unfold Lean.Elab.PreDefinition.WF.Preprocess Lean.Elab.PreDefinition.WF.GuessLex
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -77,22 +85,6 @@ use crate::r#gen::Lean::Meta::Transform::{
 };
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_setEnv___at___00Lean_Elab_wfRecursion_spec__9___redArg___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {

@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Std.Time.Format.Basic
 // Imports: Std.Time.Zoned Std.Time.Format.DateFormat Init.Data.String.TakeDrop Init.Data.String.Search
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
+    lean_array_uget_borrowed, lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt,
+    lean_int_div, lean_int_emod, lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub,
+    lean_mk_empty_array_with_capacity, lean_mk_thunk, lean_nat_abs, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_length, lean_string_push,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_thunk_get_own, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
@@ -64,28 +75,6 @@ use crate::r#gen::Std::Time::Zoned::ZoneRules::{
 };
 use crate::r#gen::Std::Time::Zoned::{
     initialize_Std_Time_Zoned, runtime_initialize_Std_Time_Zoned,
-};
-use crate::ffi::{lean_mk_thunk, lean_thunk_get_own};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_emod, lean_int_mod,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
 };
 pub static l_Std_Time_instReprText_repr___closed__0_value: crate::leanh::LeanStringObject<20> =
     crate::leanh::LeanStringObject {

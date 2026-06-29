@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Fin.Fold
 // Imports: Init.Control.Lawful.Basic Init.Ext Init.Data.Fin.Lemmas Init.Data.Nat.Lemmas Init.Omega Init.TacticsExtra Init.WFTactics Init.Hints
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub};
 use crate::r#gen::Init::Control::Lawful::Basic::{
     initialize_Init_Control_Lawful_Basic, runtime_initialize_Init_Control_Lawful_Basic,
 };
@@ -17,9 +18,6 @@ use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
-};
 pub unsafe fn l___private_Init_Data_Fin_Fold_0__Fin_foldl_loop___redArg(
     mut v_n_262_: *mut crate::leanh::LeanObject,
     mut v_f_263_: *mut crate::leanh::LeanObject,

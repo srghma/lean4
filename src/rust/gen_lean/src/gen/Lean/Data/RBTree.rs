@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.RBTree
 // Imports: Lean.Data.RBMap
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Repr::{l_List_repr___redArg, l_Repr_addAppParen};
 use crate::r#gen::Lean::Data::RBMap::{
     initialize_Lean_Data_RBMap, l___private_Lean_Data_RBMap_0__Lean_RBNode_forIn_visit,
@@ -11,11 +15,6 @@ use crate::r#gen::Lean::Data::RBMap::{
     l_Lean_RBNode_insert___redArg, l_Lean_RBNode_isBlack___redArg, l_Lean_RBNode_isRed___redArg,
     l_Lean_RBNode_max___redArg, l_Lean_RBNode_min___redArg, l_Lean_RBNode_revFold___redArg,
     l_Lean_RBNode_setBlack___redArg, runtime_initialize_Lean_Data_RBMap,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_RBTree_toList___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

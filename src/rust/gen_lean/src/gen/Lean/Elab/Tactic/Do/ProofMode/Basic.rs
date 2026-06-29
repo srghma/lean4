@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.ProofMode.Basic
 // Imports: Std.Tactic.Do.Syntax Lean.Elab.Tactic.Do.ProofMode.MGoal
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_infer_type, lean_instantiate_level_mvars, lean_nat_add, lean_nat_dec_lt,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Lean::Data::PersistentHashMap::{
     l_Lean_PersistentHashMap_getCollisionNodeSize___redArg,
     l_Lean_PersistentHashMap_mkCollisionNode___redArg, l_Lean_PersistentHashMap_mkEmptyEntries,
@@ -35,23 +42,6 @@ use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Std::Tactic::Do::Syntax::{
     initialize_Std_Tactic_Do_Syntax, runtime_initialize_Std_Tactic_Do_Syntax,
 };
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
-    lean_nat_dec_lt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
-use crate::ffi::lean_instantiate_level_mvars;
 pub static l_Lean_Elab_Tactic_Do_ProofMode_mStart___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.MatchUtil
 // Imports: Lean.Util.Recognizers Lean.Meta.CtorRecognizer
+use crate::ffi::lean_whnf;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21, l_Lean_Expr_hasLooseBVars,
     l_Lean_Expr_isAppOfArity, l_Lean_Expr_isFalse,
@@ -13,7 +14,6 @@ use crate::r#gen::Lean::Meta::CtorRecognizer::{
 use crate::r#gen::Lean::Util::Recognizers::{
     initialize_Lean_Util_Recognizers, runtime_initialize_Lean_Util_Recognizers,
 };
-use crate::ffi::lean_whnf;
 pub static l_Lean_Meta_matchEq_x3f___lam__0___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

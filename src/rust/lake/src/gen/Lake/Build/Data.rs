@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Build.Data
 // Imports: Lake.Build.Key Lake.Util.Family Lake.Config.Dynlib Lake.Config.Kinds Lake.Config.Kinds Lake.Util.Name Lake.Config.Kinds Lake.Util.Name
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::ToString::Name::{
     l_Lean_Name_toString, l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0,
@@ -34,8 +35,6 @@ use crate::r#gen::Lake::Util::Name::{
     initialize_Lake_Util_Name, l_Lake_Name_quoteFrom, runtime_initialize_Lake_Util_Name,
 };
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lake_OptDataKind_instCoeOutName___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

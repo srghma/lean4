@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Vector.Range
 // Imports: Init.Data.Array.Basic Init.Data.Vector.Basic Init.BinderPredicates Init.Data.Vector.Basic Init.ByCases Init.Data.Array.Find Init.Data.Array.Range Init.Data.Vector.MapIdx Init.Data.Vector.Zip
+use crate::ffi::lean_array_push;
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -24,7 +25,6 @@ use crate::r#gen::Init::Data::Vector::Zip::{
     initialize_Init_Data_Vector_Zip, runtime_initialize_Init_Data_Vector_Zip,
 };
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::lean_array_push;
 pub static l_Vector_count__range_x27___auto__1___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

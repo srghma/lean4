@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.Functions
 // Imports: Lean.Meta.Tactic.Grind.Arith.CommRing.MonadRing
+use crate::ffi::lean_st_ref_get;
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Exception::l_Lean_throwError___redArg;
 use crate::r#gen::Lean::Expr::{
@@ -18,7 +19,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::MonadRing::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_CommRing_MonadRing,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l_Lean_Meta_Grind_internalize___boxed;
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Grind_Arith_CommRing_checkInst___closed__0_value:
     crate::leanh::LeanStringObject<64> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

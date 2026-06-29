@@ -1,6 +1,42 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.EvalGround
 // Imports: Lean.Meta.Sym.Simp.SimpM Init.Sym.Lemmas Lean.Meta.Sym.LitValues Lean.Meta.StringLitProof
+use crate::ffi::{
+    lean_array_push, lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div,
+    lean_int_ediv, lean_int_emod, lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub,
+    lean_int8_add, lean_int8_complement, lean_int8_dec_eq, lean_int8_dec_le, lean_int8_dec_lt,
+    lean_int8_div, lean_int8_land, lean_int8_lor, lean_int8_mod, lean_int8_mul, lean_int8_neg,
+    lean_int8_of_nat, lean_int8_shift_left, lean_int8_shift_right, lean_int8_sub, lean_int8_to_int,
+    lean_int8_xor, lean_int16_add, lean_int16_complement, lean_int16_dec_eq, lean_int16_dec_le,
+    lean_int16_dec_lt, lean_int16_div, lean_int16_land, lean_int16_lor, lean_int16_mod,
+    lean_int16_mul, lean_int16_neg, lean_int16_of_nat, lean_int16_shift_left,
+    lean_int16_shift_right, lean_int16_sub, lean_int16_to_int, lean_int16_xor, lean_int32_add,
+    lean_int32_complement, lean_int32_dec_eq, lean_int32_dec_le, lean_int32_dec_lt, lean_int32_div,
+    lean_int32_land, lean_int32_lor, lean_int32_mod, lean_int32_mul, lean_int32_neg,
+    lean_int32_of_nat, lean_int32_shift_left, lean_int32_shift_right, lean_int32_sub,
+    lean_int32_to_int, lean_int32_xor, lean_int64_add, lean_int64_complement, lean_int64_dec_eq,
+    lean_int64_dec_le, lean_int64_dec_lt, lean_int64_div, lean_int64_land, lean_int64_lor,
+    lean_int64_mod, lean_int64_mul, lean_int64_neg, lean_int64_of_nat, lean_int64_shift_left,
+    lean_int64_shift_right, lean_int64_sub, lean_int64_to_int_sint, lean_int64_xor,
+    lean_mk_empty_array_with_capacity, lean_nat_abs, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_gcd, lean_nat_land, lean_nat_lor,
+    lean_nat_lxor, lean_nat_mod, lean_nat_mul, lean_nat_pow, lean_nat_shiftl, lean_nat_shiftr,
+    lean_nat_sub, lean_nat_to_int, lean_string_dec_eq, lean_string_dec_lt, lean_uint8_add,
+    lean_uint8_complement, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt, lean_uint8_div,
+    lean_uint8_land, lean_uint8_lor, lean_uint8_mod, lean_uint8_mul, lean_uint8_neg,
+    lean_uint8_shift_left, lean_uint8_shift_right, lean_uint8_sub, lean_uint8_to_nat,
+    lean_uint8_xor, lean_uint16_add, lean_uint16_complement, lean_uint16_dec_eq,
+    lean_uint16_dec_le, lean_uint16_dec_lt, lean_uint16_div, lean_uint16_land, lean_uint16_lor,
+    lean_uint16_mod, lean_uint16_mul, lean_uint16_neg, lean_uint16_shift_left,
+    lean_uint16_shift_right, lean_uint16_sub, lean_uint16_to_nat, lean_uint16_xor, lean_uint32_add,
+    lean_uint32_complement, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt,
+    lean_uint32_div, lean_uint32_land, lean_uint32_lor, lean_uint32_mod, lean_uint32_mul,
+    lean_uint32_neg, lean_uint32_shift_left, lean_uint32_shift_right, lean_uint32_sub,
+    lean_uint32_to_nat, lean_uint32_xor, lean_uint64_add, lean_uint64_complement,
+    lean_uint64_dec_eq, lean_uint64_dec_le, lean_uint64_dec_lt, lean_uint64_div, lean_uint64_land,
+    lean_uint64_lor, lean_uint64_mod, lean_uint64_mul, lean_uint64_neg, lean_uint64_shift_left,
+    lean_uint64_shift_right, lean_uint64_sub, lean_uint64_to_nat, lean_uint64_xor,
+};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     l_BitVec_mul, l_BitVec_neg, l_BitVec_not, l_BitVec_shiftLeft,
 };
@@ -70,57 +106,6 @@ use crate::r#gen::Lean::Meta::Sym::SymM::{
 use crate::r#gen::Lean::ToExpr::{
     l_Lean_instToExprInt_mkNat, l_Lean_instToExprInt8_mkNat, l_Lean_instToExprInt16_mkNat,
     l_Lean_instToExprInt32_mkNat, l_Lean_instToExprInt64_mkNat, l_Lean_instToExprRat_mkInt,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_ediv, lean_int_emod, lean_int_mod,
-};
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftl, lean_nat_shiftr,
-};
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{
-    lean_int8_add, lean_int8_complement, lean_int8_dec_eq, lean_int8_dec_le, lean_int8_dec_lt,
-    lean_int8_div, lean_int8_land, lean_int8_lor, lean_int8_mod, lean_int8_mul, lean_int8_neg,
-    lean_int8_of_nat, lean_int8_shift_left, lean_int8_shift_right, lean_int8_sub, lean_int8_to_int,
-    lean_int8_xor, lean_int16_add, lean_int16_complement, lean_int16_dec_eq, lean_int16_dec_le,
-    lean_int16_dec_lt, lean_int16_div, lean_int16_land, lean_int16_lor, lean_int16_mod,
-    lean_int16_mul, lean_int16_neg, lean_int16_of_nat, lean_int16_shift_left,
-    lean_int16_shift_right, lean_int16_sub, lean_int16_to_int, lean_int16_xor, lean_int32_add,
-    lean_int32_complement, lean_int32_dec_eq, lean_int32_dec_le, lean_int32_dec_lt, lean_int32_div,
-    lean_int32_land, lean_int32_lor, lean_int32_mod, lean_int32_mul, lean_int32_neg,
-    lean_int32_of_nat, lean_int32_shift_left, lean_int32_shift_right, lean_int32_sub,
-    lean_int32_to_int, lean_int32_xor, lean_int64_add, lean_int64_complement, lean_int64_dec_eq,
-    lean_int64_dec_le, lean_int64_dec_lt, lean_int64_div, lean_int64_land, lean_int64_lor,
-    lean_int64_mod, lean_int64_mul, lean_int64_neg, lean_int64_of_nat, lean_int64_shift_left,
-    lean_int64_shift_right, lean_int64_sub, lean_int64_to_int_sint, lean_int64_xor,
-};
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{
-    lean_uint8_add, lean_uint8_complement, lean_uint8_div, lean_uint8_land, lean_uint8_lor,
-    lean_uint8_mod, lean_uint8_mul, lean_uint8_neg, lean_uint8_shift_left, lean_uint8_shift_right,
-    lean_uint8_sub, lean_uint8_xor, lean_uint16_add, lean_uint16_complement, lean_uint16_dec_le,
-    lean_uint16_dec_lt, lean_uint16_div, lean_uint16_land, lean_uint16_lor, lean_uint16_mod,
-    lean_uint16_mul, lean_uint16_neg, lean_uint16_shift_left, lean_uint16_shift_right,
-    lean_uint16_sub, lean_uint16_xor, lean_uint32_complement, lean_uint32_div, lean_uint32_land,
-    lean_uint32_lor, lean_uint32_mod, lean_uint32_mul, lean_uint32_neg, lean_uint32_shift_left,
-    lean_uint32_shift_right, lean_uint32_xor, lean_uint64_add, lean_uint64_complement,
-    lean_uint64_dec_le, lean_uint64_dec_lt, lean_uint64_div, lean_uint64_land, lean_uint64_lor,
-    lean_uint64_mod, lean_uint64_mul, lean_uint64_neg, lean_uint64_shift_left,
-    lean_uint64_shift_right, lean_uint64_sub, lean_uint64_xor,
-};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_add, lean_uint32_sub, lean_uint64_to_nat,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow,
-    lean_nat_sub, lean_string_dec_eq, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,
-    lean_uint16_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_dec_lt,
-    lean_uint32_to_nat, lean_uint64_dec_eq,
 };
 pub static l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnary___redArg___closed__0_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [69, 113, 0]};
 static mut l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnary___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnary___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

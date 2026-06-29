@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Match.AltTelescopes
 // Imports: Lean.Meta.Match.MatcherInfo Lean.Meta.Match.NamedPatterns Lean.Meta.MatchUtil Lean.Meta.AppBuilder Init.Data.Nat.Order Init.Data.Order.Lemmas
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_set,
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv,
+    lean_expr_instantiate1, lean_find_expr, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_st_ref_get, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_eraseIdx___redArg;
 use crate::r#gen::Init::Data::Nat::Order::{
     initialize_Init_Data_Nat_Order, runtime_initialize_Init_Data_Nat_Order,
@@ -38,21 +45,6 @@ use crate::r#gen::Lean::Meta::MatchUtil::{
     initialize_Lean_Meta_MatchUtil, l_Lean_Meta_matchEq_x3f, l_Lean_Meta_matchHEq_x3f,
     runtime_initialize_Lean_Meta_MatchUtil,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate1};
-use crate::ffi::lean_find_expr;
 pub static l_panic___at___00__private_Lean_Meta_Match_AltTelescopes_0__Lean_Meta_Match_forallAltVarsTelescope_go_spec__4___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Meta_instInhabitedMetaM___lam__0___boxed as *const core::ffi::c_void, m_arity: 5, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00__private_Lean_Meta_Match_AltTelescopes_0__Lean_Meta_Match_forallAltVarsTelescope_go_spec__4___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_panic___at___00__private_Lean_Meta_Match_AltTelescopes_0__Lean_Meta_Match_forallAltVarsTelescope_go_spec__4___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Match_AltTelescopes_0__Lean_Meta_Match_forallAltVarsTelescope_go___redArg___closed__0_value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [101, 120, 112, 101, 99, 116, 105, 110, 103, 32, 0]};

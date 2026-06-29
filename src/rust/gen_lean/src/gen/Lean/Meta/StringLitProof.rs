@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.StringLitProof
 // Imports: Lean.Meta.AppBuilder
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_string_data, lean_uint32_dec_eq,
+    lean_uint32_to_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_drop___redArg;
 use crate::r#gen::Init::Data::List::BasicAux::{
     l_List_head_x21___redArg, l_List_tail_x21___redArg,
@@ -14,10 +18,6 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Level::l_Lean_Level_succ___override;
 use crate::r#gen::Lean::Meta::AppBuilder::{
     initialize_Lean_Meta_AppBuilder, l_Lean_Meta_mkEqRefl, runtime_initialize_Lean_Meta_AppBuilder,
-};
-use crate::ffi::lean_string_data;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_uint32_dec_eq, lean_uint32_to_nat,
 };
 pub static l___private_Init_Data_Range_Basic_0__Std_Legacy_Range_forIn_x27_loop___at___00Lean_Meta_mkStringLitNeProof_spec__1___redArg___closed__0_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Init_Data_Range_Basic_0__Std_Legacy_Range_forIn_x27_loop___at___00Lean_Meta_mkStringLitNeProof_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Range_Basic_0__Std_Legacy_Range_forIn_x27_loop___at___00Lean_Meta_mkStringLitNeProof_spec__1___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Async.Signal
 // Imports: Std.Time Std.Internal.UV.Signal Std.Async.Select
+use crate::ffi::{
+    lean_int32_of_nat, lean_io_as_task, lean_io_get_task_state, lean_io_map_task,
+    lean_io_promise_resolve, lean_io_promise_result_opt, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_to_int, lean_st_ref_set, lean_st_ref_take, lean_task_bind, lean_task_map,
+    lean_task_pure, lean_uv_signal_cancel, lean_uv_signal_mk, lean_uv_signal_next,
+    lean_uv_signal_stop,
+};
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Std::Async::Basic::l___private_Std_Async_Basic_0__Std_Async_BaseAsync_bind_bindAsyncTask;
@@ -11,20 +18,6 @@ use crate::r#gen::Std::Internal::UV::Signal::{
     initialize_Std_Internal_UV_Signal, runtime_initialize_Std_Internal_UV_Signal,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_int32_of_nat;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
-use crate::ffi::{
-    lean_io_as_task, lean_io_get_task_state, lean_io_map_task,
-};
-use crate::ffi::{
-    lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
-use crate::ffi::{
-    lean_uv_signal_cancel, lean_uv_signal_mk, lean_uv_signal_next, lean_uv_signal_stop,
-};
 pub static l_Std_Async_instReprSignal_repr___closed__0_value: crate::leanh::LeanStringObject<24> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

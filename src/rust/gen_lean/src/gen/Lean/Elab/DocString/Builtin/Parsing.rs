@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.DocString.Builtin.Parsing
 // Imports: Lean.Parser.Extension Init.While Init.Data.Array.Attach Init.Data.Array.Mem
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget, lean_array_uset, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
+    lean_string_utf8_get, lean_string_utf8_next, lean_string_utf8_prev, lean_uint32_dec_eq,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -35,17 +41,6 @@ use crate::r#gen::Lean::Parser::Types::{
     l_Lean_Parser_ParserState_allErrors, l_Lean_Parser_ParserState_mkError,
     l_Lean_Parser_ParserState_setPos, l_Lean_Parser_ParserState_toErrorMsg,
     l_Lean_Parser_SyntaxStack_back,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{
-    lean_string_utf8_get, lean_string_utf8_next, lean_string_utf8_prev,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l___private_Lean_Elab_DocString_Builtin_Parsing_0__Lean_Doc_strLitRange___redArg___closed__0_value: crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 26, m_capacity: 26, m_length: 25, m_data: [73, 110, 105, 116, 46, 68, 97, 116, 97, 46, 79, 112, 116, 105, 111, 110, 46, 66, 97, 115, 105, 99, 65, 117, 120, 0]};
 static mut l___private_Lean_Elab_DocString_Builtin_Parsing_0__Lean_Doc_strLitRange___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_DocString_Builtin_Parsing_0__Lean_Doc_strLitRange___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

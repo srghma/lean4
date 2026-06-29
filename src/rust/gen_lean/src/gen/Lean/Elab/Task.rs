@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Elab.Task
 // Imports: Lean.Elab.Tactic.Basic
+use crate::ffi::{
+    lean_io_as_task, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_task_map,
+};
 use crate::r#gen::Init::System::CancelToken::{
     l_IO_CancelToken_new, l_IO_CancelToken_onSet, l_IO_CancelToken_set___boxed,
 };
@@ -9,9 +12,6 @@ use crate::r#gen::Lean::Elab::Tactic::Basic::{
     initialize_Lean_Elab_Tactic_Basic, runtime_initialize_Lean_Elab_Tactic_Basic,
 };
 use crate::r#gen::Lean::Elab::Term::TermElabM::l_Lean_Elab_Term_TermElabM_run___boxed;
-use crate::ffi::lean_task_map;
-use crate::ffi::lean_io_as_task;
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static l_Lean_Core_CoreM_asTask___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

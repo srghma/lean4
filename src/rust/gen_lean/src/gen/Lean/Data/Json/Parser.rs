@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Data.Json.Parser
 // Imports: Lean.Data.Json.Basic Std.Internal.Parsec
+use crate::ffi::{
+    lean_array_push, lean_int_add, lean_int_mul, lean_int_neg, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_nat_pow, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_compare, lean_string_push,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint16_dec_lt, lean_uint16_lor, lean_uint16_shift_left, lean_uint16_to_uint32,
+    lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_land, lean_uint32_lor,
+    lean_uint32_shift_left, lean_uint32_sub, lean_uint32_to_nat, lean_uint32_to_uint16,
+};
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Data::Json::Basic::{
@@ -13,27 +22,6 @@ use crate::r#gen::Std::Internal::Parsec::String::{
 };
 use crate::r#gen::Std::Internal::Parsec::{
     initialize_Std_Internal_Parsec, runtime_initialize_Std_Internal_Parsec,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_mul, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint16_dec_lt, lean_uint16_lor, lean_uint16_shift_left, lean_uint32_land, lean_uint32_lor,
-    lean_uint32_shift_left,
-};
-use crate::ffi::{
-    lean_uint16_to_uint32, lean_uint32_add, lean_uint32_sub, lean_uint32_to_uint16,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_mul, lean_nat_pow, lean_panic_fn_borrowed,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
 };
 pub static l_Lean_Json_Parser_hexChar___closed__0_value: crate::leanh::LeanStringObject<22> =
     crate::leanh::LeanStringObject {

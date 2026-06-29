@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Data.SSet
 // Imports: Lean.Data.SMap
+use crate::ffi::lean_mk_array;
 use crate::r#gen::Init::Data::Repr::{l_List_repr___redArg, l_Repr_addAppParen};
 use crate::r#gen::Init::Prelude::l_List_foldl___redArg;
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
@@ -9,7 +10,6 @@ use crate::r#gen::Lean::Data::SMap::{
     l_Lean_SMap_fold___redArg, l_Lean_SMap_forM___redArg, l_Lean_SMap_insert___redArg,
     l_Lean_SMap_switch___redArg, runtime_initialize_Lean_Data_SMap,
 };
-use crate::ffi::lean_mk_array;
 static mut l_Lean_SSet_instInhabited___aux__1___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

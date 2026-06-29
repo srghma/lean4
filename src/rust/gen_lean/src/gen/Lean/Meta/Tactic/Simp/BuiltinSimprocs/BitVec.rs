@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.BitVec
 // Imports: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Int Init.Data.BitVec.Lemmas
+use crate::ffi::{
+    lean_array_push, lean_int_dec_le, lean_int_neg, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_land,
+    lean_nat_lor, lean_nat_lxor, lean_nat_mod, lean_nat_mul, lean_nat_pow, lean_nat_shiftl,
+    lean_nat_shiftr, lean_nat_sub, lean_nat_to_int, lean_string_length,
+};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     l_BitVec_abs, l_BitVec_allOnes, l_BitVec_append___redArg, l_BitVec_clz, l_BitVec_cpop,
     l_BitVec_extractLsb_x27___redArg, l_BitVec_mul, l_BitVec_neg, l_BitVec_not, l_BitVec_ofInt,
@@ -44,18 +50,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_registerBuiltinDSimproc, l_Lean_Meta_Simp_registerBuiltinSimproc,
 };
 use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
-use crate::ffi::{
-    lean_int_dec_le, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftl, lean_nat_shiftr,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow,
-    lean_nat_sub,
-};
 pub static l_BitVec_instReprLiteral_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

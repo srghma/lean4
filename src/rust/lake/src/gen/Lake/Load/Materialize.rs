@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Load.Materialize
 // Imports: Lake.Config.Env Lake.Load.Manifest Lake.Config.Package Lake.Util.Git Lake.Util.IO Lake.Reservoir
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed, lean_io_realpath,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_string_append, lean_string_dec_eq,
+    lean_string_memcmp, lean_string_utf8_byte_size, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold;
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Option::Basic::l_Option_instDecidableEq___redArg;
@@ -47,17 +53,6 @@ use crate::r#gen::Lake::Util::Version::{
     l_Lake_StdVer_toString, l_Lake_VerRange_parse, l_Lake_VerRange_test,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::lean_io_realpath;
 pub static l___private_Lake_Load_Materialize_0__Lake_updateGitPkg___closed__0_value:
     crate::leanh::LeanStringObject<15> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

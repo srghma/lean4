@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.Range
 // Imports: Init.BinderPredicates Init.Ext Init.NotationExtra Init.Data.List.Lemmas Init.Data.List.Sublist Init.Data.List.Zip Init.Data.Option.Lemmas
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -20,7 +21,6 @@ use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_Range_0__List_range_x27_match__1_splitter___redArg(
     mut v_x_37_: *mut crate::leanh::LeanObject,
     mut v_x_38_: *mut crate::leanh::LeanObject,

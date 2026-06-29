@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.Reify
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM Lean.Meta.Tactic.Grind.Arith.Linear.Var
+use crate::ffi::{lean_grind_internalize, lean_infer_type, lean_panic_fn_borrowed};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
@@ -31,9 +32,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_addNewRawFact, l_Lean_Meta_Grind_alreadyInternalized___redArg,
     l_Lean_Meta_Grind_getGeneration___redArg,
 };
-use crate::ffi::lean_panic_fn_borrowed;
-use crate::ffi::lean_infer_type;
-use crate::ffi::lean_grind_internalize;
 pub static l_Lean_Meta_Grind_Arith_Linear_reportInstIssue___redArg___closed__0_value:
     crate::leanh::LeanStringObject<47> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

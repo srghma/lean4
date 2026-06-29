@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Init.System.FilePath
 // Imports: Init.Data.String.Modify Init.Data.String.Search Init.Data.ToString.Basic Init.Data.Iterators.Consumers.Collect Init.System.Platform Init.Data.String.Length Init.Data.Iterators.Combinators.Take Init.Data.Iterators.Consumers.Access
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_append, lean_string_dec_eq,
+    lean_string_get_byte_fast, lean_string_hash, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_string_utf8_set, lean_uint8_dec_eq, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint64_mix_hash,
+};
 use crate::r#gen::Init::Data::Iterators::Combinators::Take::{
     initialize_Init_Data_Iterators_Combinators_Take,
     runtime_initialize_Init_Data_Iterators_Combinators_Take,
@@ -46,21 +54,6 @@ use crate::r#gen::Init::Prelude::{l_Char_utf8Size, l_List_lengthTR___redArg};
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, l_System_Platform_isWindows,
     runtime_initialize_Init_System_Platform,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_hash,
-    lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le,
-    lean_uint64_mix_hash,
 };
 pub static l_System_instInhabitedFilePath_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

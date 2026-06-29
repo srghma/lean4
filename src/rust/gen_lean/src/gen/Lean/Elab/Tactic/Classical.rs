@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Classical
 // Imports: Lean.Elab.Tactic.Basic
+use crate::ffi::{
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs};
@@ -24,14 +29,6 @@ use crate::r#gen::Lean::ScopedEnvExtension::{
     l_Lean_ScopedEnvExtension_pushScope, l_Lean_ScopedEnvExtension_pushScope___redArg,
 };
 use crate::r#gen::Lean::Syntax::{l_Lean_Syntax_eqWithInfoAndTraceReuse, l_Lean_Syntax_hasMissing};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_mk_empty_array_with_capacity;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Elab_Tactic_classical___redArg___lam__3___closed__0_value:
     crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

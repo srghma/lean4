@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.Iterators.Combinators.Monadic.StepSize
 // Imports: Init.Data.Iterators.Consumers.Monadic.Access Init.Data.Iterators.Consumers.Monadic.Collect Init.Data.Iterators.Consumers.Monadic.Loop
+use crate::ffi::lean_nat_sub;
 use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Access::{
     initialize_Init_Data_Iterators_Consumers_Monadic_Access,
     runtime_initialize_Init_Data_Iterators_Consumers_Monadic_Access,
@@ -14,7 +15,6 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Loop::{
     runtime_initialize_Init_Data_Iterators_Consumers_Monadic_Loop,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::lean_nat_sub;
 pub unsafe fn l_Std_IterM_stepSize___redArg(
     mut v_it_193_: *mut crate::leanh::LeanObject,
     mut v_n_194_: *mut crate::leanh::LeanObject,

@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Server.RequestCancellation
 // Imports: Lean.Server.ServerTask Init.System.Promise Init.System.CancelToken
+use crate::ffi::{
+    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt, lean_task_map,
+};
 use crate::r#gen::Init::Control::Except::l_ExceptT_bindCont;
 use crate::r#gen::Init::System::CancelToken::{
     initialize_Init_System_CancelToken, l_IO_CancelToken_isSet, l_IO_CancelToken_new,
@@ -11,10 +14,6 @@ use crate::r#gen::Init::System::Promise::{
 };
 use crate::r#gen::Lean::Server::ServerTask::{
     initialize_Lean_Server_ServerTask, runtime_initialize_Lean_Server_ServerTask,
-};
-use crate::ffi::lean_task_map;
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
 };
 pub static l_Lean_Server_RequestCancellationToken_requestCancellationTask___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

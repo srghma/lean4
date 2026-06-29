@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Std.Http.Protocol.H1.Writer
 // Imports: Std.Time Std.Http.Data Std.Http.Internal Std.Http.Protocol.H1.Parser Std.Http.Protocol.H1.Config Std.Http.Protocol.H1.Message Std.Http.Protocol.H1.Error
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_byte_array_copy_slice,
+    lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity,
+    lean_mk_empty_byte_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_nat_to_int, lean_string_append, lean_string_dec_eq, lean_string_hash,
+    lean_string_to_utf8, lean_string_utf8_byte_size, lean_string_utf8_get_fast,
+    lean_string_utf8_set, lean_uint32_add, lean_uint32_dec_le, lean_uint32_to_uint8,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -33,28 +44,6 @@ use crate::r#gen::Std::Http::Protocol::H1::Parser::{
     initialize_Std_Http_Protocol_H1_Parser, runtime_initialize_Std_Http_Protocol_H1_Parser,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_byte_array_copy_slice;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_utf8_get_fast;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint32_add, lean_uint32_to_uint8, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-    lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_mk, lean_array_push, lean_byte_array_mk,
-    lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_mk_empty_byte_array,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_le,
-    lean_usize_dec_eq,
-};
 pub static mut l_Std_Http_Protocol_H1_Writer_instInhabitedState_default:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Std_Http_Protocol_H1_Writer_instInhabitedState: *mut crate::leanh::LeanObject =

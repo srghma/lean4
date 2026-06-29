@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.BuiltinDo.MatchExpr
 // Imports: Lean.Elab.Do.Basic Lean.Parser.Do Lean.Elab.Do.PatternVar Lean.Elab.BuiltinDo.Basic Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_size, lean_array_uget,
+    lean_array_uset, lean_nat_add, lean_nat_dec_lt, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_mkIdentFrom};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{
@@ -33,14 +37,6 @@ use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuilt
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofSyntax, l_Lean_stringToMessageData};
 use crate::r#gen::Lean::Parser::Do::{
     initialize_Lean_Parser_Do, runtime_initialize_Lean_Parser_Do,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
 };
 pub static l___private_Lean_Elab_BuiltinDo_MatchExpr_0__Lean_Elab_Do_expandDoLetExpr___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Lean_Elab_BuiltinDo_MatchExpr_0__Lean_Elab_Do_expandDoLetExpr___closed__0:

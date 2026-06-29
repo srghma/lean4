@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Reflect.ReifiedLemmas
 // Imports: Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVLogical
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr6;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_mkApp4, l_Lean_mkAppB, l_Lean_mkConst, l_Lean_mkNatLit,
@@ -20,7 +21,6 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::ReifiedBVLogical::{
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedBVLogical,
 };
 use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::ReifiedBVPred::l_Lean_Meta_Tactic_BVDecide_ReifiedBVPred_mkBinPred___redArg;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l___private_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedLemmas_0__Lean_Meta_Tactic_BVDecide_addCondLemmas_mkCondTrueLemma___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<12> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [108, 101, 109, 109, 97, 95, 99, 111, 110, 103, 114, 0]};
 static mut l___private_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedLemmas_0__Lean_Meta_Tactic_BVDecide_addCondLemmas_mkCondTrueLemma___redArg___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedLemmas_0__Lean_Meta_Tactic_BVDecide_addCondLemmas_mkCondTrueLemma___redArg___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedLemmas_0__Lean_Meta_Tactic_BVDecide_addCondLemmas_mkCondTrueLemma___redArg___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [66, 111, 111, 108, 0]};

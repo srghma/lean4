@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Tactic.Do.Syntax
 // Imports: Std.Do Std.Tactic.Do.ProofMode Init.Data.Array.GetLit Init.Grind.Interactive
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int,
+    lean_string_length, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::GetLit::{
     initialize_Init_Data_Array_GetLit, runtime_initialize_Init_Data_Array_GetLit,
@@ -30,19 +36,6 @@ use crate::r#gen::Init::Tactics::{
 use crate::r#gen::Std::Do::{initialize_Std_Do, runtime_initialize_Std_Do};
 use crate::r#gen::Std::Tactic::Do::ProofMode::{
     initialize_Std_Tactic_Do_ProofMode, runtime_initialize_Std_Tactic_Do_ProofMode,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_Parser_Attr_spec___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

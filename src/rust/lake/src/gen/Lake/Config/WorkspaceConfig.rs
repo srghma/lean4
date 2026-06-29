@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Config.WorkspaceConfig
 // Imports: Lake.Config.Defaults Lake.Config.MetaClasses Lake.Config.Meta Lake.Config.Meta
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int,
+    lean_string_length, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -19,12 +23,6 @@ use crate::r#gen::Lake::Config::MetaClasses::{
     initialize_Lake_Config_MetaClasses, runtime_initialize_Lake_Config_MetaClasses,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_le, lean_nat_dec_lt,
-};
 pub static mut l_Lake_instInhabitedWorkspaceConfig_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lake_instInhabitedWorkspaceConfig: *mut crate::leanh::LeanObject =

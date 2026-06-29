@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Reflect
 // Imports: Std.Tactic.BVDecide.LRAT.Checker Std.Tactic.BVDecide.LRAT.Parser Std.Tactic.BVDecide.Bitblast Std.Sat.AIG.CNF Std.Sat.AIG.RelabelNat
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_string_to_utf8, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Std::Sat::AIG::CNF::{
     initialize_Std_Sat_AIG_CNF, l_Std_Sat_AIG_toCNF, runtime_initialize_Std_Sat_AIG_CNF,
 };
@@ -22,21 +29,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Checker::{
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Parser::{
     initialize_Std_Tactic_BVDecide_LRAT_Parser, l_Std_Tactic_BVDecide_LRAT_parseLRATProof,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Parser,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
 };
 static mut l_Std_Sat_AIG_relabel___at___00Std_Sat_AIG_relabelNat_x27___at___00Std_Sat_AIG_relabelNat___at___00Std_Sat_AIG_Entrypoint_relabelNat___at___00Std_Tactic_BVDecide_Reflect_verifyBVExpr_spec__0_spec__0_spec__1_spec__4___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Std_Sat_AIG_relabel___at___00Std_Sat_AIG_relabelNat_x27___at___00Std_Sat_AIG_relabelNat___at___00Std_Sat_AIG_Entrypoint_relabelNat___at___00Std_Tactic_BVDecide_Reflect_verifyBVExpr_spec__0_spec__0_spec__1_spec__4___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.BuiltinDocAttr
 // Imports: Lean.Compiler.InitAttr
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_st_ref_get};
 use crate::r#gen::Init::Prelude::l_Lean_Name_append;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Attributes::{
@@ -26,8 +27,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_isRecCore;
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_declareBuiltinDocStringAndRanges___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Data.Json.Stream
 // Imports: Lean.Data.Json.Parser Lean.Data.Json.Printer
+use crate::ffi::{lean_string_from_utf8_unchecked, lean_string_validate_utf8, lean_usize_of_nat};
 use crate::r#gen::Init::System::IOError::lean_mk_io_user_error;
 use crate::r#gen::Lean::Data::Json::Parser::{
     initialize_Lean_Data_Json_Parser, l_Lean_Json_parse, runtime_initialize_Lean_Data_Json_Parser,
@@ -9,9 +10,6 @@ use crate::r#gen::Lean::Data::Json::Printer::{
     initialize_Lean_Data_Json_Printer, l_Lean_Json_compress,
     runtime_initialize_Lean_Data_Json_Printer,
 };
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::lean_string_from_utf8_unchecked;
 pub static l_IO_FS_Stream_readUTF8___closed__0_value: crate::leanh::LeanStringObject<14> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

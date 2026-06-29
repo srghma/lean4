@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Util.ForEachExprWhere
 // Imports: Lean.Expr Lean.Util.MonadCache
+use crate::ffi::{
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_ptr_addr, lean_usize_dec_eq,
+    lean_usize_mod, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::System::ST::{
     l_ST_Prim_Ref_get___boxed, l_ST_Prim_Ref_modifyGetUnsafe___boxed, l_ST_Prim_mkRef___boxed,
 };
@@ -15,13 +19,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
     l_Std_DHashMap_Internal_Raw_u2080_contains___redArg,
     l_Std_DHashMap_Internal_Raw_u2080_insertIfNew___redArg,
 };
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_usize_mod;
-use crate::ffi::{lean_usize_sub, lean_usize_to_nat};
-use crate::ffi::lean_usize_dec_eq;
-use crate::ffi::lean_ptr_addr;
 static mut l_Lean_ForEachExprWhere_cacheSize___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Array.DecidableEq
 // Imports: Init.Data.Array.Basic Init.Data.Array.Basic Init.Data.Nat.Lemmas Init.ByCases Init.Classical Init.Data.BEq Init.Data.Bool Init.Data.List.Nat.BEq Init.RCases
+use crate::ffi::{lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Array::Basic::{
@@ -18,9 +19,6 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{
-    lean_array_get_size, lean_array_to_list, lean_nat_dec_eq, lean_nat_sub,
-};
 pub unsafe fn l___private_Init_Data_Array_DecidableEq_0__Array_isEqvAux_match__1_splitter___redArg(
     mut v_x_155_: *mut crate::leanh::LeanObject,
     mut v_h__1_156_: *mut crate::leanh::LeanObject,

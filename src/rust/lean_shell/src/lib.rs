@@ -21,18 +21,17 @@ fn debug_build() -> bool {
     option_env!("LEAN_RUST_DEBUG") == Some("1")
 }
 
-    use runtime::lean_init_search_path;
-    use runtime::lean_enable_initializer_execution;
-    use runtime::lean_io_mark_end_initialization;
-    use runtime::lean_shell_options_mk;
-    use runtime::lean_shell_options_process;
-    use runtime::lean_shell_options_get_run;
-    use runtime::lean_shell_options_get_profiler;
-    use runtime::lean_shell_options_get_num_threads;
-    use runtime::lean_shell_main;
-    use runtime::lean_init_task_manager_using;
-    use runtime::lean_finalize_task_manager;
-
+use runtime::lean_enable_initializer_execution;
+use runtime::lean_finalize_task_manager;
+use runtime::lean_init_search_path;
+use runtime::lean_init_task_manager_using;
+use runtime::lean_io_mark_end_initialization;
+use runtime::lean_shell_main;
+use runtime::lean_shell_options_get_num_threads;
+use runtime::lean_shell_options_get_profiler;
+use runtime::lean_shell_options_get_run;
+use runtime::lean_shell_options_mk;
+use runtime::lean_shell_options_process;
 
 struct TaskManagerGuard;
 
@@ -56,7 +55,6 @@ enum ArgMode {
     Required,
     Optional,
 }
-
 
 fn long_option(name: &str) -> Option<(c_char, ArgMode)> {
     let candidates = [

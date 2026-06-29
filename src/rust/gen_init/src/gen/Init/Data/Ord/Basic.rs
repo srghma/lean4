@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Ord.Basic
 // Imports: Init.ByCases Init.Ext Init.PropLemmas Init.Data.Char.Basic Init.Classical
+use crate::ffi::{
+    lean_int_dec_eq, lean_int_dec_lt, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_to_int, lean_uint32_dec_eq, lean_uint32_dec_lt,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Char::Basic::{
@@ -10,12 +14,6 @@ use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_uint32_dec_eq, lean_uint32_dec_lt,
 };
 pub static mut l_instInhabitedOrdering_default: u8 = 0;
 pub static mut l_instInhabitedOrdering: u8 = 0;

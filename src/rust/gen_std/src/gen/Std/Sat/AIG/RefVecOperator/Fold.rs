@@ -1,13 +1,13 @@
 // Lean compiler output
 // Module: Std.Sat.AIG.RefVecOperator.Fold
 // Imports: Std.Sat.AIG.LawfulVecOperator Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land,
+    lean_nat_shiftr,
+};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Std::Sat::AIG::LawfulVecOperator::{
     initialize_Std_Sat_AIG_LawfulVecOperator, runtime_initialize_Std_Sat_AIG_LawfulVecOperator,
-};
-use crate::ffi::{lean_nat_land, lean_nat_shiftr};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub static l_Std_Sat_AIG_RefVec_fold___redArg___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {

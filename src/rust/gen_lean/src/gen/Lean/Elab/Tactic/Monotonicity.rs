@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Monotonicity
 // Imports: Lean.Meta.Tactic.Split Lean.Elab.RecAppSyntax Lean.Elab.Tactic.Basic Init.Internal.Order
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv,
+    lean_expr_instantiate1, lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_le, lean_usize_dec_lt,
+    lean_usize_land, lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_insertIdx_loop;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
@@ -100,30 +112,6 @@ use crate::r#gen::Lean::ScopedEnvExtension::{
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_usize_land, lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate1};
-use crate::ffi::lean_infer_type;
 pub static l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__0_value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [76, 101, 97, 110, 46, 69, 120, 112, 114, 0]};
 static mut l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__1_value: crate::leanh::LeanStringObject<49> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 49, m_capacity: 49, m_length: 48, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 46, 76, 101, 97, 110, 46, 69, 120, 112, 114, 46, 48, 46, 76, 101, 97, 110, 46, 69, 120, 112, 114, 46, 117, 112, 100, 97, 116, 101, 76, 97, 109, 98, 100, 97, 33, 73, 109, 112, 108, 0]};
@@ -1369,7 +1357,7 @@ pub unsafe fn _init_l___private_Init_While_0__whileM_erased___at___00Lean_Meta_M
     let mut v___x_4184_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_4179_ = l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__2;
     v___x_4180_ = crate::leanh::lean_unsigned_to_nat(19);
-    v___x_4181_ = crate::leanh::lean_unsigned_to_nat(1922);
+    v___x_4181_ = crate::leanh::lean_unsigned_to_nat(1923);
     v___x_4182_ = l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__1;
     v___x_4183_ = l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__0;
     v___x_4184_ = l_mkPanicMessageWithDecl(
@@ -10677,7 +10665,7 @@ pub unsafe fn _init_l_Lean_Meta_Monotonicity_solveMonoStep___lam__1___closed__1(
     let mut v___x_6879_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_6874_ = l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__2;
     v___x_6875_ = crate::leanh::lean_unsigned_to_nat(20);
-    v___x_6876_ = crate::leanh::lean_unsigned_to_nat(1933);
+    v___x_6876_ = crate::leanh::lean_unsigned_to_nat(1934);
     v___x_6877_ = l_Lean_Meta_Monotonicity_solveMonoStep___lam__1___closed__0;
     v___x_6878_ = l___private_Init_While_0__whileM_erased___at___00Lean_Meta_Monotonicity_headBetaUnderLambda_spec__1___redArg___closed__0;
     v___x_6879_ = l_mkPanicMessageWithDecl(

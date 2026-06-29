@@ -1,10 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.LOption
 // Imports: Init.Data.String.Basic
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::ffi::lean_string_append;
 pub static l_Lean_instToStringLOption___redArg___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

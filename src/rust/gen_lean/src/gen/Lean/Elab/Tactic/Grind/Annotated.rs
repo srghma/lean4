@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.Annotated
 // Imports: Lean.Elab.Command Init.Grind.Annotated Std.Time.Format
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_mk, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Grind::Annotated::{
     initialize_Init_Grind_Annotated, runtime_initialize_Init_Grind_Annotated,
@@ -34,15 +39,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Std::Time::Format::{
     initialize_Std_Time_Format, l_Std_Time_PlainDate_parse, runtime_initialize_Std_Time_Format,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_mk, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Elab_Tactic_Grind_Annotated_0__Lean_Elab_Tactic_Grind_initFn___closed__0_00___x40_Lean_Elab_Tactic_Grind_Annotated_476932661____hygCtx___hyg_2__value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_NameSet_insert as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 0, m_objs: [] };
 static mut l___private_Lean_Elab_Tactic_Grind_Annotated_0__Lean_Elab_Tactic_Grind_initFn___closed__0_00___x40_Lean_Elab_Tactic_Grind_Annotated_476932661____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Grind_Annotated_0__Lean_Elab_Tactic_Grind_initFn___closed__0_00___x40_Lean_Elab_Tactic_Grind_Annotated_476932661____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;

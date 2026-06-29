@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Injection
 // Imports: Lean.Meta.Tactic.Injection Lean.Meta.Tactic.Assumption Lean.Elab.Tactic.ElabTerm
+use crate::ffi::lean_array_to_list;
 use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs};
@@ -27,7 +28,6 @@ use crate::r#gen::Lean::Meta::Tactic::Injection::{
     runtime_initialize_Lean_Meta_Tactic_Injection,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_Meta_throwTacticEx___redArg;
-use crate::ffi::lean_array_to_list;
 pub static l___private_Lean_Elab_Tactic_Injection_0__Lean_Elab_Tactic_checkUnusedIds___closed__0_value: crate::leanh::LeanStringObject<40> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 40, m_capacity: 40, m_length: 39, m_data: [116, 111, 111, 32, 109, 97, 110, 121, 32, 105, 100, 101, 110, 116, 105, 102, 105, 101, 114, 115, 32, 112, 114, 111, 118, 105, 100, 101, 100, 44, 32, 117, 110, 117, 115, 101, 100, 58, 32, 0]};
 static mut l___private_Lean_Elab_Tactic_Injection_0__Lean_Elab_Tactic_checkUnusedIds___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

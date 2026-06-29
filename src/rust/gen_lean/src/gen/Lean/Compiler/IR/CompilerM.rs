@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.CompilerM
 // Imports: Lean.Compiler.IR.Format Lean.Compiler.ExportAttr Lean.Compiler.LCNF.PublicDeclsExt Lean.Compiler.InitAttr Lean.Compiler.ModPkgExt Init.Data.Format.Macro Lean.Compiler.LCNF.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr,
+    lean_nat_sub, lean_nat_to_int, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_length, lean_uint64_of_nat, lean_uint64_to_usize,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right,
+    lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::BinSearch::l_Array_binSearchAux___redArg;
 use crate::r#gen::Init::Data::Array::QSort::Basic::l___private_Init_Data_Array_QSort_Basic_0__Array_qsort_sort;
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
@@ -65,31 +76,6 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_PersistentEnvExtension_getState___redArg, l_Lean_instDecidableEqOLeanLevel,
 };
 use crate::r#gen::Lean::Message::l_Lean_MessageData_ofFormat;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_uint64_of_nat,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_IR_LogEntry_fmt___closed__0_value: crate::leanh::LeanStringObject<2> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

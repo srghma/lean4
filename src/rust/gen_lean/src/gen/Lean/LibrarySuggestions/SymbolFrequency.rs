@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.LibrarySuggestions.SymbolFrequency
 // Imports: Lean.Meta.Basic Lean.LibrarySuggestions.Basic
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_uget_borrowed,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Reader::l_ReaderT_tryFinally___redArg___lam__1;
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___redArg, l_instMonadFinallyStateRefT_x27___aux__1___boxed,
@@ -58,14 +64,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Balancing::l_Std_DTreeMap_Inter
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_Const_getD___redArg, l_Std_DTreeMap_Internal_Impl_foldl___redArg,
 };
-use crate::ffi::{lean_array_uget_borrowed, lean_mk_array};
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 static mut l_Std_DTreeMap_Internal_Impl_Const_alter___at___00Lean_LibrarySuggestions_localSymbolFrequencyMap_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Std_DTreeMap_Internal_Impl_Const_alter___at___00Lean_LibrarySuggestions_localSymbolFrequencyMap_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_LibrarySuggestions_localSymbolFrequencyMap___lam__1___closed__0_once:

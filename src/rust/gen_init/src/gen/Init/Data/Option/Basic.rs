@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Option.Basic
 // Imports: Init.Control.Basic Init.Grind.Tactics
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Control::Basic::{
     initialize_Init_Control_Basic, runtime_initialize_Init_Control_Basic,
 };
@@ -8,7 +9,6 @@ use crate::r#gen::Init::Grind::Tactics::{
     initialize_Init_Grind_Tactics, runtime_initialize_Init_Grind_Tactics,
 };
 use crate::r#gen::Init::Prelude::l_Option_map;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Option_mapM___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

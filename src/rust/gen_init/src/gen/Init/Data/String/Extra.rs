@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Init.Data.String.Extra
 // Imports: Init.Data.ByteArray.Basic Init.Data.String.Basic Init.Data.String.Basic Init.Data.String.Search Init.Data.String.Termination Init.Data.String.Length
+use crate::ffi::{
+    lean_byte_array_fget, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_string_append, lean_string_push, lean_string_utf8_at_end,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_validate_utf8,
+    lean_uint8_dec_eq, lean_uint8_land, lean_uint8_to_uint32, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_dec_lt, lean_uint32_lor, lean_uint32_shift_left,
+};
 use crate::r#gen::Init::Data::ByteArray::Basic::{
     initialize_Init_Data_ByteArray_Basic, runtime_initialize_Init_Data_ByteArray_Basic,
 };
@@ -16,22 +24,6 @@ use crate::r#gen::Init::Data::String::Search::{
 };
 use crate::r#gen::Init::Data::String::Termination::{
     initialize_Init_Data_String_Termination, runtime_initialize_Init_Data_String_Termination,
-};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_validate_utf8,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint8_land, lean_uint32_lor, lean_uint32_shift_left,
-};
-use crate::ffi::lean_uint8_to_uint32;
-use crate::ffi::{
-    lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_uint32_dec_lt,
 };
 pub static l___private_Init_Data_String_Extra_0__String_removeNumLeadingSpaces___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

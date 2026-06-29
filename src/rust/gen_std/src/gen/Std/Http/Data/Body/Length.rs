@@ -1,12 +1,11 @@
 // Lean compiler output
 // Module: Std.Http.Data.Body.Length
 // Imports: Init.Data.Repr
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int};
 use crate::r#gen::Init::Data::Repr::{
     initialize_Init_Data_Repr, l_Nat_reprFast, l_Repr_addAppParen,
     runtime_initialize_Init_Data_Repr,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static l_Std_Http_Body_instReprLength_repr___closed__0_value: crate::leanh::LeanStringObject<
     29,
 > = crate::leanh::LeanStringObject {

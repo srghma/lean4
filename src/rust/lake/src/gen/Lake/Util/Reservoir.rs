@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Util.Reservoir
 // Imports: Lake.Util.JsonObject
+use crate::ffi::lean_string_append;
 use crate::r#gen::Lake::Util::JsonObject::{
     initialize_Lake_Util_JsonObject, l_Lake_JsonObject_fromJson_x3f, l_Lake_JsonObject_getJson_x3f,
     runtime_initialize_Lake_Util_JsonObject,
@@ -11,7 +12,6 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 use crate::r#gen::Lean::Data::Json::FromToJson::Basic::{
     l_Lean_instFromJsonJson___lam__0, l_Option_fromJson_x3f___redArg,
 };
-use crate::ffi::lean_string_append;
 pub static l_Lake_Reservoir_lakeHeaders___closed__0_value: crate::leanh::LeanStringObject<30> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

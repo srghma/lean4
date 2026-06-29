@@ -1,23 +1,17 @@
 // Lean compiler output
 // Module: Std.Http.Data.Status
 // Imports: Std.Http.Internal
+use crate::ffi::{
+    lean_array_push, lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int, lean_string_data,
+    lean_string_dec_eq, lean_string_length, lean_string_to_utf8, lean_uint16_dec_eq,
+    lean_uint16_dec_le, lean_uint16_dec_lt, lean_uint16_to_nat, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_to_uint8,
+};
 use crate::r#gen::Init::Data::Repr::{l_Nat_reprFast, l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_data;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::{lean_uint16_dec_le, lean_uint16_dec_lt};
-use crate::ffi::{
-    lean_uint16_to_nat, lean_uint32_to_uint8,
-};
-use crate::ffi::{
-    lean_array_push, lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq, lean_uint16_dec_eq,
-    lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Std_Http_CustomStatus_validReasonPhrase___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

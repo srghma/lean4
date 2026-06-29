@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.ProofMode.Delab
 // Imports: Lean.Elab.Tactic.Do.ProofMode.MGoal
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_panic_fn_borrowed,
+    lean_string_append,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_reverse___redArg};
 use crate::r#gen::Init::Data::Repr::l_Nat_toSuperscriptString;
@@ -46,10 +50,6 @@ use crate::r#gen::Lean::PrettyPrinter::Delaborator::Basic::{
     l_Lean_PrettyPrinter_Delaborator_failure___redArg,
 };
 use crate::r#gen::Lean::SubExpr::l_Lean_SubExpr_Pos_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_panic_fn_borrowed,
-};
 static mut l_panic___at___00Lean_PrettyPrinter_Delaborator_SubExpr_withMDataExpr___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Delab_0__Lean_Elab_Tactic_Do_ProofMode_delabMGoal_delabHypotheses_spec__1_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_panic___at___00Lean_PrettyPrinter_Delaborator_SubExpr_withMDataExpr___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Delab_0__Lean_Elab_Tactic_Do_ProofMode_delabMGoal_delabHypotheses_spec__1_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_panic___at___00Lean_PrettyPrinter_Delaborator_SubExpr_withMDataExpr___at___00__private_Lean_Elab_Tactic_Do_ProofMode_Delab_0__Lean_Elab_Tactic_Do_ProofMode_delabMGoal_delabHypotheses_spec__1_spec__1___closed__1_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Core_instMonadCoreM___lam__0___boxed as *const core::ffi::c_void, m_arity: 5, m_num_fixed: 0, m_objs: [] };

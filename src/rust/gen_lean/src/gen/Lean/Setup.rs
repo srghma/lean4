@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Setup
 // Imports: Lean.Data.Json.Parser Lean.Util.LeanOptions
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_idbg_client_loop, lean_int_dec_lt, lean_name_eq, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_compare, lean_string_dec_eq,
+    lean_string_length, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
@@ -30,22 +39,6 @@ use crate::r#gen::Lean::Util::LeanOptions::{
     initialize_Lean_Util_LeanOptions, l_Lean_instReprLeanOptions_repr___redArg,
     runtime_initialize_Lean_Util_LeanOptions,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat,
-};
-use crate::ffi::lean_idbg_client_loop;
 pub static l_Lean_instReprImport_repr___redArg___closed__0_value: crate::leanh::LeanStringObject<
     3,
 > = crate::leanh::LeanStringObject {

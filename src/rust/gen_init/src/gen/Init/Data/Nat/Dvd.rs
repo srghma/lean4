@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Dvd
 // Imports: Init.Data.Nat.Div.Basic Init.SimpLemmas Init.Data.List.Notation Init.Data.Nat.Basic Init.Meta.Defs
+use crate::ffi::{lean_nat_dec_eq, lean_nat_mod};
 use crate::r#gen::Init::Data::List::Notation::{
     initialize_Init_Data_List_Notation, runtime_initialize_Init_Data_List_Notation,
 };
@@ -16,7 +17,6 @@ use crate::r#gen::Init::Meta::Defs::{
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_mod};
 pub unsafe fn l_Nat_decidable__dvd(
     mut v_x_10_: *mut crate::leanh::LeanObject,
     mut v_x_11_: *mut crate::leanh::LeanObject,

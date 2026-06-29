@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Std.Http.Protocol.H1.Parser
 // Imports: Std.Internal.Parsec Std.Http.Data Std.Internal.Parsec.ByteArray Std.Http.Protocol.H1.Config
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_byte_array_fget, lean_byte_array_push,
+    lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_mul, lean_nat_sub, lean_string_append, lean_string_data, lean_string_dec_eq,
+    lean_string_from_utf8_unchecked, lean_string_to_utf8, lean_string_utf8_byte_size,
+    lean_string_utf8_get_fast, lean_string_utf8_set, lean_string_validate_utf8, lean_uint8_add,
+    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_sub, lean_uint8_to_nat, lean_uint8_to_uint32,
+    lean_uint16_of_nat, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_to_nat, lean_uint32_to_uint8,
+};
 use crate::r#gen::Init::Data::ByteArray::Basic::l_ByteArray_Iterator_remainingBytes;
 use crate::r#gen::Init::Data::Repr::{l_Char_quote, l_Nat_reprFast};
 use crate::r#gen::Init::Data::String::FindPos::l_String_Slice_posLE;
@@ -29,24 +39,6 @@ use crate::r#gen::Std::Internal::Parsec::ByteArray::{
 };
 use crate::r#gen::Std::Internal::Parsec::{
     initialize_Std_Internal_Parsec, runtime_initialize_Std_Internal_Parsec,
-};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_string_data, lean_string_utf8_get_fast, lean_string_validate_utf8,
-};
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{lean_uint8_add, lean_uint8_sub};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint16_of_nat, lean_uint32_add,
-    lean_uint32_to_uint8,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_byte_array_push, lean_byte_array_size, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint32_dec_eq, lean_uint32_dec_le,
-    lean_uint32_to_nat,
 };
 pub static l___private_Std_Http_Protocol_H1_Parser_0__Std_Http_Protocol_H1_manyItems_go___redArg___closed__0_value: crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 13, m_capacity: 13, m_length: 12, m_data: [101, 110, 100, 32, 111, 102, 32, 105, 116, 101, 109, 115, 0]};
 static mut l___private_Std_Http_Protocol_H1_Parser_0__Std_Http_Protocol_H1_manyItems_go___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Std_Http_Protocol_H1_Parser_0__Std_Http_Protocol_H1_manyItems_go___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

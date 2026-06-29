@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter.Delaborator.FieldNotation
 // Imports: Lean.Meta.WHNF Lean.PrettyPrinter.Delaborator.Attributes Lean.PrettyPrinter.Delaborator.Options Init.Data.Range.Polymorphic.Iterators
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_uget_borrowed, lean_infer_type,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Range::Polymorphic::Iterators::{
     initialize_Init_Data_Range_Polymorphic_Iterators,
     runtime_initialize_Init_Data_Range_Polymorphic_Iterators,
@@ -65,20 +73,6 @@ use crate::r#gen::Lean::ResolveName::{
     l_Lean_ResolveName_backward_privateInPublic, l_Lean_ResolveName_backward_privateInPublic_warn,
 };
 use crate::r#gen::Lean::Structure::{l_Lean_getFieldInfo_x3f, l_Lean_getStructureInfo_x3f};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l_Lean_getConstInfoInduct___at___00__private_Lean_PrettyPrinter_Delaborator_FieldNotation_0__Lean_PrettyPrinter_Delaborator_projInfo_spec__0___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [96, 0]};
 static mut l_Lean_getConstInfoInduct___at___00__private_Lean_PrettyPrinter_Delaborator_FieldNotation_0__Lean_PrettyPrinter_Delaborator_projInfo_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_getConstInfoInduct___at___00__private_Lean_PrettyPrinter_Delaborator_FieldNotation_0__Lean_PrettyPrinter_Delaborator_projInfo_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l_Lean_getConstInfoInduct___at___00__private_Lean_PrettyPrinter_Delaborator_FieldNotation_0__Lean_PrettyPrinter_Delaborator_projInfo_spec__0___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

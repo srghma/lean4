@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Omega.Coeffs
 // Imports: Init.Omega.IntList Init.Omega.IntList
+use crate::ffi::lean_int_sub;
 use crate::r#gen::Init::Data::Int::DivMod::Basic::l_Int_bmod;
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_findIdx_x3f_go___redArg, l_List_mapTR_loop___redArg,
@@ -15,7 +16,6 @@ use crate::r#gen::Init::Omega::IntList::{
     runtime_initialize_Init_Omega_IntList,
 };
 use crate::r#gen::Init::Prelude::l_List_lengthTR___redArg;
-use crate::ffi::lean_int_sub;
 pub unsafe fn l_Lean_Omega_Coeffs_toList(
     mut v_xs_98_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

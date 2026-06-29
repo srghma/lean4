@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.Replicate
 // Imports: Std.Tactic.BVDecide.Bitblast.BVExpr.Basic Std.Sat.AIG.LawfulVecOperator Init.Omega
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Std::Sat::AIG::LawfulVecOperator::{
@@ -9,9 +10,6 @@ use crate::r#gen::Std::Sat::AIG::LawfulVecOperator::{
 use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Basic::{
     initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Basic,
-};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_lt,
 };
 pub unsafe fn l_Std_Tactic_BVDecide_BVExpr_bitblast_blastReplicate_go___redArg(
     mut v_n_91_: *mut crate::leanh::LeanObject,

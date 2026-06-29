@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Config.LeanConfig
 // Imports: Lake.Build.Target.Basic Lake.Config.Dynlib Lake.Config.MetaClasses Init.Data.String.Modify Lake.Config.Meta Lake.Util.Name Init.Data.String.Modify Lake.Config.Meta
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_to_int, lean_string_dec_eq, lean_string_length, lean_string_utf8_get,
+    lean_string_utf8_set, lean_uint32_add, lean_uint32_dec_le, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -30,15 +35,6 @@ use crate::r#gen::Lake::Util::Name::{
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
 use crate::r#gen::Lean::Util::LeanOptions::l_Lean_instReprLeanOption_repr___redArg;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_utf8_get;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{lean_uint32_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_string_dec_eq, lean_uint32_dec_le,
-};
 pub static l_Lake_instReprBackend_repr___closed__0_value: crate::leanh::LeanStringObject<15> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

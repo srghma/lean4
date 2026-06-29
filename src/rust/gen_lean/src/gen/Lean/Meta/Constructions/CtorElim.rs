@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Meta.Constructions.CtorElim
 // Imports: Lean.Meta.Basic Lean.Meta.CompletionName Lean.Meta.Constructions.CtorIdx Lean.Meta.NatTable Lean.Elab.App
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_mk, lean_array_pop, lean_array_push, lean_array_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_infer_type, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_whnf,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::{
     l_Array_toSubarray___redArg, l_Subarray_get___redArg,
@@ -80,21 +88,6 @@ use crate::r#gen::Lean::PrivateName::{
     l_Lean_isPrivateName, l_Lean_privateToUserName, lean_private_prefix,
 };
 use crate::r#gen::Lean::ReducibilityAttrs::l___private_Lean_ReducibilityAttrs_0__Lean_setReducibilityStatusCore;
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l___private_Lean_Meta_Constructions_CtorElim_0__Lean_reassocMax___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Server.Completion.EligibleHeaderDecls
 // Imports: Lean.Meta.CompletionName Lean.Data.Lsp.LanguageFeatures Lean.AddDecl Lean.ProjFns Std.Sync.Mutex Lean.Linter.Deprecated
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_size, lean_array_uget_borrowed,
+    lean_array_uset, lean_io_basemutex_lock, lean_io_basemutex_unlock, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_st_ref_get, lean_st_ref_set,
+    lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold;
 use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
@@ -46,26 +56,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::AssocList::Basic::l_Std_DHashMa
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_uint64_of_nat,
-};
-use crate::ffi::{lean_st_ref_get, lean_st_ref_set};
-use crate::ffi::lean_whnf;
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static mut l_Lean_Server_Completion_eligibleHeaderDeclsMutex: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 static mut l_Lean_mkUnknownIdentifierMessageCore___at___00Lean_mkUnknownIdentifierMessage___at___00Lean_throwUnknownIdentifierAt___at___00Lean_throwUnknownConstantAt___at___00Lean_throwUnknownConstant___at___00Lean_getConstInfo___at___00Lean_isEnumType___at___00Lean_Server_Completion_getCompletionKindForDecl_spec__1_spec__1_spec__2_spec__3_spec__5_spec__6_spec__7___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

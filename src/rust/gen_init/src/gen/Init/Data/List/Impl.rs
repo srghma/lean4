@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.List.Impl
 // Imports: Init.Ext Init.Data.Array.Bootstrap Init.Data.Bool Init.Data.List.Lemmas Init.Data.Option.Lemmas
+use crate::ffi::{
+    lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push, lean_array_to_list,
+    lean_array_uget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_usize_dec_eq, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -25,12 +30,6 @@ use crate::r#gen::Init::Data::Option::Lemmas::{
 };
 use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::Prelude::l_id___boxed;
-use crate::ffi::{lean_array_pop, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
 pub static l_List_setTR___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

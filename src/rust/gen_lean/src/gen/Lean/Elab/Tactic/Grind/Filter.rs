@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.Filter
 // Imports: Lean.Elab.Tactic.Grind.Basic Lean.Meta.Tactic.Grind.Filter
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get};
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getNat;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_replaceRef,
@@ -14,8 +15,6 @@ use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::Meta::Tactic::Grind::Filter::{
     initialize_Lean_Meta_Tactic_Grind_Filter, runtime_initialize_Lean_Meta_Tactic_Grind_Filter,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00__private_Lean_Elab_Tactic_Grind_Filter_0__Lean_Elab_Tactic_Grind_elabFilter_go_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00__private_Lean_Elab_Tactic_Grind_Filter_0__Lean_Elab_Tactic_Grind_elabFilter_go_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Elab_Tactic_Grind_Filter_0__Lean_Elab_Tactic_Grind_elabFilter_go___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};

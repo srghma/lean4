@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Toml.Load
 // Imports: Lean.Parser.Types Lake.Toml.Data.Value Lake.Toml.Elab Lake.Util.Message Std.Do
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Prelude::l_Lean_firstFrontendMacroScope;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lake::Toml::Data::Value::{
@@ -38,10 +42,6 @@ use crate::r#gen::Lean::Parser::Types::{
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::l_Lean_inheritedTraceOptions;
 use crate::r#gen::Std::Do::{initialize_Std_Do, runtime_initialize_Std_Do};
-use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_add};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lake_Toml_loadToml___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

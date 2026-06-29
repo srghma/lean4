@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Time.Internal.Bounded
 // Imports: Init.Data.Int.DivMod.Lemmas Init.Data.Order.Ord Init.Data.Int.Repr Init.Omega Init.Ext
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_ediv, lean_int_emod,
+    lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs, lean_nat_dec_le,
+    lean_nat_sub, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Int::DivMod::Lemmas::{
     initialize_Init_Data_Int_DivMod_Lemmas, runtime_initialize_Init_Data_Int_DivMod_Lemmas,
@@ -15,14 +20,6 @@ use crate::r#gen::Init::Data::Order::Ord::{
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_ediv, lean_int_emod, lean_int_mod,
-};
-use crate::ffi::{lean_nat_dec_le, lean_nat_sub};
 pub static l_Std_Time_Internal_Bounded_instOrd___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

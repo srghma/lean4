@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.SearchM
 // Imports: Lean.Meta.Tactic.Grind.Arith.Linear.LinearM
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Prelude::l_Lean_Name_num___override;
 use crate::r#gen::Lean::Data::PersistentArray::l_Lean_PersistentArray_push___redArg;
 use crate::r#gen::Lean::Expr::{l_Lean_Expr_const___override, l_Lean_FVarIdSet_insert};
@@ -14,13 +18,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Types::{
     l_Lean_Meta_Grind_Arith_Linear_linearExt,
 };
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_SolverExtension_modifyStateImpl___redArg;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Meta_Grind_Arith_Linear_instInhabitedCase_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

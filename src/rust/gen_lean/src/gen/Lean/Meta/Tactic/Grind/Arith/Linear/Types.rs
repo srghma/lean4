@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.Types
 // Imports: Init.Grind.Ring.CommSolver Init.Grind.Ordered.Linarith Lean.Meta.Tactic.Grind.Types
+use crate::ffi::{
+    lean_int_dec_lt, lean_mk_empty_array_with_capacity, lean_nat_abs, lean_nat_add, lean_nat_mul,
+    lean_nat_sub, lean_nat_to_int, lean_uint64_mix_hash, lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Grind::Ordered::Linarith::{
     initialize_Init_Grind_Ordered_Linarith, runtime_initialize_Init_Grind_Ordered_Linarith,
 };
@@ -12,14 +16,6 @@ use crate::r#gen::Lean::Expr::l_Lean_Expr_const___override;
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types, l_Lean_Meta_Grind_registerSolverExtension___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
-};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_mul, lean_nat_sub,
-    lean_uint64_mix_hash,
 };
 static mut l_Lean_Meta_Grind_Arith_Linear_instHashablePoly__lean_hash___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {

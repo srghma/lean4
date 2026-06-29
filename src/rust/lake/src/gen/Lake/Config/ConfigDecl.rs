@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Config.ConfigDecl
 // Imports: Lake.Config.Opaque Lake.Config.LeanLibConfig Lake.Config.LeanExeConfig Lake.Config.ExternLibConfig Lake.Config.InputFileConfig Lake.Util.Name
+use crate::ffi::{lean_array_push, lean_name_eq, lean_string_dec_eq};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Lake::Config::ExternLibConfig::{
     initialize_Lake_Config_ExternLibConfig, runtime_initialize_Lake_Config_ExternLibConfig,
@@ -22,7 +23,6 @@ use crate::r#gen::Lake::Util::Name::{
     initialize_Lake_Util_Name, runtime_initialize_Lake_Util_Name,
 };
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
-use crate::ffi::{lean_array_push, lean_name_eq, lean_string_dec_eq};
 pub static l_Lake_instImpl___closed__0_00___x40_Lake_Config_ConfigDecl_1050678479____hygCtx___hyg_43__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 97, 107, 101, 0]};
 static mut l_Lake_instImpl___closed__0_00___x40_Lake_Config_ConfigDecl_1050678479____hygCtx___hyg_43_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lake_instImpl___closed__0_00___x40_Lake_Config_ConfigDecl_1050678479____hygCtx___hyg_43__value) as *mut crate::leanh::LeanObject;
 pub static l_Lake_instImpl___closed__1_00___x40_Lake_Config_ConfigDecl_1050678479____hygCtx___hyg_43__value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [67, 111, 110, 102, 105, 103, 68, 101, 99, 108, 0]};

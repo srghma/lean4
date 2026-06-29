@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.List.Basic
 // Imports: Init.Data.List.Notation Init.Data.Zero Init.Grind.Tactics Init.SimpLemmas Init.Data.Nat.Basic
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_mod, lean_nat_mul,
+    lean_nat_sub, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::List::Notation::{
     initialize_Init_Data_List_Notation, runtime_initialize_Init_Data_List_Notation,
 };
@@ -22,10 +26,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::SimpLemmas::{
     initialize_Init_SimpLemmas, runtime_initialize_Init_SimpLemmas,
-};
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_mod, lean_nat_mul,
-    lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub static l_List_lex___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

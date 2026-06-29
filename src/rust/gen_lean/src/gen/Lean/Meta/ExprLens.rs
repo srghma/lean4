@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.ExprLens
 // Imports: Lean.SubExpr
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_expr_instantiate_rev, lean_expr_instantiate1,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_ptr_addr, lean_usize_dec_eq,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::l_Array_size___boxed;
@@ -23,12 +27,6 @@ use crate::r#gen::Lean::SubExpr::{
     initialize_Lean_SubExpr, l_Lean_SubExpr_Pos_foldlM___redArg, l_Lean_SubExpr_Pos_toArray,
     runtime_initialize_Lean_SubExpr,
 };
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_expr_instantiate_rev, lean_expr_instantiate1};
 pub static l___private_Lean_Meta_ExprLens_0__Lean_Meta_lensCoord___redArg___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

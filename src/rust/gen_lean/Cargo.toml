@@ -9,3 +9,6 @@ leanh = { path = "../leanh" }
 runtime = { path = "../runtime" }
 gen_init = { path = "../gen_init" }
 gen_std = { path = "../gen_std" }
+gen_init_ffi = { path = "../gen_init_ffi" }
+gen_std_ffi = { path = "../gen_std_ffi" }
+gen_lean_ffi = { path = "../gen_lean_ffi" }

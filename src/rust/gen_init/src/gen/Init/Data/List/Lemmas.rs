@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.Lemmas
 // Imports: Init.Data.List.BasicAux Init.Data.List.BasicAux Init.Data.List.Control Init.Data.List.Control Init.BinderPredicates Init.Grind.Annotated Init.Data.BEq Init.Data.Option.Instances Init.Data.Bool Init.Data.Option.Lemmas Init.TacticsExtra
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -26,7 +27,6 @@ use crate::r#gen::Init::Grind::Annotated::{
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_Lemmas_0__GetElem_x3f_match__1_splitter___redArg(
     mut v_x_402_: *mut crate::leanh::LeanObject,
     mut v_h__1_403_: *mut crate::leanh::LeanObject,

@@ -1,19 +1,17 @@
 // Lean compiler output
 // Module: Lake.Util.IO
 // Imports: Init.System.IO
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_io_prim_handle_mk, lean_io_prim_handle_put_str,
+    lean_io_prim_handle_write, lean_io_read_dir, lean_io_realpath, lean_io_remove_dir,
+    lean_io_remove_file, lean_io_symlink_metadata, lean_nat_dec_eq, lean_string_utf8_byte_size,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::System::FilePath::{l_System_FilePath_normalize, l_System_FilePath_parent};
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, l_IO_FS_DirEntry_path, l_IO_FS_createDirAll,
     l_IO_FS_instBEqFileType_beq, l_IO_FS_readBinFile, l_IO_FS_writeBinFile,
     l_System_FilePath_pathExists, runtime_initialize_Init_System_IO,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_nat_dec_eq, lean_string_utf8_byte_size};
-use crate::ffi::{
-    lean_io_prim_handle_mk, lean_io_prim_handle_put_str, lean_io_prim_handle_write,
-    lean_io_read_dir, lean_io_realpath, lean_io_remove_dir, lean_io_remove_file,
-    lean_io_symlink_metadata,
 };
 pub static l_Lake_resolvePath___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {

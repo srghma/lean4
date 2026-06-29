@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.GrindInstances.Ring.SInt
 // Imports: Init.Grind.ToInt Init.GrindInstances.ToInt Init.Data.BitVec.Basic Init.Data.SInt.Basic Init.Data.SInt.Lemmas Init.Grind.Ring.Basic Init.Data.Int.Pow Init.Data.Nat.Dvd Init.Grind.Ring.ToInt
+use crate::ffi::{
+    lean_int8_mul, lean_int8_of_int, lean_int8_of_nat, lean_int16_mul, lean_int16_of_int,
+    lean_int16_of_nat, lean_int32_mul, lean_int32_of_int, lean_int32_of_nat, lean_int64_mul,
+    lean_int64_of_int, lean_int64_of_nat, lean_isize_mul, lean_isize_of_int, lean_isize_of_nat,
+};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     initialize_Init_Data_BitVec_Basic, runtime_initialize_Init_Data_BitVec_Basic,
 };
@@ -39,11 +44,6 @@ use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
 use crate::r#gen::Init::Prelude::l_instHAdd___redArg___lam__0;
-use crate::ffi::{
-    lean_int8_mul, lean_int8_of_int, lean_int8_of_nat, lean_int16_mul, lean_int16_of_int,
-    lean_int16_of_nat, lean_int32_mul, lean_int32_of_int, lean_int32_of_nat, lean_int64_mul,
-    lean_int64_of_int, lean_int64_of_nat, lean_isize_mul, lean_isize_of_int, lean_isize_of_nat,
-};
 pub static l_Lean_Grind_Int8_natCast___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

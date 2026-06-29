@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: LeanChecker
 // Imports: Init Init Lean.CoreM Lean.Replay Lake.Load.Manifest
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget_borrowed, lean_io_as_task, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_st_mk_ref, lean_st_ref_get,
+    lean_string_append, lean_string_memcmp, lean_string_utf8_byte_size, lean_task_get_own,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::List::Basic::{l_List_elem___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -33,20 +41,6 @@ use crate::r#gen::Lean::Util::Path::{
     l_Lean_SearchPath_findAllWithExt, l_Lean_findOLean, l_Lean_findSysroot, l_Lean_initSearchPath,
     l_Lean_searchModuleNameOfFileName, l_Lean_searchPathRef,
 };
-use crate::ffi::lean_task_get_own;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-};
-use crate::ffi::lean_io_as_task;
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 static mut l_replayFromImports___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

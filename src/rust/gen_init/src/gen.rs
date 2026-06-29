@@ -1,5 +1,11 @@
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
-#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports)]
+#![allow(
+    unused_variables,
+    unused_assignments,
+    unused_parens,
+    unused_mut,
+    unused_imports
+)]
 
 pub mod Init {
     pub mod index {
@@ -154,11 +160,11 @@ pub mod Init {
             pub mod Extract {
                 include!("gen/Init/Data/Array/Extract.rs");
             }
-            pub mod FinRange {
-                include!("gen/Init/Data/Array/FinRange.rs");
-            }
             pub mod Find {
                 include!("gen/Init/Data/Array/Find.rs");
+            }
+            pub mod FinRange {
+                include!("gen/Init/Data/Array/FinRange.rs");
             }
             pub mod GetLit {
                 include!("gen/Init/Data/Array/GetLit.rs");
@@ -620,16 +626,24 @@ pub mod Init {
                         }
                         pub use index::*;
                         pub mod Append {
-                            include!("gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/Append.rs");
+                            include!(
+                                "gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/Append.rs"
+                            );
                         }
                         pub mod Attach {
-                            include!("gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/Attach.rs");
+                            include!(
+                                "gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/Attach.rs"
+                            );
                         }
                         pub mod FilterMap {
-                            include!("gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/FilterMap.rs");
+                            include!(
+                                "gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/FilterMap.rs"
+                            );
                         }
                         pub mod FlatMap {
-                            include!("gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/FlatMap.rs");
+                            include!(
+                                "gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/FlatMap.rs"
+                            );
                         }
                         pub mod Take {
                             include!("gen/Init/Data/Iterators/Lemmas/Combinators/Monadic/Take.rs");
@@ -750,11 +764,11 @@ pub mod Init {
             pub mod Erase {
                 include!("gen/Init/Data/List/Erase.rs");
             }
-            pub mod FinRange {
-                include!("gen/Init/Data/List/FinRange.rs");
-            }
             pub mod Find {
                 include!("gen/Init/Data/List/Find.rs");
+            }
+            pub mod FinRange {
+                include!("gen/Init/Data/List/FinRange.rs");
             }
             pub mod Impl {
                 include!("gen/Init/Data/List/Impl.rs");
@@ -797,11 +811,11 @@ pub mod Init {
                     include!("gen/Init/Data/List/Nat.rs");
                 }
                 pub use index::*;
-                pub mod BEq {
-                    include!("gen/Init/Data/List/Nat/BEq.rs");
-                }
                 pub mod Basic {
                     include!("gen/Init/Data/List/Nat/Basic.rs");
+                }
+                pub mod BEq {
+                    include!("gen/Init/Data/List/Nat/BEq.rs");
                 }
                 pub mod Count {
                     include!("gen/Init/Data/List/Nat/Count.rs");
@@ -993,11 +1007,11 @@ pub mod Init {
                     include!("gen/Init/Data/Nat/Power2/Lemmas.rs");
                 }
             }
-            pub mod SOM {
-                include!("gen/Init/Data/Nat/SOM.rs");
-            }
             pub mod Simproc {
                 include!("gen/Init/Data/Nat/Simproc.rs");
+            }
+            pub mod SOM {
+                include!("gen/Init/Data/Nat/SOM.rs");
             }
             pub mod ToString {
                 include!("gen/Init/Data/Nat/ToString.rs");
@@ -1117,9 +1131,6 @@ pub mod Init {
         pub mod Queue {
             include!("gen/Init/Data/Queue.rs");
         }
-        pub mod RArray {
-            include!("gen/Init/Data/RArray.rs");
-        }
         pub mod Random {
             include!("gen/Init/Data/Random.rs");
         }
@@ -1160,13 +1171,13 @@ pub mod Init {
                 pub mod Int {
                     include!("gen/Init/Data/Range/Polymorphic/Int.rs");
                 }
-                pub mod IntLemmas {
-                    include!("gen/Init/Data/Range/Polymorphic/IntLemmas.rs");
-                }
                 pub mod Internal {
                     pub mod SignedBitVec {
                         include!("gen/Init/Data/Range/Polymorphic/Internal/SignedBitVec.rs");
                     }
+                }
+                pub mod IntLemmas {
+                    include!("gen/Init/Data/Range/Polymorphic/IntLemmas.rs");
                 }
                 pub mod Iterators {
                     include!("gen/Init/Data/Range/Polymorphic/Iterators.rs");
@@ -1202,6 +1213,9 @@ pub mod Init {
                     include!("gen/Init/Data/Range/Polymorphic/UpwardEnumerable.rs");
                 }
             }
+        }
+        pub mod RArray {
+            include!("gen/Init/Data/RArray.rs");
         }
         pub mod Rat {
             pub mod index {
@@ -1434,10 +1448,14 @@ pub mod Init {
                             include!("gen/Init/Data/String/Lemmas/Pattern/String/Basic.rs");
                         }
                         pub mod ForwardPattern {
-                            include!("gen/Init/Data/String/Lemmas/Pattern/String/ForwardPattern.rs");
+                            include!(
+                                "gen/Init/Data/String/Lemmas/Pattern/String/ForwardPattern.rs"
+                            );
                         }
                         pub mod ForwardSearcher {
-                            include!("gen/Init/Data/String/Lemmas/Pattern/String/ForwardSearcher.rs");
+                            include!(
+                                "gen/Init/Data/String/Lemmas/Pattern/String/ForwardSearcher.rs"
+                            );
                         }
                     }
                     pub mod TakeDrop {
@@ -1625,11 +1643,11 @@ pub mod Init {
             pub mod Extract {
                 include!("gen/Init/Data/Vector/Extract.rs");
             }
-            pub mod FinRange {
-                include!("gen/Init/Data/Vector/FinRange.rs");
-            }
             pub mod Find {
                 include!("gen/Init/Data/Vector/Find.rs");
+            }
+            pub mod FinRange {
+                include!("gen/Init/Data/Vector/FinRange.rs");
             }
             pub mod InsertIdx {
                 include!("gen/Init/Data/Vector/InsertIdx.rs");

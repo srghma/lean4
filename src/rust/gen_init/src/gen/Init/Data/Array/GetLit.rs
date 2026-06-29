@@ -1,13 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Array.GetLit
 // Imports: Init.GetElem Init.Data.Array.Basic
+use crate::ffi::{lean_array_fget_borrowed, lean_array_mk, lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
 };
 use crate::r#gen::Init::GetElem::{initialize_Init_GetElem, runtime_initialize_Init_GetElem};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_mk, lean_nat_dec_eq, lean_nat_sub,
-};
 pub unsafe fn l_Array_getLit___redArg(
     mut v_xs_151_: *mut crate::leanh::LeanObject,
     mut v_i_152_: *mut crate::leanh::LeanObject,

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Power2.Lemmas
 // Imports: Init.Data.Nat.Power2.Basic Init.Data.Nat.Log2 Init.Data.Nat.Power2.Basic Init.PropLemmas Init.ByCases Init.Data.Int.Pow Init.Data.Nat.Bitwise.Lemmas Init.Data.Nat.Lemmas Init.Omega Init.RCases
+use crate::ffi::{lean_nat_dec_eq, lean_nat_land, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Int::Pow::{
     initialize_Init_Data_Int_Pow, runtime_initialize_Init_Data_Int_Pow,
@@ -22,8 +23,6 @@ use crate::r#gen::Init::PropLemmas::{
     initialize_Init_PropLemmas, runtime_initialize_Init_PropLemmas,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::lean_nat_land;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_Nat_instDecidableIsPowerOfTwo(mut v_n_12_: *mut crate::leanh::LeanObject) -> u8 {
     let mut v___x_13_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_14_: u8 = 0;

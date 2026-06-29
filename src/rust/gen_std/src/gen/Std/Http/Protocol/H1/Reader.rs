@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Http.Protocol.H1.Reader
 // Imports: Std.Time Std.Http.Data Std.Http.Internal Std.Http.Protocol.H1.Parser Std.Http.Protocol.H1.Config Std.Http.Protocol.H1.Message Std.Http.Protocol.H1.Error
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
+    lean_byte_array_copy_slice, lean_byte_array_size, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_nat_to_int,
+    lean_string_length,
+};
 use crate::r#gen::Init::Data::ByteArray::Basic::{l_ByteArray_extract, l_ByteArray_mkIterator};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
@@ -33,14 +39,6 @@ use crate::r#gen::Std::Http::Protocol::H1::Parser::{
     initialize_Std_Http_Protocol_H1_Parser, runtime_initialize_Std_Http_Protocol_H1_Parser,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::lean_byte_array_copy_slice;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_sub,
-};
 pub static l_Std_Http_Protocol_H1_Reader_instInhabitedBodyState_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

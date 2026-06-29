@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.MonadCache
 // Imports: Std.Data.HashMap.Basic
+use crate::ffi::lean_mk_array;
 use crate::r#gen::Init::Control::State::l_StateT_get;
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_get___boxed;
 use crate::r#gen::Init::System::ST::{
@@ -13,7 +14,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashMap::Basic::{
     initialize_Std_Data_HashMap_Basic, runtime_initialize_Std_Data_HashMap_Basic,
 };
-use crate::ffi::lean_mk_array;
 pub static l_Lean_instMonadCacheExceptTOfMonad___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

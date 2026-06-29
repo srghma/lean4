@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter
 // Imports: Lean.PrettyPrinter.Delaborator.Basic Lean.PrettyPrinter.Delaborator Lean.Parser.Module Lean.ParserCompiler Lean.Util.NumObjs Lean.Util.ShareCommon
+use crate::ffi::{
+    lean_array_get, lean_array_size, lean_array_uget, lean_array_uset, lean_expr_dbg_to_string,
+    lean_io_get_num_heartbeats, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_panic_fn_borrowed, lean_sharecommon_quick, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::lean_mk_syntax_ident;
@@ -87,20 +93,6 @@ use crate::r#gen::Lean::Util::ShareCommon::{
     initialize_Lean_Util_ShareCommon, runtime_initialize_Lean_Util_ShareCommon,
 };
 use crate::r#gen::Lean::Util::Trace::{l_Lean_inheritedTraceOptions, l_Lean_registerTraceClass};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_nat_add, lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_sharecommon_quick;
-use crate::ffi::lean_io_get_num_heartbeats;
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_PrettyPrinter_ppTerm___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

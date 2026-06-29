@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Std.Data.DHashMap.Internal.WF
 // Imports: Std.Data.Internal.List.Associative Std.Data.DHashMap.Raw Std.Data.DHashMap.Internal.Defs Std.Data.DHashMap.Internal.Model Std.Data.DHashMap.Internal.AssocList.Basic Std.Data.DHashMap.RawDef Init.Data.Array.Bootstrap Init.Data.List.Nat.TakeDrop Init.Data.List.TakeDrop
+use crate::ffi::{
+    lean_array_get_size, lean_mk_array, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -38,11 +41,6 @@ use crate::r#gen::Std::Data::DHashMap::RawDef::{
 use crate::r#gen::Std::Data::Internal::List::Associative::{
     initialize_Std_Data_Internal_List_Associative,
     runtime_initialize_Std_Data_Internal_List_Associative,
-};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_Std_DHashMap_Internal_Raw_u2080_interSmaller_u2098___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

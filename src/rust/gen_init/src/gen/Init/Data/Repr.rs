@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Init.Data.Repr
 // Imports: Init.Data.Format.Basic Init.Control.Id Init.Data.UInt.BasicAux Init.Data.Char.Basic
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_pow, lean_nat_shiftr,
+    lean_nat_sub, lean_nat_to_int, lean_string_append, lean_string_foldl, lean_string_isempty,
+    lean_string_length, lean_string_mk, lean_string_of_usize, lean_string_push,
+    lean_substring_tostring, lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_dec_eq,
+    lean_uint32_to_nat, lean_uint64_to_nat, lean_usize_of_nat, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     initialize_Init_Control_Id, runtime_initialize_Init_Control_Id,
 };
@@ -17,21 +25,6 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_of_usize;
-use crate::ffi::{
-    lean_string_append, lean_string_foldl, lean_string_isempty, lean_string_length,
-    lean_string_push, lean_substring_tostring,
-};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_of_nat, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_pow, lean_nat_sub,
-    lean_string_mk, lean_uint32_dec_eq, lean_uint32_to_nat,
-};
 pub static l_instReprEmpty___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

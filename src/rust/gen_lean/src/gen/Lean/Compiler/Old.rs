@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Compiler.Old
 // Imports: Lean.Environment Init.Data.String.TakeDrop
+use crate::ffi::{
+    lean_array_mk, lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_string_append, lean_string_dec_eq,
+    lean_string_memcmp, lean_string_utf8_byte_size, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::TakeDrop::{
     initialize_Init_Data_String_TakeDrop, runtime_initialize_Init_Data_String_TakeDrop,
@@ -10,16 +15,6 @@ use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
 use crate::r#gen::Lean::Environment::{
     initialize_Lean_Environment, l_Lean_Environment_findAsync_x3f,
     runtime_initialize_Lean_Environment,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_string_dec_eq, lean_string_utf8_byte_size,
 };
 pub static l_Lean_Compiler_mkEagerLambdaLiftingName___closed__0_value:
     crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {

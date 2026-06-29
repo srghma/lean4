@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.String.PosRaw
 // Imports: Init.Data.ByteArray.Basic Init.Data.Nat.Simproc Init.Omega
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_get_byte_fast,
+    lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::ByteArray::Basic::{
     initialize_Init_Data_ByteArray_Basic, runtime_initialize_Init_Data_ByteArray_Basic,
 };
@@ -9,10 +13,6 @@ use crate::r#gen::Init::Data::Nat::Simproc::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Char_utf8Size;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-};
 pub static l_String_instHSubRaw___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

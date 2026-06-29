@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Sync.Semaphore
 // Imports: Init.Data.Queue Init.System.Promise Std.Sync.Mutex
+use crate::ffi::{
+    lean_io_basemutex_lock, lean_io_basemutex_unlock, lean_io_promise_new, lean_io_promise_resolve,
+    lean_nat_add, lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_st_ref_set,
+};
 use crate::r#gen::Init::Data::Queue::{
     initialize_Init_Data_Queue, l_Std_Queue_dequeue_x3f___redArg, l_Std_Queue_empty,
     l_Std_Queue_enqueue___redArg, runtime_initialize_Init_Data_Queue,
@@ -11,10 +15,6 @@ use crate::r#gen::Init::System::Promise::{
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::ffi::{lean_nat_add, lean_nat_dec_lt, lean_nat_sub};
-use crate::ffi::{lean_io_promise_new, lean_io_promise_resolve};
-use crate::ffi::{lean_st_ref_get, lean_st_ref_set};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 static mut l_Std_Semaphore_new___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

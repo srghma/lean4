@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Std.Http.Data.Chunk
 // Imports: Std.Http.Internal Std.Http.Data.Headers Std.Http.Internal.String
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
+    lean_array_size, lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_data, lean_string_dec_eq,
+    lean_string_from_utf8_unchecked, lean_string_length, lean_string_to_utf8,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set,
+    lean_string_validate_utf8, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -42,23 +53,6 @@ use crate::r#gen::Std::Http::Internal::String::{
 };
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
-};
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_data, lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast, lean_string_validate_utf8,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{lean_uint32_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_byte_array_mk, lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Std_Http_Chunk_ExtensionName_isValidExtensionName___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Cbv.Util
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.Sym.InferType Lean.Meta.Sym.AlphaShareBuilder Lean.Meta.Sym.LitValues
+use crate::ffi::{
+    lean_array_push, lean_instantiate_level_mvars, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take,
+};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isApp,
     l_Lean_Expr_isConstOf,
@@ -28,11 +32,6 @@ use crate::r#gen::Lean::Meta::Sym::LitValues::{
 use crate::r#gen::Lean::Meta::Sym::Simp::SimpM::{
     initialize_Lean_Meta_Sym_Simp_SimpM, runtime_initialize_Lean_Meta_Sym_Simp_SimpM,
 };
-use crate::ffi::lean_array_push;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_instantiate_level_mvars;
 pub static l_Lean_Meta_Tactic_Cbv_isVal___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

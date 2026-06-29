@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Init.Data.Vector.Basic
 // Imports: Init.Data.Array.Nat Init.Data.Array.DecidableEq Init.Data.Range.Polymorphic.RangeIterator Init.Data.Array.InsertIdx Init.Data.Array.MapIdx Init.Data.Range.Polymorphic.Iterators Init.Data.Range.Polymorphic.Nat Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_pop, lean_array_push, lean_array_set,
+    lean_array_size, lean_array_swap, lean_array_to_list, lean_array_uget_borrowed, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_string_append, lean_string_length,
+    lean_string_utf8_byte_size, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -60,21 +68,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{
-    lean_array_fswap, lean_array_pop, lean_array_size, lean_array_swap, lean_array_uget_borrowed,
-    lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_append, lean_string_length,
-};
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-};
 pub static l_instReprVector_repr___redArg___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

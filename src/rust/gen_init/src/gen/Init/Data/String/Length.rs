@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.String.Length
 // Imports: Init.Data.String.Basic Init.Data.Char.Lemmas
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub, lean_string_length};
 use crate::r#gen::Init::Data::Char::Lemmas::{
     initialize_Init_Data_Char_Lemmas, runtime_initialize_Init_Data_Char_Lemmas,
 };
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l_String_length___boxed(
     mut v_b_39_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

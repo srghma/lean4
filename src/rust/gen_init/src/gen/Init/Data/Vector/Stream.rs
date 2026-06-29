@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Vector.Stream
 // Imports: Init.Data.Stream Init.Data.Vector.Basic Init.Data.Slice.Array.Basic
+use crate::ffi::lean_array_get_size;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Slice::Array::Basic::{
     initialize_Init_Data_Slice_Array_Basic, runtime_initialize_Init_Data_Slice_Array_Basic,
@@ -11,7 +12,6 @@ use crate::r#gen::Init::Data::Stream::{
 use crate::r#gen::Init::Data::Vector::Basic::{
     initialize_Init_Data_Vector_Basic, runtime_initialize_Init_Data_Vector_Basic,
 };
-use crate::ffi::lean_array_get_size;
 pub static l_Vector_instToStreamSubarray___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

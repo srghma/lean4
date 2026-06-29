@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Consumers.Monadic.Loop
 // Imports: Init.Data.Iterators.Consumers.Monadic.Partial Init.Data.Iterators.Internal.LawfulMonadLiftFunction Init.WFExtrinsicFix Init.Data.Iterators.Consumers.Monadic.Total Init.PropLemmas
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Control::Basic::l_instForInOfForIn_x27___redArg___lam__1;
 use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Partial::{
     initialize_Init_Data_Iterators_Consumers_Monadic_Partial,
@@ -21,7 +22,6 @@ use crate::r#gen::Init::WFExtrinsicFix::{
     initialize_Init_WFExtrinsicFix, l_WellFounded_opaqueFix_u2083___redArg,
     runtime_initialize_Init_WFExtrinsicFix,
 };
-use crate::ffi::lean_nat_add;
 pub static l_Std_IterM_foldM___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

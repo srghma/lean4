@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.GrindInstances.Ring.Int
 // Imports: Init.Grind.Ring.Basic Init.Data.Int.Lemmas Init.Data.Int.Pow Init.Data.Int.DivMod.Lemmas Init.Meta
+use crate::ffi::{lean_int_mul, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::Basic::{
     l_Int_add___boxed, l_Int_mul___boxed, l_Int_neg___boxed, l_Int_ofNat___boxed,
     l_Int_pow___boxed, l_Int_sub___boxed, l_instIntCastInt___lam__0___boxed, l_instOfNat,
@@ -21,7 +22,6 @@ use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Met
 use crate::r#gen::Init::Prelude::{
     l_instHAdd___redArg___lam__0, l_instPowNat___redArg___lam__0, l_instSMulOfMul___redArg___lam__0,
 };
-use crate::ffi::{lean_int_mul, lean_nat_to_int};
 pub static l_Lean_Grind_instCommRingInt___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

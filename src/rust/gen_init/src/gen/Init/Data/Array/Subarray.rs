@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Array.Subarray
 // Imports: Init.Data.Array.Basic Init.Data.Slice.Operations
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -19,11 +23,6 @@ use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node5,
     l_Lean_addMacroScope, l_String_toRawSubstring_x27,
-};
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Subarray_instSliceSizeSubarrayData___closed__0_value: crate::leanh::LeanClosureObject<
     0,

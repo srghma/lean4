@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.DocString
 // Imports: Lean.DocString.Extension Lean.DocString.Links Lean.Parser.Tactic.Doc Lean.Parser.Term.Doc
+use crate::ffi::lean_string_append;
 use crate::r#gen::Lean::DocString::Extension::{
     initialize_Lean_DocString_Extension, l_Lean_findSimpleDocString_x3f,
     runtime_initialize_Lean_DocString_Extension,
@@ -17,7 +18,6 @@ use crate::r#gen::Lean::Parser::Term::Doc::{
     initialize_Lean_Parser_Term_Doc, l_Lean_Parser_Term_Doc_getRecommendedSpellingString,
     runtime_initialize_Lean_Parser_Term_Doc,
 };
-use crate::ffi::lean_string_append;
 pub unsafe fn l_Lean_findDocString_x3f(
     mut v_env_38_: *mut crate::leanh::LeanObject,
     mut v_declName_39_: *mut crate::leanh::LeanObject,

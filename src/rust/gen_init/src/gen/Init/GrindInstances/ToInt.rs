@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.GrindInstances.ToInt
 // Imports: Init.Grind.ToInt Init.Data.SInt.Basic Init.Grind.ToInt Init.Data.BitVec.Bootstrap Init.Data.Int.LemmasAux Init.Data.Int.Pow Init.Data.SInt.Lemmas Init.Data.UInt.Lemmas Init.System.Platform
+use crate::ffi::{
+    lean_nat_to_int, lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_to_nat, lean_uint64_to_nat,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::BitVec::Bootstrap::{
     initialize_Init_Data_BitVec_Bootstrap, runtime_initialize_Init_Data_BitVec_Bootstrap,
 };
@@ -30,11 +34,6 @@ use crate::r#gen::Init::Prelude::l_id___boxed;
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_to_nat,
-};
-use crate::ffi::lean_uint32_to_nat;
 pub static l_Lean_Grind_instToIntIntIi___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

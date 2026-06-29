@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.KVMap
 // Imports: Init.Data.Format.Syntax Init.Data.ToString.Name Init.Data.ToString.Extra
+use crate::ffi::{
+    lean_int_dec_eq, lean_int_dec_lt, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_to_int, lean_string_dec_eq, lean_string_length,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Format::Syntax::{
     initialize_Init_Data_Format_Syntax, l_Lean_Syntax_formatStx,
@@ -26,13 +30,6 @@ use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Name_reprPrec, l_Lean_Syntax_instRepr_repr, l_Lean_Syntax_structEq,
 };
 use crate::r#gen::Init::Prelude::{l_List_lengthTR___redArg, l_id___boxed};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_string_dec_eq,
-};
 pub static l_Lean_instInhabitedDataValue_default___closed__0_value: crate::leanh::LeanStringObject<
     1,
 > = crate::leanh::LeanStringObject {

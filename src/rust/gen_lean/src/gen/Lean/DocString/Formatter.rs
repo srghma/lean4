@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.DocString.Formatter
 // Imports: Lean.PrettyPrinter.Formatter Lean.DocString.Parser
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_memcmp, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Format::Syntax::l_Lean_Syntax_formatStx;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -25,24 +33,6 @@ use crate::r#gen::Lean::PrettyPrinter::Formatter::{
     runtime_initialize_Lean_PrettyPrinter_Formatter,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_Traverser_left;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l___private_Lean_DocString_Formatter_0__Lean_Doc_Parser_atomString___closed__0_value:
     crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

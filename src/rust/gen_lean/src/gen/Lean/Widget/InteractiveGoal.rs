@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Widget.InteractiveGoal
 // Imports: Lean.Widget.InteractiveCode Lean.Data.Lsp.Extra
+use crate::ffi::{
+    lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_to_int, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_List_foldl___at___00Array_appendList_spec__0___redArg,
 };
@@ -65,20 +72,6 @@ use crate::r#gen::Lean::Widget::InteractiveCode::{
 use crate::r#gen::Lean::Widget::TaggedText::{
     l_Lean_Widget_TaggedText_stripTags___redArg, l_Lean_Widget_instInhabitedTaggedText_default,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Widget_instInhabitedInteractiveHypothesisBundle_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

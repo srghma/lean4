@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.RegisterSymDSimp
 // Imports: Init.Sym.DSimp.DSimprocDSL Lean.Meta.Sym.DSimp.Variant Lean.Elab.Tactic.Grind.DSimprocDSL Lean.Elab.Tactic.Grind.WithGrindTacticM
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getNat;
 use crate::r#gen::Init::Prelude::{
@@ -37,12 +41,6 @@ use crate::r#gen::Lean::Meta::Sym::DSimp::Variant::{
     l_Lean_Meta_Sym_DSimp_symDSimpVariantExtension, runtime_initialize_Lean_Meta_Sym_DSimp_Variant,
 };
 use crate::r#gen::Lean::ScopedEnvExtension::l_Lean_ScopedEnvExtension_addEntry___redArg;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_mk_empty_array_with_capacity;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_throwErrorAt___at___00__private_Lean_Elab_Tactic_Grind_RegisterSymDSimp_0__Lean_Elab_Command_elabRegisterSymDSimp_spec__0_spec__0_spec__2_spec__5___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_throwErrorAt___at___00__private_Lean_Elab_Tactic_Grind_RegisterSymDSimp_0__Lean_Elab_Command_elabRegisterSymDSimp_spec__0_spec__0_spec__2_spec__5___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_throwErrorAt___at___00__private_Lean_Elab_Tactic_Grind_RegisterSymDSimp_0__Lean_Elab_Command_elabRegisterSymDSimp_spec__0_spec__0_spec__2_spec__5___closed__1_value: crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [119, 104, 105, 108, 101, 32, 101, 120, 112, 97, 110, 100, 105, 110, 103, 0]};

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Config.Env
 // Imports: Lake.Config.Cache Lake.Config.InstallPath Init.System.Platform
+use crate::ffi::{
+    lean_array_push, lean_io_getenv, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed, lean_string_append,
+    lean_string_compare, lean_string_dec_eq, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
@@ -32,15 +38,6 @@ use crate::r#gen::Lean::Data::Json::Parser::l_Lean_Json_parse;
 use crate::r#gen::Lean::Data::Json::Printer::{l_Lean_Json_compress, l_Lean_Json_pretty};
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq,
-};
-use crate::ffi::lean_io_getenv;
 pub static l_Lake_instInhabitedEnv_default___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

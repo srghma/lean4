@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Task
 // Imports: Init.Core Init.Data.List.Basic Init.Data.Nat.Bitwise.Basic
+use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure, lean_task_spawn};
 use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
 use crate::r#gen::Init::Data::List::Basic::{
     initialize_Init_Data_List_Basic, l_List_reverse___redArg,
@@ -8,9 +9,6 @@ use crate::r#gen::Init::Data::List::Basic::{
 };
 use crate::r#gen::Init::Data::Nat::Bitwise::Basic::{
     initialize_Init_Data_Nat_Bitwise_Basic, runtime_initialize_Init_Data_Nat_Bitwise_Basic,
-};
-use crate::ffi::{
-    lean_task_bind, lean_task_map, lean_task_pure, lean_task_spawn,
 };
 pub unsafe fn l___private_Init_Task_0__Task_mapList_go___redArg___lam__0(
     mut v_x_97_: *mut crate::leanh::LeanObject,

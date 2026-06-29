@@ -1,11 +1,11 @@
 // Lean compiler output
 // Module: Lean.Util.LakePath
 // Imports: Init.System.IO
+use crate::ffi::lean_io_getenv;
 use crate::r#gen::Init::System::FilePath::l_System_FilePath_join;
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, l_IO_appDir, runtime_initialize_Init_System_IO,
 };
-use crate::ffi::lean_io_getenv;
 pub static l_Lean_determineLakePath___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

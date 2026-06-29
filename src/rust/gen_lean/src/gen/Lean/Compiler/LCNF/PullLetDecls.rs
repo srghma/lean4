@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.PullLetDecls
 // Imports: Lean.Compiler.LCNF.DependsOn Lean.Compiler.LCNF.PassManager
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_array_push,
+    lean_array_uget_borrowed, lean_name_eq, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -31,19 +37,6 @@ use crate::r#gen::Lean::Compiler::LCNF::Types::l_Lean_Compiler_LCNF_isClass_x3f_
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Expr::l_Lean_FVarIdSet_insert;
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_usize_add, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
 pub static l_Lean_Compiler_LCNF_PullLetDecls_withParams___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

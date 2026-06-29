@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Int.Cooper
 // Imports: Init.Data.Int.Gcd Init.Data.Int.DivMod.Lemmas Init.Omega Init.RCases
+use crate::ffi::{
+    lean_int_add, lean_int_ediv, lean_int_emod, lean_int_mul, lean_int_sub, lean_nat_mod,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Int::DivMod::Lemmas::{
     initialize_Init_Data_Int_DivMod_Lemmas, runtime_initialize_Init_Data_Int_DivMod_Lemmas,
@@ -10,11 +14,6 @@ use crate::r#gen::Init::Data::Int::Gcd::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{
-    lean_int_add, lean_int_mul, lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::lean_nat_mod;
 pub unsafe fn l_Int_add__of__le___redArg(
     mut v_a_80_: *mut crate::leanh::LeanObject,
     mut v_b_81_: *mut crate::leanh::LeanObject,

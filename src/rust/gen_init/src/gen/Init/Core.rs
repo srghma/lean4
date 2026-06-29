@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Core
 // Imports: Init.SizeOf Init.Tactics
+use crate::ffi::{
+    lean_mk_thunk, lean_strict_and, lean_strict_or, lean_task_bind, lean_task_get_own,
+    lean_task_map, lean_task_pure, lean_task_spawn, lean_thunk_get_own, lean_thunk_pure,
+};
 use crate::r#gen::Init::Prelude::{
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
@@ -8,10 +12,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::SizeOf::{initialize_Init_SizeOf, runtime_initialize_Init_SizeOf};
 use crate::r#gen::Init::Tactics::{initialize_Init_Tactics, runtime_initialize_Init_Tactics};
-use crate::ffi::{
-    lean_mk_thunk, lean_strict_and, lean_strict_or, lean_task_bind, lean_task_get_own,
-    lean_task_map, lean_task_pure, lean_task_spawn, lean_thunk_get_own, lean_thunk_pure,
-};
 pub static l_thunkCoe___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

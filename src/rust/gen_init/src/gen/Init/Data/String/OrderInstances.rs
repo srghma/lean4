@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.String.OrderInstances
 // Imports: Init.Data.String.Defs Init.Grind.ToInt Init.Data.Order.Classes Init.Data.Order.PackageFactories Init.Omega Init.Data.Order.PackageFactories
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_ofNat___boxed;
 use crate::r#gen::Init::Data::Order::Classes::{
     initialize_Init_Data_Order_Classes, runtime_initialize_Init_Data_Order_Classes,
@@ -28,9 +29,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node6, l_Lean_addMacroScope,
     l_String_toRawSubstring_x27, l_instBEqOfDecidableEq___redArg___lam__0___boxed,
     l_instDecidableEqRaw___boxed,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
 };
 pub static l_String_Internal_tacticOrder___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {

@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Lean.Meta.Closure
 // Imports: Lean.Meta.Check Lean.Meta.Tactic.AuxLemma Lean.Util.ForEachExpr
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_size, lean_array_pop, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_expr_abstract,
+    lean_expr_abstract_range, lean_expr_eqv, lean_expr_has_loose_bvar, lean_expr_lower_loose_bvars,
+    lean_infer_type, lean_level_eq, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_uint32_add, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -89,33 +101,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
     l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___redArg,
     l_Std_DHashMap_Internal_Raw_u2080_insert___redArg,
 };
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint32_add, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{
-    lean_expr_abstract, lean_expr_abstract_range, lean_expr_eqv, lean_expr_has_loose_bvar,
-    lean_expr_lower_loose_bvars,
-};
-use crate::ffi::lean_level_eq;
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_Closure_instInhabitedToProcessElement_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

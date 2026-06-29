@@ -1,6 +1,23 @@
 // Lean compiler output
 // Module: Lean.Elab.DocString.Builtin
 // Imports: Lean.Elab.DocString.Builtin.Parsing Lean.Elab.DocString.Builtin.Scopes Lean.Elab.DocString.Builtin.Postponed Lean.Elab.Open Lean.Meta.Reduce Lean.Elab.Tactic.Doc Lean.Data.EditDistance Lean.Elab.DocString.Builtin.Keywords Lean.Server.InfoUtils Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout, lean_infer_type,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_shiftr, lean_nat_sub,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_dec_lt,
+    lean_string_from_utf8_unchecked, lean_string_length, lean_string_memcmp,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_next, lean_string_validate_utf8, lean_uint32_dec_eq, lean_uint64_lor,
+    lean_uint64_of_nat, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Control::Basic::l_Functor_mapRev___redArg;
 use crate::r#gen::Init::Control::State::{
     l_StateT_bind, l_StateT_instMonad___redArg___lam__1, l_StateT_instMonad___redArg___lam__4,
@@ -253,40 +270,6 @@ use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
 use crate::r#gen::Lean::Util::FoldConsts::l_Lean_Expr_getUsedConstants;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
 use crate::r#gen::Std::Data::HashMap::Basic::l_Std_HashMap_instInhabited;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_dec_lt, lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_next,
-    lean_string_validate_utf8,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_from_utf8_unchecked,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
 static mut l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lean_recordExtraModUseFromDecl___at___00__private_Lean_Elab_DocString_Builtin_0__Lean_Doc_elabExtraTerm_spec__0_spec__2___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lean_recordExtraModUseFromDecl___at___00__private_Lean_Elab_DocString_Builtin_0__Lean_Doc_elabExtraTerm_spec__0_spec__2___redArg___closed__0: u64 = 0;
 static mut l_Lean_PersistentHashMap_containsAux___at___00Lean_PersistentHashMap_contains___at___00__private_Lean_ExtraModUses_0__Lean_recordExtraModUseCore___at___00Lean_recordExtraModUseFromDecl___at___00__private_Lean_Elab_DocString_Builtin_0__Lean_Doc_elabExtraTerm_spec__0_spec__0_spec__1_spec__3___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

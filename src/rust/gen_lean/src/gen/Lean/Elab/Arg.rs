@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Arg
 // Imports: Lean.Elab.Term
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_pop, lean_array_push,
+    lean_array_uget_borrowed, lean_expr_dbg_to_string, lean_name_eq, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_string_append,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Format::Syntax::l_Lean_Syntax_formatStx;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -15,15 +21,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofExpr, l_Lean_MessageData_ofName, l_Lean_MessageData_ofSyntax,
     l_Lean_stringToMessageData,
 };
-use crate::ffi::{lean_array_pop, lean_array_uget_borrowed};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_Elab_Term_instInhabitedArg_default___closed__0_value:
     crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

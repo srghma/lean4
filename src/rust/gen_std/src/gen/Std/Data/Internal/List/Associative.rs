@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.Internal.List.Associative
 // Imports: Init.Data.Option.Attach Init.Data.List.Perm Std.Data.Internal.List.Defs Std.Data.Internal.List.Defs Init.Data.Order.LemmasExtra Init.Data.Bool Init.ByCases Init.Data.List.Count Init.Data.List.Erase Init.Data.List.Find Init.Data.List.MinMax Init.Data.List.Pairwise Init.Data.List.Sublist Init.Data.Prod Init.Omega
+use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -48,7 +49,6 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Data::Internal::List::Defs::{
     initialize_Std_Data_Internal_List_Defs, runtime_initialize_Std_Data_Internal_List_Defs,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static l_Std_Internal_List_getEntry_x21___redArg___closed__0_value:
     crate::leanh::LeanStringObject<35> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.Have
 // Imports: Lean.Meta.Sym.Simp.Lambda Lean.Meta.Sym.InstantiateS Lean.Meta.Sym.ReplaceS Lean.Meta.Sym.AbstractS Lean.Meta.Sym.InferType Lean.Meta.AppBuilder Lean.Meta.HaveTelescope Lean.Util.CollectFVars Init.Omega Init.While
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_array_set, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_instantiate_rev, lean_mk_array,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_sym_simp,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -85,28 +95,6 @@ use crate::r#gen::Lean::Util::CollectFVars::{
     initialize_Lean_Util_CollectFVars, l_Lean_collectFVars,
     runtime_initialize_Lean_Util_CollectFVars,
 };
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_instantiate_rev;
-use crate::ffi::lean_sym_simp;
 pub static l_Lean_Meta_Sym_Simp_instInhabitedToBetaAppResult_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

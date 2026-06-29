@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.Config
 // Imports: Lean.Elab.Tactic.Grind.Basic Lean.Elab.ConfigEval
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_dec_eq, lean_string_dec_lt,
+};
 use crate::r#gen::Init::Meta::Defs::lean_mk_syntax_ident;
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
@@ -54,14 +59,6 @@ use crate::r#gen::Lean::Message::{
 use crate::r#gen::Lean::Meta::CollectMVars::l_Lean_Meta_getMVars;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_Elab_throwAbortTerm___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_Grind_Config_0__Lean_Elab_Tactic_elabGrindConfigCore_evalConfigItem_spec__0_spec__0_spec__3___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwAbortTerm___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_Grind_Config_0__Lean_Elab_Tactic_elabGrindConfigCore_evalConfigItem_spec__0_spec__0_spec__3___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_Grind_Config_0__Lean_Elab_Tactic_elabGrindConfigCore_evalConfigItem_spec__0_spec__0_spec__2_spec__5_spec__9___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

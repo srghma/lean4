@@ -1,8 +1,8 @@
 // Lean compiler output
 // Module: Init.Grind.Config
 // Imports: Init.Core
-use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
 use crate::ffi::lean_nat_dec_eq;
+use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
 pub static l_Lean_Grind_instInhabitedConfig_default___closed__0_value:
     crate::leanh::LeanCtorObject<17> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

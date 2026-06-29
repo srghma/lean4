@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.String.Modify
 // Imports: Init.Data.String.Termination Init.Data.ByteArray.Lemmas Init.Data.Char.Lemmas
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_string_utf8_byte_size, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_set, lean_uint32_add, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::ByteArray::Lemmas::{
     initialize_Init_Data_ByteArray_Lemmas, runtime_initialize_Init_Data_ByteArray_Lemmas,
 };
@@ -12,14 +16,6 @@ use crate::r#gen::Init::Data::String::Termination::{
     initialize_Init_Data_String_Termination, runtime_initialize_Init_Data_String_Termination,
 };
 use crate::r#gen::Init::Prelude::l_Char_utf8Size;
-use crate::ffi::{
-    lean_string_utf8_get, lean_string_utf8_get_fast,
-};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_le,
-};
 pub static l_String_toUpper___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

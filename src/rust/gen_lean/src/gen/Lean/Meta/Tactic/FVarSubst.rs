@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.FVarSubst
 // Imports: Lean.Data.AssocList Lean.LocalContext Lean.Util.ReplaceExpr
+use crate::ffi::lean_replace_expr;
 use crate::r#gen::Lean::Data::AssocList::{
     initialize_Lean_Data_AssocList, l_Lean_AssocList_any___redArg,
     l_Lean_AssocList_isEmpty___redArg, l_Lean_AssocList_mapVal___redArg,
@@ -15,7 +16,6 @@ use crate::r#gen::Lean::LocalContext::{
 use crate::r#gen::Lean::Util::ReplaceExpr::{
     initialize_Lean_Util_ReplaceExpr, runtime_initialize_Lean_Util_ReplaceExpr,
 };
-use crate::ffi::lean_replace_expr;
 pub static mut l_Lean_Meta_instInhabitedFVarSubst_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Lean_Meta_instInhabitedFVarSubst: *mut crate::leanh::LeanObject =

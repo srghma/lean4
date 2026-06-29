@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.PullFunDecls
 // Imports: Lean.Compiler.LCNF.DependsOn Lean.Compiler.LCNF.PassManager
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_fset, lean_array_get, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_set, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_nat_add, lean_nat_dec_lt, lean_ptr_addr,
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::Basic::{l_List_appendTR___redArg, l_List_reverse___redArg};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
@@ -21,24 +29,6 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_instHashableFVarId_hash, l_Lean_instInhabitedFVarIdHashSet,
 };
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
 static mut l_Lean_Compiler_LCNF_PullFunDecls_instInhabitedToPull_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

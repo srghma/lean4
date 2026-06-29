@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.DiscrTreeKey
 // Imports: Lean.Elab.Command Lean.Meta.Tactic.Simp.SimpTheorems
+use crate::ffi::{
+    lean_array_get, lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_dec_eq, lean_uint64_lor, lean_uint64_shift_left,
+    lean_uint64_shift_right,
+};
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArg, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
@@ -55,15 +60,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::SimpTheorems::{
     runtime_initialize_Lean_Meta_Tactic_Simp_SimpTheorems,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l___private_Lean_Elab_Tactic_DiscrTreeKey_0__Lean_Elab_Tactic_DiscrTreeKey_mkKey___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Elab_Tactic_DiscrTreeKey_0__Lean_Elab_Tactic_DiscrTreeKey_mkKey___closed__0: u64 = 0;
 pub static l___private_Lean_Elab_Tactic_DiscrTreeKey_0__Lean_Elab_Tactic_DiscrTreeKey_mkKey___closed__1_value: crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [73, 102, 102, 0]};

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.ExprTraverse
 // Imports: Lean.SubExpr
+use crate::ffi::{lean_array_push, lean_expr_instantiate_rev};
 use crate::r#gen::Lean::Expr::{
     l___private_Lean_Expr_0__Lean_Expr_updateMData_x21Impl,
     l___private_Lean_Expr_0__Lean_Expr_updateProj_x21Impl,
@@ -17,8 +18,6 @@ use crate::r#gen::Lean::SubExpr::{
     l_Lean_SubExpr_Pos_pushLetVarType, l_Lean_SubExpr_Pos_pushProj, l_Lean_SubExpr_Pos_root,
     runtime_initialize_Lean_SubExpr,
 };
-use crate::ffi::lean_array_push;
-use crate::ffi::lean_expr_instantiate_rev;
 pub static l_Lean_Meta_traverseLambdaWithPos___redArg___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

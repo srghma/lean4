@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Int.Linear
 // Imports: Init.Data.Int.Gcd Init.Data.AC Init.LawfulBEqTactics Init.Data.Bool Init.Data.Int.Gcd Init.Data.RArray Init.Data.Int.Cooper Init.Data.Int.LemmasAux
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_ediv, lean_int_emod,
+    lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs, lean_nat_dec_eq, lean_nat_sub,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::AC::{initialize_Init_Data_AC, runtime_initialize_Init_Data_AC};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -22,12 +27,6 @@ use crate::r#gen::Init::Data::RArray::{
 use crate::r#gen::Init::LawfulBEqTactics::{
     initialize_Init_LawfulBEqTactics, runtime_initialize_Init_LawfulBEqTactics,
 };
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l_Int_Linear_instInhabitedExpr_default___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

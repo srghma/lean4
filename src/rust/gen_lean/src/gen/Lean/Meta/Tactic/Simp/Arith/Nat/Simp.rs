@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.Arith.Nat.Simp
 // Imports: Lean.Meta.Tactic.Simp.Arith.Util Lean.Meta.Tactic.Simp.Arith.Nat.Basic Lean.Meta.AppBuilder
+use crate::ffi::lean_expr_eqv;
 use crate::r#gen::Init::Data::Nat::Linear::{
     l_Nat_Linear_Expr_toPoly, l_Nat_Linear_ExprCnstr_toPoly, l_Nat_Linear_Poly_norm,
     l_Nat_Linear_Poly_toExpr, l_Nat_Linear_PolyCnstr_isUnsat, l_Nat_Linear_PolyCnstr_isValid,
@@ -31,7 +32,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Arith::Util::{
     initialize_Lean_Meta_Tactic_Simp_Arith_Util,
     runtime_initialize_Lean_Meta_Tactic_Simp_Arith_Util,
 };
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Simp_Arith_Nat_simpCnstrPos_x3f___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

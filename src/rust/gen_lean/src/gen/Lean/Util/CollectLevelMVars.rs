@@ -1,24 +1,17 @@
 // Lean compiler output
 // Module: Lean.Util.CollectLevelMVars
 // Imports: Lean.Expr
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_level_eq, lean_mk_array,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_hasMVar, l_Lean_Expr_hash, runtime_initialize_Lean_Expr,
 };
 use crate::r#gen::Lean::Level::{l_Lean_Level_hasMVar, l_Lean_Level_hash};
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-};
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::lean_level_eq;
 static mut l_Lean_CollectLevelMVars_instInhabitedState___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

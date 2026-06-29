@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Http.Internal.Char
 // Imports: Init.Data.Char Init.Data.String.Basic Init.Data.Int Init.Grind
+use crate::ffi::{
+    lean_nat_dec_le, lean_nat_dec_lt, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat, lean_uint32_to_uint8,
+};
 use crate::r#gen::Init::Data::Char::{
     initialize_Init_Data_Char, runtime_initialize_Init_Data_Char,
 };
@@ -9,11 +13,6 @@ use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-use crate::ffi::lean_uint32_to_uint8;
-use crate::ffi::{
-    lean_nat_dec_le, lean_nat_dec_lt, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,
-    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
-};
 static mut l_Std_Http_Internal_Char_isDigitByte___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Compiler.ExternAttr
 // Imports: Lean.ProjFns Lean.Attributes Init.Data.String.Lemmas.Order Init.Data.String.OrderInstances Init.Data.Order.Lemmas
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_mul, lean_nat_sub, lean_st_ref_get, lean_string_append,
+    lean_string_dec_eq, lean_string_hash, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_to_nat, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_intersperseTR___redArg;
 use crate::r#gen::Init::Data::List::BasicAux::l_List_getD___redArg;
 use crate::r#gen::Init::Data::Order::Lemmas::{
@@ -29,20 +38,6 @@ use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::ProjFns::{
     initialize_Lean_ProjFns, l_Lean_Environment_isProjectionFn, runtime_initialize_Lean_ProjFns,
 };
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
-    lean_uint32_to_nat, lean_uint64_mix_hash, lean_uint64_of_nat,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_instBEqExternEntry___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

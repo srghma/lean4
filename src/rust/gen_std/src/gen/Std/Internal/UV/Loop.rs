@@ -1,11 +1,9 @@
 // Lean compiler output
 // Module: Std.Internal.UV.Loop
 // Imports: Init.System.Promise
+use crate::ffi::{lean_uv_event_loop_alive, lean_uv_event_loop_configure};
 use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
-};
-use crate::ffi::{
-    lean_uv_event_loop_alive, lean_uv_event_loop_configure,
 };
 pub unsafe fn l_Std_Internal_UV_Loop_configure___boxed(
     mut v_options_12_: *mut crate::leanh::LeanObject,

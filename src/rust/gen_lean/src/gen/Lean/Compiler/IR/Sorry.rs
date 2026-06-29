@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.Sorry
 // Imports: Lean.Compiler.IR.CompilerM
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Lean::Compiler::IR::Basic::{
     l_Lean_IR_Alt_body, l_Lean_IR_FnBody_body, l_Lean_IR_FnBody_isTerminal,
 };
@@ -11,15 +16,6 @@ use crate::r#gen::Lean::Compiler::IR::CompilerM::{
 use crate::r#gen::Lean::Data::NameMap::Basic::{
     l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg,
     l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l___private_Lean_Compiler_IR_Sorry_0__Lean_IR_Sorry_visitExpr_getSorryDepFor_x3f___redArg___closed__0_value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [115, 111, 114, 114, 121, 65, 120, 0]};
 static mut l___private_Lean_Compiler_IR_Sorry_0__Lean_IR_Sorry_visitExpr_getSorryDepFor_x3f___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Compiler_IR_Sorry_0__Lean_IR_Sorry_visitExpr_getSorryDepFor_x3f___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

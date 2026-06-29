@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Meta.PProdN
 // Imports: Lean.Meta.Transform Init.Data.Range.Polymorphic.Iterators Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get, lean_array_get_size, lean_array_pop,
+    lean_array_push, lean_array_set, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_expr_dbg_to_string, lean_infer_type, lean_mk_array, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_st_ref_set, lean_st_ref_take, lean_string_append,
+    lean_string_dec_eq, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_sub, lean_whnf,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::{
     l___private_Init_Data_Array_Basic_0__Array_foldrMUnsafe_fold, l_Array_ofFn___redArg,
@@ -49,27 +59,6 @@ use crate::r#gen::Lean::Meta::InferType::l_Lean_Meta_getLevel;
 use crate::r#gen::Lean::Meta::Transform::{
     initialize_Lean_Meta_Transform, runtime_initialize_Lean_Meta_Transform,
 };
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::lean_expr_dbg_to_string;
-use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l_Lean_Meta_mkPProd___closed__0_value: crate::leanh::LeanStringObject<6> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

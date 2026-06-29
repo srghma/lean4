@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Data.Options
 // Imports: Lean.ImportingFlag Lean.Data.KVMap Lean.Data.NameMap.Basic Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_string_append, lean_string_dec_eq, lean_string_intercalate,
+    lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -54,13 +60,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_foldrM___redArg, l_Std_DTreeMap_Internal_Impl_forInStep___redArg,
 };
-use crate::ffi::lean_string_intercalate;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_string_dec_eq, lean_string_utf8_byte_size,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static l_Lean_Options_empty___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

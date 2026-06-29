@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Core
 // Imports: Init.Simproc Lean.Meta.Tactic.Simp.Simproc Lean.Meta.CtorRecognizer
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_simp, lean_uint64_lor,
+    lean_uint64_shift_left, lean_uint64_shift_right,
+};
 use crate::r#gen::Init::Simproc::{initialize_Init_Simproc, runtime_initialize_Init_Simproc};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
@@ -23,13 +27,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     l_Lean_Meta_Simp_registerBuiltinSimproc, runtime_initialize_Lean_Meta_Tactic_Simp_Simproc,
 };
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-};
-use crate::ffi::lean_simp;
 pub static l_reduceIte___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

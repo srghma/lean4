@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Async.Select
 // Imports: Init.Data.Random Std.Async.Basic Init.Data.ByteArray.Extra Init.Data.Array.Lemmas Init.Omega
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_swap, lean_array_uget_borrowed,
+    lean_io_bind_task, lean_io_get_random_bytes, lean_io_promise_new, lean_io_promise_resolve,
+    lean_io_promise_result_opt, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mod, lean_nat_mul, lean_nat_sub, lean_st_mk_ref, lean_st_ref_get, lean_task_map,
+    lean_task_pure, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Lemmas::{
     initialize_Init_Data_Array_Lemmas, runtime_initialize_Init_Data_Array_Lemmas,
 };
@@ -23,22 +30,6 @@ use crate::r#gen::Std::Async::Basic::{
     l___private_Std_Async_Basic_0__Std_Async_BaseAsync_bind_bindAsyncTask,
     runtime_initialize_Std_Async_Basic,
 };
-use crate::ffi::{lean_task_map, lean_task_pure};
-use crate::ffi::{
-    lean_array_size, lean_array_swap, lean_array_uget_borrowed,
-};
-use crate::ffi::{
-    lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_div,
-    lean_nat_mod, lean_nat_mul, lean_nat_sub,
-};
-use crate::ffi::{lean_io_bind_task, lean_io_get_random_bytes};
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
 pub static l_Std_Async_Waiter_race___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.ForallProp
 // Imports: Init.Grind.Propagator Init.Simproc Init.Grind.Norm Lean.Meta.Tactic.Grind.Internalize Lean.Meta.Tactic.Grind.Anchor Lean.Meta.Tactic.Grind.EqResolution Lean.Meta.Tactic.Grind.SynthInstance Lean.Meta.Tactic.Grind.PropagatorAttr Init.Grind.Lemmas
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget_borrowed, lean_expr_eqv,
+    lean_expr_instantiate1, lean_expr_lift_loose_bvars, lean_grind_internalize,
+    lean_grind_preprocess, lean_infer_type, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Grind::Lemmas::{
     initialize_Init_Grind_Lemmas, runtime_initialize_Init_Grind_Lemmas,
@@ -80,24 +87,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
 };
 use crate::r#gen::Lean::Meta::Tactic::Simp::Types::l_Lean_Meta_Simp_Result_getProof;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_expr_eqv, lean_expr_instantiate1, lean_expr_lift_loose_bvars,
-};
-use crate::ffi::lean_infer_type;
-use crate::ffi::{
-    lean_grind_internalize, lean_grind_preprocess,
-};
 pub static l___private_Lean_Meta_Tactic_Grind_ForallProp_0__Lean_Meta_Grind_propagateForallPropUp_propagateImpliesUp___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_ForallProp_0__Lean_Meta_Grind_propagateForallPropUp_propagateImpliesUp___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Grind_ForallProp_0__Lean_Meta_Grind_propagateForallPropUp_propagateImpliesUp___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Grind_ForallProp_0__Lean_Meta_Grind_propagateForallPropUp_propagateImpliesUp___closed__1_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [71, 114, 105, 110, 100, 0]};

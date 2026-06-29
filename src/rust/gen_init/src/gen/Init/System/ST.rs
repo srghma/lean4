@@ -1,16 +1,16 @@
 // Lean compiler output
 // Module: Init.System.ST
 // Imports: Init.Control.Except Init.NotationExtra Init.Classical
+use crate::ffi::{
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_ptr_eq, lean_st_ref_set, lean_st_ref_swap,
+    lean_st_ref_take, lean_void_mk,
+};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Control::Except::{
     initialize_Init_Control_Except, runtime_initialize_Init_Control_Except,
 };
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_ptr_eq, lean_st_ref_set, lean_st_ref_swap,
-    lean_st_ref_take, lean_void_mk,
 };
 pub static l_instMonadST___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

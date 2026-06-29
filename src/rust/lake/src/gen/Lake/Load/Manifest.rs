@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lake.Load.Manifest
 // Imports: Lake.Util.Version Lake.Config.Defaults Lake.Util.Git Lake.Util.Error Lake.Util.FilePath Lake.Util.JsonObject Init.Data.Option.Coe
+use crate::ffi::{
+    lean_array_get, lean_array_get_borrowed, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_int_dec_lt, lean_nat_abs, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul, lean_nat_to_int, lean_panic_fn_borrowed,
+    lean_string_append, lean_string_compare, lean_string_dec_eq, lean_string_push, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::Option::Coe::{
     initialize_Init_Data_Option_Coe, runtime_initialize_Init_Data_Option_Coe,
@@ -43,20 +50,6 @@ use crate::r#gen::Lean::Data::Json::Parser::l_Lean_Json_parse;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_pretty;
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get, lean_array_get_borrowed, lean_array_push, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_lt, lean_nat_mul, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
 pub static l_Lake_Manifest_version___closed__0_value: crate::leanh::LeanCtorObject<3> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

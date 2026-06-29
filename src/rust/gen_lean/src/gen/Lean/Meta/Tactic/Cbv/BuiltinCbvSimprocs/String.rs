@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Cbv.BuiltinCbvSimprocs.String
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.Sym.LitValues Init.CbvSimproc Lean.Meta.Tactic.Cbv.CbvSimproc Lean.Meta.Tactic.Cbv.Util
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_string_append, lean_string_data,
+    lean_string_push, lean_uint32_to_nat, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::CbvSimproc::{
     initialize_Init_CbvSimproc, runtime_initialize_Init_CbvSimproc,
 };
@@ -26,12 +30,6 @@ use crate::r#gen::Lean::Meta::Tactic::Cbv::Util::{
     initialize_Lean_Meta_Tactic_Cbv_Util, l_Lean_Meta_Tactic_Cbv_getListLitElems,
     runtime_initialize_Lean_Meta_Tactic_Cbv_Util,
 };
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_data;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_uint32_to_nat;
 pub static l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_String_0__Lean_Meta_Tactic_Cbv_simpStringAppend___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0 + 8) as u16, other: 0, tag: 0 }, m_objs: [0 as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_String_0__Lean_Meta_Tactic_Cbv_simpStringAppend___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_String_0__Lean_Meta_Tactic_Cbv_simpStringAppend___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_String_0____regBuiltin___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_String_0__Lean_Meta_Tactic_Cbv_simpStringAppend_declare__4___closed__0_00___x40_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_String_3001824805____hygCtx___hyg_17__value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 0]};

@@ -1,13 +1,13 @@
 // Lean compiler output
 // Module: Init.Ext
 // Imports: Init.RCases
+use crate::ffi::{lean_array_get_size, lean_nat_dec_eq};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
     l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
 };
 use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init_RCases};
-use crate::ffi::{lean_array_get_size, lean_nat_dec_eq};
 pub static l_Lean_Parser_Attr_extIff___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Bitwise.Lemmas
 // Imports: Init.Data.Nat.Bitwise.Basic Init.BinderPredicates Init.Data.Bool Init.Data.Nat.Log2 Init.ByCases Init.Data.Int.Pow Init.Data.Nat.Lemmas Init.Omega Init.RCases Init.TacticsExtra
+use crate::ffi::lean_array_push;
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -26,7 +27,6 @@ use crate::r#gen::Init::RCases::{initialize_Init_RCases, runtime_initialize_Init
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::lean_array_push;
 pub static l_Nat_bitwise__div__two__pow___auto__9___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

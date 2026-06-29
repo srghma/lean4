@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Data.Format
 // Imports: Lean.Data.Options Init.Data.Format.Instances
+use crate::ffi::{lean_nat_to_int, lean_string_length};
 use crate::r#gen::Init::Data::Format::Basic::{
     l_Std_Format_defIndent, l_Std_Format_defUnicode, l_Std_Format_defWidth, l_Std_Format_pretty,
 };
@@ -15,8 +16,6 @@ use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const
 use crate::r#gen::Lean::Data::Options::{
     initialize_Lean_Data_Options, lean_register_option, runtime_initialize_Lean_Data_Options,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
 pub static l_Std_Format_getWidth___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

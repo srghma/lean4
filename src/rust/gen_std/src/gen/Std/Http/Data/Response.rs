@@ -1,6 +1,18 @@
 // Lean compiler output
 // Module: Std.Http.Data.Response
 // Imports: Std.Http.Data.Extensions Std.Http.Data.Status Std.Http.Data.Version Std.Http.Data.Headers
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget_borrowed, lean_array_uset, lean_byte_array_mk,
+    lean_byte_array_size, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_nat_to_int, lean_string_append, lean_string_dec_eq, lean_string_hash, lean_string_length,
+    lean_string_to_utf8, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_string_utf8_set, lean_uint16_to_nat, lean_uint32_add, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_to_uint8, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -36,30 +48,6 @@ use crate::r#gen::Std::Http::Data::Status::{
 use crate::r#gen::Std::Http::Data::Version::{
     initialize_Std_Http_Data_Version, l_Std_Http_instReprVersion_repr,
     runtime_initialize_Std_Http_Data_Version,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint16_to_nat, lean_uint32_add, lean_uint32_to_uint8, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_mk,
-    lean_byte_array_size, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_hash, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 static mut l_Std_Http_Response_instInhabitedHead_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {

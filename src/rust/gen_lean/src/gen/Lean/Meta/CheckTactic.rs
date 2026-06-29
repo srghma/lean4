@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.CheckTactic
 // Imports: Lean.Meta.Basic
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_st_ref_get};
 use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_Expr_sort___override, l_Lean_mkAppB, l_Lean_mkAppN,
@@ -11,8 +12,6 @@ use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, l_Lean_Meta_isExprDefEq, l_Lean_Meta_mkFreshExprMVar,
     l_Lean_Meta_mkFreshLevelMVar, runtime_initialize_Lean_Meta_Basic,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_CheckTactic_mkCheckGoalType___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

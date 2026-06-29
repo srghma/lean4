@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Slice.List.Iterator
 // Imports: Init.Data.Slice.List.Basic Init.Data.Iterators.Producers.List Init.Data.Iterators.Combinators.Take Init.Data.Range.Polymorphic.Basic Init.Data.Slice.Operations Init.Data.ToString.Extra
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
+    lean_string_append,
+};
 use crate::r#gen::Init::Data::Iterators::Combinators::Take::{
     initialize_Init_Data_Iterators_Combinators_Take,
     runtime_initialize_Init_Data_Iterators_Combinators_Take,
@@ -30,10 +34,6 @@ use crate::r#gen::Init::Prelude::l_List_lengthTR___redArg;
 use crate::r#gen::Init::WFExtrinsicFix::{
     l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg,
     l_WellFounded_opaqueFix_u2083___redArg,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
 pub static l_ListSlice_instToIterator___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

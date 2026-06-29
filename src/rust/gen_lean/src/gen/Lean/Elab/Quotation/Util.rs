@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Quotation.Util
 // Imports: Lean.Elab.Term
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_st_ref_get, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArg, l_Lean_Syntax_isIdent, l_Lean_Syntax_isMissing, l_Lean_Syntax_isOfKind,
@@ -20,15 +26,6 @@ use crate::r#gen::Lean::Syntax::{
     l_Lean_Syntax_getAntiquotTerm, l_Lean_Syntax_isAntiquot, l_Lean_Syntax_isEscapedAntiquot,
     l_Lean_Syntax_isQuot, l_Lean_Syntax_isTokenAntiquot, l_Lean_Syntax_topDown,
 };
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l___private_Lean_Elab_Quotation_Util_0__Lean_Elab_Term_Quotation_initFn___closed__0_00___x40_Lean_Elab_Quotation_Util_137815056____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [104, 121, 103, 105, 101, 110, 101, 0]};
 static mut l___private_Lean_Elab_Quotation_Util_0__Lean_Elab_Term_Quotation_initFn___closed__0_00___x40_Lean_Elab_Quotation_Util_137815056____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Quotation_Util_0__Lean_Elab_Term_Quotation_initFn___closed__0_00___x40_Lean_Elab_Quotation_Util_137815056____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Quotation_Util_0__Lean_Elab_Term_Quotation_initFn___closed__1_00___x40_Lean_Elab_Quotation_Util_137815056____hygCtx___hyg_4__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_Quotation_Util_0__Lean_Elab_Term_Quotation_initFn___closed__0_00___x40_Lean_Elab_Quotation_Util_137815056____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject,7940100381430426555 as *mut crate::leanh::LeanObject] };

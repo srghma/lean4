@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Meta.DiscrTree.Main
 // Imports: Lean.Meta.Basic Lean.Meta.DiscrTree.Basic Lean.Meta.WHNF
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_pop, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_shiftr,
+    lean_nat_sub, lean_st_ref_get, lean_uint64_lor, lean_uint64_shift_left,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_isEqvAux___redArg};
 use crate::r#gen::Init::Data::Array::BinSearch::l_Array_binSearchAux___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
@@ -42,26 +52,6 @@ use crate::r#gen::Lean::Meta::WHNF::{
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_isRecCore;
 use crate::r#gen::Lean::ReducibilityAttrs::lean_get_reducibility_status;
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_whnf;
 pub static l___private_Lean_Meta_DiscrTree_Main_0__Lean_Meta_DiscrTree_tmpMVarId___closed__0_value: crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [95, 100, 105, 115, 99, 114, 95, 116, 114, 101, 101, 95, 116, 109, 112, 0]};
 static mut l___private_Lean_Meta_DiscrTree_Main_0__Lean_Meta_DiscrTree_tmpMVarId___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.DeclarationRange
 // Imports: Lean.Parser.Command
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArg, l_Lean_Syntax_getKind, l_Lean_Syntax_isIdent, l_Lean_Syntax_isOfKind,
@@ -11,9 +12,6 @@ use crate::r#gen::Lean::Parser::Command::{
     initialize_Lean_Parser_Command, runtime_initialize_Lean_Parser_Command,
 };
 use crate::r#gen::Lean::Syntax::l_Lean_Syntax_getRange_x3f;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-};
 pub static l_Lean_Elab_getDeclarationSelectionRef___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

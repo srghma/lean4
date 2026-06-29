@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.String.FindPos
 // Imports: Init.Data.String.Basic Init.Omega Init.Data.String.OrderInstances Init.Data.String.Lemmas.Basic
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, l_String_Pos_Raw_isValidForSlice,
     runtime_initialize_Init_Data_String_Basic,
@@ -13,9 +16,6 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed, lean_string_utf8_byte_size,
-};
 pub static l_String_Slice_Pos_prev_x21___closed__0_value: crate::leanh::LeanStringObject<25> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

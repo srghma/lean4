@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Meta
 // Imports: Init.Meta.Defs Init.Meta.Defs Init.Syntax
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_sub, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{
@@ -23,13 +28,6 @@ use crate::r#gen::Init::Tactics::{
     l_Lean_Parser_Tactic_discharger, l_Lean_Parser_Tactic_location, l_Lean_Parser_Tactic_optConfig,
     l_Lean_Parser_Tactic_rwRuleSeq, l_Lean_Parser_Tactic_simpErase, l_Lean_Parser_Tactic_simpLemma,
     l_Lean_Parser_Tactic_simpStar,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_sub,
 };
 pub static l_Lean___aux__Init__Meta______macroRules__Lean__Parser__Syntax__addPrec__1___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l_Lean___aux__Init__Meta______macroRules__Lean__Parser__Syntax__addPrec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean___aux__Init__Meta______macroRules__Lean__Parser__Syntax__addPrec__1___closed__0_value) as *mut crate::leanh::LeanObject;

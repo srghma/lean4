@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Server.FileWorker.SetupFile
 // Imports: Lean.Server.Utils Lean.Util.LakePath Lean.Server.ServerTask
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_array_uget_borrowed,
+    lean_io_prim_handle_get_line, lean_io_process_child_take_stdin, lean_io_process_child_wait,
+    lean_io_process_spawn, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_string_append, lean_string_dec_eq, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_task_get_own, lean_uint32_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_trimAscii;
 use crate::r#gen::Init::System::IO::{
@@ -23,20 +30,6 @@ use crate::r#gen::Lean::Setup::{
 };
 use crate::r#gen::Lean::Util::LakePath::{
     initialize_Lean_Util_LakePath, l_Lean_determineLakePath, runtime_initialize_Lean_Util_LakePath,
-};
-use crate::ffi::lean_task_get_own;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_prim_handle_get_line, lean_io_process_child_take_stdin, lean_io_process_child_wait,
-    lean_io_process_spawn,
 };
 pub static l___private_Lean_Server_FileWorker_SetupFile_0__Lean_Server_FileWorker_runLakeSetupFile_processStderr___redArg___closed__0_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};
 static mut l___private_Lean_Server_FileWorker_SetupFile_0__Lean_Server_FileWorker_runLakeSetupFile_processStderr___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Server_FileWorker_SetupFile_0__Lean_Server_FileWorker_runLakeSetupFile_processStderr___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

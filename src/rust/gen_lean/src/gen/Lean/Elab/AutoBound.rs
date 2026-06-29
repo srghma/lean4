@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.AutoBound
 // Imports: Lean.Meta.Hint
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_is_valid_pos,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Init::Data::String::Defs::l_String_instInhabitedSlice;
 use crate::r#gen::Init::Data::String::Substring::l_Substring_Raw_nextn;
@@ -13,14 +19,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::Meta::Hint::{
     initialize_Lean_Meta_Hint, runtime_initialize_Lean_Meta_Hint,
-};
-use crate::ffi::{
-    lean_string_is_valid_pos, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l___private_Lean_Elab_AutoBound_0__Lean_Elab_initFn___closed__0_00___x40_Lean_Elab_AutoBound_366037992____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 13, m_capacity: 13, m_length: 12, m_data: [97, 117, 116, 111, 73, 109, 112, 108, 105, 99, 105, 116, 0]};
 static mut l___private_Lean_Elab_AutoBound_0__Lean_Elab_initFn___closed__0_00___x40_Lean_Elab_AutoBound_366037992____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_AutoBound_0__Lean_Elab_initFn___closed__0_00___x40_Lean_Elab_AutoBound_366037992____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;

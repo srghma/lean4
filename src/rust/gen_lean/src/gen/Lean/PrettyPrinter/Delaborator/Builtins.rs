@@ -1,6 +1,19 @@
 // Lean compiler output
 // Module: Lean.PrettyPrinter.Delaborator.Builtins
 // Imports: Lean.PrettyPrinter.Delaborator.Basic Lean.PrettyPrinter.Delaborator.Metavariable Lean.Meta.CoeAttr Lean.Meta.Structure Lean.PrettyPrinter.Formatter Lean.PrettyPrinter.Parenthesizer Lean.Parser.Command Lean.PrettyPrinter.Delaborator.DeclWithSig
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push, lean_array_set,
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_expr_abstract, lean_expr_eqv, lean_expr_instantiate_rev_range,
+    lean_expr_instantiate1, lean_infer_type, lean_int_dec_le, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_abs, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+    lean_string_length, lean_string_utf8_byte_size, lean_string_utf8_extract, lean_uint64_lor,
+    lean_uint64_shift_left, lean_uint64_shift_right, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_whnf,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_Array_eraseIdxIfInBounds___redArg, l_Array_instInhabited,
@@ -254,37 +267,6 @@ use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Recognizers::l_Lean_Expr_name_x3f;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::l_Std_DTreeMap_Internal_Impl_insert___redArg;
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___redArg;
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_int_dec_le, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_expr_abstract, lean_expr_eqv, lean_expr_instantiate_rev_range, lean_expr_instantiate1,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
 pub static l_Lean_PrettyPrinter_Delaborator_withTypeAscription___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

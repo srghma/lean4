@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.Vector.Attach
 // Imports: Init.Data.Vector.Lemmas Init.Data.Array.Attach
+use crate::ffi::{
+    lean_array_size, lean_array_uget, lean_array_uset, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -15,10 +18,6 @@ use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0_
 use crate::r#gen::Init::Data::Vector::Lemmas::{
     initialize_Init_Data_Vector_Lemmas, runtime_initialize_Init_Data_Vector_Lemmas,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
 pub static l_Vector_pmapImpl___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

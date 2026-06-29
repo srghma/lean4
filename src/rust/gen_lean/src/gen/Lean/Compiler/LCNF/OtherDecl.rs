@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.OtherDecl
 // Imports: Lean.Compiler.LCNF.CompilerM Lean.Compiler.LCNF.MonoTypes Lean.Compiler.LCNF.ToImpureType
+use crate::ffi::lean_st_ref_get;
 use crate::r#gen::Lean::Compiler::LCNF::BaseTypes::l_Lean_Compiler_LCNF_getOtherDeclBaseType;
 use crate::r#gen::Lean::Compiler::LCNF::CompilerM::{
     initialize_Lean_Compiler_LCNF_CompilerM, l_Lean_Compiler_LCNF_getPhase___redArg,
@@ -16,7 +17,6 @@ use crate::r#gen::Lean::Compiler::LCNF::ToImpureType::{
 };
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_throwError___at___00Lean_Compiler_LCNF_getOtherDeclType_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_throwError___at___00Lean_Compiler_LCNF_getOtherDeclType_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_throwError___at___00Lean_Compiler_LCNF_getOtherDeclType_spec__0___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

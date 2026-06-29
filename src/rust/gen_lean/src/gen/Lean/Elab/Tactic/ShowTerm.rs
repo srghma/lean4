@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.ShowTerm
 // Imports: Lean.Elab.ElabRules Lean.Meta.Tactic.TryThis
+use crate::ffi::{lean_st_ref_get, lean_st_ref_set, lean_st_ref_take};
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Lean::DeclarationRange::l_Lean_addBuiltinDeclarationRanges;
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
@@ -24,9 +25,6 @@ use crate::r#gen::Lean::Meta::Tactic::TryThis::{
     l_Lean_Meta_Tactic_TryThis_addTermSuggestion, runtime_initialize_Lean_Meta_Tactic_TryThis,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_ShowTerm_evalShowTerm_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_ShowTerm_evalShowTerm_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Elab_Tactic_ShowTerm_evalShowTerm___closed__0_value:

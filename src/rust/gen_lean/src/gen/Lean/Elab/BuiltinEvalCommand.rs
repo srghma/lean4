@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Elab.BuiltinEvalCommand
 // Imports: Lean.Elab.MutualDef Lean.Compiler.Options Lean.Meta.Reduce Lean.Elab.ErrorUtils
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_get_set_stderr, lean_get_set_stdin,
+    lean_get_set_stdout, lean_has_compile_error, lean_infer_type, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
+    lean_string_validate_utf8, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Meta::Defs::lean_mk_syntax_ident;
@@ -125,26 +135,6 @@ use crate::r#gen::Lean::Util::Sorry::l_Lean_Expr_hasSyntheticSorry;
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
-use crate::ffi::lean_has_compile_error;
 pub static l___private_Lean_Elab_BuiltinEvalCommand_0__Lean_Elab_Command_initFn___closed__0_00___x40_Lean_Elab_BuiltinEvalCommand_2572431917____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [101, 118, 97, 108, 0]};
 static mut l___private_Lean_Elab_BuiltinEvalCommand_0__Lean_Elab_Command_initFn___closed__0_00___x40_Lean_Elab_BuiltinEvalCommand_2572431917____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_BuiltinEvalCommand_0__Lean_Elab_Command_initFn___closed__0_00___x40_Lean_Elab_BuiltinEvalCommand_2572431917____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_BuiltinEvalCommand_0__Lean_Elab_Command_initFn___closed__1_00___x40_Lean_Elab_BuiltinEvalCommand_2572431917____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [112, 112, 0]};

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.String.Lemmas.Pattern.Split.Basic
 // Imports: Init.Data.String.Lemmas.Pattern.Basic Init.Data.String.Slice Init.Data.String.Search Init.Data.String.Slice Init.Data.String.Search Init.Data.Option.Lemmas Init.Data.String.Termination Init.Data.String.Lemmas.Order Init.ByCases Init.Data.Order.Lemmas Init.Data.String.OrderInstances Init.Data.Iterators.Lemmas.Basic Init.Data.Iterators.Lemmas.Consumers.Collect Init.Data.Iterators.Lemmas.Combinators.FilterMap Init.Data.String.Lemmas.IsEmpty
+use crate::ffi::lean_nat_sub;
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Iterators::Lemmas::Basic::{
     initialize_Init_Data_Iterators_Lemmas_Basic,
@@ -43,7 +44,6 @@ use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Data::String::Termination::{
     initialize_Init_Data_String_Termination, runtime_initialize_Init_Data_String_Termination,
 };
-use crate::ffi::lean_nat_sub;
 pub unsafe fn l___private_Init_Data_String_Lemmas_Pattern_Split_Basic_0__String_Slice_Pattern_Model_split_match__1_splitter___redArg(
     mut v_x_164_: *mut crate::leanh::LeanObject,
     mut v_h__1_165_: *mut crate::leanh::LeanObject,

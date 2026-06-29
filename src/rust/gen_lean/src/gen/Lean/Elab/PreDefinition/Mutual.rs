@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.Mutual
 // Imports: Lean.Elab.PreDefinition.Basic
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_to_list, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Lean::CoreM::{l_Lean_diagnostics, l_Lean_enableRealizationsForConst};
@@ -27,18 +33,6 @@ use crate::r#gen::Lean::ReducibilityAttrs::{
     l_Lean_allowUnsafeReducibility,
 };
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Elab_Mutual_addPreDefsFromUnary___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<15> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Cbv.BuiltinCbvSimprocs.Core
 // Imports: Lean.Meta.Sym.Simp.SimpM Init.Sym.Lemmas Init.CbvSimproc Lean.Meta.Tactic.Cbv.CbvSimproc
+use crate::ffi::lean_sym_simp;
 use crate::r#gen::Init::CbvSimproc::{
     initialize_Init_CbvSimproc, runtime_initialize_Init_CbvSimproc,
 };
@@ -23,7 +24,6 @@ use crate::r#gen::Lean::Meta::Tactic::Cbv::CbvSimproc::{
     l_Lean_Meta_Tactic_Cbv_registerBuiltinCbvSimproc,
     runtime_initialize_Lean_Meta_Tactic_Cbv_CbvSimproc,
 };
-use crate::ffi::lean_sym_simp;
 pub static l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_Core_0__Lean_Meta_Sym_Simp_simpOr___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0 + 8) as u16, other: 0, tag: 0 }, m_objs: [0 as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_Core_0__Lean_Meta_Sym_Simp_simpOr___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_Core_0__Lean_Meta_Sym_Simp_simpOr___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Cbv_BuiltinCbvSimprocs_Core_0__Lean_Meta_Sym_Simp_simpOr___closed__1_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [79, 114, 0]};

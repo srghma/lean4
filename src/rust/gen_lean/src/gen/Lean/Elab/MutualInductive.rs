@@ -1,6 +1,21 @@
 // Lean compiler output
 // Module: Lean.Elab.MutualInductive
 // Imports: Lean.Meta.Constructions Lean.Meta.SizeOf Lean.Meta.MkIffOfInductiveProp Lean.Elab.Coinductive Lean.Elab.Deriving.Basic Lean.Elab.ComputedFields Lean.Meta.Constructions.CtorIdx Lean.Meta.Constructions.CtorElim Lean.Meta.IndPredBelow Lean.Meta.Injective Init.Data.List.MapIdx Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_set,
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_expr_eqv, lean_expr_instantiate1, lean_infer_type,
+    lean_instantiate_level_mvars, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg,
+    lean_int_sub, lean_level_eq, lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_nat_sub, lean_nat_to_int, lean_ptr_addr, lean_replace_expr, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+    lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_mod, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -273,39 +288,6 @@ use crate::r#gen::Lean::Util::Trace::{
 use crate::r#gen::Std::Data::DHashMap::Internal::AssocList::Basic::l_Std_DHashMap_Internal_AssocList_length___redArg;
 use crate::r#gen::Std::Data::DHashMap::Internal::Defs::l_Std_DHashMap_Internal_Raw_u2080_insert___redArg;
 use crate::r#gen::Std::Data::HashMap::Basic::l_Std_HashMap_instInhabited;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_int_sub, lean_nat_abs,
-    lean_nat_to_int,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_mod, lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate1};
-use crate::ffi::lean_level_eq;
-use crate::ffi::lean_infer_type;
-use crate::ffi::lean_instantiate_level_mvars;
-use crate::ffi::lean_replace_expr;
 pub static l___private_Lean_Elab_MutualInductive_0__Lean_Elab_Command_initFn___closed__0_00___x40_Lean_Elab_MutualInductive_3220189436____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [69, 108, 97, 98, 0]};
 static mut l___private_Lean_Elab_MutualInductive_0__Lean_Elab_Command_initFn___closed__0_00___x40_Lean_Elab_MutualInductive_3220189436____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_MutualInductive_0__Lean_Elab_Command_initFn___closed__0_00___x40_Lean_Elab_MutualInductive_3220189436____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_MutualInductive_0__Lean_Elab_Command_initFn___closed__1_00___x40_Lean_Elab_MutualInductive_3220189436____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [105, 110, 100, 117, 99, 116, 105, 118, 101, 0]};

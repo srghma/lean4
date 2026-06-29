@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.LawfulBEqTactics
 // Imports: Init.Core Init.Data.Bool Init.ByCases Init.Classical
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Core::{initialize_Init_Core, runtime_initialize_Init_Core};
@@ -12,7 +13,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_Syntax_node4, l_Lean_Syntax_node5,
     l_Lean_Syntax_node6, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_DerivingHelpers_tacticDeriving__ReflEq__tactic___closed__0_value:
     crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,12 +1,12 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Internal.PosFin
 // Imports: Init.Data.Hashable
+use crate::ffi::lean_nat_dec_eq;
 use crate::r#gen::Init::Data::Hashable::{
     initialize_Init_Data_Hashable, runtime_initialize_Init_Data_Hashable,
 };
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::UInt::BasicAux::l_UInt64_ofNat___boxed;
-use crate::ffi::lean_nat_dec_eq;
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_instCoeOutPosFinNat___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

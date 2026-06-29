@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Internal.Do.ExceptPost
 // Imports: Std.Internal.Do.Assertion
+use crate::ffi::lean_nat_dec_le;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Array_extract___redArg, l_Array_mkArray0, l_Array_mkArray4___redArg,
@@ -12,7 +13,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Std::Internal::Do::Assertion::{
     initialize_Std_Internal_Do_Assertion, runtime_initialize_Std_Internal_Do_Assertion,
 };
-use crate::ffi::lean_nat_dec_le;
 pub static mut l_Std_Internal_Do_instPartialOrderNil: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
 pub static mut l_Std_Internal_Do_instCompleteLatticeNil: *mut crate::leanh::LeanObject =

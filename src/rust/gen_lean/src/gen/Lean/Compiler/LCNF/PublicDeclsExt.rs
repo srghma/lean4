@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.PublicDeclsExt
 // Imports: Lean.Environment
+use crate::ffi::{lean_nat_sub, lean_string_dec_eq};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::List::Impl::l___private_Init_Data_List_Impl_0__List_takeTR_go;
 use crate::r#gen::Init::Prelude::l_List_lengthTR___redArg;
@@ -13,7 +14,6 @@ use crate::r#gen::Lean::Environment::{
     l_Lean_EnvExtension_modifyState___redArg, l_Lean_Environment_header,
     l_Lean_registerEnvExtension___redArg, runtime_initialize_Lean_Environment,
 };
-use crate::ffi::{lean_nat_sub, lean_string_dec_eq};
 pub static l_Lean_Compiler_LCNF_mkOrderedDeclSetExt___lam__0___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

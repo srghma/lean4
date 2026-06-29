@@ -1,13 +1,12 @@
 // Lean compiler output
 // Module: Std.Sync.RecursiveMutex
 // Imports: Std.Sync.Basic
-use crate::r#gen::Std::Sync::Basic::{
-    initialize_Std_Sync_Basic, runtime_initialize_Std_Sync_Basic,
-};
-use crate::ffi::lean_st_mk_ref;
 use crate::ffi::{
     lean_io_baserecmutex_lock, lean_io_baserecmutex_new, lean_io_baserecmutex_try_lock,
-    lean_io_baserecmutex_unlock,
+    lean_io_baserecmutex_unlock, lean_st_mk_ref,
+};
+use crate::r#gen::Std::Sync::Basic::{
+    initialize_Std_Sync_Basic, runtime_initialize_Std_Sync_Basic,
 };
 pub static mut l___private_Std_Sync_RecursiveMutex_0__Std_RecursiveMutexImpl:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Renaming
 // Imports: Lean.Compiler.LCNF.CompilerM
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
+    lean_ptr_addr, lean_st_ref_set, lean_st_ref_take, lean_usize_dec_eq,
+};
 use crate::r#gen::Lean::Compiler::LCNF::Basic::{
     l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_updateAltCodeImp___redArg,
     l___private_Lean_Compiler_LCNF_Basic_0__Lean_Compiler_LCNF_updateAltImp,
@@ -15,12 +19,6 @@ use crate::r#gen::Lean::Compiler::LCNF::LCtx::{
     l_Lean_Compiler_LCNF_LCtx_addParam,
 };
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
-use crate::ffi::lean_ptr_addr;
 pub unsafe fn l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_Compiler_LCNF_Param_applyRenaming_spec__0___redArg(
     mut v_t_916_: *mut crate::leanh::LeanObject,
     mut v_k_917_: *mut crate::leanh::LeanObject,

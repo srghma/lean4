@@ -4,7 +4,6 @@
 // exact-text variant: yes
 
 use runtime::leanh_extra::*;
-use runtime::leanh_extra as leanh;
 
 pub unsafe fn lean_string_get_byte_fast(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
     let pos = unsafe { lean_unbox(pos) };

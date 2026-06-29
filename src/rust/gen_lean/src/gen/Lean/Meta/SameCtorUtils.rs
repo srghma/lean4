@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.SameCtorUtils
 // Imports: Lean.Meta.Basic Lean.Meta.Transform
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uset,
+    lean_expr_eqv, lean_find_expr, lean_infer_type, lean_mk_array, lean_panic_fn_borrowed,
+    lean_st_ref_get, lean_usize_add, lean_usize_dec_lt, lean_whnf,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Meta::Defs::lean_name_append_after;
 use crate::r#gen::Init::Prelude::{
@@ -39,17 +44,6 @@ use crate::r#gen::Lean::Meta::Transform::{
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_isInductiveCore_x3f;
 use crate::r#gen::Lean::Util::FindExpr::l_Lean_Expr_occurs;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::{lean_infer_type, lean_whnf};
-use crate::ffi::lean_find_expr;
 static mut l_panic___at___00Lean_getConstInfoCtor___at___00Lean_Meta_occursInCtorTypeMask_spec__1_spec__2___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_panic___at___00Lean_getConstInfoCtor___at___00Lean_Meta_occursInCtorTypeMask_spec__1_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_panic___at___00Lean_getConstInfoCtor___at___00Lean_Meta_occursInCtorTypeMask_spec__1_spec__2___closed__1_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Core_instMonadCoreM___lam__0___boxed as *const core::ffi::c_void, m_arity: 5, m_num_fixed: 0, m_objs: [] };

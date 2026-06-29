@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Lemmas.Combinators.Monadic.Take
 // Imports: Init.Data.Iterators.Combinators.Monadic.Take Init.Data.Iterators.Consumers.Monadic.Collect Init.Data.Iterators.Lemmas.Consumers.Monadic.Collect Init.Data.Iterators.Lemmas.Monadic.Basic Init.Data.Nat.Lemmas
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Iterators::Combinators::Monadic::Take::{
     initialize_Init_Data_Iterators_Combinators_Monadic_Take,
     runtime_initialize_Init_Data_Iterators_Combinators_Monadic_Take,
@@ -20,7 +21,6 @@ use crate::r#gen::Init::Data::Iterators::Lemmas::Monadic::Basic::{
 use crate::r#gen::Init::Data::Nat::Lemmas::{
     initialize_Init_Data_Nat_Lemmas, runtime_initialize_Init_Data_Nat_Lemmas,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_Iterators_Lemmas_Combinators_Monadic_Take_0__Std_Iterators_Types_Take_instIterator_match__1_splitter___redArg(
     mut v_x_131_: *mut crate::leanh::LeanObject,
     mut v_h__1_132_: *mut crate::leanh::LeanObject,

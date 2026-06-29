@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.String.Lemmas.Iterate
 // Imports: Init.Data.String.Iterate Init.Data.Iterators.Consumers.Collect Init.Data.String.Lemmas.Splits Init.Data.String.Iterate Init.Data.String.Termination Init.Data.Iterators.Lemmas.Consumers.Collect Init.ByCases Init.Data.Iterators.Lemmas.Combinators.FilterMap Init.Data.String.Lemmas.Basic Init.Data.Iterators.Lemmas.Consumers.Loop Init.Data.String.Lemmas.Order Init.Data.String.OrderInstances Init.Data.Subtype.Basic
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size,
+    lean_string_utf8_next_fast,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     initialize_Init_Data_Iterators_Consumers_Collect,
@@ -39,10 +43,6 @@ use crate::r#gen::Init::Data::String::Termination::{
 };
 use crate::r#gen::Init::Data::Subtype::Basic::{
     initialize_Init_Data_Subtype_Basic, runtime_initialize_Init_Data_Subtype_Basic,
-};
-use crate::ffi::lean_string_utf8_next_fast;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_string_utf8_byte_size,
 };
 pub unsafe fn l_String_Slice_Model_positionsFrom(
     mut v_s_94_: *mut crate::leanh::LeanObject,

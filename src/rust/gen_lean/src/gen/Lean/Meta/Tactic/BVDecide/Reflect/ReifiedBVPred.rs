@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVPred
 // Imports: Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVExpr
+use crate::ffi::{lean_infer_type, lean_nat_dec_eq};
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr6;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_cleanupAnnotations, l_Lean_Expr_isConstOf,
@@ -14,8 +15,6 @@ use crate::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::ReifiedBVExpr::{
     l_Lean_Meta_Tactic_BVDecide_ReifiedBVExpr_mkEvalExpr,
     runtime_initialize_Lean_Meta_Tactic_BVDecide_Reflect_ReifiedBVExpr,
 };
-use crate::ffi::lean_nat_dec_eq;
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_Tactic_BVDecide_ReifiedBVPred_boolAtom___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

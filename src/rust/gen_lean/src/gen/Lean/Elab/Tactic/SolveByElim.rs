@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.SolveByElim
 // Imports: Lean.Meta.Tactic.SolveByElim Lean.LibrarySuggestions.Basic Lean.Elab.ConfigEval
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uset,
+    lean_nat_dec_lt, lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_dec_eq, lean_string_dec_lt, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_appendTR___redArg, l_List_isEmpty___redArg, l_List_reverse___redArg,
 };
@@ -75,18 +80,6 @@ use crate::r#gen::Lean::Meta::Tactic::SolveByElim::{
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_dec_lt, lean_panic_fn_borrowed,
-    lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_Elab_throwAbortTerm___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_SolveByElim_0__Lean_Elab_Tactic_SolveByElim_elabConfig_evalConfigItem_spec__0_spec__0_spec__3___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwAbortTerm___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_SolveByElim_0__Lean_Elab_Tactic_SolveByElim_elabConfig_evalConfigItem_spec__0_spec__0_spec__3___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_Elab_ConfigEval_evalExprWithElab___at___00Lean_Elab_ConfigEval_evalTermOrExprWithElab___at___00__private_Lean_Elab_Tactic_SolveByElim_0__Lean_Elab_Tactic_SolveByElim_elabConfig_evalConfigItem_spec__0_spec__0_spec__2_spec__6_spec__11___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

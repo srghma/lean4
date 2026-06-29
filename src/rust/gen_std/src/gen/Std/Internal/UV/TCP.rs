@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Internal.UV.TCP
 // Imports: Init.System.Promise Init.Data.SInt Std.Net
+use crate::ffi::{
+    lean_uv_tcp_accept, lean_uv_tcp_bind, lean_uv_tcp_cancel_accept, lean_uv_tcp_cancel_recv,
+    lean_uv_tcp_connect, lean_uv_tcp_getpeername, lean_uv_tcp_getsockname, lean_uv_tcp_keepalive,
+    lean_uv_tcp_listen, lean_uv_tcp_new, lean_uv_tcp_nodelay, lean_uv_tcp_recv, lean_uv_tcp_send,
+    lean_uv_tcp_shutdown, lean_uv_tcp_try_accept, lean_uv_tcp_wait_readable,
+};
 use crate::r#gen::Init::Data::SInt::{
     initialize_Init_Data_SInt, runtime_initialize_Init_Data_SInt,
 };
@@ -8,12 +14,6 @@ use crate::r#gen::Init::System::Promise::{
     initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
-use crate::ffi::{
-    lean_uv_tcp_accept, lean_uv_tcp_bind, lean_uv_tcp_cancel_accept, lean_uv_tcp_cancel_recv,
-    lean_uv_tcp_connect, lean_uv_tcp_getpeername, lean_uv_tcp_getsockname, lean_uv_tcp_keepalive,
-    lean_uv_tcp_listen, lean_uv_tcp_new, lean_uv_tcp_nodelay, lean_uv_tcp_recv, lean_uv_tcp_send,
-    lean_uv_tcp_shutdown, lean_uv_tcp_try_accept, lean_uv_tcp_wait_readable,
-};
 pub static mut l___private_Std_Internal_UV_TCP_0__Std_Internal_UV_TCP_SocketImpl:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn _init_l___private_Std_Internal_UV_TCP_0__Std_Internal_UV_TCP_SocketImpl()

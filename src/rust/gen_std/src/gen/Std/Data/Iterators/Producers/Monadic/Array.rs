@@ -1,14 +1,12 @@
 // Lean compiler output
 // Module: Std.Data.Iterators.Producers.Monadic.Array
 // Imports: Init.Data.Iterators.Consumers Init.Omega
+use crate::ffi::{lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt};
 use crate::r#gen::Init::Data::Iterators::Consumers::{
     initialize_Init_Data_Iterators_Consumers, runtime_initialize_Init_Data_Iterators_Consumers,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
-};
 pub unsafe fn l_Array_iterFromIdxM___redArg(
     mut v_array_142_: *mut crate::leanh::LeanObject,
     mut v_pos_143_: *mut crate::leanh::LeanObject,

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Sync.Notify
 // Imports: Init.Data.Queue Std.Sync.Mutex Std.Async.Select
+use crate::ffi::{
+    lean_io_basemutex_lock, lean_io_basemutex_unlock, lean_io_bind_task, lean_io_promise_new,
+    lean_io_promise_resolve, lean_io_promise_result_opt, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_task_map, lean_task_pure,
+};
 use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Data::Queue::{
     initialize_Init_Data_Queue, l_Std_Queue_dequeue_x3f___redArg, l_Std_Queue_empty,
@@ -17,15 +22,6 @@ use crate::r#gen::Std::Async::Select::{
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::ffi::{lean_task_map, lean_task_pure};
-use crate::ffi::lean_io_bind_task;
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l_Std_Notify_Consumer_resolve___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

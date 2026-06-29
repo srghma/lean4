@@ -1,6 +1,16 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Rewrite
 // Imports: Lean.Meta.Tactic.Rewrite Lean.Meta.Tactic.Replace Lean.Elab.Tactic.Location Lean.Elab.ConfigEval Lean.Meta.Eqns
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_array_uget_borrowed,
+    lean_array_uset, lean_expr_eqv, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_mkCIdentFrom};
 use crate::r#gen::Init::Prelude::{
@@ -102,28 +112,6 @@ use crate::r#gen::Lean::MetavarContext::{
 };
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_realizeGlobalConstNoOverload;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
-use crate::ffi::{
-    lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_withInstancesTypeCheckNote___at___00Lean_Elab_Tactic_elabRewrite_spec__0___redArg___lam__1___closed__0_value: crate::leanh::LeanStringObject<312> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 312, m_capacity: 312, m_length: 311, m_data: [84, 104, 101, 32, 116, 97, 114, 103, 101, 116, 32, 101, 120, 112, 114, 101, 115, 115, 105, 111, 110, 32, 105, 115, 32, 110, 111, 116, 32, 116, 121, 112, 101, 45, 99, 111, 114, 114, 101, 99, 116, 32, 117, 110, 100, 101, 114, 32, 116, 104, 101, 32, 96, 105, 110, 115, 116, 97, 110, 99, 101, 115, 96, 32, 116, 114, 97, 110, 115, 112, 97, 114, 101, 110, 99, 121, 32, 108, 101, 118, 101, 108, 44, 32, 119, 104, 105, 99, 104, 32, 109, 97, 121, 32, 104, 97, 118, 101, 32, 116, 114, 105, 103, 103, 101, 114, 101, 100, 32, 116, 104, 101, 32, 102, 97, 105, 108, 117, 114, 101, 46, 32, 84, 104, 105, 115, 32, 105, 115, 32, 117, 115, 117, 97, 108, 108, 121, 32, 99, 97, 117, 115, 101, 100, 32, 98, 121, 32, 117, 110, 102, 111, 108, 100, 105, 110, 103, 32, 111, 102, 32, 115, 101, 109, 105, 114, 101, 100, 117, 99, 105, 98, 108, 101, 32, 100, 101, 102, 105, 110, 105, 116, 105, 111, 110, 115, 32, 105, 110, 32, 112, 114, 105, 111, 114, 32, 116, 97, 99, 116, 105, 99, 32, 115, 116, 101, 112, 115, 46, 32, 85, 115, 101, 32, 96, 115, 101, 116, 95, 111, 112, 116, 105, 111, 110, 32, 108, 105, 110, 116, 101, 114, 46, 116, 97, 99, 116, 105, 99, 67, 104, 101, 99, 107, 73, 110, 115, 116, 97, 110, 99, 101, 115, 32, 116, 114, 117, 101, 96, 32, 116, 111, 32, 105, 110, 118, 101, 115, 116, 105, 103, 97, 116, 101, 32, 116, 104, 101, 32, 115, 111, 117, 114, 99, 101, 32, 111, 102, 32, 116, 104, 101, 32, 105, 115, 115, 117, 101, 46, 10, 70, 117, 108, 108, 32, 101, 114, 114, 111, 114, 58, 0]};
 static mut l_Lean_Meta_withInstancesTypeCheckNote___at___00Lean_Elab_Tactic_elabRewrite_spec__0___redArg___lam__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Meta_withInstancesTypeCheckNote___at___00Lean_Elab_Tactic_elabRewrite_spec__0___redArg___lam__1___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l_Lean_Meta_withInstancesTypeCheckNote___at___00Lean_Elab_Tactic_elabRewrite_spec__0___redArg___lam__1___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Util.Cycle
 // Imports: Init.Data.ToString
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Control::Except::{
     l_ExceptT_bind, l_ExceptT_instMonad___redArg___lam__1, l_ExceptT_instMonad___redArg___lam__4,
     l_ExceptT_instMonad___redArg___lam__7, l_ExceptT_instMonad___redArg___lam__9, l_ExceptT_map,
@@ -15,7 +16,6 @@ use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
 use crate::r#gen::Init::Prelude::l_ReaderT_read___boxed;
-use crate::ffi::lean_string_append;
 pub static l_Lake_formatCycle___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<
     3,
 > = crate::leanh::LeanStringObject {

@@ -23,12 +23,7 @@ use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_re
 use crate::r#gen::Init::Prelude::{l_BitVec_ofNat, l_instBEqOfDecidableEq___redArg___lam__0___boxed};
 use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{l_Std_DHashMap_Internal_Raw_u2080_get_x3f___redArg, l_Std_DHashMap_Internal_Raw_u2080_insert___redArg};
 use crate::r#gen::Init::Data::BitVec::BasicAux::l_BitVec_sub;
-use crate::ffi::{lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow, lean_nat_sub, lean_uint64_mix_hash};
-use crate::ffi::{lean_nat_land, lean_nat_lor, lean_nat_shiftr};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{lean_array_uget_borrowed, lean_array_uset, lean_mk_array};
+use crate::ffi::{lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_land, lean_nat_lor, lean_nat_mod, lean_nat_mul, lean_nat_pow, lean_nat_shiftr, lean_nat_sub, lean_uint64_mix_hash, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land, lean_usize_of_nat, lean_usize_sub};
 pub static l_Std_Tactic_BVDecide_BVExpr_instHashableKey___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

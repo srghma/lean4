@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.SOM
 // Imports: Init.Data.Nat.Linear Init.ByCases Init.Data.List.BasicAux Init.Data.Prod Init.Meta
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_mul, lean_nat_sub};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_appendTR___redArg, l_List_decidableLex___redArg,
@@ -17,9 +18,6 @@ use crate::r#gen::Init::Data::Prod::{
 };
 use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Meta};
 use crate::r#gen::Init::Prelude::{l_Nat_decLt___boxed, l_instDecidableEqNat___boxed};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_mul, lean_nat_sub,
-};
 pub static l_Nat_SOM_instInhabitedExpr_default___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

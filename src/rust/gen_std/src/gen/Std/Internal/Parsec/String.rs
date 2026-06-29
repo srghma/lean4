@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Internal.Parsec.String
 // Imports: Std.Internal.Parsec.Basic Init.Data.String.Slice Init.Data.String.Termination Init.Data.String.Length
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_mul, lean_nat_sub, lean_string_append,
+    lean_string_length, lean_string_memcmp, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::{
@@ -17,17 +23,6 @@ use crate::r#gen::Init::Data::String::Termination::{
 };
 use crate::r#gen::Std::Internal::Parsec::Basic::{
     initialize_Std_Internal_Parsec_Basic, runtime_initialize_Std_Internal_Parsec_Basic,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_mul, lean_nat_sub,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le, lean_uint32_to_nat,
 };
 pub static l_Std_Internal_Parsec_String_instInputSigmaStringPosCharRaw___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

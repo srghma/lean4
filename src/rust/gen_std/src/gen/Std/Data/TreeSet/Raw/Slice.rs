@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.TreeSet.Raw.Slice
 // Imports: Std.Data.TreeMap.Raw.Slice Std.Data.TreeSet.Raw.Basic
+use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
 use crate::r#gen::Std::Data::TreeMap::Raw::Slice::{
     initialize_Std_Data_TreeMap_Raw_Slice, runtime_initialize_Std_Data_TreeMap_Raw_Slice,
@@ -8,7 +9,6 @@ use crate::r#gen::Std::Data::TreeMap::Raw::Slice::{
 use crate::r#gen::Std::Data::TreeSet::Raw::Basic::{
     initialize_Std_Data_TreeSet_Raw_Basic, runtime_initialize_Std_Data_TreeSet_Raw_Basic,
 };
-use crate::ffi::{lean_array_push, lean_string_utf8_byte_size};
 pub static l_Std_TreeSet_Raw_instSliceableRiiSlice___auto__1___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.MinMaxIdx
 // Imports: Init.Data.List.MinMaxOn Init.Data.List.Nat.TakeDrop Init.ByCases Init.Data.Bool Init.Data.List.Sublist Init.Data.Nat.Lemmas Init.Omega
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -19,7 +20,6 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{l_List_get___redArg, l_List_lengthTR___redArg};
-use crate::ffi::lean_nat_add;
 pub unsafe fn l___private_Init_Data_List_MinMaxIdx_0__List_minIdxOn_go___redArg(
     mut v_inst_205_: *mut crate::leanh::LeanObject,
     mut v_f_206_: *mut crate::leanh::LeanObject,

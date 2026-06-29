@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.Database
 // Imports: Std.Time.Zoned.ZonedDateTime Std.Time.Zoned.Database.Basic Std.Time.Zoned.Database.TZdb Std.Time.Zoned.Database.Windows Init.System.Platform
+use crate::ffi::{lean_get_windows_local_timezone_id_at, lean_int64_neg, lean_int64_of_nat};
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, l_System_Platform_isWindows,
     runtime_initialize_Init_System_Platform,
@@ -20,8 +21,6 @@ use crate::r#gen::Std::Time::Zoned::Database::Windows::{
 use crate::r#gen::Std::Time::Zoned::ZonedDateTime::{
     initialize_Std_Time_Zoned_ZonedDateTime, runtime_initialize_Std_Time_Zoned_ZonedDateTime,
 };
-use crate::ffi::{lean_int64_neg, lean_int64_of_nat};
-use crate::ffi::lean_get_windows_local_timezone_id_at;
 static mut l_Std_Time_Database_defaultGetLocalZoneRules___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

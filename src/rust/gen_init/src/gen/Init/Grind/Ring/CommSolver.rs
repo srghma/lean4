@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Init.Grind.Ring.CommSolver
 // Imports: Init.Data.Ord.Basic Init.Grind.Ring.Field Init.Grind.Ordered.Ring Init.GrindInstances.Ring.Int Init.Data.Ord.Basic Init.LawfulBEqTactics Init.Classical Init.Data.Bool Init.Data.Int.DivMod.Lemmas Init.Data.RArray Init.Ext Init.Data.Hashable Init.Data.Int.LemmasAux Init.Data.Nat.Linear Init.Grind.Ordered.Order Init.Omega Init.WFTactics Init.Data.Int.Repr
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_ediv, lean_int_emod, lean_int_mul,
+    lean_int_neg, lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_mul, lean_nat_sub, lean_nat_to_int, lean_string_length, lean_uint64_mix_hash,
+    lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Classical::{initialize_Init_Classical, runtime_initialize_Init_Classical};
 use crate::r#gen::Init::Data::Bool::{
     initialize_Init_Data_Bool, runtime_initialize_Init_Data_Bool,
@@ -51,17 +57,6 @@ use crate::r#gen::Init::LawfulBEqTactics::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_abs,
-    lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-    lean_uint64_mix_hash,
-};
 static mut l_Lean_Grind_CommRing_instInhabitedExpr_default___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

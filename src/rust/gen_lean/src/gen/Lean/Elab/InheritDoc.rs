@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.InheritDoc
 // Imports: Lean.Elab.InfoTree.Main
+use crate::ffi::{
+    lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
@@ -48,12 +52,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00__private_Lean_Elab_InheritDoc_0__Lean_initFn_00___x40_Lean_Elab_InheritDoc_986682242____hygCtx___hyg_2__spec__0_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00__private_Lean_Elab_InheritDoc_0__Lean_initFn_00___x40_Lean_Elab_InheritDoc_986682242____hygCtx___hyg_2__spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00__private_Lean_Elab_InheritDoc_0__Lean_initFn_00___x40_Lean_Elab_InheritDoc_986682242____hygCtx___hyg_2__spec__0_spec__0___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

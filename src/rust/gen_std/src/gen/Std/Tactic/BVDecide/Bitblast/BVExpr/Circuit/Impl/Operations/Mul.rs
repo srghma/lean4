@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.Mul
 // Imports: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.Add Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.ShiftLeft Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Const Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land,
+    lean_nat_shiftr,
+};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
 use crate::r#gen::Std::Sat::AIG::Basic::l_Std_Sat_AIG_isConstant___redArg;
@@ -22,10 +26,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Circuit::Impl::Operat
     initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Circuit_Impl_Operations_ShiftLeft,
     l_Std_Tactic_BVDecide_BVExpr_bitblast_blastShiftLeftConst___redArg,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Circuit_Impl_Operations_ShiftLeft,
-};
-use crate::ffi::{lean_nat_land, lean_nat_shiftr};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub unsafe fn l_Std_Tactic_BVDecide_BVExpr_bitblast_blastMul_go___redArg(
     mut v_inst_179_: *mut crate::leanh::LeanObject,

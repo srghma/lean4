@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.Int.Repr
 // Imports: Init.Data.Repr Init.Data.String.Defs
+use crate::ffi::{
+    lean_int_dec_lt, lean_nat_abs, lean_nat_add, lean_nat_sub, lean_nat_to_int, lean_string_append,
+};
 use crate::r#gen::Init::Data::Repr::{
     initialize_Init_Data_Repr, l_Nat_reprFast, l_Repr_addAppParen,
     runtime_initialize_Init_Data_Repr,
@@ -8,11 +11,6 @@ use crate::r#gen::Init::Data::Repr::{
 use crate::r#gen::Init::Data::String::Defs::{
     initialize_Init_Data_String_Defs, runtime_initialize_Init_Data_String_Defs,
 };
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_nat_add, lean_nat_sub};
 static mut l_Int_repr___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),

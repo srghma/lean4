@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Http.Data.Headers.Name
 // Imports: Init.Data.ToString Std.Http.Internal Init.Data.String.Search Init.Data.String.Iter
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq, lean_string_length,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::Repr::l_String_quote;
 use crate::r#gen::Init::Data::String::Iter::{
     initialize_Init_Data_String_Iter, runtime_initialize_Init_Data_String_Iter,
@@ -25,19 +32,6 @@ use crate::r#gen::Std::Http::Internal::LowerCase::l_Std_Http_Internal_instDecida
 use crate::r#gen::Std::Http::Internal::String::l_Std_Http_Internal_isToken;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Std_Http_Header_Name_isValidHeaderValue___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

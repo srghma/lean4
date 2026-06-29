@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.DSL.Meta
 // Imports: Lean.ToExpr Lean.Elab.Eval Lake.DSL.Syntax
+use crate::ffi::{
+    lean_array_push, lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_panic_fn_borrowed, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_string_validate_utf8,
+};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
@@ -55,17 +61,6 @@ use crate::r#gen::Lean::Meta::CollectMVars::l_Lean_Meta_getMVars;
 use crate::r#gen::Lean::Meta::Eval::l_Lean_Meta_evalExpr___redArg;
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::ToExpr::{initialize_Lean_ToExpr, runtime_initialize_Lean_ToExpr};
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_panic_fn_borrowed,
-    lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-};
-use crate::ffi::{
-    lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l___private_Lake_DSL_Meta_0__Lake_DSL_expandCmdDo___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

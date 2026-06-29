@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.VarRename
 // Imports: Init.Data.Int.Linear Lean.Meta.Tactic.Grind.VarRename
+use crate::ffi::{
+    lean_array_get_size, lean_array_uget_borrowed, lean_nat_dec_eq, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Int::Linear::{
     initialize_Init_Data_Int_Linear, runtime_initialize_Init_Data_Int_Linear,
 };
@@ -8,14 +13,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::VarRename::{
     initialize_Lean_Meta_Tactic_Grind_VarRename, l_Lean_Meta_Grind_collectVar,
     runtime_initialize_Lean_Meta_Tactic_Grind_VarRename,
 };
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{lean_array_get_size, lean_nat_dec_eq};
 pub static l_Int_Linear_Expr_renameVars___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

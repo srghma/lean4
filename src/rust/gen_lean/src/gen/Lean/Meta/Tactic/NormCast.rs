@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.NormCast
 // Imports: Lean.Meta.Tactic.Simp.Attr Lean.Meta.CoeAttr
+use crate::ffi::{
+    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_string_dec_eq, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat, lean_whnf,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Init::Meta::Defs::{
@@ -50,20 +57,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::SimpTheorems::{
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ScopedEnvExtension::l_Lean_instInhabitedScopedEnvExtension_default___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get};
-use crate::ffi::lean_whnf;
 pub static l_Lean_Meta_NormCast_instReprLabel_repr___closed__0_value:
     crate::leanh::LeanStringObject<30> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

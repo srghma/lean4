@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.String.Hashable
 // Imports: Init.Data.Hashable Init.Data.String.Defs
+use crate::ffi::{lean_uint64_mix_hash, lean_uint64_of_nat};
 use crate::r#gen::Init::Data::Hashable::{
     initialize_Init_Data_Hashable, runtime_initialize_Init_Data_Hashable,
 };
 use crate::r#gen::Init::Data::String::Defs::{
     initialize_Init_Data_String_Defs, runtime_initialize_Init_Data_String_Defs,
 };
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::lean_uint64_mix_hash;
 pub static l_String_instHashableRaw___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

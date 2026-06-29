@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Lake.DSL.AttributesCore
 // Imports: Lake.Util.OrderedTagAttribute
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_st_ref_get};
 use crate::r#gen::Lake::Util::OrderedTagAttribute::{
     initialize_Lake_Util_OrderedTagAttribute, l_Lake_OrderedTagAttribute_hasTag,
     l_Lake_registerOrderedTagAttribute, runtime_initialize_Lake_Util_OrderedTagAttribute,
 };
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
-use crate::ffi::lean_mk_empty_array_with_capacity;
-use crate::ffi::lean_st_ref_get;
 pub static l___private_Lake_DSL_AttributesCore_0__Lake_initFn___closed__0_00___x40_Lake_DSL_AttributesCore_3272526623____hygCtx___hyg_2__value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l___private_Lake_DSL_AttributesCore_0__Lake_initFn___lam__0_00___x40_Lake_DSL_AttributesCore_3272526623____hygCtx___hyg_2____boxed as *const core::ffi::c_void, m_arity: 4, m_num_fixed: 0, m_objs: [] };
 static mut l___private_Lake_DSL_AttributesCore_0__Lake_initFn___closed__0_00___x40_Lake_DSL_AttributesCore_3272526623____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lake_DSL_AttributesCore_0__Lake_initFn___closed__0_00___x40_Lake_DSL_AttributesCore_3272526623____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lake_DSL_AttributesCore_0__Lake_initFn___closed__1_00___x40_Lake_DSL_AttributesCore_3272526623____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [112, 97, 99, 107, 97, 103, 101, 0]};

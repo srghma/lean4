@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Elab.BuiltinDo.Repeat
 // Imports: Lean.Elab.BuiltinDo.Basic Lean.Parser.Do Lean.Elab.BuiltinDo.For
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_Macro_throwUnsupported___redArg, l_Lean_SourceInfo_fromRef,
     l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node2,
@@ -26,10 +29,6 @@ use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuilt
 use crate::r#gen::Lean::Meta::Basic::l_Lean_Meta_isExprDefEqGuarded;
 use crate::r#gen::Lean::Parser::Do::{
     initialize_Lean_Parser_Do, runtime_initialize_Lean_Parser_Do,
-};
-use crate::ffi::lean_mk_empty_array_with_capacity;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Do_elabDoRepeat_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Do_elabDoRepeat_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

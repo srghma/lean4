@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Nat.Power2.Basic
 // Imports: Init.Grind.Tactics Init.Data.Nat.Linear Init.NotationExtra Init.WFTactics
+use crate::ffi::{lean_nat_dec_lt, lean_nat_mul};
 use crate::r#gen::Init::Data::Nat::Linear::{
     initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear,
 };
@@ -11,7 +12,6 @@ use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
 };
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{lean_nat_dec_lt, lean_nat_mul};
 pub unsafe fn l___private_Init_Data_Nat_Power2_Basic_0__Nat_nextPowerOfTwo_go___redArg(
     mut v_n_23_: *mut crate::leanh::LeanObject,
     mut v_power_24_: *mut crate::leanh::LeanObject,

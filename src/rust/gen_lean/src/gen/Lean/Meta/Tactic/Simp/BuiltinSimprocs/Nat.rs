@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat
 // Imports: Init.Simproc Lean.Meta.Tactic.Simp.BuiltinSimprocs.Util Lean.Meta.LitValues Lean.Meta.Offset Lean.Util.SafeExponentiation Init.Data.Nat.Dvd Init.Data.Nat.Simproc
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_gcd, lean_nat_land, lean_nat_lor,
+    lean_nat_lxor, lean_nat_mod, lean_nat_mul, lean_nat_pow, lean_nat_shiftl, lean_nat_shiftr,
+    lean_nat_sub, lean_st_ref_get,
+};
 use crate::r#gen::Init::Data::Nat::Dvd::{
     initialize_Init_Data_Nat_Dvd, runtime_initialize_Init_Data_Nat_Dvd,
 };
@@ -38,16 +44,6 @@ use crate::r#gen::Lean::Util::SafeExponentiation::{
     initialize_Lean_Util_SafeExponentiation, l_Lean_checkExponent,
     runtime_initialize_Lean_Util_SafeExponentiation,
 };
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_lxor, lean_nat_shiftl, lean_nat_shiftr,
-};
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_mul, lean_nat_pow,
-    lean_nat_sub,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Nat_reduceUnary___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

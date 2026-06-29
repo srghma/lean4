@@ -1,5 +1,11 @@
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
-#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports)]
+#![allow(
+    unused_variables,
+    unused_assignments,
+    unused_parens,
+    unused_mut,
+    unused_imports
+)]
 
 pub use gen_init::r#gen::Init;
 pub mod Std {
@@ -453,13 +459,19 @@ pub mod Std {
                             include!("gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/Drop.rs");
                         }
                         pub mod DropWhile {
-                            include!("gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/DropWhile.rs");
+                            include!(
+                                "gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/DropWhile.rs"
+                            );
                         }
                         pub mod FilterMap {
-                            include!("gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/FilterMap.rs");
+                            include!(
+                                "gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/FilterMap.rs"
+                            );
                         }
                         pub mod TakeWhile {
-                            include!("gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/TakeWhile.rs");
+                            include!(
+                                "gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/TakeWhile.rs"
+                            );
                         }
                         pub mod Zip {
                             include!("gen/Std/Data/Iterators/Lemmas/Combinators/Monadic/Zip.rs");
@@ -1083,9 +1095,6 @@ pub mod Std {
             pub mod Basic {
                 include!("gen/Std/Sat/AIG/Basic.rs");
             }
-            pub mod CNF {
-                include!("gen/Std/Sat/AIG/CNF.rs");
-            }
             pub mod Cached {
                 include!("gen/Std/Sat/AIG/Cached.rs");
             }
@@ -1097,6 +1106,9 @@ pub mod Std {
             }
             pub mod CachedLemmas {
                 include!("gen/Std/Sat/AIG/CachedLemmas.rs");
+            }
+            pub mod CNF {
+                include!("gen/Std/Sat/AIG/CNF.rs");
             }
             pub mod If {
                 include!("gen/Std/Sat/AIG/If.rs");
@@ -1214,6 +1226,15 @@ pub mod Std {
                     include!("gen/Std/Tactic/BVDecide/Bitblast.rs");
                 }
                 pub use index::*;
+                pub mod BoolExpr {
+                    pub mod index {
+                        include!("gen/Std/Tactic/BVDecide/Bitblast/BoolExpr.rs");
+                    }
+                    pub use index::*;
+                    pub mod Basic {
+                        include!("gen/Std/Tactic/BVDecide/Bitblast/BoolExpr/Basic.rs");
+                    }
+                }
                 pub mod BVExpr {
                     pub mod index {
                         include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr.rs");
@@ -1233,187 +1254,288 @@ pub mod Std {
                             }
                             pub use index::*;
                             pub mod Carry {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Carry.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Carry.rs"
+                                );
                             }
                             pub mod Const {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Const.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Const.rs"
+                                );
                             }
                             pub mod Expr {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Expr.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Expr.rs"
+                                );
                             }
                             pub mod Operations {
                                 pub mod Add {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Add.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Add.rs"
+                                    );
                                 }
                                 pub mod Append {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Append.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Append.rs"
+                                    );
                                 }
                                 pub mod Clz {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Clz.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Clz.rs"
+                                    );
                                 }
                                 pub mod Cpop {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Cpop.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Cpop.rs"
+                                    );
                                 }
                                 pub mod Eq {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Eq.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Eq.rs"
+                                    );
                                 }
                                 pub mod Extract {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Extract.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Extract.rs"
+                                    );
                                 }
                                 pub mod GetLsbD {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/GetLsbD.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/GetLsbD.rs"
+                                    );
                                 }
                                 pub mod Mul {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Mul.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Mul.rs"
+                                    );
                                 }
                                 pub mod Neg {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Neg.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Neg.rs"
+                                    );
                                 }
                                 pub mod Not {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Not.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Not.rs"
+                                    );
                                 }
                                 pub mod Replicate {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Replicate.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Replicate.rs"
+                                    );
                                 }
                                 pub mod Reverse {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Reverse.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Reverse.rs"
+                                    );
                                 }
                                 pub mod RotateLeft {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/RotateLeft.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/RotateLeft.rs"
+                                    );
                                 }
                                 pub mod RotateRight {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/RotateRight.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/RotateRight.rs"
+                                    );
                                 }
                                 pub mod ShiftLeft {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ShiftLeft.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ShiftLeft.rs"
+                                    );
                                 }
                                 pub mod ShiftRight {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ShiftRight.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ShiftRight.rs"
+                                    );
                                 }
                                 pub mod Sub {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Sub.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Sub.rs"
+                                    );
                                 }
                                 pub mod Udiv {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Udiv.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Udiv.rs"
+                                    );
                                 }
                                 pub mod Ult {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Ult.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Ult.rs"
+                                    );
                                 }
                                 pub mod Umod {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Umod.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/Umod.rs"
+                                    );
                                 }
                                 pub mod ZeroExtend {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ZeroExtend.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Operations/ZeroExtend.rs"
+                                    );
                                 }
                             }
                             pub mod Pred {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Pred.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Pred.rs"
+                                );
                             }
                             pub mod Substructure {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Substructure.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Substructure.rs"
+                                );
                             }
                             pub mod Var {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Var.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Impl/Var.rs"
+                                );
                             }
                         }
                         pub mod Lemmas {
                             pub mod index {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas.rs"
+                                );
                             }
                             pub use index::*;
                             pub mod Basic {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Basic.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Basic.rs"
+                                );
                             }
                             pub mod Carry {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Carry.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Carry.rs"
+                                );
                             }
                             pub mod Const {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Const.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Const.rs"
+                                );
                             }
                             pub mod Expr {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Expr.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Expr.rs"
+                                );
                             }
                             pub mod Operations {
                                 pub mod Add {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Add.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Add.rs"
+                                    );
                                 }
                                 pub mod Append {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Append.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Append.rs"
+                                    );
                                 }
                                 pub mod Clz {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Clz.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Clz.rs"
+                                    );
                                 }
                                 pub mod Cpop {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Cpop.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Cpop.rs"
+                                    );
                                 }
                                 pub mod Eq {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Eq.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Eq.rs"
+                                    );
                                 }
                                 pub mod Extract {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Extract.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Extract.rs"
+                                    );
                                 }
                                 pub mod GetLsbD {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/GetLsbD.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/GetLsbD.rs"
+                                    );
                                 }
                                 pub mod Mul {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Mul.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Mul.rs"
+                                    );
                                 }
                                 pub mod Neg {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Neg.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Neg.rs"
+                                    );
                                 }
                                 pub mod Not {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Not.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Not.rs"
+                                    );
                                 }
                                 pub mod Replicate {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Replicate.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Replicate.rs"
+                                    );
                                 }
                                 pub mod Reverse {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Reverse.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Reverse.rs"
+                                    );
                                 }
                                 pub mod RotateLeft {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/RotateLeft.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/RotateLeft.rs"
+                                    );
                                 }
                                 pub mod RotateRight {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/RotateRight.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/RotateRight.rs"
+                                    );
                                 }
                                 pub mod ShiftLeft {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/ShiftLeft.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/ShiftLeft.rs"
+                                    );
                                 }
                                 pub mod ShiftRight {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/ShiftRight.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/ShiftRight.rs"
+                                    );
                                 }
                                 pub mod Sub {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Sub.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Sub.rs"
+                                    );
                                 }
                                 pub mod Udiv {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Udiv.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Udiv.rs"
+                                    );
                                 }
                                 pub mod Ult {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Ult.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Ult.rs"
+                                    );
                                 }
                                 pub mod Umod {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Umod.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/Umod.rs"
+                                    );
                                 }
                                 pub mod ZeroExtend {
-                                    include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/ZeroExtend.rs");
+                                    include!(
+                                        "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Operations/ZeroExtend.rs"
+                                    );
                                 }
                             }
                             pub mod Pred {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Pred.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Pred.rs"
+                                );
                             }
                             pub mod Var {
-                                include!("gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Var.rs");
+                                include!(
+                                    "gen/Std/Tactic/BVDecide/Bitblast/BVExpr/Circuit/Lemmas/Var.rs"
+                                );
                             }
                         }
-                    }
-                }
-                pub mod BoolExpr {
-                    pub mod index {
-                        include!("gen/Std/Tactic/BVDecide/Bitblast/BoolExpr.rs");
-                    }
-                    pub use index::*;
-                    pub mod Basic {
-                        include!("gen/Std/Tactic/BVDecide/Bitblast/BoolExpr/Basic.rs");
                     }
                 }
             }
@@ -1435,17 +1557,19 @@ pub mod Std {
                     pub mod Assignment {
                         include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Assignment.rs");
                     }
-                    pub mod CNF {
-                        include!("gen/Std/Tactic/BVDecide/LRAT/Internal/CNF.rs");
-                    }
                     pub mod Clause {
                         include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Clause.rs");
+                    }
+                    pub mod CNF {
+                        include!("gen/Std/Tactic/BVDecide/LRAT/Internal/CNF.rs");
                     }
                     pub mod CompactLRATChecker {
                         include!("gen/Std/Tactic/BVDecide/LRAT/Internal/CompactLRATChecker.rs");
                     }
                     pub mod CompactLRATCheckerSound {
-                        include!("gen/Std/Tactic/BVDecide/LRAT/Internal/CompactLRATCheckerSound.rs");
+                        include!(
+                            "gen/Std/Tactic/BVDecide/LRAT/Internal/CompactLRATCheckerSound.rs"
+                        );
                     }
                     pub mod Convert {
                         include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Convert.rs");
@@ -1462,7 +1586,9 @@ pub mod Std {
                             include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/Class.rs");
                         }
                         pub mod Implementation {
-                            include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/Implementation.rs");
+                            include!(
+                                "gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/Implementation.rs"
+                            );
                         }
                         pub mod Instance {
                             include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/Instance.rs");
@@ -1471,16 +1597,24 @@ pub mod Std {
                             include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/Lemmas.rs");
                         }
                         pub mod RatAddResult {
-                            include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RatAddResult.rs");
+                            include!(
+                                "gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RatAddResult.rs"
+                            );
                         }
                         pub mod RatAddSound {
-                            include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RatAddSound.rs");
+                            include!(
+                                "gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RatAddSound.rs"
+                            );
                         }
                         pub mod RupAddResult {
-                            include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RupAddResult.rs");
+                            include!(
+                                "gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RupAddResult.rs"
+                            );
                         }
                         pub mod RupAddSound {
-                            include!("gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RupAddSound.rs");
+                            include!(
+                                "gen/Std/Tactic/BVDecide/LRAT/Internal/Formula/RupAddSound.rs"
+                            );
                         }
                     }
                     pub mod LRATChecker {
@@ -1696,11 +1830,11 @@ pub mod Std {
             pub mod TimeZone {
                 include!("gen/Std/Time/Zoned/TimeZone.rs");
             }
-            pub mod ZoneRules {
-                include!("gen/Std/Time/Zoned/ZoneRules.rs");
-            }
             pub mod ZonedDateTime {
                 include!("gen/Std/Time/Zoned/ZonedDateTime.rs");
+            }
+            pub mod ZoneRules {
+                include!("gen/Std/Time/Zoned/ZoneRules.rs");
             }
         }
     }

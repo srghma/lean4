@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.ByteArray.Basic
 // Imports: Init.Data.UInt.BasicAux Init.Data.Array.DecidableEq Init.Data.List.Attach Init.Data.Array.Bootstrap Init.Data.Array.Lemmas Init.Omega
+use crate::ffi::{
+    lean_array_push, lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_fset,
+    lean_byte_array_get, lean_byte_array_hash, lean_byte_array_set, lean_byte_array_size,
+    lean_byte_array_uget, lean_byte_array_uset, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_sarray_dec_eq, lean_sarray_size, lean_uint8_of_nat,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -24,18 +31,6 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::{l_ByteArray_empty, l_Lean_mkAtom};
-use crate::ffi::{
-    lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_fset, lean_byte_array_get,
-    lean_byte_array_hash, lean_byte_array_set, lean_byte_array_uget, lean_byte_array_uset,
-    lean_sarray_dec_eq, lean_sarray_size,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_push, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_uint8_of_nat, lean_usize_dec_eq,
-};
 pub static l_ByteArray_instBEq___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

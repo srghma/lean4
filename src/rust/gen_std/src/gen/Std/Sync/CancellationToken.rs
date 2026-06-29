@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Sync.CancellationToken
 // Imports: Std.Data Init.Data.Queue Std.Sync.Mutex Std.Async.Select Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_io_basemutex_lock, lean_io_basemutex_unlock, lean_io_bind_task, lean_io_promise_new,
+    lean_io_promise_resolve, lean_io_promise_result_opt, lean_nat_dec_le, lean_nat_to_int,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+    lean_task_map, lean_task_pure,
+};
 use crate::r#gen::Init::Data::List::Basic::{l_List_isEmpty___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Data::Queue::{
     initialize_Init_Data_Queue, l_Std_Queue_dequeue_x3f___redArg, l_Std_Queue_empty,
@@ -22,18 +28,6 @@ use crate::r#gen::Std::Data::{initialize_Std_Data, runtime_initialize_Std_Data};
 use crate::r#gen::Std::Sync::Mutex::{
     initialize_Std_Sync_Mutex, l_Std_Mutex_new___redArg, runtime_initialize_Std_Sync_Mutex,
 };
-use crate::ffi::{lean_task_map, lean_task_pure};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_nat_dec_le, lean_string_dec_eq};
-use crate::ffi::lean_io_bind_task;
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l_Std_instReprCancellationReason_repr___closed__0_value: crate::leanh::LeanStringObject<
     30,
 > = crate::leanh::LeanStringObject {

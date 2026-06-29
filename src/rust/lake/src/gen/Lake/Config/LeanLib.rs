@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Config.LeanLib
 // Imports: Lake.Config.ConfigTarget Lake.Util.NativeLib Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_string_append, lean_string_dec_eq,
+    lean_string_utf8_byte_size, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -35,12 +40,6 @@ use crate::r#gen::Lake::Util::NativeLib::{
 use crate::r#gen::Lean::Compiler::NameMangling::l_Lean_mkModuleInitializationStem;
 use crate::r#gen::Lean::Util::LeanOptions::{
     l_Lean_LeanOptions_append, l_Lean_LeanOptions_appendArray, l_Lean_LeanOptions_ofArray,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq, lean_string_utf8_byte_size,
 };
 pub static l_Lake_Package_leanLibs___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {

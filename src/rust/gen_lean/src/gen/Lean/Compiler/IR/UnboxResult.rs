@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Compiler.IR.UnboxResult
 // Imports: Lean.Compiler.IR.Basic
+use crate::ffi::{lean_array_get, lean_mk_empty_array_with_capacity, lean_st_ref_get};
 use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
 use crate::r#gen::Lean::Attributes::{l_Lean_TagAttribute_hasTag, l_Lean_registerTagAttribute};
 use crate::r#gen::Lean::Compiler::IR::Basic::{
@@ -22,8 +23,6 @@ use crate::r#gen::Lean::Message::{
     l_Lean_stringToMessageData,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{lean_array_get, lean_mk_empty_array_with_capacity};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00__private_Lean_Compiler_IR_UnboxResult_0__Lean_IR_UnboxResult_initFn_00___x40_Lean_Compiler_IR_UnboxResult_1925234477____hygCtx___hyg_2__spec__1_spec__2___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00__private_Lean_Compiler_IR_UnboxResult_0__Lean_IR_UnboxResult_initFn_00___x40_Lean_Compiler_IR_UnboxResult_1925234477____hygCtx___hyg_2__spec__1_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00__private_Lean_Compiler_IR_UnboxResult_0__Lean_IR_UnboxResult_initFn_00___x40_Lean_Compiler_IR_UnboxResult_1925234477____hygCtx___hyg_2__spec__1_spec__2___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lake.Build.ExternLib
 // Imports: Lake.Config.FacetConfig Lake.Build.Job.Monad Lake.Build.Job.Register Lake.Build.Common Lake.Build.Infos
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_mul, lean_nat_to_int, lean_st_ref_set, lean_st_ref_take, lean_string_append,
+    lean_string_hash, lean_string_memcmp, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_uint64_mix_hash, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_nextn;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
@@ -42,19 +50,6 @@ use crate::r#gen::Lake::Util::FilePath::l_Lake_mkRelPathString;
 use crate::r#gen::Lake::Util::NativeLib::l_Lake_sharedLibExt;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_compress;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_string_hash,
-    lean_string_utf8_byte_size, lean_uint64_mix_hash, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lake_Build_ExternLib_0__Lake_ExternLib_recBuildStatic___closed__0_value:
     crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

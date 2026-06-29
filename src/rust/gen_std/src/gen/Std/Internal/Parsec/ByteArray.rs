@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Internal.Parsec.ByteArray
 // Imports: Std.Internal.Parsec.Basic Init.Data.String.Basic Std.Data.ByteSlice Init.Omega
+use crate::ffi::{
+    lean_byte_array_fget, lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_string_append, lean_string_push, lean_string_to_utf8,
+    lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_of_nat, lean_uint8_sub, lean_uint8_to_nat,
+    lean_uint8_to_uint32, lean_uint32_to_uint8,
+};
 use crate::r#gen::Init::Data::ByteArray::Basic::{
     l_ByteArray_Iterator_remainingBytes, l_ByteArray_mkIterator,
 };
@@ -15,17 +21,6 @@ use crate::r#gen::Std::Data::ByteSlice::{
 };
 use crate::r#gen::Std::Internal::Parsec::Basic::{
     initialize_Std_Internal_Parsec_Basic, runtime_initialize_Std_Internal_Parsec_Basic,
-};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::lean_string_push;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_uint8_sub;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint32_to_uint8,
-};
-use crate::ffi::{
-    lean_byte_array_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_mul, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_of_nat,
 };
 static mut l_Std_Internal_Parsec_ByteArray_instInputIteratorUInt8Nat___lam__2___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {

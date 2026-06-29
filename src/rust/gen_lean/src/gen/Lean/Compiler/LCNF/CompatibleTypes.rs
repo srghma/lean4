@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.CompatibleTypes
 // Imports: Lean.Compiler.LCNF.InferType
+use crate::ffi::{
+    lean_expr_eqv, lean_expr_instantiate1, lean_name_eq, lean_nat_add, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Prelude::l_Lean_Name_num___override;
 use crate::r#gen::Lean::Compiler::LCNF::InferType::{
     initialize_Lean_Compiler_LCNF_InferType, l_Lean_Compiler_LCNF_InferType_Pure_inferType,
@@ -13,11 +17,6 @@ use crate::r#gen::Lean::Expr::{
 };
 use crate::r#gen::Lean::Level::l_Lean_Level_isEquiv;
 use crate::r#gen::Lean::LocalContext::l_Lean_LocalContext_mkLocalDecl;
-use crate::ffi::{lean_name_eq, lean_nat_add};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate1};
 static mut l___private_Lean_Compiler_LCNF_CompatibleTypes_0__Lean_Compiler_LCNF_InferType_Pure_compatibleTypesFull_etaExpand_x3f___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Compiler_LCNF_CompatibleTypes_0__Lean_Compiler_LCNF_InferType_Pure_compatibleTypesFull_etaExpand_x3f___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_List_isEqv___at___00Lean_Compiler_LCNF_compatibleTypesQuick_spec__0(

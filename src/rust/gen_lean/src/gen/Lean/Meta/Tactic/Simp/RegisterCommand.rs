@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.RegisterCommand
 // Imports: Lean.Meta.Tactic.Simp.Attr Lean.Meta.Tactic.Simp.Simproc
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::String::Extra::l_String_removeLeadingSpaces;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
@@ -23,10 +26,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     initialize_Lean_Meta_Tactic_Simp_Simproc, l_Lean_Meta_Simp_simpAttrNameToSimprocAttrName,
     runtime_initialize_Lean_Meta_Tactic_Simp_Simproc,
 };
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_Parser_Command_registerSimpAttr___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

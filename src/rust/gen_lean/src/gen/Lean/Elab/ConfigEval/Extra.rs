@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.ConfigEval.Extra
 // Imports: Lean.Elab.ConfigEval.Instances
+use crate::ffi::{
+    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_replaceRef};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lean::Data::KVMap::{
@@ -28,12 +32,6 @@ use crate::r#gen::Lean::Elab::Util::{l_Lean_Elab_getBetterRef, l_Lean_Elab_pp_ma
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofFormat, l_Lean_MessageData_ofName, l_Lean_MessageData_ofSyntax,
     l_Lean_indentD, l_Lean_stringToMessageData,
-};
-use crate::ffi::{
-    lean_array_mk, lean_array_push, lean_mk_empty_array_with_capacity,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_pushInfoLeaf___at___00Lean_Elab_ConfigEval_EvalConfigItem_evalSetOptions_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_pushInfoLeaf___at___00Lean_Elab_ConfigEval_EvalConfigItem_evalSetOptions_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

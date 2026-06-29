@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Array.QSort.Basic
 // Imports: Init.Data.Vector.Basic Init.Data.Ord.Basic Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_size,
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_shiftr, lean_nat_sub, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::Ord::Basic::{
     initialize_Init_Data_Ord_Basic, runtime_initialize_Init_Data_Ord_Basic,
 };
@@ -9,12 +14,6 @@ use crate::r#gen::Init::Data::Vector::Basic::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::lean_array_fswap;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-};
 pub static l_Array_qpartition___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

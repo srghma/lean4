@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Lookahead
 // Imports: Lean.Meta.Tactic.Grind.Types Lean.Meta.Tactic.Grind.Split Lean.Meta.Tactic.Grind.EMatchAction
+use crate::ffi::{
+    lean_grind_process_new_facts, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_appendTR___redArg, l_List_isEmpty___redArg, l_List_reverse___redArg,
 };
@@ -41,10 +44,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_grind_process_new_facts;
 pub static mut l___private_Lean_Meta_Tactic_Grind_Lookahead_0__Lean_Meta_Grind_maxIterations:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Meta_Tactic_Grind_Lookahead_0__Lean_Meta_Grind_solve___lam__0___closed__0_value: crate::leanh::LeanClosureObject<2> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Meta_Grind_Action_splitNext___boxed as *const core::ffi::c_void, m_arity: 15, m_num_fixed: 2, m_objs: [((( 1 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 1 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Util
 // Imports: Init.Data.FloatArray.Basic Lean.CoreM Lean.Util.Recognizers
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
+    lean_st_ref_get, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::FloatArray::Basic::{
     initialize_Init_Data_FloatArray_Basic, runtime_initialize_Init_Data_FloatArray_Basic,
 };
@@ -24,13 +29,6 @@ use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::Util::Recognizers::{
     initialize_Lean_Util_Recognizers, runtime_initialize_Lean_Util_Recognizers,
 };
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_lt, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Compiler_LCNF_isLcCast_x3f___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -1,10 +1,6 @@
 // Lean compiler output
 // Module: Std.Internal.UV.UDP
 // Imports: Init.System.Promise Std.Net
-use crate::r#gen::Init::System::Promise::{
-    initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
-};
-use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
 use crate::ffi::{
     lean_uv_udp_bind, lean_uv_udp_cancel_recv, lean_uv_udp_connect, lean_uv_udp_getpeername,
     lean_uv_udp_getsockname, lean_uv_udp_new, lean_uv_udp_recv, lean_uv_udp_send,
@@ -12,6 +8,10 @@ use crate::ffi::{
     lean_uv_udp_set_multicast_loop, lean_uv_udp_set_multicast_ttl, lean_uv_udp_set_ttl,
     lean_uv_udp_wait_readable,
 };
+use crate::r#gen::Init::System::Promise::{
+    initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
+};
+use crate::r#gen::Std::Net::{initialize_Std_Net, runtime_initialize_Std_Net};
 pub static mut l___private_Std_Internal_UV_UDP_0__Std_Internal_UV_UDP_SocketImpl:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn _init_l___private_Std_Internal_UV_UDP_0__Std_Internal_UV_UDP_SocketImpl()

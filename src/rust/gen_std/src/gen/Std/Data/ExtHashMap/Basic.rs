@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Data.ExtHashMap.Basic
 // Imports: Std.Data.ExtDHashMap.Basic
+use crate::ffi::{
+    lean_array_get_size, lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_div, lean_nat_mul,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Basic::l_instForInOfForIn_x27___redArg___lam__1;
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
@@ -48,16 +54,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::DHashMap::RawDef::l_Std_DHashMap_Raw_instForInSigmaOfMonad___redArg___lam__2;
 use crate::r#gen::Std::Data::ExtDHashMap::Basic::{
     initialize_Std_Data_ExtDHashMap_Basic, runtime_initialize_Std_Data_ExtDHashMap_Basic,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{lean_usize_of_nat, lean_usize_sub};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_div, lean_nat_mul,
 };
 static mut l_Std_ExtHashMap_instEmptyCollection___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Build.Index
 // Imports: Lake.Build.Fetch Lake.Config.Monad Lake.Build.Topological Lake.Util.StoreInsts
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_lt,
+    lean_nat_mul, lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_task_pure,
+};
 use crate::r#gen::Init::Data::List::Basic::{l_List_appendTR___redArg, l_List_reverse___redArg};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Lake::Build::Fetch::{
@@ -23,12 +27,6 @@ use crate::r#gen::Lake::Util::StoreInsts::{
     initialize_Lake_Util_StoreInsts, runtime_initialize_Lake_Util_StoreInsts,
 };
 use crate::r#gen::Lean::Data::Name::l_Lean_Name_isAnonymous;
-use crate::ffi::lean_task_pure;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_lt, lean_nat_mul,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l___private_Lake_Build_Index_0__Lake_recBuildWithIndex___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

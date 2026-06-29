@@ -626,20 +626,19 @@ def emitFileHeader (body : String) : EmitM Unit := do
           if body.contains item && !useGroupsContainsItem useGroups item then
             useGroups := addUseItemFrom useGroups "crate::r#gen" depMod item
   -- 3. Imports for declarations with runtime symbol names.
-  --    `@[extern]` names are imported through per-module lean_imports_rs stubs.
-  let modName ← getModName
+  --    `@[extern]` names are imported through the local per-crate ffi module.
   for decl in (← getLocalDecls) do
     if let some externName := getExternNameFor env `c decl.name then
       if !decl.params.isEmpty then
         if body.contains externName && !localDefinedNames.contains externName && !useGroupsContainsItem useGroups externName then
-          useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" modName externName
+          useGroups := addUseItem useGroups "crate::ffi" externName
   for sig in (← getOtherModuleDecls) do
     if let some externName := getExternNameFor env `c sig.name then
       if let some idx := env.getModuleIdxFor? sig.name then
-        if let some depMod := env.header.moduleNames[idx]? then
+        if (env.header.moduleNames[idx]?).isSome then
           if !sig.params.isEmpty then
             if body.contains externName && !localDefinedNames.contains externName && !useGroupsContainsItem useGroups externName then
-              useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" depMod externName
+              useGroups := addUseItem useGroups "crate::ffi" externName
   emitUseGroups useGroups
 
 def offsetExpression (i : Nat) (offset : Nat) : String :=

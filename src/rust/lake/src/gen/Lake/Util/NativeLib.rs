@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Util.NativeLib
 // Imports: Init.System.IO Init.Data.ToString.Macro Init.System.Platform
+use crate::ffi::{lean_io_getenv, lean_string_append};
 use crate::r#gen::Init::Data::ToString::Macro::{
     initialize_Init_Data_ToString_Macro, runtime_initialize_Init_Data_ToString_Macro,
 };
@@ -12,8 +13,6 @@ use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, l_System_Platform_isOSX, l_System_Platform_isWindows,
     runtime_initialize_Init_System_Platform,
 };
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_io_getenv;
 pub static l_Lake_sharedLibExt___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

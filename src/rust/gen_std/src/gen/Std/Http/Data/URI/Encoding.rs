@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Std.Http.Data.URI.Encoding
 // Imports: Init.Grind Init.While Init.Data.SInt.Lemmas Init.Data.UInt.Lemmas Init.Data.UInt.Bitwise Init.Data.Array.Lemmas Init.Data.String.Basic Std.Http.Internal.Char
+use crate::ffi::{
+    lean_array_get_size, lean_byte_array_copy_slice, lean_byte_array_data, lean_byte_array_fget,
+    lean_byte_array_hash, lean_byte_array_push, lean_byte_array_size, lean_byte_array_uget,
+    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed,
+    lean_string_from_utf8_unchecked, lean_string_to_utf8, lean_string_validate_utf8,
+    lean_uint8_add, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt, lean_uint8_land,
+    lean_uint8_shift_left, lean_uint8_shift_right, lean_uint8_sub, lean_uint32_to_uint8,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -32,23 +41,6 @@ use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
 use crate::r#gen::Std::Http::Internal::Char::{
     initialize_Std_Http_Internal_Char, runtime_initialize_Std_Http_Internal_Char,
-};
-use crate::ffi::{
-    lean_byte_array_copy_slice, lean_byte_array_fget, lean_byte_array_hash, lean_byte_array_uget,
-};
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::{
-    lean_uint8_add, lean_uint8_land, lean_uint8_shift_left, lean_uint8_shift_right, lean_uint8_sub,
-};
-use crate::ffi::{
-    lean_uint32_to_uint8, lean_usize_add, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_byte_array_data, lean_byte_array_push, lean_byte_array_size,
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_panic_fn_borrowed,
-    lean_string_from_utf8_unchecked, lean_uint8_dec_eq, lean_uint8_dec_le, lean_uint8_dec_lt,
-    lean_usize_dec_eq,
 };
 static mut l_Std_Http_URI_isEncodedChar___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

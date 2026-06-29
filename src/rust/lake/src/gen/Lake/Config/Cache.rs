@@ -1,6 +1,22 @@
 // Lean compiler output
 // Module: Lake.Config.Cache
 // Imports: Init.Control.Do Lake.Util.Git Lake.Util.Log Lake.Util.Version Lake.Config.Artifact Lake.Config.InstallPath Lake.Build.Actions Lake.Util.Url Lake.Util.Proc Lake.Util.Reservoir Lake.Util.JsonObject Lake.Util.IO Init.System.Platform Init.Data.String.Lemmas
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_io_create_tempfile, lean_io_metadata, lean_io_prim_handle_flush,
+    lean_io_prim_handle_get_line, lean_io_prim_handle_lock, lean_io_prim_handle_mk,
+    lean_io_prim_handle_put_str, lean_io_prim_handle_read, lean_io_prim_handle_rewind,
+    lean_io_process_child_wait, lean_io_process_spawn, lean_io_remove_file, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_st_mk_ref, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_compare, lean_string_dec_eq,
+    lean_string_from_utf8_unchecked, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_string_validate_utf8, lean_uint32_dec_eq, lean_uint32_to_nat, lean_uint64_dec_eq,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
 };
@@ -72,37 +88,6 @@ use crate::r#gen::Lean::Data::Json::Basic::{
 };
 use crate::r#gen::Lean::Data::Json::Parser::l_Lean_Json_parse;
 use crate::r#gen::Lean::Data::Json::Printer::{l_Lean_Json_compress, l_Lean_Json_pretty};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_string_compare;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-    lean_string_validate_utf8,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint32_to_nat, lean_uint64_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_create_tempfile, lean_io_metadata, lean_io_prim_handle_flush,
-    lean_io_prim_handle_get_line, lean_io_prim_handle_lock, lean_io_prim_handle_mk,
-    lean_io_prim_handle_put_str, lean_io_prim_handle_read, lean_io_prim_handle_rewind,
-    lean_io_process_child_wait, lean_io_process_spawn, lean_io_remove_file,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_set, lean_st_ref_take};
 pub static l_Lake_CacheMap_schemaVersion___closed__0_value: crate::leanh::LeanCtorObject<3> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Cutsat.Util
 // Imports: Lean.Meta.Tactic.Grind.Arith.Cutsat.Types Lean.Meta.Tactic.Simp.Arith.Int.Simp
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_grind_cutsat_assert_eq, lean_grind_cutsat_assert_le,
+    lean_grind_cutsat_mk_var, lean_int_dec_eq, lean_int_dec_le, lean_int_ediv, lean_int_emod,
+    lean_int_mul, lean_int_neg, lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_nat_to_int, lean_st_ref_get,
+    lean_uint64_to_usize, lean_usize_land, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Int::DivMod::Lemmas::l_Int_decidableDvd;
 use crate::r#gen::Init::Data::Int::Gcd::{l_Int_gcd, l_Int_lcm};
@@ -45,25 +54,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Arith::Int::Simp::{
     runtime_initialize_Lean_Meta_Tactic_Simp_Arith_Int_Simp,
 };
 use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_mul, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::{
-    lean_grind_cutsat_assert_eq, lean_grind_cutsat_assert_le, lean_grind_cutsat_mk_var,
-};
 static mut l_Int_Linear_Poly_isZero___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

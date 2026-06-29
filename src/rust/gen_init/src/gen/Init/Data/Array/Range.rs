@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Array.Range
 // Imports: Init.Data.Array.Basic Init.Data.Array.OfFn Init.BinderPredicates Init.Data.Nat.Lemmas Init.Ext Init.ByCases Init.Data.Array.Count Init.Data.Array.MapIdx Init.Data.Array.Zip Init.Data.List.Find Init.Data.List.Nat.Range Init.Data.List.Range
+use crate::ffi::{lean_array_push, lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -34,7 +35,6 @@ use crate::r#gen::Init::Data::Nat::Lemmas::{
 };
 use crate::r#gen::Init::Ext::{initialize_Init_Ext, runtime_initialize_Init_Ext};
 use crate::r#gen::Init::Prelude::l_Lean_mkAtom;
-use crate::ffi::{lean_array_push, lean_nat_dec_eq, lean_nat_sub};
 pub static l_Array_count__range_x27___auto__1___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

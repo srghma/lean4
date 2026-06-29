@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Internal.Do.Triple.Basic
 // Imports: Std.Internal.Do.WP
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node1, l_Lean_Syntax_node2, l_Lean_Syntax_node3,
@@ -10,7 +11,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Std::Internal::Do::WP::{
     initialize_Std_Internal_Do_WP, runtime_initialize_Std_Internal_Do_WP,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Std_Internal_Do_term_u2983___u2984___u2983___u2984___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

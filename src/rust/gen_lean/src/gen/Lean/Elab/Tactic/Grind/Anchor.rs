@@ -1,15 +1,15 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Grind.Anchor
 // Imports: Lean.Meta.Tactic.Grind.Types
+use crate::ffi::{
+    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_st_ref_get, lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Meta::Defs::{l_Lean_TSyntax_getHexNumSize, l_Lean_TSyntax_getHexNumVal};
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     initialize_Lean_Meta_Tactic_Grind_Types, runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_dec_le};
-use crate::ffi::lean_st_ref_get;
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Elab_Tactic_Grind_elabAnchorRef_spec__0_spec__0___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Elab_Tactic_Grind_elabAnchorRef_spec__0_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_addMessageContextPartial___at___00Lean_throwError___at___00Lean_Elab_Tactic_Grind_elabAnchorRef_spec__0_spec__0___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

@@ -1,6 +1,22 @@
 // Lean compiler output
 // Module: LeanIR
 // Imports: Init Init Lean.CoreM Lean.Util.ForEachExpr Lean.Util.Path Lean.Environment Lean.Compiler.Options Lean.Compiler.IR.CompilerM Lean.Compiler.CSimpAttr Lean.Compiler.LCNF.EmitRust Lean.Language.Lean Lean.Compiler.LCNF.PhaseExt Lean.Compiler.LCNF.Main
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_display_cumulative_profiling_times, lean_get_ir_extra_const_names, lean_get_stderr,
+    lean_io_get_num_heartbeats, lean_io_prim_handle_mk, lean_io_prim_handle_write,
+    lean_ir_export_entries, lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
+    lean_nat_shiftr, lean_nat_sub, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_memcmp,
+    lean_string_push, lean_string_to_utf8, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_instInhabited};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -119,41 +135,6 @@ use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::{
     l_Lean_inheritedTraceOptions, l_Lean_trace_profiler_output, l_Lean_trace_profiler_serve,
 };
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_stderr, lean_io_get_num_heartbeats, lean_io_prim_handle_mk, lean_io_prim_handle_write,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_get_ir_extra_const_names, lean_ir_export_entries,
-};
-use crate::ffi::lean_display_cumulative_profiling_times;
 pub static l___private_LeanIR_0__mkIRData___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.AuxRecursor
 // Imports: Lean.EnvExtension Init.Data.String.TakeDrop
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_name_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_panic_fn_borrowed, lean_string_append, lean_string_dec_eq,
+    lean_string_memcmp, lean_string_utf8_byte_size, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::String::TakeDrop::{
     initialize_Init_Data_String_TakeDrop, runtime_initialize_Init_Data_String_TakeDrop,
 };
@@ -14,14 +20,6 @@ use crate::r#gen::Lean::EnvExtension::{
     l_Lean_mkTagDeclarationExtension, runtime_initialize_Lean_EnvExtension,
 };
 use crate::r#gen::Lean::Environment::l_Lean_Environment_contains;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
 pub static l_Lean_casesOnSuffix___closed__0_value: crate::leanh::LeanStringObject<8> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

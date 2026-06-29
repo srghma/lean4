@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Match.Value
 // Imports: Lean.Meta.LitValues
+use crate::ffi::{lean_st_ref_get, lean_st_ref_set, lean_st_ref_take};
 use crate::r#gen::Lean::Expr::l_Lean_Expr_hasMVar;
 use crate::r#gen::Lean::Meta::LitValues::{
     initialize_Lean_Meta_LitValues, l_Lean_Meta_getBitVecValue_x3f, l_Lean_Meta_getCharValue_x3f,
@@ -10,9 +11,6 @@ use crate::r#gen::Lean::Meta::LitValues::{
     runtime_initialize_Lean_Meta_LitValues,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub unsafe fn l_Lean_instantiateMVars___at___00Lean_Meta_isMatchValue_spec__0___redArg(
     mut v_e_233_: *mut crate::leanh::LeanObject,
     mut v___y_234_: *mut crate::leanh::LeanObject,

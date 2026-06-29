@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Arith.DenoteExpr
 // Imports: Lean.Meta.Sym.Arith.Functions Lean.Meta.Sym.Arith.MonadVar
+use crate::ffi::{
+    lean_array_get_borrowed, lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_dec_eq,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::Prelude::l_Lean_Name_mkStr2;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_instInhabitedExpr, l_Lean_mkApp3, l_Lean_mkAppB,
@@ -16,10 +20,6 @@ use crate::r#gen::Lean::Meta::Sym::Arith::Functions::{
 use crate::r#gen::Lean::Meta::Sym::Arith::MonadVar::{
     initialize_Lean_Meta_Sym_Arith_MonadVar, runtime_initialize_Lean_Meta_Sym_Arith_MonadVar,
 };
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_array_get_borrowed, lean_nat_dec_eq};
 pub static l_Lean_Meta_Sym_Arith_denoteNum___redArg___lam__1___closed__0_value:
     crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

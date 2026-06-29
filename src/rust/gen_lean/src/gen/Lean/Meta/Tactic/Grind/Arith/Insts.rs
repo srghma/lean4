@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Insts
 // Imports: Lean.Meta.Tactic.Grind.Arith.EvalNum Lean.Meta.Tactic.Grind.SynthInstance Init.Grind.Ring
+use crate::ffi::{lean_st_ref_get, lean_st_ref_set, lean_st_ref_take};
 use crate::r#gen::Init::Grind::Ring::{
     initialize_Init_Grind_Ring, runtime_initialize_Init_Grind_Ring,
 };
@@ -21,9 +22,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::SynthInstance::{
     runtime_initialize_Lean_Meta_Tactic_Grind_SynthInstance,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Meta_Grind_Arith_getIsCharInst_x3f___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

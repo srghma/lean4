@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Std.Data.DHashMap.Internal.RawLemmas
 // Imports: Std.Data.Internal.List.Associative Std.Data.DHashMap.Internal.Defs Std.Data.DHashMap.Internal.WF Std.Data.DHashMap.Raw Std.Data.DHashMap.Basic Std.Data.DHashMap.RawDef Std.Data.DHashMap.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fset, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Meta::Defs::{
     l_Lean_Syntax_TSepArray_getElems___redArg, l_Lean_Syntax_isNone, l_Lean_TSyntax_getId,
@@ -32,21 +40,6 @@ use crate::r#gen::Std::Data::DHashMap::RawDef::{
 use crate::r#gen::Std::Data::Internal::List::Associative::{
     initialize_Std_Data_Internal_List_Associative,
     runtime_initialize_Std_Data_Internal_List_Associative,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity,
-    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
-    lean_nat_mul, lean_uint64_of_nat, lean_usize_dec_eq,
 };
 pub static l_Std_DHashMap_Internal_Raw_u2080_tacticWf__trivial___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {

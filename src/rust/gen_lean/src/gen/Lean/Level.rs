@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Level
 // Imports: Init.Data.Array.QSort Lean.Data.PersistentHashSet Lean.Hygiene Init.Data.Option.Coe Init.Data.Nat.Linear
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size, lean_array_uget,
+    lean_array_uset, lean_level_eq, lean_level_mk_data, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_ptr_addr, lean_string_append, lean_string_length,
+    lean_uint32_dec_eq, lean_uint32_to_nat, lean_uint32_to_uint64, lean_uint64_dec_eq,
+    lean_uint64_land, lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_right,
+    lean_uint64_to_nat, lean_uint64_to_uint32, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Array::QSort::{
     initialize_Init_Data_Array_QSort, runtime_initialize_Init_Data_Array_QSort,
@@ -31,27 +42,6 @@ use crate::r#gen::Lean::Data::PersistentHashSet::{
 };
 use crate::r#gen::Lean::Hygiene::{initialize_Lean_Hygiene, runtime_initialize_Lean_Hygiene};
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_forInStep___redArg;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_uint64_land, lean_uint64_shift_right};
-use crate::ffi::{
-    lean_uint32_to_uint64, lean_uint64_to_nat, lean_uint64_to_uint32, lean_usize_add,
-    lean_usize_dec_lt,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_dec_eq,
-    lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat,
-    lean_usize_dec_eq,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_level_eq, lean_level_mk_data};
 static mut l_Lean_instInhabitedData___aux__1___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

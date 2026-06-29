@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Toml.Grammar
 // Imports: Lake.Toml.ParserUtil Lean.Parser Lean.PrettyPrinter.Formatter Lean.PrettyPrinter.Parenthesizer
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_string_append,
+    lean_string_push, lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq,
+    lean_uint32_dec_le, lean_uint32_dec_lt,
+};
 use crate::r#gen::Init::Prelude::l_Lean_Syntax_isOfKind;
 use crate::r#gen::Lake::Toml::ParserUtil::{
     initialize_Lake_Toml_ParserUtil, l_Lake_Toml_chAtom, l_Lake_Toml_chAtom_formatter___boxed,
@@ -58,15 +63,6 @@ use crate::r#gen::Lean::PrettyPrinter::Parenthesizer::{
     l_Lean_PrettyPrinter_Parenthesizer_orelse_parenthesizer___boxed,
     l_Lean_PrettyPrinter_Parenthesizer_withAntiquot_parenthesizer,
     runtime_initialize_Lean_PrettyPrinter_Parenthesizer,
-};
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_sub, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_uint32_dec_lt,
 };
 pub static l_Lake_Toml_wsFn___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

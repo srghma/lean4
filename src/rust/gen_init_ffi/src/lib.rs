@@ -89,11 +89,9 @@ pub use ffi_Init_Data_String_Bootstrap::*;
 
 #[path = "ffi/Init/Data/String/Defs.rs"]
 mod ffi_Init_Data_String_Defs;
-pub use ffi_Init_Data_String_Defs::*;
 
 #[path = "ffi/Init/Data/String/Length.rs"]
 mod ffi_Init_Data_String_Length;
-pub use ffi_Init_Data_String_Length::*;
 
 #[path = "ffi/Init/Data/String/Modify.rs"]
 mod ffi_Init_Data_String_Modify;
@@ -105,7 +103,6 @@ pub use ffi_Init_Data_String_Pattern_Basic::*;
 
 #[path = "ffi/Init/Data/String/PosRaw.rs"]
 mod ffi_Init_Data_String_PosRaw;
-pub use ffi_Init_Data_String_PosRaw::*;
 
 #[path = "ffi/Init/Data/String/Slice.rs"]
 mod ffi_Init_Data_String_Slice;

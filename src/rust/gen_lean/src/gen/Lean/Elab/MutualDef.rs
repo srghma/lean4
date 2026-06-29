@@ -1,6 +1,24 @@
 // Lean compiler output
 // Module: Lean.Elab.MutualDef
 // Imports: Lean.Elab.Deriving.Basic Lean.Elab.PreDefinition.Main Lean.Elab.ErrorUtils
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_set,
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_expr_eqv, lean_expr_instantiate_rev, lean_find_expr, lean_find_ext_expr,
+    lean_float_decLt, lean_float_div, lean_float_sub, lean_infer_type, lean_instantiate_expr_mvars,
+    lean_io_as_task, lean_io_get_num_heartbeats, lean_io_map_task, lean_io_mono_nanos_now,
+    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_mk_thunk, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_replace_expr, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+    lean_string_utf8_prev, lean_task_map, lean_uint64_mix_hash, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land, lean_usize_mul,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -312,46 +330,6 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_foldl___redArg,
 };
 use crate::r#gen::Std::Data::HashMap::Basic::l_Std_HashMap_instInhabited;
-use crate::ffi::{lean_mk_thunk, lean_task_map};
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::lean_string_utf8_prev;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-    lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_as_task, lean_io_get_num_heartbeats, lean_io_map_task, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_io_promise_new, lean_io_promise_resolve, lean_io_promise_result_opt,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate_rev};
-use crate::ffi::lean_infer_type;
-use crate::ffi::lean_instantiate_expr_mvars;
-use crate::ffi::{lean_find_expr, lean_find_ext_expr};
-use crate::ffi::lean_replace_expr;
 pub static l___private_Lean_Elab_MutualDef_0__Lean_Elab_initFn___closed__0_00___x40_Lean_Elab_MutualDef_109142874____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [77, 101, 116, 97, 0]};
 static mut l___private_Lean_Elab_MutualDef_0__Lean_Elab_initFn___closed__0_00___x40_Lean_Elab_MutualDef_109142874____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_MutualDef_0__Lean_Elab_initFn___closed__0_00___x40_Lean_Elab_MutualDef_109142874____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_MutualDef_0__Lean_Elab_initFn___closed__1_00___x40_Lean_Elab_MutualDef_109142874____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<17> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 17, m_capacity: 17, m_length: 16, m_data: [105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 77, 86, 97, 114, 115, 0]};

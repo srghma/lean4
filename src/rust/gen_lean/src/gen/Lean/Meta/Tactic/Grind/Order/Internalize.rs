@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Order.Internalize
 // Imports: Lean.Meta.Tactic.Grind.Order.OrderM Init.Data.Int.OfNat Init.Grind.Module.Envelope Init.Grind.Order Lean.Meta.Tactic.Grind.Arith.CommRing.SafePoly Lean.Meta.Tactic.Grind.Arith.CommRing.Reify Lean.Meta.Tactic.Grind.Arith.CommRing.DenoteExpr Lean.Meta.Tactic.Grind.Arith.CommRing.Proof Lean.Meta.Tactic.Grind.Arith.Cutsat.Nat Lean.Meta.Tactic.Grind.Order.StructId Lean.Meta.Tactic.Grind.Order.Util Lean.Meta.Tactic.Grind.Order.Assert Lean.Meta.Tactic.Grind.Order.Proof
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_expr_eqv, lean_int_dec_eq, lean_int_dec_le,
+    lean_int_dec_lt, lean_int_neg, lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Int::OfNat::{
     initialize_Init_Data_Int_OfNat, runtime_initialize_Init_Data_Int_OfNat,
@@ -134,26 +143,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
 use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
 use crate::r#gen::Lean::Util::Recognizers::l_Lean_Expr_isEq;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
-    lean_uint64_mix_hash,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l___private_Lean_Meta_Tactic_Grind_Order_Internalize_0__Lean_Meta_Grind_Order_getType_x3f___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [79, 102, 78, 97, 116, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_Order_Internalize_0__Lean_Meta_Grind_Order_getType_x3f___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Grind_Order_Internalize_0__Lean_Meta_Grind_Order_getType_x3f___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Grind_Order_Internalize_0__Lean_Meta_Grind_Order_getType_x3f___closed__1_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [111, 102, 78, 97, 116, 0]};

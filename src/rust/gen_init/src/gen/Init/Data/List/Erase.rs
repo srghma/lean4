@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.Erase
 // Imports: Init.BinderPredicates Init.Ext Init.NotationExtra Init.ByCases Init.Data.Bool Init.Data.List.Find Init.Data.List.Pairwise Init.Data.List.Sublist Init.Data.List.TakeDrop Init.Data.Nat.Lemmas Init.Omega Init.TacticsExtra
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::BinderPredicates::{
     initialize_Init_BinderPredicates, runtime_initialize_Init_BinderPredicates,
 };
@@ -31,7 +32,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_List_Erase_0__List_filterMap_match__1_splitter___redArg(
     mut v_x_78_: *mut crate::leanh::LeanObject,
     mut v_h__1_79_: *mut crate::leanh::LeanObject,

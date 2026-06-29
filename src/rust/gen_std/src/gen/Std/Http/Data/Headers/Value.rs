@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Http.Data.Headers.Value
 // Imports: Init.Data.ToString Std.Http.Internal
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_to_int, lean_panic_fn_borrowed,
+    lean_string_append, lean_string_data, lean_string_dec_eq, lean_string_length,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_set, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_getLast_x3f___redArg, l_List_head_x3f___redArg,
 };
@@ -15,18 +21,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Internal::{
     initialize_Std_Http_Internal, runtime_initialize_Std_Http_Internal,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_data, lean_string_utf8_get_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_panic_fn_borrowed, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Std_Http_Header_Value_isValidHeaderValue___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {

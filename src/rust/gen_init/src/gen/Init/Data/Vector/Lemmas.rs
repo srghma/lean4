@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Vector.Lemmas
 // Imports: Init.Data.Array.Basic Init.Data.Vector.Basic Init.Data.Vector.Basic Init.Data.List.MapIdx Init.ByCases Init.Data.Array.Bootstrap Init.Data.Array.Count Init.Data.Array.Find Init.Data.Array.OfFn Init.Data.Bool Init.Data.Fin.Lemmas Init.Data.List.TakeDrop Init.Data.Nat.Simproc Init.TacticsExtra
+use crate::ffi::lean_array_fget_borrowed;
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, l_Array_contains___redArg,
@@ -42,7 +43,6 @@ use crate::r#gen::Init::Data::Vector::Basic::{
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::lean_array_fget_borrowed;
 pub unsafe fn l_Vector_instDecidableForallForallMemOfDecidablePred___redArg___lam__0(
     mut v_xs_160_: *mut crate::leanh::LeanObject,
     mut v_inst_161_: *mut crate::leanh::LeanObject,

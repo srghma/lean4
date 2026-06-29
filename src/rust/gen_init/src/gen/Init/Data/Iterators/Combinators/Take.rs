@@ -1,11 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Combinators.Take
 // Imports: Init.Data.Iterators.Combinators.Monadic.Take
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Data::Iterators::Combinators::Monadic::Take::{
     initialize_Init_Data_Iterators_Combinators_Monadic_Take,
     runtime_initialize_Init_Data_Iterators_Combinators_Monadic_Take,
 };
-use crate::ffi::lean_nat_add;
 pub unsafe fn l_Std_Iter_take___redArg(
     mut v_n_39_: *mut crate::leanh::LeanObject,
     mut v_it_40_: *mut crate::leanh::LeanObject,

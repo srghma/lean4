@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.CompletionName
 // Imports: Lean.Meta.Match.MatcherInfo
+use crate::ffi::{lean_name_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq};
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_get_x3f;
 use crate::r#gen::Lean::AuxRecursor::{l_Lean_isAuxRecursor, l_Lean_isNoConfusion};
 use crate::r#gen::Lean::EnvExtension::{
@@ -13,9 +14,6 @@ use crate::r#gen::Lean::Meta::Match::MatcherInfo::{
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_isRecCore;
 use crate::r#gen::Lean::PrivateName::l_Lean_privateHeader;
-use crate::ffi::{
-    lean_name_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-};
 pub static l___private_Lean_Meta_CompletionName_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_CompletionName_3302084676____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Lean_Meta_CompletionName_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_CompletionName_3302084676____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_CompletionName_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_CompletionName_3302084676____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_CompletionName_0__Lean_Meta_initFn___closed__1_00___x40_Lean_Meta_CompletionName_3302084676____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [77, 101, 116, 97, 0]};

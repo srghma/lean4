@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Internal.Parsec.Basic
 // Imports: Init.NotationExtra Init.Data.ToString.Macro Init.Data.Array.Basic
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_to_int,
+    lean_string_push,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
 };
@@ -10,11 +14,6 @@ use crate::r#gen::Init::Data::ToString::Macro::{
 };
 use crate::r#gen::Init::NotationExtra::{
     initialize_Init_NotationExtra, runtime_initialize_Init_NotationExtra,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_push;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
 };
 pub static l_Std_Internal_Parsec_instReprError_repr___closed__0_value:
     crate::leanh::LeanStringObject<30> = crate::leanh::LeanStringObject {

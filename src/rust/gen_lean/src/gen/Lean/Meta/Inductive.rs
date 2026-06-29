@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Inductive
 // Imports: Lean.Meta.Basic
+use crate::ffi::{lean_name_eq, lean_panic_fn_borrowed, lean_st_ref_get};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Prelude::{
     l_ReaderT_instApplicativeOfMonad___redArg___lam__1,
@@ -23,8 +24,6 @@ use crate::r#gen::Lean::Meta::Basic::{
     l_Lean_Meta_instMonadMetaM___lam__0___boxed, l_Lean_Meta_instMonadMetaM___lam__1___boxed,
     l_Lean_Meta_isExprDefEq, runtime_initialize_Lean_Meta_Basic,
 };
-use crate::ffi::{lean_name_eq, lean_panic_fn_borrowed};
-use crate::ffi::lean_st_ref_get;
 static mut l_panic___at___00Lean_getConstInfoCtor___at___00Lean_Meta_compatibleCtors_spec__0_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_panic___at___00Lean_getConstInfoCtor___at___00Lean_Meta_compatibleCtors_spec__0_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_panic___at___00Lean_getConstInfoCtor___at___00Lean_Meta_compatibleCtors_spec__0_spec__1___closed__1_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_Core_instMonadCoreM___lam__0___boxed as *const core::ffi::c_void, m_arity: 5, m_num_fixed: 0, m_objs: [] };

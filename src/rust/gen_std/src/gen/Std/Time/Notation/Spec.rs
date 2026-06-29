@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Time.Notation.Spec
 // Imports: Std.Time.Format.Basic Std.Time.Format.Basic
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -18,7 +19,6 @@ use crate::r#gen::Std::Time::Format::Basic::{
     runtime_initialize_Std_Time_Format_Basic,
 };
 use crate::r#gen::Std::Time::Format::DateFormat::l_Std_Time_DateFormat_enUS;
-use crate::ffi::lean_string_append;
 pub static l___private_Std_Time_Notation_Spec_0__Std_Time_convertText___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

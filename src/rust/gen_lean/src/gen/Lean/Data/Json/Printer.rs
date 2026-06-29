@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Data.Json.Printer
 // Imports: Lean.Data.Format Lean.Data.Json.Basic Init.Data.String.Search Init.Data.UInt.Lemmas Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_pop, lean_array_push,
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_byte_array_fget, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mod, lean_nat_shiftr, lean_nat_sub, lean_nat_to_int,
+    lean_string_append, lean_string_get_byte_fast, lean_string_length, lean_string_push,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint8_dec_eq, lean_uint8_to_nat, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_to_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+    lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_pretty;
 use crate::r#gen::Init::Data::Repr::l_Nat_digitChar;
 use crate::r#gen::Init::Data::String::Iterate::l_String_Slice_positions;
@@ -18,27 +29,6 @@ use crate::r#gen::Lean::Data::Format::{
 use crate::r#gen::Lean::Data::Json::Basic::{
     initialize_Lean_Data_Json_Basic, l_Lean_JsonNumber_toString,
     runtime_initialize_Lean_Data_Json_Basic,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::{lean_string_length, lean_string_push};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size, lean_uint8_dec_eq, lean_uint32_dec_eq,
-    lean_uint32_dec_le, lean_uint32_to_nat, lean_usize_dec_eq,
 };
 pub static l___private_Lean_Data_Json_Printer_0__Lean_Json_escapeTable___closed__0_value:
     crate::leanh::LeanScalarArray<256> = crate::leanh::LeanScalarArray {

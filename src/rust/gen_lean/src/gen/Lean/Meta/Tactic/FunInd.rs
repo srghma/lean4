@@ -1,6 +1,22 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.FunInd
 // Imports: Lean.Meta.Tactic.Simp.Types Lean.Meta.Match.MatcherApp.Transform Lean.Meta.Match.Rewrite Lean.Meta.Injective Lean.Meta.ArgsPacker Lean.Elab.PreDefinition.WF.Eqns Lean.Elab.PreDefinition.Structural.Eqns Lean.Elab.PreDefinition.Structural.FindRecArg Lean.Meta.Tactic.FunIndInfo Lean.Data.Array Lean.Meta.Tactic.Replace Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_mk, lean_array_pop, lean_array_push,
+    lean_array_set, lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_expr_eqv, lean_expr_instantiate_rev, lean_expr_instantiate1,
+    lean_float_decLt, lean_float_div, lean_float_sub, lean_get_match_equations_for,
+    lean_infer_type, lean_io_get_num_heartbeats, lean_io_mono_nanos_now, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_ptr_addr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_memcmp,
+    lean_string_utf8_byte_size, lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_le,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Control::State::{
     l_StateT_bind, l_StateT_instMonad___redArg___lam__1, l_StateT_instMonad___redArg___lam__4,
     l_StateT_instMonad___redArg___lam__7, l_StateT_instMonad___redArg___lam__9, l_StateT_map,
@@ -240,43 +256,6 @@ use crate::r#gen::Lean::Util::Trace::{
     l_Lean_registerTraceClass, l_Lean_trace_profiler, l_Lean_trace_profiler_threshold,
     l_Lean_trace_profiler_useHeartbeats,
 };
-use crate::ffi::{
-    lean_array_fswap, lean_array_pop, lean_array_size, lean_array_uget, lean_array_uget_borrowed,
-    lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_get_num_heartbeats, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{
-    lean_expr_eqv, lean_expr_instantiate_rev, lean_expr_instantiate1,
-};
-use crate::ffi::{lean_infer_type, lean_whnf};
-use crate::ffi::lean_get_match_equations_for;
 pub static l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_lambdaTelescope1___redArg___lam__2___closed__0_value: crate::leanh::LeanStringObject<61> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 61, m_capacity: 61, m_length: 60, m_data: [73, 110, 116, 101, 114, 110, 97, 108, 32, 101, 114, 114, 111, 114, 32, 105, 110, 32, 96, 108, 97, 109, 98, 100, 97, 84, 101, 108, 101, 115, 99, 111, 112, 101, 49, 96, 58, 32, 69, 120, 112, 101, 99, 116, 101, 100, 32, 108, 97, 109, 98, 100, 97, 44, 32, 103, 111, 116, 32, 96, 0]};
 static mut l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_lambdaTelescope1___redArg___lam__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_lambdaTelescope1___redArg___lam__2___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_lambdaTelescope1___redArg___lam__2___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
@@ -64004,7 +63983,7 @@ pub unsafe fn _init_l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_bu
     let mut v___x_50134_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_50129_ = l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_buildInductionBody___lam__33___closed__4;
     v___x_50130_ = crate::leanh::lean_unsigned_to_nat(17);
-    v___x_50131_ = crate::leanh::lean_unsigned_to_nat(1876);
+    v___x_50131_ = crate::leanh::lean_unsigned_to_nat(1877);
     v___x_50132_ = l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_buildInductionBody___lam__33___closed__3;
     v___x_50133_ = l___private_Lean_Meta_Tactic_FunInd_0__Lean_Tactic_FunInd_buildInductionBody___lam__33___closed__2;
     v___x_50134_ = l_mkPanicMessageWithDecl(

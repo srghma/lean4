@@ -1,16 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.String.Stream
 // Imports: Init.Data.String.Basic Init.Data.Stream
+use crate::ffi::{lean_nat_dec_lt, lean_string_utf8_get, lean_string_utf8_next};
 use crate::r#gen::Init::Data::Stream::{
     initialize_Init_Data_Stream, runtime_initialize_Init_Data_Stream,
 };
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::ffi::{
-    lean_string_utf8_get, lean_string_utf8_next,
-};
-use crate::ffi::lean_nat_dec_lt;
 pub static l_instStreamRawChar___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

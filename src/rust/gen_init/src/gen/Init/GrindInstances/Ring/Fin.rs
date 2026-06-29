@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.GrindInstances.Ring.Fin
 // Imports: Init.Data.Zero Init.GrindInstances.ToInt Init.GrindInstances.ToInt Init.Data.Fin.Lemmas Init.Grind.Ring.Basic Init.Data.Nat.Lemmas Init.Data.Nat.MinMax
+use crate::ffi::lean_nat_mod;
 use crate::r#gen::Init::Data::Fin::Basic::{
     l_Fin_add___boxed, l_Fin_mul, l_Fin_mul___boxed, l_Fin_neg___lam__0___boxed, l_Fin_sub___boxed,
 };
@@ -24,7 +25,6 @@ use crate::r#gen::Init::Grind::Ring::Basic::{
 use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
-use crate::ffi::lean_nat_mod;
 pub unsafe fn l_Lean_Grind_Fin_npow___redArg(
     mut v_n_72_: *mut crate::leanh::LeanObject,
     mut v_x_73_: *mut crate::leanh::LeanObject,

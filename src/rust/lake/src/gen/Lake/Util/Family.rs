@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Util.Family
 // Imports: Init.Data.ToString.Name Init.Data.ToString Init.Notation
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::ToString::Name::{
     initialize_Init_Data_ToString_Name,
@@ -22,8 +23,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node4, l_Lean_Syntax_node6, l_Lean_Syntax_node7, l_Lean_addMacroScope,
     l_Lean_extractMacroScopes, l_String_toRawSubstring_x27,
 };
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lake_familyDef___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

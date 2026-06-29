@@ -1,12 +1,12 @@
 // Lean compiler output
 // Module: Std.Internal.UV.Timer
 // Imports: Init.System.Promise
-use crate::r#gen::Init::System::Promise::{
-    initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
-};
 use crate::ffi::{
     lean_uv_timer_cancel, lean_uv_timer_mk, lean_uv_timer_next, lean_uv_timer_reset,
     lean_uv_timer_stop,
+};
+use crate::r#gen::Init::System::Promise::{
+    initialize_Init_System_Promise, runtime_initialize_Init_System_Promise,
 };
 pub static mut l___private_Std_Internal_UV_Timer_0__Std_Internal_UV_TimerImpl:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();

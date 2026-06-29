@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Data.JsonRpc
 // Imports: Lean.Data.Json.Stream Lean.Data.Json.FromToJson.Basic
+use crate::ffi::{
+    lean_int_dec_eq, lean_int_neg, lean_nat_dec_eq, lean_nat_to_int, lean_string_append,
+    lean_string_compare, lean_string_dec_eq, lean_string_dec_lt, lean_string_hash,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_uint64_mix_hash,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::Option::Basic::l_Option_instBEq_beq___redArg;
 use crate::r#gen::Init::Prelude::l_id___boxed;
@@ -27,18 +33,6 @@ use crate::r#gen::Lean::Data::Json::Stream::{
 };
 use crate::r#gen::Std::Internal::Parsec::String::{
     l_Std_Internal_Parsec_String_Parser_run___redArg, l_Std_Internal_Parsec_String_pstring,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::{
-    lean_string_dec_lt, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_string_dec_eq, lean_string_hash, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_uint64_mix_hash,
 };
 pub static l_Lean_JsonRpc_instInhabitedRequestID_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

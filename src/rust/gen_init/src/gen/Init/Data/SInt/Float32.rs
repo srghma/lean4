@@ -1,16 +1,16 @@
 // Lean compiler output
 // Module: Init.Data.SInt.Float32
 // Imports: Init.Data.Float32 Init.Data.SInt.Basic
+use crate::ffi::{
+    lean_float32_to_int8, lean_float32_to_int16, lean_float32_to_int32, lean_float32_to_int64,
+    lean_float32_to_isize, lean_int8_to_float32, lean_int16_to_float32, lean_int32_to_float32,
+    lean_int64_to_float32, lean_isize_to_float32,
+};
 use crate::r#gen::Init::Data::Float32::{
     initialize_Init_Data_Float32, runtime_initialize_Init_Data_Float32,
 };
 use crate::r#gen::Init::Data::SInt::Basic::{
     initialize_Init_Data_SInt_Basic, runtime_initialize_Init_Data_SInt_Basic,
-};
-use crate::ffi::{
-    lean_float32_to_int8, lean_float32_to_int16, lean_float32_to_int32, lean_float32_to_int64,
-    lean_float32_to_isize, lean_int8_to_float32, lean_int16_to_float32, lean_int32_to_float32,
-    lean_int64_to_float32, lean_isize_to_float32,
 };
 pub unsafe fn l_Float32_toInt8___boxed(
     mut v_a_00___x40___internal___hyg_52_: *mut crate::leanh::LeanObject,

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.DeprecatedModule
 // Imports: Lean.Compiler.ModPkgExt
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_name_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_string_append, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Lean::Compiler::ModPkgExt::{
     initialize_Lean_Compiler_ModPkgExt, l_Lean_ModuleEnvExtension_getStateByIdx_x3f___redArg,
@@ -10,13 +15,6 @@ use crate::r#gen::Lean::Data::Options::lean_register_option;
 use crate::r#gen::Lean::Environment::{
     l_Lean_Environment_header, l_Lean_PersistentEnvExtension_setState___redArg,
     l_Lean_instInhabitedModuleData_default,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_usize_dec_eq,
 };
 pub static l_Lean_instInhabitedDeprecatedModuleEntry_default___closed__0_value:
     crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {

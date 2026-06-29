@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Order.Types
 // Imports: Lean.Meta.Tactic.Grind.Types
+use crate::ffi::{lean_mk_empty_array_with_capacity, lean_nat_to_int};
 use crate::r#gen::Lean::Data::PersistentHashMap::l_Lean_PersistentHashMap_mkEmptyEntriesArray;
 use crate::r#gen::Lean::Expr::l_Lean_Expr_const___override;
 use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
@@ -10,8 +11,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_registerSolverExtension___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_mk_empty_array_with_capacity;
 pub static mut l_Lean_Meta_Grind_Order_instInhabitedCnstrKind_default: u8 = 0;
 pub static mut l_Lean_Meta_Grind_Order_instInhabitedCnstrKind: u8 = 0;
 static mut l_Lean_Meta_Grind_Order_instInhabitedCnstr_default___redArg___closed__0_once:

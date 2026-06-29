@@ -1,12 +1,11 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.GetLsbD
 // Imports: Std.Sat.AIG.RefVec
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land, lean_nat_shiftr,
+};
 use crate::r#gen::Std::Sat::AIG::RefVec::{
     initialize_Std_Sat_AIG_RefVec, runtime_initialize_Std_Sat_AIG_RefVec,
-};
-use crate::ffi::{lean_nat_land, lean_nat_shiftr};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub unsafe fn l_Std_Tactic_BVDecide_BVPred_blastGetLsbD___redArg(
     mut v_target_31_: *mut crate::leanh::LeanObject,

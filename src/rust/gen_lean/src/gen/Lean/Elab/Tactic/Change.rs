@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Change
 // Imports: Lean.Meta.Tactic.Replace Lean.Elab.Tactic.Location
+use crate::ffi::{
+    lean_array_push, lean_infer_type, lean_mk_empty_array_with_capacity, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Meta::Defs::{l_Lean_Syntax_isNone, l_Lean_mkOptionalNode};
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_mkStr1, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_matchesNull,
@@ -34,11 +38,6 @@ use crate::r#gen::Lean::Meta::Tactic::Replace::{
     l_Lean_MVarId_replaceTargetDefEq, runtime_initialize_Lean_Meta_Tactic_Replace,
 };
 use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Elab_Tactic_elabChangeDefaultError___redArg___closed__0_value:
     crate::leanh::LeanStringObject<32> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

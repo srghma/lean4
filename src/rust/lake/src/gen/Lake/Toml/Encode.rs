@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Toml.Encode
 // Imports: Lake.Util.FilePath Lake.Toml.Data.Value
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_to_int, lean_string_utf8_byte_size, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -21,13 +25,6 @@ use crate::r#gen::Lake::Util::FilePath::{
     initialize_Lake_Util_FilePath, l_Lake_mkRelPathString, runtime_initialize_Lake_Util_FilePath,
 };
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl___boxed;
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_string_utf8_byte_size,
-};
 pub static l_Lake_instToTomlValue___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Parser.StrInterpolation
 // Imports: Lean.Parser.Basic
+use crate::ffi::{lean_string_utf8_get, lean_string_utf8_next, lean_uint32_dec_eq};
 use crate::r#gen::Lean::DocString::Extension::l_Lean_addBuiltinDocString;
 use crate::r#gen::Lean::Parser::Basic::{
     initialize_Lean_Parser_Basic, l_Lean_Parser_andthenFn, l_Lean_Parser_isQuotableCharDefault,
@@ -14,10 +15,6 @@ use crate::r#gen::Lean::Parser::Types::{
     l_Lean_Parser_ParserState_next, l_Lean_Parser_ParserState_setPos,
     l_Lean_Parser_ParserState_stackSize, l_Lean_Parser_instBEqError_beq,
 };
-use crate::ffi::{
-    lean_string_utf8_get, lean_string_utf8_next,
-};
-use crate::ffi::lean_uint32_dec_eq;
 pub static l___private_Lean_Parser_StrInterpolation_0__Lean_Parser_interpolatedStrFn_parse___closed__0_value: crate::leanh::LeanStringObject<23> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 23, m_capacity: 23, m_length: 22, m_data: [105, 110, 116, 101, 114, 112, 111, 108, 97, 116, 101, 100, 83, 116, 114, 76, 105, 116, 75, 105, 110, 100, 0]};
 static mut l___private_Lean_Parser_StrInterpolation_0__Lean_Parser_interpolatedStrFn_parse___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Parser_StrInterpolation_0__Lean_Parser_interpolatedStrFn_parse___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Parser_StrInterpolation_0__Lean_Parser_interpolatedStrFn_parse___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Parser_StrInterpolation_0__Lean_Parser_interpolatedStrFn_parse___closed__0_value) as *mut crate::leanh::LeanObject,3105859046792672728 as *mut crate::leanh::LeanObject] };

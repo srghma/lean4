@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Http.Data.Version
 // Imports: Init.Data.ToString Init.Data.String.Basic
+use crate::ffi::{
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int, lean_panic_fn_borrowed, lean_string_append,
+    lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::Repr::{l_Repr_addAppParen, l_String_quote};
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
@@ -9,11 +13,6 @@ use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_dec_eq, lean_nat_dec_le, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
 pub static l_Std_Http_instReprVersion_repr___closed__0_value: crate::leanh::LeanStringObject<21> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

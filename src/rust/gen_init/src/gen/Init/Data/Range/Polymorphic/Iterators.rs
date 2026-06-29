@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.Iterators
 // Imports: Init.Data.Range.Polymorphic.RangeIterator Init.Data.Range.Polymorphic.Basic Init.Data.Iterators.Consumers.Collect Init.Data.Iterators.Consumers.Loop Init.Data.Option.Lemmas
+use crate::ffi::{lean_array_push, lean_array_to_list};
 use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     initialize_Init_Data_Iterators_Consumers_Collect,
     runtime_initialize_Init_Data_Iterators_Consumers_Collect,
@@ -24,7 +25,6 @@ use crate::r#gen::Init::WFExtrinsicFix::{
     l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg,
     l_WellFounded_opaqueFix_u2083___redArg,
 };
-use crate::ffi::{lean_array_push, lean_array_to_list};
 pub static l_Std_Rcc_toList___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

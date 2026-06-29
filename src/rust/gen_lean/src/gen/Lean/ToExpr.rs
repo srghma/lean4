@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.ToExpr
 // Imports: Lean.ToLevel Init.Data.Rat.Basic
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_int_dec_le, lean_int_neg, lean_int8_dec_le,
+    lean_int8_of_nat, lean_int8_to_int, lean_int16_dec_le, lean_int16_of_nat, lean_int16_to_int,
+    lean_int32_dec_le, lean_int32_of_nat, lean_int32_to_int, lean_int64_dec_le, lean_int64_of_nat,
+    lean_int64_to_int_sint, lean_isize_dec_le, lean_isize_of_nat, lean_isize_to_int, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_nat_to_int,
+    lean_panic_fn_borrowed, lean_string_append, lean_uint8_to_nat, lean_uint16_to_nat,
+    lean_uint32_to_nat, lean_uint64_to_nat, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_reverse___redArg;
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Rat::Basic::{
@@ -16,23 +25,6 @@ use crate::r#gen::Lean::Expr::{
 };
 use crate::r#gen::Lean::Level::l_Lean_Level_ofNat;
 use crate::r#gen::Lean::ToLevel::{initialize_Lean_ToLevel, runtime_initialize_Lean_ToLevel};
-use crate::ffi::{
-    lean_int_dec_le, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int8_dec_le, lean_int8_of_nat, lean_int8_to_int, lean_int16_dec_le, lean_int16_of_nat,
-    lean_int16_to_int, lean_int32_dec_le, lean_int32_of_nat, lean_int32_to_int, lean_int64_dec_le,
-    lean_int64_of_nat, lean_int64_to_int_sint, lean_isize_dec_le, lean_isize_of_nat,
-    lean_isize_to_int,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_uint32_to_nat,
-};
 pub static l_Lean_instToExprNat___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

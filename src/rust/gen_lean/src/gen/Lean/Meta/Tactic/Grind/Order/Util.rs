@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Order.Util
 // Imports: Lean.Meta.Tactic.Grind.Order.OrderM Lean.Meta.Tactic.Grind.Arith.Util
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int, lean_string_append,
+};
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::Ord::Basic::l_instDecidableEqOrdering;
 use crate::r#gen::Lean::Message::{
@@ -14,10 +17,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Order::OrderM::{
     initialize_Lean_Meta_Tactic_Grind_Order_OrderM, l_Lean_Meta_Grind_Order_getExpr,
     runtime_initialize_Lean_Meta_Tactic_Grind_Order_OrderM,
 };
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::lean_string_append;
 static mut l_Lean_Meta_Grind_Order_Cnstr_pp___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

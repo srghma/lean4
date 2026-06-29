@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.SInt.Bitwise
 // Imports: Init.Data.UInt.Basic Init.Data.BitVec.Basic Init.Data.BitVec.Lemmas Init.Data.SInt.Basic Init.Data.SInt.Basic Init.Ext Init.Data.BitVec.Bitblast Init.Data.SInt.Lemmas Init.System.Platform
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     initialize_Init_Data_BitVec_Basic, runtime_initialize_Init_Data_BitVec_Basic,
 };
@@ -28,7 +29,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_commandDeclare__bitwise__int__theorems_____00__closed__0_value:
     crate::leanh::LeanStringObject<38> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

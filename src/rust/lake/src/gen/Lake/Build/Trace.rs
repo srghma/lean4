@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lake.Build.Trace
 // Imports: Lean.Data.Json Init.Data.Nat.Fold Init.Data.Nat.Fold Lake.Util.String Init.Data.String.Search Init.Data.String.Extra Init.Data.Option.Coe
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_hash,
+    lean_int_dec_le, lean_io_metadata, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_nat_to_int, lean_string_append, lean_string_get_byte_fast, lean_string_hash,
+    lean_string_length, lean_string_utf8_byte_size, lean_uint8_dec_le, lean_uint8_sub,
+    lean_uint8_to_uint64, lean_uint64_add, lean_uint64_dec_eq, lean_uint64_mix_hash,
+    lean_uint64_of_nat, lean_uint64_shift_left, lean_uint64_to_nat, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -37,23 +45,6 @@ use crate::r#gen::Lake::Util::String::{
 use crate::r#gen::Lean::Data::Json::{
     initialize_Lean_Data_Json, runtime_initialize_Lean_Data_Json,
 };
-use crate::ffi::lean_byte_array_hash;
-use crate::ffi::{lean_int_dec_le, lean_nat_to_int};
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_uint8_sub, lean_uint64_add, lean_uint64_shift_left,
-};
-use crate::ffi::{
-    lean_uint8_to_uint64, lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_hash, lean_string_utf8_byte_size, lean_uint8_dec_le,
-    lean_uint64_dec_eq, lean_uint64_mix_hash,
-};
-use crate::ffi::lean_io_metadata;
 pub static l_Lake_instCheckExistsFilePath___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.NameTrie
 // Imports: Lean.Data.PrefixTree Init.Data.Ord.String
+use crate::ffi::{
+    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
+    lean_panic_fn_borrowed, lean_string_compare, lean_string_dec_eq, lean_string_dec_lt,
+};
 use crate::r#gen::Init::Data::Ord::String::{
     initialize_Init_Data_Ord_String, runtime_initialize_Init_Data_Ord_String,
 };
@@ -11,12 +15,6 @@ use crate::r#gen::Lean::Data::PrefixTree::{
     l___private_Lean_Data_PrefixTree_0__Lean_PrefixTreeNode_findLongestPrefix_x3f_loop,
     l___private_Lean_Data_PrefixTree_0__Lean_PrefixTreeNode_foldMatchingM_find,
     l_Lean_PrefixTreeNode_empty, runtime_initialize_Lean_Data_PrefixTree,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
-    lean_panic_fn_borrowed, lean_string_dec_eq,
 };
 pub static l_Lean_instBEqNamePart___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

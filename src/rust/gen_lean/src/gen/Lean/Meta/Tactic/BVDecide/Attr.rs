@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Attr
 // Imports: Lean.Elab.Tactic.Basic Lean.Meta.Tactic.Simp Std.Tactic.BVDecide.Syntax Lean.Elab.ConfigEval
+use crate::ffi::{
+    lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
+    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_string_dec_lt,
+};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Syntax_isNone;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_append, l_Lean_Name_mkStr6, l_Lean_Name_num___override, l_Lean_Name_str___override,
@@ -83,14 +88,6 @@ use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSynth
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
 use crate::r#gen::Std::Tactic::BVDecide::Syntax::{
     initialize_Std_Tactic_BVDecide_Syntax, runtime_initialize_Std_Tactic_BVDecide_Syntax,
-};
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::{
-    lean_array_get, lean_array_get_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Meta_Tactic_BVDecide_Attr_0__Lean_Meta_Tactic_BVDecide_initFn___closed__0_00___x40_Lean_Meta_Tactic_BVDecide_Attr_921759773____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [77, 101, 116, 97, 0]};
 static mut l___private_Lean_Meta_Tactic_BVDecide_Attr_0__Lean_Meta_Tactic_BVDecide_initFn___closed__0_00___x40_Lean_Meta_Tactic_BVDecide_Attr_921759773____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_BVDecide_Attr_0__Lean_Meta_Tactic_BVDecide_initFn___closed__0_00___x40_Lean_Meta_Tactic_BVDecide_Attr_921759773____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;

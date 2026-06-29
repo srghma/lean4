@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Int.OfNat
 // Imports: Init.GrindInstances.ToInt Init.Data.Nat.Div.Basic Init.ByCases Init.Data.Int.DivMod.Lemmas Init.Data.Int.LemmasAux Init.Data.Int.Pow Init.Omega
+use crate::ffi::{lean_int_dec_le, lean_nat_to_int};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Int::DivMod::Lemmas::{
     initialize_Init_Data_Int_DivMod_Lemmas, runtime_initialize_Init_Data_Int_DivMod_Lemmas,
@@ -18,7 +19,6 @@ use crate::r#gen::Init::GrindInstances::ToInt::{
     initialize_Init_GrindInstances_ToInt, runtime_initialize_Init_GrindInstances_ToInt,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{lean_int_dec_le, lean_nat_to_int};
 static mut l_Int_Nonneg_num__cert___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

@@ -20,7 +20,7 @@ type Progress = {
 const rootDir = path.resolve(path.join(import.meta.dir, ".."));
 const srcDir = path.join(rootDir, "src");
 const lakeSrcDir = path.join(srcDir, "lake");
-const outDir = path.join(rootDir, "src/rust/lean_runtime/src/gen");
+const rustDir = path.join(rootDir, "src/rust");
 const cacheDir = path.join(rootDir, "build/release/stage1/emitrust-cache");
 const signatureFile = path.join(cacheDir, ".regen-signature");
 const stage1Lean = path.join(rootDir, "build/release/stage1/bin/lean");
@@ -28,6 +28,17 @@ const stage1Lib = path.join(rootDir, "build/release/stage1/lib/lean");
 const workers = Number(Bun.env.NPROC ?? (os.availableParallelism?.() ?? os.cpus().length));
 
 const generatedRoots = ["Init", "Std", "Lean", "Leanc", "LeanIR", "LeanChecker"];
+
+const rootOutputDirs = new Map([
+  ["Init", path.join(rustDir, "gen_init/src/gen")],
+  ["Std", path.join(rustDir, "gen_std/src/gen")],
+  ["Lean", path.join(rustDir, "gen_lean/src/gen")],
+  ["Lake", path.join(rustDir, "lake/src/gen")],
+  ["LakeMain", path.join(rustDir, "lake/src/gen")],
+  ["Leanc", path.join(rustDir, "leanc/src/gen")],
+  ["LeanIR", path.join(rustDir, "lean_ir/src/gen")],
+  ["LeanChecker", path.join(rustDir, "lean_checker/src/gen")],
+]);
 
 async function* walkFiles(dir: string): AsyncGenerator<string> {
   for (const entry of await fs.readdir(dir, { withFileTypes: true }).catch(() => [])) {
@@ -61,8 +72,17 @@ const isLakeLeanFile = (file: string) => {
   return rel === "Lake.lean" || rel === "LakeMain.lean" || rel.startsWith("Lake/");
 };
 
-const rustOutputForLeanFile = (leanFile: string, moduleRoot: string) =>
-  path.join(cacheDir, path.relative(moduleRoot, leanFile).replace(/\.lean$/, ".rs"));
+const outputDirForGeneratedRoot = (moduleRoot: string) => {
+  const outputDir = rootOutputDirs.get(moduleRoot);
+  if (!outputDir) throw new Error(`no Rust output directory configured for generated root ${moduleRoot}`);
+  return outputDir;
+};
+
+const rustOutputForLeanFile = (leanFile: string, moduleRoot: string) => {
+  const rel = path.relative(moduleRoot, leanFile).replace(/\.lean$/, ".rs");
+  const generatedRoot = rel.replaceAll(path.sep, "/").split("/")[0]!.replace(/\.rs$/, "");
+  return path.join(outputDirForGeneratedRoot(generatedRoot), rel);
+};
 
 const generatedFileForLean = (leanFile: string, moduleRoot: string): GeneratedFile => ({
   leanFile,
@@ -83,7 +103,7 @@ const computeSignature = async (files: GeneratedFile[]) => {
     hashString(h, `${st.size}:${st.mtimeMs}`);
   }
 
-  hashString(h, "regenerate-gen-v5-direct-stage1-rust-with-lake-root");
+  hashString(h, "regenerate-gen-v7-split-rust-crates-with-local-ffi-module");
   return h.digest("hex");
 };
 
@@ -116,6 +136,9 @@ const run = async (args: string[], label: string) => {
 const normalizeRust = (src: string) =>
   src
     .replaceAll("crate::gen::", "crate::r#gen::")
+    .replace(/use crate::lean_imports_rs(?:::[A-Za-z0-9_]+)+::\{/g, "use crate::ffi::{")
+    .replace(/use crate::lean_imports_rs(?:::[A-Za-z0-9_]+)+::([A-Za-z0-9_]+);/g, "use crate::ffi::$1;")
+    .replace(/crate::lean_imports_rs(?:::[A-Za-z0-9_]+)+::([A-Za-z0-9_]+)/g, "crate::ffi::$1")
     .replace(/[ \t]+$/gm, "");
 
 const normalizeRustFile = async (file: string) => {
@@ -146,17 +169,6 @@ const generateOne = async (file: GeneratedFile, stage1LeanMtimeMs: number) => {
 
   await normalizeRustFile(file.rustFile);
   await run(["rustfmt", "--edition", "2024", file.rustFile], "rustfmt");
-};
-
-const copyIfDifferent = async (from: string, to: string) => {
-  const [srcBytes, dstBytes] = await Promise.all([
-    fs.readFile(from),
-    fs.readFile(to).catch(() => null),
-  ]);
-  if (dstBytes && Buffer.compare(srcBytes, dstBytes) === 0) return false;
-  await fs.mkdir(path.dirname(to), { recursive: true });
-  await fs.writeFile(to, srcBytes);
-  return true;
 };
 
 const runWithProgress = async <T>(
@@ -192,6 +204,13 @@ await (async () => {
     throw new Error(`stage1 compiler does not exist: ${stage1Lean}. Run 'just update-stage1' first.`);
   });
   await fs.mkdir(cacheDir, { recursive: true });
+  const oldCacheRustFiles = (await collect(walkFiles(cacheDir))).filter((file) => file.endsWith(".rs"));
+  if (oldCacheRustFiles.length > 0) {
+    console.log(`removing ${oldCacheRustFiles.length} obsolete generated Rust cache files`);
+  }
+  await runWithProgress(oldCacheRustFiles, workers, "cache rust prune", (file) =>
+    fs.rm(file, { force: true }),
+  );
 
   const leanFiles = (await collect(walkFiles(srcDir)))
     .filter((file) => file.endsWith(".lean"))
@@ -205,13 +224,17 @@ await (async () => {
     ...leanFiles.map((file) => generatedFileForLean(file, srcDir)),
     ...lakeFiles.map((file) => generatedFileForLean(file, lakeSrcDir)),
   ].sort((a, b) => a.rustFile.localeCompare(b.rustFile));
-  const wantedCacheOutputs = new Set(generatedFiles.map(({ rustFile }) => rustFile));
+  const currentOutputs = new Set(generatedFiles.map(({ rustFile }) => rustFile));
 
   const signature = await computeSignature(generatedFiles);
   const cachedSignature = await fs.readFile(signatureFile, "utf8").catch(() => "");
-  const cacheFiles = await collect(walkFiles(cacheDir));
-  const hasCachedOutputs = cacheFiles.some((file) => file.endsWith(".rs"));
-  const needsRebuild = cachedSignature.trim() !== signature || !hasCachedOutputs;
+  const outputNeedsRebuild = await (async () => {
+    for (const file of generatedFiles) {
+      if (await needsLeanRun(file, stage1LeanStat.mtimeMs)) return true;
+    }
+    return false;
+  })();
+  const needsRebuild = cachedSignature.trim() !== signature || outputNeedsRebuild;
 
   if (needsRebuild) {
     console.log(`generating ${generatedFiles.length} Rust files with ${workers} workers`);
@@ -219,25 +242,12 @@ await (async () => {
       generateOne(file, stage1LeanStat.mtimeMs),
     );
 
-    const staleCacheFiles = (await collect(walkFiles(cacheDir)))
-      .filter((file) => file.endsWith(".rs"))
-      .filter((file) => !wantedCacheOutputs.has(file));
-    if (staleCacheFiles.length > 0) {
-      console.log(`pruning ${staleCacheFiles.length} stale cache files`);
-    }
-    await runWithProgress(staleCacheFiles, workers, "cache prune", (file) => fs.rm(file, { force: true }));
-
     await fs.writeFile(signatureFile, `${signature}\n`);
   }
 
-  const freshCacheFiles = (await collect(walkFiles(cacheDir))).filter((file) => file.endsWith(".rs"));
-  const currentOutputs = new Set(freshCacheFiles.map((file) => path.join(outDir, path.relative(cacheDir, file))));
-
-  await runWithProgress(freshCacheFiles, workers, "copy outputs", (cacheFile) =>
-    copyIfDifferent(cacheFile, path.join(outDir, path.relative(cacheDir, cacheFile))).then(() => {}),
-  );
-
-  const staleOutputs = (await collect(walkFiles(outDir)))
+  const outputDirs = [...new Set(rootOutputDirs.values())];
+  const staleOutputs = (await Promise.all(outputDirs.map((dir) => collect(walkFiles(dir)))))
+    .flat()
     .filter((file) => file.endsWith(".rs"))
     .filter((file) => !currentOutputs.has(file));
   if (staleOutputs.length > 0) {
@@ -251,7 +261,7 @@ await (async () => {
   );
 
   console.log(
-    `regenerated Rust files under ${path.relative(rootDir, outDir)} with cache ${path.relative(rootDir, cacheDir)}`,
+    `regenerated Rust files directly under split crates; signature cache ${path.relative(rootDir, cacheDir)}`,
   );
 })().catch((err) => {
   console.error(String(err?.stack ?? err));

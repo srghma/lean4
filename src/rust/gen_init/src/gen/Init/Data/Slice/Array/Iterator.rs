@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Slice.Array.Iterator
 // Imports: Init.Data.Slice.Operations Init.Data.Range.Polymorphic.Basic Init.Omega Init.Data.Array.Subarray Init.Data.ToString.Extra
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add,
+    lean_nat_dec_lt, lean_string_append,
+};
 use crate::r#gen::Init::Data::Array::Basic::{l_Array_append___redArg, l_Array_repr___redArg};
 use crate::r#gen::Init::Data::Array::Subarray::{
     initialize_Init_Data_Array_Subarray, l_Array_toSubarray___redArg,
@@ -23,11 +27,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Init::WFExtrinsicFix::{
     l___private_Init_WFExtrinsicFix_0__WellFounded_opaqueFix_u2082___redArg,
     l_WellFounded_opaqueFix_u2083___redArg,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add,
-    lean_nat_dec_lt,
 };
 pub static l_instIteratorSubarrayIteratorId___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

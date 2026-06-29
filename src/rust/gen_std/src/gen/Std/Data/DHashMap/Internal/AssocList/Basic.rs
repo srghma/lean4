@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Data.DHashMap.Internal.AssocList.Basic
 // Imports: Init.NotationExtra
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -11,7 +12,6 @@ use crate::r#gen::Init::NotationExtra::{
 };
 use crate::r#gen::Init::Prelude::l_panic___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::lean_nat_add;
 pub static l_Std_DHashMap_Internal_AssocList_foldl___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

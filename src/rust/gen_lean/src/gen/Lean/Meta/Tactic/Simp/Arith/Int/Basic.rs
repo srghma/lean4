@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.Arith.Int.Basic
 // Imports: Init.Data.Int.Linear Lean.Util.SortExprs Lean.Meta.IntInstTesters Lean.Meta.AppBuilder Lean.Meta.KExprMap Lean.Data.RArray Lean.Meta.LitValues
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_uget_borrowed, lean_int_dec_eq,
+    lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_to_int, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_uint64_of_nat, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Int::Linear::{
     initialize_Init_Data_Int_Linear, runtime_initialize_Init_Data_Int_Linear,
@@ -43,20 +50,6 @@ use crate::r#gen::Lean::ToExpr::l_Lean_instToExprInt_mkNat;
 use crate::r#gen::Lean::Util::SortExprs::{
     initialize_Lean_Util_SortExprs, l_Lean_sortExprs, runtime_initialize_Lean_Util_SortExprs,
 };
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 static mut l___private_Lean_Meta_Tactic_Simp_Arith_Int_Basic_0__Int_Linear_Poly_toExpr_go___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Simp_Arith_Int_Basic_0__Int_Linear_Poly_toExpr_go___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Meta_Tactic_Simp_Arith_Int_Basic_0__Int_Linear_Poly_toExpr_go___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

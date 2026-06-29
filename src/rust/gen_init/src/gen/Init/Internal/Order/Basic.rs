@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Internal.Order.Basic
 // Imports: Init.System.IO Init.Control.Except Init.Control.StateRef Init.Control.Option Init.System.ST Init.ByCases
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Control::Except::{
     initialize_Init_Control_Except, runtime_initialize_Init_Control_Except,
@@ -22,7 +23,6 @@ use crate::r#gen::Init::System::IO::{
 use crate::r#gen::Init::System::ST::{
     initialize_Init_System_ST, runtime_initialize_Init_System_ST,
 };
-use crate::ffi::lean_nat_add;
 pub static l_Lean_Order_term___u2291___00__closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

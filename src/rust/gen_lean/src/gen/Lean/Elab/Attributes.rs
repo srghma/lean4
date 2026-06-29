@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Attributes
 // Imports: Lean.Elab.Util Lean.Compiler.InitAttr Lean.Parser.Term Init.Data.Format.Macro
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_name_eq, lean_nat_dec_lt, lean_nat_to_int, lean_string_length,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop;
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Format::Macro::{
@@ -36,13 +40,6 @@ use crate::r#gen::Lean::ExtraModUses::l_Lean_recordExtraModUseFromDecl___redArg;
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofName, l_Lean_stringToMessageData};
 use crate::r#gen::Lean::Parser::Term::{
     initialize_Lean_Parser_Term, runtime_initialize_Lean_Parser_Term,
-};
-use crate::ffi::lean_array_size;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push, lean_name_eq,
-    lean_nat_dec_lt,
 };
 pub static l_Lean_Elab_instInhabitedAttribute_default___closed__0_value:
     crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {

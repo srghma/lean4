@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lake.Build.Common
 // Imports: Lake.Build.Job.Monad Lake.Config.Monad Lake.Util.JsonObject Lake.Util.IO Lake.Build.Actions
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fswap, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_byte_array_hash, lean_io_hard_link,
+    lean_io_metadata, lean_io_mono_ms_now, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_nat_to_int, lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_compare,
+    lean_string_dec_eq, lean_string_dec_lt, lean_string_hash, lean_string_push,
+    lean_string_utf8_byte_size, lean_uint64_dec_eq, lean_uint64_mix_hash, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -99,30 +110,6 @@ use crate::r#gen::Lean::Data::Json::Basic::{l_Lean_Json_getBool_x3f, l_Lean_Json
 use crate::r#gen::Lean::Data::Json::Parser::l_Lean_Json_parse;
 use crate::r#gen::Lean::Data::Json::Printer::{l_Lean_Json_pretty, l_Lean_Json_render};
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_byte_array_hash;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_hash, lean_string_utf8_byte_size, lean_uint64_dec_eq, lean_uint64_mix_hash,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_hard_link, lean_io_metadata, lean_io_mono_ms_now,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
 pub static l_Lake_instMonadWorkspaceJobM___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Time.DateTime.Timestamp
 // Imports: Init.System.IO Std.Time.Duration
+use crate::ffi::{
+    lean_get_current_time, lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_div,
+    lean_int_mul, lean_int_neg, lean_nat_to_int, lean_string_append, lean_string_length,
+};
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::Ord::Basic::l_compareOn___boxed;
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
@@ -15,13 +19,6 @@ use crate::r#gen::Std::Time::Duration::{
     l_Std_Time_instToStringDuration_leftPad, runtime_initialize_Std_Time_Duration,
 };
 use crate::r#gen::Std::Time::Time::Unit::Nanosecond::l_Std_Time_Nanosecond_instReprOrdinal___lam__0;
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_lt, lean_int_mul, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::lean_int_div;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_get_current_time;
 pub static l_Std_Time_instReprTimestamp_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

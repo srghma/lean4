@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.Linear.ToExpr
 // Imports: Init.Grind.Ordered.Linarith Lean.ToExpr
+use crate::ffi::{lean_int_dec_le, lean_int_neg, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Grind::Ordered::Linarith::{
     initialize_Init_Grind_Ordered_Linarith, runtime_initialize_Init_Grind_Ordered_Linarith,
@@ -12,9 +13,6 @@ use crate::r#gen::Lean::Expr::{
 use crate::r#gen::Lean::Level::l_Lean_Level_ofNat;
 use crate::r#gen::Lean::ToExpr::{
     initialize_Lean_ToExpr, l_Lean_instToExprInt_mkNat, runtime_initialize_Lean_ToExpr,
-};
-use crate::ffi::{
-    lean_int_dec_le, lean_int_neg, lean_nat_to_int,
 };
 pub static l_Lean_Meta_Grind_Arith_Linear_ofPoly___closed__0_value: crate::leanh::LeanStringObject<
     5,

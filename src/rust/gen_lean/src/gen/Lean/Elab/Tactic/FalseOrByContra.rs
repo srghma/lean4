@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.FalseOrByContra
 // Imports: Lean.Elab.Tactic.Basic Lean.Meta.Tactic.Apply Lean.Meta.Tactic.Intro
+use crate::ffi::{
+    lean_panic_fn_borrowed, lean_string_dec_eq, lean_uint64_lor, lean_uint64_shift_left,
+    lean_uint64_shift_right,
+};
 use crate::r#gen::Init::Prelude::{l_Lean_Name_mkStr2, l_Lean_Syntax_isOfKind};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::CoreM::l_Lean_Exception_isRuntime;
@@ -28,10 +32,6 @@ use crate::r#gen::Lean::Meta::Tactic::Intro::{
     runtime_initialize_Lean_Meta_Tactic_Intro,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{lean_panic_fn_borrowed, lean_string_dec_eq};
 pub static l_panic___at___00Lean_MVarId_falseOrByContra_spec__0___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

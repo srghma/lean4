@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Sat.AIG.RefVec
 // Imports: Std.Sat.AIG.CachedGatesLemmas Init.Data.Vector.Lemmas Init.ByCases Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land, lean_nat_lor, lean_nat_mul, lean_nat_shiftr,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Bool::l_Bool_toNat;
@@ -10,13 +14,6 @@ use crate::r#gen::Init::Data::Vector::Lemmas::{
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Std::Sat::AIG::CachedGatesLemmas::{
     initialize_Std_Sat_AIG_CachedGatesLemmas, runtime_initialize_Std_Sat_AIG_CachedGatesLemmas,
-};
-use crate::ffi::{
-    lean_nat_land, lean_nat_lor, lean_nat_shiftr,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_mul,
 };
 pub static l_Std_Sat_AIG_RefVec_empty___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {

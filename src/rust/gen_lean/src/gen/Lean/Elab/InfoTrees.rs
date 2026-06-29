@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.InfoTrees
 // Imports: Lean.Elab.Command
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_task_get_own, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getArg, l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f,
@@ -27,15 +32,6 @@ use crate::r#gen::Lean::Log::{
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq,
-};
-use crate::ffi::lean_task_get_own;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_InfoTrees_elabInfoTrees_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_Tactic_InfoTrees_elabInfoTrees_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

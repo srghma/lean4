@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.String.Lemmas.Splits
 // Imports: Init.Data.String.Basic Init.Data.String.FindPos Init.Data.ByteArray.Lemmas Init.Data.String.Lemmas.Basic Init.Data.Nat.MinMax Init.Data.String.Lemmas.IsEmpty Init.Data.String.Lemmas.Order Init.Data.String.OrderInstances Init.Data.Nat.Order Init.Omega Init.Data.String.Lemmas.FindPos Init.Data.List.TakeDrop Init.Data.List.Nat.TakeDrop
+use crate::ffi::{lean_nat_add, lean_string_utf8_byte_size};
 use crate::r#gen::Init::Data::ByteArray::Lemmas::{
     initialize_Init_Data_ByteArray_Lemmas, runtime_initialize_Init_Data_ByteArray_Lemmas,
 };
@@ -38,7 +39,6 @@ use crate::r#gen::Init::Data::String::OrderInstances::{
     initialize_Init_Data_String_OrderInstances, runtime_initialize_Init_Data_String_OrderInstances,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{lean_nat_add, lean_string_utf8_byte_size};
 pub unsafe fn l_String_Slice_Pos_Splits_rotateRight___redArg(
     mut v_p_109_: *mut crate::leanh::LeanObject,
     mut v_t_u2082_110_: *mut crate::leanh::LeanObject,

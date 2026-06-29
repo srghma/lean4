@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.String.Defs
 // Imports: Init.Data.String.PosRaw Init.Data.ByteArray.Lemmas Init.Omega
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_string_append, lean_string_from_utf8_unchecked,
+    lean_string_get_byte_fast, lean_string_push, lean_string_to_utf8, lean_string_utf8_byte_size,
+};
 use crate::r#gen::Init::Data::ByteArray::Lemmas::{
     initialize_Init_Data_ByteArray_Lemmas, runtime_initialize_Init_Data_ByteArray_Lemmas,
 };
@@ -13,13 +18,6 @@ use crate::r#gen::Init::Prelude::{
     l_List_foldl___redArg, l_String_toRawSubstring_x27, l_instInhabitedUInt8,
 };
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
-use crate::ffi::lean_string_push;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-};
 pub static l_instAppendString___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

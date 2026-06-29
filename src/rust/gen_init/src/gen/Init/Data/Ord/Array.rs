@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Ord.Array
 // Imports: Init.Data.Ord.Basic Init.Omega Init.ByCases Init.Data.Array.Basic Init.WFTactics
+use crate::ffi::{lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_le};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, runtime_initialize_Init_Data_Array_Basic,
@@ -10,9 +11,6 @@ use crate::r#gen::Init::Data::Ord::Basic::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFTactics::{initialize_Init_WFTactics, runtime_initialize_Init_WFTactics};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_le,
-};
 pub unsafe fn l___private_Init_Data_Ord_Array_0__Array_compareLex_go___redArg(
     mut v_cmp_101_: *mut crate::leanh::LeanObject,
     mut v_a_u2081_102_: *mut crate::leanh::LeanObject,

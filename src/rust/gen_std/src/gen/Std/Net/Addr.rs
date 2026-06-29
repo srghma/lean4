@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Std.Net.Addr
 // Imports: Init.System.IO Init.Data.Vector.Basic
+use crate::ffi::{
+    lean_array_push, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_string_append, lean_string_dec_eq, lean_uint8_of_nat, lean_uint16_dec_eq,
+    lean_uint16_of_nat, lean_uint16_to_nat, lean_uv_interface_addresses, lean_uv_ntop_v4,
+    lean_uv_ntop_v6, lean_uv_pton_v4, lean_uv_pton_v6,
+};
 use crate::r#gen::Init::Data::Array::DecidableEq::l_Array_instDecidableEqImpl___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::Vector::Basic::{
@@ -11,16 +17,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, runtime_initialize_Init_System_IO,
-};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_uint16_to_nat;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_string_dec_eq, lean_uint8_of_nat, lean_uint16_dec_eq, lean_uint16_of_nat,
-};
-use crate::ffi::{
-    lean_uv_interface_addresses, lean_uv_ntop_v4, lean_uv_ntop_v6, lean_uv_pton_v4, lean_uv_pton_v6,
 };
 static mut l_Std_Net_instInhabitedMACAddr_default___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

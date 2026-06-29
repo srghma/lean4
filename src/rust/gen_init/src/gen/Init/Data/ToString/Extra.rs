@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.ToString.Extra
 // Imports: Init.Data.String.Defs Init.Data.Int.Repr
+use crate::ffi::{lean_array_to_list, lean_string_append, lean_string_push};
 use crate::r#gen::Init::Data::ByteArray::Basic::l_ByteArray_toList;
 use crate::r#gen::Init::Data::Int::Repr::{
     initialize_Init_Data_Int_Repr, l_Int_repr___boxed, runtime_initialize_Init_Data_Int_Repr,
@@ -10,9 +11,6 @@ use crate::r#gen::Init::Data::String::Defs::{
 };
 use crate::r#gen::Init::Data::ToString::Basic::l_instToStringUInt8___lam__0___boxed;
 use crate::r#gen::Init::Prelude::l_List_foldl___redArg;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_array_to_list;
 pub static l_List_toString___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<3> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

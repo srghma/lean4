@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.BitVec
 // Imports: Init.Data.Range.Polymorphic.Instances Init.Omega Init.Data.BitVec.Bootstrap Init.Data.BitVec.Lemmas Init.Data.Nat.Lemmas Init.Data.Option.Lemmas
+use crate::ffi::{lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub};
 use crate::r#gen::Init::Data::BitVec::BasicAux::l_BitVec_add;
 use crate::r#gen::Init::Data::BitVec::Bootstrap::{
     initialize_Init_Data_BitVec_Bootstrap, runtime_initialize_Init_Data_BitVec_Bootstrap,
@@ -20,9 +21,6 @@ use crate::r#gen::Init::Data::Range::Polymorphic::Instances::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Prelude::l_BitVec_ofNat;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub,
-};
 pub static l_BitVec_instRxcHasSize___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

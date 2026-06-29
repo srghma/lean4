@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.CtorIdx
 // Imports: Lean.Meta.Tactic.Grind.Types Lean.Meta.Constructions.CtorIdx Lean.Meta.CtorIdxHInj
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_set, lean_grind_internalize,
+    lean_grind_mk_eq_proof, lean_infer_type, lean_mk_array, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get,
+};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Environment::l_Lean_Environment_containsOnBranch;
 use crate::r#gen::Lean::Expr::{
@@ -31,17 +36,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     l_Lean_Meta_Grind_pushEqCore___redArg, runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
 use crate::r#gen::Lean::ReservedNameAction::l_Lean_executeReservedNameAction;
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_array_set;
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_sub, lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_infer_type;
-use crate::ffi::{
-    lean_grind_internalize, lean_grind_mk_eq_proof,
-};
 static mut l_panic___at___00Lean_Meta_Grind_propagateCtorIdxUp_spec__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

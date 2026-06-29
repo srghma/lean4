@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.RegisterCommand
 // Imports: Lean.Meta.Tactic.Grind.Attr
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Meta::Defs::{
@@ -18,10 +21,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Lean::Meta::Tactic::Grind::Attr::{
     initialize_Lean_Meta_Tactic_Grind_Attr, runtime_initialize_Lean_Meta_Tactic_Grind_Attr,
 };
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_Parser_Command_registerGrindAttr___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

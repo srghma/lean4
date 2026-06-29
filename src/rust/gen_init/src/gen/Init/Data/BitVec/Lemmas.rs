@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.BitVec.Lemmas
 // Imports: Init.Data.BitVec.Basic Init.Data.BitVec.BasicAux Init.Data.Fin.Lemmas Init.Data.List.BasicAux Init.Data.List.Lemmas Init.Data.BitVec.Basic Init.ByCases Init.Data.BitVec.Bootstrap Init.Data.Int.Bitwise.Lemmas Init.Data.Int.DivMod.Lemmas Init.Data.Int.LemmasAux Init.Data.Int.Pow Init.Data.Nat.Div.Lemmas Init.Data.Nat.MinMax Init.Data.Nat.Mod Init.Data.Nat.Simproc Init.TacticsExtra
+use crate::ffi::{lean_int_dec_lt, lean_nat_abs, lean_nat_dec_eq, lean_nat_sub, lean_nat_to_int};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     initialize_Init_Data_BitVec_Basic, runtime_initialize_Init_Data_BitVec_Basic,
@@ -47,10 +48,6 @@ use crate::r#gen::Init::Data::Nat::Simproc::{
 use crate::r#gen::Init::TacticsExtra::{
     initialize_Init_TacticsExtra, runtime_initialize_Init_TacticsExtra,
 };
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 static mut l___private_Init_Data_BitVec_Lemmas_0__Int_toNat_match__1_splitter___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Init_Data_BitVec_Lemmas_0__Int_toNat_match__1_splitter___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn _init_l___private_Init_Data_BitVec_Lemmas_0__Int_toNat_match__1_splitter___redArg___closed__0()

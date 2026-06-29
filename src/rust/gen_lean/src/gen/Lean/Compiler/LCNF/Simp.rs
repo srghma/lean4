@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Simp
 // Imports: Lean.Compiler.LCNF.ReduceJpArity Lean.Compiler.LCNF.Simp.Basic Lean.Compiler.LCNF.Simp.FunDeclInfo Lean.Compiler.LCNF.Simp.JpCases Lean.Compiler.LCNF.Simp.Config Lean.Compiler.LCNF.Simp.InlineCandidate Lean.Compiler.LCNF.Simp.SimpM Lean.Compiler.LCNF.Simp.Main Lean.Compiler.LCNF.Simp.InlineProj Lean.Compiler.LCNF.Simp.DefaultAlt Lean.Compiler.LCNF.Simp.SimpValue Lean.Compiler.LCNF.Simp.Used
+use crate::ffi::{
+    lean_mk_array, lean_nat_to_int, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{l_Lean_Name_append, l_Lean_Name_mkStr4};
@@ -71,11 +75,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::Util::Trace::{
     l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go, l_Lean_registerTraceClass,
-};
-use crate::ffi::lean_mk_array;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 static mut l_Lean_addTrace___at___00Lean_Compiler_LCNF_Decl_simp_x3f_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addTrace___at___00Lean_Compiler_LCNF_Decl_simp_x3f_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();

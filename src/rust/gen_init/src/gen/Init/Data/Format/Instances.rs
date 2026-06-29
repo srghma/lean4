@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Format.Instances
 // Imports: Init.Data.String.Search Init.Data.ToString.Basic Init.Data.Iterators.Consumers.Collect
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
+    lean_nat_to_int, lean_string_length, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_joinSep___redArg;
 use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     initialize_Init_Data_Iterators_Consumers_Collect,
@@ -15,15 +20,6 @@ use crate::r#gen::Init::Data::ToString::Basic::{
     initialize_Init_Data_ToString_Basic, runtime_initialize_Init_Data_ToString_Basic,
 };
 use crate::r#gen::Init::Prelude::l_Function_comp;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq,
-};
 pub static l_instToFormatOfToString___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

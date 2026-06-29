@@ -1,6 +1,23 @@
 // Lean compiler output
 // Module: Lean.Server.Watchdog
 // Imports: Lean.Data.FuzzyMatching Lean.Server.Requests Lean.Server.References Lean.Server.Completion.CompletionUtils Init.Data.List.Sort Std.Sync.Channel Lean.Server.Logging
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap, lean_array_get,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_float_beq, lean_float_decLe,
+    lean_float_decLt, lean_float_negate, lean_float_sub, lean_get_stderr, lean_get_stdin,
+    lean_get_stdout, lean_int_dec_eq, lean_int_neg, lean_io_app_path, lean_io_basemutex_lock,
+    lean_io_basemutex_unlock, lean_io_force_exit, lean_io_getenv, lean_io_prim_handle_mk,
+    lean_io_process_child_kill, lean_io_process_child_wait, lean_io_process_spawn, lean_io_wait,
+    lean_mk_array, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_compare, lean_string_dec_eq,
+    lean_string_dec_lt, lean_string_hash, lean_string_length, lean_string_utf8_byte_size,
+    lean_task_get_own, lean_task_pure, lean_uint32_dec_eq, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_get___boxed;
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_List_foldl___at___00Array_appendList_spec__0___redArg,
@@ -194,45 +211,6 @@ use crate::r#gen::Std::Sync::Channel::{
     l_Std_CloseableChannel_new___redArg, runtime_initialize_Std_Sync_Channel,
 };
 use crate::r#gen::Std::Sync::Mutex::{l_Std_Mutex_atomically___redArg, l_Std_Mutex_new___redArg};
-use crate::ffi::{lean_task_get_own, lean_task_pure};
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_float_beq, lean_float_decLe, lean_float_decLt, lean_float_negate, lean_float_sub,
-};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_neg, lean_nat_to_int,
-};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_dec_lt;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_mk,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_hash,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_stderr, lean_get_stdin, lean_get_stdout, lean_io_app_path, lean_io_force_exit,
-    lean_io_getenv, lean_io_prim_handle_mk, lean_io_process_child_kill, lean_io_process_child_wait,
-    lean_io_process_spawn, lean_io_wait,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l_Lean_Server_Watchdog_workerCfg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

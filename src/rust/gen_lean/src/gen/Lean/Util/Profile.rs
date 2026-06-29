@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.Profile
 // Imports: Init.Data.OfScientific Lean.Data.Options
+use crate::ffi::{lean_display_cumulative_profiling_times, lean_float_div, lean_profileit};
 use crate::r#gen::Init::Data::OfScientific::{
     initialize_Init_Data_OfScientific, lean_float_of_nat, runtime_initialize_Init_Data_OfScientific,
 };
@@ -8,10 +9,6 @@ use crate::r#gen::Init::System::IO::l_unsafeBaseIO___redArg;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_NameMap_find_x3f_spec__0___redArg;
 use crate::r#gen::Lean::Data::Options::{
     initialize_Lean_Data_Options, lean_register_option, runtime_initialize_Lean_Data_Options,
-};
-use crate::ffi::lean_float_div;
-use crate::ffi::{
-    lean_display_cumulative_profiling_times, lean_profileit,
 };
 pub static l___private_Lean_Util_Profile_0__Lean_initFn___closed__0_00___x40_Lean_Util_Profile_2256275618____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [112, 114, 111, 102, 105, 108, 101, 114, 0]};
 static mut l___private_Lean_Util_Profile_0__Lean_initFn___closed__0_00___x40_Lean_Util_Profile_2256275618____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Util_Profile_0__Lean_initFn___closed__0_00___x40_Lean_Util_Profile_2256275618____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;

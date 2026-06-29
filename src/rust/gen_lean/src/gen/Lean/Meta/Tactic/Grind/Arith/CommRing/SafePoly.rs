@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Arith.CommRing.SafePoly
 // Imports: Lean.Meta.Tactic.Grind.Arith.CommRing.RingM Lean.Meta.Sym.Arith.Poly Lean.Meta.Tactic.Grind.Arith.EvalNum Init.Data.Nat.Linear
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_ediv, lean_int_emod, lean_int_mul, lean_int_neg,
+    lean_nat_abs, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_gcd, lean_nat_sub,
+    lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_pow;
 use crate::r#gen::Init::Data::Nat::Linear::{
     initialize_Init_Data_Nat_Linear, runtime_initialize_Init_Data_Nat_Linear,
@@ -35,14 +40,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::RingM::{
 use crate::r#gen::Lean::Meta::Tactic::Grind::Arith::EvalNum::{
     initialize_Lean_Meta_Tactic_Grind_Arith_EvalNum, l_Lean_Meta_Grind_Arith_checkExp___redArg,
     runtime_initialize_Lean_Meta_Tactic_Grind_Arith_EvalNum,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_mul, lean_int_neg, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_ediv, lean_int_emod};
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_Lean_throwMaxRecDepthAt___at___00__private_Lean_Meta_Tactic_Grind_Arith_CommRing_SafePoly_0__Lean_Meta_Grind_Arith_CommRing_combine_spec__0___redArg___closed__0_value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [114, 117, 110, 116, 105, 109, 101, 0]};
 static mut l_Lean_throwMaxRecDepthAt___at___00__private_Lean_Meta_Tactic_Grind_Arith_CommRing_SafePoly_0__Lean_Meta_Grind_Arith_CommRing_combine_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_throwMaxRecDepthAt___at___00__private_Lean_Meta_Tactic_Grind_Arith_CommRing_SafePoly_0__Lean_Meta_Grind_Arith_CommRing_combine_spec__0___redArg___closed__0_value) as *mut crate::leanh::LeanObject;

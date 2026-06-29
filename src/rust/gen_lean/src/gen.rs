@@ -1,5 +1,11 @@
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
-#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports)]
+#![allow(
+    unused_variables,
+    unused_assignments,
+    unused_parens,
+    unused_mut,
+    unused_imports
+)]
 
 pub use gen_init::r#gen::Init;
 pub use gen_std::r#gen::Std;
@@ -34,11 +40,11 @@ pub mod Lean {
         pub mod BorrowedAnnotation {
             include!("gen/Lean/Compiler/BorrowedAnnotation.rs");
         }
-        pub mod CSimpAttr {
-            include!("gen/Lean/Compiler/CSimpAttr.rs");
-        }
         pub mod ClosedTermCache {
             include!("gen/Lean/Compiler/ClosedTermCache.rs");
+        }
+        pub mod CSimpAttr {
+            include!("gen/Lean/Compiler/CSimpAttr.rs");
         }
         pub mod ExportAttr {
             include!("gen/Lean/Compiler/ExportAttr.rs");
@@ -48,6 +54,15 @@ pub mod Lean {
         }
         pub mod FFI {
             include!("gen/Lean/Compiler/FFI.rs");
+        }
+        pub mod ImplementedByAttr {
+            include!("gen/Lean/Compiler/ImplementedByAttr.rs");
+        }
+        pub mod InitAttr {
+            include!("gen/Lean/Compiler/InitAttr.rs");
+        }
+        pub mod InlineAttrs {
+            include!("gen/Lean/Compiler/InlineAttrs.rs");
         }
         pub mod IR {
             pub mod index {
@@ -94,15 +109,6 @@ pub mod Lean {
                 include!("gen/Lean/Compiler/IR/UnboxResult.rs");
             }
         }
-        pub mod ImplementedByAttr {
-            include!("gen/Lean/Compiler/ImplementedByAttr.rs");
-        }
-        pub mod InitAttr {
-            include!("gen/Lean/Compiler/InitAttr.rs");
-        }
-        pub mod InlineAttrs {
-            include!("gen/Lean/Compiler/InlineAttrs.rs");
-        }
         pub mod LCNF {
             pub mod index {
                 include!("gen/Lean/Compiler/LCNF.rs");
@@ -123,9 +129,6 @@ pub mod Lean {
             pub mod Bind {
                 include!("gen/Lean/Compiler/LCNF/Bind.rs");
             }
-            pub mod CSE {
-                include!("gen/Lean/Compiler/LCNF/CSE.rs");
-            }
             pub mod Check {
                 include!("gen/Lean/Compiler/LCNF/Check.rs");
             }
@@ -143,6 +146,9 @@ pub mod Lean {
             }
             pub mod ConfigOptions {
                 include!("gen/Lean/Compiler/LCNF/ConfigOptions.rs");
+            }
+            pub mod CSE {
+                include!("gen/Lean/Compiler/LCNF/CSE.rs");
             }
             pub mod DeclHash {
                 include!("gen/Lean/Compiler/LCNF/DeclHash.rs");
@@ -177,14 +183,14 @@ pub mod Lean {
             pub mod ExtractClosed {
                 include!("gen/Lean/Compiler/LCNF/ExtractClosed.rs");
             }
-            pub mod FVarUtil {
-                include!("gen/Lean/Compiler/LCNF/FVarUtil.rs");
-            }
             pub mod FixedParams {
                 include!("gen/Lean/Compiler/LCNF/FixedParams.rs");
             }
             pub mod FloatLetIn {
                 include!("gen/Lean/Compiler/LCNF/FloatLetIn.rs");
+            }
+            pub mod FVarUtil {
+                include!("gen/Lean/Compiler/LCNF/FVarUtil.rs");
             }
             pub mod InferBorrow {
                 include!("gen/Lean/Compiler/LCNF/InferBorrow.rs");
@@ -201,11 +207,11 @@ pub mod Lean {
             pub mod JoinPoints {
                 include!("gen/Lean/Compiler/LCNF/JoinPoints.rs");
             }
-            pub mod LCtx {
-                include!("gen/Lean/Compiler/LCNF/LCtx.rs");
-            }
             pub mod LambdaLifting {
                 include!("gen/Lean/Compiler/LCNF/LambdaLifting.rs");
+            }
+            pub mod LCtx {
+                include!("gen/Lean/Compiler/LCNF/LCtx.rs");
             }
             pub mod Level {
                 include!("gen/Lean/Compiler/LCNF/Level.rs");
@@ -225,11 +231,11 @@ pub mod Lean {
             pub mod OtherDecl {
                 include!("gen/Lean/Compiler/LCNF/OtherDecl.rs");
             }
-            pub mod PassManager {
-                include!("gen/Lean/Compiler/LCNF/PassManager.rs");
-            }
             pub mod Passes {
                 include!("gen/Lean/Compiler/LCNF/Passes.rs");
+            }
+            pub mod PassManager {
+                include!("gen/Lean/Compiler/LCNF/PassManager.rs");
             }
             pub mod PhaseExt {
                 include!("gen/Lean/Compiler/LCNF/PhaseExt.rs");
@@ -321,11 +327,11 @@ pub mod Lean {
             pub mod SimpleGroundExpr {
                 include!("gen/Lean/Compiler/LCNF/SimpleGroundExpr.rs");
             }
-            pub mod SpecInfo {
-                include!("gen/Lean/Compiler/LCNF/SpecInfo.rs");
-            }
             pub mod Specialize {
                 include!("gen/Lean/Compiler/LCNF/Specialize.rs");
+            }
+            pub mod SpecInfo {
+                include!("gen/Lean/Compiler/LCNF/SpecInfo.rs");
             }
             pub mod SplitSCC {
                 include!("gen/Lean/Compiler/LCNF/SplitSCC.rs");
@@ -562,9 +568,6 @@ pub mod Lean {
         pub mod Options {
             include!("gen/Lean/Data/Options.rs");
         }
-        pub mod PPContext {
-            include!("gen/Lean/Data/PPContext.rs");
-        }
         pub mod PersistentArray {
             include!("gen/Lean/Data/PersistentArray.rs");
         }
@@ -576,6 +579,9 @@ pub mod Lean {
         }
         pub mod Position {
             include!("gen/Lean/Data/Position.rs");
+        }
+        pub mod PPContext {
+            include!("gen/Lean/Data/PPContext.rs");
         }
         pub mod PrefixTree {
             include!("gen/Lean/Data/PrefixTree.rs");
@@ -787,6 +793,12 @@ pub mod Lean {
                 include!("gen/Lean/Elab/ConfigEval/Util.rs");
             }
         }
+        pub mod Declaration {
+            include!("gen/Lean/Elab/Declaration.rs");
+        }
+        pub mod DeclarationRange {
+            include!("gen/Lean/Elab/DeclarationRange.rs");
+        }
         pub mod DeclModifiers {
             include!("gen/Lean/Elab/DeclModifiers.rs");
         }
@@ -795,12 +807,6 @@ pub mod Lean {
         }
         pub mod DeclUtil {
             include!("gen/Lean/Elab/DeclUtil.rs");
-        }
-        pub mod Declaration {
-            include!("gen/Lean/Elab/Declaration.rs");
-        }
-        pub mod DeclarationRange {
-            include!("gen/Lean/Elab/DeclarationRange.rs");
         }
         pub mod DefView {
             include!("gen/Lean/Elab/DefView.rs");
@@ -816,11 +822,11 @@ pub mod Lean {
                 include!("gen/Lean/Elab/Deriving.rs");
             }
             pub use index::*;
-            pub mod BEq {
-                include!("gen/Lean/Elab/Deriving/BEq.rs");
-            }
             pub mod Basic {
                 include!("gen/Lean/Elab/Deriving/Basic.rs");
+            }
+            pub mod BEq {
+                include!("gen/Lean/Elab/Deriving/BEq.rs");
             }
             pub mod DecEq {
                 include!("gen/Lean/Elab/Deriving/DecEq.rs");
@@ -1023,14 +1029,14 @@ pub mod Lean {
             pub mod Basic {
                 include!("gen/Lean/Elab/PreDefinition/Basic.rs");
             }
-            pub mod EqUnfold {
-                include!("gen/Lean/Elab/PreDefinition/EqUnfold.rs");
-            }
             pub mod Eqns {
                 include!("gen/Lean/Elab/PreDefinition/Eqns.rs");
             }
             pub mod EqnsUtils {
                 include!("gen/Lean/Elab/PreDefinition/EqnsUtils.rs");
+            }
+            pub mod EqUnfold {
+                include!("gen/Lean/Elab/PreDefinition/EqUnfold.rs");
             }
             pub mod FixedParams {
                 include!("gen/Lean/Elab/PreDefinition/FixedParams.rs");
@@ -1064,11 +1070,11 @@ pub mod Lean {
                     include!("gen/Lean/Elab/PreDefinition/Structural.rs");
                 }
                 pub use index::*;
-                pub mod BRecOn {
-                    include!("gen/Lean/Elab/PreDefinition/Structural/BRecOn.rs");
-                }
                 pub mod Basic {
                     include!("gen/Lean/Elab/PreDefinition/Structural/Basic.rs");
+                }
+                pub mod BRecOn {
+                    include!("gen/Lean/Elab/PreDefinition/Structural/BRecOn.rs");
                 }
                 pub mod Eqns {
                     include!("gen/Lean/Elab/PreDefinition/Structural/Eqns.rs");
@@ -1185,6 +1191,15 @@ pub mod Lean {
             pub mod AsAuxLemma {
                 include!("gen/Lean/Elab/Tactic/AsAuxLemma.rs");
             }
+            pub mod Basic {
+                include!("gen/Lean/Elab/Tactic/Basic.rs");
+            }
+            pub mod BoolToPropSimps {
+                include!("gen/Lean/Elab/Tactic/BoolToPropSimps.rs");
+            }
+            pub mod BuiltinTactic {
+                include!("gen/Lean/Elab/Tactic/BuiltinTactic.rs");
+            }
             pub mod BVDecide {
                 pub mod index {
                     include!("gen/Lean/Elab/Tactic/BVDecide.rs");
@@ -1202,15 +1217,6 @@ pub mod Lean {
                 pub mod Normalize {
                     include!("gen/Lean/Elab/Tactic/BVDecide/Normalize.rs");
                 }
-            }
-            pub mod Basic {
-                include!("gen/Lean/Elab/Tactic/Basic.rs");
-            }
-            pub mod BoolToPropSimps {
-                include!("gen/Lean/Elab/Tactic/BoolToPropSimps.rs");
-            }
-            pub mod BuiltinTactic {
-                include!("gen/Lean/Elab/Tactic/BuiltinTactic.rs");
             }
             pub mod Calc {
                 include!("gen/Lean/Elab/Tactic/Calc.rs");
@@ -1581,17 +1587,17 @@ pub mod Lean {
             pub mod Simp {
                 include!("gen/Lean/Elab/Tactic/Simp.rs");
             }
-            pub mod SimpArith {
-                include!("gen/Lean/Elab/Tactic/SimpArith.rs");
-            }
-            pub mod SimpTrace {
-                include!("gen/Lean/Elab/Tactic/SimpTrace.rs");
-            }
             pub mod Simpa {
                 include!("gen/Lean/Elab/Tactic/Simpa.rs");
             }
+            pub mod SimpArith {
+                include!("gen/Lean/Elab/Tactic/SimpArith.rs");
+            }
             pub mod Simproc {
                 include!("gen/Lean/Elab/Tactic/Simproc.rs");
+            }
+            pub mod SimpTrace {
+                include!("gen/Lean/Elab/Tactic/SimpTrace.rs");
             }
             pub mod SolveByElim {
                 include!("gen/Lean/Elab/Tactic/SolveByElim.rs");
@@ -1827,14 +1833,14 @@ pub mod Lean {
             include!("gen/Lean/Meta.rs");
         }
         pub use index::*;
-        pub mod ACLt {
-            include!("gen/Lean/Meta/ACLt.rs");
-        }
         pub mod AbstractMVars {
             include!("gen/Lean/Meta/AbstractMVars.rs");
         }
         pub mod AbstractNestedProofs {
             include!("gen/Lean/Meta/AbstractNestedProofs.rs");
+        }
+        pub mod ACLt {
+            include!("gen/Lean/Meta/ACLt.rs");
         }
         pub mod AppBuilder {
             include!("gen/Lean/Meta/AppBuilder.rs");
@@ -2048,9 +2054,6 @@ pub mod Lean {
             pub mod CaseValues {
                 include!("gen/Lean/Meta/Match/CaseValues.rs");
             }
-            pub mod MVarRenaming {
-                include!("gen/Lean/Meta/Match/MVarRenaming.rs");
-            }
             pub mod Match {
                 include!("gen/Lean/Meta/Match/Match.rs");
             }
@@ -2059,9 +2062,6 @@ pub mod Lean {
             }
             pub mod MatchEqsExt {
                 include!("gen/Lean/Meta/Match/MatchEqsExt.rs");
-            }
-            pub mod MatchPatternAttr {
-                include!("gen/Lean/Meta/Match/MatchPatternAttr.rs");
             }
             pub mod MatcherApp {
                 pub mod index {
@@ -2077,6 +2077,12 @@ pub mod Lean {
             }
             pub mod MatcherInfo {
                 include!("gen/Lean/Meta/Match/MatcherInfo.rs");
+            }
+            pub mod MatchPatternAttr {
+                include!("gen/Lean/Meta/Match/MatchPatternAttr.rs");
+            }
+            pub mod MVarRenaming {
+                include!("gen/Lean/Meta/Match/MVarRenaming.rs");
             }
             pub mod NamedPatterns {
                 include!("gen/Lean/Meta/Match/NamedPatterns.rs");
@@ -2109,11 +2115,11 @@ pub mod Lean {
         pub mod NatInstTesters {
             include!("gen/Lean/Meta/NatInstTesters.rs");
         }
-        pub mod NatTable {
-            include!("gen/Lean/Meta/NatTable.rs");
-        }
         pub mod Native {
             include!("gen/Lean/Meta/Native.rs");
+        }
+        pub mod NatTable {
+            include!("gen/Lean/Meta/NatTable.rs");
         }
         pub mod Offset {
             include!("gen/Lean/Meta/Offset.rs");
@@ -2420,6 +2426,9 @@ pub mod Lean {
             pub mod AuxLemma {
                 include!("gen/Lean/Meta/Tactic/AuxLemma.rs");
             }
+            pub mod Backtrack {
+                include!("gen/Lean/Meta/Tactic/Backtrack.rs");
+            }
             pub mod BVDecide {
                 pub mod index {
                     include!("gen/Lean/Meta/Tactic/BVDecide.rs");
@@ -2534,9 +2543,6 @@ pub mod Lean {
                     include!("gen/Lean/Meta/Tactic/BVDecide/TacticContext.rs");
                 }
             }
-            pub mod Backtrack {
-                include!("gen/Lean/Meta/Tactic/Backtrack.rs");
-            }
             pub mod Cases {
                 include!("gen/Lean/Meta/Tactic/Cases.rs");
             }
@@ -2608,9 +2614,6 @@ pub mod Lean {
             pub mod Ext {
                 include!("gen/Lean/Meta/Tactic/Ext.rs");
             }
-            pub mod FVarSubst {
-                include!("gen/Lean/Meta/Tactic/FVarSubst.rs");
-            }
             pub mod FunInd {
                 include!("gen/Lean/Meta/Tactic/FunInd.rs");
             }
@@ -2619,6 +2622,9 @@ pub mod Lean {
             }
             pub mod FunIndInfo {
                 include!("gen/Lean/Meta/Tactic/FunIndInfo.rs");
+            }
+            pub mod FVarSubst {
+                include!("gen/Lean/Meta/Tactic/FVarSubst.rs");
             }
             pub mod Generalize {
                 include!("gen/Lean/Meta/Tactic/Generalize.rs");
@@ -2717,13 +2723,15 @@ pub mod Lean {
                             include!("gen/Lean/Meta/Tactic/Grind/Arith/CommRing/NonCommRingM.rs");
                         }
                         pub mod NonCommSemiringM {
-                            include!("gen/Lean/Meta/Tactic/Grind/Arith/CommRing/NonCommSemiringM.rs");
-                        }
-                        pub mod PP {
-                            include!("gen/Lean/Meta/Tactic/Grind/Arith/CommRing/PP.rs");
+                            include!(
+                                "gen/Lean/Meta/Tactic/Grind/Arith/CommRing/NonCommSemiringM.rs"
+                            );
                         }
                         pub mod Power {
                             include!("gen/Lean/Meta/Tactic/Grind/Arith/CommRing/Power.rs");
+                        }
+                        pub mod PP {
+                            include!("gen/Lean/Meta/Tactic/Grind/Arith/CommRing/PP.rs");
                         }
                         pub mod Proof {
                             include!("gen/Lean/Meta/Tactic/Grind/Arith/CommRing/Proof.rs");
@@ -3009,9 +3017,6 @@ pub mod Lean {
                 pub mod Lookahead {
                     include!("gen/Lean/Meta/Tactic/Grind/Lookahead.rs");
                 }
-                pub mod MBTC {
-                    include!("gen/Lean/Meta/Tactic/Grind/MBTC.rs");
-                }
                 pub mod Main {
                     include!("gen/Lean/Meta/Tactic/Grind/Main.rs");
                 }
@@ -3023,6 +3028,9 @@ pub mod Lean {
                 }
                 pub mod MatchDiscrOnly {
                     include!("gen/Lean/Meta/Tactic/Grind/MatchDiscrOnly.rs");
+                }
+                pub mod MBTC {
+                    include!("gen/Lean/Meta/Tactic/Grind/MBTC.rs");
                 }
                 pub mod Order {
                     pub mod index {
@@ -3054,11 +3062,11 @@ pub mod Lean {
                 pub mod OrderInsts {
                     include!("gen/Lean/Meta/Tactic/Grind/OrderInsts.rs");
                 }
-                pub mod PP {
-                    include!("gen/Lean/Meta/Tactic/Grind/PP.rs");
-                }
                 pub mod Parser {
                     include!("gen/Lean/Meta/Tactic/Grind/Parser.rs");
+                }
+                pub mod PP {
+                    include!("gen/Lean/Meta/Tactic/Grind/PP.rs");
                 }
                 pub mod Proj {
                     include!("gen/Lean/Meta/Tactic/Grind/Proj.rs");
@@ -3273,11 +3281,11 @@ pub mod Lean {
                 pub mod SimpCongrTheorems {
                     include!("gen/Lean/Meta/Tactic/Simp/SimpCongrTheorems.rs");
                 }
-                pub mod SimpTheorems {
-                    include!("gen/Lean/Meta/Tactic/Simp/SimpTheorems.rs");
-                }
                 pub mod Simproc {
                     include!("gen/Lean/Meta/Tactic/Simp/Simproc.rs");
+                }
+                pub mod SimpTheorems {
+                    include!("gen/Lean/Meta/Tactic/Simp/SimpTheorems.rs");
                 }
                 pub mod Types {
                     include!("gen/Lean/Meta/Tactic/Simp/Types.rs");
@@ -3701,9 +3709,6 @@ pub mod Lean {
         pub mod Diff {
             include!("gen/Lean/Util/Diff.rs");
         }
-        pub mod FVarSubset {
-            include!("gen/Lean/Util/FVarSubset.rs");
-        }
         pub mod FindExpr {
             include!("gen/Lean/Util/FindExpr.rs");
         }
@@ -3721,6 +3726,9 @@ pub mod Lean {
         }
         pub mod ForEachExprWhere {
             include!("gen/Lean/Util/ForEachExprWhere.rs");
+        }
+        pub mod FVarSubset {
+            include!("gen/Lean/Util/FVarSubset.rs");
         }
         pub mod HasConstCache {
             include!("gen/Lean/Util/HasConstCache.rs");
@@ -3752,14 +3760,14 @@ pub mod Lean {
         pub mod OccursCheck {
             include!("gen/Lean/Util/OccursCheck.rs");
         }
-        pub mod PPExt {
-            include!("gen/Lean/Util/PPExt.rs");
-        }
         pub mod ParamMinimizer {
             include!("gen/Lean/Util/ParamMinimizer.rs");
         }
         pub mod Path {
             include!("gen/Lean/Util/Path.rs");
+        }
+        pub mod PPExt {
+            include!("gen/Lean/Util/PPExt.rs");
         }
         pub mod Profile {
             include!("gen/Lean/Util/Profile.rs");
@@ -3788,11 +3796,11 @@ pub mod Lean {
         pub mod Reprove {
             include!("gen/Lean/Util/Reprove.rs");
         }
-        pub mod SCC {
-            include!("gen/Lean/Util/SCC.rs");
-        }
         pub mod SafeExponentiation {
             include!("gen/Lean/Util/SafeExponentiation.rs");
+        }
+        pub mod SCC {
+            include!("gen/Lean/Util/SCC.rs");
         }
         pub mod ShareCommon {
             include!("gen/Lean/Util/ShareCommon.rs");

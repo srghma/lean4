@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lake.Config.Module
 // Imports: Lake.Config.LeanLib
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget_borrowed, lean_internal_has_llvm_backend, lean_io_read_dir, lean_mk_array,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_string_append, lean_string_dec_eq, lean_string_memcmp, lean_string_push,
+    lean_string_utf8_byte_size, lean_uint64_of_nat, lean_usize_add, lean_usize_dec_eq,
+    lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::String::Basic::{l_String_Slice_Pos_nextn, l_String_Slice_pos_x21};
 use crate::r#gen::Init::Data::String::Slice::l_String_Slice_toString;
@@ -31,22 +39,6 @@ use crate::r#gen::Lean::Util::LeanOptions::{
     l_Lean_LeanOptions_append, l_Lean_LeanOptions_appendArray, l_Lean_LeanOptions_ofArray,
 };
 use crate::r#gen::Lean::Util::Path::l_Lean_modToFilePath;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_mk_array,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::lean_internal_has_llvm_backend;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
-    lean_string_utf8_byte_size, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::lean_io_read_dir;
 pub static l_Lake_instToJsonModule___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.ToString.Basic
 // Imports: Init.Data.Repr Init.Data.Char.Basic
+use crate::ffi::{
+    lean_string_any, lean_string_append, lean_string_isprefixof, lean_string_push,
+    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_dec_eq, lean_uint32_to_nat,
+    lean_uint64_to_nat, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Char::Basic::{
     initialize_Init_Data_Char_Basic, runtime_initialize_Init_Data_Char_Basic,
 };
@@ -10,13 +15,6 @@ use crate::r#gen::Init::Data::Repr::{
     runtime_initialize_Init_Data_Repr,
 };
 use crate::r#gen::Init::Data::String::Bootstrap::l_Substring_Raw_Internal_toString___boxed;
-use crate::ffi::{
-    lean_string_any, lean_string_append, lean_string_isprefixof, lean_string_push,
-};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint64_to_nat, lean_usize_to_nat,
-};
-use crate::ffi::{lean_uint32_dec_eq, lean_uint32_to_nat};
 pub static l_instToStringString___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

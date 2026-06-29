@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.ProofMode.Focus
 // Imports: Lean.Elab.Tactic.Do.ProofMode.MGoal
+use crate::ffi::{
+    lean_expr_dbg_to_string, lean_name_eq, lean_panic_fn_borrowed, lean_st_ref_get,
+    lean_string_append,
+};
 use crate::r#gen::Init::Meta::Defs::l_Lean_TSyntax_getId;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Elab::Tactic::Do::ProofMode::MGoal::{
@@ -15,10 +19,6 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_const___override, l_Lean_mkApp6, l_Lean_mkApp8, l_Lean_mkAppB, l_Lean_mkConst,
 };
 use crate::r#gen::Lean::Message::{l_Lean_MessageData_ofSyntax, l_Lean_stringToMessageData};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_name_eq, lean_panic_fn_borrowed};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_Elab_Tactic_Do_ProofMode_instInhabitedFocusResult_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

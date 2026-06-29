@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Http.Data.Body.Full
 // Imports: Std.Sync Std.Http.Data.Request Std.Http.Data.Response Std.Http.Data.Body.Any Init.Data.ByteArray
+use crate::ffi::{
+    lean_byte_array_size, lean_io_basemutex_lock, lean_io_basemutex_unlock,
+    lean_io_promise_resolve, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_to_utf8, lean_task_map,
+};
 use crate::r#gen::Init::Data::ByteArray::Basic::l_ByteArray_isEmpty;
 use crate::r#gen::Init::Data::ByteArray::{
     initialize_Init_Data_ByteArray, runtime_initialize_Init_Data_ByteArray,
@@ -26,14 +31,6 @@ use crate::r#gen::Std::Http::Data::Response::{
 };
 use crate::r#gen::Std::Sync::Mutex::l_Std_Mutex_new___redArg;
 use crate::r#gen::Std::Sync::{initialize_Std_Sync, runtime_initialize_Std_Sync};
-use crate::ffi::lean_task_map;
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::lean_byte_array_size;
-use crate::ffi::lean_io_promise_resolve;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l___private_Std_Http_Data_Body_Full_0__Std_Http_Body_Full_takeChunk___lam__0___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Std_Http_Data_Body_Full_0__Std_Http_Body_Full_takeChunk___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Std_Http_Data_Body_Full_0__Std_Http_Body_Full_takeChunk___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Std_Http_Data_Body_Full_0__Std_Http_Body_Full_takeChunk___lam__0___closed__1_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 0 }, m_objs: [core::ptr::addr_of!(l___private_Std_Http_Data_Body_Full_0__Std_Http_Body_Full_takeChunk___lam__0___closed__0_value) as *mut crate::leanh::LeanObject] };

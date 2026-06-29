@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lake.Util.Task
 // Imports: Init.Control.Option Init.Control.Except
+use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure};
 use crate::r#gen::Init::Control::Except::{
     initialize_Init_Control_Except, runtime_initialize_Init_Control_Except,
 };
@@ -8,7 +9,6 @@ use crate::r#gen::Init::Control::Option::{
     initialize_Init_Control_Option, runtime_initialize_Init_Control_Option,
 };
 use crate::r#gen::Init::Prelude::{l_Function_const___boxed, l_instInhabitedOfMonad___redArg};
-use crate::ffi::{lean_task_bind, lean_task_map, lean_task_pure};
 pub static l_Lake_instMonadTask__lake___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

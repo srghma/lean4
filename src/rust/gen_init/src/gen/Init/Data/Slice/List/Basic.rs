@@ -1,15 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.Slice.List.Basic
 // Imports: Init.Data.Slice.Basic Init.Data.Slice.Notation
+use crate::ffi::{lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub};
 use crate::r#gen::Init::Data::List::Basic::l_List_drop___redArg;
 use crate::r#gen::Init::Data::Slice::Basic::{
     initialize_Init_Data_Slice_Basic, runtime_initialize_Init_Data_Slice_Basic,
 };
 use crate::r#gen::Init::Data::Slice::Notation::{
     initialize_Init_Data_Slice_Notation, runtime_initialize_Init_Data_Slice_Notation,
-};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
 };
 pub static l_List_toSlice___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

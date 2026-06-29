@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Internal.Formula.Implementation
 // Imports: Std.Tactic.BVDecide.LRAT.Internal.Formula.Class
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_set, lean_array_size,
+    lean_array_to_list, lean_array_uget_borrowed, lean_array_uset, lean_mk_array, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_range;
 use crate::r#gen::Init::Data::List::Basic::{l_List_appendTR___redArg, l_List_reverse___redArg};
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Assignment::{
@@ -16,18 +23,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Clause::{
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::Formula::Class::{
     initialize_Std_Tactic_BVDecide_LRAT_Internal_Formula_Class,
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_Formula_Class,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub, lean_usize_dec_eq,
 };
 pub static l_Std_Tactic_BVDecide_LRAT_Internal_DefaultFormula_instInhabited___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

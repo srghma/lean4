@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.UInt.Log2
 // Imports: Init.Prelude Init.Data.Fin.Log2 Init.Data.UInt.BasicAux
+use crate::ffi::{
+    lean_uint8_log2, lean_uint16_log2, lean_uint32_log2, lean_uint64_log2, lean_usize_log2,
+};
 use crate::r#gen::Init::Data::Fin::Log2::{
     initialize_Init_Data_Fin_Log2, runtime_initialize_Init_Data_Fin_Log2,
 };
@@ -8,9 +11,6 @@ use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
 use crate::r#gen::Init::Prelude::{initialize_Init_Prelude, runtime_initialize_Init_Prelude};
-use crate::ffi::{
-    lean_uint8_log2, lean_uint16_log2, lean_uint32_log2, lean_uint64_log2, lean_usize_log2,
-};
 pub unsafe fn l_UInt8_log2___boxed(
     mut v_a_27_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

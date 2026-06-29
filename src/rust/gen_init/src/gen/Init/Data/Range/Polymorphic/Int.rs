@@ -1,14 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.Int
 // Imports: Init.Data.Range.Polymorphic.Instances Init.Omega
+use crate::ffi::{lean_int_add, lean_int_sub, lean_nat_sub, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_toNat;
 use crate::r#gen::Init::Data::Range::Polymorphic::Instances::{
     initialize_Init_Data_Range_Polymorphic_Instances,
     runtime_initialize_Init_Data_Range_Polymorphic_Instances,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{lean_int_add, lean_int_sub, lean_nat_to_int};
-use crate::ffi::lean_nat_sub;
 static mut l_Std_PRange_instUpwardEnumerableInt___lam__0___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

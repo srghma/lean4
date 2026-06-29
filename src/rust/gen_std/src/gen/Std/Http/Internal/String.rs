@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Http.Internal.String
 // Imports: Init.Grind Init.Data.String.TakeDrop Std.Http.Internal.Char
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
+    lean_string_append, lean_string_data, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::Data::String::Iterate::l_String_Slice_positions;
 use crate::r#gen::Init::Data::String::TakeDrop::{
@@ -10,15 +15,6 @@ use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_G
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Std::Http::Internal::Char::{
     initialize_Std_Http_Internal_Char, runtime_initialize_Std_Http_Internal_Char,
-};
-use crate::ffi::{
-    lean_string_data, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
 };
 pub static l_Std_Http_Internal_quoteCore___redArg___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {

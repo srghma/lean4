@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Data.OpenDecl
 // Imports: Init.Data.ToString.Name Init.Data.ToString.Extra
+use crate::ffi::{lean_name_eq, lean_string_append};
 use crate::r#gen::Init::Data::List::Basic::l_List_beq___redArg;
 use crate::r#gen::Init::Data::ToString::Extra::{
     initialize_Init_Data_ToString_Extra, l_List_toString___redArg,
@@ -13,8 +14,6 @@ use crate::r#gen::Init::Data::ToString::Name::{
 };
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_replacePrefix;
 use crate::r#gen::Init::Prelude::l_Lean_Name_beq___boxed;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_name_eq;
 pub static l_Lean_instBEqOpenDecl___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

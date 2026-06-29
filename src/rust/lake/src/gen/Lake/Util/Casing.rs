@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Util.Casing
 // Imports: Init.Data.String.Basic Init.Data.String.Modify Init.Data.String.Search Init.Data.Iterators.Consumers.Collect
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
+    lean_string_append, lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_set, lean_uint32_add,
+    lean_uint32_dec_eq, lean_uint32_dec_le,
+};
 use crate::r#gen::Init::Data::Iterators::Consumers::Collect::{
     initialize_Init_Data_Iterators_Consumers_Collect,
     runtime_initialize_Init_Data_Iterators_Consumers_Collect,
@@ -16,17 +22,6 @@ use crate::r#gen::Init::Data::String::Search::{
 };
 use crate::r#gen::Init::Data::String::Subslice::l_String_Slice_subslice_x21;
 use crate::r#gen::Init::Prelude::l_Lean_Name_str___override;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq, lean_uint32_dec_le,
-};
 pub static l_String_Slice_splitToSubslice___at___00Lake_toUpperCamelCaseString_spec__0___closed__0_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l_String_Slice_splitToSubslice___at___00Lake_toUpperCamelCaseString_spec__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_String_Slice_splitToSubslice___at___00Lake_toUpperCamelCaseString_spec__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lake_toUpperCamelCaseString___closed__0_value: crate::leanh::LeanArrayObject<0> =

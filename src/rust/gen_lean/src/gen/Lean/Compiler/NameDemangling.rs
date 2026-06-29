@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Compiler.NameDemangling
 // Imports: Init.While Init.Data.String.TakeDrop Init.Data.String.Search Init.Data.String.Iterate Lean.Data.NameTrie Lean.Compiler.NameMangling
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_mk,
+    lean_array_pop, lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget_borrowed,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_string_append, lean_string_dec_eq, lean_string_get_byte_fast, lean_string_memcmp,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get_fast,
+    lean_string_utf8_next_fast, lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_pos_x21;
 use crate::r#gen::Init::Data::String::Defs::l_String_intercalate;
@@ -28,24 +37,6 @@ use crate::r#gen::Lean::Compiler::NameMangling::{
 use crate::r#gen::Lean::Data::NameTrie::{
     initialize_Lean_Data_NameTrie, l_Lean_instBEqNamePart_beq,
     l_Lean_instInhabitedNamePart_default, runtime_initialize_Lean_Data_NameTrie,
-};
-use crate::ffi::{
-    lean_array_pop, lean_array_size, lean_array_uget_borrowed,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size, lean_array_mk,
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size,
-    lean_uint8_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
 };
 pub static l___private_Lean_Compiler_NameDemangling_0__Lean_Name_Demangle_formatNameParts___closed__0_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};
 static mut l___private_Lean_Compiler_NameDemangling_0__Lean_Name_Demangle_formatNameParts___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Compiler_NameDemangling_0__Lean_Name_Demangle_formatNameParts___closed__0_value) as *mut crate::leanh::LeanObject;

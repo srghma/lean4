@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.MacroTrace
 // Imports: Init.Meta Init.Notation Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::ToString::Macro::{
     initialize_Init_Data_ToString_Macro, runtime_initialize_Init_Data_ToString_Macro,
 };
@@ -15,10 +18,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope, l_String_toRawSubstring_x27,
     lean_erase_macro_scopes,
 };
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_termMacro_x2etrace_x5b___x5d___00__closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.Array.Attach
 // Imports: Init.Data.List.Attach Init.Data.Array.Lemmas Init.Data.Array.Bootstrap Init.Data.Array.Count
+use crate::ffi::{
+    lean_array_mk, lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uset,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -20,11 +24,6 @@ use crate::r#gen::Init::Data::List::Attach::{
     initialize_Init_Data_List_Attach, runtime_initialize_Init_Data_List_Attach,
 };
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_array_mk, lean_array_to_list};
 pub static l_Array_pmapImpl___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

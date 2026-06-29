@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Elab.PreDefinition.TerminationHint
 // Imports: Lean.Parser.Term Lean.Parser.Term Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::Format::Syntax::l_Lean_Syntax_formatStx;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
@@ -28,14 +33,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::Parser::Term::{
     initialize_Lean_Parser_Term, runtime_initialize_Lean_Parser_Term,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Elab_instInhabitedTerminationBy_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

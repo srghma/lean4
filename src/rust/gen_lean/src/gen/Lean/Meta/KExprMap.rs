@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.KExprMap
 // Imports: Lean.Data.AssocList Lean.HeadIndex Lean.Meta.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_uint64_to_usize,
+    lean_usize_add, lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Lean::Data::AssocList::{
     initialize_Lean_Data_AssocList, runtime_initialize_Lean_Data_AssocList,
 };
@@ -15,18 +21,6 @@ use crate::r#gen::Lean::HeadIndex::{
 };
 use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, l_Lean_Meta_isExprDefEq, runtime_initialize_Lean_Meta_Basic,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_lt,
 };
 static mut l_Lean_Meta_instInhabitedKExprMap_default___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

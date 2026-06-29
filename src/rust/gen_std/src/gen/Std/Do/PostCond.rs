@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Do.PostCond
 // Imports: Std.Do.SPred
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uset, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_getArgs,
@@ -13,11 +17,6 @@ use crate::r#gen::Std::Do::SPred::SPred::{
 };
 use crate::r#gen::Std::Do::SPred::SVal::l_Std_Do_SVal_curry___redArg;
 use crate::r#gen::Std::Do::SPred::{initialize_Std_Do_SPred, runtime_initialize_Std_Do_SPred};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_array_push;
 pub static l_Std_Do_term___u22a2_u2091___00__closed__0_value: crate::leanh::LeanStringObject<4> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

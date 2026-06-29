@@ -1,16 +1,14 @@
 // Lean compiler output
 // Module: Std.Time.Time.HourMarker
 // Imports: Std.Time.Time.Basic
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_emod, lean_int_neg,
+    lean_int_sub, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_to_int,
+};
 use crate::r#gen::Init::Data::Repr::l_Repr_addAppParen;
 use crate::r#gen::Std::Time::Time::Basic::{
     initialize_Std_Time_Time_Basic, runtime_initialize_Std_Time_Time_Basic,
 };
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_int_sub,
-    lean_nat_to_int,
-};
-use crate::ffi::lean_int_emod;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_dec_le};
 pub static l_Std_Time_instReprHourMarker_repr___closed__0_value: crate::leanh::LeanStringObject<
     23,
 > = crate::leanh::LeanStringObject {

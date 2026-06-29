@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Grind.Ring.CommSemiringAdapter
 // Imports: Init.Grind.Ring.Envelope Init.Grind.Ring.CommSolver Init.Data.Int.LemmasAux Init.Omega
+use crate::ffi::{lean_int_dec_lt, lean_nat_abs, lean_nat_to_int};
 use crate::r#gen::Init::Data::Int::Basic::l_Int_pow;
 use crate::r#gen::Init::Data::Int::LemmasAux::{
     initialize_Init_Data_Int_LemmasAux, runtime_initialize_Init_Data_Int_LemmasAux,
@@ -21,9 +22,6 @@ use crate::r#gen::Init::Grind::Ring::Envelope::{
     runtime_initialize_Init_Grind_Ring_Envelope,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{
-    lean_int_dec_lt, lean_nat_abs, lean_nat_to_int,
-};
 static mut l_Lean_Grind_CommRing_Expr_toPolyS___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

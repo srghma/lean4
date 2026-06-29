@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Init.Data.String.Iterate
 // Imports: Init.Data.String.Basic Init.Data.String.FindPos Init.Data.Iterators.Combinators.FilterMap Init.Data.Iterators.Consumers.Loop Init.Omega Init.Data.Iterators.Consumers.Collect Init.Data.String.Lemmas.FindPos
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_get_byte_fast,
+    lean_string_utf8_byte_size, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+};
 use crate::r#gen::Init::Data::Iterators::Combinators::FilterMap::{
     initialize_Init_Data_Iterators_Combinators_FilterMap,
     runtime_initialize_Init_Data_Iterators_Combinators_FilterMap,
@@ -25,13 +29,6 @@ use crate::r#gen::Init::Data::String::Lemmas::FindPos::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size,
-};
 pub static l_String_Slice_instInhabitedByteIterator_default___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

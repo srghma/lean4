@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.CastLike
 // Imports: Lean.Expr Init.Grind.Ring.Envelope Init.Grind.Module.Envelope
+use crate::ffi::lean_name_eq;
 use crate::r#gen::Init::Grind::Module::Envelope::{
     initialize_Init_Grind_Module_Envelope, runtime_initialize_Init_Grind_Module_Envelope,
 };
@@ -10,7 +11,6 @@ use crate::r#gen::Init::Grind::Ring::Envelope::{
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_getAppFn, runtime_initialize_Lean_Expr,
 };
-use crate::ffi::lean_name_eq;
 pub static l_Lean_Meta_Grind_isCastLikeDeclName___closed__0_value: crate::leanh::LeanStringObject<
     5,
 > = crate::leanh::LeanStringObject {

@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Std.Time.Zoned.Database.TzIf
 // Imports: Init.Data.Range.Polymorphic.Iterators Std.Internal.Parsec Init.Data.Int.Repr
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_byte_array_fget, lean_byte_array_get, lean_byte_array_size,
+    lean_int_dec_lt, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_shiftl, lean_nat_sub,
+    lean_nat_to_int, lean_panic_fn_borrowed, lean_string_length, lean_string_push,
+    lean_string_to_utf8, lean_uint8_dec_eq, lean_uint8_of_nat, lean_uint8_to_nat,
+    lean_uint8_to_uint32, lean_uint32_lor, lean_uint32_of_nat, lean_uint32_shift_left,
+    lean_uint32_to_nat, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::ByteArray::Extra::{
     l_ByteArray_toUInt64BE_x21, l_ByteArray_toUInt64LE_x21,
 };
@@ -27,23 +36,6 @@ use crate::r#gen::Std::Internal::Parsec::ByteArray::{
 };
 use crate::r#gen::Std::Internal::Parsec::{
     initialize_Std_Internal_Parsec, runtime_initialize_Std_Internal_Parsec,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{
-    lean_byte_array_fget, lean_byte_array_get,
-};
-use crate::ffi::{lean_int_dec_lt, lean_nat_to_int};
-use crate::ffi::lean_nat_shiftl;
-use crate::ffi::{lean_string_length, lean_string_push};
-use crate::ffi::lean_string_to_utf8;
-use crate::ffi::{lean_uint32_lor, lean_uint32_shift_left};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint64_to_nat, lean_usize_add, lean_usize_dec_lt,
-};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list, lean_byte_array_size,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_uint8_dec_eq, lean_uint8_of_nat, lean_uint32_of_nat, lean_uint32_to_nat,
 };
 pub static l___private_Std_Time_Zoned_Database_TzIf_0__Std_Time_TimeZone_TZif_termInt32___closed__0_value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [95, 112, 114, 105, 118, 97, 116, 101, 0]};
 static mut l___private_Std_Time_Zoned_Database_TzIf_0__Std_Time_TimeZone_TZif_termInt32___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Std_Time_Zoned_Database_TzIf_0__Std_Time_TimeZone_TZif_termInt32___closed__0_value) as *mut crate::leanh::LeanObject;

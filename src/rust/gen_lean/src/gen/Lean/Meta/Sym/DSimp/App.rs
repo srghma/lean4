@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.DSimp.App
 // Imports: Lean.Meta.Sym.DSimp.DSimpM Lean.Meta.Sym.DSimp.Result Lean.Meta.Sym.AlphaShareBuilder Lean.Meta.Sym.ProofInstInfo Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_sym_dsimp,
+};
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
 use crate::r#gen::Lean::Expr::{
@@ -23,12 +27,6 @@ use crate::r#gen::Lean::Meta::Sym::ProofInstInfo::{
     initialize_Lean_Meta_Sym_ProofInstInfo, l_Lean_Meta_Sym_getProofInstInfoOfExpr_x3f___redArg,
     runtime_initialize_Lean_Meta_Sym_ProofInstInfo,
 };
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_sym_dsimp;
 static mut l_panic___at___00__private_Lean_Meta_Sym_DSimp_App_0__Lean_Meta_Sym_DSimp_dsimpAppArgs_go_spec__1___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_panic___at___00__private_Lean_Meta_Sym_DSimp_App_0__Lean_Meta_Sym_DSimp_dsimpAppArgs_go_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Meta_Sym_DSimp_App_0__Lean_Meta_Sym_DSimp_dsimpAppArgs_go___closed__0_value: crate::leanh::LeanStringObject<24> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 24, m_capacity: 24, m_length: 23, m_data: [76, 101, 97, 110, 46, 77, 101, 116, 97, 46, 83, 121, 109, 46, 68, 83, 105, 109, 112, 46, 65, 112, 112, 0]};

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.FunIndInfo
 // Imports: Lean.Meta.Basic Lean.ReservedNameAction
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_to_int, lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_length, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Data::Repr::{l_Bool_repr___redArg, l_Repr_addAppParen};
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
@@ -36,18 +42,6 @@ use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ReservedNameAction::{
     initialize_Lean_ReservedNameAction, l_Lean_realizeGlobalConstNoOverloadCore,
     runtime_initialize_Lean_ReservedNameAction,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_push, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_panic_fn_borrowed, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Meta_instBEqFunIndParamKind___closed__0_value: crate::leanh::LeanClosureObject<
     0,

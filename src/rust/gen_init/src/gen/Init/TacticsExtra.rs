@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Init.TacticsExtra
 // Imports: Init.Meta Init.Tactics Init.Data.Array.Basic
+use crate::ffi::{
+    lean_array_push, lean_array_size, lean_array_uget, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_sub, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     initialize_Init_Data_Array_Basic, l_Array_append___redArg,
     runtime_initialize_Init_Data_Array_Basic,
@@ -22,13 +27,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Init::Tactics::{
     initialize_Init_Tactics, l_Lean_Parser_Tactic_location, l_Lean_Parser_Tactic_optConfig,
     l_Lean_Parser_Tactic_rwRuleSeq, runtime_initialize_Init_Tactics,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_sub,
 };
 pub static l___private_Init_TacticsExtra_0__Lean_Parser_Tactic_expandIfThenElse___lam__0___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [76, 101, 97, 110, 0]};
 static mut l___private_Init_TacticsExtra_0__Lean_Parser_Tactic_expandIfThenElse___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_TacticsExtra_0__Lean_Parser_Tactic_expandIfThenElse___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;

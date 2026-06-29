@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Data.Lsp.Capabilities
 // Imports: Lean.Data.JsonRpc Lean.Data.Lsp.LanguageFeatures Lean.Data.Lsp.CodeActions Lean.Data.Lsp.Extra
+use crate::ffi::{
+    lean_array_size, lean_array_to_list, lean_array_uget, lean_array_uget_borrowed,
+    lean_array_uset, lean_string_append, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Lean::Data::Json::Basic::{
@@ -45,12 +49,6 @@ use crate::r#gen::Lean::Data::Lsp::TextSync::{
 use crate::r#gen::Lean::Server::Rpc::Basic::{
     l_Lean_Lsp_instFromJsonRpcWireFormat_fromJson, l_Lean_Lsp_instToJsonRpcWireFormat_toJson,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::lean_array_to_list;
 pub static l_Lean_Lsp_instToJsonCompletionItemCapabilities_toJson___closed__0_value:
     crate::leanh::LeanStringObject<21> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

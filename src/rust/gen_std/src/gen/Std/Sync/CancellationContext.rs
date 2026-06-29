@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Std.Sync.CancellationContext
 // Imports: Std.Sync.CancellationToken Init.Data.Ord.UInt
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_uget_borrowed,
+    lean_io_basemutex_lock, lean_io_basemutex_unlock, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mul, lean_st_ref_get, lean_st_ref_set, lean_uint64_add,
+    lean_uint64_dec_eq, lean_uint64_dec_lt, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt,
+    lean_usize_of_nat,
+};
 use crate::r#gen::Init::Core::l_Prod_map___redArg;
 use crate::r#gen::Init::Data::Ord::UInt::{
     initialize_Init_Data_Ord_UInt, runtime_initialize_Init_Data_Ord_UInt,
@@ -15,17 +22,6 @@ use crate::r#gen::Std::Sync::CancellationToken::{
     runtime_initialize_Std_Sync_CancellationToken,
 };
 use crate::r#gen::Std::Sync::Mutex::l_Std_Mutex_new___redArg;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_uint64_add, lean_uint64_dec_lt};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_mul, lean_uint64_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_ref_get, lean_st_ref_set};
-use crate::ffi::{lean_io_basemutex_lock, lean_io_basemutex_unlock};
 pub static l_Std_CancellationContext_new___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

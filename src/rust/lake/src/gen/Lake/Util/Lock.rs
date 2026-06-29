@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Util.Lock
 // Imports: Init.System.IO Init.Data.ToString.Macro
+use crate::ffi::{
+    lean_get_stderr, lean_io_prim_handle_mk, lean_io_process_get_pid, lean_string_append,
+    lean_uint32_to_nat,
+};
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::ToString::Basic::l_instToStringString___lam__0___boxed;
 use crate::r#gen::Init::Data::ToString::Macro::{
@@ -11,11 +15,6 @@ use crate::r#gen::Init::System::IO::{
     initialize_Init_System_IO, l_IO_FS_Handle_putStrLn, l_IO_FS_Stream_putStrLn,
     l_IO_FS_createDirAll, l_IO_FS_removeFile___boxed, l_IO_eprintln___redArg, l_IO_sleep,
     l_instMonadExceptOfEIO___aux__3___boxed, runtime_initialize_Init_System_IO,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_uint32_to_nat;
-use crate::ffi::{
-    lean_get_stderr, lean_io_prim_handle_mk, lean_io_process_get_pid,
 };
 pub static l___private_Lake_Util_Lock_0__Lake_busyAcquireLockFile_busyLoop___closed__0_value:
     crate::leanh::LeanStringObject<74> = crate::leanh::LeanStringObject {

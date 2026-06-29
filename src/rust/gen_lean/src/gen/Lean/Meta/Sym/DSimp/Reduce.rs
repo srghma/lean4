@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.DSimp.Reduce
 // Imports: Lean.Meta.Sym.DSimp.DSimpM Lean.Meta.Sym.InstantiateS Lean.Meta.Sym.Util Lean.Meta.WHNF Lean.ProjFns
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_sub, lean_st_ref_get,
+};
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Expr::{
     l___private_Lean_Expr_0__Lean_Expr_getAppArgsAux,
@@ -31,11 +35,6 @@ use crate::r#gen::Lean::ProjFns::{
     initialize_Lean_ProjFns, l_Lean_Environment_getProjectionFnInfo_x3f,
     runtime_initialize_Lean_ProjFns,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_sub,
-};
-use crate::ffi::lean_st_ref_get;
 pub static l_Lean_Meta_Sym_DSimp_beta___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

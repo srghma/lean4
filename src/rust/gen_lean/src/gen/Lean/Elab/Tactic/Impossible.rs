@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Impossible
 // Imports: Lean.Elab.Tactic.Basic Lean.Elab.ConfigEval Lean.Meta.Tactic.Cleanup Lean.Meta.Tactic.Revert Lean.Meta.Tactic.Intro Lean.Meta.Closure
+use crate::ffi::{
+    lean_array_get_borrowed, lean_array_get_size, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uset, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Prelude::{l_Lean_Syntax_getArg, l_Lean_replaceRef};
 use crate::r#gen::Lean::AddDecl::l_Lean_addDecl;
 use crate::r#gen::Lean::CoreM::{
@@ -90,17 +96,6 @@ use crate::r#gen::Lean::MetavarContext::l_Lean_instantiateMVarsCore;
 use crate::r#gen::Lean::Util::InstantiateLevelParams::l_Lean_Expr_instantiateLevelParamsArray;
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Sorry::{l_Lean_Expr_hasSorry, l_Lean_Expr_hasSyntheticSorry};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_get_borrowed, lean_array_get_size, lean_array_to_list,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l___private_Lean_Elab_Tactic_Impossible_0__Lean_Elab_Tactic_mkImpossibleNegType___lam__0___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [70, 97, 108, 115, 101, 0]};
 static mut l___private_Lean_Elab_Tactic_Impossible_0__Lean_Elab_Tactic_mkImpossibleNegType___lam__0___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Impossible_0__Lean_Elab_Tactic_mkImpossibleNegType___lam__0___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_Tactic_Impossible_0__Lean_Elab_Tactic_mkImpossibleNegType___lam__0___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Elab_Tactic_Impossible_0__Lean_Elab_Tactic_mkImpossibleNegType___lam__0___closed__0_value) as *mut crate::leanh::LeanObject,907667957179513571 as *mut crate::leanh::LeanObject] };

@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Init.Data.String.Pattern.String
 // Imports: Init.Data.String.Pattern.Basic Init.Data.Vector.Basic Init.Data.String.FindPos Init.Data.String.Termination Init.Data.String.Lemmas.FindPos Init.ByCases Init.Data.Array.Lemmas Init.Data.Option.Lemmas Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_string_get_byte_fast, lean_string_memcmp,
+    lean_string_utf8_byte_size, lean_string_utf8_next_fast, lean_uint8_dec_eq,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Lemmas::{
     initialize_Init_Data_Array_Lemmas, runtime_initialize_Init_Data_Array_Lemmas,
@@ -28,14 +34,6 @@ use crate::r#gen::Init::Data::Vector::Basic::{
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::lean_string_utf8_next_fast;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::lean_string_get_byte_fast;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_sub, lean_string_utf8_byte_size, lean_uint8_dec_eq,
-};
 pub static l_String_Slice_Pattern_ForwardSliceSearcher_buildTable___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
     m_header: crate::leanh::LeanObject {

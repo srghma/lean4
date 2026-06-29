@@ -1,6 +1,25 @@
 // Lean compiler output
 // Module: Lean.Shell
 // Imports: Lean.Elab.Frontend Lean.Elab.ParseImportsFast Lean.Server.Watchdog Lean.Server.FileWorker Lean.Compiler.LCNF.EmitRust Init.System.Platform Lean.Compiler.Options
+use crate::ffi::{
+    lean_array_mk, lean_array_push, lean_array_to_list, lean_decode_lossy_utf8,
+    lean_display_cumulative_profiling_times, lean_emit_llvm, lean_eval_main, lean_get_stderr,
+    lean_get_stdin, lean_get_stdout, lean_init_llvm, lean_internal_enable_debug,
+    lean_internal_get_believer_trust_level, lean_internal_get_build_type,
+    lean_internal_get_default_max_heartbeat, lean_internal_get_default_max_memory,
+    lean_internal_get_default_options, lean_internal_get_default_verbose,
+    lean_internal_get_hardware_concurrency, lean_internal_has_address_sanitizer,
+    lean_internal_has_llvm_backend, lean_internal_is_debug, lean_internal_is_multi_thread,
+    lean_internal_set_exit_on_panic, lean_internal_set_max_heartbeat, lean_internal_set_max_memory,
+    lean_internal_set_thread_stack_size, lean_io_exit, lean_io_get_num_heartbeats,
+    lean_io_prim_handle_mk, lean_io_prim_handle_write, lean_mk_empty_array_with_capacity,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_pow,
+    lean_nat_shiftr, lean_nat_sub, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_append, lean_string_dec_eq, lean_string_memcmp, lean_string_push,
+    lean_string_to_utf8, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_add, lean_uint32_dec_eq,
+    lean_uint32_of_nat, lean_usize_mul, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_isEmpty___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_pos_x21;
@@ -71,40 +90,6 @@ use crate::r#gen::Lean::Util::Path::{
 use crate::r#gen::Lean::Util::Profile::{l_Lean_profileitIOUnsafe___redArg, l_Lean_profiler};
 use crate::r#gen::Lean::Util::RecDepth::l_Lean_maxRecDepth;
 use crate::r#gen::Lean::Util::Trace::l_Lean_inheritedTraceOptions;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::lean_usize_mul;
-use crate::ffi::lean_uint32_add;
-use crate::ffi::lean_internal_has_llvm_backend;
-use crate::ffi::{
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mul, lean_nat_pow,
-    lean_nat_sub, lean_string_dec_eq, lean_string_utf8_byte_size, lean_uint32_dec_eq,
-    lean_uint32_of_nat, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_get_stderr, lean_get_stdin, lean_get_stdout, lean_io_exit, lean_io_get_num_heartbeats,
-    lean_io_prim_handle_mk, lean_io_prim_handle_write,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_decode_lossy_utf8, lean_emit_llvm, lean_eval_main, lean_init_llvm,
-    lean_internal_enable_debug, lean_internal_get_believer_trust_level,
-    lean_internal_get_build_type, lean_internal_get_default_max_heartbeat,
-    lean_internal_get_default_max_memory, lean_internal_get_default_options,
-    lean_internal_get_default_verbose, lean_internal_get_hardware_concurrency,
-    lean_internal_has_address_sanitizer, lean_internal_is_debug, lean_internal_is_multi_thread,
-    lean_internal_set_exit_on_panic, lean_internal_set_max_heartbeat, lean_internal_set_max_memory,
-    lean_internal_set_thread_stack_size,
-};
-use crate::ffi::lean_display_cumulative_profiling_times;
 pub static l___private_Lean_Shell_0__Lean_shortVersionString___closed__0_value:
     crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Reflect.ReifiedBVExpr
 // Imports: Lean.Meta.Tactic.BVDecide.Reflect.Basic Std.Tactic.BVDecide.Reflect Lean.Meta.LitValues
+use crate::ffi::{lean_infer_type, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take};
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_app___override, l_Lean_Expr_appFnCleanup___redArg, l_Lean_Expr_cleanupAnnotations,
     l_Lean_Expr_const___override, l_Lean_Expr_hasMVar, l_Lean_Expr_isApp, l_Lean_Expr_isConstOf,
@@ -26,10 +27,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Basic::{
 use crate::r#gen::Std::Tactic::BVDecide::Reflect::{
     initialize_Std_Tactic_BVDecide_Reflect, runtime_initialize_Std_Tactic_BVDecide_Reflect,
 };
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 pub static l_Lean_Meta_Tactic_BVDecide_ReifiedBVExpr_mkEvalExpr___closed__0_value:
     crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

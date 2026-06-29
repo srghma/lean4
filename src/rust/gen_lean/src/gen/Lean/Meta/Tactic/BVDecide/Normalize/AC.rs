@@ -1,6 +1,17 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.BVDecide.Normalize.AC
 // Imports: Lean.Meta.Tactic.AC.Main Lean.Meta.Tactic.BVDecide.Normalize.Basic
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap, lean_array_get,
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_eqv, lean_float_decLt, lean_float_div,
+    lean_float_sub, lean_io_get_num_heartbeats, lean_io_mono_nanos_now, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub, lean_nat_to_int,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_of_nat,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::OfScientific::lean_float_of_nat;
 use crate::r#gen::Init::Data::Option::Basic::l_Option_merge___redArg;
@@ -55,32 +66,6 @@ use crate::r#gen::Lean::Util::Trace::{
     l_Lean_checkEmoji, l_Lean_trace_profiler, l_Lean_trace_profiler_threshold,
     l_Lean_trace_profiler_useHeartbeats,
 };
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_io_get_num_heartbeats, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 pub static l_Lean_Meta_Tactic_BVDecide_Normalize_BitVec_mkType___closed__0_value:
     crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

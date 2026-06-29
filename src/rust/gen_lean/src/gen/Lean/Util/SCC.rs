@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Util.SCC
 // Imports: Std.Data.HashMap.Basic Init.Data.Option.Coe
+use crate::ffi::{lean_mk_array, lean_nat_add, lean_nat_dec_lt};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -27,8 +28,6 @@ use crate::r#gen::Std::Data::DHashMap::Internal::Defs::{
 use crate::r#gen::Std::Data::HashMap::Basic::{
     initialize_Std_Data_HashMap_Basic, runtime_initialize_Std_Data_HashMap_Basic,
 };
-use crate::ffi::lean_mk_array;
-use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
 pub static l___private_Lean_Util_SCC_0__Lean_SCC_getDataOf___redArg___closed__0_value:
     crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
     m_header: crate::leanh::LeanObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Server.Completion.CompletionResolution
 // Imports: Lean.Data.Lsp Lean.Server.Completion.CompletionInfoSelection Lean.Linter.Deprecated
+use crate::ffi::{
+    lean_array_fget, lean_array_get_size, lean_expr_instantiate1, lean_nat_dec_lt, lean_st_ref_get,
+    lean_string_append,
+};
 use crate::r#gen::Init::Data::Format::Basic::{l_Std_Format_defWidth, l_Std_Format_pretty};
 use crate::r#gen::Init::Data::ToString::Basic::l_addParenHeuristic;
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
@@ -28,12 +32,6 @@ use crate::r#gen::Lean::Server::Completion::CompletionInfoSelection::{
     l_Lean_Server_Completion_findCompletionInfosAt,
     runtime_initialize_Lean_Server_Completion_CompletionInfoSelection,
 };
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_fget, lean_array_get_size, lean_nat_dec_lt,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_instantiate1;
 pub static l_Lean_Lsp_CompletionItem_resolve___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

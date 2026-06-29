@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.ToExpr
 // Imports: Lean.Compiler.LCNF.Basic Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_sub, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -22,17 +28,6 @@ use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_mdata___override, l_Lean_Expr_proj___override, l_Lean_mkApp3, l_Lean_mkApp4,
     l_Lean_mkApp5, l_Lean_mkAppB, l_Lean_mkAppN, l_Lean_mkConst, l_Lean_mkNatLit,
     l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_instSingletonFVarIdFVarIdSet_spec__1___redArg,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_sub, lean_usize_dec_eq,
 };
 pub static l_Lean_Compiler_LCNF_ToExpr_run_x27___redArg___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Util.MainM
 // Imports: Lake.Util.Log Lake.Util.Exit
+use crate::ffi::{
+    lean_array_get_size, lean_array_uget_borrowed, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_uint32_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Array::Basic::l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold;
 use crate::r#gen::Init::System::IO::l_instMonadBaseIO;
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
@@ -11,11 +15,6 @@ use crate::r#gen::Lake::Util::Log::{
     initialize_Lake_Util_Log, l_Lake_AnsiMode_isEnabled, l_Lake_Log_maxLv, l_Lake_OutStream_get,
     l_Lake_OutStream_logEntry, l_Lake_instOrdLogLevel_ord, l_Lake_logToStream,
     runtime_initialize_Lake_Util_Log,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_nat_dec_le, lean_nat_dec_lt, lean_uint32_dec_eq, lean_usize_dec_eq,
 };
 pub static l_Lake_instMonadMainM___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

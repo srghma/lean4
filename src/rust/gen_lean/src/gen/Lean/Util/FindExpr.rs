@@ -1,9 +1,8 @@
 // Lean compiler output
 // Module: Lean.Util.FindExpr
 // Imports: Lean.Expr
+use crate::ffi::{lean_expr_eqv, lean_find_expr, lean_find_ext_expr};
 use crate::r#gen::Lean::Expr::{initialize_Lean_Expr, runtime_initialize_Lean_Expr};
-use crate::ffi::lean_expr_eqv;
-use crate::ffi::{lean_find_expr, lean_find_ext_expr};
 pub unsafe fn l_Lean_Expr_findImpl_x3f___boxed(
     mut v_p_108_: *mut crate::leanh::LeanObject,
     mut v_e_109_: *mut crate::leanh::LeanObject,

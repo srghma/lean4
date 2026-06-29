@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Build.Job.Register
 // Imports: Lake.Build.Fetch
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_get_set_stderr, lean_get_set_stdout,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_from_utf8_unchecked,
+    lean_string_utf8_byte_size, lean_string_validate_utf8, lean_task_map, lean_task_pure,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_shrink___redArg;
 use crate::r#gen::Init::Data::String::Slice::{l_String_Slice_toString, l_String_Slice_trimAscii};
 use crate::r#gen::Init::Prelude::{l_Array_extract___redArg, l_ByteArray_empty};
@@ -14,17 +20,6 @@ use crate::r#gen::Lake::Build::Job::Basic::{
     l_Lake_Job_toOpaque___redArg, l_Lake_JobResult_prependLog___redArg,
 };
 use crate::r#gen::Lake::Build::Trace::l_Lake_BuildTrace_nil;
-use crate::ffi::{lean_task_map, lean_task_pure};
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_nat_dec_eq, lean_nat_dec_lt, lean_panic_fn_borrowed,
-    lean_string_from_utf8_unchecked, lean_string_utf8_byte_size,
-};
-use crate::ffi::{lean_get_set_stderr, lean_get_set_stdout};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lake_JobState_renew___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

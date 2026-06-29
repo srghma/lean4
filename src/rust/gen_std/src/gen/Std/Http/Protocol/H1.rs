@@ -1,6 +1,21 @@
 // Lean compiler output
 // Module: Std.Http.Protocol.H1
 // Imports: Std.Time Init.Data.Array Std.Http.Data Std.Http.Internal Std.Http.Protocol.H1.Parser Std.Http.Protocol.H1.Config Std.Http.Protocol.H1.Message Std.Http.Protocol.H1.Reader Std.Http.Protocol.H1.Writer Std.Http.Protocol.H1.Event
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_push, lean_array_size, lean_array_to_list, lean_array_uget,
+    lean_array_uget_borrowed, lean_array_uset, lean_byte_array_copy_slice, lean_byte_array_mk,
+    lean_byte_array_size, lean_mk_array, lean_mk_empty_array_with_capacity, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
+    lean_string_append, lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_hash,
+    lean_string_to_utf8, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_string_utf8_set, lean_uint16_dec_eq, lean_uint16_dec_le, lean_uint16_dec_lt,
+    lean_uint16_to_nat, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_dec_le,
+    lean_uint32_to_uint8, lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor,
+    lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land, lean_usize_of_nat,
+    lean_usize_sub, lean_uv_ntop_v4, lean_uv_ntop_v6,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -100,34 +115,6 @@ use crate::r#gen::Std::Http::Protocol::H1::Writer::{
     runtime_initialize_Std_Http_Protocol_H1_Writer,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_byte_array_copy_slice;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next_fast,
-};
-use crate::ffi::{lean_string_append, lean_string_to_utf8};
-use crate::ffi::lean_string_utf8_set;
-use crate::ffi::{
-    lean_uint16_dec_le, lean_uint16_dec_lt, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint16_to_nat, lean_uint32_add, lean_uint32_to_uint8, lean_usize_add, lean_usize_dec_lt,
-    lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_array_to_list, lean_byte_array_mk, lean_byte_array_size,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
-    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub, lean_string_dec_eq,
-    lean_string_from_utf8_unchecked, lean_string_hash, lean_string_utf8_byte_size,
-    lean_uint16_dec_eq, lean_uint32_dec_eq, lean_uint32_dec_le, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_uv_ntop_v4, lean_uv_ntop_v6};
 pub static l___private_Std_Http_Protocol_H1_0__Std_Http_Protocol_H1_Machine_failBadMessage___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 2 }, m_objs: [((( 8 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Std_Http_Protocol_H1_0__Std_Http_Protocol_H1_Machine_failBadMessage___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Std_Http_Protocol_H1_0__Std_Http_Protocol_H1_Machine_failBadMessage___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l___private_Std_Http_Protocol_H1_0__Std_Http_Protocol_H1_Machine_failBadMessage___redArg___closed__1_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 7 }, m_objs: [((( 8 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };

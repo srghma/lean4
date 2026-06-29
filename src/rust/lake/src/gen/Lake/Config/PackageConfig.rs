@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.Config.PackageConfig
 // Imports: Init.Dynamic Lake.Util.Version Lake.Config.Pattern Lake.Config.LeanConfig Lake.Config.WorkspaceConfig Lake.Config.Meta Init.System.Platform Lake.Config.Meta
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_string_append, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -38,12 +42,6 @@ use crate::r#gen::Lake::Util::Version::{
     initialize_Lake_Util_Version, runtime_initialize_Lake_Util_Version,
 };
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_NameMap_insert_spec__0___redArg;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_usize_of_nat;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le,
-    lean_nat_dec_lt,
-};
 pub static l_Lake_defaultBuildArchive___closed__0_value: crate::leanh::LeanStringObject<2> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Time.Duration
 // Imports: Std.Time.Date Init.Data.String.Basic Init.Data.String.Length
+use crate::ffi::{
+    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_div, lean_int_ediv,
+    lean_int_mod, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_dec_eq, lean_nat_sub,
+    lean_nat_to_int, lean_string_append, lean_string_length, lean_string_push,
+};
 use crate::r#gen::Init::Data::Int::Repr::l_Int_repr;
 use crate::r#gen::Init::Data::Ord::Basic::{l_compareLex___boxed, l_compareOn___boxed};
 use crate::r#gen::Init::Data::Rat::Basic::l_Rat_ofInt;
@@ -28,17 +33,6 @@ use crate::r#gen::Std::Time::Time::Unit::Nanosecond::{
 use crate::r#gen::Std::Time::Time::Unit::Second::{
     l_Std_Time_Second_instOrdOffset___aux__1___boxed, l_Std_Time_Second_instReprOffset___lam__0,
 };
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_to_int,
-};
-use crate::ffi::{
-    lean_int_div, lean_int_ediv, lean_int_mod,
-};
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub static l_Std_Time_instReprDuration_repr___redArg___closed__0_value:
     crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

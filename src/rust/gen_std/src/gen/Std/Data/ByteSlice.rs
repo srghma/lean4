@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Data.ByteSlice
 // Imports: Init.Data.ByteArray Init.Data.Slice.Basic Init.Data.Slice.Notation Init.Data.Range.Polymorphic.Nat Init.Omega
+use crate::ffi::{
+    lean_byte_array_fget, lean_byte_array_size, lean_byteslice_beq, lean_nat_add, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_uint8_dec_eq,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -20,12 +24,6 @@ use crate::r#gen::Init::Data::Slice::Notation::{
     initialize_Init_Data_Slice_Notation, runtime_initialize_Init_Data_Slice_Notation,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::lean_byte_array_fget;
-use crate::ffi::{
-    lean_byte_array_size, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_uint8_dec_eq,
-};
-use crate::ffi::lean_byteslice_beq;
 pub static l_ByteSlice_instGetElemNatUInt8LtSize___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
     m_header: crate::leanh::LeanObject {

@@ -1,10 +1,10 @@
 // Lean compiler output
 // Module: Lean.Util.UnusedBinders
 // Imports: Lean.Expr
+use crate::ffi::lean_expr_has_loose_bvar;
 use crate::r#gen::Lean::Expr::{
     initialize_Lean_Expr, l_Lean_Expr_cleanupAnnotations, runtime_initialize_Lean_Expr,
 };
-use crate::ffi::lean_expr_has_loose_bvar;
 pub unsafe fn l_Lean_Expr_hasUnusedForallBindersWhere(
     mut v_p_22_: *mut crate::leanh::LeanObject,
     mut v_e_23_: *mut crate::leanh::LeanObject,

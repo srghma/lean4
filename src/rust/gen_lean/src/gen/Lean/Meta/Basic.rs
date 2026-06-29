@@ -1,6 +1,26 @@
 // Lean compiler output
 // Module: Lean.Meta.Basic
 // Imports: Init.Control.Do Lean.Data.LOption Lean.Class Lean.ReducibilityAttrs Lean.Util.MonadBacktrack Lean.Compiler.InlineAttrs Lean.Meta.TransparencyMode Init.Data.Range.Polymorphic.Iterators Init.While
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap, lean_array_get,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_bool_to_uint64,
+    lean_checked_assign, lean_expr_abstract_range, lean_expr_equal, lean_expr_eqv,
+    lean_expr_instantiate_rev, lean_expr_instantiate_rev_range, lean_expr_instantiate1,
+    lean_expr_quick_lt, lean_float_decLt, lean_float_div, lean_float_sub, lean_get_set_stderr,
+    lean_get_set_stdin, lean_get_set_stdout, lean_infer_type, lean_instantiate_level_mvars,
+    lean_io_get_num_heartbeats, lean_io_map_task, lean_io_mono_nanos_now, lean_is_expr_def_eq,
+    lean_is_level_def_eq, lean_level_eq, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_nat_shiftr, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed,
+    lean_replace_expr, lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq, lean_string_from_utf8_unchecked, lean_string_length,
+    lean_string_validate_utf8, lean_synth_pending, lean_uint64_dec_eq, lean_uint64_lor,
+    lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_left, lean_uint64_shift_right,
+    lean_uint64_to_usize, lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_le,
+    lean_usize_dec_lt, lean_usize_land, lean_usize_mul, lean_usize_of_nat, lean_usize_shift_left,
+    lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat, lean_whnf,
+};
 use crate::r#gen::Init::Control::Basic::l_instMonadControlTOfPure___redArg;
 use crate::r#gen::Init::Control::Do::{
     initialize_Init_Control_Do, runtime_initialize_Init_Control_Do,
@@ -195,51 +215,6 @@ use crate::r#gen::Lean::Util::Trace::{
     l_Lean_trace_profiler_output, l_Lean_trace_profiler_serve, l_Lean_trace_profiler_threshold,
     l_Lean_trace_profiler_useHeartbeats,
 };
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-    lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{lean_float_decLt, lean_float_div, lean_float_sub};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::lean_string_validate_utf8;
-use crate::ffi::lean_string_length;
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_bool_to_uint64, lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-    lean_uint64_to_usize, lean_uint64_xor, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_from_utf8_unchecked,
-    lean_uint64_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_get_set_stderr, lean_get_set_stdin, lean_get_set_stdout, lean_io_get_num_heartbeats,
-    lean_io_map_task, lean_io_mono_nanos_now,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::{
-    lean_expr_abstract_range, lean_expr_equal, lean_expr_eqv, lean_expr_instantiate_rev,
-    lean_expr_instantiate_rev_range, lean_expr_instantiate1, lean_expr_quick_lt,
-};
-use crate::ffi::lean_level_eq;
-use crate::ffi::{
-    lean_checked_assign, lean_infer_type, lean_is_expr_def_eq, lean_is_level_def_eq,
-    lean_synth_pending, lean_whnf,
-};
-use crate::ffi::lean_instantiate_level_mvars;
-use crate::ffi::lean_replace_expr;
 pub static l___private_Lean_Meta_Basic_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_Basic_4017134330____hygCtx___hyg_2__value: crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 13, m_capacity: 13, m_length: 12, m_data: [105, 115, 68, 101, 102, 69, 113, 83, 116, 117, 99, 107, 0]};
 static mut l___private_Lean_Meta_Basic_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_Basic_4017134330____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Basic_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_Basic_4017134330____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Basic_0__Lean_Meta_initFn___closed__1_00___x40_Lean_Meta_Basic_4017134330____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Meta_Basic_0__Lean_Meta_initFn___closed__0_00___x40_Lean_Meta_Basic_4017134330____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject,4359603264703594885 as *mut crate::leanh::LeanObject] };

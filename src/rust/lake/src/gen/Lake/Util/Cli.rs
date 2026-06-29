@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lake.Util.Cli
 // Imports: Init.Data.String.TakeDrop Init.Data.String.Search Init.Data.String.Length
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
+    lean_string_utf8_at_end, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::Char::Basic::l_Char_isWhitespace___boxed;
 use crate::r#gen::Init::Data::String::Basic::l_String_Slice_Pos_nextn;
 use crate::r#gen::Init::Data::String::Iterate::l_String_Slice_positions;
@@ -16,14 +22,6 @@ use crate::r#gen::Init::Data::String::TakeDrop::{
     initialize_Init_Data_String_TakeDrop, runtime_initialize_Init_Data_String_TakeDrop,
 };
 use crate::r#gen::Init::WFExtrinsicFix::l_WellFounded_opaqueFix_u2083___redArg;
-use crate::ffi::{
-    lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq,
-};
 pub static l_Lake_ArgsT_run_x27___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

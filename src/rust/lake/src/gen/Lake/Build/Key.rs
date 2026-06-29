@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lake.Build.Key
 // Imports: Init.Data.Order Lake.Util.Name Init.Data.String.Search Init.Data.Iterators.Consumers
+use crate::ffi::{
+    lean_array_push, lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
+    lean_nat_dec_le, lean_nat_sub, lean_nat_to_int, lean_panic_fn_borrowed, lean_string_append,
+    lean_string_memcmp, lean_string_utf8_byte_size, lean_string_utf8_extract,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq,
+    lean_uint64_mix_hash, lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Data::Iterators::Consumers::{
     initialize_Init_Data_Iterators_Consumers, runtime_initialize_Init_Data_Iterators_Consumers,
 };
@@ -26,17 +33,6 @@ use crate::r#gen::Lake::Util::Name::{
 use crate::r#gen::Lean::Data::Name::{
     l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl, l_Lean_Name_getPrefix,
     l_Lean_Name_isAnonymous,
-};
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_array_push, lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_sub, lean_panic_fn_borrowed, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat,
 };
 pub static l_Lake_instInhabitedBuildKey_default___closed__0_value: crate::leanh::LeanCtorObject<1> =
     crate::leanh::LeanCtorObject {

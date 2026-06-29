@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Meta.DiscrTree.Basic
 // Imports: Lean.Meta.DiscrTree.Types Lean.CoreM Init.Data.Range.Polymorphic.Iterators Init.Omega
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get,
+    lean_array_get_size, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_to_int, lean_st_mk_ref, lean_st_ref_get,
+    lean_st_ref_set, lean_string_length, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -50,17 +57,6 @@ use crate::r#gen::Lean::Meta::DiscrTree::Types::{
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::ToExpr::l___private_Lean_ToExpr_0__Lean_Name_toExprAux;
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity, lean_name_eq,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
-};
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static l_Lean_Meta_DiscrTree_mkNoindexAnnotation___closed__0_value:
     crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

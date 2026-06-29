@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.AuxDeclCache
 // Imports: Lean.Compiler.LCNF.DeclHash Lean.Compiler.LCNF.Internalize
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_nat_sub,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_uint64_mix_hash, lean_uint64_to_usize, lean_usize_add, lean_usize_dec_le, lean_usize_land,
+    lean_usize_mul, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::List::Impl::l___private_Init_Data_List_Impl_0__List_takeTR_go;
 use crate::r#gen::Init::Prelude::l_List_lengthTR___redArg;
 use crate::r#gen::Init::Util::l_mkPanicMessageWithDecl;
@@ -24,22 +32,6 @@ use crate::r#gen::Lean::Data::PersistentHashMap::{
 use crate::r#gen::Lean::Environment::{
     l___private_Lean_Environment_0__Lean_EnvExtension_getStateUnsafe___redArg,
     l_Lean_EnvExtension_modifyState___redArg, l_Lean_registerEnvExtension___redArg,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_nat_add, lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed,
-    lean_uint64_mix_hash,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Compiler_LCNF_instBEqAuxDeclCacheKey___closed__0_value:
     crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {

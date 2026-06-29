@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.RegisterCommand
 // Imports: Lean.Meta.Sym.Simp.Attr Lean.Meta.Sym.Simp.Variant Init.Data.ToString.Name Init.Data.String.Extra
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_string_append, lean_string_intercalate,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::String::Extra::{
     initialize_Init_Data_String_Extra, l_String_removeLeadingSpaces,
@@ -28,10 +31,6 @@ use crate::r#gen::Lean::Meta::Sym::Simp::Attr::{
 use crate::r#gen::Lean::Meta::Sym::Simp::Variant::{
     initialize_Lean_Meta_Sym_Simp_Variant, runtime_initialize_Lean_Meta_Sym_Simp_Variant,
 };
-use crate::ffi::{
-    lean_string_append, lean_string_intercalate,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_Parser_Command_registerSymSimpAttr___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

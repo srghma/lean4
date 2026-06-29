@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Elab.CheckTactic
 // Imports: Lean.Elab.Tactic.ElabTerm Lean.Elab.Command Lean.Elab.Tactic.Meta Lean.Meta.CheckTactic
+use crate::ffi::{
+    lean_infer_type, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint64_lor,
+    lean_uint64_shift_left, lean_uint64_shift_right,
+};
 use crate::r#gen::Init::Prelude::{
     l_Array_mkArray0, l_Lean_Macro_throwUnsupported___redArg, l_Lean_SourceInfo_fromRef,
     l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind, l_Lean_Syntax_node1, l_Lean_Syntax_node4,
@@ -47,13 +51,6 @@ use crate::r#gen::Lean::Meta::CheckTactic::{
     l_Lean_Meta_CheckTactic_mkCheckGoalType, runtime_initialize_Lean_Meta_CheckTactic,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_getType;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_infer_type;
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_CheckTactic_elabCheckTactic_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Elab_throwUnsupportedSyntax___at___00Lean_Elab_CheckTactic_elabCheckTactic_spec__0___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_List_foldl___at___00Lean_Elab_addMacroStack___at___00Lean_throwError___at___00Lean_throwErrorAt___at___00Lean_Elab_CheckTactic_elabCheckTactic_spec__1_spec__1_spec__3_spec__7___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

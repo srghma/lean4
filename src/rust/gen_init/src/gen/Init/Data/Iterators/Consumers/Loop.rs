@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Consumers.Loop
 // Imports: Init.Data.Iterators.Consumers.Monadic.Loop Init.Data.Iterators.Consumers.Partial Init.Data.Iterators.Consumers.Total
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Control::Basic::l_instForInOfForIn_x27___redArg___lam__1;
 use crate::r#gen::Init::Data::Iterators::Consumers::Monadic::Loop::{
     initialize_Init_Data_Iterators_Consumers_Monadic_Loop,
@@ -14,7 +15,6 @@ use crate::r#gen::Init::Data::Iterators::Consumers::Total::{
     initialize_Init_Data_Iterators_Consumers_Total,
     runtime_initialize_Init_Data_Iterators_Consumers_Total,
 };
-use crate::ffi::lean_nat_add;
 pub static l_Std_Iter_instForIn_x27___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

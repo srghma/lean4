@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Std.Async.DNS
 // Imports: Std.Time Std.Internal.UV Std.Async.Basic Init.Data.Function
+use crate::ffi::{
+    lean_io_promise_result_opt, lean_task_map, lean_uv_dns_get_info, lean_uv_dns_get_name,
+};
 use crate::r#gen::Init::Control::Except::l_Except_map;
 use crate::r#gen::Init::Data::Function::{
     initialize_Init_Data_Function, l_Function_uncurry, runtime_initialize_Init_Data_Function,
@@ -15,9 +18,6 @@ use crate::r#gen::Std::Internal::UV::{
     initialize_Std_Internal_UV, runtime_initialize_Std_Internal_UV,
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
-use crate::ffi::lean_task_map;
-use crate::ffi::lean_io_promise_result_opt;
-use crate::ffi::{lean_uv_dns_get_info, lean_uv_dns_get_name};
 pub static l_Std_Async_DNS_getAddrInfo___closed__0_value: crate::leanh::LeanStringObject<44> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

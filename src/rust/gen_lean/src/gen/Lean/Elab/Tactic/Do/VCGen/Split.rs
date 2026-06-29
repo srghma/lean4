@@ -1,6 +1,14 @@
 // Lean compiler output
 // Module: Lean.Elab.Tactic.Do.VCGen.Split
 // Imports: Lean.Meta.Tactic.Simp.Types Lean.Meta.Match.MatcherApp.Transform Lean.Data.Array Lean.Meta.Match.Rewrite Lean.Meta.Tactic.Simp.Rewrite Lean.Meta.Tactic.Assumption
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
+    lean_array_mk, lean_array_push, lean_array_set, lean_array_size, lean_array_to_list,
+    lean_array_uget_borrowed, lean_array_uset, lean_expr_instantiate_rev, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_sub, lean_panic_fn_borrowed, lean_st_ref_get, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::Basic::l_instMonadControlTOfPure___redArg;
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
@@ -93,19 +101,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::Types::{
     initialize_Lean_Meta_Tactic_Simp_Types, runtime_initialize_Lean_Meta_Tactic_Simp_Types,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_set;
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_panic_fn_borrowed,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_expr_instantiate_rev;
 pub static l_Lean_Elab_Tactic_Do_instInhabitedSplitInfo_default___closed__0_value:
     crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

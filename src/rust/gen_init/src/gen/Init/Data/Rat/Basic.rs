@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.Rat.Basic
 // Imports: Init.Data.Nat.Coprime Init.Data.OfScientific Init.Data.Int.DivMod.Basic Init.Data.String.Defs Init.Data.ToString.Macro Init.Data.ToString.Extra Init.Data.Hashable Init.Data.Int.DivMod.Bootstrap Init.Data.Int.DivMod.Lemmas Init.Data.Int.Lemmas Init.Data.Int.Order Init.Data.Int.Pow Init.Data.Nat.Dvd
+use crate::ffi::{
+    lean_array_push, lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt,
+    lean_int_div_exact, lean_int_ediv, lean_int_mul, lean_int_neg, lean_int_sub, lean_nat_abs,
+    lean_nat_add, lean_nat_dec_eq, lean_nat_div, lean_nat_div_exact, lean_nat_gcd, lean_nat_mul,
+    lean_nat_pow, lean_nat_sub, lean_nat_to_int, lean_string_append, lean_uint64_mix_hash,
+    lean_uint64_of_nat,
+};
 use crate::r#gen::Init::Data::Hashable::{
     initialize_Init_Data_Hashable, runtime_initialize_Init_Data_Hashable,
 };
@@ -47,19 +54,6 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_SourceInfo_fromRef, l_Lean_Syntax_getArg, l_Lean_Syntax_isOfKind,
     l_Lean_Syntax_matchesNull, l_Lean_Syntax_node2, l_Lean_Syntax_node3, l_Lean_addMacroScope,
     l_Lean_mkAtom, l_Lean_replaceRef, l_String_toRawSubstring_x27,
-};
-use crate::ffi::{
-    lean_int_add, lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_mul, lean_int_neg,
-    lean_int_sub, lean_nat_abs, lean_nat_to_int,
-};
-use crate::ffi::{lean_int_div_exact, lean_int_ediv};
-use crate::ffi::lean_nat_div_exact;
-use crate::ffi::lean_nat_gcd;
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_uint64_of_nat;
-use crate::ffi::{
-    lean_array_push, lean_nat_add, lean_nat_dec_eq, lean_nat_div, lean_nat_mul, lean_nat_pow,
-    lean_nat_sub, lean_uint64_mix_hash,
 };
 pub static l_Rat_den__nz___autoParam___closed__0_value: crate::leanh::LeanStringObject<5> =
     crate::leanh::LeanStringObject {

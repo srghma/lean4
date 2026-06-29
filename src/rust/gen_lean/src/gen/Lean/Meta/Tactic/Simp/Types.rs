@@ -1,6 +1,20 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.Types
 // Imports: Lean.Meta.AppBuilder Lean.Meta.CongrTheorems Lean.Meta.Eqns Lean.Meta.Tactic.Simp.SimpTheorems Lean.Meta.Tactic.Simp.SimpCongrTheorems Lean.Meta.Tactic.Replace Init.Data.Nat.Linear
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_fswap,
+    lean_array_get_borrowed, lean_array_get_size, lean_array_push, lean_array_set, lean_array_size,
+    lean_array_uget_borrowed, lean_array_uset, lean_dsimp, lean_expr_eqv,
+    lean_expr_instantiate_rev, lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_name_eq, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div,
+    lean_nat_mul, lean_nat_shiftr, lean_nat_sub, lean_panic_fn_borrowed, lean_ptr_addr, lean_simp,
+    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_uint32_add,
+    lean_uint64_lor, lean_uint64_mix_hash, lean_uint64_of_nat, lean_uint64_shift_left,
+    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_land, lean_usize_mul,
+    lean_usize_of_nat, lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub,
+    lean_usize_to_nat,
+};
 use crate::r#gen::Init::Control::Basic::l_instMonadControlTOfPure___redArg;
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
@@ -95,33 +109,6 @@ use crate::r#gen::Lean::Meta::Tactic::Simp::SimpTheorems::{
 };
 use crate::r#gen::Lean::Util::Profile::l_Lean_profileitIOUnsafe___redArg;
 use crate::r#gen::Lean::Util::Trace::l___private_Lean_Util_Trace_0__Lean_checkTraceOption_go;
-use crate::ffi::{
-    lean_array_fswap, lean_array_size, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::{lean_array_fset, lean_array_set};
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,
-    lean_uint64_xor, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_uint32_add, lean_usize_add, lean_usize_dec_le, lean_usize_dec_lt, lean_usize_of_nat,
-    lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,
-    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_panic_fn_borrowed, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_ptr_addr;
-use crate::ffi::{lean_expr_eqv, lean_expr_instantiate_rev};
-use crate::ffi::lean_infer_type;
-use crate::ffi::{lean_dsimp, lean_simp};
 pub static l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_initFn___closed__0_00___x40_Lean_Meta_Tactic_Simp_Types_1833177992____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [98, 97, 99, 107, 119, 97, 114, 100, 0]};
 static mut l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_initFn___closed__0_00___x40_Lean_Meta_Tactic_Simp_Types_1833177992____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_initFn___closed__0_00___x40_Lean_Meta_Tactic_Simp_Types_1833177992____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_initFn___closed__1_00___x40_Lean_Meta_Tactic_Simp_Types_1833177992____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [100, 115, 105, 109, 112, 0]};
@@ -21210,7 +21197,7 @@ pub unsafe fn _init_l_Lean_Meta_Simp_mkImpCongr___closed__3() -> *mut crate::lea
     let mut v___x_14859_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
     v___x_14854_ = l_Lean_Meta_Simp_mkImpCongr___closed__2;
     v___x_14855_ = crate::leanh::lean_unsigned_to_nat(24);
-    v___x_14856_ = crate::leanh::lean_unsigned_to_nat(1913);
+    v___x_14856_ = crate::leanh::lean_unsigned_to_nat(1914);
     v___x_14857_ = l_Lean_Meta_Simp_mkImpCongr___closed__1;
     v___x_14858_ = l_Lean_Meta_Simp_mkImpCongr___closed__0;
     v___x_14859_ = l_mkPanicMessageWithDecl(
@@ -24251,7 +24238,7 @@ pub unsafe fn _init_l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_mk
     v___x_15610_ =
         l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_mkCongrFun_x27___closed__5;
     v___x_15611_ = crate::leanh::lean_unsigned_to_nat(18);
-    v___x_15612_ = crate::leanh::lean_unsigned_to_nat(1838);
+    v___x_15612_ = crate::leanh::lean_unsigned_to_nat(1839);
     v___x_15613_ =
         l___private_Lean_Meta_Tactic_Simp_Types_0__Lean_Meta_Simp_mkCongrFun_x27___closed__4;
     v___x_15614_ = l_Lean_Meta_Simp_mkImpCongr___closed__0;

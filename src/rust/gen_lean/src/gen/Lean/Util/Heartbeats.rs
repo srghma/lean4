@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Util.Heartbeats
 // Imports: Lean.CoreM
+use crate::ffi::{
+    lean_io_get_num_heartbeats, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_div,
+    lean_nat_mul, lean_nat_sub, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_append, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toStringWithToken___at___00Lean_Name_toString_spec__0;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Syntax_getPos_x3f, l_Lean_Syntax_getTailPos_x3f, l_Lean_replaceRef,
@@ -16,15 +21,6 @@ use crate::r#gen::Lean::Log::{
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_hasSyntheticSorry, l_Lean_MessageData_hasTag, l_Lean_MessageData_ofFormat,
     l_Lean_MessageLog_add, l_Lean_instBEqMessageSeverity_beq,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_div, lean_nat_mul, lean_nat_sub,
-    lean_string_dec_eq,
-};
-use crate::ffi::lean_io_get_num_heartbeats;
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_withHeartbeats___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

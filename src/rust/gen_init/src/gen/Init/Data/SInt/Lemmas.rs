@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.SInt.Lemmas
 // Imports: Init.Data.Nat.Bitwise.Basic Init.Data.SInt.Basic Init.Data.SInt.Basic Init.Data.BitVec.Basic Init.Data.UInt.Basic Init.Data.BitVec.Lemmas Init.Data.Int.Order Init.ByCases Init.Data.BitVec.Bitblast Init.Data.BitVec.Bootstrap Init.Data.Int.DivMod.Lemmas Init.Data.Int.LemmasAux Init.Data.Int.Pow Init.Data.UInt.Lemmas Init.System.Platform
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     initialize_Init_Data_BitVec_Basic, runtime_initialize_Init_Data_BitVec_Basic,
@@ -47,7 +48,6 @@ use crate::r#gen::Init::Prelude::{
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_commandDeclare__int__theorems_____00__closed__0_value: crate::leanh::LeanStringObject<
     30,
 > = crate::leanh::LeanStringObject {

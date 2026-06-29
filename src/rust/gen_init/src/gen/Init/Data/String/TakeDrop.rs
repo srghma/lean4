@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Init.Data.String.TakeDrop
 // Imports: Init.Data.String.Substring
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
+    lean_string_memcmp, lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq,
+};
 use crate::r#gen::Init::Data::Char::Basic::l_Char_isWhitespace___boxed;
 use crate::r#gen::Init::Data::String::Basic::{l_String_Slice_Pos_nextn, l_String_Slice_pos_x21};
 use crate::r#gen::Init::Data::String::FindPos::{l_String_Slice_Pos_prevn, l_String_Slice_posLE};
@@ -16,15 +22,6 @@ use crate::r#gen::Init::Data::String::Slice::{
 use crate::r#gen::Init::Data::String::Substring::{
     initialize_Init_Data_String_Substring, l_Substring_Raw_takeWhileAux,
     runtime_initialize_Init_Data_String_Substring,
-};
-use crate::ffi::{
-    lean_string_utf8_extract, lean_string_utf8_get, lean_string_utf8_get_fast,
-    lean_string_utf8_next, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_memcmp;
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_sub,
-    lean_string_utf8_byte_size, lean_uint32_dec_eq,
 };
 pub static l_String_trimAsciiEnd___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

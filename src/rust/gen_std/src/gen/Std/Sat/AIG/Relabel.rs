@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Sat.AIG.Relabel
 // Imports: Std.Sat.AIG.Lemmas Init.ByCases Init.Omega
+use crate::ffi::{lean_array_size, lean_mk_array};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
@@ -12,7 +13,6 @@ use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_O
 use crate::r#gen::Std::Sat::AIG::Lemmas::{
     initialize_Std_Sat_AIG_Lemmas, runtime_initialize_Std_Sat_AIG_Lemmas,
 };
-use crate::ffi::{lean_array_size, lean_mk_array};
 pub static l_Std_Sat_AIG_relabel___redArg___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

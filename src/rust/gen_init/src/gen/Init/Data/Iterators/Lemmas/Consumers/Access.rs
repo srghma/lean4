@@ -1,11 +1,11 @@
 // Lean compiler output
 // Module: Init.Data.Iterators.Lemmas.Consumers.Access
 // Imports: Init.Data.Iterators.Consumers.Access
+use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 use crate::r#gen::Init::Data::Iterators::Consumers::Access::{
     initialize_Init_Data_Iterators_Consumers_Access,
     runtime_initialize_Init_Data_Iterators_Consumers_Access,
 };
-use crate::ffi::{lean_nat_dec_eq, lean_nat_sub};
 pub unsafe fn l___private_Init_Data_Iterators_Lemmas_Consumers_Access_0__Std_Iter_atIdxSlow_x3f__eq__match_match__3_splitter___redArg(
     mut v_x_56_: *mut crate::leanh::LeanObject,
     mut v_h__1_57_: *mut crate::leanh::LeanObject,

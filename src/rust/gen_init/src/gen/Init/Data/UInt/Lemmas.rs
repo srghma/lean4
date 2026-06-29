@@ -1,6 +1,9 @@
 // Lean compiler output
 // Module: Init.Data.UInt.Lemmas
 // Imports: Init.Data.UInt.Basic Init.Data.UInt.Basic Init.Data.UInt.BasicAux Init.Data.Fin.Bitwise Init.Data.BitVec.BasicAux Init.Data.BitVec.Basic Init.Data.Nat.Div.Lemmas Init.Data.Order.Classes Init.Ext Init.ByCases Init.Data.BitVec.Bootstrap Init.Data.BitVec.Lemmas Init.Data.Int.DivMod.Lemmas Init.System.Platform
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::BitVec::Basic::{
     initialize_Init_Data_BitVec_Basic, runtime_initialize_Init_Data_BitVec_Basic,
@@ -42,9 +45,6 @@ use crate::r#gen::Init::Prelude::{
 };
 use crate::r#gen::Init::System::Platform::{
     initialize_Init_System_Platform, runtime_initialize_Init_System_Platform,
-};
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt,
 };
 pub static l_commandDeclare__uint__theorems_____00__closed__0_value:
     crate::leanh::LeanStringObject<31> = crate::leanh::LeanStringObject {

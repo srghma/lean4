@@ -4,7 +4,6 @@
 // exact-text variant: yes
 
 use runtime::leanh_extra::*;
-use runtime::leanh_extra as leanh;
 
 pub fn lean_string_append(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_string_append");

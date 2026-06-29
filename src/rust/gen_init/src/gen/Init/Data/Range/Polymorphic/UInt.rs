@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Init.Data.Range.Polymorphic.UInt
 // Imports: Init.Data.Range.Polymorphic.BitVec Init.Data.UInt Init.ByCases Init.Data.BitVec.Lemmas Init.Data.Option.Lemmas
+use crate::ffi::{
+    lean_nat_add, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub, lean_uint8_add, lean_uint8_dec_eq,
+    lean_uint8_of_nat, lean_uint8_to_nat, lean_uint16_add, lean_uint16_dec_eq, lean_uint16_of_nat,
+    lean_uint16_to_nat, lean_uint32_add, lean_uint32_dec_eq, lean_uint32_of_nat,
+    lean_uint32_to_nat, lean_uint64_add, lean_uint64_dec_eq, lean_uint64_of_nat,
+    lean_uint64_to_nat, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat, lean_usize_to_nat,
+};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::BitVec::Lemmas::{
     initialize_Init_Data_BitVec_Lemmas, runtime_initialize_Init_Data_BitVec_Lemmas,
@@ -16,19 +23,6 @@ use crate::r#gen::Init::Data::UInt::{
     initialize_Init_Data_UInt, runtime_initialize_Init_Data_UInt,
 };
 use crate::r#gen::Init::Prelude::l_System_Platform_numBits;
-use crate::ffi::{
-    lean_uint8_add, lean_uint16_add, lean_uint64_add,
-};
-use crate::ffi::{
-    lean_uint8_to_nat, lean_uint16_to_nat, lean_uint32_add, lean_uint64_to_nat, lean_usize_add,
-    lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_nat_add, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub, lean_uint8_dec_eq,
-    lean_uint8_of_nat, lean_uint16_dec_eq, lean_uint16_of_nat, lean_uint32_dec_eq,
-    lean_uint32_of_nat, lean_uint32_to_nat, lean_uint64_dec_eq, lean_uint64_of_nat,
-    lean_usize_dec_eq, lean_usize_of_nat,
-};
 pub static l_UInt8_instUpwardEnumerable___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.LRAT.Internal.CompactLRATChecker
 // Imports: Std.Tactic.BVDecide.LRAT.Internal.LRATChecker Std.Tactic.BVDecide.LRAT.Internal.Formula.Implementation Std.Tactic.BVDecide.LRAT.Internal.Formula.Instance Std.Tactic.BVDecide.LRAT.Internal.Actions
+use crate::ffi::{lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_lt};
 use crate::r#gen::Init::Core::l_instBEqProd___redArg___lam__0___boxed;
 use crate::r#gen::Init::Data::List::Basic::l_List_elem___redArg;
 use crate::r#gen::Init::Prelude::l_instBEqOfDecidableEq___redArg___lam__0___boxed;
@@ -25,9 +26,6 @@ use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::LRATChecker::{
     runtime_initialize_Std_Tactic_BVDecide_LRAT_Internal_LRATChecker,
 };
 use crate::r#gen::Std::Tactic::BVDecide::LRAT::Internal::PosFin::l_Std_Tactic_BVDecide_LRAT_Internal_instDecidableEqPosFin___boxed;
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_lt,
-};
 pub unsafe fn l_Std_Tactic_BVDecide_LRAT_Internal_compactLratChecker_go___lam__0(
     mut v___x_161_: u8,
     mut v___y_162_: u8,

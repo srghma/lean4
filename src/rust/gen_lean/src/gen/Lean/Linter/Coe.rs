@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Linter.Coe
 // Imports: Lean.Elab.Command Lean.Server.InfoUtils Lean.Linter.Init Lean.Elab.Term.TermElabM
+use crate::ffi::{
+    lean_array_size, lean_array_uget_borrowed, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_panic_fn_borrowed, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+    lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_contains___redArg;
 use crate::r#gen::Init::Data::List::Basic::{l_List_elem___redArg, l_List_reverse___redArg};
@@ -59,14 +64,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::Server::InfoUtils::{
     initialize_Lean_Server_InfoUtils, runtime_initialize_Lean_Server_InfoUtils,
-};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_mk_empty_array_with_capacity, lean_name_eq, lean_panic_fn_borrowed, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lean_Linter_Coe_0__Lean_Linter_Coe_initFn___closed__0_00___x40_Lean_Linter_Coe_2393295658____hygCtx___hyg_4__value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [108, 105, 110, 116, 101, 114, 0]};
 static mut l___private_Lean_Linter_Coe_0__Lean_Linter_Coe_initFn___closed__0_00___x40_Lean_Linter_Coe_2393295658____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Linter_Coe_0__Lean_Linter_Coe_initFn___closed__0_00___x40_Lean_Linter_Coe_2393295658____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;

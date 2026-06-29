@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Simp.BuiltinSimprocs.Util
 // Imports: Lean.Meta.Tactic.Simp.Simproc
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
 use crate::r#gen::Lean::Expr::{
     l_Lean_Expr_appArg_x21, l_Lean_Expr_appFn_x21, l_Lean_Expr_constLevels_x21, l_Lean_mkApp3,
@@ -10,7 +11,6 @@ use crate::r#gen::Lean::Meta::AppBuilder::{l_Lean_Meta_mkDecide, l_Lean_Meta_mkE
 use crate::r#gen::Lean::Meta::Tactic::Simp::Simproc::{
     initialize_Lean_Meta_Tactic_Simp_Simproc, runtime_initialize_Lean_Meta_Tactic_Simp_Simproc,
 };
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
 pub static l_Lean_Meta_Simp_evalPropStep___redArg___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

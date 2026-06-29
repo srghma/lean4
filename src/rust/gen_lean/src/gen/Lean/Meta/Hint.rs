@@ -1,6 +1,20 @@
 // Lean compiler output
 // Module: Lean.Meta.Hint
 // Imports: Lean.Meta.TryThis Lean.Util.Diff
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size, lean_array_to_list,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_shiftr, lean_nat_sub, lean_st_ref_get,
+    lean_st_ref_set, lean_st_ref_take, lean_string_append, lean_string_data, lean_string_dec_eq,
+    lean_string_hash, lean_string_length, lean_string_mk, lean_string_utf8_at_end,
+    lean_string_utf8_byte_size, lean_string_utf8_extract, lean_string_utf8_get,
+    lean_string_utf8_get_fast, lean_string_utf8_next, lean_string_utf8_next_fast,
+    lean_uint32_dec_eq, lean_uint32_to_uint64, lean_uint64_shift_right, lean_uint64_to_usize,
+    lean_uint64_xor, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_land,
+    lean_usize_of_nat, lean_usize_sub,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_List_foldl___at___00Array_appendList_spec__0___redArg,
 };
@@ -28,33 +42,6 @@ use crate::r#gen::Lean::Syntax::{
 };
 use crate::r#gen::Lean::Util::Diff::{
     initialize_Lean_Util_Diff, l_Lean_Diff_instBEqAction_beq, runtime_initialize_Lean_Util_Diff,
-};
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_array,
-};
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_shiftr;
-use crate::ffi::{
-    lean_string_data, lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
-    lean_string_utf8_get_fast, lean_string_utf8_next, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_append;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,
-};
-use crate::ffi::{
-    lean_uint32_to_uint64, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul,
-    lean_nat_sub, lean_string_dec_eq, lean_string_hash, lean_string_mk, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l_Lean_Meta_Hint_textInsertionWidget___closed__0_value: crate::leanh::LeanStringObject<
     1770,

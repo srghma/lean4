@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.DocString.Types
 // Imports: Init.Data.Ord Init.Data.Nat.Compare Init.Data.Array.GetLit
+use crate::ffi::{
+    lean_array_get_size, lean_array_push, lean_int_dec_eq, lean_int_dec_lt,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_to_int, lean_string_compare, lean_string_dec_eq, lean_string_length,
+};
 use crate::r#gen::Init::Data::Array::Basic::{
     l_Array_append___redArg, l_Array_isEqvAux___redArg, l_Array_repr___redArg,
 };
@@ -15,15 +20,6 @@ use crate::r#gen::Init::Data::Option::Basic::l_Option_instBEq_beq___redArg;
 use crate::r#gen::Init::Data::Ord::Array::l_Array_compareLex___redArg;
 use crate::r#gen::Init::Data::Ord::{initialize_Init_Data_Ord, runtime_initialize_Init_Data_Ord};
 use crate::r#gen::Init::Data::Repr::{l_Option_repr___redArg, l_Repr_addAppParen, l_String_quote};
-use crate::ffi::{
-    lean_int_dec_eq, lean_int_dec_lt, lean_nat_to_int,
-};
-use crate::ffi::lean_string_compare;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
-};
 pub static l_Lean_Doc_instReprMathMode_repr___closed__0_value: crate::leanh::LeanStringObject<25> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

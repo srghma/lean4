@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Lean.Elab.Mixfix
 // Imports: Lean.Elab.Attributes Init.Syntax
+use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add};
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Meta::Defs::{
@@ -22,9 +23,6 @@ use crate::r#gen::Lean::Elab::Attributes::{
 };
 use crate::r#gen::Lean::Elab::Util::l_Lean_Elab_macroAttribute;
 use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuiltin___redArg;
-use crate::ffi::{
-    lean_array_push, lean_mk_empty_array_with_capacity, lean_nat_add,
-};
 pub static l_Lean_Elab_Command_expandMixfix___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

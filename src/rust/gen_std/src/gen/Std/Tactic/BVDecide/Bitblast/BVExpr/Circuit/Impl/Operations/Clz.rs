@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Operations.Clz
 // Imports: Std.Tactic.BVDecide.Bitblast.BVExpr.Circuit.Impl.Const Std.Sat.AIG.If Init.Omega
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt, lean_nat_land,
+    lean_nat_shiftr,
+};
 use crate::r#gen::Init::Data::BitVec::Basic::l_BitVec_instNatCast___lam__0;
 use crate::r#gen::Init::Data::BitVec::BasicAux::l_BitVec_sub;
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
@@ -12,10 +16,6 @@ use crate::r#gen::Std::Tactic::BVDecide::Bitblast::BVExpr::Circuit::Impl::Const:
     initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Circuit_Impl_Const,
     l_Std_Tactic_BVDecide_BVExpr_bitblast_blastConst___redArg,
     runtime_initialize_Std_Tactic_BVDecide_Bitblast_BVExpr_Circuit_Impl_Const,
-};
-use crate::ffi::{lean_nat_land, lean_nat_shiftr};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_lt,
 };
 pub unsafe fn l_Std_Tactic_BVDecide_BVExpr_bitblast_blastClz_go___redArg(
     mut v_inst_88_: *mut crate::leanh::LeanObject,

@@ -1,11 +1,11 @@
 // Lean compiler output
 // Module: Std.Data.DTreeMap.Internal.Def
 // Imports: Init.Data.SInt.Basic
+use crate::ffi::lean_nat_add;
 use crate::r#gen::Init::Data::List::Basic::l_List_appendTR___redArg;
 use crate::r#gen::Init::Data::SInt::Basic::{
     initialize_Init_Data_SInt_Basic, runtime_initialize_Init_Data_SInt_Basic,
 };
-use crate::ffi::lean_nat_add;
 pub static mut l_Std_DTreeMap_Internal_delta: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Std_DTreeMap_Internal_ratio: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_Std_DTreeMap_Internal_Impl_ctorIdx___redArg(

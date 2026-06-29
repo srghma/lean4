@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lake.DSL.Targets
 // Imports: Lake.DSL.Syntax Lake.Config.TargetConfig Lake.Config.FacetConfig Lake.Build.Job.Register Lake.Build.Infos
+use crate::ffi::{
+    lean_array_push, lean_mk_empty_array_with_capacity, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take,
+};
 use crate::r#gen::Init::Control::StateRef::l_StateRefT_x27_instMonad___redArg;
 use crate::r#gen::Init::Data::Array::Basic::l_Array_append___redArg;
 use crate::r#gen::Init::Data::List::BasicAux::l_List_head_x21___redArg;
@@ -83,10 +87,6 @@ use crate::r#gen::Lean::KeyedDeclsAttribute::l_Lean_KeyedDeclsAttribute_addBuilt
 use crate::r#gen::Lean::Message::{
     l_Lean_MessageData_ofFormat, l_Lean_MessageData_ofSyntax, l_Lean_indentD,
     l_Lean_stringToMessageData,
-};
-use crate::ffi::{lean_array_push, lean_mk_empty_array_with_capacity};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 pub static l___private_Lake_DSL_Targets_0__Lake_DSL_expandModuleFacetDecl___lam__0___closed__0_value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [95, 109, 111, 100, 70, 97, 99, 101, 116, 0]};
 static mut l___private_Lake_DSL_Targets_0__Lake_DSL_expandModuleFacetDecl___lam__0___closed__0:

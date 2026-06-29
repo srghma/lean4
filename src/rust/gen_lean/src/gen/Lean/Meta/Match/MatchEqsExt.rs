@@ -1,6 +1,15 @@
 // Lean compiler output
 // Module: Lean.Meta.Match.MatchEqsExt
 // Imports: Lean.Meta.Match.Basic Lean.Meta.Match.MatcherInfo Lean.Meta.Eqns
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_borrowed,
+    lean_array_get_size, lean_array_push, lean_array_to_list, lean_array_uget_borrowed,
+    lean_get_congr_match_equations_for, lean_get_match_equations_for, lean_name_eq, lean_nat_add,
+    lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_to_int, lean_st_ref_set,
+    lean_st_ref_take, lean_string_length, lean_uint64_of_nat, lean_uint64_to_usize, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_dec_le, lean_usize_land, lean_usize_mul, lean_usize_of_nat,
+    lean_usize_shift_left, lean_usize_shift_right, lean_usize_sub, lean_usize_to_nat,
+};
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_fill;
 use crate::r#gen::Init::Meta::Defs::l_Lean_Name_reprPrec;
 use crate::r#gen::Init::Prelude::lean_erase_macro_scopes;
@@ -23,26 +32,6 @@ use crate::r#gen::Lean::Meta::Match::MatcherInfo::{
     initialize_Lean_Meta_Match_MatcherInfo, l_Lean_Meta_Match_instInhabitedMatcherInfo_default,
     l_Lean_Meta_Match_instReprMatcherInfo_repr___redArg,
     runtime_initialize_Lean_Meta_Match_MatcherInfo,
-};
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::lean_array_fset;
-use crate::ffi::lean_nat_to_int;
-use crate::ffi::lean_string_length;
-use crate::ffi::{
-    lean_uint64_to_usize, lean_usize_land, lean_usize_mul, lean_usize_shift_left,
-    lean_usize_shift_right,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_le, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
-};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_borrowed, lean_array_get_size,
-    lean_array_push, lean_array_to_list, lean_name_eq, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_uint64_of_nat, lean_usize_dec_eq,
-};
-use crate::ffi::{lean_st_ref_set, lean_st_ref_take};
-use crate::ffi::{
-    lean_get_congr_match_equations_for, lean_get_match_equations_for,
 };
 pub static l_Lean_Meta_Match_instInhabitedMatchEqns_default___closed__0_value:
     crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {

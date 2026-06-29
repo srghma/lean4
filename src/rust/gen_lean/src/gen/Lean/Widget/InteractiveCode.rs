@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Widget.InteractiveCode
 // Imports: Lean.Widget.TaggedText Lean.Widget.Basic
+use crate::ffi::{
+    lean_array_size, lean_array_to_list, lean_array_uget_borrowed, lean_array_uset,
+    lean_expr_dbg_to_string, lean_nat_dec_eq, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set,
+    lean_st_ref_take, lean_string_dec_eq, lean_usize_add, lean_usize_dec_lt,
+};
 use crate::r#gen::Init::Data::Array::Basic::l_List_foldl___at___00Array_appendList_spec__0___redArg;
 use crate::r#gen::Init::Data::Format::Basic::l_Std_Format_defWidth;
 use crate::r#gen::Lean::Data::Json::Basic::{
@@ -32,17 +37,6 @@ use crate::r#gen::Lean::Widget::TaggedText::{
     runtime_initialize_Lean_Widget_TaggedText,
 };
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___redArg;
-use crate::ffi::{
-    lean_array_size, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{
-    lean_array_to_list, lean_nat_dec_eq, lean_nat_dec_lt, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_dbg_to_string;
 pub static l_Lean_Widget_instToJsonDiffTag_toJson___closed__0_value:
     crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

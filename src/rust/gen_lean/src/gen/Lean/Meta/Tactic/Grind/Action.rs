@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Grind.Action
 // Imports: Lean.Meta.Tactic.Grind.Types
+use crate::ffi::{
+    lean_array_mk, lean_array_push, lean_array_to_list, lean_grind_process_new_facts,
+    lean_mk_empty_array_with_capacity, lean_nat_dec_eq, lean_nat_sub, lean_st_mk_ref,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_string_dec_eq,
+};
 use crate::r#gen::Init::Data::List::Basic::{
     l_List_intersperseTR___redArg, l_List_isEmpty___redArg, l_List_reverse___redArg,
 };
@@ -38,14 +43,6 @@ use crate::r#gen::Lean::Meta::Tactic::Grind::Types::{
     runtime_initialize_Lean_Meta_Tactic_Grind_Types,
 };
 use crate::r#gen::Lean::Meta::Tactic::Util::l_Lean_MVarId_admit;
-use crate::ffi::{
-    lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,
-    lean_nat_dec_eq, lean_nat_sub, lean_string_dec_eq,
-};
-use crate::ffi::{
-    lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_grind_process_new_facts;
 pub static l_Lean_Meta_Grind_ActionResult_toMessageData___closed__0_value:
     crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

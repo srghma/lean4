@@ -1,6 +1,12 @@
 // Lean compiler output
 // Module: Lean.Compiler.LCNF.Passes
 // Imports: Lean.Compiler.LCNF.PullLetDecls Lean.Compiler.LCNF.CSE Lean.Compiler.LCNF.JoinPoints Lean.Compiler.LCNF.Specialize Lean.Compiler.LCNF.ToMono Lean.Compiler.LCNF.LambdaLifting Lean.Compiler.LCNF.FloatLetIn Lean.Compiler.LCNF.ReduceArity Lean.Compiler.LCNF.ElimDeadBranches Lean.Compiler.LCNF.StructProjCases Lean.Compiler.LCNF.ExtractClosed Lean.Compiler.LCNF.Visibility Lean.Compiler.LCNF.Simp Lean.Compiler.LCNF.ToImpure Lean.Compiler.LCNF.PushProj Lean.Compiler.LCNF.ResetReuse Lean.Compiler.LCNF.SimpCase Lean.Compiler.LCNF.InferBorrow Lean.Compiler.LCNF.ExplicitBoxing Lean.Compiler.LCNF.ExplicitRC Lean.Compiler.LCNF.CoalesceRC Lean.Compiler.LCNF.Toposort Lean.Compiler.LCNF.ExpandResetReuse Lean.Compiler.LCNF.SimpleGroundExpr
+use crate::ffi::{
+    lean_array_get, lean_array_get_size, lean_array_mk, lean_array_push, lean_array_size,
+    lean_array_uget, lean_array_uget_borrowed, lean_array_uset, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_le, lean_nat_dec_lt, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+    lean_string_dec_eq, lean_usize_add, lean_usize_dec_eq, lean_usize_dec_lt, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Prelude::{
     l_Lean_Name_num___override, l_Lean_Name_str___override, l_Lean_replaceRef,
@@ -139,20 +145,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
 use crate::r#gen::Lean::Util::Trace::l_Lean_registerTraceClass;
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_array_uset,
-};
-use crate::ffi::{
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat,
-};
-use crate::ffi::{
-    lean_array_get, lean_array_get_size, lean_array_mk, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_dec_le, lean_nat_dec_lt, lean_string_dec_eq,
-    lean_usize_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
 pub static l_Lean_Compiler_LCNF_Pass_init___closed__0_value: crate::leanh::LeanClosureObject<1> =
     crate::leanh::LeanClosureObject {
         m_header: crate::leanh::LeanObject {

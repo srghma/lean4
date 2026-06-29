@@ -1,12 +1,8 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.ExprPtr
 // Imports: Lean.Expr
+use crate::ffi::{lean_ptr_addr, lean_usize_dec_eq, lean_usize_shift_right, lean_usize_to_uint64};
 use crate::r#gen::Lean::Expr::{initialize_Lean_Expr, runtime_initialize_Lean_Expr};
-use crate::ffi::{
-    lean_usize_shift_right, lean_usize_to_uint64,
-};
-use crate::ffi::lean_usize_dec_eq;
-use crate::ffi::lean_ptr_addr;
 pub static l_Lean_Meta_Sym_instHashableExprPtr___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

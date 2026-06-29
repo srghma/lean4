@@ -1,6 +1,7 @@
 // Lean compiler output
 // Module: Init.Data.List.MapIdx
 // Imports: Init.Data.Option.Attach Init.Data.List.OfFn Init.ByCases Init.Data.Array.Bootstrap Init.Data.List.Nat.Range Init.Data.List.Nat.TakeDrop Init.Data.List.Range Init.Data.List.TakeDrop Init.Data.Prod Init.Data.Subtype.Basic Init.Omega
+use crate::ffi::{lean_array_get_size, lean_array_push, lean_array_to_list};
 use crate::r#gen::Init::ByCases::{initialize_Init_ByCases, runtime_initialize_Init_ByCases};
 use crate::r#gen::Init::Data::Array::Bootstrap::{
     initialize_Init_Data_Array_Bootstrap, runtime_initialize_Init_Data_Array_Bootstrap,
@@ -30,9 +31,6 @@ use crate::r#gen::Init::Data::Subtype::Basic::{
     initialize_Init_Data_Subtype_Basic, runtime_initialize_Init_Data_Subtype_Basic,
 };
 use crate::r#gen::Init::Omega::{initialize_Init_Omega, runtime_initialize_Init_Omega};
-use crate::ffi::{
-    lean_array_get_size, lean_array_push, lean_array_to_list,
-};
 pub static l_List_mapFinIdx___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

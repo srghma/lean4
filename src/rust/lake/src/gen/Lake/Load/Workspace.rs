@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Load.Workspace
 // Imports: Lake.Load.Config Lake.Config.Workspace Lake.Load.Resolve Lake.Load.Package Lake.Load.Lean.Eval Lake.Load.Toml Lake.Build.InitFacets
+use crate::ffi::{
+    lean_array_fget_borrowed, lean_array_get_size, lean_array_push, lean_array_uget_borrowed,
+    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
+    lean_nat_mul, lean_st_ref_set, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::System::IOError::lean_io_error_to_string;
 use crate::r#gen::Lake::Build::InitFacets::{
     initialize_Lake_Build_InitFacets, l_Lake_initFacetConfigs,
@@ -34,14 +39,6 @@ use crate::r#gen::Lake::Util::FilePath::l_Lake_joinRelative;
 use crate::r#gen::Lean::Data::Name::l___private_Lean_Data_Name_0__Lean_Name_quickCmpImpl;
 use crate::r#gen::Lean::Data::NameMap::Basic::l_Lean_NameSet_empty;
 use crate::r#gen::Lean::Util::Path::l_Lean_searchPathRef;
-use crate::ffi::lean_array_uget_borrowed;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget_borrowed, lean_array_get_size, lean_array_push,
-    lean_mk_empty_array_with_capacity, lean_nat_add, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_nat_mul, lean_usize_dec_eq,
-};
-use crate::ffi::lean_st_ref_set;
 pub static l_Lake_loadWorkspaceRoot___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

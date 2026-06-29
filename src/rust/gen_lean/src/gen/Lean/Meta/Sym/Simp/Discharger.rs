@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lean.Meta.Sym.Simp.Discharger
 // Imports: Lean.Meta.Sym.Simp.SimpM Lean.Meta.AppBuilder
+use crate::ffi::{
+    lean_array_size, lean_array_uget, lean_array_uget_borrowed, lean_nat_add, lean_nat_dec_lt,
+    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take, lean_sym_simp, lean_usize_add,
+    lean_usize_dec_lt,
+};
 use crate::r#gen::Lean::Expr::l_Lean_Expr_isTrue;
 use crate::r#gen::Lean::LocalContext::{
     l_Lean_LocalDecl_isAuxDecl, l_Lean_LocalDecl_toExpr, l_Lean_LocalDecl_type,
@@ -14,15 +19,6 @@ use crate::r#gen::Lean::Meta::Sym::Simp::SimpM::{
     initialize_Lean_Meta_Sym_Simp_SimpM, l_Lean_Meta_Sym_Simp_getConfig___redArg,
     runtime_initialize_Lean_Meta_Sym_Simp_SimpM,
 };
-use crate::ffi::{
-    lean_array_size, lean_array_uget, lean_array_uget_borrowed,
-};
-use crate::ffi::{lean_usize_add, lean_usize_dec_lt};
-use crate::ffi::{lean_nat_add, lean_nat_dec_lt};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_sym_simp;
 pub static l_Lean_Meta_Sym_Simp_dischargeSimpSelf___closed__0_value: crate::leanh::LeanCtorObject<
     1,
 > = crate::leanh::LeanCtorObject {

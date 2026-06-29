@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Compiler.ImplementedByAttr
 // Imports: Lean.Elab.InfoTree
+use crate::ffi::{
+    lean_array_get, lean_expr_eqv, lean_mk_empty_array_with_capacity, lean_name_eq,
+    lean_nat_dec_eq, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
+};
 use crate::r#gen::Init::Data::List::Basic::l_List_reverse___redArg;
 use crate::r#gen::Init::Data::Repr::l_Nat_reprFast;
 use crate::r#gen::Init::Prelude::{l_Lean_replaceRef, l_List_lengthTR___redArg};
@@ -36,13 +40,6 @@ use crate::r#gen::Lean::Message::{
 };
 use crate::r#gen::Lean::MonadEnv::l_Lean_setEnv___redArg;
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_dec_eq,
-};
-use crate::ffi::{
-    lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
-};
-use crate::ffi::lean_expr_eqv;
 static mut l_Lean_mkUnknownIdentifierMessageCore___at___00Lean_mkUnknownIdentifierMessage___at___00Lean_throwUnknownIdentifierAt___at___00Lean_throwUnknownConstantAt___at___00Lean_throwUnknownConstant___at___00Lean_getConstInfo___at___00__private_Lean_Compiler_ImplementedByAttr_0__Lean_Compiler_initFn_00___x40_Lean_Compiler_ImplementedByAttr_2873759278____hygCtx___hyg_2__spec__0_spec__0_spec__1_spec__8_spec__9_spec__10___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_mkUnknownIdentifierMessageCore___at___00Lean_mkUnknownIdentifierMessage___at___00Lean_throwUnknownIdentifierAt___at___00Lean_throwUnknownConstantAt___at___00Lean_throwUnknownConstant___at___00Lean_getConstInfo___at___00__private_Lean_Compiler_ImplementedByAttr_0__Lean_Compiler_initFn_00___x40_Lean_Compiler_ImplementedByAttr_2873759278____hygCtx___hyg_2__spec__0_spec__0_spec__1_spec__8_spec__9_spec__10___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_mkUnknownIdentifierMessageCore___at___00Lean_mkUnknownIdentifierMessage___at___00Lean_throwUnknownIdentifierAt___at___00Lean_throwUnknownConstantAt___at___00Lean_throwUnknownConstant___at___00Lean_getConstInfo___at___00__private_Lean_Compiler_ImplementedByAttr_0__Lean_Compiler_initFn_00___x40_Lean_Compiler_ImplementedByAttr_2873759278____hygCtx___hyg_2__spec__0_spec__0_spec__1_spec__8_spec__9_spec__10___redArg___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

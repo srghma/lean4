@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Std.Sync.Mutex
 // Imports: Std.Sync.Basic Init.While
+use crate::ffi::{
+    lean_io_basemutex_lock, lean_io_basemutex_new, lean_io_basemutex_try_lock,
+    lean_io_basemutex_unlock, lean_io_condvar_new, lean_io_condvar_notify_all,
+    lean_io_condvar_notify_one, lean_io_condvar_wait, lean_st_mk_ref,
+};
 use crate::r#gen::Init::Control::StateRef::{
     l_StateRefT_x27_instMonad___aux__13___boxed, l_StateRefT_x27_instMonad___redArg,
     l_StateRefT_x27_lift___boxed,
@@ -14,12 +19,6 @@ use crate::r#gen::Init::While::{
 };
 use crate::r#gen::Std::Sync::Basic::{
     initialize_Std_Sync_Basic, runtime_initialize_Std_Sync_Basic,
-};
-use crate::ffi::lean_st_mk_ref;
-use crate::ffi::{
-    lean_io_basemutex_lock, lean_io_basemutex_new, lean_io_basemutex_try_lock,
-    lean_io_basemutex_unlock, lean_io_condvar_new, lean_io_condvar_notify_all,
-    lean_io_condvar_notify_one, lean_io_condvar_wait,
 };
 pub static mut l___private_Std_Sync_Mutex_0__Std_BaseMutexImpl: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();

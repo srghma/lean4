@@ -1,6 +1,10 @@
 // Lean compiler output
 // Module: Lean.Meta.Tactic.Constructor
 // Imports: Lean.Meta.Tactic.Apply
+use crate::ffi::{
+    lean_array_get, lean_infer_type, lean_mk_array, lean_mk_empty_array_with_capacity,
+    lean_nat_dec_lt, lean_nat_sub, lean_st_ref_get,
+};
 use crate::r#gen::Init::Data::Array::Subarray::l_Array_toSubarray___redArg;
 use crate::r#gen::Init::Data::Slice::Array::Iterator::l_Subarray_copy___redArg;
 use crate::r#gen::Init::Prelude::l_Lean_replaceRef;
@@ -38,12 +42,6 @@ use crate::r#gen::Lean::Meta::Tactic::Util::{
     l_Lean_MVarId_checkNotAssigned, l_Lean_MVarId_getType_x27, l_Lean_Meta_throwTacticEx___redArg,
 };
 use crate::r#gen::Lean::PrivateName::l_Lean_isPrivateName;
-use crate::ffi::lean_mk_array;
-use crate::ffi::{
-    lean_array_get, lean_mk_empty_array_with_capacity, lean_nat_dec_lt, lean_nat_sub,
-};
-use crate::ffi::lean_st_ref_get;
-use crate::ffi::lean_infer_type;
 pub static l_List_forIn_x27_loop___at___00Lean_MVarId_constructor_spec__0___redArg___closed__0_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 0 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l_List_forIn_x27_loop___at___00Lean_MVarId_constructor_spec__0___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

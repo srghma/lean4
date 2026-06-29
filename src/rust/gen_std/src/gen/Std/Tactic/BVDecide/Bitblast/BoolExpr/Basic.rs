@@ -1,10 +1,10 @@
 // Lean compiler output
 // Module: Std.Tactic.BVDecide.Bitblast.BoolExpr.Basic
 // Imports: Init.Data.String.Basic
+use crate::ffi::lean_string_append;
 use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
-use crate::ffi::lean_string_append;
 pub static l_Std_Tactic_BVDecide_Gate_toString___closed__0_value: crate::leanh::LeanStringObject<
     3,
 > = crate::leanh::LeanStringObject {

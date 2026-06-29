@@ -1,6 +1,11 @@
 // Lean compiler output
 // Module: Lake.Config.OutFormat
 // Imports: Lean.Setup Init.Data.String.TakeDrop
+use crate::ffi::{
+    lean_array_get_size, lean_array_mk, lean_array_size, lean_array_uget_borrowed, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_string_append, lean_string_push, lean_string_utf8_byte_size,
+    lean_string_utf8_extract, lean_usize_add, lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Control::Id::{
     l_Id_instMonad___lam__0, l_Id_instMonad___lam__1___boxed, l_Id_instMonad___lam__2___boxed,
     l_Id_instMonad___lam__3, l_Id_instMonad___lam__4___boxed, l_Id_instMonad___lam__5___boxed,
@@ -18,15 +23,6 @@ use crate::r#gen::Init::Data::ToString::Name::l_Lean_Name_toString;
 use crate::r#gen::Init::Prelude::l_List_foldl___redArg;
 use crate::r#gen::Lean::Data::Json::Printer::l_Lean_Json_compress;
 use crate::r#gen::Lean::Setup::{initialize_Lean_Setup, runtime_initialize_Lean_Setup};
-use crate::ffi::{lean_array_size, lean_array_uget_borrowed};
-use crate::ffi::lean_string_utf8_extract;
-use crate::ffi::lean_string_push;
-use crate::ffi::lean_string_append;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_get_size, lean_array_mk, lean_nat_dec_le, lean_nat_dec_lt,
-    lean_string_utf8_byte_size, lean_usize_dec_eq,
-};
 pub static l_Lake_listToLines___redArg___lam__0___closed__0_value: crate::leanh::LeanStringObject<
     2,
 > = crate::leanh::LeanStringObject {

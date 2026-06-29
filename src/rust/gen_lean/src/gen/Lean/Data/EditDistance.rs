@@ -1,6 +1,13 @@
 // Lean compiler output
 // Module: Lean.Data.EditDistance
 // Imports: Init.Data.String.Basic Init.Data.Vector.Basic Init.Data.Nat.Order Init.Data.Order.Lemmas Init.Data.Range Init.While Init.Data.String.Length
+use crate::ffi::{
+    lean_array_fget, lean_array_fget_borrowed, lean_array_fset, lean_array_get_size,
+    lean_array_uget_borrowed, lean_mk_array, lean_nat_add, lean_nat_dec_eq, lean_nat_dec_le,
+    lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_string_length, lean_string_utf8_byte_size,
+    lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_uint32_dec_eq, lean_usize_add,
+    lean_usize_dec_eq, lean_usize_of_nat,
+};
 use crate::r#gen::Init::Data::Fin::Basic::l_Fin_add;
 use crate::r#gen::Init::Data::Nat::Order::{
     initialize_Init_Data_Nat_Order, runtime_initialize_Init_Data_Nat_Order,
@@ -21,18 +28,6 @@ use crate::r#gen::Init::Data::Vector::Basic::{
     initialize_Init_Data_Vector_Basic, runtime_initialize_Init_Data_Vector_Basic,
 };
 use crate::r#gen::Init::While::{initialize_Init_While, runtime_initialize_Init_While};
-use crate::ffi::{lean_array_uget_borrowed, lean_mk_array};
-use crate::ffi::lean_array_fset;
-use crate::ffi::{
-    lean_string_utf8_get_fast, lean_string_utf8_next_fast,
-};
-use crate::ffi::lean_string_length;
-use crate::ffi::{lean_usize_add, lean_usize_of_nat};
-use crate::ffi::{
-    lean_array_fget, lean_array_fget_borrowed, lean_array_get_size, lean_nat_add, lean_nat_dec_eq,
-    lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub, lean_string_utf8_byte_size,
-    lean_uint32_dec_eq, lean_usize_dec_eq,
-};
 pub static l___private_Init_While_0__whileM_erased___at___00__private_Init_While_0__whileM_erased___at___00Lean_EditDistance_levenshtein_spec__3_spec__3___redArg___closed__0_value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + 0) as u16, other: 1, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Init_While_0__whileM_erased___at___00__private_Init_While_0__whileM_erased___at___00Lean_EditDistance_levenshtein_spec__3_spec__3___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_While_0__whileM_erased___at___00__private_Init_While_0__whileM_erased___at___00Lean_EditDistance_levenshtein_spec__3_spec__3___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_EditDistance_levenshtein___closed__0_value: crate::leanh::LeanCtorObject<2> =

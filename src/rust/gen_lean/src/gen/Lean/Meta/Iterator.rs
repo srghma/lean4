@@ -1,12 +1,12 @@
 // Lean compiler output
 // Module: Lean.Meta.Iterator
 // Imports: Lean.Meta.Basic
+use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 use crate::r#gen::Lean::Message::l_Lean_stringToMessageData;
 use crate::r#gen::Lean::Meta::Basic::{
     initialize_Lean_Meta_Basic, l_Lean_Meta_SavedState_restore___redArg,
     l_Lean_Meta_saveState___redArg, runtime_initialize_Lean_Meta_Basic,
 };
-use crate::ffi::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
 pub static l_Lean_Meta_Iterator_head___redArg___closed__0_value: crate::leanh::LeanStringObject<7> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

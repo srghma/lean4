@@ -12,6 +12,15 @@ checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 name = "gen_init"
 version = "0.1.0"
 dependencies = [
+ "gen_init_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_init_ffi"
+version = "0.1.0"
+dependencies = [
  "leanh",
  "runtime",
 ]
@@ -21,7 +30,20 @@ name = "gen_lean"
 version = "0.1.0"
 dependencies = [
  "gen_init",
+ "gen_init_ffi",
+ "gen_lean_ffi",
  "gen_std",
+ "gen_std_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_lean_ffi"
+version = "0.1.0"
+dependencies = [
+ "gen_init_ffi",
+ "gen_std_ffi",
  "leanh",
  "runtime",
 ]
@@ -31,6 +53,17 @@ name = "gen_std"
 version = "0.1.0"
 dependencies = [
  "gen_init",
+ "gen_init_ffi",
+ "gen_std_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_std_ffi"
+version = "0.1.0"
+dependencies = [
+ "gen_init_ffi",
  "leanh",
  "runtime",
 ]
@@ -40,8 +73,23 @@ name = "lake"
 version = "0.1.0"
 dependencies = [
  "gen_init",
+ "gen_init_ffi",
  "gen_lean",
+ "gen_lean_ffi",
  "gen_std",
+ "gen_std_ffi",
+ "lake_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "lake_ffi"
+version = "0.1.0"
+dependencies = [
+ "gen_init_ffi",
+ "gen_lean_ffi",
+ "gen_std_ffi",
  "leanh",
  "runtime",
 ]
@@ -51,9 +99,13 @@ name = "lean_checker"
 version = "0.1.0"
 dependencies = [
  "gen_init",
+ "gen_init_ffi",
  "gen_lean",
+ "gen_lean_ffi",
  "gen_std",
+ "gen_std_ffi",
  "lake",
+ "lake_ffi",
  "leanh",
  "runtime",
 ]
@@ -63,9 +115,13 @@ name = "lean_ir"
 version = "0.1.0"
 dependencies = [
  "gen_init",
+ "gen_init_ffi",
  "gen_lean",
+ "gen_lean_ffi",
  "gen_std",
+ "gen_std_ffi",
  "lake",
+ "lake_ffi",
  "leanh",
  "runtime",
 ]
@@ -82,9 +138,13 @@ name = "leanc"
 version = "0.1.0"
 dependencies = [
  "gen_init",
+ "gen_init_ffi",
  "gen_lean",
+ "gen_lean_ffi",
  "gen_std",
+ "gen_std_ffi",
  "lake",
+ "lake_ffi",
  "leanh",
  "runtime",
 ]
