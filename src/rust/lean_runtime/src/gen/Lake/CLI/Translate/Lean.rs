@@ -131,7 +131,6 @@ use crate::lean_imports_rs::Init::Data::String::Basic::{
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
     lean_string_append, lean_string_intercalate, lean_string_push,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
 use crate::lean_imports_rs::Init::Data::String::PosRaw::lean_string_get_byte_fast;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{

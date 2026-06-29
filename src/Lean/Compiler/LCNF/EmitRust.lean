@@ -317,6 +317,9 @@ def addUseItemFrom (groups : UseGroups) (root : String) (modName : Name) (item :
     UseGroups :=
   addUseItem groups s!"{root}::{leanModuleToRustPath modName}" item
 
+def useGroupsContainsItem (groups : UseGroups) (item : String) : Bool :=
+  groups.any fun group => group.2.contains item
+
 def formatUseGroup (path : String) (items : Array String) : String :=
   let items := items.qsort (· < ·)
   if h : items.size = 0 then
@@ -560,20 +563,24 @@ def emitFileHeader : EmitM Unit := do
     if (getExternNameFor env `c sig.name).isNone then
       if let some idx := env.getModuleIdxFor? sig.name then
         if let some depMod := env.header.moduleNames[idx]? then
-          useGroups := addUseItemFrom useGroups "crate::r#gen" depMod (← toCName sig.name)
+          let item ← toCName sig.name
+          if !useGroupsContainsItem useGroups item then
+            useGroups := addUseItemFrom useGroups "crate::r#gen" depMod item
   -- 3. Imports for declarations with runtime symbol names.
   --    `@[extern]` names are imported through per-module lean_imports_rs stubs.
   let modName ← getModName
   for decl in (← getLocalDecls) do
     if let some externName := getExternNameFor env `c decl.name then
       if !decl.params.isEmpty then
-        useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" modName externName
+        if !useGroupsContainsItem useGroups externName then
+          useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" modName externName
   for sig in (← getOtherModuleDecls) do
     if let some externName := getExternNameFor env `c sig.name then
       if let some idx := env.getModuleIdxFor? sig.name then
         if let some depMod := env.header.moduleNames[idx]? then
           if !sig.params.isEmpty then
-            useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" depMod externName
+            if !useGroupsContainsItem useGroups externName then
+              useGroups := addUseItemFrom useGroups "crate::lean_imports_rs" depMod externName
   emitUseGroups useGroups
 
 def offsetExpression (i : Nat) (offset : Nat) : String :=

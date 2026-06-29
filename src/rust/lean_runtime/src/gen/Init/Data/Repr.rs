@@ -30,7 +30,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget_borrowed, lean_array_get_size, lean_array_mk, lean_nat_add, lean_nat_dec_eq,
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mod, lean_nat_pow, lean_nat_sub,
-    lean_string_mk, lean_uint32_dec_eq, lean_uint32_to_nat, lean_usize_of_nat,
+    lean_string_mk, lean_uint32_dec_eq, lean_uint32_to_nat,
 };
 pub static l_instReprEmpty___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

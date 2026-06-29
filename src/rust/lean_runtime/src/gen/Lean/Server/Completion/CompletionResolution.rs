@@ -28,7 +28,6 @@ use crate::r#gen::Lean::Server::Completion::CompletionInfoSelection::{
     l_Lean_Server_Completion_findCompletionInfosAt,
     runtime_initialize_Lean_Server_Completion_CompletionInfoSelection,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_get_size, lean_nat_dec_lt,

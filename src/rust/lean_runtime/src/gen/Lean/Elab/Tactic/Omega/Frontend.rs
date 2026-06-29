@@ -194,7 +194,7 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::{
     lean_int_dec_eq, lean_int_dec_le, lean_int_dec_lt, lean_int_neg, lean_nat_abs, lean_nat_to_int,
 };
 use crate::lean_imports_rs::Init::Data::Nat::Bitwise::Basic::lean_nat_shiftr;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_append, lean_string_push};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,

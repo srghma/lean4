@@ -35,7 +35,7 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::{
 use crate::lean_imports_rs::Init::Data::Int::DivMod::Basic::{
     lean_int_div, lean_int_ediv, lean_int_mod,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_length, lean_string_push};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
 use crate::lean_imports_rs::Init::Prelude::{lean_nat_dec_eq, lean_nat_sub};

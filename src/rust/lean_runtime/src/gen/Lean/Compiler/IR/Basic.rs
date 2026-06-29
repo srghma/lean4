@@ -28,7 +28,6 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
     lean_string_append, lean_string_length,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint64_of_nat, lean_usize_add, lean_usize_of_nat,
 };

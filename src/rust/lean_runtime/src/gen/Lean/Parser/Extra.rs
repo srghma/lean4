@@ -128,9 +128,7 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
 use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
 use crate::lean_imports_rs::Init::Data::Int::Basic::{lean_int_sub, lean_nat_to_int};
 use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_append, lean_string_intercalate,
-};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_intercalate;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{

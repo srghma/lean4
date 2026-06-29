@@ -180,7 +180,7 @@ use crate::lean_imports_rs::Init::Data::Array::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_append, lean_string_intercalate, lean_string_push,
+    lean_string_intercalate, lean_string_push,
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{

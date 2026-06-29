@@ -113,7 +113,6 @@ use crate::lean_imports_rs::Init::Data::String::Basic::lean_string_utf8_extract;
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
     lean_string_append, lean_string_intercalate, lean_substring_tostring,
 };
-use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,

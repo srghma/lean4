@@ -62,9 +62,7 @@ use crate::r#gen::Lean::Server::Snapshots::{
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::l_Std_DTreeMap_Internal_Impl_Const_get_x3f___redArg;
 use crate::lean_imports_rs::Init::Data::Array::Basic::lean_array_uget_borrowed;
 use crate::lean_imports_rs::Init::Data::Array::Set::lean_array_fset;
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_append, lean_string_intercalate,
-};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_intercalate;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_dec_lt, lean_uint64_to_usize, lean_usize_land, lean_usize_mul,

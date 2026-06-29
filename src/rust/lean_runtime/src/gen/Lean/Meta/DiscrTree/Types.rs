@@ -10,7 +10,7 @@ use crate::r#gen::Lean::Expr::{
 use crate::lean_imports_rs::Init::Data::Int::Basic::lean_nat_to_int;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint64_of_nat;
 use crate::lean_imports_rs::Init::Prelude::{
-    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_uint64_mix_hash, lean_uint64_of_nat,
+    lean_name_eq, lean_nat_dec_eq, lean_nat_dec_le, lean_uint64_mix_hash,
 };
 pub static mut l_Lean_Meta_DiscrTree_instInhabitedKey_default: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();

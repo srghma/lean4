@@ -111,8 +111,7 @@ use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_usize_shift_left, lean_usize_shift_right,
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
-    lean_uint64_of_nat, lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
-    lean_usize_to_nat,
+    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub, lean_usize_to_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_fget, lean_array_fget_borrowed, lean_array_get, lean_array_get_borrowed,

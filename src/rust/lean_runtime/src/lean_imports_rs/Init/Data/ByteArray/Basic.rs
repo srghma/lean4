@@ -2,24 +2,38 @@ use crate::leanh::*;
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/ByteArray/Basic.lean
 
-pub fn lean_sarray_dec_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
-    todo!("Stub for lean_sarray_dec_eq");
+pub unsafe fn lean_sarray_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    let a_ref = unsafe { &*(a as *mut LeanScalarArray<0>) };
+    let b_ref = unsafe { &*(b as *mut LeanScalarArray<0>) };
+    if a_ref.m_size != b_ref.m_size {
+        return 0;
+    }
+    unsafe {
+        (core::slice::from_raw_parts(a_ref.m_data.as_ptr(), a_ref.m_size)
+            == core::slice::from_raw_parts(b_ref.m_data.as_ptr(), b_ref.m_size)) as u8
+    }
 }
 
-pub fn lean_sarray_size(_: *mut LeanObject) -> usize {
-    todo!("Stub for lean_sarray_size");
+pub unsafe fn lean_sarray_size(array: *mut LeanObject) -> usize {
+    unsafe { (*(array as *mut LeanScalarArray<0>)).m_size }
 }
 
-pub fn lean_byte_array_uget(_: *mut LeanObject, _: usize) -> u8 {
-    todo!("Stub for lean_byte_array_uget");
+pub unsafe fn lean_byte_array_uget(array: *mut LeanObject, idx: usize) -> u8 {
+    unsafe {
+        (*(array as *mut LeanScalarArray<0>))
+            .m_data
+            .as_ptr()
+            .add(idx)
+            .read()
+    }
 }
 
-pub fn lean_byte_array_get(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
-    todo!("Stub for lean_byte_array_get");
+pub unsafe fn lean_byte_array_get(array: *mut LeanObject, idx: *mut LeanObject) -> u8 {
+    unsafe { lean_byte_array_uget(array, lean_unbox(idx)) }
 }
 
-pub fn lean_byte_array_fget() {
-    todo!("Stub for lean_byte_array_fget");
+pub unsafe fn lean_byte_array_fget(array: *mut LeanObject, idx: *mut LeanObject) -> u8 {
+    unsafe { lean_byte_array_uget(array, lean_unbox(idx)) }
 }
 
 pub fn lean_byte_array_set(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject {

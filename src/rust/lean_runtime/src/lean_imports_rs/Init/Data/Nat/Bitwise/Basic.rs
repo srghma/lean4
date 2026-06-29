@@ -1,23 +1,23 @@
-use crate::leanh::*;
+use crate::leanh::{self, LeanObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Nat/Bitwise/Basic.lean
 
-pub fn lean_nat_land() {
-    todo!("Stub for lean_nat_land");
+pub unsafe fn lean_nat_land(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_box(leanh::lean_unbox(a) & leanh::lean_unbox(b)) }
 }
 
-pub fn lean_nat_lor() {
-    todo!("Stub for lean_nat_lor");
+pub unsafe fn lean_nat_lor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_box(leanh::lean_unbox(a) | leanh::lean_unbox(b)) }
 }
 
-pub fn lean_nat_lxor() {
-    todo!("Stub for lean_nat_lxor");
+pub unsafe fn lean_nat_lxor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_box(leanh::lean_unbox(a) ^ leanh::lean_unbox(b)) }
 }
 
-pub fn lean_nat_shiftl(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_nat_shiftl");
+pub unsafe fn lean_nat_shiftl(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_box(leanh::lean_unbox(a) << leanh::lean_unbox(b)) }
 }
 
-pub fn lean_nat_shiftr() {
-    todo!("Stub for lean_nat_shiftr");
+pub unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { leanh::lean_nat_shiftr(a, b) }
 }

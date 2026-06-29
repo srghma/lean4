@@ -81,7 +81,7 @@ use crate::lean_imports_rs::Init::Data::Ord::String::lean_string_compare;
 use crate::lean_imports_rs::Init::Data::String::Basic::{
     lean_string_utf8_get_fast, lean_string_utf8_next_fast, lean_string_utf8_prev,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_append, lean_string_push};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_shift_right, lean_uint64_to_usize, lean_uint64_xor, lean_usize_land,

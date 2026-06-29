@@ -55,9 +55,7 @@ use crate::r#gen::Std::Data::DTreeMap::Internal::Operations::{
 use crate::r#gen::Std::Data::DTreeMap::Internal::Queries::{
     l_Std_DTreeMap_Internal_Impl_foldrM___redArg, l_Std_DTreeMap_Internal_Impl_forInStep___redArg,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_append, lean_string_intercalate,
-};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_intercalate;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_push, lean_mk_empty_array_with_capacity, lean_name_eq, lean_nat_add,

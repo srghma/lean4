@@ -5,1456 +5,1456 @@
 #![allow(unused_imports)]
 
 pub mod Init {
-     //#[path = "../Init.rs"]
-     //pub mod index;
-     //pub use index::*;
-     #[path = "BinderNameHint.rs"]
-     pub mod BinderNameHint;
-     //#[path = "BinderPredicates.rs"]
-     //pub mod BinderPredicates;
-     //#[path = "ByCases.rs"]
-     //pub mod ByCases;
-     //#[path = "CbvSimproc.rs"]
-     //pub mod CbvSimproc;
-     #[path = "Classical.rs"]
-     pub mod Classical;
+    #[path = "../Init.rs"]
+    pub mod index;
+    pub use index::*;
+    #[path = "BinderNameHint.rs"]
+    pub mod BinderNameHint;
+    #[path = "BinderPredicates.rs"]
+    pub mod BinderPredicates;
+    #[path = "ByCases.rs"]
+    pub mod ByCases;
+    #[path = "CbvSimproc.rs"]
+    pub mod CbvSimproc;
+    #[path = "Classical.rs"]
+    pub mod Classical;
     #[path = "Coe.rs"]
     pub mod Coe;
-     pub mod Control {
-         //#[path = "../Control.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //#[path = "Basic.rs"]
-         //pub mod Basic;
-         #[path = "Do.rs"]
-         pub mod Do;
-         //#[path = "EState.rs"]
-         //pub mod EState;
-         //#[path = "Except.rs"]
-         //pub mod Except;
-         //#[path = "ExceptCps.rs"]
-         //pub mod ExceptCps;
-         #[path = "Id.rs"]
-         pub mod Id;
-         //pub mod Lawful {
-             //#[path = "../Lawful.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "Basic.rs"]
-             //pub mod Basic;
-             //#[path = "Instances.rs"]
-             //pub mod Instances;
-             //#[path = "Lemmas.rs"]
-             //pub mod Lemmas;
-             //pub mod MonadAttach {
-                 //#[path = "../MonadAttach.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Instances.rs"]
-                 //pub mod Instances;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
-             //pub mod MonadLift {
-                 //#[path = "../MonadLift.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Instances.rs"]
-                 //pub mod Instances;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
-         //}
-         #[path = "MonadAttach.rs"]
-         pub mod MonadAttach;
-         //#[path = "Option.rs"]
-         //pub mod Option;
-         //#[path = "Reader.rs"]
-         //pub mod Reader;
-         //#[path = "State.rs"]
-         //pub mod State;
-         //#[path = "StateCps.rs"]
-         //pub mod StateCps;
-         //#[path = "StateRef.rs"]
-         //pub mod StateRef;
-     }
-     #[path = "Conv.rs"]
-     pub mod Conv;
-     #[path = "Core.rs"]
-     pub mod Core;
-     pub mod Data {
-         //#[path = "../Data.rs"]
-         //pub mod index;
-         //pub use index::*;
-             //#[path = "AC.rs"]
-             //pub mod AC;
-             pub mod Array {
-                 //#[path = "../Array.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Attach.rs"]
-                 //pub mod Attach;
-                 #[path = "Basic.rs"]
-                 pub mod Basic;
-                 //#[path = "BasicAux.rs"]
-                 //pub mod BasicAux;
-                 //#[path = "BinSearch.rs"]
-                 //pub mod BinSearch;
-                 //#[path = "Bootstrap.rs"]
-                 //pub mod Bootstrap;
-                 //#[path = "Count.rs"]
-                 //pub mod Count;
-                 //#[path = "DecidableEq.rs"]
-                 //pub mod DecidableEq;
-                 //#[path = "Erase.rs"]
-                 //pub mod Erase;
-                 //#[path = "Extract.rs"]
-                 //pub mod Extract;
-                 //#[path = "FinRange.rs"]
-                 //pub mod FinRange;
-                 //#[path = "Find.rs"]
-                 //pub mod Find;
-                 //#[path = "GetLit.rs"]
-                 //pub mod GetLit;
-                 //#[path = "InsertIdx.rs"]
-                 //pub mod InsertIdx;
-                 //#[path = "InsertionSort.rs"]
-                 //pub mod InsertionSort;
-                 //#[path = "Int.rs"]
-                 //pub mod Int;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //pub mod Lex {
-                     //#[path = "../Lex.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "MapIdx.rs"]
-                 //pub mod MapIdx;
-                 //#[path = "Mem.rs"]
-                 //pub mod Mem;
-                 //#[path = "MinMax.rs"]
-                 //pub mod MinMax;
-                 //#[path = "Monadic.rs"]
-                 //pub mod Monadic;
-                 //#[path = "Nat.rs"]
-                 //pub mod Nat;
-                 //#[path = "OfFn.rs"]
-                 //pub mod OfFn;
-                 //#[path = "Perm.rs"]
-                 //pub mod Perm;
-                 //pub mod QSort {
-                     //#[path = "../QSort.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                 //}
-                 //#[path = "Range.rs"]
-                 //pub mod Range;
-                 //#[path = "Set.rs"]
-                 //pub mod Set;
-                 //pub mod Sort {
-                     //#[path = "../Sort.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //pub mod Subarray {
-                     //#[path = "../Subarray.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Split.rs"]
-                     //pub mod Split;
-                 //}
-                 //#[path = "TakeDrop.rs"]
-                 //pub mod TakeDrop;
-                 //#[path = "Zip.rs"]
-                 //pub mod Zip;
-             }
-             //#[path = "BEq.rs"]
-             //pub mod BEq;
-             //pub mod BitVec {
-                 //#[path = "../BitVec.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "BasicAux.rs"]
-                 //pub mod BasicAux;
-                 //#[path = "Bitblast.rs"]
-                 //pub mod Bitblast;
-                 //#[path = "Bootstrap.rs"]
-                 //pub mod Bootstrap;
-                 //#[path = "Decidable.rs"]
-                 //pub mod Decidable;
-                 //#[path = "Folds.rs"]
-                 //pub mod Folds;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
-             //#[path = "Bool.rs"]
-             //pub mod Bool;
-             //pub mod ByteArray {
-                 //#[path = "../ByteArray.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Bootstrap.rs"]
-                 //pub mod Bootstrap;
-                 //#[path = "Extra.rs"]
-                 //pub mod Extra;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
+    pub mod Control {
+        #[path = "../Control.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "Basic.rs"]
+        pub mod Basic;
+        #[path = "Do.rs"]
+        pub mod Do;
+        #[path = "EState.rs"]
+        pub mod EState;
+        #[path = "Except.rs"]
+        pub mod Except;
+        #[path = "ExceptCps.rs"]
+        pub mod ExceptCps;
+        #[path = "Id.rs"]
+        pub mod Id;
+        pub mod Lawful {
+            #[path = "../Lawful.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Instances.rs"]
+            pub mod Instances;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            pub mod MonadAttach {
+                #[path = "../MonadAttach.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Instances.rs"]
+                pub mod Instances;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            pub mod MonadLift {
+                #[path = "../MonadLift.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Instances.rs"]
+                pub mod Instances;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+        }
+        #[path = "MonadAttach.rs"]
+        pub mod MonadAttach;
+        #[path = "Option.rs"]
+        pub mod Option;
+        #[path = "Reader.rs"]
+        pub mod Reader;
+        #[path = "State.rs"]
+        pub mod State;
+        #[path = "StateCps.rs"]
+        pub mod StateCps;
+        #[path = "StateRef.rs"]
+        pub mod StateRef;
+    }
+    #[path = "Conv.rs"]
+    pub mod Conv;
+    #[path = "Core.rs"]
+    pub mod Core;
+    pub mod Data {
+        #[path = "../Data.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "AC.rs"]
+        pub mod AC;
+        pub mod Array {
+            #[path = "../Array.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Attach.rs"]
+            pub mod Attach;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "BasicAux.rs"]
+            pub mod BasicAux;
+            #[path = "BinSearch.rs"]
+            pub mod BinSearch;
+            #[path = "Bootstrap.rs"]
+            pub mod Bootstrap;
+            #[path = "Count.rs"]
+            pub mod Count;
+            #[path = "DecidableEq.rs"]
+            pub mod DecidableEq;
+            #[path = "Erase.rs"]
+            pub mod Erase;
+            #[path = "Extract.rs"]
+            pub mod Extract;
+            #[path = "FinRange.rs"]
+            pub mod FinRange;
+            #[path = "Find.rs"]
+            pub mod Find;
+            #[path = "GetLit.rs"]
+            pub mod GetLit;
+            #[path = "InsertIdx.rs"]
+            pub mod InsertIdx;
+            #[path = "InsertionSort.rs"]
+            pub mod InsertionSort;
+            #[path = "Int.rs"]
+            pub mod Int;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            pub mod Lex {
+                #[path = "../Lex.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "MapIdx.rs"]
+            pub mod MapIdx;
+            #[path = "Mem.rs"]
+            pub mod Mem;
+            #[path = "MinMax.rs"]
+            pub mod MinMax;
+            #[path = "Monadic.rs"]
+            pub mod Monadic;
+            #[path = "Nat.rs"]
+            pub mod Nat;
+            #[path = "OfFn.rs"]
+            pub mod OfFn;
+            #[path = "Perm.rs"]
+            pub mod Perm;
+            pub mod QSort {
+                #[path = "../QSort.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+            }
+            #[path = "Range.rs"]
+            pub mod Range;
+            #[path = "Set.rs"]
+            pub mod Set;
+            pub mod Sort {
+                #[path = "../Sort.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            pub mod Subarray {
+                #[path = "../Subarray.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Split.rs"]
+                pub mod Split;
+            }
+            #[path = "TakeDrop.rs"]
+            pub mod TakeDrop;
+            #[path = "Zip.rs"]
+            pub mod Zip;
+        }
+        #[path = "BEq.rs"]
+        pub mod BEq;
+        pub mod BitVec {
+            #[path = "../BitVec.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "BasicAux.rs"]
+            pub mod BasicAux;
+            #[path = "Bitblast.rs"]
+            pub mod Bitblast;
+            #[path = "Bootstrap.rs"]
+            pub mod Bootstrap;
+            #[path = "Decidable.rs"]
+            pub mod Decidable;
+            #[path = "Folds.rs"]
+            pub mod Folds;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+        }
+        #[path = "Bool.rs"]
+        pub mod Bool;
+        pub mod ByteArray {
+            #[path = "../ByteArray.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Bootstrap.rs"]
+            pub mod Bootstrap;
+            #[path = "Extra.rs"]
+            pub mod Extra;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+        }
         #[path = "Cast.rs"]
         pub mod Cast;
-             //pub mod Char {
-                 //#[path = "../Char.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "Order.rs"]
-                 //pub mod Order;
-                 //#[path = "Ordinal.rs"]
-                 //pub mod Ordinal;
-             //}
-             //pub mod Dyadic {
-                 //#[path = "../Dyadic.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Instances.rs"]
-                 //pub mod Instances;
-                 //#[path = "Inv.rs"]
-                 //pub mod Inv;
-                 //#[path = "Round.rs"]
-                 //pub mod Round;
-             //}
-             //pub mod Fin {
-                 //#[path = "../Fin.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Bitwise.rs"]
-                 //pub mod Bitwise;
-                 //#[path = "Fold.rs"]
-                 //pub mod Fold;
-                 //#[path = "Iterate.rs"]
-                 //pub mod Iterate;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "Log2.rs"]
-                 //pub mod Log2;
-                 //#[path = "OverflowAware.rs"]
-                 //pub mod OverflowAware;
-             //}
-             //#[path = "Float.rs"]
-             //pub mod Float;
-             //#[path = "Float32.rs"]
-             //pub mod Float32;
-             //pub mod FloatArray {
-                 //#[path = "../FloatArray.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-             //}
-             pub mod Format {
-                 //#[path = "../Format.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 #[path = "Basic.rs"]
-                 pub mod Basic;
-                 //#[path = "Instances.rs"]
-                 //pub mod Instances;
-                 //#[path = "Macro.rs"]
-                 //pub mod Macro;
-                 //#[path = "Syntax.rs"]
-                 //pub mod Syntax;
-             }
-             //#[path = "Function.rs"]
-             //pub mod Function;
-             //#[path = "Hashable.rs"]
-             //pub mod Hashable;
-             //pub mod Int {
-                 //#[path = "../Int.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //pub mod Bitwise {
-                     //#[path = "../Bitwise.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "Compare.rs"]
-                 //pub mod Compare;
-                 //#[path = "Cooper.rs"]
-                 //pub mod Cooper;
-                 //pub mod DivMod {
-                     //#[path = "../DivMod.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Bootstrap.rs"]
-                     //pub mod Bootstrap;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                     //#[path = "Pow.rs"]
-                     //pub mod Pow;
-                 //}
-                 //#[path = "Gcd.rs"]
-                 //pub mod Gcd;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "LemmasAux.rs"]
-                 //pub mod LemmasAux;
-                 //#[path = "Linear.rs"]
-                 //pub mod Linear;
-                 //#[path = "OfNat.rs"]
-                 //pub mod OfNat;
-                 //#[path = "Order.rs"]
-                 //pub mod Order;
-                 //#[path = "Pow.rs"]
-                 //pub mod Pow;
-                 //#[path = "Repr.rs"]
-                 //pub mod Repr;
-                 //#[path = "ToString.rs"]
-                 //pub mod ToString;
-             //}
-             //pub mod Iterators {
-                 //#[path = "../Iterators.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //pub mod Combinators {
-                     //#[path = "../Combinators.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Append.rs"]
-                     //pub mod Append;
-                     //#[path = "Attach.rs"]
-                     //pub mod Attach;
-                     //#[path = "FilterMap.rs"]
-                     //pub mod FilterMap;
-                     //#[path = "FlatMap.rs"]
-                     //pub mod FlatMap;
-                     //pub mod Monadic {
-                         //#[path = "../Monadic.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "Append.rs"]
-                         //pub mod Append;
-                         //#[path = "Attach.rs"]
-                         //pub mod Attach;
-                         //#[path = "FilterMap.rs"]
-                         //pub mod FilterMap;
-                         //#[path = "FlatMap.rs"]
-                         //pub mod FlatMap;
-                         //#[path = "Take.rs"]
-                         //pub mod Take;
-                         //#[path = "ULift.rs"]
-                         //pub mod ULift;
-                     //}
-                     //#[path = "Take.rs"]
-                     //pub mod Take;
-                     //#[path = "ULift.rs"]
-                     //pub mod ULift;
-                 //}
-                 //pub mod Consumers {
-                     //#[path = "../Consumers.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Access.rs"]
-                     //pub mod Access;
-                     //#[path = "Collect.rs"]
-                     //pub mod Collect;
-                     //#[path = "Loop.rs"]
-                     //pub mod Loop;
-                     //pub mod Monadic {
-                         //#[path = "../Monadic.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "Access.rs"]
-                         //pub mod Access;
-                         //#[path = "Collect.rs"]
-                         //pub mod Collect;
-                         //#[path = "Loop.rs"]
-                         //pub mod Loop;
-                         //#[path = "Partial.rs"]
-                         //pub mod Partial;
-                         //#[path = "Total.rs"]
-                         //pub mod Total;
-                     //}
-                     //#[path = "Partial.rs"]
-                     //pub mod Partial;
-                     //#[path = "Stream.rs"]
-                     //pub mod Stream;
-                     //#[path = "Total.rs"]
-                     //pub mod Total;
-                 //}
-                 //pub mod Internal {
-                     //#[path = "../Internal.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "LawfulMonadLiftFunction.rs"]
-                     //pub mod LawfulMonadLiftFunction;
-                 //}
-                 //pub mod Lemmas {
-                     //#[path = "../Lemmas.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //pub mod Combinators {
-                         //#[path = "../Combinators.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "Append.rs"]
-                         //pub mod Append;
-                         //#[path = "Attach.rs"]
-                         //pub mod Attach;
-                         //#[path = "FilterMap.rs"]
-                         //pub mod FilterMap;
-                         //#[path = "FlatMap.rs"]
-                         //pub mod FlatMap;
-                         //pub mod Monadic {
-                             //#[path = "../Monadic.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "Append.rs"]
-                             //pub mod Append;
-                             //#[path = "Attach.rs"]
-                             //pub mod Attach;
-                             //#[path = "FilterMap.rs"]
-                             //pub mod FilterMap;
-                             //#[path = "FlatMap.rs"]
-                             //pub mod FlatMap;
-                             //#[path = "Take.rs"]
-                             //pub mod Take;
-                             //#[path = "ULift.rs"]
-                             //pub mod ULift;
-                         //}
-                         //#[path = "Take.rs"]
-                         //pub mod Take;
-                         //#[path = "ULift.rs"]
-                         //pub mod ULift;
-                     //}
-                     //pub mod Consumers {
-                         //#[path = "../Consumers.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "Access.rs"]
-                         //pub mod Access;
-                         //#[path = "Collect.rs"]
-                         //pub mod Collect;
-                         //#[path = "Loop.rs"]
-                         //pub mod Loop;
-                         //pub mod Monadic {
-                             //#[path = "../Monadic.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "Collect.rs"]
-                             //pub mod Collect;
-                             //#[path = "Loop.rs"]
-                             //pub mod Loop;
-                         //}
-                     //}
-                     //pub mod Monadic {
-                         //#[path = "Basic.rs"]
-                         //pub mod Basic;
-                     //}
-                     //pub mod Producers {
-                         //#[path = "../Producers.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "List.rs"]
-                         //pub mod List;
-                         //pub mod Monadic {
-                             //#[path = "../Monadic.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "List.rs"]
-                             //pub mod List;
-                         //}
-                     //}
-                 //}
-                 //#[path = "PostconditionMonad.rs"]
-                 //pub mod PostconditionMonad;
-                 //pub mod Producers {
-                     //#[path = "../Producers.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "List.rs"]
-                     //pub mod List;
-                     //pub mod Monadic {
-                         //#[path = "../Monadic.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "List.rs"]
-                         //pub mod List;
-                     //}
-                 //}
-                 //#[path = "ToIterator.rs"]
-                 //pub mod ToIterator;
-             //}
-             //#[path = "LawfulHashable.rs"]
-             //pub mod LawfulHashable;
-             //pub mod List {
-                 //#[path = "../List.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Attach.rs"]
-                 //pub mod Attach;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "BasicAux.rs"]
-                 //pub mod BasicAux;
-                 //#[path = "Control.rs"]
-                 //pub mod Control;
-                 //#[path = "ControlImpl.rs"]
-                 //pub mod ControlImpl;
-                 //#[path = "Count.rs"]
-                 //pub mod Count;
-                 //#[path = "Erase.rs"]
-                 //pub mod Erase;
-                 //#[path = "FinRange.rs"]
-                 //pub mod FinRange;
-                 //#[path = "Find.rs"]
-                 //pub mod Find;
-                 //#[path = "Impl.rs"]
-                 //pub mod Impl;
-                 //pub mod Int {
-                     //#[path = "../Int.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Prod.rs"]
-                     //pub mod Prod;
-                     //#[path = "Sum.rs"]
-                     //pub mod Sum;
-                 //}
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "Lex.rs"]
-                 //pub mod Lex;
-                 //#[path = "MapIdx.rs"]
-                 //pub mod MapIdx;
-                 //#[path = "MinMax.rs"]
-                 //pub mod MinMax;
-                 //#[path = "MinMaxIdx.rs"]
-                 //pub mod MinMaxIdx;
-                 //#[path = "MinMaxOn.rs"]
-                 //pub mod MinMaxOn;
-                 //#[path = "Monadic.rs"]
-                 //pub mod Monadic;
-                 //pub mod Nat {
-                     //#[path = "../Nat.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "BEq.rs"]
-                     //pub mod BEq;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Count.rs"]
-                     //pub mod Count;
-                     //#[path = "Erase.rs"]
-                     //pub mod Erase;
-                     //#[path = "Find.rs"]
-                     //pub mod Find;
-                     //#[path = "InsertIdx.rs"]
-                     //pub mod InsertIdx;
-                     //#[path = "Modify.rs"]
-                     //pub mod Modify;
-                     //#[path = "Pairwise.rs"]
-                     //pub mod Pairwise;
-                     //#[path = "Perm.rs"]
-                     //pub mod Perm;
-                     //#[path = "Prod.rs"]
-                     //pub mod Prod;
-                     //#[path = "Range.rs"]
-                     //pub mod Range;
-                     //#[path = "Sublist.rs"]
-                     //pub mod Sublist;
-                     //#[path = "Sum.rs"]
-                     //pub mod Sum;
-                     //#[path = "TakeDrop.rs"]
-                     //pub mod TakeDrop;
-                 //}
-                 //#[path = "Notation.rs"]
-                 //pub mod Notation;
-                 //#[path = "OfFn.rs"]
-                 //pub mod OfFn;
-                 //#[path = "Pairwise.rs"]
-                 //pub mod Pairwise;
-                 //#[path = "Perm.rs"]
-                 //pub mod Perm;
-                 //#[path = "Range.rs"]
-                 //pub mod Range;
-                 //pub mod Scan {
-                     //#[path = "../Scan.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //pub mod Sort {
-                     //#[path = "../Sort.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Impl.rs"]
-                     //pub mod Impl;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //pub mod SplitOn {
-                     //#[path = "../SplitOn.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "Sublist.rs"]
-                 //pub mod Sublist;
-                 //#[path = "TakeDrop.rs"]
-                 //pub mod TakeDrop;
-                 //#[path = "ToArray.rs"]
-                 //pub mod ToArray;
-                 //#[path = "ToArrayImpl.rs"]
-                 //pub mod ToArrayImpl;
-                 //#[path = "Zip.rs"]
-                 //pub mod Zip;
-             //}
-             //pub mod Nat {
-                 //#[path = "../Nat.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //pub mod Bitwise {
-                     //#[path = "../Bitwise.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "Compare.rs"]
-                 //pub mod Compare;
-                 //#[path = "Control.rs"]
-                 //pub mod Control;
-                 //#[path = "Coprime.rs"]
-                 //pub mod Coprime;
-                 //pub mod Div {
-                     //#[path = "../Div.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "Dvd.rs"]
-                 //pub mod Dvd;
-                 //#[path = "Fold.rs"]
-                 //pub mod Fold;
-                 //#[path = "Gcd.rs"]
-                 //pub mod Gcd;
-                 //#[path = "Lcm.rs"]
-                 //pub mod Lcm;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "Linear.rs"]
-                 //pub mod Linear;
-                 //#[path = "Log2.rs"]
-                 //pub mod Log2;
-                 //#[path = "MinMax.rs"]
-                 //pub mod MinMax;
-                 //#[path = "Mod.rs"]
-                 //pub mod Mod;
-                 //#[path = "Order.rs"]
-                 //pub mod Order;
-                 //pub mod Power2 {
-                     //#[path = "../Power2.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "SOM.rs"]
-                 //pub mod SOM;
-                 //#[path = "Simproc.rs"]
-                 //pub mod Simproc;
-                 //#[path = "ToString.rs"]
-                 //pub mod ToString;
-             //}
-             //#[path = "NeZero.rs"]
-             //pub mod NeZero;
-             //#[path = "OfScientific.rs"]
-             //pub mod OfScientific;
+        pub mod Char {
+            #[path = "../Char.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "Order.rs"]
+            pub mod Order;
+            #[path = "Ordinal.rs"]
+            pub mod Ordinal;
+        }
+        pub mod Dyadic {
+            #[path = "../Dyadic.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Instances.rs"]
+            pub mod Instances;
+            #[path = "Inv.rs"]
+            pub mod Inv;
+            #[path = "Round.rs"]
+            pub mod Round;
+        }
+        pub mod Fin {
+            #[path = "../Fin.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Bitwise.rs"]
+            pub mod Bitwise;
+            #[path = "Fold.rs"]
+            pub mod Fold;
+            #[path = "Iterate.rs"]
+            pub mod Iterate;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "Log2.rs"]
+            pub mod Log2;
+            #[path = "OverflowAware.rs"]
+            pub mod OverflowAware;
+        }
+        #[path = "Float.rs"]
+        pub mod Float;
+        #[path = "Float32.rs"]
+        pub mod Float32;
+        pub mod FloatArray {
+            #[path = "../FloatArray.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+        }
+        pub mod Format {
+            #[path = "../Format.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Instances.rs"]
+            pub mod Instances;
+            #[path = "Macro.rs"]
+            pub mod Macro;
+            #[path = "Syntax.rs"]
+            pub mod Syntax;
+        }
+        #[path = "Function.rs"]
+        pub mod Function;
+        #[path = "Hashable.rs"]
+        pub mod Hashable;
+        pub mod Int {
+            #[path = "../Int.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            pub mod Bitwise {
+                #[path = "../Bitwise.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "Compare.rs"]
+            pub mod Compare;
+            #[path = "Cooper.rs"]
+            pub mod Cooper;
+            pub mod DivMod {
+                #[path = "../DivMod.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Bootstrap.rs"]
+                pub mod Bootstrap;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+                #[path = "Pow.rs"]
+                pub mod Pow;
+            }
+            #[path = "Gcd.rs"]
+            pub mod Gcd;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "LemmasAux.rs"]
+            pub mod LemmasAux;
+            #[path = "Linear.rs"]
+            pub mod Linear;
+            #[path = "OfNat.rs"]
+            pub mod OfNat;
+            #[path = "Order.rs"]
+            pub mod Order;
+            #[path = "Pow.rs"]
+            pub mod Pow;
+            #[path = "Repr.rs"]
+            pub mod Repr;
+            #[path = "ToString.rs"]
+            pub mod ToString;
+        }
+        pub mod Iterators {
+            #[path = "../Iterators.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            pub mod Combinators {
+                #[path = "../Combinators.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Append.rs"]
+                pub mod Append;
+                #[path = "Attach.rs"]
+                pub mod Attach;
+                #[path = "FilterMap.rs"]
+                pub mod FilterMap;
+                #[path = "FlatMap.rs"]
+                pub mod FlatMap;
+                pub mod Monadic {
+                    #[path = "../Monadic.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "Append.rs"]
+                    pub mod Append;
+                    #[path = "Attach.rs"]
+                    pub mod Attach;
+                    #[path = "FilterMap.rs"]
+                    pub mod FilterMap;
+                    #[path = "FlatMap.rs"]
+                    pub mod FlatMap;
+                    #[path = "Take.rs"]
+                    pub mod Take;
+                    #[path = "ULift.rs"]
+                    pub mod ULift;
+                }
+                #[path = "Take.rs"]
+                pub mod Take;
+                #[path = "ULift.rs"]
+                pub mod ULift;
+            }
+            pub mod Consumers {
+                #[path = "../Consumers.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Access.rs"]
+                pub mod Access;
+                #[path = "Collect.rs"]
+                pub mod Collect;
+                #[path = "Loop.rs"]
+                pub mod Loop;
+                pub mod Monadic {
+                    #[path = "../Monadic.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "Access.rs"]
+                    pub mod Access;
+                    #[path = "Collect.rs"]
+                    pub mod Collect;
+                    #[path = "Loop.rs"]
+                    pub mod Loop;
+                    #[path = "Partial.rs"]
+                    pub mod Partial;
+                    #[path = "Total.rs"]
+                    pub mod Total;
+                }
+                #[path = "Partial.rs"]
+                pub mod Partial;
+                #[path = "Stream.rs"]
+                pub mod Stream;
+                #[path = "Total.rs"]
+                pub mod Total;
+            }
+            pub mod Internal {
+                #[path = "../Internal.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "LawfulMonadLiftFunction.rs"]
+                pub mod LawfulMonadLiftFunction;
+            }
+            pub mod Lemmas {
+                #[path = "../Lemmas.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                pub mod Combinators {
+                    #[path = "../Combinators.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "Append.rs"]
+                    pub mod Append;
+                    #[path = "Attach.rs"]
+                    pub mod Attach;
+                    #[path = "FilterMap.rs"]
+                    pub mod FilterMap;
+                    #[path = "FlatMap.rs"]
+                    pub mod FlatMap;
+                    pub mod Monadic {
+                        #[path = "../Monadic.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "Append.rs"]
+                        pub mod Append;
+                        #[path = "Attach.rs"]
+                        pub mod Attach;
+                        #[path = "FilterMap.rs"]
+                        pub mod FilterMap;
+                        #[path = "FlatMap.rs"]
+                        pub mod FlatMap;
+                        #[path = "Take.rs"]
+                        pub mod Take;
+                        #[path = "ULift.rs"]
+                        pub mod ULift;
+                    }
+                    #[path = "Take.rs"]
+                    pub mod Take;
+                    #[path = "ULift.rs"]
+                    pub mod ULift;
+                }
+                pub mod Consumers {
+                    #[path = "../Consumers.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "Access.rs"]
+                    pub mod Access;
+                    #[path = "Collect.rs"]
+                    pub mod Collect;
+                    #[path = "Loop.rs"]
+                    pub mod Loop;
+                    pub mod Monadic {
+                        #[path = "../Monadic.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "Collect.rs"]
+                        pub mod Collect;
+                        #[path = "Loop.rs"]
+                        pub mod Loop;
+                    }
+                }
+                pub mod Monadic {
+                    #[path = "Basic.rs"]
+                    pub mod Basic;
+                }
+                pub mod Producers {
+                    #[path = "../Producers.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "List.rs"]
+                    pub mod List;
+                    pub mod Monadic {
+                        #[path = "../Monadic.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "List.rs"]
+                        pub mod List;
+                    }
+                }
+            }
+            #[path = "PostconditionMonad.rs"]
+            pub mod PostconditionMonad;
+            pub mod Producers {
+                #[path = "../Producers.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "List.rs"]
+                pub mod List;
+                pub mod Monadic {
+                    #[path = "../Monadic.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "List.rs"]
+                    pub mod List;
+                }
+            }
+            #[path = "ToIterator.rs"]
+            pub mod ToIterator;
+        }
+        #[path = "LawfulHashable.rs"]
+        pub mod LawfulHashable;
+        pub mod List {
+            #[path = "../List.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Attach.rs"]
+            pub mod Attach;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "BasicAux.rs"]
+            pub mod BasicAux;
+            #[path = "Control.rs"]
+            pub mod Control;
+            #[path = "ControlImpl.rs"]
+            pub mod ControlImpl;
+            #[path = "Count.rs"]
+            pub mod Count;
+            #[path = "Erase.rs"]
+            pub mod Erase;
+            #[path = "FinRange.rs"]
+            pub mod FinRange;
+            #[path = "Find.rs"]
+            pub mod Find;
+            #[path = "Impl.rs"]
+            pub mod Impl;
+            pub mod Int {
+                #[path = "../Int.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Prod.rs"]
+                pub mod Prod;
+                #[path = "Sum.rs"]
+                pub mod Sum;
+            }
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "Lex.rs"]
+            pub mod Lex;
+            #[path = "MapIdx.rs"]
+            pub mod MapIdx;
+            #[path = "MinMax.rs"]
+            pub mod MinMax;
+            #[path = "MinMaxIdx.rs"]
+            pub mod MinMaxIdx;
+            #[path = "MinMaxOn.rs"]
+            pub mod MinMaxOn;
+            #[path = "Monadic.rs"]
+            pub mod Monadic;
+            pub mod Nat {
+                #[path = "../Nat.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "BEq.rs"]
+                pub mod BEq;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Count.rs"]
+                pub mod Count;
+                #[path = "Erase.rs"]
+                pub mod Erase;
+                #[path = "Find.rs"]
+                pub mod Find;
+                #[path = "InsertIdx.rs"]
+                pub mod InsertIdx;
+                #[path = "Modify.rs"]
+                pub mod Modify;
+                #[path = "Pairwise.rs"]
+                pub mod Pairwise;
+                #[path = "Perm.rs"]
+                pub mod Perm;
+                #[path = "Prod.rs"]
+                pub mod Prod;
+                #[path = "Range.rs"]
+                pub mod Range;
+                #[path = "Sublist.rs"]
+                pub mod Sublist;
+                #[path = "Sum.rs"]
+                pub mod Sum;
+                #[path = "TakeDrop.rs"]
+                pub mod TakeDrop;
+            }
+            #[path = "Notation.rs"]
+            pub mod Notation;
+            #[path = "OfFn.rs"]
+            pub mod OfFn;
+            #[path = "Pairwise.rs"]
+            pub mod Pairwise;
+            #[path = "Perm.rs"]
+            pub mod Perm;
+            #[path = "Range.rs"]
+            pub mod Range;
+            pub mod Scan {
+                #[path = "../Scan.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            pub mod Sort {
+                #[path = "../Sort.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Impl.rs"]
+                pub mod Impl;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            pub mod SplitOn {
+                #[path = "../SplitOn.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "Sublist.rs"]
+            pub mod Sublist;
+            #[path = "TakeDrop.rs"]
+            pub mod TakeDrop;
+            #[path = "ToArray.rs"]
+            pub mod ToArray;
+            #[path = "ToArrayImpl.rs"]
+            pub mod ToArrayImpl;
+            #[path = "Zip.rs"]
+            pub mod Zip;
+        }
+        pub mod Nat {
+            #[path = "../Nat.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            pub mod Bitwise {
+                #[path = "../Bitwise.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "Compare.rs"]
+            pub mod Compare;
+            #[path = "Control.rs"]
+            pub mod Control;
+            #[path = "Coprime.rs"]
+            pub mod Coprime;
+            pub mod Div {
+                #[path = "../Div.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "Dvd.rs"]
+            pub mod Dvd;
+            #[path = "Fold.rs"]
+            pub mod Fold;
+            #[path = "Gcd.rs"]
+            pub mod Gcd;
+            #[path = "Lcm.rs"]
+            pub mod Lcm;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "Linear.rs"]
+            pub mod Linear;
+            #[path = "Log2.rs"]
+            pub mod Log2;
+            #[path = "MinMax.rs"]
+            pub mod MinMax;
+            #[path = "Mod.rs"]
+            pub mod Mod;
+            #[path = "Order.rs"]
+            pub mod Order;
+            pub mod Power2 {
+                #[path = "../Power2.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "SOM.rs"]
+            pub mod SOM;
+            #[path = "Simproc.rs"]
+            pub mod Simproc;
+            #[path = "ToString.rs"]
+            pub mod ToString;
+        }
+        #[path = "NeZero.rs"]
+        pub mod NeZero;
+        #[path = "OfScientific.rs"]
+        pub mod OfScientific;
         pub mod Option {
-             //#[path = "../Option.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "Array.rs"]
-             //pub mod Array;
-             //#[path = "Attach.rs"]
-             //pub mod Attach;
-             //#[path = "Basic.rs"]
-             //pub mod Basic;
-             //#[path = "BasicAux.rs"]
-             //pub mod BasicAux;
+            #[path = "../Option.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Array.rs"]
+            pub mod Array;
+            #[path = "Attach.rs"]
+            pub mod Attach;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "BasicAux.rs"]
+            pub mod BasicAux;
             #[path = "Coe.rs"]
             pub mod Coe;
-             //#[path = "Function.rs"]
-             //pub mod Function;
-             //#[path = "Instances.rs"]
-             //pub mod Instances;
-             //#[path = "Lemmas.rs"]
-             //pub mod Lemmas;
-             //#[path = "List.rs"]
-             //pub mod List;
-             //#[path = "Monadic.rs"]
-             //pub mod Monadic;
+            #[path = "Function.rs"]
+            pub mod Function;
+            #[path = "Instances.rs"]
+            pub mod Instances;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "List.rs"]
+            pub mod List;
+            #[path = "Monadic.rs"]
+            pub mod Monadic;
         }
-             //pub mod Ord {
-                 //#[path = "../Ord.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Array.rs"]
-                 //pub mod Array;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "BitVec.rs"]
-                 //pub mod BitVec;
-                 //#[path = "SInt.rs"]
-                 //pub mod SInt;
-                 //#[path = "String.rs"]
-                 //pub mod String;
-                 //#[path = "UInt.rs"]
-                 //pub mod UInt;
-                 //#[path = "Vector.rs"]
-                 //pub mod Vector;
-             //}
-             //pub mod Order {
-                 //#[path = "../Order.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Classes.rs"]
-                 //pub mod Classes;
-                 //#[path = "ClassesExtra.rs"]
-                 //pub mod ClassesExtra;
-                 //#[path = "Factories.rs"]
-                 //pub mod Factories;
-                 //#[path = "FactoriesExtra.rs"]
-                 //pub mod FactoriesExtra;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "LemmasExtra.rs"]
-                 //pub mod LemmasExtra;
-                 //#[path = "MinMaxOn.rs"]
-                 //pub mod MinMaxOn;
-                 //#[path = "Opposite.rs"]
-                 //pub mod Opposite;
-                 //#[path = "Ord.rs"]
-                 //pub mod Ord;
-                 //#[path = "PackageFactories.rs"]
-                 //pub mod PackageFactories;
-             //}
-             //#[path = "PLift.rs"]
-             //pub mod PLift;
-             //#[path = "Prod.rs"]
-             //pub mod Prod;
-             //#[path = "Queue.rs"]
-             //pub mod Queue;
-             //#[path = "Random.rs"]
-             //pub mod Random;
-             //pub mod Range {
-                 //#[path = "../Range.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //pub mod Polymorphic {
-                     //#[path = "../Polymorphic.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "BitVec.rs"]
-                     //pub mod BitVec;
-                     //#[path = "Char.rs"]
-                     //pub mod Char;
-                     //#[path = "Fin.rs"]
-                     //pub mod Fin;
-                     //#[path = "GetElemTactic.rs"]
-                     //pub mod GetElemTactic;
-                     //#[path = "Instances.rs"]
-                     //pub mod Instances;
-                     //#[path = "Int.rs"]
-                     //pub mod Int;
-                     //pub mod Internal {
-                         //#[path = "SignedBitVec.rs"]
-                         //pub mod SignedBitVec;
-                     //}
-                     //#[path = "IntLemmas.rs"]
-                     //pub mod IntLemmas;
-                     //#[path = "Iterators.rs"]
-                     //pub mod Iterators;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                     //#[path = "Map.rs"]
-                     //pub mod Map;
-                     //#[path = "Nat.rs"]
-                     //pub mod Nat;
-                     //#[path = "NatLemmas.rs"]
-                     //pub mod NatLemmas;
-                     //#[path = "PRange.rs"]
-                     //pub mod PRange;
-                     //#[path = "RangeIterator.rs"]
-                     //pub mod RangeIterator;
-                     //#[path = "SInt.rs"]
-                     //pub mod SInt;
-                     //#[path = "Stream.rs"]
-                     //pub mod Stream;
-                     //#[path = "UInt.rs"]
-                     //pub mod UInt;
-                     //#[path = "UpwardEnumerable.rs"]
-                     //pub mod UpwardEnumerable;
-                 //}
-             //}
-             //#[path = "RArray.rs"]
-             //pub mod RArray;
-             //pub mod Rat {
-                 //#[path = "../Rat.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
-             //#[path = "Repr.rs"]
-             //pub mod Repr;
-             //pub mod SInt {
-                 //#[path = "../SInt.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Bitwise.rs"]
-                 //pub mod Bitwise;
-                 //#[path = "Float.rs"]
-                 //pub mod Float;
-                 //#[path = "Float32.rs"]
-                 //pub mod Float32;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
-             //pub mod Slice {
-                 //#[path = "../Slice.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //pub mod Array {
-                     //#[path = "../Array.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Iterator.rs"]
-                     //pub mod Iterator;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "InternalLemmas.rs"]
-                 //pub mod InternalLemmas;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //pub mod List {
-                     //#[path = "../List.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Iterator.rs"]
-                     //pub mod Iterator;
-                     //#[path = "Lemmas.rs"]
-                     //pub mod Lemmas;
-                 //}
-                 //#[path = "Notation.rs"]
-                 //pub mod Notation;
-                 //#[path = "Operations.rs"]
-                 //pub mod Operations;
-             //}
-             //#[path = "Stream.rs"]
-             //pub mod Stream;
-             //pub mod String {
-                 //#[path = "../String.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Bootstrap.rs"]
-                 //pub mod Bootstrap;
-                 //#[path = "Decode.rs"]
-                 //pub mod Decode;
-                 //#[path = "Defs.rs"]
-                 //pub mod Defs;
-                 //#[path = "Extra.rs"]
-                 //pub mod Extra;
-                 //#[path = "FindPos.rs"]
-                 //pub mod FindPos;
-                 //#[path = "Hashable.rs"]
-                 //pub mod Hashable;
-                 //pub mod Iter {
-                     //#[path = "../Iter.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Intercalate.rs"]
-                     //pub mod Intercalate;
-                 //}
-                 //#[path = "Iterate.rs"]
-                 //pub mod Iterate;
-                 //#[path = "Iterator.rs"]
-                 //pub mod Iterator;
-                 //#[path = "Legacy.rs"]
-                 //pub mod Legacy;
-                 //pub mod Lemmas {
-                     //#[path = "../Lemmas.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "FindPos.rs"]
-                     //pub mod FindPos;
-                     //#[path = "Hashable.rs"]
-                     //pub mod Hashable;
-                     //#[path = "Intercalate.rs"]
-                     //pub mod Intercalate;
-                     //#[path = "IsEmpty.rs"]
-                     //pub mod IsEmpty;
-                     //#[path = "Iter.rs"]
-                     //pub mod Iter;
-                     //#[path = "Iterate.rs"]
-                     //pub mod Iterate;
-                     //#[path = "Length.rs"]
-                     //pub mod Length;
-                     //#[path = "Modify.rs"]
-                     //pub mod Modify;
-                     //#[path = "Order.rs"]
-                     //pub mod Order;
-                     //pub mod Pattern {
-                         //#[path = "../Pattern.rs"]
-                         //pub mod index;
-                         //pub use index::*;
-                         //#[path = "Basic.rs"]
-                         //pub mod Basic;
-                         //#[path = "Char.rs"]
-                         //pub mod Char;
-                         //pub mod Find {
-                             //#[path = "../Find.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "Basic.rs"]
-                             //pub mod Basic;
-                             //#[path = "Char.rs"]
-                             //pub mod Char;
-                             //#[path = "Pred.rs"]
-                             //pub mod Pred;
-                             //#[path = "String.rs"]
-                             //pub mod String;
-                         //}
-                         //#[path = "Memcmp.rs"]
-                         //pub mod Memcmp;
-                         //#[path = "Pred.rs"]
-                         //pub mod Pred;
-                         //pub mod Split {
-                             //#[path = "../Split.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "Basic.rs"]
-                             //pub mod Basic;
-                             //#[path = "Char.rs"]
-                             //pub mod Char;
-                             //#[path = "Pred.rs"]
-                             //pub mod Pred;
-                         //}
-                         //pub mod String {
-                             //#[path = "../String.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "Basic.rs"]
-                             //pub mod Basic;
-                             //#[path = "ForwardPattern.rs"]
-                             //pub mod ForwardPattern;
-                             //#[path = "ForwardSearcher.rs"]
-                             //pub mod ForwardSearcher;
-                         //}
-                         //pub mod TakeDrop {
-                             //#[path = "../TakeDrop.rs"]
-                             //pub mod index;
-                             //pub use index::*;
-                             //#[path = "Basic.rs"]
-                             //pub mod Basic;
-                             //#[path = "Char.rs"]
-                             //pub mod Char;
-                             //#[path = "Pred.rs"]
-                             //pub mod Pred;
-                             //#[path = "String.rs"]
-                             //pub mod String;
-                         //}
-                     //}
-                     //#[path = "Search.rs"]
-                     //pub mod Search;
-                     //#[path = "Slice.rs"]
-                     //pub mod Slice;
-                     //#[path = "Splits.rs"]
-                     //pub mod Splits;
-                     //#[path = "StringOrder.rs"]
-                     //pub mod StringOrder;
-                     //#[path = "TakeDrop.rs"]
-                     //pub mod TakeDrop;
-                 //}
-                 //#[path = "Length.rs"]
-                 //pub mod Length;
-                 //#[path = "Modify.rs"]
-                 //pub mod Modify;
-                 //#[path = "OrderInstances.rs"]
-                 //pub mod OrderInstances;
-                 //pub mod Pattern {
-                     //#[path = "../Pattern.rs"]
-                     //pub mod index;
-                     //pub use index::*;
-                     //#[path = "Basic.rs"]
-                     //pub mod Basic;
-                     //#[path = "Char.rs"]
-                     //pub mod Char;
-                     //#[path = "Pred.rs"]
-                     //pub mod Pred;
-                     //#[path = "String.rs"]
-                     //pub mod String;
-                 //}
-                 //#[path = "PosRaw.rs"]
-                 //pub mod PosRaw;
-                 //#[path = "Search.rs"]
-                 //pub mod Search;
-                 //#[path = "Slice.rs"]
-                 //pub mod Slice;
-                 //#[path = "Stream.rs"]
-                 //pub mod Stream;
-                 //#[path = "Subslice.rs"]
-                 //pub mod Subslice;
-                 //#[path = "Substring.rs"]
-                 //pub mod Substring;
-                 //#[path = "TakeDrop.rs"]
-                 //pub mod TakeDrop;
-                 //#[path = "Termination.rs"]
-                 //pub mod Termination;
-                 //#[path = "ToSlice.rs"]
-                 //pub mod ToSlice;
-             //}
-             //pub mod Subtype {
-                 //#[path = "../Subtype.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Order.rs"]
-                 //pub mod Order;
-                 //#[path = "OrderExtra.rs"]
-                 //pub mod OrderExtra;
-             //}
-             //pub mod Sum {
-                 //#[path = "../Sum.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-             //}
-             //pub mod ToString {
-                 //#[path = "../ToString.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Extra.rs"]
-                 //pub mod Extra;
-                 //#[path = "Macro.rs"]
-                 //pub mod Macro;
-                 //#[path = "Name.rs"]
-                 //pub mod Name;
-             //}
-             //pub mod UInt {
-                 //#[path = "../UInt.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "BasicAux.rs"]
-                 //pub mod BasicAux;
-                 //#[path = "Bitwise.rs"]
-                 //pub mod Bitwise;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "Log2.rs"]
-                 //pub mod Log2;
-             //}
-             //#[path = "ULift.rs"]
-             //pub mod ULift;
-             //pub mod Vector {
-                 //#[path = "../Vector.rs"]
-                 //pub mod index;
-                 //pub use index::*;
-                 //#[path = "Algebra.rs"]
-                 //pub mod Algebra;
-                 //#[path = "Attach.rs"]
-                 //pub mod Attach;
-                 //#[path = "Basic.rs"]
-                 //pub mod Basic;
-                 //#[path = "Count.rs"]
-                 //pub mod Count;
-                 //#[path = "DecidableEq.rs"]
-                 //pub mod DecidableEq;
-                 //#[path = "Erase.rs"]
-                 //pub mod Erase;
-                 //#[path = "Extract.rs"]
-                 //pub mod Extract;
-                 //#[path = "FinRange.rs"]
-                 //pub mod FinRange;
-                 //#[path = "Find.rs"]
-                 //pub mod Find;
-                 //#[path = "InsertIdx.rs"]
-                 //pub mod InsertIdx;
-                 //#[path = "Int.rs"]
-                 //pub mod Int;
-                 //#[path = "Lemmas.rs"]
-                 //pub mod Lemmas;
-                 //#[path = "Lex.rs"]
-                 //pub mod Lex;
-                 //#[path = "MapIdx.rs"]
-                 //pub mod MapIdx;
-                 //#[path = "Monadic.rs"]
-                 //pub mod Monadic;
-                 //#[path = "Nat.rs"]
-                 //pub mod Nat;
-                 //#[path = "OfFn.rs"]
-                 //pub mod OfFn;
-                 //#[path = "Perm.rs"]
-                 //pub mod Perm;
-                 //#[path = "Range.rs"]
-                 //pub mod Range;
-                 //#[path = "Stream.rs"]
-                 //pub mod Stream;
-                 //#[path = "Zip.rs"]
-                 //pub mod Zip;
-             //}
-             //#[path = "Zero.rs"]
-             //pub mod Zero;
+        pub mod Ord {
+            #[path = "../Ord.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Array.rs"]
+            pub mod Array;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "BitVec.rs"]
+            pub mod BitVec;
+            #[path = "SInt.rs"]
+            pub mod SInt;
+            #[path = "String.rs"]
+            pub mod String;
+            #[path = "UInt.rs"]
+            pub mod UInt;
+            #[path = "Vector.rs"]
+            pub mod Vector;
+        }
+        pub mod Order {
+            #[path = "../Order.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Classes.rs"]
+            pub mod Classes;
+            #[path = "ClassesExtra.rs"]
+            pub mod ClassesExtra;
+            #[path = "Factories.rs"]
+            pub mod Factories;
+            #[path = "FactoriesExtra.rs"]
+            pub mod FactoriesExtra;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "LemmasExtra.rs"]
+            pub mod LemmasExtra;
+            #[path = "MinMaxOn.rs"]
+            pub mod MinMaxOn;
+            #[path = "Opposite.rs"]
+            pub mod Opposite;
+            #[path = "Ord.rs"]
+            pub mod Ord;
+            #[path = "PackageFactories.rs"]
+            pub mod PackageFactories;
+        }
+        #[path = "PLift.rs"]
+        pub mod PLift;
+        #[path = "Prod.rs"]
+        pub mod Prod;
+        #[path = "Queue.rs"]
+        pub mod Queue;
+        #[path = "Random.rs"]
+        pub mod Random;
+        pub mod Range {
+            #[path = "../Range.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            pub mod Polymorphic {
+                #[path = "../Polymorphic.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "BitVec.rs"]
+                pub mod BitVec;
+                #[path = "Char.rs"]
+                pub mod Char;
+                #[path = "Fin.rs"]
+                pub mod Fin;
+                #[path = "GetElemTactic.rs"]
+                pub mod GetElemTactic;
+                #[path = "Instances.rs"]
+                pub mod Instances;
+                #[path = "Int.rs"]
+                pub mod Int;
+                pub mod Internal {
+                    #[path = "SignedBitVec.rs"]
+                    pub mod SignedBitVec;
+                }
+                #[path = "IntLemmas.rs"]
+                pub mod IntLemmas;
+                #[path = "Iterators.rs"]
+                pub mod Iterators;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+                #[path = "Map.rs"]
+                pub mod Map;
+                #[path = "Nat.rs"]
+                pub mod Nat;
+                #[path = "NatLemmas.rs"]
+                pub mod NatLemmas;
+                #[path = "PRange.rs"]
+                pub mod PRange;
+                #[path = "RangeIterator.rs"]
+                pub mod RangeIterator;
+                #[path = "SInt.rs"]
+                pub mod SInt;
+                #[path = "Stream.rs"]
+                pub mod Stream;
+                #[path = "UInt.rs"]
+                pub mod UInt;
+                #[path = "UpwardEnumerable.rs"]
+                pub mod UpwardEnumerable;
+            }
+        }
+        #[path = "RArray.rs"]
+        pub mod RArray;
+        pub mod Rat {
+            #[path = "../Rat.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+        }
+        #[path = "Repr.rs"]
+        pub mod Repr;
+        pub mod SInt {
+            #[path = "../SInt.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Bitwise.rs"]
+            pub mod Bitwise;
+            #[path = "Float.rs"]
+            pub mod Float;
+            #[path = "Float32.rs"]
+            pub mod Float32;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+        }
+        pub mod Slice {
+            #[path = "../Slice.rs"]
+            pub mod index;
+            pub use index::*;
+            pub mod Array {
+                #[path = "../Array.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Iterator.rs"]
+                pub mod Iterator;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "InternalLemmas.rs"]
+            pub mod InternalLemmas;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            pub mod List {
+                #[path = "../List.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Iterator.rs"]
+                pub mod Iterator;
+                #[path = "Lemmas.rs"]
+                pub mod Lemmas;
+            }
+            #[path = "Notation.rs"]
+            pub mod Notation;
+            #[path = "Operations.rs"]
+            pub mod Operations;
+        }
+        #[path = "Stream.rs"]
+        pub mod Stream;
+        pub mod String {
+            #[path = "../String.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Bootstrap.rs"]
+            pub mod Bootstrap;
+            #[path = "Decode.rs"]
+            pub mod Decode;
+            #[path = "Defs.rs"]
+            pub mod Defs;
+            #[path = "Extra.rs"]
+            pub mod Extra;
+            #[path = "FindPos.rs"]
+            pub mod FindPos;
+            #[path = "Hashable.rs"]
+            pub mod Hashable;
+            pub mod Iter {
+                #[path = "../Iter.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Intercalate.rs"]
+                pub mod Intercalate;
+            }
+            #[path = "Iterate.rs"]
+            pub mod Iterate;
+            #[path = "Iterator.rs"]
+            pub mod Iterator;
+            #[path = "Legacy.rs"]
+            pub mod Legacy;
+            pub mod Lemmas {
+                #[path = "../Lemmas.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "FindPos.rs"]
+                pub mod FindPos;
+                #[path = "Hashable.rs"]
+                pub mod Hashable;
+                #[path = "Intercalate.rs"]
+                pub mod Intercalate;
+                #[path = "IsEmpty.rs"]
+                pub mod IsEmpty;
+                #[path = "Iter.rs"]
+                pub mod Iter;
+                #[path = "Iterate.rs"]
+                pub mod Iterate;
+                #[path = "Length.rs"]
+                pub mod Length;
+                #[path = "Modify.rs"]
+                pub mod Modify;
+                #[path = "Order.rs"]
+                pub mod Order;
+                pub mod Pattern {
+                    #[path = "../Pattern.rs"]
+                    pub mod index;
+                    pub use index::*;
+                    #[path = "Basic.rs"]
+                    pub mod Basic;
+                    #[path = "Char.rs"]
+                    pub mod Char;
+                    pub mod Find {
+                        #[path = "../Find.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "Basic.rs"]
+                        pub mod Basic;
+                        #[path = "Char.rs"]
+                        pub mod Char;
+                        #[path = "Pred.rs"]
+                        pub mod Pred;
+                        #[path = "String.rs"]
+                        pub mod String;
+                    }
+                    #[path = "Memcmp.rs"]
+                    pub mod Memcmp;
+                    #[path = "Pred.rs"]
+                    pub mod Pred;
+                    pub mod Split {
+                        #[path = "../Split.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "Basic.rs"]
+                        pub mod Basic;
+                        #[path = "Char.rs"]
+                        pub mod Char;
+                        #[path = "Pred.rs"]
+                        pub mod Pred;
+                    }
+                    pub mod String {
+                        #[path = "../String.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "Basic.rs"]
+                        pub mod Basic;
+                        #[path = "ForwardPattern.rs"]
+                        pub mod ForwardPattern;
+                        #[path = "ForwardSearcher.rs"]
+                        pub mod ForwardSearcher;
+                    }
+                    pub mod TakeDrop {
+                        #[path = "../TakeDrop.rs"]
+                        pub mod index;
+                        pub use index::*;
+                        #[path = "Basic.rs"]
+                        pub mod Basic;
+                        #[path = "Char.rs"]
+                        pub mod Char;
+                        #[path = "Pred.rs"]
+                        pub mod Pred;
+                        #[path = "String.rs"]
+                        pub mod String;
+                    }
+                }
+                #[path = "Search.rs"]
+                pub mod Search;
+                #[path = "Slice.rs"]
+                pub mod Slice;
+                #[path = "Splits.rs"]
+                pub mod Splits;
+                #[path = "StringOrder.rs"]
+                pub mod StringOrder;
+                #[path = "TakeDrop.rs"]
+                pub mod TakeDrop;
+            }
+            #[path = "Length.rs"]
+            pub mod Length;
+            #[path = "Modify.rs"]
+            pub mod Modify;
+            #[path = "OrderInstances.rs"]
+            pub mod OrderInstances;
+            pub mod Pattern {
+                #[path = "../Pattern.rs"]
+                pub mod index;
+                pub use index::*;
+                #[path = "Basic.rs"]
+                pub mod Basic;
+                #[path = "Char.rs"]
+                pub mod Char;
+                #[path = "Pred.rs"]
+                pub mod Pred;
+                #[path = "String.rs"]
+                pub mod String;
+            }
+            #[path = "PosRaw.rs"]
+            pub mod PosRaw;
+            #[path = "Search.rs"]
+            pub mod Search;
+            #[path = "Slice.rs"]
+            pub mod Slice;
+            #[path = "Stream.rs"]
+            pub mod Stream;
+            #[path = "Subslice.rs"]
+            pub mod Subslice;
+            #[path = "Substring.rs"]
+            pub mod Substring;
+            #[path = "TakeDrop.rs"]
+            pub mod TakeDrop;
+            #[path = "Termination.rs"]
+            pub mod Termination;
+            #[path = "ToSlice.rs"]
+            pub mod ToSlice;
+        }
+        pub mod Subtype {
+            #[path = "../Subtype.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Order.rs"]
+            pub mod Order;
+            #[path = "OrderExtra.rs"]
+            pub mod OrderExtra;
+        }
+        pub mod Sum {
+            #[path = "../Sum.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+        }
+        pub mod ToString {
+            #[path = "../ToString.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Extra.rs"]
+            pub mod Extra;
+            #[path = "Macro.rs"]
+            pub mod Macro;
+            #[path = "Name.rs"]
+            pub mod Name;
+        }
+        pub mod UInt {
+            #[path = "../UInt.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "BasicAux.rs"]
+            pub mod BasicAux;
+            #[path = "Bitwise.rs"]
+            pub mod Bitwise;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "Log2.rs"]
+            pub mod Log2;
+        }
+        #[path = "ULift.rs"]
+        pub mod ULift;
+        pub mod Vector {
+            #[path = "../Vector.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Algebra.rs"]
+            pub mod Algebra;
+            #[path = "Attach.rs"]
+            pub mod Attach;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Count.rs"]
+            pub mod Count;
+            #[path = "DecidableEq.rs"]
+            pub mod DecidableEq;
+            #[path = "Erase.rs"]
+            pub mod Erase;
+            #[path = "Extract.rs"]
+            pub mod Extract;
+            #[path = "FinRange.rs"]
+            pub mod FinRange;
+            #[path = "Find.rs"]
+            pub mod Find;
+            #[path = "InsertIdx.rs"]
+            pub mod InsertIdx;
+            #[path = "Int.rs"]
+            pub mod Int;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "Lex.rs"]
+            pub mod Lex;
+            #[path = "MapIdx.rs"]
+            pub mod MapIdx;
+            #[path = "Monadic.rs"]
+            pub mod Monadic;
+            #[path = "Nat.rs"]
+            pub mod Nat;
+            #[path = "OfFn.rs"]
+            pub mod OfFn;
+            #[path = "Perm.rs"]
+            pub mod Perm;
+            #[path = "Range.rs"]
+            pub mod Range;
+            #[path = "Stream.rs"]
+            pub mod Stream;
+            #[path = "Zip.rs"]
+            pub mod Zip;
+        }
+        #[path = "Zero.rs"]
+        pub mod Zero;
     }
-     //#[path = "Dynamic.rs"]
-     //pub mod Dynamic;
-     //#[path = "Ext.rs"]
-     //pub mod Ext;
-     //#[path = "GetElem.rs"]
-     //pub mod GetElem;
-     //pub mod Grind {
-         //#[path = "../Grind.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //#[path = "AC.rs"]
-         //pub mod AC;
-         //#[path = "Annotated.rs"]
-         //pub mod Annotated;
-         //#[path = "Attr.rs"]
-         //pub mod Attr;
-         //#[path = "Cases.rs"]
-         //pub mod Cases;
-         //#[path = "Config.rs"]
-         //pub mod Config;
-         //#[path = "Ext.rs"]
-         //pub mod Ext;
-         //#[path = "FieldNormNum.rs"]
-         //pub mod FieldNormNum;
-         //#[path = "Injective.rs"]
-         //pub mod Injective;
-         //#[path = "Interactive.rs"]
-         //pub mod Interactive;
-         //#[path = "Lemmas.rs"]
-         //pub mod Lemmas;
-         //#[path = "Lint.rs"]
-         //pub mod Lint;
-         //pub mod Module {
-             //#[path = "../Module.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "Basic.rs"]
-             //pub mod Basic;
-             //#[path = "Envelope.rs"]
-             //pub mod Envelope;
-             //#[path = "NatModuleNorm.rs"]
-             //pub mod NatModuleNorm;
-             //#[path = "OfNatModule.rs"]
-             //pub mod OfNatModule;
-         //}
-         //#[path = "Norm.rs"]
-         //pub mod Norm;
-         //#[path = "Offset.rs"]
-         //pub mod Offset;
-         //#[path = "Order.rs"]
-         //pub mod Order;
-         //pub mod Ordered {
-             //#[path = "../Ordered.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "Field.rs"]
-             //pub mod Field;
-             //#[path = "Int.rs"]
-             //pub mod Int;
-             //#[path = "Linarith.rs"]
-             //pub mod Linarith;
-             //#[path = "Module.rs"]
-             //pub mod Module;
-             //#[path = "Order.rs"]
-             //pub mod Order;
-             //#[path = "Rat.rs"]
-             //pub mod Rat;
-             //#[path = "Ring.rs"]
-             //pub mod Ring;
-         //}
-         //#[path = "PP.rs"]
-         //pub mod PP;
-         //#[path = "Propagator.rs"]
-         //pub mod Propagator;
-         //pub mod Ring {
-             //#[path = "../Ring.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "Basic.rs"]
-             //pub mod Basic;
-             //#[path = "CommSemiringAdapter.rs"]
-             //pub mod CommSemiringAdapter;
-             //#[path = "CommSolver.rs"]
-             //pub mod CommSolver;
-             //#[path = "Envelope.rs"]
-             //pub mod Envelope;
-             //#[path = "Field.rs"]
-             //pub mod Field;
-             //#[path = "OfScientific.rs"]
-             //pub mod OfScientific;
-             //#[path = "ToInt.rs"]
-             //pub mod ToInt;
-         //}
-         #[path = "Tactics.rs"]
-         pub mod Tactics;
-         //#[path = "ToInt.rs"]
-         //pub mod ToInt;
-         //#[path = "ToIntLemmas.rs"]
-         //pub mod ToIntLemmas;
-         //#[path = "Util.rs"]
-         //pub mod Util;
-     //}
-     //pub mod GrindInstances {
-         //#[path = "../GrindInstances.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //#[path = "Nat.rs"]
-         //pub mod Nat;
-         //pub mod Ring {
-             //#[path = "../Ring.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "BitVec.rs"]
-             //pub mod BitVec;
-             //#[path = "Fin.rs"]
-             //pub mod Fin;
-             //#[path = "Int.rs"]
-             //pub mod Int;
-             //#[path = "Nat.rs"]
-             //pub mod Nat;
-             //#[path = "Rat.rs"]
-             //pub mod Rat;
-             //#[path = "SInt.rs"]
-             //pub mod SInt;
-             //#[path = "UInt.rs"]
-             //pub mod UInt;
-         //}
-         //#[path = "ToInt.rs"]
-         //pub mod ToInt;
-     //}
-     //#[path = "Guard.rs"]
-     //pub mod Guard;
-     //#[path = "Hints.rs"]
-     //pub mod Hints;
-     //pub mod Internal {
-         //#[path = "../Internal.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //pub mod Order {
-             //#[path = "../Order.rs"]
-             //pub mod index;
-             //pub use index::*;
-             //#[path = "Basic.rs"]
-             //pub mod Basic;
-             //#[path = "Lemmas.rs"]
-             //pub mod Lemmas;
-             //#[path = "MonadTail.rs"]
-             //pub mod MonadTail;
-             //#[path = "Tactic.rs"]
-             //pub mod Tactic;
-             //#[path = "While.rs"]
-             //pub mod While;
-         //}
-     //}
-     //#[path = "LawfulBEqTactics.rs"]
-     //pub mod LawfulBEqTactics;
-     //#[path = "Linter.rs"]
-     //pub mod Linter;
-     //#[path = "MacroTrace.rs"]
-     //pub mod MacroTrace;
-     pub mod Meta {
-         //#[path = "../Meta.rs"]
-         //pub mod index;
-         //pub use index::*;
-         #[path = "Defs.rs"]
-         pub mod Defs;
-     }
-     //#[path = "MetaTypes.rs"]
-     //pub mod MetaTypes;
-     #[path = "MethodSpecsSimp.rs"]
-     pub mod MethodSpecsSimp;
-     #[path = "Notation.rs"]
-     pub mod Notation;
-     #[path = "NotationExtra.rs"]
-     pub mod NotationExtra;
-     //pub mod Omega {
-         //#[path = "../Omega.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //#[path = "Coeffs.rs"]
-         //pub mod Coeffs;
-         //#[path = "Constraint.rs"]
-         //pub mod Constraint;
-         //#[path = "Int.rs"]
-         //pub mod Int;
-         //#[path = "IntList.rs"]
-         //pub mod IntList;
-         //#[path = "LinearCombo.rs"]
-         //pub mod LinearCombo;
-         //#[path = "Logic.rs"]
-         //pub mod Logic;
-     //}
+    #[path = "Dynamic.rs"]
+    pub mod Dynamic;
+    #[path = "Ext.rs"]
+    pub mod Ext;
+    #[path = "GetElem.rs"]
+    pub mod GetElem;
+    pub mod Grind {
+        #[path = "../Grind.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "AC.rs"]
+        pub mod AC;
+        #[path = "Annotated.rs"]
+        pub mod Annotated;
+        #[path = "Attr.rs"]
+        pub mod Attr;
+        #[path = "Cases.rs"]
+        pub mod Cases;
+        #[path = "Config.rs"]
+        pub mod Config;
+        #[path = "Ext.rs"]
+        pub mod Ext;
+        #[path = "FieldNormNum.rs"]
+        pub mod FieldNormNum;
+        #[path = "Injective.rs"]
+        pub mod Injective;
+        #[path = "Interactive.rs"]
+        pub mod Interactive;
+        #[path = "Lemmas.rs"]
+        pub mod Lemmas;
+        #[path = "Lint.rs"]
+        pub mod Lint;
+        pub mod Module {
+            #[path = "../Module.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Envelope.rs"]
+            pub mod Envelope;
+            #[path = "NatModuleNorm.rs"]
+            pub mod NatModuleNorm;
+            #[path = "OfNatModule.rs"]
+            pub mod OfNatModule;
+        }
+        #[path = "Norm.rs"]
+        pub mod Norm;
+        #[path = "Offset.rs"]
+        pub mod Offset;
+        #[path = "Order.rs"]
+        pub mod Order;
+        pub mod Ordered {
+            #[path = "../Ordered.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Field.rs"]
+            pub mod Field;
+            #[path = "Int.rs"]
+            pub mod Int;
+            #[path = "Linarith.rs"]
+            pub mod Linarith;
+            #[path = "Module.rs"]
+            pub mod Module;
+            #[path = "Order.rs"]
+            pub mod Order;
+            #[path = "Rat.rs"]
+            pub mod Rat;
+            #[path = "Ring.rs"]
+            pub mod Ring;
+        }
+        #[path = "PP.rs"]
+        pub mod PP;
+        #[path = "Propagator.rs"]
+        pub mod Propagator;
+        pub mod Ring {
+            #[path = "../Ring.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "CommSemiringAdapter.rs"]
+            pub mod CommSemiringAdapter;
+            #[path = "CommSolver.rs"]
+            pub mod CommSolver;
+            #[path = "Envelope.rs"]
+            pub mod Envelope;
+            #[path = "Field.rs"]
+            pub mod Field;
+            #[path = "OfScientific.rs"]
+            pub mod OfScientific;
+            #[path = "ToInt.rs"]
+            pub mod ToInt;
+        }
+        #[path = "Tactics.rs"]
+        pub mod Tactics;
+        #[path = "ToInt.rs"]
+        pub mod ToInt;
+        #[path = "ToIntLemmas.rs"]
+        pub mod ToIntLemmas;
+        #[path = "Util.rs"]
+        pub mod Util;
+    }
+    pub mod GrindInstances {
+        #[path = "../GrindInstances.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "Nat.rs"]
+        pub mod Nat;
+        pub mod Ring {
+            #[path = "../Ring.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "BitVec.rs"]
+            pub mod BitVec;
+            #[path = "Fin.rs"]
+            pub mod Fin;
+            #[path = "Int.rs"]
+            pub mod Int;
+            #[path = "Nat.rs"]
+            pub mod Nat;
+            #[path = "Rat.rs"]
+            pub mod Rat;
+            #[path = "SInt.rs"]
+            pub mod SInt;
+            #[path = "UInt.rs"]
+            pub mod UInt;
+        }
+        #[path = "ToInt.rs"]
+        pub mod ToInt;
+    }
+    #[path = "Guard.rs"]
+    pub mod Guard;
+    #[path = "Hints.rs"]
+    pub mod Hints;
+    pub mod Internal {
+        #[path = "../Internal.rs"]
+        pub mod index;
+        pub use index::*;
+        pub mod Order {
+            #[path = "../Order.rs"]
+            pub mod index;
+            pub use index::*;
+            #[path = "Basic.rs"]
+            pub mod Basic;
+            #[path = "Lemmas.rs"]
+            pub mod Lemmas;
+            #[path = "MonadTail.rs"]
+            pub mod MonadTail;
+            #[path = "Tactic.rs"]
+            pub mod Tactic;
+            #[path = "While.rs"]
+            pub mod While;
+        }
+    }
+    #[path = "LawfulBEqTactics.rs"]
+    pub mod LawfulBEqTactics;
+    #[path = "Linter.rs"]
+    pub mod Linter;
+    #[path = "MacroTrace.rs"]
+    pub mod MacroTrace;
+    pub mod Meta {
+        #[path = "../Meta.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "Defs.rs"]
+        pub mod Defs;
+    }
+    #[path = "MetaTypes.rs"]
+    pub mod MetaTypes;
+    #[path = "MethodSpecsSimp.rs"]
+    pub mod MethodSpecsSimp;
+    #[path = "Notation.rs"]
+    pub mod Notation;
+    #[path = "NotationExtra.rs"]
+    pub mod NotationExtra;
+    pub mod Omega {
+        #[path = "../Omega.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "Coeffs.rs"]
+        pub mod Coeffs;
+        #[path = "Constraint.rs"]
+        pub mod Constraint;
+        #[path = "Int.rs"]
+        pub mod Int;
+        #[path = "IntList.rs"]
+        pub mod IntList;
+        #[path = "LinearCombo.rs"]
+        pub mod LinearCombo;
+        #[path = "Logic.rs"]
+        pub mod Logic;
+    }
     #[path = "Prelude.rs"]
     pub mod Prelude;
-     #[path = "PropLemmas.rs"]
-     pub mod PropLemmas;
-     //#[path = "RCases.rs"]
-     //pub mod RCases;
-     //#[path = "ShareCommon.rs"]
-     //pub mod ShareCommon;
-     //#[path = "SimpLemmas.rs"]
-     //pub mod SimpLemmas;
-     //#[path = "Simproc.rs"]
-     //pub mod Simproc;
-     #[path = "SizeOf.rs"]
-     pub mod SizeOf;
-     //#[path = "SizeOfLemmas.rs"]
-     //pub mod SizeOfLemmas;
-     //pub mod Sym {
-         //#[path = "../Sym.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //pub mod DSimp {
-             //#[path = "DSimprocDSL.rs"]
-             //pub mod DSimprocDSL;
-         //}
-         //#[path = "Lemmas.rs"]
-         //pub mod Lemmas;
-         //pub mod Simp {
-             //#[path = "SimprocDSL.rs"]
-             //pub mod SimprocDSL;
-         //}
-     //}
-     //#[path = "Syntax.rs"]
-     //pub mod Syntax;
-     //pub mod System {
-         //#[path = "../System.rs"]
-         //pub mod index;
-         //pub use index::*;
-         //#[path = "CancelToken.rs"]
-         //pub mod CancelToken;
-         //#[path = "FilePath.rs"]
-         //pub mod FilePath;
-         //#[path = "IO.rs"]
-         //pub mod IO;
-         //#[path = "IOError.rs"]
-         //pub mod IOError;
-         //#[path = "Platform.rs"]
-         //pub mod Platform;
-         //#[path = "Promise.rs"]
-         //pub mod Promise;
-         //#[path = "ST.rs"]
-         //pub mod ST;
-         //#[path = "Uri.rs"]
-         //pub mod Uri;
-     //}
-     //#[path = "Tactics.rs"]
-     //pub mod Tactics;
-     //#[path = "TacticsExtra.rs"]
-     //pub mod TacticsExtra;
-     //#[path = "Task.rs"]
-     //pub mod Task;
-     //#[path = "Try.rs"]
-     //pub mod Try;
-     //#[path = "Util.rs"]
-     //pub mod Util;
-     //#[path = "WF.rs"]
-     //pub mod WF;
-     //#[path = "WFComputable.rs"]
-     //pub mod WFComputable;
-     //#[path = "WFExtrinsicFix.rs"]
-     //pub mod WFExtrinsicFix;
-     //#[path = "WFTactics.rs"]
-     //pub mod WFTactics;
-     //#[path = "While.rs"]
-     //pub mod While;
+    #[path = "PropLemmas.rs"]
+    pub mod PropLemmas;
+    #[path = "RCases.rs"]
+    pub mod RCases;
+    #[path = "ShareCommon.rs"]
+    pub mod ShareCommon;
+    #[path = "SimpLemmas.rs"]
+    pub mod SimpLemmas;
+    #[path = "Simproc.rs"]
+    pub mod Simproc;
+    #[path = "SizeOf.rs"]
+    pub mod SizeOf;
+    #[path = "SizeOfLemmas.rs"]
+    pub mod SizeOfLemmas;
+    pub mod Sym {
+        #[path = "../Sym.rs"]
+        pub mod index;
+        pub use index::*;
+        pub mod DSimp {
+            #[path = "DSimprocDSL.rs"]
+            pub mod DSimprocDSL;
+        }
+        #[path = "Lemmas.rs"]
+        pub mod Lemmas;
+        pub mod Simp {
+            #[path = "SimprocDSL.rs"]
+            pub mod SimprocDSL;
+        }
+    }
+    #[path = "Syntax.rs"]
+    pub mod Syntax;
+    pub mod System {
+        #[path = "../System.rs"]
+        pub mod index;
+        pub use index::*;
+        #[path = "CancelToken.rs"]
+        pub mod CancelToken;
+        #[path = "FilePath.rs"]
+        pub mod FilePath;
+        #[path = "IO.rs"]
+        pub mod IO;
+        #[path = "IOError.rs"]
+        pub mod IOError;
+        #[path = "Platform.rs"]
+        pub mod Platform;
+        #[path = "Promise.rs"]
+        pub mod Promise;
+        #[path = "ST.rs"]
+        pub mod ST;
+        #[path = "Uri.rs"]
+        pub mod Uri;
+    }
+    #[path = "Tactics.rs"]
+    pub mod Tactics;
+    #[path = "TacticsExtra.rs"]
+    pub mod TacticsExtra;
+    #[path = "Task.rs"]
+    pub mod Task;
+    #[path = "Try.rs"]
+    pub mod Try;
+    #[path = "Util.rs"]
+    pub mod Util;
+    #[path = "WF.rs"]
+    pub mod WF;
+    #[path = "WFComputable.rs"]
+    pub mod WFComputable;
+    #[path = "WFExtrinsicFix.rs"]
+    pub mod WFExtrinsicFix;
+    #[path = "WFTactics.rs"]
+    pub mod WFTactics;
+    #[path = "While.rs"]
+    pub mod While;
 }
 // pub mod Lake {
 //     #[path = "../Lake.rs"]

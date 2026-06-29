@@ -1112,6 +1112,22 @@ unsafe fn lean_array_get_core(obj: *mut LeanObject, idx: usize) -> *mut LeanObje
 }
 
 #[inline]
+unsafe fn lean_ensure_exclusive_array(obj: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_exclusive(obj) {
+        return obj;
+    }
+    let size = lean_array_size(obj);
+    let capacity = lean_array_capacity(obj);
+    let new_obj = lean_alloc_array(size, capacity);
+    ptr::copy_nonoverlapping(lean_array_data(obj), lean_array_data(new_obj), size);
+    for i in 0..size {
+        lean_inc(lean_array_get_core(new_obj, i));
+    }
+    lean_dec_ref(obj);
+    new_obj
+}
+
+#[inline]
 unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
     let byte_size = core::mem::size_of::<LeanArrayObject<0>>()
         + core::mem::size_of::<*mut LeanObject>() * capacity;
@@ -1143,6 +1159,18 @@ pub unsafe fn lean_array_fget_borrowed(
     idx: *mut LeanObject,
 ) -> *mut LeanObject {
     lean_array_get_core(obj, lean_unbox(idx))
+}
+
+#[inline]
+pub unsafe fn lean_array_uget(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+    let r = lean_array_get_core(obj, idx);
+    lean_inc(r);
+    r
+}
+
+#[inline]
+pub unsafe fn lean_array_uget_borrowed(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+    lean_array_get_core(obj, idx)
 }
 
 #[inline]
@@ -1205,6 +1233,111 @@ pub unsafe fn lean_array_push(obj: *mut LeanObject, value: *mut LeanObject) -> *
 }
 
 #[inline]
+pub unsafe fn lean_array_uset(
+    obj: *mut LeanObject,
+    idx: usize,
+    value: *mut LeanObject,
+) -> *mut LeanObject {
+    let target = lean_ensure_exclusive_array(obj);
+    let slot = lean_array_data(target).add(idx);
+    lean_dec(*slot);
+    *slot = value;
+    target
+}
+
+#[inline]
+pub unsafe fn lean_array_fset(
+    obj: *mut LeanObject,
+    idx: *mut LeanObject,
+    value: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_array_uset(obj, lean_unbox(idx), value)
+}
+
+#[inline]
+pub unsafe fn lean_array_set(
+    obj: *mut LeanObject,
+    idx: *mut LeanObject,
+    value: *mut LeanObject,
+) -> *mut LeanObject {
+    if lean_is_scalar_bool(idx) {
+        let idx = lean_unbox(idx);
+        if idx < lean_array_size(obj) {
+            return lean_array_uset(obj, idx, value);
+        }
+    }
+    panic!("lean_array_set_panic is not implemented in leanh.rs");
+}
+
+#[inline]
+pub unsafe fn lean_array_pop(obj: *mut LeanObject) -> *mut LeanObject {
+    let target = lean_ensure_exclusive_array(obj);
+    let size = lean_array_size(target);
+    if size == 0 {
+        return target;
+    }
+    let new_size = size - 1;
+    (*(target as *mut LeanArrayObject<0>)).m_size = new_size;
+    lean_dec(*lean_array_data(target).add(new_size));
+    target
+}
+
+#[inline]
+unsafe fn lean_array_uswap(obj: *mut LeanObject, i: usize, j: usize) -> *mut LeanObject {
+    let target = lean_ensure_exclusive_array(obj);
+    let data = lean_array_data(target);
+    let vi = *data.add(i);
+    *data.add(i) = *data.add(j);
+    *data.add(j) = vi;
+    target
+}
+
+#[inline]
+pub unsafe fn lean_array_fswap(
+    obj: *mut LeanObject,
+    i: *mut LeanObject,
+    j: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_array_uswap(obj, lean_unbox(i), lean_unbox(j))
+}
+
+#[inline]
+pub unsafe fn lean_array_swap(
+    obj: *mut LeanObject,
+    i: *mut LeanObject,
+    j: *mut LeanObject,
+) -> *mut LeanObject {
+    if !lean_is_scalar_bool(i) || !lean_is_scalar_bool(j) {
+        return obj;
+    }
+    let i = lean_unbox(i);
+    let j = lean_unbox(j);
+    let size = lean_array_size(obj);
+    if i >= size || j >= size {
+        return obj;
+    }
+    lean_array_uswap(obj, i, j)
+}
+
+#[inline]
+pub unsafe fn lean_mk_array(n: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject {
+    if !lean_is_scalar_bool(n) {
+        panic!("big array size is not supported in leanh.rs");
+    }
+    let size = lean_unbox(n);
+    let obj = lean_alloc_array(size, size);
+    for i in 0..size {
+        *lean_array_data(obj).add(i) = value;
+    }
+    if size == 0 {
+        lean_dec(value);
+    } else if size > 1 {
+        lean_inc_n(value, size - 1);
+    }
+    obj
+}
+
+#[inline]
 pub unsafe fn lean_array_mk(_list: *mut LeanObject) -> *mut LeanObject {
     panic!("lean_array_mk requires list traversal runtime");
 }
@@ -1212,6 +1345,41 @@ pub unsafe fn lean_array_mk(_list: *mut LeanObject) -> *mut LeanObject {
 #[inline]
 pub unsafe fn lean_array_to_list(_array: *mut LeanObject) -> *mut LeanObject {
     panic!("lean_array_to_list requires list construction runtime");
+}
+
+#[inline]
+pub unsafe fn lean_mk_thunk(closure: *mut LeanObject) -> *mut LeanObject {
+    let obj = lean_alloc_object(core::mem::size_of::<LeanThunkObject>()) as *mut LeanThunkObject;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.cs_size = 0;
+    (*obj).m_header.other = 0;
+    (*obj).m_header.tag = LEAN_THUNK_TAG;
+    (*obj).m_value = AtomicPtr::new(core::ptr::null_mut());
+    (*obj).m_closure = AtomicPtr::new(closure);
+    obj as *mut LeanObject
+}
+
+#[inline]
+pub unsafe fn lean_thunk_pure(value: *mut LeanObject) -> *mut LeanObject {
+    let obj = lean_alloc_object(core::mem::size_of::<LeanThunkObject>()) as *mut LeanThunkObject;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.cs_size = 0;
+    (*obj).m_header.other = 0;
+    (*obj).m_header.tag = LEAN_THUNK_TAG;
+    (*obj).m_value = AtomicPtr::new(value);
+    (*obj).m_closure = AtomicPtr::new(core::ptr::null_mut());
+    obj as *mut LeanObject
+}
+
+#[inline]
+pub unsafe fn lean_thunk_get_own(thunk: *mut LeanObject) -> *mut LeanObject {
+    let thunk = thunk as *mut LeanThunkObject;
+    let value = (*thunk).m_value.load(Ordering::Acquire);
+    if value.is_null() {
+        panic!("lean_thunk_get_core is not implemented in leanh.rs");
+    }
+    lean_inc(value);
+    value
 }
 
 #[inline]
@@ -1453,6 +1621,23 @@ pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
     (lean_small_nat(a) <= lean_small_nat(b)) as u8
 }
 
+#[inline]
+pub unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar_bool(a) && lean_is_scalar_bool(b) {
+        let a = lean_unbox(a);
+        let b = lean_unbox(b);
+        let result = if b < usize::BITS as usize { a >> b } else { 0 };
+        lean_box(result)
+    } else {
+        panic!("big nat shiftr is not implemented in leanh.rs");
+    }
+}
+
+#[inline]
+pub unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject {
+    value
+}
+
 macro_rules! define_uint_family {
     ($ty:ty, $of_nat:ident, $of_nat_mk:ident, $to_nat:ident, $dec_eq:ident, $dec_lt:ident, $dec_le:ident) => {
         #[inline]
@@ -1550,6 +1735,16 @@ pub unsafe fn lean_usize_dec_lt(a: usize, b: usize) -> u8 {
 #[inline]
 pub unsafe fn lean_usize_dec_le(a: usize, b: usize) -> u8 {
     (a <= b) as u8
+}
+
+#[inline]
+pub unsafe fn lean_usize_add(a: usize, b: usize) -> usize {
+    a.wrapping_add(b)
+}
+
+#[inline]
+pub unsafe fn lean_usize_sub(a: usize, b: usize) -> usize {
+    a.wrapping_sub(b)
 }
 
 #[inline]

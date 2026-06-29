@@ -19,7 +19,6 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
     lean_substring_get, lean_substring_isempty, lean_substring_prev, lean_substring_takewhile,
     lean_substring_tostring,
 };
-use crate::lean_imports_rs::Init::Prelude::lean_string_mk;
 pub static mut l_String_instOfNatRaw: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_String_instInhabited___closed__0_value: crate::leanh::LeanStringObject<1> =
     crate::leanh::LeanStringObject {

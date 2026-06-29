@@ -73,7 +73,7 @@ use crate::lean_imports_rs::Init::Prelude::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_div, lean_nat_mul, lean_nat_sub,
     lean_panic_fn_borrowed, lean_string_dec_eq, lean_string_hash, lean_uint8_dec_eq,
     lean_uint8_of_nat, lean_uint16_dec_eq, lean_uint32_dec_eq, lean_uint32_to_nat,
-    lean_uint64_dec_eq, lean_uint64_mix_hash, lean_uint64_of_nat, lean_usize_dec_eq,
+    lean_uint64_dec_eq, lean_uint64_mix_hash, lean_usize_dec_eq,
 };
 use crate::lean_imports_rs::Init::System::ST::lean_st_ref_get;
 use crate::lean_imports_rs::Init::Util::lean_ptr_addr;

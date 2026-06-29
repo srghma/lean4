@@ -82,7 +82,7 @@ use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_push;
 use crate::lean_imports_rs::Init::Data::String::Defs::{lean_string_append, lean_string_to_utf8};
 use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::lean_usize_mul;
-use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_uint32_add, lean_usize_of_nat};
+use crate::lean_imports_rs::Init::Data::UInt::BasicAux::lean_uint32_add;
 use crate::lean_imports_rs::Init::Meta::Defs::lean_internal_has_llvm_backend;
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_mk, lean_array_push, lean_array_to_list, lean_mk_empty_array_with_capacity,

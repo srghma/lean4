@@ -57,8 +57,8 @@ use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{lean_uint64_land, lean_uint64_shift_right};
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint8_to_nat, lean_uint8_to_uint32, lean_uint32_add, lean_uint32_to_uint64,
-    lean_uint64_of_nat, lean_uint64_to_nat, lean_uint64_to_uint8, lean_uint64_to_uint32,
-    lean_usize_add, lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
+    lean_uint64_to_nat, lean_uint64_to_uint8, lean_uint64_to_uint32, lean_usize_add,
+    lean_usize_dec_lt, lean_usize_of_nat, lean_usize_sub,
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_array_get_borrowed, lean_array_get_size, lean_array_push,

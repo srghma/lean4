@@ -133,8 +133,7 @@ use crate::lean_imports_rs::Init::Data::String::Basic::{
     lean_string_utf8_prev,
 };
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_length, lean_string_posof, lean_string_push, lean_string_pushn,
-    lean_string_utf8_extract,
+    lean_string_posof, lean_string_push, lean_string_pushn,
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;

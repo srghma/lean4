@@ -65,9 +65,7 @@ use crate::lean_imports_rs::Init::Data::String::Basic::{
     lean_string_utf8_get, lean_string_utf8_get_fast, lean_string_utf8_next,
     lean_string_utf8_next_fast,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_append, lean_string_length, lean_string_push,
-};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::{lean_string_length, lean_string_push};
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{lean_usize_add, lean_usize_of_nat};
 use crate::lean_imports_rs::Init::Prelude::{

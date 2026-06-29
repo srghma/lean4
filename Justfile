@@ -9,7 +9,6 @@ update-stage0:
 
 # Rebuild stage1 with the current sources.
 update-stage1:
-    bun srghmascripts/generate_leanh_extern_names.ts
     cmake -S . -B build/release
     make -C build/release/stage1 lean -j{{ nproc }}
 
@@ -19,12 +18,7 @@ update-stage2:
 
 # Regenerate src/rust/lean_runtime/src/gen from the current stage1 compiler.
 regenerate-gen:
-    bun srghmascripts/generate_leanh_extern_names.ts
     bun srghmascripts/regenerate_gen.ts
-
-# Regenerate the Lean-side list of functions provided by src/rust/lean_runtime/src/leanh.rs.
-regenerate-leanh-extern-names:
-    bun srghmascripts/generate_leanh_extern_names.ts
 
 # Regenerate src/rust/lean_runtime/src/gen.rs from the files under src/rust/lean_runtime/src/gen.
 regenerate-gen-tree:

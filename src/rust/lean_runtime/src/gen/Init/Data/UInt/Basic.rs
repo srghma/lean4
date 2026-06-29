@@ -29,7 +29,6 @@ use crate::lean_imports_rs::Init::Data::UInt::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
     lean_uint16_of_nat, lean_uint32_of_nat, lean_uint64_of_nat, lean_usize_dec_le,
-    lean_usize_of_nat,
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_nat_dec_eq, lean_nat_dec_le, lean_nat_dec_lt, lean_nat_mod, lean_nat_sub,

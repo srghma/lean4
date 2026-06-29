@@ -176,9 +176,7 @@ use crate::lean_imports_rs::Init::Data::String::Basic::{
     lean_string_utf8_at_end, lean_string_utf8_extract, lean_string_utf8_get,
     lean_string_utf8_get_fast, lean_string_utf8_next,
 };
-use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_append, lean_string_intercalate,
-};
+use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_intercalate;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Modify::lean_string_utf8_set;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{

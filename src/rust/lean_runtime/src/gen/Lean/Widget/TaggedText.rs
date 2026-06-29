@@ -57,8 +57,8 @@ use crate::lean_imports_rs::Init::Data::Int::Basic::{
     lean_int_add, lean_int_dec_lt, lean_int_sub, lean_nat_to_int,
 };
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::{
-    lean_string_length, lean_string_posof, lean_string_push, lean_string_pushn,
-    lean_string_utf8_extract, lean_string_utf8_next,
+    lean_string_posof, lean_string_push, lean_string_pushn, lean_string_utf8_extract,
+    lean_string_utf8_next,
 };
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
 use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;

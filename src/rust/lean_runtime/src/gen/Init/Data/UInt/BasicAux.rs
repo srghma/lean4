@@ -22,9 +22,7 @@ use crate::lean_imports_rs::Init::Data::UInt::BasicAux::{
 };
 use crate::lean_imports_rs::Init::Prelude::{
     lean_nat_dec_le, lean_nat_dec_lt, lean_nat_pow, lean_nat_sub, lean_uint8_of_nat,
-    lean_uint8_to_nat, lean_uint16_of_nat, lean_uint16_to_nat, lean_uint32_of_nat,
-    lean_uint32_to_nat, lean_uint64_of_nat, lean_uint64_to_nat, lean_usize_of_nat,
-    lean_usize_to_nat,
+    lean_uint32_to_nat,
 };
 static mut l_UInt8_ofNatClamp___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {

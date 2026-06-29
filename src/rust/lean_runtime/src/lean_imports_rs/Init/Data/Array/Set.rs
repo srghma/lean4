@@ -1,10 +1,19 @@
+use crate::leanh::{self, LeanObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Array/Set.lean
 
-pub fn lean_array_fset() {
-    todo!("Stub for lean_array_fset");
+pub unsafe fn lean_array_fset(
+    array: *mut LeanObject,
+    idx: *mut LeanObject,
+    value: *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe { leanh::lean_array_fset(array, idx, value) }
 }
 
-pub fn lean_array_set() {
-    todo!("Stub for lean_array_set");
+pub unsafe fn lean_array_set(
+    array: *mut LeanObject,
+    idx: *mut LeanObject,
+    value: *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe { leanh::lean_array_set(array, idx, value) }
 }

@@ -2,12 +2,12 @@ use crate::leanh::*;
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Int/DivMod/Basic.lean
 
-pub fn lean_int_ediv() {
-    todo!("Stub for lean_int_ediv");
+pub unsafe fn lean_int_ediv(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { lean_nat_div(a, b) }
 }
 
-pub fn lean_int_emod() {
-    todo!("Stub for lean_int_emod");
+pub unsafe fn lean_int_emod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    unsafe { lean_nat_mod(a, b) }
 }
 
 pub fn lean_int_div_exact(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {

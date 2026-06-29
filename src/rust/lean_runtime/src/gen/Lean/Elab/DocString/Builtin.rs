@@ -265,7 +265,6 @@ use crate::lean_imports_rs::Init::Data::String::Basic::{
 };
 use crate::lean_imports_rs::Init::Data::String::Bootstrap::lean_string_length;
 use crate::lean_imports_rs::Init::Data::String::Defs::lean_string_append;
-use crate::lean_imports_rs::Init::Data::String::Length::lean_string_length;
 use crate::lean_imports_rs::Init::Data::String::Pattern::Basic::lean_string_memcmp;
 use crate::lean_imports_rs::Init::Data::UInt::Basic::{
     lean_uint64_lor, lean_uint64_shift_left, lean_uint64_shift_right, lean_uint64_to_usize,

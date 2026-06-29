@@ -22,8 +22,8 @@ pub fn lean_string_utf8_extract(
     todo!("Stub for lean_string_utf8_extract");
 }
 
-pub fn lean_string_length() {
-    todo!("Stub for lean_string_length");
+pub unsafe fn lean_string_length(s: *mut LeanObject) -> *mut LeanObject {
+    unsafe { lean_box((*(s as *mut LeanStringObject<0>)).m_length) }
 }
 
 pub fn lean_string_pushn(_: *mut LeanObject, _: u32, _: *mut LeanObject) -> *mut LeanObject {
@@ -70,8 +70,10 @@ pub fn lean_string_capitalize(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_string_capitalize");
 }
 
-pub fn lean_string_utf8_at_end() {
-    todo!("Stub for lean_string_utf8_at_end");
+pub unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
+    let pos = unsafe { lean_unbox(pos) };
+    let size = unsafe { (*(s as *mut LeanStringObject<0>)).m_size.saturating_sub(1) };
+    (pos >= size) as u8
 }
 
 pub fn lean_string_nextwhile(
@@ -102,8 +104,15 @@ pub fn lean_string_dropright(_: *mut LeanObject, _: *mut LeanObject) -> *mut Lea
     todo!("Stub for lean_string_dropright");
 }
 
-pub fn lean_string_get_byte_fast() {
-    todo!("Stub for lean_string_get_byte_fast");
+pub unsafe fn lean_string_get_byte_fast(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
+    let pos = unsafe { lean_unbox(pos) };
+    unsafe {
+        (*(s as *mut LeanStringObject<0>))
+            .m_data
+            .as_ptr()
+            .add(pos)
+            .read()
+    }
 }
 
 pub fn lean_string_mk(_: *mut LeanObject) -> *mut LeanObject {

@@ -1,207 +1,209 @@
 use crate::leanh::*;
+
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Float.lean
 
-pub fn lean_float_add() {
-    todo!("Stub for lean_float_add");
+pub fn lean_float_add(a: f64, b: f64) -> f64 {
+    a + b
 }
 
-pub fn lean_float_sub() {
-    todo!("Stub for lean_float_sub");
+pub fn lean_float_sub(a: f64, b: f64) -> f64 {
+    a - b
 }
 
-pub fn lean_float_mul() {
-    todo!("Stub for lean_float_mul");
+pub fn lean_float_mul(a: f64, b: f64) -> f64 {
+    a * b
 }
 
-pub fn lean_float_div() {
-    todo!("Stub for lean_float_div");
+pub fn lean_float_div(a: f64, b: f64) -> f64 {
+    a / b
 }
 
-pub fn lean_float_negate() {
-    todo!("Stub for lean_float_negate");
+pub fn lean_float_negate(a: f64) -> f64 {
+    -a
 }
 
-pub fn lean_float_of_bits(_: u64) -> f64 {
-    todo!("Stub for lean_float_of_bits");
+pub fn lean_float_of_bits(bits: u64) -> f64 {
+    f64::from_bits(bits)
 }
 
-pub fn lean_float_to_bits(_: f64) -> u64 {
-    todo!("Stub for lean_float_to_bits");
+pub fn lean_float_to_bits(value: f64) -> u64 {
+    value.to_bits()
 }
 
-pub fn lean_float_beq() {
-    todo!("Stub for lean_float_beq");
+pub fn lean_float_beq(a: f64, b: f64) -> u8 {
+    (a == b) as u8
 }
 
-pub fn lean_float_decLt() {
-    todo!("Stub for lean_float_decLt");
+pub fn lean_float_decLt(a: f64, b: f64) -> u8 {
+    (a < b) as u8
 }
 
-pub fn lean_float_decLe() {
-    todo!("Stub for lean_float_decLe");
+pub fn lean_float_decLe(a: f64, b: f64) -> u8 {
+    (a <= b) as u8
 }
 
-pub fn lean_float_to_string(_: f64) -> *mut LeanObject {
-    todo!("Stub for lean_float_to_string");
+pub unsafe fn lean_float_to_string(value: f64) -> *mut LeanObject {
+    let text = std::ffi::CString::new(value.to_string()).unwrap();
+    unsafe { lean_mk_string(text.as_ptr()) }
 }
 
-pub fn lean_float_to_uint8() {
-    todo!("Stub for lean_float_to_uint8");
+pub fn lean_float_to_uint8(value: f64) -> u8 {
+    value as u8
 }
 
-pub fn lean_float_to_uint16() {
-    todo!("Stub for lean_float_to_uint16");
+pub fn lean_float_to_uint16(value: f64) -> u16 {
+    value as u16
 }
 
-pub fn lean_float_to_uint32() {
-    todo!("Stub for lean_float_to_uint32");
+pub fn lean_float_to_uint32(value: f64) -> u32 {
+    value as u32
 }
 
-pub fn lean_float_to_uint64() {
-    todo!("Stub for lean_float_to_uint64");
+pub fn lean_float_to_uint64(value: f64) -> u64 {
+    value as u64
 }
 
-pub fn lean_float_to_usize() {
-    todo!("Stub for lean_float_to_usize");
+pub fn lean_float_to_usize(value: f64) -> usize {
+    value as usize
 }
 
-pub fn lean_float_isnan(_: f64) -> u8 {
-    todo!("Stub for lean_float_isnan");
+pub fn lean_float_isnan(value: f64) -> u8 {
+    value.is_nan() as u8
 }
 
-pub fn lean_float_isfinite(_: f64) -> u8 {
-    todo!("Stub for lean_float_isfinite");
+pub fn lean_float_isfinite(value: f64) -> u8 {
+    value.is_finite() as u8
 }
 
-pub fn lean_float_isinf(_: f64) -> u8 {
-    todo!("Stub for lean_float_isinf");
+pub fn lean_float_isinf(value: f64) -> u8 {
+    value.is_infinite() as u8
 }
 
 pub fn lean_float_frexp(_: f64) -> *mut LeanObject {
     todo!("Stub for lean_float_frexp");
 }
 
-pub fn lean_uint8_to_float(_: u8) -> f64 {
-    todo!("Stub for lean_uint8_to_float");
+pub fn lean_uint8_to_float(value: u8) -> f64 {
+    value as f64
 }
 
-pub fn lean_uint16_to_float(_: u16) -> f64 {
-    todo!("Stub for lean_uint16_to_float");
+pub fn lean_uint16_to_float(value: u16) -> f64 {
+    value as f64
 }
 
-pub fn lean_uint32_to_float(_: u32) -> f64 {
-    todo!("Stub for lean_uint32_to_float");
+pub fn lean_uint32_to_float(value: u32) -> f64 {
+    value as f64
 }
 
-pub fn lean_uint64_to_float() {
-    todo!("Stub for lean_uint64_to_float");
+pub fn lean_uint64_to_float(value: u64) -> f64 {
+    value as f64
 }
 
-pub fn lean_usize_to_float(_: usize) -> f64 {
-    todo!("Stub for lean_usize_to_float");
+pub fn lean_usize_to_float(value: usize) -> f64 {
+    value as f64
 }
 
-pub fn sin(_: f64) -> f64 {
-    todo!("Stub for sin");
+pub fn sin(value: f64) -> f64 {
+    value.sin()
 }
 
-pub fn cos(_: f64) -> f64 {
-    todo!("Stub for cos");
+pub fn cos(value: f64) -> f64 {
+    value.cos()
 }
 
-pub fn tan(_: f64) -> f64 {
-    todo!("Stub for tan");
+pub fn tan(value: f64) -> f64 {
+    value.tan()
 }
 
-pub fn asin(_: f64) -> f64 {
-    todo!("Stub for asin");
+pub fn asin(value: f64) -> f64 {
+    value.asin()
 }
 
-pub fn acos(_: f64) -> f64 {
-    todo!("Stub for acos");
+pub fn acos(value: f64) -> f64 {
+    value.acos()
 }
 
-pub fn atan(_: f64) -> f64 {
-    todo!("Stub for atan");
+pub fn atan(value: f64) -> f64 {
+    value.atan()
 }
 
-pub fn atan2(_: f64, _: f64) -> f64 {
-    todo!("Stub for atan2");
+pub fn atan2(y: f64, x: f64) -> f64 {
+    y.atan2(x)
 }
 
-pub fn sinh(_: f64) -> f64 {
-    todo!("Stub for sinh");
+pub fn sinh(value: f64) -> f64 {
+    value.sinh()
 }
 
-pub fn cosh(_: f64) -> f64 {
-    todo!("Stub for cosh");
+pub fn cosh(value: f64) -> f64 {
+    value.cosh()
 }
 
-pub fn tanh(_: f64) -> f64 {
-    todo!("Stub for tanh");
+pub fn tanh(value: f64) -> f64 {
+    value.tanh()
 }
 
-pub fn asinh(_: f64) -> f64 {
-    todo!("Stub for asinh");
+pub fn asinh(value: f64) -> f64 {
+    value.asinh()
 }
 
-pub fn acosh(_: f64) -> f64 {
-    todo!("Stub for acosh");
+pub fn acosh(value: f64) -> f64 {
+    value.acosh()
 }
 
-pub fn atanh(_: f64) -> f64 {
-    todo!("Stub for atanh");
+pub fn atanh(value: f64) -> f64 {
+    value.atanh()
 }
 
-pub fn exp(_: f64) -> f64 {
-    todo!("Stub for exp");
+pub fn exp(value: f64) -> f64 {
+    value.exp()
 }
 
-pub fn exp2(_: f64) -> f64 {
-    todo!("Stub for exp2");
+pub fn exp2(value: f64) -> f64 {
+    value.exp2()
 }
 
-pub fn log(_: f64) -> f64 {
-    todo!("Stub for log");
+pub fn log(value: f64) -> f64 {
+    value.ln()
 }
 
-pub fn log2(_: f64) -> f64 {
-    todo!("Stub for log2");
+pub fn log2(value: f64) -> f64 {
+    value.log2()
 }
 
-pub fn log10(_: f64) -> f64 {
-    todo!("Stub for log10");
+pub fn log10(value: f64) -> f64 {
+    value.log10()
 }
 
-pub fn pow(_: f64, _: f64) -> f64 {
-    todo!("Stub for pow");
+pub fn pow(value: f64, exp: f64) -> f64 {
+    value.powf(exp)
 }
 
-pub fn sqrt(_: f64) -> f64 {
-    todo!("Stub for sqrt");
+pub fn sqrt(value: f64) -> f64 {
+    value.sqrt()
 }
 
-pub fn cbrt(_: f64) -> f64 {
-    todo!("Stub for cbrt");
+pub fn cbrt(value: f64) -> f64 {
+    value.cbrt()
 }
 
-pub fn ceil(_: f64) -> f64 {
-    todo!("Stub for ceil");
+pub fn ceil(value: f64) -> f64 {
+    value.ceil()
 }
 
-pub fn floor(_: f64) -> f64 {
-    todo!("Stub for floor");
+pub fn floor(value: f64) -> f64 {
+    value.floor()
 }
 
-pub fn round(_: f64) -> f64 {
-    todo!("Stub for round");
+pub fn round(value: f64) -> f64 {
+    value.round()
 }
 
-pub fn fabs(_: f64) -> f64 {
-    todo!("Stub for fabs");
+pub fn fabs(value: f64) -> f64 {
+    value.abs()
 }
 
-pub fn lean_float_scaleb(_: f64, _: *mut LeanObject) -> f64 {
-    todo!("Stub for lean_float_scaleb");
+pub unsafe fn lean_float_scaleb(value: f64, exp: *mut LeanObject) -> f64 {
+    value * 2.0f64.powi(unsafe { lean_unbox(exp) } as i32)
 }

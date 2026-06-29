@@ -145,14 +145,8 @@ set_property(
     CMAKE_CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/Lean/Compiler/LCNF/EmitRust.lean"
     "${CMAKE_SOURCE_DIR}/src/rust/lean_runtime/src/leanh.rs"
-    "${CMAKE_SOURCE_DIR}/srghmascripts/generate_leanh_extern_names.ts"
 )
 find_program(BUN_EXECUTABLE bun REQUIRED)
-execute_process(
-  COMMAND ${BUN_EXECUTABLE} srghmascripts/generate_leanh_extern_names.ts
-  WORKING_DIRECTORY "${LEAN_SOURCE_DIR}"
-  COMMAND_ERROR_IS_FATAL ANY
-)
 # stage1 should build from the upstream C++ tree, but with the current Lean sources and Rust-emission
 # templates overlaid on top.
 file(REMOVE_RECURSE "${LEAN_STAGE1_SOURCE_DIR}")
