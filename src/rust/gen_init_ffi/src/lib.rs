@@ -1,7 +1,11 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
-// Auto-generated from src/rust/lean_gen_init/src/ffi
+// Auto-generated from src/rust/gen_init/src/ffi
 // Re-exports the current FFI function surface as ffi::{...}
+
+pub mod leanh {
+    pub use leanh::*;
+}
 
 #[path = "ffi/Init/Core.rs"]
 mod ffi_Init_Core;

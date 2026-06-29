@@ -1,0 +1,11 @@
+[package]
+name = "gen_lean_ffi"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+leanh = { path = "../leanh" }
+runtime = { path = "../runtime" }
+gen_init_ffi = { path = "../gen_init_ffi" }
+gen_std_ffi = { path = "../gen_std_ffi" }
