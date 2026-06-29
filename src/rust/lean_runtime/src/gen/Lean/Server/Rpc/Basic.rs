@@ -401,6 +401,8 @@ static mut l_Lean_Lsp_RpcWireFormat_refFieldName___closed__1: *mut crate::leanh:
         as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Server_Rpc_Basic_0__Lean_Server_initFn___boxed__const__1_00___x40_Lean_Server_Rpc_Basic_1605303199____hygCtx___hyg_2__value: crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1 + core::mem::size_of::<usize>()*1) as u16, other: 1, tag: 0 }, m_objs: [(1 as *mut crate::leanh::LeanObject)] };
 pub static mut l___private_Lean_Server_Rpc_Basic_0__Lean_Server_initFn___boxed__const__1_00___x40_Lean_Server_Rpc_Basic_1605303199____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Server_Rpc_Basic_0__Lean_Server_initFn___boxed__const__1_00___x40_Lean_Server_Rpc_Basic_1605303199____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_Server_freshWithRpcRefId: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Server_rpcStoreRef___redArg___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

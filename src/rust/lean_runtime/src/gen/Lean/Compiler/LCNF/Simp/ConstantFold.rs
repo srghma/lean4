@@ -10141,6 +10141,8 @@ static mut l___private_Lean_Compiler_LCNF_Simp_ConstantFold_0__Lean_Compiler_LCN
 static mut l___private_Lean_Compiler_LCNF_Simp_ConstantFold_0__Lean_Compiler_LCNF_Simp_ConstantFold_initFn___closed__11_00___x40_Lean_Compiler_LCNF_Simp_ConstantFold_4249470166____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Compiler_LCNF_Simp_ConstantFold_0__Lean_Compiler_LCNF_Simp_ConstantFold_initFn___closed__12_00___x40_Lean_Compiler_LCNF_Simp_ConstantFold_4249470166____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Compiler_LCNF_Simp_ConstantFold_0__Lean_Compiler_LCNF_Simp_ConstantFold_initFn___closed__12_00___x40_Lean_Compiler_LCNF_Simp_ConstantFold_4249470166____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Compiler_LCNF_Simp_ConstantFold_folderExt: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 static mut l_Lean_Compiler_LCNF_Simp_ConstantFold_registerFolder___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

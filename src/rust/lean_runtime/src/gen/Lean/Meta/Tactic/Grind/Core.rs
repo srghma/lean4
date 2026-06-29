@@ -108,7 +108,7 @@ use crate::lean_imports_rs::Init::System::ST::{
 };
 use crate::lean_imports_rs::Lean::Expr::lean_expr_instantiate1;
 use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::{
-    lean_grind_internalize, lean_grind_mk_eq_proof, lean_grind_process_new_facts,
+    lean_grind_internalize, lean_grind_mk_eq_proof,
 };
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Grind_Core_0__Lean_Meta_Grind_removeParents_spec__1___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Grind_Core_0__Lean_Meta_Grind_removeParents_spec__1___redArg___closed__0: f64 = 0.0;

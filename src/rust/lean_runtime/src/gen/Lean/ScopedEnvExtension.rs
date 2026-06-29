@@ -1056,6 +1056,7 @@ static mut l_Lean_instInhabitedScopedEnvExtension_default___redArg___closed__5:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_ScopedEnvExtension_0__Lean_initFn___closed__0_00___x40_Lean_ScopedEnvExtension_3284267871____hygCtx___hyg_2__value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lean_ScopedEnvExtension_0__Lean_initFn___closed__0_00___x40_Lean_ScopedEnvExtension_3284267871____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_ScopedEnvExtension_0__Lean_initFn___closed__0_00___x40_Lean_ScopedEnvExtension_3284267871____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_scopedEnvExtensionsRef: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_registerScopedEnvExtensionUnsafe___redArg___lam__0___closed__0_value:
     crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

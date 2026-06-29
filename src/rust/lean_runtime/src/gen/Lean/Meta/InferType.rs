@@ -133,7 +133,7 @@ use crate::lean_imports_rs::Lean::Expr::{
     lean_expr_instantiate1, lean_expr_lift_loose_bvars,
 };
 use crate::lean_imports_rs::Lean::Level::lean_level_eq;
-use crate::lean_imports_rs::Lean::Meta::Basic::{lean_infer_type, lean_whnf};
+use crate::lean_imports_rs::Lean::Meta::Basic::lean_whnf;
 use crate::lean_imports_rs::Lean::MetavarContext::lean_instantiate_level_mvars;
 pub static l_panic___at___00__private_Lean_Meta_InferType_0__Lean_Expr_instantiateBetaRevRange_visit_spec__3___closed__0_value: crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 245 }, m_fun: l_Lean_ExprStructEq_beq___boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 0, m_objs: [] };
 static mut l_panic___at___00__private_Lean_Meta_InferType_0__Lean_Expr_instantiateBetaRevRange_visit_spec__3___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_panic___at___00__private_Lean_Meta_InferType_0__Lean_Expr_instantiateBetaRevRange_visit_spec__3___closed__0_value) as *mut crate::leanh::LeanObject;

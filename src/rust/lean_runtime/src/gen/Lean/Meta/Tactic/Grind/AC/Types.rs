@@ -216,6 +216,7 @@ pub static mut l_Lean_Meta_Grind_AC_instInhabitedState: *mut crate::leanh::LeanO
     core::ptr::null_mut();
 static mut l___private_Lean_Meta_Tactic_Grind_AC_Types_0__Lean_Meta_Grind_AC_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_AC_Types_2212383860____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_AC_Types_0__Lean_Meta_Grind_AC_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_AC_Types_2212383860____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Meta_Grind_AC_acExt: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_Lean_Meta_Grind_AC_instHashableExpr__lean_hash(
     mut v_x_463_: *mut crate::leanh::LeanObject,
 ) -> u64 {

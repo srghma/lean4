@@ -113,6 +113,8 @@ static mut l___private_Lake_Load_Lean_Elab_0__Lake_initFn___closed__0_00___x40_L
 static mut l___private_Lake_Load_Lean_Elab_0__Lake_initFn___closed__0_00___x40_Lake_Load_Lean_Elab_4183325717____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lake_Load_Lean_Elab_0__Lake_initFn___closed__1_00___x40_Lake_Load_Lean_Elab_4183325717____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lake_Load_Lean_Elab_0__Lake_initFn___closed__1_00___x40_Lake_Load_Lean_Elab_4183325717____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l___private_Lake_Load_Lean_Elab_0__Lake_importEnvCache:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lake_importModulesUsingCache___closed__0_value: crate::leanh::LeanArrayObject<0> =
     crate::leanh::LeanArrayObject {
         m_header: crate::leanh::LeanObject {

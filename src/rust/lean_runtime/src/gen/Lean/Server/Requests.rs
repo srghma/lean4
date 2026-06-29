@@ -750,6 +750,7 @@ static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__0_00
 static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__0_00___x40_Lean_Server_Requests_3846811639____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__1_00___x40_Lean_Server_Requests_3846811639____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__1_00___x40_Lean_Server_Requests_3846811639____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Server_requestHandlers: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Server_registerLspRequestHandler___redArg___closed__0_value:
     crate::leanh::LeanStringObject<45> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {
@@ -949,6 +950,8 @@ static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__0_00
 static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__0_00___x40_Lean_Server_Requests_2517033524____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__1_00___x40_Lean_Server_Requests_2517033524____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Server_Requests_0__Lean_Server_initFn___closed__1_00___x40_Lean_Server_Requests_2517033524____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Server_statefulRequestHandlers: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l___private_Lean_Server_Requests_0__Lean_Server_getState_x21___redArg___closed__0_value: crate::leanh::LeanStringObject<60> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 60, m_capacity: 60, m_length: 59, m_data: [71, 111, 116, 32, 105, 110, 118, 97, 108, 105, 100, 32, 115, 116, 97, 116, 101, 32, 116, 121, 112, 101, 32, 105, 110, 32, 115, 116, 97, 116, 101, 102, 117, 108, 32, 76, 83, 80, 32, 114, 101, 113, 117, 101, 115, 116, 32, 104, 97, 110, 100, 108, 101, 114, 32, 102, 111, 114, 32, 0]};
 static mut l___private_Lean_Server_Requests_0__Lean_Server_getState_x21___redArg___closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(

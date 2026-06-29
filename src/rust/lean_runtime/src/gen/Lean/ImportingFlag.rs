@@ -6,6 +6,10 @@ use crate::r#gen::Init::System::IO::{
 };
 use crate::lean_imports_rs::Init::System::IO::lean_io_initializing;
 use crate::lean_imports_rs::Init::System::ST::{lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set};
+pub static mut l___private_Lean_ImportingFlag_0__Lean_importingRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
+pub static mut l___private_Lean_ImportingFlag_0__Lean_runInitializersRef:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l___private_Lean_ImportingFlag_0__Lean_initFn_00___x40_Lean_ImportingFlag_1124607303____hygCtx___hyg_2_()
 -> *mut crate::leanh::LeanObject {
     let mut v___x_102_: u8 = 0;

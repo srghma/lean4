@@ -319,6 +319,7 @@ static mut l_instRandomGenStdGen___closed__3: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_instRandomGenStdGen___closed__3_value) as *mut crate::leanh::LeanObject;
 pub static mut l_instRandomGenStdGen: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_instRandomGenStdGen___closed__3_value) as *mut crate::leanh::LeanObject;
+pub static mut l_IO_stdGenRef: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_mkStdGen(
     mut v_s_432_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

@@ -228,6 +228,8 @@ pub static mut l_Lean_Meta_Grind_Arith_Cutsat_instInhabitedState: *mut crate::le
     core::ptr::null_mut();
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Types_0__Lean_Meta_Grind_Arith_Cutsat_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_Arith_Cutsat_Types_1820690160____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Types_0__Lean_Meta_Grind_Arith_Cutsat_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_Arith_Cutsat_Types_1820690160____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Meta_Grind_Arith_Cutsat_cutsatExt: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub unsafe fn _init_l_Lean_Meta_Grind_Arith_Cutsat_instHashablePoly__lean_hash___closed__0()
 -> *mut crate::leanh::LeanObject {
     let mut v_natZero_966_: *mut crate::leanh::LeanObject = core::ptr::null_mut();

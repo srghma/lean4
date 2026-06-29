@@ -3349,6 +3349,8 @@ static mut l___private_Lean_Elab_DocString_Builtin_0__Lean_Doc_firstToken_x3f___
 ) as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Elab_DocString_Builtin_0__Lean_Doc_initFn___closed__0_00___x40_Lean_Elab_DocString_Builtin_765136268____hygCtx___hyg_2__value: crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1) as u16, other: 0, tag: 245 }, m_fun: l___private_Lean_Elab_DocString_Builtin_0__Lean_Doc_initFn___lam__0_00___x40_Lean_Elab_DocString_Builtin_765136268____hygCtx___hyg_2____boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 1, m_objs: [((( 1 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Elab_DocString_Builtin_0__Lean_Doc_initFn___closed__0_00___x40_Lean_Elab_DocString_Builtin_765136268____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Elab_DocString_Builtin_0__Lean_Doc_initFn___closed__0_00___x40_Lean_Elab_DocString_Builtin_765136268____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l___private_Lean_Elab_DocString_Builtin_0__Lean_Doc_leanOutputExt:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Doc_instHAppendDocCodeString___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

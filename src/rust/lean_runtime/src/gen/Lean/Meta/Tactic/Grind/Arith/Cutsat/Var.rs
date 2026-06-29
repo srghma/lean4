@@ -84,7 +84,6 @@ use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::lean_grind_cutsat_mk_var;
 use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Arith::Cutsat::Var::lean_cutsat_propagate_nonlinear;
 use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_internalize;
 pub static l___private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Var_0__Lean_Meta_Grind_Arith_Cutsat_isNonlinearTerm___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [72, 80, 111, 119, 0]};

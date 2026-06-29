@@ -996,6 +996,8 @@ static mut l_Lean_Elab_Term_processDefDeriving___closed__1_once: crate::leanh::L
     };
 static mut l_Lean_Elab_Term_processDefDeriving___closed__1: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
+pub static mut l_Lean_Elab_derivingHandlersRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Elab_registerDerivingHandler___closed__0_value: crate::leanh::LeanStringObject<
     85,
 > = crate::leanh::LeanStringObject {

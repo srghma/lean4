@@ -101,6 +101,8 @@ static mut l___private_Lean_Namespace_0__Lean_initFn___closed__19_00___x40_Lean_
 static mut l___private_Lean_Namespace_0__Lean_initFn___closed__19_00___x40_Lean_Namespace_1373626441____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Namespace_0__Lean_initFn___closed__20_00___x40_Lean_Namespace_1373626441____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Namespace_0__Lean_initFn___closed__20_00___x40_Lean_Namespace_1373626441____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l___private_Lean_Namespace_0__Lean_namespacesExt: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Environment_registerNamespace___closed__0_value: crate::leanh::LeanClosureObject<
     0,
 > = crate::leanh::LeanClosureObject {

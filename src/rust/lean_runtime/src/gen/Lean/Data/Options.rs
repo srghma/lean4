@@ -1309,6 +1309,8 @@ static mut l_Lean_OptionDecl_fullDescr___closed__3: *mut crate::leanh::LeanObjec
         as *mut crate::leanh::LeanObject;
 pub static mut l_Lean_instInhabitedOptionDecls: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
+pub static mut l___private_Lean_Data_Options_0__Lean_optionDeclsRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_registerOption___closed__0_value: crate::leanh::LeanStringObject<80> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

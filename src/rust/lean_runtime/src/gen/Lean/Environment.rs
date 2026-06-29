@@ -216,6 +216,7 @@ static l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Env
 static l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject,10552608005599187993 as *mut crate::leanh::LeanObject] };
 pub static l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__1_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject,5852651767056668078 as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Environment_811641457____hygCtx___hyg_4_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__6_00___x40_Lean_Environment_811641457____hygCtx___hyg_4__value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_debug_skipKernelTC: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_EnvExtensionStateSpec___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {
@@ -2389,6 +2390,8 @@ static mut l_Lean_instInhabitedEnvExtension___closed__0: *mut crate::leanh::Lean
     core::ptr::null_mut();
 pub static l___private_Lean_Environment_0__Lean_EnvExtension_initFn___closed__0_00___x40_Lean_Environment_2748517946____hygCtx___hyg_2__value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lean_Environment_0__Lean_EnvExtension_initFn___closed__0_00___x40_Lean_Environment_2748517946____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_EnvExtension_initFn___closed__0_00___x40_Lean_Environment_2748517946____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l___private_Lean_Environment_0__Lean_EnvExtension_envExtensionsRef:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Environment_0__Lean_EnvExtension_invalidExtMsg___closed__0_value:
     crate::leanh::LeanStringObject<48> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {
@@ -2986,6 +2989,8 @@ static mut l___private_Lean_Environment_0__Lean_PersistentEnvExtension_getModule
 static mut l___private_Lean_Environment_0__Lean_PersistentEnvExtension_getModuleEntries_unsafe__1___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_948872833____hygCtx___hyg_2__value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_948872833____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_948872833____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_persistentEnvExtensionsRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_PersistentEnvExtensionDescrCore_name___autoParam___closed__0_value:
     crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {
@@ -4588,6 +4593,7 @@ static mut l_Lean_withExporting___redArg___closed__0: *mut crate::leanh::LeanObj
         as *mut crate::leanh::LeanObject;
 pub static l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_3121880488____hygCtx___hyg_2__value: crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1) as u16, other: 0, tag: 245 }, m_fun: l___private_Lean_Environment_0__Lean_initFn___lam__0_00___x40_Lean_Environment_3121880488____hygCtx___hyg_2____boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 1, m_objs: [((( 1 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_3121880488____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Environment_0__Lean_initFn___closed__0_00___x40_Lean_Environment_3121880488____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_defHeightOverrideExt: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Lean_getMaxHeight___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

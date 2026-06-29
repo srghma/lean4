@@ -248,6 +248,8 @@ pub static mut l_Lean_Meta_Grind_Arith_CommRing_instInhabitedState: *mut crate::
     core::ptr::null_mut();
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_CommRing_Types_0__Lean_Meta_Grind_Arith_CommRing_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_Arith_CommRing_Types_2273073757____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_Arith_CommRing_Types_0__Lean_Meta_Grind_Arith_CommRing_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_Arith_CommRing_Types_2273073757____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Meta_Grind_Arith_CommRing_ringExt: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub unsafe fn l_Lean_Meta_Grind_Arith_CommRing_EqCnstrProof_ctorIdx(
     mut v_x_391_: *mut crate::leanh::LeanObject,
 ) -> *mut crate::leanh::LeanObject {

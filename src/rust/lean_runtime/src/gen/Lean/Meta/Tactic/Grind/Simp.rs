@@ -50,7 +50,6 @@ use crate::lean_imports_rs::Init::System::ST::{
     lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_preprocess;
 static mut l_Lean_Meta_Grind_simpCore___lam__0___closed__0_once: crate::leanh::LeanOnceCell =
     crate::leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),

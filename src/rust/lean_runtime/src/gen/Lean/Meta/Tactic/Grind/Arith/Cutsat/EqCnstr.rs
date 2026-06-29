@@ -177,7 +177,7 @@ use crate::lean_imports_rs::Init::System::ST::{
 };
 use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
 use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::{
-    lean_grind_cutsat_assert_eq, lean_grind_cutsat_assert_le, lean_grind_cutsat_mk_var,
+    lean_grind_cutsat_assert_le, lean_grind_cutsat_mk_var,
 };
 use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_internalize;
 static mut l_Lean_addTrace___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_EqCnstr_0__Int_Linear_Poly_substVar_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

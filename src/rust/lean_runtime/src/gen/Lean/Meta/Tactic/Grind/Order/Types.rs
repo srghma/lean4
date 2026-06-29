@@ -205,6 +205,8 @@ pub static mut l_Lean_Meta_Grind_Order_instInhabitedState: *mut crate::leanh::Le
     core::ptr::null_mut();
 static mut l___private_Lean_Meta_Tactic_Grind_Order_Types_0__Lean_Meta_Grind_Order_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_Order_Types_4206127938____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Tactic_Grind_Order_Types_0__Lean_Meta_Grind_Order_initFn___closed__0_00___x40_Lean_Meta_Tactic_Grind_Order_Types_4206127938____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Meta_Grind_Order_orderExt: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub unsafe fn l_Lean_Meta_Grind_Order_CnstrKind_ctorIdx(
     mut v_x_270_: u8,
 ) -> *mut crate::leanh::LeanObject {

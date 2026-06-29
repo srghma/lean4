@@ -70,6 +70,8 @@ use crate::lean_imports_rs::Init::System::ST::{
     lean_st_mk_ref, lean_st_ref_get, lean_st_ref_set, lean_st_ref_take,
 };
 use crate::lean_imports_rs::Init::Util::lean_dbg_trace;
+pub static mut l_Lean_Server_Test_Cancel_onceRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel_tacticWait__for__cancel__once___closed__0_value:
     crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {
@@ -385,6 +387,8 @@ static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elab
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__cancel__once__1___lam__0___closed__14: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__cancel__once__1___closed__0_value: crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 9, m_capacity: 9, m_length: 8, m_data: [98, 108, 111, 99, 107, 101, 100, 33, 0]};
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__cancel__once__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__cancel__once__1___closed__0_value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_Server_Test_Cancel_unblockedCancelTkRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel_tacticWait__for__unblock___closed__0_value:
     crate::leanh::LeanStringObject<23> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {
@@ -1217,6 +1221,8 @@ pub static l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elab
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__main__cancel__once__async__1___closed__3: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__main__cancel__once__async__1___closed__3_value) as *mut crate::leanh::LeanObject;
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__main__cancel__once__async__1___closed__4_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__main__cancel__once__async__1___closed__4: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Server_Test_Cancel_cmdOnceRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel_commandWait__for__cancel__once__command___00__closed__0_value: crate::leanh::LeanStringObject<37> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 37, m_capacity: 37, m_length: 36, m_data: [99, 111, 109, 109, 97, 110, 100, 87, 97, 105, 116, 95, 102, 111, 114, 95, 99, 97, 110, 99, 101, 108, 95, 111, 110, 99, 101, 95, 99, 111, 109, 109, 97, 110, 100, 95, 0]};
 static mut l_Lean_Server_Test_Cancel_commandWait__for__cancel__once__command___00__closed__0:
     *mut crate::leanh::LeanObject = core::ptr::addr_of!(
@@ -1304,6 +1310,8 @@ static mut l___private_Lean_Server_Test_Cancel_0__Lean_Server_Test_Cancel_initFn
 static mut l___private_Lean_Server_Test_Cancel_0__Lean_Server_Test_Cancel_initFn___closed__0_00___x40_Lean_Server_Test_Cancel_651650561____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Server_Test_Cancel_0__Lean_Server_Test_Cancel_initFn___closed__1_00___x40_Lean_Server_Test_Cancel_651650561____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Server_Test_Cancel_0__Lean_Server_Test_Cancel_initFn___closed__1_00___x40_Lean_Server_Test_Cancel_651650561____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Server_Test_Cancel_testTasksRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel_tacticWait__for__test__task___00__closed__0_value:
     crate::leanh::LeanStringObject<26> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {
@@ -1583,6 +1591,8 @@ pub static l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elab
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__test__task____1___redArg___closed__1: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__test__task____1___redArg___closed__1_value) as *mut crate::leanh::LeanObject;
 pub static l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__test__task____1___redArg___closed__2_value: crate::leanh::LeanStringObject<28> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 28, m_capacity: 28, m_length: 27, m_data: [32, 100, 114, 111, 112, 112, 101, 100, 32, 119, 105, 116, 104, 111, 117, 116, 32, 114, 101, 115, 111, 108, 117, 116, 105, 111, 110, 0]};
 static mut l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__test__task____1___redArg___closed__2: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_Lean_Server_Test_Cancel___aux__Lean__Server__Test__Cancel______elabRules__Lean__Server__Test__Cancel__tacticWait__for__test__task____1___redArg___closed__2_value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_Server_Test_Cancel_syncPromisesRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_Server_Test_Cancel_tacticWait__for__sync___00__closed__0_value:
     crate::leanh::LeanStringObject<21> = crate::leanh::LeanStringObject {
     m_header: crate::leanh::LeanObject {

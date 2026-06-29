@@ -85,6 +85,7 @@ pub static l_Lean_Compiler_LCNF_mkOrderedDeclSetExt___closed__3_value:
 static mut l_Lean_Compiler_LCNF_mkOrderedDeclSetExt___closed__3: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Compiler_LCNF_mkOrderedDeclSetExt___closed__3_value)
         as *mut crate::leanh::LeanObject;
+pub static mut l___private_Lean_Compiler_LCNF_PublicDeclsExt_0__Lean_Compiler_LCNF_publicDeclsExt: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Compiler_LCNF_isDeclPublic___closed__0_value: crate::leanh::LeanCtorObject<2> =
     crate::leanh::LeanCtorObject {
         m_header: crate::leanh::LeanObject {

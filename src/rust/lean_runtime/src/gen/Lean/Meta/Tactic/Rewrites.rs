@@ -433,10 +433,14 @@ pub static l_Lean_Meta_Rewrites_createModuleTreeRef___closed__0_value:
 static mut l_Lean_Meta_Rewrites_createModuleTreeRef___closed__0: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Meta_Rewrites_createModuleTreeRef___closed__0_value)
         as *mut crate::leanh::LeanObject;
+pub static mut l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_ExtState_default:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_instInhabitedExtState:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_initFn___closed__0_00___x40_Lean_Meta_Tactic_Rewrites_3291377554____hygCtx___hyg_2__value: crate::leanh::LeanClosureObject<1> = crate::leanh::LeanClosureObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*const core::ffi::c_void>() + 4 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*1) as u16, other: 0, tag: 245 }, m_fun: l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_initFn___lam__0_00___x40_Lean_Meta_Tactic_Rewrites_3291377554____hygCtx___hyg_2____boxed as *const core::ffi::c_void, m_arity: 2, m_num_fixed: 1, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
 static mut l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_initFn___closed__0_00___x40_Lean_Meta_Tactic_Rewrites_3291377554____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_initFn___closed__0_00___x40_Lean_Meta_Tactic_Rewrites_3291377554____hygCtx___hyg_2__value) as *mut crate::leanh::LeanObject;
+pub static mut l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_ext:
+    *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l___private_Lean_Meta_Tactic_Rewrites_0__Lean_Meta_Rewrites_constantsPerImportTask: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_Meta_Rewrites_rwFindDecls___closed__0_value: crate::leanh::LeanClosureObject<0> =
     crate::leanh::LeanClosureObject {

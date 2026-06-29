@@ -171,7 +171,6 @@ use crate::lean_imports_rs::Init::System::ST::{
 use crate::lean_imports_rs::Lean::Expr::lean_expr_eqv;
 use crate::lean_imports_rs::Lean::Level::lean_level_eq;
 use crate::lean_imports_rs::Lean::Meta::Basic::lean_infer_type;
-use crate::lean_imports_rs::Lean::Meta::Sym::Pattern::lean_sym_def_eq;
 static mut l___private_Lean_Meta_Sym_Pattern_0__Lean_Meta_Sym_isDefEqTypes___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),

@@ -175,6 +175,8 @@ pub static mut l_Lean_Meta_Sym_Arith_instInhabitedState: *mut crate::leanh::Lean
     core::ptr::null_mut();
 static mut l___private_Lean_Meta_Sym_Arith_Types_0__Lean_Meta_Sym_Arith_initFn___closed__0_00___x40_Lean_Meta_Sym_Arith_Types_1023037793____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Meta_Sym_Arith_Types_0__Lean_Meta_Sym_Arith_initFn___closed__0_00___x40_Lean_Meta_Sym_Arith_Types_1023037793____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Meta_Sym_Arith_arithExt: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub unsafe fn _init_l_Lean_Meta_Sym_Arith_instInhabitedSemiring_default___closed__2()
 -> *mut crate::leanh::LeanObject {
     let mut v___x_364_: *mut crate::leanh::LeanObject = core::ptr::null_mut();

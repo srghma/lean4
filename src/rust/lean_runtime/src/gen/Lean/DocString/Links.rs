@@ -83,6 +83,7 @@ static mut l___private_Lean_DocString_Links_0__Lean_initFn___closed__4_00___x40_
 static mut l___private_Lean_DocString_Links_0__Lean_initFn___closed__4_00___x40_Lean_DocString_Links_3730308748____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_DocString_Links_0__Lean_initFn___closed__5_00___x40_Lean_DocString_Links_3730308748____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_DocString_Links_0__Lean_initFn___closed__5_00___x40_Lean_DocString_Links_3730308748____hygCtx___hyg_2_: u8 = 0;
+pub static mut l_Lean_manualRoot: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_errorExplanationManualDomain___closed__0_value: crate::leanh::LeanStringObject<
     24,
 > = crate::leanh::LeanStringObject {

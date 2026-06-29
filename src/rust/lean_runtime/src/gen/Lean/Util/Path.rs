@@ -190,6 +190,7 @@ static mut l___private_Lean_Util_Path_0__Lean_modToFilePath_go___closed__3:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_List_forIn_x27_loop___at___00Lean_SearchPath_findAllWithExt_spec__2___redArg___closed__0_value: crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<usize>()*2 + core::mem::size_of::<*mut crate::leanh::LeanObject>()*0) as u16, other: 0, tag: 246 }, m_size: 0, m_capacity: 0, m_data: [] };
 static mut l_List_forIn_x27_loop___at___00Lean_SearchPath_findAllWithExt_spec__2___redArg___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l_List_forIn_x27_loop___at___00Lean_SearchPath_findAllWithExt_spec__2___redArg___closed__0_value) as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_searchPathRef: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_getBuildDir___closed__0_value: crate::leanh::LeanStringObject<26> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

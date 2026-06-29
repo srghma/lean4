@@ -1096,6 +1096,7 @@ static mut l___private_Lean_Attributes_0__Lean_initFn___closed__0_00___x40_Lean_
 static mut l___private_Lean_Attributes_0__Lean_initFn___closed__0_00___x40_Lean_Attributes_285812513____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Attributes_0__Lean_initFn___closed__1_00___x40_Lean_Attributes_285812513____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Attributes_0__Lean_initFn___closed__1_00___x40_Lean_Attributes_285812513____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_attributeMapRef: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l_Std_DHashMap_Internal_Raw_u2080_contains___at___00Lean_registerBuiltinAttribute_spec__0___redArg___closed__0_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l_Std_DHashMap_Internal_Raw_u2080_contains___at___00Lean_registerBuiltinAttribute_spec__0___redArg___closed__0: u64 = 0;
 pub static l_Lean_registerBuiltinAttribute___closed__0_value: crate::leanh::LeanStringObject<86> =
@@ -3706,6 +3707,8 @@ pub static l_Lean_EnumAttributes_setValue___redArg___closed__7_value:
 static mut l_Lean_EnumAttributes_setValue___redArg___closed__7: *mut crate::leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_EnumAttributes_setValue___redArg___closed__7_value)
         as *mut crate::leanh::LeanObject;
+pub static mut l_Lean_attributeImplBuilderTableRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l_Lean_registerAttributeImplBuilder___closed__0_value: crate::leanh::LeanStringObject<
     35,
 > = crate::leanh::LeanStringObject {
@@ -3874,6 +3877,7 @@ static mut l___private_Lean_Attributes_0__Lean_initFn___closed__7_00___x40_Lean_
 static mut l___private_Lean_Attributes_0__Lean_initFn___closed__7_00___x40_Lean_Attributes_3560353829____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 static mut l___private_Lean_Attributes_0__Lean_initFn___closed__8_00___x40_Lean_Attributes_3560353829____hygCtx___hyg_2__once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___private_Lean_Attributes_0__Lean_initFn___closed__8_00___x40_Lean_Attributes_3560353829____hygCtx___hyg_2_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_attributeExtension: *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static l_Lean_getBuiltinAttributeImpl___closed__0_value: crate::leanh::LeanStringObject<20> =
     crate::leanh::LeanStringObject {
         m_header: crate::leanh::LeanObject {

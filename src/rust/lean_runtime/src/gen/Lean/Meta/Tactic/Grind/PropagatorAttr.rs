@@ -104,6 +104,8 @@ pub static mut l_Lean_Meta_Grind_instInhabitedBuiltinPropagators_default:
     *mut crate::leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Lean_Meta_Grind_instInhabitedBuiltinPropagators: *mut crate::leanh::LeanObject =
     core::ptr::null_mut();
+pub static mut l_Lean_Meta_Grind_builtinPropagatorsRef: *mut crate::leanh::LeanObject =
+    core::ptr::null_mut();
 pub static l___private_Lean_Meta_Tactic_Grind_PropagatorAttr_0__Lean_Meta_Grind_registerBuiltinPropagatorCore___closed__0_value: crate::leanh::LeanStringObject<96> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 96, m_capacity: 96, m_length: 95, m_data: [105, 110, 118, 97, 108, 105, 100, 32, 98, 117, 105, 108, 116, 105, 110, 32, 96, 103, 114, 105, 110, 100, 96, 32, 112, 114, 111, 112, 97, 103, 97, 116, 111, 114, 32, 100, 101, 99, 108, 97, 114, 97, 116, 105, 111, 110, 44, 32, 105, 116, 32, 99, 97, 110, 32, 111, 110, 108, 121, 32, 98, 101, 32, 114, 101, 103, 105, 115, 116, 101, 114, 101, 100, 32, 100, 117, 114, 105, 110, 103, 32, 105, 110, 105, 116, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 0]};
 static mut l___private_Lean_Meta_Tactic_Grind_PropagatorAttr_0__Lean_Meta_Grind_registerBuiltinPropagatorCore___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Lean_Meta_Tactic_Grind_PropagatorAttr_0__Lean_Meta_Grind_registerBuiltinPropagatorCore___closed__0_value) as *mut crate::leanh::LeanObject;
 static mut l___private_Lean_Meta_Tactic_Grind_PropagatorAttr_0__Lean_Meta_Grind_registerBuiltinPropagatorCore___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };

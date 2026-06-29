@@ -176,7 +176,6 @@ use crate::lean_imports_rs::Init::System::ST::{
 };
 use crate::lean_imports_rs::Init::Util::lean_ptr_addr;
 use crate::lean_imports_rs::Lean::Expr::{lean_expr_abstract, lean_expr_eqv};
-use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Arith::Cutsat::Proof::lean_cutsat_eq_cnstr_to_proof;
 use crate::lean_imports_rs::Lean::Meta::Tactic::Grind::Types::lean_grind_mk_eq_proof;
 static mut l_Lean_Meta_Grind_Arith_Cutsat_instHashableExpr__lean_hash___closed__0_once:
     crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
