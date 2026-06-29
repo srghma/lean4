@@ -1,0 +1,11 @@
+[package]
+name = "lean_gen_lake"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+lean_runtime_common = { path = "../lean_runtime_common" }
+lean_gen_init = { path = "../lean_gen_init" }
+lean_gen_std = { path = "../lean_gen_std" }
+lean_gen_lean = { path = "../lean_gen_lean" }

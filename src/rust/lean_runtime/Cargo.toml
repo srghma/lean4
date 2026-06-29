@@ -8,12 +8,23 @@ edition = "2021"
 publish = false
 
 [features]
-default = ["std"]
+default = ["std", "gen-init", "gen-std"]
 std = []
 default-max-heartbeat = []
 default-max-memory = []
+gen-init = ["dep:lean_gen_init"]
+gen-std = ["gen-init", "dep:lean_gen_std"]
+gen-lean = ["gen-std", "dep:lean_gen_lean"]
+gen-lake = ["gen-lean", "dep:lean_gen_lake"]
+gen-tools = ["gen-lake", "dep:lean_gen_tools"]
 
 [dependencies]
+lean_gen_init = { path = "../lean_gen_init", optional = true }
+lean_gen_lake = { path = "../lean_gen_lake", optional = true }
+lean_gen_lean = { path = "../lean_gen_lean", optional = true }
+lean_gen_std = { path = "../lean_gen_std", optional = true }
+lean_gen_tools = { path = "../lean_gen_tools", optional = true }
+lean_runtime_common = { path = "../lean_runtime_common" }
 libc = "0.2"
 libloading = "0.9"
 

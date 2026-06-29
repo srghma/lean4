@@ -9,7 +9,66 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 
 [[package]]
+name = "lean_gen_init"
+version = "0.1.0"
+dependencies = [
+ "lean_runtime_common",
+]
+
+[[package]]
+name = "lean_gen_lake"
+version = "0.1.0"
+dependencies = [
+ "lean_gen_init",
+ "lean_gen_lean",
+ "lean_gen_std",
+ "lean_runtime_common",
+]
+
+[[package]]
+name = "lean_gen_lean"
+version = "0.1.0"
+dependencies = [
+ "lean_gen_init",
+ "lean_gen_std",
+ "lean_runtime_common",
+]
+
+[[package]]
+name = "lean_gen_std"
+version = "0.1.0"
+dependencies = [
+ "lean_gen_init",
+ "lean_runtime_common",
+]
+
+[[package]]
+name = "lean_gen_tools"
+version = "0.1.0"
+dependencies = [
+ "lean_gen_init",
+ "lean_gen_lake",
+ "lean_gen_lean",
+ "lean_gen_std",
+ "lean_runtime_common",
+]
+
+[[package]]
 name = "lean_runtime"
+version = "0.1.0"
+dependencies = [
+ "lean_gen_init",
+ "lean_gen_lake",
+ "lean_gen_lean",
+ "lean_gen_std",
+ "lean_gen_tools",
+ "lean_runtime_common",
+ "libc",
+ "libloading",
+]
+
+[[package]]
+name = "lean_runtime_common"
 version = "0.1.0"
 dependencies = [
  "libc",
