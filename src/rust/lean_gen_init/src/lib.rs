@@ -9,6 +9,8 @@ pub mod lean_imports_rs {
     pub use lean_runtime_common::lean_imports_rs::*;
 }
 
+pub mod ffi;
+
 pub mod r#gen {
     pub mod Init {
         pub mod index {
