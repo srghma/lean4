@@ -7,25 +7,13 @@ type ModuleInfo = {
   module: string;
   rustFile: string;
   deps: Set<string>;
-};
-
-type Atom = {
-  name: string;
-  modules: Set<string>;
-};
-
-type GroupInfo = {
-  name: string;
-  modules: Set<string>;
-  deps: Set<string>;
   rustLines: number;
 };
 
 type Part = {
   crate: string;
-  groups: string[];
   modules: string[];
-  deps: Set<number>;
+  rustLines: number;
 };
 
 type Tree = {
@@ -35,9 +23,10 @@ type Tree = {
   depCrate?: string;
 };
 
+const PART_COUNT = 5;
+
 const rootDir = path.resolve(path.join(import.meta.dir, ".."));
 const rustDir = path.join(rootDir, "src/rust");
-const leanRoot = path.join(rootDir, "src/Lean");
 const genLeanCrate = path.join(rustDir, "gen_lean");
 const genLeanSrc = path.join(genLeanCrate, "src/gen");
 
@@ -61,52 +50,19 @@ const lineCount = async (file: string) => {
   return text.endsWith("\n") ? text.split("\n").length - 1 : text.split("\n").length;
 };
 
-const moduleForLeanFile = (file: string) =>
-  "Lean." + path.relative(leanRoot, file).replace(/\.lean$/, "").replaceAll(path.sep, ".");
+const moduleForRustFile = (file: string) =>
+  path.relative(genLeanSrc, file).replace(/\.rs$/, "").replaceAll(path.sep, ".");
 
-const rustFileForModule = (mod: string) => path.join(genLeanSrc, `${mod.replaceAll(".", "/")}.rs`);
+const moduleRel = (mod: string) => `${mod.replaceAll(".", "/")}.rs`;
 
-const parseImports = (src: string) => {
-  const imports = new Set<string>();
-  for (const rawLine of src.split("\n")) {
-    const line = rawLine.replace(/--.*$/, "").trim();
-    const match = line.match(/^(?:(?:public|private|protected|meta|noncomputable|unsafe)\s+)*import\s+(.+)$/);
-    if (!match) continue;
-    for (const token of match[1]!.trim().split(/\s+/)) {
-      if (token.startsWith("Lean.")) imports.add(token);
-    }
-  }
-  return imports;
+const sanitizeIdent = (name: string) => {
+  const stem = name.replace(/\.rs$/, "");
+  return ["gen", "loop", "type"].includes(stem) ? `r#${stem}` : stem;
 };
 
-const moduleHasPrefix = (mod: string, prefix: string) => mod === prefix || mod.startsWith(`${prefix}.`);
+const rustPathForModule = (mod: string) => mod.split(".").map(sanitizeIdent).join("::");
 
-const initialAtom = (mod: string, moduleHasChildren: Set<string>) => {
-  if (moduleHasChildren.has(mod)) return `${mod}.__index`;
-  const parts = mod.split(".");
-  if (parts.length <= 2) return "Lean.Base";
-  return parts.slice(0, 2).join(".");
-};
-
-const splitAtomOneLevel = (atom: Atom, moduleHasChildren: Set<string>) => {
-  const out = new Map<string, Atom>();
-  const baseName = atom.name.replace(/\.__index$/, "");
-  const baseParts = baseName === "Lean.Base" ? ["Lean"] : baseName.split(".");
-  for (const mod of atom.modules) {
-    let name: string;
-    if (moduleHasChildren.has(mod)) name = `${mod}.__index`;
-    else if (atom.name === "Lean.Base") name = mod.split(".").length <= 2 ? mod : mod.split(".").slice(0, 2).join(".");
-    else if (!moduleHasPrefix(mod, baseName)) name = mod;
-    else {
-      const parts = mod.split(".");
-      name = parts.length <= baseParts.length + 1 ? mod : parts.slice(0, baseParts.length + 1).join(".");
-    }
-    const next = out.get(name) ?? { name, modules: new Set<string>() };
-    next.modules.add(mod);
-    out.set(name, next);
-  }
-  return [...out.values()];
-};
+const formatNum = (n: number) => n.toLocaleString("en-US");
 
 const tarjan = <T>(nodes: T[], deps: (node: T) => Iterable<T>) => {
   let index = 0;
@@ -115,12 +71,14 @@ const tarjan = <T>(nodes: T[], deps: (node: T) => Iterable<T>) => {
   const indices = new Map<T, number>();
   const lowlinks = new Map<T, number>();
   const sccs: T[][] = [];
+
   const strongConnect = (v: T) => {
     indices.set(v, index);
     lowlinks.set(v, index);
     index += 1;
     stack.push(v);
     onStack.add(v);
+
     for (const w of deps(v)) {
       if (!indices.has(w)) {
         strongConnect(w);
@@ -129,6 +87,7 @@ const tarjan = <T>(nodes: T[], deps: (node: T) => Iterable<T>) => {
         lowlinks.set(v, Math.min(lowlinks.get(v)!, indices.get(w)!));
       }
     }
+
     if (lowlinks.get(v) === indices.get(v)) {
       const component: T[] = [];
       while (true) {
@@ -140,65 +99,32 @@ const tarjan = <T>(nodes: T[], deps: (node: T) => Iterable<T>) => {
       sccs.push(component);
     }
   };
+
   for (const node of nodes) if (!indices.has(node)) strongConnect(node);
   return sccs;
 };
 
-const buildGroups = async (atoms: Atom[], modules: Map<string, ModuleInfo>) => {
-  const moduleToAtom = new Map<string, string>();
-  const groups = new Map<string, GroupInfo>();
-  for (const atom of atoms) {
-    const group: GroupInfo = { name: atom.name, modules: new Set(atom.modules), deps: new Set(), rustLines: 0 };
-    for (const mod of atom.modules) {
-      moduleToAtom.set(mod, atom.name);
-      group.rustLines += await lineCount(modules.get(mod)!.rustFile);
-    }
-    groups.set(atom.name, group);
-  }
-  for (const atom of atoms) {
-    const group = groups.get(atom.name)!;
-    for (const mod of atom.modules) {
-      for (const dep of modules.get(mod)!.deps) {
-        const depGroup = moduleToAtom.get(dep)!;
-        if (depGroup !== group.name) group.deps.add(depGroup);
-      }
-    }
-  }
-  return { groups, moduleToAtom };
-};
+const topoComponents = (sccs: string[][], modules: Map<string, ModuleInfo>) => {
+  const moduleToComponent = new Map<string, number>();
+  sccs.forEach((scc, i) => scc.forEach((mod) => moduleToComponent.set(mod, i)));
 
-const refineAtoms = async (modules: Map<string, ModuleInfo>, moduleHasChildren: Set<string>) => {
-  const initial = new Map<string, Atom>();
-  for (const mod of modules.keys()) {
-    const name = initialAtom(mod, moduleHasChildren);
-    const atom = initial.get(name) ?? { name, modules: new Set<string>() };
-    atom.modules.add(mod);
-    initial.set(name, atom);
-  }
-  let atoms = [...initial.values()];
-  for (let round = 0; round < 20; round += 1) {
-    const { groups } = await buildGroups(atoms, modules);
-    const sccs = tarjan([...groups.keys()].sort(), (group) => groups.get(group)!.deps);
-    const toRefine = new Set<string>();
-    for (const scc of sccs.filter((scc) => scc.length > 1)) {
-      const rustLines = scc.reduce((sum, group) => sum + groups.get(group)!.rustLines, 0);
-      if (rustLines <= 1_500_000) continue;
-      for (const group of scc) if (groups.get(group)!.modules.size > 1) toRefine.add(group);
+  const deps = sccs.map(() => new Set<number>());
+  const reverse = sccs.map(() => new Set<number>());
+  for (const [mod, info] of modules) {
+    const from = moduleToComponent.get(mod)!;
+    for (const dep of info.deps) {
+      const to = moduleToComponent.get(dep)!;
+      if (from === to) continue;
+      deps[from]!.add(to);
+      reverse[to]!.add(from);
     }
-    if (toRefine.size === 0) return atoms;
-    atoms = atoms.flatMap((atom) => toRefine.has(atom.name) ? splitAtomOneLevel(atom, moduleHasChildren) : [atom]);
   }
-  return atoms;
-};
 
-const topoParts = (parts: Part[]) => {
-  const reverse = parts.map(() => new Set<number>());
-  const indegree = parts.map((p) => p.deps.size);
-  parts.forEach((p, i) => p.deps.forEach((dep) => reverse[dep]!.add(i)));
+  const indegree = deps.map((d) => d.size);
   const ready = indegree.map((d, i) => d === 0 ? i : -1).filter((i) => i >= 0);
   const order: number[] = [];
   while (ready.length > 0) {
-    ready.sort((a, b) => parts[a]!.crate.localeCompare(parts[b]!.crate));
+    ready.sort((a, b) => sccs[a]![0]!.localeCompare(sccs[b]![0]!));
     const cur = ready.shift()!;
     order.push(cur);
     for (const user of reverse[cur]!) {
@@ -206,13 +132,80 @@ const topoParts = (parts: Part[]) => {
       if (indegree[user] === 0) ready.push(user);
     }
   }
-  if (order.length !== parts.length) throw new Error("part dependency graph has a cycle");
-  return order.map((i) => parts[i]!);
+
+  if (order.length !== sccs.length) throw new Error("module dependency graph has a cycle after SCC condensation");
+  return order.map((i) => sccs[i]!.slice().sort());
 };
 
-const sanitizeIdent = (name: string) => {
-  const stem = name.replace(/\.rs$/, "");
-  return ["gen", "loop", "type"].includes(stem) ? `r#${stem}` : stem;
+const dependencyModulesFromRust = (src: string, modules: Set<string>) => {
+  const deps = new Set<string>();
+  const re = /crate::r#gen::((?:[A-Za-z_][A-Za-z0-9_]*)(?:::[A-Za-z_][A-Za-z0-9_]*)*)/g;
+  for (const match of src.matchAll(re)) {
+    const parts = match[1]!.split("::");
+    for (let len = parts.length; len >= 1; len -= 1) {
+      const candidate = parts.slice(0, len).join(".");
+      if (modules.has(candidate)) {
+        deps.add(candidate);
+        break;
+      }
+    }
+  }
+  return deps;
+};
+
+const splitIntoParts = (components: string[][], modules: Map<string, ModuleInfo>) => {
+  const componentLines = components.map((component) =>
+    component.reduce((sum, mod) => sum + modules.get(mod)!.rustLines, 0)
+  );
+  const totalLines = componentLines.reduce((sum, n) => sum + n, 0);
+  const parts: Part[] = [];
+  let currentModules: string[] = [];
+  let currentLines = 0;
+
+  for (let i = 0; i < components.length; i += 1) {
+    const remainingParts = PART_COUNT - parts.length;
+    const remainingLines = componentLines.slice(i).reduce((sum, n) => sum + n, 0) + currentLines;
+    const target = remainingLines / remainingParts;
+    const nextLines = componentLines[i]!;
+
+    if (
+      currentModules.length > 0 &&
+      remainingParts > 1 &&
+      components.length - i >= remainingParts &&
+      currentLines + nextLines > target &&
+      Math.abs(target - currentLines) <= Math.abs(target - (currentLines + nextLines))
+    ) {
+      parts.push({
+        crate: `gen_lean_part_${parts.length + 1}`,
+        modules: currentModules,
+        rustLines: currentLines,
+      });
+      currentModules = [];
+      currentLines = 0;
+    }
+
+    currentModules.push(...components[i]!);
+    currentLines += nextLines;
+  }
+
+  if (currentModules.length > 0) {
+    parts.push({
+      crate: `gen_lean_part_${parts.length + 1}`,
+      modules: currentModules,
+      rustLines: currentLines,
+    });
+  }
+
+  if (parts.length > PART_COUNT) throw new Error(`expected at most ${PART_COUNT} parts, got ${parts.length}`);
+  while (parts.length < PART_COUNT) {
+    parts.push({ crate: `gen_lean_part_${parts.length + 1}`, modules: [], rustLines: 0 });
+  }
+
+  console.error(`total generated Lean Rust: ${formatNum(totalLines)} lines`);
+  for (const part of parts) {
+    console.error(`${part.crate}: ${formatNum(part.rustLines)} lines, ${formatNum(part.modules.length)} modules`);
+  }
+  return parts;
 };
 
 const insertTree = (tree: Tree, module: string) => {
@@ -238,51 +231,41 @@ const insertDepTree = (tree: Tree, module: string, depCrate: string) => {
   node.module = module;
 };
 
-const moduleRel = (mod: string) => `${mod.replaceAll(".", "/")}.rs`;
-
-const rustPathForModule = (mod: string) => mod.split(".").map(sanitizeIdent).join("::");
-
-const emitOwnTree = (node: Tree, crateDir: string, indent = ""): string[] => {
+const emitTree = (node: Tree, crateDir: string, indent = ""): string[] => {
   const lines: string[] = [];
   for (const [name, child] of [...node.children.entries()].sort(([a], [b]) => a.localeCompare(b))) {
-    if (child.children.size === 0) {
-      lines.push(`${indent}pub mod ${name} {`);
-      if (child.depCrate && child.module) {
-        lines.push(`${indent}    pub use ${child.depCrate}::r#gen::${rustPathForModule(child.module)}::*;`);
-      }
-      if (child.module && !child.depCrate) {
-        lines.push(`${indent}    include!(${JSON.stringify(path.join(crateDir, "src/gen", moduleRel(child.module)))});`);
-      }
-      lines.push(`${indent}}`);
-      continue;
-    }
     lines.push(`${indent}pub mod ${name} {`);
     if (child.depCrate && child.module) {
       lines.push(`${indent}    pub use ${child.depCrate}::r#gen::${rustPathForModule(child.module)}::*;`);
     }
     if (child.module && !child.depCrate) {
-      lines.push(`${indent}    pub mod index {`);
-      lines.push(`${indent}        include!(${JSON.stringify(path.join(crateDir, "src/gen", moduleRel(child.module)))});`);
-      lines.push(`${indent}    }`);
-      lines.push(`${indent}    pub use index::*;`);
+      if (child.children.size === 0) {
+        lines.push(`${indent}    include!(${JSON.stringify(path.join(crateDir, "src/gen", moduleRel(child.module)))});`);
+      } else {
+        lines.push(`${indent}    pub mod index {`);
+        lines.push(`${indent}        include!(${JSON.stringify(path.join(crateDir, "src/gen", moduleRel(child.module)))});`);
+        lines.push(`${indent}    }`);
+        lines.push(`${indent}    pub use index::*;`);
+      }
     }
-    lines.push(...emitOwnTree(child, crateDir, `${indent}    `));
+    lines.push(...emitTree(child, crateDir, `${indent}    `));
     lines.push(`${indent}}`);
   }
   return lines;
 };
 
-const writeOnePart = async (part: Part, orderedParts: Part[], partByModule: Map<string, number>, modules: Map<string, ModuleInfo>) => {
+const writeOnePart = async (part: Part, priorParts: Part[], modules: Map<string, ModuleInfo>) => {
   const crateDir = path.join(rustDir, part.crate);
   await fs.rm(crateDir, { recursive: true, force: true });
   await fs.mkdir(path.join(crateDir, "src/gen"), { recursive: true });
+
   for (const mod of part.modules) {
     const src = modules.get(mod)!.rustFile;
     const dest = path.join(crateDir, "src/gen", moduleRel(mod));
     await fs.mkdir(path.dirname(dest), { recursive: true });
     await fs.copyFile(src, dest);
   }
-  const depCrates = [...part.deps].sort((a, b) => a - b).map((i) => orderedParts[i]!.crate);
+
   await fs.writeFile(path.join(crateDir, "Cargo.toml"), [
     "[package]",
     `name = ${JSON.stringify(part.crate)}`,
@@ -294,133 +277,85 @@ const writeOnePart = async (part: Part, orderedParts: Part[], partByModule: Map<
     'leanh = { path = "../leanh" }',
     'runtime = { path = "../runtime" }',
     'gen_init_ffi = { path = "../gen_init_ffi" }',
+    'gen_init = { path = "../gen_init" }',
     'gen_std_ffi = { path = "../gen_std_ffi" }',
-    'gen_lean_base_ffi = { path = "../gen_lean_base_ffi" }',
-    'gen_lean_meta_ffi = { path = "../gen_lean_meta_ffi" }',
-    'gen_lean_meta_tactic_ffi = { path = "../gen_lean_meta_tactic_ffi" }',
-    'gen_lean_meta_grind_ffi = { path = "../gen_lean_meta_grind_ffi" }',
-    'gen_lean_compiler_ffi = { path = "../gen_lean_compiler_ffi" }',
-    'gen_lean_elab_tactic_ffi = { path = "../gen_lean_elab_tactic_ffi" }',
-    "gen_init = { path = \"../gen_init\" }",
-    "gen_std = { path = \"../gen_std\" }",
-    ...depCrates.map((crate) => `${crate} = { path = "../${crate}" }`),
+    'gen_std = { path = "../gen_std" }',
+    'gen_lean_ffi = { path = "../gen_lean_ffi" }',
+    ...priorParts.map((dep) => `${dep.crate} = { path = "../${dep.crate}" }`),
     "",
   ].join("\n"));
 
-  const ownTree: Tree = { name: "", children: new Map() };
-  for (const depIndex of part.deps) {
-    const depCrate = orderedParts[depIndex]!.crate;
-    for (const mod of orderedParts[depIndex]!.modules) insertDepTree(ownTree, mod, depCrate);
+  const tree: Tree = { name: "", children: new Map() };
+  for (const dep of priorParts) {
+    for (const mod of dep.modules) insertDepTree(tree, mod, dep.crate);
   }
-  for (const mod of part.modules) insertTree(ownTree, mod);
+  for (const mod of part.modules) insertTree(tree, mod);
 
-  // Cheap dependency namespace: each earlier part exports a complete r#gen tree,
-  // and explicit local modules below shadow any duplicate glob names.
-  const lib = [
+  await fs.writeFile(path.join(crateDir, "src/lib.rs"), [
     "#![allow(dead_code, non_upper_case_globals, non_snake_case)]",
     "#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports, unsafe_op_in_unsafe_fn)]",
     "",
     "pub mod ffi {",
     "    pub use gen_init_ffi::*;",
     "    pub use gen_std_ffi::*;",
-    "    pub use gen_lean_base_ffi::*;",
-    "    pub use gen_lean_compiler_ffi::*;",
-    "    pub use gen_lean_elab_tactic_ffi::*;",
-    "    pub use gen_lean_meta_ffi::*;",
-    "    pub use gen_lean_meta_grind_ffi::*;",
-    "    pub use gen_lean_meta_tactic_ffi::*;",
+    "    pub use gen_lean_ffi::*;",
     "}",
     "",
     "pub mod r#gen {",
     "    pub use gen_init::r#gen::Init;",
     "    pub use gen_std::r#gen::Std;",
-    ...emitOwnTree(ownTree, crateDir, "    "),
+    ...emitTree(tree, crateDir, "    "),
     "}",
     "",
-  ].join("\n");
-  await fs.writeFile(path.join(crateDir, "src/lib.rs"), lib);
+  ].join("\n"));
+};
+
+const rewriteWorkspaceMembers = async (parts: Part[]) => {
+  const workspacePath = path.join(rustDir, "Cargo.toml");
+  let workspace = await fs.readFile(workspacePath, "utf8");
+  workspace = workspace.replace(/  "gen_lean_part_\d+",\n/g, "");
+  const memberLines = parts.map((part) => `  "${part.crate}",`).join("\n");
+  workspace = workspace.replace(/(  "gen_lean",\n)/, `${memberLines}\n$1`);
+  await fs.writeFile(workspacePath, workspace);
 };
 
 const main = async () => {
-  const leanFiles = (await collect(walkFiles(leanRoot))).filter((f) => f.endsWith(".lean")).sort();
+  const rustFiles = (await collect(walkFiles(genLeanSrc))).filter((file) => file.endsWith(".rs")).sort();
+  const moduleNames = new Set(rustFiles.map(moduleForRustFile));
   const modules = new Map<string, ModuleInfo>();
-  for (const leanFile of leanFiles) {
-    const mod = moduleForLeanFile(leanFile);
-    modules.set(mod, {
-      module: mod,
-      rustFile: rustFileForModule(mod),
-      deps: parseImports(await fs.readFile(leanFile, "utf8")),
+
+  for (const rustFile of rustFiles) {
+    const module = moduleForRustFile(rustFile);
+    const src = await fs.readFile(rustFile, "utf8");
+    const deps = dependencyModulesFromRust(src, moduleNames);
+    deps.delete(module);
+    modules.set(module, {
+      module,
+      rustFile,
+      deps,
+      rustLines: await lineCount(rustFile),
     });
   }
-  for (const info of modules.values()) info.deps = new Set([...info.deps].filter((dep) => modules.has(dep)));
 
-  const moduleHasChildren = new Set<string>();
-  for (const mod of modules.keys()) {
-    for (const other of modules.keys()) {
-      if (other.startsWith(`${mod}.`)) {
-        moduleHasChildren.add(mod);
-        break;
-      }
-    }
+  const sccs = tarjan([...modules.keys()].sort(), (mod) => modules.get(mod)!.deps);
+  const cyclic = sccs.filter((scc) => scc.length > 1);
+  if (cyclic.length > 0) {
+    console.error(`found ${formatNum(cyclic.length)} cyclic module components; keeping each component in one crate part`);
   }
 
-  const atoms = await refineAtoms(modules, moduleHasChildren);
-  const { groups, moduleToAtom } = await buildGroups(atoms, modules);
-  const sccs = tarjan([...groups.keys()].sort(), (group) => groups.get(group)!.deps);
-  const groupToComponent = new Map<string, number>();
-  sccs.forEach((scc, i) => scc.forEach((group) => groupToComponent.set(group, i)));
-
-  let parts: Part[] = sccs.map((groupsInPart, i) => {
-    const moduleSet = new Set<string>();
-    for (const group of groupsInPart) for (const mod of groups.get(group)!.modules) moduleSet.add(mod);
-    return {
-      crate: `gen_lean_part_${String(i + 1).padStart(3, "0")}`,
-      groups: groupsInPart.sort(),
-      modules: [...moduleSet].sort(),
-      deps: new Set<number>(),
-    };
-  });
-  for (const [group, info] of groups) {
-    const from = groupToComponent.get(group)!;
-    for (const dep of info.deps) {
-      const to = groupToComponent.get(dep)!;
-      if (from !== to) parts[from]!.deps.add(to);
-    }
-  }
-  parts = topoParts(parts);
-  parts.forEach((part, i) => part.crate = `gen_lean_part_${String(i + 1).padStart(3, "0")}`);
-  const oldIndexByNewIndex = new Map<Part, number>();
-  parts.forEach((p, i) => oldIndexByNewIndex.set(p, i));
-  const partByModule = new Map<string, number>();
-  parts.forEach((part, i) => part.modules.forEach((mod) => partByModule.set(mod, i)));
-  // Recompute deps after renumbering/order.
-  parts.forEach((part) => part.deps.clear());
-  for (const [mod, info] of modules) {
-    const from = partByModule.get(mod)!;
-    for (const dep of info.deps) {
-      const to = partByModule.get(dep)!;
-      if (from !== to) parts[from]!.deps.add(to);
-    }
-  }
-  const closure = (index: number, seen = new Set<number>()) => {
-    for (const dep of parts[index]!.deps) {
-      if (seen.has(dep)) continue;
-      seen.add(dep);
-      closure(dep, seen);
-    }
-    return seen;
-  };
-  parts.forEach((part, i) => {
-    part.deps = closure(i);
-  });
+  const components = topoComponents(sccs, modules);
+  const parts = splitIntoParts(components, modules);
 
   const oldPartDirs = (await fs.readdir(rustDir, { withFileTypes: true }))
     .filter((e) => e.isDirectory() && /^gen_lean_part_\d+$/.test(e.name))
     .map((e) => path.join(rustDir, e.name));
   await Promise.all(oldPartDirs.map((dir) => fs.rm(dir, { recursive: true, force: true })));
-  for (const part of parts) await writeOnePart(part, parts, partByModule, modules);
 
-  const genLeanCargo = [
+  for (let i = 0; i < parts.length; i += 1) {
+    await writeOnePart(parts[i]!, parts.slice(0, i), modules);
+  }
+
+  await fs.writeFile(path.join(genLeanCrate, "Cargo.toml"), [
     "[package]",
     'name = "gen_lean"',
     'version = "0.1.0"',
@@ -430,28 +365,31 @@ const main = async () => {
     "[dependencies]",
     ...parts.map((part) => `${part.crate} = { path = "../${part.crate}" }`),
     "",
-  ].join("\n");
-  await fs.writeFile(path.join(genLeanCrate, "Cargo.toml"), genLeanCargo);
+  ].join("\n"));
+
+  const joinTree: Tree = { name: "", children: new Map() };
+  for (const part of parts) {
+    for (const mod of part.modules) insertDepTree(joinTree, mod, part.crate);
+  }
+
   await fs.writeFile(path.join(genLeanCrate, "src/lib.rs"), [
     "#![allow(dead_code, non_upper_case_globals, non_snake_case)]",
     "#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports)]",
     "",
     "pub mod r#gen {",
-    ...parts.map((part) => `    pub use ${part.crate}::r#gen::*;`),
+    "    pub use gen_lean_part_5::r#gen::Init;",
+    "    pub use gen_lean_part_5::r#gen::Std;",
+    ...emitTree(joinTree, genLeanCrate, "    "),
     "}",
     "",
     "pub mod ffi {",
-    ...parts.map((part) => `    pub use ${part.crate}::ffi::*;`),
+    "    pub use gen_lean_part_5::ffi::*;",
     "}",
     "",
   ].join("\n"));
 
-  let workspace = await fs.readFile(path.join(rustDir, "Cargo.toml"), "utf8");
-  workspace = workspace.replace(/  "gen_lean_part_\d+",\n/g, "");
-  const memberLines = parts.map((part) => `  "${part.crate}",`).join("\n");
-  workspace = workspace.replace(/(  "gen_lean",\n)/, `${memberLines}\n$1`);
-  await fs.writeFile(path.join(rustDir, "Cargo.toml"), workspace);
-  console.error(`wrote ${parts.length} gen_lean split implementation crates`);
+  await rewriteWorkspaceMembers(parts);
+  console.error(`wrote ${PART_COUNT} gen_lean split implementation crates`);
 };
 
 main().catch((err) => {

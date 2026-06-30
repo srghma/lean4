@@ -1,11 +1,16 @@
 #![allow(dead_code, non_upper_case_globals, non_snake_case)]
-#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports)]
+#![allow(unused_variables, unused_assignments, unused_parens, unused_mut, unused_imports, unsafe_op_in_unsafe_fn)]
+
+pub mod ffi {
+    pub use gen_init_ffi::*;
+    pub use gen_std_ffi::*;
+    pub use gen_lean_ffi::*;
+}
 
 pub mod r#gen {
-    pub use gen_lean_part_5::r#gen::Init;
-    pub use gen_lean_part_5::r#gen::Std;
+    pub use gen_init::r#gen::Init;
+    pub use gen_std::r#gen::Std;
     pub mod Lean {
-        pub use gen_lean_part_5::r#gen::Lean::*;
         pub mod AddDecl {
             pub use gen_lean_part_1::r#gen::Lean::AddDecl::*;
         }
@@ -398,9 +403,6 @@ pub mod r#gen {
             pub mod Format {
                 pub use gen_lean_part_1::r#gen::Lean::Data::Format::*;
             }
-            pub mod FuzzyMatching {
-                pub use gen_lean_part_4::r#gen::Lean::Data::FuzzyMatching::*;
-            }
             pub mod Iterators {
                 pub use gen_lean_part_1::r#gen::Lean::Data::Iterators::*;
                 pub mod Producers {
@@ -576,7 +578,7 @@ pub mod r#gen {
         pub mod DocString {
             pub use gen_lean_part_2::r#gen::Lean::DocString::*;
             pub mod Add {
-                pub use gen_lean_part_3::r#gen::Lean::DocString::Add::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/DocString/Add.rs");
             }
             pub mod Extension {
                 pub use gen_lean_part_1::r#gen::Lean::DocString::Extension::*;
@@ -601,285 +603,216 @@ pub mod r#gen {
             }
         }
         pub mod Elab {
-            pub use gen_lean_part_5::r#gen::Lean::Elab::*;
-            pub mod App {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::App::*;
-            }
             pub mod Arg {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Arg::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Arg.rs");
             }
             pub mod AssertExists {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::AssertExists::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/AssertExists.rs");
             }
             pub mod Attributes {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::Attributes::*;
             }
             pub mod AutoBound {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::AutoBound::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/AutoBound.rs");
             }
             pub mod AuxDef {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::AuxDef::*;
-            }
-            pub mod BinderPredicates {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::BinderPredicates::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/AuxDef.rs");
             }
             pub mod Binders {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Binders::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Binders.rs");
             }
             pub mod BindersUtil {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::BindersUtil::*;
             }
             pub mod BuiltinCommand {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinCommand::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinCommand.rs");
             }
             pub mod BuiltinDo {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo.rs");
+                }
+                pub use index::*;
                 pub mod Basic {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::Basic::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/Basic.rs");
                 }
                 pub mod For {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::For::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/For.rs");
                 }
                 pub mod If {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::If::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/If.rs");
                 }
                 pub mod Jump {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::Jump::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/Jump.rs");
                 }
                 pub mod Let {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::Let::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/Let.rs");
                 }
                 pub mod Match {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::Match::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/Match.rs");
                 }
                 pub mod MatchExpr {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::MatchExpr::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/MatchExpr.rs");
                 }
                 pub mod Misc {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::Misc::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/Misc.rs");
                 }
                 pub mod Repeat {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::Repeat::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/Repeat.rs");
                 }
                 pub mod TryCatch {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinDo::TryCatch::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinDo/TryCatch.rs");
                 }
             }
-            pub mod BuiltinEvalCommand {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::BuiltinEvalCommand::*;
-            }
-            pub mod BuiltinNotation {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::BuiltinNotation::*;
-            }
             pub mod BuiltinTerm {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::BuiltinTerm::*;
-            }
-            pub mod Calc {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Calc::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/BuiltinTerm.rs");
             }
             pub mod CheckTactic {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::CheckTactic::*;
-            }
-            pub mod Coinductive {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Coinductive::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/CheckTactic.rs");
             }
             pub mod Command {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Command::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Command.rs");
+                }
+                pub use index::*;
                 pub mod Scope {
                     pub use gen_lean_part_2::r#gen::Lean::Elab::Command::Scope::*;
                 }
                 pub mod WithWeakNamespace {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Command::WithWeakNamespace::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Command/WithWeakNamespace.rs");
                 }
             }
             pub mod ComputedFields {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::ComputedFields::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ComputedFields.rs");
             }
             pub mod Config {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::Config::*;
             }
             pub mod ConfigEval {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::*;
-                pub mod Basic {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::Basic::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval.rs");
                 }
-                pub mod Builtins {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::ConfigEval::Builtins::*;
+                pub use index::*;
+                pub mod Basic {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/Basic.rs");
                 }
                 pub mod Commands {
                     pub use gen_lean_part_1::r#gen::Lean::Elab::ConfigEval::Commands::*;
                 }
                 pub mod DeriveEvalConfigItem {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::DeriveEvalConfigItem::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/DeriveEvalConfigItem.rs");
                 }
                 pub mod DeriveEvalExpr {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::DeriveEvalExpr::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/DeriveEvalExpr.rs");
                 }
                 pub mod DeriveEvalTerm {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::DeriveEvalTerm::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/DeriveEvalTerm.rs");
                 }
                 pub mod Extra {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::Extra::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/Extra.rs");
                 }
                 pub mod Instances {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::Instances::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/Instances.rs");
                 }
                 pub mod MetaInstances {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::MetaInstances::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/MetaInstances.rs");
                 }
                 pub mod Types {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::Types::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/Types.rs");
                 }
                 pub mod Util {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::ConfigEval::Util::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ConfigEval/Util.rs");
                 }
-            }
-            pub mod Declaration {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::Declaration::*;
             }
             pub mod DeclarationRange {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::DeclarationRange::*;
             }
             pub mod DeclModifiers {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::DeclModifiers::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DeclModifiers.rs");
             }
             pub mod DeclNameGen {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::DeclNameGen::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DeclNameGen.rs");
             }
             pub mod DeclUtil {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::DeclUtil::*;
             }
             pub mod DefView {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::DefView::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DefView.rs");
             }
             pub mod DeprecatedArg {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::DeprecatedArg::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DeprecatedArg.rs");
             }
             pub mod DeprecatedSyntax {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::DeprecatedSyntax::*;
             }
             pub mod Deriving {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::*;
-                pub mod Basic {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::Basic::*;
-                }
-                pub mod BEq {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::BEq::*;
-                }
-                pub mod DecEq {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::DecEq::*;
-                }
-                pub mod FromToJson {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::FromToJson::*;
-                }
-                pub mod Hashable {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::Hashable::*;
-                }
-                pub mod Inhabited {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::Inhabited::*;
-                }
-                pub mod LawfulBEq {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::LawfulBEq::*;
-                }
-                pub mod Nonempty {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::Nonempty::*;
-                }
-                pub mod Ord {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::Ord::*;
-                }
-                pub mod ReflBEq {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::ReflBEq::*;
-                }
-                pub mod Repr {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::Repr::*;
-                }
-                pub mod SizeOf {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::SizeOf::*;
-                }
-                pub mod ToExpr {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::ToExpr::*;
-                }
-                pub mod TypeName {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Deriving::TypeName::*;
-                }
                 pub mod Util {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Deriving::Util::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Deriving/Util.rs");
                 }
             }
             pub mod Do {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Do::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do.rs");
+                }
+                pub use index::*;
                 pub mod Basic {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Do::Basic::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do/Basic.rs");
                 }
                 pub mod Control {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Do::Control::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do/Control.rs");
                 }
                 pub mod InferControlInfo {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Do::InferControlInfo::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do/InferControlInfo.rs");
                 }
                 pub mod Legacy {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Do::Legacy::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do/Legacy.rs");
                 }
                 pub mod PatternVar {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Do::PatternVar::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do/PatternVar.rs");
                 }
                 pub mod Switch {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Do::Switch::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Do/Switch.rs");
                 }
             }
             pub mod DocString {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::DocString::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DocString.rs");
+                }
+                pub use index::*;
                 pub mod Builtin {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::DocString::Builtin::*;
                     pub mod Keywords {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::DocString::Builtin::Keywords::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DocString/Builtin/Keywords.rs");
                     }
                     pub mod Parsing {
                         pub use gen_lean_part_1::r#gen::Lean::Elab::DocString::Builtin::Parsing::*;
                     }
                     pub mod Postponed {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::DocString::Builtin::Postponed::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DocString/Builtin/Postponed.rs");
                     }
                     pub mod Scopes {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::DocString::Builtin::Scopes::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/DocString/Builtin/Scopes.rs");
                     }
                 }
             }
             pub mod ElabRules {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::ElabRules::*;
-            }
-            pub mod ErrorExplanation {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::ErrorExplanation::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/ElabRules.rs");
             }
             pub mod ErrorUtils {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::ErrorUtils::*;
             }
             pub mod Eval {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Eval::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Eval.rs");
             }
             pub mod Exception {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::Exception::*;
             }
-            pub mod Extra {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Extra::*;
-            }
-            pub mod Frontend {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Frontend::*;
-            }
             pub mod GenInjective {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::GenInjective::*;
-            }
-            pub mod GuardMsgs {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::GuardMsgs::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/GenInjective.rs");
             }
             pub mod Idbg {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Idbg::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Idbg.rs");
             }
             pub mod Import {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::Import::*;
-            }
-            pub mod Inductive {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Inductive::*;
             }
             pub mod InfoTree {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::InfoTree::*;
@@ -894,545 +827,314 @@ pub mod r#gen {
                 }
             }
             pub mod InfoTrees {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::InfoTrees::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/InfoTrees.rs");
             }
             pub mod InheritDoc {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::InheritDoc::*;
             }
-            pub mod LetRec {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::LetRec::*;
-            }
             pub mod Level {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Level::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Level.rs");
             }
             pub mod Macro {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Macro::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Macro.rs");
             }
             pub mod MacroArgUtil {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::MacroArgUtil::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/MacroArgUtil.rs");
             }
             pub mod MacroRules {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::MacroRules::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/MacroRules.rs");
             }
             pub mod Match {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Match::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Match.rs");
             }
             pub mod MatchAltView {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::MatchAltView::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/MatchAltView.rs");
             }
             pub mod MatchExpr {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::MatchExpr::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/MatchExpr.rs");
             }
             pub mod Mixfix {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::Mixfix::*;
             }
-            pub mod MutualDef {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::MutualDef::*;
-            }
-            pub mod MutualInductive {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::MutualInductive::*;
-            }
-            pub mod Notation {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Notation::*;
-            }
             pub mod Open {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::Open::*;
-            }
-            pub mod Parallel {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Parallel::*;
             }
             pub mod ParseImportsFast {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::ParseImportsFast::*;
             }
             pub mod PatternVar {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::PatternVar::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PatternVar.rs");
             }
             pub mod PreDefinition {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::*;
                 pub mod Basic {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Basic::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Basic.rs");
                 }
                 pub mod Eqns {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Eqns::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Eqns.rs");
                 }
                 pub mod EqnsUtils {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::EqnsUtils::*;
-                }
-                pub mod EqUnfold {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::PreDefinition::EqUnfold::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/EqnsUtils.rs");
                 }
                 pub mod FixedParams {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::FixedParams::*;
-                }
-                pub mod Main {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::Main::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/FixedParams.rs");
                 }
                 pub mod MkInhabitant {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::MkInhabitant::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/MkInhabitant.rs");
                 }
                 pub mod Mutual {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Mutual::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Mutual.rs");
                 }
                 pub mod PartialFixpoint {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::PreDefinition::PartialFixpoint::*;
                     pub mod Eqns {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::PartialFixpoint::Eqns::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/PartialFixpoint/Eqns.rs");
                     }
                     pub mod Induction {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::PartialFixpoint::Induction::*;
-                    }
-                    pub mod Main {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::PreDefinition::PartialFixpoint::Main::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/PartialFixpoint/Induction.rs");
                     }
                 }
                 pub mod Structural {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::Structural::*;
                     pub mod Basic {
                         pub use gen_lean_part_1::r#gen::Lean::Elab::PreDefinition::Structural::Basic::*;
                     }
                     pub mod BRecOn {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Structural::BRecOn::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Structural/BRecOn.rs");
                     }
                     pub mod Eqns {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Structural::Eqns::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Structural/Eqns.rs");
                     }
                     pub mod FindRecArg {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Structural::FindRecArg::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Structural/FindRecArg.rs");
                     }
                     pub mod IndGroupInfo {
                         pub use gen_lean_part_1::r#gen::Lean::Elab::PreDefinition::Structural::IndGroupInfo::*;
                     }
                     pub mod IndPred {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Structural::IndPred::*;
-                    }
-                    pub mod Main {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::Structural::Main::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Structural/IndPred.rs");
                     }
                     pub mod Preprocess {
                         pub use gen_lean_part_1::r#gen::Lean::Elab::PreDefinition::Structural::Preprocess::*;
                     }
                     pub mod RecArgInfo {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Structural::RecArgInfo::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Structural/RecArgInfo.rs");
                     }
                     pub mod SmartUnfolding {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::Structural::SmartUnfolding::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/Structural/SmartUnfolding.rs");
                     }
                 }
                 pub mod TerminationHint {
                     pub use gen_lean_part_2::r#gen::Lean::Elab::PreDefinition::TerminationHint::*;
                 }
                 pub mod TerminationMeasure {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::TerminationMeasure::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/TerminationMeasure.rs");
                 }
                 pub mod WF {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::WF::*;
                     pub mod Basic {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::WF::Basic::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/WF/Basic.rs");
                     }
                     pub mod Eqns {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::WF::Eqns::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/WF/Eqns.rs");
                     }
                     pub mod Fix {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::WF::Fix::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/WF/Fix.rs");
                     }
                     pub mod FloatRecApp {
                         pub use gen_lean_part_1::r#gen::Lean::Elab::PreDefinition::WF::FloatRecApp::*;
                     }
-                    pub mod GuessLex {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::WF::GuessLex::*;
-                    }
-                    pub mod Main {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::PreDefinition::WF::Main::*;
-                    }
                     pub mod PackMutual {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::WF::PackMutual::*;
-                    }
-                    pub mod Preprocess {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::PreDefinition::WF::Preprocess::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/WF/PackMutual.rs");
                     }
                     pub mod Rel {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::WF::Rel::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/WF/Rel.rs");
                     }
                     pub mod Unfold {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::PreDefinition::WF::Unfold::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/PreDefinition/WF/Unfold.rs");
                     }
                 }
             }
             pub mod Print {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Print::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Print.rs");
             }
             pub mod Quotation {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Quotation::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Quotation.rs");
+                }
+                pub use index::*;
                 pub mod Precheck {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Quotation::Precheck::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Quotation/Precheck.rs");
                 }
                 pub mod Util {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Quotation::Util::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Quotation/Util.rs");
                 }
             }
             pub mod RecAppSyntax {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::RecAppSyntax::*;
             }
             pub mod RecommendedSpelling {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::RecommendedSpelling::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/RecommendedSpelling.rs");
             }
             pub mod SetOption {
                 pub use gen_lean_part_1::r#gen::Lean::Elab::SetOption::*;
             }
-            pub mod StructInst {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::StructInst::*;
-            }
             pub mod StructInstHint {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::StructInstHint::*;
-            }
-            pub mod Structure {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Structure::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/StructInstHint.rs");
             }
             pub mod Syntax {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Syntax::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Syntax.rs");
             }
             pub mod SyntheticMVars {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::SyntheticMVars::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/SyntheticMVars.rs");
             }
             pub mod Tactic {
-                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::*;
                 pub mod AsAuxLemma {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::AsAuxLemma::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/AsAuxLemma.rs");
                 }
                 pub mod Basic {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Basic::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Basic.rs");
                 }
                 pub mod BoolToPropSimps {
                     pub use gen_lean_part_2::r#gen::Lean::Elab::Tactic::BoolToPropSimps::*;
                 }
-                pub mod BuiltinTactic {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::BuiltinTactic::*;
-                }
-                pub mod BVDecide {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::BVDecide::*;
-                    pub mod BVCheck {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::BVDecide::BVCheck::*;
-                    }
-                    pub mod BVDecide {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::BVDecide::BVDecide::*;
-                    }
-                    pub mod BVTrace {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::BVDecide::BVTrace::*;
-                    }
-                    pub mod Normalize {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::BVDecide::Normalize::*;
-                    }
-                }
-                pub mod Calc {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Calc::*;
-                }
-                pub mod Cbv {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Cbv::*;
-                }
                 pub mod CbvSimproc {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::CbvSimproc::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/CbvSimproc.rs");
                 }
                 pub mod Change {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Change::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Change.rs");
                 }
                 pub mod Classical {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Classical::*;
-                }
-                pub mod Config {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Config::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Classical.rs");
                 }
                 pub mod Congr {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Congr::*;
-                }
-                pub mod Conv {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Conv::*;
-                    pub mod Basic {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Basic::*;
-                    }
-                    pub mod Cbv {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Conv::Cbv::*;
-                    }
-                    pub mod Change {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Change::*;
-                    }
-                    pub mod Congr {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Congr::*;
-                    }
-                    pub mod Delta {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Delta::*;
-                    }
-                    pub mod Lets {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Lets::*;
-                    }
-                    pub mod Pattern {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Pattern::*;
-                    }
-                    pub mod Rewrite {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Conv::Rewrite::*;
-                    }
-                    pub mod Simp {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Conv::Simp::*;
-                    }
-                    pub mod Unfold {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Conv::Unfold::*;
-                    }
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Congr.rs");
                 }
                 pub mod Decide {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Decide::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Decide.rs");
                 }
                 pub mod Delta {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Delta::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Delta.rs");
                 }
                 pub mod DiscrTreeKey {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::DiscrTreeKey::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/DiscrTreeKey.rs");
                 }
                 pub mod Do {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::*;
                     pub mod Attr {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::Attr::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/Attr.rs");
                     }
                     pub mod Internal {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::*;
                         pub mod VCGen {
-                            pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::*;
-                            pub mod Context {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Context::*;
-                            }
-                            pub mod Driver {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Driver::*;
-                            }
-                            pub mod Entails {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Entails::*;
-                            }
-                            pub mod Frontend {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Frontend::*;
-                            }
-                            pub mod Reduce {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Reduce::*;
-                            }
-                            pub mod RuleCache {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::RuleCache::*;
-                            }
-                            pub mod RuleConstruction {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::RuleConstruction::*;
-                            }
-                            pub mod Solve {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Solve::*;
-                            }
                             pub mod SpecDB {
-                                pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::SpecDB::*;
-                            }
-                            pub mod Util {
-                                pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::Internal::VCGen::Util::*;
+                                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/Internal/VCGen/SpecDB.rs");
                             }
                         }
                     }
                     pub mod LetElim {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::LetElim::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/LetElim.rs");
                     }
                     pub mod ProofMode {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Do::ProofMode::*;
                         pub mod Assumption {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Assumption::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Assumption.rs");
                         }
                         pub mod Basic {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Basic::*;
-                        }
-                        pub mod Cases {
-                            pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Do::ProofMode::Cases::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Basic.rs");
                         }
                         pub mod Clear {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Clear::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Clear.rs");
                         }
                         pub mod Constructor {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Constructor::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Constructor.rs");
                         }
                         pub mod Delab {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Delab::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Delab.rs");
                         }
                         pub mod Exact {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Exact::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Exact.rs");
                         }
                         pub mod Exfalso {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Exfalso::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Exfalso.rs");
                         }
                         pub mod Focus {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Focus::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Focus.rs");
                         }
                         pub mod Frame {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Frame::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Frame.rs");
                         }
                         pub mod Have {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Have::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Have.rs");
                         }
                         pub mod Intro {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Intro::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Intro.rs");
                         }
                         pub mod LeftRight {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::LeftRight::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/LeftRight.rs");
                         }
                         pub mod MGoal {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::MGoal::*;
-                        }
-                        pub mod Pure {
-                            pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Do::ProofMode::Pure::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/MGoal.rs");
                         }
                         pub mod Refine {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Refine::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Refine.rs");
                         }
                         pub mod RenameI {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::RenameI::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/RenameI.rs");
                         }
                         pub mod Revert {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Revert::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Revert.rs");
                         }
                         pub mod Specialize {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::ProofMode::Specialize::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/ProofMode/Specialize.rs");
                         }
-                    }
-                    pub mod Spec {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Do::Spec::*;
-                    }
-                    pub mod Syntax {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Do::Syntax::*;
                     }
                     pub mod VCGen {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Do::VCGen::*;
-                        pub mod Basic {
-                            pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Do::VCGen::Basic::*;
-                        }
                         pub mod Split {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::VCGen::Split::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/VCGen/Split.rs");
                         }
                         pub mod SuggestInvariant {
-                            pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Do::VCGen::SuggestInvariant::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Do/VCGen/SuggestInvariant.rs");
                         }
                     }
                 }
                 pub mod Doc {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Doc::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Doc.rs");
                 }
                 pub mod ElabTerm {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::ElabTerm::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/ElabTerm.rs");
                 }
                 pub mod ExposeNames {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::ExposeNames::*;
-                }
-                pub mod Ext {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Ext::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/ExposeNames.rs");
                 }
                 pub mod FalseOrByContra {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::FalseOrByContra::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/FalseOrByContra.rs");
                 }
                 pub mod Generalize {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Generalize::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Generalize.rs");
                 }
                 pub mod Grind {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::*;
-                    pub mod Anchor {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Anchor::*;
-                    }
                     pub mod Annotated {
-                        pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Grind::Annotated::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Grind/Annotated.rs");
                     }
-                    pub mod Basic {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Basic::*;
-                    }
-                    pub mod BuiltinTactic {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::BuiltinTactic::*;
-                    }
-                    pub mod Config {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Config::*;
-                    }
-                    pub mod DSimprocDSL {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::DSimprocDSL::*;
-                    }
-                    pub mod DSimprocDSLBuiltin {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::DSimprocDSLBuiltin::*;
-                    }
-                    pub mod Filter {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Filter::*;
-                    }
-                    pub mod Have {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Have::*;
-                    }
-                    pub mod Lint {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Lint::*;
-                    }
-                    pub mod LintExceptions {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::LintExceptions::*;
-                    }
-                    pub mod Main {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Main::*;
-                    }
-                    pub mod Param {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Param::*;
-                    }
-                    pub mod RegisterSymDSimp {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::RegisterSymDSimp::*;
-                    }
-                    pub mod RegisterSymSimp {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::RegisterSymSimp::*;
-                    }
-                    pub mod ShowState {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::ShowState::*;
-                    }
-                    pub mod SimprocDSL {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::SimprocDSL::*;
-                    }
-                    pub mod SimprocDSLBuiltin {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::SimprocDSLBuiltin::*;
-                    }
-                    pub mod Sym {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Sym::*;
-                    }
-                    pub mod Trace {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::Trace::*;
-                    }
-                    pub mod WithGrindTacticM {
-                        pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Grind::WithGrindTacticM::*;
-                    }
-                }
-                pub mod Guard {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Guard::*;
                 }
                 pub mod Impossible {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Impossible::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Impossible.rs");
                 }
                 pub mod Induction {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Induction::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Induction.rs");
                 }
                 pub mod Injection {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Injection::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Injection.rs");
                 }
                 pub mod Lets {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Lets::*;
-                }
-                pub mod LibrarySearch {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::LibrarySearch::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Lets.rs");
                 }
                 pub mod Location {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Location::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Location.rs");
                 }
                 pub mod Match {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Match::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Match.rs");
                 }
                 pub mod Meta {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::Meta::*;
-                }
-                pub mod Monotonicity {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Monotonicity::*;
-                }
-                pub mod NormCast {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::NormCast::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/Meta.rs");
                 }
                 pub mod Omega {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Omega::*;
                     pub mod Core {
                         pub use gen_lean_part_2::r#gen::Lean::Elab::Tactic::Omega::Core::*;
-                    }
-                    pub mod Frontend {
-                        pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Omega::Frontend::*;
                     }
                     pub mod MinNatAbs {
                         pub use gen_lean_part_1::r#gen::Lean::Elab::Tactic::Omega::MinNatAbs::*;
@@ -1441,75 +1143,18 @@ pub mod r#gen {
                         pub use gen_lean_part_2::r#gen::Lean::Elab::Tactic::Omega::OmegaM::*;
                     }
                 }
-                pub mod RCases {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::RCases::*;
-                }
-                pub mod RenameInaccessibles {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::RenameInaccessibles::*;
-                }
-                pub mod Repeat {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Repeat::*;
-                }
-                pub mod Rewrite {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Rewrite::*;
-                }
-                pub mod Rewrites {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Rewrites::*;
-                }
-                pub mod Rfl {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Rfl::*;
-                }
-                pub mod Show {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Show::*;
-                }
-                pub mod ShowTerm {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::ShowTerm::*;
-                }
-                pub mod Simp {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Simp::*;
-                }
-                pub mod Simpa {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Simpa::*;
-                }
-                pub mod SimpArith {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::SimpArith::*;
-                }
-                pub mod Simproc {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Simproc::*;
-                }
-                pub mod SimpTrace {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::SimpTrace::*;
-                }
-                pub mod SolveByElim {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::SolveByElim::*;
-                }
-                pub mod Split {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Split::*;
-                }
-                pub mod Symm {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Symm::*;
-                }
                 pub mod TreeTacAttr {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Tactic::TreeTacAttr::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Tactic/TreeTacAttr.rs");
                 }
-                pub mod Try {
-                    pub use gen_lean_part_5::r#gen::Lean::Elab::Tactic::Try::*;
-                }
-                pub mod Unfold {
-                    pub use gen_lean_part_4::r#gen::Lean::Elab::Tactic::Unfold::*;
-                }
-            }
-            pub mod Task {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Task::*;
             }
             pub mod Term {
-                pub use gen_lean_part_3::r#gen::Lean::Elab::Term::*;
-                pub mod TermElabM {
-                    pub use gen_lean_part_3::r#gen::Lean::Elab::Term::TermElabM::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Term.rs");
                 }
-            }
-            pub mod Time {
-                pub use gen_lean_part_4::r#gen::Lean::Elab::Time::*;
+                pub use index::*;
+                pub mod TermElabM {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Elab/Term/TermElabM.rs");
+                }
             }
             pub mod Util {
                 pub use gen_lean_part_2::r#gen::Lean::Elab::Util::*;
@@ -1542,9 +1187,6 @@ pub mod r#gen {
         pub mod Hygiene {
             pub use gen_lean_part_1::r#gen::Lean::Hygiene::*;
         }
-        pub mod IdentifierSuggestion {
-            pub use gen_lean_part_4::r#gen::Lean::IdentifierSuggestion::*;
-        }
         pub mod ImportingFlag {
             pub use gen_lean_part_1::r#gen::Lean::ImportingFlag::*;
         }
@@ -1561,12 +1203,6 @@ pub mod r#gen {
             pub mod Basic {
                 pub use gen_lean_part_1::r#gen::Lean::Language::Basic::*;
             }
-            pub mod Lean {
-                pub use gen_lean_part_4::r#gen::Lean::Language::Lean::*;
-                pub mod Types {
-                    pub use gen_lean_part_4::r#gen::Lean::Language::Lean::Types::*;
-                }
-            }
             pub mod Util {
                 pub use gen_lean_part_1::r#gen::Lean::Language::Util::*;
             }
@@ -1574,109 +1210,23 @@ pub mod r#gen {
         pub mod Level {
             pub use gen_lean_part_1::r#gen::Lean::Level::*;
         }
-        pub mod LibrarySuggestions {
-            pub use gen_lean_part_4::r#gen::Lean::LibrarySuggestions::*;
-            pub mod Basic {
-                pub use gen_lean_part_4::r#gen::Lean::LibrarySuggestions::Basic::*;
-            }
-            pub mod Default {
-                pub use gen_lean_part_4::r#gen::Lean::LibrarySuggestions::Default::*;
-            }
-            pub mod MePo {
-                pub use gen_lean_part_4::r#gen::Lean::LibrarySuggestions::MePo::*;
-            }
-            pub mod SineQuaNon {
-                pub use gen_lean_part_4::r#gen::Lean::LibrarySuggestions::SineQuaNon::*;
-            }
-            pub mod SymbolFrequency {
-                pub use gen_lean_part_4::r#gen::Lean::LibrarySuggestions::SymbolFrequency::*;
-            }
-        }
         pub mod Linter {
-            pub use gen_lean_part_4::r#gen::Lean::Linter::*;
-            pub mod Basic {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Basic::*;
-            }
-            pub mod Builtin {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Builtin::*;
-            }
-            pub mod CheckUnivs {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::CheckUnivs::*;
-            }
-            pub mod Coe {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Coe::*;
-            }
-            pub mod ConstructorAsVariable {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::ConstructorAsVariable::*;
-            }
-            pub mod DefProp {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::DefProp::*;
-            }
             pub mod Deprecated {
                 pub use gen_lean_part_1::r#gen::Lean::Linter::Deprecated::*;
             }
-            pub mod DocsOnAlt {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::DocsOnAlt::*;
-            }
             pub mod EnvLinter {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::EnvLinter::*;
                 pub mod Basic {
                     pub use gen_lean_part_1::r#gen::Lean::Linter::EnvLinter::Basic::*;
-                }
-                pub mod Frontend {
-                    pub use gen_lean_part_4::r#gen::Lean::Linter::EnvLinter::Frontend::*;
                 }
                 pub mod Nolint {
                     pub use gen_lean_part_1::r#gen::Lean::Linter::EnvLinter::Nolint::*;
                 }
             }
-            pub mod Extra {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Extra::*;
-                pub mod DupNamespace {
-                    pub use gen_lean_part_4::r#gen::Lean::Linter::Extra::DupNamespace::*;
-                }
-                pub mod UnnecessarySeqFocus {
-                    pub use gen_lean_part_4::r#gen::Lean::Linter::Extra::UnnecessarySeqFocus::*;
-                }
-                pub mod UnreachableTactic {
-                    pub use gen_lean_part_4::r#gen::Lean::Linter::Extra::UnreachableTactic::*;
-                }
-                pub mod UnusedDecidableInType {
-                    pub use gen_lean_part_4::r#gen::Lean::Linter::Extra::UnusedDecidableInType::*;
-                }
-            }
-            pub mod GlobalAttributeIn {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::GlobalAttributeIn::*;
-            }
             pub mod Init {
                 pub use gen_lean_part_1::r#gen::Lean::Linter::Init::*;
             }
-            pub mod List {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::List::*;
-            }
-            pub mod MissingDocs {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::MissingDocs::*;
-            }
-            pub mod Omit {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Omit::*;
-            }
             pub mod PersistentLintLog {
                 pub use gen_lean_part_1::r#gen::Lean::Linter::PersistentLintLog::*;
-            }
-            pub mod Sets {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Sets::*;
-            }
-            pub mod TacticTypeCheck {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::TacticTypeCheck::*;
-            }
-            pub mod UnusedSimpArgs {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::UnusedSimpArgs::*;
-            }
-            pub mod UnusedVariables {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::UnusedVariables::*;
-            }
-            pub mod Util {
-                pub use gen_lean_part_4::r#gen::Lean::Linter::Util::*;
             }
         }
         pub mod LoadDynlib {
@@ -1692,7 +1242,6 @@ pub mod r#gen {
             pub use gen_lean_part_1::r#gen::Lean::Message::*;
         }
         pub mod Meta {
-            pub use gen_lean_part_5::r#gen::Lean::Meta::*;
             pub mod AbstractMVars {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::AbstractMVars::*;
             }
@@ -1751,24 +1300,14 @@ pub mod r#gen {
                 pub use gen_lean_part_2::r#gen::Lean::Meta::CongrTheorems::*;
             }
             pub mod Constructions {
-                pub use gen_lean_part_4::r#gen::Lean::Meta::Constructions::*;
                 pub mod BRecOn {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Constructions::BRecOn::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Constructions/BRecOn.rs");
                 }
                 pub mod CasesOn {
                     pub use gen_lean_part_1::r#gen::Lean::Meta::Constructions::CasesOn::*;
                 }
-                pub mod CasesOnSameCtor {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Constructions::CasesOnSameCtor::*;
-                }
-                pub mod CtorElim {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Constructions::CtorElim::*;
-                }
                 pub mod CtorIdx {
                     pub use gen_lean_part_1::r#gen::Lean::Meta::Constructions::CtorIdx::*;
-                }
-                pub mod NoConfusion {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Constructions::NoConfusion::*;
                 }
                 pub mod RecOn {
                     pub use gen_lean_part_1::r#gen::Lean::Meta::Constructions::RecOn::*;
@@ -1777,11 +1316,11 @@ pub mod r#gen {
                     pub use gen_lean_part_1::r#gen::Lean::Meta::Constructions::SparseCasesOn::*;
                 }
                 pub mod SparseCasesOnEq {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Constructions::SparseCasesOnEq::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Constructions/SparseCasesOnEq.rs");
                 }
             }
             pub mod CtorIdxHInj {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::CtorIdxHInj::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/CtorIdxHInj.rs");
             }
             pub mod CtorRecognizer {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::CtorRecognizer::*;
@@ -1790,7 +1329,7 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::DecLevel::*;
             }
             pub mod Diagnostics {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::Diagnostics::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Diagnostics.rs");
             }
             pub mod DiscrTree {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::DiscrTree::*;
@@ -1847,10 +1386,10 @@ pub mod r#gen {
                 pub use gen_lean_part_2::r#gen::Lean::Meta::HaveTelescope::*;
             }
             pub mod Hint {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::Hint::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Hint.rs");
             }
             pub mod IndPredBelow {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::IndPredBelow::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/IndPredBelow.rs");
             }
             pub mod Inductive {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::Inductive::*;
@@ -1859,7 +1398,7 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::InferType::*;
             }
             pub mod Injective {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::Injective::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Injective.rs");
             }
             pub mod Instances {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::Instances::*;
@@ -1889,7 +1428,10 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::LitValues::*;
             }
             pub mod Match {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::Match::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match.rs");
+                }
+                pub use index::*;
                 pub mod AltTelescopes {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Match::AltTelescopes::*;
                 }
@@ -1903,21 +1445,24 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Match::CaseValues::*;
                 }
                 pub mod Match {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Match::Match::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/Match.rs");
                 }
                 pub mod MatchEqs {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Match::MatchEqs::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/MatchEqs.rs");
                 }
                 pub mod MatchEqsExt {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Match::MatchEqsExt::*;
                 }
                 pub mod MatcherApp {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Match::MatcherApp::*;
+                    pub mod index {
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/MatcherApp.rs");
+                    }
+                    pub use index::*;
                     pub mod Basic {
                         pub use gen_lean_part_1::r#gen::Lean::Meta::Match::MatcherApp::Basic::*;
                     }
                     pub mod Transform {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Match::MatcherApp::Transform::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/MatcherApp/Transform.rs");
                     }
                 }
                 pub mod MatcherInfo {
@@ -1933,13 +1478,13 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Match::NamedPatterns::*;
                 }
                 pub mod Rewrite {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Match::Rewrite::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/Rewrite.rs");
                 }
                 pub mod SimpH {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Match::SimpH::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/SimpH.rs");
                 }
                 pub mod SolveOverlap {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Match::SolveOverlap::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Match/SolveOverlap.rs");
                 }
                 pub mod Value {
                     pub use gen_lean_part_1::r#gen::Lean::Meta::Match::Value::*;
@@ -1949,10 +1494,7 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::MatchUtil::*;
             }
             pub mod MethodSpecs {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::MethodSpecs::*;
-            }
-            pub mod MkIffOfInductiveProp {
-                pub use gen_lean_part_4::r#gen::Lean::Meta::MkIffOfInductiveProp::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/MethodSpecs.rs");
             }
             pub mod MonadSimp {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::MonadSimp::*;
@@ -2006,7 +1548,7 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::Sorry::*;
             }
             pub mod SplitSparseCasesOn {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::SplitSparseCasesOn::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/SplitSparseCasesOn.rs");
             }
             pub mod StringLitProof {
                 pub use gen_lean_part_2::r#gen::Lean::Meta::StringLitProof::*;
@@ -2015,7 +1557,6 @@ pub mod r#gen {
                 pub use gen_lean_part_2::r#gen::Lean::Meta::Structure::*;
             }
             pub mod Sym {
-                pub use gen_lean_part_5::r#gen::Lean::Meta::Sym::*;
                 pub mod AbstractS {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Sym::AbstractS::*;
                 }
@@ -2111,9 +1652,6 @@ pub mod r#gen {
                 }
                 pub mod ExprPtr {
                     pub use gen_lean_part_1::r#gen::Lean::Meta::Sym::ExprPtr::*;
-                }
-                pub mod Grind {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Sym::Grind::*;
                 }
                 pub mod InferType {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Sym::InferType::*;
@@ -2231,18 +1769,11 @@ pub mod r#gen {
                 pub use gen_lean_part_2::r#gen::Lean::Meta::SynthInstance::*;
             }
             pub mod Tactic {
-                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::*;
-                pub mod AC {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::AC::*;
-                    pub mod Main {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::AC::Main::*;
-                    }
-                }
                 pub mod Acyclic {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Acyclic::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Acyclic.rs");
                 }
                 pub mod Apply {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Apply::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Apply.rs");
                 }
                 pub mod Assert {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Assert::*;
@@ -2257,13 +1788,6 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Backtrack::*;
                 }
                 pub mod BVDecide {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::*;
-                    pub mod Attr {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Attr::*;
-                    }
-                    pub mod Counterexample {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Counterexample::*;
-                    }
                     pub mod External {
                         pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::BVDecide::External::*;
                     }
@@ -2276,55 +1800,9 @@ pub mod r#gen {
                             pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::BVDecide::LRAT::Trim::*;
                         }
                     }
-                    pub mod Main {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Main::*;
-                    }
                     pub mod Normalize {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::*;
-                        pub mod AC {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::AC::*;
-                        }
-                        pub mod AndFlatten {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::AndFlatten::*;
-                        }
                         pub mod ApplyControlFlow {
-                            pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::ApplyControlFlow::*;
-                        }
-                        pub mod Basic {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::Basic::*;
-                        }
-                        pub mod EmbeddedConstraint {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::EmbeddedConstraint::*;
-                        }
-                        pub mod Enums {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::Enums::*;
-                        }
-                        pub mod IntToBitVec {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::IntToBitVec::*;
-                        }
-                        pub mod Rewrite {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::Rewrite::*;
-                        }
-                        pub mod ShortCircuit {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::ShortCircuit::*;
-                        }
-                        pub mod Simproc {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::Simproc::*;
-                        }
-                        pub mod Structures {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::Structures::*;
-                        }
-                        pub mod TypeAnalysis {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Normalize::TypeAnalysis::*;
-                        }
-                    }
-                    pub mod Prover {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Prover::*;
-                        pub mod Basic {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Prover::Basic::*;
-                        }
-                        pub mod Bitblast {
-                            pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::Prover::Bitblast::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/BVDecide/Normalize/ApplyControlFlow.rs");
                         }
                     }
                     pub mod Reflect {
@@ -2351,18 +1829,14 @@ pub mod r#gen {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::BVDecide::Reflect::SatAtBVLogical::*;
                         }
                     }
-                    pub mod TacticContext {
-                        pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::BVDecide::TacticContext::*;
-                    }
                 }
                 pub mod Cases {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Cases::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Cases.rs");
                 }
                 pub mod CasesOnStuckLHS {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::CasesOnStuckLHS::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/CasesOnStuckLHS.rs");
                 }
                 pub mod Cbv {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Cbv::*;
                     pub mod BuiltinCbvSimprocs {
                         pub mod Array {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Cbv::BuiltinCbvSimprocs::Array::*;
@@ -2383,9 +1857,6 @@ pub mod r#gen {
                     pub mod ControlFlow {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Cbv::ControlFlow::*;
                     }
-                    pub mod Main {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Cbv::Main::*;
-                    }
                     pub mod Opaque {
                         pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Cbv::Opaque::*;
                     }
@@ -2403,13 +1874,13 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Clear::*;
                 }
                 pub mod Congr {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Congr::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Congr.rs");
                 }
                 pub mod Constructor {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Constructor::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Constructor.rs");
                 }
                 pub mod Contradiction {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Contradiction::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Contradiction.rs");
                 }
                 pub mod Delta {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Delta::*;
@@ -2422,9 +1893,6 @@ pub mod r#gen {
                 }
                 pub mod Ext {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Ext::*;
-                }
-                pub mod FunInd {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::FunInd::*;
                 }
                 pub mod FunIndCollect {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::FunIndCollect::*;
@@ -2439,41 +1907,12 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Generalize::*;
                 }
                 pub mod Grind {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::*;
                     pub mod AC {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::*;
-                        pub mod Action {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Action::*;
-                        }
-                        pub mod DenoteExpr {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::DenoteExpr::*;
-                        }
-                        pub mod Eq {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Eq::*;
-                        }
-                        pub mod Internalize {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Internalize::*;
-                        }
-                        pub mod Inv {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Inv::*;
-                        }
-                        pub mod PP {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::PP::*;
-                        }
-                        pub mod Proof {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Proof::*;
-                        }
                         pub mod Seq {
                             pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::AC::Seq::*;
                         }
                         pub mod ToExpr {
                             pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::AC::ToExpr::*;
-                        }
-                        pub mod Types {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Types::*;
-                        }
-                        pub mod Util {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::AC::Util::*;
                         }
                         pub mod Var {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::AC::Var::*;
@@ -2482,229 +1921,25 @@ pub mod r#gen {
                             pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::AC::VarRename::*;
                         }
                     }
-                    pub mod Action {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Action::*;
-                    }
-                    pub mod Anchor {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Anchor::*;
-                    }
                     pub mod Arith {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::*;
-                        pub mod CommRing {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::*;
-                            pub mod Action {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Action::*;
-                            }
-                            pub mod DenoteExpr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::DenoteExpr::*;
-                            }
-                            pub mod EqCnstr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::EqCnstr::*;
-                            }
-                            pub mod Functions {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Functions::*;
-                            }
-                            pub mod Internalize {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Internalize::*;
-                            }
-                            pub mod Inv {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Inv::*;
-                            }
-                            pub mod MonadRing {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::MonadRing::*;
-                            }
-                            pub mod MonadSemiring {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::MonadSemiring::*;
-                            }
-                            pub mod NonCommRingM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::NonCommRingM::*;
-                            }
-                            pub mod NonCommSemiringM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::NonCommSemiringM::*;
-                            }
-                            pub mod Power {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Power::*;
-                            }
-                            pub mod PP {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::PP::*;
-                            }
-                            pub mod Proof {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Proof::*;
-                            }
-                            pub mod Reify {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Reify::*;
-                            }
-                            pub mod RingId {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::RingId::*;
-                            }
-                            pub mod RingM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::RingM::*;
-                            }
-                            pub mod SafePoly {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::SafePoly::*;
-                            }
-                            pub mod SemiringM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::SemiringM::*;
-                            }
-                            pub mod Types {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::CommRing::Types::*;
-                            }
-                        }
                         pub mod Cutsat {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::*;
-                            pub mod Action {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Action::*;
-                            }
-                            pub mod CommRing {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::CommRing::*;
-                            }
-                            pub mod DvdCnstr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::DvdCnstr::*;
-                            }
-                            pub mod EqCnstr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::EqCnstr::*;
-                            }
-                            pub mod Inv {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Inv::*;
-                            }
-                            pub mod LeCnstr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::LeCnstr::*;
-                            }
-                            pub mod MBTC {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::MBTC::*;
-                            }
-                            pub mod Model {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Model::*;
-                            }
-                            pub mod Nat {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Nat::*;
-                            }
-                            pub mod Norm {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Norm::*;
-                            }
-                            pub mod Proof {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Proof::*;
-                            }
-                            pub mod ReorderVars {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::ReorderVars::*;
-                            }
-                            pub mod Search {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Search::*;
-                            }
-                            pub mod SearchM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::SearchM::*;
-                            }
-                            pub mod ToInt {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::ToInt::*;
-                            }
                             pub mod ToIntInfo {
                                 pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::ToIntInfo::*;
-                            }
-                            pub mod Types {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Types::*;
-                            }
-                            pub mod Util {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Util::*;
-                            }
-                            pub mod Var {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::Var::*;
                             }
                             pub mod VarRename {
                                 pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::Arith::Cutsat::VarRename::*;
                             }
                         }
-                        pub mod EvalNum {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::EvalNum::*;
-                        }
                         pub mod FieldNormNum {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Arith::FieldNormNum::*;
                         }
-                        pub mod Insts {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Insts::*;
-                        }
-                        pub mod IsRelevant {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::IsRelevant::*;
-                        }
                         pub mod Linear {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::*;
-                            pub mod Action {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Action::*;
-                            }
-                            pub mod Den {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Den::*;
-                            }
-                            pub mod DenoteExpr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::DenoteExpr::*;
-                            }
-                            pub mod IneqCnstr {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::IneqCnstr::*;
-                            }
-                            pub mod Internalize {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Internalize::*;
-                            }
-                            pub mod Inv {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Inv::*;
-                            }
-                            pub mod LinearM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::LinearM::*;
-                            }
-                            pub mod MBTC {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::MBTC::*;
-                            }
-                            pub mod Model {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Model::*;
-                            }
-                            pub mod OfNatModule {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::OfNatModule::*;
-                            }
-                            pub mod PP {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::PP::*;
-                            }
-                            pub mod Proof {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Proof::*;
-                            }
-                            pub mod PropagateEq {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::PropagateEq::*;
-                            }
-                            pub mod Reify {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Reify::*;
-                            }
-                            pub mod Search {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Search::*;
-                            }
-                            pub mod SearchM {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::SearchM::*;
-                            }
-                            pub mod StructId {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::StructId::*;
-                            }
                             pub mod ToExpr {
                                 pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::ToExpr::*;
-                            }
-                            pub mod Types {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Types::*;
-                            }
-                            pub mod Util {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Util::*;
-                            }
-                            pub mod Var {
-                                pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::Var::*;
                             }
                             pub mod VarRename {
                                 pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::Arith::Linear::VarRename::*;
                             }
-                        }
-                        pub mod Main {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Main::*;
-                        }
-                        pub mod Model {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Model::*;
-                        }
-                        pub mod ModelUtil {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::ModelUtil::*;
-                        }
-                        pub mod Propagate {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Arith::Propagate::*;
                         }
                         pub mod Simproc {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Arith::Simproc::*;
@@ -2716,17 +1951,11 @@ pub mod r#gen {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Arith::Util::*;
                         }
                     }
-                    pub mod Attr {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Attr::*;
-                    }
-                    pub mod Beta {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Beta::*;
-                    }
                     pub mod Cases {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Grind::Cases::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Grind/Cases.rs");
                     }
                     pub mod CasesMatch {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Grind::CasesMatch::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Grind/CasesMatch.rs");
                     }
                     pub mod CastLike {
                         pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::CastLike::*;
@@ -2734,41 +1963,8 @@ pub mod r#gen {
                     pub mod CheckResult {
                         pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Grind::CheckResult::*;
                     }
-                    pub mod CollectParams {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::CollectParams::*;
-                    }
-                    pub mod Core {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Core::*;
-                    }
-                    pub mod Ctor {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Ctor::*;
-                    }
-                    pub mod CtorIdx {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::CtorIdx::*;
-                    }
-                    pub mod Diseq {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Diseq::*;
-                    }
-                    pub mod EMatch {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::EMatch::*;
-                    }
-                    pub mod EMatchAction {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::EMatchAction::*;
-                    }
-                    pub mod EMatchTheorem {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::EMatchTheorem::*;
-                    }
-                    pub mod EMatchTheoremParam {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::EMatchTheoremParam::*;
-                    }
-                    pub mod EMatchTheoremPtr {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::EMatchTheoremPtr::*;
-                    }
                     pub mod EqResolution {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::EqResolution::*;
-                    }
-                    pub mod Ext {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Ext::*;
                     }
                     pub mod ExtAttr {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::ExtAttr::*;
@@ -2776,134 +1972,23 @@ pub mod r#gen {
                     pub mod Extension {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Extension::*;
                     }
-                    pub mod Filter {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Filter::*;
-                    }
-                    pub mod Finish {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Finish::*;
-                    }
-                    pub mod ForallProp {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::ForallProp::*;
-                    }
                     pub mod Injection {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Injection::*;
-                    }
-                    pub mod Injective {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Injective::*;
-                    }
-                    pub mod Internalize {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Internalize::*;
-                    }
-                    pub mod Intro {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Intro::*;
-                    }
-                    pub mod Inv {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Inv::*;
-                    }
-                    pub mod LawfulEqCmp {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::LawfulEqCmp::*;
-                    }
-                    pub mod Lookahead {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Lookahead::*;
-                    }
-                    pub mod Main {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Main::*;
-                    }
-                    pub mod MarkNestedSubsingletons {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::MarkNestedSubsingletons::*;
-                    }
-                    pub mod MatchCond {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::MatchCond::*;
                     }
                     pub mod MatchDiscrOnly {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::MatchDiscrOnly::*;
                     }
-                    pub mod MBTC {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::MBTC::*;
-                    }
-                    pub mod Order {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::*;
-                        pub mod Assert {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::Assert::*;
-                        }
-                        pub mod Internalize {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::Internalize::*;
-                        }
-                        pub mod OrderM {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::OrderM::*;
-                        }
-                        pub mod Proof {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::Proof::*;
-                        }
-                        pub mod StructId {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::StructId::*;
-                        }
-                        pub mod Types {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::Types::*;
-                        }
-                        pub mod Util {
-                            pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Order::Util::*;
-                        }
-                    }
-                    pub mod OrderInsts {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::OrderInsts::*;
-                    }
                     pub mod Parser {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Parser::*;
                     }
-                    pub mod PP {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::PP::*;
-                    }
-                    pub mod Proj {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Proj::*;
-                    }
-                    pub mod Proof {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Proof::*;
-                    }
-                    pub mod ProofUtil {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::ProofUtil::*;
-                    }
-                    pub mod Propagate {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Propagate::*;
-                    }
-                    pub mod PropagateInj {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::PropagateInj::*;
-                    }
-                    pub mod PropagatorAttr {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::PropagatorAttr::*;
-                    }
-                    pub mod ProveEq {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::ProveEq::*;
-                    }
-                    pub mod ReflCmp {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::ReflCmp::*;
-                    }
-                    pub mod RegisterCommand {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::RegisterCommand::*;
-                    }
                     pub mod RevertAll {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::RevertAll::*;
-                    }
-                    pub mod Simp {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Simp::*;
-                    }
-                    pub mod SimpUtil {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::SimpUtil::*;
-                    }
-                    pub mod Solve {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Solve::*;
-                    }
-                    pub mod Split {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Split::*;
                     }
                     pub mod SynthInstance {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::SynthInstance::*;
                     }
                     pub mod Theorems {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Theorems::*;
-                    }
-                    pub mod Types {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Grind::Types::*;
                     }
                     pub mod Util {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Grind::Util::*;
@@ -2927,14 +2012,11 @@ pub mod r#gen {
                 pub mod Lets {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Lets::*;
                 }
-                pub mod LibrarySearch {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::LibrarySearch::*;
-                }
                 pub mod NormCast {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::NormCast::*;
                 }
                 pub mod Refl {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Refl::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Refl.rs");
                 }
                 pub mod Rename {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Rename::*;
@@ -2949,16 +2031,13 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Revert::*;
                 }
                 pub mod Rewrite {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Rewrite::*;
-                }
-                pub mod Rewrites {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Rewrites::*;
-                }
-                pub mod Rfl {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::Rfl::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Rewrite.rs");
                 }
                 pub mod Simp {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Simp::*;
+                    pub mod index {
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Simp.rs");
+                    }
+                    pub use index::*;
                     pub mod Arith {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::Arith::*;
                         pub mod Int {
@@ -2987,7 +2066,10 @@ pub mod r#gen {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::Attr::*;
                     }
                     pub mod BuiltinSimprocs {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::*;
+                        pub mod index {
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Simp/BuiltinSimprocs.rs");
+                        }
+                        pub use index::*;
                         pub mod Array {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::Array::*;
                         }
@@ -3013,7 +2095,7 @@ pub mod r#gen {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::List::*;
                         }
                         pub mod MethodSpecs {
-                            pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::MethodSpecs::*;
+                            include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Simp/BuiltinSimprocs/MethodSpecs.rs");
                         }
                         pub mod Nat {
                             pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::BuiltinSimprocs::Nat::*;
@@ -3032,13 +2114,13 @@ pub mod r#gen {
                         }
                     }
                     pub mod Diagnostics {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Simp::Diagnostics::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Simp/Diagnostics.rs");
                     }
                     pub mod LoopProtection {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::LoopProtection::*;
                     }
                     pub mod Main {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Simp::Main::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Simp/Main.rs");
                     }
                     pub mod RegisterCommand {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::RegisterCommand::*;
@@ -3047,7 +2129,7 @@ pub mod r#gen {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::Rewrite::*;
                     }
                     pub mod SimpAll {
-                        pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Simp::SimpAll::*;
+                        include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Simp/SimpAll.rs");
                     }
                     pub mod SimpCongrTheorems {
                         pub use gen_lean_part_1::r#gen::Lean::Meta::Tactic::Simp::SimpCongrTheorems::*;
@@ -3062,14 +2144,11 @@ pub mod r#gen {
                         pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Simp::Types::*;
                     }
                 }
-                pub mod SolveByElim {
-                    pub use gen_lean_part_4::r#gen::Lean::Meta::Tactic::SolveByElim::*;
-                }
                 pub mod Split {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Split::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Split.rs");
                 }
                 pub mod SplitIf {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::SplitIf::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/SplitIf.rs");
                 }
                 pub mod Subst {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Subst::*;
@@ -3077,17 +2156,8 @@ pub mod r#gen {
                 pub mod Symm {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::Symm::*;
                 }
-                pub mod Try {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Try::*;
-                    pub mod Collect {
-                        pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::Try::Collect::*;
-                    }
-                }
-                pub mod TryThis {
-                    pub use gen_lean_part_5::r#gen::Lean::Meta::Tactic::TryThis::*;
-                }
                 pub mod Unfold {
-                    pub use gen_lean_part_3::r#gen::Lean::Meta::Tactic::Unfold::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/Tactic/Unfold.rs");
                 }
                 pub mod UnifyEq {
                     pub use gen_lean_part_2::r#gen::Lean::Meta::Tactic::UnifyEq::*;
@@ -3103,7 +2173,7 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Meta::TransparencyMode::*;
             }
             pub mod TryThis {
-                pub use gen_lean_part_3::r#gen::Lean::Meta::TryThis::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Meta/TryThis.rs");
             }
             pub mod UnificationHint {
                 pub use gen_lean_part_2::r#gen::Lean::Meta::UnificationHint::*;
@@ -3131,7 +2201,10 @@ pub mod r#gen {
             pub use gen_lean_part_1::r#gen::Lean::OriginalConstKind::*;
         }
         pub mod Parser {
-            pub use gen_lean_part_3::r#gen::Lean::Parser::*;
+            pub mod index {
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Parser.rs");
+            }
+            pub use index::*;
             pub mod Attr {
                 pub use gen_lean_part_2::r#gen::Lean::Parser::Attr::*;
             }
@@ -3163,10 +2236,13 @@ pub mod r#gen {
                 pub use gen_lean_part_1::r#gen::Lean::Parser::StrInterpolation::*;
             }
             pub mod Syntax {
-                pub use gen_lean_part_3::r#gen::Lean::Parser::Syntax::*;
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Parser/Syntax.rs");
             }
             pub mod Tactic {
-                pub use gen_lean_part_3::r#gen::Lean::Parser::Tactic::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/Parser/Tactic.rs");
+                }
+                pub use index::*;
                 pub mod Doc {
                     pub use gen_lean_part_2::r#gen::Lean::Parser::Tactic::Doc::*;
                 }
@@ -3191,12 +2267,18 @@ pub mod r#gen {
             }
         }
         pub mod PrettyPrinter {
-            pub use gen_lean_part_3::r#gen::Lean::PrettyPrinter::*;
+            pub mod index {
+                include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/PrettyPrinter.rs");
+            }
+            pub use index::*;
             pub mod Basic {
                 pub use gen_lean_part_2::r#gen::Lean::PrettyPrinter::Basic::*;
             }
             pub mod Delaborator {
-                pub use gen_lean_part_3::r#gen::Lean::PrettyPrinter::Delaborator::*;
+                pub mod index {
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/PrettyPrinter/Delaborator.rs");
+                }
+                pub use index::*;
                 pub mod Attributes {
                     pub use gen_lean_part_1::r#gen::Lean::PrettyPrinter::Delaborator::Attributes::*;
                 }
@@ -3204,10 +2286,10 @@ pub mod r#gen {
                     pub use gen_lean_part_2::r#gen::Lean::PrettyPrinter::Delaborator::Basic::*;
                 }
                 pub mod Builtins {
-                    pub use gen_lean_part_3::r#gen::Lean::PrettyPrinter::Delaborator::Builtins::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/PrettyPrinter/Delaborator/Builtins.rs");
                 }
                 pub mod DeclWithSig {
-                    pub use gen_lean_part_3::r#gen::Lean::PrettyPrinter::Delaborator::DeclWithSig::*;
+                    include!("/home/srghma/projects/lean4/src/rust/gen_lean_part_3/src/gen/Lean/PrettyPrinter/Delaborator/DeclWithSig.rs");
                 }
                 pub mod FieldNotation {
                     pub use gen_lean_part_2::r#gen::Lean::PrettyPrinter::Delaborator::FieldNotation::*;
@@ -3257,145 +2339,42 @@ pub mod r#gen {
             pub use gen_lean_part_1::r#gen::Lean::ScopedEnvExtension::*;
         }
         pub mod Server {
-            pub use gen_lean_part_5::r#gen::Lean::Server::*;
             pub mod AsyncList {
                 pub use gen_lean_part_1::r#gen::Lean::Server::AsyncList::*;
             }
-            pub mod CodeActions {
-                pub use gen_lean_part_4::r#gen::Lean::Server::CodeActions::*;
-                pub mod Attr {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::CodeActions::Attr::*;
-                }
-                pub mod Basic {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::CodeActions::Basic::*;
-                }
-                pub mod Provider {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::CodeActions::Provider::*;
-                }
-                pub mod UnknownIdentifier {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::CodeActions::UnknownIdentifier::*;
-                }
-            }
             pub mod Completion {
-                pub use gen_lean_part_4::r#gen::Lean::Server::Completion::*;
-                pub mod CompletionCollectors {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Completion::CompletionCollectors::*;
-                }
-                pub mod CompletionInfoSelection {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Completion::CompletionInfoSelection::*;
-                }
                 pub mod CompletionItemCompression {
                     pub use gen_lean_part_1::r#gen::Lean::Server::Completion::CompletionItemCompression::*;
                 }
-                pub mod CompletionResolution {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Completion::CompletionResolution::*;
-                }
-                pub mod CompletionUtils {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Completion::CompletionUtils::*;
-                }
                 pub mod EligibleHeaderDecls {
                     pub use gen_lean_part_1::r#gen::Lean::Server::Completion::EligibleHeaderDecls::*;
-                }
-                pub mod ImportCompletion {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Completion::ImportCompletion::*;
-                }
-                pub mod SyntheticCompletion {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Completion::SyntheticCompletion::*;
                 }
             }
             pub mod FileSource {
                 pub use gen_lean_part_1::r#gen::Lean::Server::FileSource::*;
             }
-            pub mod FileWorker {
-                pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::*;
-                pub mod ExampleHover {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::ExampleHover::*;
-                }
-                pub mod InlayHints {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::InlayHints::*;
-                }
-                pub mod RequestHandling {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::RequestHandling::*;
-                }
-                pub mod SemanticHighlighting {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::SemanticHighlighting::*;
-                }
-                pub mod SetupFile {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::SetupFile::*;
-                }
-                pub mod SignatureHelp {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::SignatureHelp::*;
-                }
-                pub mod Utils {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::Utils::*;
-                }
-                pub mod WidgetRequests {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::FileWorker::WidgetRequests::*;
-                }
-            }
-            pub mod GoTo {
-                pub use gen_lean_part_4::r#gen::Lean::Server::GoTo::*;
-            }
-            pub mod InfoUtils {
-                pub use gen_lean_part_4::r#gen::Lean::Server::InfoUtils::*;
-            }
             pub mod Logging {
                 pub use gen_lean_part_1::r#gen::Lean::Server::Logging::*;
-            }
-            pub mod ProtocolOverview {
-                pub use gen_lean_part_5::r#gen::Lean::Server::ProtocolOverview::*;
-            }
-            pub mod References {
-                pub use gen_lean_part_4::r#gen::Lean::Server::References::*;
             }
             pub mod RequestCancellation {
                 pub use gen_lean_part_1::r#gen::Lean::Server::RequestCancellation::*;
             }
-            pub mod Requests {
-                pub use gen_lean_part_4::r#gen::Lean::Server::Requests::*;
-            }
             pub mod Rpc {
-                pub use gen_lean_part_4::r#gen::Lean::Server::Rpc::*;
                 pub mod Basic {
                     pub use gen_lean_part_1::r#gen::Lean::Server::Rpc::Basic::*;
-                }
-                pub mod Deriving {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Rpc::Deriving::*;
-                }
-                pub mod RequestHandling {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Rpc::RequestHandling::*;
                 }
             }
             pub mod ServerTask {
                 pub use gen_lean_part_1::r#gen::Lean::Server::ServerTask::*;
             }
-            pub mod Snapshots {
-                pub use gen_lean_part_4::r#gen::Lean::Server::Snapshots::*;
-            }
             pub mod Test {
-                pub use gen_lean_part_5::r#gen::Lean::Server::Test::*;
-                pub mod Cancel {
-                    pub use gen_lean_part_4::r#gen::Lean::Server::Test::Cancel::*;
-                }
                 pub mod Refs {
                     pub use gen_lean_part_1::r#gen::Lean::Server::Test::Refs::*;
                 }
-                pub mod Runner {
-                    pub use gen_lean_part_5::r#gen::Lean::Server::Test::Runner::*;
-                }
-            }
-            pub mod Utils {
-                pub use gen_lean_part_4::r#gen::Lean::Server::Utils::*;
-            }
-            pub mod Watchdog {
-                pub use gen_lean_part_4::r#gen::Lean::Server::Watchdog::*;
             }
         }
         pub mod Setup {
             pub use gen_lean_part_1::r#gen::Lean::Setup::*;
-        }
-        pub mod Shell {
-            pub use gen_lean_part_4::r#gen::Lean::Shell::*;
         }
         pub mod Structure {
             pub use gen_lean_part_1::r#gen::Lean::Structure::*;
@@ -3413,7 +2392,6 @@ pub mod r#gen {
             pub use gen_lean_part_1::r#gen::Lean::ToLevel::*;
         }
         pub mod Util {
-            pub use gen_lean_part_4::r#gen::Lean::Util::*;
             pub mod CollectAxioms {
                 pub use gen_lean_part_1::r#gen::Lean::Util::CollectAxioms::*;
             }
@@ -3519,9 +2497,6 @@ pub mod r#gen {
             pub mod ReplaceLevel {
                 pub use gen_lean_part_1::r#gen::Lean::Util::ReplaceLevel::*;
             }
-            pub mod Reprove {
-                pub use gen_lean_part_4::r#gen::Lean::Util::Reprove::*;
-            }
             pub mod SafeExponentiation {
                 pub use gen_lean_part_1::r#gen::Lean::Util::SafeExponentiation::*;
             }
@@ -3537,9 +2512,6 @@ pub mod r#gen {
             pub mod SortExprs {
                 pub use gen_lean_part_1::r#gen::Lean::Util::SortExprs::*;
             }
-            pub mod TestExtern {
-                pub use gen_lean_part_4::r#gen::Lean::Util::TestExtern::*;
-            }
             pub mod Trace {
                 pub use gen_lean_part_1::r#gen::Lean::Util::Trace::*;
             }
@@ -3548,38 +2520,12 @@ pub mod r#gen {
             }
         }
         pub mod Widget {
-            pub use gen_lean_part_5::r#gen::Lean::Widget::*;
-            pub mod Basic {
-                pub use gen_lean_part_4::r#gen::Lean::Widget::Basic::*;
-            }
-            pub mod Commands {
-                pub use gen_lean_part_5::r#gen::Lean::Widget::Commands::*;
-            }
-            pub mod Diff {
-                pub use gen_lean_part_4::r#gen::Lean::Widget::Diff::*;
-            }
-            pub mod InteractiveCode {
-                pub use gen_lean_part_4::r#gen::Lean::Widget::InteractiveCode::*;
-            }
-            pub mod InteractiveDiagnostic {
-                pub use gen_lean_part_4::r#gen::Lean::Widget::InteractiveDiagnostic::*;
-            }
-            pub mod InteractiveGoal {
-                pub use gen_lean_part_4::r#gen::Lean::Widget::InteractiveGoal::*;
-            }
             pub mod TaggedText {
                 pub use gen_lean_part_1::r#gen::Lean::Widget::TaggedText::*;
             }
             pub mod Types {
                 pub use gen_lean_part_1::r#gen::Lean::Widget::Types::*;
             }
-            pub mod UserWidget {
-                pub use gen_lean_part_4::r#gen::Lean::Widget::UserWidget::*;
-            }
         }
     }
-}
-
-pub mod ffi {
-    pub use gen_lean_part_5::ffi::*;
 }

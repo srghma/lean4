@@ -29,6 +29,27 @@ dependencies = [
 name = "gen_lean"
 version = "0.1.0"
 dependencies = [
+ "gen_lean_part_1",
+ "gen_lean_part_2",
+ "gen_lean_part_3",
+ "gen_lean_part_4",
+ "gen_lean_part_5",
+]
+
+[[package]]
+name = "gen_lean_ffi"
+version = "0.1.0"
+dependencies = [
+ "gen_init_ffi",
+ "gen_std_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_lean_part_1"
+version = "0.1.0"
+dependencies = [
  "gen_init",
  "gen_init_ffi",
  "gen_lean_ffi",
@@ -39,10 +60,62 @@ dependencies = [
 ]
 
 [[package]]
-name = "gen_lean_ffi"
+name = "gen_lean_part_2"
 version = "0.1.0"
 dependencies = [
+ "gen_init",
  "gen_init_ffi",
+ "gen_lean_ffi",
+ "gen_lean_part_1",
+ "gen_std",
+ "gen_std_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_lean_part_3"
+version = "0.1.0"
+dependencies = [
+ "gen_init",
+ "gen_init_ffi",
+ "gen_lean_ffi",
+ "gen_lean_part_1",
+ "gen_lean_part_2",
+ "gen_std",
+ "gen_std_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_lean_part_4"
+version = "0.1.0"
+dependencies = [
+ "gen_init",
+ "gen_init_ffi",
+ "gen_lean_ffi",
+ "gen_lean_part_1",
+ "gen_lean_part_2",
+ "gen_lean_part_3",
+ "gen_std",
+ "gen_std_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "gen_lean_part_5"
+version = "0.1.0"
+dependencies = [
+ "gen_init",
+ "gen_init_ffi",
+ "gen_lean_ffi",
+ "gen_lean_part_1",
+ "gen_lean_part_2",
+ "gen_lean_part_3",
+ "gen_lean_part_4",
+ "gen_std",
  "gen_std_ffi",
  "leanh",
  "runtime",
