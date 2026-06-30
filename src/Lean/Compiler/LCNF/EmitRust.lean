@@ -27,7 +27,7 @@ namespace Lean.Compiler.LCNF
 def leanMainFn := "_lean_main"
 
 def leanh (name : String) : String :=
-  s!"crate::leanh::{name}"
+  s!"leanh::{name}"
 
 def leanObjectTy : String :=
   leanh "LeanObject"

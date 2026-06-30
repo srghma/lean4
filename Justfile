@@ -16,44 +16,46 @@ update-stage1:
 update-stage2:
     make -C build/release/stage2 lean -j{{ nproc }}
 
-regenerate-gen-rs--gen_init:
+regenerate-gen:
+    bun srghmascripts/regenerate_gen.ts
+    bun srghmascripts/split_gen_lean_ffi.ts
+    bun srghmascripts/audit_gen_lean_split_cycles.ts
+
+regenerate-gen-rs-do name="" depends_on="":
     #!/usr/bin/env bash
     set -euo pipefail
-    cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts gen_init
-    rustfmt --edition 2024 gen_init/src/gen.rs
+    cd "src/rust"
+
+    if [ -z "{{ name }}" ]; then
+        echo "Error: 'name' is required." >&2
+        exit 1
+    fi
+
+    extra_args=()
+    if [ -n "{{ depends_on }}" ]; then
+        extra_args=(--depends-on="{{ depends_on }}")
+    fi
+
+    bun ../../srghmascripts/regenerate_module_tree.ts "{{ name }}" "${extra_args[@]}"
+    rustfmt --edition 2024 "{{ name }}/src/gen.rs"
+
+# Shorthand dependency recipes
+regenerate-gen-rs--gen_init:
+    just regenerate-gen-rs-do "gen_init"
 
 regenerate-gen-rs--gen_std:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts gen_std --depends-on="gen_init::r#gen::Init"
-    rustfmt --edition 2024 gen_std/src/gen.rs
+    just regenerate-gen-rs-do "gen_std" "gen_init::r#gen::Init"
 
 regenerate-gen-rs--gen_lean:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts gen_lean --depends-on="gen_init::r#gen::Init,gen_std::r#gen::Std"
-    rustfmt --edition 2024 gen_lean/src/gen.rs
+    just regenerate-gen-rs "gen_lean" "gen_init::r#gen::Init,gen_std::r#gen::Std"
 
 regenerate-gen-rs--lake:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts lake --depends-on="gen_init::r#gen::Init,gen_std::r#gen::Std,gen_lean::r#gen::Lean"
-    rustfmt --edition 2024 lake/src/gen.rs
+    just regenerate-gen-rs "lake" "gen_init::r#gen::Init,gen_std::r#gen::Std,gen_lean::r#gen::Lean"
 
 regenerate-gen-rs--lean_checker:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts lean_checker --depends-on="gen_init::r#gen::Init,gen_std::r#gen::Std,gen_lean::r#gen::Lean,lake::r#gen::Lake"
-    rustfmt --edition 2024 lean_checker/src/gen.rs
+    just regenerate-gen-rs "lean_checker" "gen_init::r#gen::Init,gen_std::r#gen::Std,gen_lean::r#gen::Lean,lake::r#gen::Lake"
 
 regenerate-gen-rs:
-    #!/usr/bin/env bash
-    set -euo pipefail
     just regenerate-gen-rs--gen_init
     just regenerate-gen-rs--gen_std
     just regenerate-gen-rs--gen_lean
@@ -93,16 +95,25 @@ cargo-do crate="" build_or_check="build" normal_or_for_ai_or_short_errors="norma
 cargo-do-all build_or_check="build" normal_or_for_ai_or_short_errors="normal":
     #!/usr/bin/env bash
     set -euo pipefail
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} leanh
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} gen_init
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} gen_std
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} gen_lean
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} runtime
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lake
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lean_checker
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lean_ir
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} lean_shell
-    just cargo-do {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }} leanc
+    just cargo-do leanh {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_init_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_init {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_std_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_std {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean_base_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean_meta_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean_meta_tactic_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean_meta_grind_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean_compiler_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean_elab_tactic_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do gen_lean {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do runtime {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do lake_ffi {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do lake {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do lean_checker {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do lean_ir {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do lean_shell {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
+    just cargo-do leanc {{ build_or_check }} {{ normal_or_for_ai_or_short_errors }}
 
 # Type-check only the generated Rust tree, without compiling lean_runtime/src/lib.rs.
 # The default checks a small generated file first; use check-gen-roots/check-gen-full for heavier checks.

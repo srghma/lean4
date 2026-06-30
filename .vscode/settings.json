@@ -5,6 +5,7 @@
   "rust-analyzer.check.allTargets": false, // to not cause oom, by trying to load gen_lean
   "rust-analyzer.cargo.allTargets": false, // to not cause oom, by trying to load gen_lean
   // "rust-analyzer.cargo.features": "all", // tried to enable type-checking for cfg(windows), but ...
+  "rust-analyzer.cargo.targetDir": true, // https://github.com/corrode/corrode.github.io/blob/master/content/blog/tips-for-faster-rust-compile-times/index.md#fix-rust-analyzer-cache-invalidation
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   // These require the CMake Tools extension (ms-vscode.cmake-tools).
