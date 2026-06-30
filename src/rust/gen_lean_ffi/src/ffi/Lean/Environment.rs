@@ -1,7 +1,7 @@
 // Generated stub file for Lean FFI imports
 // Source: src/Lean/Environment.lean
 
-pub fn lean_add_decl<A0, A1, A2, A3, A4, R>(_: A0, _: A1, _: A2, _: A3, _: A4) -> R {
+pub fn lean_add_decl<A0, A1, A2, A3, R>(_: A0, _: A1, _: A2, _: A3) -> R {
     todo!("Stub for lean_add_decl")
 }
 
@@ -9,7 +9,7 @@ pub fn lean_add_decl_without_checking<A0, A1, R>(_: A0, _: A1) -> R {
     todo!("Stub for lean_add_decl_without_checking")
 }
 
-pub fn lean_elab_add_decl<A0, A1, A2, A3, A4, R>(_: A0, _: A1, _: A2, _: A3, _: A4) -> R {
+pub fn lean_elab_add_decl<A0, A1, A2, A3, R>(_: A0, _: A1, _: A2, _: A3) -> R {
     todo!("Stub for lean_elab_add_decl")
 }
 
@@ -17,11 +17,11 @@ pub fn lean_elab_add_decl_without_checking<A0, A1, R>(_: A0, _: A1) -> R {
     todo!("Stub for lean_elab_add_decl_without_checking")
 }
 
-pub fn lean_is_reserved_name<A0, A1, A2, R>(_: A0, _: A1, _: A2) -> R {
+pub fn lean_is_reserved_name<A0, A1, R>(_: A0, _: A1) -> R {
     todo!("Stub for lean_is_reserved_name")
 }
 
-pub fn lean_get_ir_extra_const_names<A0, A1, A2, A3, R>(_: A0, _: A1, _: A2, _: A3) -> R {
+pub fn lean_get_ir_extra_const_names<A0, A1, A2, R>(_: A0, _: A1, _: A2) -> R {
     todo!("Stub for lean_get_ir_extra_const_names")
 }
 

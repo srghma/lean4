@@ -99,369 +99,369 @@ use crate::r#gen::Lean::Util::Trace::{
     initialize_Lean_Util_Trace, runtime_initialize_Lean_Util_Trace,
 };
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Lean_Util(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Lean_Util(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Lean_Util_CollectFVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_CollectLevelParams(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_CollectMVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_CollectLevelMVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_CollectLooseBVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_FindMVar(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_FindLevelMVar(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_MonadCache(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_PPExt(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_Path(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_Profile(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_RecDepth(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_ShareCommon(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_Sorry(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_Trace(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_FindExpr(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_ReplaceExpr(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_ForEachExpr(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_ForEachExprWhere(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_ReplaceLevel(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_FoldConsts(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_SCC(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_TestExtern(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_OccursCheck(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_HasConstCache(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_Heartbeats(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_SafeExponentiation(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_NumObjs(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_NumApps(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_FVarSubset(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_SortExprs(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_Reprove(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util_ParamMinimizer(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Lean_Util(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Lean_Util(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Lean_Util(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Lean_Util(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Lean_Util_CollectFVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_CollectLevelParams(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_CollectMVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_CollectLevelMVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_CollectLooseBVars(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_FindMVar(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_FindLevelMVar(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_MonadCache(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_PPExt(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_Path(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_Profile(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_RecDepth(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_ShareCommon(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_Sorry(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_Trace(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_FindExpr(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_ReplaceExpr(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_ForEachExpr(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_ForEachExprWhere(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_ReplaceLevel(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_FoldConsts(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_SCC(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_TestExtern(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_OccursCheck(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_HasConstCache(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_Heartbeats(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_SafeExponentiation(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_NumObjs(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_NumApps(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_FVarSubset(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_SortExprs(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_Reprove(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lean_Util_ParamMinimizer(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lean_Util(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Lean_Util(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Lean_Util(builtin);
 }

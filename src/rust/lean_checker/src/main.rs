@@ -7,16 +7,15 @@
     unused_imports
 )]
 
-pub mod leanh {
-    pub use leanh::*;
+pub mod ffi {
+    pub use gen_init_ffi::*;
+    pub use gen_std_ffi::*;
+    pub use gen_lean_ffi::*;
+    pub use lake_ffi::*;
 }
 
-pub mod r#gen {
-    pub use gen_init::r#gen::Init;
-    pub use gen_lean::r#gen::Lean;
-    pub use gen_std::r#gen::Std;
-    pub use lake::r#gen::{Lake, LakeMain};
-    pub mod LeanChecker {
-        include!("gen/LeanChecker.rs");
-    }
+pub mod r#gen;
+
+fn main() {
+    crate::r#gen::LeanChecker::main();
 }

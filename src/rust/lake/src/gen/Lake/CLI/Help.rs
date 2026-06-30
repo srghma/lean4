@@ -8,9 +8,9 @@ use crate::r#gen::Init::Data::ToString::{
 use crate::r#gen::Lake::Version::{
     initialize_Lake_Version, l_Lake_uiVersionString, runtime_initialize_Lake_Version,
 };
-pub static l_Lake_usage___closed__0_value: crate::leanh::LeanStringObject<3580> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+pub static l_Lake_usage___closed__0_value: leanh::LeanStringObject<3580> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -210,17 +210,17 @@ pub static l_Lake_usage___closed__0_value: crate::leanh::LeanStringObject<3580> 
             112, 101, 99, 105, 102, 105, 99, 32, 99, 111, 109, 109, 97, 110, 100, 46, 0,
         ],
     };
-static mut l_Lake_usage___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_usage___closed__0_value) as *mut crate::leanh::LeanObject;
-static mut l_Lake_usage___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+static mut l_Lake_usage___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_usage___closed__0_value) as *mut leanh::LeanObject;
+static mut l_Lake_usage___closed__1_once: leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
-static mut l_Lake_usage___closed__1: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static mut l_Lake_usage: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+static mut l_Lake_usage___closed__1: *mut leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lake_usage: *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___private_Lake_CLI_Help_0__Lake_newInitHelp___closed__0_value:
-    crate::leanh::LeanStringObject<627> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<627> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -265,15 +265,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_newInitHelp___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_newInitHelp___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_newInitHelp___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_newInitHelp: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_newInitHelp: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_newInitHelp___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0_value:
-    crate::leanh::LeanStringObject<739> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<739> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -323,15 +323,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0_value:
         46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpNew: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpNew: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0_value:
-    crate::leanh::LeanStringObject<845> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<845> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -386,15 +386,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0_value:
         107, 101, 32, 105, 110, 105, 116, 96, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpInit: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpInit: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0_value:
-    crate::leanh::LeanStringObject<2435> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2435> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -527,15 +527,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0_value:
         32, 99, 97, 99, 104, 101, 32, 112, 117, 116, 96, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpBuild: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpBuild: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0_value:
-    crate::leanh::LeanStringObject<512> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<512> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -574,15 +574,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0_value:
         111, 102, 32, 116, 97, 114, 103, 101, 116, 115, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpQuery: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpQuery: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCheckBuild___closed__0_value:
-    crate::leanh::LeanStringObject<305> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<305> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -611,15 +611,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCheckBuild___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCheckBuild___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCheckBuild___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCheckBuild: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCheckBuild: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCheckBuild___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0_value:
-    crate::leanh::LeanStringObject<713> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<713> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -668,15 +668,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0_value:
         97, 108, 108, 32, 100, 101, 112, 101, 110, 100, 101, 110, 99, 105, 101, 115, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpUpdate: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpUpdate: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0_value:
-    crate::leanh::LeanStringObject<617> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<617> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -720,15 +720,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0_value:
         115, 116, 32, 98, 101, 32, 98, 117, 105, 108, 116, 46, 10, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpTest: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpTest: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCheckTest___closed__0_value:
-    crate::leanh::LeanStringObject<344> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<344> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -759,15 +759,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCheckTest___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCheckTest___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCheckTest___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCheckTest: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCheckTest: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCheckTest___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0_value:
-    crate::leanh::LeanStringObject<1729> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<1729> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -868,15 +868,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0_value:
         97, 32, 115, 99, 114, 105, 112, 116, 46, 10, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpLint: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpLint: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCheckLint___closed__0_value:
-    crate::leanh::LeanStringObject<344> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<344> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -907,15 +907,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCheckLint___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCheckLint___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCheckLint___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCheckLint: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCheckLint: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCheckLint___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0_value:
-    crate::leanh::LeanStringObject<377> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<377> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -947,15 +947,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0_value:
         115, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpPack: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpPack: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0_value:
-    crate::leanh::LeanStringObject<297> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<297> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -983,15 +983,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0_value:
         46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpUnpack: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpUnpack: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0_value:
-    crate::leanh::LeanStringObject<224> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<224> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1015,15 +1015,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0_value:
         32, 96, 103, 104, 96, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpUpload: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpUpload: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0_value:
-    crate::leanh::LeanStringObject<208> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<208> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1046,15 +1046,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0_value:
         105, 101, 100, 32, 112, 97, 99, 107, 97, 103, 101, 115, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpClean: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpClean: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0_value:
-    crate::leanh::LeanStringObject<1473> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<1473> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1141,15 +1141,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0_value:
         109, 112, 111, 114, 116, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpShake: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpShake: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0_value:
-    crate::leanh::LeanStringObject<704> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<704> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1198,15 +1198,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheCli: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheCli: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheGet___closed__0_value:
-    crate::leanh::LeanStringObject<2912> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2912> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1369,15 +1369,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheGet___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheGet___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheGet___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheGet: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheGet: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheGet___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCachePut___closed__0_value:
-    crate::leanh::LeanStringObject<1824> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<1824> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1485,15 +1485,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCachePut___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCachePut___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCachePut___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCachePut: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCachePut: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCachePut___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheAdd___closed__0_value:
-    crate::leanh::LeanStringObject<1008> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<1008> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1558,15 +1558,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheAdd___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheAdd___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheAdd___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheAdd: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheAdd: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheAdd___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheStage___closed__0_value:
-    crate::leanh::LeanStringObject<359> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<359> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1598,15 +1598,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheStage___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheStage___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheStage___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheStage: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheStage: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheStage___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage___closed__0_value:
-    crate::leanh::LeanStringObject<416> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<416> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1641,15 +1641,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged___closed__0_value:
-    crate::leanh::LeanStringObject<757> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<757> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1701,15 +1701,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged___closed__0_valu
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheClean___closed__0_value:
-    crate::leanh::LeanStringObject<275> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<275> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1737,15 +1737,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheClean___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheClean___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheClean___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheClean: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheClean: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheClean___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpCacheServices___closed__0_value:
-    crate::leanh::LeanStringObject<749> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<749> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1797,15 +1797,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpCacheServices___closed__0_value
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpCacheServices___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheServices___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheServices: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpCacheServices: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpCacheServices___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0_value:
-    crate::leanh::LeanStringObject<287> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<287> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1833,15 +1833,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptCli: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptCli: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0_value:
-    crate::leanh::LeanStringObject<144> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<144> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1862,15 +1862,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptList: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptList: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0_value:
-    crate::leanh::LeanStringObject<290> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<290> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1898,15 +1898,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptRun: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptRun: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpScriptDoc___closed__0_value:
-    crate::leanh::LeanStringObject<151> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<151> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1927,15 +1927,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpScriptDoc___closed__0_value:
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpScriptDoc___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptDoc___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptDoc: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpScriptDoc: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpScriptDoc___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0_value:
-    crate::leanh::LeanStringObject<214> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<214> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1958,15 +1958,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0_value:
         101, 108, 100, 32, 97, 110, 100, 32, 96, 97, 114, 103, 115, 96, 46, 10, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpServe: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpServe: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0_value:
-    crate::leanh::LeanStringObject<1235> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<1235> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2040,15 +2040,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0_value:
         109, 109, 97, 110, 100, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpEnv: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpEnv: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0_value:
-    crate::leanh::LeanStringObject<379> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<379> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2080,15 +2080,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0_value:
         115, 32, 115, 101, 116, 32, 117, 112, 41, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpExe: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpExe: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0_value:
-    crate::leanh::LeanStringObject<395> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<395> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2121,15 +2121,15 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0_value:
         32, 117, 112, 41, 46, 0,
     ],
 };
-static mut l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0: *mut crate::leanh::LeanObject =
+static mut l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l___private_Lake_CLI_Help_0__Lake_helpLean: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l___private_Lake_CLI_Help_0__Lake_helpLean: *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig___closed__0_value:
-    crate::leanh::LeanStringObject<557> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<557> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2171,16 +2171,16 @@ pub static l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig___closed__0_val
     ],
 };
 static mut l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static mut l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpScript___closed__0_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lake_helpScript___closed__0_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2191,11 +2191,11 @@ pub static l_Lake_helpScript___closed__0_value: crate::leanh::LeanStringObject<5
         m_length: 4,
         m_data: [108, 105, 115, 116, 0],
     };
-static mut l_Lake_helpScript___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpScript___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpScript___closed__1_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpScript___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpScript___closed__0_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpScript___closed__1_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2206,11 +2206,11 @@ pub static l_Lake_helpScript___closed__1_value: crate::leanh::LeanStringObject<4
         m_length: 3,
         m_data: [114, 117, 110, 0],
     };
-static mut l_Lake_helpScript___closed__1: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpScript___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpScript___closed__2_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpScript___closed__1: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpScript___closed__1_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpScript___closed__2_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2221,11 +2221,11 @@ pub static l_Lake_helpScript___closed__2_value: crate::leanh::LeanStringObject<4
         m_length: 3,
         m_data: [100, 111, 99, 0],
     };
-static mut l_Lake_helpScript___closed__2: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpScript___closed__2_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__0_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpScript___closed__2: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpScript___closed__2_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__0_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2236,11 +2236,11 @@ pub static l_Lake_helpCache___closed__0_value: crate::leanh::LeanStringObject<4>
         m_length: 3,
         m_data: [103, 101, 116, 0],
     };
-static mut l_Lake_helpCache___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__1_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__0_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__1_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2251,11 +2251,11 @@ pub static l_Lake_helpCache___closed__1_value: crate::leanh::LeanStringObject<4>
         m_length: 3,
         m_data: [112, 117, 116, 0],
     };
-static mut l_Lake_helpCache___closed__1: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__2_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__1: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__1_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__2_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2266,11 +2266,11 @@ pub static l_Lake_helpCache___closed__2_value: crate::leanh::LeanStringObject<4>
         m_length: 3,
         m_data: [97, 100, 100, 0],
     };
-static mut l_Lake_helpCache___closed__2: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__2_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__3_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__2: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__2_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__3_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2281,11 +2281,11 @@ pub static l_Lake_helpCache___closed__3_value: crate::leanh::LeanStringObject<6>
         m_length: 5,
         m_data: [115, 116, 97, 103, 101, 0],
     };
-static mut l_Lake_helpCache___closed__3: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__4_value: crate::leanh::LeanStringObject<8> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__3: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__3_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__4_value: leanh::LeanStringObject<8> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2296,11 +2296,11 @@ pub static l_Lake_helpCache___closed__4_value: crate::leanh::LeanStringObject<8>
         m_length: 7,
         m_data: [117, 110, 115, 116, 97, 103, 101, 0],
     };
-static mut l_Lake_helpCache___closed__4: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__4_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__5_value: crate::leanh::LeanStringObject<11> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__4: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__4_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__5_value: leanh::LeanStringObject<11> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2311,11 +2311,11 @@ pub static l_Lake_helpCache___closed__5_value: crate::leanh::LeanStringObject<11
         m_length: 10,
         m_data: [112, 117, 116, 45, 115, 116, 97, 103, 101, 100, 0],
     };
-static mut l_Lake_helpCache___closed__5: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__5_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__6_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__5: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__5_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__6_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2326,11 +2326,11 @@ pub static l_Lake_helpCache___closed__6_value: crate::leanh::LeanStringObject<6>
         m_length: 5,
         m_data: [99, 108, 101, 97, 110, 0],
     };
-static mut l_Lake_helpCache___closed__6: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__6_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_helpCache___closed__7_value: crate::leanh::LeanStringObject<9> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__6: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__6_value) as *mut leanh::LeanObject;
+pub static l_Lake_helpCache___closed__7_value: leanh::LeanStringObject<9> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2341,11 +2341,11 @@ pub static l_Lake_helpCache___closed__7_value: crate::leanh::LeanStringObject<9>
         m_length: 8,
         m_data: [115, 101, 114, 118, 105, 99, 101, 115, 0],
     };
-static mut l_Lake_helpCache___closed__7: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_helpCache___closed__7_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__0_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_helpCache___closed__7: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_helpCache___closed__7_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__0_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2356,11 +2356,11 @@ pub static l_Lake_help___closed__0_value: crate::leanh::LeanStringObject<4> =
         m_length: 3,
         m_data: [110, 101, 119, 0],
     };
-static mut l_Lake_help___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__1_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__0_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__1_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2371,11 +2371,11 @@ pub static l_Lake_help___closed__1_value: crate::leanh::LeanStringObject<5> =
         m_length: 4,
         m_data: [105, 110, 105, 116, 0],
     };
-static mut l_Lake_help___closed__1: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__2_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__1: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__1_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__2_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2386,11 +2386,11 @@ pub static l_Lake_help___closed__2_value: crate::leanh::LeanStringObject<6> =
         m_length: 5,
         m_data: [98, 117, 105, 108, 100, 0],
     };
-static mut l_Lake_help___closed__2: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__2_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__3_value: crate::leanh::LeanStringObject<12> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__2: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__2_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__3_value: leanh::LeanStringObject<12> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2401,11 +2401,11 @@ pub static l_Lake_help___closed__3_value: crate::leanh::LeanStringObject<12> =
         m_length: 11,
         m_data: [99, 104, 101, 99, 107, 45, 98, 117, 105, 108, 100, 0],
     };
-static mut l_Lake_help___closed__3: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__4_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__3: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__3_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__4_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2416,11 +2416,11 @@ pub static l_Lake_help___closed__4_value: crate::leanh::LeanStringObject<6> =
         m_length: 5,
         m_data: [113, 117, 101, 114, 121, 0],
     };
-static mut l_Lake_help___closed__4: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__4_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__5_value: crate::leanh::LeanStringObject<7> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__4: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__4_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__5_value: leanh::LeanStringObject<7> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2431,11 +2431,11 @@ pub static l_Lake_help___closed__5_value: crate::leanh::LeanStringObject<7> =
         m_length: 6,
         m_data: [117, 112, 100, 97, 116, 101, 0],
     };
-static mut l_Lake_help___closed__5: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__5_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__6_value: crate::leanh::LeanStringObject<8> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__5: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__5_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__6_value: leanh::LeanStringObject<8> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2446,11 +2446,11 @@ pub static l_Lake_help___closed__6_value: crate::leanh::LeanStringObject<8> =
         m_length: 7,
         m_data: [117, 112, 103, 114, 97, 100, 101, 0],
     };
-static mut l_Lake_help___closed__6: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__6_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__7_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__6: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__6_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__7_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2461,11 +2461,11 @@ pub static l_Lake_help___closed__7_value: crate::leanh::LeanStringObject<5> =
         m_length: 4,
         m_data: [112, 97, 99, 107, 0],
     };
-static mut l_Lake_help___closed__7: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__7_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__8_value: crate::leanh::LeanStringObject<7> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__7: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__7_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__8_value: leanh::LeanStringObject<7> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2476,11 +2476,11 @@ pub static l_Lake_help___closed__8_value: crate::leanh::LeanStringObject<7> =
         m_length: 6,
         m_data: [117, 110, 112, 97, 99, 107, 0],
     };
-static mut l_Lake_help___closed__8: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__8_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__9_value: crate::leanh::LeanStringObject<7> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__8: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__8_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__9_value: leanh::LeanStringObject<7> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2491,11 +2491,11 @@ pub static l_Lake_help___closed__9_value: crate::leanh::LeanStringObject<7> =
         m_length: 6,
         m_data: [117, 112, 108, 111, 97, 100, 0],
     };
-static mut l_Lake_help___closed__9: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__9_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__10_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__9: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__9_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__10_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2506,11 +2506,11 @@ pub static l_Lake_help___closed__10_value: crate::leanh::LeanStringObject<6> =
         m_length: 5,
         m_data: [99, 97, 99, 104, 101, 0],
     };
-static mut l_Lake_help___closed__10: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__10_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__11_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__10: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__10_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__11_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2521,11 +2521,11 @@ pub static l_Lake_help___closed__11_value: crate::leanh::LeanStringObject<5> =
         m_length: 4,
         m_data: [116, 101, 115, 116, 0],
     };
-static mut l_Lake_help___closed__11: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__11_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__12_value: crate::leanh::LeanStringObject<11> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__11: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__11_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__12_value: leanh::LeanStringObject<11> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2536,11 +2536,11 @@ pub static l_Lake_help___closed__12_value: crate::leanh::LeanStringObject<11> =
         m_length: 10,
         m_data: [99, 104, 101, 99, 107, 45, 116, 101, 115, 116, 0],
     };
-static mut l_Lake_help___closed__12: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__12_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__13_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__12: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__12_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__13_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2551,11 +2551,11 @@ pub static l_Lake_help___closed__13_value: crate::leanh::LeanStringObject<5> =
         m_length: 4,
         m_data: [108, 105, 110, 116, 0],
     };
-static mut l_Lake_help___closed__13: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__13_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__14_value: crate::leanh::LeanStringObject<11> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__13: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__13_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__14_value: leanh::LeanStringObject<11> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2566,11 +2566,11 @@ pub static l_Lake_help___closed__14_value: crate::leanh::LeanStringObject<11> =
         m_length: 10,
         m_data: [99, 104, 101, 99, 107, 45, 108, 105, 110, 116, 0],
     };
-static mut l_Lake_help___closed__14: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__14_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__15_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__14: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__14_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__15_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2581,11 +2581,11 @@ pub static l_Lake_help___closed__15_value: crate::leanh::LeanStringObject<6> =
         m_length: 5,
         m_data: [115, 104, 97, 107, 101, 0],
     };
-static mut l_Lake_help___closed__15: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__15_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__16_value: crate::leanh::LeanStringObject<7> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__15: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__15_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__16_value: leanh::LeanStringObject<7> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2596,11 +2596,11 @@ pub static l_Lake_help___closed__16_value: crate::leanh::LeanStringObject<7> =
         m_length: 6,
         m_data: [115, 99, 114, 105, 112, 116, 0],
     };
-static mut l_Lake_help___closed__16: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__16_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__17_value: crate::leanh::LeanStringObject<8> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__16: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__16_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__17_value: leanh::LeanStringObject<8> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2611,11 +2611,11 @@ pub static l_Lake_help___closed__17_value: crate::leanh::LeanStringObject<8> =
         m_length: 7,
         m_data: [115, 99, 114, 105, 112, 116, 115, 0],
     };
-static mut l_Lake_help___closed__17: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__17_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__18_value: crate::leanh::LeanStringObject<6> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__17: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__17_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__18_value: leanh::LeanStringObject<6> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2626,11 +2626,11 @@ pub static l_Lake_help___closed__18_value: crate::leanh::LeanStringObject<6> =
         m_length: 5,
         m_data: [115, 101, 114, 118, 101, 0],
     };
-static mut l_Lake_help___closed__18: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__18_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__19_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__18: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__18_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__19_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2641,11 +2641,11 @@ pub static l_Lake_help___closed__19_value: crate::leanh::LeanStringObject<4> =
         m_length: 3,
         m_data: [101, 110, 118, 0],
     };
-static mut l_Lake_help___closed__19: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__19_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__20_value: crate::leanh::LeanStringObject<4> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__19: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__19_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__20_value: leanh::LeanStringObject<4> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2656,11 +2656,11 @@ pub static l_Lake_help___closed__20_value: crate::leanh::LeanStringObject<4> =
         m_length: 3,
         m_data: [101, 120, 101, 0],
     };
-static mut l_Lake_help___closed__20: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__20_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__21_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__20: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__20_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__21_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2671,11 +2671,11 @@ pub static l_Lake_help___closed__21_value: crate::leanh::LeanStringObject<5> =
         m_length: 4,
         m_data: [101, 120, 101, 99, 0],
     };
-static mut l_Lake_help___closed__21: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__21_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__22_value: crate::leanh::LeanStringObject<5> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__21: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__21_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__22_value: leanh::LeanStringObject<5> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2686,11 +2686,11 @@ pub static l_Lake_help___closed__22_value: crate::leanh::LeanStringObject<5> =
         m_length: 4,
         m_data: [108, 101, 97, 110, 0],
     };
-static mut l_Lake_help___closed__22: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__22_value) as *mut crate::leanh::LeanObject;
-pub static l_Lake_help___closed__23_value: crate::leanh::LeanStringObject<17> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Lake_help___closed__22: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__22_value) as *mut leanh::LeanObject;
+pub static l_Lake_help___closed__23_value: leanh::LeanStringObject<17> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2703,20 +2703,20 @@ pub static l_Lake_help___closed__23_value: crate::leanh::LeanStringObject<17> =
             116, 114, 97, 110, 115, 108, 97, 116, 101, 45, 99, 111, 110, 102, 105, 103, 0,
         ],
     };
-static mut l_Lake_help___closed__23: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_help___closed__23_value) as *mut crate::leanh::LeanObject;
-pub unsafe fn _init_l_Lake_usage___closed__1() -> *mut crate::leanh::LeanObject {
-    let mut v___x_233_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_234_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_235_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+static mut l_Lake_help___closed__23: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_help___closed__23_value) as *mut leanh::LeanObject;
+pub unsafe fn _init_l_Lake_usage___closed__1() -> *mut leanh::LeanObject {
+    let mut v___x_233_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_234_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_235_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_233_ = l_Lake_usage___closed__0;
     v___x_234_ = l_Lake_uiVersionString;
     v___x_235_ = lean_string_append(v___x_234_, v___x_233_);
     return v___x_235_;
 }
-pub unsafe fn _init_l_Lake_usage() -> *mut crate::leanh::LeanObject {
-    let mut v___x_236_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_236_ = crate::leanh::lean_obj_once(
+pub unsafe fn _init_l_Lake_usage() -> *mut leanh::LeanObject {
+    let mut v___x_236_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_236_ = leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Lake_usage___closed__1),
         core::ptr::addr_of_mut!(l_Lake_usage___closed__1_once),
         _init_l_Lake_usage___closed__1,
@@ -2724,245 +2724,245 @@ pub unsafe fn _init_l_Lake_usage() -> *mut crate::leanh::LeanObject {
     return v___x_236_;
 }
 pub unsafe fn l_Lake_helpScript(
-    mut v_x_308_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_309_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_308_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_309_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_310_: u8 = 0;
     v___x_309_ = l_Lake_helpScript___closed__0;
     v___x_310_ = lean_string_dec_eq(v_x_308_, v___x_309_);
     if v___x_310_ == 0 {
-        let mut v___x_311_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_311_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_312_: u8 = 0;
         v___x_311_ = l_Lake_helpScript___closed__1;
         v___x_312_ = lean_string_dec_eq(v_x_308_, v___x_311_);
         if v___x_312_ == 0 {
-            let mut v___x_313_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_313_: *mut leanh::LeanObject = core::ptr::null_mut();
             let mut v___x_314_: u8 = 0;
             v___x_313_ = l_Lake_helpScript___closed__2;
             v___x_314_ = lean_string_dec_eq(v_x_308_, v___x_313_);
             if v___x_314_ == 0 {
-                let mut v___x_315_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_315_: *mut leanh::LeanObject = core::ptr::null_mut();
                 v___x_315_ = l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0;
                 return v___x_315_;
             } else {
-                let mut v___x_316_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_316_: *mut leanh::LeanObject = core::ptr::null_mut();
                 v___x_316_ = l___private_Lake_CLI_Help_0__Lake_helpScriptDoc___closed__0;
                 return v___x_316_;
             }
         } else {
-            let mut v___x_317_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_317_: *mut leanh::LeanObject = core::ptr::null_mut();
             v___x_317_ = l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0;
             return v___x_317_;
         }
     } else {
-        let mut v___x_318_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_318_: *mut leanh::LeanObject = core::ptr::null_mut();
         v___x_318_ = l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0;
         return v___x_318_;
     }
 }
 pub unsafe fn l_Lake_helpScript___boxed(
-    mut v_x_319_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_320_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_319_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_320_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_320_ = l_Lake_helpScript(v_x_319_);
-    crate::leanh::lean_dec_ref(v_x_319_);
+    leanh::lean_dec_ref(v_x_319_);
     return v_res_320_;
 }
 pub unsafe fn l_Lake_helpCache(
-    mut v_x_329_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_330_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_329_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_330_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_331_: u8 = 0;
     v___x_330_ = l_Lake_helpCache___closed__0;
     v___x_331_ = lean_string_dec_eq(v_x_329_, v___x_330_);
     if v___x_331_ == 0 {
-        let mut v___x_332_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_332_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_333_: u8 = 0;
         v___x_332_ = l_Lake_helpCache___closed__1;
         v___x_333_ = lean_string_dec_eq(v_x_329_, v___x_332_);
         if v___x_333_ == 0 {
-            let mut v___x_334_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_334_: *mut leanh::LeanObject = core::ptr::null_mut();
             let mut v___x_335_: u8 = 0;
             v___x_334_ = l_Lake_helpCache___closed__2;
             v___x_335_ = lean_string_dec_eq(v_x_329_, v___x_334_);
             if v___x_335_ == 0 {
-                let mut v___x_336_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_336_: *mut leanh::LeanObject = core::ptr::null_mut();
                 let mut v___x_337_: u8 = 0;
                 v___x_336_ = l_Lake_helpCache___closed__3;
                 v___x_337_ = lean_string_dec_eq(v_x_329_, v___x_336_);
                 if v___x_337_ == 0 {
-                    let mut v___x_338_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                    let mut v___x_338_: *mut leanh::LeanObject = core::ptr::null_mut();
                     let mut v___x_339_: u8 = 0;
                     v___x_338_ = l_Lake_helpCache___closed__4;
                     v___x_339_ = lean_string_dec_eq(v_x_329_, v___x_338_);
                     if v___x_339_ == 0 {
-                        let mut v___x_340_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                        let mut v___x_340_: *mut leanh::LeanObject = core::ptr::null_mut();
                         let mut v___x_341_: u8 = 0;
                         v___x_340_ = l_Lake_helpCache___closed__5;
                         v___x_341_ = lean_string_dec_eq(v_x_329_, v___x_340_);
                         if v___x_341_ == 0 {
-                            let mut v___x_342_: *mut crate::leanh::LeanObject =
+                            let mut v___x_342_: *mut leanh::LeanObject =
                                 core::ptr::null_mut();
                             let mut v___x_343_: u8 = 0;
                             v___x_342_ = l_Lake_helpCache___closed__6;
                             v___x_343_ = lean_string_dec_eq(v_x_329_, v___x_342_);
                             if v___x_343_ == 0 {
-                                let mut v___x_344_: *mut crate::leanh::LeanObject =
+                                let mut v___x_344_: *mut leanh::LeanObject =
                                     core::ptr::null_mut();
                                 let mut v___x_345_: u8 = 0;
                                 v___x_344_ = l_Lake_helpCache___closed__7;
                                 v___x_345_ = lean_string_dec_eq(v_x_329_, v___x_344_);
                                 if v___x_345_ == 0 {
-                                    let mut v___x_346_: *mut crate::leanh::LeanObject =
+                                    let mut v___x_346_: *mut leanh::LeanObject =
                                         core::ptr::null_mut();
                                     v___x_346_ =
                                         l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0;
                                     return v___x_346_;
                                 } else {
-                                    let mut v___x_347_: *mut crate::leanh::LeanObject =
+                                    let mut v___x_347_: *mut leanh::LeanObject =
                                         core::ptr::null_mut();
                                     v___x_347_ = l___private_Lake_CLI_Help_0__Lake_helpCacheServices___closed__0;
                                     return v___x_347_;
                                 }
                             } else {
-                                let mut v___x_348_: *mut crate::leanh::LeanObject =
+                                let mut v___x_348_: *mut leanh::LeanObject =
                                     core::ptr::null_mut();
                                 v___x_348_ =
                                     l___private_Lake_CLI_Help_0__Lake_helpCacheClean___closed__0;
                                 return v___x_348_;
                             }
                         } else {
-                            let mut v___x_349_: *mut crate::leanh::LeanObject =
+                            let mut v___x_349_: *mut leanh::LeanObject =
                                 core::ptr::null_mut();
                             v___x_349_ =
                                 l___private_Lake_CLI_Help_0__Lake_helpCachePutStaged___closed__0;
                             return v___x_349_;
                         }
                     } else {
-                        let mut v___x_350_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                        let mut v___x_350_: *mut leanh::LeanObject = core::ptr::null_mut();
                         v___x_350_ = l___private_Lake_CLI_Help_0__Lake_helpCacheUnstage___closed__0;
                         return v___x_350_;
                     }
                 } else {
-                    let mut v___x_351_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                    let mut v___x_351_: *mut leanh::LeanObject = core::ptr::null_mut();
                     v___x_351_ = l___private_Lake_CLI_Help_0__Lake_helpCacheStage___closed__0;
                     return v___x_351_;
                 }
             } else {
-                let mut v___x_352_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_352_: *mut leanh::LeanObject = core::ptr::null_mut();
                 v___x_352_ = l___private_Lake_CLI_Help_0__Lake_helpCacheAdd___closed__0;
                 return v___x_352_;
             }
         } else {
-            let mut v___x_353_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_353_: *mut leanh::LeanObject = core::ptr::null_mut();
             v___x_353_ = l___private_Lake_CLI_Help_0__Lake_helpCachePut___closed__0;
             return v___x_353_;
         }
     } else {
-        let mut v___x_354_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_354_: *mut leanh::LeanObject = core::ptr::null_mut();
         v___x_354_ = l___private_Lake_CLI_Help_0__Lake_helpCacheGet___closed__0;
         return v___x_354_;
     }
 }
 pub unsafe fn l_Lake_helpCache___boxed(
-    mut v_x_355_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_356_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_355_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_356_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_356_ = l_Lake_helpCache(v_x_355_);
-    crate::leanh::lean_dec_ref(v_x_355_);
+    leanh::lean_dec_ref(v_x_355_);
     return v_res_356_;
 }
 pub unsafe fn l_Lake_help(
-    mut v_x_381_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_382_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_381_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_382_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_383_: u8 = 0;
     v___x_382_ = l_Lake_help___closed__0;
     v___x_383_ = lean_string_dec_eq(v_x_381_, v___x_382_);
     if v___x_383_ == 0 {
-        let mut v___x_384_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_384_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_385_: u8 = 0;
         v___x_384_ = l_Lake_help___closed__1;
         v___x_385_ = lean_string_dec_eq(v_x_381_, v___x_384_);
         if v___x_385_ == 0 {
-            let mut v___x_386_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_386_: *mut leanh::LeanObject = core::ptr::null_mut();
             let mut v___x_387_: u8 = 0;
             v___x_386_ = l_Lake_help___closed__2;
             v___x_387_ = lean_string_dec_eq(v_x_381_, v___x_386_);
             if v___x_387_ == 0 {
-                let mut v___x_388_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_388_: *mut leanh::LeanObject = core::ptr::null_mut();
                 let mut v___x_389_: u8 = 0;
                 v___x_388_ = l_Lake_help___closed__3;
                 v___x_389_ = lean_string_dec_eq(v_x_381_, v___x_388_);
                 if v___x_389_ == 0 {
-                    let mut v___x_390_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                    let mut v___x_390_: *mut leanh::LeanObject = core::ptr::null_mut();
                     let mut v___x_391_: u8 = 0;
                     v___x_390_ = l_Lake_help___closed__4;
                     v___x_391_ = lean_string_dec_eq(v_x_381_, v___x_390_);
                     if v___x_391_ == 0 {
-                        let mut v___x_392_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                        let mut v___x_392_: *mut leanh::LeanObject = core::ptr::null_mut();
                         let mut v___x_393_: u8 = 0;
                         v___x_392_ = l_Lake_help___closed__5;
                         v___x_393_ = lean_string_dec_eq(v_x_381_, v___x_392_);
                         if v___x_393_ == 0 {
-                            let mut v___x_394_: *mut crate::leanh::LeanObject =
+                            let mut v___x_394_: *mut leanh::LeanObject =
                                 core::ptr::null_mut();
                             let mut v___x_395_: u8 = 0;
                             v___x_394_ = l_Lake_help___closed__6;
                             v___x_395_ = lean_string_dec_eq(v_x_381_, v___x_394_);
                             if v___x_395_ == 0 {
-                                let mut v___x_396_: *mut crate::leanh::LeanObject =
+                                let mut v___x_396_: *mut leanh::LeanObject =
                                     core::ptr::null_mut();
                                 let mut v___x_397_: u8 = 0;
                                 v___x_396_ = l_Lake_help___closed__7;
                                 v___x_397_ = lean_string_dec_eq(v_x_381_, v___x_396_);
                                 if v___x_397_ == 0 {
-                                    let mut v___x_398_: *mut crate::leanh::LeanObject =
+                                    let mut v___x_398_: *mut leanh::LeanObject =
                                         core::ptr::null_mut();
                                     let mut v___x_399_: u8 = 0;
                                     v___x_398_ = l_Lake_help___closed__8;
                                     v___x_399_ = lean_string_dec_eq(v_x_381_, v___x_398_);
                                     if v___x_399_ == 0 {
-                                        let mut v___x_400_: *mut crate::leanh::LeanObject =
+                                        let mut v___x_400_: *mut leanh::LeanObject =
                                             core::ptr::null_mut();
                                         let mut v___x_401_: u8 = 0;
                                         v___x_400_ = l_Lake_help___closed__9;
                                         v___x_401_ = lean_string_dec_eq(v_x_381_, v___x_400_);
                                         if v___x_401_ == 0 {
-                                            let mut v___x_402_: *mut crate::leanh::LeanObject =
+                                            let mut v___x_402_: *mut leanh::LeanObject =
                                                 core::ptr::null_mut();
                                             let mut v___x_403_: u8 = 0;
                                             v___x_402_ = l_Lake_help___closed__10;
                                             v___x_403_ = lean_string_dec_eq(v_x_381_, v___x_402_);
                                             if v___x_403_ == 0 {
-                                                let mut v___x_404_: *mut crate::leanh::LeanObject =
+                                                let mut v___x_404_: *mut leanh::LeanObject =
                                                     core::ptr::null_mut();
                                                 let mut v___x_405_: u8 = 0;
                                                 v___x_404_ = l_Lake_help___closed__11;
                                                 v___x_405_ =
                                                     lean_string_dec_eq(v_x_381_, v___x_404_);
                                                 if v___x_405_ == 0 {
-                                                    let mut v___x_406_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                    let mut v___x_406_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                     let mut v___x_407_: u8 = 0;
                                                     v___x_406_ = l_Lake_help___closed__12;
                                                     v___x_407_ =
                                                         lean_string_dec_eq(v_x_381_, v___x_406_);
                                                     if v___x_407_ == 0 {
-                                                        let mut v___x_408_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                        let mut v___x_408_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                         let mut v___x_409_: u8 = 0;
                                                         v___x_408_ = l_Lake_help___closed__13;
                                                         v___x_409_ = lean_string_dec_eq(
                                                             v_x_381_, v___x_408_,
                                                         );
                                                         if v___x_409_ == 0 {
-                                                            let mut v___x_410_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                            let mut v___x_410_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                             let mut v___x_411_: u8 = 0;
                                                             v___x_410_ = l_Lake_help___closed__14;
                                                             v___x_411_ = lean_string_dec_eq(
                                                                 v_x_381_, v___x_410_,
                                                             );
                                                             if v___x_411_ == 0 {
-                                                                let mut v___x_412_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                let mut v___x_412_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                 let mut v___x_413_: u8 = 0;
                                                                 v___x_412_ =
                                                                     l_Lake_helpCache___closed__6;
@@ -2970,7 +2970,7 @@ pub unsafe fn l_Lake_help(
                                                                     v_x_381_, v___x_412_,
                                                                 );
                                                                 if v___x_413_ == 0 {
-                                                                    let mut v___x_414_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                    let mut v___x_414_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                     let mut v___x_415_: u8 = 0;
                                                                     v___x_414_ =
                                                                         l_Lake_help___closed__15;
@@ -2978,7 +2978,7 @@ pub unsafe fn l_Lake_help(
                                                                         v_x_381_, v___x_414_,
                                                                     );
                                                                     if v___x_415_ == 0 {
-                                                                        let mut v___x_416_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                        let mut v___x_416_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                         let mut v___x_417_: u8 = 0;
                                                                         v___x_416_ = l_Lake_help___closed__16;
                                                                         v___x_417_ =
@@ -2987,7 +2987,7 @@ pub unsafe fn l_Lake_help(
                                                                                 v___x_416_,
                                                                             );
                                                                         if v___x_417_ == 0 {
-                                                                            let mut v___x_418_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                            let mut v___x_418_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                             let mut v___x_419_: u8 =
                                                                                 0;
                                                                             v___x_418_ = l_Lake_help___closed__17;
@@ -2997,245 +2997,245 @@ pub unsafe fn l_Lake_help(
                                                                                     v___x_418_,
                                                                                 );
                                                                             if v___x_419_ == 0 {
-                                                                                let mut v___x_420_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                                let mut v___x_420_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                                 let mut v___x_421_: u8 = 0;
                                                                                 v___x_420_ = l_Lake_helpScript___closed__1;
                                                                                 v___x_421_ = lean_string_dec_eq(v_x_381_, v___x_420_);
                                                                                 if v___x_421_ == 0 {
-                                                                                    let mut v___x_422_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                                    let mut v___x_422_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                                     let mut v___x_423_: u8 = 0;
                                                                                     v___x_422_ = l_Lake_help___closed__18;
                                                                                     v___x_423_ = lean_string_dec_eq(v_x_381_, v___x_422_);
                                                                                     if v___x_423_
                                                                                         == 0
                                                                                     {
-                                                                                        let mut v___x_424_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                                        let mut v___x_424_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                                         let mut v___x_425_: u8 = 0;
                                                                                         v___x_424_ = l_Lake_help___closed__19;
                                                                                         v___x_425_ = lean_string_dec_eq(v_x_381_, v___x_424_);
                                                                                         if v___x_425_ == 0 {
-let mut v___x_426_: *mut crate::leanh::LeanObject = core::ptr::null_mut(); let mut v___x_427_: u8 = 0;
+let mut v___x_426_: *mut leanh::LeanObject = core::ptr::null_mut(); let mut v___x_427_: u8 = 0;
 v___x_426_ = l_Lake_help___closed__20;
 v___x_427_ = lean_string_dec_eq(v_x_381_, v___x_426_);
 if v___x_427_ == 0 {
-let mut v___x_428_: *mut crate::leanh::LeanObject = core::ptr::null_mut(); let mut v___x_429_: u8 = 0;
+let mut v___x_428_: *mut leanh::LeanObject = core::ptr::null_mut(); let mut v___x_429_: u8 = 0;
 v___x_428_ = l_Lake_help___closed__21;
 v___x_429_ = lean_string_dec_eq(v_x_381_, v___x_428_);
 if v___x_429_ == 0 {
-let mut v___x_430_: *mut crate::leanh::LeanObject = core::ptr::null_mut(); let mut v___x_431_: u8 = 0;
+let mut v___x_430_: *mut leanh::LeanObject = core::ptr::null_mut(); let mut v___x_431_: u8 = 0;
 v___x_430_ = l_Lake_help___closed__22;
 v___x_431_ = lean_string_dec_eq(v_x_381_, v___x_430_);
 if v___x_431_ == 0 {
-let mut v___x_432_: *mut crate::leanh::LeanObject = core::ptr::null_mut(); let mut v___x_433_: u8 = 0;
+let mut v___x_432_: *mut leanh::LeanObject = core::ptr::null_mut(); let mut v___x_433_: u8 = 0;
 v___x_432_ = l_Lake_help___closed__23;
 v___x_433_ = lean_string_dec_eq(v_x_381_, v___x_432_);
 if v___x_433_ == 0 {
-let mut v___x_434_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+let mut v___x_434_: *mut leanh::LeanObject = core::ptr::null_mut();
 v___x_434_ = l_Lake_usage;
 return v___x_434_;
 } else {
-let mut v___x_435_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+let mut v___x_435_: *mut leanh::LeanObject = core::ptr::null_mut();
 v___x_435_ = l___private_Lake_CLI_Help_0__Lake_helpTranslateConfig___closed__0;
 return v___x_435_;
 }
 } else {
-let mut v___x_436_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+let mut v___x_436_: *mut leanh::LeanObject = core::ptr::null_mut();
 v___x_436_ = l___private_Lake_CLI_Help_0__Lake_helpLean___closed__0;
 return v___x_436_;
 }
 } else {
-let mut v___x_437_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+let mut v___x_437_: *mut leanh::LeanObject = core::ptr::null_mut();
 v___x_437_ = l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0;
 return v___x_437_;
 }
 } else {
-let mut v___x_438_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+let mut v___x_438_: *mut leanh::LeanObject = core::ptr::null_mut();
 v___x_438_ = l___private_Lake_CLI_Help_0__Lake_helpExe___closed__0;
 return v___x_438_;
 }
 } else {
-let mut v___x_439_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+let mut v___x_439_: *mut leanh::LeanObject = core::ptr::null_mut();
 v___x_439_ = l___private_Lake_CLI_Help_0__Lake_helpEnv___closed__0;
 return v___x_439_;
 }
                                                                                     } else {
-                                                                                        let mut v___x_440_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                                        let mut v___x_440_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                                         v___x_440_ = l___private_Lake_CLI_Help_0__Lake_helpServe___closed__0;
                                                                                         return v___x_440_;
                                                                                     }
                                                                                 } else {
-                                                                                    let mut v___x_441_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                                    let mut v___x_441_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                                     v___x_441_ = l___private_Lake_CLI_Help_0__Lake_helpScriptRun___closed__0;
                                                                                     return v___x_441_;
                                                                                 }
                                                                             } else {
-                                                                                let mut v___x_442_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                                let mut v___x_442_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                                 v___x_442_ = l___private_Lake_CLI_Help_0__Lake_helpScriptList___closed__0;
                                                                                 return v___x_442_;
                                                                             }
                                                                         } else {
-                                                                            let mut v___x_443_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                            let mut v___x_443_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                             v___x_443_ = l___private_Lake_CLI_Help_0__Lake_helpScriptCli___closed__0;
                                                                             return v___x_443_;
                                                                         }
                                                                     } else {
-                                                                        let mut v___x_444_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                        let mut v___x_444_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                         v___x_444_ = l___private_Lake_CLI_Help_0__Lake_helpShake___closed__0;
                                                                         return v___x_444_;
                                                                     }
                                                                 } else {
-                                                                    let mut v___x_445_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                    let mut v___x_445_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                     v___x_445_ = l___private_Lake_CLI_Help_0__Lake_helpClean___closed__0;
                                                                     return v___x_445_;
                                                                 }
                                                             } else {
-                                                                let mut v___x_446_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                                let mut v___x_446_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                                 v___x_446_ = l___private_Lake_CLI_Help_0__Lake_helpCheckLint___closed__0;
                                                                 return v___x_446_;
                                                             }
                                                         } else {
-                                                            let mut v___x_447_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                            let mut v___x_447_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                             v___x_447_ = l___private_Lake_CLI_Help_0__Lake_helpLint___closed__0;
                                                             return v___x_447_;
                                                         }
                                                     } else {
-                                                        let mut v___x_448_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                        let mut v___x_448_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                         v___x_448_ = l___private_Lake_CLI_Help_0__Lake_helpCheckTest___closed__0;
                                                         return v___x_448_;
                                                     }
                                                 } else {
-                                                    let mut v___x_449_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                                                    let mut v___x_449_: *mut leanh::LeanObject = core::ptr::null_mut();
                                                     v___x_449_ = l___private_Lake_CLI_Help_0__Lake_helpTest___closed__0;
                                                     return v___x_449_;
                                                 }
                                             } else {
-                                                let mut v___x_450_: *mut crate::leanh::LeanObject =
+                                                let mut v___x_450_: *mut leanh::LeanObject =
                                                     core::ptr::null_mut();
                                                 v___x_450_ = l___private_Lake_CLI_Help_0__Lake_helpCacheCli___closed__0;
                                                 return v___x_450_;
                                             }
                                         } else {
-                                            let mut v___x_451_: *mut crate::leanh::LeanObject =
+                                            let mut v___x_451_: *mut leanh::LeanObject =
                                                 core::ptr::null_mut();
                                             v___x_451_ = l___private_Lake_CLI_Help_0__Lake_helpUpload___closed__0;
                                             return v___x_451_;
                                         }
                                     } else {
-                                        let mut v___x_452_: *mut crate::leanh::LeanObject =
+                                        let mut v___x_452_: *mut leanh::LeanObject =
                                             core::ptr::null_mut();
                                         v___x_452_ = l___private_Lake_CLI_Help_0__Lake_helpUnpack___closed__0;
                                         return v___x_452_;
                                     }
                                 } else {
-                                    let mut v___x_453_: *mut crate::leanh::LeanObject =
+                                    let mut v___x_453_: *mut leanh::LeanObject =
                                         core::ptr::null_mut();
                                     v___x_453_ =
                                         l___private_Lake_CLI_Help_0__Lake_helpPack___closed__0;
                                     return v___x_453_;
                                 }
                             } else {
-                                let mut v___x_454_: *mut crate::leanh::LeanObject =
+                                let mut v___x_454_: *mut leanh::LeanObject =
                                     core::ptr::null_mut();
                                 v___x_454_ =
                                     l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0;
                                 return v___x_454_;
                             }
                         } else {
-                            let mut v___x_455_: *mut crate::leanh::LeanObject =
+                            let mut v___x_455_: *mut leanh::LeanObject =
                                 core::ptr::null_mut();
                             v___x_455_ = l___private_Lake_CLI_Help_0__Lake_helpUpdate___closed__0;
                             return v___x_455_;
                         }
                     } else {
-                        let mut v___x_456_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                        let mut v___x_456_: *mut leanh::LeanObject = core::ptr::null_mut();
                         v___x_456_ = l___private_Lake_CLI_Help_0__Lake_helpQuery___closed__0;
                         return v___x_456_;
                     }
                 } else {
-                    let mut v___x_457_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                    let mut v___x_457_: *mut leanh::LeanObject = core::ptr::null_mut();
                     v___x_457_ = l___private_Lake_CLI_Help_0__Lake_helpCheckBuild___closed__0;
                     return v___x_457_;
                 }
             } else {
-                let mut v___x_458_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_458_: *mut leanh::LeanObject = core::ptr::null_mut();
                 v___x_458_ = l___private_Lake_CLI_Help_0__Lake_helpBuild___closed__0;
                 return v___x_458_;
             }
         } else {
-            let mut v___x_459_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_459_: *mut leanh::LeanObject = core::ptr::null_mut();
             v___x_459_ = l___private_Lake_CLI_Help_0__Lake_helpInit___closed__0;
             return v___x_459_;
         }
     } else {
-        let mut v___x_460_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_460_: *mut leanh::LeanObject = core::ptr::null_mut();
         v___x_460_ = l___private_Lake_CLI_Help_0__Lake_helpNew___closed__0;
         return v___x_460_;
     }
 }
 pub unsafe fn l_Lake_help___boxed(
-    mut v_x_461_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_462_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_461_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_462_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_462_ = l_Lake_help(v_x_461_);
-    crate::leanh::lean_dec_ref(v_x_461_);
+    leanh::lean_dec_ref(v_x_461_);
     return v_res_462_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Lake_CLI_Help(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Lake_CLI_Help(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_ToString(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lake_Version(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     l_Lake_usage = _init_l_Lake_usage();
-    crate::leanh::lean_mark_persistent(l_Lake_usage);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_mark_persistent(l_Lake_usage);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Lake_CLI_Help(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Lake_CLI_Help(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Lake_CLI_Help(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Lake_CLI_Help(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_ToString(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Lake_Version(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lake_CLI_Help(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Lake_CLI_Help(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Lake_CLI_Help(builtin);
 }

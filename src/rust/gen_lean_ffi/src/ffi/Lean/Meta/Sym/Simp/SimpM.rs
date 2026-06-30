@@ -1,7 +1,7 @@
 // Generated stub file for Lean FFI imports
 // Source: src/Lean/Meta/Sym/Simp/SimpM.lean
 
-pub fn lean_sym_simp<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>(
+pub fn lean_sym_simp<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, R>(
     _: A0,
     _: A1,
     _: A2,
@@ -12,7 +12,6 @@ pub fn lean_sym_simp<A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, R>(
     _: A7,
     _: A8,
     _: A9,
-    _: A10,
 ) -> R {
     todo!("Stub for lean_sym_simp")
 }

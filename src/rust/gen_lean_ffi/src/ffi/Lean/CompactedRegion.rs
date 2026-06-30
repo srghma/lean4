@@ -13,14 +13,13 @@ pub fn lean_compacted_region_free<A0, R>(_: A0) -> R {
     todo!("Stub for lean_compacted_region_free")
 }
 
-pub fn lean_compacted_region_save<A0, A1, A2, A3, A4, A5, A6, R>(
+pub fn lean_compacted_region_save<A0, A1, A2, A3, A4, A5, R>(
     _: A0,
     _: A1,
     _: A2,
     _: A3,
     _: A4,
     _: A5,
-    _: A6,
 ) -> R {
     todo!("Stub for lean_compacted_region_save")
 }

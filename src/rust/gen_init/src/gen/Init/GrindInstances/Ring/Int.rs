@@ -22,14 +22,14 @@ use crate::r#gen::Init::Meta::{initialize_Init_Meta, runtime_initialize_Init_Met
 use crate::r#gen::Init::Prelude::{
     l_instHAdd___redArg___lam__0, l_instPowNat___redArg___lam__0, l_instSMulOfMul___redArg___lam__0,
 };
-pub static l_Lean_Grind_instCommRingInt___closed__0_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+pub static l_Lean_Grind_instCommRingInt___closed__0_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -39,17 +39,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__0_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__0: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__1_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__1_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -59,17 +59,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__1_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__1: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__1: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__1_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__2_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__2_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -79,17 +79,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__2_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__2: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__2: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__2_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__3_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__3_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -99,17 +99,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__3_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__3: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__3: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__3_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__4_value: crate::leanh::LeanClosureObject<1> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__4_value: leanh::LeanClosureObject<1> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1)
                 as u16,
             other: 0,
             tag: 245,
@@ -119,20 +119,20 @@ pub static l_Lean_Grind_instCommRingInt___closed__4_value: crate::leanh::LeanClo
         m_num_fixed: 1,
         m_objs: [
             core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__3_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__4: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__4: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__5_value: crate::leanh::LeanClosureObject<1> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__5_value: leanh::LeanClosureObject<1> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1)
                 as u16,
             other: 0,
             tag: 245,
@@ -142,20 +142,20 @@ pub static l_Lean_Grind_instCommRingInt___closed__5_value: crate::leanh::LeanClo
         m_num_fixed: 1,
         m_objs: [
             core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__4_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__5: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__5: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__5_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__6_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__6_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -165,17 +165,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__6_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__6: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__6: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__6_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__7_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__7_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -185,17 +185,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__7_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__7: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__7: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__7_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__8_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__8_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -205,17 +205,17 @@ pub static l_Lean_Grind_instCommRingInt___closed__8_value: crate::leanh::LeanClo
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__8: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__8: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__8_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__9_value: crate::leanh::LeanClosureObject<1> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__9_value: leanh::LeanClosureObject<1> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1)
                 as u16,
             other: 0,
             tag: 245,
@@ -225,20 +225,20 @@ pub static l_Lean_Grind_instCommRingInt___closed__9_value: crate::leanh::LeanClo
         m_num_fixed: 1,
         m_objs: [
             core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__2_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__9: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__9: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__9_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_Lean_Grind_instCommRingInt___closed__10_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_Lean_Grind_instCommRingInt___closed__10_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -248,95 +248,95 @@ pub static l_Lean_Grind_instCommRingInt___closed__10_value: crate::leanh::LeanCl
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Lean_Grind_instCommRingInt___closed__10: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__10: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Lean_Grind_instCommRingInt___closed__10_value)
-        as *mut crate::leanh::LeanObject;
-static mut l_Lean_Grind_instCommRingInt___closed__11_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+        as *mut leanh::LeanObject;
+static mut l_Lean_Grind_instCommRingInt___closed__11_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Lean_Grind_instCommRingInt___closed__11: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__11: *mut leanh::LeanObject =
     core::ptr::null_mut();
-static mut l_Lean_Grind_instCommRingInt___closed__12_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Lean_Grind_instCommRingInt___closed__12_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Lean_Grind_instCommRingInt___closed__12: *mut crate::leanh::LeanObject =
+static mut l_Lean_Grind_instCommRingInt___closed__12: *mut leanh::LeanObject =
     core::ptr::null_mut();
-pub static mut l_Lean_Grind_instCommRingInt: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Lean_Grind_instCommRingInt: *mut leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l_Lean_Grind_instCommRingInt___lam__0(
-    mut v_x1_36_: *mut crate::leanh::LeanObject,
-    mut v_x2_37_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_38_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_39_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x1_36_: *mut leanh::LeanObject,
+    mut v_x2_37_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_38_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_39_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_38_ = lean_nat_to_int(v_x1_36_);
     v___x_39_ = lean_int_mul(v___x_38_, v_x2_37_);
-    crate::leanh::lean_dec(v___x_38_);
+    leanh::lean_dec(v___x_38_);
     return v___x_39_;
 }
 pub unsafe fn l_Lean_Grind_instCommRingInt___lam__0___boxed(
-    mut v_x1_40_: *mut crate::leanh::LeanObject,
-    mut v_x2_41_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_42_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x1_40_: *mut leanh::LeanObject,
+    mut v_x2_41_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_42_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_42_ = l_Lean_Grind_instCommRingInt___lam__0(v_x1_40_, v_x2_41_);
-    crate::leanh::lean_dec(v_x2_41_);
+    leanh::lean_dec(v_x2_41_);
     return v_res_42_;
 }
-pub unsafe fn _init_l_Lean_Grind_instCommRingInt___closed__11() -> *mut crate::leanh::LeanObject {
-    let mut v___f_57_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_58_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_59_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_60_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_61_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_62_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_63_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn _init_l_Lean_Grind_instCommRingInt___closed__11() -> *mut leanh::LeanObject {
+    let mut v___f_57_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_58_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_59_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_60_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_61_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_62_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_63_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___f_57_ = l_Lean_Grind_instCommRingInt___closed__5;
     v___f_58_ = l_Lean_Grind_instCommRingInt___closed__0;
     v___x_59_ = l_Lean_Grind_instCommRingInt___closed__10;
     v___f_60_ =
-        crate::leanh::lean_alloc_closure(l_Int_ofNat___boxed as *mut core::ffi::c_void, 1, 0);
+        leanh::lean_alloc_closure(l_Int_ofNat___boxed as *mut core::ffi::c_void, 1, 0);
     v___x_61_ = l_Lean_Grind_instCommRingInt___closed__2;
     v___x_62_ = l_Lean_Grind_instCommRingInt___closed__1;
-    v___x_63_ = crate::leanh::lean_alloc_ctor(0, 6, (0) as u32);
-    crate::leanh::lean_ctor_set(v___x_63_, 0, v___x_62_);
-    crate::leanh::lean_ctor_set(v___x_63_, 1, v___x_61_);
-    crate::leanh::lean_ctor_set(v___x_63_, 2, v___f_60_);
-    crate::leanh::lean_ctor_set(v___x_63_, 3, v___x_59_);
-    crate::leanh::lean_ctor_set(v___x_63_, 4, v___f_58_);
-    crate::leanh::lean_ctor_set(v___x_63_, 5, v___f_57_);
+    v___x_63_ = leanh::lean_alloc_ctor(0, 6, (0) as u32);
+    leanh::lean_ctor_set(v___x_63_, 0, v___x_62_);
+    leanh::lean_ctor_set(v___x_63_, 1, v___x_61_);
+    leanh::lean_ctor_set(v___x_63_, 2, v___f_60_);
+    leanh::lean_ctor_set(v___x_63_, 3, v___x_59_);
+    leanh::lean_ctor_set(v___x_63_, 4, v___f_58_);
+    leanh::lean_ctor_set(v___x_63_, 5, v___f_57_);
     return v___x_63_;
 }
-pub unsafe fn _init_l_Lean_Grind_instCommRingInt___closed__12() -> *mut crate::leanh::LeanObject {
-    let mut v___f_64_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_65_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_66_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_67_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_68_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_69_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn _init_l_Lean_Grind_instCommRingInt___closed__12() -> *mut leanh::LeanObject {
+    let mut v___f_64_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_65_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_66_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_67_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_68_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_69_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___f_64_ = l_Lean_Grind_instCommRingInt___closed__9;
     v___f_65_ = l_Lean_Grind_instCommRingInt___closed__8;
     v___x_66_ = l_Lean_Grind_instCommRingInt___closed__7;
     v___x_67_ = l_Lean_Grind_instCommRingInt___closed__6;
-    v___x_68_ = crate::leanh::lean_obj_once(
+    v___x_68_ = leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Lean_Grind_instCommRingInt___closed__11),
         core::ptr::addr_of_mut!(l_Lean_Grind_instCommRingInt___closed__11_once),
         _init_l_Lean_Grind_instCommRingInt___closed__11,
     );
-    v___x_69_ = crate::leanh::lean_alloc_ctor(0, 5, (0) as u32);
-    crate::leanh::lean_ctor_set(v___x_69_, 0, v___x_68_);
-    crate::leanh::lean_ctor_set(v___x_69_, 1, v___x_67_);
-    crate::leanh::lean_ctor_set(v___x_69_, 2, v___x_66_);
-    crate::leanh::lean_ctor_set(v___x_69_, 3, v___f_65_);
-    crate::leanh::lean_ctor_set(v___x_69_, 4, v___f_64_);
+    v___x_69_ = leanh::lean_alloc_ctor(0, 5, (0) as u32);
+    leanh::lean_ctor_set(v___x_69_, 0, v___x_68_);
+    leanh::lean_ctor_set(v___x_69_, 1, v___x_67_);
+    leanh::lean_ctor_set(v___x_69_, 2, v___x_66_);
+    leanh::lean_ctor_set(v___x_69_, 3, v___f_65_);
+    leanh::lean_ctor_set(v___x_69_, 4, v___f_64_);
     return v___x_69_;
 }
-pub unsafe fn _init_l_Lean_Grind_instCommRingInt() -> *mut crate::leanh::LeanObject {
-    let mut v___x_70_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_70_ = crate::leanh::lean_obj_once(
+pub unsafe fn _init_l_Lean_Grind_instCommRingInt() -> *mut leanh::LeanObject {
+    let mut v___x_70_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_70_ = leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Lean_Grind_instCommRingInt___closed__12),
         core::ptr::addr_of_mut!(l_Lean_Grind_instCommRingInt___closed__12_once),
         _init_l_Lean_Grind_instCommRingInt___closed__12,
@@ -346,95 +346,95 @@ pub unsafe fn _init_l_Lean_Grind_instCommRingInt() -> *mut crate::leanh::LeanObj
 static mut _G_runtime_initialized: bool = false;
 pub unsafe fn runtime_initialize_Init_GrindInstances_Ring_Int(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Grind_Ring_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Int_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Int_Pow(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Int_DivMod_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Meta(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     l_Lean_Grind_instCommRingInt = _init_l_Lean_Grind_instCommRingInt();
-    crate::leanh::lean_mark_persistent(l_Lean_Grind_instCommRingInt);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_mark_persistent(l_Lean_Grind_instCommRingInt);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
 pub unsafe fn meta_initialize_Init_GrindInstances_Ring_Int(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
 pub unsafe fn initialize_Init_GrindInstances_Ring_Int(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Grind_Ring_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Int_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Int_Pow(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Int_DivMod_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Meta(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_GrindInstances_Ring_Int(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Init_GrindInstances_Ring_Int(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Init_GrindInstances_Ring_Int(builtin);
 }

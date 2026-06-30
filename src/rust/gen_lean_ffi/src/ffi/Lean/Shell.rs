@@ -17,7 +17,7 @@ pub fn lean_emit_llvm<A0, A1, A2, R>(_: A0, _: A1, _: A2) -> R {
     todo!("Stub for lean_emit_llvm")
 }
 
-pub fn lean_internal_has_address_sanitizer<A0, A1, R>(_: A0, _: A1) -> R {
+pub fn lean_internal_has_address_sanitizer<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_has_address_sanitizer")
 }
 
@@ -33,7 +33,7 @@ pub fn lean_internal_get_build_type<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_get_build_type")
 }
 
-pub fn lean_internal_get_default_max_memory<A0, A1, R>(_: A0, _: A1) -> R {
+pub fn lean_internal_get_default_max_memory<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_get_default_max_memory")
 }
 
@@ -41,7 +41,7 @@ pub fn lean_internal_set_max_memory<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_set_max_memory")
 }
 
-pub fn lean_internal_get_default_max_heartbeat<A0, A1, R>(_: A0, _: A1) -> R {
+pub fn lean_internal_get_default_max_heartbeat<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_get_default_max_heartbeat")
 }
 
@@ -69,10 +69,10 @@ pub fn lean_internal_get_default_options<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_get_default_options")
 }
 
-pub fn lean_internal_get_believer_trust_level<A0, A1, R>(_: A0, _: A1) -> R {
+pub fn lean_internal_get_believer_trust_level<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_get_believer_trust_level")
 }
 
-pub fn lean_internal_get_hardware_concurrency<A0, A1, R>(_: A0, _: A1) -> R {
+pub fn lean_internal_get_hardware_concurrency<A0, R>(_: A0) -> R {
     todo!("Stub for lean_internal_get_hardware_concurrency")
 }

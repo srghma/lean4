@@ -665,7 +665,7 @@ lean_lean = { path = "../lean_lean" }`;
 
       await Bun_write_ifChanged(
         path.join(pkgDir, "Cargo.toml"),
-        `[package]\nname = "${pkg}"\nversion = "0.1.0"\nedition = "2021"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\n${pkgDeps}\n`,
+        `[package]\nname = "${pkg}"\nversion = "0.1.0"\nedition = "2024"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\n${pkgDeps}\n`,
       );
 
       const files = await getPkgFiles(prefix);
@@ -700,7 +700,7 @@ lean_lean = { path = "../lean_lean" }`;
 
     await Bun_write_ifChanged(
       path.join(pkgDir, "Cargo.toml"),
-      `[package]\nname = "${pkg}"\nversion = "0.1.0"\nedition = "2021"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\n${depLines}\n`,
+      `[package]\nname = "${pkg}"\nversion = "0.1.0"\nedition = "2024"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\n${depLines}\n`,
     );
 
     const codeTree = emitLeanTree(leanRootNode, "", G, 0);
@@ -721,7 +721,7 @@ lean_lean = { path = "../lean_lean" }`;
 
   await Bun_write_ifChanged(
     path.join(umbrellaDir, "Cargo.toml"),
-    `[package]\nname = "lean_lean"\nversion = "0.1.0"\nedition = "2021"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\nlean_lean_${LAST_G} = { path = "../lean_lean_${LAST_G}" }\n`,
+    `[package]\nname = "lean_lean"\nversion = "0.1.0"\nedition = "2024"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\nlean_lean_${LAST_G} = { path = "../lean_lean_${LAST_G}" }\n`,
   );
   await Bun_write_ifChanged(
     path.join(umbrellaDir, "src/lib.rs"),
@@ -736,7 +736,7 @@ lean_lean = { path = "../lean_lean" }`;
 
   await Bun_write_ifChanged(
     path.join(lakeDir, "Cargo.toml"),
-    `[package]\nname = "lean_lake"\nversion = "0.1.0"\nedition = "2021"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\n${PKG_DEPS_lean_lake}\n`,
+    `[package]\nname = "lean_lake"\nversion = "0.1.0"\nedition = "2024"\n\n[lib]\ncrate-type = ["rlib"]\n\n[dependencies]\n${PKG_DEPS_lean_lake}\n`,
   );
 
   const lakeFiles = await getPkgFiles("Lake/");
@@ -765,7 +765,7 @@ codegen-units = 1
     `[package]
 name = "lean_binary"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 publish = false
 build = "build.rs"
 
@@ -853,7 +853,7 @@ ${workspaceMembers}
 [package]
 name = "lean_stdlib"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [lib]
 crate-type = ["staticlib"]

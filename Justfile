@@ -27,22 +27,29 @@ regenerate-gen-rs--gen_std:
     #!/usr/bin/env bash
     set -euo pipefail
     cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts gen_std --depends-on=gen_init
+    bun ../../srghmascripts/regenerate_module_tree.ts gen_std --depends-on="gen_init::r#gen::Init"
     rustfmt --edition 2024 gen_std/src/gen.rs
 
 regenerate-gen-rs--gen_lean:
     #!/usr/bin/env bash
     set -euo pipefail
     cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts gen_lean --depends-on="gen_init,gen_std"
+    bun ../../srghmascripts/regenerate_module_tree.ts gen_lean --depends-on="gen_init::r#gen::Init,gen_std::r#gen::Std"
     rustfmt --edition 2024 gen_lean/src/gen.rs
 
 regenerate-gen-rs--lake:
     #!/usr/bin/env bash
     set -euo pipefail
     cd src/rust
-    bun ../../srghmascripts/regenerate_module_tree.ts lake --depends-on="gen_init,gen_std,gen_lean"
+    bun ../../srghmascripts/regenerate_module_tree.ts lake --depends-on="gen_init::r#gen::Init,gen_std::r#gen::Std,gen_lean::r#gen::Lean"
     rustfmt --edition 2024 lake/src/gen.rs
+
+regenerate-gen-rs--lean_checker:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd src/rust
+    bun ../../srghmascripts/regenerate_module_tree.ts lean_checker --depends-on="gen_init::r#gen::Init,gen_std::r#gen::Std,gen_lean::r#gen::Lean,lake::r#gen::Lake"
+    rustfmt --edition 2024 lean_checker/src/gen.rs
 
 regenerate-gen-rs:
     #!/usr/bin/env bash
@@ -51,6 +58,13 @@ regenerate-gen-rs:
     just regenerate-gen-rs--gen_std
     just regenerate-gen-rs--gen_lean
     just regenerate-gen-rs--lake
+    just regenerate-gen-rs--lean_checker
+
+rustfmt-all:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd src/rust
+    rustfmt --edition 2024 **/*.rs
 
 cargo-do crate="" build_or_check="build" normal_or_for_ai_or_short_errors="normal":
     #!/usr/bin/env bash
@@ -68,7 +82,7 @@ cargo-do crate="" build_or_check="build" normal_or_for_ai_or_short_errors="norma
             CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo {{ build_or_check }} "${crate_args[@]}" --message-format=short 2>&1 | grep 'error\[' | sed -E 's/^[^:]+:[0-9]+:[0-9]+: //' | sort -u
             ;;
         for_ai)
-            CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo {{ build_or_check }} "${crate_args[@]}" --message-format=json | python3 collect-cargo-build-json-errors-and-warnings-for-ai.py | copyq add -
+            CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 cargo {{ build_or_check }} "${crate_args[@]}" --message-format=json | python3 ../../srghmascripts/collect-cargo-build-json-errors-and-warnings-for-ai.py 2>&1 | copyq add -
             ;;
         *)
             echo "unknown mode: {{ normal_or_for_ai_or_short_errors }}" >&2

@@ -1,7 +1,7 @@
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Int/Basic.lean
 
-use crate::leanh::LeanObject;
+use leanh::LeanObject;
 use runtime::leanh_extra as leanh;
 
 pub unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject {

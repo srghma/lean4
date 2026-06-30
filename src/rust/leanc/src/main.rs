@@ -7,14 +7,7 @@
     unused_imports
 )]
 
-pub mod leanh {
-    pub use leanh::*;
-}
-
 pub mod r#gen {
-    pub use gen_init::r#gen::Init;
-    pub use gen_lean::r#gen::Lean;
-    pub use gen_std::r#gen::Std;
     pub use lake::r#gen::{Lake, LakeMain};
     pub mod Leanc {
         include!("gen/Leanc.rs");

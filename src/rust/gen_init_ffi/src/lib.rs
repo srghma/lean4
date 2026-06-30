@@ -3,10 +3,6 @@
 // Auto-generated from src/rust/gen_init/src/ffi
 // Re-exports the current FFI function surface as ffi::{...}
 
-pub mod leanh {
-    pub use leanh::*;
-}
-
 #[path = "ffi/Init/Core.rs"]
 mod ffi_Init_Core;
 pub use ffi_Init_Core::*;

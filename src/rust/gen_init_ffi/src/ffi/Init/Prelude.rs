@@ -1,4 +1,4 @@
-use crate::leanh::LeanObject;
+use leanh::LeanObject;
 use runtime::leanh_extra as leanh;
 
 #[inline]
@@ -73,7 +73,7 @@ pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut Le
 
 #[inline]
 pub unsafe fn lean_is_scalar(obj: *mut LeanObject) -> u8 {
-    unsafe { leanh::lean_is_scalar(obj) }
+    leanh::lean_is_scalar(obj)
 }
 
 #[inline]

@@ -1,3 +1,5 @@
+# Speed up rust
+
 ```sh
 ✘  ~/projects/lean4/src/rust  ⇅ rust-rewrite ±✚  cargo machete
 Analyzing dependencies of crates in this directory...
@@ -17,7 +19,10 @@ You can also try running it with the `--with-metadata` flag for better accuracy,
 though this may modify your Cargo.lock files.
 
 Done!
+
 ```
+
+alias cargo="RUSTFLAGS='-Z threads=8' cargo +nightly"
 
 cargo install cargo-modules
 cargo modules generate graph | dot -Tpng > graph.png
@@ -27,3 +32,5 @@ cargo-ferris-wheel
 cargo install cargo-cycles && cargo cycles
 
 cargo install cargo-coupling
+
+<https://github.com/corrode/corrode.github.io/blob/master/content/blog/tips-for-faster-rust-compile-times/index.md>

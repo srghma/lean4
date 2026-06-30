@@ -53,5 +53,5 @@ wdOut.txt
 
 /src/rust/target/
 /src/rust/lean_runtime/src/gen/.regen-stamp
-# /src/rust/lean_runtime/src/gen/
-# /extern_c_generated_by_old_EmitRust.txt
+/src/rust/lean_runtime/src/gen/
+/extern_c_generated_by_old_EmitRust.txt

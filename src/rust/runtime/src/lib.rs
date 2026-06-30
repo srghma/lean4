@@ -3,31 +3,16 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#![allow(dead_code, non_upper_case_globals, non_snake_case)]
-
-pub mod leanh {
-    pub use leanh::*;
-}
-
-pub mod leanh_extra;
-
-pub mod r#gen {
-    #[cfg(feature = "gen-init")]
-    pub mod Init {}
-    #[cfg(feature = "gen-lake")]
-    pub mod Lake {}
-    #[cfg(feature = "gen-lean")]
-    pub mod Lean {}
-    #[cfg(feature = "gen-std")]
-    pub mod Std {}
-    #[cfg(feature = "gen-tools")]
-    pub mod LeanChecker {}
-}
 // mod runtime;
 // mod kernel;
 // mod library;
+pub mod leanh_extra;
 
-pub use leanh::*;
+// pub mod r#gen {
+//     pub mod Init {}
+//     pub mod Std {}
+// }
+
 // pub use runtime::{
 //     get_init_fn_name_for, get_max_memory_opt_name, get_profiling_threshold, get_profiler,
 //     get_timeout_opt_name, get_verbose, get_verbose_opt_name, initialize_constructions_util,

@@ -11,9 +11,9 @@ use crate::r#gen::Init::Prelude::{
     l_Lean_addMacroScope, l_String_toRawSubstring_x27,
 };
 use crate::r#gen::Init::WF::{initialize_Init_WF, runtime_initialize_Init_WF};
-pub static l_tacticSimp__wf___closed__0_value: crate::leanh::LeanStringObject<14> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+pub static l_tacticSimp__wf___closed__0_value: leanh::LeanStringObject<14> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -26,30 +26,30 @@ pub static l_tacticSimp__wf___closed__0_value: crate::leanh::LeanStringObject<14
             116, 97, 99, 116, 105, 99, 83, 105, 109, 112, 95, 119, 102, 0,
         ],
     };
-static mut l_tacticSimp__wf___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticSimp__wf___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticSimp__wf___closed__1_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticSimp__wf___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticSimp__wf___closed__0_value) as *mut leanh::LeanObject;
+pub static l_tacticSimp__wf___closed__1_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticSimp__wf___closed__0_value)
-                as *mut crate::leanh::LeanObject,
-            17997176516580445922 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            17997176516580445922 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticSimp__wf___closed__1: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticSimp__wf___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticSimp__wf___closed__2_value: crate::leanh::LeanStringObject<8> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticSimp__wf___closed__1: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticSimp__wf___closed__1_value) as *mut leanh::LeanObject;
+pub static l_tacticSimp__wf___closed__2_value: leanh::LeanStringObject<8> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -60,51 +60,51 @@ pub static l_tacticSimp__wf___closed__2_value: crate::leanh::LeanStringObject<8>
         m_length: 7,
         m_data: [115, 105, 109, 112, 95, 119, 102, 0],
     };
-static mut l_tacticSimp__wf___closed__2: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticSimp__wf___closed__2_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticSimp__wf___closed__3_value: crate::leanh::LeanCtorObject<2> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticSimp__wf___closed__2: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticSimp__wf___closed__2_value) as *mut leanh::LeanObject;
+pub static l_tacticSimp__wf___closed__3_value: leanh::LeanCtorObject<2> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1
                 + 8) as u16,
             other: 1,
             tag: 6,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticSimp__wf___closed__2_value)
-                as *mut crate::leanh::LeanObject,
-            0 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            0 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticSimp__wf___closed__3: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticSimp__wf___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticSimp__wf___closed__4_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticSimp__wf___closed__3: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticSimp__wf___closed__3_value) as *mut leanh::LeanObject;
+pub static l_tacticSimp__wf___closed__4_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 3
                 + 0) as u16,
             other: 3,
             tag: 3,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticSimp__wf___closed__1_value)
-                as *mut crate::leanh::LeanObject,
-            (((1024 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            (((1024 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticSimp__wf___closed__3_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticSimp__wf___closed__4: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticSimp__wf___closed__4_value) as *mut crate::leanh::LeanObject;
-pub static mut l_tacticSimp__wf: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticSimp__wf___closed__4_value) as *mut crate::leanh::LeanObject;
+static mut l_tacticSimp__wf___closed__4: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticSimp__wf___closed__4_value) as *mut leanh::LeanObject;
+pub static mut l_tacticSimp__wf: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticSimp__wf___closed__4_value) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value:
-    crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<5> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -116,12 +116,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [76, 101, 97, 110, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value:
-    crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<7> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -133,12 +133,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [80, 97, 114, 115, 101, 114, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value:
-    crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<7> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -150,12 +150,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [84, 97, 99, 116, 105, 99, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__3_value:
-    crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<11> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -167,33 +167,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [116, 97, 99, 116, 105, 99, 84, 114, 121, 95, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__3:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__3_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -201,19 +201,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_v
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -221,19 +221,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_v
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -241,20 +241,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__3_value
-        ) as *mut crate::leanh::LeanObject,
-        10962186005905108258 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        10962186005905108258 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__5_value:
-    crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<4> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -266,12 +266,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [116, 114, 121, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__5:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__5_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__6_value:
-    crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<10> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -283,33 +283,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [116, 97, 99, 116, 105, 99, 83, 101, 113, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__6:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__6_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -317,19 +317,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_v
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -337,19 +337,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_v
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -357,20 +357,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__6_value
-        ) as *mut crate::leanh::LeanObject,
-        8504843326314613972 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8504843326314613972 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__8_value:
-    crate::leanh::LeanStringObject<19> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<19> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -384,33 +384,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__8:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__8_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -418,19 +418,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_v
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -438,19 +438,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_v
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -458,20 +458,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__8_value
-        ) as *mut crate::leanh::LeanObject,
-        17228437386856258271 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        17228437386856258271 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__10_value:
-    crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<5> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -483,34 +483,34 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [110, 117, 108, 108, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__10:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__10_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__10_value
-        ) as *mut crate::leanh::LeanObject,
-        9855511589286918680 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        9855511589286918680 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12_value:
-    crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<5> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -522,33 +522,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [115, 105, 109, 112, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -556,19 +556,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -576,19 +576,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -596,20 +596,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12_value
-        ) as *mut crate::leanh::LeanObject,
-        12783917532758215986 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        12783917532758215986 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__14_value:
-    crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<10> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -621,33 +621,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [111, 112, 116, 67, 111, 110, 102, 105, 103, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__14:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__14_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -655,19 +655,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -675,19 +675,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -695,20 +695,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__14_value
-        ) as *mut crate::leanh::LeanObject,
-        3488656302031949961 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        3488656302031949961 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__16_value:
-    crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<11> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -720,33 +720,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [99, 111, 110, 102, 105, 103, 73, 116, 101, 109, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__16:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__16_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -754,19 +754,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -774,19 +774,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -794,20 +794,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__16_value
-        ) as *mut crate::leanh::LeanObject,
-        10138443044734372301 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        10138443044734372301 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__18_value:
-    crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<14> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -821,33 +821,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__18:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__18_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -855,19 +855,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -875,19 +875,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -895,20 +895,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__18_value
-        ) as *mut crate::leanh::LeanObject,
-        9555431800314169832 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        9555431800314169832 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__20_value:
-    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -920,12 +920,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [43, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__20:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__20_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__21_value:
-    crate::leanh::LeanStringObject<17> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<17> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -939,41 +939,41 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__21:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__21_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__23_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__21_value
-        ) as *mut crate::leanh::LeanObject,
-        15549944650758933297 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        15549944650758933297 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__23:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__23_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__24_value:
-    crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<10> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -985,48 +985,48 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [122, 101, 116, 97, 68, 101, 108, 116, 97, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__24:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__24_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__25_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__25:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__26_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__24_value
-        ) as *mut crate::leanh::LeanObject,
-        1066184292711288961 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        1066184292711288961 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__26:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__26_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__28_value:
-    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1038,12 +1038,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [91, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__28:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__28_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__29_value:
-    crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<10> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1055,33 +1055,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [115, 105, 109, 112, 76, 101, 109, 109, 97, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__29:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__29_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -1089,19 +1089,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -1109,19 +1109,19 @@ static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -1129,20 +1129,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__29_value
-        ) as *mut crate::leanh::LeanObject,
-        7383208167966365478 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        7383208167966365478 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__31_value:
-    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<9> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1154,44 +1154,44 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [105, 110, 118, 73, 109, 97, 103, 101, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__31:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__31_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__32_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__32:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__33_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__31_value
-        ) as *mut crate::leanh::LeanObject,
-        3221764316860498547 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        3221764316860498547 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__33:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__33_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__34_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1199,20 +1199,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__33_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__34:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__34_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__35_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1220,17 +1220,17 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__34_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__35:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__35_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__36_value:
-    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1242,12 +1242,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [44, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__36:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__36_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__37_value:
-    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<9> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1259,44 +1259,44 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [73, 110, 118, 73, 109, 97, 103, 101, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__37:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__37_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__38_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__38:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__39_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__37_value
-        ) as *mut crate::leanh::LeanObject,
-        3591533214446369163 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        3591533214446369163 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__39:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__39_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__40_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1304,38 +1304,38 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__39_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__40:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__40_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__41_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 0,
     },
     m_objs: [core::ptr::addr_of!(
         l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__39_value
-    ) as *mut crate::leanh::LeanObject],
+    ) as *mut leanh::LeanObject],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__41:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__41_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__42_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1343,20 +1343,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__41_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__42:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__42_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__43_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1364,19 +1364,19 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__40_value
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__42_value
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__43:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__43_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__44_value:
-    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<9> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1388,19 +1388,19 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [80, 114, 111, 100, 46, 108, 101, 120, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__44:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__44_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__45_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__45:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value:
-    crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<5> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1412,12 +1412,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [80, 114, 111, 100, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__47_value:
-    crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<4> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1429,33 +1429,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [108, 101, 120, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__47:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__47_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value
-        ) as *mut crate::leanh::LeanObject,
-        15289851429949568889 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        15289851429949568889 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -1463,23 +1463,23 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__47_value
-        ) as *mut crate::leanh::LeanObject,
-        17253982048723950278 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        17253982048723950278 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__49_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1487,38 +1487,38 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__49:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__49_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__50_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 0,
     },
     m_objs: [core::ptr::addr_of!(
         l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__48_value
-    ) as *mut crate::leanh::LeanObject],
+    ) as *mut leanh::LeanObject],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__50:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__50_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__51_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1526,20 +1526,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__50_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__51:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__51_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__52_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1547,19 +1547,19 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__49_value
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__51_value
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__52:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__52_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__53_value:
-    crate::leanh::LeanStringObject<12> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<12> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1571,44 +1571,44 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [115, 105, 122, 101, 79, 102, 87, 70, 82, 101, 108, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__53:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__53_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__54_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__54:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__55_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__53_value
-        ) as *mut crate::leanh::LeanObject,
-        7548106692965060290 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        7548106692965060290 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__55:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__55_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__56_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1616,20 +1616,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__55_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__56:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__56_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__57_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1637,17 +1637,17 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__56_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__57:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__57_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__58_value:
-    crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<8> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1659,44 +1659,44 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [109, 101, 97, 115, 117, 114, 101, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__58:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__58_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__59_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__59:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__60_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__58_value
-        ) as *mut crate::leanh::LeanObject,
-        5951634441853730580 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        5951634441853730580 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__60:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__60_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__61_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1704,20 +1704,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__60_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__61:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__61_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__62_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1725,17 +1725,17 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__61_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__62:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__62_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__63_value:
-    crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<13> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1747,19 +1747,19 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [78, 97, 116, 46, 108, 116, 95, 119, 102, 82, 101, 108, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__63:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__63_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__64_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__64:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value:
-    crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<4> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1771,12 +1771,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [78, 97, 116, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__66_value:
-    crate::leanh::LeanStringObject<9> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<9> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1788,33 +1788,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [108, 116, 95, 119, 102, 82, 101, 108, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__66:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__66_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__67_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value
-        ) as *mut crate::leanh::LeanObject,
-        11442535297760353691 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11442535297760353691 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__67_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -1822,23 +1822,23 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__67_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__66_value
-        ) as *mut crate::leanh::LeanObject,
-        5776423399683745690 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        5776423399683745690 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__67:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__67_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__68_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1846,20 +1846,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__67_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__68:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__68_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__69_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1867,17 +1867,17 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__68_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__69:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__69_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__70_value:
-    crate::leanh::LeanStringObject<24> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<24> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1892,19 +1892,19 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__70:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__70_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__71_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__71:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__72_value:
-    crate::leanh::LeanStringObject<20> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<20> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1919,12 +1919,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__72:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__72_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__73_value:
-    crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<4> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -1936,33 +1936,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [114, 101, 108, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__73:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__73_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__74_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__72_value
-        ) as *mut crate::leanh::LeanObject,
-        3429923986742416119 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        3429923986742416119 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__74_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -1970,23 +1970,23 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__74_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__73_value
-        ) as *mut crate::leanh::LeanObject,
-        5903757612723289493 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        5903757612723289493 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__74:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__74_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__75_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -1994,20 +1994,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__74_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__75:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__75_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__76_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -2015,17 +2015,17 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__75_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__76:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__76_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__77_value:
-    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2037,12 +2037,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed_
     m_data: [93, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__77:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__77_value
-) as *mut crate::leanh::LeanObject;
-pub static l_tacticClean__wf___closed__0_value: crate::leanh::LeanStringObject<15> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+) as *mut leanh::LeanObject;
+pub static l_tacticClean__wf___closed__0_value: leanh::LeanStringObject<15> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2055,30 +2055,30 @@ pub static l_tacticClean__wf___closed__0_value: crate::leanh::LeanStringObject<1
             116, 97, 99, 116, 105, 99, 67, 108, 101, 97, 110, 95, 119, 102, 0,
         ],
     };
-static mut l_tacticClean__wf___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticClean__wf___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticClean__wf___closed__1_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticClean__wf___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticClean__wf___closed__0_value) as *mut leanh::LeanObject;
+pub static l_tacticClean__wf___closed__1_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticClean__wf___closed__0_value)
-                as *mut crate::leanh::LeanObject,
-            11462525315186813201 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            11462525315186813201 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticClean__wf___closed__1: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticClean__wf___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticClean__wf___closed__2_value: crate::leanh::LeanStringObject<9> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticClean__wf___closed__1: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticClean__wf___closed__1_value) as *mut leanh::LeanObject;
+pub static l_tacticClean__wf___closed__2_value: leanh::LeanStringObject<9> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2089,51 +2089,51 @@ pub static l_tacticClean__wf___closed__2_value: crate::leanh::LeanStringObject<9
         m_length: 8,
         m_data: [99, 108, 101, 97, 110, 95, 119, 102, 0],
     };
-static mut l_tacticClean__wf___closed__2: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticClean__wf___closed__2_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticClean__wf___closed__3_value: crate::leanh::LeanCtorObject<2> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticClean__wf___closed__2: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticClean__wf___closed__2_value) as *mut leanh::LeanObject;
+pub static l_tacticClean__wf___closed__3_value: leanh::LeanCtorObject<2> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1
                 + 8) as u16,
             other: 1,
             tag: 6,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticClean__wf___closed__2_value)
-                as *mut crate::leanh::LeanObject,
-            0 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            0 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticClean__wf___closed__3: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticClean__wf___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticClean__wf___closed__4_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_tacticClean__wf___closed__3: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticClean__wf___closed__3_value) as *mut leanh::LeanObject;
+pub static l_tacticClean__wf___closed__4_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 3
                 + 0) as u16,
             other: 3,
             tag: 3,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticClean__wf___closed__1_value)
-                as *mut crate::leanh::LeanObject,
-            (((1024 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            (((1024 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticClean__wf___closed__3_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticClean__wf___closed__4: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticClean__wf___closed__4_value) as *mut crate::leanh::LeanObject;
-pub static mut l_tacticClean__wf: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_tacticClean__wf___closed__4_value) as *mut crate::leanh::LeanObject;
+static mut l_tacticClean__wf___closed__4: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticClean__wf___closed__4_value) as *mut leanh::LeanObject;
+pub static mut l_tacticClean__wf: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_tacticClean__wf___closed__4_value) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__0_value:
-    crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<14> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2147,33 +2147,33 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__0_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value_aux_0:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        11948124481539785030 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        11948124481539785030 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value_aux_1:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -2181,19 +2181,19 @@ static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value_aux_0
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value
-        ) as *mut crate::leanh::LeanObject,
-        8018486133748762727 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        8018486133748762727 as *mut leanh::LeanObject,
     ],
 };
 static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value_aux_2:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -2201,19 +2201,19 @@ static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value_aux_1
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value
-        ) as *mut crate::leanh::LeanObject,
-        18344149449936419494 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        18344149449936419494 as *mut leanh::LeanObject,
     ],
 };
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
@@ -2221,20 +2221,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value_aux_2
-        ) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__0_value
-        ) as *mut crate::leanh::LeanObject,
-        15975902816121986500 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        15975902816121986500 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__2_value:
-    crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<2> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2246,12 +2246,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_data: [45, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__2:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__2_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__3_value:
-    crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<16> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2265,41 +2265,41 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__3:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__3_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__4_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__4:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__5_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__3_value
-        ) as *mut crate::leanh::LeanObject,
-        5839122249099470854 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        5839122249099470854 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__5:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__5_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__6_value:
-    crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<5> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2311,12 +2311,12 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_data: [111, 110, 108, 121, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__6:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__6_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__7_value:
-    crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<11> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2328,44 +2328,44 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_data: [115, 105, 122, 101, 79, 102, 95, 110, 97, 116, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__7:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__7_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__8_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__8:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__9_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__7_value
-        ) as *mut crate::leanh::LeanObject,
-        3310119546281550896 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        3310119546281550896 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__9:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__9_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__10_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -2373,20 +2373,20 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__9_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__10:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__10_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__11_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 1,
@@ -2394,17 +2394,17 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_objs: [
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__10_value
-        ) as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__11:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__11_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__12_value:
-    crate::leanh::LeanStringObject<13> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<13> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2416,41 +2416,41 @@ pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed
     m_data: [114, 101, 100, 117, 99, 101, 67, 116, 111, 114, 69, 113, 0],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__12:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__12_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__13_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__13:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__14_value:
-    crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<3> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(
             l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__12_value
-        ) as *mut crate::leanh::LeanObject,
-        233589347272681201 as *mut crate::leanh::LeanObject,
+        ) as *mut leanh::LeanObject,
+        233589347272681201 as *mut leanh::LeanObject,
     ],
 };
 static mut l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__14:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__14_value
-) as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial___closed__0_value: crate::leanh::LeanStringObject<25> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+) as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial___closed__0_value: leanh::LeanStringObject<25> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2464,32 +2464,32 @@ pub static l_tacticDecreasing__trivial___closed__0_value: crate::leanh::LeanStri
             105, 118, 105, 97, 108, 0,
         ],
     };
-static mut l_tacticDecreasing__trivial___closed__0: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial___closed__1_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial___closed__1_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__0_value)
-                as *mut crate::leanh::LeanObject,
-            5744670087858236374 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            5744670087858236374 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__trivial___closed__1: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial___closed__1: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__1_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial___closed__2_value: crate::leanh::LeanStringObject<19> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial___closed__2_value: leanh::LeanStringObject<19> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2502,148 +2502,148 @@ pub static l_tacticDecreasing__trivial___closed__2_value: crate::leanh::LeanStri
             100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 116, 114, 105, 118, 105, 97, 108, 0,
         ],
     };
-static mut l_tacticDecreasing__trivial___closed__2: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial___closed__2: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__2_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial___closed__3_value: crate::leanh::LeanCtorObject<2> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial___closed__3_value: leanh::LeanCtorObject<2> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1
                 + 8) as u16,
             other: 1,
             tag: 6,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__2_value)
-                as *mut crate::leanh::LeanObject,
-            0 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            0 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__trivial___closed__3: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial___closed__3: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__3_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial___closed__4_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial___closed__4_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 3
                 + 0) as u16,
             other: 3,
             tag: 3,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__1_value)
-                as *mut crate::leanh::LeanObject,
-            (((1024 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            (((1024 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__3_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__trivial___closed__4: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial___closed__4: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l_tacticDecreasing__trivial: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l_tacticDecreasing__trivial: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__0_value: crate::leanh::LeanStringObject<12> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [116, 97, 99, 116, 105, 99, 95, 60, 59, 62, 95, 0]};
+        as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__0_value: leanh::LeanStringObject<12> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [116, 97, 99, 116, 105, 99, 95, 60, 59, 62, 95, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__0_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__0_value) as *mut crate::leanh::LeanObject,12695378809397736991 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__0_value) as *mut leanh::LeanObject,12695378809397736991 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__1_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__2_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [112, 97, 114, 101, 110, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__2_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [112, 97, 114, 101, 110, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__2:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__2_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__2_value) as *mut crate::leanh::LeanObject,8689124066155232629 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__2_value) as *mut leanh::LeanObject,8689124066155232629 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__4_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [40, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__4_value: leanh::LeanStringObject<2> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [40, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__4:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__4_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [97, 114, 105, 116, 104, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [97, 114, 105, 116, 104, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5_value
-) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__7_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5_value) as *mut crate::leanh::LeanObject,3738010876686032200 as *mut crate::leanh::LeanObject] };
+    *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__7_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5_value) as *mut leanh::LeanObject,3738010876686032200 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__7:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__7_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__8_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [41, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__8_value: leanh::LeanStringObject<2> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [41, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__8:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__8_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__9_value: crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [60, 59, 62, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__9_value: leanh::LeanStringObject<4> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [60, 59, 62, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__9:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__9_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [100, 111, 110, 101, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10_value: leanh::LeanStringObject<5> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [100, 111, 110, 101, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10_value) as *mut crate::leanh::LeanObject,8876691400619696497 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10_value) as *mut leanh::LeanObject,8876691400619696497 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [111, 109, 101, 103, 97, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [111, 109, 101, 103, 97, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0_value) as *mut crate::leanh::LeanObject,14893461734720614794 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0_value) as *mut leanh::LeanObject,14893461734720614794 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0_value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [97, 115, 115, 117, 109, 112, 116, 105, 111, 110, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0_value: leanh::LeanStringObject<11> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [97, 115, 115, 117, 109, 112, 116, 105, 111, 110, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0_value) as *mut crate::leanh::LeanObject,16687334436616221424 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0_value) as *mut leanh::LeanObject,16687334436616221424 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub static l_tacticDecreasing__trivial__pre__omega___closed__0_value:
-    crate::leanh::LeanStringObject<35> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<35> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2657,33 +2657,33 @@ pub static l_tacticDecreasing__trivial__pre__omega___closed__0_value:
         105, 118, 105, 97, 108, 95, 112, 114, 101, 95, 111, 109, 101, 103, 97, 0,
     ],
 };
-static mut l_tacticDecreasing__trivial__pre__omega___closed__0: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial__pre__omega___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial__pre__omega___closed__1_value: crate::leanh::LeanCtorObject<
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial__pre__omega___closed__1_value: leanh::LeanCtorObject<
     3,
-> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 8) as u16,
         other: 2,
         tag: 1,
     },
     m_objs: [
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__0_value)
-            as *mut crate::leanh::LeanObject,
-        3399267869349173528 as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
+        3399267869349173528 as *mut leanh::LeanObject,
     ],
 };
-static mut l_tacticDecreasing__trivial__pre__omega___closed__1: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial__pre__omega___closed__1: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__1_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_tacticDecreasing__trivial__pre__omega___closed__2_value:
-    crate::leanh::LeanStringObject<29> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<29> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -2697,112 +2697,112 @@ pub static l_tacticDecreasing__trivial__pre__omega___closed__2_value:
         112, 114, 101, 95, 111, 109, 101, 103, 97, 0,
     ],
 };
-static mut l_tacticDecreasing__trivial__pre__omega___closed__2: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial__pre__omega___closed__2: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__2_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial__pre__omega___closed__3_value: crate::leanh::LeanCtorObject<
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial__pre__omega___closed__3_value: leanh::LeanCtorObject<
     2,
-> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 8) as u16,
         other: 1,
         tag: 6,
     },
     m_objs: [
         core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__2_value)
-            as *mut crate::leanh::LeanObject,
-        0 as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
+        0 as *mut leanh::LeanObject,
     ],
 };
-static mut l_tacticDecreasing__trivial__pre__omega___closed__3: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial__pre__omega___closed__3: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__3_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__trivial__pre__omega___closed__4_value: crate::leanh::LeanCtorObject<
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__trivial__pre__omega___closed__4_value: leanh::LeanCtorObject<
     3,
-> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 3
             + 0) as u16,
         other: 3,
         tag: 3,
     },
     m_objs: [
         core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__1_value)
-            as *mut crate::leanh::LeanObject,
-        (((1024 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
+        (((1024 as usize) << 1) | 1) as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__3_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
-static mut l_tacticDecreasing__trivial__pre__omega___closed__4: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__trivial__pre__omega___closed__4: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l_tacticDecreasing__trivial__pre__omega: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l_tacticDecreasing__trivial__pre__omega: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__trivial__pre__omega___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [115, 101, 113, 49, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0_value) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0_value) as *mut crate::leanh::LeanObject,8471002125274025202 as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [97, 112, 112, 108, 121, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2_value) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2_value) as *mut crate::leanh::LeanObject,5826123769708379594 as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4_value: crate::leanh::LeanStringObject<21> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [78, 97, 116, 46, 115, 117, 98, 95, 115, 117, 99, 99, 95, 108, 116, 95, 115, 101, 108, 102, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4_value) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6_value: crate::leanh::LeanStringObject<17> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 17, m_capacity: 17, m_length: 16, m_data: [115, 117, 98, 95, 115, 117, 99, 99, 95, 108, 116, 95, 115, 101, 108, 102, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6_value) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value) as *mut crate::leanh::LeanObject,11442535297760353691 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6_value) as *mut crate::leanh::LeanObject,12340323305378594529 as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [59, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0_value: crate::leanh::LeanStringObject<18> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 18, m_capacity: 18, m_length: 17, m_data: [78, 97, 116, 46, 112, 114, 101, 100, 95, 108, 116, 95, 111, 102, 95, 108, 116, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0_value) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2_value: crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [112, 114, 101, 100, 95, 108, 116, 95, 111, 102, 95, 108, 116, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2_value) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value) as *mut crate::leanh::LeanObject,11442535297760353691 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2_value) as *mut crate::leanh::LeanObject,3871046354274687500 as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0_value: crate::leanh::LeanStringObject<12> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [78, 97, 116, 46, 112, 114, 101, 100, 95, 108, 116, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0_value) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2_value: crate::leanh::LeanStringObject<8> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [112, 114, 101, 100, 95, 108, 116, 0]};
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2_value) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value) as *mut crate::leanh::LeanObject,11442535297760353691 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2_value) as *mut crate::leanh::LeanObject,11419356048450776812 as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4_value) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5_value) as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__0_value: crate::leanh::LeanStringObject<23> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0_value: leanh::LeanStringObject<5> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [115, 101, 113, 49, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0_value) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__0_value) as *mut leanh::LeanObject,8471002125274025202 as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [97, 112, 112, 108, 121, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2_value) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2_value) as *mut leanh::LeanObject,5826123769708379594 as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4_value: leanh::LeanStringObject<21> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 21, m_capacity: 21, m_length: 20, m_data: [78, 97, 116, 46, 115, 117, 98, 95, 115, 117, 99, 99, 95, 108, 116, 95, 115, 101, 108, 102, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4_value) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5: *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6_value: leanh::LeanStringObject<17> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 17, m_capacity: 17, m_length: 16, m_data: [115, 117, 98, 95, 115, 117, 99, 99, 95, 108, 116, 95, 115, 101, 108, 102, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6_value) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value) as *mut leanh::LeanObject,11442535297760353691 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__6_value) as *mut leanh::LeanObject,12340323305378594529 as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__8_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10_value: leanh::LeanStringObject<2> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [59, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0_value: leanh::LeanStringObject<18> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 18, m_capacity: 18, m_length: 17, m_data: [78, 97, 116, 46, 112, 114, 101, 100, 95, 108, 116, 95, 111, 102, 95, 108, 116, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0_value) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1: *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2_value: leanh::LeanStringObject<14> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [112, 114, 101, 100, 95, 108, 116, 95, 111, 102, 95, 108, 116, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2_value) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value) as *mut leanh::LeanObject,11442535297760353691 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__2_value) as *mut leanh::LeanObject,3871046354274687500 as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__4_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0_value: leanh::LeanStringObject<12> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 12, m_capacity: 12, m_length: 11, m_data: [78, 97, 116, 46, 112, 114, 101, 100, 95, 108, 116, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0_value) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1: *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2_value: leanh::LeanStringObject<8> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 8, m_capacity: 8, m_length: 7, m_data: [112, 114, 101, 100, 95, 108, 116, 0]};
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2_value) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__65_value) as *mut leanh::LeanObject,11442535297760353691 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__2_value) as *mut leanh::LeanObject,11419356048450776812 as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4_value) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__4_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5: *mut leanh::LeanObject = core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5_value) as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__0_value: leanh::LeanStringObject<23> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2816,32 +2816,32 @@ pub static l_tacticDecreasing__with___00__closed__0_value: crate::leanh::LeanStr
             116, 104, 95, 0,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__0: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__1_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__1_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__0_value)
-                as *mut crate::leanh::LeanObject,
-            17071147086808956184 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            17071147086808956184 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__1: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__1: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__1_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__2_value: crate::leanh::LeanStringObject<8> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__2_value: leanh::LeanStringObject<8> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2852,32 +2852,32 @@ pub static l_tacticDecreasing__with___00__closed__2_value: crate::leanh::LeanStr
         m_length: 7,
         m_data: [97, 110, 100, 116, 104, 101, 110, 0],
     };
-static mut l_tacticDecreasing__with___00__closed__2: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__2: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__2_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__3_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__3_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__2_value)
-                as *mut crate::leanh::LeanObject,
-            12571085391447129896 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            12571085391447129896 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__3: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__3: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__3_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__4_value: crate::leanh::LeanStringObject<17> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__4_value: leanh::LeanStringObject<17> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -2890,310 +2890,310 @@ pub static l_tacticDecreasing__with___00__closed__4_value: crate::leanh::LeanStr
             100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 119, 105, 116, 104, 32, 0,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__4: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__4: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__5_value: crate::leanh::LeanCtorObject<2> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__5_value: leanh::LeanCtorObject<2> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1
                 + 8) as u16,
             other: 1,
             tag: 6,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__4_value)
-                as *mut crate::leanh::LeanObject,
-            0 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            0 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__5: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__5: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__5_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__6_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__6_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__6_value
-            ) as *mut crate::leanh::LeanObject,
-            11103865283154438669 as *mut crate::leanh::LeanObject,
+            ) as *mut leanh::LeanObject,
+            11103865283154438669 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__6: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__6: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__6_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__7_value: crate::leanh::LeanCtorObject<1> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__7_value: leanh::LeanCtorObject<1> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1
                 + 0) as u16,
             other: 1,
             tag: 0,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__6_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__7: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__7: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__7_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__8_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__8_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 3
                 + 0) as u16,
             other: 3,
             tag: 2,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__3_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__5_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__7_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__8: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__8: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__8_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__with___00__closed__9_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__with___00__closed__9_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 3
                 + 0) as u16,
             other: 3,
             tag: 3,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__1_value)
-                as *mut crate::leanh::LeanObject,
-            (((1022 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            (((1022 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__8_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__with___00__closed__9: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__with___00__closed__9: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__9_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l_tacticDecreasing__with__: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l_tacticDecreasing__with__: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__with___00__closed__9_value)
-        as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__0_value: crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [116, 97, 99, 116, 105, 99, 82, 101, 112, 101, 97, 116, 95, 0]};
+        as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__0_value: leanh::LeanStringObject<14> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [116, 97, 99, 116, 105, 99, 82, 101, 112, 101, 97, 116, 95, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__0_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__0_value) as *mut crate::leanh::LeanObject,16592576665728214421 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__0_value) as *mut leanh::LeanObject,16592576665728214421 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__2_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [114, 101, 112, 101, 97, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__2_value: leanh::LeanStringObject<7> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [114, 101, 112, 101, 97, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__2:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__2_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 105, 114, 115, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [102, 105, 114, 115, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3_value) as *mut crate::leanh::LeanObject,12551601070224435259 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3_value) as *mut leanh::LeanObject,12551601070224435259 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__5_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [103, 114, 111, 117, 112, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__5_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [103, 114, 111, 117, 112, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__5:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__5_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__6_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__5_value) as *mut crate::leanh::LeanObject,2214559063752339918 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__6_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__5_value) as *mut leanh::LeanObject,2214559063752339918 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__6:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__6_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__7_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [124, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__7_value: leanh::LeanStringObject<2> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [124, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__7:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__7_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__8_value: crate::leanh::LeanStringObject<15> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 15, m_capacity: 15, m_length: 14, m_data: [80, 114, 111, 100, 46, 76, 101, 120, 46, 114, 105, 103, 104, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__8_value: leanh::LeanStringObject<15> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 15, m_capacity: 15, m_length: 14, m_data: [80, 114, 111, 100, 46, 76, 101, 120, 46, 114, 105, 103, 104, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__8:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__8_value
-) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value: crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [76, 101, 120, 0]};
+    *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value: leanh::LeanStringObject<4> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [76, 101, 120, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value: crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [114, 105, 103, 104, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value: leanh::LeanStringObject<6> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 6, m_capacity: 6, m_length: 5, m_data: [114, 105, 103, 104, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value) as *mut crate::leanh::LeanObject,15289851429949568889 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut crate::leanh::LeanObject,6345613489766709701 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value) as *mut crate::leanh::LeanObject,8909656180514914966 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value) as *mut leanh::LeanObject,15289851429949568889 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut leanh::LeanObject,6345613489766709701 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value) as *mut leanh::LeanObject,8909656180514914966 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__13_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__13_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__13:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__13_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__14_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__13_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__14_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__13_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__14:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__14_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__15_value: crate::leanh::LeanStringObject<14> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [80, 114, 111, 100, 46, 76, 101, 120, 46, 108, 101, 102, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__15_value: leanh::LeanStringObject<14> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 14, m_capacity: 14, m_length: 13, m_data: [80, 114, 111, 100, 46, 76, 101, 120, 46, 108, 101, 102, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__15:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__15_value
-) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [108, 101, 102, 116, 0]};
+    *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value: leanh::LeanStringObject<5> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [108, 101, 102, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value) as *mut crate::leanh::LeanObject,15289851429949568889 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut crate::leanh::LeanObject,6345613489766709701 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value) as *mut crate::leanh::LeanObject,15868804459766548552 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__46_value) as *mut leanh::LeanObject,15289851429949568889 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut leanh::LeanObject,6345613489766709701 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value) as *mut leanh::LeanObject,15868804459766548552 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__19_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__19_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__19:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__19_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__20_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__19_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__20_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__19_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__20:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__20_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__21_value: crate::leanh::LeanStringObject<17> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 17, m_capacity: 17, m_length: 16, m_data: [80, 83, 105, 103, 109, 97, 46, 76, 101, 120, 46, 114, 105, 103, 104, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__21_value: leanh::LeanStringObject<17> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 17, m_capacity: 17, m_length: 16, m_data: [80, 83, 105, 103, 109, 97, 46, 76, 101, 120, 46, 114, 105, 103, 104, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__21:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__21_value
-) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value: crate::leanh::LeanStringObject<7> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [80, 83, 105, 103, 109, 97, 0]};
+    *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value: leanh::LeanStringObject<7> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 7, m_capacity: 7, m_length: 6, m_data: [80, 83, 105, 103, 109, 97, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value) as *mut crate::leanh::LeanObject,16079402598994914048 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut crate::leanh::LeanObject,797284623638230952 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value) as *mut crate::leanh::LeanObject,5191706735699576271 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value) as *mut leanh::LeanObject,16079402598994914048 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut leanh::LeanObject,797284623638230952 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__11_value) as *mut leanh::LeanObject,5191706735699576271 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__25_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__25_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__25:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__25_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__26_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__25_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__26_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__25_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__26:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__26_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__27_value: crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [80, 83, 105, 103, 109, 97, 46, 76, 101, 120, 46, 108, 101, 102, 116, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__27_value: leanh::LeanStringObject<16> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [80, 83, 105, 103, 109, 97, 46, 76, 101, 120, 46, 108, 101, 102, 116, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__27:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__27_value
-) as *mut crate::leanh::LeanObject;
-static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+) as *mut leanh::LeanObject;
+static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value) as *mut crate::leanh::LeanObject,16079402598994914048 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut crate::leanh::LeanObject,797284623638230952 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value) as *mut crate::leanh::LeanObject,2313809436473277481 as *mut crate::leanh::LeanObject] };
+    *mut leanh::LeanObject = core::ptr::null_mut();
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__23_value) as *mut leanh::LeanObject,16079402598994914048 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__10_value) as *mut leanh::LeanObject,797284623638230952 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__17_value) as *mut leanh::LeanObject,2313809436473277481 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__30_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__30_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__30:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__30_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__31_value: crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__30_value) as *mut crate::leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__31_value: leanh::LeanCtorObject<2> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 0) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__30_value) as *mut leanh::LeanObject,((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__31:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__31_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32_value: crate::leanh::LeanStringObject<5> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [102, 97, 105, 108, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32_value: leanh::LeanStringObject<5> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 5, m_capacity: 5, m_length: 4, m_data: [102, 97, 105, 108, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32_value) as *mut crate::leanh::LeanObject,59994724629665531 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32_value) as *mut leanh::LeanObject,59994724629665531 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__34_value: crate::leanh::LeanStringObject<4> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [115, 116, 114, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__34_value: leanh::LeanStringObject<4> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 4, m_capacity: 4, m_length: 3, m_data: [115, 116, 114, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__34:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__34_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__35_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__34_value) as *mut crate::leanh::LeanObject,9232979286016572671 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__35_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__34_value) as *mut leanh::LeanObject,9232979286016572671 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__35:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__35_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__36_value: crate::leanh::LeanStringObject<262> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 262, m_capacity: 262, m_length: 261, m_data: [34, 102, 97, 105, 108, 101, 100, 32, 116, 111, 32, 112, 114, 111, 118, 101, 32, 116, 101, 114, 109, 105, 110, 97, 116, 105, 111, 110, 44, 32, 112, 111, 115, 115, 105, 98, 108, 101, 32, 115, 111, 108, 117, 116, 105, 111, 110, 115, 58, 10, 32, 32, 45, 32, 85, 115, 101, 32, 96, 104, 97, 118, 101, 96, 45, 101, 120, 112, 114, 101, 115, 115, 105, 111, 110, 115, 32, 116, 111, 32, 112, 114, 111, 118, 101, 32, 116, 104, 101, 32, 114, 101, 109, 97, 105, 110, 105, 110, 103, 32, 103, 111, 97, 108, 115, 10, 32, 32, 45, 32, 85, 115, 101, 32, 96, 116, 101, 114, 109, 105, 110, 97, 116, 105, 111, 110, 95, 98, 121, 96, 32, 116, 111, 32, 115, 112, 101, 99, 105, 102, 121, 32, 97, 32, 100, 105, 102, 102, 101, 114, 101, 110, 116, 32, 119, 101, 108, 108, 45, 102, 111, 117, 110, 100, 101, 100, 32, 114, 101, 108, 97, 116, 105, 111, 110, 10, 32, 32, 45, 32, 85, 115, 101, 32, 96, 100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 98, 121, 96, 32, 116, 111, 32, 115, 112, 101, 99, 105, 102, 121, 32, 121, 111, 117, 114, 32, 111, 119, 110, 32, 116, 97, 99, 116, 105, 99, 32, 102, 111, 114, 32, 100, 105, 115, 99, 104, 97, 114, 103, 105, 110, 103, 32, 116, 104, 105, 115, 32, 107, 105, 110, 100, 32, 111, 102, 32, 103, 111, 97, 108, 34, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__36_value: leanh::LeanStringObject<262> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 262, m_capacity: 262, m_length: 261, m_data: [34, 102, 97, 105, 108, 101, 100, 32, 116, 111, 32, 112, 114, 111, 118, 101, 32, 116, 101, 114, 109, 105, 110, 97, 116, 105, 111, 110, 44, 32, 112, 111, 115, 115, 105, 98, 108, 101, 32, 115, 111, 108, 117, 116, 105, 111, 110, 115, 58, 10, 32, 32, 45, 32, 85, 115, 101, 32, 96, 104, 97, 118, 101, 96, 45, 101, 120, 112, 114, 101, 115, 115, 105, 111, 110, 115, 32, 116, 111, 32, 112, 114, 111, 118, 101, 32, 116, 104, 101, 32, 114, 101, 109, 97, 105, 110, 105, 110, 103, 32, 103, 111, 97, 108, 115, 10, 32, 32, 45, 32, 85, 115, 101, 32, 96, 116, 101, 114, 109, 105, 110, 97, 116, 105, 111, 110, 95, 98, 121, 96, 32, 116, 111, 32, 115, 112, 101, 99, 105, 102, 121, 32, 97, 32, 100, 105, 102, 102, 101, 114, 101, 110, 116, 32, 119, 101, 108, 108, 45, 102, 111, 117, 110, 100, 101, 100, 32, 114, 101, 108, 97, 116, 105, 111, 110, 10, 32, 32, 45, 32, 85, 115, 101, 32, 96, 100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 98, 121, 96, 32, 116, 111, 32, 115, 112, 101, 99, 105, 102, 121, 32, 121, 111, 117, 114, 32, 111, 119, 110, 32, 116, 97, 99, 116, 105, 99, 32, 102, 111, 114, 32, 100, 105, 115, 99, 104, 97, 114, 103, 105, 110, 103, 32, 116, 104, 105, 115, 32, 107, 105, 110, 100, 32, 111, 102, 32, 103, 111, 97, 108, 34, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__36:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__36_value
-) as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__tactic___closed__0_value: crate::leanh::LeanStringObject<24> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+) as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__tactic___closed__0_value: leanh::LeanStringObject<24> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -3207,32 +3207,32 @@ pub static l_tacticDecreasing__tactic___closed__0_value: crate::leanh::LeanStrin
             99, 116, 105, 99, 0,
         ],
     };
-static mut l_tacticDecreasing__tactic___closed__0: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__tactic___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__tactic___closed__1_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__tactic___closed__1_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 2
                 + 8) as u16,
             other: 2,
             tag: 1,
         },
         m_objs: [
-            (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__0_value)
-                as *mut crate::leanh::LeanObject,
-            8717595285447664659 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            8717595285447664659 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__tactic___closed__1: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__tactic___closed__1: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__1_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__tactic___closed__2_value: crate::leanh::LeanStringObject<18> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__tactic___closed__2_value: leanh::LeanStringObject<18> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -3245,306 +3245,306 @@ pub static l_tacticDecreasing__tactic___closed__2_value: crate::leanh::LeanStrin
             100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 116, 97, 99, 116, 105, 99, 0,
         ],
     };
-static mut l_tacticDecreasing__tactic___closed__2: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__tactic___closed__2: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__2_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__tactic___closed__3_value: crate::leanh::LeanCtorObject<2> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__tactic___closed__3_value: leanh::LeanCtorObject<2> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 1
                 + 8) as u16,
             other: 1,
             tag: 6,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__2_value)
-                as *mut crate::leanh::LeanObject,
-            0 as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            0 as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__tactic___closed__3: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__tactic___closed__3: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__3_value)
-        as *mut crate::leanh::LeanObject;
-pub static l_tacticDecreasing__tactic___closed__4_value: crate::leanh::LeanCtorObject<3> =
-    crate::leanh::LeanCtorObject {
-        m_header: crate::leanh::LeanObject {
+        as *mut leanh::LeanObject;
+pub static l_tacticDecreasing__tactic___closed__4_value: leanh::LeanCtorObject<3> =
+    leanh::LeanCtorObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 3
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 3
                 + 0) as u16,
             other: 3,
             tag: 3,
         },
         m_objs: [
             core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__1_value)
-                as *mut crate::leanh::LeanObject,
-            (((1024 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
+            (((1024 as usize) << 1) | 1) as *mut leanh::LeanObject,
             core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__3_value)
-                as *mut crate::leanh::LeanObject,
+                as *mut leanh::LeanObject,
         ],
     };
-static mut l_tacticDecreasing__tactic___closed__4: *mut crate::leanh::LeanObject =
+static mut l_tacticDecreasing__tactic___closed__4: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l_tacticDecreasing__tactic: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l_tacticDecreasing__tactic: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_tacticDecreasing__tactic___closed__4_value)
-        as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__0_value: crate::leanh::LeanStringObject<16> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 119, 105, 116, 104, 0]};
+        as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__0_value: leanh::LeanStringObject<16> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 16, m_capacity: 16, m_length: 15, m_data: [100, 101, 99, 114, 101, 97, 115, 105, 110, 103, 95, 119, 105, 116, 104, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__0:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__0_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__1_value: crate::leanh::LeanStringObject<10> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [115, 117, 98, 115, 116, 86, 97, 114, 115, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__1_value: leanh::LeanStringObject<10> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 10, m_capacity: 10, m_length: 9, m_data: [115, 117, 98, 115, 116, 86, 97, 114, 115, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__1_value
-) as *mut crate::leanh::LeanObject;
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_0: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut crate::leanh::LeanObject,11948124481539785030 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_1: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_0) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut crate::leanh::LeanObject,8018486133748762727 as *mut crate::leanh::LeanObject] };
-static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_2: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_1) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut crate::leanh::LeanObject,18344149449936419494 as *mut crate::leanh::LeanObject] };
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value: crate::leanh::LeanCtorObject<3> = crate::leanh::LeanCtorObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<crate::leanh::LeanObject>() + core::mem::size_of::<*mut crate::leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_2) as *mut crate::leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__1_value) as *mut crate::leanh::LeanObject,9452691735687745700 as *mut crate::leanh::LeanObject] };
+) as *mut leanh::LeanObject;
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_0: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [((( 0 as usize) << 1) | 1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__0_value) as *mut leanh::LeanObject,11948124481539785030 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_1: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_0) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__1_value) as *mut leanh::LeanObject,8018486133748762727 as *mut leanh::LeanObject] };
+static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_2: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_1) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__2_value) as *mut leanh::LeanObject,18344149449936419494 as *mut leanh::LeanObject] };
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value: leanh::LeanCtorObject<3> = leanh::LeanCtorObject { m_header: leanh::LeanObject { rc: 0, cs_size: (core::mem::size_of::<leanh::LeanObject>() + core::mem::size_of::<*mut leanh::LeanObject>()*2 + 8) as u16, other: 2, tag: 1 }, m_objs: [core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value_aux_2) as *mut leanh::LeanObject,core::ptr::addr_of!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__1_value) as *mut leanh::LeanObject,9452691735687745700 as *mut leanh::LeanObject] };
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2_value
-) as *mut crate::leanh::LeanObject;
-pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__3_value: crate::leanh::LeanStringObject<11> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [115, 117, 98, 115, 116, 95, 118, 97, 114, 115, 0]};
+) as *mut leanh::LeanObject;
+pub static l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__3_value: leanh::LeanStringObject<11> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 11, m_capacity: 11, m_length: 10, m_data: [115, 117, 98, 115, 116, 95, 118, 97, 114, 115, 0]};
 static mut l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__3:
-    *mut crate::leanh::LeanObject = core::ptr::addr_of!(
+    *mut leanh::LeanObject = core::ptr::addr_of!(
     l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__3_value
-) as *mut crate::leanh::LeanObject;
+) as *mut leanh::LeanObject;
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1204_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1205_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1204_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1205_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1204_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__21;
     v___x_1205_ = l_String_toRawSubstring_x27(v___x_1204_);
     return v___x_1205_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__25()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1209_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1210_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1209_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1210_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1209_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__24;
     v___x_1210_ = l_String_toRawSubstring_x27(v___x_1209_);
     return v___x_1210_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1213_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_1213_ = l_Array_mkArray0(crate::leanh::lean_box(0));
+-> *mut leanh::LeanObject {
+    let mut v___x_1213_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_1213_ = l_Array_mkArray0(leanh::lean_box(0));
     return v___x_1213_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__32()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1222_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1223_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1222_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1223_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1222_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__31;
     v___x_1223_ = l_String_toRawSubstring_x27(v___x_1222_);
     return v___x_1223_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__38()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1234_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1235_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1234_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1235_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1234_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__37;
     v___x_1235_ = l_String_toRawSubstring_x27(v___x_1234_);
     return v___x_1235_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__45()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1250_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1251_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1250_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1251_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1250_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__44;
     v___x_1251_ = l_String_toRawSubstring_x27(v___x_1250_);
     return v___x_1251_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__54()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1269_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1270_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1269_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1270_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1269_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__53;
     v___x_1270_ = l_String_toRawSubstring_x27(v___x_1269_);
     return v___x_1270_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__59()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1280_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1281_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1280_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1281_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1280_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__58;
     v___x_1281_ = l_String_toRawSubstring_x27(v___x_1280_);
     return v___x_1281_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__64()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1291_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1292_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1291_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1292_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1291_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__63;
     v___x_1292_ = l_String_toRawSubstring_x27(v___x_1291_);
     return v___x_1292_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__71()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1305_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1306_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1305_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1306_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1305_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__70;
     v___x_1306_ = l_String_toRawSubstring_x27(v___x_1305_);
     return v___x_1306_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
-    mut v_x_1319_: *mut crate::leanh::LeanObject,
-    mut v_a_1320_: *mut crate::leanh::LeanObject,
-    mut v_a_1321_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1322_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1319_: *mut leanh::LeanObject,
+    mut v_a_1320_: *mut leanh::LeanObject,
+    mut v_a_1321_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1322_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1323_: u8 = 0;
     v___x_1322_ = l_tacticSimp__wf___closed__1;
     v___x_1323_ = l_Lean_Syntax_isOfKind(v_x_1319_, v___x_1322_);
     if v___x_1323_ == 0 {
-        let mut v___x_1324_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1325_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1324_ = crate::leanh::lean_box(1);
-        v___x_1325_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1325_, 0, v___x_1324_);
-        crate::leanh::lean_ctor_set(v___x_1325_, 1, v_a_1321_);
+        let mut v___x_1324_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1325_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1324_ = leanh::lean_box(1);
+        v___x_1325_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1325_, 0, v___x_1324_);
+        leanh::lean_ctor_set(v___x_1325_, 1, v_a_1321_);
         return v___x_1325_;
     } else {
-        let mut v_quotContext_1326_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_1327_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_1328_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_1326_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_1327_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1328_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1329_: u8 = 0;
-        let mut v___x_1330_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1331_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1332_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1333_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1334_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1335_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1336_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1337_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1338_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1339_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1340_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1341_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1342_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1343_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1344_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1345_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1346_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1347_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1348_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1349_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1350_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1351_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1352_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1353_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1354_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1355_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1356_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1357_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1358_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1359_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1360_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1361_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1362_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1363_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1364_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1365_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1366_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1367_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1368_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1369_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1370_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1371_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1372_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1373_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1374_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1375_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1376_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1377_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1378_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1379_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1380_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1381_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1382_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1383_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1384_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1385_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1386_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1387_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1388_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1389_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1390_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1391_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1392_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1393_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1394_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1395_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1396_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1397_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1398_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1399_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1400_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1401_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1402_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1403_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1404_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1405_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1406_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1407_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1408_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1409_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1410_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1411_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1412_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1413_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1414_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1415_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1416_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1417_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1418_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1419_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1420_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1421_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1422_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1423_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1424_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1425_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1426_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1427_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1428_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1429_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1430_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1431_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1432_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1433_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_1326_ = crate::leanh::lean_ctor_get(v_a_1320_, 1);
-        v_currMacroScope_1327_ = crate::leanh::lean_ctor_get(v_a_1320_, 2);
-        v_ref_1328_ = crate::leanh::lean_ctor_get(v_a_1320_, 5);
+        let mut v___x_1330_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1331_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1332_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1333_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1334_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1335_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1336_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1337_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1338_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1339_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1340_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1341_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1342_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1343_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1344_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1345_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1346_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1347_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1348_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1349_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1350_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1351_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1352_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1353_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1354_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1355_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1356_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1357_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1358_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1359_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1360_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1361_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1362_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1363_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1364_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1365_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1366_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1367_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1368_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1369_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1370_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1371_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1372_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1373_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1374_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1375_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1376_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1377_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1378_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1379_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1380_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1381_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1382_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1383_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1384_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1385_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1386_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1387_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1388_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1389_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1390_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1391_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1392_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1393_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1394_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1395_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1396_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1397_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1398_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1399_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1400_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1401_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1402_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1403_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1404_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1405_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1406_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1407_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1408_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1409_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1410_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1411_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1412_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1413_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1414_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1415_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1416_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1417_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1418_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1419_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1420_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1421_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1422_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1423_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1424_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1425_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1426_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1427_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1428_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1429_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1430_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1431_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1432_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1433_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_1326_ = leanh::lean_ctor_get(v_a_1320_, 1);
+        v_currMacroScope_1327_ = leanh::lean_ctor_get(v_a_1320_, 2);
+        v_ref_1328_ = leanh::lean_ctor_get(v_a_1320_, 5);
         v___x_1329_ = 0;
         v___x_1330_ = l_Lean_SourceInfo_fromRef(v_ref_1328_, v___x_1329_);
         v___x_1331_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4;
         v___x_1332_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__5;
-        crate::leanh::lean_inc_n(v___x_1330_, 35);
-        v___x_1333_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1333_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1333_, 1, v___x_1332_);
+        leanh::lean_inc_n(v___x_1330_, 35);
+        v___x_1333_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1333_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1333_, 1, v___x_1332_);
         v___x_1334_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7;
         v___x_1335_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9;
         v___x_1336_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_1337_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12;
         v___x_1338_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13;
-        v___x_1339_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1339_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1339_, 1, v___x_1337_);
+        v___x_1339_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1339_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1339_, 1, v___x_1337_);
         v___x_1340_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15;
         v___x_1341_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17;
         v___x_1342_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19;
         v___x_1343_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__20;
-        v___x_1344_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1344_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1344_, 1, v___x_1343_);
-        v___x_1345_ = crate::leanh::lean_obj_once(
+        v___x_1344_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1344_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1344_, 1, v___x_1343_);
+        v___x_1345_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22
             ),
@@ -3554,20 +3554,20 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22,
         );
         v___x_1346_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__23;
-        crate::leanh::lean_inc_n(v_currMacroScope_1327_, 9);
-        crate::leanh::lean_inc_n(v_quotContext_1326_, 9);
+        leanh::lean_inc_n(v_currMacroScope_1327_, 9);
+        leanh::lean_inc_n(v_quotContext_1326_, 9);
         v___x_1347_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1346_, v_currMacroScope_1327_);
-        v___x_1348_ = crate::leanh::lean_box(0);
-        v___x_1349_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1349_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1349_, 1, v___x_1345_);
-        crate::leanh::lean_ctor_set(v___x_1349_, 2, v___x_1347_);
-        crate::leanh::lean_ctor_set(v___x_1349_, 3, v___x_1348_);
-        crate::leanh::lean_inc_ref(v___x_1344_);
+        v___x_1348_ = leanh::lean_box(0);
+        v___x_1349_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1349_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1349_, 1, v___x_1345_);
+        leanh::lean_ctor_set(v___x_1349_, 2, v___x_1347_);
+        leanh::lean_ctor_set(v___x_1349_, 3, v___x_1348_);
+        leanh::lean_inc_ref(v___x_1344_);
         v___x_1350_ = l_Lean_Syntax_node2(v___x_1330_, v___x_1342_, v___x_1344_, v___x_1349_);
         v___x_1351_ = l_Lean_Syntax_node1(v___x_1330_, v___x_1341_, v___x_1350_);
-        v___x_1352_ = crate::leanh::lean_obj_once(
+        v___x_1352_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__25
             ),
@@ -3579,16 +3579,16 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1353_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__26;
         v___x_1354_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1353_, v_currMacroScope_1327_);
-        v___x_1355_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1355_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1355_, 1, v___x_1352_);
-        crate::leanh::lean_ctor_set(v___x_1355_, 2, v___x_1354_);
-        crate::leanh::lean_ctor_set(v___x_1355_, 3, v___x_1348_);
+        v___x_1355_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1355_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1355_, 1, v___x_1352_);
+        leanh::lean_ctor_set(v___x_1355_, 2, v___x_1354_);
+        leanh::lean_ctor_set(v___x_1355_, 3, v___x_1348_);
         v___x_1356_ = l_Lean_Syntax_node2(v___x_1330_, v___x_1342_, v___x_1344_, v___x_1355_);
         v___x_1357_ = l_Lean_Syntax_node1(v___x_1330_, v___x_1341_, v___x_1356_);
         v___x_1358_ = l_Lean_Syntax_node2(v___x_1330_, v___x_1336_, v___x_1351_, v___x_1357_);
         v___x_1359_ = l_Lean_Syntax_node1(v___x_1330_, v___x_1340_, v___x_1358_);
-        v___x_1360_ = crate::leanh::lean_obj_once(
+        v___x_1360_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27
             ),
@@ -3597,16 +3597,16 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             ),
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27,
         );
-        v___x_1361_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1361_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1361_, 1, v___x_1336_);
-        crate::leanh::lean_ctor_set(v___x_1361_, 2, v___x_1360_);
+        v___x_1361_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_1361_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1361_, 1, v___x_1336_);
+        leanh::lean_ctor_set(v___x_1361_, 2, v___x_1360_);
         v___x_1362_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__28;
-        v___x_1363_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1363_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1363_, 1, v___x_1362_);
+        v___x_1363_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1363_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1363_, 1, v___x_1362_);
         v___x_1364_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30;
-        v___x_1365_ = crate::leanh::lean_obj_once(
+        v___x_1365_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__32
             ),
@@ -3619,12 +3619,12 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1367_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1366_, v_currMacroScope_1327_);
         v___x_1368_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__35;
-        v___x_1369_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1369_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1369_, 1, v___x_1365_);
-        crate::leanh::lean_ctor_set(v___x_1369_, 2, v___x_1367_);
-        crate::leanh::lean_ctor_set(v___x_1369_, 3, v___x_1368_);
-        crate::leanh::lean_inc_ref_n(v___x_1361_, 16);
+        v___x_1369_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1369_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1369_, 1, v___x_1365_);
+        leanh::lean_ctor_set(v___x_1369_, 2, v___x_1367_);
+        leanh::lean_ctor_set(v___x_1369_, 3, v___x_1368_);
+        leanh::lean_inc_ref_n(v___x_1361_, 16);
         v___x_1370_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3633,10 +3633,10 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1369_,
         );
         v___x_1371_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__36;
-        v___x_1372_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1372_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1372_, 1, v___x_1371_);
-        v___x_1373_ = crate::leanh::lean_obj_once(
+        v___x_1372_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1372_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1372_, 1, v___x_1371_);
+        v___x_1373_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__38
             ),
@@ -3649,11 +3649,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1375_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1374_, v_currMacroScope_1327_);
         v___x_1376_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__43;
-        v___x_1377_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1377_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1377_, 1, v___x_1373_);
-        crate::leanh::lean_ctor_set(v___x_1377_, 2, v___x_1375_);
-        crate::leanh::lean_ctor_set(v___x_1377_, 3, v___x_1376_);
+        v___x_1377_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1377_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1377_, 1, v___x_1373_);
+        leanh::lean_ctor_set(v___x_1377_, 2, v___x_1375_);
+        leanh::lean_ctor_set(v___x_1377_, 3, v___x_1376_);
         v___x_1378_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3661,7 +3661,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1361_,
             v___x_1377_,
         );
-        v___x_1379_ = crate::leanh::lean_obj_once(
+        v___x_1379_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__45
             ),
@@ -3674,11 +3674,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1381_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1380_, v_currMacroScope_1327_);
         v___x_1382_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__52;
-        v___x_1383_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1383_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1383_, 1, v___x_1379_);
-        crate::leanh::lean_ctor_set(v___x_1383_, 2, v___x_1381_);
-        crate::leanh::lean_ctor_set(v___x_1383_, 3, v___x_1382_);
+        v___x_1383_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1383_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1383_, 1, v___x_1379_);
+        leanh::lean_ctor_set(v___x_1383_, 2, v___x_1381_);
+        leanh::lean_ctor_set(v___x_1383_, 3, v___x_1382_);
         v___x_1384_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3686,7 +3686,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1361_,
             v___x_1383_,
         );
-        v___x_1385_ = crate::leanh::lean_obj_once(
+        v___x_1385_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__54
             ),
@@ -3699,11 +3699,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1387_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1386_, v_currMacroScope_1327_);
         v___x_1388_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__57;
-        v___x_1389_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1389_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1389_, 1, v___x_1385_);
-        crate::leanh::lean_ctor_set(v___x_1389_, 2, v___x_1387_);
-        crate::leanh::lean_ctor_set(v___x_1389_, 3, v___x_1388_);
+        v___x_1389_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1389_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1389_, 1, v___x_1385_);
+        leanh::lean_ctor_set(v___x_1389_, 2, v___x_1387_);
+        leanh::lean_ctor_set(v___x_1389_, 3, v___x_1388_);
         v___x_1390_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3711,7 +3711,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1361_,
             v___x_1389_,
         );
-        v___x_1391_ = crate::leanh::lean_obj_once(
+        v___x_1391_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__59
             ),
@@ -3724,11 +3724,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1393_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1392_, v_currMacroScope_1327_);
         v___x_1394_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__62;
-        v___x_1395_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1395_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1395_, 1, v___x_1391_);
-        crate::leanh::lean_ctor_set(v___x_1395_, 2, v___x_1393_);
-        crate::leanh::lean_ctor_set(v___x_1395_, 3, v___x_1394_);
+        v___x_1395_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1395_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1395_, 1, v___x_1391_);
+        leanh::lean_ctor_set(v___x_1395_, 2, v___x_1393_);
+        leanh::lean_ctor_set(v___x_1395_, 3, v___x_1394_);
         v___x_1396_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3736,7 +3736,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1361_,
             v___x_1395_,
         );
-        v___x_1397_ = crate::leanh::lean_obj_once(
+        v___x_1397_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__64
             ),
@@ -3749,11 +3749,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1399_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1398_, v_currMacroScope_1327_);
         v___x_1400_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__69;
-        v___x_1401_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1401_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1401_, 1, v___x_1397_);
-        crate::leanh::lean_ctor_set(v___x_1401_, 2, v___x_1399_);
-        crate::leanh::lean_ctor_set(v___x_1401_, 3, v___x_1400_);
+        v___x_1401_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1401_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1401_, 1, v___x_1397_);
+        leanh::lean_ctor_set(v___x_1401_, 2, v___x_1399_);
+        leanh::lean_ctor_set(v___x_1401_, 3, v___x_1400_);
         v___x_1402_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3761,7 +3761,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1361_,
             v___x_1401_,
         );
-        v___x_1403_ = crate::leanh::lean_obj_once(
+        v___x_1403_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__71
             ),
@@ -3774,11 +3774,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1405_ =
             l_Lean_addMacroScope(v_quotContext_1326_, v___x_1404_, v_currMacroScope_1327_);
         v___x_1406_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__76;
-        v___x_1407_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1407_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1407_, 1, v___x_1403_);
-        crate::leanh::lean_ctor_set(v___x_1407_, 2, v___x_1405_);
-        crate::leanh::lean_ctor_set(v___x_1407_, 3, v___x_1406_);
+        v___x_1407_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1407_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1407_, 1, v___x_1403_);
+        leanh::lean_ctor_set(v___x_1407_, 2, v___x_1405_);
+        leanh::lean_ctor_set(v___x_1407_, 3, v___x_1406_);
         v___x_1408_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1364_,
@@ -3786,10 +3786,10 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
             v___x_1361_,
             v___x_1407_,
         );
-        v___x_1409_ = crate::leanh::lean_unsigned_to_nat(13);
+        v___x_1409_ = leanh::lean_unsigned_to_nat(13);
         v___x_1410_ = lean_mk_empty_array_with_capacity(v___x_1409_);
         v___x_1411_ = lean_array_push(v___x_1410_, v___x_1370_);
-        crate::leanh::lean_inc_ref_n(v___x_1372_, 5);
+        leanh::lean_inc_ref_n(v___x_1372_, 5);
         v___x_1412_ = lean_array_push(v___x_1411_, v___x_1372_);
         v___x_1413_ = lean_array_push(v___x_1412_, v___x_1378_);
         v___x_1414_ = lean_array_push(v___x_1413_, v___x_1372_);
@@ -3802,14 +3802,14 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1421_ = lean_array_push(v___x_1420_, v___x_1402_);
         v___x_1422_ = lean_array_push(v___x_1421_, v___x_1372_);
         v___x_1423_ = lean_array_push(v___x_1422_, v___x_1408_);
-        v___x_1424_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1424_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1424_, 1, v___x_1336_);
-        crate::leanh::lean_ctor_set(v___x_1424_, 2, v___x_1423_);
+        v___x_1424_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_1424_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1424_, 1, v___x_1336_);
+        leanh::lean_ctor_set(v___x_1424_, 2, v___x_1423_);
         v___x_1425_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__77;
-        v___x_1426_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1426_, 0, v___x_1330_);
-        crate::leanh::lean_ctor_set(v___x_1426_, 1, v___x_1425_);
+        v___x_1426_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1426_, 0, v___x_1330_);
+        leanh::lean_ctor_set(v___x_1426_, 1, v___x_1425_);
         v___x_1427_ = l_Lean_Syntax_node3(
             v___x_1330_,
             v___x_1336_,
@@ -3831,212 +3831,212 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v___x_1430_ = l_Lean_Syntax_node1(v___x_1330_, v___x_1335_, v___x_1429_);
         v___x_1431_ = l_Lean_Syntax_node1(v___x_1330_, v___x_1334_, v___x_1430_);
         v___x_1432_ = l_Lean_Syntax_node2(v___x_1330_, v___x_1331_, v___x_1333_, v___x_1431_);
-        v___x_1433_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1433_, 0, v___x_1432_);
-        crate::leanh::lean_ctor_set(v___x_1433_, 1, v_a_1321_);
+        v___x_1433_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1433_, 0, v___x_1432_);
+        leanh::lean_ctor_set(v___x_1433_, 1, v_a_1321_);
         return v___x_1433_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___boxed(
-    mut v_x_1434_: *mut crate::leanh::LeanObject,
-    mut v_a_1435_: *mut crate::leanh::LeanObject,
-    mut v_a_1436_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1437_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1434_: *mut leanh::LeanObject,
+    mut v_a_1435_: *mut leanh::LeanObject,
+    mut v_a_1436_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1437_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1437_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1(
         v_x_1434_, v_a_1435_, v_a_1436_,
     );
-    crate::leanh::lean_dec_ref(v_a_1435_);
+    leanh::lean_dec_ref(v_a_1435_);
     return v_res_1437_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__4()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1458_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1459_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1458_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1459_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1458_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__3;
     v___x_1459_ = l_String_toRawSubstring_x27(v___x_1458_);
     return v___x_1459_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__8()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1464_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1465_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1464_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1465_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1464_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__7;
     v___x_1465_ = l_String_toRawSubstring_x27(v___x_1464_);
     return v___x_1465_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__13()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1475_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1476_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1475_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1476_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1475_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__12;
     v___x_1476_ = l_String_toRawSubstring_x27(v___x_1475_);
     return v___x_1476_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
-    mut v_x_1479_: *mut crate::leanh::LeanObject,
-    mut v_a_1480_: *mut crate::leanh::LeanObject,
-    mut v_a_1481_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1482_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1479_: *mut leanh::LeanObject,
+    mut v_a_1480_: *mut leanh::LeanObject,
+    mut v_a_1481_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1482_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1483_: u8 = 0;
     v___x_1482_ = l_tacticClean__wf___closed__1;
     v___x_1483_ = l_Lean_Syntax_isOfKind(v_x_1479_, v___x_1482_);
     if v___x_1483_ == 0 {
-        let mut v___x_1484_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1485_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1484_ = crate::leanh::lean_box(1);
-        v___x_1485_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1485_, 0, v___x_1484_);
-        crate::leanh::lean_ctor_set(v___x_1485_, 1, v_a_1481_);
+        let mut v___x_1484_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1485_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1484_ = leanh::lean_box(1);
+        v___x_1485_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1485_, 0, v___x_1484_);
+        leanh::lean_ctor_set(v___x_1485_, 1, v_a_1481_);
         return v___x_1485_;
     } else {
-        let mut v_quotContext_1486_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_1487_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_1488_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_1486_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_1487_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1488_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1489_: u8 = 0;
-        let mut v___x_1490_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1491_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1492_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1493_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1494_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1495_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1496_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1497_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1498_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1499_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1500_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1501_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1502_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1503_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1504_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1505_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1506_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1507_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1508_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1509_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1510_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1511_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1512_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1513_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1514_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1515_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1516_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1517_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1518_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1519_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1520_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1521_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1522_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1523_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1524_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1525_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1526_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1527_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1528_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1529_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1530_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1531_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1532_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1533_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1534_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1535_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1536_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1537_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1538_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1539_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1540_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1541_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1542_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1543_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1544_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1545_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1546_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1547_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1548_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1549_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1550_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1551_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1552_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1553_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1554_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1555_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1556_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1557_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1558_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1559_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1560_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1561_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1562_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1563_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1564_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1565_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1566_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1567_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1568_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1569_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1570_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1571_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1572_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1573_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1574_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1575_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1576_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1577_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1578_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1579_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1580_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1581_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1582_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1583_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1584_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1585_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1586_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1587_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1588_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1589_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1590_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1591_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1592_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1593_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1594_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1595_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1596_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1597_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1598_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1599_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1600_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1601_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1602_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1603_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1604_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1605_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1606_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1607_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1608_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1609_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1610_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1611_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_1486_ = crate::leanh::lean_ctor_get(v_a_1480_, 1);
-        v_currMacroScope_1487_ = crate::leanh::lean_ctor_get(v_a_1480_, 2);
-        v_ref_1488_ = crate::leanh::lean_ctor_get(v_a_1480_, 5);
+        let mut v___x_1490_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1491_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1492_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1493_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1494_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1495_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1496_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1497_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1498_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1499_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1500_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1501_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1502_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1503_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1504_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1505_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1506_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1507_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1508_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1509_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1510_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1511_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1512_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1513_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1514_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1515_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1516_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1517_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1518_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1519_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1520_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1521_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1522_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1523_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1524_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1525_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1526_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1527_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1528_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1529_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1530_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1531_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1532_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1533_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1534_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1535_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1536_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1537_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1538_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1539_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1540_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1541_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1542_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1543_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1544_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1545_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1546_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1547_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1548_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1549_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1550_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1551_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1552_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1553_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1554_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1555_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1556_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1557_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1558_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1559_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1560_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1561_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1562_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1563_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1564_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1565_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1566_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1567_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1568_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1569_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1570_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1571_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1572_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1573_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1574_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1575_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1576_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1577_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1578_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1579_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1580_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1581_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1582_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1583_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1584_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1585_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1586_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1587_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1588_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1589_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1590_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1591_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1592_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1593_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1594_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1595_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1596_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1597_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1598_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1599_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1600_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1601_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1602_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1603_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1604_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1605_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1606_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1607_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1608_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1609_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1610_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1611_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_1486_ = leanh::lean_ctor_get(v_a_1480_, 1);
+        v_currMacroScope_1487_ = leanh::lean_ctor_get(v_a_1480_, 2);
+        v_ref_1488_ = leanh::lean_ctor_get(v_a_1480_, 5);
         v___x_1489_ = 0;
         v___x_1490_ = l_Lean_SourceInfo_fromRef(v_ref_1488_, v___x_1489_);
         v___x_1491_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12;
         v___x_1492_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13;
-        crate::leanh::lean_inc_n(v___x_1490_, 40);
-        v___x_1493_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1493_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1493_, 1, v___x_1491_);
+        leanh::lean_inc_n(v___x_1490_, 40);
+        v___x_1493_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1493_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1493_, 1, v___x_1491_);
         v___x_1494_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15;
         v___x_1495_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_1496_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17;
         v___x_1497_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19;
         v___x_1498_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__20;
-        v___x_1499_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1499_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1499_, 1, v___x_1498_);
-        v___x_1500_ = crate::leanh::lean_obj_once(
+        v___x_1499_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1499_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1499_, 1, v___x_1498_);
+        v___x_1500_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22
             ),
@@ -4046,20 +4046,20 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__22,
         );
         v___x_1501_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__23;
-        crate::leanh::lean_inc_n(v_currMacroScope_1487_, 12);
-        crate::leanh::lean_inc_n(v_quotContext_1486_, 12);
+        leanh::lean_inc_n(v_currMacroScope_1487_, 12);
+        leanh::lean_inc_n(v_quotContext_1486_, 12);
         v___x_1502_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1501_, v_currMacroScope_1487_);
-        v___x_1503_ = crate::leanh::lean_box(0);
-        v___x_1504_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1504_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1504_, 1, v___x_1500_);
-        crate::leanh::lean_ctor_set(v___x_1504_, 2, v___x_1502_);
-        crate::leanh::lean_ctor_set(v___x_1504_, 3, v___x_1503_);
-        crate::leanh::lean_inc_ref(v___x_1499_);
+        v___x_1503_ = leanh::lean_box(0);
+        v___x_1504_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1504_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1504_, 1, v___x_1500_);
+        leanh::lean_ctor_set(v___x_1504_, 2, v___x_1502_);
+        leanh::lean_ctor_set(v___x_1504_, 3, v___x_1503_);
+        leanh::lean_inc_ref(v___x_1499_);
         v___x_1505_ = l_Lean_Syntax_node2(v___x_1490_, v___x_1497_, v___x_1499_, v___x_1504_);
         v___x_1506_ = l_Lean_Syntax_node1(v___x_1490_, v___x_1496_, v___x_1505_);
-        v___x_1507_ = crate::leanh::lean_obj_once(
+        v___x_1507_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__25
             ),
@@ -4071,19 +4071,19 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1508_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__26;
         v___x_1509_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1508_, v_currMacroScope_1487_);
-        v___x_1510_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1510_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1510_, 1, v___x_1507_);
-        crate::leanh::lean_ctor_set(v___x_1510_, 2, v___x_1509_);
-        crate::leanh::lean_ctor_set(v___x_1510_, 3, v___x_1503_);
+        v___x_1510_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1510_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1510_, 1, v___x_1507_);
+        leanh::lean_ctor_set(v___x_1510_, 2, v___x_1509_);
+        leanh::lean_ctor_set(v___x_1510_, 3, v___x_1503_);
         v___x_1511_ = l_Lean_Syntax_node2(v___x_1490_, v___x_1497_, v___x_1499_, v___x_1510_);
         v___x_1512_ = l_Lean_Syntax_node1(v___x_1490_, v___x_1496_, v___x_1511_);
         v___x_1513_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1;
         v___x_1514_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__2;
-        v___x_1515_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1515_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1515_, 1, v___x_1514_);
-        v___x_1516_ = crate::leanh::lean_obj_once(
+        v___x_1515_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1515_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1515_, 1, v___x_1514_);
+        v___x_1516_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__4
             ),
@@ -4095,11 +4095,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1517_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__5;
         v___x_1518_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1517_, v_currMacroScope_1487_);
-        v___x_1519_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1519_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1519_, 1, v___x_1516_);
-        crate::leanh::lean_ctor_set(v___x_1519_, 2, v___x_1518_);
-        crate::leanh::lean_ctor_set(v___x_1519_, 3, v___x_1503_);
+        v___x_1519_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1519_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1519_, 1, v___x_1516_);
+        leanh::lean_ctor_set(v___x_1519_, 2, v___x_1518_);
+        leanh::lean_ctor_set(v___x_1519_, 3, v___x_1503_);
         v___x_1520_ = l_Lean_Syntax_node2(v___x_1490_, v___x_1513_, v___x_1515_, v___x_1519_);
         v___x_1521_ = l_Lean_Syntax_node1(v___x_1490_, v___x_1496_, v___x_1520_);
         v___x_1522_ = l_Lean_Syntax_node3(
@@ -4110,7 +4110,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1521_,
         );
         v___x_1523_ = l_Lean_Syntax_node1(v___x_1490_, v___x_1494_, v___x_1522_);
-        v___x_1524_ = crate::leanh::lean_obj_once(
+        v___x_1524_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27
             ),
@@ -4119,21 +4119,21 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             ),
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27,
         );
-        v___x_1525_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1525_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1525_, 1, v___x_1495_);
-        crate::leanh::lean_ctor_set(v___x_1525_, 2, v___x_1524_);
+        v___x_1525_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_1525_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1525_, 1, v___x_1495_);
+        leanh::lean_ctor_set(v___x_1525_, 2, v___x_1524_);
         v___x_1526_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__6;
-        v___x_1527_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1527_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1527_, 1, v___x_1526_);
+        v___x_1527_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1527_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1527_, 1, v___x_1526_);
         v___x_1528_ = l_Lean_Syntax_node1(v___x_1490_, v___x_1495_, v___x_1527_);
         v___x_1529_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__28;
-        v___x_1530_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1530_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1530_, 1, v___x_1529_);
+        v___x_1530_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1530_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1530_, 1, v___x_1529_);
         v___x_1531_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__30;
-        v___x_1532_ = crate::leanh::lean_obj_once(
+        v___x_1532_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__32
             ),
@@ -4146,12 +4146,12 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1534_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1533_, v_currMacroScope_1487_);
         v___x_1535_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__35;
-        v___x_1536_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1536_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1536_, 1, v___x_1532_);
-        crate::leanh::lean_ctor_set(v___x_1536_, 2, v___x_1534_);
-        crate::leanh::lean_ctor_set(v___x_1536_, 3, v___x_1535_);
-        crate::leanh::lean_inc_ref_n(v___x_1525_, 19);
+        v___x_1536_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1536_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1536_, 1, v___x_1532_);
+        leanh::lean_ctor_set(v___x_1536_, 2, v___x_1534_);
+        leanh::lean_ctor_set(v___x_1536_, 3, v___x_1535_);
+        leanh::lean_inc_ref_n(v___x_1525_, 19);
         v___x_1537_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4160,10 +4160,10 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1536_,
         );
         v___x_1538_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__36;
-        v___x_1539_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1539_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1539_, 1, v___x_1538_);
-        v___x_1540_ = crate::leanh::lean_obj_once(
+        v___x_1539_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1539_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1539_, 1, v___x_1538_);
+        v___x_1540_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__38
             ),
@@ -4176,11 +4176,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1542_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1541_, v_currMacroScope_1487_);
         v___x_1543_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__43;
-        v___x_1544_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1544_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1544_, 1, v___x_1540_);
-        crate::leanh::lean_ctor_set(v___x_1544_, 2, v___x_1542_);
-        crate::leanh::lean_ctor_set(v___x_1544_, 3, v___x_1543_);
+        v___x_1544_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1544_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1544_, 1, v___x_1540_);
+        leanh::lean_ctor_set(v___x_1544_, 2, v___x_1542_);
+        leanh::lean_ctor_set(v___x_1544_, 3, v___x_1543_);
         v___x_1545_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4188,7 +4188,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1544_,
         );
-        v___x_1546_ = crate::leanh::lean_obj_once(
+        v___x_1546_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__45
             ),
@@ -4201,11 +4201,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1548_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1547_, v_currMacroScope_1487_);
         v___x_1549_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__52;
-        v___x_1550_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1550_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1550_, 1, v___x_1546_);
-        crate::leanh::lean_ctor_set(v___x_1550_, 2, v___x_1548_);
-        crate::leanh::lean_ctor_set(v___x_1550_, 3, v___x_1549_);
+        v___x_1550_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1550_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1550_, 1, v___x_1546_);
+        leanh::lean_ctor_set(v___x_1550_, 2, v___x_1548_);
+        leanh::lean_ctor_set(v___x_1550_, 3, v___x_1549_);
         v___x_1551_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4213,7 +4213,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1550_,
         );
-        v___x_1552_ = crate::leanh::lean_obj_once(
+        v___x_1552_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__54
             ),
@@ -4226,11 +4226,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1554_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1553_, v_currMacroScope_1487_);
         v___x_1555_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__57;
-        v___x_1556_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1556_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1556_, 1, v___x_1552_);
-        crate::leanh::lean_ctor_set(v___x_1556_, 2, v___x_1554_);
-        crate::leanh::lean_ctor_set(v___x_1556_, 3, v___x_1555_);
+        v___x_1556_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1556_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1556_, 1, v___x_1552_);
+        leanh::lean_ctor_set(v___x_1556_, 2, v___x_1554_);
+        leanh::lean_ctor_set(v___x_1556_, 3, v___x_1555_);
         v___x_1557_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4238,7 +4238,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1556_,
         );
-        v___x_1558_ = crate::leanh::lean_obj_once(
+        v___x_1558_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__59
             ),
@@ -4251,11 +4251,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1560_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1559_, v_currMacroScope_1487_);
         v___x_1561_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__62;
-        v___x_1562_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1562_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1562_, 1, v___x_1558_);
-        crate::leanh::lean_ctor_set(v___x_1562_, 2, v___x_1560_);
-        crate::leanh::lean_ctor_set(v___x_1562_, 3, v___x_1561_);
+        v___x_1562_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1562_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1562_, 1, v___x_1558_);
+        leanh::lean_ctor_set(v___x_1562_, 2, v___x_1560_);
+        leanh::lean_ctor_set(v___x_1562_, 3, v___x_1561_);
         v___x_1563_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4263,7 +4263,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1562_,
         );
-        v___x_1564_ = crate::leanh::lean_obj_once(
+        v___x_1564_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__64
             ),
@@ -4276,11 +4276,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1566_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1565_, v_currMacroScope_1487_);
         v___x_1567_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__69;
-        v___x_1568_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1568_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1568_, 1, v___x_1564_);
-        crate::leanh::lean_ctor_set(v___x_1568_, 2, v___x_1566_);
-        crate::leanh::lean_ctor_set(v___x_1568_, 3, v___x_1567_);
+        v___x_1568_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1568_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1568_, 1, v___x_1564_);
+        leanh::lean_ctor_set(v___x_1568_, 2, v___x_1566_);
+        leanh::lean_ctor_set(v___x_1568_, 3, v___x_1567_);
         v___x_1569_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4288,7 +4288,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1568_,
         );
-        v___x_1570_ = crate::leanh::lean_obj_once(
+        v___x_1570_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__71
             ),
@@ -4301,11 +4301,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1572_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1571_, v_currMacroScope_1487_);
         v___x_1573_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__76;
-        v___x_1574_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1574_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1574_, 1, v___x_1570_);
-        crate::leanh::lean_ctor_set(v___x_1574_, 2, v___x_1572_);
-        crate::leanh::lean_ctor_set(v___x_1574_, 3, v___x_1573_);
+        v___x_1574_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1574_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1574_, 1, v___x_1570_);
+        leanh::lean_ctor_set(v___x_1574_, 2, v___x_1572_);
+        leanh::lean_ctor_set(v___x_1574_, 3, v___x_1573_);
         v___x_1575_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4313,7 +4313,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1574_,
         );
-        v___x_1576_ = crate::leanh::lean_obj_once(
+        v___x_1576_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__8
             ),
@@ -4326,11 +4326,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1578_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1577_, v_currMacroScope_1487_);
         v___x_1579_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__11;
-        v___x_1580_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1580_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1580_, 1, v___x_1576_);
-        crate::leanh::lean_ctor_set(v___x_1580_, 2, v___x_1578_);
-        crate::leanh::lean_ctor_set(v___x_1580_, 3, v___x_1579_);
+        v___x_1580_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1580_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1580_, 1, v___x_1576_);
+        leanh::lean_ctor_set(v___x_1580_, 2, v___x_1578_);
+        leanh::lean_ctor_set(v___x_1580_, 3, v___x_1579_);
         v___x_1581_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4338,7 +4338,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1580_,
         );
-        v___x_1582_ = crate::leanh::lean_obj_once(
+        v___x_1582_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__13
             ),
@@ -4350,11 +4350,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1583_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__14;
         v___x_1584_ =
             l_Lean_addMacroScope(v_quotContext_1486_, v___x_1583_, v_currMacroScope_1487_);
-        v___x_1585_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1585_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1585_, 1, v___x_1582_);
-        crate::leanh::lean_ctor_set(v___x_1585_, 2, v___x_1584_);
-        crate::leanh::lean_ctor_set(v___x_1585_, 3, v___x_1503_);
+        v___x_1585_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1585_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1585_, 1, v___x_1582_);
+        leanh::lean_ctor_set(v___x_1585_, 2, v___x_1584_);
+        leanh::lean_ctor_set(v___x_1585_, 3, v___x_1503_);
         v___x_1586_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1531_,
@@ -4362,10 +4362,10 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1525_,
             v___x_1585_,
         );
-        v___x_1587_ = crate::leanh::lean_unsigned_to_nat(17);
+        v___x_1587_ = leanh::lean_unsigned_to_nat(17);
         v___x_1588_ = lean_mk_empty_array_with_capacity(v___x_1587_);
         v___x_1589_ = lean_array_push(v___x_1588_, v___x_1537_);
-        crate::leanh::lean_inc_ref_n(v___x_1539_, 7);
+        leanh::lean_inc_ref_n(v___x_1539_, 7);
         v___x_1590_ = lean_array_push(v___x_1589_, v___x_1539_);
         v___x_1591_ = lean_array_push(v___x_1590_, v___x_1545_);
         v___x_1592_ = lean_array_push(v___x_1591_, v___x_1539_);
@@ -4382,14 +4382,14 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v___x_1603_ = lean_array_push(v___x_1602_, v___x_1581_);
         v___x_1604_ = lean_array_push(v___x_1603_, v___x_1539_);
         v___x_1605_ = lean_array_push(v___x_1604_, v___x_1586_);
-        v___x_1606_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1606_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1606_, 1, v___x_1495_);
-        crate::leanh::lean_ctor_set(v___x_1606_, 2, v___x_1605_);
+        v___x_1606_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_1606_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1606_, 1, v___x_1495_);
+        leanh::lean_ctor_set(v___x_1606_, 2, v___x_1605_);
         v___x_1607_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__77;
-        v___x_1608_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1608_, 0, v___x_1490_);
-        crate::leanh::lean_ctor_set(v___x_1608_, 1, v___x_1607_);
+        v___x_1608_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1608_, 0, v___x_1490_);
+        leanh::lean_ctor_set(v___x_1608_, 1, v___x_1607_);
         v___x_1609_ = l_Lean_Syntax_node3(
             v___x_1490_,
             v___x_1495_,
@@ -4407,109 +4407,109 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
             v___x_1609_,
             v___x_1525_,
         );
-        v___x_1611_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1611_, 0, v___x_1610_);
-        crate::leanh::lean_ctor_set(v___x_1611_, 1, v_a_1481_);
+        v___x_1611_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1611_, 0, v___x_1610_);
+        leanh::lean_ctor_set(v___x_1611_, 1, v_a_1481_);
         return v___x_1611_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___boxed(
-    mut v_x_1612_: *mut crate::leanh::LeanObject,
-    mut v_a_1613_: *mut crate::leanh::LeanObject,
-    mut v_a_1614_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1615_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1612_: *mut leanh::LeanObject,
+    mut v_a_1613_: *mut leanh::LeanObject,
+    mut v_a_1614_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1615_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1615_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1(
         v_x_1612_, v_a_1613_, v_a_1614_,
     );
-    crate::leanh::lean_dec_ref(v_a_1613_);
+    leanh::lean_dec_ref(v_a_1613_);
     return v_res_1615_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1642_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1643_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1642_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1643_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1642_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__5;
     v___x_1643_ = l_String_toRawSubstring_x27(v___x_1642_);
     return v___x_1643_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1(
-    mut v_x_1654_: *mut crate::leanh::LeanObject,
-    mut v_a_1655_: *mut crate::leanh::LeanObject,
-    mut v_a_1656_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1657_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1654_: *mut leanh::LeanObject,
+    mut v_a_1655_: *mut leanh::LeanObject,
+    mut v_a_1656_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1657_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1658_: u8 = 0;
     v___x_1657_ = l_tacticDecreasing__trivial___closed__1;
     v___x_1658_ = l_Lean_Syntax_isOfKind(v_x_1654_, v___x_1657_);
     if v___x_1658_ == 0 {
-        let mut v___x_1659_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1660_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1659_ = crate::leanh::lean_box(1);
-        v___x_1660_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1660_, 0, v___x_1659_);
-        crate::leanh::lean_ctor_set(v___x_1660_, 1, v_a_1656_);
+        let mut v___x_1659_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1660_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1659_ = leanh::lean_box(1);
+        v___x_1660_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1660_, 0, v___x_1659_);
+        leanh::lean_ctor_set(v___x_1660_, 1, v_a_1656_);
         return v___x_1660_;
     } else {
-        let mut v_quotContext_1661_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_1662_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_1663_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_1661_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_1662_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1663_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1664_: u8 = 0;
-        let mut v___x_1665_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1666_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1667_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1668_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1669_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1670_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1671_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1672_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1673_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1674_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1675_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1676_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1677_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1678_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1679_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1680_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1681_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1682_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1683_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1684_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1685_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1686_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1687_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1688_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1689_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1690_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1691_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1692_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1693_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1694_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1695_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1696_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1697_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1698_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1699_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1700_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1701_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1702_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1703_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1704_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1705_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1706_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1707_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1708_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1709_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1710_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1711_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1712_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1713_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1714_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1715_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_1661_ = crate::leanh::lean_ctor_get(v_a_1655_, 1);
-        v_currMacroScope_1662_ = crate::leanh::lean_ctor_get(v_a_1655_, 2);
-        v_ref_1663_ = crate::leanh::lean_ctor_get(v_a_1655_, 5);
+        let mut v___x_1665_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1666_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1667_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1668_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1669_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1670_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1671_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1672_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1673_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1674_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1675_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1676_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1677_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1678_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1679_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1680_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1681_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1682_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1683_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1684_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1685_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1686_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1687_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1688_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1689_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1690_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1691_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1692_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1693_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1694_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1695_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1696_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1697_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1698_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1699_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1700_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1701_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1702_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1703_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1704_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1705_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1706_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1707_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1708_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1709_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1710_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1711_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1712_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1713_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1714_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1715_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_1661_ = leanh::lean_ctor_get(v_a_1655_, 1);
+        v_currMacroScope_1662_ = leanh::lean_ctor_get(v_a_1655_, 2);
+        v_ref_1663_ = leanh::lean_ctor_get(v_a_1655_, 5);
         v___x_1664_ = 0;
         v___x_1665_ = l_Lean_SourceInfo_fromRef(v_ref_1663_, v___x_1664_);
         v___x_1666_ =
@@ -4518,46 +4518,46 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3;
         v___x_1668_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__4;
-        crate::leanh::lean_inc_n(v___x_1665_, 22);
-        v___x_1669_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1669_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1669_, 1, v___x_1668_);
+        leanh::lean_inc_n(v___x_1665_, 22);
+        v___x_1669_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1669_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1669_, 1, v___x_1668_);
         v___x_1670_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7;
         v___x_1671_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9;
         v___x_1672_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_1673_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12;
         v___x_1674_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13;
-        v___x_1675_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1675_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1675_, 1, v___x_1673_);
+        v___x_1675_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1675_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1675_, 1, v___x_1673_);
         v___x_1676_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15;
         v___x_1677_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__17;
         v___x_1678_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__19;
         v___x_1679_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__20;
-        v___x_1680_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1680_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1680_, 1, v___x_1679_);
-        v___x_1681_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6);
+        v___x_1680_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1680_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1680_, 1, v___x_1679_);
+        v___x_1681_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__6);
         v___x_1682_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__7;
-        crate::leanh::lean_inc_n(v_currMacroScope_1662_, 2);
-        crate::leanh::lean_inc_n(v_quotContext_1661_, 2);
+        leanh::lean_inc_n(v_currMacroScope_1662_, 2);
+        leanh::lean_inc_n(v_quotContext_1661_, 2);
         v___x_1683_ =
             l_Lean_addMacroScope(v_quotContext_1661_, v___x_1682_, v_currMacroScope_1662_);
-        v___x_1684_ = crate::leanh::lean_box(0);
-        v___x_1685_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1685_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1685_, 1, v___x_1681_);
-        crate::leanh::lean_ctor_set(v___x_1685_, 2, v___x_1683_);
-        crate::leanh::lean_ctor_set(v___x_1685_, 3, v___x_1684_);
+        v___x_1684_ = leanh::lean_box(0);
+        v___x_1685_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1685_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1685_, 1, v___x_1681_);
+        leanh::lean_ctor_set(v___x_1685_, 2, v___x_1683_);
+        leanh::lean_ctor_set(v___x_1685_, 3, v___x_1684_);
         v___x_1686_ = l_Lean_Syntax_node2(v___x_1665_, v___x_1678_, v___x_1680_, v___x_1685_);
         v___x_1687_ = l_Lean_Syntax_node1(v___x_1665_, v___x_1677_, v___x_1686_);
         v___x_1688_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__1;
         v___x_1689_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__2;
-        v___x_1690_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1690_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1690_, 1, v___x_1689_);
-        v___x_1691_ = crate::leanh::lean_obj_once(
+        v___x_1690_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1690_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1690_, 1, v___x_1689_);
+        v___x_1691_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__4
             ),
@@ -4569,16 +4569,16 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
         v___x_1692_ = l___aux__Init__WFTactics______macroRules__tacticClean__wf__1___closed__5;
         v___x_1693_ =
             l_Lean_addMacroScope(v_quotContext_1661_, v___x_1692_, v_currMacroScope_1662_);
-        v___x_1694_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1694_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1694_, 1, v___x_1691_);
-        crate::leanh::lean_ctor_set(v___x_1694_, 2, v___x_1693_);
-        crate::leanh::lean_ctor_set(v___x_1694_, 3, v___x_1684_);
+        v___x_1694_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1694_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1694_, 1, v___x_1691_);
+        leanh::lean_ctor_set(v___x_1694_, 2, v___x_1693_);
+        leanh::lean_ctor_set(v___x_1694_, 3, v___x_1684_);
         v___x_1695_ = l_Lean_Syntax_node2(v___x_1665_, v___x_1688_, v___x_1690_, v___x_1694_);
         v___x_1696_ = l_Lean_Syntax_node1(v___x_1665_, v___x_1677_, v___x_1695_);
         v___x_1697_ = l_Lean_Syntax_node2(v___x_1665_, v___x_1672_, v___x_1687_, v___x_1696_);
         v___x_1698_ = l_Lean_Syntax_node1(v___x_1665_, v___x_1676_, v___x_1697_);
-        v___x_1699_ = crate::leanh::lean_obj_once(
+        v___x_1699_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27
             ),
@@ -4587,11 +4587,11 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             ),
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27,
         );
-        v___x_1700_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1700_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1700_, 1, v___x_1672_);
-        crate::leanh::lean_ctor_set(v___x_1700_, 2, v___x_1699_);
-        crate::leanh::lean_inc_ref_n(v___x_1700_, 3);
+        v___x_1700_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_1700_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1700_, 1, v___x_1672_);
+        leanh::lean_ctor_set(v___x_1700_, 2, v___x_1699_);
+        leanh::lean_inc_ref_n(v___x_1700_, 3);
         v___x_1701_ = l_Lean_Syntax_node6(
             v___x_1665_,
             v___x_1674_,
@@ -4607,9 +4607,9 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
         v___x_1704_ = l_Lean_Syntax_node1(v___x_1665_, v___x_1670_, v___x_1703_);
         v___x_1705_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__8;
-        v___x_1706_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1706_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1706_, 1, v___x_1705_);
+        v___x_1706_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1706_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1706_, 1, v___x_1705_);
         v___x_1707_ = l_Lean_Syntax_node3(
             v___x_1665_,
             v___x_1667_,
@@ -4619,16 +4619,16 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
         );
         v___x_1708_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__9;
-        v___x_1709_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1709_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1709_, 1, v___x_1708_);
+        v___x_1709_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1709_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1709_, 1, v___x_1708_);
         v___x_1710_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10;
         v___x_1711_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11;
-        v___x_1712_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1712_, 0, v___x_1665_);
-        crate::leanh::lean_ctor_set(v___x_1712_, 1, v___x_1710_);
+        v___x_1712_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1712_, 0, v___x_1665_);
+        leanh::lean_ctor_set(v___x_1712_, 1, v___x_1710_);
         v___x_1713_ = l_Lean_Syntax_node1(v___x_1665_, v___x_1711_, v___x_1712_);
         v___x_1714_ = l_Lean_Syntax_node3(
             v___x_1665_,
@@ -4637,69 +4637,69 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             v___x_1709_,
             v___x_1713_,
         );
-        v___x_1715_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1715_, 0, v___x_1714_);
-        crate::leanh::lean_ctor_set(v___x_1715_, 1, v_a_1656_);
+        v___x_1715_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1715_, 0, v___x_1714_);
+        leanh::lean_ctor_set(v___x_1715_, 1, v_a_1656_);
         return v___x_1715_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___boxed(
-    mut v_x_1716_: *mut crate::leanh::LeanObject,
-    mut v_a_1717_: *mut crate::leanh::LeanObject,
-    mut v_a_1718_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1719_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1716_: *mut leanh::LeanObject,
+    mut v_a_1717_: *mut leanh::LeanObject,
+    mut v_a_1718_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1719_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1719_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1(
         v_x_1716_, v_a_1717_, v_a_1718_,
     );
-    crate::leanh::lean_dec_ref(v_a_1717_);
+    leanh::lean_dec_ref(v_a_1717_);
     return v_res_1719_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2(
-    mut v_x_1726_: *mut crate::leanh::LeanObject,
-    mut v_a_1727_: *mut crate::leanh::LeanObject,
-    mut v_a_1728_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1729_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1726_: *mut leanh::LeanObject,
+    mut v_a_1727_: *mut leanh::LeanObject,
+    mut v_a_1728_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1729_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1730_: u8 = 0;
     v___x_1729_ = l_tacticDecreasing__trivial___closed__1;
     v___x_1730_ = l_Lean_Syntax_isOfKind(v_x_1726_, v___x_1729_);
     if v___x_1730_ == 0 {
-        let mut v___x_1731_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1732_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1731_ = crate::leanh::lean_box(1);
-        v___x_1732_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1732_, 0, v___x_1731_);
-        crate::leanh::lean_ctor_set(v___x_1732_, 1, v_a_1728_);
+        let mut v___x_1731_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1732_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1731_ = leanh::lean_box(1);
+        v___x_1732_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1732_, 0, v___x_1731_);
+        leanh::lean_ctor_set(v___x_1732_, 1, v_a_1728_);
         return v___x_1732_;
     } else {
-        let mut v_ref_1733_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1733_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1734_: u8 = 0;
-        let mut v___x_1735_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1736_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1737_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1738_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1739_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1740_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1741_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1742_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1743_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1744_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1745_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_ref_1733_ = crate::leanh::lean_ctor_get(v_a_1727_, 5);
+        let mut v___x_1735_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1736_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1737_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1738_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1739_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1740_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1741_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1742_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1743_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1744_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1745_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_ref_1733_ = leanh::lean_ctor_get(v_a_1727_, 5);
         v___x_1734_ = 0;
         v___x_1735_ = l_Lean_SourceInfo_fromRef(v_ref_1733_, v___x_1734_);
         v___x_1736_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__0;
         v___x_1737_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___closed__1;
-        crate::leanh::lean_inc_n(v___x_1735_, 3);
-        v___x_1738_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1738_, 0, v___x_1735_);
-        crate::leanh::lean_ctor_set(v___x_1738_, 1, v___x_1736_);
+        leanh::lean_inc_n(v___x_1735_, 3);
+        v___x_1738_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1738_, 0, v___x_1735_);
+        leanh::lean_ctor_set(v___x_1738_, 1, v___x_1736_);
         v___x_1739_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15;
         v___x_1740_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
-        v___x_1741_ = crate::leanh::lean_obj_once(
+        v___x_1741_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27
             ),
@@ -4708,174 +4708,174 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             ),
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27,
         );
-        v___x_1742_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1742_, 0, v___x_1735_);
-        crate::leanh::lean_ctor_set(v___x_1742_, 1, v___x_1740_);
-        crate::leanh::lean_ctor_set(v___x_1742_, 2, v___x_1741_);
+        v___x_1742_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_1742_, 0, v___x_1735_);
+        leanh::lean_ctor_set(v___x_1742_, 1, v___x_1740_);
+        leanh::lean_ctor_set(v___x_1742_, 2, v___x_1741_);
         v___x_1743_ = l_Lean_Syntax_node1(v___x_1735_, v___x_1739_, v___x_1742_);
         v___x_1744_ = l_Lean_Syntax_node2(v___x_1735_, v___x_1737_, v___x_1738_, v___x_1743_);
-        v___x_1745_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1745_, 0, v___x_1744_);
-        crate::leanh::lean_ctor_set(v___x_1745_, 1, v_a_1728_);
+        v___x_1745_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1745_, 0, v___x_1744_);
+        leanh::lean_ctor_set(v___x_1745_, 1, v_a_1728_);
         return v___x_1745_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2___boxed(
-    mut v_x_1746_: *mut crate::leanh::LeanObject,
-    mut v_a_1747_: *mut crate::leanh::LeanObject,
-    mut v_a_1748_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1749_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1746_: *mut leanh::LeanObject,
+    mut v_a_1747_: *mut leanh::LeanObject,
+    mut v_a_1748_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1749_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1749_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__2(
         v_x_1746_, v_a_1747_, v_a_1748_,
     );
-    crate::leanh::lean_dec_ref(v_a_1747_);
+    leanh::lean_dec_ref(v_a_1747_);
     return v_res_1749_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3(
-    mut v_x_1756_: *mut crate::leanh::LeanObject,
-    mut v_a_1757_: *mut crate::leanh::LeanObject,
-    mut v_a_1758_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1759_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1756_: *mut leanh::LeanObject,
+    mut v_a_1757_: *mut leanh::LeanObject,
+    mut v_a_1758_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1759_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1760_: u8 = 0;
     v___x_1759_ = l_tacticDecreasing__trivial___closed__1;
     v___x_1760_ = l_Lean_Syntax_isOfKind(v_x_1756_, v___x_1759_);
     if v___x_1760_ == 0 {
-        let mut v___x_1761_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1762_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1761_ = crate::leanh::lean_box(1);
-        v___x_1762_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1762_, 0, v___x_1761_);
-        crate::leanh::lean_ctor_set(v___x_1762_, 1, v_a_1758_);
+        let mut v___x_1761_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1762_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1761_ = leanh::lean_box(1);
+        v___x_1762_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1762_, 0, v___x_1761_);
+        leanh::lean_ctor_set(v___x_1762_, 1, v_a_1758_);
         return v___x_1762_;
     } else {
-        let mut v_ref_1763_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1763_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1764_: u8 = 0;
-        let mut v___x_1765_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1766_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1767_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1768_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1769_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1770_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_ref_1763_ = crate::leanh::lean_ctor_get(v_a_1757_, 5);
+        let mut v___x_1765_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1766_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1767_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1768_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1769_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1770_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_ref_1763_ = leanh::lean_ctor_get(v_a_1757_, 5);
         v___x_1764_ = 0;
         v___x_1765_ = l_Lean_SourceInfo_fromRef(v_ref_1763_, v___x_1764_);
         v___x_1766_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0;
         v___x_1767_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1;
-        crate::leanh::lean_inc(v___x_1765_);
-        v___x_1768_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1768_, 0, v___x_1765_);
-        crate::leanh::lean_ctor_set(v___x_1768_, 1, v___x_1766_);
+        leanh::lean_inc(v___x_1765_);
+        v___x_1768_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1768_, 0, v___x_1765_);
+        leanh::lean_ctor_set(v___x_1768_, 1, v___x_1766_);
         v___x_1769_ = l_Lean_Syntax_node1(v___x_1765_, v___x_1767_, v___x_1768_);
-        v___x_1770_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1770_, 0, v___x_1769_);
-        crate::leanh::lean_ctor_set(v___x_1770_, 1, v_a_1758_);
+        v___x_1770_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1770_, 0, v___x_1769_);
+        leanh::lean_ctor_set(v___x_1770_, 1, v_a_1758_);
         return v___x_1770_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___boxed(
-    mut v_x_1771_: *mut crate::leanh::LeanObject,
-    mut v_a_1772_: *mut crate::leanh::LeanObject,
-    mut v_a_1773_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1774_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1771_: *mut leanh::LeanObject,
+    mut v_a_1772_: *mut leanh::LeanObject,
+    mut v_a_1773_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1774_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1774_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3(
         v_x_1771_, v_a_1772_, v_a_1773_,
     );
-    crate::leanh::lean_dec_ref(v_a_1772_);
+    leanh::lean_dec_ref(v_a_1772_);
     return v_res_1774_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1800_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1801_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1800_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1801_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1800_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__4;
     v___x_1801_ = l_String_toRawSubstring_x27(v___x_1800_);
     return v___x_1801_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1(
-    mut v_x_1813_: *mut crate::leanh::LeanObject,
-    mut v_a_1814_: *mut crate::leanh::LeanObject,
-    mut v_a_1815_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1816_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1813_: *mut leanh::LeanObject,
+    mut v_a_1814_: *mut leanh::LeanObject,
+    mut v_a_1815_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1816_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1817_: u8 = 0;
     v___x_1816_ = l_tacticDecreasing__trivial__pre__omega___closed__1;
     v___x_1817_ = l_Lean_Syntax_isOfKind(v_x_1813_, v___x_1816_);
     if v___x_1817_ == 0 {
-        let mut v___x_1818_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1819_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1818_ = crate::leanh::lean_box(1);
-        v___x_1819_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1819_, 0, v___x_1818_);
-        crate::leanh::lean_ctor_set(v___x_1819_, 1, v_a_1815_);
+        let mut v___x_1818_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1819_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1818_ = leanh::lean_box(1);
+        v___x_1819_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1819_, 0, v___x_1818_);
+        leanh::lean_ctor_set(v___x_1819_, 1, v_a_1815_);
         return v___x_1819_;
     } else {
-        let mut v_quotContext_1820_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_1821_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_1822_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_1820_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_1821_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1822_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1823_: u8 = 0;
-        let mut v___x_1824_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1825_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1826_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1827_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1828_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1829_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1830_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1831_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1832_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1833_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1834_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1835_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1836_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1837_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1838_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1839_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1840_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1841_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1842_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1843_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1844_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_1820_ = crate::leanh::lean_ctor_get(v_a_1814_, 1);
-        v_currMacroScope_1821_ = crate::leanh::lean_ctor_get(v_a_1814_, 2);
-        v_ref_1822_ = crate::leanh::lean_ctor_get(v_a_1814_, 5);
+        let mut v___x_1824_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1825_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1826_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1827_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1828_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1829_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1830_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1831_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1832_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1833_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1834_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1835_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1836_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1837_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1838_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1839_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1840_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1841_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1842_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1843_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1844_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_1820_ = leanh::lean_ctor_get(v_a_1814_, 1);
+        v_currMacroScope_1821_ = leanh::lean_ctor_get(v_a_1814_, 2);
+        v_ref_1822_ = leanh::lean_ctor_get(v_a_1814_, 5);
         v___x_1823_ = 0;
         v___x_1824_ = l_Lean_SourceInfo_fromRef(v_ref_1822_, v___x_1823_);
         v___x_1825_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1;
         v___x_1826_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_1827_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2;
         v___x_1828_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3;
-        crate::leanh::lean_inc_n(v___x_1824_, 7);
-        v___x_1829_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1829_, 0, v___x_1824_);
-        crate::leanh::lean_ctor_set(v___x_1829_, 1, v___x_1827_);
-        v___x_1830_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5);
+        leanh::lean_inc_n(v___x_1824_, 7);
+        v___x_1829_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1829_, 0, v___x_1824_);
+        leanh::lean_ctor_set(v___x_1829_, 1, v___x_1827_);
+        v___x_1830_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__5);
         v___x_1831_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__7;
-        crate::leanh::lean_inc(v_currMacroScope_1821_);
-        crate::leanh::lean_inc(v_quotContext_1820_);
+        leanh::lean_inc(v_currMacroScope_1821_);
+        leanh::lean_inc(v_quotContext_1820_);
         v___x_1832_ =
             l_Lean_addMacroScope(v_quotContext_1820_, v___x_1831_, v_currMacroScope_1821_);
         v___x_1833_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__9;
-        v___x_1834_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1834_, 0, v___x_1824_);
-        crate::leanh::lean_ctor_set(v___x_1834_, 1, v___x_1830_);
-        crate::leanh::lean_ctor_set(v___x_1834_, 2, v___x_1832_);
-        crate::leanh::lean_ctor_set(v___x_1834_, 3, v___x_1833_);
+        v___x_1834_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1834_, 0, v___x_1824_);
+        leanh::lean_ctor_set(v___x_1834_, 1, v___x_1830_);
+        leanh::lean_ctor_set(v___x_1834_, 2, v___x_1832_);
+        leanh::lean_ctor_set(v___x_1834_, 3, v___x_1833_);
         v___x_1835_ = l_Lean_Syntax_node2(v___x_1824_, v___x_1828_, v___x_1829_, v___x_1834_);
         v___x_1836_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10;
-        v___x_1837_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1837_, 0, v___x_1824_);
-        crate::leanh::lean_ctor_set(v___x_1837_, 1, v___x_1836_);
+        v___x_1837_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1837_, 0, v___x_1824_);
+        leanh::lean_ctor_set(v___x_1837_, 1, v___x_1836_);
         v___x_1838_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0;
         v___x_1839_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1;
-        v___x_1840_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1840_, 0, v___x_1824_);
-        crate::leanh::lean_ctor_set(v___x_1840_, 1, v___x_1838_);
+        v___x_1840_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1840_, 0, v___x_1824_);
+        leanh::lean_ctor_set(v___x_1840_, 1, v___x_1838_);
         v___x_1841_ = l_Lean_Syntax_node1(v___x_1824_, v___x_1839_, v___x_1840_);
         v___x_1842_ = l_Lean_Syntax_node3(
             v___x_1824_,
@@ -4885,113 +4885,113 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             v___x_1841_,
         );
         v___x_1843_ = l_Lean_Syntax_node1(v___x_1824_, v___x_1825_, v___x_1842_);
-        v___x_1844_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1844_, 0, v___x_1843_);
-        crate::leanh::lean_ctor_set(v___x_1844_, 1, v_a_1815_);
+        v___x_1844_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1844_, 0, v___x_1843_);
+        leanh::lean_ctor_set(v___x_1844_, 1, v_a_1815_);
         return v___x_1844_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___boxed(
-    mut v_x_1845_: *mut crate::leanh::LeanObject,
-    mut v_a_1846_: *mut crate::leanh::LeanObject,
-    mut v_a_1847_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1848_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1845_: *mut leanh::LeanObject,
+    mut v_a_1846_: *mut leanh::LeanObject,
+    mut v_a_1847_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1848_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1848_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1(
             v_x_1845_, v_a_1846_, v_a_1847_,
         );
-    crate::leanh::lean_dec_ref(v_a_1846_);
+    leanh::lean_dec_ref(v_a_1846_);
     return v_res_1848_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1850_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1851_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1850_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1851_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1850_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__0;
     v___x_1851_ = l_String_toRawSubstring_x27(v___x_1850_);
     return v___x_1851_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2(
-    mut v_x_1862_: *mut crate::leanh::LeanObject,
-    mut v_a_1863_: *mut crate::leanh::LeanObject,
-    mut v_a_1864_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1865_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1862_: *mut leanh::LeanObject,
+    mut v_a_1863_: *mut leanh::LeanObject,
+    mut v_a_1864_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1865_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1866_: u8 = 0;
     v___x_1865_ = l_tacticDecreasing__trivial__pre__omega___closed__1;
     v___x_1866_ = l_Lean_Syntax_isOfKind(v_x_1862_, v___x_1865_);
     if v___x_1866_ == 0 {
-        let mut v___x_1867_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1868_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1867_ = crate::leanh::lean_box(1);
-        v___x_1868_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1868_, 0, v___x_1867_);
-        crate::leanh::lean_ctor_set(v___x_1868_, 1, v_a_1864_);
+        let mut v___x_1867_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1868_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1867_ = leanh::lean_box(1);
+        v___x_1868_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1868_, 0, v___x_1867_);
+        leanh::lean_ctor_set(v___x_1868_, 1, v_a_1864_);
         return v___x_1868_;
     } else {
-        let mut v_quotContext_1869_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_1870_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_1871_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_1869_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_1870_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1871_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1872_: u8 = 0;
-        let mut v___x_1873_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1874_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1875_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1876_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1877_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1878_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1879_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1880_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1881_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1882_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1883_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1884_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1885_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1886_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1887_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1888_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1889_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1890_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1891_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1892_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1893_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_1869_ = crate::leanh::lean_ctor_get(v_a_1863_, 1);
-        v_currMacroScope_1870_ = crate::leanh::lean_ctor_get(v_a_1863_, 2);
-        v_ref_1871_ = crate::leanh::lean_ctor_get(v_a_1863_, 5);
+        let mut v___x_1873_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1874_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1875_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1876_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1877_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1878_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1879_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1880_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1881_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1882_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1883_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1884_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1885_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1886_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1887_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1888_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1889_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1890_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1891_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1892_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1893_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_1869_ = leanh::lean_ctor_get(v_a_1863_, 1);
+        v_currMacroScope_1870_ = leanh::lean_ctor_get(v_a_1863_, 2);
+        v_ref_1871_ = leanh::lean_ctor_get(v_a_1863_, 5);
         v___x_1872_ = 0;
         v___x_1873_ = l_Lean_SourceInfo_fromRef(v_ref_1871_, v___x_1872_);
         v___x_1874_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1;
         v___x_1875_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_1876_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2;
         v___x_1877_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3;
-        crate::leanh::lean_inc_n(v___x_1873_, 7);
-        v___x_1878_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1878_, 0, v___x_1873_);
-        crate::leanh::lean_ctor_set(v___x_1878_, 1, v___x_1876_);
-        v___x_1879_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1);
+        leanh::lean_inc_n(v___x_1873_, 7);
+        v___x_1878_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1878_, 0, v___x_1873_);
+        leanh::lean_ctor_set(v___x_1878_, 1, v___x_1876_);
+        v___x_1879_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__1);
         v___x_1880_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__3;
-        crate::leanh::lean_inc(v_currMacroScope_1870_);
-        crate::leanh::lean_inc(v_quotContext_1869_);
+        leanh::lean_inc(v_currMacroScope_1870_);
+        leanh::lean_inc(v_quotContext_1869_);
         v___x_1881_ =
             l_Lean_addMacroScope(v_quotContext_1869_, v___x_1880_, v_currMacroScope_1870_);
         v___x_1882_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___closed__5;
-        v___x_1883_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1883_, 0, v___x_1873_);
-        crate::leanh::lean_ctor_set(v___x_1883_, 1, v___x_1879_);
-        crate::leanh::lean_ctor_set(v___x_1883_, 2, v___x_1881_);
-        crate::leanh::lean_ctor_set(v___x_1883_, 3, v___x_1882_);
+        v___x_1883_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1883_, 0, v___x_1873_);
+        leanh::lean_ctor_set(v___x_1883_, 1, v___x_1879_);
+        leanh::lean_ctor_set(v___x_1883_, 2, v___x_1881_);
+        leanh::lean_ctor_set(v___x_1883_, 3, v___x_1882_);
         v___x_1884_ = l_Lean_Syntax_node2(v___x_1873_, v___x_1877_, v___x_1878_, v___x_1883_);
         v___x_1885_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10;
-        v___x_1886_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1886_, 0, v___x_1873_);
-        crate::leanh::lean_ctor_set(v___x_1886_, 1, v___x_1885_);
+        v___x_1886_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1886_, 0, v___x_1873_);
+        leanh::lean_ctor_set(v___x_1886_, 1, v___x_1885_);
         v___x_1887_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0;
         v___x_1888_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1;
-        v___x_1889_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1889_, 0, v___x_1873_);
-        crate::leanh::lean_ctor_set(v___x_1889_, 1, v___x_1887_);
+        v___x_1889_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1889_, 0, v___x_1873_);
+        leanh::lean_ctor_set(v___x_1889_, 1, v___x_1887_);
         v___x_1890_ = l_Lean_Syntax_node1(v___x_1873_, v___x_1888_, v___x_1889_);
         v___x_1891_ = l_Lean_Syntax_node3(
             v___x_1873_,
@@ -5001,113 +5001,113 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             v___x_1890_,
         );
         v___x_1892_ = l_Lean_Syntax_node1(v___x_1873_, v___x_1874_, v___x_1891_);
-        v___x_1893_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1893_, 0, v___x_1892_);
-        crate::leanh::lean_ctor_set(v___x_1893_, 1, v_a_1864_);
+        v___x_1893_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1893_, 0, v___x_1892_);
+        leanh::lean_ctor_set(v___x_1893_, 1, v_a_1864_);
         return v___x_1893_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2___boxed(
-    mut v_x_1894_: *mut crate::leanh::LeanObject,
-    mut v_a_1895_: *mut crate::leanh::LeanObject,
-    mut v_a_1896_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1897_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1894_: *mut leanh::LeanObject,
+    mut v_a_1895_: *mut leanh::LeanObject,
+    mut v_a_1896_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1897_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1897_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__2(
             v_x_1894_, v_a_1895_, v_a_1896_,
         );
-    crate::leanh::lean_dec_ref(v_a_1895_);
+    leanh::lean_dec_ref(v_a_1895_);
     return v_res_1897_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1899_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1900_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1899_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1900_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1899_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__0;
     v___x_1900_ = l_String_toRawSubstring_x27(v___x_1899_);
     return v___x_1900_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3(
-    mut v_x_1911_: *mut crate::leanh::LeanObject,
-    mut v_a_1912_: *mut crate::leanh::LeanObject,
-    mut v_a_1913_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1914_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1911_: *mut leanh::LeanObject,
+    mut v_a_1912_: *mut leanh::LeanObject,
+    mut v_a_1913_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1914_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1915_: u8 = 0;
     v___x_1914_ = l_tacticDecreasing__trivial__pre__omega___closed__1;
     v___x_1915_ = l_Lean_Syntax_isOfKind(v_x_1911_, v___x_1914_);
     if v___x_1915_ == 0 {
-        let mut v___x_1916_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1917_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_1916_ = crate::leanh::lean_box(1);
-        v___x_1917_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1917_, 0, v___x_1916_);
-        crate::leanh::lean_ctor_set(v___x_1917_, 1, v_a_1913_);
+        let mut v___x_1916_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1917_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_1916_ = leanh::lean_box(1);
+        v___x_1917_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1917_, 0, v___x_1916_);
+        leanh::lean_ctor_set(v___x_1917_, 1, v_a_1913_);
         return v___x_1917_;
     } else {
-        let mut v_quotContext_1918_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_1919_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_1920_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_1918_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_1919_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_1920_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_1921_: u8 = 0;
-        let mut v___x_1922_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1923_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1924_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1925_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1926_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1927_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1928_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1929_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1930_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1931_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1932_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1933_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1934_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1935_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1936_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1937_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1938_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1939_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1940_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1941_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1942_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_1918_ = crate::leanh::lean_ctor_get(v_a_1912_, 1);
-        v_currMacroScope_1919_ = crate::leanh::lean_ctor_get(v_a_1912_, 2);
-        v_ref_1920_ = crate::leanh::lean_ctor_get(v_a_1912_, 5);
+        let mut v___x_1922_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1923_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1924_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1925_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1926_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1927_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1928_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1929_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1930_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1931_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1932_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1933_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1934_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1935_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1936_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1937_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1938_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1939_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1940_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1941_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1942_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_1918_ = leanh::lean_ctor_get(v_a_1912_, 1);
+        v_currMacroScope_1919_ = leanh::lean_ctor_get(v_a_1912_, 2);
+        v_ref_1920_ = leanh::lean_ctor_get(v_a_1912_, 5);
         v___x_1921_ = 0;
         v___x_1922_ = l_Lean_SourceInfo_fromRef(v_ref_1920_, v___x_1921_);
         v___x_1923_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__1;
         v___x_1924_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_1925_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2;
         v___x_1926_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3;
-        crate::leanh::lean_inc_n(v___x_1922_, 7);
-        v___x_1927_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1927_, 0, v___x_1922_);
-        crate::leanh::lean_ctor_set(v___x_1927_, 1, v___x_1925_);
-        v___x_1928_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1);
+        leanh::lean_inc_n(v___x_1922_, 7);
+        v___x_1927_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1927_, 0, v___x_1922_);
+        leanh::lean_ctor_set(v___x_1927_, 1, v___x_1925_);
+        v___x_1928_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__1);
         v___x_1929_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__3;
-        crate::leanh::lean_inc(v_currMacroScope_1919_);
-        crate::leanh::lean_inc(v_quotContext_1918_);
+        leanh::lean_inc(v_currMacroScope_1919_);
+        leanh::lean_inc(v_quotContext_1918_);
         v___x_1930_ =
             l_Lean_addMacroScope(v_quotContext_1918_, v___x_1929_, v_currMacroScope_1919_);
         v___x_1931_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___closed__5;
-        v___x_1932_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1932_, 0, v___x_1922_);
-        crate::leanh::lean_ctor_set(v___x_1932_, 1, v___x_1928_);
-        crate::leanh::lean_ctor_set(v___x_1932_, 2, v___x_1930_);
-        crate::leanh::lean_ctor_set(v___x_1932_, 3, v___x_1931_);
+        v___x_1932_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_1932_, 0, v___x_1922_);
+        leanh::lean_ctor_set(v___x_1932_, 1, v___x_1928_);
+        leanh::lean_ctor_set(v___x_1932_, 2, v___x_1930_);
+        leanh::lean_ctor_set(v___x_1932_, 3, v___x_1931_);
         v___x_1933_ = l_Lean_Syntax_node2(v___x_1922_, v___x_1926_, v___x_1927_, v___x_1932_);
         v___x_1934_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10;
-        v___x_1935_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1935_, 0, v___x_1922_);
-        crate::leanh::lean_ctor_set(v___x_1935_, 1, v___x_1934_);
+        v___x_1935_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1935_, 0, v___x_1922_);
+        leanh::lean_ctor_set(v___x_1935_, 1, v___x_1934_);
         v___x_1936_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__0;
         v___x_1937_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__3___closed__1;
-        v___x_1938_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1938_, 0, v___x_1922_);
-        crate::leanh::lean_ctor_set(v___x_1938_, 1, v___x_1936_);
+        v___x_1938_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1938_, 0, v___x_1922_);
+        leanh::lean_ctor_set(v___x_1938_, 1, v___x_1936_);
         v___x_1939_ = l_Lean_Syntax_node1(v___x_1922_, v___x_1937_, v___x_1938_);
         v___x_1940_ = l_Lean_Syntax_node3(
             v___x_1922_,
@@ -5117,232 +5117,232 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivia
             v___x_1939_,
         );
         v___x_1941_ = l_Lean_Syntax_node1(v___x_1922_, v___x_1923_, v___x_1940_);
-        v___x_1942_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_1942_, 0, v___x_1941_);
-        crate::leanh::lean_ctor_set(v___x_1942_, 1, v_a_1913_);
+        v___x_1942_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_1942_, 0, v___x_1941_);
+        leanh::lean_ctor_set(v___x_1942_, 1, v_a_1913_);
         return v___x_1942_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3___boxed(
-    mut v_x_1943_: *mut crate::leanh::LeanObject,
-    mut v_a_1944_: *mut crate::leanh::LeanObject,
-    mut v_a_1945_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1946_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1943_: *mut leanh::LeanObject,
+    mut v_a_1944_: *mut leanh::LeanObject,
+    mut v_a_1945_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1946_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1946_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__3(
             v_x_1943_, v_a_1944_, v_a_1945_,
         );
-    crate::leanh::lean_dec_ref(v_a_1944_);
+    leanh::lean_dec_ref(v_a_1944_);
     return v_res_1946_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1988_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1989_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_1988_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1989_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1988_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__8;
     v___x_1989_ = l_String_toRawSubstring_x27(v___x_1988_);
     return v___x_1989_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_2003_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2004_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_2003_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2004_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2003_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__15;
     v___x_2004_ = l_String_toRawSubstring_x27(v___x_2003_);
     return v___x_2004_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_2017_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2018_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_2017_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2018_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2017_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__21;
     v___x_2018_ = l_String_toRawSubstring_x27(v___x_2017_);
     return v___x_2018_;
 }
 pub unsafe fn _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_2031_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2032_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_2031_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2032_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2031_ =
         l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__27;
     v___x_2032_ = l_String_toRawSubstring_x27(v___x_2031_);
     return v___x_2032_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1(
-    mut v_x_2053_: *mut crate::leanh::LeanObject,
-    mut v_a_2054_: *mut crate::leanh::LeanObject,
-    mut v_a_2055_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2056_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_2053_: *mut leanh::LeanObject,
+    mut v_a_2054_: *mut leanh::LeanObject,
+    mut v_a_2055_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2056_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2057_: u8 = 0;
     v___x_2056_ = l_tacticDecreasing__with___00__closed__1;
-    crate::leanh::lean_inc(v_x_2053_);
+    leanh::lean_inc(v_x_2053_);
     v___x_2057_ = l_Lean_Syntax_isOfKind(v_x_2053_, v___x_2056_);
     if v___x_2057_ == 0 {
-        let mut v___x_2058_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2059_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        crate::leanh::lean_dec(v_x_2053_);
-        v___x_2058_ = crate::leanh::lean_box(1);
-        v___x_2059_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2059_, 0, v___x_2058_);
-        crate::leanh::lean_ctor_set(v___x_2059_, 1, v_a_2055_);
+        let mut v___x_2058_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2059_: *mut leanh::LeanObject = core::ptr::null_mut();
+        leanh::lean_dec(v_x_2053_);
+        v___x_2058_ = leanh::lean_box(1);
+        v___x_2059_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2059_, 0, v___x_2058_);
+        leanh::lean_ctor_set(v___x_2059_, 1, v_a_2055_);
         return v___x_2059_;
     } else {
-        let mut v_quotContext_2060_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_currMacroScope_2061_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v_ref_2062_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2063_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2064_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2065_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_quotContext_2060_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_currMacroScope_2061_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_2062_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2063_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2064_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2065_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2066_: u8 = 0;
-        let mut v___x_2067_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2068_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2069_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2070_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2071_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2072_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2073_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2074_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2075_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2076_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2077_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2078_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2079_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2080_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2081_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2082_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2083_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2084_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2085_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2086_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2087_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2088_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2089_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2090_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2091_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2092_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2093_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2094_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2095_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2096_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2097_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2098_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2099_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2100_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2101_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2102_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2103_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2104_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2105_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2106_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2107_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2108_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2109_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2110_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2111_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2112_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2113_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2114_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2115_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2116_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2117_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2118_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2119_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2120_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2121_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2122_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2123_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2124_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2125_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2126_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2127_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2128_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2129_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2130_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2131_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2132_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2133_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2134_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2135_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2136_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2137_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2138_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2139_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2140_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2141_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2142_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2143_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2144_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2145_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2146_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2147_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2148_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2149_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2150_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2151_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2152_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2153_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2154_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2155_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2156_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2157_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2158_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2159_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2160_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2161_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2162_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2163_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2164_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2165_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2166_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2167_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2168_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2169_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2170_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2171_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2172_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2173_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2174_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2175_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2176_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2177_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2178_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2179_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2180_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2181_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2182_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2183_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2184_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2185_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2186_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2187_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2188_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2189_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2190_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2191_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2192_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2193_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2194_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2195_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2196_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2197_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2198_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2199_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2200_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2201_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2202_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2203_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2204_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2205_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_quotContext_2060_ = crate::leanh::lean_ctor_get(v_a_2054_, 1);
-        v_currMacroScope_2061_ = crate::leanh::lean_ctor_get(v_a_2054_, 2);
-        v_ref_2062_ = crate::leanh::lean_ctor_get(v_a_2054_, 5);
-        v___x_2063_ = crate::leanh::lean_unsigned_to_nat(1);
+        let mut v___x_2067_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2068_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2069_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2070_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2071_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2072_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2073_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2074_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2075_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2076_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2077_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2078_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2079_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2080_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2081_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2082_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2083_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2084_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2085_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2086_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2087_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2088_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2089_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2090_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2091_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2092_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2093_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2094_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2095_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2096_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2097_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2098_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2099_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2100_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2101_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2102_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2103_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2104_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2105_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2106_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2107_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2108_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2109_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2110_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2111_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2112_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2113_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2114_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2115_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2116_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2117_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2118_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2119_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2120_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2121_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2122_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2123_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2124_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2125_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2126_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2127_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2128_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2129_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2130_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2131_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2132_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2133_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2134_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2135_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2136_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2137_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2138_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2139_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2140_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2141_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2142_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2143_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2144_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2145_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2146_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2147_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2148_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2149_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2150_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2151_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2152_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2153_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2154_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2155_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2156_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2157_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2158_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2159_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2160_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2161_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2162_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2163_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2164_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2165_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2166_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2167_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2168_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2169_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2170_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2171_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2172_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2173_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2174_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2175_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2176_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2177_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2178_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2179_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2180_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2181_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2182_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2183_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2184_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2185_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2186_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2187_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2188_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2189_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2190_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2191_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2192_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2193_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2194_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2195_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2196_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2197_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2198_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2199_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2200_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2201_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2202_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2203_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2204_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2205_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_quotContext_2060_ = leanh::lean_ctor_get(v_a_2054_, 1);
+        v_currMacroScope_2061_ = leanh::lean_ctor_get(v_a_2054_, 2);
+        v_ref_2062_ = leanh::lean_ctor_get(v_a_2054_, 5);
+        v___x_2063_ = leanh::lean_unsigned_to_nat(1);
         v___x_2064_ = l_Lean_Syntax_getArg(v_x_2053_, v___x_2063_);
-        crate::leanh::lean_dec(v_x_2053_);
+        leanh::lean_dec(v_x_2053_);
         v___x_2065_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7;
         v___x_2066_ = 0;
         v___x_2067_ = l_Lean_SourceInfo_fromRef(v_ref_2062_, v___x_2066_);
@@ -5350,19 +5350,19 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__3;
         v___x_2069_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__4;
-        crate::leanh::lean_inc_n(v___x_2067_, 82);
-        v___x_2070_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2070_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2070_, 1, v___x_2069_);
+        leanh::lean_inc_n(v___x_2067_, 82);
+        v___x_2070_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2070_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2070_, 1, v___x_2069_);
         v___x_2071_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9;
         v___x_2072_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
         v___x_2073_ = l_tacticClean__wf___closed__1;
         v___x_2074_ = l_tacticClean__wf___closed__2;
-        v___x_2075_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2075_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2075_, 1, v___x_2074_);
+        v___x_2075_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2075_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2075_, 1, v___x_2074_);
         v___x_2076_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2073_, v___x_2075_);
-        v___x_2077_ = crate::leanh::lean_obj_once(
+        v___x_2077_ = leanh::lean_obj_once(
             core::ptr::addr_of_mut!(
                 l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27
             ),
@@ -5371,22 +5371,22 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             ),
             _init_l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__27,
         );
-        v___x_2078_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2078_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2078_, 1, v___x_2072_);
-        crate::leanh::lean_ctor_set(v___x_2078_, 2, v___x_2077_);
+        v___x_2078_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_2078_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2078_, 1, v___x_2072_);
+        leanh::lean_ctor_set(v___x_2078_, 2, v___x_2077_);
         v___x_2079_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__4;
         v___x_2080_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__5;
-        v___x_2081_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2081_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2081_, 1, v___x_2080_);
+        v___x_2081_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2081_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2081_, 1, v___x_2080_);
         v___x_2082_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__12;
         v___x_2083_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__13;
-        v___x_2084_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2084_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2084_, 1, v___x_2082_);
+        v___x_2084_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2084_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2084_, 1, v___x_2082_);
         v___x_2085_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__15;
-        crate::leanh::lean_inc_ref_n(v___x_2078_, 8);
+        leanh::lean_inc_ref_n(v___x_2078_, 8);
         v___x_2086_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2085_, v___x_2078_);
         v___x_2087_ = l_Lean_Syntax_node6(
             v___x_2067_,
@@ -5406,79 +5406,79 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__1;
         v___x_2093_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__2;
-        v___x_2094_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2094_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2094_, 1, v___x_2093_);
+        v___x_2094_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2094_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2094_, 1, v___x_2093_);
         v___x_2095_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3;
         v___x_2096_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4;
-        v___x_2097_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2097_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2097_, 1, v___x_2095_);
+        v___x_2097_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2097_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2097_, 1, v___x_2095_);
         v___x_2098_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__6;
         v___x_2099_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__7;
-        v___x_2100_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2100_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2100_, 1, v___x_2099_);
+        v___x_2100_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2100_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2100_, 1, v___x_2099_);
         v___x_2101_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__2;
         v___x_2102_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__3;
-        v___x_2103_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2103_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2103_, 1, v___x_2101_);
-        v___x_2104_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9);
+        v___x_2103_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2103_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2103_, 1, v___x_2101_);
+        v___x_2104_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__9);
         v___x_2105_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__12;
-        crate::leanh::lean_inc_n(v_currMacroScope_2061_, 4);
-        crate::leanh::lean_inc_n(v_quotContext_2060_, 4);
+        leanh::lean_inc_n(v_currMacroScope_2061_, 4);
+        leanh::lean_inc_n(v_quotContext_2060_, 4);
         v___x_2106_ =
             l_Lean_addMacroScope(v_quotContext_2060_, v___x_2105_, v_currMacroScope_2061_);
         v___x_2107_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__14;
-        v___x_2108_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2108_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2108_, 1, v___x_2104_);
-        crate::leanh::lean_ctor_set(v___x_2108_, 2, v___x_2106_);
-        crate::leanh::lean_ctor_set(v___x_2108_, 3, v___x_2107_);
-        crate::leanh::lean_inc_ref_n(v___x_2103_, 3);
+        v___x_2108_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_2108_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2108_, 1, v___x_2104_);
+        leanh::lean_ctor_set(v___x_2108_, 2, v___x_2106_);
+        leanh::lean_ctor_set(v___x_2108_, 3, v___x_2107_);
+        leanh::lean_inc_ref_n(v___x_2103_, 3);
         v___x_2109_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2102_, v___x_2103_, v___x_2108_);
         v___x_2110_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2109_);
         v___x_2111_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2110_);
         v___x_2112_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2065_, v___x_2111_);
-        crate::leanh::lean_inc_ref_n(v___x_2100_, 6);
+        leanh::lean_inc_ref_n(v___x_2100_, 6);
         v___x_2113_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2098_, v___x_2100_, v___x_2112_);
-        v___x_2114_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16);
+        v___x_2114_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__16);
         v___x_2115_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__18;
         v___x_2116_ =
             l_Lean_addMacroScope(v_quotContext_2060_, v___x_2115_, v_currMacroScope_2061_);
         v___x_2117_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__20;
-        v___x_2118_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2118_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2118_, 1, v___x_2114_);
-        crate::leanh::lean_ctor_set(v___x_2118_, 2, v___x_2116_);
-        crate::leanh::lean_ctor_set(v___x_2118_, 3, v___x_2117_);
+        v___x_2118_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_2118_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2118_, 1, v___x_2114_);
+        leanh::lean_ctor_set(v___x_2118_, 2, v___x_2116_);
+        leanh::lean_ctor_set(v___x_2118_, 3, v___x_2117_);
         v___x_2119_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2102_, v___x_2103_, v___x_2118_);
         v___x_2120_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2119_);
         v___x_2121_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2120_);
         v___x_2122_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2065_, v___x_2121_);
         v___x_2123_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2098_, v___x_2100_, v___x_2122_);
         v___x_2124_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2072_, v___x_2113_, v___x_2123_);
-        crate::leanh::lean_inc_ref_n(v___x_2097_, 2);
+        leanh::lean_inc_ref_n(v___x_2097_, 2);
         v___x_2125_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2096_, v___x_2097_, v___x_2124_);
         v___x_2126_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2125_);
         v___x_2127_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2126_);
         v___x_2128_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2065_, v___x_2127_);
         v___x_2129_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__8;
-        v___x_2130_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2130_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2130_, 1, v___x_2129_);
-        crate::leanh::lean_inc_ref_n(v___x_2130_, 2);
-        crate::leanh::lean_inc_ref_n(v___x_2070_, 2);
+        v___x_2130_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2130_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2130_, 1, v___x_2129_);
+        leanh::lean_inc_ref_n(v___x_2130_, 2);
+        leanh::lean_inc_ref_n(v___x_2070_, 2);
         v___x_2131_ = l_Lean_Syntax_node3(
             v___x_2067_,
             v___x_2068_,
@@ -5489,37 +5489,37 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
         v___x_2132_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2131_);
         v___x_2133_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2132_);
         v___x_2134_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2065_, v___x_2133_);
-        crate::leanh::lean_inc_ref(v___x_2094_);
+        leanh::lean_inc_ref(v___x_2094_);
         v___x_2135_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2092_, v___x_2094_, v___x_2134_);
-        v___x_2136_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22);
+        v___x_2136_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__22);
         v___x_2137_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__24;
         v___x_2138_ =
             l_Lean_addMacroScope(v_quotContext_2060_, v___x_2137_, v_currMacroScope_2061_);
         v___x_2139_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__26;
-        v___x_2140_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2140_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2140_, 1, v___x_2136_);
-        crate::leanh::lean_ctor_set(v___x_2140_, 2, v___x_2138_);
-        crate::leanh::lean_ctor_set(v___x_2140_, 3, v___x_2139_);
+        v___x_2140_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_2140_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2140_, 1, v___x_2136_);
+        leanh::lean_ctor_set(v___x_2140_, 2, v___x_2138_);
+        leanh::lean_ctor_set(v___x_2140_, 3, v___x_2139_);
         v___x_2141_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2102_, v___x_2103_, v___x_2140_);
         v___x_2142_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2141_);
         v___x_2143_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2142_);
         v___x_2144_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2065_, v___x_2143_);
         v___x_2145_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2098_, v___x_2100_, v___x_2144_);
-        v___x_2146_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28);
+        v___x_2146_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28), core::ptr::addr_of_mut!(l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28_once), _init_l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__28);
         v___x_2147_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__29;
         v___x_2148_ =
             l_Lean_addMacroScope(v_quotContext_2060_, v___x_2147_, v_currMacroScope_2061_);
         v___x_2149_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__31;
-        v___x_2150_ = crate::leanh::lean_alloc_ctor(3, 4, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2150_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2150_, 1, v___x_2146_);
-        crate::leanh::lean_ctor_set(v___x_2150_, 2, v___x_2148_);
-        crate::leanh::lean_ctor_set(v___x_2150_, 3, v___x_2149_);
+        v___x_2150_ = leanh::lean_alloc_ctor(3, 4, (0) as u32);
+        leanh::lean_ctor_set(v___x_2150_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2150_, 1, v___x_2146_);
+        leanh::lean_ctor_set(v___x_2150_, 2, v___x_2148_);
+        leanh::lean_ctor_set(v___x_2150_, 3, v___x_2149_);
         v___x_2151_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2102_, v___x_2103_, v___x_2150_);
         v___x_2152_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2151_);
         v___x_2153_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2152_);
@@ -5545,9 +5545,9 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__10;
         v___x_2167_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__1___closed__11;
-        v___x_2168_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2168_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2168_, 1, v___x_2166_);
+        v___x_2168_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2168_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2168_, 1, v___x_2166_);
         v___x_2169_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2167_, v___x_2168_);
         v___x_2170_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2169_);
         v___x_2171_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2170_);
@@ -5558,16 +5558,16 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__32;
         v___x_2176_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__33;
-        v___x_2177_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2177_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2177_, 1, v___x_2175_);
+        v___x_2177_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2177_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2177_, 1, v___x_2175_);
         v___x_2178_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__35;
         v___x_2179_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__36;
-        v___x_2180_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2180_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2180_, 1, v___x_2179_);
+        v___x_2180_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2180_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2180_, 1, v___x_2179_);
         v___x_2181_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2178_, v___x_2180_);
         v___x_2182_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2072_, v___x_2181_);
         v___x_2183_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2176_, v___x_2177_, v___x_2182_);
@@ -5583,7 +5583,7 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             v___x_2187_,
         );
         v___x_2189_ = l_Lean_Syntax_node2(v___x_2067_, v___x_2096_, v___x_2097_, v___x_2188_);
-        v___x_2190_ = crate::leanh::lean_unsigned_to_nat(9);
+        v___x_2190_ = leanh::lean_unsigned_to_nat(9);
         v___x_2191_ = lean_mk_empty_array_with_capacity(v___x_2190_);
         v___x_2192_ = lean_array_push(v___x_2191_, v___x_2076_);
         v___x_2193_ = lean_array_push(v___x_2192_, v___x_2078_);
@@ -5594,10 +5594,10 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
         v___x_2198_ = lean_array_push(v___x_2197_, v___x_2165_);
         v___x_2199_ = lean_array_push(v___x_2198_, v___x_2078_);
         v___x_2200_ = lean_array_push(v___x_2199_, v___x_2189_);
-        v___x_2201_ = crate::leanh::lean_alloc_ctor(1, 3, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2201_, 0, v___x_2067_);
-        crate::leanh::lean_ctor_set(v___x_2201_, 1, v___x_2072_);
-        crate::leanh::lean_ctor_set(v___x_2201_, 2, v___x_2200_);
+        v___x_2201_ = leanh::lean_alloc_ctor(1, 3, (0) as u32);
+        leanh::lean_ctor_set(v___x_2201_, 0, v___x_2067_);
+        leanh::lean_ctor_set(v___x_2201_, 1, v___x_2072_);
+        leanh::lean_ctor_set(v___x_2201_, 2, v___x_2200_);
         v___x_2202_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2071_, v___x_2201_);
         v___x_2203_ = l_Lean_Syntax_node1(v___x_2067_, v___x_2065_, v___x_2202_);
         v___x_2204_ = l_Lean_Syntax_node3(
@@ -5607,92 +5607,92 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with__
             v___x_2203_,
             v___x_2130_,
         );
-        v___x_2205_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2205_, 0, v___x_2204_);
-        crate::leanh::lean_ctor_set(v___x_2205_, 1, v_a_2055_);
+        v___x_2205_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2205_, 0, v___x_2204_);
+        leanh::lean_ctor_set(v___x_2205_, 1, v_a_2055_);
         return v___x_2205_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___boxed(
-    mut v_x_2206_: *mut crate::leanh::LeanObject,
-    mut v_a_2207_: *mut crate::leanh::LeanObject,
-    mut v_a_2208_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_2209_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_2206_: *mut leanh::LeanObject,
+    mut v_a_2207_: *mut leanh::LeanObject,
+    mut v_a_2208_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_2209_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_2209_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1(
         v_x_2206_, v_a_2207_, v_a_2208_,
     );
-    crate::leanh::lean_dec_ref(v_a_2207_);
+    leanh::lean_dec_ref(v_a_2207_);
     return v_res_2209_;
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1(
-    mut v_x_2230_: *mut crate::leanh::LeanObject,
-    mut v_a_2231_: *mut crate::leanh::LeanObject,
-    mut v_a_2232_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2233_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_2230_: *mut leanh::LeanObject,
+    mut v_a_2231_: *mut leanh::LeanObject,
+    mut v_a_2232_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2233_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2234_: u8 = 0;
     v___x_2233_ = l_tacticDecreasing__tactic___closed__1;
     v___x_2234_ = l_Lean_Syntax_isOfKind(v_x_2230_, v___x_2233_);
     if v___x_2234_ == 0 {
-        let mut v___x_2235_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2236_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v___x_2235_ = crate::leanh::lean_box(1);
-        v___x_2236_ = crate::leanh::lean_alloc_ctor(1, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2236_, 0, v___x_2235_);
-        crate::leanh::lean_ctor_set(v___x_2236_, 1, v_a_2232_);
+        let mut v___x_2235_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2236_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v___x_2235_ = leanh::lean_box(1);
+        v___x_2236_ = leanh::lean_alloc_ctor(1, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2236_, 0, v___x_2235_);
+        leanh::lean_ctor_set(v___x_2236_, 1, v_a_2232_);
         return v___x_2236_;
     } else {
-        let mut v_ref_2237_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+        let mut v_ref_2237_: *mut leanh::LeanObject = core::ptr::null_mut();
         let mut v___x_2238_: u8 = 0;
-        let mut v___x_2239_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2240_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2241_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2242_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2243_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2244_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2245_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2246_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2247_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2248_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2249_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2250_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2251_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2252_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2253_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2254_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2255_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2256_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2257_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2258_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2259_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2260_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2261_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2262_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2263_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2264_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2265_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2266_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2267_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2268_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2269_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2270_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2271_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2272_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2273_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2274_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2275_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_2276_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_ref_2237_ = crate::leanh::lean_ctor_get(v_a_2231_, 5);
+        let mut v___x_2239_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2240_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2241_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2242_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2243_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2244_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2245_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2246_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2247_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2248_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2249_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2250_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2251_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2252_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2253_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2254_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2255_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2256_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2257_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2258_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2259_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2260_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2261_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2262_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2263_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2264_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2265_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2266_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2267_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2268_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2269_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2270_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2271_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2272_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2273_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2274_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2275_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_2276_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_ref_2237_ = leanh::lean_ctor_get(v_a_2231_, 5);
         v___x_2238_ = 0;
         v___x_2239_ = l_Lean_SourceInfo_fromRef(v_ref_2237_, v___x_2238_);
         v___x_2240_ = l_tacticDecreasing__with___00__closed__1;
         v___x_2241_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__0;
-        crate::leanh::lean_inc_n(v___x_2239_, 21);
-        v___x_2242_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2242_, 0, v___x_2239_);
-        crate::leanh::lean_ctor_set(v___x_2242_, 1, v___x_2241_);
+        leanh::lean_inc_n(v___x_2239_, 21);
+        v___x_2242_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2242_, 0, v___x_2239_);
+        leanh::lean_ctor_set(v___x_2242_, 1, v___x_2241_);
         v___x_2243_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__7;
         v___x_2244_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__9;
         v___x_2245_ = l___aux__Init__WFTactics______macroRules__tacticSimp__wf__1___closed__11;
@@ -5700,40 +5700,40 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__3;
         v___x_2247_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__4;
-        v___x_2248_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2248_, 0, v___x_2239_);
-        crate::leanh::lean_ctor_set(v___x_2248_, 1, v___x_2246_);
+        v___x_2248_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2248_, 0, v___x_2239_);
+        leanh::lean_ctor_set(v___x_2248_, 1, v___x_2246_);
         v___x_2249_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__6;
         v___x_2250_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__with____1___closed__7;
-        v___x_2251_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2251_, 0, v___x_2239_);
-        crate::leanh::lean_ctor_set(v___x_2251_, 1, v___x_2250_);
+        v___x_2251_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2251_, 0, v___x_2239_);
+        leanh::lean_ctor_set(v___x_2251_, 1, v___x_2250_);
         v___x_2252_ = l_tacticDecreasing__trivial___closed__1;
         v___x_2253_ = l_tacticDecreasing__trivial___closed__2;
-        v___x_2254_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2254_, 0, v___x_2239_);
-        crate::leanh::lean_ctor_set(v___x_2254_, 1, v___x_2253_);
+        v___x_2254_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2254_, 0, v___x_2239_);
+        leanh::lean_ctor_set(v___x_2254_, 1, v___x_2253_);
         v___x_2255_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2252_, v___x_2254_);
-        crate::leanh::lean_inc(v___x_2255_);
+        leanh::lean_inc(v___x_2255_);
         v___x_2256_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2245_, v___x_2255_);
         v___x_2257_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2244_, v___x_2256_);
         v___x_2258_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2243_, v___x_2257_);
-        crate::leanh::lean_inc_ref(v___x_2251_);
+        leanh::lean_inc_ref(v___x_2251_);
         v___x_2259_ = l_Lean_Syntax_node2(v___x_2239_, v___x_2249_, v___x_2251_, v___x_2258_);
         v___x_2260_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__2;
         v___x_2261_ =
             l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___closed__3;
-        v___x_2262_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2262_, 0, v___x_2239_);
-        crate::leanh::lean_ctor_set(v___x_2262_, 1, v___x_2261_);
+        v___x_2262_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2262_, 0, v___x_2239_);
+        leanh::lean_ctor_set(v___x_2262_, 1, v___x_2261_);
         v___x_2263_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2260_, v___x_2262_);
         v___x_2264_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__trivial__pre__omega__1___closed__10;
-        v___x_2265_ = crate::leanh::lean_alloc_ctor(2, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2265_, 0, v___x_2239_);
-        crate::leanh::lean_ctor_set(v___x_2265_, 1, v___x_2264_);
+        v___x_2265_ = leanh::lean_alloc_ctor(2, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2265_, 0, v___x_2239_);
+        leanh::lean_ctor_set(v___x_2265_, 1, v___x_2264_);
         v___x_2266_ = l_Lean_Syntax_node3(
             v___x_2239_,
             v___x_2245_,
@@ -5750,78 +5750,78 @@ pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic
         v___x_2273_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2244_, v___x_2272_);
         v___x_2274_ = l_Lean_Syntax_node1(v___x_2239_, v___x_2243_, v___x_2273_);
         v___x_2275_ = l_Lean_Syntax_node2(v___x_2239_, v___x_2240_, v___x_2242_, v___x_2274_);
-        v___x_2276_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-        crate::leanh::lean_ctor_set(v___x_2276_, 0, v___x_2275_);
-        crate::leanh::lean_ctor_set(v___x_2276_, 1, v_a_2232_);
+        v___x_2276_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+        leanh::lean_ctor_set(v___x_2276_, 0, v___x_2275_);
+        leanh::lean_ctor_set(v___x_2276_, 1, v_a_2232_);
         return v___x_2276_;
     }
 }
 pub unsafe fn l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1___boxed(
-    mut v_x_2277_: *mut crate::leanh::LeanObject,
-    mut v_a_2278_: *mut crate::leanh::LeanObject,
-    mut v_a_2279_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_2280_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_2277_: *mut leanh::LeanObject,
+    mut v_a_2278_: *mut leanh::LeanObject,
+    mut v_a_2279_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_2280_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_2280_ = l___aux__Init__WFTactics______macroRules__tacticDecreasing__tactic__1(
         v_x_2277_, v_a_2278_, v_a_2279_,
     );
-    crate::leanh::lean_dec_ref(v_a_2278_);
+    leanh::lean_dec_ref(v_a_2278_);
     return v_res_2280_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Init_WFTactics(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Init_WFTactics(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_WF(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Nat_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Init_WFTactics(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Init_WFTactics(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Init_WFTactics(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Init_WFTactics(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_WF(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Nat_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_WFTactics(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Init_WFTactics(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Init_WFTactics(builtin);
 }

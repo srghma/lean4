@@ -4,11 +4,9 @@ Which are: lean_alloc_closure lean_alloc_ctor lean_apply_1 lean_apply_2 lean_app
 
 Move all other public helper implementations out of leanh into src/rust/runtime/src/leanh_extra.rs
 
-
 , then fix imports (ffi/**/*.rs, srghmascripts/regenerate_module_tree.ts) so generated crates do not depend on runtime-only helpers through crate::leanh.
 
 (they were extracted from src/rust/runtime/src/{runtime,kernel,library} and later will return there)
-
 
 Regard current dir structure as correct and dont do any renamings/movings (If found error - tell user)
 
@@ -16,24 +14,24 @@ EmitRust before was generating `use crate::lean_imports_rust::path::to::current:
 
 NOTE that we are fully moving from cpp, we should not use extern "C" or [no_mangle] (the only extern "C" allowed is for `uv_*` or `__gmp`)
 
-  ## Test Plan
+## Test Plan
 
-  - Run focused Rust checks from src/rust:
-    - cargo check -p leanh
-    - cargo check -p gen_init
-    - cargo check -p gen_std
-    - cargo check -p gen_lean
-    - cargo check -p runtime (rn it doesnt depend on gen_init, but will be)
-    - cargo check -p lake
-    - cargo check -p lean_checker
-    - cargo check -p lean_ir
-    - cargo check -p lean_shell
-    - cargo check -p leanc
+- Run focused Rust checks from src/rust:
+  - cargo check -p leanh
+  - cargo check -p gen_init
+  - cargo check -p gen_std
+  - cargo check -p gen_lean
+  - cargo check -p runtime (rn it doesnt depend on gen_init, but will be)
+  - cargo check -p lake
+  - cargo check -p lean_checker
+  - cargo check -p lean_ir
+  - cargo check -p lean_shell
+  - cargo check -p leanc
 
-  ## Assumptions
+## Assumptions
 
-  - runtime and runtime::leanh_extra should depend on leanh create
-  - gen_*/src/ffi{.rs,**/*.rs} may depend on leanh and runtime::leanh_extra
+- runtime and runtime::leanh_extra should depend on leanh create
+- gen_*/src/ffi{.rs,**/*.rs} may depend on leanh and runtime::leanh_extra
 
 ------------
 
@@ -54,31 +52,31 @@ Current repo errors to fix as part of this:
 ## Key Changes
 
 - Fix Cargo metadata without moving directories:
-    - Workspace members become leanh, runtime, gen_init, gen_std, gen_lean, lake, lean_checker, lean_ir, lean_shell, leanc.
-    - Package names become the names used by the test plan: leanh, runtime, gen_init, gen_std, gen_lean, lake, lean_checker, lean_ir, lean_shell, leanc.
-    - Remove all lean_runtime_common dependencies.
-    - Add leanh dependency everywhere generated/runtime code needs crate::leanh.
-    - Add runtime dependency only to generated crates that need runtime::leanh_extra.
-    - For this task, do not make runtime depend on gen_*; otherwise gen_* -> runtime -> gen_* becomes a Cargo cycle.
+  - Workspace members become leanh, runtime, gen_init, gen_std, gen_lean, lake, lean_checker, lean_ir, lean_shell, leanc.
+  - Package names become the names used by the test plan: leanh, runtime, gen_init, gen_std, gen_lean, lake, lean_checker, lean_ir, lean_shell, leanc.
+  - Remove all lean_runtime_common dependencies.
+  - Add leanh dependency everywhere generated/runtime code needs crate::leanh.
+  - Add runtime dependency only to generated crates that need runtime::leanh_extra.
+  - For this task, do not make runtime depend on gen_*; otherwise gen_* -> runtime -> gen_* becomes a Cargo cycle.
 
 - Split leanh/src/lib.rs:
-    - Keep ABI layout structs/types/constants required by the retained functions.
-    - Keep only the approved public ABI functions, including generated lean_apply_5 through lean_apply_16 plus lean_apply_m.
-    - Move all other public helper functions to runtime/src/leanh_extra.rs.
-    - Move any private helper used only by moved functions into leanh_extra.rs; keep private helpers in leanh only when needed by retained ABI functions.
-    - In runtime/src/lib.rs, add pub mod leanh_extra; and pub mod leanh { pub use leanh::*; }.
+  - Keep ABI layout structs/types/constants required by the retained functions.
+  - Keep only the approved public ABI functions, including generated lean_apply_5 through lean_apply_16 plus lean_apply_m.
+  - Move all other public helper functions to runtime/src/leanh_extra.rs.
+  - Move any private helper used only by moved functions into leanh_extra.rs; keep private helpers in leanh only when needed by retained ABI functions.
+  - In runtime/src/lib.rs, add pub mod leanh_extra; and pub mod leanh { pub use leanh::*; }.
 
 - Fix generated crate imports:
-    - Replace pub use lean_runtime_common::leanh::* with pub use leanh::*.
-    - Remove lean_imports_rs module usage from crate roots where it only existed for old generated imports.
-    - Update srghmascripts/regenerate_module_tree.ts so generated imports use use crate::ffi::{f1, f2};, not crate::lean_imports_rs::....
-    - Update generated ffi/**/*.rs files to import ABI items from crate::leanh and runtime-only helpers from runtime::leanh_extra.
-    - Keep extern "C" / #[no_mangle] out of this layer, except existing allowed low-level uv_* / __gmp bindings.
+  - Replace pub use lean_runtime_common::leanh::*with pub use leanh::*.
+  - Remove lean_imports_rs module usage from crate roots where it only existed for old generated imports.
+  - Update srghmascripts/regenerate_module_tree.ts so generated imports use use crate::ffi::{f1, f2};, not crate::lean_imports_rs::....
+  - Update generated ffi/**/*.rs files to import ABI items from crate::leanh and runtime-only helpers from runtime::leanh_extra.
+  - Keep extern "C" / #[no_mangle] out of this layer, except existing allowed low-level uv_* / __gmp bindings.
 
 - Fix generated module roots:
-    - gen_init/src/lib.rs, gen_std/src/lib.rs, gen_lean/src/lib.rs, and lake/src/lib.rs should expose pub mod gen; from local src/gen.rs.
-    - Their local gen.rs files should describe the local src/gen/... tree and have the existing allow attributes at the top.
-    - Replace stale include!("../../lean_runtime/src/gen/...") with local module paths under each crate’s own src/gen.
+  - gen_init/src/lib.rs, gen_std/src/lib.rs, gen_lean/src/lib.rs, and lake/src/lib.rs should expose pub mod gen; from local src/gen.rs.
+  - Their local gen.rs files should describe the local src/gen/... tree and have the existing allow attributes at the top.
+  - Replace stale include!("../../lean_runtime/src/gen/...") with local module paths under each crate’s own src/gen.
 
 ## Test Plan
 

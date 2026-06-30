@@ -11,17 +11,17 @@ use crate::r#gen::Init::Data::Nat::Div::Basic::{
 use crate::r#gen::Init::Data::UInt::BasicAux::{
     initialize_Init_Data_UInt_BasicAux, runtime_initialize_Init_Data_UInt_BasicAux,
 };
-pub static mut l_Char_instLT: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static mut l_Char_instLE: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Char_instLT: *mut leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Char_instLE: *mut leanh::LeanObject = core::ptr::null_mut();
 pub static mut l_Char_instInhabited: u32 = 0;
-pub unsafe fn _init_l_Char_instLT() -> *mut crate::leanh::LeanObject {
-    let mut v___x_158_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_158_ = crate::leanh::lean_box(0);
+pub unsafe fn _init_l_Char_instLT() -> *mut leanh::LeanObject {
+    let mut v___x_158_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_158_ = leanh::lean_box(0);
     return v___x_158_;
 }
-pub unsafe fn _init_l_Char_instLE() -> *mut crate::leanh::LeanObject {
-    let mut v___x_159_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_159_ = crate::leanh::lean_box(0);
+pub unsafe fn _init_l_Char_instLE() -> *mut leanh::LeanObject {
+    let mut v___x_159_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_159_ = leanh::lean_box(0);
     return v___x_159_;
 }
 pub unsafe fn l_Char_instDecidableLt(mut v_a_160_: u32, mut v_b_161_: u32) -> u8 {
@@ -30,19 +30,19 @@ pub unsafe fn l_Char_instDecidableLt(mut v_a_160_: u32, mut v_b_161_: u32) -> u8
     return v___x_162_;
 }
 pub unsafe fn l_Char_instDecidableLt___boxed(
-    mut v_a_163_: *mut crate::leanh::LeanObject,
-    mut v_b_164_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_a_163_: *mut leanh::LeanObject,
+    mut v_b_164_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_a_boxed_165_: u32 = 0;
     let mut v_b_boxed_166_: u32 = 0;
     let mut v_res_167_: u8 = 0;
-    let mut v_r_168_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_a_boxed_165_ = crate::leanh::lean_unbox_uint32(v_a_163_);
-    crate::leanh::lean_dec(v_a_163_);
-    v_b_boxed_166_ = crate::leanh::lean_unbox_uint32(v_b_164_);
-    crate::leanh::lean_dec(v_b_164_);
+    let mut v_r_168_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_a_boxed_165_ = leanh::lean_unbox_uint32(v_a_163_);
+    leanh::lean_dec(v_a_163_);
+    v_b_boxed_166_ = leanh::lean_unbox_uint32(v_b_164_);
+    leanh::lean_dec(v_b_164_);
     v_res_167_ = l_Char_instDecidableLt(v_a_boxed_165_, v_b_boxed_166_);
-    v_r_168_ = crate::leanh::lean_box((v_res_167_) as usize);
+    v_r_168_ = leanh::lean_box((v_res_167_) as usize);
     return v_r_168_;
 }
 pub unsafe fn l_Char_instDecidableLe(mut v_a_169_: u32, mut v_b_170_: u32) -> u8 {
@@ -51,33 +51,33 @@ pub unsafe fn l_Char_instDecidableLe(mut v_a_169_: u32, mut v_b_170_: u32) -> u8
     return v___x_171_;
 }
 pub unsafe fn l_Char_instDecidableLe___boxed(
-    mut v_a_172_: *mut crate::leanh::LeanObject,
-    mut v_b_173_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_a_172_: *mut leanh::LeanObject,
+    mut v_b_173_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_a_boxed_174_: u32 = 0;
     let mut v_b_boxed_175_: u32 = 0;
     let mut v_res_176_: u8 = 0;
-    let mut v_r_177_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_a_boxed_174_ = crate::leanh::lean_unbox_uint32(v_a_172_);
-    crate::leanh::lean_dec(v_a_172_);
-    v_b_boxed_175_ = crate::leanh::lean_unbox_uint32(v_b_173_);
-    crate::leanh::lean_dec(v_b_173_);
+    let mut v_r_177_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_a_boxed_174_ = leanh::lean_unbox_uint32(v_a_172_);
+    leanh::lean_dec(v_a_172_);
+    v_b_boxed_175_ = leanh::lean_unbox_uint32(v_b_173_);
+    leanh::lean_dec(v_b_173_);
     v_res_176_ = l_Char_instDecidableLe(v_a_boxed_174_, v_b_boxed_175_);
-    v_r_177_ = crate::leanh::lean_box((v_res_176_) as usize);
+    v_r_177_ = leanh::lean_box((v_res_176_) as usize);
     return v_r_177_;
 }
-pub unsafe fn l_Char_toNat(mut v_c_178_: u32) -> *mut crate::leanh::LeanObject {
-    let mut v___x_179_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn l_Char_toNat(mut v_c_178_: u32) -> *mut leanh::LeanObject {
+    let mut v___x_179_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_179_ = lean_uint32_to_nat(v_c_178_);
     return v___x_179_;
 }
 pub unsafe fn l_Char_toNat___boxed(
-    mut v_c_180_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_180_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_181_: u32 = 0;
-    let mut v_res_182_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_181_ = crate::leanh::lean_unbox_uint32(v_c_180_);
-    crate::leanh::lean_dec(v_c_180_);
+    let mut v_res_182_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_181_ = leanh::lean_unbox_uint32(v_c_180_);
+    leanh::lean_dec(v_c_180_);
     v_res_182_ = l_Char_toNat(v_c_boxed_181_);
     return v_res_182_;
 }
@@ -87,15 +87,15 @@ pub unsafe fn l_Char_toUInt8(mut v_c_183_: u32) -> u8 {
     return v___x_184_;
 }
 pub unsafe fn l_Char_toUInt8___boxed(
-    mut v_c_185_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_185_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_186_: u32 = 0;
     let mut v_res_187_: u8 = 0;
-    let mut v_r_188_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_186_ = crate::leanh::lean_unbox_uint32(v_c_185_);
-    crate::leanh::lean_dec(v_c_185_);
+    let mut v_r_188_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_186_ = leanh::lean_unbox_uint32(v_c_185_);
+    leanh::lean_dec(v_c_185_);
     v_res_187_ = l_Char_toUInt8(v_c_boxed_186_);
-    v_r_188_ = crate::leanh::lean_box((v_res_187_) as usize);
+    v_r_188_ = leanh::lean_box((v_res_187_) as usize);
     return v_r_188_;
 }
 pub unsafe fn l_Char_ofUInt8(mut v_n_189_: u8) -> u32 {
@@ -104,14 +104,14 @@ pub unsafe fn l_Char_ofUInt8(mut v_n_189_: u8) -> u32 {
     return v___x_190_;
 }
 pub unsafe fn l_Char_ofUInt8___boxed(
-    mut v_n_191_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_n_191_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_n_boxed_192_: u8 = 0;
     let mut v_res_193_: u32 = 0;
-    let mut v_r_194_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_n_boxed_192_ = (crate::leanh::lean_unbox(v_n_191_) as u8);
+    let mut v_r_194_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_n_boxed_192_ = (leanh::lean_unbox(v_n_191_) as u8);
     v_res_193_ = l_Char_ofUInt8(v_n_boxed_192_);
-    v_r_194_ = crate::leanh::lean_box_uint32(v_res_193_);
+    v_r_194_ = leanh::lean_box_uint32(v_res_193_);
     return v_r_194_;
 }
 pub unsafe fn _init_l_Char_instInhabited() -> u32 {
@@ -167,15 +167,15 @@ pub unsafe fn l_Char_isWhitespace(mut v_c_196_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isWhitespace___boxed(
-    mut v_c_207_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_207_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_208_: u32 = 0;
     let mut v_res_209_: u8 = 0;
-    let mut v_r_210_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_208_ = crate::leanh::lean_unbox_uint32(v_c_207_);
-    crate::leanh::lean_dec(v_c_207_);
+    let mut v_r_210_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_208_ = leanh::lean_unbox_uint32(v_c_207_);
+    leanh::lean_dec(v_c_207_);
     v_res_209_ = l_Char_isWhitespace(v_c_boxed_208_);
-    v_r_210_ = crate::leanh::lean_box((v_res_209_) as usize);
+    v_r_210_ = leanh::lean_box((v_res_209_) as usize);
     return v_r_210_;
 }
 pub unsafe fn l_Char_isUpper(mut v_c_211_: u32) -> u8 {
@@ -194,15 +194,15 @@ pub unsafe fn l_Char_isUpper(mut v_c_211_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isUpper___boxed(
-    mut v_c_216_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_216_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_217_: u32 = 0;
     let mut v_res_218_: u8 = 0;
-    let mut v_r_219_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_217_ = crate::leanh::lean_unbox_uint32(v_c_216_);
-    crate::leanh::lean_dec(v_c_216_);
+    let mut v_r_219_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_217_ = leanh::lean_unbox_uint32(v_c_216_);
+    leanh::lean_dec(v_c_216_);
     v_res_218_ = l_Char_isUpper(v_c_boxed_217_);
-    v_r_219_ = crate::leanh::lean_box((v_res_218_) as usize);
+    v_r_219_ = leanh::lean_box((v_res_218_) as usize);
     return v_r_219_;
 }
 pub unsafe fn l_Char_isLower(mut v_c_220_: u32) -> u8 {
@@ -221,15 +221,15 @@ pub unsafe fn l_Char_isLower(mut v_c_220_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isLower___boxed(
-    mut v_c_225_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_225_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_226_: u32 = 0;
     let mut v_res_227_: u8 = 0;
-    let mut v_r_228_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_226_ = crate::leanh::lean_unbox_uint32(v_c_225_);
-    crate::leanh::lean_dec(v_c_225_);
+    let mut v_r_228_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_226_ = leanh::lean_unbox_uint32(v_c_225_);
+    leanh::lean_dec(v_c_225_);
     v_res_227_ = l_Char_isLower(v_c_boxed_226_);
-    v_r_228_ = crate::leanh::lean_box((v_res_227_) as usize);
+    v_r_228_ = leanh::lean_box((v_res_227_) as usize);
     return v_r_228_;
 }
 pub unsafe fn l_Char_isAlpha(mut v_c_229_: u32) -> u8 {
@@ -277,15 +277,15 @@ pub unsafe fn l_Char_isAlpha(mut v_c_229_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isAlpha___boxed(
-    mut v_c_239_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_239_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_240_: u32 = 0;
     let mut v_res_241_: u8 = 0;
-    let mut v_r_242_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_240_ = crate::leanh::lean_unbox_uint32(v_c_239_);
-    crate::leanh::lean_dec(v_c_239_);
+    let mut v_r_242_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_240_ = leanh::lean_unbox_uint32(v_c_239_);
+    leanh::lean_dec(v_c_239_);
     v_res_241_ = l_Char_isAlpha(v_c_boxed_240_);
-    v_r_242_ = crate::leanh::lean_box((v_res_241_) as usize);
+    v_r_242_ = leanh::lean_box((v_res_241_) as usize);
     return v_r_242_;
 }
 pub unsafe fn l_Char_isDigit(mut v_c_243_: u32) -> u8 {
@@ -304,15 +304,15 @@ pub unsafe fn l_Char_isDigit(mut v_c_243_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isDigit___boxed(
-    mut v_c_248_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_248_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_249_: u32 = 0;
     let mut v_res_250_: u8 = 0;
-    let mut v_r_251_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_249_ = crate::leanh::lean_unbox_uint32(v_c_248_);
-    crate::leanh::lean_dec(v_c_248_);
+    let mut v_r_251_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_249_ = leanh::lean_unbox_uint32(v_c_248_);
+    leanh::lean_dec(v_c_248_);
     v_res_250_ = l_Char_isDigit(v_c_boxed_249_);
-    v_r_251_ = crate::leanh::lean_box((v_res_250_) as usize);
+    v_r_251_ = leanh::lean_box((v_res_250_) as usize);
     return v_r_251_;
 }
 pub unsafe fn l_Char_isHexDigit(mut v_c_252_: u32) -> u8 {
@@ -387,15 +387,15 @@ pub unsafe fn l_Char_isHexDigit(mut v_c_252_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isHexDigit___boxed(
-    mut v_c_269_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_269_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_270_: u32 = 0;
     let mut v_res_271_: u8 = 0;
-    let mut v_r_272_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_270_ = crate::leanh::lean_unbox_uint32(v_c_269_);
-    crate::leanh::lean_dec(v_c_269_);
+    let mut v_r_272_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_270_ = leanh::lean_unbox_uint32(v_c_269_);
+    leanh::lean_dec(v_c_269_);
     v_res_271_ = l_Char_isHexDigit(v_c_boxed_270_);
-    v_r_272_ = crate::leanh::lean_box((v_res_271_) as usize);
+    v_r_272_ = leanh::lean_box((v_res_271_) as usize);
     return v_r_272_;
 }
 pub unsafe fn l_Char_isAlphanum(mut v_c_273_: u32) -> u8 {
@@ -467,15 +467,15 @@ pub unsafe fn l_Char_isAlphanum(mut v_c_273_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Char_isAlphanum___boxed(
-    mut v_c_289_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_289_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_290_: u32 = 0;
     let mut v_res_291_: u8 = 0;
-    let mut v_r_292_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_290_ = crate::leanh::lean_unbox_uint32(v_c_289_);
-    crate::leanh::lean_dec(v_c_289_);
+    let mut v_r_292_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_290_ = leanh::lean_unbox_uint32(v_c_289_);
+    leanh::lean_dec(v_c_289_);
     v_res_291_ = l_Char_isAlphanum(v_c_boxed_290_);
-    v_r_292_ = crate::leanh::lean_box((v_res_291_) as usize);
+    v_r_292_ = leanh::lean_box((v_res_291_) as usize);
     return v_r_292_;
 }
 pub unsafe fn l_Char_toLower(mut v_c_293_: u32) -> u32 {
@@ -502,15 +502,15 @@ pub unsafe fn l_Char_toLower(mut v_c_293_: u32) -> u32 {
     }
 }
 pub unsafe fn l_Char_toLower___boxed(
-    mut v_c_300_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_300_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_301_: u32 = 0;
     let mut v_res_302_: u32 = 0;
-    let mut v_r_303_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_301_ = crate::leanh::lean_unbox_uint32(v_c_300_);
-    crate::leanh::lean_dec(v_c_300_);
+    let mut v_r_303_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_301_ = leanh::lean_unbox_uint32(v_c_300_);
+    leanh::lean_dec(v_c_300_);
     v_res_302_ = l_Char_toLower(v_c_boxed_301_);
-    v_r_303_ = crate::leanh::lean_box_uint32(v_res_302_);
+    v_r_303_ = leanh::lean_box_uint32(v_res_302_);
     return v_r_303_;
 }
 pub unsafe fn l_Char_toUpper(mut v_c_304_: u32) -> u32 {
@@ -537,78 +537,78 @@ pub unsafe fn l_Char_toUpper(mut v_c_304_: u32) -> u32 {
     }
 }
 pub unsafe fn l_Char_toUpper___boxed(
-    mut v_c_311_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_311_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_312_: u32 = 0;
     let mut v_res_313_: u32 = 0;
-    let mut v_r_314_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_312_ = crate::leanh::lean_unbox_uint32(v_c_311_);
-    crate::leanh::lean_dec(v_c_311_);
+    let mut v_r_314_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_312_ = leanh::lean_unbox_uint32(v_c_311_);
+    leanh::lean_dec(v_c_311_);
     v_res_313_ = l_Char_toUpper(v_c_boxed_312_);
-    v_r_314_ = crate::leanh::lean_box_uint32(v_res_313_);
+    v_r_314_ = leanh::lean_box_uint32(v_res_313_);
     return v_r_314_;
 }
 static mut _G_runtime_initialized: bool = false;
 pub unsafe fn runtime_initialize_Init_Data_Char_Basic(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_UInt_BasicAux(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Nat_Div_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     l_Char_instLT = _init_l_Char_instLT();
-    crate::leanh::lean_mark_persistent(l_Char_instLT);
+    leanh::lean_mark_persistent(l_Char_instLT);
     l_Char_instLE = _init_l_Char_instLE();
-    crate::leanh::lean_mark_persistent(l_Char_instLE);
+    leanh::lean_mark_persistent(l_Char_instLE);
     l_Char_instInhabited = _init_l_Char_instInhabited();
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Init_Data_Char_Basic(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Init_Data_Char_Basic(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Init_Data_Char_Basic(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Init_Data_Char_Basic(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_UInt_BasicAux(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Nat_Div_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Char_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Init_Data_Char_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Init_Data_Char_Basic(builtin);
 }

@@ -23,9 +23,9 @@ use crate::r#gen::Init::Data::ToString::Basic::{
 use crate::r#gen::Init::Data::UInt::Lemmas::{
     initialize_Init_Data_UInt_Lemmas, runtime_initialize_Init_Data_UInt_Lemmas,
 };
-pub static l_Lake_lpadAscii___closed__0_value: crate::leanh::LeanStringObject<1> =
-    crate::leanh::LeanStringObject {
-        m_header: crate::leanh::LeanObject {
+pub static l_Lake_lpadAscii___closed__0_value: leanh::LeanStringObject<1> =
+    leanh::LeanStringObject {
+        m_header: leanh::LeanObject {
             rc: 0,
             cs_size: (0) as u16,
             other: 0,
@@ -36,43 +36,43 @@ pub static l_Lake_lpadAscii___closed__0_value: crate::leanh::LeanStringObject<1>
         m_length: 0,
         m_data: [0],
     };
-static mut l_Lake_lpadAscii___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Lake_lpadAscii___closed__0_value) as *mut crate::leanh::LeanObject;
-static mut l_Lake_lowerHexUInt64___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Lake_lpadAscii___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Lake_lpadAscii___closed__0_value) as *mut leanh::LeanObject;
+static mut l_Lake_lowerHexUInt64___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Lake_lowerHexUInt64___closed__0: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-static mut l_Lake_lowerHexUInt64___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Lake_lowerHexUInt64___closed__0: *mut leanh::LeanObject = core::ptr::null_mut();
+static mut l_Lake_lowerHexUInt64___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
-static mut l_Lake_lowerHexUInt64___closed__1: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+static mut l_Lake_lowerHexUInt64___closed__1: *mut leanh::LeanObject = core::ptr::null_mut();
 pub unsafe fn l___private_Init_Data_Nat_Basic_0__Nat_repeatTR_loop___at___00Lake_lpadAscii_spec__0(
     mut v_c_216_: u32,
-    mut v_x_217_: *mut crate::leanh::LeanObject,
-    mut v_x_218_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_zero_219_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_217_: *mut leanh::LeanObject,
+    mut v_x_218_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_zero_219_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isZero_220_: u8 = 0;
-    let mut v_one_221_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_n_222_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_223_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_one_221_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_n_222_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_223_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_zero_219_ = crate::leanh::lean_unsigned_to_nat(0);
+                v_zero_219_ = leanh::lean_unsigned_to_nat(0);
                 v_isZero_220_ = lean_nat_dec_eq(v_x_217_, v_zero_219_);
                 if v_isZero_220_ == 1 {
-                    crate::leanh::lean_dec(v_x_217_);
+                    leanh::lean_dec(v_x_217_);
                     return v_x_218_;
                 } else {
-                    v_one_221_ = crate::leanh::lean_unsigned_to_nat(1);
+                    v_one_221_ = leanh::lean_unsigned_to_nat(1);
                     v_n_222_ = lean_nat_sub(v_x_217_, v_one_221_);
-                    crate::leanh::lean_dec(v_x_217_);
+                    leanh::lean_dec(v_x_217_);
                     v___x_223_ = lean_string_push(v_x_218_, v_c_216_);
                     v_x_217_ = v_n_222_;
                     v_x_218_ = v___x_223_;
@@ -85,14 +85,14 @@ pub unsafe fn l___private_Init_Data_Nat_Basic_0__Nat_repeatTR_loop___at___00Lake
     }
 }
 pub unsafe fn l___private_Init_Data_Nat_Basic_0__Nat_repeatTR_loop___at___00Lake_lpadAscii_spec__0___boxed(
-    mut v_c_225_: *mut crate::leanh::LeanObject,
-    mut v_x_226_: *mut crate::leanh::LeanObject,
-    mut v_x_227_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_225_: *mut leanh::LeanObject,
+    mut v_x_226_: *mut leanh::LeanObject,
+    mut v_x_227_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_228_: u32 = 0;
-    let mut v_res_229_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_228_ = crate::leanh::lean_unbox_uint32(v_c_225_);
-    crate::leanh::lean_dec(v_c_225_);
+    let mut v_res_229_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_228_ = leanh::lean_unbox_uint32(v_c_225_);
+    leanh::lean_dec(v_c_225_);
     v_res_229_ =
         l___private_Init_Data_Nat_Basic_0__Nat_repeatTR_loop___at___00Lake_lpadAscii_spec__0(
             v_c_boxed_228_,
@@ -102,15 +102,15 @@ pub unsafe fn l___private_Init_Data_Nat_Basic_0__Nat_repeatTR_loop___at___00Lake
     return v_res_229_;
 }
 pub unsafe fn l_Lake_lpadAscii(
-    mut v_s_231_: *mut crate::leanh::LeanObject,
+    mut v_s_231_: *mut leanh::LeanObject,
     mut v_c_232_: u32,
-    mut v_len_233_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_234_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_235_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_236_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_237_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_238_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_len_233_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_234_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_235_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_236_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_237_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_238_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_234_ = l_Lake_lpadAscii___closed__0;
     v___x_235_ = lean_string_utf8_byte_size(v_s_231_);
     v___x_236_ = lean_nat_sub(v_len_233_, v___x_235_);
@@ -122,27 +122,27 @@ pub unsafe fn l_Lake_lpadAscii(
     return v___x_238_;
 }
 pub unsafe fn l_Lake_lpadAscii___boxed(
-    mut v_s_239_: *mut crate::leanh::LeanObject,
-    mut v_c_240_: *mut crate::leanh::LeanObject,
-    mut v_len_241_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_s_239_: *mut leanh::LeanObject,
+    mut v_c_240_: *mut leanh::LeanObject,
+    mut v_len_241_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_242_: u32 = 0;
-    let mut v_res_243_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_242_ = crate::leanh::lean_unbox_uint32(v_c_240_);
-    crate::leanh::lean_dec(v_c_240_);
+    let mut v_res_243_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_242_ = leanh::lean_unbox_uint32(v_c_240_);
+    leanh::lean_dec(v_c_240_);
     v_res_243_ = l_Lake_lpadAscii(v_s_239_, v_c_boxed_242_, v_len_241_);
-    crate::leanh::lean_dec(v_len_241_);
-    crate::leanh::lean_dec_ref(v_s_239_);
+    leanh::lean_dec(v_len_241_);
+    leanh::lean_dec_ref(v_s_239_);
     return v_res_243_;
 }
 pub unsafe fn l_Lake_rpadAscii(
-    mut v_s_244_: *mut crate::leanh::LeanObject,
+    mut v_s_244_: *mut leanh::LeanObject,
     mut v_c_245_: u32,
-    mut v_len_246_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_247_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_248_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_249_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_len_246_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_247_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_248_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_249_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_247_ = lean_string_utf8_byte_size(v_s_244_);
     v___x_248_ = lean_nat_sub(v_len_246_, v___x_247_);
     v___x_249_ =
@@ -152,51 +152,51 @@ pub unsafe fn l_Lake_rpadAscii(
     return v___x_249_;
 }
 pub unsafe fn l_Lake_rpadAscii___boxed(
-    mut v_s_250_: *mut crate::leanh::LeanObject,
-    mut v_c_251_: *mut crate::leanh::LeanObject,
-    mut v_len_252_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_s_250_: *mut leanh::LeanObject,
+    mut v_c_251_: *mut leanh::LeanObject,
+    mut v_len_252_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_253_: u32 = 0;
-    let mut v_res_254_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_253_ = crate::leanh::lean_unbox_uint32(v_c_251_);
-    crate::leanh::lean_dec(v_c_251_);
+    let mut v_res_254_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_253_ = leanh::lean_unbox_uint32(v_c_251_);
+    leanh::lean_dec(v_c_251_);
     v_res_254_ = l_Lake_rpadAscii(v_s_250_, v_c_boxed_253_, v_len_252_);
-    crate::leanh::lean_dec(v_len_252_);
+    leanh::lean_dec(v_len_252_);
     return v_res_254_;
 }
 pub unsafe fn l_Lake_zpad(
-    mut v_n_255_: *mut crate::leanh::LeanObject,
-    mut v_len_256_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_257_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_n_255_: *mut leanh::LeanObject,
+    mut v_len_256_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_257_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_258_: u32 = 0;
-    let mut v___x_259_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_259_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_257_ = l_Nat_reprFast(v_n_255_);
     v___x_258_ = 48;
     v___x_259_ = l_Lake_lpadAscii(v___x_257_, v___x_258_, v_len_256_);
-    crate::leanh::lean_dec_ref(v___x_257_);
+    leanh::lean_dec_ref(v___x_257_);
     return v___x_259_;
 }
 pub unsafe fn l_Lake_zpad___boxed(
-    mut v_n_260_: *mut crate::leanh::LeanObject,
-    mut v_len_261_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_262_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_n_260_: *mut leanh::LeanObject,
+    mut v_len_261_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_262_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_262_ = l_Lake_zpad(v_n_260_, v_len_261_);
-    crate::leanh::lean_dec(v_len_261_);
+    leanh::lean_dec(v_len_261_);
     return v_res_262_;
 }
 pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isHex_spec__0___redArg(
-    mut v_s_263_: *mut crate::leanh::LeanObject,
-    mut v_n_264_: *mut crate::leanh::LeanObject,
-    mut v_i_265_: *mut crate::leanh::LeanObject,
+    mut v_s_263_: *mut leanh::LeanObject,
+    mut v_n_264_: *mut leanh::LeanObject,
+    mut v_i_265_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_zero_266_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_zero_266_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isZero_267_: u8 = 0;
-    let mut v_one_268_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_n_269_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_one_268_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_n_269_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___y_271_: u8 = 0;
-    let mut v___x_273_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_273_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_c_274_: u8 = 0;
     let mut v___x_275_: u8 = 0;
     let mut v___x_276_: u8 = 0;
@@ -214,16 +214,16 @@ pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isH
     loop {
         match state {
             0 => {
-                v_zero_266_ = crate::leanh::lean_unsigned_to_nat(0);
+                v_zero_266_ = leanh::lean_unsigned_to_nat(0);
                 v_isZero_267_ = lean_nat_dec_eq(v_i_265_, v_zero_266_);
                 if v_isZero_267_ == 1 {
-                    crate::leanh::lean_dec(v_i_265_);
+                    leanh::lean_dec(v_i_265_);
                     return v_isZero_267_;
                 } else {
-                    v_one_268_ = crate::leanh::lean_unsigned_to_nat(1);
+                    v_one_268_ = leanh::lean_unsigned_to_nat(1);
                     v_n_269_ = lean_nat_sub(v_i_265_, v_one_268_);
                     v___x_273_ = lean_nat_sub(v_n_264_, v_i_265_);
-                    crate::leanh::lean_dec(v_i_265_);
+                    leanh::lean_dec(v_i_265_);
                     v_c_274_ = lean_string_get_byte_fast(v_s_263_, v___x_273_);
                     v___x_275_ = 57;
                     v___x_276_ = lean_uint8_dec_le(v_c_274_, v___x_275_);
@@ -234,7 +234,7 @@ pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isH
                             v___x_279_ = 70;
                             v___x_280_ = lean_uint8_dec_le(v_c_274_, v___x_279_);
                             if v___x_280_ == 0 {
-                                crate::leanh::lean_dec(v_n_269_);
+                                leanh::lean_dec(v_n_269_);
                                 return v___x_280_;
                             } else {
                                 v___x_281_ = 65;
@@ -261,7 +261,7 @@ pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isH
             }
             1 => {
                 if v___y_271_ == 0 {
-                    crate::leanh::lean_dec(v_n_269_);
+                    leanh::lean_dec(v_n_269_);
                     return v___y_271_;
                 } else {
                     v_i_265_ = v_n_269_;
@@ -274,23 +274,23 @@ pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isH
     }
 }
 pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isHex_spec__0___redArg___boxed(
-    mut v_s_287_: *mut crate::leanh::LeanObject,
-    mut v_n_288_: *mut crate::leanh::LeanObject,
-    mut v_i_289_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_s_287_: *mut leanh::LeanObject,
+    mut v_n_288_: *mut leanh::LeanObject,
+    mut v_i_289_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_290_: u8 = 0;
-    let mut v_r_291_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_291_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_290_ =
         l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isHex_spec__0___redArg(
             v_s_287_, v_n_288_, v_i_289_,
         );
-    crate::leanh::lean_dec(v_n_288_);
-    crate::leanh::lean_dec_ref(v_s_287_);
-    v_r_291_ = crate::leanh::lean_box((v_res_290_) as usize);
+    leanh::lean_dec(v_n_288_);
+    leanh::lean_dec_ref(v_s_287_);
+    v_r_291_ = leanh::lean_box((v_res_290_) as usize);
     return v_r_291_;
 }
-pub unsafe fn l_Lake_isHex(mut v_s_292_: *mut crate::leanh::LeanObject) -> u8 {
-    let mut v___x_293_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn l_Lake_isHex(mut v_s_292_: *mut leanh::LeanObject) -> u8 {
+    let mut v___x_293_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_294_: u8 = 0;
     v___x_293_ = lean_string_utf8_byte_size(v_s_292_);
     v___x_294_ =
@@ -300,20 +300,20 @@ pub unsafe fn l_Lake_isHex(mut v_s_292_: *mut crate::leanh::LeanObject) -> u8 {
     return v___x_294_;
 }
 pub unsafe fn l_Lake_isHex___boxed(
-    mut v_s_295_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_s_295_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_296_: u8 = 0;
-    let mut v_r_297_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_297_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_296_ = l_Lake_isHex(v_s_295_);
-    crate::leanh::lean_dec_ref(v_s_295_);
-    v_r_297_ = crate::leanh::lean_box((v_res_296_) as usize);
+    leanh::lean_dec_ref(v_s_295_);
+    v_r_297_ = leanh::lean_box((v_res_296_) as usize);
     return v_r_297_;
 }
 pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isHex_spec__0(
-    mut v_s_298_: *mut crate::leanh::LeanObject,
-    mut v_n_299_: *mut crate::leanh::LeanObject,
-    mut v_i_300_: *mut crate::leanh::LeanObject,
-    mut v_a_301_: *mut crate::leanh::LeanObject,
+    mut v_s_298_: *mut leanh::LeanObject,
+    mut v_n_299_: *mut leanh::LeanObject,
+    mut v_i_300_: *mut leanh::LeanObject,
+    mut v_a_301_: *mut leanh::LeanObject,
 ) -> u8 {
     let mut v___x_302_: u8 = 0;
     v___x_302_ =
@@ -323,19 +323,19 @@ pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isH
     return v___x_302_;
 }
 pub unsafe fn l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isHex_spec__0___boxed(
-    mut v_s_303_: *mut crate::leanh::LeanObject,
-    mut v_n_304_: *mut crate::leanh::LeanObject,
-    mut v_i_305_: *mut crate::leanh::LeanObject,
-    mut v_a_306_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_s_303_: *mut leanh::LeanObject,
+    mut v_n_304_: *mut leanh::LeanObject,
+    mut v_i_305_: *mut leanh::LeanObject,
+    mut v_a_306_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_307_: u8 = 0;
-    let mut v_r_308_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_308_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_307_ = l___private_Init_Data_Nat_Fold_0__Nat_allTR_loop___at___00Lake_isHex_spec__0(
         v_s_303_, v_n_304_, v_i_305_, v_a_306_,
     );
-    crate::leanh::lean_dec(v_n_304_);
-    crate::leanh::lean_dec_ref(v_s_303_);
-    v_r_308_ = crate::leanh::lean_box((v_res_307_) as usize);
+    leanh::lean_dec(v_n_304_);
+    leanh::lean_dec_ref(v_s_303_);
+    v_r_308_ = leanh::lean_box((v_res_307_) as usize);
     return v_r_308_;
 }
 pub unsafe fn l___private_Lake_Util_String_0__Lake_lowerHexByte(mut v_n_309_: u8) -> u8 {
@@ -358,14 +358,14 @@ pub unsafe fn l___private_Lake_Util_String_0__Lake_lowerHexByte(mut v_n_309_: u8
     }
 }
 pub unsafe fn l___private_Lake_Util_String_0__Lake_lowerHexByte___boxed(
-    mut v_n_316_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_n_316_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_n_boxed_317_: u8 = 0;
     let mut v_res_318_: u8 = 0;
-    let mut v_r_319_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_n_boxed_317_ = (crate::leanh::lean_unbox(v_n_316_) as u8);
+    let mut v_r_319_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_n_boxed_317_ = (leanh::lean_unbox(v_n_316_) as u8);
     v_res_318_ = l___private_Lake_Util_String_0__Lake_lowerHexByte(v_n_boxed_317_);
-    v_r_319_ = crate::leanh::lean_box((v_res_318_) as usize);
+    v_r_319_ = leanh::lean_box((v_res_318_) as usize);
     return v_r_319_;
 }
 pub unsafe fn l___private_Lake_Util_String_0__Lake_lowerHexChar(mut v_n_320_: u8) -> u32 {
@@ -376,27 +376,27 @@ pub unsafe fn l___private_Lake_Util_String_0__Lake_lowerHexChar(mut v_n_320_: u8
     return v___x_322_;
 }
 pub unsafe fn l___private_Lake_Util_String_0__Lake_lowerHexChar___boxed(
-    mut v_n_323_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_n_323_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_n_boxed_324_: u8 = 0;
     let mut v_res_325_: u32 = 0;
-    let mut v_r_326_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_n_boxed_324_ = (crate::leanh::lean_unbox(v_n_323_) as u8);
+    let mut v_r_326_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_n_boxed_324_ = (leanh::lean_unbox(v_n_323_) as u8);
     v_res_325_ = l___private_Lake_Util_String_0__Lake_lowerHexChar(v_n_boxed_324_);
-    v_r_326_ = crate::leanh::lean_box_uint32(v_res_325_);
+    v_r_326_ = leanh::lean_box_uint32(v_res_325_);
     return v_r_326_;
 }
-pub unsafe fn _init_l_Lake_lowerHexUInt64___closed__0() -> *mut crate::leanh::LeanObject {
-    let mut v___x_327_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_328_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_327_ = crate::leanh::lean_unsigned_to_nat(16);
+pub unsafe fn _init_l_Lake_lowerHexUInt64___closed__0() -> *mut leanh::LeanObject {
+    let mut v___x_327_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_328_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_327_ = leanh::lean_unsigned_to_nat(16);
     v___x_328_ = lean_mk_empty_byte_array(v___x_327_);
     return v___x_328_;
 }
-pub unsafe fn _init_l_Lake_lowerHexUInt64___closed__1() -> *mut crate::leanh::LeanObject {
-    let mut v___x_329_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_330_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_329_ = crate::leanh::lean_obj_once(
+pub unsafe fn _init_l_Lake_lowerHexUInt64___closed__1() -> *mut leanh::LeanObject {
+    let mut v___x_329_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_330_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_329_ = leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Lake_lowerHexUInt64___closed__0),
         core::ptr::addr_of_mut!(l_Lake_lowerHexUInt64___closed__0_once),
         _init_l_Lake_lowerHexUInt64___closed__0,
@@ -404,104 +404,104 @@ pub unsafe fn _init_l_Lake_lowerHexUInt64___closed__1() -> *mut crate::leanh::Le
     v___x_330_ = lean_string_from_utf8_unchecked(v___x_329_);
     return v___x_330_;
 }
-pub unsafe fn l_Lake_lowerHexUInt64(mut v_n_331_: u64) -> *mut crate::leanh::LeanObject {
-    let mut v___x_332_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn l_Lake_lowerHexUInt64(mut v_n_331_: u64) -> *mut leanh::LeanObject {
+    let mut v___x_332_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_333_: u64 = 0;
     let mut v___x_334_: u64 = 0;
     let mut v___x_335_: u64 = 0;
     let mut v___x_336_: u64 = 0;
     let mut v___x_337_: u8 = 0;
     let mut v___x_338_: u32 = 0;
-    let mut v___x_339_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_339_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_340_: u64 = 0;
     let mut v___x_341_: u64 = 0;
     let mut v___x_342_: u64 = 0;
     let mut v___x_343_: u8 = 0;
     let mut v___x_344_: u32 = 0;
-    let mut v___x_345_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_345_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_346_: u64 = 0;
     let mut v___x_347_: u64 = 0;
     let mut v___x_348_: u64 = 0;
     let mut v___x_349_: u8 = 0;
     let mut v___x_350_: u32 = 0;
-    let mut v___x_351_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_351_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_352_: u64 = 0;
     let mut v___x_353_: u64 = 0;
     let mut v___x_354_: u64 = 0;
     let mut v___x_355_: u8 = 0;
     let mut v___x_356_: u32 = 0;
-    let mut v___x_357_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_357_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_358_: u64 = 0;
     let mut v___x_359_: u64 = 0;
     let mut v___x_360_: u64 = 0;
     let mut v___x_361_: u8 = 0;
     let mut v___x_362_: u32 = 0;
-    let mut v___x_363_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_363_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_364_: u64 = 0;
     let mut v___x_365_: u64 = 0;
     let mut v___x_366_: u64 = 0;
     let mut v___x_367_: u8 = 0;
     let mut v___x_368_: u32 = 0;
-    let mut v___x_369_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_369_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_370_: u64 = 0;
     let mut v___x_371_: u64 = 0;
     let mut v___x_372_: u64 = 0;
     let mut v___x_373_: u8 = 0;
     let mut v___x_374_: u32 = 0;
-    let mut v___x_375_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_375_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_376_: u64 = 0;
     let mut v___x_377_: u64 = 0;
     let mut v___x_378_: u64 = 0;
     let mut v___x_379_: u8 = 0;
     let mut v___x_380_: u32 = 0;
-    let mut v___x_381_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_381_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_382_: u64 = 0;
     let mut v___x_383_: u64 = 0;
     let mut v___x_384_: u64 = 0;
     let mut v___x_385_: u8 = 0;
     let mut v___x_386_: u32 = 0;
-    let mut v___x_387_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_387_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_388_: u64 = 0;
     let mut v___x_389_: u64 = 0;
     let mut v___x_390_: u64 = 0;
     let mut v___x_391_: u8 = 0;
     let mut v___x_392_: u32 = 0;
-    let mut v___x_393_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_393_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_394_: u64 = 0;
     let mut v___x_395_: u64 = 0;
     let mut v___x_396_: u64 = 0;
     let mut v___x_397_: u8 = 0;
     let mut v___x_398_: u32 = 0;
-    let mut v___x_399_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_399_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_400_: u64 = 0;
     let mut v___x_401_: u64 = 0;
     let mut v___x_402_: u64 = 0;
     let mut v___x_403_: u8 = 0;
     let mut v___x_404_: u32 = 0;
-    let mut v___x_405_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_405_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_406_: u64 = 0;
     let mut v___x_407_: u64 = 0;
     let mut v___x_408_: u64 = 0;
     let mut v___x_409_: u8 = 0;
     let mut v___x_410_: u32 = 0;
-    let mut v___x_411_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_411_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_412_: u64 = 0;
     let mut v___x_413_: u64 = 0;
     let mut v___x_414_: u64 = 0;
     let mut v___x_415_: u8 = 0;
     let mut v___x_416_: u32 = 0;
-    let mut v___x_417_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_417_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_418_: u64 = 0;
     let mut v___x_419_: u64 = 0;
     let mut v___x_420_: u64 = 0;
     let mut v___x_421_: u8 = 0;
     let mut v___x_422_: u32 = 0;
-    let mut v___x_423_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_423_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_424_: u64 = 0;
     let mut v___x_425_: u8 = 0;
     let mut v___x_426_: u32 = 0;
-    let mut v___x_427_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_332_ = crate::leanh::lean_obj_once(
+    let mut v___x_427_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_332_ = leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Lake_lowerHexUInt64___closed__1),
         core::ptr::addr_of_mut!(l_Lake_lowerHexUInt64___closed__1_once),
         _init_l_Lake_lowerHexUInt64___closed__1,
@@ -604,99 +604,99 @@ pub unsafe fn l_Lake_lowerHexUInt64(mut v_n_331_: u64) -> *mut crate::leanh::Lea
     return v___x_427_;
 }
 pub unsafe fn l_Lake_lowerHexUInt64___boxed(
-    mut v_n_428_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_n_428_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_n_boxed_429_: u64 = 0;
-    let mut v_res_430_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_n_boxed_429_ = crate::leanh::lean_unbox_uint64(v_n_428_);
-    crate::leanh::lean_dec_ref(v_n_428_);
+    let mut v_res_430_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_n_boxed_429_ = leanh::lean_unbox_uint64(v_n_428_);
+    leanh::lean_dec_ref(v_n_428_);
     v_res_430_ = l_Lake_lowerHexUInt64(v_n_boxed_429_);
     return v_res_430_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Lake_Util_String(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Lake_Util_String(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_ToString_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_UInt_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_String_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Nat_Fold(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_String_Length(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Lake_Util_String(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Lake_Util_String(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Lake_Util_String(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Lake_Util_String(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_ToString_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_UInt_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_String_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Nat_Fold(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_String_Length(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Lake_Util_String(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Lake_Util_String(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Lake_Util_String(builtin);
 }

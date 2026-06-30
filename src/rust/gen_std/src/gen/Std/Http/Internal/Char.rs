@@ -13,188 +13,188 @@ use crate::r#gen::Init::Data::String::Basic::{
     initialize_Init_Data_String_Basic, runtime_initialize_Init_Data_String_Basic,
 };
 use crate::r#gen::Init::Grind::{initialize_Init_Grind, runtime_initialize_Init_Grind};
-static mut l_Std_Http_Internal_Char_isDigitByte___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isDigitByte___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isDigitByte___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isDigitByte___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isDigitByte___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isDigitByte___closed__1: u8 = 0;
-static mut l_Std_Http_Internal_Char_isAlphaByte___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isAlphaByte___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isAlphaByte___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isAlphaByte___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isAlphaByte___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isAlphaByte___closed__1: u8 = 0;
-static mut l_Std_Http_Internal_Char_isAlphaByte___closed__2_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isAlphaByte___closed__2_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isAlphaByte___closed__2: u8 = 0;
-static mut l_Std_Http_Internal_Char_isAlphaByte___closed__3_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isAlphaByte___closed__3_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isAlphaByte___closed__3: u8 = 0;
-static mut l_Std_Http_Internal_Char_isHexDigitByte___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isHexDigitByte___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isHexDigitByte___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isHexDigitByte___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isHexDigitByte___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isHexDigitByte___closed__1: u8 = 0;
-static mut l_Std_Http_Internal_Char_isUnreserved___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isUnreserved___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isUnreserved___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isUnreserved___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isUnreserved___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isUnreserved___closed__1: u8 = 0;
-static mut l_Std_Http_Internal_Char_isUnreserved___closed__2_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isUnreserved___closed__2_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isUnreserved___closed__2: u8 = 0;
-static mut l_Std_Http_Internal_Char_isUnreserved___closed__3_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isUnreserved___closed__3_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isUnreserved___closed__3: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__1: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__2_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__2_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__2: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__3_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__3_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__3: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__4_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__4_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__4: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__5_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__5_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__5: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__6_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__6_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__6: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__7_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__7_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__7: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__8_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__8_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__8: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__9_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__9_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__9: u8 = 0;
-static mut l_Std_Http_Internal_Char_isSubDelims___closed__10_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isSubDelims___closed__10_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isSubDelims___closed__10: u8 = 0;
-static mut l_Std_Http_Internal_Char_isPChar___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isPChar___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isPChar___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isPChar___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isPChar___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isPChar___closed__1: u8 = 0;
-static mut l_Std_Http_Internal_Char_isQueryChar___closed__0_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isQueryChar___closed__0_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isQueryChar___closed__0: u8 = 0;
-static mut l_Std_Http_Internal_Char_isQueryChar___closed__1_once: crate::leanh::LeanOnceCell =
-    crate::leanh::LeanOnceCell {
+static mut l_Std_Http_Internal_Char_isQueryChar___closed__1_once: leanh::LeanOnceCell =
+    leanh::LeanOnceCell {
         state: core::sync::atomic::AtomicI32::new(0),
         lock: core::sync::atomic::AtomicI32::new(0),
     };
 static mut l_Std_Http_Internal_Char_isQueryChar___closed__1: u8 = 0;
 pub unsafe fn l_Std_Http_Internal_Char_isAscii(mut v_c_986_: u32) -> u8 {
-    let mut v___x_987_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_988_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_987_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_988_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_989_: u8 = 0;
     v___x_987_ = lean_uint32_to_nat(v_c_986_);
-    v___x_988_ = crate::leanh::lean_unsigned_to_nat(128);
+    v___x_988_ = leanh::lean_unsigned_to_nat(128);
     v___x_989_ = lean_nat_dec_lt(v___x_987_, v___x_988_);
-    crate::leanh::lean_dec(v___x_987_);
+    leanh::lean_dec(v___x_987_);
     return v___x_989_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAscii___boxed(
-    mut v_c_990_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_990_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_991_: u32 = 0;
     let mut v_res_992_: u8 = 0;
-    let mut v_r_993_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_991_ = crate::leanh::lean_unbox_uint32(v_c_990_);
-    crate::leanh::lean_dec(v_c_990_);
+    let mut v_r_993_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_991_ = leanh::lean_unbox_uint32(v_c_990_);
+    leanh::lean_dec(v_c_990_);
     v_res_992_ = l_Std_Http_Internal_Char_isAscii(v_c_boxed_991_);
-    v_r_993_ = crate::leanh::lean_box((v_res_992_) as usize);
+    v_r_993_ = leanh::lean_box((v_res_992_) as usize);
     return v_r_993_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAsciiByte(mut v_c_994_: u8) -> u8 {
@@ -205,14 +205,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isAsciiByte(mut v_c_994_: u8) -> u8 {
     return v___x_996_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAsciiByte___boxed(
-    mut v_c_997_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_997_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_998_: u8 = 0;
     let mut v_res_999_: u8 = 0;
-    let mut v_r_1000_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_998_ = (crate::leanh::lean_unbox(v_c_997_) as u8);
+    let mut v_r_1000_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_998_ = (leanh::lean_unbox(v_c_997_) as u8);
     v_res_999_ = l_Std_Http_Internal_Char_isAsciiByte(v_c_boxed_998_);
-    v_r_1000_ = crate::leanh::lean_box((v_res_999_) as usize);
+    v_r_1000_ = leanh::lean_box((v_res_999_) as usize);
     return v_r_1000_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isDigitByte___closed__0() -> u8 {
@@ -232,7 +232,7 @@ pub unsafe fn _init_l_Std_Http_Internal_Char_isDigitByte___closed__1() -> u8 {
 pub unsafe fn l_Std_Http_Internal_Char_isDigitByte(mut v_c_1005_: u8) -> u8 {
     let mut v___x_1006_: u8 = 0;
     let mut v___x_1007_: u8 = 0;
-    v___x_1006_ = crate::leanh::lean_uint8_once(
+    v___x_1006_ = leanh::lean_uint8_once(
         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
         _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -243,7 +243,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isDigitByte(mut v_c_1005_: u8) -> u8 {
     } else {
         let mut v___x_1008_: u8 = 0;
         let mut v___x_1009_: u8 = 0;
-        v___x_1008_ = crate::leanh::lean_uint8_once(
+        v___x_1008_ = leanh::lean_uint8_once(
             core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
             core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1_once),
             _init_l_Std_Http_Internal_Char_isDigitByte___closed__1,
@@ -253,14 +253,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isDigitByte(mut v_c_1005_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isDigitByte___boxed(
-    mut v_c_1010_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1010_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1011_: u8 = 0;
     let mut v_res_1012_: u8 = 0;
-    let mut v_r_1013_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1011_ = (crate::leanh::lean_unbox(v_c_1010_) as u8);
+    let mut v_r_1013_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1011_ = (leanh::lean_unbox(v_c_1010_) as u8);
     v_res_1012_ = l_Std_Http_Internal_Char_isDigitByte(v_c_boxed_1011_);
-    v_r_1013_ = crate::leanh::lean_box((v_res_1012_) as usize);
+    v_r_1013_ = leanh::lean_box((v_res_1012_) as usize);
     return v_r_1013_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isAlphaByte___closed__0() -> u8 {
@@ -305,7 +305,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaByte(mut v_c_1022_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1029_ = crate::leanh::lean_uint8_once(
+                v___x_1029_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2_once),
                     _init_l_Std_Http_Internal_Char_isAlphaByte___closed__2,
@@ -316,7 +316,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaByte(mut v_c_1022_: u8) -> u8 {
                     state = 1;
                     continue;
                 } else {
-                    v___x_1031_ = crate::leanh::lean_uint8_once(
+                    v___x_1031_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__3),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__3_once
@@ -331,7 +331,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaByte(mut v_c_1022_: u8) -> u8 {
             }
             1 => {
                 if v___y_1024_ == 0 {
-                    v___x_1025_ = crate::leanh::lean_uint8_once(
+                    v___x_1025_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -342,7 +342,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaByte(mut v_c_1022_: u8) -> u8 {
                     if v___x_1026_ == 0 {
                         return v___x_1026_;
                     } else {
-                        v___x_1027_ = crate::leanh::lean_uint8_once(
+                        v___x_1027_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -363,14 +363,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaByte(mut v_c_1022_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAlphaByte___boxed(
-    mut v_c_1033_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1033_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1034_: u8 = 0;
     let mut v_res_1035_: u8 = 0;
-    let mut v_r_1036_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1034_ = (crate::leanh::lean_unbox(v_c_1033_) as u8);
+    let mut v_r_1036_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1034_ = (leanh::lean_unbox(v_c_1033_) as u8);
     v_res_1035_ = l_Std_Http_Internal_Char_isAlphaByte(v_c_boxed_1034_);
-    v_r_1036_ = crate::leanh::lean_box((v_res_1035_) as usize);
+    v_r_1036_ = leanh::lean_box((v_res_1035_) as usize);
     return v_r_1036_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_tchar(mut v_c_1037_: u32) -> u8 {
@@ -588,15 +588,15 @@ pub unsafe fn l_Std_Http_Internal_Char_tchar(mut v_c_1037_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_tchar___boxed(
-    mut v_c_1083_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1083_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1084_: u32 = 0;
     let mut v_res_1085_: u8 = 0;
-    let mut v_r_1086_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1084_ = crate::leanh::lean_unbox_uint32(v_c_1083_);
-    crate::leanh::lean_dec(v_c_1083_);
+    let mut v_r_1086_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1084_ = leanh::lean_unbox_uint32(v_c_1083_);
+    leanh::lean_dec(v_c_1083_);
     v_res_1085_ = l_Std_Http_Internal_Char_tchar(v_c_boxed_1084_);
-    v_r_1086_ = crate::leanh::lean_box((v_res_1085_) as usize);
+    v_r_1086_ = leanh::lean_box((v_res_1085_) as usize);
     return v_r_1086_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_vchar(mut v_c_1087_: u32) -> u8 {
@@ -615,15 +615,15 @@ pub unsafe fn l_Std_Http_Internal_Char_vchar(mut v_c_1087_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_vchar___boxed(
-    mut v_c_1092_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1092_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1093_: u32 = 0;
     let mut v_res_1094_: u8 = 0;
-    let mut v_r_1095_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1093_ = crate::leanh::lean_unbox_uint32(v_c_1092_);
-    crate::leanh::lean_dec(v_c_1092_);
+    let mut v_r_1095_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1093_ = leanh::lean_unbox_uint32(v_c_1092_);
+    leanh::lean_dec(v_c_1092_);
     v_res_1094_ = l_Std_Http_Internal_Char_vchar(v_c_boxed_1093_);
-    v_r_1095_ = crate::leanh::lean_box((v_res_1094_) as usize);
+    v_r_1095_ = leanh::lean_box((v_res_1094_) as usize);
     return v_r_1095_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_qdtext(mut v_c_1096_: u32) -> u8 {
@@ -695,15 +695,15 @@ pub unsafe fn l_Std_Http_Internal_Char_qdtext(mut v_c_1096_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_qdtext___boxed(
-    mut v_c_1112_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1112_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1113_: u32 = 0;
     let mut v_res_1114_: u8 = 0;
-    let mut v_r_1115_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1113_ = crate::leanh::lean_unbox_uint32(v_c_1112_);
-    crate::leanh::lean_dec(v_c_1112_);
+    let mut v_r_1115_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1113_ = leanh::lean_unbox_uint32(v_c_1112_);
+    leanh::lean_dec(v_c_1112_);
     v_res_1114_ = l_Std_Http_Internal_Char_qdtext(v_c_boxed_1113_);
-    v_r_1115_ = crate::leanh::lean_box((v_res_1114_) as usize);
+    v_r_1115_ = leanh::lean_box((v_res_1114_) as usize);
     return v_r_1115_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_quotedPairChar(mut v_c_1116_: u32) -> u8 {
@@ -738,15 +738,15 @@ pub unsafe fn l_Std_Http_Internal_Char_quotedPairChar(mut v_c_1116_: u32) -> u8 
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_quotedPairChar___boxed(
-    mut v_c_1125_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1125_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1126_: u32 = 0;
     let mut v_res_1127_: u8 = 0;
-    let mut v_r_1128_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1126_ = crate::leanh::lean_unbox_uint32(v_c_1125_);
-    crate::leanh::lean_dec(v_c_1125_);
+    let mut v_r_1128_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1126_ = leanh::lean_unbox_uint32(v_c_1125_);
+    leanh::lean_dec(v_c_1125_);
     v_res_1127_ = l_Std_Http_Internal_Char_quotedPairChar(v_c_boxed_1126_);
-    v_r_1128_ = crate::leanh::lean_box((v_res_1127_) as usize);
+    v_r_1128_ = leanh::lean_box((v_res_1127_) as usize);
     return v_r_1128_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_quotedStringChar(mut v_c_1129_: u32) -> u8 {
@@ -855,24 +855,24 @@ pub unsafe fn l_Std_Http_Internal_Char_quotedStringChar(mut v_c_1129_: u32) -> u
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_quotedStringChar___boxed(
-    mut v_c_1154_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1154_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1155_: u32 = 0;
     let mut v_res_1156_: u8 = 0;
-    let mut v_r_1157_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1155_ = crate::leanh::lean_unbox_uint32(v_c_1154_);
-    crate::leanh::lean_dec(v_c_1154_);
+    let mut v_r_1157_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1155_ = leanh::lean_unbox_uint32(v_c_1154_);
+    leanh::lean_dec(v_c_1154_);
     v_res_1156_ = l_Std_Http_Internal_Char_quotedStringChar(v_c_boxed_1155_);
-    v_r_1157_ = crate::leanh::lean_box((v_res_1156_) as usize);
+    v_r_1157_ = leanh::lean_box((v_res_1156_) as usize);
     return v_r_1157_;
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtext_match__1_splitter___redArg(
     mut v_c_1158_: u32,
-    mut v_h__1_1159_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1160_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1161_: *mut crate::leanh::LeanObject,
-    mut v_h__4_1162_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_h__1_1159_: *mut leanh::LeanObject,
+    mut v_h__2_1160_: *mut leanh::LeanObject,
+    mut v_h__3_1161_: *mut leanh::LeanObject,
+    mut v_h__4_1162_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_1163_: u32 = 0;
     let mut v___x_1164_: u8 = 0;
     v___x_1163_ = 9;
@@ -880,78 +880,78 @@ pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtex
     if v___x_1164_ == 0 {
         let mut v___x_1165_: u32 = 0;
         let mut v___x_1166_: u8 = 0;
-        crate::leanh::lean_dec(v_h__1_1159_);
+        leanh::lean_dec(v_h__1_1159_);
         v___x_1165_ = 32;
         v___x_1166_ = lean_uint32_dec_eq(v_c_1158_, v___x_1165_);
         if v___x_1166_ == 0 {
             let mut v___x_1167_: u32 = 0;
             let mut v___x_1168_: u8 = 0;
-            crate::leanh::lean_dec(v_h__2_1160_);
+            leanh::lean_dec(v_h__2_1160_);
             v___x_1167_ = 33;
             v___x_1168_ = lean_uint32_dec_eq(v_c_1158_, v___x_1167_);
             if v___x_1168_ == 0 {
-                let mut v___x_1169_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                let mut v___x_1170_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                crate::leanh::lean_dec(v_h__3_1161_);
-                v___x_1169_ = crate::leanh::lean_box_uint32(v_c_1158_);
-                v___x_1170_ = crate::leanh::lean_apply_4(
+                let mut v___x_1169_: *mut leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_1170_: *mut leanh::LeanObject = core::ptr::null_mut();
+                leanh::lean_dec(v_h__3_1161_);
+                v___x_1169_ = leanh::lean_box_uint32(v_c_1158_);
+                v___x_1170_ = leanh::lean_apply_4(
                     v_h__4_1162_,
                     v___x_1169_,
-                    crate::leanh::lean_box(0),
-                    crate::leanh::lean_box(0),
-                    crate::leanh::lean_box(0),
+                    leanh::lean_box(0),
+                    leanh::lean_box(0),
+                    leanh::lean_box(0),
                 );
                 return v___x_1170_;
             } else {
-                let mut v___x_1171_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                let mut v___x_1172_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                crate::leanh::lean_dec(v_h__4_1162_);
-                v___x_1171_ = crate::leanh::lean_box(0);
-                v___x_1172_ = crate::leanh::lean_apply_1(v_h__3_1161_, v___x_1171_);
+                let mut v___x_1171_: *mut leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_1172_: *mut leanh::LeanObject = core::ptr::null_mut();
+                leanh::lean_dec(v_h__4_1162_);
+                v___x_1171_ = leanh::lean_box(0);
+                v___x_1172_ = leanh::lean_apply_1(v_h__3_1161_, v___x_1171_);
                 return v___x_1172_;
             }
         } else {
-            let mut v___x_1173_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1174_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            crate::leanh::lean_dec(v_h__4_1162_);
-            crate::leanh::lean_dec(v_h__3_1161_);
-            v___x_1173_ = crate::leanh::lean_box(0);
-            v___x_1174_ = crate::leanh::lean_apply_1(v_h__2_1160_, v___x_1173_);
+            let mut v___x_1173_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1174_: *mut leanh::LeanObject = core::ptr::null_mut();
+            leanh::lean_dec(v_h__4_1162_);
+            leanh::lean_dec(v_h__3_1161_);
+            v___x_1173_ = leanh::lean_box(0);
+            v___x_1174_ = leanh::lean_apply_1(v_h__2_1160_, v___x_1173_);
             return v___x_1174_;
         }
     } else {
-        let mut v___x_1175_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1176_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        crate::leanh::lean_dec(v_h__4_1162_);
-        crate::leanh::lean_dec(v_h__3_1161_);
-        crate::leanh::lean_dec(v_h__2_1160_);
-        v___x_1175_ = crate::leanh::lean_box(0);
-        v___x_1176_ = crate::leanh::lean_apply_1(v_h__1_1159_, v___x_1175_);
+        let mut v___x_1175_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1176_: *mut leanh::LeanObject = core::ptr::null_mut();
+        leanh::lean_dec(v_h__4_1162_);
+        leanh::lean_dec(v_h__3_1161_);
+        leanh::lean_dec(v_h__2_1160_);
+        v___x_1175_ = leanh::lean_box(0);
+        v___x_1176_ = leanh::lean_apply_1(v_h__1_1159_, v___x_1175_);
         return v___x_1176_;
     }
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtext_match__1_splitter___redArg___boxed(
-    mut v_c_1177_: *mut crate::leanh::LeanObject,
-    mut v_h__1_1178_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1179_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1180_: *mut crate::leanh::LeanObject,
-    mut v_h__4_1181_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1177_: *mut leanh::LeanObject,
+    mut v_h__1_1178_: *mut leanh::LeanObject,
+    mut v_h__2_1179_: *mut leanh::LeanObject,
+    mut v_h__3_1180_: *mut leanh::LeanObject,
+    mut v_h__4_1181_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_46__boxed_1182_: u32 = 0;
-    let mut v_res_1183_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_46__boxed_1182_ = crate::leanh::lean_unbox_uint32(v_c_1177_);
-    crate::leanh::lean_dec(v_c_1177_);
+    let mut v_res_1183_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_46__boxed_1182_ = leanh::lean_unbox_uint32(v_c_1177_);
+    leanh::lean_dec(v_c_1177_);
     v_res_1183_ = l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtext_match__1_splitter___redArg(v_c_46__boxed_1182_, v_h__1_1178_, v_h__2_1179_, v_h__3_1180_, v_h__4_1181_);
     return v_res_1183_;
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtext_match__1_splitter(
-    mut v_motive_1184_: *mut crate::leanh::LeanObject,
+    mut v_motive_1184_: *mut leanh::LeanObject,
     mut v_c_1185_: u32,
-    mut v_h__1_1186_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1187_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1188_: *mut crate::leanh::LeanObject,
-    mut v_h__4_1189_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_h__1_1186_: *mut leanh::LeanObject,
+    mut v_h__2_1187_: *mut leanh::LeanObject,
+    mut v_h__3_1188_: *mut leanh::LeanObject,
+    mut v_h__4_1189_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_1190_: u32 = 0;
     let mut v___x_1191_: u8 = 0;
     v___x_1190_ = 9;
@@ -959,68 +959,68 @@ pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtex
     if v___x_1191_ == 0 {
         let mut v___x_1192_: u32 = 0;
         let mut v___x_1193_: u8 = 0;
-        crate::leanh::lean_dec(v_h__1_1186_);
+        leanh::lean_dec(v_h__1_1186_);
         v___x_1192_ = 32;
         v___x_1193_ = lean_uint32_dec_eq(v_c_1185_, v___x_1192_);
         if v___x_1193_ == 0 {
             let mut v___x_1194_: u32 = 0;
             let mut v___x_1195_: u8 = 0;
-            crate::leanh::lean_dec(v_h__2_1187_);
+            leanh::lean_dec(v_h__2_1187_);
             v___x_1194_ = 33;
             v___x_1195_ = lean_uint32_dec_eq(v_c_1185_, v___x_1194_);
             if v___x_1195_ == 0 {
-                let mut v___x_1196_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                let mut v___x_1197_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                crate::leanh::lean_dec(v_h__3_1188_);
-                v___x_1196_ = crate::leanh::lean_box_uint32(v_c_1185_);
-                v___x_1197_ = crate::leanh::lean_apply_4(
+                let mut v___x_1196_: *mut leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_1197_: *mut leanh::LeanObject = core::ptr::null_mut();
+                leanh::lean_dec(v_h__3_1188_);
+                v___x_1196_ = leanh::lean_box_uint32(v_c_1185_);
+                v___x_1197_ = leanh::lean_apply_4(
                     v_h__4_1189_,
                     v___x_1196_,
-                    crate::leanh::lean_box(0),
-                    crate::leanh::lean_box(0),
-                    crate::leanh::lean_box(0),
+                    leanh::lean_box(0),
+                    leanh::lean_box(0),
+                    leanh::lean_box(0),
                 );
                 return v___x_1197_;
             } else {
-                let mut v___x_1198_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                let mut v___x_1199_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                crate::leanh::lean_dec(v_h__4_1189_);
-                v___x_1198_ = crate::leanh::lean_box(0);
-                v___x_1199_ = crate::leanh::lean_apply_1(v_h__3_1188_, v___x_1198_);
+                let mut v___x_1198_: *mut leanh::LeanObject = core::ptr::null_mut();
+                let mut v___x_1199_: *mut leanh::LeanObject = core::ptr::null_mut();
+                leanh::lean_dec(v_h__4_1189_);
+                v___x_1198_ = leanh::lean_box(0);
+                v___x_1199_ = leanh::lean_apply_1(v_h__3_1188_, v___x_1198_);
                 return v___x_1199_;
             }
         } else {
-            let mut v___x_1200_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1201_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            crate::leanh::lean_dec(v_h__4_1189_);
-            crate::leanh::lean_dec(v_h__3_1188_);
-            v___x_1200_ = crate::leanh::lean_box(0);
-            v___x_1201_ = crate::leanh::lean_apply_1(v_h__2_1187_, v___x_1200_);
+            let mut v___x_1200_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1201_: *mut leanh::LeanObject = core::ptr::null_mut();
+            leanh::lean_dec(v_h__4_1189_);
+            leanh::lean_dec(v_h__3_1188_);
+            v___x_1200_ = leanh::lean_box(0);
+            v___x_1201_ = leanh::lean_apply_1(v_h__2_1187_, v___x_1200_);
             return v___x_1201_;
         }
     } else {
-        let mut v___x_1202_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1203_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        crate::leanh::lean_dec(v_h__4_1189_);
-        crate::leanh::lean_dec(v_h__3_1188_);
-        crate::leanh::lean_dec(v_h__2_1187_);
-        v___x_1202_ = crate::leanh::lean_box(0);
-        v___x_1203_ = crate::leanh::lean_apply_1(v_h__1_1186_, v___x_1202_);
+        let mut v___x_1202_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1203_: *mut leanh::LeanObject = core::ptr::null_mut();
+        leanh::lean_dec(v_h__4_1189_);
+        leanh::lean_dec(v_h__3_1188_);
+        leanh::lean_dec(v_h__2_1187_);
+        v___x_1202_ = leanh::lean_box(0);
+        v___x_1203_ = leanh::lean_apply_1(v_h__1_1186_, v___x_1202_);
         return v___x_1203_;
     }
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtext_match__1_splitter___boxed(
-    mut v_motive_1204_: *mut crate::leanh::LeanObject,
-    mut v_c_1205_: *mut crate::leanh::LeanObject,
-    mut v_h__1_1206_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1207_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1208_: *mut crate::leanh::LeanObject,
-    mut v_h__4_1209_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_motive_1204_: *mut leanh::LeanObject,
+    mut v_c_1205_: *mut leanh::LeanObject,
+    mut v_h__1_1206_: *mut leanh::LeanObject,
+    mut v_h__2_1207_: *mut leanh::LeanObject,
+    mut v_h__3_1208_: *mut leanh::LeanObject,
+    mut v_h__4_1209_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_77__boxed_1210_: u32 = 0;
-    let mut v_res_1211_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_77__boxed_1210_ = crate::leanh::lean_unbox_uint32(v_c_1205_);
-    crate::leanh::lean_dec(v_c_1205_);
+    let mut v_res_1211_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_77__boxed_1210_ = leanh::lean_unbox_uint32(v_c_1205_);
+    leanh::lean_dec(v_c_1205_);
     v_res_1211_ =
         l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtext_match__1_splitter(
             v_motive_1204_,
@@ -1034,10 +1034,10 @@ pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_qdtex
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quotedPairChar_match__1_splitter___redArg(
     mut v_c_1212_: u32,
-    mut v_h__1_1213_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1214_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1215_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_h__1_1213_: *mut leanh::LeanObject,
+    mut v_h__2_1214_: *mut leanh::LeanObject,
+    mut v_h__3_1215_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_1216_: u32 = 0;
     let mut v___x_1217_: u8 = 0;
     v___x_1216_ = 9;
@@ -1045,59 +1045,59 @@ pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quote
     if v___x_1217_ == 0 {
         let mut v___x_1218_: u32 = 0;
         let mut v___x_1219_: u8 = 0;
-        crate::leanh::lean_dec(v_h__1_1213_);
+        leanh::lean_dec(v_h__1_1213_);
         v___x_1218_ = 32;
         v___x_1219_ = lean_uint32_dec_eq(v_c_1212_, v___x_1218_);
         if v___x_1219_ == 0 {
-            let mut v___x_1220_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1221_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            crate::leanh::lean_dec(v_h__2_1214_);
-            v___x_1220_ = crate::leanh::lean_box_uint32(v_c_1212_);
-            v___x_1221_ = crate::leanh::lean_apply_3(
+            let mut v___x_1220_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1221_: *mut leanh::LeanObject = core::ptr::null_mut();
+            leanh::lean_dec(v_h__2_1214_);
+            v___x_1220_ = leanh::lean_box_uint32(v_c_1212_);
+            v___x_1221_ = leanh::lean_apply_3(
                 v_h__3_1215_,
                 v___x_1220_,
-                crate::leanh::lean_box(0),
-                crate::leanh::lean_box(0),
+                leanh::lean_box(0),
+                leanh::lean_box(0),
             );
             return v___x_1221_;
         } else {
-            let mut v___x_1222_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1223_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            crate::leanh::lean_dec(v_h__3_1215_);
-            v___x_1222_ = crate::leanh::lean_box(0);
-            v___x_1223_ = crate::leanh::lean_apply_1(v_h__2_1214_, v___x_1222_);
+            let mut v___x_1222_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1223_: *mut leanh::LeanObject = core::ptr::null_mut();
+            leanh::lean_dec(v_h__3_1215_);
+            v___x_1222_ = leanh::lean_box(0);
+            v___x_1223_ = leanh::lean_apply_1(v_h__2_1214_, v___x_1222_);
             return v___x_1223_;
         }
     } else {
-        let mut v___x_1224_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1225_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        crate::leanh::lean_dec(v_h__3_1215_);
-        crate::leanh::lean_dec(v_h__2_1214_);
-        v___x_1224_ = crate::leanh::lean_box(0);
-        v___x_1225_ = crate::leanh::lean_apply_1(v_h__1_1213_, v___x_1224_);
+        let mut v___x_1224_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1225_: *mut leanh::LeanObject = core::ptr::null_mut();
+        leanh::lean_dec(v_h__3_1215_);
+        leanh::lean_dec(v_h__2_1214_);
+        v___x_1224_ = leanh::lean_box(0);
+        v___x_1225_ = leanh::lean_apply_1(v_h__1_1213_, v___x_1224_);
         return v___x_1225_;
     }
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quotedPairChar_match__1_splitter___redArg___boxed(
-    mut v_c_1226_: *mut crate::leanh::LeanObject,
-    mut v_h__1_1227_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1228_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1229_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1226_: *mut leanh::LeanObject,
+    mut v_h__1_1227_: *mut leanh::LeanObject,
+    mut v_h__2_1228_: *mut leanh::LeanObject,
+    mut v_h__3_1229_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_33__boxed_1230_: u32 = 0;
-    let mut v_res_1231_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_33__boxed_1230_ = crate::leanh::lean_unbox_uint32(v_c_1226_);
-    crate::leanh::lean_dec(v_c_1226_);
+    let mut v_res_1231_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_33__boxed_1230_ = leanh::lean_unbox_uint32(v_c_1226_);
+    leanh::lean_dec(v_c_1226_);
     v_res_1231_ = l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quotedPairChar_match__1_splitter___redArg(v_c_33__boxed_1230_, v_h__1_1227_, v_h__2_1228_, v_h__3_1229_);
     return v_res_1231_;
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quotedPairChar_match__1_splitter(
-    mut v_motive_1232_: *mut crate::leanh::LeanObject,
+    mut v_motive_1232_: *mut leanh::LeanObject,
     mut v_c_1233_: u32,
-    mut v_h__1_1234_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1235_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1236_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_h__1_1234_: *mut leanh::LeanObject,
+    mut v_h__2_1235_: *mut leanh::LeanObject,
+    mut v_h__3_1236_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_1237_: u32 = 0;
     let mut v___x_1238_: u8 = 0;
     v___x_1237_ = 9;
@@ -1105,50 +1105,50 @@ pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quote
     if v___x_1238_ == 0 {
         let mut v___x_1239_: u32 = 0;
         let mut v___x_1240_: u8 = 0;
-        crate::leanh::lean_dec(v_h__1_1234_);
+        leanh::lean_dec(v_h__1_1234_);
         v___x_1239_ = 32;
         v___x_1240_ = lean_uint32_dec_eq(v_c_1233_, v___x_1239_);
         if v___x_1240_ == 0 {
-            let mut v___x_1241_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1242_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            crate::leanh::lean_dec(v_h__2_1235_);
-            v___x_1241_ = crate::leanh::lean_box_uint32(v_c_1233_);
-            v___x_1242_ = crate::leanh::lean_apply_3(
+            let mut v___x_1241_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1242_: *mut leanh::LeanObject = core::ptr::null_mut();
+            leanh::lean_dec(v_h__2_1235_);
+            v___x_1241_ = leanh::lean_box_uint32(v_c_1233_);
+            v___x_1242_ = leanh::lean_apply_3(
                 v_h__3_1236_,
                 v___x_1241_,
-                crate::leanh::lean_box(0),
-                crate::leanh::lean_box(0),
+                leanh::lean_box(0),
+                leanh::lean_box(0),
             );
             return v___x_1242_;
         } else {
-            let mut v___x_1243_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1244_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            crate::leanh::lean_dec(v_h__3_1236_);
-            v___x_1243_ = crate::leanh::lean_box(0);
-            v___x_1244_ = crate::leanh::lean_apply_1(v_h__2_1235_, v___x_1243_);
+            let mut v___x_1243_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1244_: *mut leanh::LeanObject = core::ptr::null_mut();
+            leanh::lean_dec(v_h__3_1236_);
+            v___x_1243_ = leanh::lean_box(0);
+            v___x_1244_ = leanh::lean_apply_1(v_h__2_1235_, v___x_1243_);
             return v___x_1244_;
         }
     } else {
-        let mut v___x_1245_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1246_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        crate::leanh::lean_dec(v_h__3_1236_);
-        crate::leanh::lean_dec(v_h__2_1235_);
-        v___x_1245_ = crate::leanh::lean_box(0);
-        v___x_1246_ = crate::leanh::lean_apply_1(v_h__1_1234_, v___x_1245_);
+        let mut v___x_1245_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1246_: *mut leanh::LeanObject = core::ptr::null_mut();
+        leanh::lean_dec(v_h__3_1236_);
+        leanh::lean_dec(v_h__2_1235_);
+        v___x_1245_ = leanh::lean_box(0);
+        v___x_1246_ = leanh::lean_apply_1(v_h__1_1234_, v___x_1245_);
         return v___x_1246_;
     }
 }
 pub unsafe fn l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quotedPairChar_match__1_splitter___boxed(
-    mut v_motive_1247_: *mut crate::leanh::LeanObject,
-    mut v_c_1248_: *mut crate::leanh::LeanObject,
-    mut v_h__1_1249_: *mut crate::leanh::LeanObject,
-    mut v_h__2_1250_: *mut crate::leanh::LeanObject,
-    mut v_h__3_1251_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_motive_1247_: *mut leanh::LeanObject,
+    mut v_c_1248_: *mut leanh::LeanObject,
+    mut v_h__1_1249_: *mut leanh::LeanObject,
+    mut v_h__2_1250_: *mut leanh::LeanObject,
+    mut v_h__3_1251_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_56__boxed_1252_: u32 = 0;
-    let mut v_res_1253_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_56__boxed_1252_ = crate::leanh::lean_unbox_uint32(v_c_1248_);
-    crate::leanh::lean_dec(v_c_1248_);
+    let mut v_res_1253_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_56__boxed_1252_ = leanh::lean_unbox_uint32(v_c_1248_);
+    leanh::lean_dec(v_c_1248_);
     v_res_1253_ = l___private_Std_Http_Internal_Char_0__Std_Http_Internal_Char_quotedPairChar_match__1_splitter(v_motive_1247_, v_c_56__boxed_1252_, v_h__1_1249_, v_h__2_1250_, v_h__3_1251_);
     return v_res_1253_;
 }
@@ -1168,15 +1168,15 @@ pub unsafe fn l_Std_Http_Internal_Char_fieldVchar(mut v_c_1254_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_fieldVchar___boxed(
-    mut v_c_1259_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1259_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1260_: u32 = 0;
     let mut v_res_1261_: u8 = 0;
-    let mut v_r_1262_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1260_ = crate::leanh::lean_unbox_uint32(v_c_1259_);
-    crate::leanh::lean_dec(v_c_1259_);
+    let mut v_r_1262_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1260_ = leanh::lean_unbox_uint32(v_c_1259_);
+    leanh::lean_dec(v_c_1259_);
     v_res_1261_ = l_Std_Http_Internal_Char_fieldVchar(v_c_boxed_1260_);
-    v_r_1262_ = crate::leanh::lean_box((v_res_1261_) as usize);
+    v_r_1262_ = leanh::lean_box((v_res_1261_) as usize);
     return v_r_1262_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_fieldContent(mut v_c_1263_: u32) -> u8 {
@@ -1224,15 +1224,15 @@ pub unsafe fn l_Std_Http_Internal_Char_fieldContent(mut v_c_1263_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_fieldContent___boxed(
-    mut v_c_1273_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1273_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1274_: u32 = 0;
     let mut v_res_1275_: u8 = 0;
-    let mut v_r_1276_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1274_ = crate::leanh::lean_unbox_uint32(v_c_1273_);
-    crate::leanh::lean_dec(v_c_1273_);
+    let mut v_r_1276_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1274_ = leanh::lean_unbox_uint32(v_c_1273_);
+    leanh::lean_dec(v_c_1273_);
     v_res_1275_ = l_Std_Http_Internal_Char_fieldContent(v_c_boxed_1274_);
-    v_r_1276_ = crate::leanh::lean_box((v_res_1275_) as usize);
+    v_r_1276_ = leanh::lean_box((v_res_1275_) as usize);
     return v_r_1276_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_ctext(mut v_c_1277_: u32) -> u8 {
@@ -1317,15 +1317,15 @@ pub unsafe fn l_Std_Http_Internal_Char_ctext(mut v_c_1277_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_ctext___boxed(
-    mut v_c_1296_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1296_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1297_: u32 = 0;
     let mut v_res_1298_: u8 = 0;
-    let mut v_r_1299_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1297_ = crate::leanh::lean_unbox_uint32(v_c_1296_);
-    crate::leanh::lean_dec(v_c_1296_);
+    let mut v_r_1299_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1297_ = leanh::lean_unbox_uint32(v_c_1296_);
+    leanh::lean_dec(v_c_1296_);
     v_res_1298_ = l_Std_Http_Internal_Char_ctext(v_c_boxed_1297_);
-    v_r_1299_ = crate::leanh::lean_box((v_res_1298_) as usize);
+    v_r_1299_ = leanh::lean_box((v_res_1298_) as usize);
     return v_r_1299_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_etagc(mut v_c_1300_: u32) -> u8 {
@@ -1356,15 +1356,15 @@ pub unsafe fn l_Std_Http_Internal_Char_etagc(mut v_c_1300_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_etagc___boxed(
-    mut v_c_1307_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1307_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1308_: u32 = 0;
     let mut v_res_1309_: u8 = 0;
-    let mut v_r_1310_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1308_ = crate::leanh::lean_unbox_uint32(v_c_1307_);
-    crate::leanh::lean_dec(v_c_1307_);
+    let mut v_r_1310_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1308_ = leanh::lean_unbox_uint32(v_c_1307_);
+    leanh::lean_dec(v_c_1307_);
     v_res_1309_ = l_Std_Http_Internal_Char_etagc(v_c_boxed_1308_);
-    v_r_1310_ = crate::leanh::lean_box((v_res_1309_) as usize);
+    v_r_1310_ = leanh::lean_box((v_res_1309_) as usize);
     return v_r_1310_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_ows(mut v_c_1311_: u32) -> u8 {
@@ -1383,15 +1383,15 @@ pub unsafe fn l_Std_Http_Internal_Char_ows(mut v_c_1311_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_ows___boxed(
-    mut v_c_1316_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1316_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1317_: u32 = 0;
     let mut v_res_1318_: u8 = 0;
-    let mut v_r_1319_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1317_ = crate::leanh::lean_unbox_uint32(v_c_1316_);
-    crate::leanh::lean_dec(v_c_1316_);
+    let mut v_r_1319_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1317_ = leanh::lean_unbox_uint32(v_c_1316_);
+    leanh::lean_dec(v_c_1316_);
     v_res_1318_ = l_Std_Http_Internal_Char_ows(v_c_boxed_1317_);
-    v_r_1319_ = crate::leanh::lean_box((v_res_1318_) as usize);
+    v_r_1319_ = leanh::lean_box((v_res_1318_) as usize);
     return v_r_1319_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_bws(mut v_c_1320_: u32) -> u8 {
@@ -1410,15 +1410,15 @@ pub unsafe fn l_Std_Http_Internal_Char_bws(mut v_c_1320_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_bws___boxed(
-    mut v_c_1325_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1325_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1326_: u32 = 0;
     let mut v_res_1327_: u8 = 0;
-    let mut v_r_1328_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1326_ = crate::leanh::lean_unbox_uint32(v_c_1325_);
-    crate::leanh::lean_dec(v_c_1325_);
+    let mut v_r_1328_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1326_ = leanh::lean_unbox_uint32(v_c_1325_);
+    leanh::lean_dec(v_c_1325_);
     v_res_1327_ = l_Std_Http_Internal_Char_bws(v_c_boxed_1326_);
-    v_r_1328_ = crate::leanh::lean_box((v_res_1327_) as usize);
+    v_r_1328_ = leanh::lean_box((v_res_1327_) as usize);
     return v_r_1328_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_rws(mut v_c_1329_: u32) -> u8 {
@@ -1437,37 +1437,37 @@ pub unsafe fn l_Std_Http_Internal_Char_rws(mut v_c_1329_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_rws___boxed(
-    mut v_c_1334_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1334_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1335_: u32 = 0;
     let mut v_res_1336_: u8 = 0;
-    let mut v_r_1337_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1335_ = crate::leanh::lean_unbox_uint32(v_c_1334_);
-    crate::leanh::lean_dec(v_c_1334_);
+    let mut v_r_1337_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1335_ = leanh::lean_unbox_uint32(v_c_1334_);
+    leanh::lean_dec(v_c_1334_);
     v_res_1336_ = l_Std_Http_Internal_Char_rws(v_c_boxed_1335_);
-    v_r_1337_ = crate::leanh::lean_box((v_res_1336_) as usize);
+    v_r_1337_ = leanh::lean_box((v_res_1336_) as usize);
     return v_r_1337_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_obsText(mut v_c_1338_: u32) -> u8 {
-    let mut v___x_1339_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1340_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1339_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1340_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1341_: u8 = 0;
-    v___x_1339_ = crate::leanh::lean_unsigned_to_nat(128);
+    v___x_1339_ = leanh::lean_unsigned_to_nat(128);
     v___x_1340_ = lean_uint32_to_nat(v_c_1338_);
     v___x_1341_ = lean_nat_dec_le(v___x_1339_, v___x_1340_);
-    crate::leanh::lean_dec(v___x_1340_);
+    leanh::lean_dec(v___x_1340_);
     return v___x_1341_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_obsText___boxed(
-    mut v_c_1342_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1342_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1343_: u32 = 0;
     let mut v_res_1344_: u8 = 0;
-    let mut v_r_1345_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1343_ = crate::leanh::lean_unbox_uint32(v_c_1342_);
-    crate::leanh::lean_dec(v_c_1342_);
+    let mut v_r_1345_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1343_ = leanh::lean_unbox_uint32(v_c_1342_);
+    leanh::lean_dec(v_c_1342_);
     v_res_1344_ = l_Std_Http_Internal_Char_obsText(v_c_boxed_1343_);
-    v_r_1345_ = crate::leanh::lean_box((v_res_1344_) as usize);
+    v_r_1345_ = leanh::lean_box((v_res_1344_) as usize);
     return v_r_1345_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_reasonPhraseChar(mut v_c_1346_: u32) -> u8 {
@@ -1502,15 +1502,15 @@ pub unsafe fn l_Std_Http_Internal_Char_reasonPhraseChar(mut v_c_1346_: u32) -> u
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_reasonPhraseChar___boxed(
-    mut v_c_1355_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1355_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1356_: u32 = 0;
     let mut v_res_1357_: u8 = 0;
-    let mut v_r_1358_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1356_ = crate::leanh::lean_unbox_uint32(v_c_1355_);
-    crate::leanh::lean_dec(v_c_1355_);
+    let mut v_r_1358_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1356_ = leanh::lean_unbox_uint32(v_c_1355_);
+    leanh::lean_dec(v_c_1355_);
     v_res_1357_ = l_Std_Http_Internal_Char_reasonPhraseChar(v_c_boxed_1356_);
-    v_r_1358_ = crate::leanh::lean_box((v_res_1357_) as usize);
+    v_r_1358_ = leanh::lean_box((v_res_1357_) as usize);
     return v_r_1358_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isHexDigit(mut v_c_1359_: u32) -> u8 {
@@ -1631,15 +1631,15 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigit(mut v_c_1359_: u32) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isHexDigit___boxed(
-    mut v_c_1388_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1388_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1389_: u32 = 0;
     let mut v_res_1390_: u8 = 0;
-    let mut v_r_1391_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1389_ = crate::leanh::lean_unbox_uint32(v_c_1388_);
-    crate::leanh::lean_dec(v_c_1388_);
+    let mut v_r_1391_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1389_ = leanh::lean_unbox_uint32(v_c_1388_);
+    leanh::lean_dec(v_c_1388_);
     v_res_1390_ = l_Std_Http_Internal_Char_isHexDigit(v_c_boxed_1389_);
-    v_r_1391_ = crate::leanh::lean_box((v_res_1390_) as usize);
+    v_r_1391_ = leanh::lean_box((v_res_1390_) as usize);
     return v_r_1391_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isHexDigitByte___closed__0() -> u8 {
@@ -1675,7 +1675,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1409_ = crate::leanh::lean_uint8_once(
+                v___x_1409_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -1686,7 +1686,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
                     state = 2;
                     continue;
                 } else {
-                    v___x_1411_ = crate::leanh::lean_uint8_once(
+                    v___x_1411_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -1701,7 +1701,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
             }
             1 => {
                 if v___y_1398_ == 0 {
-                    v___x_1399_ = crate::leanh::lean_uint8_once(
+                    v___x_1399_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -1712,7 +1712,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
                     if v___x_1400_ == 0 {
                         return v___x_1400_;
                     } else {
-                        v___x_1401_ = crate::leanh::lean_uint8_once(
+                        v___x_1401_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isHexDigitByte___closed__0
                             ),
@@ -1730,7 +1730,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
             }
             2 => {
                 if v___y_1404_ == 0 {
-                    v___x_1405_ = crate::leanh::lean_uint8_once(
+                    v___x_1405_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -1743,7 +1743,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
                         state = 1;
                         continue;
                     } else {
-                        v___x_1407_ = crate::leanh::lean_uint8_once(
+                        v___x_1407_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isHexDigitByte___closed__1
                             ),
@@ -1766,14 +1766,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte(mut v_c_1396_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isHexDigitByte___boxed(
-    mut v_c_1413_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1413_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1414_: u8 = 0;
     let mut v_res_1415_: u8 = 0;
-    let mut v_r_1416_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1414_ = (crate::leanh::lean_unbox(v_c_1413_) as u8);
+    let mut v_r_1416_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1414_ = (leanh::lean_unbox(v_c_1413_) as u8);
     v_res_1415_ = l_Std_Http_Internal_Char_isHexDigitByte(v_c_boxed_1414_);
-    v_r_1416_ = crate::leanh::lean_box((v_res_1415_) as usize);
+    v_r_1416_ = leanh::lean_box((v_res_1415_) as usize);
     return v_r_1416_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
@@ -1795,7 +1795,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1430_ = crate::leanh::lean_uint8_once(
+                v___x_1430_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -1806,7 +1806,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
                     state = 2;
                     continue;
                 } else {
-                    v___x_1432_ = crate::leanh::lean_uint8_once(
+                    v___x_1432_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -1821,7 +1821,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
             }
             1 => {
                 if v___y_1419_ == 0 {
-                    v___x_1420_ = crate::leanh::lean_uint8_once(
+                    v___x_1420_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -1832,7 +1832,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
                     if v___x_1421_ == 0 {
                         return v___x_1421_;
                     } else {
-                        v___x_1422_ = crate::leanh::lean_uint8_once(
+                        v___x_1422_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -1850,7 +1850,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
             }
             2 => {
                 if v___y_1425_ == 0 {
-                    v___x_1426_ = crate::leanh::lean_uint8_once(
+                    v___x_1426_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -1863,7 +1863,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
                         state = 1;
                         continue;
                     } else {
-                        v___x_1428_ = crate::leanh::lean_uint8_once(
+                        v___x_1428_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -1886,14 +1886,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum(mut v_c_1417_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAlphaNum___boxed(
-    mut v_c_1434_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1434_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1435_: u8 = 0;
     let mut v_res_1436_: u8 = 0;
-    let mut v_r_1437_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1435_ = (crate::leanh::lean_unbox(v_c_1434_) as u8);
+    let mut v_r_1437_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1435_ = (leanh::lean_unbox(v_c_1434_) as u8);
     v_res_1436_ = l_Std_Http_Internal_Char_isAlphaNum(v_c_boxed_1435_);
-    v_r_1437_ = crate::leanh::lean_box((v_res_1436_) as usize);
+    v_r_1437_ = leanh::lean_box((v_res_1436_) as usize);
     return v_r_1437_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAsciiAlphaNumChar(mut v_c_1438_: u32) -> u8 {
@@ -1901,8 +1901,8 @@ pub unsafe fn l_Std_Http_Internal_Char_isAsciiAlphaNumChar(mut v_c_1438_: u32) -
     let mut v___x_1441_: u8 = 0;
     let mut v___x_1442_: u32 = 0;
     let mut v___x_1443_: u8 = 0;
-    let mut v___x_1444_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1445_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1444_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1445_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1446_: u8 = 0;
     let mut v___y_1448_: u8 = 0;
     let mut v___x_1449_: u32 = 0;
@@ -1918,9 +1918,9 @@ pub unsafe fn l_Std_Http_Internal_Char_isAsciiAlphaNumChar(mut v_c_1438_: u32) -
         match state {
             0 => {
                 v___x_1444_ = lean_uint32_to_nat(v_c_1438_);
-                v___x_1445_ = crate::leanh::lean_unsigned_to_nat(128);
+                v___x_1445_ = leanh::lean_unsigned_to_nat(128);
                 v___x_1446_ = lean_nat_dec_lt(v___x_1444_, v___x_1445_);
-                crate::leanh::lean_dec(v___x_1444_);
+                leanh::lean_dec(v___x_1444_);
                 if v___x_1446_ == 0 {
                     return v___x_1446_;
                 } else {
@@ -1976,15 +1976,15 @@ pub unsafe fn l_Std_Http_Internal_Char_isAsciiAlphaNumChar(mut v_c_1438_: u32) -
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isAsciiAlphaNumChar___boxed(
-    mut v_c_1457_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1457_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1458_: u32 = 0;
     let mut v_res_1459_: u8 = 0;
-    let mut v_r_1460_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1458_ = crate::leanh::lean_unbox_uint32(v_c_1457_);
-    crate::leanh::lean_dec(v_c_1457_);
+    let mut v_r_1460_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1458_ = leanh::lean_unbox_uint32(v_c_1457_);
+    leanh::lean_dec(v_c_1457_);
     v_res_1459_ = l_Std_Http_Internal_Char_isAsciiAlphaNumChar(v_c_boxed_1458_);
-    v_r_1460_ = crate::leanh::lean_box((v_res_1459_) as usize);
+    v_r_1460_ = leanh::lean_box((v_res_1459_) as usize);
     return v_r_1460_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isValidSchemeChar(mut v_c_1461_: u32) -> u8 {
@@ -1999,8 +1999,8 @@ pub unsafe fn l_Std_Http_Internal_Char_isValidSchemeChar(mut v_c_1461_: u32) -> 
     let mut v___x_1472_: u8 = 0;
     let mut v___x_1473_: u32 = 0;
     let mut v___x_1474_: u8 = 0;
-    let mut v___x_1475_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1476_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1475_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1476_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1477_: u8 = 0;
     let mut v___y_1479_: u8 = 0;
     let mut v___x_1480_: u32 = 0;
@@ -2016,9 +2016,9 @@ pub unsafe fn l_Std_Http_Internal_Char_isValidSchemeChar(mut v_c_1461_: u32) -> 
         match state {
             0 => {
                 v___x_1475_ = lean_uint32_to_nat(v_c_1461_);
-                v___x_1476_ = crate::leanh::lean_unsigned_to_nat(128);
+                v___x_1476_ = leanh::lean_unsigned_to_nat(128);
                 v___x_1477_ = lean_nat_dec_lt(v___x_1475_, v___x_1476_);
-                crate::leanh::lean_dec(v___x_1475_);
+                leanh::lean_dec(v___x_1475_);
                 if v___x_1477_ == 0 {
                     v___y_1463_ = v___x_1477_;
                     state = 1;
@@ -2107,15 +2107,15 @@ pub unsafe fn l_Std_Http_Internal_Char_isValidSchemeChar(mut v_c_1461_: u32) -> 
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isValidSchemeChar___boxed(
-    mut v_c_1488_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1488_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1489_: u32 = 0;
     let mut v_res_1490_: u8 = 0;
-    let mut v_r_1491_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1489_ = crate::leanh::lean_unbox_uint32(v_c_1488_);
-    crate::leanh::lean_dec(v_c_1488_);
+    let mut v_r_1491_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1489_ = leanh::lean_unbox_uint32(v_c_1488_);
+    leanh::lean_dec(v_c_1488_);
     v_res_1490_ = l_Std_Http_Internal_Char_isValidSchemeChar(v_c_boxed_1489_);
-    v_r_1491_ = crate::leanh::lean_box((v_res_1490_) as usize);
+    v_r_1491_ = leanh::lean_box((v_res_1490_) as usize);
     return v_r_1491_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isValidDomainNameChar(mut v_c_1492_: u32) -> u8 {
@@ -2128,8 +2128,8 @@ pub unsafe fn l_Std_Http_Internal_Char_isValidDomainNameChar(mut v_c_1492_: u32)
     let mut v___x_1501_: u8 = 0;
     let mut v___x_1502_: u32 = 0;
     let mut v___x_1503_: u8 = 0;
-    let mut v___x_1504_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1505_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1504_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1505_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1506_: u8 = 0;
     let mut v___y_1508_: u8 = 0;
     let mut v___x_1509_: u32 = 0;
@@ -2145,9 +2145,9 @@ pub unsafe fn l_Std_Http_Internal_Char_isValidDomainNameChar(mut v_c_1492_: u32)
         match state {
             0 => {
                 v___x_1504_ = lean_uint32_to_nat(v_c_1492_);
-                v___x_1505_ = crate::leanh::lean_unsigned_to_nat(128);
+                v___x_1505_ = leanh::lean_unsigned_to_nat(128);
                 v___x_1506_ = lean_nat_dec_lt(v___x_1504_, v___x_1505_);
-                crate::leanh::lean_dec(v___x_1504_);
+                leanh::lean_dec(v___x_1504_);
                 if v___x_1506_ == 0 {
                     v___y_1494_ = v___x_1506_;
                     state = 1;
@@ -2230,15 +2230,15 @@ pub unsafe fn l_Std_Http_Internal_Char_isValidDomainNameChar(mut v_c_1492_: u32)
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isValidDomainNameChar___boxed(
-    mut v_c_1517_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1517_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1518_: u32 = 0;
     let mut v_res_1519_: u8 = 0;
-    let mut v_r_1520_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1518_ = crate::leanh::lean_unbox_uint32(v_c_1517_);
-    crate::leanh::lean_dec(v_c_1517_);
+    let mut v_r_1520_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1518_ = leanh::lean_unbox_uint32(v_c_1517_);
+    leanh::lean_dec(v_c_1517_);
     v_res_1519_ = l_Std_Http_Internal_Char_isValidDomainNameChar(v_c_boxed_1518_);
-    v_r_1520_ = crate::leanh::lean_box((v_res_1519_) as usize);
+    v_r_1520_ = leanh::lean_box((v_res_1519_) as usize);
     return v_r_1520_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isUnreserved___closed__0() -> u8 {
@@ -2298,7 +2298,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1554_ = crate::leanh::lean_uint8_once(
+                v___x_1554_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -2309,7 +2309,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
                     state = 4;
                     continue;
                 } else {
-                    v___x_1556_ = crate::leanh::lean_uint8_once(
+                    v___x_1556_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -2324,7 +2324,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
             }
             1 => {
                 if v___y_1531_ == 0 {
-                    v___x_1532_ = crate::leanh::lean_uint8_once(
+                    v___x_1532_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__0_once
@@ -2333,7 +2333,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
                     );
                     v___x_1533_ = lean_uint8_dec_eq(v_c_1529_, v___x_1532_);
                     if v___x_1533_ == 0 {
-                        v___x_1534_ = crate::leanh::lean_uint8_once(
+                        v___x_1534_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__1
                             ),
@@ -2353,7 +2353,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
             }
             2 => {
                 if v___y_1537_ == 0 {
-                    v___x_1538_ = crate::leanh::lean_uint8_once(
+                    v___x_1538_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__2_once
@@ -2362,7 +2362,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
                     );
                     v___x_1539_ = lean_uint8_dec_eq(v_c_1529_, v___x_1538_);
                     if v___x_1539_ == 0 {
-                        v___x_1540_ = crate::leanh::lean_uint8_once(
+                        v___x_1540_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__3
                             ),
@@ -2386,7 +2386,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
             }
             3 => {
                 if v___y_1543_ == 0 {
-                    v___x_1544_ = crate::leanh::lean_uint8_once(
+                    v___x_1544_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -2399,7 +2399,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
                         state = 2;
                         continue;
                     } else {
-                        v___x_1546_ = crate::leanh::lean_uint8_once(
+                        v___x_1546_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -2419,7 +2419,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
             }
             4 => {
                 if v___y_1549_ == 0 {
-                    v___x_1550_ = crate::leanh::lean_uint8_once(
+                    v___x_1550_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -2432,7 +2432,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
                         state = 3;
                         continue;
                     } else {
-                        v___x_1552_ = crate::leanh::lean_uint8_once(
+                        v___x_1552_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -2455,14 +2455,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isUnreserved(mut v_c_1529_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isUnreserved___boxed(
-    mut v_c_1558_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1558_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1559_: u8 = 0;
     let mut v_res_1560_: u8 = 0;
-    let mut v_r_1561_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1559_ = (crate::leanh::lean_unbox(v_c_1558_) as u8);
+    let mut v_r_1561_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1559_ = (leanh::lean_unbox(v_c_1558_) as u8);
     v_res_1560_ = l_Std_Http_Internal_Char_isUnreserved(v_c_boxed_1559_);
-    v_r_1561_ = crate::leanh::lean_box((v_res_1560_) as usize);
+    v_r_1561_ = leanh::lean_box((v_res_1560_) as usize);
     return v_r_1561_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isSubDelims___closed__0() -> u8 {
@@ -2570,14 +2570,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1605_ = crate::leanh::lean_uint8_once(
+                v___x_1605_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9_once),
                     _init_l_Std_Http_Internal_Char_isSubDelims___closed__9,
                 );
                 v___x_1606_ = lean_uint8_dec_eq(v_c_1584_, v___x_1605_);
                 if v___x_1606_ == 0 {
-                    v___x_1607_ = crate::leanh::lean_uint8_once(
+                    v___x_1607_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__10),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__10_once
@@ -2596,7 +2596,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
             }
             1 => {
                 if v___y_1586_ == 0 {
-                    v___x_1587_ = crate::leanh::lean_uint8_once(
+                    v___x_1587_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__0_once
@@ -2605,7 +2605,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
                     );
                     v___x_1588_ = lean_uint8_dec_eq(v_c_1584_, v___x_1587_);
                     if v___x_1588_ == 0 {
-                        v___x_1589_ = crate::leanh::lean_uint8_once(
+                        v___x_1589_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__1
                             ),
@@ -2616,7 +2616,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
                         );
                         v___x_1590_ = lean_uint8_dec_eq(v_c_1584_, v___x_1589_);
                         if v___x_1590_ == 0 {
-                            v___x_1591_ = crate::leanh::lean_uint8_once(
+                            v___x_1591_ = leanh::lean_uint8_once(
                                 core::ptr::addr_of_mut!(
                                     l_Std_Http_Internal_Char_isSubDelims___closed__2
                                 ),
@@ -2627,7 +2627,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
                             );
                             v___x_1592_ = lean_uint8_dec_eq(v_c_1584_, v___x_1591_);
                             if v___x_1592_ == 0 {
-                                v___x_1593_ = crate::leanh::lean_uint8_once(
+                                v___x_1593_ = leanh::lean_uint8_once(
                                     core::ptr::addr_of_mut!(
                                         l_Std_Http_Internal_Char_isSubDelims___closed__3
                                     ),
@@ -2638,7 +2638,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
                                 );
                                 v___x_1594_ = lean_uint8_dec_eq(v_c_1584_, v___x_1593_);
                                 if v___x_1594_ == 0 {
-                                    v___x_1595_ = crate::leanh::lean_uint8_once(
+                                    v___x_1595_ = leanh::lean_uint8_once(
                                         core::ptr::addr_of_mut!(
                                             l_Std_Http_Internal_Char_isSubDelims___closed__4
                                         ),
@@ -2649,17 +2649,17 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
                                     );
                                     v___x_1596_ = lean_uint8_dec_eq(v_c_1584_, v___x_1595_);
                                     if v___x_1596_ == 0 {
-                                        v___x_1597_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
+                                        v___x_1597_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
                                         v___x_1598_ = lean_uint8_dec_eq(v_c_1584_, v___x_1597_);
                                         if v___x_1598_ == 0 {
-                                            v___x_1599_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
+                                            v___x_1599_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
                                             v___x_1600_ = lean_uint8_dec_eq(v_c_1584_, v___x_1599_);
                                             if v___x_1600_ == 0 {
-                                                v___x_1601_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
+                                                v___x_1601_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
                                                 v___x_1602_ =
                                                     lean_uint8_dec_eq(v_c_1584_, v___x_1601_);
                                                 if v___x_1602_ == 0 {
-                                                    v___x_1603_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
+                                                    v___x_1603_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
                                                     v___x_1604_ =
                                                         lean_uint8_dec_eq(v_c_1584_, v___x_1603_);
                                                     return v___x_1604_;
@@ -2696,14 +2696,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isSubDelims(mut v_c_1584_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isSubDelims___boxed(
-    mut v_c_1609_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1609_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1610_: u8 = 0;
     let mut v_res_1611_: u8 = 0;
-    let mut v_r_1612_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1610_ = (crate::leanh::lean_unbox(v_c_1609_) as u8);
+    let mut v_r_1612_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1610_ = (leanh::lean_unbox(v_c_1609_) as u8);
     v_res_1611_ = l_Std_Http_Internal_Char_isSubDelims(v_c_boxed_1610_);
-    v_r_1612_ = crate::leanh::lean_box((v_res_1611_) as usize);
+    v_r_1612_ = leanh::lean_box((v_res_1611_) as usize);
     return v_r_1612_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isPChar___closed__0() -> u8 {
@@ -2778,7 +2778,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1674_ = crate::leanh::lean_uint8_once(
+                v___x_1674_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -2789,7 +2789,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                     state = 7;
                     continue;
                 } else {
-                    v___x_1676_ = crate::leanh::lean_uint8_once(
+                    v___x_1676_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -2804,14 +2804,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             1 => {
                 if v___y_1619_ == 0 {
-                    v___x_1620_ = crate::leanh::lean_uint8_once(
+                    v___x_1620_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0),
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0_once),
                         _init_l_Std_Http_Internal_Char_isPChar___closed__0,
                     );
                     v___x_1621_ = lean_uint8_dec_eq(v_c_1617_, v___x_1620_);
                     if v___x_1621_ == 0 {
-                        v___x_1622_ = crate::leanh::lean_uint8_once(
+                        v___x_1622_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__1),
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isPChar___closed__1_once
@@ -2829,7 +2829,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             2 => {
                 if v___y_1625_ == 0 {
-                    v___x_1626_ = crate::leanh::lean_uint8_once(
+                    v___x_1626_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__0_once
@@ -2838,7 +2838,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                     );
                     v___x_1627_ = lean_uint8_dec_eq(v_c_1617_, v___x_1626_);
                     if v___x_1627_ == 0 {
-                        v___x_1628_ = crate::leanh::lean_uint8_once(
+                        v___x_1628_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__1
                             ),
@@ -2849,7 +2849,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                         );
                         v___x_1629_ = lean_uint8_dec_eq(v_c_1617_, v___x_1628_);
                         if v___x_1629_ == 0 {
-                            v___x_1630_ = crate::leanh::lean_uint8_once(
+                            v___x_1630_ = leanh::lean_uint8_once(
                                 core::ptr::addr_of_mut!(
                                     l_Std_Http_Internal_Char_isSubDelims___closed__2
                                 ),
@@ -2860,7 +2860,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                             );
                             v___x_1631_ = lean_uint8_dec_eq(v_c_1617_, v___x_1630_);
                             if v___x_1631_ == 0 {
-                                v___x_1632_ = crate::leanh::lean_uint8_once(
+                                v___x_1632_ = leanh::lean_uint8_once(
                                     core::ptr::addr_of_mut!(
                                         l_Std_Http_Internal_Char_isSubDelims___closed__3
                                     ),
@@ -2871,7 +2871,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                                 );
                                 v___x_1633_ = lean_uint8_dec_eq(v_c_1617_, v___x_1632_);
                                 if v___x_1633_ == 0 {
-                                    v___x_1634_ = crate::leanh::lean_uint8_once(
+                                    v___x_1634_ = leanh::lean_uint8_once(
                                         core::ptr::addr_of_mut!(
                                             l_Std_Http_Internal_Char_isSubDelims___closed__4
                                         ),
@@ -2882,17 +2882,17 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                                     );
                                     v___x_1635_ = lean_uint8_dec_eq(v_c_1617_, v___x_1634_);
                                     if v___x_1635_ == 0 {
-                                        v___x_1636_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
+                                        v___x_1636_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
                                         v___x_1637_ = lean_uint8_dec_eq(v_c_1617_, v___x_1636_);
                                         if v___x_1637_ == 0 {
-                                            v___x_1638_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
+                                            v___x_1638_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
                                             v___x_1639_ = lean_uint8_dec_eq(v_c_1617_, v___x_1638_);
                                             if v___x_1639_ == 0 {
-                                                v___x_1640_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
+                                                v___x_1640_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
                                                 v___x_1641_ =
                                                     lean_uint8_dec_eq(v_c_1617_, v___x_1640_);
                                                 if v___x_1641_ == 0 {
-                                                    v___x_1642_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
+                                                    v___x_1642_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
                                                     v___x_1643_ =
                                                         lean_uint8_dec_eq(v_c_1617_, v___x_1642_);
                                                     v___y_1619_ = v___x_1643_;
@@ -2944,7 +2944,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             3 => {
                 if v___y_1645_ == 0 {
-                    v___x_1646_ = crate::leanh::lean_uint8_once(
+                    v___x_1646_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__9_once
@@ -2953,7 +2953,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                     );
                     v___x_1647_ = lean_uint8_dec_eq(v_c_1617_, v___x_1646_);
                     if v___x_1647_ == 0 {
-                        v___x_1648_ = crate::leanh::lean_uint8_once(
+                        v___x_1648_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__10
                             ),
@@ -2977,7 +2977,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             4 => {
                 if v___y_1651_ == 0 {
-                    v___x_1652_ = crate::leanh::lean_uint8_once(
+                    v___x_1652_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__0_once
@@ -2986,7 +2986,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                     );
                     v___x_1653_ = lean_uint8_dec_eq(v_c_1617_, v___x_1652_);
                     if v___x_1653_ == 0 {
-                        v___x_1654_ = crate::leanh::lean_uint8_once(
+                        v___x_1654_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__1
                             ),
@@ -3010,7 +3010,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             5 => {
                 if v___y_1657_ == 0 {
-                    v___x_1658_ = crate::leanh::lean_uint8_once(
+                    v___x_1658_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__2_once
@@ -3019,7 +3019,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                     );
                     v___x_1659_ = lean_uint8_dec_eq(v_c_1617_, v___x_1658_);
                     if v___x_1659_ == 0 {
-                        v___x_1660_ = crate::leanh::lean_uint8_once(
+                        v___x_1660_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__3
                             ),
@@ -3043,7 +3043,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             6 => {
                 if v___y_1663_ == 0 {
-                    v___x_1664_ = crate::leanh::lean_uint8_once(
+                    v___x_1664_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -3056,7 +3056,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                         state = 5;
                         continue;
                     } else {
-                        v___x_1666_ = crate::leanh::lean_uint8_once(
+                        v___x_1666_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -3076,7 +3076,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
             }
             7 => {
                 if v___y_1669_ == 0 {
-                    v___x_1670_ = crate::leanh::lean_uint8_once(
+                    v___x_1670_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -3089,7 +3089,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
                         state = 6;
                         continue;
                     } else {
-                        v___x_1672_ = crate::leanh::lean_uint8_once(
+                        v___x_1672_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -3112,14 +3112,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isPChar(mut v_c_1617_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isPChar___boxed(
-    mut v_c_1678_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1678_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1679_: u8 = 0;
     let mut v_res_1680_: u8 = 0;
-    let mut v_r_1681_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1679_ = (crate::leanh::lean_unbox(v_c_1678_) as u8);
+    let mut v_r_1681_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1679_ = (leanh::lean_unbox(v_c_1678_) as u8);
     v_res_1680_ = l_Std_Http_Internal_Char_isPChar(v_c_boxed_1679_);
-    v_r_1681_ = crate::leanh::lean_box((v_res_1680_) as usize);
+    v_r_1681_ = leanh::lean_box((v_res_1680_) as usize);
     return v_r_1681_;
 }
 pub unsafe fn _init_l_Std_Http_Internal_Char_isQueryChar___closed__0() -> u8 {
@@ -3199,7 +3199,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1749_ = crate::leanh::lean_uint8_once(
+                v___x_1749_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -3210,7 +3210,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                     state = 8;
                     continue;
                 } else {
-                    v___x_1751_ = crate::leanh::lean_uint8_once(
+                    v___x_1751_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -3225,7 +3225,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             1 => {
                 if v___y_1688_ == 0 {
-                    v___x_1689_ = crate::leanh::lean_uint8_once(
+                    v___x_1689_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isQueryChar___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isQueryChar___closed__0_once
@@ -3234,7 +3234,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                     );
                     v___x_1690_ = lean_uint8_dec_eq(v_c_1686_, v___x_1689_);
                     if v___x_1690_ == 0 {
-                        v___x_1691_ = crate::leanh::lean_uint8_once(
+                        v___x_1691_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isQueryChar___closed__1
                             ),
@@ -3254,14 +3254,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             2 => {
                 if v___y_1694_ == 0 {
-                    v___x_1695_ = crate::leanh::lean_uint8_once(
+                    v___x_1695_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0),
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0_once),
                         _init_l_Std_Http_Internal_Char_isPChar___closed__0,
                     );
                     v___x_1696_ = lean_uint8_dec_eq(v_c_1686_, v___x_1695_);
                     if v___x_1696_ == 0 {
-                        v___x_1697_ = crate::leanh::lean_uint8_once(
+                        v___x_1697_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__1),
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isPChar___closed__1_once
@@ -3283,7 +3283,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             3 => {
                 if v___y_1700_ == 0 {
-                    v___x_1701_ = crate::leanh::lean_uint8_once(
+                    v___x_1701_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__0_once
@@ -3292,7 +3292,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                     );
                     v___x_1702_ = lean_uint8_dec_eq(v_c_1686_, v___x_1701_);
                     if v___x_1702_ == 0 {
-                        v___x_1703_ = crate::leanh::lean_uint8_once(
+                        v___x_1703_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__1
                             ),
@@ -3303,7 +3303,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                         );
                         v___x_1704_ = lean_uint8_dec_eq(v_c_1686_, v___x_1703_);
                         if v___x_1704_ == 0 {
-                            v___x_1705_ = crate::leanh::lean_uint8_once(
+                            v___x_1705_ = leanh::lean_uint8_once(
                                 core::ptr::addr_of_mut!(
                                     l_Std_Http_Internal_Char_isSubDelims___closed__2
                                 ),
@@ -3314,7 +3314,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                             );
                             v___x_1706_ = lean_uint8_dec_eq(v_c_1686_, v___x_1705_);
                             if v___x_1706_ == 0 {
-                                v___x_1707_ = crate::leanh::lean_uint8_once(
+                                v___x_1707_ = leanh::lean_uint8_once(
                                     core::ptr::addr_of_mut!(
                                         l_Std_Http_Internal_Char_isSubDelims___closed__3
                                     ),
@@ -3325,7 +3325,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                                 );
                                 v___x_1708_ = lean_uint8_dec_eq(v_c_1686_, v___x_1707_);
                                 if v___x_1708_ == 0 {
-                                    v___x_1709_ = crate::leanh::lean_uint8_once(
+                                    v___x_1709_ = leanh::lean_uint8_once(
                                         core::ptr::addr_of_mut!(
                                             l_Std_Http_Internal_Char_isSubDelims___closed__4
                                         ),
@@ -3336,17 +3336,17 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                                     );
                                     v___x_1710_ = lean_uint8_dec_eq(v_c_1686_, v___x_1709_);
                                     if v___x_1710_ == 0 {
-                                        v___x_1711_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
+                                        v___x_1711_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
                                         v___x_1712_ = lean_uint8_dec_eq(v_c_1686_, v___x_1711_);
                                         if v___x_1712_ == 0 {
-                                            v___x_1713_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
+                                            v___x_1713_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
                                             v___x_1714_ = lean_uint8_dec_eq(v_c_1686_, v___x_1713_);
                                             if v___x_1714_ == 0 {
-                                                v___x_1715_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
+                                                v___x_1715_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
                                                 v___x_1716_ =
                                                     lean_uint8_dec_eq(v_c_1686_, v___x_1715_);
                                                 if v___x_1716_ == 0 {
-                                                    v___x_1717_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
+                                                    v___x_1717_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
                                                     v___x_1718_ =
                                                         lean_uint8_dec_eq(v_c_1686_, v___x_1717_);
                                                     v___y_1694_ = v___x_1718_;
@@ -3398,7 +3398,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             4 => {
                 if v___y_1720_ == 0 {
-                    v___x_1721_ = crate::leanh::lean_uint8_once(
+                    v___x_1721_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__9_once
@@ -3407,7 +3407,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                     );
                     v___x_1722_ = lean_uint8_dec_eq(v_c_1686_, v___x_1721_);
                     if v___x_1722_ == 0 {
-                        v___x_1723_ = crate::leanh::lean_uint8_once(
+                        v___x_1723_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__10
                             ),
@@ -3431,7 +3431,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             5 => {
                 if v___y_1726_ == 0 {
-                    v___x_1727_ = crate::leanh::lean_uint8_once(
+                    v___x_1727_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__0_once
@@ -3440,7 +3440,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                     );
                     v___x_1728_ = lean_uint8_dec_eq(v_c_1686_, v___x_1727_);
                     if v___x_1728_ == 0 {
-                        v___x_1729_ = crate::leanh::lean_uint8_once(
+                        v___x_1729_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__1
                             ),
@@ -3464,7 +3464,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             6 => {
                 if v___y_1732_ == 0 {
-                    v___x_1733_ = crate::leanh::lean_uint8_once(
+                    v___x_1733_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__2_once
@@ -3473,7 +3473,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                     );
                     v___x_1734_ = lean_uint8_dec_eq(v_c_1686_, v___x_1733_);
                     if v___x_1734_ == 0 {
-                        v___x_1735_ = crate::leanh::lean_uint8_once(
+                        v___x_1735_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__3
                             ),
@@ -3497,7 +3497,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             7 => {
                 if v___y_1738_ == 0 {
-                    v___x_1739_ = crate::leanh::lean_uint8_once(
+                    v___x_1739_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -3510,7 +3510,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                         state = 6;
                         continue;
                     } else {
-                        v___x_1741_ = crate::leanh::lean_uint8_once(
+                        v___x_1741_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -3530,7 +3530,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
             }
             8 => {
                 if v___y_1744_ == 0 {
-                    v___x_1745_ = crate::leanh::lean_uint8_once(
+                    v___x_1745_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -3543,7 +3543,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
                         state = 7;
                         continue;
                     } else {
-                        v___x_1747_ = crate::leanh::lean_uint8_once(
+                        v___x_1747_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -3566,14 +3566,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryChar(mut v_c_1686_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isQueryChar___boxed(
-    mut v_c_1753_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1753_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1754_: u8 = 0;
     let mut v_res_1755_: u8 = 0;
-    let mut v_r_1756_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1754_ = (crate::leanh::lean_unbox(v_c_1753_) as u8);
+    let mut v_r_1756_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1754_ = (leanh::lean_unbox(v_c_1753_) as u8);
     v_res_1755_ = l_Std_Http_Internal_Char_isQueryChar(v_c_boxed_1754_);
-    v_r_1756_ = crate::leanh::lean_box((v_res_1755_) as usize);
+    v_r_1756_ = leanh::lean_box((v_res_1755_) as usize);
     return v_r_1756_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
@@ -3639,7 +3639,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1820_ = crate::leanh::lean_uint8_once(
+                v___x_1820_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -3650,7 +3650,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                     state = 8;
                     continue;
                 } else {
-                    v___x_1822_ = crate::leanh::lean_uint8_once(
+                    v___x_1822_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -3665,7 +3665,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             1 => {
                 if v___y_1759_ == 0 {
-                    v___x_1760_ = crate::leanh::lean_uint8_once(
+                    v___x_1760_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isQueryChar___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isQueryChar___closed__0_once
@@ -3674,7 +3674,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                     );
                     v___x_1761_ = lean_uint8_dec_eq(v_c_1757_, v___x_1760_);
                     if v___x_1761_ == 0 {
-                        v___x_1762_ = crate::leanh::lean_uint8_once(
+                        v___x_1762_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isQueryChar___closed__1
                             ),
@@ -3694,14 +3694,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             2 => {
                 if v___y_1765_ == 0 {
-                    v___x_1766_ = crate::leanh::lean_uint8_once(
+                    v___x_1766_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0),
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0_once),
                         _init_l_Std_Http_Internal_Char_isPChar___closed__0,
                     );
                     v___x_1767_ = lean_uint8_dec_eq(v_c_1757_, v___x_1766_);
                     if v___x_1767_ == 0 {
-                        v___x_1768_ = crate::leanh::lean_uint8_once(
+                        v___x_1768_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__1),
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isPChar___closed__1_once
@@ -3723,7 +3723,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             3 => {
                 if v___y_1771_ == 0 {
-                    v___x_1772_ = crate::leanh::lean_uint8_once(
+                    v___x_1772_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__0_once
@@ -3732,7 +3732,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                     );
                     v___x_1773_ = lean_uint8_dec_eq(v_c_1757_, v___x_1772_);
                     if v___x_1773_ == 0 {
-                        v___x_1774_ = crate::leanh::lean_uint8_once(
+                        v___x_1774_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__1
                             ),
@@ -3743,7 +3743,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                         );
                         v___x_1775_ = lean_uint8_dec_eq(v_c_1757_, v___x_1774_);
                         if v___x_1775_ == 0 {
-                            v___x_1776_ = crate::leanh::lean_uint8_once(
+                            v___x_1776_ = leanh::lean_uint8_once(
                                 core::ptr::addr_of_mut!(
                                     l_Std_Http_Internal_Char_isSubDelims___closed__2
                                 ),
@@ -3754,7 +3754,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                             );
                             v___x_1777_ = lean_uint8_dec_eq(v_c_1757_, v___x_1776_);
                             if v___x_1777_ == 0 {
-                                v___x_1778_ = crate::leanh::lean_uint8_once(
+                                v___x_1778_ = leanh::lean_uint8_once(
                                     core::ptr::addr_of_mut!(
                                         l_Std_Http_Internal_Char_isSubDelims___closed__3
                                     ),
@@ -3765,7 +3765,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                                 );
                                 v___x_1779_ = lean_uint8_dec_eq(v_c_1757_, v___x_1778_);
                                 if v___x_1779_ == 0 {
-                                    v___x_1780_ = crate::leanh::lean_uint8_once(
+                                    v___x_1780_ = leanh::lean_uint8_once(
                                         core::ptr::addr_of_mut!(
                                             l_Std_Http_Internal_Char_isSubDelims___closed__4
                                         ),
@@ -3776,17 +3776,17 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                                     );
                                     v___x_1781_ = lean_uint8_dec_eq(v_c_1757_, v___x_1780_);
                                     if v___x_1781_ == 0 {
-                                        v___x_1782_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
+                                        v___x_1782_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
                                         v___x_1783_ = lean_uint8_dec_eq(v_c_1757_, v___x_1782_);
                                         if v___x_1783_ == 0 {
-                                            v___x_1784_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
+                                            v___x_1784_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
                                             v___x_1785_ = lean_uint8_dec_eq(v_c_1757_, v___x_1784_);
                                             if v___x_1785_ == 0 {
-                                                v___x_1786_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
+                                                v___x_1786_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
                                                 v___x_1787_ =
                                                     lean_uint8_dec_eq(v_c_1757_, v___x_1786_);
                                                 if v___x_1787_ == 0 {
-                                                    v___x_1788_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
+                                                    v___x_1788_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
                                                     v___x_1789_ =
                                                         lean_uint8_dec_eq(v_c_1757_, v___x_1788_);
                                                     v___y_1765_ = v___x_1789_;
@@ -3838,7 +3838,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             4 => {
                 if v___y_1791_ == 0 {
-                    v___x_1792_ = crate::leanh::lean_uint8_once(
+                    v___x_1792_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__9_once
@@ -3847,7 +3847,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                     );
                     v___x_1793_ = lean_uint8_dec_eq(v_c_1757_, v___x_1792_);
                     if v___x_1793_ == 0 {
-                        v___x_1794_ = crate::leanh::lean_uint8_once(
+                        v___x_1794_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__10
                             ),
@@ -3871,7 +3871,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             5 => {
                 if v___y_1797_ == 0 {
-                    v___x_1798_ = crate::leanh::lean_uint8_once(
+                    v___x_1798_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__0_once
@@ -3880,7 +3880,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                     );
                     v___x_1799_ = lean_uint8_dec_eq(v_c_1757_, v___x_1798_);
                     if v___x_1799_ == 0 {
-                        v___x_1800_ = crate::leanh::lean_uint8_once(
+                        v___x_1800_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__1
                             ),
@@ -3904,7 +3904,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             6 => {
                 if v___y_1803_ == 0 {
-                    v___x_1804_ = crate::leanh::lean_uint8_once(
+                    v___x_1804_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__2_once
@@ -3913,7 +3913,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                     );
                     v___x_1805_ = lean_uint8_dec_eq(v_c_1757_, v___x_1804_);
                     if v___x_1805_ == 0 {
-                        v___x_1806_ = crate::leanh::lean_uint8_once(
+                        v___x_1806_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__3
                             ),
@@ -3937,7 +3937,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             7 => {
                 if v___y_1809_ == 0 {
-                    v___x_1810_ = crate::leanh::lean_uint8_once(
+                    v___x_1810_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -3950,7 +3950,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                         state = 6;
                         continue;
                     } else {
-                        v___x_1812_ = crate::leanh::lean_uint8_once(
+                        v___x_1812_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -3970,7 +3970,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
             }
             8 => {
                 if v___y_1815_ == 0 {
-                    v___x_1816_ = crate::leanh::lean_uint8_once(
+                    v___x_1816_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -3983,7 +3983,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
                         state = 7;
                         continue;
                     } else {
-                        v___x_1818_ = crate::leanh::lean_uint8_once(
+                        v___x_1818_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -4006,14 +4006,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar(mut v_c_1757_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isFragmentChar___boxed(
-    mut v_c_1824_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1824_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1825_: u8 = 0;
     let mut v_res_1826_: u8 = 0;
-    let mut v_r_1827_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1825_ = (crate::leanh::lean_unbox(v_c_1824_) as u8);
+    let mut v_r_1827_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1825_ = (leanh::lean_unbox(v_c_1824_) as u8);
     v_res_1826_ = l_Std_Http_Internal_Char_isFragmentChar(v_c_boxed_1825_);
-    v_r_1827_ = crate::leanh::lean_box((v_res_1826_) as usize);
+    v_r_1827_ = leanh::lean_box((v_res_1826_) as usize);
     return v_r_1827_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
@@ -4072,7 +4072,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
     loop {
         match state {
             0 => {
-                v___x_1883_ = crate::leanh::lean_uint8_once(
+                v___x_1883_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -4083,7 +4083,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                     state = 7;
                     continue;
                 } else {
-                    v___x_1885_ = crate::leanh::lean_uint8_once(
+                    v___x_1885_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -4098,7 +4098,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             1 => {
                 if v___y_1830_ == 0 {
-                    v___x_1831_ = crate::leanh::lean_uint8_once(
+                    v___x_1831_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0),
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0_once),
                         _init_l_Std_Http_Internal_Char_isPChar___closed__0,
@@ -4111,7 +4111,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             2 => {
                 if v___y_1834_ == 0 {
-                    v___x_1835_ = crate::leanh::lean_uint8_once(
+                    v___x_1835_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__0_once
@@ -4120,7 +4120,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                     );
                     v___x_1836_ = lean_uint8_dec_eq(v_c_1828_, v___x_1835_);
                     if v___x_1836_ == 0 {
-                        v___x_1837_ = crate::leanh::lean_uint8_once(
+                        v___x_1837_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__1
                             ),
@@ -4131,7 +4131,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                         );
                         v___x_1838_ = lean_uint8_dec_eq(v_c_1828_, v___x_1837_);
                         if v___x_1838_ == 0 {
-                            v___x_1839_ = crate::leanh::lean_uint8_once(
+                            v___x_1839_ = leanh::lean_uint8_once(
                                 core::ptr::addr_of_mut!(
                                     l_Std_Http_Internal_Char_isSubDelims___closed__2
                                 ),
@@ -4142,7 +4142,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                             );
                             v___x_1840_ = lean_uint8_dec_eq(v_c_1828_, v___x_1839_);
                             if v___x_1840_ == 0 {
-                                v___x_1841_ = crate::leanh::lean_uint8_once(
+                                v___x_1841_ = leanh::lean_uint8_once(
                                     core::ptr::addr_of_mut!(
                                         l_Std_Http_Internal_Char_isSubDelims___closed__3
                                     ),
@@ -4153,7 +4153,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                                 );
                                 v___x_1842_ = lean_uint8_dec_eq(v_c_1828_, v___x_1841_);
                                 if v___x_1842_ == 0 {
-                                    v___x_1843_ = crate::leanh::lean_uint8_once(
+                                    v___x_1843_ = leanh::lean_uint8_once(
                                         core::ptr::addr_of_mut!(
                                             l_Std_Http_Internal_Char_isSubDelims___closed__4
                                         ),
@@ -4164,17 +4164,17 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                                     );
                                     v___x_1844_ = lean_uint8_dec_eq(v_c_1828_, v___x_1843_);
                                     if v___x_1844_ == 0 {
-                                        v___x_1845_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
+                                        v___x_1845_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
                                         v___x_1846_ = lean_uint8_dec_eq(v_c_1828_, v___x_1845_);
                                         if v___x_1846_ == 0 {
-                                            v___x_1847_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
+                                            v___x_1847_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
                                             v___x_1848_ = lean_uint8_dec_eq(v_c_1828_, v___x_1847_);
                                             if v___x_1848_ == 0 {
-                                                v___x_1849_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
+                                                v___x_1849_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
                                                 v___x_1850_ =
                                                     lean_uint8_dec_eq(v_c_1828_, v___x_1849_);
                                                 if v___x_1850_ == 0 {
-                                                    v___x_1851_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
+                                                    v___x_1851_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
                                                     v___x_1852_ =
                                                         lean_uint8_dec_eq(v_c_1828_, v___x_1851_);
                                                     v___y_1830_ = v___x_1852_;
@@ -4226,7 +4226,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             3 => {
                 if v___y_1854_ == 0 {
-                    v___x_1855_ = crate::leanh::lean_uint8_once(
+                    v___x_1855_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__9_once
@@ -4235,7 +4235,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                     );
                     v___x_1856_ = lean_uint8_dec_eq(v_c_1828_, v___x_1855_);
                     if v___x_1856_ == 0 {
-                        v___x_1857_ = crate::leanh::lean_uint8_once(
+                        v___x_1857_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__10
                             ),
@@ -4259,7 +4259,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             4 => {
                 if v___y_1860_ == 0 {
-                    v___x_1861_ = crate::leanh::lean_uint8_once(
+                    v___x_1861_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__0_once
@@ -4268,7 +4268,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                     );
                     v___x_1862_ = lean_uint8_dec_eq(v_c_1828_, v___x_1861_);
                     if v___x_1862_ == 0 {
-                        v___x_1863_ = crate::leanh::lean_uint8_once(
+                        v___x_1863_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__1
                             ),
@@ -4292,7 +4292,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             5 => {
                 if v___y_1866_ == 0 {
-                    v___x_1867_ = crate::leanh::lean_uint8_once(
+                    v___x_1867_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__2_once
@@ -4301,7 +4301,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                     );
                     v___x_1868_ = lean_uint8_dec_eq(v_c_1828_, v___x_1867_);
                     if v___x_1868_ == 0 {
-                        v___x_1869_ = crate::leanh::lean_uint8_once(
+                        v___x_1869_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__3
                             ),
@@ -4325,7 +4325,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             6 => {
                 if v___y_1872_ == 0 {
-                    v___x_1873_ = crate::leanh::lean_uint8_once(
+                    v___x_1873_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -4338,7 +4338,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                         state = 5;
                         continue;
                     } else {
-                        v___x_1875_ = crate::leanh::lean_uint8_once(
+                        v___x_1875_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -4358,7 +4358,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
             }
             7 => {
                 if v___y_1878_ == 0 {
-                    v___x_1879_ = crate::leanh::lean_uint8_once(
+                    v___x_1879_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -4371,7 +4371,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
                         state = 6;
                         continue;
                     } else {
-                        v___x_1881_ = crate::leanh::lean_uint8_once(
+                        v___x_1881_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -4394,14 +4394,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar(mut v_c_1828_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isUserInfoChar___boxed(
-    mut v_c_1887_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1887_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1888_: u8 = 0;
     let mut v_res_1889_: u8 = 0;
-    let mut v_r_1890_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1888_ = (crate::leanh::lean_unbox(v_c_1887_) as u8);
+    let mut v_r_1890_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1888_ = (leanh::lean_unbox(v_c_1887_) as u8);
     v_res_1889_ = l_Std_Http_Internal_Char_isUserInfoChar(v_c_boxed_1888_);
-    v_r_1890_ = crate::leanh::lean_box((v_res_1889_) as usize);
+    v_r_1890_ = leanh::lean_box((v_res_1889_) as usize);
     return v_r_1890_;
 }
 pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 {
@@ -4474,7 +4474,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
     loop {
         match state {
             0 => {
-                v___x_1963_ = crate::leanh::lean_uint8_once(
+                v___x_1963_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isDigitByte___closed__0,
@@ -4485,7 +4485,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                     state = 10;
                     continue;
                 } else {
-                    v___x_1965_ = crate::leanh::lean_uint8_once(
+                    v___x_1965_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isDigitByte___closed__1),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isDigitByte___closed__1_once
@@ -4499,14 +4499,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                 }
             }
             1 => {
-                v___x_1893_ = crate::leanh::lean_uint8_once(
+                v___x_1893_ = leanh::lean_uint8_once(
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                     core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0_once),
                     _init_l_Std_Http_Internal_Char_isSubDelims___closed__0,
                 );
                 v___x_1894_ = lean_uint8_dec_eq(v_c_1891_, v___x_1893_);
                 if v___x_1894_ == 0 {
-                    v___x_1895_ = crate::leanh::lean_uint8_once(
+                    v___x_1895_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__8_once
@@ -4535,7 +4535,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             3 => {
                 if v___y_1902_ == 0 {
-                    v___x_1903_ = crate::leanh::lean_uint8_once(
+                    v___x_1903_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isQueryChar___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isQueryChar___closed__0_once
@@ -4544,7 +4544,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                     );
                     v___x_1904_ = lean_uint8_dec_eq(v_c_1891_, v___x_1903_);
                     if v___x_1904_ == 0 {
-                        v___x_1905_ = crate::leanh::lean_uint8_once(
+                        v___x_1905_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isQueryChar___closed__1
                             ),
@@ -4569,14 +4569,14 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             4 => {
                 if v___y_1908_ == 0 {
-                    v___x_1909_ = crate::leanh::lean_uint8_once(
+                    v___x_1909_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0),
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__0_once),
                         _init_l_Std_Http_Internal_Char_isPChar___closed__0,
                     );
                     v___x_1910_ = lean_uint8_dec_eq(v_c_1891_, v___x_1909_);
                     if v___x_1910_ == 0 {
-                        v___x_1911_ = crate::leanh::lean_uint8_once(
+                        v___x_1911_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isPChar___closed__1),
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isPChar___closed__1_once
@@ -4599,7 +4599,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             5 => {
                 if v___y_1914_ == 0 {
-                    v___x_1915_ = crate::leanh::lean_uint8_once(
+                    v___x_1915_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__0_once
@@ -4608,7 +4608,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                     );
                     v___x_1916_ = lean_uint8_dec_eq(v_c_1891_, v___x_1915_);
                     if v___x_1916_ == 0 {
-                        v___x_1917_ = crate::leanh::lean_uint8_once(
+                        v___x_1917_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__1
                             ),
@@ -4619,7 +4619,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                         );
                         v___x_1918_ = lean_uint8_dec_eq(v_c_1891_, v___x_1917_);
                         if v___x_1918_ == 0 {
-                            v___x_1919_ = crate::leanh::lean_uint8_once(
+                            v___x_1919_ = leanh::lean_uint8_once(
                                 core::ptr::addr_of_mut!(
                                     l_Std_Http_Internal_Char_isSubDelims___closed__2
                                 ),
@@ -4630,7 +4630,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                             );
                             v___x_1920_ = lean_uint8_dec_eq(v_c_1891_, v___x_1919_);
                             if v___x_1920_ == 0 {
-                                v___x_1921_ = crate::leanh::lean_uint8_once(
+                                v___x_1921_ = leanh::lean_uint8_once(
                                     core::ptr::addr_of_mut!(
                                         l_Std_Http_Internal_Char_isSubDelims___closed__3
                                     ),
@@ -4641,7 +4641,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                                 );
                                 v___x_1922_ = lean_uint8_dec_eq(v_c_1891_, v___x_1921_);
                                 if v___x_1922_ == 0 {
-                                    v___x_1923_ = crate::leanh::lean_uint8_once(
+                                    v___x_1923_ = leanh::lean_uint8_once(
                                         core::ptr::addr_of_mut!(
                                             l_Std_Http_Internal_Char_isSubDelims___closed__4
                                         ),
@@ -4652,17 +4652,17 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                                     );
                                     v___x_1924_ = lean_uint8_dec_eq(v_c_1891_, v___x_1923_);
                                     if v___x_1924_ == 0 {
-                                        v___x_1925_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
+                                        v___x_1925_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__5_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__5);
                                         v___x_1926_ = lean_uint8_dec_eq(v_c_1891_, v___x_1925_);
                                         if v___x_1926_ == 0 {
-                                            v___x_1927_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
+                                            v___x_1927_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__6_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__6);
                                             v___x_1928_ = lean_uint8_dec_eq(v_c_1891_, v___x_1927_);
                                             if v___x_1928_ == 0 {
-                                                v___x_1929_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
+                                                v___x_1929_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__7_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__7);
                                                 v___x_1930_ =
                                                     lean_uint8_dec_eq(v_c_1891_, v___x_1929_);
                                                 if v___x_1930_ == 0 {
-                                                    v___x_1931_ = crate::leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
+                                                    v___x_1931_ = leanh::lean_uint8_once(core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8), core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__8_once), _init_l_Std_Http_Internal_Char_isSubDelims___closed__8);
                                                     v___x_1932_ =
                                                         lean_uint8_dec_eq(v_c_1891_, v___x_1931_);
                                                     v___y_1908_ = v___x_1932_;
@@ -4715,7 +4715,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             6 => {
                 if v___y_1934_ == 0 {
-                    v___x_1935_ = crate::leanh::lean_uint8_once(
+                    v___x_1935_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isSubDelims___closed__9),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isSubDelims___closed__9_once
@@ -4724,7 +4724,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                     );
                     v___x_1936_ = lean_uint8_dec_eq(v_c_1891_, v___x_1935_);
                     if v___x_1936_ == 0 {
-                        v___x_1937_ = crate::leanh::lean_uint8_once(
+                        v___x_1937_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isSubDelims___closed__10
                             ),
@@ -4749,7 +4749,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             7 => {
                 if v___y_1940_ == 0 {
-                    v___x_1941_ = crate::leanh::lean_uint8_once(
+                    v___x_1941_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__0_once
@@ -4758,7 +4758,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                     );
                     v___x_1942_ = lean_uint8_dec_eq(v_c_1891_, v___x_1941_);
                     if v___x_1942_ == 0 {
-                        v___x_1943_ = crate::leanh::lean_uint8_once(
+                        v___x_1943_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__1
                             ),
@@ -4783,7 +4783,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             8 => {
                 if v___y_1946_ == 0 {
-                    v___x_1947_ = crate::leanh::lean_uint8_once(
+                    v___x_1947_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isUnreserved___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isUnreserved___closed__2_once
@@ -4792,7 +4792,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                     );
                     v___x_1948_ = lean_uint8_dec_eq(v_c_1891_, v___x_1947_);
                     if v___x_1948_ == 0 {
-                        v___x_1949_ = crate::leanh::lean_uint8_once(
+                        v___x_1949_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isUnreserved___closed__3
                             ),
@@ -4817,7 +4817,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             9 => {
                 if v___y_1952_ == 0 {
-                    v___x_1953_ = crate::leanh::lean_uint8_once(
+                    v___x_1953_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__2),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__2_once
@@ -4830,7 +4830,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                         state = 8;
                         continue;
                     } else {
-                        v___x_1955_ = crate::leanh::lean_uint8_once(
+                        v___x_1955_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__3
                             ),
@@ -4851,7 +4851,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
             }
             10 => {
                 if v___y_1958_ == 0 {
-                    v___x_1959_ = crate::leanh::lean_uint8_once(
+                    v___x_1959_ = leanh::lean_uint8_once(
                         core::ptr::addr_of_mut!(l_Std_Http_Internal_Char_isAlphaByte___closed__0),
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Internal_Char_isAlphaByte___closed__0_once
@@ -4864,7 +4864,7 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
                         state = 9;
                         continue;
                     } else {
-                        v___x_1961_ = crate::leanh::lean_uint8_once(
+                        v___x_1961_ = leanh::lean_uint8_once(
                             core::ptr::addr_of_mut!(
                                 l_Std_Http_Internal_Char_isAlphaByte___closed__1
                             ),
@@ -4888,92 +4888,92 @@ pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar(mut v_c_1891_: u8) -> u8 
     }
 }
 pub unsafe fn l_Std_Http_Internal_Char_isQueryDataChar___boxed(
-    mut v_c_1967_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_c_1967_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_c_boxed_1968_: u8 = 0;
     let mut v_res_1969_: u8 = 0;
-    let mut v_r_1970_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_c_boxed_1968_ = (crate::leanh::lean_unbox(v_c_1967_) as u8);
+    let mut v_r_1970_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_c_boxed_1968_ = (leanh::lean_unbox(v_c_1967_) as u8);
     v_res_1969_ = l_Std_Http_Internal_Char_isQueryDataChar(v_c_boxed_1968_);
-    v_r_1970_ = crate::leanh::lean_box((v_res_1969_) as usize);
+    v_r_1970_ = leanh::lean_box((v_res_1969_) as usize);
     return v_r_1970_;
 }
 static mut _G_runtime_initialized: bool = false;
 pub unsafe fn runtime_initialize_Std_Http_Internal_Char(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_Char(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_String_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Int(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Grind(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Http_Internal_Char(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Http_Internal_Char(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Http_Internal_Char(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Http_Internal_Char(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_Char(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_String_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Int(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Grind(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Internal_Char(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Http_Internal_Char(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Std_Http_Internal_Char(builtin);
 }

@@ -45,12 +45,12 @@ use crate::r#gen::Std::Http::Protocol::H1::Parser::{
 };
 use crate::r#gen::Std::Time::{initialize_Std_Time, runtime_initialize_Std_Time};
 pub static mut l_Std_Http_Protocol_H1_Writer_instInhabitedState_default:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static mut l_Std_Http_Protocol_H1_Writer_instInhabitedState: *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject = core::ptr::null_mut();
+pub static mut l_Std_Http_Protocol_H1_Writer_instInhabitedState: *mut leanh::LeanObject =
     core::ptr::null_mut();
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__0_value:
-    crate::leanh::LeanStringObject<50> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<50> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -66,31 +66,31 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__0_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__1_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__0_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__1:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__1_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__2_value:
-    crate::leanh::LeanStringObject<49> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<49> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -106,31 +106,31 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__2_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__2:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__2_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__3_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__2_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__3:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__3_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__4_value:
-    crate::leanh::LeanStringObject<42> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<42> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -146,31 +146,31 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__4_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__4:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__4_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__5_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__4_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__5:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__5_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__6_value:
-    crate::leanh::LeanStringObject<53> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<53> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -186,31 +186,31 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__6_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__6:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__6_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__7_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__6_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__7:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__7_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__8_value:
-    crate::leanh::LeanStringObject<58> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<58> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -226,31 +226,31 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__8_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__8:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__8_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__9_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__8_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__9:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__9_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__10_value:
-    crate::leanh::LeanStringObject<43> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<43> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -266,30 +266,30 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__10_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__10:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__10_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__11_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__10_value
-    ) as *mut crate::leanh::LeanObject],
+    ) as *mut leanh::LeanObject],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__11:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__11_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__12_value:
-    crate::leanh::LeanStringObject<41> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<41> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -305,44 +305,44 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__12_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__12:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__12_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__13_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__12_value
-    ) as *mut crate::leanh::LeanObject],
+    ) as *mut leanh::LeanObject],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__13:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__13_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__16_value:
-    crate::leanh::LeanStringObject<51> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<51> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -358,55 +358,55 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__16_value:
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__16:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__16_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__17_value:
-    crate::leanh::LeanCtorObject<1> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<1> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 1
             + 0) as u16,
         other: 1,
         tag: 3,
     },
     m_objs: [core::ptr::addr_of!(
         l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__16_value
-    ) as *mut crate::leanh::LeanObject],
+    ) as *mut leanh::LeanObject],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__17:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__17_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__18_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 5,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__17_value)
-            as *mut crate::leanh::LeanObject,
-        (((1 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
+        (((1 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__18:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__18_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instReprState___closed__0_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -415,20 +415,20 @@ pub static l_Std_Http_Protocol_H1_Writer_instReprState___closed__0_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Http_Protocol_H1_Writer_instReprState___closed__0: *mut crate::leanh::LeanObject =
+static mut l_Std_Http_Protocol_H1_Writer_instReprState___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l_Std_Http_Protocol_H1_Writer_instReprState: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l_Std_Http_Protocol_H1_Writer_instReprState: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instReprState___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_instBEqState___closed__0_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -437,20 +437,20 @@ pub static l_Std_Http_Protocol_H1_Writer_instBEqState___closed__0_value:
     m_num_fixed: 0,
     m_objs: [],
 };
-static mut l_Std_Http_Protocol_H1_Writer_instBEqState___closed__0: *mut crate::leanh::LeanObject =
+static mut l_Std_Http_Protocol_H1_Writer_instBEqState___closed__0: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instBEqState___closed__0_value)
-        as *mut crate::leanh::LeanObject;
-pub static mut l_Std_Http_Protocol_H1_Writer_instBEqState: *mut crate::leanh::LeanObject =
+        as *mut leanh::LeanObject;
+pub static mut l_Std_Http_Protocol_H1_Writer_instBEqState: *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_instBEqState___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__0_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -461,17 +461,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__0_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__1_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -481,17 +481,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__1_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__1:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__1_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__2_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -501,17 +501,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__2_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__2:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__2_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__3_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -521,17 +521,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__3_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__3:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__3_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__4_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -541,17 +541,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__4_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__4:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__4_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__5_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -561,17 +561,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__5_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__5:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__5_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__6_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -581,17 +581,17 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__6_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__6:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__6_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__7_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -601,85 +601,85 @@ pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__7_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__7:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__7_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__8_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__1_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__2_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__8:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__8_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__9_value:
-    crate::leanh::LeanCtorObject<5> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<5> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 5
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 5
             + 0) as u16,
         other: 5,
         tag: 0,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__8_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__3_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__4_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__5_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__6_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__9:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__9_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__9_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__7_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0_value:
-    crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanArrayObject<0> = leanh::LeanArrayObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<usize>() * 2
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 246,
     },
@@ -688,67 +688,67 @@ pub static l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0_val
     m_data: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__1_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0_value)
-            as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__1:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__1_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__2_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__1_value)
-            as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__2:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__2_value)
-        as *mut crate::leanh::LeanObject;
-pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [59, 0]};
-static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1_value: crate::leanh::LeanStringObject<2> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [61, 0]};
-static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1_value) as *mut crate::leanh::LeanObject;
-pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0_value: crate::leanh::LeanStringObject<3> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [13, 10, 0]};
-static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0_value) as *mut crate::leanh::LeanObject;
-static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1_once: crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
-static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2_value: crate::leanh::LeanStringObject<1> = crate::leanh::LeanStringObject { m_header: crate::leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};
-static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2: *mut crate::leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2_value) as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
+pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0_value: leanh::LeanStringObject<2> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [59, 0]};
+static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0: *mut leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0_value) as *mut leanh::LeanObject;
+pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1_value: leanh::LeanStringObject<2> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 2, m_capacity: 2, m_length: 1, m_data: [61, 0]};
+static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1: *mut leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1_value) as *mut leanh::LeanObject;
+pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0_value: leanh::LeanStringObject<3> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 3, m_capacity: 3, m_length: 2, m_data: [13, 10, 0]};
+static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0: *mut leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0_value) as *mut leanh::LeanObject;
+static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1_once: leanh::LeanOnceCell = leanh::LeanOnceCell { state: core::sync::atomic::AtomicI32::new(0), lock: core::sync::atomic::AtomicI32::new(0) };
+static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1: *mut leanh::LeanObject = core::ptr::null_mut();
+pub static l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2_value: leanh::LeanStringObject<1> = leanh::LeanStringObject { m_header: leanh::LeanObject { rc: 0, cs_size: (0) as u16, other: 0, tag: 249 }, m_size: 1, m_capacity: 1, m_length: 0, m_data: [0]};
+static mut l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2: *mut leanh::LeanObject = core::ptr::addr_of!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2_value) as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg___closed__0_value:
-    crate::leanh::LeanArrayObject<0> = crate::leanh::LeanArrayObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanArrayObject<0> = leanh::LeanArrayObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<usize>() * 2
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 246,
     },
@@ -757,12 +757,12 @@ pub static l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg___closed__0_v
     m_data: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__0_value:
-    crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<6> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -774,51 +774,51 @@ pub static l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__0_va
     m_data: [48, 13, 10, 13, 10, 0],
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 static mut l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 static mut l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__2_once:
-    crate::leanh::LeanOnceCell = crate::leanh::LeanOnceCell {
+    leanh::LeanOnceCell = leanh::LeanOnceCell {
     state: core::sync::atomic::AtomicI32::new(0),
     lock: core::sync::atomic::AtomicI32::new(0),
 };
 static mut l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__2:
-    *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    *mut leanh::LeanObject = core::ptr::null_mut();
 pub static l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___closed__0_value:
-    crate::leanh::LeanCtorObject<2> = crate::leanh::LeanCtorObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanCtorObject<2> = leanh::LeanCtorObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 2
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 2
             + 0) as u16,
         other: 2,
         tag: 0,
     },
     m_objs: [
         core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0_value)
-            as *mut crate::leanh::LeanObject,
-        (((0 as usize) << 1) | 1) as *mut crate::leanh::LeanObject,
+            as *mut leanh::LeanObject,
+        (((0 as usize) << 1) | 1) as *mut leanh::LeanObject,
     ],
 };
 static mut l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__0_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -828,17 +828,17 @@ pub static l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__0_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__0:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__0_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__1_value:
-    crate::leanh::LeanClosureObject<0> = crate::leanh::LeanClosureObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanClosureObject<0> = leanh::LeanClosureObject {
+    m_header: leanh::LeanObject {
         rc: 0,
-        cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+        cs_size: (core::mem::size_of::<leanh::LeanObject>()
             + core::mem::size_of::<*const core::ffi::c_void>()
             + 4
-            + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0) as u16,
+            + core::mem::size_of::<*mut leanh::LeanObject>() * 0) as u16,
         other: 0,
         tag: 245,
     },
@@ -848,12 +848,12 @@ pub static l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__1_value:
     m_objs: [],
 };
 static mut l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__1:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__1_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub static l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__2_value:
-    crate::leanh::LeanStringObject<6> = crate::leanh::LeanStringObject {
-    m_header: crate::leanh::LeanObject {
+    leanh::LeanStringObject<6> = leanh::LeanStringObject {
+    m_header: leanh::LeanObject {
         rc: 0,
         cs_size: (0) as u16,
         other: 0,
@@ -865,99 +865,99 @@ pub static l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__2_value:
     m_data: [99, 108, 111, 115, 101, 0],
 };
 static mut l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__2:
-    *mut crate::leanh::LeanObject =
+    *mut leanh::LeanObject =
     core::ptr::addr_of!(l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__2_value)
-        as *mut crate::leanh::LeanObject;
+        as *mut leanh::LeanObject;
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_ctorIdx(
-    mut v_x_1327_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    match crate::leanh::lean_obj_tag(v_x_1327_) {
+    mut v_x_1327_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    match leanh::lean_obj_tag(v_x_1327_) {
         0 => {
-            let mut v___x_1328_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1328_ = crate::leanh::lean_unsigned_to_nat(0);
+            let mut v___x_1328_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1328_ = leanh::lean_unsigned_to_nat(0);
             return v___x_1328_;
         }
         1 => {
-            let mut v___x_1329_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1329_ = crate::leanh::lean_unsigned_to_nat(1);
+            let mut v___x_1329_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1329_ = leanh::lean_unsigned_to_nat(1);
             return v___x_1329_;
         }
         2 => {
-            let mut v___x_1330_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1330_ = crate::leanh::lean_unsigned_to_nat(2);
+            let mut v___x_1330_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1330_ = leanh::lean_unsigned_to_nat(2);
             return v___x_1330_;
         }
         3 => {
-            let mut v___x_1331_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1331_ = crate::leanh::lean_unsigned_to_nat(3);
+            let mut v___x_1331_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1331_ = leanh::lean_unsigned_to_nat(3);
             return v___x_1331_;
         }
         4 => {
-            let mut v___x_1332_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1332_ = crate::leanh::lean_unsigned_to_nat(4);
+            let mut v___x_1332_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1332_ = leanh::lean_unsigned_to_nat(4);
             return v___x_1332_;
         }
         5 => {
-            let mut v___x_1333_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1333_ = crate::leanh::lean_unsigned_to_nat(5);
+            let mut v___x_1333_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1333_ = leanh::lean_unsigned_to_nat(5);
             return v___x_1333_;
         }
         6 => {
-            let mut v___x_1334_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1334_ = crate::leanh::lean_unsigned_to_nat(6);
+            let mut v___x_1334_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1334_ = leanh::lean_unsigned_to_nat(6);
             return v___x_1334_;
         }
         _ => {
-            let mut v___x_1335_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1335_ = crate::leanh::lean_unsigned_to_nat(7);
+            let mut v___x_1335_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1335_ = leanh::lean_unsigned_to_nat(7);
             return v___x_1335_;
         }
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_ctorIdx___boxed(
-    mut v_x_1336_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1337_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1336_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1337_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1337_ = l_Std_Http_Protocol_H1_Writer_State_ctorIdx(v_x_1336_);
-    crate::leanh::lean_dec(v_x_1336_);
+    leanh::lean_dec(v_x_1336_);
     return v_res_1337_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(
-    mut v_t_1338_: *mut crate::leanh::LeanObject,
-    mut v_k_1339_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    if crate::leanh::lean_obj_tag(v_t_1338_) == 3 {
-        let mut v_n_1340_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        let mut v___x_1341_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_n_1340_ = crate::leanh::lean_ctor_get(v_t_1338_, 0);
-        crate::leanh::lean_inc(v_n_1340_);
-        crate::leanh::lean_dec_ref_known(v_t_1338_, 1);
-        v___x_1341_ = crate::leanh::lean_apply_1(v_k_1339_, v_n_1340_);
+    mut v_t_1338_: *mut leanh::LeanObject,
+    mut v_k_1339_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    if leanh::lean_obj_tag(v_t_1338_) == 3 {
+        let mut v_n_1340_: *mut leanh::LeanObject = core::ptr::null_mut();
+        let mut v___x_1341_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_n_1340_ = leanh::lean_ctor_get(v_t_1338_, 0);
+        leanh::lean_inc(v_n_1340_);
+        leanh::lean_dec_ref_known(v_t_1338_, 1);
+        v___x_1341_ = leanh::lean_apply_1(v_k_1339_, v_n_1340_);
         return v___x_1341_;
     } else {
-        crate::leanh::lean_dec(v_t_1338_);
+        leanh::lean_dec(v_t_1338_);
         return v_k_1339_;
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_ctorElim(
-    mut v_motive_1342_: *mut crate::leanh::LeanObject,
-    mut v_ctorIdx_1343_: *mut crate::leanh::LeanObject,
-    mut v_t_1344_: *mut crate::leanh::LeanObject,
-    mut v_h_1345_: *mut crate::leanh::LeanObject,
-    mut v_k_1346_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1347_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1342_: *mut leanh::LeanObject,
+    mut v_ctorIdx_1343_: *mut leanh::LeanObject,
+    mut v_t_1344_: *mut leanh::LeanObject,
+    mut v_h_1345_: *mut leanh::LeanObject,
+    mut v_k_1346_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1347_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1347_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1344_, v_k_1346_);
     return v___x_1347_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_ctorElim___boxed(
-    mut v_motive_1348_: *mut crate::leanh::LeanObject,
-    mut v_ctorIdx_1349_: *mut crate::leanh::LeanObject,
-    mut v_t_1350_: *mut crate::leanh::LeanObject,
-    mut v_h_1351_: *mut crate::leanh::LeanObject,
-    mut v_k_1352_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1353_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1348_: *mut leanh::LeanObject,
+    mut v_ctorIdx_1349_: *mut leanh::LeanObject,
+    mut v_t_1350_: *mut leanh::LeanObject,
+    mut v_h_1351_: *mut leanh::LeanObject,
+    mut v_k_1352_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1353_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1353_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim(
         v_motive_1348_,
         v_ctorIdx_1349_,
@@ -965,92 +965,92 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_ctorElim___boxed(
         v_h_1351_,
         v_k_1352_,
     );
-    crate::leanh::lean_dec(v_ctorIdx_1349_);
+    leanh::lean_dec(v_ctorIdx_1349_);
     return v_res_1353_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_pending_elim___redArg(
-    mut v_t_1354_: *mut crate::leanh::LeanObject,
-    mut v_pending_1355_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1356_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1354_: *mut leanh::LeanObject,
+    mut v_pending_1355_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1356_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1356_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1354_, v_pending_1355_);
     return v___x_1356_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_pending_elim(
-    mut v_motive_1357_: *mut crate::leanh::LeanObject,
-    mut v_t_1358_: *mut crate::leanh::LeanObject,
-    mut v_h_1359_: *mut crate::leanh::LeanObject,
-    mut v_pending_1360_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1361_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1357_: *mut leanh::LeanObject,
+    mut v_t_1358_: *mut leanh::LeanObject,
+    mut v_h_1359_: *mut leanh::LeanObject,
+    mut v_pending_1360_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1361_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1361_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1358_, v_pending_1360_);
     return v___x_1361_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_waitingHeaders_elim___redArg(
-    mut v_t_1362_: *mut crate::leanh::LeanObject,
-    mut v_waitingHeaders_1363_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1364_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1362_: *mut leanh::LeanObject,
+    mut v_waitingHeaders_1363_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1364_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1364_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1362_, v_waitingHeaders_1363_);
     return v___x_1364_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_waitingHeaders_elim(
-    mut v_motive_1365_: *mut crate::leanh::LeanObject,
-    mut v_t_1366_: *mut crate::leanh::LeanObject,
-    mut v_h_1367_: *mut crate::leanh::LeanObject,
-    mut v_waitingHeaders_1368_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1369_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1365_: *mut leanh::LeanObject,
+    mut v_t_1366_: *mut leanh::LeanObject,
+    mut v_h_1367_: *mut leanh::LeanObject,
+    mut v_waitingHeaders_1368_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1369_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1369_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1366_, v_waitingHeaders_1368_);
     return v___x_1369_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_waitingForFlush_elim___redArg(
-    mut v_t_1370_: *mut crate::leanh::LeanObject,
-    mut v_waitingForFlush_1371_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1372_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1370_: *mut leanh::LeanObject,
+    mut v_waitingForFlush_1371_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1372_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1372_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1370_, v_waitingForFlush_1371_);
     return v___x_1372_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_waitingForFlush_elim(
-    mut v_motive_1373_: *mut crate::leanh::LeanObject,
-    mut v_t_1374_: *mut crate::leanh::LeanObject,
-    mut v_h_1375_: *mut crate::leanh::LeanObject,
-    mut v_waitingForFlush_1376_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1377_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1373_: *mut leanh::LeanObject,
+    mut v_t_1374_: *mut leanh::LeanObject,
+    mut v_h_1375_: *mut leanh::LeanObject,
+    mut v_waitingForFlush_1376_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1377_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1377_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1374_, v_waitingForFlush_1376_);
     return v___x_1377_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyFixed_elim___redArg(
-    mut v_t_1378_: *mut crate::leanh::LeanObject,
-    mut v_writingBodyFixed_1379_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1380_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1378_: *mut leanh::LeanObject,
+    mut v_writingBodyFixed_1379_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1380_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1380_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1378_, v_writingBodyFixed_1379_);
     return v___x_1380_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyFixed_elim(
-    mut v_motive_1381_: *mut crate::leanh::LeanObject,
-    mut v_t_1382_: *mut crate::leanh::LeanObject,
-    mut v_h_1383_: *mut crate::leanh::LeanObject,
-    mut v_writingBodyFixed_1384_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1385_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1381_: *mut leanh::LeanObject,
+    mut v_t_1382_: *mut leanh::LeanObject,
+    mut v_h_1383_: *mut leanh::LeanObject,
+    mut v_writingBodyFixed_1384_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1385_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1385_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1382_, v_writingBodyFixed_1384_);
     return v___x_1385_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyChunked_elim___redArg(
-    mut v_t_1386_: *mut crate::leanh::LeanObject,
-    mut v_writingBodyChunked_1387_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1388_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1386_: *mut leanh::LeanObject,
+    mut v_writingBodyChunked_1387_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1388_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1388_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(
         v_t_1386_,
         v_writingBodyChunked_1387_,
@@ -1058,12 +1058,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyChunked_elim___redA
     return v___x_1388_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyChunked_elim(
-    mut v_motive_1389_: *mut crate::leanh::LeanObject,
-    mut v_t_1390_: *mut crate::leanh::LeanObject,
-    mut v_h_1391_: *mut crate::leanh::LeanObject,
-    mut v_writingBodyChunked_1392_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1393_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1389_: *mut leanh::LeanObject,
+    mut v_t_1390_: *mut leanh::LeanObject,
+    mut v_h_1391_: *mut leanh::LeanObject,
+    mut v_writingBodyChunked_1392_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1393_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1393_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(
         v_t_1390_,
         v_writingBodyChunked_1392_,
@@ -1071,10 +1071,10 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyChunked_elim(
     return v___x_1393_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyClosingFrame_elim___redArg(
-    mut v_t_1394_: *mut crate::leanh::LeanObject,
-    mut v_writingBodyClosingFrame_1395_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1396_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1394_: *mut leanh::LeanObject,
+    mut v_writingBodyClosingFrame_1395_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1396_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1396_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(
         v_t_1394_,
         v_writingBodyClosingFrame_1395_,
@@ -1082,12 +1082,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyClosingFrame_elim__
     return v___x_1396_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyClosingFrame_elim(
-    mut v_motive_1397_: *mut crate::leanh::LeanObject,
-    mut v_t_1398_: *mut crate::leanh::LeanObject,
-    mut v_h_1399_: *mut crate::leanh::LeanObject,
-    mut v_writingBodyClosingFrame_1400_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1401_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1397_: *mut leanh::LeanObject,
+    mut v_t_1398_: *mut leanh::LeanObject,
+    mut v_h_1399_: *mut leanh::LeanObject,
+    mut v_writingBodyClosingFrame_1400_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1401_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1401_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(
         v_t_1398_,
         v_writingBodyClosingFrame_1400_,
@@ -1095,285 +1095,285 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_writingBodyClosingFrame_elim(
     return v___x_1401_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_complete_elim___redArg(
-    mut v_t_1402_: *mut crate::leanh::LeanObject,
-    mut v_complete_1403_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1404_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1402_: *mut leanh::LeanObject,
+    mut v_complete_1403_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1404_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1404_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1402_, v_complete_1403_);
     return v___x_1404_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_complete_elim(
-    mut v_motive_1405_: *mut crate::leanh::LeanObject,
-    mut v_t_1406_: *mut crate::leanh::LeanObject,
-    mut v_h_1407_: *mut crate::leanh::LeanObject,
-    mut v_complete_1408_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1409_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1405_: *mut leanh::LeanObject,
+    mut v_t_1406_: *mut leanh::LeanObject,
+    mut v_h_1407_: *mut leanh::LeanObject,
+    mut v_complete_1408_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1409_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1409_ =
         l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1406_, v_complete_1408_);
     return v___x_1409_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_closed_elim___redArg(
-    mut v_t_1410_: *mut crate::leanh::LeanObject,
-    mut v_closed_1411_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1412_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_t_1410_: *mut leanh::LeanObject,
+    mut v_closed_1411_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1412_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1412_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1410_, v_closed_1411_);
     return v___x_1412_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_State_closed_elim(
-    mut v_motive_1413_: *mut crate::leanh::LeanObject,
-    mut v_t_1414_: *mut crate::leanh::LeanObject,
-    mut v_h_1415_: *mut crate::leanh::LeanObject,
-    mut v_closed_1416_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1417_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_motive_1413_: *mut leanh::LeanObject,
+    mut v_t_1414_: *mut leanh::LeanObject,
+    mut v_h_1415_: *mut leanh::LeanObject,
+    mut v_closed_1416_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1417_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1417_ = l_Std_Http_Protocol_H1_Writer_State_ctorElim___redArg(v_t_1414_, v_closed_1416_);
     return v___x_1417_;
 }
 pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_instInhabitedState_default()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1418_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_1418_ = crate::leanh::lean_box(0);
+-> *mut leanh::LeanObject {
+    let mut v___x_1418_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_1418_ = leanh::lean_box(0);
     return v___x_1418_;
 }
 pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_instInhabitedState()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1419_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_1419_ = crate::leanh::lean_box(0);
+-> *mut leanh::LeanObject {
+    let mut v___x_1419_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_1419_ = leanh::lean_box(0);
     return v___x_1419_;
 }
 pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1441_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1442_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_1441_ = crate::leanh::lean_unsigned_to_nat(2);
+-> *mut leanh::LeanObject {
+    let mut v___x_1441_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1442_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_1441_ = leanh::lean_unsigned_to_nat(2);
     v___x_1442_ = lean_nat_to_int(v___x_1441_);
     return v___x_1442_;
 }
 pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_1443_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1444_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_1443_ = crate::leanh::lean_unsigned_to_nat(1);
+-> *mut leanh::LeanObject {
+    let mut v___x_1443_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1444_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_1443_ = leanh::lean_unsigned_to_nat(1);
     v___x_1444_ = lean_nat_to_int(v___x_1443_);
     return v___x_1444_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
-    mut v_x_1451_: *mut crate::leanh::LeanObject,
-    mut v_prec_1452_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___y_1454_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1455_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1456_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1451_: *mut leanh::LeanObject,
+    mut v_prec_1452_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___y_1454_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1455_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1456_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1457_: u8 = 0;
-    let mut v___x_1458_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1459_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1461_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1462_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1463_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1458_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1459_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1461_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1462_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1463_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1464_: u8 = 0;
-    let mut v___x_1465_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1466_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1468_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1469_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1470_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1465_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1466_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1468_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1469_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1470_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1471_: u8 = 0;
-    let mut v___x_1472_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1473_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1475_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1476_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1477_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1472_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1473_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1475_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1476_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1477_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1478_: u8 = 0;
-    let mut v___x_1479_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1480_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1482_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1483_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1484_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1479_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1480_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1482_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1483_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1484_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1485_: u8 = 0;
-    let mut v___x_1486_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1487_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1489_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1490_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1491_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1486_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1487_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1489_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1490_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1491_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1492_: u8 = 0;
-    let mut v___x_1493_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1494_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1496_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1497_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1498_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1493_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1494_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1496_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1497_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1498_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1499_: u8 = 0;
-    let mut v___x_1500_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1501_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1502_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1500_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1501_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1502_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1503_: u8 = 0;
-    let mut v___x_1504_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1505_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1506_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1504_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1505_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1506_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1507_: u8 = 0;
-    let mut v___x_1508_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1509_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1510_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1508_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1509_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1510_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1511_: u8 = 0;
-    let mut v___x_1512_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1513_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_n_1514_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1516_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1512_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1513_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_n_1514_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1516_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1517_: u8 = 0;
-    let mut v___y_1519_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1520_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1521_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1523_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1524_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1525_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1519_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1520_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1521_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1523_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1524_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1525_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1526_: u8 = 0;
-    let mut v___x_1527_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1528_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1529_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1530_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1527_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1528_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1529_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1530_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1531_: u8 = 0;
-    let mut v___x_1532_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1533_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1532_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1533_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1534_: u8 = 0;
-    let mut v___x_1535_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1535_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1536_: u8 = 0;
-    let mut v___x_1537_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1538_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1539_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1537_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1538_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1539_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1540_: u8 = 0;
-    let mut v___x_1541_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1542_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1543_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1541_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1542_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1543_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1544_: u8 = 0;
-    let mut v___x_1545_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1546_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1547_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1545_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1546_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1547_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1548_: u8 = 0;
-    let mut v___x_1549_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1550_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1549_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1550_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                match crate::leanh::lean_obj_tag(v_x_1451_) {
+                match leanh::lean_obj_tag(v_x_1451_) {
                     0 => {
-                        v___x_1502_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1502_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1503_ = lean_nat_dec_le(v___x_1502_, v_prec_1452_);
                         if v___x_1503_ == 0 {
-                            v___x_1504_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1504_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1468_ = v___x_1504_;
                             state = 3;
                             continue;
                         } else {
-                            v___x_1505_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1505_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1468_ = v___x_1505_;
                             state = 3;
                             continue;
                         }
                     }
                     1 => {
-                        v___x_1506_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1506_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1507_ = lean_nat_dec_le(v___x_1506_, v_prec_1452_);
                         if v___x_1507_ == 0 {
-                            v___x_1508_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1508_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1461_ = v___x_1508_;
                             state = 2;
                             continue;
                         } else {
-                            v___x_1509_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1509_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1461_ = v___x_1509_;
                             state = 2;
                             continue;
                         }
                     }
                     2 => {
-                        v___x_1510_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1510_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1511_ = lean_nat_dec_le(v___x_1510_, v_prec_1452_);
                         if v___x_1511_ == 0 {
-                            v___x_1512_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1512_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1454_ = v___x_1512_;
                             state = 1;
                             continue;
                         } else {
-                            v___x_1513_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1513_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1454_ = v___x_1513_;
                             state = 1;
                             continue;
                         }
                     }
                     3 => {
-                        v_n_1514_ = crate::leanh::lean_ctor_get(v_x_1451_, 0);
-                        v_isSharedCheck_1534_ = (!crate::leanh::lean_is_exclusive(v_x_1451_)) as u8;
+                        v_n_1514_ = leanh::lean_ctor_get(v_x_1451_, 0);
+                        v_isSharedCheck_1534_ = (!leanh::lean_is_exclusive(v_x_1451_)) as u8;
                         if v_isSharedCheck_1534_ == 0 {
                             v___x_1516_ = v_x_1451_;
                             v_isShared_1517_ = v_isSharedCheck_1534_;
                             state = 8;
                             continue;
                         } else {
-                            crate::leanh::lean_inc(v_n_1514_);
-                            crate::leanh::lean_dec(v_x_1451_);
-                            v___x_1516_ = crate::leanh::lean_box(0);
+                            leanh::lean_inc(v_n_1514_);
+                            leanh::lean_dec(v_x_1451_);
+                            v___x_1516_ = leanh::lean_box(0);
                             v_isShared_1517_ = v_isSharedCheck_1534_;
                             state = 8;
                             continue;
                         }
                     }
                     4 => {
-                        v___x_1535_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1535_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1536_ = lean_nat_dec_le(v___x_1535_, v_prec_1452_);
                         if v___x_1536_ == 0 {
-                            v___x_1537_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1537_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1475_ = v___x_1537_;
                             state = 4;
                             continue;
                         } else {
-                            v___x_1538_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1538_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1475_ = v___x_1538_;
                             state = 4;
                             continue;
                         }
                     }
                     5 => {
-                        v___x_1539_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1539_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1540_ = lean_nat_dec_le(v___x_1539_, v_prec_1452_);
                         if v___x_1540_ == 0 {
-                            v___x_1541_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1541_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1482_ = v___x_1541_;
                             state = 5;
                             continue;
                         } else {
-                            v___x_1542_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1542_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1482_ = v___x_1542_;
                             state = 5;
                             continue;
                         }
                     }
                     6 => {
-                        v___x_1543_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1543_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1544_ = lean_nat_dec_le(v___x_1543_, v_prec_1452_);
                         if v___x_1544_ == 0 {
-                            v___x_1545_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1545_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1489_ = v___x_1545_;
                             state = 6;
                             continue;
                         } else {
-                            v___x_1546_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1546_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1489_ = v___x_1546_;
                             state = 6;
                             continue;
                         }
                     }
                     _ => {
-                        v___x_1547_ = crate::leanh::lean_unsigned_to_nat(1024);
+                        v___x_1547_ = leanh::lean_unsigned_to_nat(1024);
                         v___x_1548_ = lean_nat_dec_le(v___x_1547_, v_prec_1452_);
                         if v___x_1548_ == 0 {
-                            v___x_1549_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
+                            v___x_1549_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14);
                             v___y_1496_ = v___x_1549_;
                             state = 7;
                             continue;
                         } else {
-                            v___x_1550_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
+                            v___x_1550_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15), core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15_once), _init_l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15);
                             v___y_1496_ = v___x_1550_;
                             state = 7;
                             continue;
@@ -1383,16 +1383,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             1 => {
                 v___x_1455_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__1;
-                crate::leanh::lean_inc(v___y_1454_);
-                v___x_1456_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1456_, 0, v___y_1454_);
-                crate::leanh::lean_ctor_set(v___x_1456_, 1, v___x_1455_);
+                leanh::lean_inc(v___y_1454_);
+                v___x_1456_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1456_, 0, v___y_1454_);
+                leanh::lean_ctor_set(v___x_1456_, 1, v___x_1455_);
                 v___x_1457_ = 0;
-                v___x_1458_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1458_, 0, v___x_1456_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1458_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1458_, 0, v___x_1456_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1458_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1457_,
                 );
                 v___x_1459_ = l_Repr_addAppParen(v___x_1458_, v_prec_1452_);
@@ -1400,16 +1400,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             2 => {
                 v___x_1462_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__3;
-                crate::leanh::lean_inc(v___y_1461_);
-                v___x_1463_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1463_, 0, v___y_1461_);
-                crate::leanh::lean_ctor_set(v___x_1463_, 1, v___x_1462_);
+                leanh::lean_inc(v___y_1461_);
+                v___x_1463_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1463_, 0, v___y_1461_);
+                leanh::lean_ctor_set(v___x_1463_, 1, v___x_1462_);
                 v___x_1464_ = 0;
-                v___x_1465_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1465_, 0, v___x_1463_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1465_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1465_, 0, v___x_1463_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1465_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1464_,
                 );
                 v___x_1466_ = l_Repr_addAppParen(v___x_1465_, v_prec_1452_);
@@ -1417,16 +1417,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             3 => {
                 v___x_1469_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__5;
-                crate::leanh::lean_inc(v___y_1468_);
-                v___x_1470_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1470_, 0, v___y_1468_);
-                crate::leanh::lean_ctor_set(v___x_1470_, 1, v___x_1469_);
+                leanh::lean_inc(v___y_1468_);
+                v___x_1470_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1470_, 0, v___y_1468_);
+                leanh::lean_ctor_set(v___x_1470_, 1, v___x_1469_);
                 v___x_1471_ = 0;
-                v___x_1472_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1472_, 0, v___x_1470_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1472_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1472_, 0, v___x_1470_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1472_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1471_,
                 );
                 v___x_1473_ = l_Repr_addAppParen(v___x_1472_, v_prec_1452_);
@@ -1434,16 +1434,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             4 => {
                 v___x_1476_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__7;
-                crate::leanh::lean_inc(v___y_1475_);
-                v___x_1477_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1477_, 0, v___y_1475_);
-                crate::leanh::lean_ctor_set(v___x_1477_, 1, v___x_1476_);
+                leanh::lean_inc(v___y_1475_);
+                v___x_1477_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1477_, 0, v___y_1475_);
+                leanh::lean_ctor_set(v___x_1477_, 1, v___x_1476_);
                 v___x_1478_ = 0;
-                v___x_1479_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1479_, 0, v___x_1477_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1479_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1479_, 0, v___x_1477_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1479_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1478_,
                 );
                 v___x_1480_ = l_Repr_addAppParen(v___x_1479_, v_prec_1452_);
@@ -1451,16 +1451,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             5 => {
                 v___x_1483_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__9;
-                crate::leanh::lean_inc(v___y_1482_);
-                v___x_1484_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1484_, 0, v___y_1482_);
-                crate::leanh::lean_ctor_set(v___x_1484_, 1, v___x_1483_);
+                leanh::lean_inc(v___y_1482_);
+                v___x_1484_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1484_, 0, v___y_1482_);
+                leanh::lean_ctor_set(v___x_1484_, 1, v___x_1483_);
                 v___x_1485_ = 0;
-                v___x_1486_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1486_, 0, v___x_1484_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1486_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1486_, 0, v___x_1484_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1486_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1485_,
                 );
                 v___x_1487_ = l_Repr_addAppParen(v___x_1486_, v_prec_1452_);
@@ -1468,16 +1468,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             6 => {
                 v___x_1490_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__11;
-                crate::leanh::lean_inc(v___y_1489_);
-                v___x_1491_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1491_, 0, v___y_1489_);
-                crate::leanh::lean_ctor_set(v___x_1491_, 1, v___x_1490_);
+                leanh::lean_inc(v___y_1489_);
+                v___x_1491_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1491_, 0, v___y_1489_);
+                leanh::lean_ctor_set(v___x_1491_, 1, v___x_1490_);
                 v___x_1492_ = 0;
-                v___x_1493_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1493_, 0, v___x_1491_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1493_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1493_, 0, v___x_1491_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1493_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1492_,
                 );
                 v___x_1494_ = l_Repr_addAppParen(v___x_1493_, v_prec_1452_);
@@ -1485,26 +1485,26 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
             }
             7 => {
                 v___x_1497_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__13;
-                crate::leanh::lean_inc(v___y_1496_);
-                v___x_1498_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1498_, 0, v___y_1496_);
-                crate::leanh::lean_ctor_set(v___x_1498_, 1, v___x_1497_);
+                leanh::lean_inc(v___y_1496_);
+                v___x_1498_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1498_, 0, v___y_1496_);
+                leanh::lean_ctor_set(v___x_1498_, 1, v___x_1497_);
                 v___x_1499_ = 0;
-                v___x_1500_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1500_, 0, v___x_1498_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1500_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1500_, 0, v___x_1498_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1500_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1499_,
                 );
                 v___x_1501_ = l_Repr_addAppParen(v___x_1500_, v_prec_1452_);
                 return v___x_1501_;
             }
             8 => {
-                v___x_1530_ = crate::leanh::lean_unsigned_to_nat(1024);
+                v___x_1530_ = leanh::lean_unsigned_to_nat(1024);
                 v___x_1531_ = lean_nat_dec_le(v___x_1530_, v_prec_1452_);
                 if v___x_1531_ == 0 {
-                    v___x_1532_ = crate::leanh::lean_obj_once(
+                    v___x_1532_ = leanh::lean_obj_once(
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__14
                         ),
@@ -1517,7 +1517,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
                     state = 9;
                     continue;
                 } else {
-                    v___x_1533_ = crate::leanh::lean_obj_once(
+                    v___x_1533_ = leanh::lean_obj_once(
                         core::ptr::addr_of_mut!(
                             l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__15
                         ),
@@ -1535,32 +1535,32 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
                 v___x_1520_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr___closed__18;
                 v___x_1521_ = l_Nat_reprFast(v_n_1514_);
                 if v_isShared_1517_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1516_, 0, v___x_1521_);
+                    leanh::lean_ctor_set(v___x_1516_, 0, v___x_1521_);
                     v___x_1523_ = v___x_1516_;
                     state = 10;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1529_ = crate::leanh::lean_alloc_ctor(3, 1, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1529_, 0, v___x_1521_);
+                    v_reuseFailAlloc_1529_ = leanh::lean_alloc_ctor(3, 1, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1529_, 0, v___x_1521_);
                     v___x_1523_ = v_reuseFailAlloc_1529_;
                     state = 10;
                     continue;
                 }
             }
             10 => {
-                v___x_1524_ = crate::leanh::lean_alloc_ctor(5, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1524_, 0, v___x_1520_);
-                crate::leanh::lean_ctor_set(v___x_1524_, 1, v___x_1523_);
-                crate::leanh::lean_inc(v___y_1519_);
-                v___x_1525_ = crate::leanh::lean_alloc_ctor(4, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_1525_, 0, v___y_1519_);
-                crate::leanh::lean_ctor_set(v___x_1525_, 1, v___x_1524_);
+                v___x_1524_ = leanh::lean_alloc_ctor(5, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1524_, 0, v___x_1520_);
+                leanh::lean_ctor_set(v___x_1524_, 1, v___x_1523_);
+                leanh::lean_inc(v___y_1519_);
+                v___x_1525_ = leanh::lean_alloc_ctor(4, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_1525_, 0, v___y_1519_);
+                leanh::lean_ctor_set(v___x_1525_, 1, v___x_1524_);
                 v___x_1526_ = 0;
-                v___x_1527_ = crate::leanh::lean_alloc_ctor(6, 1, (1) as u32);
-                crate::leanh::lean_ctor_set(v___x_1527_, 0, v___x_1525_);
-                crate::leanh::lean_ctor_set_uint8(
+                v___x_1527_ = leanh::lean_alloc_ctor(6, 1, (1) as u32);
+                leanh::lean_ctor_set(v___x_1527_, 0, v___x_1525_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1527_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 1) as u32,
                     v___x_1526_,
                 );
                 v___x_1528_ = l_Repr_addAppParen(v___x_1527_, v_prec_1452_);
@@ -1571,21 +1571,21 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_instReprState_repr___boxed(
-    mut v_x_1551_: *mut crate::leanh::LeanObject,
-    mut v_prec_1552_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1553_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x_1551_: *mut leanh::LeanObject,
+    mut v_prec_1552_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1553_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1553_ = l_Std_Http_Protocol_H1_Writer_instReprState_repr(v_x_1551_, v_prec_1552_);
-    crate::leanh::lean_dec(v_prec_1552_);
+    leanh::lean_dec(v_prec_1552_);
     return v_res_1553_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
-    mut v_x_1556_: *mut crate::leanh::LeanObject,
-    mut v_x_1557_: *mut crate::leanh::LeanObject,
+    mut v_x_1556_: *mut leanh::LeanObject,
+    mut v_x_1557_: *mut leanh::LeanObject,
 ) -> u8 {
-    match crate::leanh::lean_obj_tag(v_x_1556_) {
+    match leanh::lean_obj_tag(v_x_1556_) {
         0 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 0 {
+            if leanh::lean_obj_tag(v_x_1557_) == 0 {
                 let mut v___x_1558_: u8 = 0;
                 v___x_1558_ = 1;
                 return v___x_1558_;
@@ -1596,7 +1596,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         1 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 1 {
+            if leanh::lean_obj_tag(v_x_1557_) == 1 {
                 let mut v___x_1560_: u8 = 0;
                 v___x_1560_ = 1;
                 return v___x_1560_;
@@ -1607,7 +1607,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         2 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 2 {
+            if leanh::lean_obj_tag(v_x_1557_) == 2 {
                 let mut v___x_1562_: u8 = 0;
                 v___x_1562_ = 1;
                 return v___x_1562_;
@@ -1618,12 +1618,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         3 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 3 {
-                let mut v_n_1564_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-                let mut v_n_1565_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+            if leanh::lean_obj_tag(v_x_1557_) == 3 {
+                let mut v_n_1564_: *mut leanh::LeanObject = core::ptr::null_mut();
+                let mut v_n_1565_: *mut leanh::LeanObject = core::ptr::null_mut();
                 let mut v___x_1566_: u8 = 0;
-                v_n_1564_ = crate::leanh::lean_ctor_get(v_x_1556_, 0);
-                v_n_1565_ = crate::leanh::lean_ctor_get(v_x_1557_, 0);
+                v_n_1564_ = leanh::lean_ctor_get(v_x_1556_, 0);
+                v_n_1565_ = leanh::lean_ctor_get(v_x_1557_, 0);
                 v___x_1566_ = lean_nat_dec_eq(v_n_1564_, v_n_1565_);
                 return v___x_1566_;
             } else {
@@ -1633,7 +1633,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         4 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 4 {
+            if leanh::lean_obj_tag(v_x_1557_) == 4 {
                 let mut v___x_1568_: u8 = 0;
                 v___x_1568_ = 1;
                 return v___x_1568_;
@@ -1644,7 +1644,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         5 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 5 {
+            if leanh::lean_obj_tag(v_x_1557_) == 5 {
                 let mut v___x_1570_: u8 = 0;
                 v___x_1570_ = 1;
                 return v___x_1570_;
@@ -1655,7 +1655,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         6 => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 6 {
+            if leanh::lean_obj_tag(v_x_1557_) == 6 {
                 let mut v___x_1572_: u8 = 0;
                 v___x_1572_ = 1;
                 return v___x_1572_;
@@ -1666,7 +1666,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
             }
         }
         _ => {
-            if crate::leanh::lean_obj_tag(v_x_1557_) == 7 {
+            if leanh::lean_obj_tag(v_x_1557_) == 7 {
                 let mut v___x_1574_: u8 = 0;
                 v___x_1574_ = 1;
                 return v___x_1574_;
@@ -1679,23 +1679,23 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_instBEqState_beq___boxed(
-    mut v_x_1576_: *mut crate::leanh::LeanObject,
-    mut v_x_1577_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_x_1576_: *mut leanh::LeanObject,
+    mut v_x_1577_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_1578_: u8 = 0;
-    let mut v_r_1579_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_1579_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1578_ = l_Std_Http_Protocol_H1_Writer_instBEqState_beq(v_x_1576_, v_x_1577_);
-    crate::leanh::lean_dec(v_x_1577_);
-    crate::leanh::lean_dec(v_x_1576_);
-    v_r_1579_ = crate::leanh::lean_box((v_res_1578_) as usize);
+    leanh::lean_dec(v_x_1577_);
+    leanh::lean_dec(v_x_1576_);
+    v_r_1579_ = leanh::lean_box((v_res_1578_) as usize);
     return v_r_1579_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_noMoreUserData___redArg(
-    mut v_writer_1582_: *mut crate::leanh::LeanObject,
+    mut v_writer_1582_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1583_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_state_1583_ = crate::leanh::lean_ctor_get(v_writer_1582_, 2);
-    match crate::leanh::lean_obj_tag(v_state_1583_) {
+    let mut v_state_1583_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_state_1583_ = leanh::lean_ctor_get(v_writer_1582_, 2);
+    match leanh::lean_obj_tag(v_state_1583_) {
         7 => {
             let mut v___x_1584_: u8 = 0;
             v___x_1584_ = 1;
@@ -1708,31 +1708,31 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_noMoreUserData___redArg(
         }
         _ => {
             let mut v_userClosedBody_1586_: u8 = 0;
-            v_userClosedBody_1586_ = crate::leanh::lean_ctor_get_uint8(
+            v_userClosedBody_1586_ = leanh::lean_ctor_get_uint8(
                 v_writer_1582_,
-                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
             );
             return v_userClosedBody_1586_;
         }
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_noMoreUserData___redArg___boxed(
-    mut v_writer_1587_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_writer_1587_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_1588_: u8 = 0;
-    let mut v_r_1589_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_1589_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1588_ = l_Std_Http_Protocol_H1_Writer_noMoreUserData___redArg(v_writer_1587_);
-    crate::leanh::lean_dec_ref(v_writer_1587_);
-    v_r_1589_ = crate::leanh::lean_box((v_res_1588_) as usize);
+    leanh::lean_dec_ref(v_writer_1587_);
+    v_r_1589_ = leanh::lean_box((v_res_1588_) as usize);
     return v_r_1589_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_noMoreUserData(
     mut v_dir_1590_: u8,
-    mut v_writer_1591_: *mut crate::leanh::LeanObject,
+    mut v_writer_1591_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1592_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_state_1592_ = crate::leanh::lean_ctor_get(v_writer_1591_, 2);
-    match crate::leanh::lean_obj_tag(v_state_1592_) {
+    let mut v_state_1592_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_state_1592_ = leanh::lean_ctor_get(v_writer_1591_, 2);
+    match leanh::lean_obj_tag(v_state_1592_) {
         7 => {
             let mut v___x_1593_: u8 = 0;
             v___x_1593_ = 1;
@@ -1745,33 +1745,33 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_noMoreUserData(
         }
         _ => {
             let mut v_userClosedBody_1595_: u8 = 0;
-            v_userClosedBody_1595_ = crate::leanh::lean_ctor_get_uint8(
+            v_userClosedBody_1595_ = leanh::lean_ctor_get_uint8(
                 v_writer_1591_,
-                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
             );
             return v_userClosedBody_1595_;
         }
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_noMoreUserData___boxed(
-    mut v_dir_1596_: *mut crate::leanh::LeanObject,
-    mut v_writer_1597_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1596_: *mut leanh::LeanObject,
+    mut v_writer_1597_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1598_: u8 = 0;
     let mut v_res_1599_: u8 = 0;
-    let mut v_r_1600_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1598_ = (crate::leanh::lean_unbox(v_dir_1596_) as u8);
+    let mut v_r_1600_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1598_ = (leanh::lean_unbox(v_dir_1596_) as u8);
     v_res_1599_ = l_Std_Http_Protocol_H1_Writer_noMoreUserData(v_dir_boxed_1598_, v_writer_1597_);
-    crate::leanh::lean_dec_ref(v_writer_1597_);
-    v_r_1600_ = crate::leanh::lean_box((v_res_1599_) as usize);
+    leanh::lean_dec_ref(v_writer_1597_);
+    v_r_1600_ = leanh::lean_box((v_res_1599_) as usize);
     return v_r_1600_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isClosed___redArg(
-    mut v_writer_1601_: *mut crate::leanh::LeanObject,
+    mut v_writer_1601_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1602_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_state_1602_ = crate::leanh::lean_ctor_get(v_writer_1601_, 2);
-    if crate::leanh::lean_obj_tag(v_state_1602_) == 7 {
+    let mut v_state_1602_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_state_1602_ = leanh::lean_ctor_get(v_writer_1601_, 2);
+    if leanh::lean_obj_tag(v_state_1602_) == 7 {
         let mut v___x_1603_: u8 = 0;
         v___x_1603_ = 1;
         return v___x_1603_;
@@ -1782,22 +1782,22 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_isClosed___redArg(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isClosed___redArg___boxed(
-    mut v_writer_1605_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_writer_1605_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_1606_: u8 = 0;
-    let mut v_r_1607_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_1607_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1606_ = l_Std_Http_Protocol_H1_Writer_isClosed___redArg(v_writer_1605_);
-    crate::leanh::lean_dec_ref(v_writer_1605_);
-    v_r_1607_ = crate::leanh::lean_box((v_res_1606_) as usize);
+    leanh::lean_dec_ref(v_writer_1605_);
+    v_r_1607_ = leanh::lean_box((v_res_1606_) as usize);
     return v_r_1607_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isClosed(
     mut v_dir_1608_: u8,
-    mut v_writer_1609_: *mut crate::leanh::LeanObject,
+    mut v_writer_1609_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1610_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_state_1610_ = crate::leanh::lean_ctor_get(v_writer_1609_, 2);
-    if crate::leanh::lean_obj_tag(v_state_1610_) == 7 {
+    let mut v_state_1610_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_state_1610_ = leanh::lean_ctor_get(v_writer_1609_, 2);
+    if leanh::lean_obj_tag(v_state_1610_) == 7 {
         let mut v___x_1611_: u8 = 0;
         v___x_1611_ = 1;
         return v___x_1611_;
@@ -1808,24 +1808,24 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_isClosed(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isClosed___boxed(
-    mut v_dir_1613_: *mut crate::leanh::LeanObject,
-    mut v_writer_1614_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1613_: *mut leanh::LeanObject,
+    mut v_writer_1614_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1615_: u8 = 0;
     let mut v_res_1616_: u8 = 0;
-    let mut v_r_1617_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1615_ = (crate::leanh::lean_unbox(v_dir_1613_) as u8);
+    let mut v_r_1617_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1615_ = (leanh::lean_unbox(v_dir_1613_) as u8);
     v_res_1616_ = l_Std_Http_Protocol_H1_Writer_isClosed(v_dir_boxed_1615_, v_writer_1614_);
-    crate::leanh::lean_dec_ref(v_writer_1614_);
-    v_r_1617_ = crate::leanh::lean_box((v_res_1616_) as usize);
+    leanh::lean_dec_ref(v_writer_1614_);
+    v_r_1617_ = leanh::lean_box((v_res_1616_) as usize);
     return v_r_1617_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isComplete___redArg(
-    mut v_writer_1618_: *mut crate::leanh::LeanObject,
+    mut v_writer_1618_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1619_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_state_1619_ = crate::leanh::lean_ctor_get(v_writer_1618_, 2);
-    if crate::leanh::lean_obj_tag(v_state_1619_) == 6 {
+    let mut v_state_1619_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_state_1619_ = leanh::lean_ctor_get(v_writer_1618_, 2);
+    if leanh::lean_obj_tag(v_state_1619_) == 6 {
         let mut v___x_1620_: u8 = 0;
         v___x_1620_ = 1;
         return v___x_1620_;
@@ -1836,22 +1836,22 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_isComplete___redArg(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isComplete___redArg___boxed(
-    mut v_writer_1622_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_writer_1622_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_1623_: u8 = 0;
-    let mut v_r_1624_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_1624_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1623_ = l_Std_Http_Protocol_H1_Writer_isComplete___redArg(v_writer_1622_);
-    crate::leanh::lean_dec_ref(v_writer_1622_);
-    v_r_1624_ = crate::leanh::lean_box((v_res_1623_) as usize);
+    leanh::lean_dec_ref(v_writer_1622_);
+    v_r_1624_ = leanh::lean_box((v_res_1623_) as usize);
     return v_r_1624_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isComplete(
     mut v_dir_1625_: u8,
-    mut v_writer_1626_: *mut crate::leanh::LeanObject,
+    mut v_writer_1626_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1627_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_state_1627_ = crate::leanh::lean_ctor_get(v_writer_1626_, 2);
-    if crate::leanh::lean_obj_tag(v_state_1627_) == 6 {
+    let mut v_state_1627_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_state_1627_ = leanh::lean_ctor_get(v_writer_1626_, 2);
+    if leanh::lean_obj_tag(v_state_1627_) == 6 {
         let mut v___x_1628_: u8 = 0;
         v___x_1628_ = 1;
         return v___x_1628_;
@@ -1862,22 +1862,22 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_isComplete(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_isComplete___boxed(
-    mut v_dir_1630_: *mut crate::leanh::LeanObject,
-    mut v_writer_1631_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1630_: *mut leanh::LeanObject,
+    mut v_writer_1631_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1632_: u8 = 0;
     let mut v_res_1633_: u8 = 0;
-    let mut v_r_1634_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1632_ = (crate::leanh::lean_unbox(v_dir_1630_) as u8);
+    let mut v_r_1634_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1632_ = (leanh::lean_unbox(v_dir_1630_) as u8);
     v_res_1633_ = l_Std_Http_Protocol_H1_Writer_isComplete(v_dir_boxed_1632_, v_writer_1631_);
-    crate::leanh::lean_dec_ref(v_writer_1631_);
-    v_r_1634_ = crate::leanh::lean_box((v_res_1633_) as usize);
+    leanh::lean_dec_ref(v_writer_1631_);
+    v_r_1634_ = leanh::lean_box((v_res_1633_) as usize);
     return v_r_1634_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData___redArg(
-    mut v_writer_1635_: *mut crate::leanh::LeanObject,
+    mut v_writer_1635_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1636_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1636_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_userClosedBody_1637_: u8 = 0;
     let mut v___x_1639_: u8 = 0;
     let mut v___x_1640_: u8 = 0;
@@ -1890,12 +1890,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData___redArg(
     loop {
         match state {
             0 => {
-                v_state_1636_ = crate::leanh::lean_ctor_get(v_writer_1635_, 2);
-                v_userClosedBody_1637_ = crate::leanh::lean_ctor_get_uint8(
+                v_state_1636_ = leanh::lean_ctor_get(v_writer_1635_, 2);
+                v_userClosedBody_1637_ = leanh::lean_ctor_get_uint8(
                     v_writer_1635_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                match crate::leanh::lean_obj_tag(v_state_1636_) {
+                match leanh::lean_obj_tag(v_state_1636_) {
                     1 => {
                         v___x_1641_ = 1;
                         return v___x_1641_;
@@ -1941,20 +1941,20 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData___redArg(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData___redArg___boxed(
-    mut v_writer_1646_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_writer_1646_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_res_1647_: u8 = 0;
-    let mut v_r_1648_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_r_1648_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1647_ = l_Std_Http_Protocol_H1_Writer_canAcceptData___redArg(v_writer_1646_);
-    crate::leanh::lean_dec_ref(v_writer_1646_);
-    v_r_1648_ = crate::leanh::lean_box((v_res_1647_) as usize);
+    leanh::lean_dec_ref(v_writer_1646_);
+    v_r_1648_ = leanh::lean_box((v_res_1647_) as usize);
     return v_r_1648_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData(
     mut v_dir_1649_: u8,
-    mut v_writer_1650_: *mut crate::leanh::LeanObject,
+    mut v_writer_1650_: *mut leanh::LeanObject,
 ) -> u8 {
-    let mut v_state_1651_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1651_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_userClosedBody_1652_: u8 = 0;
     let mut v___x_1654_: u8 = 0;
     let mut v___x_1655_: u8 = 0;
@@ -1967,12 +1967,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData(
     loop {
         match state {
             0 => {
-                v_state_1651_ = crate::leanh::lean_ctor_get(v_writer_1650_, 2);
-                v_userClosedBody_1652_ = crate::leanh::lean_ctor_get_uint8(
+                v_state_1651_ = leanh::lean_ctor_get(v_writer_1650_, 2);
+                v_userClosedBody_1652_ = leanh::lean_ctor_get_uint8(
                     v_writer_1650_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                match crate::leanh::lean_obj_tag(v_state_1651_) {
+                match leanh::lean_obj_tag(v_state_1651_) {
                     1 => {
                         v___x_1656_ = 1;
                         return v___x_1656_;
@@ -2018,68 +2018,68 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_canAcceptData___boxed(
-    mut v_dir_1661_: *mut crate::leanh::LeanObject,
-    mut v_writer_1662_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1661_: *mut leanh::LeanObject,
+    mut v_writer_1662_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1663_: u8 = 0;
     let mut v_res_1664_: u8 = 0;
-    let mut v_r_1665_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1663_ = (crate::leanh::lean_unbox(v_dir_1661_) as u8);
+    let mut v_r_1665_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1663_ = (leanh::lean_unbox(v_dir_1661_) as u8);
     v_res_1664_ = l_Std_Http_Protocol_H1_Writer_canAcceptData(v_dir_boxed_1663_, v_writer_1662_);
-    crate::leanh::lean_dec_ref(v_writer_1662_);
-    v_r_1665_ = crate::leanh::lean_box((v_res_1664_) as usize);
+    leanh::lean_dec_ref(v_writer_1662_);
+    v_r_1665_ = leanh::lean_box((v_res_1664_) as usize);
     return v_r_1665_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody___redArg(
-    mut v_writer_1666_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_1667_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_1668_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_1669_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_1670_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_1671_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_1666_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_1667_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_1668_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1669_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_1670_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_1671_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_1672_: u8 = 0;
     let mut v_omitBody_1673_: u8 = 0;
-    let mut v_userDataBytes_1674_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1676_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_1674_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1676_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1677_: u8 = 0;
     let mut v___x_1678_: u8 = 0;
-    let mut v___x_1680_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1681_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1680_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1681_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1682_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_1667_ = crate::leanh::lean_ctor_get(v_writer_1666_, 0);
-                v_outputData_1668_ = crate::leanh::lean_ctor_get(v_writer_1666_, 1);
-                v_state_1669_ = crate::leanh::lean_ctor_get(v_writer_1666_, 2);
-                v_knownSize_1670_ = crate::leanh::lean_ctor_get(v_writer_1666_, 3);
-                v_messageHead_1671_ = crate::leanh::lean_ctor_get(v_writer_1666_, 4);
-                v_sentMessage_1672_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_1667_ = leanh::lean_ctor_get(v_writer_1666_, 0);
+                v_outputData_1668_ = leanh::lean_ctor_get(v_writer_1666_, 1);
+                v_state_1669_ = leanh::lean_ctor_get(v_writer_1666_, 2);
+                v_knownSize_1670_ = leanh::lean_ctor_get(v_writer_1666_, 3);
+                v_messageHead_1671_ = leanh::lean_ctor_get(v_writer_1666_, 4);
+                v_sentMessage_1672_ = leanh::lean_ctor_get_uint8(
                     v_writer_1666_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_omitBody_1673_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_1673_ = leanh::lean_ctor_get_uint8(
                     v_writer_1666_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_1674_ = crate::leanh::lean_ctor_get(v_writer_1666_, 5);
-                v_isSharedCheck_1682_ = (!crate::leanh::lean_is_exclusive(v_writer_1666_)) as u8;
+                v_userDataBytes_1674_ = leanh::lean_ctor_get(v_writer_1666_, 5);
+                v_isSharedCheck_1682_ = (!leanh::lean_is_exclusive(v_writer_1666_)) as u8;
                 if v_isSharedCheck_1682_ == 0 {
                     v___x_1676_ = v_writer_1666_;
                     v_isShared_1677_ = v_isSharedCheck_1682_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_1674_);
-                    crate::leanh::lean_inc(v_messageHead_1671_);
-                    crate::leanh::lean_inc(v_knownSize_1670_);
-                    crate::leanh::lean_inc(v_state_1669_);
-                    crate::leanh::lean_inc(v_outputData_1668_);
-                    crate::leanh::lean_inc(v_userData_1667_);
-                    crate::leanh::lean_dec(v_writer_1666_);
-                    v___x_1676_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_1674_);
+                    leanh::lean_inc(v_messageHead_1671_);
+                    leanh::lean_inc(v_knownSize_1670_);
+                    leanh::lean_inc(v_state_1669_);
+                    leanh::lean_inc(v_outputData_1668_);
+                    leanh::lean_inc(v_userData_1667_);
+                    leanh::lean_dec(v_writer_1666_);
+                    v___x_1676_ = leanh::lean_box(0);
                     v_isShared_1677_ = v_isSharedCheck_1682_;
                     state = 1;
                     continue;
@@ -2092,21 +2092,21 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody___redArg(
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1681_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 0, v_userData_1667_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 1, v_outputData_1668_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 2, v_state_1669_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 3, v_knownSize_1670_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 4, v_messageHead_1671_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 5, v_userDataBytes_1674_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_1681_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 0, v_userData_1667_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 1, v_outputData_1668_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 2, v_state_1669_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 3, v_knownSize_1670_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 4, v_messageHead_1671_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1681_, 5, v_userDataBytes_1674_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_1681_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_1672_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_1681_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_1673_,
                     );
                     v___x_1680_ = v_reuseFailAlloc_1681_;
@@ -2115,9 +2115,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody___redArg(
                 }
             }
             2 => {
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1680_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                     v___x_1678_,
                 );
                 return v___x_1680_;
@@ -2128,55 +2128,55 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody(
     mut v_dir_1683_: u8,
-    mut v_writer_1684_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_1685_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_1686_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_1687_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_1688_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_1689_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_1684_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_1685_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_1686_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1687_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_1688_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_1689_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_1690_: u8 = 0;
     let mut v_omitBody_1691_: u8 = 0;
-    let mut v_userDataBytes_1692_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1694_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_1692_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1694_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1695_: u8 = 0;
     let mut v___x_1696_: u8 = 0;
-    let mut v___x_1698_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1699_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1698_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1699_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1700_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_1685_ = crate::leanh::lean_ctor_get(v_writer_1684_, 0);
-                v_outputData_1686_ = crate::leanh::lean_ctor_get(v_writer_1684_, 1);
-                v_state_1687_ = crate::leanh::lean_ctor_get(v_writer_1684_, 2);
-                v_knownSize_1688_ = crate::leanh::lean_ctor_get(v_writer_1684_, 3);
-                v_messageHead_1689_ = crate::leanh::lean_ctor_get(v_writer_1684_, 4);
-                v_sentMessage_1690_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_1685_ = leanh::lean_ctor_get(v_writer_1684_, 0);
+                v_outputData_1686_ = leanh::lean_ctor_get(v_writer_1684_, 1);
+                v_state_1687_ = leanh::lean_ctor_get(v_writer_1684_, 2);
+                v_knownSize_1688_ = leanh::lean_ctor_get(v_writer_1684_, 3);
+                v_messageHead_1689_ = leanh::lean_ctor_get(v_writer_1684_, 4);
+                v_sentMessage_1690_ = leanh::lean_ctor_get_uint8(
                     v_writer_1684_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_omitBody_1691_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_1691_ = leanh::lean_ctor_get_uint8(
                     v_writer_1684_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_1692_ = crate::leanh::lean_ctor_get(v_writer_1684_, 5);
-                v_isSharedCheck_1700_ = (!crate::leanh::lean_is_exclusive(v_writer_1684_)) as u8;
+                v_userDataBytes_1692_ = leanh::lean_ctor_get(v_writer_1684_, 5);
+                v_isSharedCheck_1700_ = (!leanh::lean_is_exclusive(v_writer_1684_)) as u8;
                 if v_isSharedCheck_1700_ == 0 {
                     v___x_1694_ = v_writer_1684_;
                     v_isShared_1695_ = v_isSharedCheck_1700_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_1692_);
-                    crate::leanh::lean_inc(v_messageHead_1689_);
-                    crate::leanh::lean_inc(v_knownSize_1688_);
-                    crate::leanh::lean_inc(v_state_1687_);
-                    crate::leanh::lean_inc(v_outputData_1686_);
-                    crate::leanh::lean_inc(v_userData_1685_);
-                    crate::leanh::lean_dec(v_writer_1684_);
-                    v___x_1694_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_1692_);
+                    leanh::lean_inc(v_messageHead_1689_);
+                    leanh::lean_inc(v_knownSize_1688_);
+                    leanh::lean_inc(v_state_1687_);
+                    leanh::lean_inc(v_outputData_1686_);
+                    leanh::lean_inc(v_userData_1685_);
+                    leanh::lean_dec(v_writer_1684_);
+                    v___x_1694_ = leanh::lean_box(0);
                     v_isShared_1695_ = v_isSharedCheck_1700_;
                     state = 1;
                     continue;
@@ -2189,21 +2189,21 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody(
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1699_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 0, v_userData_1685_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 1, v_outputData_1686_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 2, v_state_1687_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 3, v_knownSize_1688_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 4, v_messageHead_1689_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 5, v_userDataBytes_1692_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_1699_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 0, v_userData_1685_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 1, v_outputData_1686_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 2, v_state_1687_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 3, v_knownSize_1688_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 4, v_messageHead_1689_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1699_, 5, v_userDataBytes_1692_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_1699_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_1690_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_1699_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_1691_,
                     );
                     v___x_1698_ = v_reuseFailAlloc_1699_;
@@ -2212,9 +2212,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody(
                 }
             }
             2 => {
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1698_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                     v___x_1696_,
                 );
                 return v___x_1698_;
@@ -2224,185 +2224,185 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_closeBody___boxed(
-    mut v_dir_1701_: *mut crate::leanh::LeanObject,
-    mut v_writer_1702_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1701_: *mut leanh::LeanObject,
+    mut v_writer_1702_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1703_: u8 = 0;
-    let mut v_res_1704_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1703_ = (crate::leanh::lean_unbox(v_dir_1701_) as u8);
+    let mut v_res_1704_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1703_ = (leanh::lean_unbox(v_dir_1701_) as u8);
     v_res_1704_ = l_Std_Http_Protocol_H1_Writer_closeBody(v_dir_boxed_1703_, v_writer_1702_);
     return v_res_1704_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_determineTransferMode___redArg(
-    mut v_writer_1705_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_knownSize_1706_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_knownSize_1706_ = crate::leanh::lean_ctor_get(v_writer_1705_, 3);
-    if crate::leanh::lean_obj_tag(v_knownSize_1706_) == 1 {
-        let mut v_val_1707_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-        v_val_1707_ = crate::leanh::lean_ctor_get(v_knownSize_1706_, 0);
-        crate::leanh::lean_inc(v_val_1707_);
+    mut v_writer_1705_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_knownSize_1706_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_knownSize_1706_ = leanh::lean_ctor_get(v_writer_1705_, 3);
+    if leanh::lean_obj_tag(v_knownSize_1706_) == 1 {
+        let mut v_val_1707_: *mut leanh::LeanObject = core::ptr::null_mut();
+        v_val_1707_ = leanh::lean_ctor_get(v_knownSize_1706_, 0);
+        leanh::lean_inc(v_val_1707_);
         return v_val_1707_;
     } else {
         let mut v_userClosedBody_1708_: u8 = 0;
-        v_userClosedBody_1708_ = crate::leanh::lean_ctor_get_uint8(
+        v_userClosedBody_1708_ = leanh::lean_ctor_get_uint8(
             v_writer_1705_,
-            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+            (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
         );
         if v_userClosedBody_1708_ == 0 {
-            let mut v___x_1709_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v___x_1709_ = crate::leanh::lean_box(0);
+            let mut v___x_1709_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v___x_1709_ = leanh::lean_box(0);
             return v___x_1709_;
         } else {
-            let mut v_userDataBytes_1710_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            let mut v___x_1711_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-            v_userDataBytes_1710_ = crate::leanh::lean_ctor_get(v_writer_1705_, 5);
-            crate::leanh::lean_inc(v_userDataBytes_1710_);
-            v___x_1711_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
-            crate::leanh::lean_ctor_set(v___x_1711_, 0, v_userDataBytes_1710_);
+            let mut v_userDataBytes_1710_: *mut leanh::LeanObject = core::ptr::null_mut();
+            let mut v___x_1711_: *mut leanh::LeanObject = core::ptr::null_mut();
+            v_userDataBytes_1710_ = leanh::lean_ctor_get(v_writer_1705_, 5);
+            leanh::lean_inc(v_userDataBytes_1710_);
+            v___x_1711_ = leanh::lean_alloc_ctor(1, 1, (0) as u32);
+            leanh::lean_ctor_set(v___x_1711_, 0, v_userDataBytes_1710_);
             return v___x_1711_;
         }
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_determineTransferMode___redArg___boxed(
-    mut v_writer_1712_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1713_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_1712_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1713_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1713_ = l_Std_Http_Protocol_H1_Writer_determineTransferMode___redArg(v_writer_1712_);
-    crate::leanh::lean_dec_ref(v_writer_1712_);
+    leanh::lean_dec_ref(v_writer_1712_);
     return v_res_1713_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_determineTransferMode(
     mut v_dir_1714_: u8,
-    mut v_writer_1715_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_1716_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_1715_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_1716_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_1716_ = l_Std_Http_Protocol_H1_Writer_determineTransferMode___redArg(v_writer_1715_);
     return v___x_1716_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_determineTransferMode___boxed(
-    mut v_dir_1717_: *mut crate::leanh::LeanObject,
-    mut v_writer_1718_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1717_: *mut leanh::LeanObject,
+    mut v_writer_1718_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1719_: u8 = 0;
-    let mut v_res_1720_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1719_ = (crate::leanh::lean_unbox(v_dir_1717_) as u8);
+    let mut v_res_1720_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1719_ = (leanh::lean_unbox(v_dir_1717_) as u8);
     v_res_1720_ =
         l_Std_Http_Protocol_H1_Writer_determineTransferMode(v_dir_boxed_1719_, v_writer_1718_);
-    crate::leanh::lean_dec_ref(v_writer_1718_);
+    leanh::lean_dec_ref(v_writer_1718_);
     return v_res_1720_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg___lam__0(
-    mut v_x1_1721_: *mut crate::leanh::LeanObject,
-    mut v_x2_1722_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_data_1723_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1724_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1725_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_data_1723_ = crate::leanh::lean_ctor_get(v_x2_1722_, 0);
+    mut v_x1_1721_: *mut leanh::LeanObject,
+    mut v_x2_1722_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_data_1723_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1724_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1725_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_data_1723_ = leanh::lean_ctor_get(v_x2_1722_, 0);
     v___x_1724_ = lean_byte_array_size(v_data_1723_);
     v___x_1725_ = lean_nat_add(v_x1_1721_, v___x_1724_);
     return v___x_1725_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg___lam__0___boxed(
-    mut v_x1_1726_: *mut crate::leanh::LeanObject,
-    mut v_x2_1727_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_1728_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_x1_1726_: *mut leanh::LeanObject,
+    mut v_x2_1727_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_1728_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_1728_ =
         l_Std_Http_Protocol_H1_Writer_addUserData___redArg___lam__0(v_x1_1726_, v_x2_1727_);
-    crate::leanh::lean_dec_ref(v_x2_1727_);
-    crate::leanh::lean_dec(v_x1_1726_);
+    leanh::lean_dec_ref(v_x2_1727_);
+    leanh::lean_dec(v_x1_1726_);
     return v_res_1728_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg(
-    mut v_data_1749_: *mut crate::leanh::LeanObject,
-    mut v_writer_1750_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_1751_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_1752_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_1753_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_1754_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_1755_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_data_1749_: *mut leanh::LeanObject,
+    mut v_writer_1750_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_1751_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_1752_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1753_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_1754_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_1755_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_1756_: u8 = 0;
     let mut v_userClosedBody_1757_: u8 = 0;
     let mut v_omitBody_1758_: u8 = 0;
-    let mut v_userDataBytes_1759_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1761_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1762_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1763_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1764_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_1765_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1767_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1768_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1769_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_1759_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1761_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1762_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1763_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1764_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_1765_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1767_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1768_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1769_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1770_: u8 = 0;
     let mut v___x_1771_: u8 = 0;
     let mut v___x_1772_: usize = 0;
     let mut v___x_1773_: usize = 0;
-    let mut v___x_1774_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1774_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1775_: usize = 0;
     let mut v___x_1776_: usize = 0;
-    let mut v___x_1777_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1777_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_1751_ = crate::leanh::lean_ctor_get(v_writer_1750_, 0);
-                v_outputData_1752_ = crate::leanh::lean_ctor_get(v_writer_1750_, 1);
-                v_state_1753_ = crate::leanh::lean_ctor_get(v_writer_1750_, 2);
-                v_knownSize_1754_ = crate::leanh::lean_ctor_get(v_writer_1750_, 3);
-                v_messageHead_1755_ = crate::leanh::lean_ctor_get(v_writer_1750_, 4);
-                v_sentMessage_1756_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_1751_ = leanh::lean_ctor_get(v_writer_1750_, 0);
+                v_outputData_1752_ = leanh::lean_ctor_get(v_writer_1750_, 1);
+                v_state_1753_ = leanh::lean_ctor_get(v_writer_1750_, 2);
+                v_knownSize_1754_ = leanh::lean_ctor_get(v_writer_1750_, 3);
+                v_messageHead_1755_ = leanh::lean_ctor_get(v_writer_1750_, 4);
+                v_sentMessage_1756_ = leanh::lean_ctor_get_uint8(
                     v_writer_1750_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_1757_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_1757_ = leanh::lean_ctor_get_uint8(
                     v_writer_1750_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_1758_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_1758_ = leanh::lean_ctor_get_uint8(
                     v_writer_1750_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_1759_ = crate::leanh::lean_ctor_get(v_writer_1750_, 5);
+                v_userDataBytes_1759_ = leanh::lean_ctor_get(v_writer_1750_, 5);
                 v___f_1765_ = l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__0;
-                match crate::leanh::lean_obj_tag(v_state_1753_) {
+                match leanh::lean_obj_tag(v_state_1753_) {
                     1 => {
-                        crate::leanh::lean_inc(v_state_1753_);
-                        crate::leanh::lean_inc(v_userDataBytes_1759_);
-                        crate::leanh::lean_inc(v_messageHead_1755_);
-                        crate::leanh::lean_inc(v_knownSize_1754_);
-                        crate::leanh::lean_inc_ref(v_outputData_1752_);
-                        crate::leanh::lean_inc_ref(v_userData_1751_);
-                        crate::leanh::lean_dec_ref(v_writer_1750_);
+                        leanh::lean_inc(v_state_1753_);
+                        leanh::lean_inc(v_userDataBytes_1759_);
+                        leanh::lean_inc(v_messageHead_1755_);
+                        leanh::lean_inc(v_knownSize_1754_);
+                        leanh::lean_inc_ref(v_outputData_1752_);
+                        leanh::lean_inc_ref(v_userData_1751_);
+                        leanh::lean_dec_ref(v_writer_1750_);
                         state = 2;
                         continue;
                     }
                     2 => {
-                        crate::leanh::lean_inc(v_state_1753_);
-                        crate::leanh::lean_inc(v_userDataBytes_1759_);
-                        crate::leanh::lean_inc(v_messageHead_1755_);
-                        crate::leanh::lean_inc(v_knownSize_1754_);
-                        crate::leanh::lean_inc_ref(v_outputData_1752_);
-                        crate::leanh::lean_inc_ref(v_userData_1751_);
-                        crate::leanh::lean_dec_ref(v_writer_1750_);
+                        leanh::lean_inc(v_state_1753_);
+                        leanh::lean_inc(v_userDataBytes_1759_);
+                        leanh::lean_inc(v_messageHead_1755_);
+                        leanh::lean_inc(v_knownSize_1754_);
+                        leanh::lean_inc_ref(v_outputData_1752_);
+                        leanh::lean_inc_ref(v_userData_1751_);
+                        leanh::lean_dec_ref(v_writer_1750_);
                         state = 2;
                         continue;
                     }
                     3 => {
                         if v_userClosedBody_1757_ == 0 {
-                            crate::leanh::lean_inc_ref(v_state_1753_);
-                            crate::leanh::lean_inc(v_userDataBytes_1759_);
-                            crate::leanh::lean_inc(v_messageHead_1755_);
-                            crate::leanh::lean_inc(v_knownSize_1754_);
-                            crate::leanh::lean_inc_ref(v_outputData_1752_);
-                            crate::leanh::lean_inc_ref(v_userData_1751_);
-                            crate::leanh::lean_dec_ref(v_writer_1750_);
+                            leanh::lean_inc_ref(v_state_1753_);
+                            leanh::lean_inc(v_userDataBytes_1759_);
+                            leanh::lean_inc(v_messageHead_1755_);
+                            leanh::lean_inc(v_knownSize_1754_);
+                            leanh::lean_inc_ref(v_outputData_1752_);
+                            leanh::lean_inc_ref(v_userData_1751_);
+                            leanh::lean_dec_ref(v_writer_1750_);
                             state = 2;
                             continue;
                         } else {
-                            crate::leanh::lean_dec_ref(v_data_1749_);
+                            leanh::lean_dec_ref(v_data_1749_);
                             return v_writer_1750_;
                         }
                     }
@@ -2415,43 +2415,43 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg(
                         continue;
                     }
                     _ => {
-                        crate::leanh::lean_dec_ref(v_data_1749_);
+                        leanh::lean_dec_ref(v_data_1749_);
                         return v_writer_1750_;
                     }
                 }
             }
             1 => {
                 v___x_1762_ = l_Array_append___redArg(v_userData_1751_, v_data_1749_);
-                crate::leanh::lean_dec_ref(v_data_1749_);
+                leanh::lean_dec_ref(v_data_1749_);
                 v___x_1763_ = lean_nat_add(v_userDataBytes_1759_, v___y_1761_);
-                crate::leanh::lean_dec(v___y_1761_);
-                crate::leanh::lean_dec(v_userDataBytes_1759_);
-                v___x_1764_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                crate::leanh::lean_ctor_set(v___x_1764_, 0, v___x_1762_);
-                crate::leanh::lean_ctor_set(v___x_1764_, 1, v_outputData_1752_);
-                crate::leanh::lean_ctor_set(v___x_1764_, 2, v_state_1753_);
-                crate::leanh::lean_ctor_set(v___x_1764_, 3, v_knownSize_1754_);
-                crate::leanh::lean_ctor_set(v___x_1764_, 4, v_messageHead_1755_);
-                crate::leanh::lean_ctor_set(v___x_1764_, 5, v___x_1763_);
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_dec(v___y_1761_);
+                leanh::lean_dec(v_userDataBytes_1759_);
+                v___x_1764_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                leanh::lean_ctor_set(v___x_1764_, 0, v___x_1762_);
+                leanh::lean_ctor_set(v___x_1764_, 1, v_outputData_1752_);
+                leanh::lean_ctor_set(v___x_1764_, 2, v_state_1753_);
+                leanh::lean_ctor_set(v___x_1764_, 3, v_knownSize_1754_);
+                leanh::lean_ctor_set(v___x_1764_, 4, v_messageHead_1755_);
+                leanh::lean_ctor_set(v___x_1764_, 5, v___x_1763_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1764_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                     v_sentMessage_1756_,
                 );
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1764_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                     v_userClosedBody_1757_,
                 );
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1764_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                     v_omitBody_1758_,
                 );
                 return v___x_1764_;
             }
             2 => {
-                v___x_1767_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_1767_ = leanh::lean_unsigned_to_nat(0);
                 v___x_1768_ = lean_array_get_size(v_data_1749_);
                 v___x_1769_ = l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10;
                 v___x_1770_ = lean_nat_dec_lt(v___x_1767_, v___x_1768_);
@@ -2469,12 +2469,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg(
                         } else {
                             v___x_1772_ = 0usize;
                             v___x_1773_ = lean_usize_of_nat(v___x_1768_);
-                            crate::leanh::lean_inc_ref(v_data_1749_);
+                            leanh::lean_inc_ref(v_data_1749_);
                             v___x_1774_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
                                     v___x_1769_,
                                     v___f_1765_,
                                     v_data_1749_,
@@ -2489,11 +2489,11 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg(
                     } else {
                         v___x_1775_ = 0usize;
                         v___x_1776_ = lean_usize_of_nat(v___x_1768_);
-                        crate::leanh::lean_inc_ref(v_data_1749_);
+                        leanh::lean_inc_ref(v_data_1749_);
                         v___x_1777_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                            crate::leanh::lean_box(0),
-                            crate::leanh::lean_box(0),
-                            crate::leanh::lean_box(0),
+                            leanh::lean_box(0),
+                            leanh::lean_box(0),
+                            leanh::lean_box(0),
                             v___x_1769_,
                             v___f_1765_,
                             v_data_1749_,
@@ -2509,17 +2509,17 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg(
             }
             3 => {
                 if v_userClosedBody_1757_ == 0 {
-                    crate::leanh::lean_inc(v_userDataBytes_1759_);
-                    crate::leanh::lean_inc(v_messageHead_1755_);
-                    crate::leanh::lean_inc(v_knownSize_1754_);
-                    crate::leanh::lean_inc(v_state_1753_);
-                    crate::leanh::lean_inc_ref(v_outputData_1752_);
-                    crate::leanh::lean_inc_ref(v_userData_1751_);
-                    crate::leanh::lean_dec_ref(v_writer_1750_);
+                    leanh::lean_inc(v_userDataBytes_1759_);
+                    leanh::lean_inc(v_messageHead_1755_);
+                    leanh::lean_inc(v_knownSize_1754_);
+                    leanh::lean_inc(v_state_1753_);
+                    leanh::lean_inc_ref(v_outputData_1752_);
+                    leanh::lean_inc_ref(v_userData_1751_);
+                    leanh::lean_dec_ref(v_writer_1750_);
                     state = 2;
                     continue;
                 } else {
-                    crate::leanh::lean_dec_ref(v_data_1749_);
+                    leanh::lean_dec_ref(v_data_1749_);
                     return v_writer_1750_;
                 }
             }
@@ -2529,93 +2529,93 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData(
     mut v_dir_1779_: u8,
-    mut v_data_1780_: *mut crate::leanh::LeanObject,
-    mut v_writer_1781_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_1782_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_1783_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_1784_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_1785_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_1786_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_data_1780_: *mut leanh::LeanObject,
+    mut v_writer_1781_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_1782_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_1783_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1784_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_1785_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_1786_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_1787_: u8 = 0;
     let mut v_userClosedBody_1788_: u8 = 0;
     let mut v_omitBody_1789_: u8 = 0;
-    let mut v_userDataBytes_1790_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1792_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1793_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1794_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1795_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_1796_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1798_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1799_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1800_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_1790_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1792_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1793_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1794_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1795_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_1796_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1798_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1799_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1800_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1801_: u8 = 0;
     let mut v___x_1802_: u8 = 0;
     let mut v___x_1803_: usize = 0;
     let mut v___x_1804_: usize = 0;
-    let mut v___x_1805_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1805_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1806_: usize = 0;
     let mut v___x_1807_: usize = 0;
-    let mut v___x_1808_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1808_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_1782_ = crate::leanh::lean_ctor_get(v_writer_1781_, 0);
-                v_outputData_1783_ = crate::leanh::lean_ctor_get(v_writer_1781_, 1);
-                v_state_1784_ = crate::leanh::lean_ctor_get(v_writer_1781_, 2);
-                v_knownSize_1785_ = crate::leanh::lean_ctor_get(v_writer_1781_, 3);
-                v_messageHead_1786_ = crate::leanh::lean_ctor_get(v_writer_1781_, 4);
-                v_sentMessage_1787_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_1782_ = leanh::lean_ctor_get(v_writer_1781_, 0);
+                v_outputData_1783_ = leanh::lean_ctor_get(v_writer_1781_, 1);
+                v_state_1784_ = leanh::lean_ctor_get(v_writer_1781_, 2);
+                v_knownSize_1785_ = leanh::lean_ctor_get(v_writer_1781_, 3);
+                v_messageHead_1786_ = leanh::lean_ctor_get(v_writer_1781_, 4);
+                v_sentMessage_1787_ = leanh::lean_ctor_get_uint8(
                     v_writer_1781_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_1788_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_1788_ = leanh::lean_ctor_get_uint8(
                     v_writer_1781_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_1789_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_1789_ = leanh::lean_ctor_get_uint8(
                     v_writer_1781_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_1790_ = crate::leanh::lean_ctor_get(v_writer_1781_, 5);
+                v_userDataBytes_1790_ = leanh::lean_ctor_get(v_writer_1781_, 5);
                 v___f_1796_ = l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__0;
-                match crate::leanh::lean_obj_tag(v_state_1784_) {
+                match leanh::lean_obj_tag(v_state_1784_) {
                     1 => {
-                        crate::leanh::lean_inc(v_state_1784_);
-                        crate::leanh::lean_inc(v_userDataBytes_1790_);
-                        crate::leanh::lean_inc(v_messageHead_1786_);
-                        crate::leanh::lean_inc(v_knownSize_1785_);
-                        crate::leanh::lean_inc_ref(v_outputData_1783_);
-                        crate::leanh::lean_inc_ref(v_userData_1782_);
-                        crate::leanh::lean_dec_ref(v_writer_1781_);
+                        leanh::lean_inc(v_state_1784_);
+                        leanh::lean_inc(v_userDataBytes_1790_);
+                        leanh::lean_inc(v_messageHead_1786_);
+                        leanh::lean_inc(v_knownSize_1785_);
+                        leanh::lean_inc_ref(v_outputData_1783_);
+                        leanh::lean_inc_ref(v_userData_1782_);
+                        leanh::lean_dec_ref(v_writer_1781_);
                         state = 2;
                         continue;
                     }
                     2 => {
-                        crate::leanh::lean_inc(v_state_1784_);
-                        crate::leanh::lean_inc(v_userDataBytes_1790_);
-                        crate::leanh::lean_inc(v_messageHead_1786_);
-                        crate::leanh::lean_inc(v_knownSize_1785_);
-                        crate::leanh::lean_inc_ref(v_outputData_1783_);
-                        crate::leanh::lean_inc_ref(v_userData_1782_);
-                        crate::leanh::lean_dec_ref(v_writer_1781_);
+                        leanh::lean_inc(v_state_1784_);
+                        leanh::lean_inc(v_userDataBytes_1790_);
+                        leanh::lean_inc(v_messageHead_1786_);
+                        leanh::lean_inc(v_knownSize_1785_);
+                        leanh::lean_inc_ref(v_outputData_1783_);
+                        leanh::lean_inc_ref(v_userData_1782_);
+                        leanh::lean_dec_ref(v_writer_1781_);
                         state = 2;
                         continue;
                     }
                     3 => {
                         if v_userClosedBody_1788_ == 0 {
-                            crate::leanh::lean_inc_ref(v_state_1784_);
-                            crate::leanh::lean_inc(v_userDataBytes_1790_);
-                            crate::leanh::lean_inc(v_messageHead_1786_);
-                            crate::leanh::lean_inc(v_knownSize_1785_);
-                            crate::leanh::lean_inc_ref(v_outputData_1783_);
-                            crate::leanh::lean_inc_ref(v_userData_1782_);
-                            crate::leanh::lean_dec_ref(v_writer_1781_);
+                            leanh::lean_inc_ref(v_state_1784_);
+                            leanh::lean_inc(v_userDataBytes_1790_);
+                            leanh::lean_inc(v_messageHead_1786_);
+                            leanh::lean_inc(v_knownSize_1785_);
+                            leanh::lean_inc_ref(v_outputData_1783_);
+                            leanh::lean_inc_ref(v_userData_1782_);
+                            leanh::lean_dec_ref(v_writer_1781_);
                             state = 2;
                             continue;
                         } else {
-                            crate::leanh::lean_dec_ref(v_data_1780_);
+                            leanh::lean_dec_ref(v_data_1780_);
                             return v_writer_1781_;
                         }
                     }
@@ -2628,43 +2628,43 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData(
                         continue;
                     }
                     _ => {
-                        crate::leanh::lean_dec_ref(v_data_1780_);
+                        leanh::lean_dec_ref(v_data_1780_);
                         return v_writer_1781_;
                     }
                 }
             }
             1 => {
                 v___x_1793_ = l_Array_append___redArg(v_userData_1782_, v_data_1780_);
-                crate::leanh::lean_dec_ref(v_data_1780_);
+                leanh::lean_dec_ref(v_data_1780_);
                 v___x_1794_ = lean_nat_add(v_userDataBytes_1790_, v___y_1792_);
-                crate::leanh::lean_dec(v___y_1792_);
-                crate::leanh::lean_dec(v_userDataBytes_1790_);
-                v___x_1795_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                crate::leanh::lean_ctor_set(v___x_1795_, 0, v___x_1793_);
-                crate::leanh::lean_ctor_set(v___x_1795_, 1, v_outputData_1783_);
-                crate::leanh::lean_ctor_set(v___x_1795_, 2, v_state_1784_);
-                crate::leanh::lean_ctor_set(v___x_1795_, 3, v_knownSize_1785_);
-                crate::leanh::lean_ctor_set(v___x_1795_, 4, v_messageHead_1786_);
-                crate::leanh::lean_ctor_set(v___x_1795_, 5, v___x_1794_);
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_dec(v___y_1792_);
+                leanh::lean_dec(v_userDataBytes_1790_);
+                v___x_1795_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                leanh::lean_ctor_set(v___x_1795_, 0, v___x_1793_);
+                leanh::lean_ctor_set(v___x_1795_, 1, v_outputData_1783_);
+                leanh::lean_ctor_set(v___x_1795_, 2, v_state_1784_);
+                leanh::lean_ctor_set(v___x_1795_, 3, v_knownSize_1785_);
+                leanh::lean_ctor_set(v___x_1795_, 4, v_messageHead_1786_);
+                leanh::lean_ctor_set(v___x_1795_, 5, v___x_1794_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1795_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                     v_sentMessage_1787_,
                 );
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1795_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                     v_userClosedBody_1788_,
                 );
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1795_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                     v_omitBody_1789_,
                 );
                 return v___x_1795_;
             }
             2 => {
-                v___x_1798_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_1798_ = leanh::lean_unsigned_to_nat(0);
                 v___x_1799_ = lean_array_get_size(v_data_1780_);
                 v___x_1800_ = l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10;
                 v___x_1801_ = lean_nat_dec_lt(v___x_1798_, v___x_1799_);
@@ -2682,12 +2682,12 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData(
                         } else {
                             v___x_1803_ = 0usize;
                             v___x_1804_ = lean_usize_of_nat(v___x_1799_);
-                            crate::leanh::lean_inc_ref(v_data_1780_);
+                            leanh::lean_inc_ref(v_data_1780_);
                             v___x_1805_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
                                     v___x_1800_,
                                     v___f_1796_,
                                     v_data_1780_,
@@ -2702,11 +2702,11 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData(
                     } else {
                         v___x_1806_ = 0usize;
                         v___x_1807_ = lean_usize_of_nat(v___x_1799_);
-                        crate::leanh::lean_inc_ref(v_data_1780_);
+                        leanh::lean_inc_ref(v_data_1780_);
                         v___x_1808_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                            crate::leanh::lean_box(0),
-                            crate::leanh::lean_box(0),
-                            crate::leanh::lean_box(0),
+                            leanh::lean_box(0),
+                            leanh::lean_box(0),
+                            leanh::lean_box(0),
                             v___x_1800_,
                             v___f_1796_,
                             v_data_1780_,
@@ -2722,17 +2722,17 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData(
             }
             3 => {
                 if v_userClosedBody_1788_ == 0 {
-                    crate::leanh::lean_inc(v_userDataBytes_1790_);
-                    crate::leanh::lean_inc(v_messageHead_1786_);
-                    crate::leanh::lean_inc(v_knownSize_1785_);
-                    crate::leanh::lean_inc(v_state_1784_);
-                    crate::leanh::lean_inc_ref(v_outputData_1783_);
-                    crate::leanh::lean_inc_ref(v_userData_1782_);
-                    crate::leanh::lean_dec_ref(v_writer_1781_);
+                    leanh::lean_inc(v_userDataBytes_1790_);
+                    leanh::lean_inc(v_messageHead_1786_);
+                    leanh::lean_inc(v_knownSize_1785_);
+                    leanh::lean_inc(v_state_1784_);
+                    leanh::lean_inc_ref(v_outputData_1783_);
+                    leanh::lean_inc_ref(v_userData_1782_);
+                    leanh::lean_dec_ref(v_writer_1781_);
                     state = 2;
                     continue;
                 } else {
-                    crate::leanh::lean_dec_ref(v_data_1780_);
+                    leanh::lean_dec_ref(v_data_1780_);
                     return v_writer_1781_;
                 }
             }
@@ -2741,72 +2741,72 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_addUserData___boxed(
-    mut v_dir_1810_: *mut crate::leanh::LeanObject,
-    mut v_data_1811_: *mut crate::leanh::LeanObject,
-    mut v_writer_1812_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_1810_: *mut leanh::LeanObject,
+    mut v_data_1811_: *mut leanh::LeanObject,
+    mut v_writer_1812_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_1813_: u8 = 0;
-    let mut v_res_1814_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_1813_ = (crate::leanh::lean_unbox(v_dir_1810_) as u8);
+    let mut v_res_1814_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_1813_ = (leanh::lean_unbox(v_dir_1810_) as u8);
     v_res_1814_ =
         l_Std_Http_Protocol_H1_Writer_addUserData(v_dir_boxed_1813_, v_data_1811_, v_writer_1812_);
     return v_res_1814_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__1(
-    mut v_limitSize_1815_: *mut crate::leanh::LeanObject,
-    mut v_as_1816_: *mut crate::leanh::LeanObject,
+    mut v_limitSize_1815_: *mut leanh::LeanObject,
+    mut v_as_1816_: *mut leanh::LeanObject,
     mut v_i_1817_: usize,
     mut v_stop_1818_: usize,
-    mut v_b_1819_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___y_1821_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_b_1819_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___y_1821_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1822_: usize = 0;
     let mut v___x_1823_: usize = 0;
     let mut v___x_1825_: u8 = 0;
-    let mut v_snd_1826_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_1827_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1829_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1826_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_1827_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1829_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1830_: u8 = 0;
-    let mut v_fst_1831_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_snd_1832_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1834_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_1831_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1832_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1834_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1835_: u8 = 0;
-    let mut v___x_1836_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1836_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1837_: u8 = 0;
-    let mut v_data_1838_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_extensions_1839_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1841_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_1838_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_extensions_1839_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1841_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1842_: u8 = 0;
-    let mut v___x_1843_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_remaining_1844_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1845_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1847_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1848_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_1849_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1843_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_remaining_1844_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1845_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1847_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1848_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_1849_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1850_: u8 = 0;
-    let mut v___x_1852_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1854_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1855_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1856_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1857_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_pendingChunk_1859_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1860_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1862_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1864_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1865_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1866_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1867_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1869_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1852_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1854_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1855_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1856_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1857_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_pendingChunk_1859_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1860_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1862_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1864_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1865_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1866_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1867_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1869_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1870_: u8 = 0;
-    let mut v_dataPart_1871_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1872_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_dataPart_1871_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1872_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1873_: u8 = 0;
     let mut v_isSharedCheck_1874_: u8 = 0;
-    let mut v___x_1875_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1877_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1879_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1880_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1881_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1875_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1877_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1879_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1880_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1881_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1882_: u8 = 0;
     let mut v_isSharedCheck_1883_: u8 = 0;
     let mut state = 0;
@@ -2815,19 +2815,19 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             0 => {
                 v___x_1825_ = lean_usize_dec_eq(v_i_1817_, v_stop_1818_);
                 if v___x_1825_ == 0 {
-                    v_snd_1826_ = crate::leanh::lean_ctor_get(v_b_1819_, 1);
-                    v_fst_1827_ = crate::leanh::lean_ctor_get(v_b_1819_, 0);
-                    v_isSharedCheck_1883_ = (!crate::leanh::lean_is_exclusive(v_b_1819_)) as u8;
+                    v_snd_1826_ = leanh::lean_ctor_get(v_b_1819_, 1);
+                    v_fst_1827_ = leanh::lean_ctor_get(v_b_1819_, 0);
+                    v_isSharedCheck_1883_ = (!leanh::lean_is_exclusive(v_b_1819_)) as u8;
                     if v_isSharedCheck_1883_ == 0 {
                         v___x_1829_ = v_b_1819_;
                         v_isShared_1830_ = v_isSharedCheck_1883_;
                         state = 2;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_snd_1826_);
-                        crate::leanh::lean_inc(v_fst_1827_);
-                        crate::leanh::lean_dec(v_b_1819_);
-                        v___x_1829_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_snd_1826_);
+                        leanh::lean_inc(v_fst_1827_);
+                        leanh::lean_dec(v_b_1819_);
+                        v___x_1829_ = leanh::lean_box(0);
                         v_isShared_1830_ = v_isSharedCheck_1883_;
                         state = 2;
                         continue;
@@ -2845,19 +2845,19 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 continue;
             }
             2 => {
-                v_fst_1831_ = crate::leanh::lean_ctor_get(v_snd_1826_, 0);
-                v_snd_1832_ = crate::leanh::lean_ctor_get(v_snd_1826_, 1);
-                v_isSharedCheck_1882_ = (!crate::leanh::lean_is_exclusive(v_snd_1826_)) as u8;
+                v_fst_1831_ = leanh::lean_ctor_get(v_snd_1826_, 0);
+                v_snd_1832_ = leanh::lean_ctor_get(v_snd_1826_, 1);
+                v_isSharedCheck_1882_ = (!leanh::lean_is_exclusive(v_snd_1826_)) as u8;
                 if v_isSharedCheck_1882_ == 0 {
                     v___x_1834_ = v_snd_1826_;
                     v_isShared_1835_ = v_isSharedCheck_1882_;
                     state = 3;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_snd_1832_);
-                    crate::leanh::lean_inc(v_fst_1831_);
-                    crate::leanh::lean_dec(v_snd_1826_);
-                    v___x_1834_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_snd_1832_);
+                    leanh::lean_inc(v_fst_1831_);
+                    leanh::lean_dec(v_snd_1826_);
+                    v___x_1834_ = leanh::lean_box(0);
                     v_isShared_1835_ = v_isSharedCheck_1882_;
                     state = 3;
                     continue;
@@ -2867,19 +2867,19 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 v___x_1836_ = lean_array_uget(v_as_1816_, v_i_1817_);
                 v___x_1837_ = lean_nat_dec_le(v_limitSize_1815_, v_snd_1832_);
                 if v___x_1837_ == 0 {
-                    v_data_1838_ = crate::leanh::lean_ctor_get(v___x_1836_, 0);
-                    v_extensions_1839_ = crate::leanh::lean_ctor_get(v___x_1836_, 1);
-                    v_isSharedCheck_1874_ = (!crate::leanh::lean_is_exclusive(v___x_1836_)) as u8;
+                    v_data_1838_ = leanh::lean_ctor_get(v___x_1836_, 0);
+                    v_extensions_1839_ = leanh::lean_ctor_get(v___x_1836_, 1);
+                    v_isSharedCheck_1874_ = (!leanh::lean_is_exclusive(v___x_1836_)) as u8;
                     if v_isSharedCheck_1874_ == 0 {
                         v___x_1841_ = v___x_1836_;
                         v_isShared_1842_ = v_isSharedCheck_1874_;
                         state = 4;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_extensions_1839_);
-                        crate::leanh::lean_inc(v_data_1838_);
-                        crate::leanh::lean_dec(v___x_1836_);
-                        v___x_1841_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_extensions_1839_);
+                        leanh::lean_inc(v_data_1838_);
+                        leanh::lean_dec(v___x_1836_);
+                        v___x_1841_ = leanh::lean_box(0);
                         v_isShared_1842_ = v_isSharedCheck_1874_;
                         state = 4;
                         continue;
@@ -2887,14 +2887,14 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 } else {
                     v___x_1875_ = lean_array_push(v_fst_1831_, v___x_1836_);
                     if v_isShared_1835_ == 0 {
-                        crate::leanh::lean_ctor_set(v___x_1834_, 0, v___x_1875_);
+                        leanh::lean_ctor_set(v___x_1834_, 0, v___x_1875_);
                         v___x_1877_ = v___x_1834_;
                         state = 12;
                         continue;
                     } else {
-                        v_reuseFailAlloc_1881_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_1881_, 0, v___x_1875_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_1881_, 1, v_snd_1832_);
+                        v_reuseFailAlloc_1881_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_1881_, 0, v___x_1875_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_1881_, 1, v_snd_1832_);
                         v___x_1877_ = v_reuseFailAlloc_1881_;
                         state = 12;
                         continue;
@@ -2902,7 +2902,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 }
             }
             4 => {
-                v___x_1843_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_1843_ = leanh::lean_unsigned_to_nat(0);
                 v_remaining_1844_ = lean_nat_sub(v_limitSize_1815_, v_snd_1832_);
                 v___x_1845_ = lean_byte_array_size(v_data_1838_);
                 v___x_1873_ = lean_nat_dec_le(v___x_1845_, v_remaining_1844_);
@@ -2911,7 +2911,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                     state = 11;
                     continue;
                 } else {
-                    crate::leanh::lean_dec(v_remaining_1844_);
+                    leanh::lean_dec(v_remaining_1844_);
                     v___y_1869_ = v___x_1845_;
                     state = 11;
                     continue;
@@ -2919,38 +2919,38 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             }
             5 => {
                 v_size_1849_ = lean_nat_add(v_snd_1832_, v___y_1847_);
-                crate::leanh::lean_dec(v_snd_1832_);
+                leanh::lean_dec(v_snd_1832_);
                 v___x_1850_ = lean_nat_dec_lt(v___y_1847_, v___x_1845_);
                 if v___x_1850_ == 0 {
-                    crate::leanh::lean_dec(v___y_1847_);
-                    crate::leanh::lean_del_object(v___x_1841_);
-                    crate::leanh::lean_dec_ref(v_extensions_1839_);
-                    crate::leanh::lean_dec_ref(v_data_1838_);
+                    leanh::lean_dec(v___y_1847_);
+                    leanh::lean_del_object(v___x_1841_);
+                    leanh::lean_dec_ref(v_extensions_1839_);
+                    leanh::lean_dec_ref(v_data_1838_);
                     if v_isShared_1835_ == 0 {
-                        crate::leanh::lean_ctor_set(v___x_1834_, 1, v_size_1849_);
+                        leanh::lean_ctor_set(v___x_1834_, 1, v_size_1849_);
                         v___x_1852_ = v___x_1834_;
                         state = 6;
                         continue;
                     } else {
-                        v_reuseFailAlloc_1856_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_1856_, 0, v_fst_1831_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_1856_, 1, v_size_1849_);
+                        v_reuseFailAlloc_1856_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_1856_, 0, v_fst_1831_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_1856_, 1, v_size_1849_);
                         v___x_1852_ = v_reuseFailAlloc_1856_;
                         state = 6;
                         continue;
                     }
                 } else {
                     v___x_1857_ = l_ByteArray_extract(v_data_1838_, v___y_1847_, v___x_1845_);
-                    crate::leanh::lean_dec_ref(v_data_1838_);
+                    leanh::lean_dec_ref(v_data_1838_);
                     if v_isShared_1842_ == 0 {
-                        crate::leanh::lean_ctor_set(v___x_1841_, 0, v___x_1857_);
+                        leanh::lean_ctor_set(v___x_1841_, 0, v___x_1857_);
                         v_pendingChunk_1859_ = v___x_1841_;
                         state = 8;
                         continue;
                     } else {
-                        v_reuseFailAlloc_1867_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_1867_, 0, v___x_1857_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_1867_, 1, v_extensions_1839_);
+                        v_reuseFailAlloc_1867_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_1867_, 0, v___x_1857_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_1867_, 1, v_extensions_1839_);
                         v_pendingChunk_1859_ = v_reuseFailAlloc_1867_;
                         state = 8;
                         continue;
@@ -2959,15 +2959,15 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             }
             6 => {
                 if v_isShared_1830_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1829_, 1, v___x_1852_);
-                    crate::leanh::lean_ctor_set(v___x_1829_, 0, v___y_1848_);
+                    leanh::lean_ctor_set(v___x_1829_, 1, v___x_1852_);
+                    leanh::lean_ctor_set(v___x_1829_, 0, v___y_1848_);
                     v___x_1854_ = v___x_1829_;
                     state = 7;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1855_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1855_, 0, v___y_1848_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1855_, 1, v___x_1852_);
+                    v_reuseFailAlloc_1855_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1855_, 0, v___y_1848_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1855_, 1, v___x_1852_);
                     v___x_1854_ = v_reuseFailAlloc_1855_;
                     state = 7;
                     continue;
@@ -2981,15 +2981,15 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             8 => {
                 v___x_1860_ = lean_array_push(v_fst_1831_, v_pendingChunk_1859_);
                 if v_isShared_1835_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1834_, 1, v_size_1849_);
-                    crate::leanh::lean_ctor_set(v___x_1834_, 0, v___x_1860_);
+                    leanh::lean_ctor_set(v___x_1834_, 1, v_size_1849_);
+                    leanh::lean_ctor_set(v___x_1834_, 0, v___x_1860_);
                     v___x_1862_ = v___x_1834_;
                     state = 9;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1866_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1866_, 0, v___x_1860_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1866_, 1, v_size_1849_);
+                    v_reuseFailAlloc_1866_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1866_, 0, v___x_1860_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1866_, 1, v_size_1849_);
                     v___x_1862_ = v_reuseFailAlloc_1866_;
                     state = 9;
                     continue;
@@ -2997,15 +2997,15 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             }
             9 => {
                 if v_isShared_1830_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1829_, 1, v___x_1862_);
-                    crate::leanh::lean_ctor_set(v___x_1829_, 0, v___y_1848_);
+                    leanh::lean_ctor_set(v___x_1829_, 1, v___x_1862_);
+                    leanh::lean_ctor_set(v___x_1829_, 0, v___y_1848_);
                     v___x_1864_ = v___x_1829_;
                     state = 10;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1865_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1865_, 0, v___y_1848_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1865_, 1, v___x_1862_);
+                    v_reuseFailAlloc_1865_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1865_, 0, v___y_1848_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1865_, 1, v___x_1862_);
                     v___x_1864_ = v_reuseFailAlloc_1865_;
                     state = 10;
                     continue;
@@ -3034,14 +3034,14 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             }
             12 => {
                 if v_isShared_1830_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1829_, 1, v___x_1877_);
+                    leanh::lean_ctor_set(v___x_1829_, 1, v___x_1877_);
                     v___x_1879_ = v___x_1829_;
                     state = 13;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1880_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1880_, 0, v_fst_1827_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1880_, 1, v___x_1877_);
+                    v_reuseFailAlloc_1880_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1880_, 0, v_fst_1827_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1880_, 1, v___x_1877_);
                     v___x_1879_ = v_reuseFailAlloc_1880_;
                     state = 13;
                     continue;
@@ -3057,34 +3057,34 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__1___boxed(
-    mut v_limitSize_1884_: *mut crate::leanh::LeanObject,
-    mut v_as_1885_: *mut crate::leanh::LeanObject,
-    mut v_i_1886_: *mut crate::leanh::LeanObject,
-    mut v_stop_1887_: *mut crate::leanh::LeanObject,
-    mut v_b_1888_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_limitSize_1884_: *mut leanh::LeanObject,
+    mut v_as_1885_: *mut leanh::LeanObject,
+    mut v_i_1886_: *mut leanh::LeanObject,
+    mut v_stop_1887_: *mut leanh::LeanObject,
+    mut v_b_1888_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_i_boxed_1889_: usize = 0;
     let mut v_stop_boxed_1890_: usize = 0;
-    let mut v_res_1891_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_i_boxed_1889_ = crate::leanh::lean_unbox_usize(v_i_1886_);
-    crate::leanh::lean_dec(v_i_1886_);
-    v_stop_boxed_1890_ = crate::leanh::lean_unbox_usize(v_stop_1887_);
-    crate::leanh::lean_dec(v_stop_1887_);
+    let mut v_res_1891_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_1889_ = leanh::lean_unbox_usize(v_i_1886_);
+    leanh::lean_dec(v_i_1886_);
+    v_stop_boxed_1890_ = leanh::lean_unbox_usize(v_stop_1887_);
+    leanh::lean_dec(v_stop_1887_);
     v_res_1891_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__1(v_limitSize_1884_, v_as_1885_, v_i_boxed_1889_, v_stop_boxed_1890_, v_b_1888_);
-    crate::leanh::lean_dec_ref(v_as_1885_);
-    crate::leanh::lean_dec(v_limitSize_1884_);
+    leanh::lean_dec_ref(v_as_1885_);
+    leanh::lean_dec(v_limitSize_1884_);
     return v_res_1891_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0(
-    mut v_as_1892_: *mut crate::leanh::LeanObject,
+    mut v_as_1892_: *mut leanh::LeanObject,
     mut v_i_1893_: usize,
     mut v_stop_1894_: usize,
-    mut v_b_1895_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_b_1895_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_1896_: u8 = 0;
-    let mut v___x_1897_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1898_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1899_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1897_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1898_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1899_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1900_: usize = 0;
     let mut v___x_1901_: usize = 0;
     let mut state = 0;
@@ -3096,7 +3096,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                     v___x_1897_ = lean_array_uget_borrowed(v_as_1892_, v_i_1893_);
                     v___x_1898_ = lean_byte_array_size(v___x_1897_);
                     v___x_1899_ = lean_nat_add(v_b_1895_, v___x_1898_);
-                    crate::leanh::lean_dec(v_b_1895_);
+                    leanh::lean_dec(v_b_1895_);
                     v___x_1900_ = 1usize;
                     v___x_1901_ = lean_usize_add(v_i_1893_, v___x_1900_);
                     v_i_1893_ = v___x_1901_;
@@ -3112,138 +3112,138 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0___boxed(
-    mut v_as_1903_: *mut crate::leanh::LeanObject,
-    mut v_i_1904_: *mut crate::leanh::LeanObject,
-    mut v_stop_1905_: *mut crate::leanh::LeanObject,
-    mut v_b_1906_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_as_1903_: *mut leanh::LeanObject,
+    mut v_i_1904_: *mut leanh::LeanObject,
+    mut v_stop_1905_: *mut leanh::LeanObject,
+    mut v_b_1906_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_i_boxed_1907_: usize = 0;
     let mut v_stop_boxed_1908_: usize = 0;
-    let mut v_res_1909_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_i_boxed_1907_ = crate::leanh::lean_unbox_usize(v_i_1904_);
-    crate::leanh::lean_dec(v_i_1904_);
-    v_stop_boxed_1908_ = crate::leanh::lean_unbox_usize(v_stop_1905_);
-    crate::leanh::lean_dec(v_stop_1905_);
+    let mut v_res_1909_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_1907_ = leanh::lean_unbox_usize(v_i_1904_);
+    leanh::lean_dec(v_i_1904_);
+    v_stop_boxed_1908_ = leanh::lean_unbox_usize(v_stop_1905_);
+    leanh::lean_dec(v_stop_1905_);
     v_res_1909_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0(v_as_1903_, v_i_boxed_1907_, v_stop_boxed_1908_, v_b_1906_);
-    crate::leanh::lean_dec_ref(v_as_1903_);
+    leanh::lean_dec_ref(v_as_1903_);
     return v_res_1909_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
-    mut v_writer_1918_: *mut crate::leanh::LeanObject,
-    mut v_limitSize_1919_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___y_1921_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_1918_: *mut leanh::LeanObject,
+    mut v_limitSize_1919_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___y_1921_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___y_1922_: u8 = 0;
-    let mut v___y_1923_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1924_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1925_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1923_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1924_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1925_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___y_1926_: u8 = 0;
     let mut v___y_1927_: u8 = 0;
-    let mut v___y_1928_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1929_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1930_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1931_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_1932_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_1933_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1935_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1928_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1929_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1930_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1931_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_1932_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_1933_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1935_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1936_: u8 = 0;
-    let mut v_data_1937_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_1938_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1940_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_1937_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_1938_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1940_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_1941_: u8 = 0;
-    let mut v___x_1942_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1943_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_1945_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_remaining_1946_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1947_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1948_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1950_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1951_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_1952_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1942_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1943_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_1945_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_remaining_1946_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1947_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1948_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1950_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1951_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_1952_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_1953_: u8 = 0;
     let mut v_isSharedCheck_1954_: u8 = 0;
-    let mut v_userData_1955_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_1956_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_1957_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_1958_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_1959_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userData_1955_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_1956_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_1957_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_1958_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_1959_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_1960_: u8 = 0;
     let mut v_userClosedBody_1961_: u8 = 0;
     let mut v_omitBody_1962_: u8 = 0;
-    let mut v_userDataBytes_1963_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_1965_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_1966_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_snd_1967_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1968_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1969_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_1963_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_1965_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_1966_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1967_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1968_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1969_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1970_: u8 = 0;
-    let mut v___x_1971_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1971_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1972_: u8 = 0;
-    let mut v___x_1973_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1973_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1974_: usize = 0;
     let mut v___x_1975_: usize = 0;
-    let mut v___x_1976_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1977_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1976_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1977_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1978_: usize = 0;
     let mut v___x_1979_: usize = 0;
-    let mut v___x_1980_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1981_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_1983_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_snd_1984_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_1985_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_1986_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_snd_1987_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1988_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_1989_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1980_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1981_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_1983_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1984_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_1985_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_1986_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_1987_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1988_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1989_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1990_: u8 = 0;
-    let mut v___x_1991_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1991_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1992_: u8 = 0;
-    let mut v___x_1993_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1993_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1994_: u8 = 0;
     let mut v___x_1995_: usize = 0;
     let mut v___x_1996_: usize = 0;
-    let mut v___x_1997_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_1997_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_1998_: usize = 0;
     let mut v___x_1999_: usize = 0;
-    let mut v___x_2000_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2001_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2000_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2001_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_1955_ = crate::leanh::lean_ctor_get(v_writer_1918_, 0);
-                v_outputData_1956_ = crate::leanh::lean_ctor_get(v_writer_1918_, 1);
-                v_state_1957_ = crate::leanh::lean_ctor_get(v_writer_1918_, 2);
-                v_knownSize_1958_ = crate::leanh::lean_ctor_get(v_writer_1918_, 3);
-                v_messageHead_1959_ = crate::leanh::lean_ctor_get(v_writer_1918_, 4);
-                v_sentMessage_1960_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_1955_ = leanh::lean_ctor_get(v_writer_1918_, 0);
+                v_outputData_1956_ = leanh::lean_ctor_get(v_writer_1918_, 1);
+                v_state_1957_ = leanh::lean_ctor_get(v_writer_1918_, 2);
+                v_knownSize_1958_ = leanh::lean_ctor_get(v_writer_1918_, 3);
+                v_messageHead_1959_ = leanh::lean_ctor_get(v_writer_1918_, 4);
+                v_sentMessage_1960_ = leanh::lean_ctor_get_uint8(
                     v_writer_1918_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_1961_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_1961_ = leanh::lean_ctor_get_uint8(
                     v_writer_1918_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_1962_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_1962_ = leanh::lean_ctor_get_uint8(
                     v_writer_1918_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_1963_ = crate::leanh::lean_ctor_get(v_writer_1918_, 5);
+                v_userDataBytes_1963_ = leanh::lean_ctor_get(v_writer_1918_, 5);
                 v___x_1988_ = lean_array_get_size(v_userData_1955_);
-                v___x_1989_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_1989_ = leanh::lean_unsigned_to_nat(0);
                 v___x_1990_ = lean_nat_dec_eq(v___x_1988_, v___x_1989_);
                 if v___x_1990_ == 0 {
-                    crate::leanh::lean_inc(v_userDataBytes_1963_);
-                    crate::leanh::lean_inc(v_messageHead_1959_);
-                    crate::leanh::lean_inc(v_knownSize_1958_);
-                    crate::leanh::lean_inc(v_state_1957_);
-                    crate::leanh::lean_inc_ref(v_outputData_1956_);
-                    crate::leanh::lean_inc_ref(v_userData_1955_);
-                    crate::leanh::lean_dec_ref(v_writer_1918_);
+                    leanh::lean_inc(v_userDataBytes_1963_);
+                    leanh::lean_inc(v_messageHead_1959_);
+                    leanh::lean_inc(v_knownSize_1958_);
+                    leanh::lean_inc(v_state_1957_);
+                    leanh::lean_inc_ref(v_outputData_1956_);
+                    leanh::lean_inc_ref(v_userData_1955_);
+                    leanh::lean_dec_ref(v_writer_1918_);
                     v___x_1991_ = l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg___closed__0;
                     v___x_1992_ = lean_nat_dec_lt(v___x_1989_, v___x_1988_);
                     if v___x_1992_ == 0 {
-                        crate::leanh::lean_dec_ref(v_userData_1955_);
+                        leanh::lean_dec_ref(v_userData_1955_);
                         v_fst_1965_ = v___x_1991_;
                         v_fst_1966_ = v___x_1991_;
                         v_snd_1967_ = v___x_1989_;
@@ -3255,7 +3255,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                         v___x_1994_ = lean_nat_dec_le(v___x_1988_, v___x_1988_);
                         if v___x_1994_ == 0 {
                             if v___x_1992_ == 0 {
-                                crate::leanh::lean_dec_ref(v_userData_1955_);
+                                leanh::lean_dec_ref(v_userData_1955_);
                                 v_fst_1965_ = v___x_1991_;
                                 v_fst_1966_ = v___x_1991_;
                                 v_snd_1967_ = v___x_1989_;
@@ -3265,7 +3265,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                                 v___x_1995_ = 0usize;
                                 v___x_1996_ = lean_usize_of_nat(v___x_1988_);
                                 v___x_1997_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__1(v_limitSize_1919_, v_userData_1955_, v___x_1995_, v___x_1996_, v___x_1993_);
-                                crate::leanh::lean_dec_ref(v_userData_1955_);
+                                leanh::lean_dec_ref(v_userData_1955_);
                                 v___y_1983_ = v___x_1997_;
                                 state = 7;
                                 continue;
@@ -3274,52 +3274,52 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                             v___x_1998_ = 0usize;
                             v___x_1999_ = lean_usize_of_nat(v___x_1988_);
                             v___x_2000_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__1(v_limitSize_1919_, v_userData_1955_, v___x_1998_, v___x_1999_, v___x_1993_);
-                            crate::leanh::lean_dec_ref(v_userData_1955_);
+                            leanh::lean_dec_ref(v_userData_1955_);
                             v___y_1983_ = v___x_2000_;
                             state = 7;
                             continue;
                         }
                     }
                 } else {
-                    v___x_2001_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v___x_2001_, 0, v_writer_1918_);
-                    crate::leanh::lean_ctor_set(v___x_2001_, 1, v_limitSize_1919_);
+                    v___x_2001_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v___x_2001_, 0, v_writer_1918_);
+                    leanh::lean_ctor_set(v___x_2001_, 1, v_limitSize_1919_);
                     return v___x_2001_;
                 }
             }
             1 => {
-                v_data_1932_ = crate::leanh::lean_ctor_get(v___y_1928_, 0);
-                v_size_1933_ = crate::leanh::lean_ctor_get(v___y_1928_, 1);
-                v_isSharedCheck_1954_ = (!crate::leanh::lean_is_exclusive(v___y_1928_)) as u8;
+                v_data_1932_ = leanh::lean_ctor_get(v___y_1928_, 0);
+                v_size_1933_ = leanh::lean_ctor_get(v___y_1928_, 1);
+                v_isSharedCheck_1954_ = (!leanh::lean_is_exclusive(v___y_1928_)) as u8;
                 if v_isSharedCheck_1954_ == 0 {
                     v___x_1935_ = v___y_1928_;
                     v_isShared_1936_ = v_isSharedCheck_1954_;
                     state = 2;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_size_1933_);
-                    crate::leanh::lean_inc(v_data_1932_);
-                    crate::leanh::lean_dec(v___y_1928_);
-                    v___x_1935_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_size_1933_);
+                    leanh::lean_inc(v_data_1932_);
+                    leanh::lean_dec(v___y_1928_);
+                    v___x_1935_ = leanh::lean_box(0);
                     v_isShared_1936_ = v_isSharedCheck_1954_;
                     state = 2;
                     continue;
                 }
             }
             2 => {
-                v_data_1937_ = crate::leanh::lean_ctor_get(v___y_1931_, 0);
-                v_size_1938_ = crate::leanh::lean_ctor_get(v___y_1931_, 1);
-                v_isSharedCheck_1953_ = (!crate::leanh::lean_is_exclusive(v___y_1931_)) as u8;
+                v_data_1937_ = leanh::lean_ctor_get(v___y_1931_, 0);
+                v_size_1938_ = leanh::lean_ctor_get(v___y_1931_, 1);
+                v_isSharedCheck_1953_ = (!leanh::lean_is_exclusive(v___y_1931_)) as u8;
                 if v_isSharedCheck_1953_ == 0 {
                     v___x_1940_ = v___y_1931_;
                     v_isShared_1941_ = v_isSharedCheck_1953_;
                     state = 3;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_size_1938_);
-                    crate::leanh::lean_inc(v_data_1937_);
-                    crate::leanh::lean_dec(v___y_1931_);
-                    v___x_1940_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_size_1938_);
+                    leanh::lean_inc(v_data_1937_);
+                    leanh::lean_dec(v___y_1931_);
+                    v___x_1940_ = leanh::lean_box(0);
                     v_isShared_1941_ = v_isSharedCheck_1953_;
                     state = 3;
                     continue;
@@ -3327,20 +3327,20 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
             }
             3 => {
                 v___x_1942_ = l_Array_append___redArg(v_data_1932_, v_data_1937_);
-                crate::leanh::lean_dec_ref(v_data_1937_);
+                leanh::lean_dec_ref(v_data_1937_);
                 v___x_1943_ = lean_nat_add(v_size_1933_, v_size_1938_);
-                crate::leanh::lean_dec(v_size_1938_);
-                crate::leanh::lean_dec(v_size_1933_);
+                leanh::lean_dec(v_size_1938_);
+                leanh::lean_dec(v_size_1933_);
                 if v_isShared_1941_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1940_, 1, v___x_1943_);
-                    crate::leanh::lean_ctor_set(v___x_1940_, 0, v___x_1942_);
+                    leanh::lean_ctor_set(v___x_1940_, 1, v___x_1943_);
+                    leanh::lean_ctor_set(v___x_1940_, 0, v___x_1942_);
                     v_outputData_1945_ = v___x_1940_;
                     state = 4;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1952_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1952_, 0, v___x_1942_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1952_, 1, v___x_1943_);
+                    v_reuseFailAlloc_1952_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1952_, 0, v___x_1942_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1952_, 1, v___x_1943_);
                     v_outputData_1945_ = v_reuseFailAlloc_1952_;
                     state = 4;
                     continue;
@@ -3348,42 +3348,42 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
             }
             4 => {
                 v_remaining_1946_ = lean_nat_sub(v_limitSize_1919_, v___y_1930_);
-                crate::leanh::lean_dec(v_limitSize_1919_);
+                leanh::lean_dec(v_limitSize_1919_);
                 v___x_1947_ = lean_nat_sub(v___y_1923_, v___y_1930_);
-                crate::leanh::lean_dec(v___y_1930_);
-                crate::leanh::lean_dec(v___y_1923_);
-                v___x_1948_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                crate::leanh::lean_ctor_set(v___x_1948_, 0, v___y_1925_);
-                crate::leanh::lean_ctor_set(v___x_1948_, 1, v_outputData_1945_);
-                crate::leanh::lean_ctor_set(v___x_1948_, 2, v___y_1924_);
-                crate::leanh::lean_ctor_set(v___x_1948_, 3, v___y_1929_);
-                crate::leanh::lean_ctor_set(v___x_1948_, 4, v___y_1921_);
-                crate::leanh::lean_ctor_set(v___x_1948_, 5, v___x_1947_);
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_dec(v___y_1930_);
+                leanh::lean_dec(v___y_1923_);
+                v___x_1948_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                leanh::lean_ctor_set(v___x_1948_, 0, v___y_1925_);
+                leanh::lean_ctor_set(v___x_1948_, 1, v_outputData_1945_);
+                leanh::lean_ctor_set(v___x_1948_, 2, v___y_1924_);
+                leanh::lean_ctor_set(v___x_1948_, 3, v___y_1929_);
+                leanh::lean_ctor_set(v___x_1948_, 4, v___y_1921_);
+                leanh::lean_ctor_set(v___x_1948_, 5, v___x_1947_);
+                leanh::lean_ctor_set_uint8(
                     v___x_1948_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                     v___y_1927_,
                 );
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1948_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                     v___y_1922_,
                 );
-                crate::leanh::lean_ctor_set_uint8(
+                leanh::lean_ctor_set_uint8(
                     v___x_1948_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                     v___y_1926_,
                 );
                 if v_isShared_1936_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_1935_, 1, v_remaining_1946_);
-                    crate::leanh::lean_ctor_set(v___x_1935_, 0, v___x_1948_);
+                    leanh::lean_ctor_set(v___x_1935_, 1, v_remaining_1946_);
+                    leanh::lean_ctor_set(v___x_1935_, 0, v___x_1948_);
                     v___x_1950_ = v___x_1935_;
                     state = 5;
                     continue;
                 } else {
-                    v_reuseFailAlloc_1951_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1951_, 0, v___x_1948_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_1951_, 1, v_remaining_1946_);
+                    v_reuseFailAlloc_1951_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1951_, 0, v___x_1948_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_1951_, 1, v_remaining_1946_);
                     v___x_1950_ = v_reuseFailAlloc_1951_;
                     state = 5;
                     continue;
@@ -3393,13 +3393,13 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                 return v___x_1950_;
             }
             6 => {
-                v___x_1968_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_1968_ = leanh::lean_unsigned_to_nat(0);
                 v___x_1969_ = lean_array_get_size(v_fst_1965_);
                 v___x_1970_ = lean_nat_dec_lt(v___x_1968_, v___x_1969_);
                 if v___x_1970_ == 0 {
-                    v___x_1971_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v___x_1971_, 0, v_fst_1965_);
-                    crate::leanh::lean_ctor_set(v___x_1971_, 1, v___x_1968_);
+                    v___x_1971_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v___x_1971_, 0, v_fst_1965_);
+                    leanh::lean_ctor_set(v___x_1971_, 1, v___x_1968_);
                     v___y_1921_ = v_messageHead_1959_;
                     v___y_1922_ = v_userClosedBody_1961_;
                     v___y_1923_ = v_userDataBytes_1963_;
@@ -3417,9 +3417,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                     v___x_1972_ = lean_nat_dec_le(v___x_1969_, v___x_1969_);
                     if v___x_1972_ == 0 {
                         if v___x_1970_ == 0 {
-                            v___x_1973_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                            crate::leanh::lean_ctor_set(v___x_1973_, 0, v_fst_1965_);
-                            crate::leanh::lean_ctor_set(v___x_1973_, 1, v___x_1968_);
+                            v___x_1973_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                            leanh::lean_ctor_set(v___x_1973_, 0, v_fst_1965_);
+                            leanh::lean_ctor_set(v___x_1973_, 1, v___x_1968_);
                             v___y_1921_ = v_messageHead_1959_;
                             v___y_1922_ = v_userClosedBody_1961_;
                             v___y_1923_ = v_userDataBytes_1963_;
@@ -3437,9 +3437,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                             v___x_1974_ = 0usize;
                             v___x_1975_ = lean_usize_of_nat(v___x_1969_);
                             v___x_1976_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0(v_fst_1965_, v___x_1974_, v___x_1975_, v___x_1968_);
-                            v___x_1977_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                            crate::leanh::lean_ctor_set(v___x_1977_, 0, v_fst_1965_);
-                            crate::leanh::lean_ctor_set(v___x_1977_, 1, v___x_1976_);
+                            v___x_1977_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                            leanh::lean_ctor_set(v___x_1977_, 0, v_fst_1965_);
+                            leanh::lean_ctor_set(v___x_1977_, 1, v___x_1976_);
                             v___y_1921_ = v_messageHead_1959_;
                             v___y_1922_ = v_userClosedBody_1961_;
                             v___y_1923_ = v_userDataBytes_1963_;
@@ -3458,9 +3458,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                         v___x_1978_ = 0usize;
                         v___x_1979_ = lean_usize_of_nat(v___x_1969_);
                         v___x_1980_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0(v_fst_1965_, v___x_1978_, v___x_1979_, v___x_1968_);
-                        v___x_1981_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                        crate::leanh::lean_ctor_set(v___x_1981_, 0, v_fst_1965_);
-                        crate::leanh::lean_ctor_set(v___x_1981_, 1, v___x_1980_);
+                        v___x_1981_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                        leanh::lean_ctor_set(v___x_1981_, 0, v_fst_1965_);
+                        leanh::lean_ctor_set(v___x_1981_, 1, v___x_1980_);
                         v___y_1921_ = v_messageHead_1959_;
                         v___y_1922_ = v_userClosedBody_1961_;
                         v___y_1923_ = v_userDataBytes_1963_;
@@ -3478,16 +3478,16 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
                 }
             }
             7 => {
-                v_snd_1984_ = crate::leanh::lean_ctor_get(v___y_1983_, 1);
-                crate::leanh::lean_inc(v_snd_1984_);
-                v_fst_1985_ = crate::leanh::lean_ctor_get(v___y_1983_, 0);
-                crate::leanh::lean_inc(v_fst_1985_);
-                crate::leanh::lean_dec_ref(v___y_1983_);
-                v_fst_1986_ = crate::leanh::lean_ctor_get(v_snd_1984_, 0);
-                crate::leanh::lean_inc(v_fst_1986_);
-                v_snd_1987_ = crate::leanh::lean_ctor_get(v_snd_1984_, 1);
-                crate::leanh::lean_inc(v_snd_1987_);
-                crate::leanh::lean_dec(v_snd_1984_);
+                v_snd_1984_ = leanh::lean_ctor_get(v___y_1983_, 1);
+                leanh::lean_inc(v_snd_1984_);
+                v_fst_1985_ = leanh::lean_ctor_get(v___y_1983_, 0);
+                leanh::lean_inc(v_fst_1985_);
+                leanh::lean_dec_ref(v___y_1983_);
+                v_fst_1986_ = leanh::lean_ctor_get(v_snd_1984_, 0);
+                leanh::lean_inc(v_fst_1986_);
+                v_snd_1987_ = leanh::lean_ctor_get(v_snd_1984_, 1);
+                leanh::lean_inc(v_snd_1987_);
+                leanh::lean_dec(v_snd_1984_);
                 v_fst_1965_ = v_fst_1985_;
                 v_fst_1966_ = v_fst_1986_;
                 v_snd_1967_ = v_snd_1987_;
@@ -3500,22 +3500,22 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody(
     mut v_dir_2002_: u8,
-    mut v_writer_2003_: *mut crate::leanh::LeanObject,
-    mut v_limitSize_2004_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2005_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2003_: *mut leanh::LeanObject,
+    mut v_limitSize_2004_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2005_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2005_ =
         l_Std_Http_Protocol_H1_Writer_writeFixedBody___redArg(v_writer_2003_, v_limitSize_2004_);
     return v___x_2005_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___boxed(
-    mut v_dir_2006_: *mut crate::leanh::LeanObject,
-    mut v_writer_2007_: *mut crate::leanh::LeanObject,
-    mut v_limitSize_2008_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2006_: *mut leanh::LeanObject,
+    mut v_writer_2007_: *mut leanh::LeanObject,
+    mut v_limitSize_2008_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2009_: u8 = 0;
-    let mut v_res_2010_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2009_ = (crate::leanh::lean_unbox(v_dir_2006_) as u8);
+    let mut v_res_2010_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2009_ = (leanh::lean_unbox(v_dir_2006_) as u8);
     v_res_2010_ = l_Std_Http_Protocol_H1_Writer_writeFixedBody(
         v_dir_boxed_2009_,
         v_writer_2007_,
@@ -3524,19 +3524,19 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFixedBody___boxed(
     return v_res_2010_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__3(
-    mut v_as_2011_: *mut crate::leanh::LeanObject,
+    mut v_as_2011_: *mut leanh::LeanObject,
     mut v_i_2012_: usize,
     mut v_stop_2013_: usize,
-    mut v_b_2014_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___y_2016_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_b_2014_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___y_2016_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2017_: usize = 0;
     let mut v___x_2018_: usize = 0;
     let mut v___x_2020_: u8 = 0;
-    let mut v___x_2021_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2022_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2021_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2022_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2023_: u8 = 0;
-    let mut v___x_2024_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2024_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
@@ -3544,10 +3544,10 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 v___x_2020_ = lean_usize_dec_eq(v_i_2012_, v_stop_2013_);
                 if v___x_2020_ == 0 {
                     v___x_2021_ = lean_array_uget_borrowed(v_as_2011_, v_i_2012_);
-                    v_data_2022_ = crate::leanh::lean_ctor_get(v___x_2021_, 0);
+                    v_data_2022_ = leanh::lean_ctor_get(v___x_2021_, 0);
                     v___x_2023_ = l_ByteArray_isEmpty(v_data_2022_);
                     if v___x_2023_ == 0 {
-                        crate::leanh::lean_inc(v___x_2021_);
+                        leanh::lean_inc(v___x_2021_);
                         v___x_2024_ = lean_array_push(v_b_2014_, v___x_2021_);
                         v___y_2016_ = v___x_2024_;
                         state = 1;
@@ -3574,37 +3574,37 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__3___boxed(
-    mut v_as_2025_: *mut crate::leanh::LeanObject,
-    mut v_i_2026_: *mut crate::leanh::LeanObject,
-    mut v_stop_2027_: *mut crate::leanh::LeanObject,
-    mut v_b_2028_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_as_2025_: *mut leanh::LeanObject,
+    mut v_i_2026_: *mut leanh::LeanObject,
+    mut v_stop_2027_: *mut leanh::LeanObject,
+    mut v_b_2028_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_i_boxed_2029_: usize = 0;
     let mut v_stop_boxed_2030_: usize = 0;
-    let mut v_res_2031_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_i_boxed_2029_ = crate::leanh::lean_unbox_usize(v_i_2026_);
-    crate::leanh::lean_dec(v_i_2026_);
-    v_stop_boxed_2030_ = crate::leanh::lean_unbox_usize(v_stop_2027_);
-    crate::leanh::lean_dec(v_stop_2027_);
+    let mut v_res_2031_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_2029_ = leanh::lean_unbox_usize(v_i_2026_);
+    leanh::lean_dec(v_i_2026_);
+    v_stop_boxed_2030_ = leanh::lean_unbox_usize(v_stop_2027_);
+    leanh::lean_dec(v_stop_2027_);
     v_res_2031_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__3(v_as_2025_, v_i_boxed_2029_, v_stop_boxed_2030_, v_b_2028_);
-    crate::leanh::lean_dec_ref(v_as_2025_);
+    leanh::lean_dec_ref(v_as_2025_);
     return v_res_2031_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__0(
     mut v_sz_2032_: usize,
     mut v_i_2033_: usize,
-    mut v_bs_2034_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_bs_2034_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_2035_: u8 = 0;
-    let mut v_v_2036_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2037_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_bs_x27_2038_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_v_2036_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2037_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_bs_x27_2038_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2039_: u32 = 0;
     let mut v___x_2040_: u8 = 0;
     let mut v___x_2041_: usize = 0;
     let mut v___x_2042_: usize = 0;
-    let mut v___x_2043_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2044_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2043_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2044_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
@@ -3614,14 +3614,14 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___0
                     return v_bs_2034_;
                 } else {
                     v_v_2036_ = lean_array_uget(v_bs_2034_, v_i_2033_);
-                    v___x_2037_ = crate::leanh::lean_unsigned_to_nat(0);
+                    v___x_2037_ = leanh::lean_unsigned_to_nat(0);
                     v_bs_x27_2038_ = lean_array_uset(v_bs_2034_, v_i_2033_, v___x_2037_);
-                    v___x_2039_ = crate::leanh::lean_unbox_uint32(v_v_2036_);
-                    crate::leanh::lean_dec(v_v_2036_);
+                    v___x_2039_ = leanh::lean_unbox_uint32(v_v_2036_);
+                    leanh::lean_dec(v_v_2036_);
                     v___x_2040_ = lean_uint32_to_uint8(v___x_2039_);
                     v___x_2041_ = 1usize;
                     v___x_2042_ = lean_usize_add(v_i_2033_, v___x_2041_);
-                    v___x_2043_ = crate::leanh::lean_box((v___x_2040_) as usize);
+                    v___x_2043_ = leanh::lean_box((v___x_2040_) as usize);
                     v___x_2044_ = lean_array_uset(v_bs_x27_2038_, v_i_2033_, v___x_2043_);
                     v_i_2033_ = v___x_2042_;
                     v_bs_2034_ = v___x_2044_;
@@ -3634,41 +3634,41 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___0
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__0___boxed(
-    mut v_sz_2046_: *mut crate::leanh::LeanObject,
-    mut v_i_2047_: *mut crate::leanh::LeanObject,
-    mut v_bs_2048_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_sz_2046_: *mut leanh::LeanObject,
+    mut v_i_2047_: *mut leanh::LeanObject,
+    mut v_bs_2048_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_sz_boxed_2049_: usize = 0;
     let mut v_i_boxed_2050_: usize = 0;
-    let mut v_res_2051_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_sz_boxed_2049_ = crate::leanh::lean_unbox_usize(v_sz_2046_);
-    crate::leanh::lean_dec(v_sz_2046_);
-    v_i_boxed_2050_ = crate::leanh::lean_unbox_usize(v_i_2047_);
-    crate::leanh::lean_dec(v_i_2047_);
+    let mut v_res_2051_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_sz_boxed_2049_ = leanh::lean_unbox_usize(v_sz_2046_);
+    leanh::lean_dec(v_sz_2046_);
+    v_i_boxed_2050_ = leanh::lean_unbox_usize(v_i_2047_);
+    leanh::lean_dec(v_i_2047_);
     v_res_2051_ = l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__0(v_sz_boxed_2049_, v_i_boxed_2050_, v_bs_2048_);
     return v_res_2051_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1(
-    mut v_as_2054_: *mut crate::leanh::LeanObject,
+    mut v_as_2054_: *mut leanh::LeanObject,
     mut v_i_2055_: usize,
     mut v_stop_2056_: usize,
-    mut v_b_2057_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___y_2059_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_b_2057_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___y_2059_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2060_: usize = 0;
     let mut v___x_2061_: usize = 0;
     let mut v___x_2063_: u8 = 0;
-    let mut v___x_2064_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_2065_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_snd_2066_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2067_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2068_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2069_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_val_2070_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2071_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2072_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2073_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2074_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2064_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_2065_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_2066_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2067_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2068_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2069_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_val_2070_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2071_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2072_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2073_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2074_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
@@ -3676,24 +3676,24 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 v___x_2063_ = lean_usize_dec_eq(v_i_2055_, v_stop_2056_);
                 if v___x_2063_ == 0 {
                     v___x_2064_ = lean_array_uget_borrowed(v_as_2054_, v_i_2055_);
-                    v_fst_2065_ = crate::leanh::lean_ctor_get(v___x_2064_, 0);
-                    v_snd_2066_ = crate::leanh::lean_ctor_get(v___x_2064_, 1);
+                    v_fst_2065_ = leanh::lean_ctor_get(v___x_2064_, 0);
+                    v_snd_2066_ = leanh::lean_ctor_get(v___x_2064_, 1);
                     v___x_2067_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__0;
                     v___x_2068_ = lean_string_append(v_b_2057_, v___x_2067_);
                     v___x_2069_ = lean_string_append(v___x_2068_, v_fst_2065_);
-                    if crate::leanh::lean_obj_tag(v_snd_2066_) == 0 {
+                    if leanh::lean_obj_tag(v_snd_2066_) == 0 {
                         v___y_2059_ = v___x_2069_;
                         state = 1;
                         continue;
                     } else {
-                        v_val_2070_ = crate::leanh::lean_ctor_get(v_snd_2066_, 0);
+                        v_val_2070_ = leanh::lean_ctor_get(v_snd_2066_, 0);
                         v___x_2071_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___closed__1;
-                        crate::leanh::lean_inc(v_val_2070_);
+                        leanh::lean_inc(v_val_2070_);
                         v___x_2072_ = l_Std_Http_Chunk_ExtensionValue_quote(v_val_2070_);
                         v___x_2073_ = lean_string_append(v___x_2071_, v___x_2072_);
-                        crate::leanh::lean_dec_ref(v___x_2072_);
+                        leanh::lean_dec_ref(v___x_2072_);
                         v___x_2074_ = lean_string_append(v___x_2069_, v___x_2073_);
-                        crate::leanh::lean_dec_ref(v___x_2073_);
+                        leanh::lean_dec_ref(v___x_2073_);
                         v___y_2059_ = v___x_2074_;
                         state = 1;
                         continue;
@@ -3715,101 +3715,101 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1___boxed(
-    mut v_as_2075_: *mut crate::leanh::LeanObject,
-    mut v_i_2076_: *mut crate::leanh::LeanObject,
-    mut v_stop_2077_: *mut crate::leanh::LeanObject,
-    mut v_b_2078_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_as_2075_: *mut leanh::LeanObject,
+    mut v_i_2076_: *mut leanh::LeanObject,
+    mut v_stop_2077_: *mut leanh::LeanObject,
+    mut v_b_2078_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_i_boxed_2079_: usize = 0;
     let mut v_stop_boxed_2080_: usize = 0;
-    let mut v_res_2081_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_i_boxed_2079_ = crate::leanh::lean_unbox_usize(v_i_2076_);
-    crate::leanh::lean_dec(v_i_2076_);
-    v_stop_boxed_2080_ = crate::leanh::lean_unbox_usize(v_stop_2077_);
-    crate::leanh::lean_dec(v_stop_2077_);
+    let mut v_res_2081_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_2079_ = leanh::lean_unbox_usize(v_i_2076_);
+    leanh::lean_dec(v_i_2076_);
+    v_stop_boxed_2080_ = leanh::lean_unbox_usize(v_stop_2077_);
+    leanh::lean_dec(v_stop_2077_);
     v_res_2081_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1(v_as_2075_, v_i_boxed_2079_, v_stop_boxed_2080_, v_b_2078_);
-    crate::leanh::lean_dec_ref(v_as_2075_);
+    leanh::lean_dec_ref(v_as_2075_);
     return v_res_2081_;
 }
 pub unsafe fn _init_l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_2083_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2084_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_2083_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2084_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2083_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__0;
     v___x_2084_ = lean_string_to_utf8(v___x_2083_);
     return v___x_2084_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2(
-    mut v_as_2086_: *mut crate::leanh::LeanObject,
+    mut v_as_2086_: *mut leanh::LeanObject,
     mut v_i_2087_: usize,
     mut v_stop_2088_: usize,
-    mut v_b_2089_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___y_2091_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2092_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2093_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2094_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2095_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2097_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_b_2089_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___y_2091_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2092_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2093_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2094_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2095_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2097_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2098_: u8 = 0;
-    let mut v___x_2099_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2100_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2102_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2099_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2100_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2102_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2103_: usize = 0;
     let mut v___x_2104_: usize = 0;
-    let mut v_reuseFailAlloc_2106_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2106_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2107_: u8 = 0;
     let mut v___x_2108_: u8 = 0;
-    let mut v___x_2109_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2110_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_extensions_2111_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2113_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2109_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2110_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_extensions_2111_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2113_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2114_: u8 = 0;
-    let mut v_chunkLen_2115_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_2117_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2118_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2119_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2120_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_chunkLen_2115_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_2117_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2118_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2119_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2120_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sz_2121_: usize = 0;
     let mut v___x_2122_: usize = 0;
-    let mut v___x_2123_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2124_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2125_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2126_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2127_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2128_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2129_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2130_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2131_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2132_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2133_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2134_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2135_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2123_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2124_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2125_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2126_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2127_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2128_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2129_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2130_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2131_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2132_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2133_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2134_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2135_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2136_: u8 = 0;
-    let mut v___x_2138_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2139_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2138_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2139_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2140_: u8 = 0;
-    let mut v___x_2142_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2143_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2142_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2143_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2144_: usize = 0;
-    let mut v___x_2145_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2147_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2148_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2145_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2147_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2148_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2149_: usize = 0;
-    let mut v___x_2150_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2152_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2153_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2154_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2155_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2156_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2150_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2152_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2153_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2154_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2155_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2156_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2157_: u8 = 0;
     let mut v___x_2158_: u8 = 0;
     let mut v___x_2159_: usize = 0;
     let mut v___x_2160_: usize = 0;
-    let mut v___x_2161_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2161_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2162_: usize = 0;
     let mut v___x_2163_: usize = 0;
-    let mut v___x_2164_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2164_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2165_: u8 = 0;
     let mut state = 0;
     loop {
@@ -3818,19 +3818,19 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 v___x_2108_ = lean_usize_dec_eq(v_i_2087_, v_stop_2088_);
                 if v___x_2108_ == 0 {
                     v___x_2109_ = lean_array_uget(v_as_2086_, v_i_2087_);
-                    v_data_2110_ = crate::leanh::lean_ctor_get(v___x_2109_, 0);
-                    v_extensions_2111_ = crate::leanh::lean_ctor_get(v___x_2109_, 1);
-                    v_isSharedCheck_2165_ = (!crate::leanh::lean_is_exclusive(v___x_2109_)) as u8;
+                    v_data_2110_ = leanh::lean_ctor_get(v___x_2109_, 0);
+                    v_extensions_2111_ = leanh::lean_ctor_get(v___x_2109_, 1);
+                    v_isSharedCheck_2165_ = (!leanh::lean_is_exclusive(v___x_2109_)) as u8;
                     if v_isSharedCheck_2165_ == 0 {
                         v___x_2113_ = v___x_2109_;
                         v_isShared_2114_ = v_isSharedCheck_2165_;
                         state = 4;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_extensions_2111_);
-                        crate::leanh::lean_inc(v_data_2110_);
-                        crate::leanh::lean_dec(v___x_2109_);
-                        v___x_2113_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_extensions_2111_);
+                        leanh::lean_inc(v_data_2110_);
+                        leanh::lean_dec(v___x_2109_);
+                        v___x_2113_ = leanh::lean_box(0);
                         v_isShared_2114_ = v_isSharedCheck_2165_;
                         state = 4;
                         continue;
@@ -3840,24 +3840,24 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 }
             }
             1 => {
-                v_data_2092_ = crate::leanh::lean_ctor_get(v_b_2089_, 0);
-                crate::leanh::lean_inc_ref(v_data_2092_);
-                v_size_2093_ = crate::leanh::lean_ctor_get(v_b_2089_, 1);
-                crate::leanh::lean_inc(v_size_2093_);
-                crate::leanh::lean_dec_ref(v_b_2089_);
-                v_data_2094_ = crate::leanh::lean_ctor_get(v___y_2091_, 0);
-                v_size_2095_ = crate::leanh::lean_ctor_get(v___y_2091_, 1);
-                v_isSharedCheck_2107_ = (!crate::leanh::lean_is_exclusive(v___y_2091_)) as u8;
+                v_data_2092_ = leanh::lean_ctor_get(v_b_2089_, 0);
+                leanh::lean_inc_ref(v_data_2092_);
+                v_size_2093_ = leanh::lean_ctor_get(v_b_2089_, 1);
+                leanh::lean_inc(v_size_2093_);
+                leanh::lean_dec_ref(v_b_2089_);
+                v_data_2094_ = leanh::lean_ctor_get(v___y_2091_, 0);
+                v_size_2095_ = leanh::lean_ctor_get(v___y_2091_, 1);
+                v_isSharedCheck_2107_ = (!leanh::lean_is_exclusive(v___y_2091_)) as u8;
                 if v_isSharedCheck_2107_ == 0 {
                     v___x_2097_ = v___y_2091_;
                     v_isShared_2098_ = v_isSharedCheck_2107_;
                     state = 2;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_size_2095_);
-                    crate::leanh::lean_inc(v_data_2094_);
-                    crate::leanh::lean_dec(v___y_2091_);
-                    v___x_2097_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_size_2095_);
+                    leanh::lean_inc(v_data_2094_);
+                    leanh::lean_dec(v___y_2091_);
+                    v___x_2097_ = leanh::lean_box(0);
                     v_isShared_2098_ = v_isSharedCheck_2107_;
                     state = 2;
                     continue;
@@ -3865,20 +3865,20 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             }
             2 => {
                 v___x_2099_ = l_Array_append___redArg(v_data_2092_, v_data_2094_);
-                crate::leanh::lean_dec_ref(v_data_2094_);
+                leanh::lean_dec_ref(v_data_2094_);
                 v___x_2100_ = lean_nat_add(v_size_2093_, v_size_2095_);
-                crate::leanh::lean_dec(v_size_2095_);
-                crate::leanh::lean_dec(v_size_2093_);
+                leanh::lean_dec(v_size_2095_);
+                leanh::lean_dec(v_size_2093_);
                 if v_isShared_2098_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2097_, 1, v___x_2100_);
-                    crate::leanh::lean_ctor_set(v___x_2097_, 0, v___x_2099_);
+                    leanh::lean_ctor_set(v___x_2097_, 1, v___x_2100_);
+                    leanh::lean_ctor_set(v___x_2097_, 0, v___x_2099_);
                     v___x_2102_ = v___x_2097_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2106_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2106_, 0, v___x_2099_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2106_, 1, v___x_2100_);
+                    v_reuseFailAlloc_2106_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2106_, 0, v___x_2099_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2106_, 1, v___x_2100_);
                     v___x_2102_ = v_reuseFailAlloc_2106_;
                     state = 3;
                     continue;
@@ -3895,11 +3895,11 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
             4 => {
                 v_chunkLen_2115_ = lean_byte_array_size(v_data_2110_);
                 v___x_2154_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__2;
-                v___x_2155_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_2155_ = leanh::lean_unsigned_to_nat(0);
                 v___x_2156_ = lean_array_get_size(v_extensions_2111_);
                 v___x_2157_ = lean_nat_dec_lt(v___x_2155_, v___x_2156_);
                 if v___x_2157_ == 0 {
-                    crate::leanh::lean_dec_ref(v_extensions_2111_);
+                    leanh::lean_dec_ref(v_extensions_2111_);
                     v___y_2117_ = v___x_2154_;
                     state = 5;
                     continue;
@@ -3907,7 +3907,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                     v___x_2158_ = lean_nat_dec_le(v___x_2156_, v___x_2156_);
                     if v___x_2158_ == 0 {
                         if v___x_2157_ == 0 {
-                            crate::leanh::lean_dec_ref(v_extensions_2111_);
+                            leanh::lean_dec_ref(v_extensions_2111_);
                             v___y_2117_ = v___x_2154_;
                             state = 5;
                             continue;
@@ -3915,7 +3915,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                             v___x_2159_ = 0usize;
                             v___x_2160_ = lean_usize_of_nat(v___x_2156_);
                             v___x_2161_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1(v_extensions_2111_, v___x_2159_, v___x_2160_, v___x_2154_);
-                            crate::leanh::lean_dec_ref(v_extensions_2111_);
+                            leanh::lean_dec_ref(v_extensions_2111_);
                             v___y_2117_ = v___x_2161_;
                             state = 5;
                             continue;
@@ -3924,7 +3924,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                         v___x_2162_ = 0usize;
                         v___x_2163_ = lean_usize_of_nat(v___x_2156_);
                         v___x_2164_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__1(v_extensions_2111_, v___x_2162_, v___x_2163_, v___x_2154_);
-                        crate::leanh::lean_dec_ref(v_extensions_2111_);
+                        leanh::lean_dec_ref(v_extensions_2111_);
                         v___y_2117_ = v___x_2164_;
                         state = 5;
                         continue;
@@ -3932,7 +3932,7 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 }
             }
             5 => {
-                v___x_2118_ = crate::leanh::lean_unsigned_to_nat(16);
+                v___x_2118_ = leanh::lean_unsigned_to_nat(16);
                 v___x_2119_ = l_Nat_toDigits(v___x_2118_, v_chunkLen_2115_);
                 v___x_2120_ = lean_array_mk(v___x_2119_);
                 v_sz_2121_ = lean_array_size(v___x_2120_);
@@ -3940,29 +3940,29 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 v___x_2123_ = l___private_Init_Data_Array_Basic_0__Array_mapMUnsafe_map___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__0(v_sz_2121_, v___x_2122_, v___x_2120_);
                 v_size_2124_ = lean_byte_array_mk(v___x_2123_);
                 v___x_2125_ = lean_string_to_utf8(v___y_2117_);
-                crate::leanh::lean_dec_ref(v___y_2117_);
-                v___x_2126_ = crate::leanh::lean_obj_once(core::ptr::addr_of_mut!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1), core::ptr::addr_of_mut!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1_once), _init_l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1);
-                v___x_2127_ = crate::leanh::lean_unsigned_to_nat(5);
+                leanh::lean_dec_ref(v___y_2117_);
+                v___x_2126_ = leanh::lean_obj_once(core::ptr::addr_of_mut!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1), core::ptr::addr_of_mut!(l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1_once), _init_l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___closed__1);
+                v___x_2127_ = leanh::lean_unsigned_to_nat(5);
                 v___x_2128_ = lean_mk_empty_array_with_capacity(v___x_2127_);
                 v___x_2129_ = lean_array_push(v___x_2128_, v_size_2124_);
                 v___x_2130_ = lean_array_push(v___x_2129_, v___x_2125_);
                 v___x_2131_ = lean_array_push(v___x_2130_, v___x_2126_);
                 v___x_2132_ = lean_array_push(v___x_2131_, v_data_2110_);
                 v___x_2133_ = lean_array_push(v___x_2132_, v___x_2126_);
-                v___x_2134_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_2134_ = leanh::lean_unsigned_to_nat(0);
                 v___x_2135_ = lean_array_get_size(v___x_2133_);
                 v___x_2136_ = lean_nat_dec_lt(v___x_2134_, v___x_2135_);
                 if v___x_2136_ == 0 {
                     if v_isShared_2114_ == 0 {
-                        crate::leanh::lean_ctor_set(v___x_2113_, 1, v___x_2134_);
-                        crate::leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
+                        leanh::lean_ctor_set(v___x_2113_, 1, v___x_2134_);
+                        leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
                         v___x_2138_ = v___x_2113_;
                         state = 6;
                         continue;
                     } else {
-                        v_reuseFailAlloc_2139_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2139_, 0, v___x_2133_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2139_, 1, v___x_2134_);
+                        v_reuseFailAlloc_2139_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2139_, 0, v___x_2133_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2139_, 1, v___x_2134_);
                         v___x_2138_ = v_reuseFailAlloc_2139_;
                         state = 6;
                         continue;
@@ -3972,16 +3972,16 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                     if v___x_2140_ == 0 {
                         if v___x_2136_ == 0 {
                             if v_isShared_2114_ == 0 {
-                                crate::leanh::lean_ctor_set(v___x_2113_, 1, v___x_2134_);
-                                crate::leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
+                                leanh::lean_ctor_set(v___x_2113_, 1, v___x_2134_);
+                                leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
                                 v___x_2142_ = v___x_2113_;
                                 state = 7;
                                 continue;
                             } else {
                                 v_reuseFailAlloc_2143_ =
-                                    crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2143_, 0, v___x_2133_);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2143_, 1, v___x_2134_);
+                                    leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2143_, 0, v___x_2133_);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2143_, 1, v___x_2134_);
                                 v___x_2142_ = v_reuseFailAlloc_2143_;
                                 state = 7;
                                 continue;
@@ -3990,16 +3990,16 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                             v___x_2144_ = lean_usize_of_nat(v___x_2135_);
                             v___x_2145_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0(v___x_2133_, v___x_2122_, v___x_2144_, v___x_2134_);
                             if v_isShared_2114_ == 0 {
-                                crate::leanh::lean_ctor_set(v___x_2113_, 1, v___x_2145_);
-                                crate::leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
+                                leanh::lean_ctor_set(v___x_2113_, 1, v___x_2145_);
+                                leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
                                 v___x_2147_ = v___x_2113_;
                                 state = 8;
                                 continue;
                             } else {
                                 v_reuseFailAlloc_2148_ =
-                                    crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2148_, 0, v___x_2133_);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2148_, 1, v___x_2145_);
+                                    leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2148_, 0, v___x_2133_);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2148_, 1, v___x_2145_);
                                 v___x_2147_ = v_reuseFailAlloc_2148_;
                                 state = 8;
                                 continue;
@@ -4009,16 +4009,16 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                         v___x_2149_ = lean_usize_of_nat(v___x_2135_);
                         v___x_2150_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeFixedBody_spec__0(v___x_2133_, v___x_2122_, v___x_2149_, v___x_2134_);
                         if v_isShared_2114_ == 0 {
-                            crate::leanh::lean_ctor_set(v___x_2113_, 1, v___x_2150_);
-                            crate::leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
+                            leanh::lean_ctor_set(v___x_2113_, 1, v___x_2150_);
+                            leanh::lean_ctor_set(v___x_2113_, 0, v___x_2133_);
                             v___x_2152_ = v___x_2113_;
                             state = 9;
                             continue;
                         } else {
                             v_reuseFailAlloc_2153_ =
-                                crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                            crate::leanh::lean_ctor_set(v_reuseFailAlloc_2153_, 0, v___x_2133_);
-                            crate::leanh::lean_ctor_set(v_reuseFailAlloc_2153_, 1, v___x_2150_);
+                                leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                            leanh::lean_ctor_set(v_reuseFailAlloc_2153_, 0, v___x_2133_);
+                            leanh::lean_ctor_set(v_reuseFailAlloc_2153_, 1, v___x_2150_);
                             v___x_2152_ = v_reuseFailAlloc_2153_;
                             state = 9;
                             continue;
@@ -4051,96 +4051,96 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2___boxed(
-    mut v_as_2166_: *mut crate::leanh::LeanObject,
-    mut v_i_2167_: *mut crate::leanh::LeanObject,
-    mut v_stop_2168_: *mut crate::leanh::LeanObject,
-    mut v_b_2169_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_as_2166_: *mut leanh::LeanObject,
+    mut v_i_2167_: *mut leanh::LeanObject,
+    mut v_stop_2168_: *mut leanh::LeanObject,
+    mut v_b_2169_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_i_boxed_2170_: usize = 0;
     let mut v_stop_boxed_2171_: usize = 0;
-    let mut v_res_2172_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_i_boxed_2170_ = crate::leanh::lean_unbox_usize(v_i_2167_);
-    crate::leanh::lean_dec(v_i_2167_);
-    v_stop_boxed_2171_ = crate::leanh::lean_unbox_usize(v_stop_2168_);
-    crate::leanh::lean_dec(v_stop_2168_);
+    let mut v_res_2172_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_2170_ = leanh::lean_unbox_usize(v_i_2167_);
+    leanh::lean_dec(v_i_2167_);
+    v_stop_boxed_2171_ = leanh::lean_unbox_usize(v_stop_2168_);
+    leanh::lean_dec(v_stop_2168_);
     v_res_2172_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2(v_as_2166_, v_i_boxed_2170_, v_stop_boxed_2171_, v_b_2169_);
-    crate::leanh::lean_dec_ref(v_as_2166_);
+    leanh::lean_dec_ref(v_as_2166_);
     return v_res_2172_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
-    mut v_writer_2175_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2176_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2177_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_2178_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2179_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2180_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2175_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2176_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2177_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_2178_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2179_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2180_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2181_: u8 = 0;
     let mut v_userClosedBody_2182_: u8 = 0;
     let mut v_omitBody_2183_: u8 = 0;
-    let mut v___x_2184_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2185_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___y_2187_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2188_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2189_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2184_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2185_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_2187_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2188_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2189_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2190_: u8 = 0;
-    let mut v___x_2191_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2191_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2192_: u8 = 0;
-    let mut v___x_2193_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2193_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2194_: usize = 0;
     let mut v___x_2195_: usize = 0;
-    let mut v___x_2196_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2197_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2196_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2197_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2198_: usize = 0;
     let mut v___x_2199_: usize = 0;
-    let mut v___x_2200_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2201_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2200_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2201_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2202_: u8 = 0;
-    let mut v___x_2203_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2203_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2204_: u8 = 0;
     let mut v___x_2205_: u8 = 0;
     let mut v___x_2206_: usize = 0;
     let mut v___x_2207_: usize = 0;
-    let mut v___x_2208_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2208_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2209_: usize = 0;
     let mut v___x_2210_: usize = 0;
-    let mut v___x_2211_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2211_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2176_ = crate::leanh::lean_ctor_get(v_writer_2175_, 0);
-                v_outputData_2177_ = crate::leanh::lean_ctor_get(v_writer_2175_, 1);
-                v_state_2178_ = crate::leanh::lean_ctor_get(v_writer_2175_, 2);
-                v_knownSize_2179_ = crate::leanh::lean_ctor_get(v_writer_2175_, 3);
-                v_messageHead_2180_ = crate::leanh::lean_ctor_get(v_writer_2175_, 4);
-                v_sentMessage_2181_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2176_ = leanh::lean_ctor_get(v_writer_2175_, 0);
+                v_outputData_2177_ = leanh::lean_ctor_get(v_writer_2175_, 1);
+                v_state_2178_ = leanh::lean_ctor_get(v_writer_2175_, 2);
+                v_knownSize_2179_ = leanh::lean_ctor_get(v_writer_2175_, 3);
+                v_messageHead_2180_ = leanh::lean_ctor_get(v_writer_2175_, 4);
+                v_sentMessage_2181_ = leanh::lean_ctor_get_uint8(
                     v_writer_2175_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2182_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2182_ = leanh::lean_ctor_get_uint8(
                     v_writer_2175_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2183_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2183_ = leanh::lean_ctor_get_uint8(
                     v_writer_2175_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
                 v___x_2184_ = lean_array_get_size(v_userData_2176_);
-                v___x_2185_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_2185_ = leanh::lean_unsigned_to_nat(0);
                 v___x_2202_ = lean_nat_dec_eq(v___x_2184_, v___x_2185_);
                 if v___x_2202_ == 0 {
-                    crate::leanh::lean_inc(v_messageHead_2180_);
-                    crate::leanh::lean_inc(v_knownSize_2179_);
-                    crate::leanh::lean_inc(v_state_2178_);
-                    crate::leanh::lean_inc_ref(v_outputData_2177_);
-                    crate::leanh::lean_inc_ref(v_userData_2176_);
-                    crate::leanh::lean_dec_ref(v_writer_2175_);
+                    leanh::lean_inc(v_messageHead_2180_);
+                    leanh::lean_inc(v_knownSize_2179_);
+                    leanh::lean_inc(v_state_2178_);
+                    leanh::lean_inc_ref(v_outputData_2177_);
+                    leanh::lean_inc_ref(v_userData_2176_);
+                    leanh::lean_dec_ref(v_writer_2175_);
                     v___x_2203_ =
                         l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg___closed__0;
                     v___x_2204_ = lean_nat_dec_lt(v___x_2185_, v___x_2184_);
                     if v___x_2204_ == 0 {
-                        crate::leanh::lean_dec_ref(v_userData_2176_);
+                        leanh::lean_dec_ref(v_userData_2176_);
                         v___y_2187_ = v___x_2203_;
                         state = 1;
                         continue;
@@ -4148,7 +4148,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                         v___x_2205_ = lean_nat_dec_le(v___x_2184_, v___x_2184_);
                         if v___x_2205_ == 0 {
                             if v___x_2204_ == 0 {
-                                crate::leanh::lean_dec_ref(v_userData_2176_);
+                                leanh::lean_dec_ref(v_userData_2176_);
                                 v___y_2187_ = v___x_2203_;
                                 state = 1;
                                 continue;
@@ -4156,7 +4156,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                                 v___x_2206_ = 0usize;
                                 v___x_2207_ = lean_usize_of_nat(v___x_2184_);
                                 v___x_2208_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__3(v_userData_2176_, v___x_2206_, v___x_2207_, v___x_2203_);
-                                crate::leanh::lean_dec_ref(v_userData_2176_);
+                                leanh::lean_dec_ref(v_userData_2176_);
                                 v___y_2187_ = v___x_2208_;
                                 state = 1;
                                 continue;
@@ -4165,7 +4165,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                             v___x_2209_ = 0usize;
                             v___x_2210_ = lean_usize_of_nat(v___x_2184_);
                             v___x_2211_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__3(v_userData_2176_, v___x_2209_, v___x_2210_, v___x_2203_);
-                            crate::leanh::lean_dec_ref(v_userData_2176_);
+                            leanh::lean_dec_ref(v_userData_2176_);
                             v___y_2187_ = v___x_2211_;
                             state = 1;
                             continue;
@@ -4180,27 +4180,27 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                 v___x_2189_ = lean_array_get_size(v___y_2187_);
                 v___x_2190_ = lean_nat_dec_lt(v___x_2185_, v___x_2189_);
                 if v___x_2190_ == 0 {
-                    crate::leanh::lean_dec_ref(v___y_2187_);
-                    v___x_2191_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v___x_2191_, 0, v___x_2188_);
-                    crate::leanh::lean_ctor_set(v___x_2191_, 1, v_outputData_2177_);
-                    crate::leanh::lean_ctor_set(v___x_2191_, 2, v_state_2178_);
-                    crate::leanh::lean_ctor_set(v___x_2191_, 3, v_knownSize_2179_);
-                    crate::leanh::lean_ctor_set(v___x_2191_, 4, v_messageHead_2180_);
-                    crate::leanh::lean_ctor_set(v___x_2191_, 5, v___x_2185_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_dec_ref(v___y_2187_);
+                    v___x_2191_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v___x_2191_, 0, v___x_2188_);
+                    leanh::lean_ctor_set(v___x_2191_, 1, v_outputData_2177_);
+                    leanh::lean_ctor_set(v___x_2191_, 2, v_state_2178_);
+                    leanh::lean_ctor_set(v___x_2191_, 3, v_knownSize_2179_);
+                    leanh::lean_ctor_set(v___x_2191_, 4, v_messageHead_2180_);
+                    leanh::lean_ctor_set(v___x_2191_, 5, v___x_2185_);
+                    leanh::lean_ctor_set_uint8(
                         v___x_2191_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2181_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v___x_2191_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2182_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v___x_2191_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2183_,
                     );
                     return v___x_2191_;
@@ -4208,28 +4208,28 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                     v___x_2192_ = lean_nat_dec_le(v___x_2189_, v___x_2189_);
                     if v___x_2192_ == 0 {
                         if v___x_2190_ == 0 {
-                            crate::leanh::lean_dec_ref(v___y_2187_);
-                            v___x_2193_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                            crate::leanh::lean_ctor_set(v___x_2193_, 0, v___x_2188_);
-                            crate::leanh::lean_ctor_set(v___x_2193_, 1, v_outputData_2177_);
-                            crate::leanh::lean_ctor_set(v___x_2193_, 2, v_state_2178_);
-                            crate::leanh::lean_ctor_set(v___x_2193_, 3, v_knownSize_2179_);
-                            crate::leanh::lean_ctor_set(v___x_2193_, 4, v_messageHead_2180_);
-                            crate::leanh::lean_ctor_set(v___x_2193_, 5, v___x_2185_);
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_dec_ref(v___y_2187_);
+                            v___x_2193_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                            leanh::lean_ctor_set(v___x_2193_, 0, v___x_2188_);
+                            leanh::lean_ctor_set(v___x_2193_, 1, v_outputData_2177_);
+                            leanh::lean_ctor_set(v___x_2193_, 2, v_state_2178_);
+                            leanh::lean_ctor_set(v___x_2193_, 3, v_knownSize_2179_);
+                            leanh::lean_ctor_set(v___x_2193_, 4, v_messageHead_2180_);
+                            leanh::lean_ctor_set(v___x_2193_, 5, v___x_2185_);
+                            leanh::lean_ctor_set_uint8(
                                 v___x_2193_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                                 v_sentMessage_2181_,
                             );
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set_uint8(
                                 v___x_2193_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1)
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1)
                                     as u32,
                                 v_userClosedBody_2182_,
                             );
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set_uint8(
                                 v___x_2193_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2)
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2)
                                     as u32,
                                 v_omitBody_2183_,
                             );
@@ -4238,28 +4238,28 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                             v___x_2194_ = 0usize;
                             v___x_2195_ = lean_usize_of_nat(v___x_2189_);
                             v___x_2196_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2(v___y_2187_, v___x_2194_, v___x_2195_, v_outputData_2177_);
-                            crate::leanh::lean_dec_ref(v___y_2187_);
-                            v___x_2197_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                            crate::leanh::lean_ctor_set(v___x_2197_, 0, v___x_2188_);
-                            crate::leanh::lean_ctor_set(v___x_2197_, 1, v___x_2196_);
-                            crate::leanh::lean_ctor_set(v___x_2197_, 2, v_state_2178_);
-                            crate::leanh::lean_ctor_set(v___x_2197_, 3, v_knownSize_2179_);
-                            crate::leanh::lean_ctor_set(v___x_2197_, 4, v_messageHead_2180_);
-                            crate::leanh::lean_ctor_set(v___x_2197_, 5, v___x_2185_);
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_dec_ref(v___y_2187_);
+                            v___x_2197_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                            leanh::lean_ctor_set(v___x_2197_, 0, v___x_2188_);
+                            leanh::lean_ctor_set(v___x_2197_, 1, v___x_2196_);
+                            leanh::lean_ctor_set(v___x_2197_, 2, v_state_2178_);
+                            leanh::lean_ctor_set(v___x_2197_, 3, v_knownSize_2179_);
+                            leanh::lean_ctor_set(v___x_2197_, 4, v_messageHead_2180_);
+                            leanh::lean_ctor_set(v___x_2197_, 5, v___x_2185_);
+                            leanh::lean_ctor_set_uint8(
                                 v___x_2197_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                                 v_sentMessage_2181_,
                             );
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set_uint8(
                                 v___x_2197_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1)
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1)
                                     as u32,
                                 v_userClosedBody_2182_,
                             );
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set_uint8(
                                 v___x_2197_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2)
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2)
                                     as u32,
                                 v_omitBody_2183_,
                             );
@@ -4269,27 +4269,27 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
                         v___x_2198_ = 0usize;
                         v___x_2199_ = lean_usize_of_nat(v___x_2189_);
                         v___x_2200_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeChunkedBody_spec__2(v___y_2187_, v___x_2198_, v___x_2199_, v_outputData_2177_);
-                        crate::leanh::lean_dec_ref(v___y_2187_);
-                        v___x_2201_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                        crate::leanh::lean_ctor_set(v___x_2201_, 0, v___x_2188_);
-                        crate::leanh::lean_ctor_set(v___x_2201_, 1, v___x_2200_);
-                        crate::leanh::lean_ctor_set(v___x_2201_, 2, v_state_2178_);
-                        crate::leanh::lean_ctor_set(v___x_2201_, 3, v_knownSize_2179_);
-                        crate::leanh::lean_ctor_set(v___x_2201_, 4, v_messageHead_2180_);
-                        crate::leanh::lean_ctor_set(v___x_2201_, 5, v___x_2185_);
-                        crate::leanh::lean_ctor_set_uint8(
+                        leanh::lean_dec_ref(v___y_2187_);
+                        v___x_2201_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                        leanh::lean_ctor_set(v___x_2201_, 0, v___x_2188_);
+                        leanh::lean_ctor_set(v___x_2201_, 1, v___x_2200_);
+                        leanh::lean_ctor_set(v___x_2201_, 2, v_state_2178_);
+                        leanh::lean_ctor_set(v___x_2201_, 3, v_knownSize_2179_);
+                        leanh::lean_ctor_set(v___x_2201_, 4, v_messageHead_2180_);
+                        leanh::lean_ctor_set(v___x_2201_, 5, v___x_2185_);
+                        leanh::lean_ctor_set_uint8(
                             v___x_2201_,
-                            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                            (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                             v_sentMessage_2181_,
                         );
-                        crate::leanh::lean_ctor_set_uint8(
+                        leanh::lean_ctor_set_uint8(
                             v___x_2201_,
-                            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                            (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                             v_userClosedBody_2182_,
                         );
-                        crate::leanh::lean_ctor_set_uint8(
+                        leanh::lean_ctor_set_uint8(
                             v___x_2201_,
-                            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                            (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                             v_omitBody_2183_,
                         );
                         return v___x_2201_;
@@ -4302,35 +4302,35 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody(
     mut v_dir_2212_: u8,
-    mut v_writer_2213_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2214_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2213_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2214_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2214_ = l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(v_writer_2213_);
     return v___x_2214_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeChunkedBody___boxed(
-    mut v_dir_2215_: *mut crate::leanh::LeanObject,
-    mut v_writer_2216_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2215_: *mut leanh::LeanObject,
+    mut v_writer_2216_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2217_: u8 = 0;
-    let mut v_res_2218_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2217_ = (crate::leanh::lean_unbox(v_dir_2215_) as u8);
+    let mut v_res_2218_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2217_ = (leanh::lean_unbox(v_dir_2215_) as u8);
     v_res_2218_ = l_Std_Http_Protocol_H1_Writer_writeChunkedBody(v_dir_boxed_2217_, v_writer_2216_);
     return v_res_2218_;
 }
 pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_2220_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2221_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+-> *mut leanh::LeanObject {
+    let mut v___x_2220_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2221_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2220_ = l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__0;
     v___x_2221_ = lean_string_to_utf8(v___x_2220_);
     return v___x_2221_;
 }
 pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__2()
--> *mut crate::leanh::LeanObject {
-    let mut v___x_2222_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2223_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_2222_ = crate::leanh::lean_obj_once(
+-> *mut leanh::LeanObject {
+    let mut v___x_2222_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2223_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_2222_ = leanh::lean_obj_once(
         core::ptr::addr_of_mut!(l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1),
         core::ptr::addr_of_mut!(
             l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1_once
@@ -4341,101 +4341,101 @@ pub unsafe fn _init_l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___clo
     return v___x_2223_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg(
-    mut v_writer_2224_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_writer_2225_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2226_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_userData_2227_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2228_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2229_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2224_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_writer_2225_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2226_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userData_2227_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2228_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2229_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2230_: u8 = 0;
     let mut v_userClosedBody_2231_: u8 = 0;
     let mut v_omitBody_2232_: u8 = 0;
-    let mut v_userDataBytes_2233_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2235_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2233_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2235_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2236_: u8 = 0;
-    let mut v_data_2237_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2238_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2240_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2237_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2238_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2240_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2241_: u8 = 0;
-    let mut v___x_2242_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2243_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2244_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2245_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2247_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2248_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2250_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2251_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2252_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2242_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2243_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2244_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2245_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2247_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2248_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2250_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2251_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2252_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2253_: u8 = 0;
     let mut v_isSharedCheck_2254_: u8 = 0;
-    let mut v_unused_2255_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_2255_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
                 v_writer_2225_ =
                     l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg(v_writer_2224_);
-                v_outputData_2226_ = crate::leanh::lean_ctor_get(v_writer_2225_, 1);
-                v_userData_2227_ = crate::leanh::lean_ctor_get(v_writer_2225_, 0);
-                v_knownSize_2228_ = crate::leanh::lean_ctor_get(v_writer_2225_, 3);
-                v_messageHead_2229_ = crate::leanh::lean_ctor_get(v_writer_2225_, 4);
-                v_sentMessage_2230_ = crate::leanh::lean_ctor_get_uint8(
+                v_outputData_2226_ = leanh::lean_ctor_get(v_writer_2225_, 1);
+                v_userData_2227_ = leanh::lean_ctor_get(v_writer_2225_, 0);
+                v_knownSize_2228_ = leanh::lean_ctor_get(v_writer_2225_, 3);
+                v_messageHead_2229_ = leanh::lean_ctor_get(v_writer_2225_, 4);
+                v_sentMessage_2230_ = leanh::lean_ctor_get_uint8(
                     v_writer_2225_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2231_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2231_ = leanh::lean_ctor_get_uint8(
                     v_writer_2225_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2232_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2232_ = leanh::lean_ctor_get_uint8(
                     v_writer_2225_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2233_ = crate::leanh::lean_ctor_get(v_writer_2225_, 5);
-                v_isSharedCheck_2254_ = (!crate::leanh::lean_is_exclusive(v_writer_2225_)) as u8;
+                v_userDataBytes_2233_ = leanh::lean_ctor_get(v_writer_2225_, 5);
+                v_isSharedCheck_2254_ = (!leanh::lean_is_exclusive(v_writer_2225_)) as u8;
                 if v_isSharedCheck_2254_ == 0 {
-                    v_unused_2255_ = crate::leanh::lean_ctor_get(v_writer_2225_, 2);
-                    crate::leanh::lean_dec(v_unused_2255_);
+                    v_unused_2255_ = leanh::lean_ctor_get(v_writer_2225_, 2);
+                    leanh::lean_dec(v_unused_2255_);
                     v___x_2235_ = v_writer_2225_;
                     v_isShared_2236_ = v_isSharedCheck_2254_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2233_);
-                    crate::leanh::lean_inc(v_messageHead_2229_);
-                    crate::leanh::lean_inc(v_knownSize_2228_);
-                    crate::leanh::lean_inc(v_outputData_2226_);
-                    crate::leanh::lean_inc(v_userData_2227_);
-                    crate::leanh::lean_dec(v_writer_2225_);
-                    v___x_2235_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2233_);
+                    leanh::lean_inc(v_messageHead_2229_);
+                    leanh::lean_inc(v_knownSize_2228_);
+                    leanh::lean_inc(v_outputData_2226_);
+                    leanh::lean_inc(v_userData_2227_);
+                    leanh::lean_dec(v_writer_2225_);
+                    v___x_2235_ = leanh::lean_box(0);
                     v_isShared_2236_ = v_isSharedCheck_2254_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                v_data_2237_ = crate::leanh::lean_ctor_get(v_outputData_2226_, 0);
-                v_size_2238_ = crate::leanh::lean_ctor_get(v_outputData_2226_, 1);
+                v_data_2237_ = leanh::lean_ctor_get(v_outputData_2226_, 0);
+                v_size_2238_ = leanh::lean_ctor_get(v_outputData_2226_, 1);
                 v_isSharedCheck_2253_ =
-                    (!crate::leanh::lean_is_exclusive(v_outputData_2226_)) as u8;
+                    (!leanh::lean_is_exclusive(v_outputData_2226_)) as u8;
                 if v_isSharedCheck_2253_ == 0 {
                     v___x_2240_ = v_outputData_2226_;
                     v_isShared_2241_ = v_isSharedCheck_2253_;
                     state = 2;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_size_2238_);
-                    crate::leanh::lean_inc(v_data_2237_);
-                    crate::leanh::lean_dec(v_outputData_2226_);
-                    v___x_2240_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_size_2238_);
+                    leanh::lean_inc(v_data_2237_);
+                    leanh::lean_dec(v_outputData_2226_);
+                    v___x_2240_ = leanh::lean_box(0);
                     v_isShared_2241_ = v_isSharedCheck_2253_;
                     state = 2;
                     continue;
                 }
             }
             2 => {
-                v___x_2242_ = crate::leanh::lean_obj_once(
+                v___x_2242_ = leanh::lean_obj_once(
                     core::ptr::addr_of_mut!(
                         l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1
                     ),
@@ -4445,7 +4445,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg(
                     _init_l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__1,
                 );
                 v___x_2243_ = lean_array_push(v_data_2237_, v___x_2242_);
-                v___x_2244_ = crate::leanh::lean_obj_once(
+                v___x_2244_ = leanh::lean_obj_once(
                     core::ptr::addr_of_mut!(
                         l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__2
                     ),
@@ -4455,51 +4455,51 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg(
                     _init_l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg___closed__2,
                 );
                 v___x_2245_ = lean_nat_add(v_size_2238_, v___x_2244_);
-                crate::leanh::lean_dec(v_size_2238_);
+                leanh::lean_dec(v_size_2238_);
                 if v_isShared_2241_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2240_, 1, v___x_2245_);
-                    crate::leanh::lean_ctor_set(v___x_2240_, 0, v___x_2243_);
+                    leanh::lean_ctor_set(v___x_2240_, 1, v___x_2245_);
+                    leanh::lean_ctor_set(v___x_2240_, 0, v___x_2243_);
                     v___x_2247_ = v___x_2240_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2252_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2252_, 0, v___x_2243_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2252_, 1, v___x_2245_);
+                    v_reuseFailAlloc_2252_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2252_, 0, v___x_2243_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2252_, 1, v___x_2245_);
                     v___x_2247_ = v_reuseFailAlloc_2252_;
                     state = 3;
                     continue;
                 }
             }
             3 => {
-                v___x_2248_ = crate::leanh::lean_box(6);
+                v___x_2248_ = leanh::lean_box(6);
                 if v_isShared_2236_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2235_, 2, v___x_2248_);
-                    crate::leanh::lean_ctor_set(v___x_2235_, 1, v___x_2247_);
+                    leanh::lean_ctor_set(v___x_2235_, 2, v___x_2248_);
+                    leanh::lean_ctor_set(v___x_2235_, 1, v___x_2247_);
                     v___x_2250_ = v___x_2235_;
                     state = 4;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2251_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 0, v_userData_2227_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 1, v___x_2247_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 2, v___x_2248_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 3, v_knownSize_2228_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 4, v_messageHead_2229_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 5, v_userDataBytes_2233_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2251_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 0, v_userData_2227_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 1, v___x_2247_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 2, v___x_2248_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 3, v_knownSize_2228_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 4, v_messageHead_2229_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2251_, 5, v_userDataBytes_2233_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2251_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2230_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2251_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2231_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2251_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2232_,
                     );
                     v___x_2250_ = v_reuseFailAlloc_2251_;
@@ -4516,42 +4516,42 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFinalChunk(
     mut v_dir_2256_: u8,
-    mut v_writer_2257_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2258_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2257_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2258_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2258_ = l_Std_Http_Protocol_H1_Writer_writeFinalChunk___redArg(v_writer_2257_);
     return v___x_2258_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeFinalChunk___boxed(
-    mut v_dir_2259_: *mut crate::leanh::LeanObject,
-    mut v_writer_2260_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2259_: *mut leanh::LeanObject,
+    mut v_writer_2260_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2261_: u8 = 0;
-    let mut v_res_2262_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2261_ = (crate::leanh::lean_unbox(v_dir_2259_) as u8);
+    let mut v_res_2262_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2261_ = (leanh::lean_unbox(v_dir_2259_) as u8);
     v_res_2262_ = l_Std_Http_Protocol_H1_Writer_writeFinalChunk(v_dir_boxed_2261_, v_writer_2260_);
     return v_res_2262_;
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeRawBody_spec__0(
-    mut v_as_2263_: *mut crate::leanh::LeanObject,
+    mut v_as_2263_: *mut leanh::LeanObject,
     mut v_i_2264_: usize,
     mut v_stop_2265_: usize,
-    mut v_b_2266_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_b_2266_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_2267_: u8 = 0;
-    let mut v___x_2268_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2269_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2270_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2271_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2273_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2268_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2269_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2270_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2271_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2273_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2274_: u8 = 0;
-    let mut v___x_2275_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2276_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2277_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2279_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2275_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2276_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2277_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2279_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2280_: usize = 0;
     let mut v___x_2281_: usize = 0;
-    let mut v_reuseFailAlloc_2283_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2283_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2284_: u8 = 0;
     let mut state = 0;
     loop {
@@ -4560,20 +4560,20 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 v___x_2267_ = lean_usize_dec_eq(v_i_2264_, v_stop_2265_);
                 if v___x_2267_ == 0 {
                     v___x_2268_ = lean_array_uget_borrowed(v_as_2263_, v_i_2264_);
-                    v_data_2269_ = crate::leanh::lean_ctor_get(v___x_2268_, 0);
-                    v_data_2270_ = crate::leanh::lean_ctor_get(v_b_2266_, 0);
-                    v_size_2271_ = crate::leanh::lean_ctor_get(v_b_2266_, 1);
-                    v_isSharedCheck_2284_ = (!crate::leanh::lean_is_exclusive(v_b_2266_)) as u8;
+                    v_data_2269_ = leanh::lean_ctor_get(v___x_2268_, 0);
+                    v_data_2270_ = leanh::lean_ctor_get(v_b_2266_, 0);
+                    v_size_2271_ = leanh::lean_ctor_get(v_b_2266_, 1);
+                    v_isSharedCheck_2284_ = (!leanh::lean_is_exclusive(v_b_2266_)) as u8;
                     if v_isSharedCheck_2284_ == 0 {
                         v___x_2273_ = v_b_2266_;
                         v_isShared_2274_ = v_isSharedCheck_2284_;
                         state = 1;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_size_2271_);
-                        crate::leanh::lean_inc(v_data_2270_);
-                        crate::leanh::lean_dec(v_b_2266_);
-                        v___x_2273_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_size_2271_);
+                        leanh::lean_inc(v_data_2270_);
+                        leanh::lean_dec(v_b_2266_);
+                        v___x_2273_ = leanh::lean_box(0);
                         v_isShared_2274_ = v_isSharedCheck_2284_;
                         state = 1;
                         continue;
@@ -4583,21 +4583,21 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
                 }
             }
             1 => {
-                crate::leanh::lean_inc_ref(v_data_2269_);
+                leanh::lean_inc_ref(v_data_2269_);
                 v___x_2275_ = lean_array_push(v_data_2270_, v_data_2269_);
                 v___x_2276_ = lean_byte_array_size(v_data_2269_);
                 v___x_2277_ = lean_nat_add(v_size_2271_, v___x_2276_);
-                crate::leanh::lean_dec(v_size_2271_);
+                leanh::lean_dec(v_size_2271_);
                 if v_isShared_2274_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2273_, 1, v___x_2277_);
-                    crate::leanh::lean_ctor_set(v___x_2273_, 0, v___x_2275_);
+                    leanh::lean_ctor_set(v___x_2273_, 1, v___x_2277_);
+                    leanh::lean_ctor_set(v___x_2273_, 0, v___x_2275_);
                     v___x_2279_ = v___x_2273_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2283_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2283_, 0, v___x_2275_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2283_, 1, v___x_2277_);
+                    v_reuseFailAlloc_2283_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2283_, 0, v___x_2275_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2283_, 1, v___x_2277_);
                     v___x_2279_ = v_reuseFailAlloc_2283_;
                     state = 2;
                     continue;
@@ -4616,132 +4616,132 @@ pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at_
     }
 }
 pub unsafe fn l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeRawBody_spec__0___boxed(
-    mut v_as_2285_: *mut crate::leanh::LeanObject,
-    mut v_i_2286_: *mut crate::leanh::LeanObject,
-    mut v_stop_2287_: *mut crate::leanh::LeanObject,
-    mut v_b_2288_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_as_2285_: *mut leanh::LeanObject,
+    mut v_i_2286_: *mut leanh::LeanObject,
+    mut v_stop_2287_: *mut leanh::LeanObject,
+    mut v_b_2288_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_i_boxed_2289_: usize = 0;
     let mut v_stop_boxed_2290_: usize = 0;
-    let mut v_res_2291_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_i_boxed_2289_ = crate::leanh::lean_unbox_usize(v_i_2286_);
-    crate::leanh::lean_dec(v_i_2286_);
-    v_stop_boxed_2290_ = crate::leanh::lean_unbox_usize(v_stop_2287_);
-    crate::leanh::lean_dec(v_stop_2287_);
+    let mut v_res_2291_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_i_boxed_2289_ = leanh::lean_unbox_usize(v_i_2286_);
+    leanh::lean_dec(v_i_2286_);
+    v_stop_boxed_2290_ = leanh::lean_unbox_usize(v_stop_2287_);
+    leanh::lean_dec(v_stop_2287_);
     v_res_2291_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeRawBody_spec__0(v_as_2285_, v_i_boxed_2289_, v_stop_boxed_2290_, v_b_2288_);
-    crate::leanh::lean_dec_ref(v_as_2285_);
+    leanh::lean_dec_ref(v_as_2285_);
     return v_res_2291_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody___redArg(
-    mut v_writer_2292_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2293_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2294_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_2295_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2296_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2297_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2292_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2293_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2294_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_2295_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2296_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2297_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2298_: u8 = 0;
     let mut v_userClosedBody_2299_: u8 = 0;
     let mut v_omitBody_2300_: u8 = 0;
-    let mut v___x_2302_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2302_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2303_: u8 = 0;
-    let mut v___x_2304_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2305_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2306_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2304_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2305_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2306_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2307_: u8 = 0;
-    let mut v___x_2309_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2310_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2309_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2310_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2311_: u8 = 0;
-    let mut v___x_2313_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2314_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2313_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2314_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2315_: usize = 0;
     let mut v___x_2316_: usize = 0;
-    let mut v___x_2317_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2319_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2320_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2317_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2319_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2320_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2321_: usize = 0;
     let mut v___x_2322_: usize = 0;
-    let mut v___x_2323_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2325_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2326_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2323_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2325_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2326_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2327_: u8 = 0;
-    let mut v_unused_2328_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_2328_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2293_ = crate::leanh::lean_ctor_get(v_writer_2292_, 0);
-                v_outputData_2294_ = crate::leanh::lean_ctor_get(v_writer_2292_, 1);
-                v_state_2295_ = crate::leanh::lean_ctor_get(v_writer_2292_, 2);
-                v_knownSize_2296_ = crate::leanh::lean_ctor_get(v_writer_2292_, 3);
-                v_messageHead_2297_ = crate::leanh::lean_ctor_get(v_writer_2292_, 4);
-                v_sentMessage_2298_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2293_ = leanh::lean_ctor_get(v_writer_2292_, 0);
+                v_outputData_2294_ = leanh::lean_ctor_get(v_writer_2292_, 1);
+                v_state_2295_ = leanh::lean_ctor_get(v_writer_2292_, 2);
+                v_knownSize_2296_ = leanh::lean_ctor_get(v_writer_2292_, 3);
+                v_messageHead_2297_ = leanh::lean_ctor_get(v_writer_2292_, 4);
+                v_sentMessage_2298_ = leanh::lean_ctor_get_uint8(
                     v_writer_2292_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2299_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2299_ = leanh::lean_ctor_get_uint8(
                     v_writer_2292_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2300_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2300_ = leanh::lean_ctor_get_uint8(
                     v_writer_2292_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_isSharedCheck_2327_ = (!crate::leanh::lean_is_exclusive(v_writer_2292_)) as u8;
+                v_isSharedCheck_2327_ = (!leanh::lean_is_exclusive(v_writer_2292_)) as u8;
                 if v_isSharedCheck_2327_ == 0 {
-                    v_unused_2328_ = crate::leanh::lean_ctor_get(v_writer_2292_, 5);
-                    crate::leanh::lean_dec(v_unused_2328_);
+                    v_unused_2328_ = leanh::lean_ctor_get(v_writer_2292_, 5);
+                    leanh::lean_dec(v_unused_2328_);
                     v___x_2302_ = v_writer_2292_;
                     v_isShared_2303_ = v_isSharedCheck_2327_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_messageHead_2297_);
-                    crate::leanh::lean_inc(v_knownSize_2296_);
-                    crate::leanh::lean_inc(v_state_2295_);
-                    crate::leanh::lean_inc(v_outputData_2294_);
-                    crate::leanh::lean_inc(v_userData_2293_);
-                    crate::leanh::lean_dec(v_writer_2292_);
-                    v___x_2302_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_messageHead_2297_);
+                    leanh::lean_inc(v_knownSize_2296_);
+                    leanh::lean_inc(v_state_2295_);
+                    leanh::lean_inc(v_outputData_2294_);
+                    leanh::lean_inc(v_userData_2293_);
+                    leanh::lean_dec(v_writer_2292_);
+                    v___x_2302_ = leanh::lean_box(0);
                     v_isShared_2303_ = v_isSharedCheck_2327_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                v___x_2304_ = crate::leanh::lean_unsigned_to_nat(0);
+                v___x_2304_ = leanh::lean_unsigned_to_nat(0);
                 v___x_2305_ = l_Std_Http_Protocol_H1_Writer_writeChunkedBody___redArg___closed__0;
                 v___x_2306_ = lean_array_get_size(v_userData_2293_);
                 v___x_2307_ = lean_nat_dec_lt(v___x_2304_, v___x_2306_);
                 if v___x_2307_ == 0 {
-                    crate::leanh::lean_dec_ref(v_userData_2293_);
+                    leanh::lean_dec_ref(v_userData_2293_);
                     if v_isShared_2303_ == 0 {
-                        crate::leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
-                        crate::leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
+                        leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
+                        leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
                         v___x_2309_ = v___x_2302_;
                         state = 2;
                         continue;
                     } else {
-                        v_reuseFailAlloc_2310_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 0, v___x_2305_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 1, v_outputData_2294_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 2, v_state_2295_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 3, v_knownSize_2296_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 4, v_messageHead_2297_);
-                        crate::leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 5, v___x_2304_);
-                        crate::leanh::lean_ctor_set_uint8(
+                        v_reuseFailAlloc_2310_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 0, v___x_2305_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 1, v_outputData_2294_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 2, v_state_2295_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 3, v_knownSize_2296_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 4, v_messageHead_2297_);
+                        leanh::lean_ctor_set(v_reuseFailAlloc_2310_, 5, v___x_2304_);
+                        leanh::lean_ctor_set_uint8(
                             v_reuseFailAlloc_2310_,
-                            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                            (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                             v_sentMessage_2298_,
                         );
-                        crate::leanh::lean_ctor_set_uint8(
+                        leanh::lean_ctor_set_uint8(
                             v_reuseFailAlloc_2310_,
-                            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                            (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                             v_userClosedBody_2299_,
                         );
-                        crate::leanh::lean_ctor_set_uint8(
+                        leanh::lean_ctor_set_uint8(
                             v_reuseFailAlloc_2310_,
-                            (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                            (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                             v_omitBody_2300_,
                         );
                         v___x_2309_ = v_reuseFailAlloc_2310_;
@@ -4752,53 +4752,53 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody___redArg(
                     v___x_2311_ = lean_nat_dec_le(v___x_2306_, v___x_2306_);
                     if v___x_2311_ == 0 {
                         if v___x_2307_ == 0 {
-                            crate::leanh::lean_dec_ref(v_userData_2293_);
+                            leanh::lean_dec_ref(v_userData_2293_);
                             if v_isShared_2303_ == 0 {
-                                crate::leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
-                                crate::leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
+                                leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
+                                leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
                                 v___x_2313_ = v___x_2302_;
                                 state = 3;
                                 continue;
                             } else {
                                 v_reuseFailAlloc_2314_ =
-                                    crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2314_, 0, v___x_2305_);
-                                crate::leanh::lean_ctor_set(
+                                    leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2314_, 0, v___x_2305_);
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2314_,
                                     1,
                                     v_outputData_2294_,
                                 );
-                                crate::leanh::lean_ctor_set(
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2314_,
                                     2,
                                     v_state_2295_,
                                 );
-                                crate::leanh::lean_ctor_set(
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2314_,
                                     3,
                                     v_knownSize_2296_,
                                 );
-                                crate::leanh::lean_ctor_set(
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2314_,
                                     4,
                                     v_messageHead_2297_,
                                 );
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2314_, 5, v___x_2304_);
-                                crate::leanh::lean_ctor_set_uint8(
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2314_, 5, v___x_2304_);
+                                leanh::lean_ctor_set_uint8(
                                     v_reuseFailAlloc_2314_,
-                                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6)
+                                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6)
                                         as u32,
                                     v_sentMessage_2298_,
                                 );
-                                crate::leanh::lean_ctor_set_uint8(
+                                leanh::lean_ctor_set_uint8(
                                     v_reuseFailAlloc_2314_,
-                                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1)
+                                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1)
                                         as u32,
                                     v_userClosedBody_2299_,
                                 );
-                                crate::leanh::lean_ctor_set_uint8(
+                                leanh::lean_ctor_set_uint8(
                                     v_reuseFailAlloc_2314_,
-                                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2)
+                                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2)
                                         as u32,
                                     v_omitBody_2300_,
                                 );
@@ -4810,50 +4810,50 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody___redArg(
                             v___x_2315_ = 0usize;
                             v___x_2316_ = lean_usize_of_nat(v___x_2306_);
                             v___x_2317_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeRawBody_spec__0(v_userData_2293_, v___x_2315_, v___x_2316_, v_outputData_2294_);
-                            crate::leanh::lean_dec_ref(v_userData_2293_);
+                            leanh::lean_dec_ref(v_userData_2293_);
                             if v_isShared_2303_ == 0 {
-                                crate::leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
-                                crate::leanh::lean_ctor_set(v___x_2302_, 1, v___x_2317_);
-                                crate::leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
+                                leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
+                                leanh::lean_ctor_set(v___x_2302_, 1, v___x_2317_);
+                                leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
                                 v___x_2319_ = v___x_2302_;
                                 state = 4;
                                 continue;
                             } else {
                                 v_reuseFailAlloc_2320_ =
-                                    crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2320_, 0, v___x_2305_);
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2320_, 1, v___x_2317_);
-                                crate::leanh::lean_ctor_set(
+                                    leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2320_, 0, v___x_2305_);
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2320_, 1, v___x_2317_);
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2320_,
                                     2,
                                     v_state_2295_,
                                 );
-                                crate::leanh::lean_ctor_set(
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2320_,
                                     3,
                                     v_knownSize_2296_,
                                 );
-                                crate::leanh::lean_ctor_set(
+                                leanh::lean_ctor_set(
                                     v_reuseFailAlloc_2320_,
                                     4,
                                     v_messageHead_2297_,
                                 );
-                                crate::leanh::lean_ctor_set(v_reuseFailAlloc_2320_, 5, v___x_2304_);
-                                crate::leanh::lean_ctor_set_uint8(
+                                leanh::lean_ctor_set(v_reuseFailAlloc_2320_, 5, v___x_2304_);
+                                leanh::lean_ctor_set_uint8(
                                     v_reuseFailAlloc_2320_,
-                                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6)
+                                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6)
                                         as u32,
                                     v_sentMessage_2298_,
                                 );
-                                crate::leanh::lean_ctor_set_uint8(
+                                leanh::lean_ctor_set_uint8(
                                     v_reuseFailAlloc_2320_,
-                                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1)
+                                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1)
                                         as u32,
                                     v_userClosedBody_2299_,
                                 );
-                                crate::leanh::lean_ctor_set_uint8(
+                                leanh::lean_ctor_set_uint8(
                                     v_reuseFailAlloc_2320_,
-                                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2)
+                                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2)
                                         as u32,
                                     v_omitBody_2300_,
                                 );
@@ -4866,45 +4866,45 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody___redArg(
                         v___x_2321_ = 0usize;
                         v___x_2322_ = lean_usize_of_nat(v___x_2306_);
                         v___x_2323_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_Http_Protocol_H1_Writer_writeRawBody_spec__0(v_userData_2293_, v___x_2321_, v___x_2322_, v_outputData_2294_);
-                        crate::leanh::lean_dec_ref(v_userData_2293_);
+                        leanh::lean_dec_ref(v_userData_2293_);
                         if v_isShared_2303_ == 0 {
-                            crate::leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
-                            crate::leanh::lean_ctor_set(v___x_2302_, 1, v___x_2323_);
-                            crate::leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
+                            leanh::lean_ctor_set(v___x_2302_, 5, v___x_2304_);
+                            leanh::lean_ctor_set(v___x_2302_, 1, v___x_2323_);
+                            leanh::lean_ctor_set(v___x_2302_, 0, v___x_2305_);
                             v___x_2325_ = v___x_2302_;
                             state = 5;
                             continue;
                         } else {
                             v_reuseFailAlloc_2326_ =
-                                crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                            crate::leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 0, v___x_2305_);
-                            crate::leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 1, v___x_2323_);
-                            crate::leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 2, v_state_2295_);
-                            crate::leanh::lean_ctor_set(
+                                leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                            leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 0, v___x_2305_);
+                            leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 1, v___x_2323_);
+                            leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 2, v_state_2295_);
+                            leanh::lean_ctor_set(
                                 v_reuseFailAlloc_2326_,
                                 3,
                                 v_knownSize_2296_,
                             );
-                            crate::leanh::lean_ctor_set(
+                            leanh::lean_ctor_set(
                                 v_reuseFailAlloc_2326_,
                                 4,
                                 v_messageHead_2297_,
                             );
-                            crate::leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 5, v___x_2304_);
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set(v_reuseFailAlloc_2326_, 5, v___x_2304_);
+                            leanh::lean_ctor_set_uint8(
                                 v_reuseFailAlloc_2326_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                                 v_sentMessage_2298_,
                             );
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set_uint8(
                                 v_reuseFailAlloc_2326_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1)
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1)
                                     as u32,
                                 v_userClosedBody_2299_,
                             );
-                            crate::leanh::lean_ctor_set_uint8(
+                            leanh::lean_ctor_set_uint8(
                                 v_reuseFailAlloc_2326_,
-                                (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2)
+                                (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2)
                                     as u32,
                                 v_omitBody_2300_,
                             );
@@ -4933,32 +4933,32 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody(
     mut v_dir_2329_: u8,
-    mut v_writer_2330_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2331_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2330_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2331_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2331_ = l_Std_Http_Protocol_H1_Writer_writeRawBody___redArg(v_writer_2330_);
     return v___x_2331_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_writeRawBody___boxed(
-    mut v_dir_2332_: *mut crate::leanh::LeanObject,
-    mut v_writer_2333_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2332_: *mut leanh::LeanObject,
+    mut v_writer_2333_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2334_: u8 = 0;
-    let mut v_res_2335_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2334_ = (crate::leanh::lean_unbox(v_dir_2332_) as u8);
+    let mut v_res_2335_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2334_ = (leanh::lean_unbox(v_dir_2332_) as u8);
     v_res_2335_ = l_Std_Http_Protocol_H1_Writer_writeRawBody(v_dir_boxed_2334_, v_writer_2333_);
     return v_res_2335_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___lam__0(
     mut v___x_2336_: u8,
-    mut v_x1_2337_: *mut crate::leanh::LeanObject,
-    mut v_x2_2338_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2339_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2340_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2341_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2342_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_2339_ = crate::leanh::lean_unsigned_to_nat(0);
+    mut v_x1_2337_: *mut leanh::LeanObject,
+    mut v_x2_2338_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2339_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2340_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2341_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2342_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_2339_ = leanh::lean_unsigned_to_nat(0);
     v___x_2340_ = lean_byte_array_size(v_x1_2337_);
     v___x_2341_ = lean_byte_array_size(v_x2_2338_);
     v___x_2342_ = lean_byte_array_copy_slice(
@@ -4972,138 +4972,138 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___lam__0(
     return v___x_2342_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___lam__0___boxed(
-    mut v___x_2343_: *mut crate::leanh::LeanObject,
-    mut v_x1_2344_: *mut crate::leanh::LeanObject,
-    mut v_x2_2345_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v___x_2343_: *mut leanh::LeanObject,
+    mut v_x1_2344_: *mut leanh::LeanObject,
+    mut v_x2_2345_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___x_120__boxed_2346_: u8 = 0;
-    let mut v_res_2347_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v___x_120__boxed_2346_ = (crate::leanh::lean_unbox(v___x_2343_) as u8);
+    let mut v_res_2347_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v___x_120__boxed_2346_ = (leanh::lean_unbox(v___x_2343_) as u8);
     v_res_2347_ = l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___lam__0(
         v___x_120__boxed_2346_,
         v_x1_2344_,
         v_x2_2345_,
     );
-    crate::leanh::lean_dec_ref(v_x2_2345_);
+    leanh::lean_dec_ref(v_x2_2345_);
     return v_res_2347_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
-    mut v_writer_2351_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2352_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2353_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_2354_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2355_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2356_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2351_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2352_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2353_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_2354_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2355_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2356_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2357_: u8 = 0;
     let mut v_userClosedBody_2358_: u8 = 0;
     let mut v_omitBody_2359_: u8 = 0;
-    let mut v_userDataBytes_2360_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2362_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2360_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2362_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2363_: u8 = 0;
-    let mut v___y_2365_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2366_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2368_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2369_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2370_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2371_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2372_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2373_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2374_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2375_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_2365_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2366_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2368_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2369_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2370_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2371_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2372_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2373_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2374_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2375_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2376_: u8 = 0;
-    let mut v___x_2377_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2378_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2379_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2377_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2378_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2379_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2380_: u8 = 0;
-    let mut v___x_2381_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_2382_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2381_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2382_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2383_: u8 = 0;
     let mut v___x_2384_: usize = 0;
     let mut v___x_2385_: usize = 0;
-    let mut v___x_2386_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2386_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2387_: usize = 0;
     let mut v___x_2388_: usize = 0;
-    let mut v___x_2389_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2390_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2391_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2389_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2390_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2391_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2392_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2352_ = crate::leanh::lean_ctor_get(v_writer_2351_, 0);
-                v_outputData_2353_ = crate::leanh::lean_ctor_get(v_writer_2351_, 1);
-                v_state_2354_ = crate::leanh::lean_ctor_get(v_writer_2351_, 2);
-                v_knownSize_2355_ = crate::leanh::lean_ctor_get(v_writer_2351_, 3);
-                v_messageHead_2356_ = crate::leanh::lean_ctor_get(v_writer_2351_, 4);
-                v_sentMessage_2357_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2352_ = leanh::lean_ctor_get(v_writer_2351_, 0);
+                v_outputData_2353_ = leanh::lean_ctor_get(v_writer_2351_, 1);
+                v_state_2354_ = leanh::lean_ctor_get(v_writer_2351_, 2);
+                v_knownSize_2355_ = leanh::lean_ctor_get(v_writer_2351_, 3);
+                v_messageHead_2356_ = leanh::lean_ctor_get(v_writer_2351_, 4);
+                v_sentMessage_2357_ = leanh::lean_ctor_get_uint8(
                     v_writer_2351_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2358_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2358_ = leanh::lean_ctor_get_uint8(
                     v_writer_2351_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2359_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2359_ = leanh::lean_ctor_get_uint8(
                     v_writer_2351_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2360_ = crate::leanh::lean_ctor_get(v_writer_2351_, 5);
-                v_isSharedCheck_2392_ = (!crate::leanh::lean_is_exclusive(v_writer_2351_)) as u8;
+                v_userDataBytes_2360_ = leanh::lean_ctor_get(v_writer_2351_, 5);
+                v_isSharedCheck_2392_ = (!leanh::lean_is_exclusive(v_writer_2351_)) as u8;
                 if v_isSharedCheck_2392_ == 0 {
                     v___x_2362_ = v_writer_2351_;
                     v_isShared_2363_ = v_isSharedCheck_2392_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2360_);
-                    crate::leanh::lean_inc(v_messageHead_2356_);
-                    crate::leanh::lean_inc(v_knownSize_2355_);
-                    crate::leanh::lean_inc(v_state_2354_);
-                    crate::leanh::lean_inc(v_outputData_2353_);
-                    crate::leanh::lean_inc(v_userData_2352_);
-                    crate::leanh::lean_dec(v_writer_2351_);
-                    v___x_2362_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2360_);
+                    leanh::lean_inc(v_messageHead_2356_);
+                    leanh::lean_inc(v_knownSize_2355_);
+                    leanh::lean_inc(v_state_2354_);
+                    leanh::lean_inc(v_outputData_2353_);
+                    leanh::lean_inc(v_userData_2352_);
+                    leanh::lean_dec(v_writer_2351_);
+                    v___x_2362_ = leanh::lean_box(0);
                     v_isShared_2363_ = v_isSharedCheck_2392_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                v_data_2372_ = crate::leanh::lean_ctor_get(v_outputData_2353_, 0);
-                crate::leanh::lean_inc_ref(v_data_2372_);
-                v_size_2373_ = crate::leanh::lean_ctor_get(v_outputData_2353_, 1);
-                crate::leanh::lean_inc(v_size_2373_);
-                crate::leanh::lean_dec_ref(v_outputData_2353_);
-                v___x_2374_ = crate::leanh::lean_unsigned_to_nat(1);
+                v_data_2372_ = leanh::lean_ctor_get(v_outputData_2353_, 0);
+                leanh::lean_inc_ref(v_data_2372_);
+                v_size_2373_ = leanh::lean_ctor_get(v_outputData_2353_, 1);
+                leanh::lean_inc(v_size_2373_);
+                leanh::lean_dec_ref(v_outputData_2353_);
+                v___x_2374_ = leanh::lean_unsigned_to_nat(1);
                 v___x_2375_ = lean_array_get_size(v_data_2372_);
                 v___x_2376_ = lean_nat_dec_eq(v___x_2374_, v___x_2375_);
                 if v___x_2376_ == 0 {
                     v___x_2377_ = lean_mk_empty_byte_array(v_size_2373_);
-                    crate::leanh::lean_dec(v_size_2373_);
-                    v___x_2378_ = crate::leanh::lean_unsigned_to_nat(0);
+                    leanh::lean_dec(v_size_2373_);
+                    v___x_2378_ = leanh::lean_unsigned_to_nat(0);
                     v___x_2379_ = l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10;
                     v___x_2380_ = lean_nat_dec_lt(v___x_2378_, v___x_2375_);
                     if v___x_2380_ == 0 {
-                        crate::leanh::lean_dec_ref(v_data_2372_);
+                        leanh::lean_dec_ref(v_data_2372_);
                         v___y_2365_ = v___x_2377_;
                         state = 2;
                         continue;
                     } else {
-                        v___x_2381_ = crate::leanh::lean_box((v___x_2376_) as usize);
-                        v___f_2382_ = crate::leanh::lean_alloc_closure(
+                        v___x_2381_ = leanh::lean_box((v___x_2376_) as usize);
+                        v___f_2382_ = leanh::lean_alloc_closure(
                             l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___lam__0___boxed
                                 as *mut core::ffi::c_void,
                             3,
                             1,
                         );
-                        crate::leanh::lean_closure_set(v___f_2382_, 0, v___x_2381_);
+                        leanh::lean_closure_set(v___f_2382_, 0, v___x_2381_);
                         v___x_2383_ = lean_nat_dec_le(v___x_2375_, v___x_2375_);
                         if v___x_2383_ == 0 {
                             if v___x_2380_ == 0 {
-                                crate::leanh::lean_dec_ref(v___f_2382_);
-                                crate::leanh::lean_dec_ref(v_data_2372_);
+                                leanh::lean_dec_ref(v___f_2382_);
+                                leanh::lean_dec_ref(v_data_2372_);
                                 v___y_2365_ = v___x_2377_;
                                 state = 2;
                                 continue;
@@ -5112,9 +5112,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
                                 v___x_2385_ = lean_usize_of_nat(v___x_2375_);
                                 v___x_2386_ =
                                     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                        crate::leanh::lean_box(0),
-                                        crate::leanh::lean_box(0),
-                                        crate::leanh::lean_box(0),
+                                        leanh::lean_box(0),
+                                        leanh::lean_box(0),
+                                        leanh::lean_box(0),
                                         v___x_2379_,
                                         v___f_2382_,
                                         v_data_2372_,
@@ -5131,9 +5131,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
                             v___x_2388_ = lean_usize_of_nat(v___x_2375_);
                             v___x_2389_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
                                     v___x_2379_,
                                     v___f_2382_,
                                     v_data_2372_,
@@ -5147,10 +5147,10 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
                         }
                     }
                 } else {
-                    crate::leanh::lean_dec(v_size_2373_);
-                    v___x_2390_ = crate::leanh::lean_unsigned_to_nat(0);
+                    leanh::lean_dec(v_size_2373_);
+                    v___x_2390_ = leanh::lean_unsigned_to_nat(0);
                     v___x_2391_ = lean_array_fget(v_data_2372_, v___x_2390_);
-                    crate::leanh::lean_dec_ref(v_data_2372_);
+                    leanh::lean_dec_ref(v_data_2372_);
                     v___y_2365_ = v___x_2391_;
                     state = 2;
                     continue;
@@ -5159,31 +5159,31 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
             2 => {
                 v___x_2366_ = l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___closed__0;
                 if v_isShared_2363_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2362_, 1, v___x_2366_);
+                    leanh::lean_ctor_set(v___x_2362_, 1, v___x_2366_);
                     v___x_2368_ = v___x_2362_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2371_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 0, v_userData_2352_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 1, v___x_2366_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 2, v_state_2354_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 3, v_knownSize_2355_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 4, v_messageHead_2356_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 5, v_userDataBytes_2360_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2371_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 0, v_userData_2352_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 1, v___x_2366_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 2, v_state_2354_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 3, v_knownSize_2355_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 4, v_messageHead_2356_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2371_, 5, v_userDataBytes_2360_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2371_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2357_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2371_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2358_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2371_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2359_,
                     );
                     v___x_2368_ = v_reuseFailAlloc_2371_;
@@ -5192,11 +5192,11 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
                 }
             }
             3 => {
-                v___x_2369_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_2369_, 0, v___x_2368_);
-                crate::leanh::lean_ctor_set(v___x_2369_, 1, v___y_2365_);
-                v___x_2370_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_2370_, 0, v___x_2369_);
+                v___x_2369_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_2369_, 0, v___x_2368_);
+                leanh::lean_ctor_set(v___x_2369_, 1, v___y_2365_);
+                v___x_2370_ = leanh::lean_alloc_ctor(1, 1, (0) as u32);
+                leanh::lean_ctor_set(v___x_2370_, 0, v___x_2369_);
                 return v___x_2370_;
             }
             _ => {}
@@ -5205,122 +5205,122 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
     mut v_dir_2393_: u8,
-    mut v_writer_2394_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2395_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2396_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_2397_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2398_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2399_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2394_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2395_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2396_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_2397_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2398_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2399_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2400_: u8 = 0;
     let mut v_userClosedBody_2401_: u8 = 0;
     let mut v_omitBody_2402_: u8 = 0;
-    let mut v_userDataBytes_2403_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2405_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2403_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2405_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2406_: u8 = 0;
-    let mut v___y_2408_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2409_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2411_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2412_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2413_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2414_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_data_2415_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_size_2416_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2417_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2418_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___y_2408_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2409_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2411_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2412_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2413_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2414_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_data_2415_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_size_2416_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2417_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2418_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2419_: u8 = 0;
-    let mut v___x_2420_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2421_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2422_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2420_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2421_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2422_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2423_: u8 = 0;
-    let mut v___x_2424_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_2425_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2424_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2425_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2426_: u8 = 0;
     let mut v___x_2427_: usize = 0;
     let mut v___x_2428_: usize = 0;
-    let mut v___x_2429_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2429_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2430_: usize = 0;
     let mut v___x_2431_: usize = 0;
-    let mut v___x_2432_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2433_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2434_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2432_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2433_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2434_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2435_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2395_ = crate::leanh::lean_ctor_get(v_writer_2394_, 0);
-                v_outputData_2396_ = crate::leanh::lean_ctor_get(v_writer_2394_, 1);
-                v_state_2397_ = crate::leanh::lean_ctor_get(v_writer_2394_, 2);
-                v_knownSize_2398_ = crate::leanh::lean_ctor_get(v_writer_2394_, 3);
-                v_messageHead_2399_ = crate::leanh::lean_ctor_get(v_writer_2394_, 4);
-                v_sentMessage_2400_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2395_ = leanh::lean_ctor_get(v_writer_2394_, 0);
+                v_outputData_2396_ = leanh::lean_ctor_get(v_writer_2394_, 1);
+                v_state_2397_ = leanh::lean_ctor_get(v_writer_2394_, 2);
+                v_knownSize_2398_ = leanh::lean_ctor_get(v_writer_2394_, 3);
+                v_messageHead_2399_ = leanh::lean_ctor_get(v_writer_2394_, 4);
+                v_sentMessage_2400_ = leanh::lean_ctor_get_uint8(
                     v_writer_2394_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2401_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2401_ = leanh::lean_ctor_get_uint8(
                     v_writer_2394_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2402_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2402_ = leanh::lean_ctor_get_uint8(
                     v_writer_2394_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2403_ = crate::leanh::lean_ctor_get(v_writer_2394_, 5);
-                v_isSharedCheck_2435_ = (!crate::leanh::lean_is_exclusive(v_writer_2394_)) as u8;
+                v_userDataBytes_2403_ = leanh::lean_ctor_get(v_writer_2394_, 5);
+                v_isSharedCheck_2435_ = (!leanh::lean_is_exclusive(v_writer_2394_)) as u8;
                 if v_isSharedCheck_2435_ == 0 {
                     v___x_2405_ = v_writer_2394_;
                     v_isShared_2406_ = v_isSharedCheck_2435_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2403_);
-                    crate::leanh::lean_inc(v_messageHead_2399_);
-                    crate::leanh::lean_inc(v_knownSize_2398_);
-                    crate::leanh::lean_inc(v_state_2397_);
-                    crate::leanh::lean_inc(v_outputData_2396_);
-                    crate::leanh::lean_inc(v_userData_2395_);
-                    crate::leanh::lean_dec(v_writer_2394_);
-                    v___x_2405_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2403_);
+                    leanh::lean_inc(v_messageHead_2399_);
+                    leanh::lean_inc(v_knownSize_2398_);
+                    leanh::lean_inc(v_state_2397_);
+                    leanh::lean_inc(v_outputData_2396_);
+                    leanh::lean_inc(v_userData_2395_);
+                    leanh::lean_dec(v_writer_2394_);
+                    v___x_2405_ = leanh::lean_box(0);
                     v_isShared_2406_ = v_isSharedCheck_2435_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                v_data_2415_ = crate::leanh::lean_ctor_get(v_outputData_2396_, 0);
-                crate::leanh::lean_inc_ref(v_data_2415_);
-                v_size_2416_ = crate::leanh::lean_ctor_get(v_outputData_2396_, 1);
-                crate::leanh::lean_inc(v_size_2416_);
-                crate::leanh::lean_dec_ref(v_outputData_2396_);
-                v___x_2417_ = crate::leanh::lean_unsigned_to_nat(1);
+                v_data_2415_ = leanh::lean_ctor_get(v_outputData_2396_, 0);
+                leanh::lean_inc_ref(v_data_2415_);
+                v_size_2416_ = leanh::lean_ctor_get(v_outputData_2396_, 1);
+                leanh::lean_inc(v_size_2416_);
+                leanh::lean_dec_ref(v_outputData_2396_);
+                v___x_2417_ = leanh::lean_unsigned_to_nat(1);
                 v___x_2418_ = lean_array_get_size(v_data_2415_);
                 v___x_2419_ = lean_nat_dec_eq(v___x_2417_, v___x_2418_);
                 if v___x_2419_ == 0 {
                     v___x_2420_ = lean_mk_empty_byte_array(v_size_2416_);
-                    crate::leanh::lean_dec(v_size_2416_);
-                    v___x_2421_ = crate::leanh::lean_unsigned_to_nat(0);
+                    leanh::lean_dec(v_size_2416_);
+                    v___x_2421_ = leanh::lean_unsigned_to_nat(0);
                     v___x_2422_ = l_Std_Http_Protocol_H1_Writer_addUserData___redArg___closed__10;
                     v___x_2423_ = lean_nat_dec_lt(v___x_2421_, v___x_2418_);
                     if v___x_2423_ == 0 {
-                        crate::leanh::lean_dec_ref(v_data_2415_);
+                        leanh::lean_dec_ref(v_data_2415_);
                         v___y_2408_ = v___x_2420_;
                         state = 2;
                         continue;
                     } else {
-                        v___x_2424_ = crate::leanh::lean_box((v___x_2419_) as usize);
-                        v___f_2425_ = crate::leanh::lean_alloc_closure(
+                        v___x_2424_ = leanh::lean_box((v___x_2419_) as usize);
+                        v___f_2425_ = leanh::lean_alloc_closure(
                             l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___lam__0___boxed
                                 as *mut core::ffi::c_void,
                             3,
                             1,
                         );
-                        crate::leanh::lean_closure_set(v___f_2425_, 0, v___x_2424_);
+                        leanh::lean_closure_set(v___f_2425_, 0, v___x_2424_);
                         v___x_2426_ = lean_nat_dec_le(v___x_2418_, v___x_2418_);
                         if v___x_2426_ == 0 {
                             if v___x_2423_ == 0 {
-                                crate::leanh::lean_dec_ref(v___f_2425_);
-                                crate::leanh::lean_dec_ref(v_data_2415_);
+                                leanh::lean_dec_ref(v___f_2425_);
+                                leanh::lean_dec_ref(v_data_2415_);
                                 v___y_2408_ = v___x_2420_;
                                 state = 2;
                                 continue;
@@ -5329,9 +5329,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
                                 v___x_2428_ = lean_usize_of_nat(v___x_2418_);
                                 v___x_2429_ =
                                     l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                        crate::leanh::lean_box(0),
-                                        crate::leanh::lean_box(0),
-                                        crate::leanh::lean_box(0),
+                                        leanh::lean_box(0),
+                                        leanh::lean_box(0),
+                                        leanh::lean_box(0),
                                         v___x_2422_,
                                         v___f_2425_,
                                         v_data_2415_,
@@ -5348,9 +5348,9 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
                             v___x_2431_ = lean_usize_of_nat(v___x_2418_);
                             v___x_2432_ =
                                 l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold(
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
-                                    crate::leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
+                                    leanh::lean_box(0),
                                     v___x_2422_,
                                     v___f_2425_,
                                     v_data_2415_,
@@ -5364,10 +5364,10 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
                         }
                     }
                 } else {
-                    crate::leanh::lean_dec(v_size_2416_);
-                    v___x_2433_ = crate::leanh::lean_unsigned_to_nat(0);
+                    leanh::lean_dec(v_size_2416_);
+                    v___x_2433_ = leanh::lean_unsigned_to_nat(0);
                     v___x_2434_ = lean_array_fget(v_data_2415_, v___x_2433_);
-                    crate::leanh::lean_dec_ref(v_data_2415_);
+                    leanh::lean_dec_ref(v_data_2415_);
                     v___y_2408_ = v___x_2434_;
                     state = 2;
                     continue;
@@ -5376,31 +5376,31 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
             2 => {
                 v___x_2409_ = l_Std_Http_Protocol_H1_Writer_takeOutput___redArg___closed__0;
                 if v_isShared_2406_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2405_, 1, v___x_2409_);
+                    leanh::lean_ctor_set(v___x_2405_, 1, v___x_2409_);
                     v___x_2411_ = v___x_2405_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2414_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 0, v_userData_2395_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 1, v___x_2409_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 2, v_state_2397_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 3, v_knownSize_2398_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 4, v_messageHead_2399_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 5, v_userDataBytes_2403_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2414_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 0, v_userData_2395_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 1, v___x_2409_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 2, v_state_2397_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 3, v_knownSize_2398_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 4, v_messageHead_2399_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2414_, 5, v_userDataBytes_2403_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2414_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2400_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2414_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2401_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2414_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2402_,
                     );
                     v___x_2411_ = v_reuseFailAlloc_2414_;
@@ -5409,11 +5409,11 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
                 }
             }
             3 => {
-                v___x_2412_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_2412_, 0, v___x_2411_);
-                crate::leanh::lean_ctor_set(v___x_2412_, 1, v___y_2408_);
-                v___x_2413_ = crate::leanh::lean_alloc_ctor(1, 1, (0) as u32);
-                crate::leanh::lean_ctor_set(v___x_2413_, 0, v___x_2412_);
+                v___x_2412_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                leanh::lean_ctor_set(v___x_2412_, 0, v___x_2411_);
+                leanh::lean_ctor_set(v___x_2412_, 1, v___y_2408_);
+                v___x_2413_ = leanh::lean_alloc_ctor(1, 1, (0) as u32);
+                leanh::lean_ctor_set(v___x_2413_, 0, v___x_2412_);
                 return v___x_2413_;
             }
             _ => {}
@@ -5421,70 +5421,70 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_takeOutput___boxed(
-    mut v_dir_2436_: *mut crate::leanh::LeanObject,
-    mut v_writer_2437_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2436_: *mut leanh::LeanObject,
+    mut v_writer_2437_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2438_: u8 = 0;
-    let mut v_res_2439_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2438_ = (crate::leanh::lean_unbox(v_dir_2436_) as u8);
+    let mut v_res_2439_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2438_ = (leanh::lean_unbox(v_dir_2436_) as u8);
     v_res_2439_ = l_Std_Http_Protocol_H1_Writer_takeOutput(v_dir_boxed_2438_, v_writer_2437_);
     return v_res_2439_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState___redArg(
-    mut v_state_2440_: *mut crate::leanh::LeanObject,
-    mut v_writer_2441_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2442_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2443_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2444_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2445_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_state_2440_: *mut leanh::LeanObject,
+    mut v_writer_2441_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2442_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2443_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2444_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2445_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2446_: u8 = 0;
     let mut v_userClosedBody_2447_: u8 = 0;
     let mut v_omitBody_2448_: u8 = 0;
-    let mut v_userDataBytes_2449_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2451_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2449_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2451_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2452_: u8 = 0;
-    let mut v___x_2454_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2455_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2454_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2455_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2456_: u8 = 0;
-    let mut v_unused_2457_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_2457_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2442_ = crate::leanh::lean_ctor_get(v_writer_2441_, 0);
-                v_outputData_2443_ = crate::leanh::lean_ctor_get(v_writer_2441_, 1);
-                v_knownSize_2444_ = crate::leanh::lean_ctor_get(v_writer_2441_, 3);
-                v_messageHead_2445_ = crate::leanh::lean_ctor_get(v_writer_2441_, 4);
-                v_sentMessage_2446_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2442_ = leanh::lean_ctor_get(v_writer_2441_, 0);
+                v_outputData_2443_ = leanh::lean_ctor_get(v_writer_2441_, 1);
+                v_knownSize_2444_ = leanh::lean_ctor_get(v_writer_2441_, 3);
+                v_messageHead_2445_ = leanh::lean_ctor_get(v_writer_2441_, 4);
+                v_sentMessage_2446_ = leanh::lean_ctor_get_uint8(
                     v_writer_2441_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2447_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2447_ = leanh::lean_ctor_get_uint8(
                     v_writer_2441_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2448_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2448_ = leanh::lean_ctor_get_uint8(
                     v_writer_2441_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2449_ = crate::leanh::lean_ctor_get(v_writer_2441_, 5);
-                v_isSharedCheck_2456_ = (!crate::leanh::lean_is_exclusive(v_writer_2441_)) as u8;
+                v_userDataBytes_2449_ = leanh::lean_ctor_get(v_writer_2441_, 5);
+                v_isSharedCheck_2456_ = (!leanh::lean_is_exclusive(v_writer_2441_)) as u8;
                 if v_isSharedCheck_2456_ == 0 {
-                    v_unused_2457_ = crate::leanh::lean_ctor_get(v_writer_2441_, 2);
-                    crate::leanh::lean_dec(v_unused_2457_);
+                    v_unused_2457_ = leanh::lean_ctor_get(v_writer_2441_, 2);
+                    leanh::lean_dec(v_unused_2457_);
                     v___x_2451_ = v_writer_2441_;
                     v_isShared_2452_ = v_isSharedCheck_2456_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2449_);
-                    crate::leanh::lean_inc(v_messageHead_2445_);
-                    crate::leanh::lean_inc(v_knownSize_2444_);
-                    crate::leanh::lean_inc(v_outputData_2443_);
-                    crate::leanh::lean_inc(v_userData_2442_);
-                    crate::leanh::lean_dec(v_writer_2441_);
-                    v___x_2451_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2449_);
+                    leanh::lean_inc(v_messageHead_2445_);
+                    leanh::lean_inc(v_knownSize_2444_);
+                    leanh::lean_inc(v_outputData_2443_);
+                    leanh::lean_inc(v_userData_2442_);
+                    leanh::lean_dec(v_writer_2441_);
+                    v___x_2451_ = leanh::lean_box(0);
                     v_isShared_2452_ = v_isSharedCheck_2456_;
                     state = 1;
                     continue;
@@ -5492,31 +5492,31 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState___redArg(
             }
             1 => {
                 if v_isShared_2452_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2451_, 2, v_state_2440_);
+                    leanh::lean_ctor_set(v___x_2451_, 2, v_state_2440_);
                     v___x_2454_ = v___x_2451_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2455_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 0, v_userData_2442_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 1, v_outputData_2443_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 2, v_state_2440_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 3, v_knownSize_2444_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 4, v_messageHead_2445_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 5, v_userDataBytes_2449_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2455_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 0, v_userData_2442_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 1, v_outputData_2443_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 2, v_state_2440_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 3, v_knownSize_2444_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 4, v_messageHead_2445_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2455_, 5, v_userDataBytes_2449_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2455_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2446_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2455_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2447_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2455_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2448_,
                     );
                     v___x_2454_ = v_reuseFailAlloc_2455_;
@@ -5533,60 +5533,60 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState(
     mut v_dir_2458_: u8,
-    mut v_state_2459_: *mut crate::leanh::LeanObject,
-    mut v_writer_2460_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2461_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2462_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2463_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2464_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_state_2459_: *mut leanh::LeanObject,
+    mut v_writer_2460_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2461_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2462_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2463_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2464_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2465_: u8 = 0;
     let mut v_userClosedBody_2466_: u8 = 0;
     let mut v_omitBody_2467_: u8 = 0;
-    let mut v_userDataBytes_2468_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2470_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2468_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2470_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2471_: u8 = 0;
-    let mut v___x_2473_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2474_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2473_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2474_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2475_: u8 = 0;
-    let mut v_unused_2476_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_2476_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2461_ = crate::leanh::lean_ctor_get(v_writer_2460_, 0);
-                v_outputData_2462_ = crate::leanh::lean_ctor_get(v_writer_2460_, 1);
-                v_knownSize_2463_ = crate::leanh::lean_ctor_get(v_writer_2460_, 3);
-                v_messageHead_2464_ = crate::leanh::lean_ctor_get(v_writer_2460_, 4);
-                v_sentMessage_2465_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2461_ = leanh::lean_ctor_get(v_writer_2460_, 0);
+                v_outputData_2462_ = leanh::lean_ctor_get(v_writer_2460_, 1);
+                v_knownSize_2463_ = leanh::lean_ctor_get(v_writer_2460_, 3);
+                v_messageHead_2464_ = leanh::lean_ctor_get(v_writer_2460_, 4);
+                v_sentMessage_2465_ = leanh::lean_ctor_get_uint8(
                     v_writer_2460_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2466_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2466_ = leanh::lean_ctor_get_uint8(
                     v_writer_2460_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2467_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2467_ = leanh::lean_ctor_get_uint8(
                     v_writer_2460_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2468_ = crate::leanh::lean_ctor_get(v_writer_2460_, 5);
-                v_isSharedCheck_2475_ = (!crate::leanh::lean_is_exclusive(v_writer_2460_)) as u8;
+                v_userDataBytes_2468_ = leanh::lean_ctor_get(v_writer_2460_, 5);
+                v_isSharedCheck_2475_ = (!leanh::lean_is_exclusive(v_writer_2460_)) as u8;
                 if v_isSharedCheck_2475_ == 0 {
-                    v_unused_2476_ = crate::leanh::lean_ctor_get(v_writer_2460_, 2);
-                    crate::leanh::lean_dec(v_unused_2476_);
+                    v_unused_2476_ = leanh::lean_ctor_get(v_writer_2460_, 2);
+                    leanh::lean_dec(v_unused_2476_);
                     v___x_2470_ = v_writer_2460_;
                     v_isShared_2471_ = v_isSharedCheck_2475_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2468_);
-                    crate::leanh::lean_inc(v_messageHead_2464_);
-                    crate::leanh::lean_inc(v_knownSize_2463_);
-                    crate::leanh::lean_inc(v_outputData_2462_);
-                    crate::leanh::lean_inc(v_userData_2461_);
-                    crate::leanh::lean_dec(v_writer_2460_);
-                    v___x_2470_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2468_);
+                    leanh::lean_inc(v_messageHead_2464_);
+                    leanh::lean_inc(v_knownSize_2463_);
+                    leanh::lean_inc(v_outputData_2462_);
+                    leanh::lean_inc(v_userData_2461_);
+                    leanh::lean_dec(v_writer_2460_);
+                    v___x_2470_ = leanh::lean_box(0);
                     v_isShared_2471_ = v_isSharedCheck_2475_;
                     state = 1;
                     continue;
@@ -5594,31 +5594,31 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState(
             }
             1 => {
                 if v_isShared_2471_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2470_, 2, v_state_2459_);
+                    leanh::lean_ctor_set(v___x_2470_, 2, v_state_2459_);
                     v___x_2473_ = v___x_2470_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2474_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 0, v_userData_2461_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 1, v_outputData_2462_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 2, v_state_2459_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 3, v_knownSize_2463_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 4, v_messageHead_2464_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 5, v_userDataBytes_2468_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2474_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 0, v_userData_2461_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 1, v_outputData_2462_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 2, v_state_2459_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 3, v_knownSize_2463_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 4, v_messageHead_2464_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2474_, 5, v_userDataBytes_2468_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2474_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2465_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2474_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2466_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2474_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2467_,
                     );
                     v___x_2473_ = v_reuseFailAlloc_2474_;
@@ -5634,38 +5634,38 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_setState___boxed(
-    mut v_dir_2477_: *mut crate::leanh::LeanObject,
-    mut v_state_2478_: *mut crate::leanh::LeanObject,
-    mut v_writer_2479_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2477_: *mut leanh::LeanObject,
+    mut v_state_2478_: *mut leanh::LeanObject,
+    mut v_writer_2479_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2480_: u8 = 0;
-    let mut v_res_2481_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2480_ = (crate::leanh::lean_unbox(v_dir_2477_) as u8);
+    let mut v_res_2481_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2480_ = (leanh::lean_unbox(v_dir_2477_) as u8);
     v_res_2481_ =
         l_Std_Http_Protocol_H1_Writer_setState(v_dir_boxed_2480_, v_state_2478_, v_writer_2479_);
     return v_res_2481_;
 }
 pub unsafe fn l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Writer_writeHeaders(
     mut v_dir_2482_: u8,
-    mut v_messageHead_2483_: *mut crate::leanh::LeanObject,
-    mut v_writer_2484_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2485_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2486_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_state_2487_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2488_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2489_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_messageHead_2483_: *mut leanh::LeanObject,
+    mut v_writer_2484_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2485_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2486_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_state_2487_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2488_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2489_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2490_: u8 = 0;
     let mut v_userClosedBody_2491_: u8 = 0;
     let mut v_omitBody_2492_: u8 = 0;
-    let mut v_userDataBytes_2493_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2495_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2493_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2495_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2496_: u8 = 0;
     let mut v___y_2498_: u8 = 0;
-    let mut v___x_6__overap_2499_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2500_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2502_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2503_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_6__overap_2499_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2500_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2502_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2503_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2504_: u8 = 0;
     let mut v___x_2505_: u8 = 0;
     let mut v_isSharedCheck_2506_: u8 = 0;
@@ -5673,39 +5673,39 @@ pub unsafe fn l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Wr
     loop {
         match state {
             0 => {
-                v_userData_2485_ = crate::leanh::lean_ctor_get(v_writer_2484_, 0);
-                v_outputData_2486_ = crate::leanh::lean_ctor_get(v_writer_2484_, 1);
-                v_state_2487_ = crate::leanh::lean_ctor_get(v_writer_2484_, 2);
-                v_knownSize_2488_ = crate::leanh::lean_ctor_get(v_writer_2484_, 3);
-                v_messageHead_2489_ = crate::leanh::lean_ctor_get(v_writer_2484_, 4);
-                v_sentMessage_2490_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2485_ = leanh::lean_ctor_get(v_writer_2484_, 0);
+                v_outputData_2486_ = leanh::lean_ctor_get(v_writer_2484_, 1);
+                v_state_2487_ = leanh::lean_ctor_get(v_writer_2484_, 2);
+                v_knownSize_2488_ = leanh::lean_ctor_get(v_writer_2484_, 3);
+                v_messageHead_2489_ = leanh::lean_ctor_get(v_writer_2484_, 4);
+                v_sentMessage_2490_ = leanh::lean_ctor_get_uint8(
                     v_writer_2484_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2491_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2491_ = leanh::lean_ctor_get_uint8(
                     v_writer_2484_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2492_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2492_ = leanh::lean_ctor_get_uint8(
                     v_writer_2484_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2493_ = crate::leanh::lean_ctor_get(v_writer_2484_, 5);
-                v_isSharedCheck_2506_ = (!crate::leanh::lean_is_exclusive(v_writer_2484_)) as u8;
+                v_userDataBytes_2493_ = leanh::lean_ctor_get(v_writer_2484_, 5);
+                v_isSharedCheck_2506_ = (!leanh::lean_is_exclusive(v_writer_2484_)) as u8;
                 if v_isSharedCheck_2506_ == 0 {
                     v___x_2495_ = v_writer_2484_;
                     v_isShared_2496_ = v_isSharedCheck_2506_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2493_);
-                    crate::leanh::lean_inc(v_messageHead_2489_);
-                    crate::leanh::lean_inc(v_knownSize_2488_);
-                    crate::leanh::lean_inc(v_state_2487_);
-                    crate::leanh::lean_inc(v_outputData_2486_);
-                    crate::leanh::lean_inc(v_userData_2485_);
-                    crate::leanh::lean_dec(v_writer_2484_);
-                    v___x_2495_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2493_);
+                    leanh::lean_inc(v_messageHead_2489_);
+                    leanh::lean_inc(v_knownSize_2488_);
+                    leanh::lean_inc(v_state_2487_);
+                    leanh::lean_inc(v_outputData_2486_);
+                    leanh::lean_inc(v_userData_2485_);
+                    leanh::lean_dec(v_writer_2484_);
+                    v___x_2495_ = leanh::lean_box(0);
                     v_isShared_2496_ = v_isSharedCheck_2506_;
                     state = 1;
                     continue;
@@ -5726,37 +5726,37 @@ pub unsafe fn l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Wr
             }
             2 => {
                 v___x_6__overap_2499_ = l_Std_Http_Protocol_H1_instEncodeV11Head(v___y_2498_);
-                v___x_2500_ = crate::leanh::lean_apply_2(
+                v___x_2500_ = leanh::lean_apply_2(
                     v___x_6__overap_2499_,
                     v_outputData_2486_,
                     v_messageHead_2483_,
                 );
                 if v_isShared_2496_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2495_, 1, v___x_2500_);
+                    leanh::lean_ctor_set(v___x_2495_, 1, v___x_2500_);
                     v___x_2502_ = v___x_2495_;
                     state = 3;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2503_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 0, v_userData_2485_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 1, v___x_2500_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 2, v_state_2487_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 3, v_knownSize_2488_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 4, v_messageHead_2489_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 5, v_userDataBytes_2493_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2503_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 0, v_userData_2485_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 1, v___x_2500_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 2, v_state_2487_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 3, v_knownSize_2488_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 4, v_messageHead_2489_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2503_, 5, v_userDataBytes_2493_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2503_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2490_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2503_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2491_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2503_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2492_,
                     );
                     v___x_2502_ = v_reuseFailAlloc_2503_;
@@ -5772,13 +5772,13 @@ pub unsafe fn l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Wr
     }
 }
 pub unsafe fn l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Writer_writeHeaders___boxed(
-    mut v_dir_2507_: *mut crate::leanh::LeanObject,
-    mut v_messageHead_2508_: *mut crate::leanh::LeanObject,
-    mut v_writer_2509_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2507_: *mut leanh::LeanObject,
+    mut v_messageHead_2508_: *mut leanh::LeanObject,
+    mut v_writer_2509_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2510_: u8 = 0;
-    let mut v_res_2511_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2510_ = (crate::leanh::lean_unbox(v_dir_2507_) as u8);
+    let mut v_res_2511_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2510_ = (leanh::lean_unbox(v_dir_2507_) as u8);
     v_res_2511_ =
         l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Writer_writeHeaders(
             v_dir_boxed_2510_,
@@ -5788,27 +5788,27 @@ pub unsafe fn l___private_Std_Http_Protocol_H1_Writer_0__Std_Http_Protocol_H1_Wr
     return v_res_2511_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0___redArg(
-    mut v_a_2512_: *mut crate::leanh::LeanObject,
-    mut v_x_2513_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_key_2514_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_value_2515_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_tail_2516_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_a_2512_: *mut leanh::LeanObject,
+    mut v_x_2513_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_key_2514_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_value_2515_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_tail_2516_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2517_: u8 = 0;
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_key_2514_ = crate::leanh::lean_ctor_get(v_x_2513_, 0);
-                v_value_2515_ = crate::leanh::lean_ctor_get(v_x_2513_, 1);
-                v_tail_2516_ = crate::leanh::lean_ctor_get(v_x_2513_, 2);
+                v_key_2514_ = leanh::lean_ctor_get(v_x_2513_, 0);
+                v_value_2515_ = leanh::lean_ctor_get(v_x_2513_, 1);
+                v_tail_2516_ = leanh::lean_ctor_get(v_x_2513_, 2);
                 v___x_2517_ = lean_string_dec_eq(v_key_2514_, v_a_2512_);
                 if v___x_2517_ == 0 {
                     v_x_2513_ = v_tail_2516_;
                     state = 0;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_value_2515_);
+                    leanh::lean_inc(v_value_2515_);
                     return v_value_2515_;
                 }
             }
@@ -5817,21 +5817,21 @@ pub unsafe fn l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Intern
     }
 }
 pub unsafe fn l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0___redArg___boxed(
-    mut v_a_2519_: *mut crate::leanh::LeanObject,
-    mut v_x_2520_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_2521_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_a_2519_: *mut leanh::LeanObject,
+    mut v_x_2520_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_2521_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_2521_ = l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0___redArg(v_a_2519_, v_x_2520_);
-    crate::leanh::lean_dec(v_x_2520_);
-    crate::leanh::lean_dec_ref(v_a_2519_);
+    leanh::lean_dec(v_x_2520_);
+    leanh::lean_dec_ref(v_a_2519_);
     return v_res_2521_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0___redArg(
-    mut v_m_2522_: *mut crate::leanh::LeanObject,
-    mut v_a_2523_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_buckets_2524_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2525_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_m_2522_: *mut leanh::LeanObject,
+    mut v_a_2523_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_buckets_2524_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2525_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2526_: u64 = 0;
     let mut v___x_2527_: u64 = 0;
     let mut v___x_2528_: u64 = 0;
@@ -5844,9 +5844,9 @@ pub unsafe fn l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Prot
     let mut v___x_2535_: usize = 0;
     let mut v___x_2536_: usize = 0;
     let mut v___x_2537_: usize = 0;
-    let mut v___x_2538_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2539_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_buckets_2524_ = crate::leanh::lean_ctor_get(v_m_2522_, 1);
+    let mut v___x_2538_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2539_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_buckets_2524_ = leanh::lean_ctor_get(v_m_2522_, 1);
     v___x_2525_ = lean_array_get_size(v_buckets_2524_);
     v___x_2526_ = lean_string_hash(v_a_2523_);
     v___x_2527_ = 32u64;
@@ -5865,24 +5865,24 @@ pub unsafe fn l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Prot
     return v___x_2539_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0___redArg___boxed(
-    mut v_m_2540_: *mut crate::leanh::LeanObject,
-    mut v_a_2541_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_2542_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_m_2540_: *mut leanh::LeanObject,
+    mut v_a_2541_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_2542_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_2542_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0___redArg(v_m_2540_, v_a_2541_);
-    crate::leanh::lean_dec_ref(v_a_2541_);
-    crate::leanh::lean_dec_ref(v_m_2540_);
+    leanh::lean_dec_ref(v_a_2541_);
+    leanh::lean_dec_ref(v_m_2540_);
     return v_res_2542_;
 }
 pub unsafe fn l_String_mapAux___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__1(
-    mut v_s_2543_: *mut crate::leanh::LeanObject,
-    mut v_p_2544_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_s_2543_: *mut leanh::LeanObject,
+    mut v_p_2544_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v___y_2546_: u32 = 0;
-    let mut v___x_2547_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2548_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2549_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2551_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2547_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2548_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2549_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2551_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2552_: u8 = 0;
     let mut v___x_2553_: u32 = 0;
     let mut v___x_2554_: u32 = 0;
@@ -5921,17 +5921,17 @@ pub unsafe fn l_String_mapAux___at___00Std_Http_Protocol_H1_Writer_shouldKeepAli
                         }
                     }
                 } else {
-                    crate::leanh::lean_dec(v_p_2544_);
+                    leanh::lean_dec(v_p_2544_);
                     return v_s_2543_;
                 }
             }
             1 => {
-                crate::leanh::lean_inc(v_p_2544_);
+                leanh::lean_inc(v_p_2544_);
                 v___x_2547_ = lean_string_utf8_set(v_s_2543_, v_p_2544_, v___y_2546_);
                 v___x_2548_ = l_Char_utf8Size(v___y_2546_);
                 v___x_2549_ = lean_nat_add(v_p_2544_, v___x_2548_);
-                crate::leanh::lean_dec(v___x_2548_);
-                crate::leanh::lean_dec(v_p_2544_);
+                leanh::lean_dec(v___x_2548_);
+                leanh::lean_dec(v_p_2544_);
                 v_s_2543_ = v___x_2547_;
                 v_p_2544_ = v___x_2549_;
                 state = 0;
@@ -5943,25 +5943,25 @@ pub unsafe fn l_String_mapAux___at___00Std_Http_Protocol_H1_Writer_shouldKeepAli
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_shouldKeepAlive(
     mut v_dir_2563_: u8,
-    mut v_writer_2564_: *mut crate::leanh::LeanObject,
+    mut v_writer_2564_: *mut leanh::LeanObject,
 ) -> u8 {
     let mut v___y_2566_: u8 = 0;
-    let mut v_messageHead_2567_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2568_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2569_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_2570_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___f_2571_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2567_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2568_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2569_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2570_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___f_2571_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2572_: u8 = 0;
     let mut v___x_2573_: u8 = 0;
-    let mut v_entries_2574_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_indexes_2575_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2576_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2577_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_entry_2578_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2579_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_snd_2580_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2581_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2582_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entries_2574_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_indexes_2575_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2576_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2577_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_entry_2578_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2579_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_snd_2580_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2581_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2582_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_2583_: u8 = 0;
     let mut v___x_2584_: u8 = 0;
     let mut v___x_2585_: u8 = 0;
@@ -5983,7 +5983,7 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_shouldKeepAlive(
                 }
             }
             1 => {
-                v_messageHead_2567_ = crate::leanh::lean_ctor_get(v_writer_2564_, 4);
+                v_messageHead_2567_ = leanh::lean_ctor_get(v_writer_2564_, 4);
                 v___x_2568_ =
                     l_Std_Http_Protocol_H1_Message_Head_headers(v___y_2566_, v_messageHead_2567_);
                 v___x_2569_ = l_Std_Http_Header_Name_connection;
@@ -5996,30 +5996,30 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_shouldKeepAlive(
                     v___x_2568_,
                 );
                 if v___x_2572_ == 0 {
-                    crate::leanh::lean_dec_ref(v___x_2568_);
+                    leanh::lean_dec_ref(v___x_2568_);
                     v___x_2573_ = 1;
                     return v___x_2573_;
                 } else {
-                    v_entries_2574_ = crate::leanh::lean_ctor_get(v___x_2568_, 0);
-                    crate::leanh::lean_inc_ref(v_entries_2574_);
-                    v_indexes_2575_ = crate::leanh::lean_ctor_get(v___x_2568_, 1);
-                    crate::leanh::lean_inc_ref(v_indexes_2575_);
-                    crate::leanh::lean_dec_ref(v___x_2568_);
+                    v_entries_2574_ = leanh::lean_ctor_get(v___x_2568_, 0);
+                    leanh::lean_inc_ref(v_entries_2574_);
+                    v_indexes_2575_ = leanh::lean_ctor_get(v___x_2568_, 1);
+                    leanh::lean_inc_ref(v_indexes_2575_);
+                    leanh::lean_dec_ref(v___x_2568_);
                     v___x_2576_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0___redArg(v_indexes_2575_, v___x_2569_);
-                    crate::leanh::lean_dec_ref(v_indexes_2575_);
-                    v___x_2577_ = crate::leanh::lean_unsigned_to_nat(0);
+                    leanh::lean_dec_ref(v_indexes_2575_);
+                    v___x_2577_ = leanh::lean_unsigned_to_nat(0);
                     v_entry_2578_ = lean_array_fget(v___x_2576_, v___x_2577_);
-                    crate::leanh::lean_dec(v___x_2576_);
+                    leanh::lean_dec(v___x_2576_);
                     v___x_2579_ = lean_array_fget(v_entries_2574_, v_entry_2578_);
-                    crate::leanh::lean_dec(v_entry_2578_);
-                    crate::leanh::lean_dec_ref(v_entries_2574_);
-                    v_snd_2580_ = crate::leanh::lean_ctor_get(v___x_2579_, 1);
-                    crate::leanh::lean_inc(v_snd_2580_);
-                    crate::leanh::lean_dec(v___x_2579_);
+                    leanh::lean_dec(v_entry_2578_);
+                    leanh::lean_dec_ref(v_entries_2574_);
+                    v_snd_2580_ = leanh::lean_ctor_get(v___x_2579_, 1);
+                    leanh::lean_inc(v_snd_2580_);
+                    leanh::lean_dec(v___x_2579_);
                     v___x_2581_ = l_String_mapAux___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__1(v_snd_2580_, v___x_2577_);
                     v___x_2582_ = l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___closed__2;
                     v___x_2583_ = lean_string_dec_eq(v___x_2581_, v___x_2582_);
-                    crate::leanh::lean_dec_ref(v___x_2581_);
+                    leanh::lean_dec_ref(v___x_2581_);
                     if v___x_2583_ == 0 {
                         return v___x_2572_;
                     } else {
@@ -6033,150 +6033,150 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_shouldKeepAlive(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_shouldKeepAlive___boxed(
-    mut v_dir_2587_: *mut crate::leanh::LeanObject,
-    mut v_writer_2588_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2587_: *mut leanh::LeanObject,
+    mut v_writer_2588_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2589_: u8 = 0;
     let mut v_res_2590_: u8 = 0;
-    let mut v_r_2591_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2589_ = (crate::leanh::lean_unbox(v_dir_2587_) as u8);
+    let mut v_r_2591_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2589_ = (leanh::lean_unbox(v_dir_2587_) as u8);
     v_res_2590_ = l_Std_Http_Protocol_H1_Writer_shouldKeepAlive(v_dir_boxed_2589_, v_writer_2588_);
-    crate::leanh::lean_dec_ref(v_writer_2588_);
-    v_r_2591_ = crate::leanh::lean_box((v_res_2590_) as usize);
+    leanh::lean_dec_ref(v_writer_2588_);
+    v_r_2591_ = leanh::lean_box((v_res_2590_) as usize);
     return v_r_2591_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0(
-    mut v_00_u03b2_2592_: *mut crate::leanh::LeanObject,
-    mut v_m_2593_: *mut crate::leanh::LeanObject,
-    mut v_a_2594_: *mut crate::leanh::LeanObject,
-    mut v_hma_2595_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2596_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_00_u03b2_2592_: *mut leanh::LeanObject,
+    mut v_m_2593_: *mut leanh::LeanObject,
+    mut v_a_2594_: *mut leanh::LeanObject,
+    mut v_hma_2595_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2596_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2596_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0___redArg(v_m_2593_, v_a_2594_);
     return v___x_2596_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0___boxed(
-    mut v_00_u03b2_2597_: *mut crate::leanh::LeanObject,
-    mut v_m_2598_: *mut crate::leanh::LeanObject,
-    mut v_a_2599_: *mut crate::leanh::LeanObject,
-    mut v_hma_2600_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_2601_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_00_u03b2_2597_: *mut leanh::LeanObject,
+    mut v_m_2598_: *mut leanh::LeanObject,
+    mut v_a_2599_: *mut leanh::LeanObject,
+    mut v_hma_2600_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_2601_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_2601_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0(v_00_u03b2_2597_, v_m_2598_, v_a_2599_, v_hma_2600_);
-    crate::leanh::lean_dec_ref(v_a_2599_);
-    crate::leanh::lean_dec_ref(v_m_2598_);
+    leanh::lean_dec_ref(v_a_2599_);
+    leanh::lean_dec_ref(v_m_2598_);
     return v_res_2601_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0(
-    mut v_00_u03b2_2602_: *mut crate::leanh::LeanObject,
-    mut v_a_2603_: *mut crate::leanh::LeanObject,
-    mut v_x_2604_: *mut crate::leanh::LeanObject,
-    mut v_x_2605_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v___x_2606_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_00_u03b2_2602_: *mut leanh::LeanObject,
+    mut v_a_2603_: *mut leanh::LeanObject,
+    mut v_x_2604_: *mut leanh::LeanObject,
+    mut v_x_2605_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v___x_2606_: *mut leanh::LeanObject = core::ptr::null_mut();
     v___x_2606_ = l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0___redArg(v_a_2603_, v_x_2604_);
     return v___x_2606_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0___boxed(
-    mut v_00_u03b2_2607_: *mut crate::leanh::LeanObject,
-    mut v_a_2608_: *mut crate::leanh::LeanObject,
-    mut v_x_2609_: *mut crate::leanh::LeanObject,
-    mut v_x_2610_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_res_2611_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_00_u03b2_2607_: *mut leanh::LeanObject,
+    mut v_a_2608_: *mut leanh::LeanObject,
+    mut v_x_2609_: *mut leanh::LeanObject,
+    mut v_x_2610_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_res_2611_: *mut leanh::LeanObject = core::ptr::null_mut();
     v_res_2611_ = l_Std_DHashMap_Internal_AssocList_get___at___00Std_DHashMap_Internal_Raw_u2080_Const_get___at___00Std_Http_Protocol_H1_Writer_shouldKeepAlive_spec__0_spec__0(v_00_u03b2_2607_, v_a_2608_, v_x_2609_, v_x_2610_);
-    crate::leanh::lean_dec(v_x_2609_);
-    crate::leanh::lean_dec_ref(v_a_2608_);
+    leanh::lean_dec(v_x_2609_);
+    leanh::lean_dec_ref(v_a_2608_);
     return v_res_2611_;
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_close___redArg(
-    mut v_writer_2612_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2613_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2614_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2615_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2616_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2612_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2613_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2614_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2615_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2616_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2617_: u8 = 0;
     let mut v_userClosedBody_2618_: u8 = 0;
     let mut v_omitBody_2619_: u8 = 0;
-    let mut v_userDataBytes_2620_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2622_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2620_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2622_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2623_: u8 = 0;
-    let mut v___x_2624_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2626_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2627_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2624_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2626_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2627_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2628_: u8 = 0;
-    let mut v_unused_2629_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_2629_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2613_ = crate::leanh::lean_ctor_get(v_writer_2612_, 0);
-                v_outputData_2614_ = crate::leanh::lean_ctor_get(v_writer_2612_, 1);
-                v_knownSize_2615_ = crate::leanh::lean_ctor_get(v_writer_2612_, 3);
-                v_messageHead_2616_ = crate::leanh::lean_ctor_get(v_writer_2612_, 4);
-                v_sentMessage_2617_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2613_ = leanh::lean_ctor_get(v_writer_2612_, 0);
+                v_outputData_2614_ = leanh::lean_ctor_get(v_writer_2612_, 1);
+                v_knownSize_2615_ = leanh::lean_ctor_get(v_writer_2612_, 3);
+                v_messageHead_2616_ = leanh::lean_ctor_get(v_writer_2612_, 4);
+                v_sentMessage_2617_ = leanh::lean_ctor_get_uint8(
                     v_writer_2612_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2618_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2618_ = leanh::lean_ctor_get_uint8(
                     v_writer_2612_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2619_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2619_ = leanh::lean_ctor_get_uint8(
                     v_writer_2612_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2620_ = crate::leanh::lean_ctor_get(v_writer_2612_, 5);
-                v_isSharedCheck_2628_ = (!crate::leanh::lean_is_exclusive(v_writer_2612_)) as u8;
+                v_userDataBytes_2620_ = leanh::lean_ctor_get(v_writer_2612_, 5);
+                v_isSharedCheck_2628_ = (!leanh::lean_is_exclusive(v_writer_2612_)) as u8;
                 if v_isSharedCheck_2628_ == 0 {
-                    v_unused_2629_ = crate::leanh::lean_ctor_get(v_writer_2612_, 2);
-                    crate::leanh::lean_dec(v_unused_2629_);
+                    v_unused_2629_ = leanh::lean_ctor_get(v_writer_2612_, 2);
+                    leanh::lean_dec(v_unused_2629_);
                     v___x_2622_ = v_writer_2612_;
                     v_isShared_2623_ = v_isSharedCheck_2628_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2620_);
-                    crate::leanh::lean_inc(v_messageHead_2616_);
-                    crate::leanh::lean_inc(v_knownSize_2615_);
-                    crate::leanh::lean_inc(v_outputData_2614_);
-                    crate::leanh::lean_inc(v_userData_2613_);
-                    crate::leanh::lean_dec(v_writer_2612_);
-                    v___x_2622_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2620_);
+                    leanh::lean_inc(v_messageHead_2616_);
+                    leanh::lean_inc(v_knownSize_2615_);
+                    leanh::lean_inc(v_outputData_2614_);
+                    leanh::lean_inc(v_userData_2613_);
+                    leanh::lean_dec(v_writer_2612_);
+                    v___x_2622_ = leanh::lean_box(0);
                     v_isShared_2623_ = v_isSharedCheck_2628_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                v___x_2624_ = crate::leanh::lean_box(7);
+                v___x_2624_ = leanh::lean_box(7);
                 if v_isShared_2623_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2622_, 2, v___x_2624_);
+                    leanh::lean_ctor_set(v___x_2622_, 2, v___x_2624_);
                     v___x_2626_ = v___x_2622_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2627_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 0, v_userData_2613_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 1, v_outputData_2614_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 2, v___x_2624_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 3, v_knownSize_2615_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 4, v_messageHead_2616_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 5, v_userDataBytes_2620_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2627_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 0, v_userData_2613_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 1, v_outputData_2614_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 2, v___x_2624_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 3, v_knownSize_2615_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 4, v_messageHead_2616_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2627_, 5, v_userDataBytes_2620_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2627_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2617_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2627_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2618_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2627_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2619_,
                     );
                     v___x_2626_ = v_reuseFailAlloc_2627_;
@@ -6193,93 +6193,93 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_close___redArg(
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_close(
     mut v_dir_2630_: u8,
-    mut v_writer_2631_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_userData_2632_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_outputData_2633_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_knownSize_2634_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_messageHead_2635_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_writer_2631_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_userData_2632_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_outputData_2633_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_knownSize_2634_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_messageHead_2635_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_sentMessage_2636_: u8 = 0;
     let mut v_userClosedBody_2637_: u8 = 0;
     let mut v_omitBody_2638_: u8 = 0;
-    let mut v_userDataBytes_2639_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2641_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_userDataBytes_2639_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2641_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_2642_: u8 = 0;
-    let mut v___x_2643_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_2645_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_2646_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2643_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_2645_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_2646_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_2647_: u8 = 0;
-    let mut v_unused_2648_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_2648_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_userData_2632_ = crate::leanh::lean_ctor_get(v_writer_2631_, 0);
-                v_outputData_2633_ = crate::leanh::lean_ctor_get(v_writer_2631_, 1);
-                v_knownSize_2634_ = crate::leanh::lean_ctor_get(v_writer_2631_, 3);
-                v_messageHead_2635_ = crate::leanh::lean_ctor_get(v_writer_2631_, 4);
-                v_sentMessage_2636_ = crate::leanh::lean_ctor_get_uint8(
+                v_userData_2632_ = leanh::lean_ctor_get(v_writer_2631_, 0);
+                v_outputData_2633_ = leanh::lean_ctor_get(v_writer_2631_, 1);
+                v_knownSize_2634_ = leanh::lean_ctor_get(v_writer_2631_, 3);
+                v_messageHead_2635_ = leanh::lean_ctor_get(v_writer_2631_, 4);
+                v_sentMessage_2636_ = leanh::lean_ctor_get_uint8(
                     v_writer_2631_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                 );
-                v_userClosedBody_2637_ = crate::leanh::lean_ctor_get_uint8(
+                v_userClosedBody_2637_ = leanh::lean_ctor_get_uint8(
                     v_writer_2631_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                 );
-                v_omitBody_2638_ = crate::leanh::lean_ctor_get_uint8(
+                v_omitBody_2638_ = leanh::lean_ctor_get_uint8(
                     v_writer_2631_,
-                    (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                    (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                 );
-                v_userDataBytes_2639_ = crate::leanh::lean_ctor_get(v_writer_2631_, 5);
-                v_isSharedCheck_2647_ = (!crate::leanh::lean_is_exclusive(v_writer_2631_)) as u8;
+                v_userDataBytes_2639_ = leanh::lean_ctor_get(v_writer_2631_, 5);
+                v_isSharedCheck_2647_ = (!leanh::lean_is_exclusive(v_writer_2631_)) as u8;
                 if v_isSharedCheck_2647_ == 0 {
-                    v_unused_2648_ = crate::leanh::lean_ctor_get(v_writer_2631_, 2);
-                    crate::leanh::lean_dec(v_unused_2648_);
+                    v_unused_2648_ = leanh::lean_ctor_get(v_writer_2631_, 2);
+                    leanh::lean_dec(v_unused_2648_);
                     v___x_2641_ = v_writer_2631_;
                     v_isShared_2642_ = v_isSharedCheck_2647_;
                     state = 1;
                     continue;
                 } else {
-                    crate::leanh::lean_inc(v_userDataBytes_2639_);
-                    crate::leanh::lean_inc(v_messageHead_2635_);
-                    crate::leanh::lean_inc(v_knownSize_2634_);
-                    crate::leanh::lean_inc(v_outputData_2633_);
-                    crate::leanh::lean_inc(v_userData_2632_);
-                    crate::leanh::lean_dec(v_writer_2631_);
-                    v___x_2641_ = crate::leanh::lean_box(0);
+                    leanh::lean_inc(v_userDataBytes_2639_);
+                    leanh::lean_inc(v_messageHead_2635_);
+                    leanh::lean_inc(v_knownSize_2634_);
+                    leanh::lean_inc(v_outputData_2633_);
+                    leanh::lean_inc(v_userData_2632_);
+                    leanh::lean_dec(v_writer_2631_);
+                    v___x_2641_ = leanh::lean_box(0);
                     v_isShared_2642_ = v_isSharedCheck_2647_;
                     state = 1;
                     continue;
                 }
             }
             1 => {
-                v___x_2643_ = crate::leanh::lean_box(7);
+                v___x_2643_ = leanh::lean_box(7);
                 if v_isShared_2642_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_2641_, 2, v___x_2643_);
+                    leanh::lean_ctor_set(v___x_2641_, 2, v___x_2643_);
                     v___x_2645_ = v___x_2641_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_2646_ = crate::leanh::lean_alloc_ctor(0, 6, (3) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 0, v_userData_2632_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 1, v_outputData_2633_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 2, v___x_2643_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 3, v_knownSize_2634_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 4, v_messageHead_2635_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 5, v_userDataBytes_2639_);
-                    crate::leanh::lean_ctor_set_uint8(
+                    v_reuseFailAlloc_2646_ = leanh::lean_alloc_ctor(0, 6, (3) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 0, v_userData_2632_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 1, v_outputData_2633_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 2, v___x_2643_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 3, v_knownSize_2634_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 4, v_messageHead_2635_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_2646_, 5, v_userDataBytes_2639_);
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2646_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6) as u32,
                         v_sentMessage_2636_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2646_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 1) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 1) as u32,
                         v_userClosedBody_2637_,
                     );
-                    crate::leanh::lean_ctor_set_uint8(
+                    leanh::lean_ctor_set_uint8(
                         v_reuseFailAlloc_2646_,
-                        (core::mem::size_of::<*mut crate::leanh::LeanObject>() * 6 + 2) as u32,
+                        (core::mem::size_of::<*mut leanh::LeanObject>() * 6 + 2) as u32,
                         v_omitBody_2638_,
                     );
                     v___x_2645_ = v_reuseFailAlloc_2646_;
@@ -6295,129 +6295,129 @@ pub unsafe fn l_Std_Http_Protocol_H1_Writer_close(
     }
 }
 pub unsafe fn l_Std_Http_Protocol_H1_Writer_close___boxed(
-    mut v_dir_2649_: *mut crate::leanh::LeanObject,
-    mut v_writer_2650_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_dir_2649_: *mut leanh::LeanObject,
+    mut v_writer_2650_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_dir_boxed_2651_: u8 = 0;
-    let mut v_res_2652_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_dir_boxed_2651_ = (crate::leanh::lean_unbox(v_dir_2649_) as u8);
+    let mut v_res_2652_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_dir_boxed_2651_ = (leanh::lean_unbox(v_dir_2649_) as u8);
     v_res_2652_ = l_Std_Http_Protocol_H1_Writer_close(v_dir_boxed_2651_, v_writer_2650_);
     return v_res_2652_;
 }
 static mut _G_runtime_initialized: bool = false;
 pub unsafe fn runtime_initialize_Std_Http_Protocol_H1_Writer(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Std_Time(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Data(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Internal(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Protocol_H1_Parser(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Protocol_H1_Config(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Protocol_H1_Message(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Protocol_H1_Error(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     l_Std_Http_Protocol_H1_Writer_instInhabitedState_default =
         _init_l_Std_Http_Protocol_H1_Writer_instInhabitedState_default();
-    crate::leanh::lean_mark_persistent(l_Std_Http_Protocol_H1_Writer_instInhabitedState_default);
+    leanh::lean_mark_persistent(l_Std_Http_Protocol_H1_Writer_instInhabitedState_default);
     l_Std_Http_Protocol_H1_Writer_instInhabitedState =
         _init_l_Std_Http_Protocol_H1_Writer_instInhabitedState();
-    crate::leanh::lean_mark_persistent(l_Std_Http_Protocol_H1_Writer_instInhabitedState);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_mark_persistent(l_Std_Http_Protocol_H1_Writer_instInhabitedState);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
 pub unsafe fn meta_initialize_Std_Http_Protocol_H1_Writer(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Http_Protocol_H1_Writer(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Http_Protocol_H1_Writer(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Std_Time(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Data(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Internal(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Protocol_H1_Parser(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Protocol_H1_Config(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Protocol_H1_Message(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Std_Http_Protocol_H1_Error(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Http_Protocol_H1_Writer(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Http_Protocol_H1_Writer(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Std_Http_Protocol_H1_Writer(builtin);
 }

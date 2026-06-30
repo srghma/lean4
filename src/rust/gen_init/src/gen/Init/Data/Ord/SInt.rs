@@ -20,14 +20,14 @@ use crate::r#gen::Init::Data::SInt::Basic::{
 use crate::r#gen::Init::Data::SInt::Lemmas::{
     initialize_Init_Data_SInt_Lemmas, runtime_initialize_Init_Data_SInt_Lemmas,
 };
-pub static l_Int8_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+pub static l_Int8_instOrd___closed__0_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -37,18 +37,18 @@ pub static l_Int8_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> 
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Int8_instOrd___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int8_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static mut l_Int8_instOrd: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int8_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_Int16_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Int8_instOrd___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int8_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static mut l_Int8_instOrd: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int8_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static l_Int16_instOrd___closed__0_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -58,18 +58,18 @@ pub static l_Int16_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0>
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Int16_instOrd___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int16_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static mut l_Int16_instOrd: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int16_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_Int32_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Int16_instOrd___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int16_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static mut l_Int16_instOrd: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int16_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static l_Int32_instOrd___closed__0_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -79,18 +79,18 @@ pub static l_Int32_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0>
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Int32_instOrd___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int32_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static mut l_Int32_instOrd: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int32_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_Int64_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Int32_instOrd___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int32_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static mut l_Int32_instOrd: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int32_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static l_Int64_instOrd___closed__0_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -100,18 +100,18 @@ pub static l_Int64_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0>
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_Int64_instOrd___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int64_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static mut l_Int64_instOrd: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_Int64_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static l_ISize_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0> =
-    crate::leanh::LeanClosureObject {
-        m_header: crate::leanh::LeanObject {
+static mut l_Int64_instOrd___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int64_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static mut l_Int64_instOrd: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_Int64_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static l_ISize_instOrd___closed__0_value: leanh::LeanClosureObject<0> =
+    leanh::LeanClosureObject {
+        m_header: leanh::LeanObject {
             rc: 0,
-            cs_size: (core::mem::size_of::<crate::leanh::LeanObject>()
+            cs_size: (core::mem::size_of::<leanh::LeanObject>()
                 + core::mem::size_of::<*const core::ffi::c_void>()
                 + 4
-                + core::mem::size_of::<*mut crate::leanh::LeanObject>() * 0)
+                + core::mem::size_of::<*mut leanh::LeanObject>() * 0)
                 as u16,
             other: 0,
             tag: 245,
@@ -121,10 +121,10 @@ pub static l_ISize_instOrd___closed__0_value: crate::leanh::LeanClosureObject<0>
         m_num_fixed: 0,
         m_objs: [],
     };
-static mut l_ISize_instOrd___closed__0: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_ISize_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
-pub static mut l_ISize_instOrd: *mut crate::leanh::LeanObject =
-    core::ptr::addr_of!(l_ISize_instOrd___closed__0_value) as *mut crate::leanh::LeanObject;
+static mut l_ISize_instOrd___closed__0: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_ISize_instOrd___closed__0_value) as *mut leanh::LeanObject;
+pub static mut l_ISize_instOrd: *mut leanh::LeanObject =
+    core::ptr::addr_of!(l_ISize_instOrd___closed__0_value) as *mut leanh::LeanObject;
 pub unsafe fn l_Int8_instOrd___lam__0(mut v_x_76_: u8, mut v_y_77_: u8) -> u8 {
     let mut v___x_78_: u8 = 0;
     v___x_78_ = lean_int8_dec_lt(v_x_76_, v_y_77_);
@@ -147,17 +147,17 @@ pub unsafe fn l_Int8_instOrd___lam__0(mut v_x_76_: u8, mut v_y_77_: u8) -> u8 {
     }
 }
 pub unsafe fn l_Int8_instOrd___lam__0___boxed(
-    mut v_x_83_: *mut crate::leanh::LeanObject,
-    mut v_y_84_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_x_83_: *mut leanh::LeanObject,
+    mut v_y_84_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_x_boxed_85_: u8 = 0;
     let mut v_y_boxed_86_: u8 = 0;
     let mut v_res_87_: u8 = 0;
-    let mut v_r_88_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_x_boxed_85_ = (crate::leanh::lean_unbox(v_x_83_) as u8);
-    v_y_boxed_86_ = (crate::leanh::lean_unbox(v_y_84_) as u8);
+    let mut v_r_88_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_x_boxed_85_ = (leanh::lean_unbox(v_x_83_) as u8);
+    v_y_boxed_86_ = (leanh::lean_unbox(v_y_84_) as u8);
     v_res_87_ = l_Int8_instOrd___lam__0(v_x_boxed_85_, v_y_boxed_86_);
-    v_r_88_ = crate::leanh::lean_box((v_res_87_) as usize);
+    v_r_88_ = leanh::lean_box((v_res_87_) as usize);
     return v_r_88_;
 }
 pub unsafe fn l_Int16_instOrd___lam__0(mut v_x_91_: u16, mut v_y_92_: u16) -> u8 {
@@ -182,17 +182,17 @@ pub unsafe fn l_Int16_instOrd___lam__0(mut v_x_91_: u16, mut v_y_92_: u16) -> u8
     }
 }
 pub unsafe fn l_Int16_instOrd___lam__0___boxed(
-    mut v_x_98_: *mut crate::leanh::LeanObject,
-    mut v_y_99_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_x_98_: *mut leanh::LeanObject,
+    mut v_y_99_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_x_boxed_100_: u16 = 0;
     let mut v_y_boxed_101_: u16 = 0;
     let mut v_res_102_: u8 = 0;
-    let mut v_r_103_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_x_boxed_100_ = (crate::leanh::lean_unbox(v_x_98_) as u16);
-    v_y_boxed_101_ = (crate::leanh::lean_unbox(v_y_99_) as u16);
+    let mut v_r_103_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_x_boxed_100_ = (leanh::lean_unbox(v_x_98_) as u16);
+    v_y_boxed_101_ = (leanh::lean_unbox(v_y_99_) as u16);
     v_res_102_ = l_Int16_instOrd___lam__0(v_x_boxed_100_, v_y_boxed_101_);
-    v_r_103_ = crate::leanh::lean_box((v_res_102_) as usize);
+    v_r_103_ = leanh::lean_box((v_res_102_) as usize);
     return v_r_103_;
 }
 pub unsafe fn l_Int32_instOrd___lam__0(mut v_x_106_: u32, mut v_y_107_: u32) -> u8 {
@@ -217,19 +217,19 @@ pub unsafe fn l_Int32_instOrd___lam__0(mut v_x_106_: u32, mut v_y_107_: u32) -> 
     }
 }
 pub unsafe fn l_Int32_instOrd___lam__0___boxed(
-    mut v_x_113_: *mut crate::leanh::LeanObject,
-    mut v_y_114_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_x_113_: *mut leanh::LeanObject,
+    mut v_y_114_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_x_boxed_115_: u32 = 0;
     let mut v_y_boxed_116_: u32 = 0;
     let mut v_res_117_: u8 = 0;
-    let mut v_r_118_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_x_boxed_115_ = crate::leanh::lean_unbox_uint32(v_x_113_);
-    crate::leanh::lean_dec(v_x_113_);
-    v_y_boxed_116_ = crate::leanh::lean_unbox_uint32(v_y_114_);
-    crate::leanh::lean_dec(v_y_114_);
+    let mut v_r_118_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_x_boxed_115_ = leanh::lean_unbox_uint32(v_x_113_);
+    leanh::lean_dec(v_x_113_);
+    v_y_boxed_116_ = leanh::lean_unbox_uint32(v_y_114_);
+    leanh::lean_dec(v_y_114_);
     v_res_117_ = l_Int32_instOrd___lam__0(v_x_boxed_115_, v_y_boxed_116_);
-    v_r_118_ = crate::leanh::lean_box((v_res_117_) as usize);
+    v_r_118_ = leanh::lean_box((v_res_117_) as usize);
     return v_r_118_;
 }
 pub unsafe fn l_Int64_instOrd___lam__0(mut v_x_121_: u64, mut v_y_122_: u64) -> u8 {
@@ -254,19 +254,19 @@ pub unsafe fn l_Int64_instOrd___lam__0(mut v_x_121_: u64, mut v_y_122_: u64) -> 
     }
 }
 pub unsafe fn l_Int64_instOrd___lam__0___boxed(
-    mut v_x_128_: *mut crate::leanh::LeanObject,
-    mut v_y_129_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_x_128_: *mut leanh::LeanObject,
+    mut v_y_129_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_x_boxed_130_: u64 = 0;
     let mut v_y_boxed_131_: u64 = 0;
     let mut v_res_132_: u8 = 0;
-    let mut v_r_133_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_x_boxed_130_ = crate::leanh::lean_unbox_uint64(v_x_128_);
-    crate::leanh::lean_dec_ref(v_x_128_);
-    v_y_boxed_131_ = crate::leanh::lean_unbox_uint64(v_y_129_);
-    crate::leanh::lean_dec_ref(v_y_129_);
+    let mut v_r_133_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_x_boxed_130_ = leanh::lean_unbox_uint64(v_x_128_);
+    leanh::lean_dec_ref(v_x_128_);
+    v_y_boxed_131_ = leanh::lean_unbox_uint64(v_y_129_);
+    leanh::lean_dec_ref(v_y_129_);
     v_res_132_ = l_Int64_instOrd___lam__0(v_x_boxed_130_, v_y_boxed_131_);
-    v_r_133_ = crate::leanh::lean_box((v_res_132_) as usize);
+    v_r_133_ = leanh::lean_box((v_res_132_) as usize);
     return v_r_133_;
 }
 pub unsafe fn l_ISize_instOrd___lam__0(mut v_x_136_: usize, mut v_y_137_: usize) -> u8 {
@@ -291,105 +291,105 @@ pub unsafe fn l_ISize_instOrd___lam__0(mut v_x_136_: usize, mut v_y_137_: usize)
     }
 }
 pub unsafe fn l_ISize_instOrd___lam__0___boxed(
-    mut v_x_143_: *mut crate::leanh::LeanObject,
-    mut v_y_144_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_x_143_: *mut leanh::LeanObject,
+    mut v_y_144_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_x_boxed_145_: usize = 0;
     let mut v_y_boxed_146_: usize = 0;
     let mut v_res_147_: u8 = 0;
-    let mut v_r_148_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_x_boxed_145_ = crate::leanh::lean_unbox_usize(v_x_143_);
-    crate::leanh::lean_dec(v_x_143_);
-    v_y_boxed_146_ = crate::leanh::lean_unbox_usize(v_y_144_);
-    crate::leanh::lean_dec(v_y_144_);
+    let mut v_r_148_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_x_boxed_145_ = leanh::lean_unbox_usize(v_x_143_);
+    leanh::lean_dec(v_x_143_);
+    v_y_boxed_146_ = leanh::lean_unbox_usize(v_y_144_);
+    leanh::lean_dec(v_y_144_);
     v_res_147_ = l_ISize_instOrd___lam__0(v_x_boxed_145_, v_y_boxed_146_);
-    v_r_148_ = crate::leanh::lean_box((v_res_147_) as usize);
+    v_r_148_ = leanh::lean_box((v_res_147_) as usize);
     return v_r_148_;
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Init_Data_Ord_SInt(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Init_Data_Ord_SInt(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_Order_Ord(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Order_ClassesExtra(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_SInt_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_SInt_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Order_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Init_Data_Ord_SInt(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Init_Data_Ord_SInt(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Init_Data_Ord_SInt(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Init_Data_Ord_SInt(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_Order_Ord(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Order_ClassesExtra(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_SInt_Basic(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_SInt_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_Order_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_Ord_SInt(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Init_Data_Ord_SInt(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Init_Data_Ord_SInt(builtin);
 }

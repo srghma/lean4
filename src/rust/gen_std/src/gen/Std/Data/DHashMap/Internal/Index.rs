@@ -28,19 +28,19 @@ pub unsafe fn l_Std_DHashMap_Internal_scrambleHash(mut v_hash_50_: u64) -> u64 {
     return v___x_56_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_scrambleHash___boxed(
-    mut v_hash_57_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_hash_57_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_hash_boxed_58_: u64 = 0;
     let mut v_res_59_: u64 = 0;
-    let mut v_r_60_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_hash_boxed_58_ = crate::leanh::lean_unbox_uint64(v_hash_57_);
-    crate::leanh::lean_dec_ref(v_hash_57_);
+    let mut v_r_60_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_hash_boxed_58_ = leanh::lean_unbox_uint64(v_hash_57_);
+    leanh::lean_dec_ref(v_hash_57_);
     v_res_59_ = l_Std_DHashMap_Internal_scrambleHash(v_hash_boxed_58_);
-    v_r_60_ = crate::leanh::lean_box_uint64(v_res_59_);
+    v_r_60_ = leanh::lean_box_uint64(v_res_59_);
     return v_r_60_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_mkIdx___redArg(
-    mut v_sz_61_: *mut crate::leanh::LeanObject,
+    mut v_sz_61_: *mut leanh::LeanObject,
     mut v_hash_62_: u64,
 ) -> usize {
     let mut v___x_63_: u64 = 0;
@@ -68,22 +68,22 @@ pub unsafe fn l_Std_DHashMap_Internal_mkIdx___redArg(
     return v___x_73_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_mkIdx___redArg___boxed(
-    mut v_sz_74_: *mut crate::leanh::LeanObject,
-    mut v_hash_75_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_sz_74_: *mut leanh::LeanObject,
+    mut v_hash_75_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_hash_boxed_76_: u64 = 0;
     let mut v_res_77_: usize = 0;
-    let mut v_r_78_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_hash_boxed_76_ = crate::leanh::lean_unbox_uint64(v_hash_75_);
-    crate::leanh::lean_dec_ref(v_hash_75_);
+    let mut v_r_78_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_hash_boxed_76_ = leanh::lean_unbox_uint64(v_hash_75_);
+    leanh::lean_dec_ref(v_hash_75_);
     v_res_77_ = l_Std_DHashMap_Internal_mkIdx___redArg(v_sz_74_, v_hash_boxed_76_);
-    crate::leanh::lean_dec(v_sz_74_);
-    v_r_78_ = crate::leanh::lean_box_usize(v_res_77_);
+    leanh::lean_dec(v_sz_74_);
+    v_r_78_ = leanh::lean_box_usize(v_res_77_);
     return v_r_78_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_mkIdx(
-    mut v_sz_79_: *mut crate::leanh::LeanObject,
-    mut v_h_80_: *mut crate::leanh::LeanObject,
+    mut v_sz_79_: *mut leanh::LeanObject,
+    mut v_h_80_: *mut leanh::LeanObject,
     mut v_hash_81_: u64,
 ) -> usize {
     let mut v___x_82_: u64 = 0;
@@ -111,90 +111,90 @@ pub unsafe fn l_Std_DHashMap_Internal_mkIdx(
     return v___x_92_;
 }
 pub unsafe fn l_Std_DHashMap_Internal_mkIdx___boxed(
-    mut v_sz_93_: *mut crate::leanh::LeanObject,
-    mut v_h_94_: *mut crate::leanh::LeanObject,
-    mut v_hash_95_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
+    mut v_sz_93_: *mut leanh::LeanObject,
+    mut v_h_94_: *mut leanh::LeanObject,
+    mut v_hash_95_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
     let mut v_hash_boxed_96_: u64 = 0;
     let mut v_res_97_: usize = 0;
-    let mut v_r_98_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    v_hash_boxed_96_ = crate::leanh::lean_unbox_uint64(v_hash_95_);
-    crate::leanh::lean_dec_ref(v_hash_95_);
+    let mut v_r_98_: *mut leanh::LeanObject = core::ptr::null_mut();
+    v_hash_boxed_96_ = leanh::lean_unbox_uint64(v_hash_95_);
+    leanh::lean_dec_ref(v_hash_95_);
     v_res_97_ = l_Std_DHashMap_Internal_mkIdx(v_sz_93_, v_h_94_, v_hash_boxed_96_);
-    crate::leanh::lean_dec(v_sz_93_);
-    v_r_98_ = crate::leanh::lean_box_usize(v_res_97_);
+    leanh::lean_dec(v_sz_93_);
+    v_r_98_ = leanh::lean_box_usize(v_res_97_);
     return v_r_98_;
 }
 static mut _G_runtime_initialized: bool = false;
 pub unsafe fn runtime_initialize_Std_Data_DHashMap_Internal_Index(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_UInt_Bitwise(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_ByCases(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_UInt_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
 pub unsafe fn meta_initialize_Std_Data_DHashMap_Internal_Index(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
 pub unsafe fn initialize_Std_Data_DHashMap_Internal_Index(
     builtin: u8,
-) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_UInt_Bitwise(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_ByCases(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_UInt_Lemmas(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Data_DHashMap_Internal_Index(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Data_DHashMap_Internal_Index(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Std_Data_DHashMap_Internal_Index(builtin);
 }

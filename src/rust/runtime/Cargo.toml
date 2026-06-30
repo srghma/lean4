@@ -4,7 +4,7 @@
 [package]
 name = "runtime"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 publish = false
 
 [features]
@@ -12,11 +12,11 @@ default = ["std"]
 std = []
 default-max-heartbeat = []
 default-max-memory = []
-gen-init = []
-gen-std = []
-gen-lean = []
-gen-lake = []
-gen-tools = []
+# gen-init = []
+# gen-std = []
+# gen-lean = []
+# gen-lake = []
+# gen-tools = []
 
 [dependencies]
 leanh = { path = "../leanh" }

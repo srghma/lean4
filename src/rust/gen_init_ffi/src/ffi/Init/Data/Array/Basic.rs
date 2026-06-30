@@ -1,4 +1,4 @@
-use crate::leanh::LeanObject;
+use leanh::LeanObject;
 use runtime::leanh_extra as leanh;
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Array/Basic.lean

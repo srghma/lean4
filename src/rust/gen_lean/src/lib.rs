@@ -7,9 +7,11 @@
     unused_imports
 )]
 
-pub mod leanh {
-    pub use leanh::*;
+pub mod ffi {
+    // Re-export all public symbols from both crates into this unified module
+    pub use gen_init_ffi::*;
+    pub use gen_std_ffi::*;
+    pub use gen_lean_ffi::*;
 }
 
-pub mod ffi;
 pub mod r#gen;

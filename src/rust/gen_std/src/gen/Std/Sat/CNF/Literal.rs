@@ -8,66 +8,66 @@ use crate::r#gen::Init::Data::ToString::{
     initialize_Init_Data_ToString, runtime_initialize_Init_Data_ToString,
 };
 pub unsafe fn l_Std_Sat_Literal_negate___redArg(
-    mut v_l_52_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_snd_53_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_l_52_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_snd_53_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_54_: u8 = 0;
-    let mut v_fst_55_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_57_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_55_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_57_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_58_: u8 = 0;
     let mut v___x_59_: u8 = 0;
-    let mut v___x_60_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_62_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_63_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_60_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_62_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_63_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_64_: u8 = 0;
-    let mut v_unused_65_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_66_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_68_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_65_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_66_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_68_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_69_: u8 = 0;
     let mut v___x_70_: u8 = 0;
-    let mut v___x_71_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_73_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_74_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_71_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_73_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_74_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_75_: u8 = 0;
-    let mut v_unused_76_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_76_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_snd_53_ = crate::leanh::lean_ctor_get(v_l_52_, 1);
-                v___x_54_ = (crate::leanh::lean_unbox(v_snd_53_) as u8);
+                v_snd_53_ = leanh::lean_ctor_get(v_l_52_, 1);
+                v___x_54_ = (leanh::lean_unbox(v_snd_53_) as u8);
                 if v___x_54_ == 0 {
-                    v_fst_55_ = crate::leanh::lean_ctor_get(v_l_52_, 0);
-                    v_isSharedCheck_64_ = (!crate::leanh::lean_is_exclusive(v_l_52_)) as u8;
+                    v_fst_55_ = leanh::lean_ctor_get(v_l_52_, 0);
+                    v_isSharedCheck_64_ = (!leanh::lean_is_exclusive(v_l_52_)) as u8;
                     if v_isSharedCheck_64_ == 0 {
-                        v_unused_65_ = crate::leanh::lean_ctor_get(v_l_52_, 1);
-                        crate::leanh::lean_dec(v_unused_65_);
+                        v_unused_65_ = leanh::lean_ctor_get(v_l_52_, 1);
+                        leanh::lean_dec(v_unused_65_);
                         v___x_57_ = v_l_52_;
                         v_isShared_58_ = v_isSharedCheck_64_;
                         state = 1;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_fst_55_);
-                        crate::leanh::lean_dec(v_l_52_);
-                        v___x_57_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_fst_55_);
+                        leanh::lean_dec(v_l_52_);
+                        v___x_57_ = leanh::lean_box(0);
                         v_isShared_58_ = v_isSharedCheck_64_;
                         state = 1;
                         continue;
                     }
                 } else {
-                    v_fst_66_ = crate::leanh::lean_ctor_get(v_l_52_, 0);
-                    v_isSharedCheck_75_ = (!crate::leanh::lean_is_exclusive(v_l_52_)) as u8;
+                    v_fst_66_ = leanh::lean_ctor_get(v_l_52_, 0);
+                    v_isSharedCheck_75_ = (!leanh::lean_is_exclusive(v_l_52_)) as u8;
                     if v_isSharedCheck_75_ == 0 {
-                        v_unused_76_ = crate::leanh::lean_ctor_get(v_l_52_, 1);
-                        crate::leanh::lean_dec(v_unused_76_);
+                        v_unused_76_ = leanh::lean_ctor_get(v_l_52_, 1);
+                        leanh::lean_dec(v_unused_76_);
                         v___x_68_ = v_l_52_;
                         v_isShared_69_ = v_isSharedCheck_75_;
                         state = 3;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_fst_66_);
-                        crate::leanh::lean_dec(v_l_52_);
-                        v___x_68_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_fst_66_);
+                        leanh::lean_dec(v_l_52_);
+                        v___x_68_ = leanh::lean_box(0);
                         v_isShared_69_ = v_isSharedCheck_75_;
                         state = 3;
                         continue;
@@ -76,16 +76,16 @@ pub unsafe fn l_Std_Sat_Literal_negate___redArg(
             }
             1 => {
                 v___x_59_ = 1;
-                v___x_60_ = crate::leanh::lean_box((v___x_59_) as usize);
+                v___x_60_ = leanh::lean_box((v___x_59_) as usize);
                 if v_isShared_58_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_57_, 1, v___x_60_);
+                    leanh::lean_ctor_set(v___x_57_, 1, v___x_60_);
                     v___x_62_ = v___x_57_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_63_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_63_, 0, v_fst_55_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_63_, 1, v___x_60_);
+                    v_reuseFailAlloc_63_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_63_, 0, v_fst_55_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_63_, 1, v___x_60_);
                     v___x_62_ = v_reuseFailAlloc_63_;
                     state = 2;
                     continue;
@@ -96,16 +96,16 @@ pub unsafe fn l_Std_Sat_Literal_negate___redArg(
             }
             3 => {
                 v___x_70_ = 0;
-                v___x_71_ = crate::leanh::lean_box((v___x_70_) as usize);
+                v___x_71_ = leanh::lean_box((v___x_70_) as usize);
                 if v_isShared_69_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_68_, 1, v___x_71_);
+                    leanh::lean_ctor_set(v___x_68_, 1, v___x_71_);
                     v___x_73_ = v___x_68_;
                     state = 4;
                     continue;
                 } else {
-                    v_reuseFailAlloc_74_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_74_, 0, v_fst_66_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_74_, 1, v___x_71_);
+                    v_reuseFailAlloc_74_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_74_, 0, v_fst_66_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_74_, 1, v___x_71_);
                     v___x_73_ = v_reuseFailAlloc_74_;
                     state = 4;
                     continue;
@@ -119,67 +119,67 @@ pub unsafe fn l_Std_Sat_Literal_negate___redArg(
     }
 }
 pub unsafe fn l_Std_Sat_Literal_negate(
-    mut v_00_u03b1_77_: *mut crate::leanh::LeanObject,
-    mut v_l_78_: *mut crate::leanh::LeanObject,
-) -> *mut crate::leanh::LeanObject {
-    let mut v_snd_79_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    mut v_00_u03b1_77_: *mut leanh::LeanObject,
+    mut v_l_78_: *mut leanh::LeanObject,
+) -> *mut leanh::LeanObject {
+    let mut v_snd_79_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v___x_80_: u8 = 0;
-    let mut v_fst_81_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_83_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_81_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_83_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_84_: u8 = 0;
     let mut v___x_85_: u8 = 0;
-    let mut v___x_86_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_88_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_89_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_86_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_88_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_89_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_90_: u8 = 0;
-    let mut v_unused_91_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_fst_92_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_94_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_91_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_fst_92_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_94_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isShared_95_: u8 = 0;
     let mut v___x_96_: u8 = 0;
-    let mut v___x_97_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v___x_99_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
-    let mut v_reuseFailAlloc_100_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_97_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v___x_99_: *mut leanh::LeanObject = core::ptr::null_mut();
+    let mut v_reuseFailAlloc_100_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut v_isSharedCheck_101_: u8 = 0;
-    let mut v_unused_102_: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+    let mut v_unused_102_: *mut leanh::LeanObject = core::ptr::null_mut();
     let mut state = 0;
     loop {
         match state {
             0 => {
-                v_snd_79_ = crate::leanh::lean_ctor_get(v_l_78_, 1);
-                v___x_80_ = (crate::leanh::lean_unbox(v_snd_79_) as u8);
+                v_snd_79_ = leanh::lean_ctor_get(v_l_78_, 1);
+                v___x_80_ = (leanh::lean_unbox(v_snd_79_) as u8);
                 if v___x_80_ == 0 {
-                    v_fst_81_ = crate::leanh::lean_ctor_get(v_l_78_, 0);
-                    v_isSharedCheck_90_ = (!crate::leanh::lean_is_exclusive(v_l_78_)) as u8;
+                    v_fst_81_ = leanh::lean_ctor_get(v_l_78_, 0);
+                    v_isSharedCheck_90_ = (!leanh::lean_is_exclusive(v_l_78_)) as u8;
                     if v_isSharedCheck_90_ == 0 {
-                        v_unused_91_ = crate::leanh::lean_ctor_get(v_l_78_, 1);
-                        crate::leanh::lean_dec(v_unused_91_);
+                        v_unused_91_ = leanh::lean_ctor_get(v_l_78_, 1);
+                        leanh::lean_dec(v_unused_91_);
                         v___x_83_ = v_l_78_;
                         v_isShared_84_ = v_isSharedCheck_90_;
                         state = 1;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_fst_81_);
-                        crate::leanh::lean_dec(v_l_78_);
-                        v___x_83_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_fst_81_);
+                        leanh::lean_dec(v_l_78_);
+                        v___x_83_ = leanh::lean_box(0);
                         v_isShared_84_ = v_isSharedCheck_90_;
                         state = 1;
                         continue;
                     }
                 } else {
-                    v_fst_92_ = crate::leanh::lean_ctor_get(v_l_78_, 0);
-                    v_isSharedCheck_101_ = (!crate::leanh::lean_is_exclusive(v_l_78_)) as u8;
+                    v_fst_92_ = leanh::lean_ctor_get(v_l_78_, 0);
+                    v_isSharedCheck_101_ = (!leanh::lean_is_exclusive(v_l_78_)) as u8;
                     if v_isSharedCheck_101_ == 0 {
-                        v_unused_102_ = crate::leanh::lean_ctor_get(v_l_78_, 1);
-                        crate::leanh::lean_dec(v_unused_102_);
+                        v_unused_102_ = leanh::lean_ctor_get(v_l_78_, 1);
+                        leanh::lean_dec(v_unused_102_);
                         v___x_94_ = v_l_78_;
                         v_isShared_95_ = v_isSharedCheck_101_;
                         state = 3;
                         continue;
                     } else {
-                        crate::leanh::lean_inc(v_fst_92_);
-                        crate::leanh::lean_dec(v_l_78_);
-                        v___x_94_ = crate::leanh::lean_box(0);
+                        leanh::lean_inc(v_fst_92_);
+                        leanh::lean_dec(v_l_78_);
+                        v___x_94_ = leanh::lean_box(0);
                         v_isShared_95_ = v_isSharedCheck_101_;
                         state = 3;
                         continue;
@@ -188,16 +188,16 @@ pub unsafe fn l_Std_Sat_Literal_negate(
             }
             1 => {
                 v___x_85_ = 1;
-                v___x_86_ = crate::leanh::lean_box((v___x_85_) as usize);
+                v___x_86_ = leanh::lean_box((v___x_85_) as usize);
                 if v_isShared_84_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_83_, 1, v___x_86_);
+                    leanh::lean_ctor_set(v___x_83_, 1, v___x_86_);
                     v___x_88_ = v___x_83_;
                     state = 2;
                     continue;
                 } else {
-                    v_reuseFailAlloc_89_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_89_, 0, v_fst_81_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_89_, 1, v___x_86_);
+                    v_reuseFailAlloc_89_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_89_, 0, v_fst_81_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_89_, 1, v___x_86_);
                     v___x_88_ = v_reuseFailAlloc_89_;
                     state = 2;
                     continue;
@@ -208,16 +208,16 @@ pub unsafe fn l_Std_Sat_Literal_negate(
             }
             3 => {
                 v___x_96_ = 0;
-                v___x_97_ = crate::leanh::lean_box((v___x_96_) as usize);
+                v___x_97_ = leanh::lean_box((v___x_96_) as usize);
                 if v_isShared_95_ == 0 {
-                    crate::leanh::lean_ctor_set(v___x_94_, 1, v___x_97_);
+                    leanh::lean_ctor_set(v___x_94_, 1, v___x_97_);
                     v___x_99_ = v___x_94_;
                     state = 4;
                     continue;
                 } else {
-                    v_reuseFailAlloc_100_ = crate::leanh::lean_alloc_ctor(0, 2, (0) as u32);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_100_, 0, v_fst_92_);
-                    crate::leanh::lean_ctor_set(v_reuseFailAlloc_100_, 1, v___x_97_);
+                    v_reuseFailAlloc_100_ = leanh::lean_alloc_ctor(0, 2, (0) as u32);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_100_, 0, v_fst_92_);
+                    leanh::lean_ctor_set(v_reuseFailAlloc_100_, 1, v___x_97_);
                     v___x_99_ = v_reuseFailAlloc_100_;
                     state = 4;
                     continue;
@@ -231,59 +231,59 @@ pub unsafe fn l_Std_Sat_Literal_negate(
     }
 }
 static mut _G_runtime_initialized: bool = false;
-pub unsafe fn runtime_initialize_Std_Sat_CNF_Literal(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn runtime_initialize_Std_Sat_CNF_Literal(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_runtime_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_runtime_initialized = true;
     res = runtime_initialize_Init_Data_Hashable(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Init_Data_ToString(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    leanh::lean_dec_ref(res);
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_meta_initialized: bool = false;
-pub unsafe fn meta_initialize_Std_Sat_CNF_Literal(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn meta_initialize_Std_Sat_CNF_Literal(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_meta_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_meta_initialized = true;
-    return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+    return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
 }
 static mut _G_initialized: bool = false;
-pub unsafe fn initialize_Std_Sat_CNF_Literal(builtin: u8) -> *mut crate::leanh::LeanObject {
-    let mut res: *mut crate::leanh::LeanObject = core::ptr::null_mut();
+pub unsafe fn initialize_Std_Sat_CNF_Literal(builtin: u8) -> *mut leanh::LeanObject {
+    let mut res: *mut leanh::LeanObject = core::ptr::null_mut();
     if _G_initialized {
-        return crate::leanh::lean_io_result_mk_ok(crate::leanh::lean_box(0));
+        return leanh::lean_io_result_mk_ok(leanh::lean_box(0));
     }
     _G_initialized = true;
     res = initialize_Init_Data_Hashable(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = initialize_Init_Data_ToString(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = runtime_initialize_Std_Sat_CNF_Literal(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     res = meta_initialize_Std_Sat_CNF_Literal(builtin);
-    if crate::leanh::lean_io_result_is_error(res) {
+    if leanh::lean_io_result_is_error(res) {
         return res;
     }
-    crate::leanh::lean_dec_ref(res);
+    leanh::lean_dec_ref(res);
     return initialize_Std_Sat_CNF_Literal(builtin);
 }

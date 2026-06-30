@@ -17,7 +17,7 @@ Platform-Specific Setup
 - [Windows (msys2)](msys2.md)
 - [Windows (WSL)](wsl.md)
 - [macOS (homebrew)](osx-10.9.md)
-- Linux/macOS/WSL via [Nix](https://nixos.org/nix/): Call `nix develop` in the project root. That's it.
+- Linux/macOS/WSL via [Nix](https://nixos.org/nix/): Call `nix develop` in the project root. That's it. The flake already includes `sccache` and sets `RUSTC_WRAPPER` for Rust builds.
 
 Generic Build Instructions
 --------------------------
@@ -58,6 +58,13 @@ There are also two alternative presets that combine some of these options you ca
 
 Lean will automatically use [CCache](https://ccache.dev/) if available to avoid
 redundant builds, especially after stage 0 has been updated.
+
+For Rust builds outside Nix, set the wrapper explicitly before `cargo build`:
+
+```bash
+export RUSTC_WRAPPER=/path/to/sccache
+cargo build
+```
 
 Troubleshooting
 ---------------

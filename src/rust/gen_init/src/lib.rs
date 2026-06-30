@@ -7,9 +7,5 @@
     unused_imports
 )]
 
-pub mod leanh {
-    pub use leanh::*;
-}
-
-pub mod ffi;
+pub use gen_init_ffi as ffi;
 pub mod r#gen;

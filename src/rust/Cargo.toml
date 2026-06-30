@@ -14,9 +14,9 @@ members = [
   "lake_ffi",
   "lake",
   "lean_checker",
-  "lean_ir",
-  "lean_shell",
-  "leanc",
+  # "lean_ir",
+  # "lean_shell",
+  # "leanc",
 ]
 resolver = "2"
 

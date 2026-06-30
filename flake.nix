@@ -3,6 +3,7 @@
 
   # We use channels so we're not affected by GitHub's rate limits
   inputs.nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+  inputs.rust-overlay.url = "github:oxalica/rust-overlay";
   # old nixpkgs used for portable release with older glibc (2.27)
   inputs.nixpkgs-old.url = "https://channels.nixos.org/nixos-19.03/nixexprs.tar.xz";
   inputs.nixpkgs-old.flake = false;
@@ -10,15 +11,19 @@
   inputs.nixpkgs-older.url = "https://channels.nixos.org/nixos-18.03/nixexprs.tar.xz";
   inputs.nixpkgs-older.flake = false;
 
-  outputs = inputs: builtins.foldl' inputs.nixpkgs.lib.attrsets.recursiveUpdate {} (builtins.map (system:
+  outputs = inputs: builtins.foldl' inputs.nixpkgs.lib.attrsets.recursiveUpdate {} (map (system:
     let
-      pkgs = import inputs.nixpkgs { inherit system; };
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        overlays = [ inputs.rust-overlay.overlays.default ];
+      };
       # An old nixpkgs for creating releases with an old glibc
       pkgsDist-old = import inputs.nixpkgs-older { inherit system; };
       # An old nixpkgs for creating releases with an old glibc
       pkgsDist-old-aarch = import inputs.nixpkgs-old { localSystem.config = "aarch64-unknown-linux-gnu"; };
 
       llvmPackages = pkgs.llvmPackages_19;
+      nightlyRust = pkgs.rust-bin.nightly.latest.complete;
 
       scip-clang = pkgs.stdenv.mkDerivation rec {
         pname = "scip-clang";
@@ -62,27 +67,32 @@
 
             # CKB / indexing deps
             scip-clang
-            rustc
-            cargo
-            clippy
-            rustfmt
+            nightlyRust
+            mold # alternative linker
+            # sccache
             rust-analyzer
             clang-tools
             bear
             jq
           ];
           LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
+          RUST_SRC_PATH = "${nightlyRust}/lib/rustlib/src/rust/library";
+          # RUSTC_WRAPPER = "${pkgs.sccache}/bin/sccache";
           # https://github.com/NixOS/nixpkgs/issues/60919
           hardeningDisable = [ "all" ];
           # more convenient `ctest` output
           CTEST_OUTPUT_ON_FAILURE = 1;
+          shellHook = ''
+            export LEAN_RUST_THREADS="''${LEAN_RUST_THREADS:-$(nproc)}"
+            export RUSTFLAGS="''${RUSTFLAGS:+$RUSTFLAGS }-Z threads=$LEAN_RUST_THREADS"
+          '';
         } // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
-          GMP = (pkgsDist.gmp.override { withStatic = true; }).overrideAttrs (attrs:
+          GMP = (pkgsDist.gmp.override { withStatic = true; }).overrideAttrs (_attrs:
             pkgs.lib.optionalAttrs (pkgs.stdenv.system == "aarch64-linux") {
               # would need additional linking setup on Linux aarch64, we don't use it anywhere else either
               hardeningDisable = [ "stackprotector" ];
             });
-          LIBUV = pkgsDist.libuv.overrideAttrs (attrs: {
+          LIBUV = pkgsDist.libuv.overrideAttrs (_attrs: {
             configureFlags = ["--enable-static"];
             hardeningDisable = [ "stackprotector" ];
             # Sync version with CMakeLists.txt

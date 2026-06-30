@@ -3,12 +3,6 @@
 // Auto-generated from src/rust/gen_lean/src/ffi
 // Re-exports the current FFI function surface as ffi::{...}
 
-pub mod leanh {
-    pub use leanh::*;
-}
-
-pub use gen_init_ffi::*;
-pub use gen_std_ffi::*;
 #[path = "ffi/Lean/CompactedRegion.rs"]
 mod ffi_Lean_CompactedRegion;
 pub use ffi_Lean_CompactedRegion::*;

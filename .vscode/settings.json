@@ -1,15 +1,18 @@
 {
-  "rust-analyzer.check.allTargets": true,
-  "rust-analyzer.cargo.allTargets": true,
-  "rust-analyzer.cargo.features": "all",
-	"files.insertFinalNewline": true,
-	"files.trimTrailingWhitespace": true,
-	// These require the CMake Tools extension (ms-vscode.cmake-tools).
-	"cmake.buildDirectory": "${workspaceFolder}/build/release",
-	"cmake.generator": "Unix Makefiles",
-	"[lean4]": {
-		"editor.rulers": [
-			100
-		]
-	}
+  "rust-analyzer.linkedProjects": [
+    "${workspaceFolder}/src/rust/Cargo.toml"
+  ],
+  "rust-analyzer.check.allTargets": false, // to not cause oom, by trying to load gen_lean
+  "rust-analyzer.cargo.allTargets": false, // to not cause oom, by trying to load gen_lean
+  // "rust-analyzer.cargo.features": "all", // tried to enable type-checking for cfg(windows), but ...
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  // These require the CMake Tools extension (ms-vscode.cmake-tools).
+  "cmake.buildDirectory": "${workspaceFolder}/build/release",
+  "cmake.generator": "Unix Makefiles",
+  "[lean4]": {
+    "editor.rulers": [
+      100
+    ]
+  }
 }
