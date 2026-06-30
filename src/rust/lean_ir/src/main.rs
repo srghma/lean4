@@ -7,8 +7,15 @@
     unused_imports
 )]
 
-pub mod r#gen {
-    pub mod LeanIR {
-        include!("gen/LeanIR.rs");
-    }
+pub mod ffi {
+    pub use gen_init_ffi::*;
+    pub use gen_std_ffi::*;
+    pub use gen_lean_ffi::*;
+    pub use lake_ffi::*;
+}
+
+pub mod r#gen;
+
+fn main() {
+    crate::r#gen::LeanIR::main();
 }

@@ -161,6 +161,7 @@ name = "lake_ffi"
 version = "0.1.0"
 dependencies = [
  "gen_init_ffi",
+ "gen_lean",
  "gen_lean_ffi",
  "gen_std_ffi",
  "leanh",
@@ -169,6 +170,45 @@ dependencies = [
 
 [[package]]
 name = "lean_checker"
+version = "0.1.0"
+dependencies = [
+ "gen_init",
+ "gen_init_ffi",
+ "gen_lean",
+ "gen_lean_ffi",
+ "gen_std",
+ "gen_std_ffi",
+ "lake",
+ "lake_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "lean_ir"
+version = "0.1.0"
+dependencies = [
+ "gen_init",
+ "gen_init_ffi",
+ "gen_lean",
+ "gen_lean_ffi",
+ "gen_std",
+ "gen_std_ffi",
+ "lake",
+ "lake_ffi",
+ "leanh",
+ "runtime",
+]
+
+[[package]]
+name = "lean_shell"
+version = "0.1.0"
+dependencies = [
+ "runtime",
+]
+
+[[package]]
+name = "leanc"
 version = "0.1.0"
 dependencies = [
  "gen_init",

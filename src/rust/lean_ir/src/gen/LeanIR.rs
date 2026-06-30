@@ -15190,7 +15190,7 @@ unsafe fn lean_rust_main(
     return ret_val;
 }
 
-fn main() {
+pub fn main() {
     let c_args: Vec<std::ffi::CString> = std::env::args()
         .map(|arg| std::ffi::CString::new(arg).expect("process argument contains NUL byte"))
         .collect();

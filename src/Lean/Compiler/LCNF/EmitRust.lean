@@ -1358,7 +1358,7 @@ where
       "  return ret_val;",
       "}",
       "",
-      "fn main() {",
+      "pub fn main() {",
       "  let c_args: Vec<std::ffi::CString> = std::env::args().map(|arg| std::ffi::CString::new(arg).expect(\"process argument contains NUL byte\")).collect();",
       "  let mut raw_args: Vec<*mut core::ffi::c_char> = c_args.iter().map(|arg| arg.as_ptr() as *mut core::ffi::c_char).collect();",
       "  let argc = raw_args.len() as core::ffi::c_int;",

@@ -12,6 +12,7 @@ pub mod ffi {
     pub use gen_init_ffi::*;
     pub use gen_std_ffi::*;
     pub use gen_lean_ffi::*;
+    pub use lake_ffi::*;
 }
 
 pub mod r#gen;
