@@ -13,7 +13,6 @@ use std::cell::Cell;
 // helpers hardcoded by EmitRust. Do not import runtime modules here; runtime
 // modules may depend on `leanh`, but `leanh` must stay the top-level ABI layer.
 pub type Size = usize;
-
 pub const LEAN_CLOSURE_MAX_ARGS: u32 = 16; // not used in this file
 pub const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // not used in this file
 
@@ -26,7 +25,8 @@ pub struct LeanObject {
 }
 
 #[repr(C)]
-pub struct LeanCtorObject<const N: usize> { // not used in this file
+// not used in this file
+pub struct LeanCtorObject<const N: usize> {
     pub m_header: LeanObject,
     pub m_objs: [*mut LeanObject; N],
 }
@@ -74,7 +74,7 @@ unsafe impl<const N: usize> Sync for LeanStringObject<N> {}
 #[repr(C)]
 pub struct LeanClosureObject<const N: usize> {
     pub m_header: LeanObject,
-    pub m_fun: *const c_void,
+    pub m_fun: *mut c_void,
     pub m_arity: u16,
     pub m_num_fixed: u16,
     pub m_objs: [*mut LeanObject; N],
@@ -186,10 +186,6 @@ pub unsafe fn get_next(obj: *mut LeanObject) -> *mut LeanObject {
             ptr::copy_nonoverlapping(obj as *const u8, &mut header as *mut usize as *mut u8, 8);
             header &= !(0xffff_usize << 48);
             header as *mut LeanObject
-        }
-        #[cfg(target_pointer_width = "32")]
-        {
-            *(obj as *mut *mut LeanObject)
         }
     }
 }
@@ -327,7 +323,7 @@ pub unsafe fn lean_mpz_clear(obj: *mut LeanObject) {
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 37 more EmitRust functions.
 #[inline]
-pub fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
+pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
     unsafe { (*obj).tag }
 }
 
@@ -358,7 +354,7 @@ pub unsafe fn lean_ctor_scalar_cptr(obj: *mut LeanObject, offset: usize) -> *mut
 // NOT IN EmitRust; here because it is used in `lean_dec_ref_known`.
 #[inline]
 pub unsafe fn lean_is_ref(obj: *mut LeanObject) -> bool {
-    lean_ptr_tag(obj) == LEAN_REF_TAG
+    unsafe { lean_ptr_tag(obj) == LEAN_REF_TAG }
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
@@ -439,10 +435,6 @@ pub unsafe fn set_next(obj: *mut LeanObject, next: *mut LeanObject) {
             ptr::copy_nonoverlapping((obj as *const u8).add(6), &mut hi as *mut u16 as *mut u8, 2);
             let header = ((hi as usize) << 48) | (next as usize);
             ptr::copy_nonoverlapping(&header as *const usize as *const u8, obj as *mut u8, 8);
-        }
-        #[cfg(target_pointer_width = "32")]
-        {
-            *(obj as *mut *mut LeanObject) = next;
         }
     }
 }
@@ -829,21 +821,23 @@ pub unsafe fn lean_float_once(loc: *mut f64, tok: *mut LeanOnceCell, init: F64In
 
 #[inline]
 pub unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
-    unsafe {
-        if lean_is_st(obj) {
-            (*obj).rc += n as i32;
-        } else if (*obj).rc != 0 {
-            let rc = (&raw mut (*obj).rc).cast::<AtomicI32>();
-            (*rc).fetch_sub(n as i32, Ordering::Relaxed);
-        }
+    // 1. lean_is_st is unsafe because it dereferences obj inside
+    if unsafe { lean_is_st(obj) } {
+        // 2. Dereferencing obj to modify rc
+        unsafe { (*obj).rc += n as i32 };
+    }
+    // 3. Dereferencing obj to check if rc != 0
+    else if unsafe { (*obj).rc } != 0 {
+        // 4. Using &raw mut to get field address (dereference to find offset)
+        let rc = unsafe { &raw mut (*obj).rc }.cast::<AtomicI32>();
+        unsafe { (*rc).fetch_sub(n as i32, Ordering::Relaxed) };
     }
 }
 
 #[inline]
-pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {
-    unsafe {
-        lean_inc_ref_n(obj, 1);
-    }
+#[allow(clippy::not_unsafe_ptr_arg_deref)]
+pub fn lean_inc_ref(obj: *mut LeanObject) {
+    unsafe { lean_inc_ref_n(obj, 1) };
 }
 
 #[inline]
@@ -873,7 +867,11 @@ pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
 
 #[inline]
 pub unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
-    unsafe { lean_is_st(obj) && (*obj).rc == 1 }
+    // if ::std::intrinsics::likely(lean_is_st(obj)) {
+    unsafe { (*obj).rc == 1 }
+    // } else {
+    //     false
+    // }
 }
 
 #[inline]
@@ -998,16 +996,6 @@ pub unsafe fn lean_del_core(obj: *mut LeanObject, todo: &mut *mut LeanObject) {
 #[inline]
 pub unsafe fn lean_alloc_object(size: usize) -> *mut LeanObject {
     unsafe {
-        #[cfg(lean_lazy_rc)]
-        G_TO_FREE.with(|cell| {
-            let mut todo = cell.replace(ptr::null_mut());
-            if !todo.is_null() {
-                let obj = pop_back(&mut todo);
-                lean_del_core(obj, &mut todo);
-                cell.set(todo);
-            }
-        });
-
         let obj = lean_global_alloc(size) as *mut LeanObject;
         (*obj).cs_size = 0;
         obj
@@ -1042,23 +1030,13 @@ pub unsafe fn lean_dec_ref_cold(mut obj: *mut LeanObject) {
             let rc = core::ptr::addr_of_mut!((*obj).rc).cast::<AtomicI32>();
             (*rc).fetch_add(1, Ordering::AcqRel) == -1
         } {
-            #[cfg(lean_lazy_rc)]
-            G_TO_FREE.with(|cell| {
-                let mut todo = cell.get();
-                push_back(&mut todo, obj);
-                cell.set(todo);
-            });
-
-            #[cfg(not(lean_lazy_rc))]
-            {
-                let mut todo = ptr::null_mut();
-                loop {
-                    lean_del_core(obj, &mut todo);
-                    if todo.is_null() {
-                        return;
-                    }
-                    obj = pop_back(&mut todo);
+            let mut todo = ptr::null_mut();
+            loop {
+                lean_del_core(obj, &mut todo);
+                if todo.is_null() {
+                    return;
                 }
+                obj = pop_back(&mut todo);
             }
         }
     }
@@ -1070,9 +1048,15 @@ pub unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -
         debug_assert!(arity > 0);
         debug_assert!(num_fixed < arity);
         let byte_size = core::mem::size_of::<LeanClosureObject<0>>()
-            + core::mem::size_of::<*mut LeanObject>() * num_fixed as usize;
+            .checked_add(
+                core::mem::size_of::<*mut LeanObject>()
+                    .checked_mul(num_fixed as usize)
+                    .expect("closure allocation mul overflow"),
+            )
+            .expect("closure allocation add overflow");
         let obj = lean_alloc_object(byte_size) as *mut LeanClosureObject<0>;
         (*obj).m_header.rc = 1;
+        (*obj).m_header.cs_size = 0;
         (*obj).m_header.other = 0;
         (*obj).m_header.tag = LEAN_CLOSURE_TAG;
         (*obj).m_fun = fun;
@@ -1090,21 +1074,6 @@ pub unsafe fn lean_dec_ref(obj: *mut LeanObject) {
         } else if (*obj).rc != 0 {
             lean_dec_ref_cold(obj);
         }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_apply_m(
-    f: *mut LeanObject,
-    _n: u32,
-    args: *mut *mut LeanObject,
-) -> *mut LeanObject {
-    unsafe {
-        let fun: unsafe fn(*mut *mut LeanObject) -> *mut LeanObject =
-            core::mem::transmute((*(f as *mut LeanClosureObject<0>)).m_fun);
-        let r = fun(args);
-        lean_dec_ref(f);
-        r
     }
 }
 
@@ -1152,20 +1121,16 @@ pub unsafe fn lean_dec_ref_known(obj: *mut LeanObject, objs: u32) {
 }
 
 #[inline]
-pub unsafe fn lean_inc(obj: *mut LeanObject) {
-    unsafe {
-        if !lean_is_scalar_bool(obj) {
-            lean_inc_ref(obj);
-        }
+pub fn lean_inc(obj: *mut LeanObject) {
+    if !lean_is_scalar_bool(obj) {
+        lean_inc_ref(obj);
     }
 }
 
 #[inline]
 pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
-    unsafe {
-        if !lean_is_scalar_bool(obj) {
-            lean_inc_ref_n(obj, n);
-        }
+    if !lean_is_scalar_bool(obj) {
+        unsafe { lean_inc_ref_n(obj, n) };
     }
 }
 
@@ -1482,68 +1447,791 @@ pub unsafe fn lean_usize_once(loc: *mut usize, tok: *mut LeanOnceCell, init: Usi
     }
 }
 
-macro_rules! obj_ptr {
-    ($_:ident) => { *mut LeanObject };
+// --------------- FROM arity.rs
+#[inline]
+fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void {
+    let clo = f as *mut LeanClosureObject<0>;
+    unsafe { (*clo).m_fun }
 }
 
-macro_rules! define_lean_apply {
-    // Entry point: convert number to args via recursion
-    ($name:ident, $n:tt) => {
-        define_lean_apply!(@build $name [] $n);
-    };
+#[inline]
+fn closure_arity(f: *mut LeanObject) -> u32 {
+    let clo = f as *mut LeanClosureObject<0>;
+    unsafe { (*clo).m_arity as u32 }
+}
 
-    // Done — emit the function
-    (@build $name:ident [$($arg:ident)*]) => {
-        define_lean_apply!(@emit $name [$($arg)*]);
-    };
+#[inline]
+fn closure_num_fixed(f: *mut LeanObject) -> u32 {
+    let clo = f as *mut LeanClosureObject<0>;
+    unsafe { (*clo).m_num_fixed as u32 }
+}
 
-    // Decrement counter by peeling one token at a time
-    (@build $name:ident [$($arg:ident)*] 1)  => { define_lean_apply!(@emit $name [$($arg)* a1]); };
-    (@build $name:ident [$($arg:ident)*] 2)  => { define_lean_apply!(@build $name [$($arg)* a2] 1); };
-    (@build $name:ident [$($arg:ident)*] 3)  => { define_lean_apply!(@build $name [$($arg)* a3] 2); };
-    (@build $name:ident [$($arg:ident)*] 4)  => { define_lean_apply!(@build $name [$($arg)* a4] 3); };
-    (@build $name:ident [$($arg:ident)*] 5)  => { define_lean_apply!(@build $name [$($arg)* a5] 4); };
-    (@build $name:ident [$($arg:ident)*] 6)  => { define_lean_apply!(@build $name [$($arg)* a6] 5); };
-    (@build $name:ident [$($arg:ident)*] 7)  => { define_lean_apply!(@build $name [$($arg)* a7] 6); };
-    (@build $name:ident [$($arg:ident)*] 8)  => { define_lean_apply!(@build $name [$($arg)* a8] 7); };
-    (@build $name:ident [$($arg:ident)*] 9)  => { define_lean_apply!(@build $name [$($arg)* a9] 8); };
-    (@build $name:ident [$($arg:ident)*] 10) => { define_lean_apply!(@build $name [$($arg)* a10] 9); };
-    (@build $name:ident [$($arg:ident)*] 11) => { define_lean_apply!(@build $name [$($arg)* a11] 10); };
-    (@build $name:ident [$($arg:ident)*] 12) => { define_lean_apply!(@build $name [$($arg)* a12] 11); };
-    (@build $name:ident [$($arg:ident)*] 13) => { define_lean_apply!(@build $name [$($arg)* a13] 12); };
-    (@build $name:ident [$($arg:ident)*] 14) => { define_lean_apply!(@build $name [$($arg)* a14] 13); };
-    (@build $name:ident [$($arg:ident)*] 15) => { define_lean_apply!(@build $name [$($arg)* a15] 14); };
-    (@build $name:ident [$($arg:ident)*] 16) => { define_lean_apply!(@build $name [$($arg)* a16] 15); };
+#[inline]
+fn closure_arg_cptr(f: *mut LeanObject) -> *mut *mut LeanObject {
+    let clo = f as *mut LeanClosureObject<0>;
+    unsafe { (*clo).m_objs.as_mut_ptr() }
+}
 
-    // Emit the actual function
-    (@emit $name:ident [$($arg:ident)*]) => {
-        #[inline]
-        pub unsafe fn $name(
-            f: *mut LeanObject,
-            $($arg: *mut LeanObject),*
-        ) -> *mut LeanObject { unsafe {
-            let fun: unsafe fn($(obj_ptr!($arg)),*) -> *mut LeanObject =
-                core::mem::transmute((*(f as *mut LeanClosureObject<0>)).m_fun);
-            let r = fun($($arg),*);
-            lean_dec_ref(f);
-            r
-        }}
+#[inline]
+fn fx(f: *mut LeanObject, i: u32) -> *mut LeanObject {
+    let p = closure_arg_cptr(f);
+    unsafe { *p.add(i as usize) }
+}
+
+unsafe fn fix_args(f: *mut LeanObject, n: u32, as_ptr: *const *mut LeanObject) -> *mut LeanObject {
+    let arity = closure_arity(f);
+    let fixed = closure_num_fixed(f);
+    let new_fixed = fixed + n;
+    debug_assert!(new_fixed < arity);
+
+    let r = unsafe { lean_alloc_closure(closure_fun(f), arity, new_fixed) };
+    let source = closure_arg_cptr(f);
+    let target = closure_arg_cptr(r);
+
+    if unsafe { lean_is_exclusive(f) } {
+        for i in 0..fixed as usize {
+            unsafe { target.add(i).write(source.add(i).read()) };
+        }
+        unsafe { lean_free_object(f) };
+    } else {
+        for i in 0..fixed as usize {
+            let v = unsafe { source.add(i).read() };
+            lean_inc(v);
+            unsafe { target.add(i).write(v) };
+        }
+        unsafe { lean_dec_ref(f) };
+    }
+
+    for i in 0..n as usize {
+        unsafe { target.add(fixed as usize + i).write(as_ptr.add(i).read()) };
+    }
+    r
+}
+
+fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObject {
+    macro_rules! call {
+        ($fn_ty:ty, $($idx:expr),*) => {{
+            let f: $fn_ty = unsafe { core::mem::transmute(fun) };
+            unsafe { f($(*as_ptr.add($idx),)*) }
+        }};
+    }
+    match n {
+        0 => unsafe { core::hint::unreachable_unchecked() },
+        1 => call!(unsafe fn(*mut LeanObject) -> *mut LeanObject, 0),
+        2 => call!(
+            unsafe fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
+            0,
+            1
+        ),
+        3 => call!(
+            unsafe fn(*mut LeanObject, *mut LeanObject, *mut LeanObject) -> *mut LeanObject,
+            0,
+            1,
+            2
+        ),
+        4 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3
+        ),
+        5 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4
+        ),
+        6 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+        ),
+        7 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+        ),
+        8 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+        ),
+        9 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+        ),
+        10 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+        ),
+        11 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+        ),
+        12 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+        ),
+        13 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+        ),
+        14 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+        ),
+        15 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+        ),
+        16 => call!(
+            unsafe fn(
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+                *mut LeanObject,
+            ) -> *mut LeanObject,
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+        ),
+        _ => {
+            let f: unsafe fn(*mut *mut LeanObject) -> *mut LeanObject =
+                unsafe { core::mem::transmute(fun) };
+            unsafe { f(as_ptr) }
+        }
+    }
+}
+
+unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject {
+    let arity = closure_arity(f);
+    let fixed = closure_num_fixed(f);
+    let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
+    if unsafe { lean_is_exclusive(f) } {
+        for i in 0..fixed as usize {
+            args[i] = fx(f, i as u32);
+        }
+        for (i, &a) in new_args.iter().enumerate() {
+            args[fixed as usize + i] = a;
+        }
+        let r = curry(closure_fun(f), arity, args.as_mut_ptr());
+        unsafe { lean_free_object(f) };
+        r
+    } else {
+        for i in 0..fixed as usize {
+            let v = fx(f, i as u32);
+            lean_inc(v);
+            args[i] = v;
+        }
+        for (i, &a) in new_args.iter().enumerate() {
+            args[fixed as usize + i] = a;
+        }
+        let r = curry(closure_fun(f), arity, args.as_mut_ptr());
+        unsafe { lean_dec_ref(f) };
+        r
+    }
+}
+
+unsafe fn apply_generic(
+    f: *mut LeanObject,
+    n: u32,
+    as_ptr: *mut *mut LeanObject,
+) -> *mut LeanObject {
+    if unsafe { lean_is_scalar(f) } {
+        for i in 0..n as usize {
+            unsafe { lean_dec(as_ptr.add(i).read()) };
+        }
+        return f;
+    }
+
+    let arity = closure_arity(f);
+    let fixed = closure_num_fixed(f);
+    let new_args = unsafe { core::slice::from_raw_parts(as_ptr, n as usize) };
+
+    if arity == fixed + n {
+        unsafe { call_exact(f, new_args) }
+    } else if arity < fixed + n {
+        let take = (arity - fixed) as usize;
+        let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
+        for i in 0..fixed as usize {
+            let v = fx(f, i as u32);
+            lean_inc(v);
+            args[i] = v;
+        }
+        for i in 0..take {
+            args[fixed as usize + i] = new_args[i];
+        }
+        let new_f = curry(closure_fun(f), arity, args.as_mut_ptr());
+        unsafe { lean_dec_ref(f) };
+        let remain = n - (arity - fixed);
+        unsafe { lean_apply_n(new_f, remain, as_ptr.add(take)) }
+    } else {
+        unsafe { fix_args(f, n, as_ptr) }
+    }
+}
+
+macro_rules! export_apply {
+    ($name:ident, $n:expr, $($arg:ident),+) => {
+        pub unsafe fn $name(f: *mut LeanObject, $($arg: *mut LeanObject),+) -> *mut LeanObject {
+            let mut args = [$($arg),+];
+            unsafe { apply_generic(f, $n, args.as_mut_ptr()) }
+        }
     };
 }
 
-define_lean_apply!(lean_apply_1, 1);
-define_lean_apply!(lean_apply_2, 2);
-define_lean_apply!(lean_apply_3, 3);
-define_lean_apply!(lean_apply_4, 4);
-define_lean_apply!(lean_apply_5, 5);
-define_lean_apply!(lean_apply_6, 6);
-define_lean_apply!(lean_apply_7, 7);
-define_lean_apply!(lean_apply_8, 8);
-define_lean_apply!(lean_apply_9, 9);
-define_lean_apply!(lean_apply_10, 10);
-define_lean_apply!(lean_apply_11, 11);
-define_lean_apply!(lean_apply_12, 12);
-define_lean_apply!(lean_apply_13, 13);
-define_lean_apply!(lean_apply_14, 14);
-define_lean_apply!(lean_apply_15, 15);
-define_lean_apply!(lean_apply_16, 16);
+export_apply!(lean_apply_1, 1, a1);
+export_apply!(lean_apply_2, 2, a1, a2);
+export_apply!(lean_apply_3, 3, a1, a2, a3);
+export_apply!(lean_apply_4, 4, a1, a2, a3, a4);
+export_apply!(lean_apply_5, 5, a1, a2, a3, a4, a5);
+export_apply!(lean_apply_6, 6, a1, a2, a3, a4, a5, a6);
+export_apply!(lean_apply_7, 7, a1, a2, a3, a4, a5, a6, a7);
+export_apply!(lean_apply_8, 8, a1, a2, a3, a4, a5, a6, a7, a8);
+export_apply!(lean_apply_9, 9, a1, a2, a3, a4, a5, a6, a7, a8, a9);
+export_apply!(lean_apply_10, 10, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+export_apply!(
+    lean_apply_11,
+    11,
+    a1,
+    a2,
+    a3,
+    a4,
+    a5,
+    a6,
+    a7,
+    a8,
+    a9,
+    a10,
+    a11
+);
+export_apply!(
+    lean_apply_12,
+    12,
+    a1,
+    a2,
+    a3,
+    a4,
+    a5,
+    a6,
+    a7,
+    a8,
+    a9,
+    a10,
+    a11,
+    a12
+);
+export_apply!(
+    lean_apply_13,
+    13,
+    a1,
+    a2,
+    a3,
+    a4,
+    a5,
+    a6,
+    a7,
+    a8,
+    a9,
+    a10,
+    a11,
+    a12,
+    a13
+);
+export_apply!(
+    lean_apply_14,
+    14,
+    a1,
+    a2,
+    a3,
+    a4,
+    a5,
+    a6,
+    a7,
+    a8,
+    a9,
+    a10,
+    a11,
+    a12,
+    a13,
+    a14
+);
+export_apply!(
+    lean_apply_15,
+    15,
+    a1,
+    a2,
+    a3,
+    a4,
+    a5,
+    a6,
+    a7,
+    a8,
+    a9,
+    a10,
+    a11,
+    a12,
+    a13,
+    a14,
+    a15
+);
+export_apply!(
+    lean_apply_16,
+    16,
+    a1,
+    a2,
+    a3,
+    a4,
+    a5,
+    a6,
+    a7,
+    a8,
+    a9,
+    a10,
+    a11,
+    a12,
+    a13,
+    a14,
+    a15,
+    a16
+);
+pub unsafe fn lean_apply_m(
+    f: *mut LeanObject,
+    n: u32,
+    as_ptr: *mut *mut LeanObject,
+) -> *mut LeanObject {
+    debug_assert!(n > 16);
+    unsafe { apply_generic(f, n, as_ptr) }
+}
+
+pub unsafe fn lean_apply_n(
+    f: *mut LeanObject,
+    n: u32,
+    as_ptr: *mut *mut LeanObject,
+) -> *mut LeanObject {
+    unsafe {
+        match n {
+            0 => core::hint::unreachable_unchecked(),
+            1 => lean_apply_1(f, *as_ptr.add(0)),
+            2 => lean_apply_2(f, *as_ptr.add(0), *as_ptr.add(1)),
+            3 => lean_apply_3(f, *as_ptr.add(0), *as_ptr.add(1), *as_ptr.add(2)),
+            4 => lean_apply_4(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+            ),
+            5 => lean_apply_5(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+            ),
+            6 => lean_apply_6(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+            ),
+            7 => lean_apply_7(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+            ),
+            8 => lean_apply_8(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+            ),
+            9 => lean_apply_9(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+            ),
+            10 => lean_apply_10(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+            ),
+            11 => lean_apply_11(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+                *as_ptr.add(10),
+            ),
+            12 => lean_apply_12(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+                *as_ptr.add(10),
+                *as_ptr.add(11),
+            ),
+            13 => lean_apply_13(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+                *as_ptr.add(10),
+                *as_ptr.add(11),
+                *as_ptr.add(12),
+            ),
+            14 => lean_apply_14(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+                *as_ptr.add(10),
+                *as_ptr.add(11),
+                *as_ptr.add(12),
+                *as_ptr.add(13),
+            ),
+            15 => lean_apply_15(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+                *as_ptr.add(10),
+                *as_ptr.add(11),
+                *as_ptr.add(12),
+                *as_ptr.add(13),
+                *as_ptr.add(14),
+            ),
+            16 => lean_apply_16(
+                f,
+                *as_ptr.add(0),
+                *as_ptr.add(1),
+                *as_ptr.add(2),
+                *as_ptr.add(3),
+                *as_ptr.add(4),
+                *as_ptr.add(5),
+                *as_ptr.add(6),
+                *as_ptr.add(7),
+                *as_ptr.add(8),
+                *as_ptr.add(9),
+                *as_ptr.add(10),
+                *as_ptr.add(11),
+                *as_ptr.add(12),
+                *as_ptr.add(13),
+                *as_ptr.add(14),
+                *as_ptr.add(15),
+            ),
+            _ => lean_apply_m(f, n, as_ptr),
+        }
+    }
+}
+
+// --------------- FROM arity.rs END
