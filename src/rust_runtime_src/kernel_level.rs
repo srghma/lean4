@@ -1,0 +1,84 @@
+/*
+Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+
+Port of the exported raw level operations previously backed by kernel/level.cpp:
+  lean_level_mk_data, lean_level_eqv, lean_level_eq, initialize_level, finalize_level
+
+The C++ value-type facade now lives inline in kernel/level.h.
+*/
+
+#[cfg(feature = "export-runtime-ffi")]
+mod kernel_level_impl {
+    use super::runtime_object_name_impl::lean_name_eq;
+    use super::runtime_object_panic_impl::lean_internal_panic;
+    use super::*;
+
+    // Structural equality on lean Level objects (mirrors C++ operator==).
+    // Level tags:
+    //   0 = zero (scalar lean_box(0), caught by pointer equality above)
+    //   1 = succ  — 1 obj field: inner level
+    //   2 = max   — 2 obj fields: lhs, rhs
+    //   3 = imax  — 2 obj fields: lhs, rhs
+    //   4 = param — 1 obj field: Name
+    //   5 = mvar  — 1 obj field: LevelMVarId (a Name)
+    unsafe fn level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> bool {
+        if l1 == l2 {
+            return true;
+        }
+        let tag = lean_obj_tag(l1);
+        if tag != lean_obj_tag(l2) {
+            return false;
+        }
+        match tag {
+            0 => true,
+            1 => level_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)),
+            2 | 3 => {
+                level_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0))
+                    && level_eq(lean_ctor_get(l1, 1), lean_ctor_get(l2, 1))
+            }
+            4 | 5 => lean_name_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)) != 0,
+            _ => false,
+        }
+    }
+
+    // Pack hash, depth, hasMVar, hasParam into a u64 data word stored in the
+    // level object header (see lean_level_data in lean.h).
+    // bits [31:0]  = h (lower 32 bits of the hash)
+    // bit  32      = hasMVar
+    // bit  33      = hasParam
+    // bits [63:40] = depth (24-bit, max 16777215 = 0x00FFFFFF)
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_level_mk_data(
+        h: u64,
+        depth: *mut LeanObject,
+        has_mvar: u8,
+        has_param: u8,
+    ) -> u64 {
+        if !lean_is_scalar(depth) {
+            lean_internal_panic(b"universe level depth is too big\0".as_ptr() as *const i8);
+        }
+        let d = lean_unbox(depth) as usize;
+        if d > 0x00FF_FFFF {
+            lean_internal_panic(b"universe level depth is too big\0".as_ptr() as *const i8);
+        }
+        let h1 = h as u32 as u64;
+        h1 | ((has_mvar as u64) << 32) | ((has_param as u64) << 33) | ((d as u64) << 40)
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+        level_eq(l1, l2) as u8
+    }
+
+    #[no_mangle]
+    pub unsafe extern "C" fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+        level_eq(l1, l2) as u8
+    }
+
+    #[export_name = "_ZN4lean16initialize_levelEv"]
+    pub extern "C" fn initialize_level() {}
+
+    #[export_name = "_ZN4lean14finalize_levelEv"]
+    pub extern "C" fn finalize_level() {}
+}
