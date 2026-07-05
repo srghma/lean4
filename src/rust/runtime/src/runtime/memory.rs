@@ -3,14 +3,13 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_memory_impl {
-    use super::*;
     use core::ffi::c_char;
     use std::cell::Cell;
     use std::sync::atomic::{AtomicUsize, Ordering};
@@ -123,7 +122,7 @@ pub(crate) mod runtime_memory_impl {
     }
 
     #[inline]
-    pub(crate) fn lean_internal_get_default_max_memory() -> *mut LeanObject {
+    pub(crate) fn lean_internal_get_default_max_memory() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:72
         #[cfg(feature = "default-max-memory")]
         const DEFAULT: usize = 0; // or compile config
         #[cfg(not(feature = "default-max-memory"))]
@@ -137,7 +136,7 @@ pub(crate) mod runtime_memory_impl {
     }
 
     #[inline]
-    pub(crate) fn lean_internal_set_max_memory(max: usize) -> *mut LeanObject {
+    pub(crate) fn lean_internal_set_max_memory(max: usize) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:76
         set_max_memory(max);
         unsafe { lean_box(0) }
     }

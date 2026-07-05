@@ -3,11 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 // Port of the task-manager / promise section of src/runtime/object.cpp.
 // Covers:
@@ -25,7 +25,6 @@ use crate::runtime::*;
 pub(crate) mod runtime_object_task_impl {
     use crate::runtime::runtime_object_panic_impl::lean_internal_panic;
     use crate::runtime::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
-    use super::*;
     use core::sync::atomic::Ordering;
     use std::collections::VecDeque;
     use std::mem::MaybeUninit;
@@ -36,9 +35,9 @@ pub(crate) mod runtime_object_task_impl {
 
     const LEAN_MAX_PRIO: u32 = 8;
     const LEAN_SYNC_PRIO: u32 = u32::MAX;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_PROMISE_TAG: u8 = 244;
-    const LEAN_CLOSURE_TAG: u8 = 245;
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in leanh at line 39 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in leanh at line 40 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in leanh at line 41 (🔁)
 
     // ─── Helper: send raw pointer across threads ──────────────────────────────
 
@@ -69,7 +68,7 @@ pub(crate) mod runtime_object_task_impl {
     // ─── Internal structure of a running task ─────────────────────────────────
 
     #[repr(C)]
-    struct LeanTaskImp {
+    struct LeanTaskImp { // duplicate in leanh at line 72 (🔁)
         m_closure: *mut LeanObject,
         m_head_dep: *mut LeanTaskObject,
         m_next_dep: *mut LeanTaskObject,
@@ -93,7 +92,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[repr(C)]
-    struct LeanThunkObject {
+    struct LeanThunkObject { // duplicate in leanh at line 96 (🔁)
         header: LeanObject,
         m_value: AtomicPtr<LeanObject>,
         m_closure: AtomicPtr<LeanObject>,
@@ -233,7 +232,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_task_pure(value: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_task_pure(value: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:646
         let o =
             lean_alloc_small_object(core::mem::size_of::<LeanTaskObject>()) as *mut LeanTaskObject;
         set_task_header_st(o as *mut LeanObject);
@@ -825,12 +824,12 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) fn lean_init_task_manager() {
+    pub(crate) fn lean_init_task_manager() { // duplicate in leanh at line 828 (🔁)
         lean_init_task_manager_using(unsafe { lean_runtime_get_lean_num_threads() });
     }
 
     #[inline]
-    pub(crate) fn lean_finalize_task_manager() {
+    pub(crate) fn lean_finalize_task_manager() { // duplicate in leanh at line 833 (🔁)
         if let Some(tm) = get_task_manager() {
             tm.initiate_shutdown();
         }
@@ -982,7 +981,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_mk_thunk(c: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_mk_thunk(c: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 985 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:130
         let o = lean_alloc_small_object(core::mem::size_of::<LeanThunkObject>()) as *mut LeanThunkObject;
         (*o).header.rc = 1;
         (*o).header.cs_size = 0;
@@ -994,7 +993,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_thunk_pure(v: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_thunk_pure(v: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 997 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:137
         let o = lean_alloc_small_object(core::mem::size_of::<LeanThunkObject>()) as *mut LeanThunkObject;
         (*o).header.rc = 1;
         (*o).header.cs_size = 0;
@@ -1015,19 +1014,19 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_thunk_get_own(t: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_thunk_get_own(t: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 1018 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:147
         let r = lean_thunk_get(t);
         lean_inc(r);
         r
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_task_spawn(c: *mut LeanObject, prio: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_task_spawn(c: *mut LeanObject, prio: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:686
         lean_task_spawn_core(c, lean_unbox(prio) as core::ffi::c_uint, false)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_task_bind(
+    pub(crate) unsafe fn lean_task_bind( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:717
         x: *mut LeanObject,
         f: *mut LeanObject,
         prio: *mut LeanObject,
@@ -1037,7 +1036,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_task_map(
+    pub(crate) unsafe fn lean_task_map( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:701
         f: *mut LeanObject,
         t: *mut LeanObject,
         prio: *mut LeanObject,
@@ -1047,7 +1046,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_task_get_own(t: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_task_get_own(t: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:647
         let r = lean_task_get(t);
         lean_inc(r);
         lean_dec(t);
@@ -1177,12 +1176,12 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_promise_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_promise_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Promise.lean:40
         lean_promise_new_impl()
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_promise_resolve(
+    pub(crate) unsafe fn lean_io_promise_resolve( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Promise.lean:48
         value: *mut LeanObject,
         promise: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1191,7 +1190,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_promise_result_opt(
+    pub(crate) unsafe fn lean_io_promise_result_opt( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Promise.lean:54
         promise: *mut LeanObject,
     ) -> *mut LeanObject {
         let p = promise as *mut LeanPromiseObject;

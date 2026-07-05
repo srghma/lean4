@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -67,11 +67,10 @@ unsafe impl Send for OleanCompactedRegion {}
 unsafe impl Sync for OleanCompactedRegion {}
 
 pub(crate) mod runtime_compact_impl {
-    use super::*;
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
     #[inline]
-    pub(crate) unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
+    pub(crate) unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/CompactedRegion.lean:21
         if region == 0 {
             return 0;
         }
@@ -81,7 +80,7 @@ pub(crate) mod runtime_compact_impl {
 
     // lean_compacted_region_size(region : USize) : USize
     #[inline]
-    pub(crate) unsafe fn lean_compacted_region_size(region: usize) -> usize {
+    pub(crate) unsafe fn lean_compacted_region_size(region: usize) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/CompactedRegion.lean:25
         if region == 0 {
             return 0;
         }
@@ -91,7 +90,7 @@ pub(crate) mod runtime_compact_impl {
 
     // lean_compacted_region_free(region : USize) : IO Unit
     #[inline]
-    pub(crate) unsafe fn lean_compacted_region_free(
+    pub(crate) unsafe fn lean_compacted_region_free( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/CompactedRegion.lean:32
         region: usize,
         _io: *mut LeanObject,
     ) -> *mut LeanObject {

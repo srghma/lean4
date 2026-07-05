@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_net_addr_impl {
-    use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, null_mut};
 
@@ -247,7 +246,7 @@ pub(crate) mod runtime_net_addr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_pton_v4(str_obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_pton_v4(str_obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Net/Addr.lean:108
         let str_ptr = lean_string_cstr(str_obj);
         if CStr::from_ptr(str_ptr).to_bytes().len() != lean_string_size(str_obj) - 1 {
             return option_none();
@@ -262,7 +261,7 @@ pub(crate) mod runtime_net_addr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_ntop_v4(ipv4_addr: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_ntop_v4(ipv4_addr: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Net/Addr.lean:114
         let mut internal = MaybeUninit::<libc::in_addr>::uninit();
         lean_ipv4_addr_to_in_addr(ipv4_addr, internal.as_mut_ptr());
         let mut dst = [0 as c_char; INET_ADDRSTRLEN];
@@ -276,7 +275,7 @@ pub(crate) mod runtime_net_addr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_pton_v6(str_obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_pton_v6(str_obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Net/Addr.lean:147
         let str_ptr = lean_string_cstr(str_obj);
         if CStr::from_ptr(str_ptr).to_bytes().len() != lean_string_size(str_obj) - 1 {
             return option_none();
@@ -291,7 +290,7 @@ pub(crate) mod runtime_net_addr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_ntop_v6(ipv6_addr: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_ntop_v6(ipv6_addr: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Net/Addr.lean:154
         let mut internal = MaybeUninit::<libc::in6_addr>::uninit();
         lean_ipv6_addr_to_in6_addr(ipv6_addr, internal.as_mut_ptr());
         let mut dst = [0 as c_char; INET6_ADDRSTRLEN];
@@ -305,7 +304,7 @@ pub(crate) mod runtime_net_addr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_interface_addresses() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_interface_addresses() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Net/Addr.lean:257
         let mut info = null_mut();
         let mut count = 0;
 

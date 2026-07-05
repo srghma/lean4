@@ -3,17 +3,16 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 // Port of the Name primitives section from src/runtime/object.cpp.
 // Include from lib.rs: include!("runtime_object_name.rs");
 
 pub(crate) mod runtime_object_name_impl {
-    use super::*;
 
     // Reads the cached hash u64 stored after the 2 lean_object* fields.
     // Layout (64-bit): [LeanObject header (8)] [field0 ptr (8)] [field1 ptr (8)] [hash u64 (8)]
@@ -40,7 +39,7 @@ pub(crate) mod runtime_object_name_impl {
 
     #[inline(always)]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut LeanObject) -> u8 { // duplicate in leanh at line 43 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:4781
         if n1 == n2 {
             return 1;
         }
@@ -98,7 +97,7 @@ pub(crate) mod runtime_object_name_impl {
         }
     }
 
-    pub(crate) unsafe fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/Prelude.lean:4729
         let r = lean_runtime_alloc_ctor(1, 2, 8);
         lean_runtime_ctor_set(r, 0, prefix);
         lean_runtime_ctor_set(r, 1, s);
@@ -106,7 +105,7 @@ pub(crate) mod runtime_object_name_impl {
         lean_ctor_set_uint64(r, 16, h as u64);
         r
     }
-    pub(crate) unsafe fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/Prelude.lean:4736
         let r = lean_runtime_alloc_ctor(2, 2, 8);
         lean_runtime_ctor_set(r, 0, prefix);
         lean_runtime_ctor_set(r, 1, n);

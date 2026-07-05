@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -23,8 +23,8 @@ thread_local! {
 }
 
 extern "C" {
-    fn lean_is_trace_class_enabled(opts: *mut LeanObject, cls: *mut LeanObject) -> bool;
-    fn lean_register_option(name: *mut LeanObject, decl: *mut LeanObject) -> *mut LeanObject;
+    fn lean_is_trace_class_enabled(opts: *mut LeanObject, cls: *mut LeanObject) -> bool; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Util/Trace.lean:121
+    fn lean_register_option(name: *mut LeanObject, decl: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Data/Options.lean:124
     fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
 }
 

@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_tcp_impl {
-    use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
 
@@ -207,7 +206,7 @@ pub(crate) mod runtime_tcp_impl {
     const UV_EAGAIN: c_int = -11;
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:36
         let tcp_socket = libc::malloc(core::mem::size_of::<LeanUvTcpSocketObject>())
             .cast::<LeanUvTcpSocketObject>();
         if tcp_socket.is_null() {
@@ -248,7 +247,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_connect(
+    pub(crate) unsafe fn lean_uv_tcp_connect( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:42
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -319,7 +318,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_send(
+    pub(crate) unsafe fn lean_uv_tcp_send( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:48
         socket: *mut LeanObject,
         data_array: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -423,7 +422,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_recv(
+    pub(crate) unsafe fn lean_uv_tcp_recv( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:58
         socket: *mut LeanObject,
         buffer_size: u64,
     ) -> *mut LeanObject {
@@ -511,7 +510,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:66
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -584,7 +583,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:77
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -613,7 +612,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_bind(
+    pub(crate) unsafe fn lean_uv_tcp_bind( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:83
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -634,7 +633,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_listen(
+    pub(crate) unsafe fn lean_uv_tcp_listen( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:89
         socket: *mut LeanObject,
         backlog: i32,
     ) -> *mut LeanObject {
@@ -692,7 +691,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:95
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -734,7 +733,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:101
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -767,7 +766,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:107
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -794,7 +793,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:113
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -856,7 +855,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_getpeername(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:119
         let tcp_socket = lean_to_uv_tcp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -878,7 +877,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_getsockname(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:125
         let tcp_socket = lean_to_uv_tcp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -900,7 +899,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:131
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -915,7 +914,7 @@ pub(crate) mod runtime_tcp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_tcp_keepalive(
+    pub(crate) unsafe fn lean_uv_tcp_keepalive( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/TCP.lean:137
         socket: *mut LeanObject,
         enable: i32,
         delay: u32,
@@ -936,7 +935,6 @@ pub(crate) mod runtime_tcp_impl {
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_tcp_impl {
-    use super::*;
 
     #[inline]
     pub(crate) fn lean_uv_tcp_new() -> *mut LeanObject {

@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -33,7 +33,6 @@ Scalar field layout (after object pointer fields):
 
 pub(crate) mod kernel_expr_impl {
     use crate::runtime::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
 
     const EXPR_BVAR: u8 = 0;
     const EXPR_FVAR: u8 = 1;
@@ -119,7 +118,7 @@ pub(crate) mod kernel_expr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_expr_mk_data(
+    pub(crate) unsafe fn lean_expr_mk_data( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:171
         hash: u64,
         bvar_range: *mut LeanObject,
         mut approx_depth: u32,
@@ -149,7 +148,7 @@ pub(crate) mod kernel_expr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
+    pub(crate) unsafe fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:176
         let mut depth = ((f_data >> 32) & 0xFF).max((a_data >> 32) & 0xFF) + 1;
         if depth > 255 {
             depth = 255;
@@ -204,7 +203,7 @@ pub(crate) mod kernel_expr_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_expr_has_loose_bvar(
+    pub(crate) unsafe fn lean_expr_has_loose_bvar( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1320
         e: *mut LeanObject,
         i: *mut LeanObject,
     ) -> u8 {
@@ -364,7 +363,7 @@ pub(crate) mod kernel_expr_impl {
     // lower_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), subtract d.
     // Precondition: s >= d (asserted in C++, guarded here).
     #[inline]
-    pub(crate) unsafe fn lean_expr_lower_loose_bvars(
+    pub(crate) unsafe fn lean_expr_lower_loose_bvars( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1347
         e: *mut LeanObject,
         s: *mut LeanObject,
         d: *mut LeanObject,
@@ -384,7 +383,7 @@ pub(crate) mod kernel_expr_impl {
 
     // lift_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), add d.
     #[inline]
-    pub(crate) unsafe fn lean_expr_lift_loose_bvars(
+    pub(crate) unsafe fn lean_expr_lift_loose_bvars( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1352
         e: *mut LeanObject,
         s: *mut LeanObject,
         d: *mut LeanObject,

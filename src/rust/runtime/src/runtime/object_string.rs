@@ -3,17 +3,16 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 // Port of the Strings section from src/runtime/object.cpp (lines 1949-2486).
 // Include from lib.rs: include!("runtime_object_string.rs");
 
 pub(crate) mod runtime_object_string_impl {
-    use super::*;
     use core::ffi::c_char;
     use core::mem::size_of;
 
@@ -29,7 +28,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize { // duplicate in leanh at line 32 (🔁)
         size_of::<LeanStringObject>() + lean_string_capacity(o)
     }
 
@@ -44,19 +43,19 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in leanh at line 47 (🔁)
         (*o).rc == 1
     }
 
     #[inline]
     #[cfg(false)]
-    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) {
+    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) { // duplicate in leanh at line 53 (🔁)
         (o.add(1) as *mut *mut LeanObject).add(i).write(v);
     }
 
     #[inline]
     #[cfg(false)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject { // duplicate in leanh at line 59 (🔁)
         lean_runtime_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
@@ -67,13 +66,13 @@ pub(crate) mod runtime_object_string_impl {
     // On 64-bit, UInt32 fits in a Lean scalar.
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject { // duplicate in leanh at line 70 (🔁)
         lean_box(v as usize)
     }
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+    pub(crate) unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 { // duplicate in leanh at line 76 (🔁)
         lean_unbox(o) as u32
     }
 
@@ -82,11 +81,11 @@ pub(crate) mod runtime_object_string_impl {
         b'A' as u32
     }
 
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1;
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in leanh at line 85 (🔁)
 
     #[inline]
     #[cfg(false)]
-    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
+    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in leanh at line 89 (🔁)
         if n <= LEAN_MAX_SMALL_NAT {
             lean_box(n)
         } else {
@@ -96,7 +95,7 @@ pub(crate) mod runtime_object_string_impl {
 
     #[inline]
     #[cfg(false)]
-    unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 99 (🔁)
         if lean_is_scalar(a1) && lean_is_scalar(a2) {
             lean_usize_to_nat(lean_unbox(a1).wrapping_add(lean_unbox(a2)))
         } else {
@@ -106,7 +105,7 @@ pub(crate) mod runtime_object_string_impl {
 
     #[inline]
     #[cfg(false)]
-    unsafe fn lean_nat_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn lean_nat_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 109 (🔁)
         if lean_is_scalar(a1) && lean_is_scalar(a2) {
             let n1 = lean_unbox(a1);
             let n2 = lean_unbox(a2);
@@ -242,7 +241,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
+    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject { // duplicate in leanh at line 245 (🔁)
         let mut p = s;
         while *p != 0 {
             p = p.add(1);
@@ -266,13 +265,13 @@ pub(crate) mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
 
     #[inline]
-    pub(crate) unsafe fn lean_decode_lossy_utf8(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_decode_lossy_utf8(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:31
         lean_mk_string_from_bytes(lean_sarray_cptr(a) as *const c_char, lean_sarray_size(a))
     }
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_string_from_utf8_unchecked(
+    pub(crate) unsafe fn lean_string_from_utf8_unchecked( // duplicate in leanh at line 275 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3513
         a: *mut LeanObject,
     ) -> *mut LeanObject {
         let r = lean_mk_string_from_bytes_unchecked(
@@ -284,7 +283,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_validate_utf8(a: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_string_validate_utf8(a: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:88
         let mut pos: usize = 0;
         let mut i: usize = 0;
         lean_runtime_validate_utf8(lean_sarray_cptr(a), lean_sarray_size(a), &mut pos, &mut i) as u8
@@ -292,7 +291,7 @@ pub(crate) mod runtime_object_string_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_string_to_utf8(s: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_string_to_utf8(s: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 295 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Defs.lean:75; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3512
         let sz = lean_string_size(s) - 1;
         let r = lean_alloc_sarray(1, sz, sz);
         core::ptr::copy_nonoverlapping(
@@ -308,7 +307,7 @@ pub(crate) mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
 
     #[inline]
-    pub(crate) unsafe fn lean_string_push(s: *mut LeanObject, c: u32) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_string_push(s: *mut LeanObject, c: u32) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:32
         let sz = lean_string_size(s);
         let len = lean_string_len(s);
         let r;
@@ -327,7 +326,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_append(
+    pub(crate) unsafe fn lean_string_append( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:76; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Defs.lean:93
         s1: *mut LeanObject,
         s2: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -385,7 +384,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_compare(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_string_compare(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Ord/String.lean:31
         let sz1 = lean_string_size(s1) - 1;
         let sz2 = lean_string_size(s2) - 1;
         let b1 = core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz1);
@@ -402,7 +401,7 @@ pub(crate) mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_get(s: *mut LeanObject, i0: *mut LeanObject) -> u32 {
+    pub(crate) unsafe fn lean_string_utf8_get(s: *mut LeanObject, i0: *mut LeanObject) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1892; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1896; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:102
         if lean_is_scalar(i0) {
             let i = lean_unbox(i0);
             let str = lean_string_cstr(s) as *const u8;
@@ -452,7 +451,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_get_opt(
+    pub(crate) unsafe fn lean_string_utf8_get_opt( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1924; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1928
         s: *mut LeanObject,
         i0: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -482,7 +481,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_get_bang(
+    pub(crate) unsafe fn lean_string_utf8_get_bang( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1946; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1951
         s: *mut LeanObject,
         i0: *mut LeanObject,
     ) -> u32 {
@@ -499,7 +498,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_next(
+    pub(crate) unsafe fn lean_string_utf8_next( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2813; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2818; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:79
         s: *mut LeanObject,
         i0: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -543,7 +542,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_is_valid_pos(
+    pub(crate) unsafe fn lean_string_is_valid_pos( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:666
         s: *mut LeanObject,
         i0: *mut LeanObject,
     ) -> u8 {
@@ -563,7 +562,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_extract(
+    pub(crate) unsafe fn lean_string_utf8_extract( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:3012; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:786; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:66
         s: *mut LeanObject,
         b0: *mut LeanObject,
         e0: *mut LeanObject,
@@ -593,7 +592,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_prev(
+    pub(crate) unsafe fn lean_string_utf8_prev( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2850; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2854
         s: *mut LeanObject,
         i0: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -618,7 +617,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_utf8_set(
+    pub(crate) unsafe fn lean_string_utf8_set( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Modify.lean:160; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Modify.lean:164; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Modify.lean:34
         s: *mut LeanObject,
         i0: *mut LeanObject,
         c: u32,
@@ -680,14 +679,14 @@ pub(crate) mod runtime_object_string_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_string_hash(s: *mut LeanObject) -> u64 {
+    pub(crate) unsafe fn lean_string_hash(s: *mut LeanObject) -> u64 { // duplicate in leanh at line 683 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:4652
         let sz = lean_string_size(s) - 1;
         let str = lean_string_cstr(s) as *const u8;
         lean_runtime_hash_str(sz, str, 11)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_memcmp(
+    pub(crate) unsafe fn lean_string_memcmp( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Pattern/Basic.lean:299
         s1: *mut LeanObject,
         s2: *mut LeanObject,
         lstart: *mut LeanObject,
@@ -703,7 +702,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_of_usize(n: usize) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_string_of_usize(n: usize) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Repr.lean:230
         let s = n.to_string();
         lean_mk_string_unchecked(s.as_ptr() as *const c_char, s.len(), s.len())
     }
@@ -713,7 +712,7 @@ pub(crate) mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
 
     #[inline]
-    pub(crate) unsafe fn lean_slice_hash(s: *mut LeanObject) -> u64 {
+    pub(crate) unsafe fn lean_slice_hash(s: *mut LeanObject) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Slice.lean:86
         let start = lean_unbox(lean_ctor_get(s, 1));
         let end_ = lean_unbox(lean_ctor_get(s, 2));
         let sz = if end_ > start { end_ - start } else { 0 };
@@ -722,7 +721,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_slice_dec_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_slice_dec_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Slice.lean:96
         let start1 = lean_unbox(lean_ctor_get(s1, 1));
         let end1 = lean_unbox(lean_ctor_get(s1, 2));
         let start2 = lean_unbox(lean_ctor_get(s2, 1));
@@ -742,7 +741,7 @@ pub(crate) mod runtime_object_string_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_string_mk(cs: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_string_mk(cs: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 745 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:141; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3523
         let mut buf: Vec<u8> = Vec::new();
         let mut o = cs;
         let mut len: usize = 0;
@@ -762,7 +761,7 @@ pub(crate) mod runtime_object_string_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 765 (🔁)
         let sz = lean_string_size(s) - 1;
         let bytes = core::slice::from_raw_parts(lean_string_cstr(s) as *const u8, sz);
         let mut cps: Vec<u32> = Vec::new();

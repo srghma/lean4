@@ -3,11 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 extern "C" {
     fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
@@ -43,82 +43,82 @@ pub(crate) unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) fn lean_float_add(a: f64, b: f64) -> f64 {
+pub(crate) fn lean_float_add(a: f64, b: f64) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:58
     a + b
 }
 
 #[inline]
-pub(crate) fn lean_float_sub(a: f64, b: f64) -> f64 {
+pub(crate) fn lean_float_sub(a: f64, b: f64) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:64
     a - b
 }
 
 #[inline]
-pub(crate) fn lean_float_mul(a: f64, b: f64) -> f64 {
+pub(crate) fn lean_float_mul(a: f64, b: f64) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:70
     a * b
 }
 
 #[inline]
-pub(crate) fn lean_float_div(a: f64, b: f64) -> f64 {
+pub(crate) fn lean_float_div(a: f64, b: f64) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:79
     a / b
 }
 
 #[inline]
-pub(crate) fn lean_float_negate(a: f64) -> f64 {
+pub(crate) fn lean_float_negate(a: f64) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:86
     -a
 }
 
 #[inline]
-pub(crate) fn lean_float_beq(a: f64, b: f64) -> u8 {
+pub(crate) fn lean_float_beq(a: f64, b: f64) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:142
     (a == b) as u8
 }
 
 #[inline]
-pub(crate) fn lean_float_decLe(a: f64, b: f64) -> u8 {
+pub(crate) fn lean_float_decLe(a: f64, b: f64) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:160
     (a <= b) as u8
 }
 
 #[inline]
-pub(crate) fn lean_float_decLt(a: f64, b: f64) -> u8 {
+pub(crate) fn lean_float_decLt(a: f64, b: f64) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:151
     (a < b) as u8
 }
 
 #[inline]
-pub(crate) fn lean_float32_add(a: f32, b: f32) -> f32 {
+pub(crate) fn lean_float32_add(a: f32, b: f32) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:51
     a + b
 }
 
 #[inline]
-pub(crate) fn lean_float32_sub(a: f32, b: f32) -> f32 {
+pub(crate) fn lean_float32_sub(a: f32, b: f32) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:57
     a - b
 }
 
 #[inline]
-pub(crate) fn lean_float32_mul(a: f32, b: f32) -> f32 {
+pub(crate) fn lean_float32_mul(a: f32, b: f32) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:63
     a * b
 }
 
 #[inline]
-pub(crate) fn lean_float32_div(a: f32, b: f32) -> f32 {
+pub(crate) fn lean_float32_div(a: f32, b: f32) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:72
     a / b
 }
 
 #[inline]
-pub(crate) fn lean_float32_negate(a: f32) -> f32 {
+pub(crate) fn lean_float32_negate(a: f32) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:79
     -a
 }
 
 #[inline]
-pub(crate) fn lean_float32_beq(a: f32, b: f32) -> u8 {
+pub(crate) fn lean_float32_beq(a: f32, b: f32) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:138
     (a == b) as u8
 }
 
 #[inline]
-pub(crate) fn lean_float32_decLe(a: f32, b: f32) -> u8 {
+pub(crate) fn lean_float32_decLe(a: f32, b: f32) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:156
     (a <= b) as u8
 }
 
 #[inline]
-pub(crate) fn lean_float32_decLt(a: f32, b: f32) -> u8 {
+pub(crate) fn lean_float32_decLt(a: f32, b: f32) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:147
     (a < b) as u8
 }
 
@@ -133,7 +133,7 @@ pub(crate) unsafe fn lean_mk_float_exp_pair(
 }
 
 #[inline]
-pub(crate) fn lean_float_to_string(value: f64) -> *mut LeanObject {
+pub(crate) fn lean_float_to_string(value: f64) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:171
     if value.is_nan() {
         float_to_string("NaN".to_owned())
     } else {
@@ -142,7 +142,7 @@ pub(crate) fn lean_float_to_string(value: f64) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
+pub(crate) unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:499
     if lean_is_scalar(scale) {
         c_scalbn(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
@@ -153,22 +153,22 @@ pub(crate) unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f6
 }
 
 #[inline]
-pub(crate) fn lean_float_isnan(value: f64) -> u8 {
+pub(crate) fn lean_float_isnan(value: f64) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:231
     value.is_nan() as u8
 }
 
 #[inline]
-pub(crate) fn lean_float_isfinite(value: f64) -> u8 {
+pub(crate) fn lean_float_isfinite(value: f64) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:239
     value.is_finite() as u8
 }
 
 #[inline]
-pub(crate) fn lean_float_isinf(value: f64) -> u8 {
+pub(crate) fn lean_float_isinf(value: f64) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:247
     value.is_infinite() as u8
 }
 
 #[inline]
-pub(crate) fn lean_float_of_bits(bits: u64) -> f64 {
+pub(crate) fn lean_float_of_bits(bits: u64) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:111
     let value = f64::from_bits(bits);
     if value.is_nan() {
         f64::NAN
@@ -178,7 +178,7 @@ pub(crate) fn lean_float_of_bits(bits: u64) -> f64 {
 }
 
 #[inline]
-pub(crate) fn lean_float_to_bits(mut value: f64) -> u64 {
+pub(crate) fn lean_float_to_bits(mut value: f64) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:123
     if value.is_nan() {
         value = f64::NAN;
     }
@@ -186,7 +186,7 @@ pub(crate) fn lean_float_to_bits(mut value: f64) -> u64 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject {
+pub(crate) unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float.lean:256
     let mut exp = 0;
     let significand = c_frexp(value, &mut exp);
     let exp_obj = if value.is_finite() {
@@ -198,7 +198,7 @@ pub(crate) unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) fn lean_float32_to_string(value: f32) -> *mut LeanObject {
+pub(crate) fn lean_float32_to_string(value: f32) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:165
     if value.is_nan() {
         float_to_string("NaN".to_owned())
     } else {
@@ -207,7 +207,7 @@ pub(crate) fn lean_float32_to_string(value: f32) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
+pub(crate) unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:497
     if lean_is_scalar(scale) {
         c_scalbnf(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
@@ -218,22 +218,22 @@ pub(crate) unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> 
 }
 
 #[inline]
-pub(crate) fn lean_float32_isnan(value: f32) -> u8 {
+pub(crate) fn lean_float32_isnan(value: f32) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:224
     value.is_nan() as u8
 }
 
 #[inline]
-pub(crate) fn lean_float32_isfinite(value: f32) -> u8 {
+pub(crate) fn lean_float32_isfinite(value: f32) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:231
     value.is_finite() as u8
 }
 
 #[inline]
-pub(crate) fn lean_float32_isinf(value: f32) -> u8 {
+pub(crate) fn lean_float32_isinf(value: f32) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:238
     value.is_infinite() as u8
 }
 
 #[inline]
-pub(crate) fn lean_float32_of_bits(bits: u32) -> f32 {
+pub(crate) fn lean_float32_of_bits(bits: u32) -> f32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:104
     let value = f32::from_bits(bits);
     if value.is_nan() {
         f32::NAN
@@ -243,7 +243,7 @@ pub(crate) fn lean_float32_of_bits(bits: u32) -> f32 {
 }
 
 #[inline]
-pub(crate) fn lean_float32_to_bits(mut value: f32) -> u32 {
+pub(crate) fn lean_float32_to_bits(mut value: f32) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:119
     if value.is_nan() {
         value = f32::NAN;
     }
@@ -251,7 +251,7 @@ pub(crate) fn lean_float32_to_bits(mut value: f32) -> u32 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float32_frexp(value: f32) -> *mut LeanObject {
+pub(crate) unsafe fn lean_float32_frexp(value: f32) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Float32.lean:246
     let mut exp = 0;
     let significand = c_frexpf(value, &mut exp);
     let exp_obj = if value.is_finite() {

@@ -26,7 +26,7 @@ mod gmp_impl {
     }
 
     // mpz_t = [__mpz_struct; 1]
-    pub type MpzT = [MpzStruct; 1];
+    pub type MpzT = [MpzStruct; 1]; // duplicate in leanh at line 29 (🔁)
 
     extern "C" {
         fn __gmpz_init(x: *mut MpzT);
@@ -64,7 +64,7 @@ mod gmp_impl {
         fn __gmpz_divexact(q: *mut MpzT, n: *const MpzT, d: *const MpzT);
         fn __gmpz_fdiv_r_2exp(r: *mut MpzT, n: *const MpzT, b: u64);
         fn __gmpz_fdiv_q_2exp(q: *mut MpzT, n: *const MpzT, b: u64);
-        fn __gmpz_pow_ui(rop: *mut MpzT, base: *const MpzT, exp: c_ulong);
+        fn __gmpz_pow_ui(rop: *mut MpzT, base: *const MpzT, exp: c_ulong); // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:399
         fn __gmpz_and(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
         fn __gmpz_ior(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
         fn __gmpz_xor(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);

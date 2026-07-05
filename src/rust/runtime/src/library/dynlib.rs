@@ -3,11 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 static mut DYNLIB_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut DYNLIB_SYMBOL_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
@@ -64,7 +64,7 @@ pub fn initialize_dynlib() {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/LoadDynlib.lean:33
     #[cfg(unix)]
     {
         const RTLD_LAZY: i32 = 1;
@@ -90,7 +90,7 @@ pub(crate) unsafe fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject 
 }
 
 #[inline]
-pub(crate) unsafe fn lean_dynlib_get(
+pub(crate) unsafe fn lean_dynlib_get( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/LoadDynlib.lean:37
     dynlib: *mut LeanObject,
     name: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -124,7 +124,7 @@ pub(crate) unsafe fn lean_dynlib_get(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_dynlib_symbol_run_as_init(
+pub(crate) unsafe fn lean_dynlib_symbol_run_as_init( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/LoadDynlib.lean:53
     _: *mut LeanObject,
     symbol: *mut LeanObject,
 ) -> *mut LeanObject {

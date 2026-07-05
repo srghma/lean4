@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -31,11 +31,10 @@ Expression kind tags:
 
 pub(crate) mod kernel_abstract_impl {
     use crate::runtime::runtime_object_name_impl::lean_name_eq;
-    use super::*;
     use std::collections::HashMap;
 
     extern "C" {
-        fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
+        fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:747
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(
             n: *mut LeanObject,
@@ -304,7 +303,7 @@ pub(crate) mod kernel_abstract_impl {
 
     // lean_expr_abstract (e : @& Expr) (xs : @& Array Expr) : Expr
     #[inline]
-    pub(crate) unsafe fn lean_expr_abstract(
+    pub(crate) unsafe fn lean_expr_abstract( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1484
         e: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -315,7 +314,7 @@ pub(crate) mod kernel_abstract_impl {
     // lean_expr_abstract_range (e : @& Expr) (n : @& Nat) (xs : @& Array Expr) : Expr
     // Uses at most min(n, xs.size) entries.
     #[inline]
-    pub(crate) unsafe fn lean_expr_abstract_range(
+    pub(crate) unsafe fn lean_expr_abstract_range( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1488
         e: *mut LeanObject,
         n: *mut LeanObject,
         subst: *mut LeanObject,

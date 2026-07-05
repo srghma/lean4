@@ -3,21 +3,20 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_io_ref_impl {
     use crate::runtime::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
     use core::sync::atomic::{AtomicPtr, Ordering};
 
-    const LEAN_REF_TAG: u8 = 253;
+    const LEAN_REF_TAG: u8 = 253; // duplicate in leanh at line 17 (🔁)
 
     #[repr(C)]
-    struct LeanRefObject {
+    struct LeanRefObject { // duplicate in leanh at line 20 (🔁)
         header: LeanObject,
         value: *mut LeanObject,
     }
@@ -29,16 +28,16 @@ pub(crate) mod runtime_io_ref_impl {
         (*o).tag = tag;
     }
 
-    unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject {
+    unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject { // duplicate in leanh at line 32 (🔁)
         debug_assert!((*o).tag == LEAN_REF_TAG);
         o as *mut LeanRefObject
     }
 
-    fn lean_is_mt(o: *mut LeanObject) -> bool {
+    fn lean_is_mt(o: *mut LeanObject) -> bool { // duplicate in leanh at line 37 (🔁)
         unsafe { (*o).rc < 0 }
     }
 
-    fn lean_is_persistent(o: *mut LeanObject) -> bool {
+    fn lean_is_persistent(o: *mut LeanObject) -> bool { // duplicate in leanh at line 41 (🔁)
         unsafe { (*o).rc == 0 }
     }
 
@@ -51,7 +50,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_st_mk_ref(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_st_mk_ref(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:186
         let o = crate::runtime::runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
             LeanRefObject,
         >()) as *mut LeanRefObject;
@@ -61,7 +60,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_st_ref_get(ref_: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_st_ref_get(ref_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:188
         if ref_maybe_mt(ref_) {
             let val_addr = mt_ref_val_addr(ref_);
             loop {
@@ -85,7 +84,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_st_ref_take(ref_: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_st_ref_take(ref_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:194
         if ref_maybe_mt(ref_) {
             let val_addr = mt_ref_val_addr(ref_);
             loop {
@@ -104,7 +103,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_st_ref_set(
+    pub(crate) unsafe fn lean_st_ref_set( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:190
         ref_: *mut LeanObject,
         a: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -127,7 +126,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_st_ref_swap(
+    pub(crate) unsafe fn lean_st_ref_swap( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:192
         ref_: *mut LeanObject,
         a: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -152,7 +151,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_st_ref_ptr_eq(
+    pub(crate) unsafe fn lean_st_ref_ptr_eq( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:196
         ref1: *mut LeanObject,
         ref2: *mut LeanObject,
     ) -> u8 {
@@ -160,23 +159,23 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) fn lean_io_exit(code: u8) -> *mut LeanObject {
+    pub(crate) fn lean_io_exit(code: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1579
         unsafe { libc::exit(code as i32) }
     }
 
     #[inline]
-    pub(crate) fn lean_io_force_exit(code: u8) -> *mut LeanObject {
+    pub(crate) fn lean_io_force_exit(code: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1588
         unsafe { libc::_exit(code as i32) }
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_runtime_mark_persistent(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_runtime_mark_persistent(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1839
         lean_mark_persistent(a);
         a
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_runtime_mark_multi_threaded(
+    pub(crate) unsafe fn lean_runtime_mark_multi_threaded( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1826
         a: *mut LeanObject,
     ) -> *mut LeanObject {
         lean_mark_mt(a);
@@ -184,7 +183,7 @@ pub(crate) mod runtime_io_ref_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_runtime_forget(o: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_runtime_forget(o: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1850
         let _ = o;
         lean_box(0)
     }

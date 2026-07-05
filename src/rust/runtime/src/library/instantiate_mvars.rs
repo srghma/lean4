@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -15,67 +15,66 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
 
 pub(crate) mod library_instantiate_mvars_impl {
     use crate::runtime::runtime_object_name_impl::lean_name_eq;
-    use super::*;
     use std::collections::HashMap;
 
     extern "C" {
-        fn lean_get_lmvar_assignment(
+        fn lean_get_lmvar_assignment( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:398
             mctx: *mut LeanObject,
             mid: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_assign_lmvar(
+        fn lean_assign_lmvar( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:522
             mctx: *mut LeanObject,
             mid: *mut LeanObject,
             val: *mut LeanObject,
         ) -> *mut LeanObject;
         fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject)
+        fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject) // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:405
             -> *mut LeanObject;
-        fn lean_get_delayed_mvar_assignment(
+        fn lean_get_delayed_mvar_assignment( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:415
             mctx: *mut LeanObject,
             mid: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_delayed_mvar_assignment_fvars(d: *mut LeanObject) -> *mut LeanObject;
-        fn lean_delayed_mvar_assignment_mvar_id_pending(d: *mut LeanObject) -> *mut LeanObject;
-        fn lean_assign_mvar(
+        fn lean_delayed_mvar_assignment_fvars(d: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:419
+        fn lean_delayed_mvar_assignment_mvar_id_pending(d: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:422
+        fn lean_assign_mvar( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/MetavarContext.lean:535
             mctx: *mut LeanObject,
             mid: *mut LeanObject,
             val: *mut LeanObject,
         ) -> *mut LeanObject;
 
-        fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
-        fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
-        fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
+        fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Level.lean:156
+        fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Level.lean:159
+        fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Level.lean:160
         fn lean_expr_lift_loose_bvars(
             e: *mut LeanObject,
             s: *mut LeanObject,
             d: *mut LeanObject,
         ) -> *mut LeanObject;
         fn lean_expr_instantiate(e: *mut LeanObject, subst: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_sort(l: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_const(n: *mut LeanObject, us: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_lambda(
+        fn lean_expr_mk_sort(l: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:750
+        fn lean_expr_mk_const(n: *mut LeanObject, us: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:751
+        fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:752
+        fn lean_expr_mk_lambda( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:753
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
             bi: u8,
         ) -> *mut LeanObject;
-        fn lean_expr_mk_forall(
+        fn lean_expr_mk_forall( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:754
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
             bi: u8,
         ) -> *mut LeanObject;
-        fn lean_expr_mk_let(
+        fn lean_expr_mk_let( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:755
             n: *mut LeanObject,
             t: *mut LeanObject,
             v: *mut LeanObject,
             b: *mut LeanObject,
             nondep: u8,
         ) -> *mut LeanObject;
-        fn lean_expr_mk_mdata(m: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_proj(
+        fn lean_expr_mk_mdata(m: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:757
+        fn lean_expr_mk_proj( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:758
             struct_name: *mut LeanObject,
             idx: *mut LeanObject,
             structure: *mut LeanObject,
@@ -232,12 +231,12 @@ pub(crate) mod library_instantiate_mvars_impl {
     }
 
     #[cfg(false)]
-    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in leanh at line 235 (🔁)
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
     #[cfg(false)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject { // duplicate in leanh at line 240 (🔁)
         lean_runtime_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
@@ -246,7 +245,7 @@ pub(crate) mod library_instantiate_mvars_impl {
     }
 
     // rc > 0 means single-threaded object (not atomic refcount).
-    unsafe fn lean_is_st(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_st(o: *mut LeanObject) -> bool { // duplicate in leanh at line 249 (🔁)
         (*o).rc > 0
     }
 
@@ -427,7 +426,7 @@ pub(crate) mod library_instantiate_mvars_impl {
 
     /// `instantiateLevelMVars (mctx : MetavarContext) (l : Level) : MetavarContext × Level`
     #[inline]
-    pub(crate) unsafe fn lean_instantiate_level_mvars(
+    pub(crate) unsafe fn lean_instantiate_level_mvars( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/MetavarContext.lean:568
         mctx: *mut LeanObject,
         l: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1626,7 +1625,7 @@ pub(crate) mod library_instantiate_mvars_impl {
 
     /// `instantiateExprMVars (mctx : MetavarContext) (e : Expr) : MetavarContext × Expr`
     #[inline]
-    pub(crate) unsafe fn lean_instantiate_expr_mvars(
+    pub(crate) unsafe fn lean_instantiate_expr_mvars( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/MetavarContext.lean:576
         mctx: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {

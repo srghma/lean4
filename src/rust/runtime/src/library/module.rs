@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -14,7 +14,6 @@ Port of src/library/module.cpp:
 */
 
 pub(crate) mod library_module_impl {
-    use super::*;
     use core::ffi::{c_char, c_int, c_void, CStr};
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):
@@ -35,16 +34,16 @@ pub(crate) mod library_module_impl {
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
 
     // Object tag constants matching static runtime layout
-    const LEAN_MAX_CTOR_TAG: u8 = 243;
-    const LEAN_CLOSURE_TAG: u8 = 245;
-    const LEAN_ARRAY_TAG: u8 = 246;
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-    const LEAN_STRING_TAG: u8 = 249;
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_THUNK_TAG: u8 = 251;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_REF_TAG: u8 = 253;
-    const LEAN_PROMISE_TAG: u8 = 244;
+    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in leanh at line 38 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in leanh at line 39 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in leanh at line 40 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in leanh at line 41 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in leanh at line 42 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in leanh at line 43 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in leanh at line 44 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in leanh at line 45 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in leanh at line 46 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in leanh at line 47 (🔁)
 
     // Size of fixed Lean object types (LP64):
     //   lean_thunk_object  = { header(8), value(8), closure(8) } = 24
@@ -468,7 +467,7 @@ pub(crate) mod library_module_impl {
     /// Returns `IO (α × CompactedRegion)` where the second element is a boxed `USize`
     /// holding the raw `*OleanCompactedRegion` pointer.
     #[inline]
-    pub(crate) unsafe fn lean_compacted_region_read(
+    pub(crate) unsafe fn lean_compacted_region_read( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/CompactedRegion.lean:83
         ofname: *mut LeanObject,
         odep_regions: *mut LeanObject,
         _io: *mut LeanObject,

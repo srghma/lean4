@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -17,13 +17,12 @@ Provides lean_expr_dbg_to_string, which is the ToString Expr instance in Lean
 
 
 pub(crate) mod library_print_impl {
-    use super::*;
 
     extern "C" {
         // Lean-compiled (Init.Prelude): Name.str p s — consumes both.
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Lean.Expr): mkFVar — takes owned FVarId (= Name at ABI), returns owned Expr.
-        fn lean_expr_mk_fvar(n: *mut LeanObject) -> *mut LeanObject;
+        fn lean_expr_mk_fvar(n: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Expr.lean:748
         // Rust implementation in kernel_instantiate.rs: both args borrowed, returns owned.
         fn lean_expr_instantiate1(a: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Init.Data.Repr): takes owned Nat, returns owned String.
@@ -589,7 +588,7 @@ pub(crate) mod library_print_impl {
     // lean_expr_dbg_to_string: ToString Expr instance (@[extern "lean_expr_dbg_to_string"]).
     // Argument is borrowed (@&); return is owned.
     #[inline]
-    pub(crate) unsafe fn lean_expr_dbg_to_string(e: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_expr_dbg_to_string(e: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:779
         let mut out = String::new();
         fmt_expr(e, &mut out);
         let cstr = std::ffi::CString::new(out)

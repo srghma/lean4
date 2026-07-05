@@ -13,7 +13,7 @@ pub use leanh::*; // why pub? bc without - will not detect duplicated functions.
 pub static EXTERNAL_CLASSES: std::sync::Mutex<Vec<usize>> = std::sync::Mutex::new(Vec::new());
 
 #[inline]
-pub unsafe fn lean_ptr_other(obj: *mut LeanObject) -> u8 {
+pub fn lean_ptr_other(obj: *mut LeanObject) -> u8 {
     unsafe { (*obj).other }
 }
 
@@ -132,12 +132,12 @@ pub unsafe fn lean_ensure_exclusive_array(obj: *mut LeanObject) -> *mut LeanObje
 }
 
 #[inline]
-pub unsafe fn lean_array_get_size(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_array_get_size(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:207 (🔌)
     unsafe { lean_box(lean_array_size(obj)) }
 }
 
 #[inline]
-pub unsafe fn lean_array_fget(obj: *mut LeanObject, idx: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_array_fget(obj: *mut LeanObject, idx: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:220 (🔌)
     unsafe {
         let r = lean_array_get_core(obj, lean_unbox(idx));
         lean_inc(r);
@@ -146,7 +146,7 @@ pub unsafe fn lean_array_fget(obj: *mut LeanObject, idx: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub unsafe fn lean_array_fget_borrowed(
+pub unsafe fn lean_array_fget_borrowed( // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:212 (🔌)
     obj: *mut LeanObject,
     idx: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -154,7 +154,7 @@ pub unsafe fn lean_array_fget_borrowed(
 }
 
 #[inline]
-pub unsafe fn lean_array_uget(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+pub unsafe fn lean_array_uget(obj: *mut LeanObject, idx: usize) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:10 (🔌)
     unsafe {
         let r = lean_array_get_core(obj, idx);
         lean_inc(r);
@@ -163,12 +163,12 @@ pub unsafe fn lean_array_uget(obj: *mut LeanObject, idx: usize) -> *mut LeanObje
 }
 
 #[inline]
-pub unsafe fn lean_array_uget_borrowed(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+pub unsafe fn lean_array_uget_borrowed(obj: *mut LeanObject, idx: usize) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:14 (🔌)
     unsafe { lean_array_get_core(obj, idx) }
 }
 
 #[inline]
-pub unsafe fn lean_array_get(
+pub unsafe fn lean_array_get( // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:234 (🔌)
     def_val: *mut LeanObject,
     obj: *mut LeanObject,
     idx: *mut LeanObject,
@@ -188,7 +188,7 @@ pub unsafe fn lean_array_get(
 }
 
 #[inline]
-pub unsafe fn lean_array_get_borrowed(
+pub unsafe fn lean_array_get_borrowed( // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:225 (🔌)
     def_val: *mut LeanObject,
     obj: *mut LeanObject,
     idx: *mut LeanObject,
@@ -205,7 +205,7 @@ pub unsafe fn lean_array_get_borrowed(
 }
 
 #[inline]
-pub unsafe fn lean_mk_empty_array_with_capacity(capacity: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_mk_empty_array_with_capacity(capacity: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:202 (🔌)
     unsafe {
         if !lean_is_scalar_bool(capacity) {
             panic!("big array capacity is not supported in leanh.rs");
@@ -215,7 +215,7 @@ pub unsafe fn lean_mk_empty_array_with_capacity(capacity: *mut LeanObject) -> *m
 }
 
 #[inline]
-pub unsafe fn lean_array_push(obj: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_array_push(obj: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:243 (🔌)
     unsafe {
         let size = lean_array_size(obj);
         let capacity = lean_array_capacity(obj);
@@ -235,7 +235,7 @@ pub unsafe fn lean_array_push(obj: *mut LeanObject, value: *mut LeanObject) -> *
 }
 
 #[inline]
-pub unsafe fn lean_array_uset(
+pub unsafe fn lean_array_uset( // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:18 (🔌)
     obj: *mut LeanObject,
     idx: usize,
     value: *mut LeanObject,
@@ -250,7 +250,7 @@ pub unsafe fn lean_array_uset(
 }
 
 #[inline]
-pub unsafe fn lean_array_fset(
+pub unsafe fn lean_array_fset( // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Set.rs:6 (🔌)
     obj: *mut LeanObject,
     idx: *mut LeanObject,
     value: *mut LeanObject,
@@ -259,7 +259,7 @@ pub unsafe fn lean_array_fset(
 }
 
 #[inline]
-pub unsafe fn lean_array_set(
+pub unsafe fn lean_array_set( // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Set.rs:14 (🔌)
     obj: *mut LeanObject,
     idx: *mut LeanObject,
     value: *mut LeanObject,
@@ -276,7 +276,7 @@ pub unsafe fn lean_array_set(
 }
 
 #[inline]
-pub unsafe fn lean_array_pop(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_array_pop(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:26 (🔌)
     unsafe {
         let target = lean_ensure_exclusive_array(obj);
         let size = lean_array_size(target);
@@ -303,7 +303,7 @@ pub unsafe fn lean_array_uswap(obj: *mut LeanObject, i: usize, j: usize) -> *mut
 }
 
 #[inline]
-pub unsafe fn lean_array_fswap(
+pub unsafe fn lean_array_fswap( // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:34 (🔌)
     obj: *mut LeanObject,
     i: *mut LeanObject,
     j: *mut LeanObject,
@@ -312,7 +312,7 @@ pub unsafe fn lean_array_fswap(
 }
 
 #[inline]
-pub unsafe fn lean_array_swap(
+pub unsafe fn lean_array_swap( // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:42 (🔌)
     obj: *mut LeanObject,
     i: *mut LeanObject,
     j: *mut LeanObject,
@@ -332,7 +332,7 @@ pub unsafe fn lean_array_swap(
 }
 
 #[inline]
-pub unsafe fn lean_mk_array(n: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_mk_array(n: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Array/Basic.rs:30 (🔌)
     unsafe {
         if !lean_is_scalar_bool(n) {
             panic!("big array size is not supported in leanh.rs");
@@ -352,17 +352,17 @@ pub unsafe fn lean_mk_array(n: *mut LeanObject, value: *mut LeanObject) -> *mut 
 }
 
 #[inline]
-pub unsafe fn lean_array_mk(_list: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_array_mk(_list: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:52 (🔌)
     panic!("lean_array_mk requires list traversal runtime");
 }
 
 #[inline]
-pub unsafe fn lean_array_to_list(_array: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_array_to_list(_array: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:47 (🔌)
     panic!("lean_array_to_list requires list construction runtime");
 }
 
 #[inline]
-pub unsafe fn lean_mk_thunk(closure: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_mk_thunk(closure: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Core.rs:6 (🔌)
     unsafe {
         let obj =
             lean_alloc_object(core::mem::size_of::<LeanThunkObject>()) as *mut LeanThunkObject;
@@ -377,7 +377,7 @@ pub unsafe fn lean_mk_thunk(closure: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_thunk_pure(value: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_thunk_pure(value: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Core.rs:18 (🔌)
     unsafe {
         let obj =
             lean_alloc_object(core::mem::size_of::<LeanThunkObject>()) as *mut LeanThunkObject;
@@ -392,7 +392,7 @@ pub unsafe fn lean_thunk_pure(value: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_thunk_get_own(thunk: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_thunk_get_own(thunk: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Core.rs:22 (🔌)
     unsafe {
         let thunk = thunk as *mut LeanThunkObject;
         let value = (*thunk).m_value.load(Ordering::Acquire);
@@ -405,7 +405,7 @@ pub unsafe fn lean_thunk_get_own(thunk: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_sarray_size(obj: *mut LeanObject) -> usize {
+pub unsafe fn lean_sarray_size(obj: *mut LeanObject) -> usize { // used in src/rust/gen_init_ffi/src/ffi/common/lean_sarray_size.rs:7 (🔌)
     unsafe { (*(obj as *const LeanScalarArray<0>)).m_size }
 }
 
@@ -435,7 +435,7 @@ pub unsafe fn lean_alloc_sarray(elem_size: u32, size: usize, capacity: usize) ->
 }
 
 #[inline]
-pub unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:248 (🔌)
     unsafe {
         if !lean_is_scalar_bool(capacity) {
             panic!("big byte-array capacity is not supported in leanh.rs");
@@ -445,12 +445,12 @@ pub unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanOb
 }
 
 #[inline]
-pub unsafe fn lean_byte_array_size(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_byte_array_size(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:258 (🔌)
     unsafe { lean_box(lean_sarray_size(obj)) }
 }
 
 #[inline]
-pub unsafe fn lean_byte_array_data(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_byte_array_data(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:62 (🔌)
     unsafe {
         lean_inc(obj);
         obj
@@ -458,7 +458,7 @@ pub unsafe fn lean_byte_array_data(obj: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_byte_array_mk(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_byte_array_mk(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:57 (🔌)
     unsafe {
         lean_inc(obj);
         obj
@@ -466,7 +466,7 @@ pub unsafe fn lean_byte_array_mk(obj: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_byte_array_push(obj: *mut LeanObject, value: u8) -> *mut LeanObject {
+pub unsafe fn lean_byte_array_push(obj: *mut LeanObject, value: u8) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:253 (🔌)
     unsafe {
         let size = lean_sarray_size(obj);
         let capacity = lean_sarray_capacity(obj);
@@ -486,22 +486,22 @@ pub unsafe fn lean_byte_array_push(obj: *mut LeanObject, value: u8) -> *mut Lean
 }
 
 #[inline]
-pub unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:85 (🔌)
     unsafe { lean_usize_to_nat(lean_small_nat(a).wrapping_add(lean_small_nat(b))) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:120 (🔌)
     unsafe { lean_box(lean_small_nat(a).saturating_sub(lean_small_nat(b))) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:90 (🔌)
     unsafe { lean_usize_to_nat(lean_small_nat(a).wrapping_mul(lean_small_nat(b))) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:125 (🔌)
     unsafe {
         let b = lean_small_nat(b);
         lean_box(lean_small_nat(a).checked_div(b).unwrap_or(0))
@@ -509,7 +509,7 @@ pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanO
 }
 
 #[inline]
-pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:130 (🔌)
     unsafe {
         let b = lean_small_nat(b);
         lean_box(if b == 0 {
@@ -521,32 +521,32 @@ pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanO
 }
 
 #[inline]
-pub unsafe fn lean_nat_pow(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_pow(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:95 (🔌)
     unsafe { lean_usize_to_nat(lean_small_nat(a).wrapping_pow(lean_small_nat(b) as u32)) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_pred(a: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_pred(a: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:110 (🔌)
     unsafe { lean_box(lean_small_nat(a).saturating_sub(1)) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:100 (🔌)
     unsafe { (lean_small_nat(a) == lean_small_nat(b)) as u8 }
 }
 
 #[inline]
-pub unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:115 (🔌)
     unsafe { (lean_small_nat(a) < lean_small_nat(b)) as u8 }
 }
 
 #[inline]
-pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:105 (🔌)
     unsafe { (lean_small_nat(a) <= lean_small_nat(b)) as u8 }
 }
 
 #[inline]
-pub unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Nat/Bitwise/Basic.rs:22 (🔌)
     unsafe {
         if lean_is_scalar_bool(a) && lean_is_scalar_bool(b) {
             let a = lean_unbox(a);
@@ -560,17 +560,17 @@ pub unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut Le
 }
 
 #[inline]
-pub unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/Int/Basic.rs:7 (🔌)
     value
 }
 
 #[inline]
-pub unsafe fn lean_usize_of_nat(obj: *mut LeanObject) -> usize {
+pub unsafe fn lean_usize_of_nat(obj: *mut LeanObject) -> usize { // used in src/rust/gen_init_ffi/src/ffi/common/lean_usize_of_nat.rs:8 (🔌)
     unsafe { lean_small_nat(obj) }
 }
 
 #[inline]
-pub unsafe fn lean_usize_of_nat_mk(obj: *mut LeanObject) -> usize {
+pub unsafe fn lean_usize_of_nat_mk(obj: *mut LeanObject) -> usize { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:39 (🔌)
     unsafe {
         let result = lean_usize_of_nat(obj);
         lean_dec(obj);
@@ -579,47 +579,47 @@ pub unsafe fn lean_usize_of_nat_mk(obj: *mut LeanObject) -> usize {
 }
 
 #[inline]
-pub unsafe fn lean_usize_dec_eq(a: usize, b: usize) -> u8 {
+pub unsafe fn lean_usize_dec_eq(a: usize, b: usize) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:197 (🔌) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2806
     (a == b) as u8
 }
 
 #[inline]
-pub unsafe fn lean_usize_dec_lt(a: usize, b: usize) -> u8 {
+pub unsafe fn lean_usize_dec_lt(a: usize, b: usize) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/UInt/BasicAux.rs:93 (🔌) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/BasicAux.lean:422
     (a < b) as u8
 }
 
 #[inline]
-pub unsafe fn lean_usize_dec_le(a: usize, b: usize) -> u8 {
+pub unsafe fn lean_usize_dec_le(a: usize, b: usize) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/UInt/BasicAux.rs:97 (🔌) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/BasicAux.lean:438
     (a <= b) as u8
 }
 
 #[inline]
-pub unsafe fn lean_usize_add(a: usize, b: usize) -> usize {
+pub unsafe fn lean_usize_add(a: usize, b: usize) -> usize { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/UInt/BasicAux.rs:85 (🔌) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/BasicAux.lean:382
     a.wrapping_add(b)
 }
 
 #[inline]
-pub unsafe fn lean_usize_sub(a: usize, b: usize) -> usize {
+pub unsafe fn lean_usize_sub(a: usize, b: usize) -> usize { // used in src/rust/gen_init_ffi/src/ffi/Init/Data/UInt/BasicAux.rs:89 (🔌) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/BasicAux.lean:390
     a.wrapping_sub(b)
 }
 
 #[inline]
-pub unsafe fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_lean_ffi/src/ffi/Lean/Runtime.rs:4 (🔌)
     unsafe { lean_unsigned_to_nat(LEAN_CLOSURE_MAX_ARGS) }
 }
 
 #[inline]
-pub unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_lean_ffi/src/ffi/Lean/Runtime.rs:8 (🔌)
     unsafe { lean_usize_to_nat(LEAN_MAX_SMALL_NAT) }
 }
 
 #[inline]
-pub unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_lean_ffi/src/ffi/Lean/Runtime.rs:12 (🔌)
     unsafe { lean_box(0) }
 }
 
 #[inline]
-pub fn lean_uint64_mix_hash(a: u64, b: u64) -> u64 {
+pub fn lean_uint64_mix_hash(a: u64, b: u64) -> u64 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:284 (🔌)
     let mut h = a ^ b
         .wrapping_add(0x9e37_79b9_7f4a_7c15)
         .wrapping_add(a << 6)
@@ -631,7 +631,7 @@ pub fn lean_uint64_mix_hash(a: u64, b: u64) -> u64 {
 }
 
 #[inline]
-pub unsafe fn lean_string_utf8_byte_size(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_string_utf8_byte_size(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:271 (🔌)
     unsafe {
         lean_box(
             (*(obj as *const LeanStringObject<0>))
@@ -642,7 +642,7 @@ pub unsafe fn lean_string_utf8_byte_size(obj: *mut LeanObject) -> *mut LeanObjec
 }
 
 #[inline]
-pub unsafe fn lean_string_to_utf8(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_string_to_utf8(obj: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/common/lean_string_to_utf8.rs:9 (🔌)
     unsafe {
         let size = (*(obj as *const LeanStringObject<0>))
             .m_size
@@ -654,7 +654,7 @@ pub unsafe fn lean_string_to_utf8(obj: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:70 (🔌)
     unsafe {
         let size = lean_sarray_size(bytes);
         let result = lean_alloc_string(size + 1, size + 1, size);
@@ -666,12 +666,12 @@ pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut Le
 }
 
 #[inline]
-pub unsafe fn lean_string_mk(_list: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_string_mk(_list: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/common/lean_string_mk.rs:9 (🔌)
     panic!("lean_string_mk requires list traversal runtime");
 }
 
 #[inline]
-pub unsafe fn lean_string_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_string_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:266 (🔌)
     unsafe {
         let a_size = (*(a as *const LeanStringObject<0>)).m_size;
         let b_size = (*(b as *const LeanStringObject<0>)).m_size;
@@ -684,7 +684,7 @@ pub unsafe fn lean_string_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
 }
 
 #[inline]
-pub unsafe fn lean_string_hash(obj: *mut LeanObject) -> u64 {
+pub unsafe fn lean_string_hash(obj: *mut LeanObject) -> u64 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:289 (🔌)
     unsafe {
         let size = (*(obj as *const LeanStringObject<0>))
             .m_size
@@ -699,7 +699,7 @@ pub unsafe fn lean_string_hash(obj: *mut LeanObject) -> u64 {
 }
 
 #[inline]
-pub unsafe fn lean_panic_fn_borrowed(
+pub unsafe fn lean_panic_fn_borrowed( // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:276 (🔌)
     default_val: *mut LeanObject,
     msg: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -711,17 +711,17 @@ pub unsafe fn lean_panic_fn_borrowed(
 }
 
 #[inline]
-pub unsafe fn lean_sorry(_: u8) -> *mut LeanObject {
+pub unsafe fn lean_sorry(_: u8) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:80 (🔌)
     panic!("executed 'sorry'")
 }
 
 #[inline]
-pub unsafe fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:294 (🔌)
     (a == b) as u8
 }
 
 #[inline]
-pub unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject { // used in src/rust/gen_init_ffi/src/ffi/Init/Prelude.rs:135 (🔌)
     unsafe { lean_box(usize::BITS as usize) }
 }
 
@@ -806,7 +806,7 @@ pub unsafe fn lean_to_external(obj: *mut LeanObject) -> *mut LeanExternalObject 
 }
 
 #[inline]
-pub unsafe fn lean_is_exclusive_obj(obj: *mut LeanObject) -> u8 {
+pub unsafe fn lean_is_exclusive_obj(obj: *mut LeanObject) -> u8 { // used in src/rust/gen_init_ffi/src/ffi/Init/Util.rs:25 (🔌)
     unsafe { lean_is_exclusive(obj) as u8 }
 }
 

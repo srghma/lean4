@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_timer_impl {
-    use super::*;
     use core::ptr::{addr_of_mut, null_mut};
 
     const TIMER_STATE_INITIAL: c_int = 0;
@@ -116,7 +115,7 @@ pub(crate) mod runtime_timer_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Timer.lean:44
         let timer =
             libc::malloc(core::mem::size_of::<LeanUvTimerObject>()).cast::<LeanUvTimerObject>();
         if timer.is_null() {
@@ -189,7 +188,7 @@ pub(crate) mod runtime_timer_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Timer.lean:63
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -244,7 +243,7 @@ pub(crate) mod runtime_timer_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Timer.lean:74
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -277,7 +276,7 @@ pub(crate) mod runtime_timer_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Timer.lean:83
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -302,7 +301,7 @@ pub(crate) mod runtime_timer_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Timer.lean:92
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));

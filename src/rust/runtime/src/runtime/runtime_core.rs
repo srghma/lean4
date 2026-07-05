@@ -1,4 +1,4 @@
-use crate::leanh::*;
+use leanh::*;
 use crate::{
     runtime_io_stream_impl, runtime_object_array_impl, runtime_object_name_impl,
     runtime_object_nat_int_impl, runtime_object_panic_impl, runtime_object_rc_impl,
@@ -11,51 +11,51 @@ use core::panic::PanicInfo;
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
-pub(crate) type Size = usize;
+pub(crate) type Size = usize; // duplicate in leanh at line 14 (🔁)
 
-pub(crate) const LEAN_REF_TAG: u8 = 253;
+pub(crate) const LEAN_REF_TAG: u8 = 253; // duplicate in leanh at line 16 (🔁)
 pub(crate) const LEAN_SINGLE_THREADED_RC: i32 = 1;
-pub(crate) const LEAN_MAX_CTOR_TAG: u8 = 243;
-pub(crate) const LEAN_PROMISE_TAG: u8 = 244;
-pub(crate) const LEAN_CLOSURE_TAG: u8 = 245;
-pub(crate) const LEAN_ARRAY_TAG: u8 = 246;
-pub(crate) const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-pub(crate) const LEAN_STRING_TAG: u8 = 249;
-pub(crate) const LEAN_MPZ_TAG: u8 = 250;
-pub(crate) const LEAN_THUNK_TAG: u8 = 251;
-pub(crate) const LEAN_TASK_TAG: u8 = 252;
-pub(crate) const LEAN_EXTERNAL_TAG: u8 = 254;
+pub(crate) const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in leanh at line 18 (🔁)
+pub(crate) const LEAN_PROMISE_TAG: u8 = 244; // duplicate in leanh at line 19 (🔁)
+pub(crate) const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in leanh at line 20 (🔁)
+pub(crate) const LEAN_ARRAY_TAG: u8 = 246; // duplicate in leanh at line 21 (🔁)
+pub(crate) const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in leanh at line 22 (🔁)
+pub(crate) const LEAN_STRING_TAG: u8 = 249; // duplicate in leanh at line 23 (🔁)
+pub(crate) const LEAN_MPZ_TAG: u8 = 250; // duplicate in leanh at line 24 (🔁)
+pub(crate) const LEAN_THUNK_TAG: u8 = 251; // duplicate in leanh at line 25 (🔁)
+pub(crate) const LEAN_TASK_TAG: u8 = 252; // duplicate in leanh at line 26 (🔁)
+pub(crate) const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in leanh at line 27 (🔁)
 pub(crate) const LEAN_MAX_CTOR_FIELDS: usize = 256;
 pub(crate) const LEAN_MAX_CTOR_SCALARS_SIZE: usize = 1024;
-pub(crate) const LEAN_OBJECT_SIZE_DELTA: usize = 8;
+pub(crate) const LEAN_OBJECT_SIZE_DELTA: usize = 8; // duplicate in leanh at line 30 (🔁)
 
 extern "C" {
     pub(crate) fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
     pub(crate) fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-    pub(crate) fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
-    pub(crate) fn lean_mk_io_error_invalid_argument_file(
+    pub(crate) fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:222
+    pub(crate) fn lean_mk_io_error_invalid_argument_file( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:174
         name: *mut LeanObject,
         errnum: u32,
         details: *mut LeanObject,
     ) -> *mut LeanObject;
-    pub(crate) fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
+    pub(crate) fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IO.lean:1298
     #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
     pub(crate) fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
-    fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
-    fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
-    fn lean_options_get_bool(
+    fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:271
+    fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Data/Options.lean:32
+    fn lean_options_get_bool( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Data/Options.lean:211
         opts: *mut LeanObject,
         name: *mut LeanObject,
         default_value: bool,
     ) -> bool;
-    fn lean_options_update_bool(
+    fn lean_options_update_bool( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Data/Options.lean:221
         opts: *mut LeanObject,
         name: *mut LeanObject,
         value: bool,
     ) -> *mut LeanObject;
-    fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
-    fn lean_get_profiler(opts: *mut LeanObject) -> u8;
-    fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
+    fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/InitAttr.lean:125
+    fn lean_get_profiler(opts: *mut LeanObject) -> u8; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Util/Profile.lean:28
+    fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Util/Profile.lean:32
     // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no state)
     #[link_name = "_ZN4lean23initialize_library_utilEv"]
     fn initialize_library_util();
@@ -134,7 +134,7 @@ static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
     std::sync::Mutex::new(None);
 
 #[inline]
-pub(crate) unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 { // duplicate in leanh at line 137 (🔁)
     if lean_is_scalar(obj) {
         lean_unbox(obj) as u8
     } else {
@@ -143,7 +143,7 @@ pub(crate) unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_ptr_other(obj: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_ptr_other(obj: *mut LeanObject) -> u8 { // duplicate in leanh at line 146 (🔁)
     (*obj).other
 }
 
@@ -179,7 +179,7 @@ pub(crate) unsafe fn lean_usize_add_checked(a: Size, b: Size) -> Size {
 }
 
 #[inline]
-pub(crate) fn lean_align(v: Size, a: Size) -> Size {
+pub(crate) fn lean_align(v: Size, a: Size) -> Size { // duplicate in leanh at line 182 (🔁)
     (v / a) * a + a * ((v % a) != 0) as Size
 }
 
@@ -191,22 +191,22 @@ pub(crate) fn lean_get_slot_idx(sz: u32) -> u32 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_mt(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_mt(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 194 (🔁)
     (*obj).rc < 0
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_st(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_st(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 199 (🔁)
     (*obj).rc > 0
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_persistent(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_persistent(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 204 (🔁)
     (*obj).rc == 0
 }
 
 #[inline]
-pub(crate) unsafe fn lean_has_rc(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_has_rc(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 209 (🔁)
     (*obj).rc != 0
 }
 
@@ -216,127 +216,127 @@ pub(crate) unsafe fn lean_get_rc_mt_addr(obj: *mut LeanObject) -> *mut AtomicI32
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_ctor(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_ctor(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 219 (🔁)
     lean_ptr_tag(obj) <= LEAN_MAX_CTOR_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_closure(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_closure(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 224 (🔁)
     lean_ptr_tag(obj) == LEAN_CLOSURE_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_array(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_array(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 229 (🔁)
     lean_ptr_tag(obj) == LEAN_ARRAY_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_sarray(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_sarray(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 234 (🔁)
     lean_ptr_tag(obj) == LEAN_SCALAR_ARRAY_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_string(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_string(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 239 (🔁)
     lean_ptr_tag(obj) == LEAN_STRING_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_mpz(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_mpz(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 244 (🔁)
     lean_ptr_tag(obj) == LEAN_MPZ_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_thunk(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_thunk(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 249 (🔁)
     lean_ptr_tag(obj) == LEAN_THUNK_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_task(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_task(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 254 (🔁)
     lean_ptr_tag(obj) == LEAN_TASK_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_promise(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_promise(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 259 (🔁)
     lean_ptr_tag(obj) == LEAN_PROMISE_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_external(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_external(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 264 (🔁)
     lean_ptr_tag(obj) == LEAN_EXTERNAL_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_ref(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_ref(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 269 (🔁)
     lean_ptr_tag(obj) == LEAN_REF_TAG
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_ctor(obj: *mut LeanObject) -> *mut LeanCtorObject {
+pub(crate) unsafe fn lean_to_ctor(obj: *mut LeanObject) -> *mut LeanCtorObject { // duplicate in leanh at line 274 (🔁)
     debug_assert!(lean_is_ctor(obj));
     obj as *mut LeanCtorObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_closure(obj: *mut LeanObject) -> *mut LeanClosureObject {
+pub(crate) unsafe fn lean_to_closure(obj: *mut LeanObject) -> *mut LeanClosureObject { // duplicate in leanh at line 280 (🔁)
     debug_assert!(lean_is_closure(obj));
     obj as *mut LeanClosureObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_array(obj: *mut LeanObject) -> *mut LeanArrayObject {
+pub(crate) unsafe fn lean_to_array(obj: *mut LeanObject) -> *mut LeanArrayObject { // duplicate in leanh at line 286 (🔁)
     debug_assert!(lean_is_array(obj));
     obj as *mut LeanArrayObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_sarray(obj: *mut LeanObject) -> *mut LeanScalarArray {
+pub(crate) unsafe fn lean_to_sarray(obj: *mut LeanObject) -> *mut LeanScalarArray { // duplicate in leanh at line 292 (🔁)
     debug_assert!(lean_is_sarray(obj));
     obj as *mut LeanScalarArray
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_string(obj: *mut LeanObject) -> *mut LeanStringObject {
+pub(crate) unsafe fn lean_to_string(obj: *mut LeanObject) -> *mut LeanStringObject { // duplicate in leanh at line 298 (🔁)
     debug_assert!(lean_is_string(obj));
     obj as *mut LeanStringObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_thunk(obj: *mut LeanObject) -> *mut LeanThunkObject {
+pub(crate) unsafe fn lean_to_thunk(obj: *mut LeanObject) -> *mut LeanThunkObject { // duplicate in leanh at line 304 (🔁)
     debug_assert!(lean_is_thunk(obj));
     obj as *mut LeanThunkObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_task(obj: *mut LeanObject) -> *mut LeanTaskObject {
+pub(crate) unsafe fn lean_to_task(obj: *mut LeanObject) -> *mut LeanTaskObject { // duplicate in leanh at line 310 (🔁)
     debug_assert!(lean_is_task(obj));
     obj as *mut LeanTaskObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_promise(obj: *mut LeanObject) -> *mut LeanPromiseObject {
+pub(crate) unsafe fn lean_to_promise(obj: *mut LeanObject) -> *mut LeanPromiseObject { // duplicate in leanh at line 316 (🔁)
     debug_assert!(lean_is_promise(obj));
     obj as *mut LeanPromiseObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_ref(obj: *mut LeanObject) -> *mut LeanRefObject {
+pub(crate) unsafe fn lean_to_ref(obj: *mut LeanObject) -> *mut LeanRefObject { // duplicate in leanh at line 322 (🔁)
     debug_assert!(lean_is_ref(obj));
     obj as *mut LeanRefObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_to_external(obj: *mut LeanObject) -> *mut LeanExternalObject {
+pub(crate) unsafe fn lean_to_external(obj: *mut LeanObject) -> *mut LeanExternalObject { // duplicate in leanh at line 328 (🔁)
     debug_assert!(lean_is_external(obj));
     obj as *mut LeanExternalObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_exclusive_obj(obj: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_is_exclusive_obj(obj: *mut LeanObject) -> u8 { // duplicate in leanh at line 334 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Util.lean:98
     lean_is_exclusive(obj) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_is_shared(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_is_shared(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 339 (🔁)
     lean_is_st(obj) && (*obj).rc > 1
 }
 
@@ -369,17 +369,17 @@ pub(crate) unsafe fn lean_set_non_heap_header_for_big(obj: *mut LeanObject, tag:
 }
 
 #[inline]
-pub(crate) unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> u32 {
+pub(crate) unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> u32 { // duplicate in leanh at line 372 (🔁)
     (*obj).other as u32
 }
 
 #[inline]
-pub(crate) unsafe fn lean_ctor_obj_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject {
+pub(crate) unsafe fn lean_ctor_obj_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in leanh at line 377 (🔁)
     obj.add(1) as *mut *mut LeanObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_ctor_scalar_cptr(obj: *mut LeanObject) -> *mut u8 {
+pub(crate) unsafe fn lean_ctor_scalar_cptr(obj: *mut LeanObject) -> *mut u8 { // duplicate in leanh at line 382 (🔁)
     lean_ctor_obj_cptr(obj)
         .add(lean_ctor_num_objs(obj) as usize)
         .cast::<u8>()
@@ -387,7 +387,7 @@ pub(crate) unsafe fn lean_ctor_scalar_cptr(obj: *mut LeanObject) -> *mut u8 {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject { // duplicate in leanh at line 390 (🔁)
     let r = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<u64>() as c_uint);
     lean_ctor_set_uint64(r, 0, v);
     r
@@ -395,13 +395,13 @@ pub(crate) unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 {
+pub(crate) unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 { // duplicate in leanh at line 398 (🔁)
     lean_ctor_get_uint64(o, 0)
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_box_usize(v: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_usize(v: usize) -> *mut LeanObject { // duplicate in leanh at line 404 (🔁)
     let r = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<usize>() as c_uint);
     lean_ctor_set_usize(r, 0, v);
     r
@@ -409,62 +409,62 @@ pub(crate) unsafe fn lean_box_usize(v: usize) -> *mut LeanObject {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_unbox_usize(o: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_unbox_usize(o: *mut LeanObject) -> usize { // duplicate in leanh at line 412 (🔁)
     lean_ctor_get_usize(o, 0)
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_uint8(a: u8) -> u8 {
+pub(crate) fn lean_bool_to_uint8(a: u8) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/Basic.lean:177
     a
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_uint16(a: u8) -> u16 {
+pub(crate) fn lean_bool_to_uint16(a: u8) -> u16 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/Basic.lean:360
     a as u16
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_uint32(a: u8) -> u32 {
+pub(crate) fn lean_bool_to_uint32(a: u8) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/Basic.lean:553
     a as u32
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_uint64(a: u8) -> u64 {
+pub(crate) fn lean_bool_to_uint64(a: u8) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/Basic.lean:725
     a as u64
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_usize(a: u8) -> usize {
+pub(crate) fn lean_bool_to_usize(a: u8) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/Basic.lean:975
     a as usize
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_int8(a: u8) -> u8 {
+pub(crate) fn lean_bool_to_int8(a: u8) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/SInt/Basic.lean:403
     a as i8 as u8
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_int16(a: u8) -> u16 {
+pub(crate) fn lean_bool_to_int16(a: u8) -> u16 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/SInt/Basic.lean:776
     a as i16 as u16
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_int32(a: u8) -> u32 {
+pub(crate) fn lean_bool_to_int32(a: u8) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/SInt/Basic.lean:1165
     a as i32 as u32
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_int64(a: u8) -> u64 {
+pub(crate) fn lean_bool_to_int64(a: u8) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/SInt/Basic.lean:1574
     a as i64 as u64
 }
 
 #[inline]
-pub(crate) fn lean_bool_to_isize(a: u8) -> usize {
+pub(crate) fn lean_bool_to_isize(a: u8) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/SInt/Basic.lean:1968
     a as usize
 }
 
 #[inline]
-pub(crate) fn lean_ptr_addr(a: *mut LeanObject) -> usize {
+pub(crate) fn lean_ptr_addr(a: *mut LeanObject) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Util.lean:89
     a as usize
 }
 
@@ -479,7 +479,7 @@ pub(crate) unsafe fn lean_hashset_mk_idx(sz: *mut LeanObject, hash: u64) -> usiz
 }
 
 #[inline]
-pub(crate) unsafe fn lean_expr_data(expr: *mut LeanObject) -> u64 {
+pub(crate) unsafe fn lean_expr_data(expr: *mut LeanObject) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:472
     lean_ctor_get_uint64(
         expr,
         lean_ctor_num_objs(expr) as usize * core::mem::size_of::<*mut LeanObject>(),
@@ -487,38 +487,38 @@ pub(crate) unsafe fn lean_expr_data(expr: *mut LeanObject) -> u64 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_max_ctor_fields(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_max_ctor_fields(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/Checker.lean:15
     unsafe { lean_box(LEAN_MAX_CTOR_FIELDS) }
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_max_ctor_scalars_size(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_max_ctor_scalars_size(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/Checker.lean:19
     unsafe { lean_box(LEAN_MAX_CTOR_SCALARS_SIZE) }
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_usize_size(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_usize_size(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/Checker.lean:27
     unsafe { lean_box(core::mem::size_of::<usize>()) }
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_max_ctor_tag(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_max_ctor_tag(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/Checker.lean:23
     unsafe { lean_box(LEAN_MAX_CTOR_TAG as usize) }
 }
 
 #[inline]
-pub(crate) fn lean_strict_or(b1: u8, b2: u8) -> u8 {
+pub(crate) fn lean_strict_or(b1: u8, b2: u8) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:757
     (b1 != 0 || b2 != 0) as u8
 }
 
 #[inline]
-pub(crate) fn lean_strict_and(b1: u8, b2: u8) -> u8 {
+pub(crate) fn lean_strict_and(b1: u8, b2: u8) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Core.lean:763
     (b1 != 0 && b2 != 0) as u8
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_pred(n: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_pred(n: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 521 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1957
     // Mirrors origin-master-src/include/lean/static runtime layout: lean_nat_pred(n) = lean_nat_sub(n, lean_box(1)).
     if lean_is_scalar(n) {
         let v = lean_unbox(n);
@@ -529,32 +529,32 @@ pub(crate) unsafe fn lean_nat_pred(n: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_runtime_hold(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_runtime_hold(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1859
     unsafe { lean_box(0) }
 }
 
 #[inline]
-pub(crate) unsafe fn lean_version_get_major(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_version_get_major(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:23
     unsafe { lean_box(env!("LEAN_RUST_VERSION_MAJOR").parse::<usize>().unwrap()) }
 }
 
 #[inline]
-pub(crate) unsafe fn lean_version_get_minor(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_version_get_minor(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:27
     unsafe { lean_box(env!("LEAN_RUST_VERSION_MINOR").parse::<usize>().unwrap()) }
 }
 
 #[inline]
-pub(crate) unsafe fn lean_version_get_patch(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_version_get_patch(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:31
     unsafe { lean_box(env!("LEAN_RUST_VERSION_PATCH").parse::<usize>().unwrap()) }
 }
 
 #[inline]
-pub(crate) fn lean_version_get_is_release(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_version_get_is_release(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:39
     env!("LEAN_RUST_VERSION_IS_RELEASE").parse::<u8>().unwrap()
 }
 
 #[inline]
-pub(crate) unsafe fn lean_version_get_special_desc(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_version_get_special_desc(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:44
     unsafe {
         lean_mk_string(
             concat!(env!("LEAN_RUST_VERSION_SPECIAL_DESC"), "\0").as_ptr()
@@ -564,7 +564,7 @@ pub(crate) unsafe fn lean_version_get_special_desc(_: *mut LeanObject) -> *mut L
 }
 
 #[inline]
-pub(crate) unsafe fn lean_system_platform_target(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_system_platform_target(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Platform.lean:51
     unsafe {
         lean_mk_string(
             concat!(env!("LEAN_RUST_PLATFORM_TARGET"), "\0").as_ptr() as *const core::ffi::c_char
@@ -573,12 +573,12 @@ pub(crate) unsafe fn lean_system_platform_target(_: *mut LeanObject) -> *mut Lea
 }
 
 #[inline]
-pub(crate) fn lean_internal_is_stage0(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_internal_is_stage0(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:85
     env!("LEAN_RUST_IS_STAGE0").parse::<u8>().unwrap()
 }
 
 #[inline]
-pub(crate) unsafe fn lean_manual_get_root(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_manual_get_root(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/DocString/Links.lean:23
     unsafe {
         lean_mk_string(
             concat!(env!("LEAN_RUST_MANUAL_ROOT"), "\0").as_ptr() as *const core::ffi::c_char
@@ -588,7 +588,7 @@ pub(crate) unsafe fn lean_manual_get_root(_: *mut LeanObject) -> *mut LeanObject
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_array_get(
+pub(crate) unsafe fn lean_array_get( // duplicate in leanh at line 591 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3291
     def_val: *mut LeanObject,
     a: *mut LeanObject,
     i: *mut LeanObject,
@@ -609,7 +609,7 @@ pub(crate) unsafe fn lean_array_get(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_array_get_borrowed(
+pub(crate) unsafe fn lean_array_get_borrowed( // duplicate in leanh at line 612 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3283
     def_val: *mut LeanObject,
     a: *mut LeanObject,
     i: *mut LeanObject,
@@ -626,7 +626,7 @@ pub(crate) unsafe fn lean_array_get_borrowed(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject { // duplicate in leanh at line 629 (🔁)
     let byte_size = core::mem::size_of::<LeanArrayObject>()
         .checked_add(
             core::mem::size_of::<*mut LeanObject>()
@@ -653,7 +653,7 @@ pub(crate) unsafe fn lean_array_sz(a: *mut LeanObject) -> *mut LeanObject {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_array_get_size(a: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_get_size(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 656 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3236
     lean_box(lean_array_size(a))
 }
 
@@ -664,7 +664,7 @@ pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_mk_empty_array_with_capacity(
+pub(crate) unsafe fn lean_mk_empty_array_with_capacity( // duplicate in leanh at line 667 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3210; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3217
     capacity: *mut LeanObject,
 ) -> *mut LeanObject {
     if !lean_is_scalar(capacity) {
@@ -674,26 +674,26 @@ pub(crate) unsafe fn lean_mk_empty_array_with_capacity(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_uget(a: *mut LeanObject, i: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_uget(a: *mut LeanObject, i: usize) -> *mut LeanObject { // duplicate in leanh at line 677 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:173
     let r = lean_array_get_core(a, i);
     lean_inc(r);
     r
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_uget_borrowed(a: *mut LeanObject, i: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_uget_borrowed(a: *mut LeanObject, i: usize) -> *mut LeanObject { // duplicate in leanh at line 684 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:182
     lean_array_get_core(a, i)
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 690 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3259
     lean_array_uget(a, lean_unbox(i))
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_array_fget_borrowed(
+pub(crate) unsafe fn lean_array_fget_borrowed( // duplicate in leanh at line 696 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3245
     a: *mut LeanObject,
     i: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -701,7 +701,7 @@ pub(crate) unsafe fn lean_array_fget_borrowed(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_ensure_exclusive_array(a: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_ensure_exclusive_array(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 704 (🔁)
     if lean_is_exclusive(a) {
         a
     } else {
@@ -710,7 +710,7 @@ pub(crate) unsafe fn lean_ensure_exclusive_array(a: *mut LeanObject) -> *mut Lea
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_uset(
+pub(crate) unsafe fn lean_array_uset( // duplicate in leanh at line 713 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:192
     a: *mut LeanObject,
     i: usize,
     v: *mut LeanObject,
@@ -723,7 +723,7 @@ pub(crate) unsafe fn lean_array_uset(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_fset(
+pub(crate) unsafe fn lean_array_fset( // duplicate in leanh at line 726 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Set.lean:29
     a: *mut LeanObject,
     i: *mut LeanObject,
     v: *mut LeanObject,
@@ -732,7 +732,7 @@ pub(crate) unsafe fn lean_array_fset(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_set(
+pub(crate) unsafe fn lean_array_set( // duplicate in leanh at line 735 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Set.lean:54
     a: *mut LeanObject,
     i: *mut LeanObject,
     v: *mut LeanObject,
@@ -747,7 +747,7 @@ pub(crate) unsafe fn lean_array_set(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_pop(a: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_pop(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 750 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:205
     let r = lean_ensure_exclusive_array(a);
     let mut sz = (*lean_to_array(r)).size;
     if sz == 0 {
@@ -761,7 +761,7 @@ pub(crate) unsafe fn lean_array_pop(a: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_uswap(a: *mut LeanObject, i: usize, j: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_uswap(a: *mut LeanObject, i: usize, j: usize) -> *mut LeanObject { // duplicate in leanh at line 764 (🔁)
     let r = lean_ensure_exclusive_array(a);
     let it = lean_array_cptr(r);
     let v1 = *it.add(i);
@@ -771,7 +771,7 @@ pub(crate) unsafe fn lean_array_uswap(a: *mut LeanObject, i: usize, j: usize) ->
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_fswap(
+pub(crate) unsafe fn lean_array_fswap( // duplicate in leanh at line 774 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:238
     a: *mut LeanObject,
     i: *mut LeanObject,
     j: *mut LeanObject,
@@ -780,7 +780,7 @@ pub(crate) unsafe fn lean_array_fswap(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_swap(
+pub(crate) unsafe fn lean_array_swap( // duplicate in leanh at line 783 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:261
     a: *mut LeanObject,
     i: *mut LeanObject,
     j: *mut LeanObject,
@@ -798,13 +798,13 @@ pub(crate) unsafe fn lean_array_swap(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_capacity(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_array_capacity(obj: *mut LeanObject) -> usize { // duplicate in leanh at line 801 (🔁)
     let array = obj as *const LeanArrayObject;
     (*array).capacity
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_byte_size(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_array_byte_size(obj: *mut LeanObject) -> usize { // duplicate in leanh at line 807 (🔁)
     core::mem::size_of::<LeanArrayObject>()
         + core::mem::size_of::<*mut LeanObject>() * lean_array_capacity(obj)
 }
@@ -816,7 +816,7 @@ pub(crate) unsafe fn lean_array_data_byte_size(obj: *mut LeanObject) -> usize {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject {
+pub(crate) unsafe fn lean_array_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in leanh at line 819 (🔁)
     (*(obj as *mut LeanArrayObject)).data.as_mut_ptr()
 }
 
@@ -829,7 +829,7 @@ pub(crate) unsafe fn lean_array_set_size(obj: *mut LeanObject, sz: usize) {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_array_get_core(obj: *mut LeanObject, i: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_get_core(obj: *mut LeanObject, i: usize) -> *mut LeanObject { // duplicate in leanh at line 832 (🔁)
     debug_assert!(i < lean_array_size(obj));
     lean_array_cptr(obj).add(i).read()
 }
@@ -852,12 +852,12 @@ pub(crate) unsafe fn lean_closure_arity(obj: *mut LeanObject) -> u32 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_closure_num_fixed(obj: *mut LeanObject) -> u32 {
+pub(crate) unsafe fn lean_closure_num_fixed(obj: *mut LeanObject) -> u32 { // duplicate in leanh at line 855 (🔁)
     (*lean_to_closure(obj)).num_fixed as u32
 }
 
 #[inline]
-pub(crate) unsafe fn lean_closure_arg_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject {
+pub(crate) unsafe fn lean_closure_arg_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in leanh at line 860 (🔁)
     (*lean_to_closure(obj)).data.as_mut_ptr()
 }
 
@@ -869,13 +869,13 @@ pub(crate) unsafe fn lean_closure_get(obj: *mut LeanObject, i: u32) -> *mut Lean
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_closure_set(obj: *mut LeanObject, i: u32, a: *mut LeanObject) {
+pub(crate) unsafe fn lean_closure_set(obj: *mut LeanObject, i: u32, a: *mut LeanObject) { // duplicate in leanh at line 872 (🔁)
     debug_assert!(i < lean_closure_num_fixed(obj));
     *lean_closure_arg_cptr(obj).add(i as usize) = a;
 }
 
 #[inline]
-pub(crate) unsafe fn lean_closure_byte_size(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_closure_byte_size(obj: *mut LeanObject) -> usize { // duplicate in leanh at line 878 (🔁)
     core::mem::size_of::<LeanClosureObject>()
         + core::mem::size_of::<*mut LeanObject>() * lean_closure_num_fixed(obj) as usize
 }
@@ -887,7 +887,7 @@ pub(crate) unsafe fn lean_closure_data_byte_size(obj: *mut LeanObject) -> usize 
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 890 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3408
     if !lean_is_scalar(capacity) {
         runtime_object_panic_impl::lean_internal_panic_out_of_memory();
     }
@@ -896,18 +896,18 @@ pub(crate) unsafe fn lean_mk_empty_byte_array(capacity: *mut LeanObject) -> *mut
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_byte_array_size(a: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_byte_array_size(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 899 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3444
     lean_box(lean_sarray_size(a))
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byte_array_uget(a: *mut LeanObject, i: usize) -> u8 {
+pub(crate) unsafe fn lean_byte_array_uget(a: *mut LeanObject, i: usize) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:61
     debug_assert!(i < lean_sarray_size(a));
     *lean_sarray_cptr(a).add(i)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byte_array_get(a: *mut LeanObject, i: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_byte_array_get(a: *mut LeanObject, i: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:68
     if lean_is_scalar(i) {
         let idx = lean_unbox(i);
         if idx < lean_sarray_size(a) {
@@ -918,12 +918,12 @@ pub(crate) unsafe fn lean_byte_array_get(a: *mut LeanObject, i: *mut LeanObject)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byte_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_byte_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:78
     lean_byte_array_uget(a, lean_unbox(i))
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byte_array_uset(a: *mut LeanObject, i: usize, v: u8) -> *mut LeanObject {
+pub(crate) unsafe fn lean_byte_array_uset(a: *mut LeanObject, i: usize, v: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:111
     let r = if lean_is_exclusive(a) {
         a
     } else {
@@ -934,7 +934,7 @@ pub(crate) unsafe fn lean_byte_array_uset(a: *mut LeanObject, i: usize, v: u8) -
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byte_array_set(
+pub(crate) unsafe fn lean_byte_array_set( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:95
     a: *mut LeanObject,
     i: *mut LeanObject,
     b: u8,
@@ -952,7 +952,7 @@ pub(crate) unsafe fn lean_byte_array_set(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byte_array_fset(
+pub(crate) unsafe fn lean_byte_array_fset( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:107
     a: *mut LeanObject,
     i: *mut LeanObject,
     b: u8,
@@ -961,7 +961,7 @@ pub(crate) unsafe fn lean_byte_array_fset(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_mk_empty_float_array(capacity: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_mk_empty_float_array(capacity: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:29
     if !lean_is_scalar(capacity) {
         runtime_object_panic_impl::lean_internal_panic_out_of_memory();
     }
@@ -973,7 +973,7 @@ pub(crate) unsafe fn lean_mk_empty_float_array(capacity: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_size(a: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_float_array_size(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:46
     lean_box(lean_sarray_size(a))
 }
 
@@ -983,18 +983,18 @@ pub(crate) unsafe fn lean_float_array_cptr(a: *mut LeanObject) -> *mut f64 {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_uget(a: *mut LeanObject, i: usize) -> f64 {
+pub(crate) unsafe fn lean_float_array_uget(a: *mut LeanObject, i: usize) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:54
     debug_assert!(i < lean_sarray_size(a));
     *lean_float_array_cptr(a).add(i)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> f64 {
+pub(crate) unsafe fn lean_float_array_fget(a: *mut LeanObject, i: *mut LeanObject) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:58
     lean_float_array_uget(a, lean_unbox(i))
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_get(a: *mut LeanObject, i: *mut LeanObject) -> f64 {
+pub(crate) unsafe fn lean_float_array_get(a: *mut LeanObject, i: *mut LeanObject) -> f64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:62
     if lean_is_scalar(i) {
         let idx = lean_unbox(i);
         if idx < lean_sarray_size(a) {
@@ -1005,7 +1005,7 @@ pub(crate) unsafe fn lean_float_array_get(a: *mut LeanObject, i: *mut LeanObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_uset(
+pub(crate) unsafe fn lean_float_array_uset( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:78
     a: *mut LeanObject,
     i: usize,
     d: f64,
@@ -1020,7 +1020,7 @@ pub(crate) unsafe fn lean_float_array_uset(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_set(
+pub(crate) unsafe fn lean_float_array_set( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:86
     a: *mut LeanObject,
     i: *mut LeanObject,
     d: f64,
@@ -1038,7 +1038,7 @@ pub(crate) unsafe fn lean_float_array_set(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_float_array_fset(
+pub(crate) unsafe fn lean_float_array_fset( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:82
     a: *mut LeanObject,
     i: *mut LeanObject,
     d: f64,
@@ -1046,12 +1046,12 @@ pub(crate) unsafe fn lean_float_array_fset(
     lean_float_array_uset(a, lean_unbox(i), d)
 }
 
-pub(crate) unsafe fn lean_alloc_string(
+pub(crate) unsafe fn lean_alloc_string( // duplicate in leanh at line 1049 (🔁)
     size: usize,
     capacity: usize,
     len: usize,
 ) -> *mut LeanObject {
-    const LEAN_STRING_TAG: u8 = 249;
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in leanh at line 1054 (🔁)
     let byte_size = core::mem::size_of::<LeanStringObject>()
         .checked_add(capacity)
         .expect("string allocation overflow");
@@ -1073,13 +1073,13 @@ pub(crate) unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size {
+pub(crate) unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size { // duplicate in leanh at line 1076 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:50; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:50
     let sarray = obj as *const LeanScalarArray;
     (*sarray).size
 }
 
 #[inline]
-pub(crate) unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
+pub(crate) unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size { // duplicate in leanh at line 1082 (🔁)
     let sarray = obj as *const LeanScalarArray;
     (*sarray).capacity
 }
@@ -1099,7 +1099,7 @@ pub(crate) unsafe fn lean_alloc_sarray_would_overflow(elem_size: c_uint, capacit
 }
 
 #[inline]
-pub(crate) unsafe fn lean_alloc_sarray(
+pub(crate) unsafe fn lean_alloc_sarray( // duplicate in leanh at line 1102 (🔁)
     elem_size: c_uint,
     size: Size,
     capacity: Size,
@@ -1122,7 +1122,7 @@ pub(crate) unsafe fn lean_alloc_sarray(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_sarray_byte_size(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_sarray_byte_size(obj: *mut LeanObject) -> usize { // duplicate in leanh at line 1125 (🔁)
     core::mem::size_of::<LeanScalarArray>()
         + lean_sarray_elem_size(obj) as usize * lean_sarray_capacity(obj)
 }
@@ -1139,18 +1139,18 @@ pub(crate) unsafe fn lean_sarray_elem_size(obj: *mut LeanObject) -> u8 {
 }
 
 #[inline]
-pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
+pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 1142 (🔁)
     lean_ptr_tag(obj) == 0
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 1148 (🔁)
     lean_ptr_tag(obj) == 1
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_utf8_get_fast(s: *mut LeanObject, i: *mut LeanObject) -> u32 {
+pub(crate) unsafe fn lean_string_utf8_get_fast(s: *mut LeanObject, i: *mut LeanObject) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1152; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2902; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2907
     let str = lean_string_cstr(s);
     let idx = lean_unbox(i);
     let c = *str.add(idx) as u8;
@@ -1162,14 +1162,14 @@ pub(crate) unsafe fn lean_string_utf8_get_fast(s: *mut LeanObject, i: *mut LeanO
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_get_byte_fast(s: *mut LeanObject, i: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_string_get_byte_fast(s: *mut LeanObject, i: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:136; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/PosRaw.lean:107; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/PosRaw.lean:111
     let str = lean_string_cstr(s);
     let idx = lean_unbox(i);
     *str.add(idx) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_utf8_next_fast(
+pub(crate) unsafe fn lean_string_utf8_next_fast( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:1665; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2932; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2937
     s: *mut LeanObject,
     i: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -1184,7 +1184,7 @@ pub(crate) unsafe fn lean_string_utf8_next_fast(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, i: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, i: *mut LeanObject) -> bool { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2871; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:2875; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:109
     !lean_is_scalar(i) || lean_unbox(i) >= lean_string_size(s) - 1
 }
 
@@ -1194,7 +1194,7 @@ pub(crate) unsafe fn lean_string_capacity(obj: *mut LeanObject) -> usize {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_byte_size(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_string_byte_size(obj: *mut LeanObject) -> usize { // duplicate in leanh at line 1197 (🔁)
     core::mem::size_of::<LeanStringObject>() + lean_string_capacity(obj)
 }
 
@@ -1214,13 +1214,13 @@ pub(crate) unsafe fn lean_string_data_byte_size(obj: *mut LeanObject) -> usize {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_length(s: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_string_length(s: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Bootstrap.lean:69; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Length.lean:24
     lean_box(lean_string_len(s))
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_string_utf8_byte_size(s: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_string_utf8_byte_size(s: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 1223 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3603
     lean_box(lean_string_size(s) - 1)
 }
 
@@ -1238,12 +1238,12 @@ pub(crate) unsafe fn lean_string_ne(s1: *mut LeanObject, s2: *mut LeanObject) ->
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_string_dec_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_string_dec_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 { // duplicate in leanh at line 1241 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3533
     lean_string_eq(s1, s2) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_string_dec_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_string_dec_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/String/Basic.lean:424
     runtime_object_string_impl::lean_string_lt(s1, s2) as u8
 }
 
@@ -1256,12 +1256,12 @@ pub(crate) unsafe fn lean_sarray_eq(a1: *mut LeanObject, a2: *mut LeanObject) ->
 }
 
 #[inline]
-pub(crate) unsafe fn lean_sarray_dec_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_sarray_dec_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:23; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:32
     lean_sarray_eq(a1, a2) as u8
 }
 
 #[inline]
-pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 1264 (🔁)
     debug_assert!(lean_io_result_is_ok(obj));
     lean_ctor_get(obj, 0)
 }
@@ -1282,7 +1282,7 @@ pub(crate) unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut Lea
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
+pub(crate) unsafe fn lean_io_result_show_error(r: *mut LeanObject) { // duplicate in leanh at line 1285 (🔁)
     let err = lean_io_result_get_error(r);
     lean_inc(err);
     let msg = lean_io_error_to_string(err);
@@ -1303,7 +1303,7 @@ pub unsafe fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:820
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     #[cfg(target_os = "windows")]
     {
@@ -1338,7 +1338,7 @@ pub(crate) unsafe fn lean_runtime_errno() -> c_int {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:826
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::fflush(fp) == 0 {
         lean_io_result_mk_ok(lean_box(0))
@@ -1351,7 +1351,7 @@ pub(crate) unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanO
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:830
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
         lean_io_result_mk_ok(lean_box(0))
@@ -1364,7 +1364,7 @@ pub(crate) unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut Lean
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:840
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     #[cfg(target_os = "windows")]
     {
@@ -1391,7 +1391,7 @@ pub(crate) unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut Le
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_read(h: *mut LeanObject, nbytes: Size) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_prim_handle_read(h: *mut LeanObject, nbytes: Size) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:847
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if lean_alloc_sarray_would_overflow(1, nbytes) {
         return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
@@ -1425,7 +1425,7 @@ pub(crate) unsafe fn lean_io_prim_handle_read(h: *mut LeanObject, nbytes: Size) 
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_write(
+pub(crate) unsafe fn lean_io_prim_handle_write( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:854
     h: *mut LeanObject,
     buf: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -1443,7 +1443,7 @@ pub(crate) unsafe fn lean_io_prim_handle_write(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:862
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let mut result = Vec::<u8>::new();
     #[cfg(windows)]
@@ -1502,7 +1502,7 @@ pub(crate) unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut Le
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_put_str(
+pub(crate) unsafe fn lean_io_prim_handle_put_str( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:869
     h: *mut LeanObject,
     s: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -1520,7 +1520,7 @@ pub(crate) unsafe fn lean_io_prim_handle_put_str(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_prim_handle_mk(
+pub(crate) unsafe fn lean_io_prim_handle_mk( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:795
     filename: *mut LeanObject,
     mode: u8,
 ) -> *mut LeanObject {
@@ -1572,7 +1572,7 @@ pub(crate) unsafe fn lean_io_prim_handle_mk(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_windows_get_next_transition(
+pub(crate) unsafe fn lean_windows_get_next_transition( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Time/Zoned/Database/Windows.lean:26
     timezone_str: *mut LeanObject,
     tm_obj: u64,
     default_time: u8,
@@ -1833,7 +1833,7 @@ pub(crate) unsafe fn lean_windows_get_next_transition(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_windows_local_timezone_id_at(tm_obj: u64) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_windows_local_timezone_id_at(tm_obj: u64) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Time/Zoned/Database/Windows.lean:32
     #[cfg(target_os = "windows")]
     {
         type UErrorCode = c_int;
@@ -1977,7 +1977,7 @@ pub(crate) unsafe fn mk_name_path(components: &[&str]) -> LeanName {
 
 
 #[inline]
-pub(crate) fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
+pub(crate) fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:219
     std::thread::available_parallelism()
         .map(|count| count.get() as u32)
         .unwrap_or(1)
@@ -1989,14 +1989,14 @@ pub(crate) fn lean_io_mk_world() -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_void_mk(obj: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_void_mk(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/ST.lean:22
     lean_dec(obj);
     lean_box(0)
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_unsigned_to_nat(value: c_uint) -> *mut LeanObject {
+pub(crate) unsafe fn lean_unsigned_to_nat(value: c_uint) -> *mut LeanObject { // duplicate in leanh at line 1999 (🔁)
     lean_usize_to_nat(value as usize)
 }
 
@@ -2011,7 +2011,7 @@ pub(crate) unsafe fn lean_nat_succ(value: *mut LeanObject) -> *mut LeanObject {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2014 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1755
     if lean_is_scalar(a) && lean_is_scalar(b) {
         lean_usize_to_nat(lean_unbox(a).wrapping_add(lean_unbox(b)))
     } else {
@@ -2021,7 +2021,7 @@ pub(crate) unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2024 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2105
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let n1 = lean_unbox(a);
         let n2 = lean_unbox(b);
@@ -2037,8 +2037,8 @@ pub(crate) unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1;
+pub(crate) unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2040 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1774
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in leanh at line 2041 (🔁)
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let n1 = lean_unbox(a);
         if n1 == 0 {
@@ -2059,7 +2059,7 @@ pub(crate) unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2062 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2164
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let n1 = lean_unbox(a);
         let n2 = lean_unbox(b);
@@ -2074,7 +2074,7 @@ pub(crate) unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_nat_div_exact(
+pub(crate) unsafe fn lean_nat_div_exact( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Div/Basic.lean:109
     a: *mut LeanObject,
     b: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -2093,7 +2093,7 @@ pub(crate) unsafe fn lean_nat_div_exact(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2096 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2194; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2252
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let n1 = lean_unbox(a);
         let n2 = lean_unbox(b);
@@ -2118,7 +2118,7 @@ pub(crate) unsafe fn lean_nat_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // duplicate in leanh at line 2121 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1803; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1853
     lean_nat_eq(a, b) as u8
 }
 
@@ -2138,7 +2138,7 @@ pub(crate) unsafe fn lean_nat_le(a: *mut LeanObject, b: *mut LeanObject) -> bool
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // duplicate in leanh at line 2141 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1873; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2070
     lean_nat_le(a, b) as u8
 }
 
@@ -2153,12 +2153,12 @@ pub(crate) unsafe fn lean_nat_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // duplicate in leanh at line 2156 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2084
     lean_nat_lt(a, b) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_nat_land(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_land(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Bitwise/Basic.lean:49
     if lean_is_scalar(a) && lean_is_scalar(b) {
         ((a as usize) & (b as usize)) as *mut LeanObject
     } else {
@@ -2167,7 +2167,7 @@ pub(crate) unsafe fn lean_nat_land(a: *mut LeanObject, b: *mut LeanObject) -> *m
 }
 
 #[inline]
-pub(crate) unsafe fn lean_nat_lor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_lor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Bitwise/Basic.lean:57
     if lean_is_scalar(a) && lean_is_scalar(b) {
         ((a as usize) | (b as usize)) as *mut LeanObject
     } else {
@@ -2176,7 +2176,7 @@ pub(crate) unsafe fn lean_nat_lor(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_nat_lxor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_lxor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Bitwise/Basic.lean:65
     if lean_is_scalar(a) && lean_is_scalar(b) {
         lean_box(lean_unbox(a) ^ lean_unbox(b))
     } else {
@@ -2185,7 +2185,7 @@ pub(crate) unsafe fn lean_nat_lxor(a: *mut LeanObject, b: *mut LeanObject) -> *m
 }
 
 #[inline]
-pub(crate) unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2188 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Bitwise/Basic.lean:94
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let s1 = lean_unbox(a);
         let s2 = lean_unbox(b);
@@ -2272,7 +2272,7 @@ pub(crate) unsafe fn lean_scalar_to_int(value: *mut LeanObject) -> c_int {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 2275 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:60
     // Original: if lean_is_scalar(a) { v = lean_unbox(a); if v <= LEAN_MAX_SMALL_INT return a; }
     // LEAN_MAX_SMALL_INT = INT_MAX on 64-bit, INT_MAX>>1 on 32-bit
     if lean_is_scalar(value) {
@@ -2292,7 +2292,7 @@ pub(crate) unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject 
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_neg(value: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_neg(value: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:118
     if lean_is_scalar(value) {
         lean_int64_to_int(-lean_scalar_to_int64(value))
     } else {
@@ -2301,7 +2301,7 @@ pub(crate) unsafe fn lean_int_neg(value: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_neg_succ_of_nat(value: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_neg_succ_of_nat(value: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:61
     let succ = lean_nat_succ(value);
     lean_dec(value);
     let int_value = lean_nat_to_int(succ);
@@ -2315,7 +2315,7 @@ pub(crate) unsafe fn lean_int_neg_succ_of_nat(value: *mut LeanObject) -> *mut Le
 /// Original C++:
 ///   if (lean_int_lt(i, lean_box(0))) return lean_int_to_nat(lean_int_neg(i));
 ///   else { lean_inc(i); return lean_int_to_nat(i); }
-pub(crate) unsafe fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:326
     // Check sign: negative if scalar < 0, or big MPZ with negative sign
     let is_negative = if lean_is_scalar(i) {
         lean_scalar_to_int(i) < 0
@@ -2346,7 +2346,7 @@ pub(crate) unsafe fn lean_nat_abs(i: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:160
     if lean_is_scalar(a) && lean_is_scalar(b) {
         lean_int64_to_int(lean_scalar_to_int64(a).wrapping_add(lean_scalar_to_int64(b)))
     } else {
@@ -2355,7 +2355,7 @@ pub(crate) unsafe fn lean_int_add(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:206
     if lean_is_scalar(a) && lean_is_scalar(b) {
         lean_int64_to_int(lean_scalar_to_int64(a).wrapping_sub(lean_scalar_to_int64(b)))
     } else {
@@ -2364,7 +2364,7 @@ pub(crate) unsafe fn lean_int_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:183
     if lean_is_scalar(a) && lean_is_scalar(b) {
         lean_int64_to_int(lean_scalar_to_int64(a).wrapping_mul(lean_scalar_to_int64(b)))
     } else {
@@ -2373,7 +2373,7 @@ pub(crate) unsafe fn lean_int_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/DivMod/Basic.lean:177
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let v1 = lean_scalar_to_int64(a);
         let v2 = lean_scalar_to_int64(b);
@@ -2388,7 +2388,7 @@ pub(crate) unsafe fn lean_int_div(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_div_exact(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_div_exact(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/DivMod/Basic.lean:145
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let v1 = lean_scalar_to_int64(a);
         let v2 = lean_scalar_to_int64(b);
@@ -2403,7 +2403,7 @@ pub(crate) unsafe fn lean_int_div_exact(a: *mut LeanObject, b: *mut LeanObject) 
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/DivMod/Basic.lean:210
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let v1 = lean_scalar_to_int64(a);
         let v2 = lean_scalar_to_int64(b);
@@ -2418,7 +2418,7 @@ pub(crate) unsafe fn lean_int_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mu
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_ediv(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_ediv(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/DivMod/Basic.lean:72
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let n = lean_scalar_to_int64(a);
         let d = lean_scalar_to_int64(b);
@@ -2438,7 +2438,7 @@ pub(crate) unsafe fn lean_int_ediv(a: *mut LeanObject, b: *mut LeanObject) -> *m
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_emod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_int_emod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/DivMod/Basic.lean:102
     if lean_is_scalar(a) && lean_is_scalar(b) {
         let n = lean_scalar_to_int64(a);
         let d = lean_scalar_to_int64(b);
@@ -2489,22 +2489,22 @@ pub(crate) unsafe fn lean_int_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_int_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:253
     lean_int_eq(a, b) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_int_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:297
     lean_int_le(a, b) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_int_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:310
     lean_int_lt(a, b) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_int_dec_nonneg(a: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_int_dec_nonneg(a: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Int/Basic.lean:278
     if lean_is_scalar(a) {
         (lean_scalar_to_int(a) >= 0) as u8
     } else {
@@ -2796,23 +2796,23 @@ define_unsigned_numeric_family!(
     lean_uint8_to_nat,
     runtime_object_nat_int_impl::lean_uint8_of_big_nat,
     lean_uint8_to_uint8,
-    lean_uint8_to_uint16,
-    lean_uint8_to_uint32,
-    lean_uint8_to_uint64,
-    lean_uint8_to_usize,
-    lean_uint8_add,
-    lean_uint8_sub,
-    lean_uint8_mul,
-    lean_uint8_div,
-    lean_uint8_mod,
-    lean_uint8_land,
-    lean_uint8_lor,
-    lean_uint8_xor,
-    lean_uint8_shift_left,
-    lean_uint8_shift_right,
-    lean_uint8_complement,
-    lean_uint8_neg,
-    lean_uint8_log2,
+    lean_uint8_to_uint16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:135
+    lean_uint8_to_uint32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:202
+    lean_uint8_to_uint64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:322
+    lean_uint8_to_usize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:879
+    lean_uint8_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:32
+    lean_uint8_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:40
+    lean_uint8_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:48
+    lean_uint8_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:58
+    lean_uint8_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:84
+    lean_uint8_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:98
+    lean_uint8_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:108
+    lean_uint8_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:118
+    lean_uint8_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:125
+    lean_uint8_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:132
+    lean_uint8_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:154
+    lean_uint8_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:163
+    lean_uint8_log2, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Log2.lean:29
     lean_uint8_dec_eq,
     lean_uint8_dec_lt,
     lean_uint8_dec_le
@@ -2820,7 +2820,7 @@ define_unsigned_numeric_family!(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_uint8_of_nat_mk(value: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_uint8_of_nat_mk(value: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2429
     let result = lean_uint8_of_nat(value);
     lean_dec(value);
     result
@@ -2832,24 +2832,24 @@ define_unsigned_numeric_family!(
     lean_uint16_of_nat,
     lean_uint16_to_nat,
     runtime_object_nat_int_impl::lean_uint16_of_big_nat,
-    lean_uint16_to_uint8,
+    lean_uint16_to_uint8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:128
     lean_uint16_to_uint16,
-    lean_uint16_to_uint32,
-    lean_uint16_to_uint64,
-    lean_uint16_to_usize,
-    lean_uint16_add,
-    lean_uint16_sub,
-    lean_uint16_mul,
-    lean_uint16_div,
-    lean_uint16_mod,
-    lean_uint16_land,
-    lean_uint16_lor,
-    lean_uint16_xor,
-    lean_uint16_shift_left,
-    lean_uint16_shift_right,
-    lean_uint16_complement,
-    lean_uint16_neg,
-    lean_uint16_log2,
+    lean_uint16_to_uint32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:209
+    lean_uint16_to_uint64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:329
+    lean_uint16_to_usize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:894
+    lean_uint16_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:203
+    lean_uint16_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:211
+    lean_uint16_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:219
+    lean_uint16_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:229
+    lean_uint16_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:255
+    lean_uint16_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:269
+    lean_uint16_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:279
+    lean_uint16_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:289
+    lean_uint16_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:296
+    lean_uint16_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:303
+    lean_uint16_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:337
+    lean_uint16_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:346
+    lean_uint16_log2, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Log2.lean:46
     lean_uint16_dec_eq,
     lean_uint16_dec_lt,
     lean_uint16_dec_le
@@ -2857,7 +2857,7 @@ define_unsigned_numeric_family!(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_uint16_of_nat_mk(value: *mut LeanObject) -> u16 {
+pub(crate) unsafe fn lean_uint16_of_nat_mk(value: *mut LeanObject) -> u16 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2547
     let result = lean_uint16_of_nat(value);
     lean_dec(value);
     result
@@ -2869,24 +2869,24 @@ define_unsigned_numeric_family!(
     lean_uint32_of_nat,
     lean_uint32_to_nat,
     runtime_object_nat_int_impl::lean_uint32_of_big_nat,
-    lean_uint32_to_uint8,
-    lean_uint32_to_uint16,
+    lean_uint32_to_uint8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:188
+    lean_uint32_to_uint16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:195
     lean_uint32_to_uint32,
-    lean_uint32_to_uint64,
-    lean_uint32_to_usize,
-    lean_uint32_add,
-    lean_uint32_sub,
-    lean_uint32_mul,
-    lean_uint32_div,
-    lean_uint32_mod,
-    lean_uint32_land,
-    lean_uint32_lor,
-    lean_uint32_xor,
-    lean_uint32_shift_left,
-    lean_uint32_shift_right,
-    lean_uint32_complement,
-    lean_uint32_neg,
-    lean_uint32_log2,
+    lean_uint32_to_uint64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:336
+    lean_uint32_to_usize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:909
+    lean_uint32_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:231
+    lean_uint32_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:240
+    lean_uint32_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:413
+    lean_uint32_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:423
+    lean_uint32_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:449
+    lean_uint32_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:463
+    lean_uint32_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:473
+    lean_uint32_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:483
+    lean_uint32_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:490
+    lean_uint32_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:497
+    lean_uint32_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:530
+    lean_uint32_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:539
+    lean_uint32_log2, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Log2.lean:63
     lean_uint32_dec_eq,
     lean_uint32_dec_lt,
     lean_uint32_dec_le
@@ -2894,7 +2894,7 @@ define_unsigned_numeric_family!(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_uint32_of_nat_mk(value: *mut LeanObject) -> u32 {
+pub(crate) unsafe fn lean_uint32_of_nat_mk(value: *mut LeanObject) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2605
     let result = lean_uint32_of_nat(value);
     lean_dec(value);
     result
@@ -2906,24 +2906,24 @@ define_unsigned_numeric_family!(
     lean_uint64_of_nat,
     lean_uint64_to_nat,
     runtime_object_nat_int_impl::lean_uint64_of_big_nat,
-    lean_uint64_to_uint8,
-    lean_uint64_to_uint16,
-    lean_uint64_to_uint32,
+    lean_uint64_to_uint8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:301
+    lean_uint64_to_uint16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:308
+    lean_uint64_to_uint32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/BasicAux.lean:315
     lean_uint64_to_uint64,
-    lean_uint64_to_usize,
-    lean_uint64_add,
-    lean_uint64_sub,
-    lean_uint64_mul,
-    lean_uint64_div,
-    lean_uint64_mod,
-    lean_uint64_land,
-    lean_uint64_lor,
-    lean_uint64_xor,
-    lean_uint64_shift_left,
-    lean_uint64_shift_right,
-    lean_uint64_complement,
-    lean_uint64_neg,
-    lean_uint64_log2,
+    lean_uint64_to_usize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:925
+    lean_uint64_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:568
+    lean_uint64_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:576
+    lean_uint64_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:584
+    lean_uint64_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:594
+    lean_uint64_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:620
+    lean_uint64_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:634
+    lean_uint64_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:644
+    lean_uint64_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:654
+    lean_uint64_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:661
+    lean_uint64_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:668
+    lean_uint64_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:702
+    lean_uint64_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:711
+    lean_uint64_log2, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Log2.lean:80
     lean_uint64_dec_eq,
     lean_uint64_dec_lt,
     lean_uint64_dec_le
@@ -2931,7 +2931,7 @@ define_unsigned_numeric_family!(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_uint64_of_nat_mk(value: *mut LeanObject) -> u64 {
+pub(crate) unsafe fn lean_uint64_of_nat_mk(value: *mut LeanObject) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2710
     let result = lean_uint64_of_nat(value);
     lean_dec(value);
     result
@@ -2941,30 +2941,30 @@ define_usize_numeric_family!(
     lean_usize_of_nat,
     lean_usize_to_nat,
     runtime_object_nat_int_impl::lean_usize_of_big_nat,
-    lean_usize_to_uint8,
-    lean_usize_to_uint16,
-    lean_usize_to_uint32,
-    lean_usize_to_uint64,
+    lean_usize_to_uint8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:887
+    lean_usize_to_uint16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:902
+    lean_usize_to_uint32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:917
+    lean_usize_to_uint64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:933
     lean_usize_add,
     lean_usize_sub,
-    lean_usize_mul,
-    lean_usize_div,
-    lean_usize_mod,
-    lean_usize_land,
-    lean_usize_lor,
-    lean_usize_xor,
-    lean_usize_shift_left,
-    lean_usize_shift_right,
-    lean_usize_complement,
-    lean_usize_neg,
-    lean_usize_log2,
+    lean_usize_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:779
+    lean_usize_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:789
+    lean_usize_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:815
+    lean_usize_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:829
+    lean_usize_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:839
+    lean_usize_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:849
+    lean_usize_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:856
+    lean_usize_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:863
+    lean_usize_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:954
+    lean_usize_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Basic.lean:961
+    lean_usize_log2, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/UInt/Log2.lean:97
     lean_usize_dec_eq,
     lean_usize_dec_lt,
     lean_usize_dec_le
 );
 
 #[inline]
-pub(crate) unsafe fn lean_usize_to_nat_impl(value: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_usize_to_nat_impl(value: usize) -> *mut LeanObject { // duplicate in leanh at line 2967 (🔁)
     if value <= usize::MAX >> 1 {
         lean_box(value)
     } else {
@@ -2974,7 +2974,7 @@ pub(crate) unsafe fn lean_usize_to_nat_impl(value: usize) -> *mut LeanObject {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_usize_of_nat_mk(value: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_usize_of_nat_mk(value: *mut LeanObject) -> usize { // duplicate in leanh at line 2977 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2781
     let result = lean_usize_of_nat(value);
     lean_dec(value);
     result
@@ -3146,124 +3146,124 @@ define_signed_numeric_family!(
     u8,
     i8,
     8i8,
-    lean_int8_of_int,
-    lean_int8_of_nat,
-    lean_int8_to_int,
+    lean_int8_of_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:112
+    lean_int8_of_nat, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:125
+    lean_int8_to_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:154
     runtime_object_nat_int_impl::lean_int8_of_big_int,
-    lean_int8_add,
-    lean_int8_sub,
-    lean_int8_mul,
-    lean_int8_div,
-    lean_int8_mod,
-    lean_int8_land,
-    lean_int8_lor,
-    lean_int8_xor,
-    lean_int8_shift_left,
-    lean_int8_shift_right,
-    lean_int8_complement,
-    lean_int8_neg,
-    lean_int8_abs,
-    lean_int8_dec_eq,
-    lean_int8_dec_lt,
-    lean_int8_dec_le,
+    lean_int8_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:213
+    lean_int8_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:221
+    lean_int8_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:229
+    lean_int8_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:246
+    lean_int8_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:278
+    lean_int8_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:288
+    lean_int8_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:298
+    lean_int8_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:308
+    lean_int8_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:317
+    lean_int8_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:326
+    lean_int8_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:337
+    lean_int8_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:170
+    lean_int8_abs, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:347
+    lean_int8_dec_eq, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:361
+    lean_int8_dec_lt, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:417
+    lean_int8_dec_le, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:433
     lean_int8_to_int8,
-    lean_int8_to_int16,
-    lean_int8_to_int32,
-    lean_int8_to_int64,
-    lean_int8_to_isize
+    lean_int8_to_int16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:535
+    lean_int8_to_int32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:917
+    lean_int8_to_int64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1319
+    lean_int8_to_isize // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1700
 );
 
 define_signed_numeric_family!(
     u16,
     i16,
     16i16,
-    lean_int16_of_int,
-    lean_int16_of_nat,
-    lean_int16_to_int,
+    lean_int16_of_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:468
+    lean_int16_of_nat, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:481
+    lean_int16_to_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:511
     runtime_object_nat_int_impl::lean_int16_of_big_int,
-    lean_int16_add,
-    lean_int16_sub,
-    lean_int16_mul,
-    lean_int16_div,
-    lean_int16_mod,
-    lean_int16_land,
-    lean_int16_lor,
-    lean_int16_xor,
-    lean_int16_shift_left,
-    lean_int16_shift_right,
-    lean_int16_complement,
-    lean_int16_neg,
-    lean_int16_abs,
-    lean_int16_dec_eq,
-    lean_int16_dec_lt,
-    lean_int16_dec_le,
-    lean_int16_to_int8,
+    lean_int16_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:586
+    lean_int16_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:594
+    lean_int16_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:602
+    lean_int16_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:619
+    lean_int16_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:651
+    lean_int16_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:661
+    lean_int16_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:671
+    lean_int16_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:681
+    lean_int16_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:690
+    lean_int16_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:699
+    lean_int16_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:710
+    lean_int16_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:542
+    lean_int16_abs, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:720
+    lean_int16_dec_eq, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:734
+    lean_int16_dec_lt, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:790
+    lean_int16_dec_le, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:806
+    lean_int16_to_int8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:528
     lean_int16_to_int16,
-    lean_int16_to_int32,
-    lean_int16_to_int64,
-    lean_int16_to_isize
+    lean_int16_to_int32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:924
+    lean_int16_to_int64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1326
+    lean_int16_to_isize // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1708
 );
 
 define_signed_numeric_family!(
     u32,
     i32,
     32i32,
-    lean_int32_of_int,
-    lean_int32_of_nat,
-    lean_int32_to_int,
+    lean_int32_of_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:842
+    lean_int32_of_nat, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:855
+    lean_int32_to_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:885
     runtime_object_nat_int_impl::lean_int32_of_big_int,
-    lean_int32_add,
-    lean_int32_sub,
-    lean_int32_mul,
-    lean_int32_div,
-    lean_int32_mod,
-    lean_int32_land,
-    lean_int32_lor,
-    lean_int32_xor,
-    lean_int32_shift_left,
-    lean_int32_shift_right,
-    lean_int32_complement,
-    lean_int32_neg,
-    lean_int32_abs,
-    lean_int32_dec_eq,
-    lean_int32_dec_lt,
-    lean_int32_dec_le,
-    lean_int32_to_int8,
-    lean_int32_to_int16,
+    lean_int32_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:975
+    lean_int32_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:983
+    lean_int32_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:991
+    lean_int32_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1008
+    lean_int32_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1040
+    lean_int32_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1050
+    lean_int32_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1060
+    lean_int32_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1070
+    lean_int32_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1079
+    lean_int32_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1088
+    lean_int32_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1099
+    lean_int32_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:931
+    lean_int32_abs, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1109
+    lean_int32_dec_eq, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1123
+    lean_int32_dec_lt, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1179
+    lean_int32_dec_le, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1195
+    lean_int32_to_int8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:902
+    lean_int32_to_int16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:910
     lean_int32_to_int32,
-    lean_int32_to_int64,
-    lean_int32_to_isize
+    lean_int32_to_int64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1333
+    lean_int32_to_isize // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1716
 );
 
 define_signed_numeric_family!(
     u64,
     i64,
     64i64,
-    lean_int64_of_int,
-    lean_int64_of_nat,
-    lean_int64_to_int_sint,
+    lean_int64_of_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1231
+    lean_int64_of_nat, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1246
+    lean_int64_to_int_sint, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1279
     runtime_object_nat_int_impl::lean_int64_of_big_int,
-    lean_int64_add,
-    lean_int64_sub,
-    lean_int64_mul,
-    lean_int64_div,
-    lean_int64_mod,
-    lean_int64_land,
-    lean_int64_lor,
-    lean_int64_xor,
-    lean_int64_shift_left,
-    lean_int64_shift_right,
-    lean_int64_complement,
-    lean_int64_neg,
-    lean_int64_abs,
-    lean_int64_dec_eq,
-    lean_int64_dec_lt,
-    lean_int64_dec_le,
-    lean_int64_to_int8,
-    lean_int64_to_int16,
-    lean_int64_to_int32,
+    lean_int64_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1384
+    lean_int64_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1392
+    lean_int64_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1400
+    lean_int64_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1417
+    lean_int64_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1449
+    lean_int64_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1459
+    lean_int64_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1469
+    lean_int64_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1479
+    lean_int64_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1488
+    lean_int64_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1497
+    lean_int64_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1508
+    lean_int64_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1340
+    lean_int64_abs, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1518
+    lean_int64_dec_eq, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1532
+    lean_int64_dec_lt, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1588
+    lean_int64_dec_le, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1603
+    lean_int64_to_int8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1296
+    lean_int64_to_int16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1304
+    lean_int64_to_int32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1312
     lean_int64_to_int64,
-    lean_int64_to_isize
+    lean_int64_to_isize // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1724
 );
 
 macro_rules! define_isize_numeric_family {
@@ -3831,85 +3831,85 @@ macro_rules! define_float32_to_integer_casts {
 }
 
 define_isize_numeric_family!(
-    lean_isize_of_int,
-    lean_isize_of_nat,
-    lean_isize_to_int,
+    lean_isize_of_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1632
+    lean_isize_of_nat, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1640
+    lean_isize_to_int, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1650
     runtime_object_nat_int_impl::lean_isize_of_big_int,
-    lean_isize_add,
-    lean_isize_sub,
-    lean_isize_mul,
-    lean_isize_div,
-    lean_isize_mod,
-    lean_isize_land,
-    lean_isize_lor,
-    lean_isize_xor,
-    lean_isize_shift_right,
-    lean_isize_shift_left,
-    lean_isize_complement,
-    lean_isize_neg,
-    lean_isize_abs,
-    lean_isize_dec_eq,
-    lean_isize_dec_lt,
-    lean_isize_dec_le,
-    lean_isize_to_int8,
-    lean_isize_to_int16,
-    lean_isize_to_int32,
-    lean_isize_to_int64
+    lean_isize_add, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1776
+    lean_isize_sub, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1784
+    lean_isize_mul, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1792
+    lean_isize_div, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1809
+    lean_isize_mod, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1841
+    lean_isize_land, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1851
+    lean_isize_lor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1861
+    lean_isize_xor, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1871
+    lean_isize_shift_right, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1890
+    lean_isize_shift_left, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1880
+    lean_isize_complement, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1901
+    lean_isize_neg, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1731
+    lean_isize_abs, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1912
+    lean_isize_dec_eq, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1926
+    lean_isize_dec_lt, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1982
+    lean_isize_dec_le, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1998
+    lean_isize_to_int8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1666
+    lean_isize_to_int16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1673
+    lean_isize_to_int32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1684
+    lean_isize_to_int64 // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Basic.lean:1692
 );
 
 define_integer_float_casts!(
-    lean_uint8_to_float,
-    lean_uint16_to_float,
-    lean_uint32_to_float,
-    lean_uint64_to_float,
-    lean_usize_to_float,
-    lean_int8_to_float,
-    lean_int16_to_float,
-    lean_int32_to_float,
-    lean_int64_to_float,
-    lean_isize_to_float,
-    lean_uint8_to_float32,
-    lean_uint16_to_float32,
-    lean_uint32_to_float32,
-    lean_uint64_to_float32,
-    lean_usize_to_float32,
-    lean_int8_to_float32,
-    lean_int16_to_float32,
-    lean_int32_to_float32,
-    lean_int64_to_float32,
-    lean_isize_to_float32
+    lean_uint8_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:262
+    lean_uint16_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:264
+    lean_uint32_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:266
+    lean_uint64_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:277
+    lean_usize_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:288
+    lean_int8_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:76
+    lean_int16_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:82
+    lean_int32_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:88
+    lean_int64_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:99
+    lean_isize_to_float, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:109
+    lean_uint8_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:252
+    lean_uint16_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:254
+    lean_uint32_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:265
+    lean_uint64_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:276
+    lean_usize_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:286
+    lean_int8_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:76
+    lean_int16_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:82
+    lean_int32_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:92
+    lean_int64_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:102
+    lean_isize_to_float32 // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:112
 );
 
 define_float_casts!(
-    lean_float_to_uint8,
-    lean_float_to_uint16,
-    lean_float_to_uint32,
-    lean_float_to_uint64,
-    lean_float_to_usize,
-    lean_float_to_int8,
-    lean_float_to_int16,
-    lean_float_to_int32,
-    lean_float_to_int64,
-    lean_float_to_isize,
-    lean_float_to_float32,
-    lean_float32_to_float
+    lean_float_to_uint8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:182
+    lean_float_to_uint16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:192
+    lean_float_to_uint32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:202
+    lean_float_to_uint64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:212
+    lean_float_to_usize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:222
+    lean_float_to_int8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:25
+    lean_float_to_int16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:36
+    lean_float_to_int32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:47
+    lean_float_to_int64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:58
+    lean_float_to_isize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float.lean:69
+    lean_float_to_float32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:512
+    lean_float32_to_float // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:505
 );
 
 define_float32_to_integer_casts!(
-    lean_float32_to_uint8,
-    lean_float32_to_uint16,
-    lean_float32_to_uint32,
-    lean_float32_to_uint64,
-    lean_float32_to_usize,
-    lean_float32_to_int8,
-    lean_float32_to_int16,
-    lean_float32_to_int32,
-    lean_float32_to_int64,
-    lean_float32_to_isize
+    lean_float32_to_uint8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:175
+    lean_float32_to_uint16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:185
+    lean_float32_to_uint32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:195
+    lean_float32_to_uint64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:205
+    lean_float32_to_usize, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float32.lean:215
+    lean_float32_to_int8, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:25
+    lean_float32_to_int16, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:36
+    lean_float32_to_int32, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:47
+    lean_float32_to_int64, // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:58
+    lean_float32_to_isize // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/SInt/Float32.lean:69
 );
 
 #[inline]
-pub(crate) unsafe fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Promise.lean:58
     if !lean_is_scalar(opt) {
         let value = lean_ctor_get(opt, 0);
         lean_inc(value);
@@ -3943,7 +3943,7 @@ pub(crate) unsafe fn lean_runtime_get_lean_num_threads() -> c_uint {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_allocprof(
+pub(crate) unsafe fn lean_io_allocprof( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:220
     msg: *mut LeanObject,
     fn_obj: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -4220,7 +4220,7 @@ unsafe fn finalize_constructions_module_body() {
 }
 
 #[inline]
-pub(crate) fn lean_initialize_runtime_module() {
+pub(crate) fn lean_initialize_runtime_module() { // duplicate in leanh at line 4223 (🔁)
     unsafe { initialize_runtime_module_body() }
 }
 
@@ -4308,7 +4308,7 @@ pub(crate) fn delete_thread_finalizer_manager() {
 }
 
 #[inline]
-pub fn lean_initialize() {
+pub fn lean_initialize() { // duplicate in leanh at line 4311 (🔁)
     unsafe {
         save_stack_info(true);
         initialize_util_module();
@@ -4537,12 +4537,12 @@ pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
 }
 
 #[inline]
-pub(crate) fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:91
     true as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:202
     let mut opts = lean_options_get_empty(lean_box(0));
     if env_flag(env!("LEAN_RUST_IS_STAGE0")) != 0 {
         let updates = [
@@ -4570,79 +4570,79 @@ pub fn lean_finalize() {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 4573 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2284
     lean_box(core::mem::size_of::<*const u8>() * 8)
 }
 
 #[inline]
-pub(crate) fn lean_system_platform_windows(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_system_platform_windows(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Platform.lean:22
     cfg!(target_os = "windows") as u8
 }
 
 #[inline]
-pub(crate) fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_system_platform_osx(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Platform.lean:26
     cfg!(target_os = "macos") as u8
 }
 
 #[inline]
-pub(crate) fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/Platform.lean:30
     cfg!(target_os = "emscripten") as u8
 }
 
 pub(crate) static INITIALIZING: core::sync::atomic::AtomicBool = core::sync::atomic::AtomicBool::new(true);
 
 #[inline]
-pub(crate) fn lean_io_mark_end_initialization() {
+pub(crate) fn lean_io_mark_end_initialization() { // duplicate in leanh at line 4595 (🔁)
     INITIALIZING.store(false, Ordering::Relaxed);
 }
 
 #[inline]
-pub(crate) fn lean_io_initializing() -> u8 {
+pub(crate) fn lean_io_initializing() -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:229
     INITIALIZING.load(Ordering::Relaxed) as u8
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:35
     lean_mk_string(concat!(env!("LEAN_RUST_GITHASH"), "\0").as_ptr() as *const c_char)
 }
 
 #[inline]
-pub(crate) fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Meta/Defs.lean:94
     env_flag(env!("LEAN_RUST_HAS_LLVM"))
 }
 
 #[inline]
-pub(crate) fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:53
     env_flag(env!("LEAN_RUST_HAS_ADDRESS_SANITIZER"))
 }
 
 #[inline]
-pub(crate) fn lean_internal_is_multi_thread(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_internal_is_multi_thread(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:57
     env_flag(env!("LEAN_RUST_MULTI_THREAD"))
 }
 
 #[inline]
-pub(crate) fn lean_internal_is_debug(_: *mut LeanObject) -> u8 {
+pub(crate) fn lean_internal_is_debug(_: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:61
     env_flag(env!("LEAN_RUST_DEBUG"))
 }
 
 #[inline]
-pub(crate) unsafe fn lean_internal_get_build_type(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_internal_get_build_type(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:65
     lean_mk_string(concat!(env!("LEAN_RUST_BUILD_TYPE"), "\0").as_ptr() as *const c_char)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_leanc_extra_flags(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_leanc_extra_flags(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/FFI.lean:18
     lean_mk_string(concat!(env!("LEAN_RUST_LEANC_EXTRA_CC_FLAGS"), "\0").as_ptr() as *const c_char)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_leanc_internal_flags(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_leanc_internal_flags(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/FFI.lean:35
     lean_mk_string(concat!(env!("LEAN_RUST_LEANC_INTERNAL_FLAGS"), "\0").as_ptr() as *const c_char)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_linker_flags(link_static: u8) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_linker_flags(link_static: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/FFI.lean:42
     if link_static != 0 {
         lean_mk_string(
             concat!(
@@ -4667,7 +4667,7 @@ pub(crate) unsafe fn lean_get_linker_flags(link_static: u8) -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_internal_linker_flags(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_internal_linker_flags(_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/FFI.lean:56
     lean_mk_string(
         concat!(env!("LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS"), "\0").as_ptr() as *const c_char,
     )
@@ -4783,7 +4783,7 @@ pub(crate) unsafe fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObje
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_timeit(
+pub(crate) unsafe fn lean_io_timeit( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:218
     msg: *mut LeanObject,
     fn_obj: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -4806,19 +4806,19 @@ pub(crate) unsafe fn lean_io_timeit(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_get_num_heartbeats() -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_get_num_heartbeats() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:594
     lean_uint64_to_nat_rust(lean_get_num_heartbeats())
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_set_heartbeats(count: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_set_heartbeats(count: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:600
     lean_set_heartbeats(lean_uint64_of_nat_rust(count));
     lean_dec(count);
     lean_box(0)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_mono_ms_now() -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_mono_ms_now() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:415
     use std::sync::OnceLock;
     use std::time::Instant;
 
@@ -4828,7 +4828,7 @@ pub(crate) unsafe fn lean_io_mono_ms_now() -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_mono_nanos_now() -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_mono_nanos_now() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:421
     use std::sync::OnceLock;
     use std::time::Instant;
 
@@ -4838,7 +4838,7 @@ pub(crate) unsafe fn lean_io_mono_nanos_now() -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_get_current_time() -> *mut LeanObject {
+pub(crate) unsafe fn lean_get_current_time() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Time/DateTime/Timestamp.lean:70
     use std::time::{SystemTime, UNIX_EPOCH};
 
     let now = SystemTime::now()
@@ -4852,7 +4852,7 @@ pub(crate) unsafe fn lean_get_current_time() -> *mut LeanObject {
 }
 
 #[inline]
-pub(crate) unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:951
     use std::ffi::{CStr, CString};
 
     let name_ptr = lean_string_cstr(env_var);
@@ -4875,7 +4875,7 @@ pub(crate) unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject
 }
 
 #[inline]
-pub(crate) unsafe fn lean_byteslice_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub(crate) unsafe fn lean_byteslice_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Data/ByteSlice.lean:185
     if ptr::eq(a, b) {
         return 1;
     }
@@ -4926,7 +4926,7 @@ pub unsafe fn lean_runtime_mk_cnstr(
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 4929 (🔁)
     let mut fields = [value];
     lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
 }

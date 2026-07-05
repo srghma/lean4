@@ -3,45 +3,44 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_io_error_impl {
-    use super::*;
 
     extern "C" {
         fn uv_strerror(errnum: c_int) -> *const c_char;
 
-        fn lean_mk_io_error_already_exists(
+        fn lean_mk_io_error_already_exists( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:202
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_already_exists_file(
+        fn lean_mk_io_error_already_exists_file( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:158
             name: *mut LeanObject,
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_hardware_fault(
+        fn lean_mk_io_error_hardware_fault( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:234
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_illegal_operation(
+        fn lean_mk_io_error_illegal_operation( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:242
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_inappropriate_type(
+        fn lean_mk_io_error_inappropriate_type( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:206
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_inappropriate_type_file(
+        fn lean_mk_io_error_inappropriate_type_file( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:166
             name: *mut LeanObject,
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_interrupted(
+        fn lean_mk_io_error_interrupted( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:170
             name: *mut LeanObject,
             errnum: u32,
             details: *mut LeanObject,
@@ -51,48 +50,48 @@ pub(crate) mod runtime_io_error_impl {
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_no_such_thing(errnum: u32, details: *mut LeanObject)
+        fn lean_mk_io_error_no_such_thing(errnum: u32, details: *mut LeanObject) // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:210
             -> *mut LeanObject;
-        fn lean_mk_io_error_no_such_thing_file(
+        fn lean_mk_io_error_no_such_thing_file( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:182
             name: *mut LeanObject,
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_other_error(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mk_io_error_permission_denied(
+        fn lean_mk_io_error_other_error(errnum: u32, details: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:226
+        fn lean_mk_io_error_permission_denied( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:230
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_permission_denied_file(
+        fn lean_mk_io_error_permission_denied_file( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:186
             name: *mut LeanObject,
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_protocol_error(
+        fn lean_mk_io_error_protocol_error( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:246
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_resource_busy(errnum: u32, details: *mut LeanObject)
+        fn lean_mk_io_error_resource_busy(errnum: u32, details: *mut LeanObject) // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:218
             -> *mut LeanObject;
-        fn lean_mk_io_error_resource_exhausted(
+        fn lean_mk_io_error_resource_exhausted( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:198
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_resource_exhausted_file(
+        fn lean_mk_io_error_resource_exhausted_file( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:190
             name: *mut LeanObject,
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_resource_vanished(
+        fn lean_mk_io_error_resource_vanished( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:214
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_time_expired(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mk_io_error_unsatisfied_constraints(
+        fn lean_mk_io_error_time_expired(errnum: u32, details: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:250
+        fn lean_mk_io_error_unsatisfied_constraints( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:238
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_io_error_unsupported_operation(
+        fn lean_mk_io_error_unsupported_operation( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IOError.lean:194
             errnum: u32,
             details: *mut LeanObject,
         ) -> *mut LeanObject;

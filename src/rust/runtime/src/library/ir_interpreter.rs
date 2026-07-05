@@ -3,14 +3,13 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod library_ir_interpreter_impl {
-    use super::*;
     use core::ffi::{c_char, c_void};
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, AtomicUsize, Ordering};
@@ -24,35 +23,35 @@ pub(crate) mod library_ir_interpreter_impl {
 
     extern "C" {
         // IR declaration lookup
-        fn lean_ir_find_env_decl(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
-        fn lean_ir_find_env_decl_boxed(env: *mut LeanObject, n: *mut LeanObject)
+        fn lean_ir_find_env_decl(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/IR/CompilerM.lean:145
+        fn lean_ir_find_env_decl_boxed(env: *mut LeanObject, n: *mut LeanObject) // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/IR/CompilerM.lean:157
             -> *mut LeanObject;
 
         // Numeric coercions
-        fn lean_float_of_nat(a: *mut LeanObject) -> f64;
-        fn lean_float32_of_nat(a: *mut LeanObject) -> f32;
+        fn lean_float_of_nat(a: *mut LeanObject) -> f64; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/Data/OfScientific.lean:71
+        fn lean_float32_of_nat(a: *mut LeanObject) -> f32; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/Data/OfScientific.lean:116
         fn lean_usize_of_big_nat(a: *mut LeanObject) -> usize;
         fn lean_uint64_of_big_nat(a: *mut LeanObject) -> u64;
 
         // Symbol name helpers
-        fn lean_get_symbol_stem(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mk_mangled_boxed_name(s: *mut LeanObject) -> *mut LeanObject;
+        fn lean_get_symbol_stem(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/ModPkgExt.lean:63
+        fn lean_mk_mangled_boxed_name(s: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/NameMangling.lean:144
 
         // Init attribute
-        fn lean_get_regular_init_fn_name_for(
+        fn lean_get_regular_init_fn_name_for( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/InitAttr.lean:121
             env: *mut LeanObject,
             n: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_get_export_name_for(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
+        fn lean_get_export_name_for(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/ExportAttr.lean:55
 
         // Name equality and hash
-        fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
+        fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8; // duplicate in leanh at line 49 (🔁)
 
         // Sorry dep check
-        fn lean_decl_get_sorry_dep(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
+        fn lean_decl_get_sorry_dep(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/IR/CompilerM.lean:221
 
         // Elab environment of kernel env
-        fn lean_elab_environment_of_kernel_env(env: *mut LeanObject) -> *mut LeanObject;
+        fn lean_elab_environment_of_kernel_env(env: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Environment.lean:644
 
         // Option bool
         fn lean_options_get_bool(
@@ -73,7 +72,7 @@ pub(crate) mod library_ir_interpreter_impl {
         ) -> *mut LeanObject;
 
         // IR format (debug)
-        fn lean_ir_format_fn_body_head(b: *mut LeanObject) -> *mut LeanObject;
+        fn lean_ir_format_fn_body_head(b: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/IR/Format.lean:111
 
         // check_system
         #[link_name = "_ZN4lean12check_systemEPKcb"]
@@ -100,10 +99,10 @@ pub(crate) mod library_ir_interpreter_impl {
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
 
         // IO helpers
-        fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool;
-        fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject;
-        fn lean_io_result_show_error(obj: *mut LeanObject);
-        fn lean_io_result_mk_ok(val: *mut LeanObject) -> *mut LeanObject;
+        fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool; // duplicate in leanh at line 103 (🔁)
+        fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject; // duplicate in leanh at line 104 (🔁)
+        fn lean_io_result_show_error(obj: *mut LeanObject); // duplicate in leanh at line 105 (🔁)
+        fn lean_io_result_mk_ok(val: *mut LeanObject) -> *mut LeanObject; // duplicate in leanh at line 106 (🔁)
         fn lean_io_result_mk_error(err: *mut LeanObject) -> *mut LeanObject;
 
         // get_init_fn_name_for (already in lib.rs but may be called as extern)
@@ -187,19 +186,19 @@ pub(crate) mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> usize {
+    unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> usize { // duplicate in leanh at line 190 (🔁)
         (*obj).other as usize
     }
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject { // duplicate in leanh at line 196 (🔁)
         lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32)
     }
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_alloc_closure(
+    unsafe fn lean_alloc_closure( // duplicate in leanh at line 202 (🔁)
         fun: *mut core::ffi::c_void,
         arity: u32,
         num_fixed: u32,
@@ -209,7 +208,7 @@ pub(crate) mod library_ir_interpreter_impl {
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+    unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in leanh at line 212 (🔁)
         // closure args are after the LeanClosureObject header (16 bytes: header=8, fun=ptr, arity=u16, num_fixed=u16, padding)
         const LEAN_CLOSURE_OBJECT_SIZE: usize = core::mem::size_of::<LeanClosureObject>();
         (cls as *mut u8)
@@ -221,19 +220,19 @@ pub(crate) mod library_ir_interpreter_impl {
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
+    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject { // duplicate in leanh at line 224 (🔁)
         lean_box(v as usize)
     }
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 { // duplicate in leanh at line 230 (🔁)
         lean_unbox(o) as u32
     }
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+    unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject { // duplicate in leanh at line 236 (🔁)
         (obj as *const u8)
             .add(24)
             .cast::<*mut LeanObject>()
@@ -243,7 +242,7 @@ pub(crate) mod library_ir_interpreter_impl {
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_uint64_of_nat(a: *mut LeanObject) -> u64 {
+    unsafe fn lean_uint64_of_nat(a: *mut LeanObject) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/BasicAux.lean:260; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2719
         if lean_is_scalar(a) {
             lean_unbox(a) as u64
         } else {
@@ -253,7 +252,7 @@ pub(crate) mod library_ir_interpreter_impl {
 
     #[inline(always)]
     #[cfg(false)]
-    unsafe fn lean_usize_of_nat(a: *mut LeanObject) -> usize {
+    unsafe fn lean_usize_of_nat(a: *mut LeanObject) -> usize { // duplicate in leanh at line 256 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/Basic.lean:871; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/UInt/BasicAux.lean:350; Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:2790
         if lean_is_scalar(a) {
             lean_unbox(a)
         } else {
@@ -262,12 +261,12 @@ pub(crate) mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
+    unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool { // duplicate in leanh at line 265 (🔁)
         !lean_is_scalar(obj) && (*obj).rc == 1
     }
 
     #[inline(always)]
-    unsafe fn lean_del_object(obj: *mut LeanObject) {
+    unsafe fn lean_del_object(obj: *mut LeanObject) { // duplicate in leanh at line 270 (🔁)
         if !lean_is_scalar(obj) {
             lean_free_object(obj);
         }
@@ -2530,7 +2529,7 @@ pub(crate) mod library_ir_interpreter_impl {
 
     /// lean_eval_main (env : Environment) (opts : Options) (args : List String) : BaseIO UInt32
     #[inline]
-    pub(crate) unsafe fn lean_eval_main(
+    pub(crate) unsafe fn lean_eval_main( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:35
         env: *mut LeanObject,
         opts: *mut LeanObject,
         args: *mut LeanObject,
@@ -2555,7 +2554,7 @@ pub(crate) mod library_ir_interpreter_impl {
 
     /// lean_eval_const (env : Environment) (opts : Options) (c : Name) : Except String _
     #[inline]
-    pub(crate) unsafe fn lean_eval_const(
+    pub(crate) unsafe fn lean_eval_const( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Environment.lean:2451
         env: *mut LeanObject,
         opts: *mut LeanObject,
         c: *mut LeanObject,
@@ -2609,7 +2608,7 @@ pub(crate) mod library_ir_interpreter_impl {
 
     /// lean_run_init (env opts decl init_decl io) : IO Unit
     #[inline]
-    pub(crate) unsafe fn lean_run_init(
+    pub(crate) unsafe fn lean_run_init( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/InitAttr.lean:44
         env: *mut LeanObject,
         opts: *mut LeanObject,
         decl: *mut LeanObject,
@@ -2632,7 +2631,7 @@ pub(crate) mod library_ir_interpreter_impl {
     /// On Unix, uses dlsym(RTLD_DEFAULT, ...) directly.
     /// On Windows, uses EnumProcessModules/GetProcAddress.
     #[inline]
-    pub(crate) unsafe fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/InitAttr.lean:32
         let sym_cstr = lean_string_cstr(sym);
         let init = lookup_symbol_in_cur_exe(sym_cstr);
         if init.is_null() {

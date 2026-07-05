@@ -3,14 +3,13 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_io_stream_impl {
-    use super::*;
     use core::cell::Cell;
 
     static mut IO_HANDLE_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
@@ -23,7 +22,7 @@ pub(crate) mod runtime_io_stream_impl {
         static mut stdout: *mut libc::FILE;
         static mut stderr: *mut libc::FILE;
 
-        fn lean_stream_of_handle(h: *mut LeanObject) -> *mut LeanObject;
+        fn lean_stream_of_handle(h: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Init/System/IO.lean:1682
         fn signal(signum: libc::c_int, handler: usize) -> usize;
     }
 
@@ -81,7 +80,7 @@ pub(crate) mod runtime_io_stream_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_get_stdin() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_get_stdin() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:742
         CURRENT_STDIN.with(|stream| {
             let value = stream.get(STREAM_STDIN);
             lean_inc(value);
@@ -90,7 +89,7 @@ pub(crate) mod runtime_io_stream_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_get_stdout() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_get_stdout() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:748
         CURRENT_STDOUT.with(|stream| {
             let value = stream.get(STREAM_STDOUT);
             lean_inc(value);
@@ -99,7 +98,7 @@ pub(crate) mod runtime_io_stream_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_get_stderr() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_get_stderr() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:754
         CURRENT_STDERR.with(|stream| {
             let value = stream.get(STREAM_STDERR);
             lean_inc(value);
@@ -108,17 +107,17 @@ pub(crate) mod runtime_io_stream_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_get_set_stdin(handle: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_get_set_stdin(handle: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:761
         CURRENT_STDIN.with(|stream| stream.set(STREAM_STDIN, handle))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_get_set_stdout(handle: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_get_set_stdout(handle: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:767
         CURRENT_STDOUT.with(|stream| stream.set(STREAM_STDOUT, handle))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:773
         CURRENT_STDERR.with(|stream| stream.set(STREAM_STDERR, handle))
     }
 

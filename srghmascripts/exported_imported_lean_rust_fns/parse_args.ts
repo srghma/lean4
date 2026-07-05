@@ -26,6 +26,9 @@ const options = {
 
     // Stub Generation Option
     "gen-lean-imports-rs-stubs": { type: "boolean" },
+
+    // Annotation Option
+    "append-comment-to-rust-runtime": { type: "boolean" },
 } as const;
 
 /**
@@ -38,6 +41,7 @@ Usage: ./srghmascripts/exported_imported_lean_rust_fns.ts [options]
 Options:
   -h, --help                               Show this help message
   --gen-lean-imports-rs-stubs            Generate Rust stub files in lean_imports_rs for extern Lean imports
+  --append-comment-to-rust-runtime       Append audit comments to matching src/rust/runtime/**/*.rs lines
 
   Summary Visibility:
     --hide-summary                         Do not print the summary block
@@ -82,6 +86,7 @@ export function validateAndProcessOptions(args: string[]) {
             externConfig: { rustOk: false, rustEmpty: false, rustMissing: false },
             exportConfig: { importCorrect: false, importWrong: false, definedInRust: false, externC: false, dynamicLookup: false, missing: false },
             genLeanImportsRsStubs: false,
+            appendCommentToRustRuntime: false,
         };
     }
 
@@ -146,5 +151,6 @@ export function validateAndProcessOptions(args: string[]) {
         externConfig,
         exportConfig,
         genLeanImportsRsStubs: !!values["gen-lean-imports-rs-stubs"],
+        appendCommentToRustRuntime: !!values["append-comment-to-rust-runtime"],
     };
 }

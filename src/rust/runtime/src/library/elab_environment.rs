@@ -3,21 +3,20 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod library_elab_environment_impl {
     use crate::kernel::type_checker::kernel_type_checker_impl::lean_rust_add_decl;
-    use super::*;
 
     extern "C" {
         // Lean-implemented: extract kernel env from elab env (both owned)
-        fn lean_elab_environment_to_kernel_env(env: *mut LeanObject) -> *mut LeanObject;
+        fn lean_elab_environment_to_kernel_env(env: *mut LeanObject) -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Environment.lean:648
         // Lean-implemented: create new elab env with updated kernel env (all owned)
-        fn lean_elab_environment_update_base_after_kernel_add(
+        fn lean_elab_environment_update_base_after_kernel_add( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Environment.lean:2413
             env: *mut LeanObject,
             kenv: *mut LeanObject,
             decl: *mut LeanObject,
@@ -77,7 +76,7 @@ pub(crate) mod library_elab_environment_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_elab_add_decl(
+    pub(crate) unsafe fn lean_elab_add_decl( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Environment.lean:687
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
@@ -100,7 +99,7 @@ pub(crate) mod library_elab_environment_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_elab_add_decl_without_checking(
+    pub(crate) unsafe fn lean_elab_add_decl_without_checking( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Environment.lean:691
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -111,7 +110,7 @@ pub(crate) mod library_elab_environment_impl {
     // using the Rust TypeChecker with elab→kernel env conversion.
 
     #[inline]
-    pub(crate) unsafe fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
+    pub(crate) unsafe fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:211
         1024
     }
 }

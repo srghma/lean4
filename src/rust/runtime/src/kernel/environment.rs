@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod kernel_environment_impl {
     use crate::kernel::type_checker::kernel_type_checker_impl::lean_rust_add_decl;
-    use super::*;
 
     #[inline(always)]
     unsafe fn add_decl_dispatch(
@@ -23,7 +22,7 @@ pub(crate) mod kernel_environment_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_add_decl(
+    pub(crate) unsafe fn lean_add_decl( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Environment.lean:296
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
@@ -46,7 +45,7 @@ pub(crate) mod kernel_environment_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_add_decl_without_checking(
+    pub(crate) unsafe fn lean_add_decl_without_checking( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Environment.lean:307
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {

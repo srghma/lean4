@@ -3,10 +3,21 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-// mod runtime;
-// mod kernel;
-// mod library;
+#![allow(
+    non_upper_case_globals,
+    non_snake_case,
+    dead_code,
+    // unused_variables,
+    // unused_assignments,
+    // unused_parens,
+    // unused_mut,
+    // unused_imports
+)]
+
+pub mod runtime;
+// pub mod kernel;
 pub mod leanh_extra;
+// pub mod library;
 
 // pub mod r#gen {
 //     pub mod Init {}

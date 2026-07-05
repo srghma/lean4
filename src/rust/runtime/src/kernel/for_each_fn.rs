@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -24,7 +24,6 @@ Field layout (from expr.h):
 */
 
 pub(crate) mod kernel_for_each_fn_impl {
-    use super::*;
     use core::ffi::c_void;
     use std::collections::HashSet;
 
@@ -328,7 +327,7 @@ pub(crate) mod kernel_for_each_fn_impl {
 
     // find? (p : Expr → Bool) (e : Expr) : Option Expr
     #[inline]
-    pub(crate) unsafe fn lean_find_expr(
+    pub(crate) unsafe fn lean_find_expr( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Util/FindExpr.lean:16
         p: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -339,7 +338,7 @@ pub(crate) mod kernel_for_each_fn_impl {
 
     // findExt? (p : Expr → FindStep) (e : Expr) : Option Expr
     #[inline]
-    pub(crate) unsafe fn lean_find_ext_expr(
+    pub(crate) unsafe fn lean_find_ext_expr( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Util/FindExpr.lean:33
         p: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {

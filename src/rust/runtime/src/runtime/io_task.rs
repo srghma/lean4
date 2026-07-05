@@ -3,14 +3,13 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_io_task_impl {
-    use super::*;
 
     extern "C" {
         fn lean_io_check_canceled_core() -> bool;
@@ -39,7 +38,7 @@ pub(crate) mod runtime_io_task_impl {
     }
 
     #[cfg(false)]
-    unsafe fn lean_closure_set(c: *mut LeanObject, idx: usize, value: *mut LeanObject) {
+    unsafe fn lean_closure_set(c: *mut LeanObject, idx: usize, value: *mut LeanObject) { // duplicate in leanh at line 42 (🔁)
         (*(c as *mut LeanClosureObject))
             .data
             .as_mut_ptr()
@@ -62,23 +61,23 @@ pub(crate) mod runtime_io_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_check_canceled() -> u8 {
+    pub(crate) unsafe fn lean_io_check_canceled() -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:505
         lean_io_check_canceled_core() as u8
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_cancel(t: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_cancel(t: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:511
         lean_io_cancel_core(t);
         lean_box(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_get_task_state(t: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_io_get_task_state(t: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:555
         lean_io_get_task_state_core(t)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_wait(t: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_wait(t: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:567
         let value = lean_task_get(t);
         lean_inc(value);
         lean_dec(t);
@@ -86,7 +85,7 @@ pub(crate) mod runtime_io_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_wait_any(task_list: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_wait_any(task_list: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:573
         let task = lean_io_wait_any_core(task_list);
         let value = lean_task_get(task);
         lean_inc(value);
@@ -94,7 +93,7 @@ pub(crate) mod runtime_io_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_as_task(
+    pub(crate) unsafe fn lean_io_as_task( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:244
         act: *mut LeanObject,
         prio: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -104,7 +103,7 @@ pub(crate) mod runtime_io_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_map_task(
+    pub(crate) unsafe fn lean_io_map_task( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:257
         f: *mut LeanObject,
         t: *mut LeanObject,
         prio: *mut LeanObject,
@@ -116,7 +115,7 @@ pub(crate) mod runtime_io_task_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_bind_task(
+    pub(crate) unsafe fn lean_io_bind_task( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:271
         t: *mut LeanObject,
         f: *mut LeanObject,
         prio: *mut LeanObject,

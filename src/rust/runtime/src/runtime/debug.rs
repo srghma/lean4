@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(feature = "std")]
 pub(crate) mod runtime_debug_impl {
-    use super::*;
     use std::collections::HashSet;
     use std::ffi::CStr;
     use std::io::{self, Read, Write};
@@ -78,7 +77,7 @@ pub(crate) mod runtime_debug_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_internal_enable_debug(tag: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_internal_enable_debug(tag: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:103
         enable_debug(lean_string_cstr(tag));
         lean_box(0)
     }
@@ -150,18 +149,18 @@ unsafe fn lean_is_shared_obj(obj: *mut LeanObject) -> bool {
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 153 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Runtime.lean:15
     lean_box(16)
 }
 
 #[inline]
 #[cfg(false)]
-pub(crate) unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 159 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Runtime.lean:18
     lean_box(usize::MAX >> 1)
 }
 
 #[inline]
-pub(crate) unsafe fn lean_dbg_trace(
+pub(crate) unsafe fn lean_dbg_trace( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Util.lean:18
     msg: *mut LeanObject,
     action: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -170,13 +169,13 @@ pub(crate) unsafe fn lean_dbg_trace(
 }
 
 #[inline]
-pub(crate) unsafe fn lean_dbg_sleep(ms: u32, action: *mut LeanObject) -> *mut LeanObject {
+pub(crate) unsafe fn lean_dbg_sleep(ms: u32, action: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Util.lean:41
     std::thread::sleep(std::time::Duration::from_millis(ms as u64));
     lean_apply_1(action, lean_box(0))
 }
 
 #[inline]
-pub(crate) unsafe fn lean_dbg_trace_if_shared(
+pub(crate) unsafe fn lean_dbg_trace_if_shared( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Util.lean:26
     msg: *mut LeanObject,
     value: *mut LeanObject,
 ) -> *mut LeanObject {

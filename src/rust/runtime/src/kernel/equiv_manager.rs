@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -32,7 +32,6 @@ Literal tags: 0 = natVal, 1 = strVal
 pub(crate) mod kernel_equiv_manager_impl {
     use crate::kernel::level::kernel_level_impl::lean_level_eqv;
     use crate::runtime::runtime_object_string_impl::lean_string_eq_cold;
-    use super::*;
     use core::ffi::c_void;
     use std::collections::HashMap;
     use crate::runtime::runtime_object_nat_int_impl::lean_nat_big_eq;

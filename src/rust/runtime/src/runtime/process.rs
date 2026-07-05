@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -21,7 +21,6 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 
 #[cfg(feature = "std")]
 pub(crate) mod runtime_process_impl {
-    use super::*;
     use core::ffi::c_int;
     use core::ptr::null_mut;
 
@@ -50,13 +49,13 @@ pub(crate) mod runtime_process_impl {
 
     // lean_ctor_set (set object field) is not in lib.rs – define locally
     #[cfg(false)]
-    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in leanh at line 53 (🔁)
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
     // Lean constructor allocation forwarding to lean_runtime_alloc_ctor
     #[cfg(false)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject { // duplicate in leanh at line 59 (🔁)
         lean_runtime_alloc_ctor(tag as c_uint, num_objs as c_uint, scalar_size as c_uint)
     }
 
@@ -139,7 +138,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_get_current_dir() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_process_get_current_dir() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1383
         let mut buf = [0u8; libc::PATH_MAX as usize];
         let ret = libc::getcwd(buf.as_mut_ptr().cast(), buf.len());
         if !ret.is_null() {
@@ -155,7 +154,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_set_current_dir(
+    pub(crate) unsafe fn lean_io_process_set_current_dir( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1386
         path: *mut LeanObject,
     ) -> *mut LeanObject {
         if libc::chdir(lean_string_cstr(path)) == 0 {
@@ -169,7 +168,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_get_pid() -> u32 {
+    pub(crate) unsafe fn lean_io_process_get_pid() -> u32 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1389
         libc::getpid() as u32
     }
 
@@ -177,7 +176,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_get_tid() -> u64 {
+    pub(crate) unsafe fn lean_io_get_tid() -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1593
         #[cfg(target_os = "macos")]
         {
             let mut tid: u64 = 0;
@@ -199,7 +198,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_child_wait(
+    pub(crate) unsafe fn lean_io_process_child_wait( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1494
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -221,7 +220,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_child_try_wait(
+    pub(crate) unsafe fn lean_io_process_child_try_wait( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1500
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -246,7 +245,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_child_kill(
+    pub(crate) unsafe fn lean_io_process_child_kill( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1508
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -268,7 +267,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_child_pid(
+    pub(crate) unsafe fn lean_io_process_child_pid( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1524
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> u32 {
@@ -283,7 +282,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_child_take_stdin(
+    pub(crate) unsafe fn lean_io_process_child_take_stdin( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1520
         _world: *mut LeanObject,
         lchild: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -495,7 +494,7 @@ pub(crate) mod runtime_process_impl {
 
     #[cfg(unix)]
     #[inline]
-    pub(crate) unsafe fn lean_io_process_spawn(args_: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_process_spawn(args_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:1489
         let stdio_cfg = lean_ctor_get(args_, 0);
         // stdio_cfg has 0 object fields; scalars start at base+sizeof(header)
         let stdin_mode = StdioMode::from_u8(lean_ctor_get_uint8(stdio_cfg, 0));

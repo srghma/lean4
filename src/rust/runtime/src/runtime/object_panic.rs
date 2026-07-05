@@ -3,16 +3,15 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 // Port of the panic, sorry, and stack trace helpers from src/runtime/object.cpp.
 
 pub(crate) mod runtime_object_panic_impl {
-    use super::*;
     use std::io::Write;
 
     static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
@@ -37,7 +36,6 @@ pub(crate) mod runtime_object_panic_impl {
 
     #[cfg(any(target_os = "linux", target_os = "macos"))]
     mod backtrace_impl {
-        use super::*;
 
         extern "C" {
             fn backtrace(buffer: *mut *mut c_void, size: c_int) -> c_int;
@@ -50,7 +48,7 @@ pub(crate) mod runtime_object_panic_impl {
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
             let proc = libc::dlsym(
                 libc::RTLD_DEFAULT,
-                c_char_ptr(b"lean_demangle_bt_line_cstr\0"),
+                c_char_ptr(b"lean_demangle_bt_line_cstr\0"), // [lean-audit] Rust should import from Lean ([export]): Function is referenced via dynamic string lookup (dynamic) (🔍) | Lean: src/Lean/Compiler/NameDemangling.lean:335
             );
             if proc.is_null() {
                 return None;
@@ -199,7 +197,7 @@ pub(crate) mod runtime_object_panic_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_internal_set_exit_on_panic(exit: u8) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_internal_set_exit_on_panic(exit: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:95
         G_EXIT_ON_PANIC.store(exit != 0, Ordering::Relaxed);
         lean_box(0)
     }
@@ -229,7 +227,7 @@ pub(crate) mod runtime_object_panic_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_panic_fn_borrowed(
+    pub(crate) unsafe fn lean_panic_fn_borrowed( // duplicate in leanh at line 232 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3671
         default_val: *mut LeanObject,
         msg: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -239,12 +237,12 @@ pub(crate) mod runtime_object_panic_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_sorry(_: u8) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_sorry(_: u8) -> *mut LeanObject { // duplicate in leanh at line 242 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:744
         lean_internal_panic(c_char_ptr(b"executed 'sorry'\0"))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_dbg_stack_trace(fn_obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_dbg_stack_trace(fn_obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Util.lean:30
         backtrace_impl::print_backtrace(false);
         lean_apply_1(fn_obj, lean_box(0))
     }

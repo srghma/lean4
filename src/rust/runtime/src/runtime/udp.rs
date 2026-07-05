@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_udp_impl {
-    use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
 
@@ -183,7 +182,7 @@ pub(crate) mod runtime_udp_impl {
     const UV_ENOBUFS: isize = -105;
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_udp_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:35
         let udp_socket = libc::malloc(core::mem::size_of::<LeanUvUdpSocketObject>())
             .cast::<LeanUvUdpSocketObject>();
         if udp_socket.is_null() {
@@ -220,7 +219,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_bind(
+    pub(crate) unsafe fn lean_uv_udp_bind( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:42
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -245,7 +244,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_connect(
+    pub(crate) unsafe fn lean_uv_udp_connect( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:49
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -266,7 +265,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_send(
+    pub(crate) unsafe fn lean_uv_udp_send( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:56
         socket: *mut LeanObject,
         data_array: *mut LeanObject,
         opt_addr: *mut LeanObject,
@@ -396,7 +395,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_recv(
+    pub(crate) unsafe fn lean_uv_udp_recv( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:64
         socket: *mut LeanObject,
         buffer_size: u64,
     ) -> *mut LeanObject {
@@ -497,7 +496,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_udp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:71
         let udp_socket = lean_to_uv_udp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -574,7 +573,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_udp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:81
         let udp_socket = lean_to_uv_udp_socket(socket);
 
         lean_inc(socket);
@@ -605,7 +604,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_udp_getpeername(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:89
         let udp_socket = lean_to_uv_udp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -627,7 +626,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_udp_getsockname(socket: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:95
         let udp_socket = lean_to_uv_udp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -649,7 +648,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_set_broadcast(
+    pub(crate) unsafe fn lean_uv_udp_set_broadcast( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:101
         socket: *mut LeanObject,
         enable: u8,
     ) -> *mut LeanObject {
@@ -667,7 +666,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_set_multicast_loop(
+    pub(crate) unsafe fn lean_uv_udp_set_multicast_loop( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:107
         socket: *mut LeanObject,
         enable: u8,
     ) -> *mut LeanObject {
@@ -685,7 +684,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_set_multicast_ttl(
+    pub(crate) unsafe fn lean_uv_udp_set_multicast_ttl( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:113
         socket: *mut LeanObject,
         ttl: u32,
     ) -> *mut LeanObject {
@@ -705,7 +704,7 @@ pub(crate) mod runtime_udp_impl {
     const INET_ADDRSTRLEN: usize = 16;
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_set_membership(
+    pub(crate) unsafe fn lean_uv_udp_set_membership( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:120
         socket: *mut LeanObject,
         multicast_addr: *mut LeanObject,
         interface_addr: *mut LeanObject,
@@ -753,7 +752,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_set_multicast_interface(
+    pub(crate) unsafe fn lean_uv_udp_set_multicast_interface( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:126
         socket: *mut LeanObject,
         interface_addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -779,7 +778,7 @@ pub(crate) mod runtime_udp_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_udp_set_ttl(
+    pub(crate) unsafe fn lean_uv_udp_set_ttl( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/UDP.lean:132
         socket: *mut LeanObject,
         ttl: u32,
     ) -> *mut LeanObject {
@@ -799,7 +798,6 @@ pub(crate) mod runtime_udp_impl {
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_udp_impl {
-    use super::*;
 
     #[inline]
     pub(crate) fn lean_uv_udp_new() -> *mut LeanObject {

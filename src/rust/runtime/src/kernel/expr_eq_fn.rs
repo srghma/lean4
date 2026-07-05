@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -48,10 +48,9 @@ pub(crate) mod kernel_expr_eq_fn_impl {
     use crate::runtime::runtime_object_name_impl::lean_name_eq;
     use crate::runtime::runtime_object_panic_impl::lean_internal_panic;
     use crate::runtime::runtime_object_string_impl::lean_string_eq_cold;
-    use super::*;
     use std::collections::HashSet;
     use crate::runtime::runtime_object_nat_int_impl::lean_nat_big_eq;
-    use crate::lean_data_value_beq;
+    use crate::lean_data_value_beq; // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code and import is correct (correct) (✅) | Lean: src/Lean/Data/KVMap.lean:27
 
     const EXPR_BVAR: u8 = 0;
     const EXPR_FVAR: u8 = 1;
@@ -384,13 +383,13 @@ pub(crate) mod kernel_expr_eq_fn_impl {
 
     // lean_expr_eqv (a b : @& Expr) : Bool  — structural equality, ignoring binder names/info
     #[inline]
-    pub(crate) unsafe fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:799
         ExprEqFn::new(false).apply(a, b, 0, true) as u8
     }
 
     // lean_expr_equal (a b : @& Expr) : Bool  — structural equality including binder names/info
     #[inline]
-    pub(crate) unsafe fn lean_expr_equal(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_expr_equal(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:809
         ExprEqFn::new(true).apply(a, b, 0, true) as u8
     }
 }

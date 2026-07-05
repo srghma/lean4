@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -18,7 +18,6 @@ pub(crate) mod kernel_level_impl {
     use crate::runtime::runtime_object_name_impl::lean_name_eq;
     use crate::runtime::runtime_object_rc_impl::lean_mark_persistent;
     use crate::runtime::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
     use core::ptr;
 
     static mut G_LEVEL_ZERO: *mut LeanObject = ptr::null_mut();
@@ -30,7 +29,7 @@ pub(crate) mod kernel_level_impl {
     const LEVEL_MVAR: u8 = 5;
 
     extern "C" {
-        fn lean_level_mk_zero() -> *mut LeanObject;
+        fn lean_level_mk_zero() -> *mut LeanObject; // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Level.lean:155
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
     }
 
@@ -69,7 +68,7 @@ pub(crate) mod kernel_level_impl {
     // bit  33      = hasParam
     // bits [63:40] = depth (24-bit, max 16777215 = 0x00FFFFFF)
     #[inline]
-    pub(crate) unsafe fn lean_level_mk_data(
+    pub(crate) unsafe fn lean_level_mk_data( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Level.lean:48
         h: u64,
         depth: *mut LeanObject,
         has_mvar: u8,
@@ -92,7 +91,7 @@ pub(crate) mod kernel_level_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Level.lean:254
         level_eq(l1, l2) as u8
     }
 

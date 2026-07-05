@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -40,7 +40,6 @@ pub(crate) mod kernel_instantiate_impl {
     use crate::kernel::level::kernel_level_impl::lean_level_eq;
     use crate::runtime::runtime_object_name_impl::lean_name_eq;
     use crate::runtime::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
     use std::collections::HashMap;
 
     extern "C" {
@@ -888,7 +887,7 @@ pub(crate) mod kernel_instantiate_impl {
     // lean_expr_instantiate1 (a e : @& Expr) : Expr
     // Instantiates BVar(0) with e and lowers all remaining loose BVars by 1.
     #[inline]
-    pub(crate) unsafe fn lean_expr_instantiate1(
+    pub(crate) unsafe fn lean_expr_instantiate1( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1436
         a: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -906,7 +905,7 @@ pub(crate) mod kernel_instantiate_impl {
     // lean_expr_instantiate (a : @& Expr) (subst : @& Array Expr) : Expr
     // Instantiates BVar(i) with subst[i] for all i < subst.size.
     #[inline]
-    pub(crate) unsafe fn lean_expr_instantiate(
+    pub(crate) unsafe fn lean_expr_instantiate( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1419
         a: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -918,7 +917,7 @@ pub(crate) mod kernel_instantiate_impl {
     // lean_expr_instantiate_range (a : @& Expr) (begin end : @& Nat) (subst : @& Array Expr) : Expr
     // Instantiates using subst[begin..end].
     #[inline]
-    pub(crate) unsafe fn lean_expr_instantiate_range(
+    pub(crate) unsafe fn lean_expr_instantiate_range( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1462
         a: *mut LeanObject,
         begin: *mut LeanObject,
         end: *mut LeanObject,
@@ -941,7 +940,7 @@ pub(crate) mod kernel_instantiate_impl {
     // lean_expr_instantiate_rev (a : @& Expr) (subst : @& Array Expr) : Expr
     // Like instantiate but uses reversed indexing: BVar(i) → subst[n-1-i].
     #[inline]
-    pub(crate) unsafe fn lean_expr_instantiate_rev(
+    pub(crate) unsafe fn lean_expr_instantiate_rev( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1450
         a: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -953,7 +952,7 @@ pub(crate) mod kernel_instantiate_impl {
     // lean_expr_instantiate_rev_range (a : @& Expr) (begin end : @& Nat) (subst : @& Array Expr) : Expr
     // Like instantiate_rev but uses subst[begin..end].
     #[inline]
-    pub(crate) unsafe fn lean_expr_instantiate_rev_range(
+    pub(crate) unsafe fn lean_expr_instantiate_rev_range( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:1474
         a: *mut LeanObject,
         begin: *mut LeanObject,
         end: *mut LeanObject,

@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -28,7 +28,6 @@ Field layout (from expr.h):
 */
 
 pub(crate) mod kernel_replace_fn_impl {
-    use super::*;
     use core::ffi::c_void;
     use std::collections::HashMap;
 
@@ -396,7 +395,7 @@ pub(crate) mod kernel_replace_fn_impl {
     // lean_replace_expr (f : Expr → Option Expr) (e : Expr) : Expr
     // Both f and e are borrowed (b_obj_arg); returns owned result.
     #[inline]
-    pub(crate) unsafe fn lean_replace_expr(
+    pub(crate) unsafe fn lean_replace_expr( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Util/ReplaceExpr.lean:16
         f: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {

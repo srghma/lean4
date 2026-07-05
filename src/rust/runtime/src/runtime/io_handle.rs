@@ -3,14 +3,13 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_io_handle_impl {
-    use super::*;
 
     unsafe fn io_get_handle(hfile: *mut LeanObject) -> *mut libc::FILE {
         (*(hfile as *mut LeanExternalObject)).data.cast()
@@ -18,7 +17,7 @@ pub(crate) mod runtime_io_handle_impl {
 
     #[cfg(not(target_os = "windows"))]
     #[inline]
-    pub(crate) unsafe fn lean_io_prim_handle_lock(
+    pub(crate) unsafe fn lean_io_prim_handle_lock( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:803
         h: *mut LeanObject,
         exclusive: u8,
     ) -> *mut LeanObject {
@@ -40,7 +39,7 @@ pub(crate) mod runtime_io_handle_impl {
 
     #[cfg(not(target_os = "windows"))]
     #[inline]
-    pub(crate) unsafe fn lean_io_prim_handle_try_lock(
+    pub(crate) unsafe fn lean_io_prim_handle_try_lock( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:811
         h: *mut LeanObject,
         exclusive: u8,
     ) -> *mut LeanObject {
@@ -64,7 +63,7 @@ pub(crate) mod runtime_io_handle_impl {
 
     #[cfg(not(target_os = "windows"))]
     #[inline]
-    pub(crate) unsafe fn lean_io_prim_handle_unlock(h: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_prim_handle_unlock(h: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/System/IO.lean:815
         let fp = io_get_handle(h);
         if libc::flock(libc::fileno(fp), libc::LOCK_UN) == 0 {
             lean_io_result_mk_ok(lean_box(0))
@@ -78,7 +77,6 @@ pub(crate) mod runtime_io_handle_impl {
 
     #[cfg(target_os = "windows")]
     mod windows {
-        use super::*;
 
         type Bool = i32;
         type Dword = u32;

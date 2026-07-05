@@ -3,29 +3,28 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_sharecommon_impl {
-    use super::*;
     use core::ffi::c_void;
     use std::collections::{HashMap, HashSet};
     use std::hash::{BuildHasherDefault, Hasher};
 
-    const LEAN_PROMISE_TAG: u8 = 244;
-    const LEAN_CLOSURE_TAG: u8 = 245;
-    const LEAN_ARRAY_TAG: u8 = 246;
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-    const LEAN_STRING_TAG: u8 = 249;
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_THUNK_TAG: u8 = 251;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_REF_TAG: u8 = 253;
-    const LEAN_EXTERNAL_TAG: u8 = 254;
-    const LEAN_RESERVED_TAG: u8 = 255;
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in leanh at line 18 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in leanh at line 19 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in leanh at line 20 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in leanh at line 21 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in leanh at line 22 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in leanh at line 23 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in leanh at line 24 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in leanh at line 25 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in leanh at line 26 (🔁)
+    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in leanh at line 27 (🔁)
+    const LEAN_RESERVED_TAG: u8 = 255; // duplicate in leanh at line 28 (🔁)
 
     extern "C" {
         fn lean_object_data_byte_size(o: *mut LeanObject) -> usize;
@@ -94,7 +93,7 @@ pub(crate) mod runtime_sharecommon_impl {
     type ShareSet = HashSet<ShareConsNode, LeanHashBuilder>;
 
     #[inline]
-    pub(crate) unsafe fn lean_sharecommon_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_sharecommon_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/ShareCommon.lean:42
         if o1 == o2 {
             return 1;
         }
@@ -130,7 +129,7 @@ pub(crate) mod runtime_sharecommon_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_sharecommon_hash(o: *mut LeanObject) -> u64 {
+    pub(crate) unsafe fn lean_sharecommon_hash(o: *mut LeanObject) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/ShareCommon.lean:45
         let sz = lean_object_data_byte_size(o);
         let header_sz = core::mem::size_of::<LeanObject>();
         let tag = lean_ptr_tag(o);
@@ -392,7 +391,7 @@ pub(crate) mod runtime_sharecommon_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_state_sharecommon(
+    pub(crate) unsafe fn lean_state_sharecommon( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/ShareCommon.lean:86
         tc: *mut LeanObject,
         s: *mut LeanObject,
         a: *mut LeanObject,
@@ -564,7 +563,7 @@ pub(crate) mod runtime_sharecommon_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_sharecommon_quick(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_sharecommon_quick(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/ShareCommon.lean:116
         let mut quick = RustShareCommonQuick::new(false);
         quick.visit(a)
     }

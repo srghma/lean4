@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_event_loop_impl {
-    use super::*;
     use core::ptr::null_mut;
     use core::sync::atomic::{AtomicI32, Ordering};
 
@@ -189,7 +188,7 @@ pub(crate) mod runtime_event_loop_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_event_loop_configure(
+    pub(crate) unsafe fn lean_uv_event_loop_configure( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Loop.lean:36
         options: *mut LeanObject,
     ) -> *mut LeanObject {
         let accum = lean_ctor_get_uint8(options, 0) != 0;
@@ -220,7 +219,7 @@ pub(crate) mod runtime_event_loop_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_event_loop_alive() -> u8 {
+    pub(crate) unsafe fn lean_uv_event_loop_alive() -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Loop.lean:42
         let event_loop = ptr::addr_of_mut!(_ZN4lean9global_evE);
         event_loop_lock(event_loop);
         let is_alive = uv_loop_alive((*event_loop).loop_) != 0;

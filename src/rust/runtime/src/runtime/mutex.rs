@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(feature = "std")]
 pub(crate) mod runtime_mutex_impl {
-    use super::*;
     use std::sync::{Condvar, Mutex};
     use std::thread::ThreadId;
 
@@ -254,34 +253,34 @@ pub(crate) mod runtime_mutex_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basemutex_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_basemutex_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:28
         alloc_external(BASEMUTEX_EXTERNAL_CLASS, BaseMutex::new())
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basemutex_lock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_basemutex_lock(mtx: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:38
         external_data::<BaseMutex>(mtx).lock();
         lean_box(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basemutex_try_lock(mtx: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_io_basemutex_try_lock(mtx: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:51
         external_data::<BaseMutex>(mtx).try_lock() as u8
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basemutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_basemutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:61
         external_data::<BaseMutex>(mtx).unlock();
         lean_box(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_condvar_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_condvar_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:92
         alloc_external(CONDVAR_EXTERNAL_CLASS, RuntimeCondvar::new())
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_condvar_wait(
+    pub(crate) unsafe fn lean_io_condvar_wait( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:96
         condvar: *mut LeanObject,
         mtx: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -290,7 +289,7 @@ pub(crate) mod runtime_mutex_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_condvar_notify_one(
+    pub(crate) unsafe fn lean_io_condvar_notify_one( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:100
         condvar: *mut LeanObject,
     ) -> *mut LeanObject {
         external_data::<RuntimeCondvar>(condvar)
@@ -300,7 +299,7 @@ pub(crate) mod runtime_mutex_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_condvar_notify_all(
+    pub(crate) unsafe fn lean_io_condvar_notify_all( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/Mutex.lean:104
         condvar: *mut LeanObject,
     ) -> *mut LeanObject {
         external_data::<RuntimeCondvar>(condvar)
@@ -310,34 +309,34 @@ pub(crate) mod runtime_mutex_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_baserecmutex_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_baserecmutex_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/RecursiveMutex.lean:27
         alloc_external(BASERECMUTEX_EXTERNAL_CLASS, BaseRecMutex::new())
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_baserecmutex_lock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_baserecmutex_lock(mtx: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/RecursiveMutex.lean:34
         external_data::<BaseRecMutex>(mtx).lock();
         lean_box(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_baserecmutex_try_lock(mtx: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_io_baserecmutex_try_lock(mtx: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/RecursiveMutex.lean:44
         external_data::<BaseRecMutex>(mtx).try_lock() as u8
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_baserecmutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_baserecmutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/RecursiveMutex.lean:54
         external_data::<BaseRecMutex>(mtx).unlock();
         lean_box(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_new() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_basesharedmutex_new() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:27
         alloc_external(BASESHAREDMUTEX_EXTERNAL_CLASS, BaseSharedMutex::new())
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_write(
+    pub(crate) unsafe fn lean_io_basesharedmutex_write( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:37
         mtx: *mut LeanObject,
     ) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).write();
@@ -345,12 +344,12 @@ pub(crate) mod runtime_mutex_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_try_write(mtx: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_io_basesharedmutex_try_write(mtx: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:47
         external_data::<BaseSharedMutex>(mtx).try_write() as u8
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_unlock_write(
+    pub(crate) unsafe fn lean_io_basesharedmutex_unlock_write( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:56
         mtx: *mut LeanObject,
     ) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).unlock_write();
@@ -358,18 +357,18 @@ pub(crate) mod runtime_mutex_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_read(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_io_basesharedmutex_read(mtx: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:67
         external_data::<BaseSharedMutex>(mtx).read();
         lean_box(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_try_read(mtx: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_io_basesharedmutex_try_read(mtx: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:77
         external_data::<BaseSharedMutex>(mtx).try_read() as u8
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_io_basesharedmutex_unlock_read(
+    pub(crate) unsafe fn lean_io_basesharedmutex_unlock_read( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Sync/SharedMutex.lean:86
         mtx: *mut LeanObject,
     ) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).unlock_read();

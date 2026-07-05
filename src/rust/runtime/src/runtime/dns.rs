@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_dns_impl {
-    use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
 
@@ -96,7 +95,7 @@ pub(crate) mod runtime_dns_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_dns_get_info(
+    pub(crate) unsafe fn lean_uv_dns_get_info( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/DNS.lean:25
         name: *mut LeanObject,
         service: *mut LeanObject,
         family: u8,
@@ -208,7 +207,7 @@ pub(crate) mod runtime_dns_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/DNS.lean:32
         let req = libc::malloc(core::mem::size_of::<UvGetNameInfo>()).cast::<UvGetNameInfo>();
         if req.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -273,7 +272,6 @@ pub(crate) mod runtime_dns_impl {
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_dns_impl {
-    use super::*;
 
     #[inline]
     pub(crate) fn lean_uv_dns_get_info(

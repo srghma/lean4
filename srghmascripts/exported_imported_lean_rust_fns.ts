@@ -11,6 +11,13 @@ import {
     type LeanOccurrence,
     type RustSearchResult
 } from "./exported_imported_lean_rust_fns/lib";
+import { makePathExcluder } from "./exported_imported_lean_rust_fns/glob";
+import {
+    appendRuntimeAnnotations,
+    collectRuntimeAnnotation,
+    formatRuntimeAnnotation,
+    isRuntimeRustPath,
+} from "./exported_imported_lean_rust_fns/runtime_annotations";
 import { validateAndProcessOptions, printHelp } from "./exported_imported_lean_rust_fns/parse_args";
 
 // Detect if output is being redirected or piped (like to copyq)
@@ -52,6 +59,16 @@ const c = {
     ok: (text: string) => `${colors.green}${text}${colors.reset}`,
     dim: (text: string) => `${colors.dim}${text}${colors.reset}`,
 };
+
+const IGNORED_PATH_GLOBS = [
+    "src/rust/**/src/gen/**",
+    "src/rust/**/src/lean_imports_rs/**",
+    "src/rust/gen_*/**",
+    "src/**/.lake/**",
+    "src/**/build/**",
+    "src/**/dist/**",
+    "src/**/out/**",
+];
 
 /**
  * Alignment helper that formats label and value columns uniformly.
@@ -236,7 +253,15 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
         process.exit(1);
     }
 
-    const { help, showSummary, showDetails, externConfig, exportConfig, genLeanImportsRsStubs } = config;
+    const {
+        help,
+        showSummary,
+        showDetails,
+        externConfig,
+        exportConfig,
+        genLeanImportsRsStubs,
+        appendCommentToRustRuntime,
+    } = config;
 
     // Handle Help Request
     if (help) {
@@ -254,7 +279,8 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
 
     // Collect all Lean files
     const leanFilePaths: string[] = [];
-    for await (const file of glob("**/*.lean", { cwd: leanDir })) {
+    const leanPathExcluder = makePathExcluder(leanDir, rootDir, IGNORED_PATH_GLOBS);
+    for await (const file of glob("**/*.lean", { cwd: leanDir, exclude: leanPathExcluder })) {
         leanFilePaths.push(path.join(leanDir, file));
     }
 
@@ -288,17 +314,14 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
 
     // Collect all Rust files
     const rustFilePaths: string[] = [];
-    for await (const file of glob("**/*.rs", {
-        cwd: rustDir,
-        exclude: (entry) => {
-            return entry.startsWith('lean_runtime/src/gen') || entry.startsWith('lean_runtime/src/lean_imports_rs')
-        }
-    })) {
+    const rustPathExcluder = makePathExcluder(rustDir, rootDir, IGNORED_PATH_GLOBS);
+    for await (const file of glob("**/*.rs", { cwd: rustDir, exclude: rustPathExcluder })) {
         rustFilePaths.push(path.join(rustDir, file));
     }
 
     // Parallelize Rust files reading and indexing
     const rustIndex = new Map<string, RustSearchResult[]>();
+    const runtimeAnnotations = new Map<string, Map<number, Set<string>>>();
     await Promise.all(
         rustFilePaths.map(async (absoluteFile) => {
             try {
@@ -368,6 +391,19 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
 
             if (match) {
                 const relRust = path.relative(rootDir, match.filePath);
+                if (appendCommentToRustRuntime && isRuntimeRustPath(match.filePath, rootDir)) {
+                    collectRuntimeAnnotation(
+                        runtimeAnnotations,
+                        match.filePath,
+                        match.lineNum,
+                        formatRuntimeAnnotation({
+                            kind: "extern",
+                            status: isOk ? "extern_ok" : isEmpty ? "extern_empty" : "extern_missing",
+                            leanPath: fileData.relativePath,
+                            leanLine: occ.lineNum,
+                        })
+                    );
+                }
                 if (isOk) {
                     printedLines.push(`${linePrefix} <- ${c.path(relRust)}:${match.lineNum} (${match.snippet}) ✅`);
                 } else if (isEmpty) {
@@ -411,6 +447,26 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
             const relRust = path.relative(rootDir, match.filePath);
             const linePrefix = `  ${c.line(occ.lineNum)} @[export ${c.symbol(occ.symbolName)}] ${c.name(occ.leanName)} -> ${c.path(relRust)}:${match.lineNum}`;
 
+            if (appendCommentToRustRuntime && isRuntimeRustPath(match.filePath, rootDir)) {
+                const annotationStatus =
+                    classification.status === "correct" ? "export_correct" :
+                    classification.status === "wrong_import" ? "export_wrong" :
+                    classification.status === "defined_in_rust" ? "export_defined" :
+                    classification.status === "extern_c" ? "export_externc" :
+                    "export_dynamic";
+                collectRuntimeAnnotation(
+                    runtimeAnnotations,
+                    match.filePath,
+                    match.lineNum,
+                    formatRuntimeAnnotation({
+                        kind: "export",
+                        status: annotationStatus,
+                        leanPath: fileData.relativePath,
+                        leanLine: occ.lineNum,
+                    })
+                );
+            }
+
             // Increment stats metrics
             if (classification.status === "correct") stats.export.ok++;
             else if (classification.status === "wrong_import") stats.export.wrong++;
@@ -440,6 +496,15 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
 
         if (printedLines.length > 0) {
             exportOutputBlocks.push({ relativePath: fileData.relativePath, lines: printedLines });
+        }
+    }
+
+    if (appendCommentToRustRuntime) {
+        await appendRuntimeAnnotations(runtimeAnnotations);
+        if (showDetails) {
+            const touchedFiles = [...runtimeAnnotations.keys()].length;
+            const touchedLines = [...runtimeAnnotations.values()].reduce((acc, lines) => acc + [...lines.values()].reduce((inner, comments) => inner + comments.size, 0), 0);
+            console.log(c.dim(`Annotated ${touchedLines} runtime matches across ${touchedFiles} files.`));
         }
     }
 

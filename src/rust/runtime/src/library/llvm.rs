@@ -3,18 +3,17 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod library_llvm_impl {
-    use super::*;
 
     extern "C" {
         fn initialize_Lean_Compiler_IR_EmitLLVM(builtin: u8) -> *mut LeanObject;
-        fn lean_ir_emit_llvm(
+        fn lean_ir_emit_llvm( // [lean-audit] Rust should import from Lean ([export]): Function is found inside of extern "C" block / FFI (externc) (🔌) | Lean: src/Lean/Compiler/IR/EmitLLVM.lean:1639
             env: *mut LeanObject,
             mod_name: *mut LeanObject,
             filepath: *mut LeanObject,
@@ -264,12 +263,12 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_init_llvm() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_init_llvm() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:42
         initialize_Lean_Compiler_IR_EmitLLVM(0)
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_emit_llvm(
+    pub(crate) unsafe fn lean_emit_llvm( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:49
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -293,12 +292,12 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_initialize_target_info() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_llvm_initialize_target_info() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:102
         llvm_initialize_target_info_impl()
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_create_context() -> usize {
+    pub(crate) unsafe fn lean_llvm_create_context() -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:105
         llvm_create_context_impl()
     }
 
@@ -1618,7 +1617,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_create_module(
+    pub(crate) unsafe fn lean_llvm_create_module( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:108
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -1626,7 +1625,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_write_bitcode_to_file(
+    pub(crate) unsafe fn lean_llvm_write_bitcode_to_file( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:114
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1635,7 +1634,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_module_to_string(
+    pub(crate) unsafe fn lean_llvm_module_to_string( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:111
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1643,7 +1642,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_add_function(
+    pub(crate) unsafe fn lean_llvm_add_function( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:117
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1653,7 +1652,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_named_function(
+    pub(crate) unsafe fn lean_llvm_get_named_function( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:126
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1662,7 +1661,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_add_global(
+    pub(crate) unsafe fn lean_llvm_add_global( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:129
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1672,7 +1671,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_named_global(
+    pub(crate) unsafe fn lean_llvm_get_named_global( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:132
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1681,7 +1680,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_global_string(
+    pub(crate) unsafe fn lean_llvm_build_global_string( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:141
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1691,7 +1690,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_undef(
+    pub(crate) unsafe fn lean_llvm_get_undef( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:184
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -1699,7 +1698,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_set_initializer(
+    pub(crate) unsafe fn lean_llvm_set_initializer( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:147
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1708,7 +1707,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_function_type(
+    pub(crate) unsafe fn lean_llvm_function_type( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:150
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1718,7 +1717,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_opaque_pointer_type_in_context(
+    pub(crate) unsafe fn lean_llvm_opaque_pointer_type_in_context( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:159
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -1726,7 +1725,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_int_type_in_context(
+    pub(crate) unsafe fn lean_llvm_int_type_in_context( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:156
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -1734,22 +1733,22 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_float_type_in_context(p0: *mut LeanObject) -> usize {
+    pub(crate) unsafe fn lean_llvm_float_type_in_context(p0: *mut LeanObject) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:162
         llvm_float_type_in_context_impl(lean_unbox(p0))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_void_type_in_context(p0: *mut LeanObject) -> usize {
+    pub(crate) unsafe fn lean_llvm_void_type_in_context(p0: *mut LeanObject) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:153
         llvm_void_type_in_context_impl(lean_unbox(p0))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_double_type_in_context(p0: *mut LeanObject) -> usize {
+    pub(crate) unsafe fn lean_llvm_double_type_in_context(p0: *mut LeanObject) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:165
         llvm_double_type_in_context_impl(lean_unbox(p0))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_pointer_type(
+    pub(crate) unsafe fn lean_llvm_pointer_type( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:168
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -1757,7 +1756,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_array_type(
+    pub(crate) unsafe fn lean_llvm_array_type( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:171
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1766,12 +1765,12 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_create_builder_in_context(p0: *mut LeanObject) -> usize {
+    pub(crate) unsafe fn lean_llvm_create_builder_in_context(p0: *mut LeanObject) -> usize { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:187
         llvm_create_builder_in_context_impl(lean_unbox(p0))
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_append_basic_block_in_context(
+    pub(crate) unsafe fn lean_llvm_append_basic_block_in_context( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:190
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1780,7 +1779,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_position_builder_at_end(
+    pub(crate) unsafe fn lean_llvm_position_builder_at_end( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:205
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1789,7 +1788,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_clear_insertion_position(
+    pub(crate) unsafe fn lean_llvm_clear_insertion_position( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:277
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1797,7 +1796,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_call2(
+    pub(crate) unsafe fn lean_llvm_build_call2( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:208
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1810,7 +1809,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_cond_br(
+    pub(crate) unsafe fn lean_llvm_build_cond_br( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:214
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1826,7 +1825,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_br(
+    pub(crate) unsafe fn lean_llvm_build_br( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:217
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -1835,7 +1834,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_store(
+    pub(crate) unsafe fn lean_llvm_build_store( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:226
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1845,7 +1844,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_load2(
+    pub(crate) unsafe fn lean_llvm_build_load2( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:223
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1856,7 +1855,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_alloca(
+    pub(crate) unsafe fn lean_llvm_build_alloca( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:220
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1866,7 +1865,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_ret(
+    pub(crate) unsafe fn lean_llvm_build_ret( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:229
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -1880,7 +1879,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_unreachable(
+    pub(crate) unsafe fn lean_llvm_build_unreachable( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:232
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -1888,7 +1887,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_inbounds_gep2(
+    pub(crate) unsafe fn lean_llvm_build_inbounds_gep2( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:238
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1901,7 +1900,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_gep2(
+    pub(crate) unsafe fn lean_llvm_build_gep2( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:235
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1914,7 +1913,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_sext(
+    pub(crate) unsafe fn lean_llvm_build_sext( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:241
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1925,7 +1924,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_zext(
+    pub(crate) unsafe fn lean_llvm_build_zext( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:244
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1936,7 +1935,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_sext_or_trunc(
+    pub(crate) unsafe fn lean_llvm_build_sext_or_trunc( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:247
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1947,7 +1946,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_switch(
+    pub(crate) unsafe fn lean_llvm_build_switch( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:250
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1963,7 +1962,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_ptr_to_int(
+    pub(crate) unsafe fn lean_llvm_build_ptr_to_int( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:253
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1974,7 +1973,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_mul(
+    pub(crate) unsafe fn lean_llvm_build_mul( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:256
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1985,7 +1984,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_add(
+    pub(crate) unsafe fn lean_llvm_build_add( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:259
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1996,7 +1995,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_sub(
+    pub(crate) unsafe fn lean_llvm_build_sub( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:262
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2007,7 +2006,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_not(
+    pub(crate) unsafe fn lean_llvm_build_not( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:265
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2017,7 +2016,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_build_icmp(
+    pub(crate) unsafe fn lean_llvm_build_icmp( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:268
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2035,7 +2034,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_add_case(
+    pub(crate) unsafe fn lean_llvm_add_case( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:271
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2045,7 +2044,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_basic_block_parent(
+    pub(crate) unsafe fn lean_llvm_get_basic_block_parent( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:280
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2053,7 +2052,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_insert_block(
+    pub(crate) unsafe fn lean_llvm_get_insert_block( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:274
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2061,7 +2060,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_type_of(
+    pub(crate) unsafe fn lean_llvm_type_of( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:283
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2069,7 +2068,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_print_module_to_string(
+    pub(crate) unsafe fn lean_llvm_print_module_to_string( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:289
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -2077,7 +2076,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_print_module_to_file(
+    pub(crate) unsafe fn lean_llvm_print_module_to_file( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:292
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2086,7 +2085,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_const_int(
+    pub(crate) unsafe fn lean_llvm_const_int( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:286
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2096,7 +2095,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_const_array(
+    pub(crate) unsafe fn lean_llvm_const_array( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:174
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2106,7 +2105,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_const_string(
+    pub(crate) unsafe fn lean_llvm_const_string( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:178
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -2114,7 +2113,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_const_pointer_null(
+    pub(crate) unsafe fn lean_llvm_const_pointer_null( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:181
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2122,7 +2121,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn llvm_get_param(
+    pub(crate) unsafe fn llvm_get_param( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:298
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2131,7 +2130,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn llvm_count_params(
+    pub(crate) unsafe fn llvm_count_params( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:295
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> u64 {
@@ -2139,7 +2138,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_set_tail_call(
+    pub(crate) unsafe fn lean_llvm_set_tail_call( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:211
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2148,7 +2147,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_parse_bitcode(
+    pub(crate) unsafe fn lean_llvm_parse_bitcode( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:304
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -2156,7 +2155,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_link_modules(
+    pub(crate) unsafe fn lean_llvm_link_modules( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:307
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2165,7 +2164,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_create_target_machine(
+    pub(crate) unsafe fn lean_llvm_create_target_machine( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:316
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2176,7 +2175,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_target_from_triple(
+    pub(crate) unsafe fn lean_llvm_get_target_from_triple( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:313
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2184,12 +2183,12 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_default_target_triple() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_llvm_get_default_target_triple() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:310
         llvm_get_default_target_triple_impl()
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_target_machine_emit_to_file(
+    pub(crate) unsafe fn lean_llvm_target_machine_emit_to_file( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:319
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2200,7 +2199,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_dispose_target_machine(
+    pub(crate) unsafe fn lean_llvm_dispose_target_machine( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:345
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> *mut LeanObject {
@@ -2208,7 +2207,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_dispose_module(
+    pub(crate) unsafe fn lean_llvm_dispose_module( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:348
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> *mut LeanObject {
@@ -2216,7 +2215,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_set_visibility(
+    pub(crate) unsafe fn lean_llvm_set_visibility( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:369
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2225,7 +2224,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_set_dll_storage_class(
+    pub(crate) unsafe fn lean_llvm_set_dll_storage_class( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:380
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2234,7 +2233,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_add_attribute_at_index(
+    pub(crate) unsafe fn lean_llvm_add_attribute_at_index( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:357
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2244,7 +2243,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_first_global(
+    pub(crate) unsafe fn lean_llvm_get_first_global( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:135
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2252,7 +2251,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_next_global(
+    pub(crate) unsafe fn lean_llvm_get_next_global( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:138
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2260,7 +2259,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_first_function(
+    pub(crate) unsafe fn lean_llvm_get_first_function( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:120
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2268,7 +2267,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_next_function(
+    pub(crate) unsafe fn lean_llvm_get_next_function( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:123
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2276,7 +2275,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_set_linkage(
+    pub(crate) unsafe fn lean_llvm_set_linkage( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:421
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2285,7 +2284,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_value_name2(
+    pub(crate) unsafe fn lean_llvm_get_value_name2( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:95
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> *mut LeanObject {
@@ -2293,7 +2292,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn llvm_is_declaration(
+    pub(crate) unsafe fn llvm_is_declaration( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:144
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> *mut LeanObject {
@@ -2301,7 +2300,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_verify_module(
+    pub(crate) unsafe fn lean_llvm_verify_module( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:351
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> *mut LeanObject {
@@ -2309,7 +2308,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_count_basic_blocks(
+    pub(crate) unsafe fn lean_llvm_count_basic_blocks( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:193
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> u64 {
@@ -2317,7 +2316,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_entry_basic_block(
+    pub(crate) unsafe fn lean_llvm_get_entry_basic_block( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:196
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2325,7 +2324,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_get_first_instruction(
+    pub(crate) unsafe fn lean_llvm_get_first_instruction( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:199
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> *mut LeanObject {
@@ -2333,7 +2332,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_position_builder_before(
+    pub(crate) unsafe fn lean_llvm_position_builder_before( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:202
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject
@@ -2342,7 +2341,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_create_memory_buffer_with_contents_of_file(
+    pub(crate) unsafe fn lean_llvm_create_memory_buffer_with_contents_of_file( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:301
         _p0: *mut LeanObject,
         p1: *mut LeanObject
     ) -> usize {
@@ -2350,7 +2349,7 @@ pub(crate) mod library_llvm_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_llvm_create_string_attribute(
+    pub(crate) unsafe fn lean_llvm_create_string_attribute( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Compiler/IR/LLVMBindings.lean:354
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,

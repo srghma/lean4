@@ -3,14 +3,13 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_interrupt_impl {
-    use super::*;
     use core::ffi::c_char;
     use std::cell::Cell;
 
@@ -23,12 +22,12 @@ pub(crate) mod runtime_interrupt_impl {
     }
 
     #[repr(C)]
-    struct LeanRefObject {
+    struct LeanRefObject { // duplicate in leanh at line 26 (🔁)
         header: LeanObject,
         value: *mut LeanObject,
     }
 
-    unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject {
+    unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject { // duplicate in leanh at line 31 (🔁)
         o as *mut LeanRefObject
     }
 
@@ -110,7 +109,7 @@ pub(crate) mod runtime_interrupt_impl {
 
     // FFI wrappers for Lean code
     #[inline]
-    pub(crate) fn lean_internal_get_default_max_heartbeat() -> *mut LeanObject {
+    pub(crate) fn lean_internal_get_default_max_heartbeat() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:83
         #[cfg(feature = "default-max-heartbeat")]
         const DEFAULT: usize = 200000; // standard Lean default
         #[cfg(not(feature = "default-max-heartbeat"))]
@@ -120,7 +119,7 @@ pub(crate) mod runtime_interrupt_impl {
     }
 
     #[inline]
-    pub(crate) fn lean_internal_set_max_heartbeat(max: usize) -> *mut LeanObject {
+    pub(crate) fn lean_internal_set_max_heartbeat(max: usize) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:87
         set_max_heartbeat(max);
         unsafe { lean_box(0) }
     }

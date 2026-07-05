@@ -3,17 +3,16 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 // Port of the Array, ByteArray, and FloatArray exported helpers from
 // src/runtime/object.cpp.
 
 pub(crate) mod runtime_object_array_impl {
-    use super::*;
     use core::ffi::{c_int, c_ulong};
 
     #[repr(C)]
@@ -23,16 +22,16 @@ pub(crate) mod runtime_object_array_impl {
         _mp_d: *mut u64,
     }
 
-    type MpzT = [MpzStruct; 1];
+    type MpzT = [MpzStruct; 1]; // duplicate in leanh at line 26 (🔁)
 
     #[repr(C)]
-    struct LeanMpzObject {
+    struct LeanMpzObject { // duplicate in leanh at line 29 (🔁)
         header: LeanObject,
         value: MpzT,
     }
 
     #[repr(C)]
-    struct LeanThunkObject {
+    struct LeanThunkObject { // duplicate in leanh at line 35 (🔁)
         header: LeanObject,
         value: core::sync::atomic::AtomicPtr<LeanObject>,
         closure: core::sync::atomic::AtomicPtr<LeanObject>,
@@ -48,17 +47,17 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in leanh at line 51 (🔁)
         (*o).rc == 1
     }
 
     #[inline]
-    unsafe fn lean_array_capacity(o: *mut LeanObject) -> usize {
+    unsafe fn lean_array_capacity(o: *mut LeanObject) -> usize { // duplicate in leanh at line 56 (🔁)
         (*(o as *const LeanArrayObject)).capacity
     }
 
     #[inline]
-    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject {
+    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in leanh at line 61 (🔁)
         (*(o as *mut LeanArrayObject)).data.as_mut_ptr()
     }
 
@@ -138,7 +137,7 @@ pub(crate) mod runtime_object_array_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 141 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3402
         let sz = lean_array_size(a);
         let r = lean_alloc_sarray(1, sz, sz);
         let src = lean_array_cptr(a);
@@ -152,7 +151,7 @@ pub(crate) mod runtime_object_array_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_byte_array_data(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_byte_array_data(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 155 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3403
         let sz = lean_sarray_size(a);
         let r = lean_alloc_array(sz, sz);
         let src = lean_sarray_cptr(a);
@@ -166,7 +165,7 @@ pub(crate) mod runtime_object_array_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_byte_array_push(a: *mut LeanObject, b: u8) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_byte_array_push(a: *mut LeanObject, b: u8) -> *mut LeanObject { // duplicate in leanh at line 169 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3425
         let r = lean_sarray_ensure_exclusive(lean_sarray_ensure_capacity(
             a,
             lean_sarray_size(a) + 1,
@@ -179,7 +178,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_byte_array_copy_slice(
+    pub(crate) unsafe fn lean_byte_array_copy_slice( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:135
         src: *mut LeanObject,
         o_src_off: *mut LeanObject,
         dest: *mut LeanObject,
@@ -211,7 +210,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_byte_array_hash(a: *mut LeanObject) -> u64 {
+    pub(crate) unsafe fn lean_byte_array_hash(a: *mut LeanObject) -> u64 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/ByteArray/Basic.lean:118
         lean_runtime_hash_str(lean_sarray_size(a), lean_sarray_cptr(a), 11)
     }
 
@@ -221,7 +220,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_float_array_mk(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_float_array_mk(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:20
         let sz = lean_array_size(a);
         let r = lean_alloc_sarray(core::mem::size_of::<f64>() as c_uint, sz, sz);
         let src = lean_array_cptr(a);
@@ -234,7 +233,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_float_array_data(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_float_array_data(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:21
         let sz = lean_sarray_size(a);
         let r = lean_alloc_array(sz, sz);
         let src = lean_sarray_cptr(a) as *const f64;
@@ -247,7 +246,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_float_array_push(a: *mut LeanObject, d: f64) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_float_array_push(a: *mut LeanObject, d: f64) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/FloatArray/Basic.lean:42
         let r = lean_sarray_ensure_exclusive(lean_sarray_ensure_capacity(
             a,
             lean_sarray_size(a) + 1,
@@ -260,7 +259,7 @@ pub(crate) mod runtime_object_array_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_mk_array(n: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_mk_array(n: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 263 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Array/Basic.lean:224
         let sz = nat_to_size_t(n);
         let r = lean_alloc_array(sz, sz);
         let dst = lean_array_cptr(r);
@@ -278,7 +277,7 @@ pub(crate) mod runtime_object_array_impl {
     // TODO: should use EmitRust implemented lean_list_to_array
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 281 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3190
         let mut sz = 0usize;
         let mut it = lst;
         while !lean_is_scalar(it) {
@@ -300,7 +299,7 @@ pub(crate) mod runtime_object_array_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject { // duplicate in leanh at line 303 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3189
         let mut i = lean_array_size(a);
         let mut r = lean_box(0);
         while i > 0 {
@@ -397,7 +396,7 @@ pub(crate) mod runtime_object_array_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_array_push(
+    pub(crate) unsafe fn lean_array_push( // duplicate in leanh at line 400 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:3305
         a: *mut LeanObject,
         v: *mut LeanObject,
     ) -> *mut LeanObject {

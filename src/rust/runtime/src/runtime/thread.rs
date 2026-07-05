@@ -3,11 +3,11 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod runtime_thread_impl {
     use super::{lean_box, LeanObject};
@@ -165,7 +165,7 @@ pub(crate) mod runtime_thread_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Shell.lean:99
         set_thread_stack_size_internal(sz);
         lean_box(0)
     }
@@ -264,7 +264,7 @@ pub(crate) mod runtime_thread_impl {
 
     #[cfg(lean_multi_thread)]
     #[inline]
-    pub(crate) unsafe fn lean_run_main(
+    pub(crate) unsafe fn lean_run_main( // duplicate in leanh at line 267 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -297,7 +297,7 @@ pub(crate) mod runtime_thread_impl {
 
     #[cfg(not(lean_multi_thread))]
     #[inline]
-    pub(crate) unsafe fn lean_run_main(
+    pub(crate) unsafe fn lean_run_main( // duplicate in leanh at line 300 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,

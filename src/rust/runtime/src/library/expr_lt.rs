@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -60,7 +60,6 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 
 pub(crate) mod library_expr_lt_impl {
     use crate::runtime::runtime_object_name_impl::lean_name_eq;
-    use super::*;
 
     extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
@@ -495,12 +494,12 @@ pub(crate) mod library_expr_lt_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:783
         expr_lt(a, b, true) as u8
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub(crate) unsafe fn lean_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Expr.lean:787
         expr_lt(a, b, false) as u8
     }
 }

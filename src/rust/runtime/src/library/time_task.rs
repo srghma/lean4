@@ -1,8 +1,8 @@
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 /*
 Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
@@ -19,7 +19,6 @@ Exports:
 */
 
 pub(crate) mod library_time_task_impl {
-    use super::*;
     use std::collections::BTreeMap;
     use std::ffi::CStr;
     use std::io::Write;
@@ -161,7 +160,7 @@ pub(crate) mod library_time_task_impl {
 
     /// displayCumulativeProfilingTimes : BaseIO Unit
     #[inline]
-    pub(crate) unsafe fn lean_display_cumulative_profiling_times() -> *mut LeanObject {
+    pub(crate) unsafe fn lean_display_cumulative_profiling_times() -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Util/Profile.lean:53
         if let Ok(cum) = CUM_TIMES.lock() {
             if !cum.is_empty() {
                 let mut s = String::from("cumulative profiling times:\n");
@@ -177,7 +176,7 @@ pub(crate) mod library_time_task_impl {
     /// profileit {α} (category : @& String) (opts : @& Options) (fn : Unit → α) (decl : Name) : α
     /// category and opts are b_obj_arg (borrowed); func and decl are obj_arg (owned).
     #[inline]
-    pub(crate) unsafe fn lean_profileit(
+    pub(crate) unsafe fn lean_profileit( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/Util/Profile.lean:37
         category: *mut LeanObject,
         opts: *mut LeanObject,
         func: *mut LeanObject,

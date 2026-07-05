@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 pub(crate) mod runtime_signal_impl {
-    use super::*;
     use core::ptr::{addr_of_mut, null_mut};
 
     const SIGNAL_STATE_INITIAL: c_int = 0;
@@ -120,7 +119,7 @@ pub(crate) mod runtime_signal_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: u8) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: u8) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Signal.lean:46
         let mut signum = signum_obj as c_int;
 
         #[cfg(not(target_os = "windows"))]
@@ -236,7 +235,7 @@ pub(crate) mod runtime_signal_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_signal_next(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_signal_next(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Signal.lean:67
         let signal = signal_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -291,7 +290,7 @@ pub(crate) mod runtime_signal_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_signal_stop(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_signal_stop(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Signal.lean:77
         let signal = signal_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -320,7 +319,7 @@ pub(crate) mod runtime_signal_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uv_signal_cancel(obj: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_uv_signal_cancel(obj: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Std/Internal/UV/Signal.lean:86
         let signal = signal_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -354,7 +353,6 @@ pub(crate) mod runtime_signal_impl {
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub(crate) mod runtime_signal_impl {
-    use super::*;
 
     #[inline]
     pub(crate) fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {

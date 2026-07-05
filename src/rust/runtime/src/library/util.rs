@@ -12,14 +12,13 @@ still uses directly:
 
 The old C++ util.cpp implementation is removed.
 */
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 pub(crate) mod library_util_impl {
-    use super::*;
     use core::ffi::c_char;
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, Ordering};

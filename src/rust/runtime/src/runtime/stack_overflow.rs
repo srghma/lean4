@@ -3,15 +3,14 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 #[cfg(all(feature = "std", unix))]
 pub(crate) mod runtime_stack_overflow_impl {
-    use super::*;
     use std::mem;
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
@@ -161,7 +160,6 @@ pub(crate) use runtime_stack_overflow_impl::*;
 
 #[cfg(all(feature = "std", windows))]
 pub(crate) mod runtime_stack_overflow_impl {
-    use super::*;
     use std::process;
 
     #[repr(C)]

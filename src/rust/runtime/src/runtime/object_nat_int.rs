@@ -3,16 +3,15 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use crate::leanh::*;
+use leanh::*;
 use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-use crate::runtime::*;
+
 
 // Port of Natural numbers, Integers, UInt, IntX sections from src/runtime/object.cpp.
 
 pub(crate) mod runtime_object_nat_int_impl {
-    use super::*;
     use core::ffi::{c_char, c_int, c_long, c_ulong};
 
 
@@ -23,10 +22,10 @@ pub(crate) mod runtime_object_nat_int_impl {
         _mp_size: c_int,
         _mp_d: *mut u64,
     }
-    pub type MpzT = [MpzStruct; 1];
+    pub type MpzT = [MpzStruct; 1]; // duplicate in leanh at line 26 (🔁)
 
     #[repr(C)]
-    struct LeanMpzObject {
+    struct LeanMpzObject { // duplicate in leanh at line 29 (🔁)
         header: LeanObject,
         value: MpzT,
     }
@@ -72,8 +71,8 @@ pub(crate) mod runtime_object_nat_int_impl {
         fn __gmpz_gcd(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
     }
 
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1;
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in leanh at line 75 (🔁)
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in leanh at line 76 (🔁)
     const LEAN_MAX_SMALL_INT: i32 = i32::MAX;
     const LEAN_MIN_SMALL_INT: i32 = i32::MIN;
 
@@ -246,7 +245,7 @@ pub(crate) mod runtime_object_nat_int_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_cstr_to_nat(n: *const c_char) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_cstr_to_nat(n: *const c_char) -> *mut LeanObject { // duplicate in leanh at line 249 (🔁)
         let mut m = uninit_mpzt();
         __gmpz_init_set_str(&mut m, n, 10);
         mpz_to_nat(&mut m)
@@ -524,7 +523,7 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_nat_shiftl(
+    pub(crate) unsafe fn lean_nat_shiftl( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Bitwise/Basic.lean:78
         a1: *mut LeanObject,
         a2: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -574,12 +573,12 @@ pub(crate) mod runtime_object_nat_int_impl {
 
     #[inline]
     #[cfg(false)]
-    pub(crate) unsafe fn lean_nat_pow(
+    pub(crate) unsafe fn lean_nat_pow( // duplicate in leanh at line 577 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:1789
         a1: *mut LeanObject,
         a2: *mut LeanObject,
     ) -> *mut LeanObject {
         if !lean_is_scalar(a2) || lean_unbox(a2) > u32::MAX as usize {
-            lean_internal_panic(b"Nat.pow exponent is too big\0".as_ptr() as *const c_char);
+            lean_internal_panic(b"Nat.pow exponent is too big\0".as_ptr() as *const c_char); // [lean-audit] Lean imports from Rust ([extern]): Rust does not define this function (missing) (❌) | Lean: src/Init/Data/Float.lean:434
         }
         let exp = lean_unbox(a2) as c_ulong;
         let mut base = uninit_mpzt();
@@ -596,7 +595,7 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_nat_gcd(
+    pub(crate) unsafe fn lean_nat_gcd( // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Gcd.lean:34
         a1: *mut LeanObject,
         a2: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -621,7 +620,7 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_nat_log2(a: *mut LeanObject) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_nat_log2(a: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Data/Nat/Log2.lean:41
         if lean_is_scalar(a) {
             let mut n = lean_unbox(a);
             let mut res: usize = 0;
@@ -1031,7 +1030,7 @@ pub(crate) mod runtime_object_nat_int_impl {
     }
 
     #[inline]
-    pub(crate) unsafe fn lean_uint64_mix_hash(a1: u64, a2: u64) -> u64 {
+    pub(crate) unsafe fn lean_uint64_mix_hash(a1: u64, a2: u64) -> u64 { // duplicate in leanh at line 1034 (🔁) // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Init/Prelude.lean:4643
         mix_hash_u64(a1, a2)
     }
 
