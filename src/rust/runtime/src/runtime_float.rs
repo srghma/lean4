@@ -9,14 +9,7 @@ unsafe extern "C" {
 }
 
 fn lean_scalar_to_int(value: *mut LeanObject) -> c_int {
-    #[cfg(target_pointer_width = "64")]
-    {
-        unsafe { lean_unbox(value) as u32 as i32 }
-    }
-    #[cfg(not(target_pointer_width = "64"))]
-    {
-        (value as isize >> 1) as c_int
-    }
+    unsafe { lean_unbox(value) as u32 as i32 }
 }
 
 fn float_to_string(text: String) -> *mut LeanObject {

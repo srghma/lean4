@@ -14,6 +14,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
     // unused_imports
 )]
 
+#[cfg(not(target_pointer_width = "64"))]
+compile_error!("Lean Rust runtime supports only 64-bit pointer width");
+
 mod base;
 mod kernel_abstract;
 mod kernel_declaration;

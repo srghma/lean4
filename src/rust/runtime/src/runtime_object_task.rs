@@ -776,10 +776,7 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     fn spawn_lean_worker<F: FnOnce() + Send + 'static>(f: F) -> JoinHandle<()> {
-        #[cfg(target_pointer_width = "64")]
         const STACK_SIZE: usize = 1024 * 1024 * 1024; // 1 GB
-        #[cfg(not(target_pointer_width = "64"))]
-        const STACK_SIZE: usize = 8 * 1024 * 1024; // 8 MB
 
         std::thread::Builder::new()
             .stack_size(STACK_SIZE)

@@ -335,32 +335,18 @@ pub(crate) mod runtime_object_rc_impl {
 
     #[inline(always)]
     unsafe fn get_next(o: *mut LeanObject) -> *mut LeanObject { // duplicate in undefined at line 408 (🔁)
-        #[cfg(target_pointer_width = "64")]
-        {
-            let mut header: usize = 0;
-            ptr::copy_nonoverlapping(o as *const u8, &mut header as *mut usize as *mut u8, 8);
-            header &= !(0xffff_usize << 48);
-            header as *mut LeanObject
-        }
-        #[cfg(target_pointer_width = "32")]
-        {
-            *(o as *mut *mut LeanObject)
-        }
+        let mut header: usize = 0;
+        ptr::copy_nonoverlapping(o as *const u8, &mut header as *mut usize as *mut u8, 8);
+        header &= !(0xffff_usize << 48);
+        header as *mut LeanObject
     }
 
     #[inline(always)]
     unsafe fn set_next(o: *mut LeanObject, next: *mut LeanObject) { // duplicate in undefined at line 423 (🔁)
-        #[cfg(target_pointer_width = "64")]
-        {
-            let mut hi: u16 = 0;
-            ptr::copy_nonoverlapping((o as *const u8).add(6), &mut hi as *mut u16 as *mut u8, 2);
-            let header: usize = ((hi as usize) << 48) | (next as usize);
-            ptr::copy_nonoverlapping(&header as *const usize as *const u8, o as *mut u8, 8);
-        }
-        #[cfg(target_pointer_width = "32")]
-        {
-            *(o as *mut *mut LeanObject) = next;
-        }
+        let mut hi: u16 = 0;
+        ptr::copy_nonoverlapping((o as *const u8).add(6), &mut hi as *mut u16 as *mut u8, 2);
+        let header: usize = ((hi as usize) << 48) | (next as usize);
+        ptr::copy_nonoverlapping(&header as *const usize as *const u8, o as *mut u8, 8);
     }
 
     #[inline(always)]
