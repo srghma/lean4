@@ -696,14 +696,9 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObjec
     let mut result = Vec::<u8>::new();
     #[cfg(windows)]
     unsafe {
-        unsafe extern "C" {
-            fn _lock_file(fp: *mut libc::FILE);
-            fn _unlock_file(fp: *mut libc::FILE);
-            fn _fgetc_nolock(fp: *mut libc::FILE) -> libc::c_int;
-        }
-        _lock_file(fp);
+        libc::_lock_file(fp);
         loop {
-            let c = _fgetc_nolock(fp);
+            let c = libc::_fgetc_nolock(fp);
             if c == libc::EOF {
                 break;
             }
@@ -712,18 +707,13 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObjec
                 break;
             }
         }
-        _unlock_file(fp);
+        libc::_unlock_file(fp);
     }
     #[cfg(not(windows))]
     unsafe {
-        unsafe extern "C" {
-            fn flockfile(fp: *mut libc::FILE);
-            fn funlockfile(fp: *mut libc::FILE);
-            fn getc_unlocked(fp: *mut libc::FILE) -> libc::c_int;
-        }
-        flockfile(fp);
+        libc::flockfile(fp);
         loop {
-            let c = getc_unlocked(fp);
+            let c = libc::getc_unlocked(fp);
             if c == libc::EOF {
                 break;
             }
@@ -732,7 +722,7 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObjec
                 break;
             }
         }
-        funlockfile(fp);
+        libc::funlockfile(fp);
     }
 
     if libc::ferror(fp) != 0 {
@@ -793,10 +783,7 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
         _ => libc::O_RDONLY,
     };
 
-    unsafe extern "C" {
-        fn open(path: *const libc::c_char, oflag: libc::c_int, mode: libc::mode_t) -> libc::c_int;
-    }
-    let fd = open(fname, flags, 0o666);
+    let fd = libc::open(fname, flags, 0o666);
     if fd == -1 {
         return lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), filename));
     }
@@ -1200,11 +1187,6 @@ unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanOb
     name_uses_registered_prefix(state, name_prefix(n))
 }
 
-unsafe extern "C" {
-    pub fn write(fd: i32, buf: *const u8, count: usize) -> isize;
-    pub fn abort() -> !;
-}
-
 pub(crate) unsafe fn consume_io_result(result: *mut LeanObject) {
     if lean_io_result_is_ok(result) {
         lean_dec(result);
@@ -1216,10 +1198,10 @@ pub(crate) unsafe fn consume_io_result(result: *mut LeanObject) {
         let text = core::ffi::CStr::from_ptr(lean_string_cstr(msg));
 
         let prefix = b"IO Error in lean_initialize: ";
-        write(2, prefix.as_ptr(), prefix.len());
+        libc::write(2, prefix.as_ptr().cast(), prefix.len());
         let bytes = text.to_bytes();
-        write(2, bytes.as_ptr(), bytes.len());
-        write(2, b"\n".as_ptr(), 1);
+        libc::write(2, bytes.as_ptr().cast(), bytes.len());
+        libc::write(2, b"\n".as_ptr().cast(), 1);
     }
 }
 

@@ -9,11 +9,6 @@ mod runtime_libuv_impl {
     use core::ptr;
     use std::thread;
 
-    #[repr(C)]
-    struct EventLoop {
-        _private: [u8; 0],
-    }
-
     use libuv_sys2::{uv_setup_args as uv_setup_args_sys, uv_version as uv_version_sys};
 
     unsafe extern "C" {
@@ -22,8 +17,6 @@ mod runtime_libuv_impl {
         fn initialize_libuv_udp_socket();
         fn initialize_libuv_signal();
         fn initialize_libuv_loop();
-        fn event_loop_run_loop(event_loop: *mut EventLoop);
-        static mut GLOBAL_EV: EventLoop;
 
         fn lean_initialize_thread();
         fn lean_finalize_thread();
@@ -44,7 +37,7 @@ mod runtime_libuv_impl {
         initialize_libuv_signal();
         initialize_libuv_loop();
 
-        let event_loop_addr = ptr::addr_of_mut!(GLOBAL_EV) as usize;
+        let event_loop_addr = ptr::addr_of_mut!(_ZN4lean9global_evE) as usize;
         thread::spawn(move || unsafe {
             lean_initialize_thread();
             event_loop_run_loop(event_loop_addr as *mut EventLoop);

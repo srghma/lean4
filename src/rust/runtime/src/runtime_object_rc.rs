@@ -144,10 +144,6 @@ pub(crate) mod runtime_object_rc_impl {
     static mut FB_PTR: [usize; FB_N] = [0; FB_N];
     static mut FB_BT: [[*mut c_void; FB_D]; FB_N] = [[ptr::null_mut(); FB_D]; FB_N];
     static FB_HEAD: core::sync::atomic::AtomicUsize = core::sync::atomic::AtomicUsize::new(0);
-    unsafe extern "C" {
-        fn backtrace(buf: *mut *mut c_void, size: i32) -> i32;
-        fn backtrace_symbols_fd(buf: *const *mut c_void, size: i32, fd: i32);
-    }
     #[inline(always)]
     fn qhash(p: usize) -> usize {
         (p >> 4) & QSET_MASK
@@ -175,7 +171,7 @@ pub(crate) mod runtime_object_rc_impl {
         for i in 0..FB_N {
             if *core::ptr::addr_of!(FB_PTR[i]) == p {
                 eprintln!(">>> FREE-SITE (over-decrement) backtrace:");
-                backtrace_symbols_fd(
+                libc::backtrace_symbols_fd(
                     core::ptr::addr_of!(FB_BT[i]) as *const *mut c_void,
                     FB_D as i32,
                     2,
@@ -185,8 +181,8 @@ pub(crate) mod runtime_object_rc_impl {
         }
         eprintln!("--- current backtrace ---");
         let mut bt = [ptr::null_mut::<c_void>(); 32];
-        let n = backtrace(bt.as_mut_ptr(), 32);
-        backtrace_symbols_fd(bt.as_ptr(), n, 2);
+        let n = libc::backtrace(bt.as_mut_ptr(), 32);
+        libc::backtrace_symbols_fd(bt.as_ptr(), n, 2);
         std::process::abort();
     }
     unsafe fn quar_free(o: *mut LeanObject) {
@@ -196,7 +192,7 @@ pub(crate) mod runtime_object_rc_impl {
         for k in 0..FB_D {
             *row.add(k) = ptr::null_mut();
         }
-        backtrace(row, FB_D as i32);
+        libc::backtrace(row, FB_D as i32);
         *core::ptr::addr_of_mut!(FB_PTR[i]) = p;
         let h = qhash(p);
         QSET[h].store(p, Ordering::Relaxed);

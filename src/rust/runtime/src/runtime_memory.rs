@@ -17,10 +17,6 @@ mod runtime_memory_impl {
         static G_COUNTER: Cell<usize> = Cell::new(0);
     }
 
-    unsafe extern "C" {
-        fn throw_memory_exception(component_name: *const c_char) -> !;
-    }
-
     #[cfg(all(unix, not(target_os = "macos")))]
     unsafe fn get_peak_rss() -> usize {
         let mut rusage = std::mem::zeroed::<libc::rusage>();
@@ -155,7 +151,9 @@ mod runtime_memory_impl {
             if r == 0 || r < max {
                 return;
             }
-            throw_memory_exception(component_name);
+            unsafe {
+                throw_memory_exception(component_name);
+            }
         }
     }
     pub unsafe fn get_allocated_memory() -> usize {

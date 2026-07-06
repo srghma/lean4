@@ -367,10 +367,9 @@ mod runtime_process_impl {
                 }
                 #[cfg(not(target_os = "macos"))]
                 {
-                    unsafe extern "C" {
-                        fn clearenv() -> c_int;
+                    unsafe {
+                        libc::clearenv();
                     }
-                    clearenv();
                 }
             }
 

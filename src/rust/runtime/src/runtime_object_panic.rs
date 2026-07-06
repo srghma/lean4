@@ -33,12 +33,6 @@ mod runtime_object_panic_impl {
     mod backtrace_impl {
         use super::*;
 
-        unsafe extern "C" {
-            fn backtrace(buffer: *mut *mut c_void, size: c_int) -> c_int;
-            fn backtrace_symbols(buffer: *const *mut c_void, size: c_int) -> *mut *mut c_char;
-            fn free(ptr: *mut c_void);
-        }
-
         type DemangleBacktraceLine = unsafe fn(*mut LeanObject) -> *mut LeanObject;
 
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
@@ -65,11 +59,11 @@ mod runtime_object_panic_impl {
         pub(super) unsafe fn print_backtrace(force_stderr: bool) {
             const MAX_FRAMES: usize = 100;
             let mut buf = [ptr::null_mut::<c_void>(); MAX_FRAMES];
-            let nptrs = backtrace(buf.as_mut_ptr(), MAX_FRAMES as c_int);
+            let nptrs = libc::backtrace(buf.as_mut_ptr(), MAX_FRAMES as c_int);
             if nptrs <= 0 {
                 return;
             }
-            let symbols = backtrace_symbols(buf.as_ptr(), nptrs);
+            let symbols = libc::backtrace_symbols(buf.as_ptr(), nptrs);
             if symbols.is_null() {
                 return;
             }
@@ -86,7 +80,7 @@ mod runtime_object_panic_impl {
                     panic_eprintln(line.as_bytes(), force_stderr);
                 }
             }
-            free(symbols.cast());
+            libc::free(symbols.cast());
             if nptrs as usize == MAX_FRAMES {
                 panic_eprintln(b"...", force_stderr);
             }

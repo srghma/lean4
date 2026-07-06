@@ -5,20 +5,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_io_stream_impl {
     use crate::*;
+    use libc_stdhandle::{stderr as libc_stderr, stdin as libc_stdin, stdout as libc_stdout};
     use core::cell::Cell;
 
     static mut IO_HANDLE_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
     static mut STREAM_STDIN: *mut LeanObject = ptr::null_mut();
     static mut STREAM_STDOUT: *mut LeanObject = ptr::null_mut();
     static mut STREAM_STDERR: *mut LeanObject = ptr::null_mut();
-
+    
     unsafe extern "C" {
-        static mut stdin: *mut libc::FILE;
-        static mut stdout: *mut libc::FILE;
-        static mut stderr: *mut libc::FILE;
-
         fn lean_stream_of_handle(h: *mut LeanObject) -> *mut LeanObject;
-        fn signal(signum: libc::c_int, handler: usize) -> usize;
     }
 
     struct ThreadStream {
@@ -112,19 +108,17 @@ mod runtime_io_stream_impl {
         IO_HANDLE_EXTERNAL_CLASS =
             lean_register_external_class(Some(io_handle_finalizer), Some(io_handle_foreach));
 
-        STREAM_STDOUT = lean_stream_of_handle(io_wrap_handle(stdout));
+        STREAM_STDOUT = lean_stream_of_handle(io_wrap_handle(libc_stdout()));
         lean_mark_persistent(STREAM_STDOUT);
-        STREAM_STDERR = lean_stream_of_handle(io_wrap_handle(stderr));
+        STREAM_STDERR = lean_stream_of_handle(io_wrap_handle(libc_stderr()));
         lean_mark_persistent(STREAM_STDERR);
-        STREAM_STDIN = lean_stream_of_handle(io_wrap_handle(stdin));
+        STREAM_STDIN = lean_stream_of_handle(io_wrap_handle(libc_stdin()));
         lean_mark_persistent(STREAM_STDIN);
 
         #[cfg(all(unix, not(target_os = "emscripten")))]
         {
             const SIGPIPE: libc::c_int = 13;
-            const SIG_IGN: usize = 1;
-            const SIG_ERR: usize = usize::MAX;
-            assert_ne!(signal(SIGPIPE, SIG_IGN), SIG_ERR);
+            assert_ne!(libc::signal(SIGPIPE, libc::SIG_IGN), libc::SIG_ERR);
         }
     }
     pub fn finalize_io() {}

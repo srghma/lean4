@@ -21,7 +21,9 @@ default-max-memory = []
 [dependencies]
 # leanh = { path = "../leanh" }
 llvm-sys = "191"
+libc-stdhandle = "0.1"
 libc = "0.2"
+libm = "0.2"
 libloading = "0.9"
 libmimalloc-sys = { version = "0.1", features = ["extended"] }
 gmp-mpfr-sys = { version = "1.7", default-features = false }

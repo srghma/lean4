@@ -6,10 +6,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 unsafe extern "C" {
     fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
     fn lean_int_big_nonneg(value: *mut LeanObject) -> bool;
-    fn c_scalbn(value: f64, scale: c_int) -> f64;
-    fn c_scalbnf(value: f32, scale: c_int) -> f32;
-    fn c_frexp(value: f64, exp: *mut c_int) -> f64;
-    fn c_frexpf(value: f32, exp: *mut c_int) -> f32;
 }
 
 fn lean_scalar_to_int(value: *mut LeanObject) -> c_int {
@@ -72,7 +68,7 @@ pub fn lean_float_to_string(value: f64) -> *mut LeanObject {
 
 pub unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
     if lean_is_scalar(scale) {
-        c_scalbn(value, lean_scalar_to_int(scale))
+        libm::scalbn(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
         0.0
     } else {
@@ -105,10 +101,9 @@ pub fn lean_float_to_bits(mut value: f64) -> u64 {
 }
 
 pub unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject {
-    let mut exp = 0;
-    let significand = c_frexp(value, &mut exp);
+    let (significand, exponent) = libm::frexp(value);
     let exp_obj = if value.is_finite() {
-        lean_box_int(exp)
+        lean_box_int(exponent)
     } else {
         lean_box(0)
     };
@@ -125,7 +120,7 @@ pub fn lean_float32_to_string(value: f32) -> *mut LeanObject {
 
 pub unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
     if lean_is_scalar(scale) {
-        c_scalbnf(value, lean_scalar_to_int(scale))
+        libm::scalbnf(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
         0.0
     } else {
@@ -158,10 +153,9 @@ pub fn lean_float32_to_bits(mut value: f32) -> u32 {
 }
 
 pub unsafe fn lean_float32_frexp(value: f32) -> *mut LeanObject {
-    let mut exp = 0;
-    let significand = c_frexpf(value, &mut exp);
+    let (significand, exponent) = libm::frexpf(value);
     let exp_obj = if value.is_finite() {
-        lean_box_int(exp)
+        lean_box_int(exponent)
     } else {
         lean_box(0)
     };

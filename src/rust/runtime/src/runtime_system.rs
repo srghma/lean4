@@ -93,35 +93,21 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    unsafe extern "C" {
-        fn printf(format: *const c_char, ...) -> c_int;
-        fn fflush(stream: *mut c_void) -> c_int;
-    }
-
     pub unsafe fn lean_uv_uptime() -> *mut LeanObject {
-        printf(c"lean_uv_uptime entry\n".as_ptr());
-        fflush(null_mut());
+        eprintln!("lean_uv_uptime entry");
         let mut uptime = 0.0;
         let result = uv_uptime(&mut uptime);
-        printf(
-            c"uv_uptime result = %d, uptime = %f\n".as_ptr(),
-            result,
-            uptime,
-        );
-        fflush(null_mut());
+        eprintln!("uv_uptime result = {result}, uptime = {uptime}");
 
         if result < 0 {
-            printf(c"uv_uptime error\n".as_ptr());
-            fflush(null_mut());
+            eprintln!("uv_uptime error");
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
         let lean_uptime = lean_box_uint64(uptime as u64);
-        printf(c"lean_uptime = %p\n".as_ptr(), lean_uptime);
-        fflush(null_mut());
+        eprintln!("lean_uptime = {lean_uptime:p}");
         let res = lean_io_result_mk_ok(lean_uptime);
-        printf(c"lean_io_result_mk_ok = %p\n".as_ptr(), res);
-        fflush(null_mut());
+        eprintln!("lean_io_result_mk_ok = {res:p}");
         res
     }
 
