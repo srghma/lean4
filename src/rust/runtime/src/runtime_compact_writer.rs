@@ -153,11 +153,8 @@ mod runtime_compact_writer_impl {
 
     #[cfg(target_os = "macos")]
     unsafe fn get_loaded_libs() -> Vec<LibInfo> {
-        extern "C" {
-            fn _dyld_image_count() -> u32;
-            fn _dyld_get_image_header(i: u32) -> *const u8;
-            fn _dyld_get_image_name(i: u32) -> *const c_char;
-        }
+        use mach2::dyld::{_dyld_get_image_header, _dyld_get_image_name, _dyld_image_count};
+
         let n = _dyld_image_count();
         let mut libs = Vec::with_capacity(n as usize);
         for i in 0..n {
