@@ -100,15 +100,6 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanMpzStruct { // duplicate in undefined at line 103 (🔁)
-        _mp_alloc: i32,
-        _mp_size: i32,
-        _mp_d: *mut u64,
-    }
-
-    type MpzT = [LeanMpzStruct; 1]; // duplicate in undefined at line 109 (🔁)
-
-    #[repr(C)]
     struct LeanMpzObject { // duplicate in undefined at line 112 (🔁)
         header: LeanObject,
         m_value: MpzT,
@@ -117,7 +108,6 @@ pub(crate) mod runtime_object_rc_impl {
     extern "C" {
         #[cfg(lean_has_address_sanitizer)]
         fn __lsan_ignore_object(ptr: *mut c_void);
-        fn __gmpz_clear(x: *mut MpzT);
         fn lean_internal_panic(msg: *const i8) -> !;
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_task_get(task: *mut LeanObject) -> *mut LeanObject;

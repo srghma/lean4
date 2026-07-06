@@ -14,14 +14,6 @@ pub(crate) mod runtime_object_nat_int_impl {
     use core::ffi::{c_char, c_int, c_long, c_ulong};
 
     #[repr(C)]
-    pub(crate) struct MpzStruct {
-        _mp_alloc: c_int,
-        _mp_size: c_int,
-        _mp_d: *mut u64,
-    }
-    pub(crate) type MpzT = [MpzStruct; 1]; // duplicate in undefined at line 22 (🔁)
-
-    #[repr(C)]
     struct LeanMpzObject { // duplicate in undefined at line 25 (🔁)
         header: LeanObject,
         value: MpzT,
@@ -29,43 +21,6 @@ pub(crate) mod runtime_object_nat_int_impl {
 
     extern "C" {
         fn lean_internal_panic(msg: *const c_char) -> !;
-        fn __gmpz_init(x: *mut MpzT);
-        fn __gmpz_init_set(rop: *mut MpzT, op: *const MpzT);
-        fn __gmpz_init_set_str(rop: *mut MpzT, s: *const c_char, base: c_int) -> c_int;
-        fn __gmpz_init_set_ui(rop: *mut MpzT, op: c_ulong);
-        fn __gmpz_init_set_si(rop: *mut MpzT, op: c_long);
-        fn __gmpz_clear(x: *mut MpzT);
-        fn __gmpz_set(rop: *mut MpzT, op: *const MpzT);
-        fn __gmpz_size(op: *const MpzT) -> usize;
-        fn __gmpz_getlimbn(op: *const MpzT, n: usize) -> u64;
-        fn __gmpz_get_si(op: *const MpzT) -> c_long;
-        fn __gmpz_get_ui(op: *const MpzT) -> c_ulong;
-        fn __gmpz_sizeinbase(op: *const MpzT, base: c_int) -> usize;
-        fn __gmpz_cmp(op1: *const MpzT, op2: *const MpzT) -> c_int;
-        fn __gmpz_cmp_ui(op1: *const MpzT, op2: c_ulong) -> c_int;
-        fn __gmpz_cmp_si(op1: *const MpzT, op2: c_long) -> c_int;
-        fn __gmpz_add(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
-        fn __gmpz_add_ui(rop: *mut MpzT, op1: *const MpzT, op2: c_ulong);
-        fn __gmpz_sub(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
-        fn __gmpz_sub_ui(rop: *mut MpzT, op1: *const MpzT, op2: c_ulong);
-        fn __gmpz_mul(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
-        fn __gmpz_mul_ui(rop: *mut MpzT, op1: *const MpzT, op2: c_ulong);
-        fn __gmpz_mul_si(rop: *mut MpzT, op1: *const MpzT, op2: c_long);
-        fn __gmpz_mul_2exp(rop: *mut MpzT, op1: *const MpzT, op2: u64);
-        fn __gmpz_neg(rop: *mut MpzT, op: *const MpzT);
-        fn __gmpz_tdiv_q(q: *mut MpzT, n: *const MpzT, d: *const MpzT);
-        fn __gmpz_tdiv_q_ui(q: *mut MpzT, n: *const MpzT, d: c_ulong);
-        fn __gmpz_tdiv_q_2exp(q: *mut MpzT, n: *const MpzT, b: u64);
-        fn __gmpz_tdiv_qr(q: *mut MpzT, r: *mut MpzT, n: *const MpzT, d: *const MpzT);
-        fn __gmpz_tdiv_r(r: *mut MpzT, n: *const MpzT, d: *const MpzT);
-        fn __gmpz_divexact(q: *mut MpzT, n: *const MpzT, d: *const MpzT);
-        fn __gmpz_fdiv_r_2exp(r: *mut MpzT, n: *const MpzT, b: u64);
-        fn __gmpz_fdiv_q_2exp(q: *mut MpzT, n: *const MpzT, b: u64);
-        fn __gmpz_pow_ui(rop: *mut MpzT, base: *const MpzT, exp: c_ulong);
-        fn __gmpz_and(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
-        fn __gmpz_ior(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
-        fn __gmpz_xor(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
-        fn __gmpz_gcd(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
     }
 
     const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 71 (🔁)

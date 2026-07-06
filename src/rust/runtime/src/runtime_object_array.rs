@@ -14,15 +14,6 @@ mod runtime_object_array_impl {
     compile_error!("runtime_object_array.rs requires lean_use_gmp cfg flag");
 
     #[repr(C)]
-    struct MpzStruct {
-        _mp_alloc: c_int,
-        _mp_size: c_int,
-        _mp_d: *mut u64,
-    }
-
-    type MpzT = [MpzStruct; 1]; // duplicate in undefined at line 23 (🔁)
-
-    #[repr(C)]
     struct LeanMpzObject { // duplicate in undefined at line 26 (🔁)
         header: LeanObject,
         value: MpzT,
@@ -36,8 +27,6 @@ mod runtime_object_array_impl {
     }
 
     extern "C" {
-        fn __gmpz_size(op: *const MpzT) -> usize;
-        fn __gmpz_getlimbn(op: *const MpzT, n: usize) -> c_ulong;
         fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 41 (🔁)
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;

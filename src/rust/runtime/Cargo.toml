@@ -23,6 +23,7 @@ leanh = { path = "../leanh" }
 libc = "0.2"
 libloading = "0.9"
 libmimalloc-sys = "0.1"
+gmp-mpfr-sys = { version = "1.7", default-features = false }
 
 [target.'cfg(target_os = "macos")'.dependencies]
 mach2 = "0.6"

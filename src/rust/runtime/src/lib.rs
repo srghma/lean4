@@ -83,3 +83,24 @@ mod runtime_tcp;
 mod runtime_thread;
 mod runtime_timer;
 mod runtime_udp;
+
+#[allow(unused_imports)]
+pub(crate) use gmp_mpfr_sys::gmp::{
+    __mpz_struct as MpzStruct, mpz_t as MpzT, mpz_add as __gmpz_add,
+    mpz_add_ui as __gmpz_add_ui, mpz_and as __gmpz_and, mpz_clear as __gmpz_clear,
+    mpz_cmp as __gmpz_cmp, mpz_cmp_si as __gmpz_cmp_si, mpz_cmp_ui as __gmpz_cmp_ui,
+    mpz_divexact as __gmpz_divexact, mpz_fdiv_q_2exp as __gmpz_fdiv_q_2exp,
+    mpz_fdiv_r_2exp as __gmpz_fdiv_r_2exp, mpz_fits_sint_p as __gmpz_fits_sint_p,
+    mpz_fits_uint_p as __gmpz_fits_uint_p, mpz_gcd as __gmpz_gcd,
+    mpz_get_si as __gmpz_get_si, mpz_get_ui as __gmpz_get_ui,
+    mpz_getlimbn as __gmpz_getlimbn, mpz_init as __gmpz_init,
+    mpz_init_set as __gmpz_init_set, mpz_init_set_si as __gmpz_init_set_si,
+    mpz_init_set_str as __gmpz_init_set_str, mpz_init_set_ui as __gmpz_init_set_ui,
+    mpz_ior as __gmpz_ior, mpz_mul as __gmpz_mul, mpz_mul_2exp as __gmpz_mul_2exp,
+    mpz_mul_si as __gmpz_mul_si, mpz_mul_ui as __gmpz_mul_ui, mpz_neg as __gmpz_neg,
+    mpz_pow_ui as __gmpz_pow_ui, mpz_set as __gmpz_set, mpz_size as __gmpz_size,
+    mpz_sizeinbase as __gmpz_sizeinbase, mpz_sub as __gmpz_sub,
+    mpz_sub_ui as __gmpz_sub_ui, mpz_swap as __gmpz_swap, mpz_tdiv_q as __gmpz_tdiv_q,
+    mpz_tdiv_q_2exp as __gmpz_tdiv_q_2exp, mpz_tdiv_q_ui as __gmpz_tdiv_q_ui,
+    mpz_tdiv_qr as __gmpz_tdiv_qr, mpz_tdiv_r as __gmpz_tdiv_r, mpz_xor as __gmpz_xor,
+};
