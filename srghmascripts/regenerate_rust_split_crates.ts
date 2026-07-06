@@ -128,7 +128,6 @@ const writeCommonCrate = async () => {
       'libloading = "0.9"',
       "",
       "[lints.rust]",
-      'unexpected_cfgs = { level = "warn", check-cfg = [\'cfg(lean_lazy_rc)\'] }',
       "",
     ].join("\n"),
   );

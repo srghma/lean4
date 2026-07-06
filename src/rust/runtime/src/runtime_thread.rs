@@ -87,10 +87,8 @@ mod runtime_thread_impl {
         }
     }
 
-    #[cfg(not(lean_small_allocator))]
     pub fn lean_initialize_thread() {}
 
-    #[cfg(not(lean_small_allocator))]
     pub unsafe fn lean_finalize_thread() {
         run_thread_finalizers_internal();
         run_post_thread_finalizers_internal();
@@ -100,7 +98,7 @@ mod runtime_thread_impl {
     }
     pub unsafe fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_FINALIZERS, f, data);
-    }fn
+    }
     pub unsafe fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_POST_FINALIZERS, f, data);
     }
@@ -132,12 +130,7 @@ mod runtime_thread_impl {
         fn get_max_heartbeat() -> usize;
         fn set_max_heartbeat(max: usize);
 
-        // lean_initialize_thread on small-allocator builds comes from C++ thread.cpp;
-        // on non-small-allocator it's the Rust no-op defined above.
-        #[cfg(lean_small_allocator)]
         fn lean_initialize_thread();
-        // lean_finalize_thread on small-allocator builds comes from C++ thread.cpp.
-        #[cfg(lean_small_allocator)]
         fn lean_finalize_thread();
     }
 
@@ -148,13 +141,13 @@ mod runtime_thread_impl {
     #[cfg(target_os = "emscripten")]
     const LEAN_DEFAULT_THREAD_STACK_SIZE: usize = 8 * 1024 * 1024; // 8 MB
 
-    statfnTACK_SIZE: AtomicUsize = AtomicUsize::new(LEAN_DEFAULT_THREAD_STACK_SIZE);
+    static G_THREAD_STACK_SIZE: AtomicUsize = AtomicUsize::new(LEAN_DEFAULT_THREAD_STACK_SIZE);
 
     fn get_thread_stack_size() -> usize {
         G_THREAD_STACK_SIZE.load(Ordering::Relaxed)
     }
 
-    fn sfnck_size_internal(sz: usize) {
+    fn set_thread_stack_size_internal(sz: usize) {
         G_THREAD_STACK_SIZE.store(sz + LEAN_STACK_BUFFER_SPACE, Ordering::Relaxed);
     }
 
@@ -207,13 +200,13 @@ mod runtime_thread_impl {
                     panic!("lean: failed to set thread stack size");
                 }
                 let boxed: Box<ThreadClosure> = Box::new(f);
-        fnaw = Box::into_raw(boxed) as *mut c_void;
+                let raw = Box::into_raw(boxed) as *mut c_void;
                 let mut thread = MaybeUninit::<pthread_t>::uninit();
                 if pthread_create(thread.as_mut_ptr(), &attr, lthread_entry, raw) != 0 {
                     drop(Box::from_raw(raw as *mut ThreadClosure));
                     pthread_attr_destroy(&mut attr);
                     panic!("lean: failed to create thread");
-    fn
+                }
                 LThread {
                     attr,
                     thread: thread.assume_init(),

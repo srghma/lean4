@@ -107,21 +107,13 @@ pub(crate) mod runtime_object_nat_int_impl {
     unsafe fn alloc_mpz(mpz: *const MpzT) -> *mut LeanObject {
         let sz = core::mem::size_of::<LeanMpzObject>();
         let obj = runtime_object_rc_impl::lean_alloc_small_object(sz);
-        #[cfg(lean_has_mimalloc)]
         let saved_cs_size = (*obj).cs_size;
         let slot = lean_mpz_val_mut(obj);
         __gmpz_init_set(slot, mpz);
         (*obj).rc = 1;
         (*obj).tag = LEAN_MPZ_TAG;
         (*obj).other = 0;
-        #[cfg(lean_has_mimalloc)]
-        {
-            (*obj).cs_size = saved_cs_size;
-        }
-        #[cfg(not(lean_has_mimalloc))]
-        {
-            (*obj).cs_size = 0;
-        }
+        (*obj).cs_size = saved_cs_size;
         obj
     }
 

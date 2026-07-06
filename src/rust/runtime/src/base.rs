@@ -382,10 +382,6 @@ pub unsafe fn lean_runtime_alloc_ctor(
         .expect("constructor allocation overflow");
     let obj = runtime_object_rc_impl::lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject;
     (*obj).header.rc = 1;
-    #[cfg(not(lean_has_mimalloc))]
-    {
-        (*obj).header.cs_size = 0;
-    }
     (*obj).header.other = num_objs as u8;
     (*obj).header.tag = tag as u8;
     obj as *mut LeanObject
@@ -971,10 +967,6 @@ pub unsafe fn lean_runtime_alloc_external(
         LeanExternalObject,
     >()) as *mut LeanExternalObject;
     (*obj).header.rc = 1;
-    #[cfg(not(lean_has_mimalloc))]
-    {
-        (*obj).header.cs_size = 0;
-    }
     (*obj).header.other = 0;
     (*obj).header.tag = LEAN_EXTERNAL_TAG;
     (*obj).class = class;

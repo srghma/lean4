@@ -13,27 +13,9 @@ mod runtime_object_size_impl {
     const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 13 (🔁)
     const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 14 (🔁)
 
-    extern "C" {
-        #[cfg(lean_small_allocator)]
-        fn lean_small_mem_size(o: *mut LeanObject) -> c_uint;
-    }
-
     #[inline]
     unsafe fn lean_small_object_size(o: *mut LeanObject) -> usize {
-        #[cfg(lean_small_allocator)]
-        {
-            lean_small_mem_size(o) as usize
-        }
-
-        #[cfg(all(not(lean_small_allocator), lean_has_mimalloc))]
-        {
-            (*o).cs_size as usize
-        }
-
-        #[cfg(all(not(lean_small_allocator), not(lean_has_mimalloc)))]
-        {
-            *((o as *const usize).sub(1))
-        }
+        (*o).cs_size as usize
     }
 
     #[inline]

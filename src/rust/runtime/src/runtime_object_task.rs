@@ -94,10 +94,7 @@ pub(crate) mod runtime_object_task_impl {
         (*obj).header.rc = 1;
         (*obj).header.other = 0;
         (*obj).header.tag = LEAN_CLOSURE_TAG;
-        #[cfg(not(lean_has_mimalloc))]
-        {
-            (*obj).header.cs_size = 0;
-        }
+        (*obj).header.cs_size = 0;
         (*obj).fun = fun;
         (*obj).arity = arity as u16;
         (*obj).num_fixed = num_fixed as u16;
