@@ -1,3 +1,10 @@
+use core::ffi::c_void;
+
+use crate::{
+    LeanClosureObject, LeanObject, lean_alloc_closure, lean_dec, lean_dec_ref, lean_free_object,
+    lean_inc, lean_is_exclusive, lean_is_scalar_bool,
+};
+
 #[inline]
 fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void {
     let clo = f as *mut LeanClosureObject<0>;
@@ -240,7 +247,9 @@ fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObj
         13 => call!(CurryFn13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         14 => call!(CurryFn14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
         15 => call!(CurryFn15, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
-        16 => call!(CurryFn16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
+        16 => call!(
+            CurryFn16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+        ),
         _ => {
             let f: unsafe fn(*mut *mut LeanObject) -> *mut LeanObject =
                 unsafe { core::mem::transmute(fun) };
