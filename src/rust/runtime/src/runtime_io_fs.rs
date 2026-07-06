@@ -472,9 +472,6 @@ mod runtime_io_fs_impl {
             }
 
             while remain > 0 {
-                #[cfg(target_os = "emscripten")]
-                let read_size = remain.min(65536);
-                #[cfg(not(target_os = "emscripten"))]
                 let read_size = remain;
 
                 let nread = libc::read(fd, dst.cast(), read_size);
@@ -567,11 +564,7 @@ mod runtime_io_fs_impl {
             }
             lean_io_result_mk_ok(lean_mk_string(buf2.as_ptr().cast()))
         }
-        #[cfg(target_os = "emscripten")]
-        {
-            io_error_from_str(c"no Lean executable file exists in WASM outside of Node.js".as_ptr())
-        }
-        #[cfg(not(any(target_os = "windows", target_os = "macos", target_os = "emscripten")))]
+        #[cfg(not(any(target_os = "windows", target_os = "macos")))]
         {
             // Linux and other Unix-like systems
             let mut dest = [0u8; libc::PATH_MAX as usize];

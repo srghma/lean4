@@ -133,10 +133,7 @@ mod runtime_thread_impl {
 
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024;
 
-    #[cfg(not(target_os = "emscripten"))]
     const LEAN_DEFAULT_THREAD_STACK_SIZE: usize = 1024 * 1024 * 1024; // 1 GB
-    #[cfg(target_os = "emscripten")]
-    const LEAN_DEFAULT_THREAD_STACK_SIZE: usize = 8 * 1024 * 1024; // 8 MB
 
     static G_THREAD_STACK_SIZE: AtomicUsize = AtomicUsize::new(LEAN_DEFAULT_THREAD_STACK_SIZE);
 

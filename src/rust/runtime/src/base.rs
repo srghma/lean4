@@ -972,13 +972,10 @@ pub unsafe fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject 
 }
 
 pub unsafe fn lean_runtime_get_lean_num_threads() -> c_uint {
-    #[cfg(not(target_os = "emscripten"))]
-    {
-        let name = b"LEAN_NUM_THREADS\0";
-        let value = libc::getenv(name.as_ptr().cast());
-        if !value.is_null() {
-            return libc::atoi(value) as c_uint;
-        }
+    let name = b"LEAN_NUM_THREADS\0";
+    let value = libc::getenv(name.as_ptr().cast());
+    if !value.is_null() {
+        return libc::atoi(value) as c_uint;
     }
     std::thread::available_parallelism()
         .map(|count| count.get() as c_uint)
@@ -1620,7 +1617,7 @@ pub fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
 }
 
 pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
-    cfg!(target_os = "emscripten") as u8
+    0
 }
 
 static INITIALIZING: core::sync::atomic::AtomicBool = core::sync::atomic::AtomicBool::new(true);

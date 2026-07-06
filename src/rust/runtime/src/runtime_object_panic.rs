@@ -93,14 +93,7 @@ mod runtime_object_panic_impl {
     }
 
     fn should_abort_on_panic() -> bool {
-        #[cfg(target_os = "emscripten")]
-        {
-            false
-        }
-        #[cfg(not(target_os = "emscripten"))]
-        {
-            std::env::var_os("LEAN_ABORT_ON_PANIC").is_some()
-        }
+        std::env::var_os("LEAN_ABORT_ON_PANIC").is_some()
     }
 
     fn abort_on_panic() {

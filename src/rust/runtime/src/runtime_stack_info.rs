@@ -30,7 +30,7 @@ mod runtime_stack_info_impl {
         &dummy as *const u8 as usize
     }
 
-    #[cfg(all(unix, not(target_os = "emscripten")))]
+    #[cfg(unix)]
     unsafe fn get_stack_size(main: bool) -> usize {
         if main {
             let mut limit = std::mem::zeroed::<libc::rlimit>();
@@ -38,21 +38,6 @@ mod runtime_stack_info_impl {
                 throw_get_stack_size_failed();
             }
             limit.rlim_cur as usize
-        } else {
-            lthread_get_thread_stack_size()
-        }
-    }
-
-    #[cfg(target_os = "emscripten")]
-    unsafe extern "C" {
-        fn emscripten_stack_get_end() -> usize;
-        fn emscripten_stack_get_base() -> usize;
-    }
-
-    #[cfg(target_os = "emscripten")]
-    unsafe fn get_stack_size(main: bool) -> usize {
-        if main {
-            emscripten_stack_get_end().saturating_sub(emscripten_stack_get_base())
         } else {
             lthread_get_thread_stack_size()
         }

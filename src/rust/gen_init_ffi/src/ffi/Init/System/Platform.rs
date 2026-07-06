@@ -11,7 +11,7 @@ pub fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
 }
 
 pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
-    todo!("Stub for lean_system_platform_emscripten");
+    0
 }
 
 pub fn lean_system_platform_target(_: *mut LeanObject) -> *mut LeanObject {

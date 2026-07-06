@@ -115,7 +115,7 @@ mod runtime_io_stream_impl {
         STREAM_STDIN = lean_stream_of_handle(io_wrap_handle(libc_stdin()));
         lean_mark_persistent(STREAM_STDIN);
 
-        #[cfg(all(unix, not(target_os = "emscripten")))]
+        #[cfg(unix)]
         {
             const SIGPIPE: libc::c_int = 13;
             assert_ne!(libc::signal(SIGPIPE, libc::SIG_IGN), libc::SIG_ERR);
