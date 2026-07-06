@@ -8,6 +8,10 @@ mod runtime_dns_impl {
     use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
+    use libuv_sys2::{
+        uv_freeaddrinfo as uv_freeaddrinfo_sys, uv_getaddrinfo as uv_getaddrinfo_sys,
+        uv_getnameinfo as uv_getnameinfo_sys,
+    };
 
     #[repr(C, align(8))]
     struct UvGetAddrInfo {
@@ -19,24 +23,45 @@ mod runtime_dns_impl {
         _storage: [u8; 1320],
     }
 
-    extern "C" {
-        fn uv_getaddrinfo(
-            loop_: *mut c_void,
-            req: *mut UvGetAddrInfo,
-            cb: Option<unsafe fn(*mut UvGetAddrInfo, c_int, *mut libc::addrinfo)>,
-            node: *const c_char,
-            service: *const c_char,
-            hints: *const libc::addrinfo,
-        ) -> c_int;
-        fn uv_freeaddrinfo(ai: *mut libc::addrinfo);
-        fn uv_getnameinfo(
-            loop_: *mut c_void,
-            req: *mut UvGetNameInfo,
-            cb: Option<unsafe fn(*mut UvGetNameInfo, c_int, *const c_char, *const c_char)>,
-            addr: *const libc::sockaddr,
-            flags: c_int,
-        ) -> c_int;
+    unsafe fn uv_getaddrinfo(
+        loop_: *mut c_void,
+        req: *mut UvGetAddrInfo,
+        cb: Option<unsafe fn(*mut UvGetAddrInfo, c_int, *mut libc::addrinfo)>,
+        node: *const c_char,
+        service: *const c_char,
+        hints: *const libc::addrinfo,
+    ) -> c_int {
+        uv_getaddrinfo_sys(
+            loop_,
+            req.cast(),
+            cb.map(|cb| core::mem::transmute(cb)),
+            node,
+            service,
+            hints,
+        )
+    }
 
+    unsafe fn uv_freeaddrinfo(ai: *mut libc::addrinfo) {
+        uv_freeaddrinfo_sys(ai)
+    }
+
+    unsafe fn uv_getnameinfo(
+        loop_: *mut c_void,
+        req: *mut UvGetNameInfo,
+        cb: Option<unsafe fn(*mut UvGetNameInfo, c_int, *const c_char, *const c_char)>,
+        addr: *const libc::sockaddr,
+        flags: c_int,
+    ) -> c_int {
+        uv_getnameinfo_sys(
+            loop_,
+            req.cast(),
+            cb.map(|cb| core::mem::transmute(cb)),
+            addr,
+            flags,
+        )
+    }
+
+    extern "C" {
         fn lean_in6_addr_to_ipv6_addr(ipv6_addr: *const libc::in6_addr) -> *mut LeanObject;
         fn lean_in_addr_to_ipv4_addr(ipv4_addr: *const libc::in_addr) -> *mut LeanObject;
         fn lean_socket_address_to_sockaddr_storage(
@@ -93,14 +118,14 @@ mod runtime_dns_impl {
         if !is_safe_ascii_str(name_cstr, lean_string_size(name) - 1) {
             return lean_io_result_mk_error(lean_mk_io_error_invalid_argument(
                 libc::EINVAL as u32,
-                lean_mk_string(c"name is not ASCII".as_ptr()),
+                lean_mk_string(b"name is not ASCII\0".as_ptr().cast()),
             ));
         }
 
         if !is_safe_ascii_str(service_cstr, lean_string_size(service) - 1) {
             return lean_io_result_mk_error(lean_mk_io_error_invalid_argument(
                 libc::EINVAL as u32,
-                lean_mk_string(c"service is not ASCII".as_ptr()),
+                lean_mk_string(b"service is not ASCII\0".as_ptr().cast()),
             ));
         }
 

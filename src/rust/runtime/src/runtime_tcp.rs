@@ -8,6 +8,15 @@ mod runtime_tcp_impl {
     use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
+    use libuv_sys2::{
+        uv_accept as uv_accept_sys, uv_buf_init as uv_buf_init_sys, uv_close as uv_close_sys,
+        uv_listen as uv_listen_sys, uv_read_start as uv_read_start_sys,
+        uv_read_stop as uv_read_stop_sys, uv_shutdown as uv_shutdown_sys,
+        uv_tcp_bind as uv_tcp_bind_sys, uv_tcp_connect as uv_tcp_connect_sys,
+        uv_tcp_getpeername as uv_tcp_getpeername_sys, uv_tcp_getsockname as uv_tcp_getsockname_sys,
+        uv_tcp_init as uv_tcp_init_sys, uv_tcp_keepalive as uv_tcp_keepalive_sys,
+        uv_tcp_nodelay as uv_tcp_nodelay_sys, uv_write as uv_write_sys,
+    };
 
     #[repr(C)]
     pub struct LeanUvTcpSocketObject {
@@ -55,55 +64,102 @@ mod runtime_tcp_impl {
         _storage: [u8; 80],
     }
 
+    unsafe fn uv_tcp_init(loop_: *mut c_void, handle: *mut c_void) -> c_int {
+        uv_tcp_init_sys(loop_.cast(), handle.cast())
+    }
+
+    unsafe fn uv_tcp_connect(
+        req: *mut uv_connect_t,
+        handle: *mut c_void,
+        addr: *const libc::sockaddr,
+        cb: Option<unsafe fn(*mut uv_connect_t, c_int)>,
+    ) -> c_int {
+        uv_tcp_connect_sys(req.cast(), handle.cast(), addr, cb.map(|cb| core::mem::transmute(cb)))
+    }
+
+    unsafe fn uv_write(
+        req: *mut uv_write_t,
+        handle: *mut c_void,
+        bufs: *const uv_buf_t,
+        nbufs: c_uint,
+        cb: Option<unsafe fn(*mut uv_write_t, c_int)>,
+    ) -> c_int {
+        uv_write_sys(req.cast(), handle.cast(), bufs.cast(), nbufs, cb.map(|cb| core::mem::transmute(cb)))
+    }
+
+    unsafe fn uv_read_start(
+        stream: *mut c_void,
+        alloc_cb: Option<unsafe fn(*mut c_void, usize, *mut uv_buf_t)>,
+        read_cb: Option<unsafe fn(*mut c_void, isize, *const uv_buf_t)>,
+    ) -> c_int {
+        uv_read_start_sys(
+            stream.cast(),
+            alloc_cb.map(|cb| core::mem::transmute(cb)),
+            read_cb.map(|cb| core::mem::transmute(cb)),
+        )
+    }
+
+    unsafe fn uv_read_stop(stream: *mut c_void) -> c_int {
+        uv_read_stop_sys(stream.cast())
+    }
+
+    unsafe fn uv_tcp_bind(handle: *mut c_void, addr: *const libc::sockaddr, flags: c_uint) -> c_int {
+        uv_tcp_bind_sys(handle.cast(), addr, flags)
+    }
+
+    unsafe fn uv_listen(
+        stream: *mut c_void,
+        backlog: c_int,
+        cb: Option<unsafe fn(*mut c_void, c_int)>,
+    ) -> c_int {
+        uv_listen_sys(stream.cast(), backlog, cb.map(|cb| core::mem::transmute(cb)))
+    }
+
+    unsafe fn uv_accept(server: *mut c_void, client: *mut c_void) -> c_int {
+        uv_accept_sys(server.cast(), client.cast())
+    }
+
+    unsafe fn uv_shutdown(
+        req: *mut uv_shutdown_t,
+        handle: *mut c_void,
+        cb: Option<unsafe fn(*mut uv_shutdown_t, c_int)>,
+    ) -> c_int {
+        uv_shutdown_sys(req.cast(), handle.cast(), cb.map(|cb| core::mem::transmute(cb)))
+    }
+
+    unsafe fn uv_tcp_getpeername(
+        handle: *const c_void,
+        name: *mut libc::sockaddr,
+        namelen: *mut c_int,
+    ) -> c_int {
+        uv_tcp_getpeername_sys(handle.cast(), name, namelen)
+    }
+
+    unsafe fn uv_tcp_getsockname(
+        handle: *const c_void,
+        name: *mut libc::sockaddr,
+        namelen: *mut c_int,
+    ) -> c_int {
+        uv_tcp_getsockname_sys(handle.cast(), name, namelen)
+    }
+
+    unsafe fn uv_tcp_nodelay(handle: *mut c_void, enable: c_int) -> c_int {
+        uv_tcp_nodelay_sys(handle.cast(), enable)
+    }
+
+    unsafe fn uv_tcp_keepalive(handle: *mut c_void, enable: c_int, delay: c_uint) -> c_int {
+        uv_tcp_keepalive_sys(handle.cast(), enable, delay)
+    }
+
+    unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
+        uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)))
+    }
+
+    unsafe fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t {
+        core::mem::transmute(uv_buf_init_sys(base, len))
+    }
+
     extern "C" {
-        fn uv_tcp_init(loop_: *mut c_void, handle: *mut c_void) -> c_int;
-        fn uv_tcp_connect(
-            req: *mut uv_connect_t,
-            handle: *mut c_void,
-            addr: *const libc::sockaddr,
-            cb: Option<unsafe fn(*mut uv_connect_t, c_int)>,
-        ) -> c_int;
-        fn uv_write(
-            req: *mut uv_write_t,
-            handle: *mut c_void,
-            bufs: *const uv_buf_t,
-            nbufs: c_uint,
-            cb: Option<unsafe fn(*mut uv_write_t, c_int)>,
-        ) -> c_int;
-        fn uv_read_start(
-            stream: *mut c_void,
-            alloc_cb: Option<unsafe fn(*mut c_void, usize, *mut uv_buf_t)>,
-            read_cb: Option<unsafe fn(*mut c_void, isize, *const uv_buf_t)>,
-        ) -> c_int;
-        fn uv_read_stop(stream: *mut c_void) -> c_int;
-        fn uv_tcp_bind(handle: *mut c_void, addr: *const libc::sockaddr, flags: c_uint) -> c_int;
-        fn uv_listen(
-            stream: *mut c_void,
-            backlog: c_int,
-            cb: Option<unsafe fn(*mut c_void, c_int)>,
-        ) -> c_int;
-        fn uv_accept(server: *mut c_void, client: *mut c_void) -> c_int;
-        fn uv_shutdown(
-            req: *mut uv_shutdown_t,
-            handle: *mut c_void,
-            cb: Option<unsafe fn(*mut uv_shutdown_t, c_int)>,
-        ) -> c_int;
-        fn uv_tcp_getpeername(
-            handle: *const c_void,
-            name: *mut libc::sockaddr,
-            namelen: *mut c_int,
-        ) -> c_int;
-        fn uv_tcp_getsockname(
-            handle: *const c_void,
-            name: *mut libc::sockaddr,
-            namelen: *mut c_int,
-        ) -> c_int;
-        fn uv_tcp_nodelay(handle: *mut c_void, enable: c_int) -> c_int;
-        fn uv_tcp_keepalive(handle: *mut c_void, enable: c_int, delay: c_uint) -> c_int;
-
-        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>);
-        fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t;
-
         fn lean_socket_address_to_sockaddr_storage(
             ip_addr: *mut LeanObject,
             out: *mut libc::sockaddr_storage,
@@ -668,7 +724,7 @@ mod runtime_tcp_impl {
             event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
             return lean_io_result_mk_error(lean_decode_uv_error(
                 UV_EALREADY,
-                lean_mk_string(c"parallel accept is not allowed! consider binding multiple sockets to the same address and accepting on them instead".as_ptr()),
+                lean_mk_string(b"parallel accept is not allowed! consider binding multiple sockets to the same address and accepting on them instead\0".as_ptr().cast()),
             ));
         }
 
@@ -709,7 +765,7 @@ mod runtime_tcp_impl {
             event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
             return lean_io_result_mk_error(lean_decode_uv_error(
                 UV_EALREADY,
-                lean_mk_string(c"parallel accept is not allowed! consider binding multiple sockets to the same address and accepting on them instead".as_ptr()),
+                lean_mk_string(b"parallel accept is not allowed! consider binding multiple sockets to the same address and accepting on them instead\0".as_ptr().cast()),
             ));
         }
 
@@ -767,7 +823,7 @@ mod runtime_tcp_impl {
             event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
             return lean_io_result_mk_error(lean_decode_uv_error(
                 UV_EALREADY,
-                lean_mk_string(c"shutdown already in progress".as_ptr()),
+                lean_mk_string(b"shutdown already in progress\0".as_ptr().cast()),
             ));
         }
 
@@ -906,55 +962,67 @@ mod runtime_tcp_impl {
     pub fn lean_uv_tcp_new() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub fn lean_uv_tcp_connect(
-        _: *mut LeanObject,
-        fnbject,
-    ) -> *mut LeanObject {
+
+    pub fn lean_uv_tcp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
+
     pub fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
+
     pub fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }fn
+    }
 }
 
-#[cfg(alfnstd", target_family = "wasm"))]
+#[cfg(all(feature = "std", target_family = "wasm"))]
 pub use runtime_tcp_impl::*;

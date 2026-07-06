@@ -7,6 +7,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_timer_impl {
     use super::*;
     use core::ptr::{addr_of_mut, null_mut};
+    use libuv_sys2::{
+        uv_close as uv_close_sys, uv_timer_init as uv_timer_init_sys,
+        uv_timer_start as uv_timer_start_sys, uv_timer_stop as uv_timer_stop_sys,
+    };
 
     const TIMER_STATE_INITIAL: c_int = 0;
     const TIMER_STATE_RUNNING: c_int = 1;
@@ -30,16 +34,25 @@ mod runtime_timer_impl {
 
     static mut UV_TIMER_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
 
-    extern "C" {
-        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>);
-        fn uv_timer_init(loop_: *mut UvLoop, handle: *mut UvTimer) -> c_int;
-        fn uv_timer_start(
-            handle: *mut UvTimer,
-            cb: Option<unsafe fn(*mut UvTimer)>,
-            timeout: u64,
-            repeat: u64,
-        ) -> c_int;
-        fn uv_timer_stop(handle: *mut UvTimer) -> c_int;
+    unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
+        uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)));
+    }
+
+    unsafe fn uv_timer_init(loop_: *mut UvLoop, handle: *mut UvTimer) -> c_int {
+        uv_timer_init_sys(loop_.cast(), handle.cast())
+    }
+
+    unsafe fn uv_timer_start(
+        handle: *mut UvTimer,
+        cb: Option<unsafe fn(*mut UvTimer)>,
+        timeout: u64,
+        repeat: u64,
+    ) -> c_int {
+        uv_timer_start_sys(handle.cast(), cb.map(|cb| core::mem::transmute(cb)), timeout, repeat)
+    }
+
+    unsafe fn uv_timer_stop(handle: *mut UvTimer) -> c_int {
+        uv_timer_stop_sys(handle.cast())
     }
 
     unsafe fn timer_from_obj(obj: *mut LeanObject) -> *mut LeanUvTimerObject {

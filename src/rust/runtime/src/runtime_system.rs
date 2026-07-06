@@ -8,6 +8,18 @@ mod runtime_system_impl {
     use super::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, addr_of_mut, null_mut};
+    use libuv_sys2::{
+        uv_chdir, uv_cpu_info, uv_cpu_info_t as UvCpuInfo, uv_cwd, uv_exepath, uv_free_cpu_info,
+        uv_get_available_memory, uv_get_constrained_memory, uv_get_free_memory,
+        uv_get_process_title, uv_get_total_memory, uv_getrusage, uv_gethostname, uv_getpid,
+        uv_getppid, uv_getpriority, uv_group_t as UvGroup, uv_hrtime, uv_os_environ,
+        uv_os_free_environ, uv_os_free_group, uv_os_free_passwd, uv_os_get_group, uv_os_get_passwd,
+        uv_os_getenv, uv_os_gethostname, uv_os_getpid, uv_os_getppid, uv_os_getpriority,
+        uv_os_homedir, uv_os_setenv, uv_os_setpriority, uv_os_tmpdir, uv_os_uname, uv_os_unsetenv,
+        uv_passwd_t as UvPasswd, uv_random, uv_random_t as UvRandom, uv_rusage_t as UvRusage,
+        uv_set_process_title, uv_strerror, uv_timeval_t as UvTimeval, uv_uptime,
+        uv_utsname_t as UvUtsname,
+    };
 
     const PATH_MAX: usize = 4096;
     const INET_ADDRSTRLEN: usize = 16;
@@ -17,132 +29,10 @@ mod runtime_system_impl {
     const UV_ENOBUFS: c_int = -105;
 
     #[repr(C)]
-    struct UvCpuTimes {
-        user: u64,
-        nice: u64,
-        sys: u64,
-        idle: u64,
-        irq: u64,
-    }
-
-    #[repr(C)]
-    struct UvCpuInfo {
-        model: *mut c_char,
-        speed: c_int,
-        _padding: c_int,
-        cpu_times: UvCpuTimes,
-    }
-
-    #[repr(C)]
-    struct UvPasswd {
-        username: *mut c_char,
-        uid: c_long,
-        gid: c_long,
-        shell: *mut c_char,
-        homedir: *mut c_char,
-    }
-
-    #[repr(C)]
-    struct UvGroup {
-        groupname: *mut c_char,
-        gid: c_long,
-        members: *mut *mut c_char,
-    }
-
-    #[repr(C)]
-    struct UvEnvItem {
-        name: *mut c_char,
-        value: *mut c_char,
-    }
-
-    #[repr(C)]
-    struct UvUtsname {
-        sysname: [c_char; 256],
-        release: [c_char; 256],
-        version: [c_char; 256],
-        machine: [c_char; 256],
-    }
-
-    #[repr(C)]
-    struct UvTimeval {
-        tv_sec: c_long,
-        tv_usec: c_long,
-    }
-
-    #[repr(C)]
-    struct UvRusage {
-        ru_utime: UvTimeval,
-        ru_stime: UvTimeval,
-        ru_maxrss: u64,
-        ru_ixrss: u64,
-        ru_idrss: u64,
-        ru_isrss: u64,
-        ru_minflt: u64,
-        ru_majflt: u64,
-        ru_nswap: u64,
-        ru_inblock: u64,
-        ru_oublock: u64,
-        ru_msgsnd: u64,
-        ru_msgrcv: u64,
-        ru_nsignals: u64,
-        ru_nvcsw: u64,
-        ru_nivcsw: u64,
-    }
-
-    #[repr(C, align(8))]
-    struct UvRandom {
-        storage: [u8; 144],
-    }
-
-    #[repr(C)]
     struct RandomReq {
         req: UvRandom,
         promise: *mut LeanObject,
         byte_array: *mut LeanObject,
-    }
-
-    extern "C" {
-        fn uv_get_process_title(buffer: *mut c_char, size: usize) -> c_int;
-        fn uv_set_process_title(title: *const c_char) -> c_int;
-        fn uv_uptime(uptime: *mut f64) -> c_int;
-        fn uv_os_getpid() -> u32;
-        fn uv_os_getppid() -> u32;
-        fn uv_cpu_info(info: *mut *mut UvCpuInfo, count: *mut c_int) -> c_int;
-        fn uv_free_cpu_info(info: *mut UvCpuInfo, count: c_int);
-        fn uv_cwd(buffer: *mut c_char, size: *mut usize) -> c_int;
-        fn uv_chdir(dir: *const c_char) -> c_int;
-        fn uv_os_homedir(buffer: *mut c_char, size: *mut usize) -> c_int;
-        fn uv_os_tmpdir(buffer: *mut c_char, size: *mut usize) -> c_int;
-        fn uv_os_get_passwd(pwd: *mut UvPasswd) -> c_int;
-        fn uv_os_free_passwd(pwd: *mut UvPasswd);
-        fn uv_os_get_group(grp: *mut UvGroup, gid: u64) -> c_int;
-        fn uv_os_free_group(grp: *mut UvGroup);
-        fn uv_os_environ(env: *mut *mut UvEnvItem, count: *mut c_int) -> c_int;
-        fn uv_os_free_environ(env: *mut UvEnvItem, count: c_int);
-        fn uv_os_getenv(name: *const c_char, buffer: *mut c_char, size: *mut usize) -> c_int;
-        fn uv_os_setenv(name: *const c_char, value: *const c_char) -> c_int;
-        fn uv_os_unsetenv(name: *const c_char) -> c_int;
-        fn uv_os_gethostname(buffer: *mut c_char, size: *mut usize) -> c_int;
-        fn uv_os_getpriority(pid: u32, priority: *mut c_int) -> c_int;
-        fn uv_os_setpriority(pid: u32, priority: c_int) -> c_int;
-        fn uv_os_uname(uts: *mut UvUtsname) -> c_int;
-        fn uv_hrtime() -> u64;
-        fn uv_random(
-            loop_: *mut UvLoop,
-            req: *mut UvRandom,
-            buf: *mut c_void,
-            buflen: usize,
-            flags: c_uint,
-            cb: Option<unsafe fn(*mut UvRandom, c_int, *mut c_void, usize)>,
-        ) -> c_int;
-        fn uv_getrusage(usage: *mut UvRusage) -> c_int;
-        fn uv_exepath(buffer: *mut c_char, size: *mut usize) -> c_int;
-        fn uv_get_free_memory() -> u64;
-        fn uv_get_total_memory() -> u64;
-        fn uv_get_constrained_memory() -> u64;
-        fn uv_get_available_memory() -> u64;
-        fn uv_strerror(err: c_int) -> *const c_char;
-
     }
 
     unsafe fn option_none() -> *mut LeanObject {
@@ -650,7 +540,7 @@ mod runtime_system_impl {
         }
 
         let result = uv_random(
-            _ZN4lean9global_evE.loop_,
+            _ZN4lean9global_evE.loop_ as *mut libuv_sys2::uv_loop_t,
             addr_of_mut!((*req).req),
             lean_sarray_cptr(byte_array).cast_mut().cast(),
             size as usize,

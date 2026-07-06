@@ -5,10 +5,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_io_error_impl {
     use super::*;
+    use libuv_sys2::uv_strerror;
 
     extern "C" {
-        fn uv_strerror(errnum: c_int) -> *const c_char;
-
         fn lean_mk_io_error_already_exists(
             errnum: u32,
             details: *mut LeanObject,

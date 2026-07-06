@@ -8,6 +8,15 @@ mod runtime_event_loop_impl {
     use super::*;
     use core::ptr::null_mut;
     use core::sync::atomic::{AtomicI32, Ordering};
+    use libuv_sys2::{
+        uv_async_init as uv_async_init_sys, uv_async_send as uv_async_send_sys,
+        uv_cond_init as uv_cond_init_sys, uv_cond_signal as uv_cond_signal_sys,
+        uv_cond_wait as uv_cond_wait_sys, uv_default_loop as uv_default_loop_sys,
+        uv_loop_alive as uv_loop_alive_sys, uv_loop_configure as uv_loop_configure_sys,
+        uv_mutex_init_recursive as uv_mutex_init_recursive_sys, uv_mutex_lock as uv_mutex_lock_sys,
+        uv_mutex_trylock as uv_mutex_trylock_sys, uv_mutex_unlock as uv_mutex_unlock_sys,
+        uv_run as uv_run_sys, uv_stop as uv_stop_sys, uv_strerror,
+    };
 
     const UV_LOOP_BLOCK_SIGNAL: c_uint = 0;
     const UV_METRICS_IDLE_TIME: c_uint = 1;
@@ -49,26 +58,71 @@ mod runtime_event_loop_impl {
         n_waiters: AtomicI32,
     }
 
+    unsafe fn uv_default_loop() -> *mut UvLoop {
+        uv_default_loop_sys().cast()
+    }
+
+    unsafe fn uv_mutex_init_recursive(mutex: *mut UvMutex) -> c_int {
+        uv_mutex_init_recursive_sys(mutex.cast())
+    }
+
+    unsafe fn uv_cond_init(cond: *mut UvCond) -> c_int {
+        uv_cond_init_sys(cond.cast())
+    }
+
+    unsafe fn uv_async_init(
+        loop_: *mut UvLoop,
+        async_: *mut UvAsync,
+        cb: Option<unsafe fn(*mut UvAsync)>,
+    ) -> c_int {
+        uv_async_init_sys(
+            loop_.cast(),
+            async_.cast(),
+            cb.map(|cb| core::mem::transmute(cb)),
+        )
+    }
+
+    unsafe fn uv_mutex_trylock(mutex: *mut UvMutex) -> c_int {
+        uv_mutex_trylock_sys(mutex.cast())
+    }
+
+    unsafe fn uv_mutex_lock(mutex: *mut UvMutex) {
+        uv_mutex_lock_sys(mutex.cast())
+    }
+
+    unsafe fn uv_mutex_unlock(mutex: *mut UvMutex) {
+        uv_mutex_unlock_sys(mutex.cast())
+    }
+
+    unsafe fn uv_cond_signal(cond: *mut UvCond) {
+        uv_cond_signal_sys(cond.cast())
+    }
+
+    unsafe fn uv_cond_wait(cond: *mut UvCond, mutex: *mut UvMutex) {
+        uv_cond_wait_sys(cond.cast(), mutex.cast())
+    }
+
+    unsafe fn uv_async_send(async_: *mut UvAsync) -> c_int {
+        uv_async_send_sys(async_.cast())
+    }
+
+    unsafe fn uv_run(loop_: *mut UvLoop, mode: c_uint) -> c_int {
+        uv_run_sys(loop_.cast(), mode)
+    }
+
+    unsafe fn uv_stop(loop_: *mut UvLoop) {
+        uv_stop_sys(loop_.cast())
+    }
+
+    unsafe fn uv_loop_alive(loop_: *mut UvLoop) -> c_int {
+        uv_loop_alive_sys(loop_.cast())
+    }
+
+    unsafe fn uv_loop_configure(loop_: *mut UvLoop, option: c_uint, arg: c_int) -> c_int {
+        uv_loop_configure_sys(loop_.cast(), option, arg)
+    }
+
     extern "C" {
-        fn uv_default_loop() -> *mut UvLoop;
-        fn uv_mutex_init_recursive(mutex: *mut UvMutex) -> c_int;
-        fn uv_cond_init(cond: *mut UvCond) -> c_int;
-        fn uv_async_init(
-            loop_: *mut UvLoop,
-            async_: *mut UvAsync,
-            cb: Option<unsafe fn(*mut UvAsync)>,
-        ) -> c_int;
-        fn uv_mutex_trylock(mutex: *mut UvMutex) -> c_int;
-        fn uv_mutex_lock(mutex: *mut UvMutex);
-        fn uv_mutex_unlock(mutex: *mut UvMutex);
-        fn uv_cond_signal(cond: *mut UvCond);
-        fn uv_cond_wait(cond: *mut UvCond, mutex: *mut UvMutex);
-        fn uv_async_send(async_: *mut UvAsync) -> c_int;
-        fn uv_run(loop_: *mut UvLoop, mode: c_uint) -> c_int;
-        fn uv_stop(loop_: *mut UvLoop);
-        fn uv_loop_alive(loop_: *mut UvLoop) -> c_int;
-        fn uv_loop_configure(loop_: *mut UvLoop, option: c_uint, ...) -> c_int;
-        fn uv_strerror(err: c_int) -> *const c_char;
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 
@@ -188,8 +242,7 @@ mod runtime_event_loop_impl {
         }
 
         if block {
-            let result =
-                uv_loop_configure((*event_loop).loop_, UV_LOOP_BLOCK_SIGNAL, libc::SIGPROF);
+            let result = uv_loop_configure((*event_loop).loop_, UV_LOOP_BLOCK_SIGNAL, libc::SIGPROF);
             if result != 0 {
                 event_loop_unlock(event_loop);
                 return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));

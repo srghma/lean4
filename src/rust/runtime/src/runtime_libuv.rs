@@ -13,6 +13,8 @@ mod runtime_libuv_impl {
         _private: [u8; 0],
     }
 
+    use libuv_sys2::{uv_setup_args as uv_setup_args_sys, uv_version as uv_version_sys};
+
     extern "C" {
         fn initialize_libuv_timer();
         fn initialize_libuv_tcp_socket();
@@ -24,8 +26,14 @@ mod runtime_libuv_impl {
 
         fn lean_initialize_thread();
         fn lean_finalize_thread();
-        fn uv_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char;
-        fn uv_version() -> c_uint;
+    }
+
+    unsafe fn uv_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+        uv_setup_args_sys(argc, argv)
+    }
+
+    unsafe fn uv_version() -> c_uint {
+        uv_version_sys()
     }
 
     pub unsafe fn initialize_libuv() {
