@@ -22,10 +22,7 @@ mod library_module_impl {
     const OLEAN_MARKER: &[u8; 5] = b"olean";
     const OLEAN_VERSION_V2: u8 = 2;
     const OLEAN_VERSION_V3: u8 = 3;
-    #[cfg(lean_use_gmp)]
     const OLEAN_FLAGS_GMP: u8 = 0b1;
-    #[cfg(not(lean_use_gmp))]
-    const OLEAN_FLAGS_GMP: u8 = 0b0;
 
     // v3 format extra header: 8 bytes data_size right after the 88-byte header.
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
@@ -52,16 +49,16 @@ mod library_module_impl {
     const LEAN_REF_OBJECT_SIZE: usize = 16;
     const LEAN_TASK_OBJECT_SIZE: usize = 24;
     const LEAN_PROMISE_OBJECT_SIZE: usize = 16;
-    #[cfg(lean_use_gmp)]
+
     const LEAN_MPZ_OBJECT_HEADER_SIZE: usize = 24; // header(8) + __mpz_struct(16)
-    #[cfg(lean_use_gmp)]
+
     const LEAN_MP_LIMB_SIZE: usize = 8; // sizeof(mp_limb_t) on LP64
 
     // Byte offset of _mp_d within mpz_object (GMP):
     //   header(8) + _mp_alloc(4) + _mp_size(4) = 16
-    #[cfg(lean_use_gmp)]
+
     const LEAN_MPZ_MP_D_OFFSET: usize = 16;
-    #[cfg(lean_use_gmp)]
+
     const LEAN_MPZ_MP_SIZE_OFFSET: usize = 12; // offset of _mp_size (i32)
 
     // On Linux 4.17+ MAP_FIXED_NOREPLACE atomically rejects mappings at taken addresses.
@@ -401,14 +398,11 @@ mod library_module_impl {
                         runtime_object_size_impl::lean_object_byte_size(curr)
                     }
                     LEAN_MPZ_TAG => {
-                        #[cfg(lean_use_gmp)]
-                        {
-                            // Fix _mp_d: stored as m_base_addr-relative, convert to m_begin-relative.
-                            let mp_d_field =
-                                (curr as *mut u8).add(LEAN_MPZ_MP_D_OFFSET).cast::<usize>();
-                            let old_mp_d = mp_d_field.read();
-                            mp_d_field.write(m_begin + (old_mp_d - m_base_addr));
-                        }
+                        // Fix _mp_d: stored as m_base_addr-relative, convert to m_begin-relative.
+                        let mp_d_field =
+                            (curr as *mut u8).add(LEAN_MPZ_MP_D_OFFSET).cast::<usize>();
+                        let old_mp_d = mp_d_field.read();
+                        mp_d_field.write(m_begin + (old_mp_d - m_base_addr));
                         // cs_size was set by lean_set_non_heap_header to include limb data.
                         runtime_object_size_impl::lean_object_byte_size(curr)
                     }

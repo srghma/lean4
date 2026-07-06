@@ -10,9 +10,6 @@ mod runtime_object_array_impl {
     use crate::*;
     use core::ffi::{c_int, c_ulong};
 
-    #[cfg(not(lean_use_gmp))]
-    compile_error!("runtime_object_array.rs requires lean_use_gmp cfg flag");
-
     #[repr(C)]
     struct LeanMpzObject { // duplicate in undefined at line 26 (🔁)
         header: LeanObject,

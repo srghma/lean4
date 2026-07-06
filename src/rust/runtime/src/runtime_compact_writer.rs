@@ -26,10 +26,8 @@ mod runtime_compact_writer_impl {
     const OLEAN_MARKER: &[u8; 5] = b"olean";
     const OLEAN_VERSION_V2: u8 = 2;
     const OLEAN_VERSION_V3: u8 = 3;
-    #[cfg(lean_use_gmp)]
+
     const OLEAN_FLAGS_GMP: u8 = 0b1;
-    #[cfg(not(lean_use_gmp))]
-    const OLEAN_FLAGS_GMP: u8 = 0b0;
 
     const LEAN_GITHASH: &str = env!("LEAN_RUST_GITHASH");
 
@@ -57,29 +55,16 @@ mod runtime_compact_writer_impl {
     const LEAN_VALUE_OFFSET: usize = 8;
 
     // GMP mpz_object: header(8) + __mpz_struct(16 = alloc(4)+size(4)+d_ptr(8)) = 24 bytes
-    #[cfg(lean_use_gmp)]
-    const LEAN_MPZ_OBJECT_SIZE: usize = 24;
-    #[cfg(lean_use_gmp)]
-    const LEAN_MPZ_MP_ALLOC_OFFSET: usize = 8;
-    #[cfg(lean_use_gmp)]
-    const LEAN_MPZ_MP_SIZE_OFFSET: usize = 12;
-    #[cfg(lean_use_gmp)]
-    const LEAN_MPZ_MP_D_OFFSET: usize = 16;
-    #[cfg(lean_use_gmp)]
-    const LEAN_MP_LIMB_SIZE: usize = 8; // sizeof(mp_limb_t) on LP64
 
-    // Non-GMP mpz_object: header(8) + mpz_value(24) = 32 bytes
-    // mpz_value: sign(bool@0,1) + pad(7) + size(usize@8) + digits(*mpn@16) = 24 bytes
-    #[cfg(not(lean_use_gmp))]
-    const LEAN_MPZ_OBJECT_SIZE: usize = 32;
-    #[cfg(not(lean_use_gmp))]
-    const LEAN_MPZ_SIGN_OFFSET: usize = 8;
-    #[cfg(not(lean_use_gmp))]
-    const LEAN_MPZ_SIZE_OFFSET: usize = 16;
-    #[cfg(not(lean_use_gmp))]
-    const LEAN_MPZ_DIGITS_OFFSET: usize = 24;
-    #[cfg(not(lean_use_gmp))]
-    const LEAN_MPN_DIGIT_SIZE: usize = 4; // sizeof(unsigned int)
+    const LEAN_MPZ_OBJECT_SIZE: usize = 24;
+
+    const LEAN_MPZ_MP_ALLOC_OFFSET: usize = 8;
+
+    const LEAN_MPZ_MP_SIZE_OFFSET: usize = 12;
+
+    const LEAN_MPZ_MP_D_OFFSET: usize = 16;
+
+    const LEAN_MP_LIMB_SIZE: usize = 8; // sizeof(mp_limb_t) on LP64
 
     // -------------------------------------------------------------------------
     // Helpers
@@ -531,7 +516,6 @@ mod runtime_compact_writer_impl {
             Ok(true)
         }
 
-        #[cfg(lean_use_gmp)]
         unsafe fn insert_mpz(&mut self, o: *mut LeanObject) {
             let mp_size_raw = (o as *const u8)
                 .add(LEAN_MPZ_MP_SIZE_OFFSET)
@@ -567,33 +551,6 @@ mod runtime_compact_writer_impl {
                 .as_mut_ptr()
                 .add(new_off + LEAN_MPZ_MP_ALLOC_OFFSET) as *mut i32)
                 .write(nlimbs as i32);
-            self.save(o as usize, new_off);
-        }
-
-        #[cfg(not(lean_use_gmp))]
-        unsafe fn insert_mpz(&mut self, o: *mut LeanObject) {
-            let m_size = (o as *const u8)
-                .add(LEAN_MPZ_SIZE_OFFSET)
-                .cast::<usize>()
-                .read();
-            let data_sz = m_size * LEAN_MPN_DIGIT_SIZE;
-            let sz = LEAN_MPZ_OBJECT_SIZE + data_sz;
-            let new_off = self.alloc(sz);
-            let p = self.buf.as_mut_ptr().add(new_off);
-            // Manually copy only meaningful fields to leave padding as zero
-            core::ptr::copy_nonoverlapping(o as *const u8, p, 8); // m_header
-            *p.add(LEAN_MPZ_SIGN_OFFSET) = *(o as *const u8).add(LEAN_MPZ_SIGN_OFFSET);
-            (p.add(LEAN_MPZ_SIZE_OFFSET) as *mut usize).write(m_size);
-            self.set_non_heap_header(new_off, sz as u16, LEAN_MPZ_TAG, 0);
-            // Copy digit data from original's m_digits pointer
-            let orig_digits = (o as *const u8)
-                .add(LEAN_MPZ_DIGITS_OFFSET)
-                .cast::<*const u8>()
-                .read();
-            let digits_off = new_off + LEAN_MPZ_OBJECT_SIZE;
-            core::ptr::copy_nonoverlapping(orig_digits, p.add(LEAN_MPZ_OBJECT_SIZE), data_sz);
-            // Patch m_digits to base_addr-relative pointer
-            (p.add(LEAN_MPZ_DIGITS_OFFSET) as *mut usize).write(self.base_addr + digits_off);
             self.save(o as usize, new_off);
         }
 

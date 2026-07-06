@@ -5,10 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 // Port of Natural numbers, Integers, UInt, IntX sections from src/runtime/object.cpp.
 
-#[cfg(not(lean_use_gmp))]
-compile_error!("runtime_object_nat_int.rs requires lean_use_gmp cfg flag");
-
-#[cfg(lean_use_gmp)]
 pub(crate) mod runtime_object_nat_int_impl {
     use crate::*;
     use core::ffi::{c_char, c_int, c_long, c_ulong};
