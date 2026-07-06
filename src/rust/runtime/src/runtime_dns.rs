@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_dns_impl {
     use crate::*;
+    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -147,7 +148,7 @@ mod runtime_dns_impl {
             _ => hints.ai_family = libc::PF_UNSPEC,
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         lean_inc(promise);
 
         unsafe fn getaddrinfo_cb(req: *mut UvGetAddrInfo, status: c_int, res: *mut libc::addrinfo) {
@@ -194,7 +195,7 @@ mod runtime_dns_impl {
         }
 
         let result = uv_getaddrinfo(
-            _ZN4lean9global_evE.loop_.cast(),
+            GLOBAL_EV.loop_.cast(),
             resolver,
             Some(getaddrinfo_cb),
             name_cstr,
@@ -206,11 +207,11 @@ mod runtime_dns_impl {
             lean_dec(promise);
             lean_dec(promise);
             libc::free(resolver.cast());
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(promise)
     }
 
@@ -228,7 +229,7 @@ mod runtime_dns_impl {
         let mut addr_ptr = MaybeUninit::<libc::sockaddr_storage>::zeroed().assume_init();
         lean_socket_address_to_sockaddr_storage(addr, &mut addr_ptr);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         lean_inc(promise);
 
         unsafe fn getnameinfo_cb(
@@ -257,7 +258,7 @@ mod runtime_dns_impl {
         }
 
         let result = uv_getnameinfo(
-            _ZN4lean9global_evE.loop_.cast(),
+            GLOBAL_EV.loop_.cast(),
             req,
             Some(getnameinfo_cb),
             addr_of_mut!(addr_ptr).cast(),
@@ -268,11 +269,11 @@ mod runtime_dns_impl {
             lean_dec(promise);
             lean_dec(promise);
             libc::free(req.cast());
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(promise)
     }
 }

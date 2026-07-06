@@ -6,10 +6,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_timer_impl {
     use crate::*;
+    use crate::runtime_event_loop::GLOBAL_EV;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
         uv_close as uv_close_sys, uv_timer_init as uv_timer_init_sys,
-        uv_timer_start as uv_timer_start_sys, uv_timer_stop as uv_timer_stop_sys,
+        uv_timer_start as uv_timer_start_sys, uv_timer_stop as uv_timer_stop_sys, uv_loop_t,
     };
 
     const TIMER_STATE_INITIAL: c_int = 0;
@@ -38,7 +39,7 @@ mod runtime_timer_impl {
         uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)));
     }
 
-    unsafe fn uv_timer_init(loop_: *mut UvLoop, handle: *mut UvTimer) -> c_int {
+    unsafe fn uv_timer_init(loop_: *mut uv_loop_t, handle: *mut UvTimer) -> c_int {
         uv_timer_init_sys(loop_.cast(), handle.cast())
     }
 
@@ -74,12 +75,12 @@ mod runtime_timer_impl {
             lean_dec((*timer).promise);
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         uv_close(
             (*timer).uv_timer.cast::<UvHandle>(),
             Some(close_free_handle),
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         libc::free(timer.cast());
     }
@@ -137,9 +138,9 @@ mod runtime_timer_impl {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        let result = uv_timer_init(_ZN4lean9global_evE.loop_, uv_timer);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
+        let result = uv_timer_init(GLOBAL_EV.loop_, uv_timer);
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result != 0 {
             libc::free(uv_timer.cast());
@@ -183,18 +184,18 @@ mod runtime_timer_impl {
 
         if result != 0 {
             lean_dec(obj);
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(promise)
     }
 
     pub unsafe fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*timer).repeating {
             match (*timer).state {
@@ -209,23 +210,23 @@ mod runtime_timer_impl {
 
                     lean_inc((*timer).promise);
                     let promise = (*timer).promise;
-                    event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                    event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                     lean_io_result_mk_ok(promise)
                 }
                 TIMER_STATE_FINISHED => {
                     if !(*timer).promise.is_null() {
                         lean_inc((*timer).promise);
                         let promise = (*timer).promise;
-                        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                         lean_io_result_mk_ok(promise)
                     } else {
                         let finished_promise = lean_io_promise_new();
-                        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                         lean_io_result_mk_ok(finished_promise)
                     }
                 }
                 _ => {
-                    event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                    event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                     lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(
                         b"invalid timer state\0".as_ptr().cast(),
                     )))
@@ -236,10 +237,10 @@ mod runtime_timer_impl {
         } else if !(*timer).promise.is_null() {
             lean_inc((*timer).promise);
             let promise = (*timer).promise;
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_io_result_mk_ok(promise)
         } else {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             let finished_promise = lean_io_promise_new();
             lean_io_result_mk_ok(finished_promise)
         }
@@ -248,7 +249,7 @@ mod runtime_timer_impl {
     pub unsafe fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*timer).state == TIMER_STATE_RUNNING {
             uv_timer_stop((*timer).uv_timer);
@@ -264,7 +265,7 @@ mod runtime_timer_impl {
                 },
             );
 
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             if result != 0 {
                 lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()))
@@ -272,7 +273,7 @@ mod runtime_timer_impl {
                 lean_io_result_mk_ok(lean_box(0))
             }
         } else {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_io_result_mk_ok(lean_box(0))
         }
     }
@@ -280,7 +281,7 @@ mod runtime_timer_impl {
     pub unsafe fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*timer).promise.is_null() {
             lean_dec((*timer).promise);
@@ -289,14 +290,14 @@ mod runtime_timer_impl {
 
         if (*timer).state == TIMER_STATE_RUNNING {
             uv_timer_stop((*timer).uv_timer);
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             (*timer).state = TIMER_STATE_FINISHED;
             lean_dec(obj);
 
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_io_result_mk_ok(lean_box(0))
         }
     }
@@ -304,7 +305,7 @@ mod runtime_timer_impl {
     pub unsafe fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*timer).state == TIMER_STATE_RUNNING && !(*timer).promise.is_null() {
             if (*timer).repeating {
@@ -321,7 +322,7 @@ mod runtime_timer_impl {
             }
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(lean_box(0))
     }
 

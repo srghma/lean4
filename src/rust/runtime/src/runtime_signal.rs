@@ -6,11 +6,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_signal_impl {
     use crate::*;
+    use crate::runtime_event_loop::GLOBAL_EV;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
         uv_close as uv_close_sys, uv_signal_init as uv_signal_init_sys,
         uv_signal_start as uv_signal_start_sys, uv_signal_start_oneshot as uv_signal_start_oneshot_sys,
-        uv_signal_stop as uv_signal_stop_sys,
+        uv_signal_stop as uv_signal_stop_sys, uv_loop_t,
     };
 
     const SIGNAL_STATE_INITIAL: c_int = 0;
@@ -39,7 +40,7 @@ mod runtime_signal_impl {
         uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)));
     }
 
-    unsafe fn uv_signal_init(loop_: *mut UvLoop, handle: *mut UvSignal) -> c_int {
+    unsafe fn uv_signal_init(loop_: *mut uv_loop_t, handle: *mut UvSignal) -> c_int {
         uv_signal_init_sys(loop_.cast(), handle.cast())
     }
 
@@ -82,12 +83,12 @@ mod runtime_signal_impl {
             lean_dec((*signal).promise);
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         uv_close(
             (*signal).uv_signal.cast::<UvHandle>(),
             Some(close_free_handle),
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         libc::free(signal.cast());
     }
@@ -185,9 +186,9 @@ mod runtime_signal_impl {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        let result = uv_signal_init(_ZN4lean9global_evE.loop_, uv_signal);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
+        let result = uv_signal_init(GLOBAL_EV.loop_, uv_signal);
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result != 0 {
             libc::free(uv_signal.cast());
@@ -234,18 +235,18 @@ mod runtime_signal_impl {
         if result != 0 {
             lean_dec(obj);
             lean_dec(promise);
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(promise)
     }
 
     pub unsafe fn lean_uv_signal_next(obj: *mut LeanObject) -> *mut LeanObject {
         let signal = signal_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*signal).repeating {
             match (*signal).state {
@@ -260,23 +261,23 @@ mod runtime_signal_impl {
 
                     lean_inc((*signal).promise);
                     let promise = (*signal).promise;
-                    event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                    event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                     lean_io_result_mk_ok(promise)
                 }
                 SIGNAL_STATE_FINISHED => {
                     if !(*signal).promise.is_null() {
                         lean_inc((*signal).promise);
                         let promise = (*signal).promise;
-                        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                         lean_io_result_mk_ok(promise)
                     } else {
                         let finished_promise = lean_io_promise_new();
-                        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                         lean_io_result_mk_ok(finished_promise)
                     }
                 }
                 _ => {
-                    event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+                    event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                     lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(
                         b"invalid signal state\0".as_ptr().cast(),
                     )))
@@ -287,10 +288,10 @@ mod runtime_signal_impl {
         } else if !(*signal).promise.is_null() {
             lean_inc((*signal).promise);
             let promise = (*signal).promise;
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_io_result_mk_ok(promise)
         } else {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             let finished_promise = lean_io_promise_new();
             lean_io_result_mk_ok(finished_promise)
         }
@@ -299,7 +300,7 @@ mod runtime_signal_impl {
     pub unsafe fn lean_uv_signal_stop(obj: *mut LeanObject) -> *mut LeanObject {
         let signal = signal_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*signal).promise.is_null() {
             lean_dec((*signal).promise);
@@ -308,7 +309,7 @@ mod runtime_signal_impl {
 
         if (*signal).state == SIGNAL_STATE_RUNNING {
             let result = uv_signal_stop((*signal).uv_signal);
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             (*signal).state = SIGNAL_STATE_FINISHED;
             lean_dec(obj);
@@ -319,7 +320,7 @@ mod runtime_signal_impl {
                 lean_io_result_mk_ok(lean_box(0))
             }
         } else {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_io_result_mk_ok(lean_box(0))
         }
     }
@@ -327,7 +328,7 @@ mod runtime_signal_impl {
     pub unsafe fn lean_uv_signal_cancel(obj: *mut LeanObject) -> *mut LeanObject {
         let signal = signal_from_obj(obj);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*signal).state == SIGNAL_STATE_RUNNING && !(*signal).promise.is_null() {
             if (*signal).repeating {
@@ -344,7 +345,7 @@ mod runtime_signal_impl {
             }
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(lean_box(0))
     }
 

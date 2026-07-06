@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_libuv_impl {
     use crate::*;
+    use crate::runtime_event_loop::{event_loop_run_loop, EventLoop, GLOBAL_EV};
     use core::ptr;
     use std::thread;
 
@@ -37,7 +38,7 @@ mod runtime_libuv_impl {
         initialize_libuv_signal();
         initialize_libuv_loop();
 
-        let event_loop_addr = ptr::addr_of_mut!(_ZN4lean9global_evE) as usize;
+        let event_loop_addr = ptr::addr_of_mut!(GLOBAL_EV) as usize;
         thread::spawn(move || unsafe {
             lean_initialize_thread();
             event_loop_run_loop(event_loop_addr as *mut EventLoop);

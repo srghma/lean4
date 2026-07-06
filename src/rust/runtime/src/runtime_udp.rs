@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_udp_impl {
     use crate::*;
+    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -194,7 +195,7 @@ mod runtime_udp_impl {
         let handle = (*udp_socket).m_uv_udp.cast::<UvHandle>();
         (*handle).data = ptr;
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn close_cb(handle: *mut UvHandle) {
             let udp_socket = (*handle).data.cast::<LeanUvUdpSocketObject>();
@@ -204,7 +205,7 @@ mod runtime_udp_impl {
 
         uv_close((*udp_socket).m_uv_udp.cast::<UvHandle>(), Some(close_cb));
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
     }
     pub unsafe fn initialize_libuv_udp_socket() {
         unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
@@ -243,9 +244,9 @@ mod runtime_udp_impl {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        let result = uv_udp_init(_ZN4lean9global_evE.loop_.cast(), uv_udp);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
+        let result = uv_udp_init(GLOBAL_EV.loop_.cast(), uv_udp);
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result != 0 {
             libc::free(uv_udp);
@@ -272,13 +273,13 @@ mod runtime_udp_impl {
         let mut addr_ptr = MaybeUninit::<libc::sockaddr_storage>::uninit();
         lean_socket_address_to_sockaddr_storage(addr, addr_ptr.as_mut_ptr());
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_bind(
             (*udp_socket).m_uv_udp,
             addr_ptr.as_ptr().cast(),
             UV_UDP_REUSEADDR,
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -296,9 +297,9 @@ mod runtime_udp_impl {
         let mut addr_ptr = MaybeUninit::<libc::sockaddr_storage>::uninit();
         lean_socket_address_to_sockaddr_storage(addr, addr_ptr.as_mut_ptr());
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_connect((*udp_socket).m_uv_udp, addr_ptr.as_ptr().cast());
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -390,7 +391,7 @@ mod runtime_udp_impl {
             lean_socket_address_to_sockaddr_storage(addr, addr_ptr);
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn send_cb(req: *mut uv_udp_send_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
@@ -415,7 +416,7 @@ mod runtime_udp_impl {
             Some(send_cb),
         );
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if !addr_ptr.is_null() {
             libc::free(addr_ptr.cast());
@@ -439,10 +440,10 @@ mod runtime_udp_impl {
     pub unsafe fn lean_uv_udp_recv(socket: *mut LeanObject, buffer_size: u64) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*udp_socket).m_promise_read.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(UV_EALREADY, null_mut()));
         }
 
@@ -514,7 +515,7 @@ mod runtime_udp_impl {
             (*udp_socket).m_byte_array = null_mut();
             (*udp_socket).m_promise_read = null_mut();
 
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             lean_dec(byte_array);
             lean_dec(promise);
@@ -524,7 +525,7 @@ mod runtime_udp_impl {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         lean_io_result_mk_ok(promise)
     }
@@ -532,10 +533,10 @@ mod runtime_udp_impl {
     pub unsafe fn lean_uv_udp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*udp_socket).m_promise_read.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(UV_EALREADY, null_mut()));
         }
 
@@ -587,7 +588,7 @@ mod runtime_udp_impl {
         if result < 0 {
             (*udp_socket).m_promise_read = null_mut();
 
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             lean_dec(promise);
             lean_dec(promise);
@@ -596,7 +597,7 @@ mod runtime_udp_impl {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         lean_io_result_mk_ok(promise)
     }
@@ -605,10 +606,10 @@ mod runtime_udp_impl {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
         lean_inc(socket);
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*udp_socket).m_promise_read.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_dec(socket);
             return lean_io_result_mk_ok(lean_box(0));
         }
@@ -625,7 +626,7 @@ mod runtime_udp_impl {
             (*udp_socket).m_byte_array = null_mut();
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_dec(socket);
 
         lean_io_result_mk_ok(lean_box(0))
@@ -636,13 +637,13 @@ mod runtime_udp_impl {
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_getpeername(
             (*udp_socket).m_uv_udp,
             addr_storage.as_mut_ptr().cast(),
             &mut addr_len,
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -657,13 +658,13 @@ mod runtime_udp_impl {
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_getsockname(
             (*udp_socket).m_uv_udp,
             addr_storage.as_mut_ptr().cast(),
             &mut addr_len,
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -679,9 +680,9 @@ mod runtime_udp_impl {
     ) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_set_broadcast((*udp_socket).m_uv_udp, enable as c_int);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -696,9 +697,9 @@ mod runtime_udp_impl {
     ) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_set_multicast_loop((*udp_socket).m_uv_udp, enable as c_int);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -713,9 +714,9 @@ mod runtime_udp_impl {
     ) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_set_multicast_ttl((*udp_socket).m_uv_udp, ttl as c_int);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -753,7 +754,7 @@ mod runtime_udp_impl {
             );
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_set_membership(
             (*udp_socket).m_uv_udp,
             multicast_addr_str.as_ptr(),
@@ -764,7 +765,7 @@ mod runtime_udp_impl {
             },
             membership as c_int,
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -786,10 +787,10 @@ mod runtime_udp_impl {
             interface_addr_str.len(),
         );
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result =
             uv_udp_set_multicast_interface((*udp_socket).m_uv_udp, interface_addr_str.as_ptr());
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -801,9 +802,9 @@ mod runtime_udp_impl {
     pub unsafe fn lean_uv_udp_set_ttl(socket: *mut LeanObject, ttl: u32) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_udp_set_ttl((*udp_socket).m_uv_udp, ttl as c_int);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));

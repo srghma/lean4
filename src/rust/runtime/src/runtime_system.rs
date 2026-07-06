@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_system_impl {
     use crate::*;
+    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -496,7 +497,7 @@ mod runtime_system_impl {
 
         lean_inc(promise);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn random_cb(
             uv_req: *mut UvRandom,
@@ -526,7 +527,7 @@ mod runtime_system_impl {
         }
 
         let result = uv_random(
-            _ZN4lean9global_evE.loop_ as *mut libuv_sys2::uv_loop_t,
+            GLOBAL_EV.loop_ as *mut libuv_sys2::uv_loop_t,
             addr_of_mut!((*req).req),
             lean_sarray_cptr(byte_array).cast_mut().cast(),
             size as usize,
@@ -534,7 +535,7 @@ mod runtime_system_impl {
             Some(random_cb),
         );
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             lean_dec(byte_array);

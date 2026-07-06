@@ -14,19 +14,15 @@ mod runtime_event_loop_impl {
         uv_cond_init as uv_cond_init_sys, uv_cond_signal as uv_cond_signal_sys,
         uv_cond_wait as uv_cond_wait_sys, uv_default_loop as uv_default_loop_sys,
         uv_loop_alive as uv_loop_alive_sys, uv_loop_configure as uv_loop_configure_sys,
-        uv_mutex_init_recursive as uv_mutex_init_recursive_sys, uv_mutex_lock as uv_mutex_lock_sys,
-        uv_mutex_trylock as uv_mutex_trylock_sys, uv_mutex_unlock as uv_mutex_unlock_sys,
-        uv_run as uv_run_sys, uv_stop as uv_stop_sys, uv_strerror,
+        uv_loop_t, uv_mutex_init_recursive as uv_mutex_init_recursive_sys,
+        uv_mutex_lock as uv_mutex_lock_sys, uv_mutex_trylock as uv_mutex_trylock_sys,
+        uv_mutex_unlock as uv_mutex_unlock_sys, uv_run as uv_run_sys, uv_stop as uv_stop_sys,
+        uv_strerror,
     };
 
     const UV_LOOP_BLOCK_SIGNAL: c_uint = 0;
     const UV_METRICS_IDLE_TIME: c_uint = 1;
     const UV_RUN_ONCE: c_uint = 1;
-
-    #[repr(C)]
-    pub struct UvLoop {
-        _private: [u8; 0],
-    }
 
     #[repr(C, align(8))]
     struct UvMutex {
@@ -41,7 +37,7 @@ mod runtime_event_loop_impl {
     #[repr(C)]
     struct UvHandlePrefix {
         data: *mut c_void,
-        loop_: *mut UvLoop,
+        loop_: *mut uv_loop_t,
     }
 
     #[repr(C, align(8))]
@@ -52,14 +48,14 @@ mod runtime_event_loop_impl {
 
     #[repr(C)]
     pub struct EventLoop {
-        pub loop_: *mut UvLoop,
+        pub loop_: *mut uv_loop_t,
         mutex: UvMutex,
         cond_var: UvCond,
         async_: UvAsync,
         n_waiters: AtomicI32,
     }
 
-    unsafe fn uv_default_loop() -> *mut UvLoop {
+    unsafe fn uv_default_loop() -> *mut uv_loop_t {
         uv_default_loop_sys().cast()
     }
 
@@ -72,7 +68,7 @@ mod runtime_event_loop_impl {
     }
 
     unsafe fn uv_async_init(
-        loop_: *mut UvLoop,
+        loop_: *mut uv_loop_t,
         async_: *mut UvAsync,
         cb: Option<unsafe fn(*mut UvAsync)>,
     ) -> c_int {
@@ -107,19 +103,19 @@ mod runtime_event_loop_impl {
         uv_async_send_sys(async_.cast())
     }
 
-    unsafe fn uv_run(loop_: *mut UvLoop, mode: c_uint) -> c_int {
+    unsafe fn uv_run(loop_: *mut uv_loop_t, mode: c_uint) -> c_int {
         uv_run_sys(loop_.cast(), mode)
     }
 
-    unsafe fn uv_stop(loop_: *mut UvLoop) {
+    unsafe fn uv_stop(loop_: *mut uv_loop_t) {
         uv_stop_sys(loop_.cast())
     }
 
-    unsafe fn uv_loop_alive(loop_: *mut UvLoop) -> c_int {
+    unsafe fn uv_loop_alive(loop_: *mut uv_loop_t) -> c_int {
         uv_loop_alive_sys(loop_.cast())
     }
 
-    unsafe fn uv_loop_configure(loop_: *mut UvLoop, option: c_uint, arg: c_int) -> c_int {
+    unsafe fn uv_loop_configure(loop_: *mut uv_loop_t, option: c_uint, arg: c_int) -> c_int {
         uv_loop_configure_sys(loop_.cast(), option, arg)
     }
 
@@ -127,7 +123,7 @@ mod runtime_event_loop_impl {
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 
-    pub static mut _ZN4lean9global_evE: EventLoop = EventLoop {
+    pub static mut GLOBAL_EV: EventLoop = EventLoop {
         loop_: null_mut(),
         mutex: UvMutex { storage: [0; 40] },
         cond_var: UvCond { storage: [0; 48] },
@@ -210,7 +206,7 @@ mod runtime_event_loop_impl {
         }
     }
     pub unsafe fn initialize_libuv_loop() {
-        event_loop_init(ptr::addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_init(ptr::addr_of_mut!(GLOBAL_EV));
     }
     pub unsafe fn lean_promise_resolve_with_code(status: c_int, promise: *mut LeanObject) {
         let result = if status == 0 {
@@ -230,7 +226,7 @@ mod runtime_event_loop_impl {
     pub unsafe fn lean_uv_event_loop_configure(options: *mut LeanObject) -> *mut LeanObject {
         let accum = lean_ctor_get_uint8(options, 0) != 0;
         let block = lean_ctor_get_uint8(options, 1) != 0;
-        let event_loop = ptr::addr_of_mut!(_ZN4lean9global_evE);
+        let event_loop = ptr::addr_of_mut!(GLOBAL_EV);
 
         event_loop_lock(event_loop);
 
@@ -255,7 +251,7 @@ mod runtime_event_loop_impl {
     }
 
     pub unsafe fn lean_uv_event_loop_alive() -> u8 {
-        let event_loop = ptr::addr_of_mut!(_ZN4lean9global_evE);
+        let event_loop = ptr::addr_of_mut!(GLOBAL_EV);
         event_loop_lock(event_loop);
         let is_alive = uv_loop_alive((*event_loop).loop_) != 0;
         event_loop_unlock(event_loop);

@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_tcp_impl {
     use crate::*;
+    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -210,7 +211,7 @@ mod runtime_tcp_impl {
         let handle = (*tcp_socket).m_uv_tcp.cast::<UvHandle>();
         (*handle).data = ptr;
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn close_cb(handle: *mut UvHandle) {
             let tcp_socket = (*handle).data.cast::<LeanUvTcpSocketObject>();
@@ -220,7 +221,7 @@ mod runtime_tcp_impl {
 
         uv_close((*tcp_socket).m_uv_tcp.cast::<UvHandle>(), Some(close_cb));
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
     }
     pub unsafe fn initialize_libuv_tcp_socket() {
         unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
@@ -271,9 +272,9 @@ mod runtime_tcp_impl {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
-        let result = uv_tcp_init(_ZN4lean9global_evE.loop_.cast(), uv_tcp);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
+        let result = uv_tcp_init(GLOBAL_EV.loop_.cast(), uv_tcp);
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result != 0 {
             libc::free(uv_tcp);
@@ -324,7 +325,7 @@ mod runtime_tcp_impl {
         lean_inc(socket);
         lean_inc(promise);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn connect_cb(req: *mut uv_connect_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
@@ -345,7 +346,7 @@ mod runtime_tcp_impl {
             Some(connect_cb),
         );
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             lean_dec(promise);
@@ -423,7 +424,7 @@ mod runtime_tcp_impl {
         lean_inc(promise);
         lean_inc(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn write_cb(req: *mut uv_write_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
@@ -448,7 +449,7 @@ mod runtime_tcp_impl {
             Some(write_cb),
         );
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             lean_dec(promise);
@@ -468,10 +469,10 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_recv(socket: *mut LeanObject, buffer_size: u64) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*tcp_socket).m_promise_read.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(UV_EALREADY, null_mut()));
         }
 
@@ -530,7 +531,7 @@ mod runtime_tcp_impl {
             (*tcp_socket).m_byte_array = null_mut();
             (*tcp_socket).m_promise_read = null_mut();
 
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             lean_dec(byte_array);
             lean_dec(promise);
@@ -540,7 +541,7 @@ mod runtime_tcp_impl {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         lean_io_result_mk_ok(promise)
     }
@@ -548,10 +549,10 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*tcp_socket).m_promise_read.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(UV_EALREADY, null_mut()));
         }
 
@@ -599,7 +600,7 @@ mod runtime_tcp_impl {
         if result < 0 {
             (*tcp_socket).m_promise_read = null_mut();
 
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             lean_dec(promise);
             lean_dec(promise);
@@ -608,7 +609,7 @@ mod runtime_tcp_impl {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         lean_io_result_mk_ok(promise)
     }
@@ -616,10 +617,10 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*tcp_socket).m_promise_read.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_ok(lean_box(0));
         }
 
@@ -637,7 +638,7 @@ mod runtime_tcp_impl {
 
         lean_dec(socket);
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(lean_box(0))
     }
 
@@ -650,9 +651,9 @@ mod runtime_tcp_impl {
         let mut addr_ptr = MaybeUninit::<libc::sockaddr_storage>::uninit();
         lean_socket_address_to_sockaddr_storage(addr, addr_ptr.as_mut_ptr());
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_tcp_bind((*tcp_socket).m_uv_tcp, addr_ptr.as_ptr().cast(), 0);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -664,7 +665,7 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_listen(socket: *mut LeanObject, backlog: i32) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn listen_cb(stream: *mut c_void, status: c_int) {
             let stream_handle = stream.cast::<UvHandle>();
@@ -706,7 +707,7 @@ mod runtime_tcp_impl {
 
         let result = uv_listen((*tcp_socket).m_uv_tcp, backlog, Some(listen_cb));
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -718,10 +719,10 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*tcp_socket).m_promise_accept.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(
                 UV_EALREADY,
                 lean_mk_string(b"parallel accept is not allowed! consider binding multiple sockets to the same address and accepting on them instead\0".as_ptr().cast()),
@@ -737,11 +738,11 @@ mod runtime_tcp_impl {
         let result = uv_accept((*tcp_socket).m_uv_tcp, (*client_socket).m_uv_tcp);
 
         if result < 0 && result != UV_EAGAIN {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_dec(client);
             lean_promise_resolve_with_code(result, promise);
         } else if result >= 0 {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_promise_resolve(mk_except_ok(client), promise);
         } else {
             lean_inc(socket);
@@ -750,7 +751,7 @@ mod runtime_tcp_impl {
             (*tcp_socket).m_promise_accept = promise;
             (*tcp_socket).m_client = client;
 
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         }
 
         lean_io_result_mk_ok(promise)
@@ -759,10 +760,10 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*tcp_socket).m_promise_accept.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(
                 UV_EALREADY,
                 lean_mk_string(b"parallel accept is not allowed! consider binding multiple sockets to the same address and accepting on them instead\0".as_ptr().cast()),
@@ -775,14 +776,14 @@ mod runtime_tcp_impl {
         let result = uv_accept((*tcp_socket).m_uv_tcp, (*client_socket).m_uv_tcp);
 
         if result < 0 && result != UV_EAGAIN {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_dec(client);
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         } else if result >= 0 {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_ok(mk_except_ok(option_some(client)));
         } else {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             lean_dec(client);
             return lean_io_result_mk_ok(mk_except_ok(option_none()));
         }
@@ -791,10 +792,10 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*tcp_socket).m_promise_accept.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_ok(lean_box(0));
         }
 
@@ -810,17 +811,17 @@ mod runtime_tcp_impl {
 
         lean_dec(socket);
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
         lean_io_result_mk_ok(lean_box(0))
     }
 
     pub unsafe fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if !(*tcp_socket).m_promise_shutdown.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_uv_error(
                 UV_EALREADY,
                 lean_mk_string(b"shutdown already in progress\0".as_ptr().cast()),
@@ -830,7 +831,7 @@ mod runtime_tcp_impl {
         let shutdown_req =
             libc::malloc(core::mem::size_of::<uv_shutdown_t>()).cast::<uv_shutdown_t>();
         if shutdown_req.is_null() {
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
         let shutdown_req_handle = shutdown_req.cast::<UvHandle>();
@@ -865,12 +866,12 @@ mod runtime_tcp_impl {
             libc::free(shutdown_req.cast());
             lean_dec((*tcp_socket).m_promise_shutdown);
             (*tcp_socket).m_promise_shutdown = null_mut();
-            event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+            event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
         }
 
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         lean_io_result_mk_ok(promise)
     }
@@ -880,13 +881,13 @@ mod runtime_tcp_impl {
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_tcp_getpeername(
             (*tcp_socket).m_uv_tcp,
             addr_storage.as_mut_ptr().cast(),
             &mut addr_len,
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -901,13 +902,13 @@ mod runtime_tcp_impl {
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_tcp_getsockname(
             (*tcp_socket).m_uv_tcp,
             addr_storage.as_mut_ptr().cast(),
             &mut addr_len,
         );
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -920,9 +921,9 @@ mod runtime_tcp_impl {
     pub unsafe fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_tcp_nodelay((*tcp_socket).m_uv_tcp, 1);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -938,9 +939,9 @@ mod runtime_tcp_impl {
     ) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
-        event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_lock(addr_of_mut!(GLOBAL_EV));
         let result = uv_tcp_keepalive((*tcp_socket).m_uv_tcp, enable, delay);
-        event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
+        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
         if result < 0 {
             return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
