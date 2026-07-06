@@ -9,19 +9,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_object_array_impl {
     use crate::*;
     use core::ffi::{c_int, c_ulong};
-
-    #[repr(C)]
-    struct LeanMpzObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 149 (🔁)
-        header: LeanObject,
-        value: MpzT,
-    }
-
-    #[repr(C)]
-    struct LeanThunkObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 90 (🔁)
-        header: LeanObject,
-        value: core::sync::atomic::AtomicPtr<LeanObject>,
-        closure: core::sync::atomic::AtomicPtr<LeanObject>,
-    }
+    use leanh::{LeanMpzObject, LeanThunkObject};
 
     unsafe extern "C" {
         fn lean_free_object(o: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
@@ -61,7 +49,7 @@ mod runtime_object_array_impl {
         if lean_is_scalar(n) {
             lean_unbox(n)
         } else {
-            let mpz = &(*(n as *const LeanMpzObject)).value;
+            let mpz = &(*(n as *const LeanMpzObject)).m_value;
             if (*(mpz.as_ptr()))._mp_size < 0 || __gmpz_size(mpz) > 1 {
                 lean_internal_panic_out_of_memory();
             }
@@ -301,19 +289,19 @@ mod runtime_object_array_impl {
 
     pub unsafe fn lean_thunk_get_core(t: *mut LeanObject) -> *mut LeanObject {
         let thunk = t as *mut LeanThunkObject;
-        let c = (*thunk).closure.swap(ptr::null_mut(), Ordering::AcqRel);
+        let c = (*thunk).m_closure.swap(ptr::null_mut(), Ordering::AcqRel);
         if !c.is_null() {
             let r = lean_apply_1(c, lean_box(0));
             debug_assert!(!r.is_null());
-            debug_assert!((*thunk).value.load(Ordering::Acquire).is_null());
+            debug_assert!((*thunk).m_value.load(Ordering::Acquire).is_null());
             lean_mark_mt(r);
-            (*thunk).value.store(r, Ordering::Release);
+            (*thunk).m_value.store(r, Ordering::Release);
             r
         } else {
-            while (*thunk).value.load(Ordering::Acquire).is_null() {
+            while (*thunk).m_value.load(Ordering::Acquire).is_null() {
                 std::thread::yield_now();
             }
-            (*thunk).value.load(Ordering::Acquire)
+            (*thunk).m_value.load(Ordering::Acquire)
         }
     }
 

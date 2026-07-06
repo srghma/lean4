@@ -6,14 +6,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_io_ref_impl {
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
+    use leanh::LEAN_REF_TAG;
     use core::sync::atomic::{AtomicPtr, Ordering};
 
     unsafe extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
         fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
     }
-
-    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
 
     #[repr(C)]
     struct LeanRefObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)

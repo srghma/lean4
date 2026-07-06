@@ -7,8 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_apply_impl {
     use crate::*;
-
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
+    use leanh::LEAN_CLOSURE_TAG;
 
     unsafe extern "C" {
         fn lean_free_object(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)

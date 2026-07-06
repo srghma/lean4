@@ -19,7 +19,7 @@ default-max-memory = []
 # gen-tools = []
 
 [dependencies]
-# leanh = { path = "../leanh" }
+leanh = { path = "../leanh" }
 llvm-sys = "191"
 libc-stdhandle = "0.1"
 libc = "0.2"

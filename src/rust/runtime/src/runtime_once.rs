@@ -3,21 +3,10 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[repr(C)]
-pub struct LeanOnceCell { // duplicate in src/rust/leanh/src/datatypes.rs at line 103 (🔁)
-
-    state: AtomicI32,
-    lock: AtomicI32,
-}
-
-type ObjInitFn = unsafe fn() -> *mut LeanObject; // duplicate in src/rust/leanh/src/datatypes.rs at line 32 (🔁)
-type U8InitFn = unsafe fn() -> u8; // duplicate in src/rust/leanh/src/datatypes.rs at line 33 (🔁)
-type U16InitFn = unsafe fn() -> u16; // duplicate in src/rust/leanh/src/datatypes.rs at line 34 (🔁)
-type U32InitFn = unsafe fn() -> u32; // duplicate in src/rust/leanh/src/datatypes.rs at line 35 (🔁)
-type U64InitFn = unsafe fn() -> u64; // duplicate in src/rust/leanh/src/datatypes.rs at line 36 (🔁)
-type UsizeInitFn = unsafe fn() -> usize; // duplicate in src/rust/leanh/src/datatypes.rs at line 37 (🔁)
-type F32InitFn = unsafe fn() -> f32; // duplicate in src/rust/leanh/src/datatypes.rs at line 38 (🔁)
-type F64InitFn = unsafe fn() -> f64; // duplicate in src/rust/leanh/src/datatypes.rs at line 39 (🔁)
+use leanh::{
+    F32InitFn, F64InitFn, LeanOnceCell, ObjInitFn, U16InitFn, U32InitFn, U64InitFn, U8InitFn,
+    UsizeInitFn,
+};
 
 fn lock_once_cell(lock: &AtomicI32) { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 244 (🔁)
 

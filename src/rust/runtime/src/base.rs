@@ -8,8 +8,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 pub use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 pub use core::ptr;
 pub use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
-
-pub(crate) type Size = usize; // duplicate in src/rust/leanh/src/datatypes.rs at line 9 (🔁)
+use leanh::{
+    LeanArrayObject, LeanClosureObject, LeanCtorObject, LeanExternalClass,
+    LeanExternalFinalizeProc, LeanExternalForeachProc, LeanExternalObject, LeanMpzObject,
+    LeanObject, LeanPromiseObject, LeanScalarArray, LeanStringObject, LeanTaskImp, LeanTaskObject,
+    Size, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,
+    LEAN_OBJECT_SIZE_DELTA, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG,
+};
 
 unsafe extern "C" {
     pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
@@ -88,101 +93,10 @@ unsafe extern "C" {
 }
 
 #[repr(C)]
-pub struct LeanObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 14 (🔁)
-
-    rc: i32,
-    cs_size: u16,
-    other: u8,
-    tag: u8,
-}
-
-#[repr(C)]
-struct LeanCtorObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 23 (🔁)
-
-    header: LeanObject,
-    data: [*mut LeanObject; 0],
-}
-
-type LeanExternalFinalizeProc = unsafe fn(*mut c_void); // duplicate in src/rust/leanh/src/datatypes.rs at line 30 (🔁)
-type LeanExternalForeachProc = unsafe fn(*mut c_void, *mut LeanObject); // duplicate in src/rust/leanh/src/datatypes.rs at line 31 (🔁)
-
-#[repr(C)]
-pub struct LeanExternalClass { // duplicate in src/rust/leanh/src/datatypes.rs at line 42 (🔁)
-
-    finalize: LeanExternalFinalizeProc,
-    foreach: LeanExternalForeachProc,
-}
-
-#[repr(C)]
 struct LeanListCell {
     rc: AtomicU32,
     head: c_uint,
     tail: *mut LeanListCell,
-}
-
-#[repr(C)]
-struct LeanArrayObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 48 (🔁)
-
-    header: LeanObject,
-    size: Size,
-    capacity: Size,
-    data: [*mut LeanObject; 0],
-}
-
-#[repr(C)]
-struct LeanStringObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 58 (🔁)
-
-    header: LeanObject,
-    size: Size,
-    capacity: Size,
-    len: Size,
-    data: [c_char; 0],
-}
-
-#[repr(C)]
-struct LeanClosureObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 69 (🔁)
-
-    header: LeanObject,
-    fun: *mut c_void,
-    arity: u16,
-    num_fixed: u16,
-    data: [*mut LeanObject; 0],
-}
-
-#[repr(C)]
-struct LeanScalarArray { // duplicate in src/rust/leanh/src/datatypes.rs at line 80 (🔁)
-
-    header: LeanObject,
-    size: Size,
-    capacity: Size,
-    data: [u8; 0],
-}
-
-#[repr(C)]
-struct LeanPromiseObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 116 (🔁)
-
-    header: LeanObject,
-    result: *mut LeanObject,
-}
-
-#[repr(C)]
-struct LeanTaskImp { // duplicate in src/rust/leanh/src/datatypes.rs at line 122 (🔁)
-
-    m_closure: *mut LeanObject,
-    m_head_dep: *mut LeanTaskObject,
-    m_next_dep: *mut LeanTaskObject,
-    m_prio: u32,
-    m_canceled: bool,
-    m_keep_alive: bool,
-    m_deleted: bool,
-}
-
-#[repr(C)]
-struct LeanTaskObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 109 (🔁)
-
-    header: LeanObject,
-    value: AtomicPtr<LeanObject>,
-    imp: *mut c_void,
 }
 
 #[repr(C)]
@@ -363,7 +277,6 @@ pub unsafe fn lean_runtime_alloc_ctor(
     num_objs: c_uint,
     scalar_size: c_uint,
 ) -> *mut LeanObject {
-    const LEAN_MAX_CTOR_TAG: c_uint = 243; // duplicate in src/rust/leanh/src/datatypes.rs at line 154 (🔁)
     const LEAN_MAX_CTOR_FIELDS: c_uint = 256;
     const LEAN_MAX_CTOR_SCALARS_SIZE: c_uint = 1024;
 
@@ -371,7 +284,7 @@ pub unsafe fn lean_runtime_alloc_ctor(
     debug_assert!(num_objs < LEAN_MAX_CTOR_FIELDS);
     debug_assert!(scalar_size < LEAN_MAX_CTOR_SCALARS_SIZE);
 
-    let byte_size = core::mem::size_of::<LeanCtorObject>()
+    let byte_size = core::mem::size_of::<LeanCtorObject<0>>()
         .checked_add(
             core::mem::size_of::<*mut LeanObject>()
                 .checked_mul(num_objs as Size)
@@ -379,18 +292,18 @@ pub unsafe fn lean_runtime_alloc_ctor(
         )
         .and_then(|size| size.checked_add(scalar_size as Size))
         .expect("constructor allocation overflow");
-    let obj = runtime_object_rc_impl::lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject;
-    (*obj).header.rc = 1;
-    (*obj).header.other = num_objs as u8;
-    (*obj).header.tag = tag as u8;
+    let obj = runtime_object_rc_impl::lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject<0>;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.other = num_objs as u8;
+    (*obj).m_header.tag = tag as u8;
     obj as *mut LeanObject
 }
 
 pub unsafe fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: *mut LeanObject) {
-    debug_assert!(index < (*obj).other as c_uint);
-    let fields = (obj as *mut LeanCtorObject)
+    debug_assert!(index < (*obj).m_header.other as c_uint);
+    let fields = (obj as *mut LeanCtorObject<0>)
         .cast::<u8>()
-        .add(core::mem::size_of::<LeanCtorObject>()) as *mut *mut LeanObject;
+        .add(core::mem::size_of::<LeanCtorObject<0>>()) as *mut *mut LeanObject;
     fields.add(index as Size).write(value);
 }
 
@@ -407,32 +320,31 @@ pub unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 { // duplicate in src
 }
 
 pub(crate) unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
-    let array_data_ptr = (obj as *const u8).add(24) as *const *mut LeanObject;
-    array_data_ptr.add(idx).read()
+    let array = obj as *const LeanArrayObject<0>;
+    (*array).m_data.as_ptr().add(idx).read()
 }
 
 pub(crate) unsafe fn lean_array_size(obj: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 52 (🔁)
 
-    let array = obj as *const LeanArrayObject;
-    (*array).size
+    let array = obj as *const LeanArrayObject<0>;
+    (*array).m_size
 }
 
 pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
-    let byte_size = core::mem::size_of::<LeanArrayObject>()
-        .checked_add(
-            core::mem::size_of::<*mut LeanObject>()
-                .checked_mul(capacity)
-                .expect("array allocation overflow"),
-        )
-        .expect("array allocation overflow");
-    let obj = lean_alloc_object(byte_size) as *mut LeanArrayObject;
-    (*obj).header.rc = 1;
-    (*obj).header.cs_size = 0;
-    (*obj).header.other = 0;
-    (*obj).header.tag = LEAN_ARRAY_TAG;
-    (*obj).size = size;
-    (*obj).capacity = capacity;
+    let byte_size = core::mem::size_of::<LeanArrayObject<0>>()
+            .checked_add(
+                core::mem::size_of::<*mut LeanObject>()
+                    .checked_mul(capacity)
+                    .expect("array allocation overflow"),
+            )
+            .expect("array allocation overflow");
+    let obj = lean_alloc_object(byte_size) as *mut LeanArrayObject<0>;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.cs_size = 0;
+    (*obj).m_header.other = 0;
+    (*obj).m_header.tag = LEAN_ARRAY_TAG;
+    (*obj).m_size = size;
+    (*obj).m_capacity = capacity;
     obj as *mut LeanObject
 }
 
@@ -445,28 +357,27 @@ pub(crate) unsafe fn lean_alloc_sarray(
     size: Size,
     capacity: Size,
 ) -> *mut LeanObject {
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
-    let byte_size = core::mem::size_of::<LeanScalarArray>()
+    let byte_size = core::mem::size_of::<LeanScalarArray<0>>()
         .checked_add(
             (elem_size as usize)
                 .checked_mul(capacity)
                 .expect("sarray allocation overflow"),
         )
         .expect("sarray allocation overflow");
-    let obj = lean_alloc_object(byte_size) as *mut LeanScalarArray;
-    (*obj).header.rc = 1;
-    (*obj).header.cs_size = 0;
-    (*obj).header.other = elem_size as u8;
-    (*obj).header.tag = LEAN_SCALAR_ARRAY_TAG;
-    (*obj).size = size;
-    (*obj).capacity = capacity;
+    let obj = lean_alloc_object(byte_size) as *mut LeanScalarArray<0>;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.cs_size = 0;
+    (*obj).m_header.other = elem_size as u8;
+    (*obj).m_header.tag = LEAN_SCALAR_ARRAY_TAG;
+    (*obj).m_size = size;
+    (*obj).m_capacity = capacity;
     obj as *mut LeanObject
 }
 
 pub(crate) fn lean_alloc_sarray_would_overflow(elem_size: c_uint, capacity: Size) -> bool {
     match (elem_size as usize).checked_mul(capacity) {
         None => true,
-        Some(bytes) => core::mem::size_of::<LeanScalarArray>()
+        Some(bytes) => core::mem::size_of::<LeanScalarArray<0>>()
             .checked_add(bytes)
             .is_none(),
     }
@@ -478,34 +389,33 @@ pub(crate) unsafe fn lean_alloc_string( // duplicate in src/rust/leanh/src/not_i
     capacity: usize,
     len: usize,
 ) -> *mut LeanObject {
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
-    let byte_size = core::mem::size_of::<LeanStringObject>()
+    let byte_size = core::mem::size_of::<LeanStringObject<0>>()
         .checked_add(capacity)
         .expect("string allocation overflow");
-    let obj = lean_alloc_object(byte_size) as *mut LeanStringObject;
-    (*obj).header.rc = 1;
-    (*obj).header.cs_size = 0;
-    (*obj).header.other = 0;
-    (*obj).header.tag = LEAN_STRING_TAG;
-    (*obj).size = size;
-    (*obj).capacity = capacity;
-    (*obj).len = len;
+    let obj = lean_alloc_object(byte_size) as *mut LeanStringObject<0>;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.cs_size = 0;
+    (*obj).m_header.other = 0;
+    (*obj).m_header.tag = LEAN_STRING_TAG;
+    (*obj).m_size = size;
+    (*obj).m_capacity = capacity;
+    (*obj).m_length = len;
     obj as *mut LeanObject
 }
 
 pub(crate) unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
-    let sarray = obj as *mut LeanScalarArray;
-    (*sarray).size = size;
+    let sarray = obj as *mut LeanScalarArray<0>;
+    (*sarray).m_size = size;
 }
 
 pub(crate) unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size {
-    let sarray = obj as *const LeanScalarArray;
-    (*sarray).size
+    let sarray = obj as *const LeanScalarArray<0>;
+    (*sarray).m_size
 }
 
 pub(crate) unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
-    let sarray = obj as *const LeanScalarArray;
-    (*sarray).capacity
+    let sarray = obj as *const LeanScalarArray<0>;
+    (*sarray).m_capacity
 }
 
 pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 570 (🔁)
@@ -850,14 +760,6 @@ pub unsafe fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u
     runtime_object_name_impl::lean_name_eq(n1, n2)
 }
 
-#[repr(C)]
-struct LeanExternalObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 133 (🔁)
-
-    header: LeanObject,
-    class: *mut LeanExternalClass,
-    data: *mut c_void,
-}
-
 static EXTERNAL_CLASSES: std::sync::Mutex<Vec<usize>> = std::sync::Mutex::new(Vec::new());
 
 unsafe fn lean_external_noop_finalize(_: *mut c_void) {}
@@ -887,20 +789,19 @@ pub unsafe fn lean_runtime_alloc_external(
     class: *mut LeanExternalClass,
     data: *mut c_void,
 ) -> *mut LeanObject {
-    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in src/rust/leanh/src/datatypes.rs at line 165 (🔁)
     let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
         LeanExternalObject,
     >()) as *mut LeanExternalObject;
-    (*obj).header.rc = 1;
-    (*obj).header.other = 0;
-    (*obj).header.tag = LEAN_EXTERNAL_TAG;
-    (*obj).class = class;
-    (*obj).data = data;
+    (*obj).m_header.rc = 1;
+    (*obj).m_header.other = 0;
+    (*obj).m_header.tag = LEAN_EXTERNAL_TAG;
+    (*obj).m_class = class;
+    (*obj).m_data = data;
     obj as *mut LeanObject
 }
 
 pub unsafe fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_void {
-    (*(obj as *mut LeanExternalObject)).data
+    (*(obj as *mut LeanExternalObject)).m_data
 }
 
 pub fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
@@ -1902,13 +1803,13 @@ unsafe fn lean_uint64_of_nat_rust(value: *mut LeanObject) -> u64 {
 }
 
 pub(crate) unsafe fn lean_string_size(obj: *mut LeanObject) -> usize {
-    let string = obj as *const LeanStringObject;
-    (*string).size
+    let string = obj as *const LeanStringObject<0>;
+    (*string).m_size
 }
 
 pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {
-    let string = obj as *const LeanStringObject;
-    (*string).len
+    let string = obj as *const LeanStringObject<0>;
+    (*string).m_length
 }
 
 pub fn lean_runtime_is_utf8_next(byte: c_uchar) -> bool {

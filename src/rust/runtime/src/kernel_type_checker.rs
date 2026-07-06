@@ -18,8 +18,7 @@ mod kernel_type_checker_impl {
     use std::collections::{HashMap, HashSet};
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
-
-    type Size = usize; // duplicate in src/rust/leanh/src/datatypes.rs at line 9 (🔁)
+    use leanh::{LEAN_MAX_SMALL_NAT, Size};
 
     // ---------------------------------------------------------------------------
     // Lean runtime C API bindings (extern "C" stubs expected from lean/lean.h)
@@ -651,8 +650,6 @@ mod kernel_type_checker_impl {
     // Small Nat: tagged scalar, value = lean_unbox(ptr), max = LEAN_MAX_SMALL_NAT.
     // Big Nat:   heap-allocated mpz object.
     // ---------------------------------------------------------------------------
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in src/rust/leanh/src/datatypes.rs at line 11 (🔁)
-
     #[inline(always)]
     unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
 

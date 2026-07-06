@@ -8,6 +8,11 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 
 mod runtime_compact_writer_impl {
     use crate::*;
+    use leanh::{
+        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,
+        LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
+        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
+    };
     use core::ffi::{CStr, c_char, c_void};
     use core::sync::atomic::{AtomicPtr, Ordering};
     use std::collections::HashMap;
@@ -30,19 +35,6 @@ mod runtime_compact_writer_impl {
     const OLEAN_FLAGS_GMP: u8 = 0b1;
 
     const LEAN_GITHASH: &str = env!("LEAN_RUST_GITHASH");
-
-    // Object tag constants matching lean.h
-    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in src/rust/leanh/src/datatypes.rs at line 154 (🔁)
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
-    const LEAN_THUNK_TAG: u8 = 251; // duplicate in src/rust/leanh/src/datatypes.rs at line 162 (🔁)
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
-    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
-    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in src/rust/leanh/src/datatypes.rs at line 165 (🔁)
 
     // lean_closure_object layout (matching lean.h uint16_t fields):
     //   header(8) + fun(8) + arity(u16,2) + num_fixed(u16,2) + pad(4) = 24 bytes header

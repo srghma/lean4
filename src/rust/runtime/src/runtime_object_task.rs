@@ -20,6 +20,7 @@ pub(crate) mod runtime_object_task_impl {
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
     use crate::*;
+    use leanh::LeanTaskImp;
     use core::sync::atomic::Ordering;
     use std::collections::VecDeque;
     use std::mem::MaybeUninit;
@@ -30,9 +31,7 @@ pub(crate) mod runtime_object_task_impl {
 
     const LEAN_MAX_PRIO: u32 = 8;
     const LEAN_SYNC_PRIO: u32 = u32::MAX;
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
+    use leanh::{LEAN_CLOSURE_TAG, LEAN_PROMISE_TAG, LEAN_TASK_TAG};
 
     // ─── Helper: send raw pointer across threads ──────────────────────────────
 
@@ -58,19 +57,6 @@ pub(crate) mod runtime_object_task_impl {
                 _result
             }
         }};
-    }
-
-    // ─── Internal structure of a running task ─────────────────────────────────
-
-    #[repr(C)]
-    struct LeanTaskImp { // duplicate in src/rust/leanh/src/datatypes.rs at line 122 (🔁)
-        m_closure: *mut LeanObject,
-        m_head_dep: *mut LeanTaskObject,
-        m_next_dep: *mut LeanTaskObject,
-        m_prio: u32,
-        m_canceled: bool,
-        m_keep_alive: bool,
-        m_deleted: bool,
     }
 
     // ─── Closure helpers ──────────────────────────────────────────────────────

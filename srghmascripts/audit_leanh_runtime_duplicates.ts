@@ -23,7 +23,7 @@ type RuntimeDef = {
   comment: string;
 };
 
-const ROOT = path.resolve(path.join(import.meta.dir, ".."));
+const ROOT = path.resolve(path.join(path.dirname(new URL(import.meta.url).pathname), ".."));
 const SOURCE_FILES: Array<{ label: string; file: string }> = [
   { label: "leanh/src/lib.rs", file: path.join(ROOT, "src/rust/leanh/src/lib.rs") },
   { label: "leanh/src/datatypes.rs", file: path.join(ROOT, "src/rust/leanh/src/datatypes.rs") },

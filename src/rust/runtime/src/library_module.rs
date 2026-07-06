@@ -10,6 +10,11 @@ Port of src/library/module.cpp:
 mod library_module_impl {
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_void};
+    use leanh::{
+        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,
+        LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
+        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
+    };
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):
     //   marker[5]        {'o','l','e','a','n'}
@@ -26,18 +31,6 @@ mod library_module_impl {
 
     // v3 format extra header: 8 bytes data_size right after the 88-byte header.
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
-
-    // Object tag constants matching lean.h
-    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in src/rust/leanh/src/datatypes.rs at line 154 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
-    const LEAN_THUNK_TAG: u8 = 251; // duplicate in src/rust/leanh/src/datatypes.rs at line 162 (🔁)
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
-    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
 
     // Size of fixed Lean object types (LP64):
     //   lean_thunk_object  = { header(8), value(8), closure(8) } = 24

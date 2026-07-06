@@ -378,6 +378,7 @@ name = "runtime"
 version = "0.1.0"
 dependencies = [
  "gmp-mpfr-sys",
+ "leanh",
  "libc",
  "libc-stdhandle",
  "libloading 0.9.0",

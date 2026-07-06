@@ -8,19 +8,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 pub(crate) mod runtime_object_nat_int_impl {
     use crate::*;
     use core::ffi::{c_char, c_int, c_long, c_ulong};
-
-    #[repr(C)]
-    struct LeanMpzObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 149 (🔁)
-        header: LeanObject,
-        value: MpzT,
-    }
+    use leanh::{LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG, LeanMpzObject};
 
     unsafe extern "C" {
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in src/rust/leanh/src/datatypes.rs at line 11 (🔁)
     const LEAN_MAX_SMALL_INT: i32 = i32::MAX;
     const LEAN_MIN_SMALL_INT: i32 = i32::MIN;
 
@@ -61,10 +54,10 @@ pub(crate) mod runtime_object_nat_int_impl {
         let saved_cs_size = (*obj).cs_size;
         let slot = lean_mpz_val_mut(obj);
         __gmpz_init_set(slot, mpz);
-        (*obj).rc = 1;
-        (*obj).tag = LEAN_MPZ_TAG;
-        (*obj).other = 0;
-        (*obj).cs_size = saved_cs_size;
+        (*obj).m_header.rc = 1;
+        (*obj).m_header.tag = LEAN_MPZ_TAG;
+        (*obj).m_header.other = 0;
+        (*obj).m_header.cs_size = saved_cs_size;
         obj
     }
 

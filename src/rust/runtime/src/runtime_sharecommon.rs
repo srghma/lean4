@@ -5,22 +5,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_sharecommon_impl {
     use crate::*;
+    use leanh::{
+        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG,
+        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_RESERVED_TAG, LEAN_SCALAR_ARRAY_TAG,
+        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
+    };
     use core::ffi::c_void;
     use std::collections::{HashMap, HashSet};
     use std::hash::{BuildHasherDefault, Hasher};
-
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
-    const LEAN_THUNK_TAG: u8 = 251; // duplicate in src/rust/leanh/src/datatypes.rs at line 162 (🔁)
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
-    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
-    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in src/rust/leanh/src/datatypes.rs at line 165 (🔁)
-    const LEAN_RESERVED_TAG: u8 = 255; // duplicate in src/rust/leanh/src/datatypes.rs at line 166 (🔁)
-
     unsafe extern "C" {
         fn lean_object_data_byte_size(o: *mut LeanObject) -> usize;
         fn lean_mpz_hash(o: *mut LeanObject) -> u32;

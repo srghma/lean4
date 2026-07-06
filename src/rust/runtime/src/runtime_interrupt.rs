@@ -8,6 +8,7 @@ mod runtime_interrupt_impl {
     use core::ffi::c_char;
     use core::ptr;
     use std::cell::Cell;
+    use leanh::LeanRefObject;
 
     unsafe extern "C" {
         fn lean_uncaught_exceptions() -> bool;
@@ -17,13 +18,6 @@ mod runtime_interrupt_impl {
         fn check_memory(component_name: *const c_char);
 
         fn check_stack(component_name: *const c_char);
-    }
-
-    #[repr(C)]
-    struct LeanRefObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
-
-        header: LeanObject,
-        value: *mut LeanObject,
     }
 
     unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject {
@@ -69,7 +63,7 @@ mod runtime_interrupt_impl {
 
     unsafe fn cancel_tk_is_set(tk: *mut LeanObject) -> bool {
         let set_ref = lean_ctor_get(tk, 1);
-        lean_unbox((*lean_to_ref(set_ref)).value) != 0
+        lean_unbox((*lean_to_ref(set_ref)).m_value) != 0
     }
     pub unsafe fn check_system(component_name: *const c_char, do_check_interrupted: bool) {
         check_stack(component_name);

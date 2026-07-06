@@ -10,102 +10,19 @@ pub(crate) mod runtime_object_rc_impl {
     use crate::*;
     use core::ffi::c_void;
     use core::ptr;
-    use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
+    use core::sync::atomic::{AtomicI32, Ordering};
+    use leanh::{
+        LeanArrayObject, LeanClosureObject, LeanExternalClass, LeanExternalObject, LeanMpzObject,
+        LeanObject, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
+        LeanTaskObject, LeanThunkObject, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG,
+        LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
+        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG, MpzT,
+    };
     use libmimalloc_sys as mi;
     #[cfg(all(lean_has_address_sanitizer, unix))]
     use libloading::os::unix::Library as UnixLibrary;
 
-    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in src/rust/leanh/src/datatypes.rs at line 154 (🔁)
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
-    const LEAN_THUNK_TAG: u8 = 251; // duplicate in src/rust/leanh/src/datatypes.rs at line 162 (🔁)
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
-    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
-    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in src/rust/leanh/src/datatypes.rs at line 165 (🔁)
     const LEAN_MAX_SMALL_OBJECT_SIZE: usize = 4096;
-
-    #[repr(C)]
-    pub struct LeanArrayObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 48 (🔁)
-        header: LeanObject,
-        size: usize,
-        capacity: usize,
-        data: [*mut LeanObject; 0],
-    }
-
-    #[repr(C)]
-    pub struct LeanStringObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 58 (🔁)
-        header: LeanObject,
-        size: usize,
-        capacity: usize,
-        len: usize,
-        data: [u8; 0],
-    }
-
-    #[repr(C)]
-    pub struct LeanClosureObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 69 (🔁)
-        header: LeanObject,
-        fun: *mut c_void,
-        arity: u16,
-        num_fixed: u16,
-        data: [*mut LeanObject; 0],
-    }
-
-    #[repr(C)]
-    pub struct LeanScalarArray { // duplicate in src/rust/leanh/src/datatypes.rs at line 80 (🔁)
-        header: LeanObject,
-        size: usize,
-        capacity: usize,
-        data: [u8; 0],
-    }
-
-    #[repr(C)]
-    pub struct LeanThunkObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 90 (🔁)
-        header: LeanObject,
-        m_value: AtomicPtr<LeanObject>,
-        m_closure: AtomicPtr<LeanObject>,
-    }
-
-    #[repr(C)]
-    pub struct LeanRefObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
-        header: LeanObject,
-        m_value: *mut LeanObject,
-    }
-
-    #[repr(C)]
-    pub struct LeanTaskObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 109 (🔁)
-        header: LeanObject,
-        m_value: AtomicPtr<LeanObject>,
-        m_imp: *mut c_void,
-    }
-
-    #[repr(C)]
-    pub struct LeanPromiseObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 116 (🔁)
-        header: LeanObject,
-        m_result: *mut LeanTaskObject,
-    }
-
-    #[repr(C)]
-    pub struct LeanExternalClass { // duplicate in src/rust/leanh/src/datatypes.rs at line 42 (🔁)
-        m_finalize: unsafe fn(*mut c_void),
-        m_foreach: unsafe fn(*mut c_void, *mut LeanObject),
-    }
-
-    #[repr(C)]
-    pub struct LeanExternalObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 133 (🔁)
-        header: LeanObject,
-        m_class: *mut LeanExternalClass,
-        m_data: *mut c_void,
-    }
-
-    #[repr(C)]
-    pub struct LeanMpzObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 149 (🔁)
-        header: LeanObject,
-        m_value: MpzT,
-    }
 
     #[cfg(all(lean_has_address_sanitizer, unix))]
     unsafe fn ignore_lsan_object(ptr: *mut c_void) {
@@ -228,44 +145,44 @@ pub(crate) mod runtime_object_rc_impl {
 
     #[inline(always)]
     unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 46 (🔁)
-        (*(o as *mut LeanArrayObject)).data.as_mut_ptr()
+        (*(o as *mut LeanArrayObject<0>)).m_data.as_mut_ptr()
     }
 
     #[inline(always)]
     unsafe fn lean_array_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 52 (🔁)
-        (*(o as *const LeanArrayObject)).size
+        (*(o as *const LeanArrayObject<0>)).m_size
     }
 
     #[inline(always)]
     unsafe fn lean_array_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 36 (🔁)
-        core::mem::size_of::<LeanArrayObject>()
-            + core::mem::size_of::<*mut LeanObject>() * (*(o as *const LeanArrayObject)).capacity
+        core::mem::size_of::<LeanArrayObject<0>>()
+            + core::mem::size_of::<*mut LeanObject>() * (*(o as *const LeanArrayObject<0>)).m_capacity
     }
 
     #[inline(always)]
     unsafe fn lean_sarray_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 197 (🔁)
-        core::mem::size_of::<LeanScalarArray>()
-            + (*o).other as usize * (*(o as *const LeanScalarArray)).capacity
+        core::mem::size_of::<LeanScalarArray<0>>()
+            + (*o).other as usize * (*(o as *const LeanScalarArray<0>)).m_capacity
     }
 
     #[inline(always)]
     unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 206 (🔁)
-        core::mem::size_of::<LeanStringObject>() + (*(o as *const LeanStringObject)).capacity
+        core::mem::size_of::<LeanStringObject<0>>() + (*(o as *const LeanStringObject<0>)).m_capacity
     }
 
     #[inline(always)]
     unsafe fn lean_closure_arg_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 58 (🔁)
-        (*(o as *mut LeanClosureObject)).data.as_mut_ptr()
+        (*(o as *mut LeanClosureObject<0>)).m_objs.as_mut_ptr()
     }
 
     #[inline(always)]
     unsafe fn lean_closure_num_fixed(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 64 (🔁)
-        (*(o as *const LeanClosureObject)).num_fixed as usize
+        (*(o as *const LeanClosureObject<0>)).m_num_fixed as usize
     }
 
     #[inline(always)]
     unsafe fn lean_closure_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 70 (🔁)
-        core::mem::size_of::<LeanClosureObject>()
+        core::mem::size_of::<LeanClosureObject<0>>()
             + core::mem::size_of::<*mut LeanObject>() * lean_closure_num_fixed(o)
     }
 
@@ -283,21 +200,21 @@ pub(crate) mod runtime_object_rc_impl {
     unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 264 (🔁)
         debug_assert!(arity > 0);
         debug_assert!(num_fixed < arity);
-        let byte_size = core::mem::size_of::<LeanClosureObject>()
+        let byte_size = core::mem::size_of::<LeanClosureObject<0>>()
             .checked_add(
                 core::mem::size_of::<*mut LeanObject>()
                     .checked_mul(num_fixed as usize)
                     .expect("closure allocation overflow"),
             )
             .expect("closure allocation overflow");
-        let obj = lean_alloc_object(byte_size) as *mut LeanClosureObject;
-        (*obj).header.rc = 1;
-        (*obj).header.other = 0;
-        (*obj).header.tag = LEAN_CLOSURE_TAG;
-        (*obj).fun = fun;
-        (*obj).arity = arity as u16;
-        (*obj).num_fixed = num_fixed as u16;
-        (*obj).header.cs_size = 0;
+        let obj = lean_alloc_object(byte_size) as *mut LeanClosureObject<0>;
+        (*obj).m_header.rc = 1;
+        (*obj).m_header.other = 0;
+        (*obj).m_header.tag = LEAN_CLOSURE_TAG;
+        (*obj).m_fun = fun;
+        (*obj).m_arity = arity as u16;
+        (*obj).m_num_fixed = num_fixed as u16;
+        (*obj).m_header.cs_size = 0;
         obj as *mut LeanObject
     }
 

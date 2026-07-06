@@ -10,6 +10,7 @@ mod runtime_object_string_impl {
     use crate::*;
     use core::ffi::c_char;
     use core::mem::size_of;
+    use leanh::LEAN_MAX_SMALL_NAT;
 
     unsafe extern "C" {
         fn lean_free_object(o: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
@@ -72,8 +73,6 @@ mod runtime_object_string_impl {
     fn lean_char_default_value() -> u32 {
         b'A' as u32
     }
-
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in src/rust/leanh/src/datatypes.rs at line 11 (🔁)
 
     #[inline]
     unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
