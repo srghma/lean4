@@ -7,7 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_panic_impl {
     use crate::*;
-    #[cfg(any(target_os = "linux", target_os = "macos"))]
+    #[cfg(unix)]
     use libloading::os::unix::Library as UnixLibrary;
     use std::io::Write;
 
@@ -31,7 +31,7 @@ mod runtime_object_panic_impl {
         }
     }
 
-    #[cfg(any(target_os = "linux", target_os = "macos"))]
+    #[cfg(unix)]
     mod backtrace_impl {
         use super::*;
 
@@ -39,7 +39,9 @@ mod runtime_object_panic_impl {
 
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
             let lib = UnixLibrary::this();
-            let Ok(demangle) = (unsafe { lib.get::<DemangleBacktraceLine>(c"lean_demangle_bt_line_cstr") }) else {
+            let Ok(demangle) =
+                (unsafe { lib.get::<DemangleBacktraceLine>(c"lean_demangle_bt_line_cstr") })
+            else {
                 return None;
             };
             let line = lean_mk_string(symbol);
@@ -85,7 +87,7 @@ mod runtime_object_panic_impl {
         }
     }
 
-    #[cfg(not(any(target_os = "linux", target_os = "macos")))]
+    #[cfg(not(unix))]
     mod backtrace_impl {
         pub(super) unsafe fn print_backtrace(force_stderr: bool) {
             super::panic_eprintln(b"(stack trace unavailable)", force_stderr);
@@ -120,7 +122,7 @@ mod runtime_object_panic_impl {
         if G_PANIC_MESSAGES.load(Ordering::Relaxed) {
             panic_eprintln(msg, force_stderr);
 
-            #[cfg(any(target_os = "linux", target_os = "macos"))]
+            #[cfg(unix)]
             {
                 let skip = std::env::var("LEAN_BACKTRACE")
                     .map(|value| value == "0")
@@ -131,7 +133,7 @@ mod runtime_object_panic_impl {
                 }
             }
 
-            #[cfg(not(any(target_os = "linux", target_os = "macos")))]
+            #[cfg(not(unix))]
             {
                 panic_eprintln(b"backtrace:", force_stderr);
                 backtrace_impl::print_backtrace(force_stderr);

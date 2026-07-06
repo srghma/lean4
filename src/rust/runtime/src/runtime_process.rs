@@ -14,8 +14,8 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 // lean_mk_string, lean_decode_io_error, lean_mk_io_user_error, etc.
 
 mod runtime_process_impl {
-    use crate::*;
     use crate::runtime_io_stream::io_wrap_handle;
+    use crate::*;
     use core::ffi::c_int;
     use core::ptr::null_mut;
 
@@ -113,24 +113,30 @@ mod runtime_process_impl {
         write_fd: c_int,
     }
 
+    unsafe fn set_cloexec(fd: c_int) -> Result<(), c_int> {
+        if libc::fcntl(fd, libc::F_SETFD, libc::FD_CLOEXEC) == -1 {
+            Err(*libc::__errno_location())
+        } else {
+            Ok(())
+        }
+    }
+
     fn setup_stdio(mode: StdioMode) -> Result<Option<OwnedPipe>, c_int> {
         match mode {
             StdioMode::Inherit | StdioMode::Null => Ok(None),
             StdioMode::Piped => {
                 let mut fds = [0i32; 2];
                 let ret = unsafe {
-                    #[cfg(target_os = "macos")]
-                    {
-                        let r = libc::pipe(fds.as_mut_ptr());
-                        if r == 0 {
-                            libc::fcntl(fds[0], libc::F_SETFD, libc::FD_CLOEXEC);
-                            libc::fcntl(fds[1], libc::F_SETFD, libc::FD_CLOEXEC);
-                        }
-                        r
-                    }
-                    #[cfg(not(target_os = "macos"))]
-                    {
-                        libc::pipe2(fds.as_mut_ptr(), libc::O_CLOEXEC)
+                    if libc::pipe(fds.as_mut_ptr()) == -1 {
+                        -1
+                    } else if set_cloexec(fds[0]).is_err() || set_cloexec(fds[1]).is_err() {
+                        let err = *libc::__errno_location();
+                        libc::close(fds[0]);
+                        libc::close(fds[1]);
+                        *libc::__errno_location() = err;
+                        -1
+                    } else {
+                        0
                     }
                 };
                 if ret == -1 {
@@ -182,21 +188,7 @@ mod runtime_process_impl {
 
     #[cfg(unix)]
     pub unsafe fn lean_io_get_tid() -> u64 {
-        #[cfg(target_os = "macos")]
-        {
-            let mut tid: u64 = 0;
-            libc::pthread_threadid_np(core::ptr::null_mut(), &mut tid);
-            tid
-        }
-        #[cfg(all(target_os = "linux"))]
-        {
-            // SYS_gettid is available since Linux 2.4.11
-            libc::syscall(libc::SYS_gettid) as u64
-        }
-        #[cfg(not(any(target_os = "macos", target_os = "linux")))]
-        {
-            0u64
-        }
+        thread_id::get() as u64
     }
 
     // ─── lean_io_process_child_wait ───────────────────────────────────────────
@@ -357,19 +349,8 @@ mod runtime_process_impl {
             // ── child process ─────────────────────────────────────────────────
 
             if !inherit_env {
-                #[cfg(target_os = "macos")]
-                {
-                    // On macOS, environ is a global pointer
-                    unsafe extern "C" {
-                        static mut environ: *mut *mut libc::c_char;
-                    }
-                    environ = null_mut();
-                }
-                #[cfg(not(target_os = "macos"))]
-                {
-                    unsafe {
-                        libc::clearenv();
-                    }
+                unsafe {
+                    libc::clearenv();
                 }
             }
 

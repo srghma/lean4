@@ -8,6 +8,7 @@ mod runtime_memory_impl {
     use core::ffi::c_char;
     use std::cell::Cell;
     use std::sync::atomic::{AtomicUsize, Ordering};
+    use sysinfo::System;
 
     const LEAN_CHECK_MEM_THRESHOLD: usize = 200;
 
@@ -17,61 +18,20 @@ mod runtime_memory_impl {
         static G_COUNTER: Cell<usize> = Cell::new(0);
     }
 
-    #[cfg(all(unix, not(target_os = "macos")))]
-    unsafe fn get_peak_rss() -> usize {
-        let mut rusage = std::mem::zeroed::<libc::rusage>();
-        if libc::getrusage(libc::RUSAGE_SELF, &mut rusage) == 0 {
-            (rusage.ru_maxrss as usize) * 1024
-        } else {
-            0
-        }
-    }
-
-    #[cfg(target_os = "macos")]
-    unsafe fn get_peak_rss() -> usize {
-        let mut rusage = std::mem::zeroed::<libc::rusage>();
-        if libc::getrusage(libc::RUSAGE_SELF, &mut rusage) == 0 {
-            rusage.ru_maxrss as usize
-        } else {
-            0
-        }
-    }
-
-    #[cfg(all(unix, not(target_os = "macos")))]
-    unsafe fn get_current_rss() -> usize {
-        if let Ok(content) = std::fs::read_to_string("/proc/self/statm") {
-            let mut parts = content.split_whitespace();
-            if parts.next().is_some() {
-                if let Some(rss_str) = parts.next() {
-                    if let Ok(rss) = rss_str.parse::<usize>() {
-                        let page_size = libc::sysconf(libc::_SC_PAGESIZE) as usize;
-                        return rss * page_size;
-                    }
-                }
-            }
-        }
-        0
-    }
-
-    #[cfg(target_os = "macos")]
-    unsafe fn get_current_rss() -> usize {
-        use mach2::task_info::{
-            MACH_TASK_BASIC_INFO, MACH_TASK_BASIC_INFO_COUNT, task_info, task_info_t,
+    fn current_rss() -> usize {
+        let Ok(pid) = sysinfo::get_current_pid() else {
+            return 0;
         };
-        use mach2::traps::mach_task_self;
-        let mut info = std::mem::zeroed::<mach2::task_info::mach_task_basic_info>();
-        let mut info_count = MACH_TASK_BASIC_INFO_COUNT;
-        if task_info(
-            mach_task_self(),
-            MACH_TASK_BASIC_INFO,
-            &mut info as *mut _ as task_info_t,
-            &mut info_count,
-        ) == 0
-        {
-            info.resident_size as usize
-        } else {
-            0
-        }
+        let mut system = System::new_all();
+        system.refresh_all();
+        system
+            .process(pid)
+            .map(|process| process.memory() as usize)
+            .unwrap_or(0)
+    }
+
+    fn peak_rss() -> usize {
+        current_rss()
     }
 
     pub fn lean_internal_get_default_max_memory() -> *mut LeanObject {
@@ -103,11 +63,11 @@ mod runtime_memory_impl {
         });
         if counter >= LEAN_CHECK_MEM_THRESHOLD {
             G_COUNTER.with(|cell| cell.set(0));
-            let r = get_peak_rss();
+            let r = peak_rss();
             if r > 0 && r < max {
                 return;
             }
-            let r = get_current_rss();
+            let r = current_rss();
             if r == 0 || r < max {
                 return;
             }
@@ -117,7 +77,7 @@ mod runtime_memory_impl {
         }
     }
     pub unsafe fn get_allocated_memory() -> usize {
-        get_current_rss()
+        current_rss()
     }
 
     /// Returns `true` if memory usage is within configured limits.
@@ -134,11 +94,11 @@ mod runtime_memory_impl {
         });
         if counter >= LEAN_CHECK_MEM_THRESHOLD {
             G_COUNTER.with(|cell| cell.set(0));
-            let r = get_peak_rss();
+            let r = peak_rss();
             if r > 0 && r < max {
                 return true;
             }
-            let r = get_current_rss();
+            let r = current_rss();
             if r == 0 || r < max {
                 return true;
             }

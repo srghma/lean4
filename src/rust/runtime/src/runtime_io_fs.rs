@@ -4,10 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_fs_impl {
-    use crate::*;
     use crate::runtime_io_stream::io_wrap_handle;
+    use crate::*;
     use core::ffi::c_char;
     use std::ffi::{CStr, CString};
+    use std::os::unix::ffi::OsStrExt;
+    use std::os::unix::fs::MetadataExt;
 
     unsafe extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
@@ -67,40 +69,11 @@ mod runtime_io_fs_impl {
         o
     }
 
-    #[cfg(any(target_os = "linux", target_os = "android"))]
-    unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
-        (
-            (st.st_atime as i64, st.st_atime_nsec as u32),
-            (st.st_mtime as i64, st.st_mtime_nsec as u32),
-        )
-    }
-
-    #[cfg(any(target_os = "macos", target_os = "ios"))]
-    unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
-        (
-            (
-                st.st_atimespec.tv_sec as i64,
-                st.st_atimespec.tv_nsec as u32,
-            ),
-            (
-                st.st_mtimespec.tv_sec as i64,
-                st.st_mtimespec.tv_nsec as u32,
-            ),
-        )
-    }
-
-    #[cfg(not(any(
-        target_os = "linux",
-        target_os = "android",
-        target_os = "macos",
-        target_os = "ios"
-    )))]
-    unsafe fn stat_timespecs(st: &libc::stat) -> ((i64, u32), (i64, u32)) {
-        ((st.st_atime as i64, 0), (st.st_mtime as i64, 0))
-    }
-
-    unsafe fn metadata_core(st: &libc::stat) -> *mut LeanObject {
-        let ((atime_sec, atime_nsec), (mtime_sec, mtime_nsec)) = stat_timespecs(st);
+    unsafe fn metadata_core(st: &std::fs::Metadata) -> *mut LeanObject {
+        let atime_sec = st.atime();
+        let atime_nsec = st.atime_nsec() as u32;
+        let mtime_sec = st.mtime();
+        let mtime_nsec = st.mtime_nsec() as u32;
         let mdata = lean_runtime_alloc_ctor(
             0,
             2,
@@ -319,11 +292,15 @@ mod runtime_io_fs_impl {
             Ok(s) => s,
             Err(e) => return e,
         };
-        let mut st = core::mem::MaybeUninit::<libc::stat>::uninit();
-        if libc::stat(fname, st.as_mut_ptr()) == 0 {
-            metadata_core(&st.assume_init())
-        } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
+        let path = std::path::Path::new(std::ffi::OsStr::from_bytes(
+            CStr::from_ptr(fname).to_bytes(),
+        ));
+        match std::fs::metadata(path) {
+            Ok(metadata) => metadata_core(&metadata),
+            Err(err) => lean_io_result_mk_error(lean_decode_io_error(
+                err.raw_os_error().unwrap_or(libc::EIO),
+                filename,
+            )),
         }
     }
 
@@ -332,12 +309,15 @@ mod runtime_io_fs_impl {
             Ok(s) => s,
             Err(e) => return e,
         };
-        let mut st = core::mem::MaybeUninit::<libc::stat>::uninit();
-        let ret = libc::lstat(fname, st.as_mut_ptr());
-        if ret == 0 {
-            metadata_core(&st.assume_init())
-        } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
+        let path = std::path::Path::new(std::ffi::OsStr::from_bytes(
+            CStr::from_ptr(fname).to_bytes(),
+        ));
+        match std::fs::symlink_metadata(path) {
+            Ok(metadata) => metadata_core(&metadata),
+            Err(err) => lean_io_result_mk_error(lean_decode_io_error(
+                err.raw_os_error().unwrap_or(libc::EIO),
+                filename,
+            )),
         }
     }
 
@@ -457,44 +437,26 @@ mod runtime_io_fs_impl {
     }
 
     pub unsafe fn lean_io_app_path() -> *mut LeanObject {
-        #[cfg(target_os = "macos")]
-        {
-            let mut buf1 = [0u8; libc::PATH_MAX as usize];
-            let mut buf2 = [0u8; libc::PATH_MAX as usize];
-            let mut bufsize = libc::PATH_MAX as u32;
-            if libc::_NSGetExecutablePath(buf1.as_mut_ptr().cast(), &mut bufsize) != 0 {
-                return io_error_from_str(c"failed to locate application".as_ptr());
+        match std::env::current_exe() {
+            Ok(path) => {
+                #[cfg(unix)]
+                {
+                    use std::os::unix::ffi::OsStrExt;
+
+                    match CString::new(path.as_os_str().as_bytes()) {
+                        Ok(path) => lean_io_result_mk_ok(lean_mk_string(path.as_ptr())),
+                        Err(_) => io_error_from_str(c"failed to locate application".as_ptr()),
+                    }
+                }
+                #[cfg(not(unix))]
+                {
+                    match CString::new(path.to_string_lossy().into_owned()) {
+                        Ok(path) => lean_io_result_mk_ok(lean_mk_string(path.as_ptr())),
+                        Err(_) => io_error_from_str(c"failed to locate application".as_ptr()),
+                    }
+                }
             }
-            let resolved = libc::realpath(buf1.as_ptr().cast(), buf2.as_mut_ptr().cast());
-            if resolved.is_null() {
-                return io_error_from_str(
-                    c"failed to resolve symbolic links when locating application".as_ptr(),
-                );
-            }
-            lean_io_result_mk_ok(lean_mk_string(buf2.as_ptr().cast()))
-        }
-        #[cfg(not(target_os = "macos"))]
-        {
-            // Linux and other Unix-like systems
-            let mut dest = [0u8; libc::PATH_MAX as usize];
-            let pid = libc::getpid();
-            let mut path_buf = [0u8; 64];
-            libc::snprintf(
-                path_buf.as_mut_ptr().cast(),
-                path_buf.len(),
-                c"/proc/%d/exe".as_ptr(),
-                pid as core::ffi::c_int,
-            );
-            let n = libc::readlink(
-                path_buf.as_ptr().cast(),
-                dest.as_mut_ptr().cast(),
-                libc::PATH_MAX as usize - 1,
-            );
-            if n == -1 {
-                io_error_from_str(c"failed to locate application".as_ptr())
-            } else {
-                lean_io_result_mk_ok(lean_mk_string(dest.as_ptr().cast()))
-            }
+            Err(_) => io_error_from_str(c"failed to locate application".as_ptr()),
         }
     }
 }
