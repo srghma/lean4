@@ -3,7 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "std")]
 mod runtime_libuv_impl {
     use crate::*;
     use crate::runtime_event_loop::{event_loop_run_loop, EventLoop, GLOBAL_EV};
@@ -56,5 +55,4 @@ mod runtime_libuv_impl {
     }
 }
 
-#[cfg(feature = "std")]
 pub use runtime_libuv_impl::*;

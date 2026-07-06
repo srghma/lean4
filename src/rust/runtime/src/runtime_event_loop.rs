@@ -3,7 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "std")]
 mod runtime_event_loop_impl {
     use crate::*;
     use core::ptr;
@@ -270,5 +269,4 @@ mod runtime_event_loop_impl {
     };
 }
 
-#[cfg(feature = "std")]
 pub use runtime_event_loop_impl::*;

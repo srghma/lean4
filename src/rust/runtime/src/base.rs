@@ -3,7 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#![cfg_attr(not(feature = "std"), no_std)]
 #![allow(dead_code, non_upper_case_globals)]
 
 pub use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -2266,7 +2265,6 @@ pub unsafe fn lean_runtime_hash_str(len: Size, text: *const c_uchar, seed: u64) 
     hash
 }
 
-#[cfg(not(feature = "std"))]
 #[panic_handler]
 fn panic(_: &PanicInfo<'_>) -> ! {
     loop {}
