@@ -12,7 +12,7 @@ mod runtime_object_string_impl {
     use core::mem::size_of;
 
     extern "C" {
-        fn lean_free_object(o: *mut LeanObject);
+        fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 15 (🔁)
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
     }
 
@@ -24,7 +24,7 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize { // duplicate in undefined at line 27 (🔁)
         size_of::<LeanStringObject>() + lean_string_capacity(o)
     }
 
@@ -39,17 +39,17 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in undefined at line 42 (🔁)
         (*o).rc == 1
     }
 
     #[inline]
-    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) {
+    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) { // duplicate in undefined at line 47 (🔁)
         (o.add(1) as *mut *mut LeanObject).add(i).write(v);
     }
 
     #[inline]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject { // duplicate in undefined at line 52 (🔁)
         lean_runtime_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
@@ -59,12 +59,12 @@ mod runtime_object_string_impl {
 
     // On 64-bit, UInt32 fits in a Lean scalar.
     #[inline]
-    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
+    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject { // duplicate in undefined at line 62 (🔁)
         lean_box(v as usize)
     }
 
     #[inline]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 { // duplicate in undefined at line 67 (🔁)
         lean_unbox(o) as u32
     }
 
@@ -73,10 +73,10 @@ mod runtime_object_string_impl {
         b'A' as u32
     }
 
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1;
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in undefined at line 76 (🔁)
 
     #[inline]
-    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
+    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in undefined at line 79 (🔁)
         if n <= LEAN_MAX_SMALL_NAT {
             lean_box(n)
         } else {
@@ -207,7 +207,7 @@ mod runtime_object_string_impl {
     // String constructors
     // ════════════════════════════════════════════════════════════════════════════
 
-    pub unsafe fn lean_mk_string_unchecked(
+    pub unsafe fn lean_mk_string_unchecked( // duplicate in undefined at line 210 (🔁)
         s: *const c_char,
         sz: usize,
         len: usize,
@@ -236,7 +236,7 @@ mod runtime_object_string_impl {
         lean_mk_string_unchecked(s, sz, lean_utf8_n_strlen(s, sz))
     }
 
-    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
+    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject { // duplicate in undefined at line 239 (🔁)
         let mut p = s;
         while *p != 0 {
             p = p.add(1);
@@ -713,7 +713,7 @@ mod runtime_object_string_impl {
         lean_mk_string_unchecked(buf.as_ptr() as *const c_char, buf.len(), len)
     }
 
-    pub unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject { // duplicate in undefined at line 716 (🔁)
         let sz = lean_string_size(s) - 1;
         let bytes = core::slice::from_raw_parts(lean_string_cstr(s) as *const u8, sz);
         let mut cps: Vec<u32> = Vec::new();

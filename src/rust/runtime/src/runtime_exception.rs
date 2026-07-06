@@ -23,7 +23,7 @@ mod runtime_exception_impl {
         std::process::abort();
     }
 
-    pub extern "C" fn throw_get_stack_size_failed() -> ! {
+    pub fn throw_get_stack_size_failed() -> ! {
         abort_with_message("failed to retrieve thread stack size")
     }
 
@@ -35,7 +35,7 @@ mod runtime_exception_impl {
         ))
     }
 
-    pub extern "C" fn throw_heartbeat_exception() -> ! {
+    pub fn throw_heartbeat_exception() -> ! {
         abort_with_message("(deterministic) timeout")
     }
 
@@ -46,12 +46,12 @@ mod runtime_exception_impl {
         ))
     }
 
-    pub extern "C" fn lean_throw_interrupted() -> ! {
+    pub fn lean_throw_interrupted() -> ! {
         abort_with_message("interrupted")
     }
 
     // TODO: is this correct? this is not present in cpp
-    pub extern "C" fn lean_uncaught_exceptions() -> bool {
+    pub fn lean_uncaught_exceptions() -> bool {
         false
     }
 }

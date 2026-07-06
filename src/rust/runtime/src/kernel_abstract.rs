@@ -23,7 +23,6 @@ Expression kind tags:
   Lambda=6  Pi=7  Let=8  Lit=9  MData=10  Proj=11
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod kernel_abstract_impl {
     use super::*;
     use std::collections::HashMap;

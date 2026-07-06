@@ -88,73 +88,33 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    pub extern "C" fn lean_initialize_thread() {}
+    pub fn lean_initialize_thread() {}
 
     #[cfg(not(lean_small_allocator))]
     pub unsafe fn lean_finalize_thread() {
         run_thread_finalizers_internal();
         run_post_thread_finalizers_internal();
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean22in_thread_finalizationEv"
-    )]
-    pub extern "C" fn in_thread_finalization() -> bool {
+    pub fn in_thread_finalization() -> bool {
         G_FINALIZING.with(|cell| cell.get())
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean25register_thread_finalizerEPFvPvES0_"
-    )]
     pub unsafe fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_FINALIZERS, f, data);
-    }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean30register_post_thread_finalizerEPFvPvES0_"
-    )]
+    }fn
     pub unsafe fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_POST_FINALIZERS, f, data);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean21run_thread_finalizersEv"
-    )]
     pub unsafe fn run_thread_finalizers_export() {
         run_thread_finalizers_internal();
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean26run_post_thread_finalizersEv"
-    )]
     pub unsafe fn run_post_thread_finalizers_export() {
         run_post_thread_finalizers_internal();
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean31delete_thread_finalizer_managerEv"
-    )]
     pub unsafe fn delete_thread_finalizer_manager_export() {
         delete_thread_finalizer_manager_internal();
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean17initialize_threadEv"
-    )]
-    pub extern "C" fn initialize_thread() {}
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15finalize_threadEv"
-    )]
-    pub extern "C" fn finalize_thread() {}
+    pub fn initialize_thread() {}
+    pub fn finalize_thread() {}
 
     // -------------------------------------------------------------------------
     // LThread / lean_run_main
@@ -188,13 +148,13 @@ mod runtime_thread_impl {
     #[cfg(target_os = "emscripten")]
     const LEAN_DEFAULT_THREAD_STACK_SIZE: usize = 8 * 1024 * 1024; // 8 MB
 
-    static G_THREAD_STACK_SIZE: AtomicUsize = AtomicUsize::new(LEAN_DEFAULT_THREAD_STACK_SIZE);
+    statfnTACK_SIZE: AtomicUsize = AtomicUsize::new(LEAN_DEFAULT_THREAD_STACK_SIZE);
 
     fn get_thread_stack_size() -> usize {
         G_THREAD_STACK_SIZE.load(Ordering::Relaxed)
     }
 
-    fn set_thread_stack_size_internal(sz: usize) {
+    fn sfnck_size_internal(sz: usize) {
         G_THREAD_STACK_SIZE.store(sz + LEAN_STACK_BUFFER_SPACE, Ordering::Relaxed);
     }
 
@@ -202,18 +162,13 @@ mod runtime_thread_impl {
         set_thread_stack_size_internal(sz);
         lean_box(0)
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean7lthread21get_thread_stack_sizeEv"
-    )]
-    pub extern "C" fn lthread_get_thread_stack_size() -> usize {
+    pub fn lthread_get_thread_stack_size() -> usize {
         get_thread_stack_size()
     }
 
     type ThreadClosure = Box<dyn FnOnce() + Send + 'static>;
 
-    extern "C" fn lthread_entry(p: *mut c_void) -> *mut c_void {
+    fn lthread_entry(p: *mut c_void) -> *mut c_void {
         unsafe {
             // Install per-thread alternate signal stack (same as C++ `stack_guard guard`)
             #[cfg(any(unix, windows))]
@@ -252,13 +207,13 @@ mod runtime_thread_impl {
                     panic!("lean: failed to set thread stack size");
                 }
                 let boxed: Box<ThreadClosure> = Box::new(f);
-                let raw = Box::into_raw(boxed) as *mut c_void;
+        fnaw = Box::into_raw(boxed) as *mut c_void;
                 let mut thread = MaybeUninit::<pthread_t>::uninit();
                 if pthread_create(thread.as_mut_ptr(), &attr, lthread_entry, raw) != 0 {
                     drop(Box::from_raw(raw as *mut ThreadClosure));
                     pthread_attr_destroy(&mut attr);
                     panic!("lean: failed to create thread");
-                }
+    fn
                 LThread {
                     attr,
                     thread: thread.assume_init(),
@@ -299,7 +254,7 @@ mod runtime_thread_impl {
     }
 
     #[cfg(lean_multi_thread)]
-    pub unsafe fn lean_run_main(
+    pub unsafe fn lean_run_main( // duplicate in undefined at line 302 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -331,7 +286,7 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    pub unsafe fn lean_run_main(
+    pub unsafe fn lean_run_main( // duplicate in undefined at line 334 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,

@@ -8,14 +8,5 @@ All other num functions are unused (verified: no external callers).
 */
 
 // initialize_num / finalize_num — empty no-ops
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean14initialize_numEv"
-)]
 pub unsafe fn lean_cxx_initialize_num() {}
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean12finalize_numEv"
-)]
 pub unsafe fn lean_cxx_finalize_num() {}

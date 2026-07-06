@@ -30,9 +30,9 @@ pub(crate) mod runtime_object_task_impl {
 
     const LEAN_MAX_PRIO: u32 = 8;
     const LEAN_SYNC_PRIO: u32 = u32::MAX;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_PROMISE_TAG: u8 = 244;
-    const LEAN_CLOSURE_TAG: u8 = 245;
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 33 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 34 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 35 (🔁)
 
     // ─── Helper: send raw pointer across threads ──────────────────────────────
 
@@ -63,7 +63,7 @@ pub(crate) mod runtime_object_task_impl {
     // ─── Internal structure of a running task ─────────────────────────────────
 
     #[repr(C)]
-    struct LeanTaskImp {
+    struct LeanTaskImp { // duplicate in undefined at line 66 (🔁)
         m_closure: *mut LeanObject,
         m_head_dep: *mut LeanTaskObject,
         m_next_dep: *mut LeanTaskObject,
@@ -799,7 +799,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Init / finalize task manager ────────────────────────────────────────
 
-    pub extern "C" fn lean_init_task_manager_using(num_workers: u32) {
+    pub fn lean_init_task_manager_using(num_workers: u32) {
         debug_assert!(get_task_manager().is_none());
         #[cfg(lean_multi_thread)]
         if num_workers > 0 {
@@ -809,11 +809,11 @@ pub(crate) mod runtime_object_task_impl {
         let _ = num_workers;
     }
 
-    pub extern "C" fn lean_init_task_manager() {
+    pub fn lean_init_task_manager() {
         lean_init_task_manager_using(unsafe { lean_runtime_get_lean_num_threads() });
     }
 
-    pub extern "C" fn lean_finalize_task_manager() {
+    pub fn lean_finalize_task_manager() {
         if let Some(tm) = get_task_manager() {
             tm.initiate_shutdown();
         }
@@ -962,7 +962,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── IO task helpers ──────────────────────────────────────────────────────
 
-    pub extern "C" fn lean_io_check_canceled_core() -> bool {
+    pub fn lean_io_check_canceled_core() -> bool {
         let ct = current_task();
         if ct.is_null() {
             return false;
@@ -1034,10 +1034,6 @@ pub(crate) mod runtime_object_task_impl {
     // ─── Promise new / resolve ────────────────────────────────────────────────
 
     // lean::lean_promise_new (C++ namespace → mangled name)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16lean_promise_newEv"
-    )]
     pub unsafe fn lean_promise_new_impl() -> *mut LeanObject {
         if get_task_manager().is_none() {
             lean_internal_panic(
@@ -1069,10 +1065,6 @@ pub(crate) mod runtime_object_task_impl {
     }
 
     // lean::lean_promise_resolve (C++ namespace → mangled name)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"
-    )]
     pub unsafe fn lean_promise_resolve_impl(value: *mut LeanObject, promise: *mut LeanObject) {
         let p = promise as *mut LeanPromiseObject;
         if let Some(tm) = get_task_manager() {

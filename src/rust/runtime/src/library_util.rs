@@ -13,7 +13,6 @@ still uses directly:
 The old C++ util.cpp implementation is removed.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod library_util_impl {
     use super::*;
     use core::ffi::c_char;
@@ -24,7 +23,7 @@ mod library_util_impl {
 
     extern "C" {
         fn lean_expr_mk_const(name: *mut LeanObject, lvls: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mark_persistent(obj: *mut LeanObject);
+        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 27 (🔁)
     }
 
     static INITIALIZED: AtomicBool = AtomicBool::new(false);
@@ -80,11 +79,6 @@ mod library_util_impl {
             initialize_library_util_impl();
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23initialize_library_utilEv"
-    )]
     pub unsafe fn lean_initialize_library_util() {
         if INITIALIZED
             .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
@@ -93,11 +87,6 @@ mod library_util_impl {
             initialize_library_util_impl();
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean21finalize_library_utilEv"
-    )]
     pub unsafe fn lean_finalize_library_util() {
         if INITIALIZED.load(Ordering::Acquire) {
             finalize_library_util_impl();
@@ -121,7 +110,7 @@ mod library_util_impl {
     }
 
     #[no_mangle]
-    pub extern "C" fn lean_short_version_string() -> *const c_char {
+    pub fn lean_short_version_string() -> *const c_char {
         SHORT_VERSION_STRING.as_ptr().cast::<c_char>()
     }
 }

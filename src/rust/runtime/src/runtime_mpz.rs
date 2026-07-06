@@ -28,7 +28,7 @@ mod gmp_impl {
     }
 
     // mpz_t = [__mpz_struct; 1]
-    pub type MpzT = [MpzStruct; 1];
+    pub type MpzT = [MpzStruct; 1]; // duplicate in undefined at line 31 (🔁)
 
     extern "C" {
         fn __gmpz_init(x: *mut MpzT);
@@ -155,10 +155,6 @@ mod gmp_impl {
     }
 
     // lean::mpz::mpz(__mpz_struct const*)  — construct from raw mpz_t pointer
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3mpzC1EP12__mpz_struct"
-    )]
     pub unsafe fn mpz_ctor_mpzt(self_: *mut MpzT, v: *const MpzT) {
         __gmpz_init_set(self_, v);
     }
@@ -169,19 +165,11 @@ mod gmp_impl {
     }
 
     // lean::mpz::set(mpz_t r) const  — copies self's value into raw mpz_t r
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZNK4lean3mpz3setEP12__mpz_struct"
-    )]
     pub unsafe fn mpz_set_raw(self_: *const MpzT, r: *mut MpzT) {
         __gmpz_set(r, self_);
     }
 
     // lean::swap(mpz&, mpz&)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean4swapERNS_3mpzES1_"
-    )]
     pub unsafe fn mpz_swap(a: *mut MpzT, b: *mut MpzT) {
         __gmpz_swap(a, b);
     }
@@ -197,74 +185,42 @@ mod gmp_impl {
     }
 
     // lean::mpz::is_unsigned_int() const
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZNK4lean3mpz15is_unsigned_intEv"
-    )]
     pub unsafe fn mpz_is_unsigned_int(self_: *const MpzT) -> bool {
         __gmpz_fits_uint_p(self_) != 0
     }
 
     // lean::mpz::is_size_t() const
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZNK4lean3mpz9is_size_tEv"
-    )]
     pub unsafe fn mpz_is_size_t(self_: *const MpzT) -> bool {
         // sizeof(size_t) == sizeof(mp_limb_t) on LP64; nonneg AND at most one limb
         mpz_sgn_impl(self_) >= 0 && __gmpz_size(self_) <= 1
     }
 
     // lean::mpz::get_int() const
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZNK4lean3mpz7get_intEv"
-    )]
     pub unsafe fn mpz_get_int(self_: *const MpzT) -> i32 {
         __gmpz_get_si(self_) as i32
     }
 
     // lean::mpz::get_unsigned_int() const
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZNK4lean3mpz16get_unsigned_intEv"
-    )]
     pub unsafe fn mpz_get_unsigned_int(self_: *const MpzT) -> u32 {
         __gmpz_get_ui(self_) as u32
     }
 
     // lean::mpz::get_size_t() const
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZNK4lean3mpz10get_size_tEv"
-    )]
     pub unsafe fn mpz_get_size_t(self_: *const MpzT) -> usize {
         __gmpz_getlimbn(self_, 0) as usize
     }
 
     // lean::cmp(mpz const&, mpz const&)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3cmpERKNS_3mpzES2_"
-    )]
     pub unsafe fn mpz_cmp(a: *const MpzT, b: *const MpzT) -> c_int {
         __gmpz_cmp(a, b)
     }
 
     // lean::cmp(mpz const&, unsigned)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3cmpERKNS_3mpzEj"
-    )]
     pub unsafe fn mpz_cmp_uint(a: *const MpzT, b: u32) -> c_int {
         __gmpz_cmp_ui(a, b as c_ulong)
     }
 
     // lean::cmp(mpz const&, int)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3cmpERKNS_3mpzEi"
-    )]
     pub unsafe fn mpz_cmp_int(a: *const MpzT, b: i32) -> c_int {
         __gmpz_cmp_si(a, b as c_long)
     }
@@ -347,19 +303,11 @@ mod gmp_impl {
     }
 
     // lean::mul2k(mpz&, mpz const&, unsigned)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean5mul2kERNS_3mpzERKS0_j"
-    )]
     pub unsafe fn mul2k(a: *mut MpzT, b: *const MpzT, k: u32) {
         __gmpz_mul_2exp(a, b, k as u64);
     }
 
     // lean::div2k(mpz&, mpz const&, unsigned)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean5div2kERNS_3mpzERKS0_j"
-    )]
     pub unsafe fn div2k(a: *mut MpzT, b: *const MpzT, k: u32) {
         __gmpz_tdiv_q_2exp(a, b, k as u64);
     }
@@ -414,10 +362,6 @@ mod gmp_impl {
     }
 
     // lean::mpz::ediv(mpz const&, mpz const&) static — SRET result
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3mpz4edivERKS0_S2_"
-    )]
     pub unsafe fn mpz_ediv(result: *mut MpzT, n: *const MpzT, d: *const MpzT) {
         __gmpz_init(result);
         let mut r = uninit_mpzt();
@@ -434,10 +378,6 @@ mod gmp_impl {
     }
 
     // lean::mpz::emod(mpz const&, mpz const&) static — SRET result
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3mpz4emodERKS0_S2_"
-    )]
     pub unsafe fn mpz_emod(result: *mut MpzT, n: *const MpzT, d: *const MpzT) {
         __gmpz_init(result);
         __gmpz_tdiv_r(result, n, d);
@@ -451,29 +391,17 @@ mod gmp_impl {
     }
 
     // lean::mpz::divexact(mpz const&, mpz const&) static — SRET result
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3mpz8divexactERKS0_S2_"
-    )]
     pub unsafe fn mpz_divexact(result: *mut MpzT, n: *const MpzT, d: *const MpzT) {
         __gmpz_init(result);
         __gmpz_divexact(result, n, d);
     }
 
     // lean::power(mpz&, mpz const&, unsigned)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean5powerERNS_3mpzERKS0_j"
-    )]
     pub unsafe fn power_fn(a: *mut MpzT, b: *const MpzT, k: u32) {
         __gmpz_pow_ui(a, b, k as c_ulong);
     }
 
     // lean::gcd(mpz&, mpz const&, mpz const&)
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean3gcdERNS_3mpzERKS0_S3_"
-    )]
     pub unsafe fn gcd_fn(g: *mut MpzT, a: *const MpzT, b: *const MpzT) {
         __gmpz_gcd(g, a, b);
     }

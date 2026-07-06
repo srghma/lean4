@@ -52,7 +52,6 @@ KVMap = list_ref<pair_ref<name, data_value>>, field layout same as kvmap_eq in e
 DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte offset 0).
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod library_expr_lt_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::*;

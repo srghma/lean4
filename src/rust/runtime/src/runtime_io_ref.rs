@@ -10,13 +10,14 @@ mod runtime_io_ref_impl {
 
     extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
-        fn lean_mark_persistent(obj: *mut LeanObject);
+        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 13 (🔁)
     }
 
-    const LEAN_REF_TAG: u8 = 253;
+    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 16 (🔁)
 
     #[repr(C)]
     struct LeanRefObject {
+        // duplicate in undefined at line 19 (🔁)
         header: LeanObject,
         value: *mut LeanObject,
     }
@@ -143,11 +144,11 @@ mod runtime_io_ref_impl {
         (lean_to_ref(ref1) == lean_to_ref(ref2)) as u8
     }
 
-    pub extern "C" fn lean_io_exit(code: u8) -> *mut LeanObject {
+    pub fn lean_io_exit(code: u8) -> *mut LeanObject {
         unsafe { libc::exit(code as i32) }
     }
 
-    pub extern "C" fn lean_io_force_exit(code: u8) -> *mut LeanObject {
+    pub fn lean_io_force_exit(code: u8) -> *mut LeanObject {
         unsafe { libc::_exit(code as i32) }
     }
 

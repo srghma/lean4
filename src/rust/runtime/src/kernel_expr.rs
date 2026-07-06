@@ -25,7 +25,6 @@ Scalar field layout (after object pointer fields):
   Let      (4 obj fields): [8] nondep flag (u8)
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod kernel_expr_impl {
     use super::runtime_object_panic_impl::lean_internal_panic;
     use super::*;
@@ -386,8 +385,8 @@ mod kernel_expr_impl {
     }
 
     #[export_name = "_ZN4lean15initialize_exprEv"]
-    pub extern "C" fn initialize_expr() {}
+    pub fn initialize_expr() {}
 
     #[export_name = "_ZN4lean13finalize_exprEv"]
-    pub extern "C" fn finalize_expr() {}
+    pub fn finalize_expr() {}
 }

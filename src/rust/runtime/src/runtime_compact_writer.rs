@@ -6,7 +6,6 @@ Port of src/runtime/compact.cpp (object_compactor) and
 src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod runtime_compact_writer_impl {
     use super::*;
     use core::ffi::{CStr, c_char, c_void};
@@ -35,17 +34,17 @@ mod runtime_compact_writer_impl {
     const LEAN_GITHASH: &str = env!("LEAN_RUST_GITHASH");
 
     // Object tag constants matching lean.h
-    const LEAN_MAX_CTOR_TAG: u8 = 243;
-    const LEAN_PROMISE_TAG: u8 = 244;
-    const LEAN_CLOSURE_TAG: u8 = 245;
-    const LEAN_ARRAY_TAG: u8 = 246;
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-    const LEAN_STRING_TAG: u8 = 249;
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_THUNK_TAG: u8 = 251;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_REF_TAG: u8 = 253;
-    const LEAN_EXTERNAL_TAG: u8 = 254;
+    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in undefined at line 38 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 39 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 40 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 41 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 42 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 43 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 44 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in undefined at line 45 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 46 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 47 (🔁)
+    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in undefined at line 48 (🔁)
 
     // lean_closure_object layout (matching lean.h uint16_t fields):
     //   header(8) + fun(8) + arity(u16,2) + num_fixed(u16,2) + pad(4) = 24 bytes header

@@ -182,7 +182,7 @@ mod runtime_object_panic_impl {
         lean_internal_panic(c_char_ptr(b"integer overflow in runtime computation\0"))
     }
 
-    pub extern "C" fn lean_set_exit_on_panic(flag: bool) {
+    pub fn lean_set_exit_on_panic(flag: bool) {
         G_EXIT_ON_PANIC.store(flag, Ordering::Relaxed);
     }
 
@@ -191,7 +191,7 @@ mod runtime_object_panic_impl {
         lean_box(0)
     }
 
-    pub extern "C" fn lean_set_panic_messages(flag: bool) {
+    pub fn lean_set_panic_messages(flag: bool) {
         G_PANIC_MESSAGES.store(flag, Ordering::Relaxed);
     }
 

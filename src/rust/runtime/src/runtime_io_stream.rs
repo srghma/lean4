@@ -69,11 +69,6 @@ mod runtime_io_stream_impl {
     }
 
     unsafe fn io_handle_foreach(_: *mut c_void, _: *mut LeanObject) {}
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14io_wrap_handleEP8_IO_FILE"
-    )]
     pub unsafe fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
         lean_runtime_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
     }
@@ -113,11 +108,6 @@ mod runtime_io_stream_impl {
     pub unsafe fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDERR.with(|stream| stream.set(STREAM_STDERR, handle))
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean13initialize_ioEv"
-    )]
     pub unsafe fn initialize_io() {
         IO_HANDLE_EXTERNAL_CLASS =
             lean_register_external_class(Some(io_handle_finalizer), Some(io_handle_foreach));
@@ -137,10 +127,5 @@ mod runtime_io_stream_impl {
             assert_ne!(signal(SIGPIPE, SIG_IGN), SIG_ERR);
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11finalize_ioEv"
-    )]
-    pub extern "C" fn finalize_io() {}
+    pub fn finalize_io() {}
 }

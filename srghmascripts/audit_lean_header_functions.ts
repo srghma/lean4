@@ -45,7 +45,7 @@ interface ScannedFile {
 const ROOT = resolve(import.meta.dir, "..");
 const DEFAULT_HEADER = join(ROOT, "origin-master-src/include/lean/lean.h");
 const DEFAULT_OUT = join(ROOT, "srghmascripts/rust_cpp_audit/lean_header_function_audit.md");
-const DEFAULT_RUST_ROOT = join(ROOT, "src/rust/lean_runtime/src");
+const DEFAULT_RUST_ROOT = join(ROOT, "src/rust/runtime/src");
 const DEFAULT_LEAN_ROOT = join(ROOT, "src");
 
 const { values } = parseArgs({

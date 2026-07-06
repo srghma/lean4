@@ -54,11 +54,6 @@ mod runtime_timer_impl {
     unsafe fn close_free_handle(handle: *mut UvHandle) {
         libc::free(handle.cast());
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23lean_uv_timer_finalizerEPv"
-    )]
     pub unsafe fn lean_uv_timer_finalizer(ptr: *mut c_void) {
         let timer = ptr.cast::<LeanUvTimerObject>();
 
@@ -83,20 +78,10 @@ mod runtime_timer_impl {
             lean_apply_1(f, (*timer).promise);
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean22initialize_libuv_timerEv"
-    )]
     pub unsafe fn initialize_libuv_timer() {
         UV_TIMER_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_timer_finalizer), Some(timer_foreach));
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18handle_timer_eventEP10uv_timer_s"
-    )]
     pub unsafe fn handle_timer_event(handle: *mut UvTimer) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);

@@ -50,35 +50,15 @@ mod runtime_stack_overflow_impl {
     unsafe fn stack_guard_dtor(this: *mut StackGuard) {
         uninstall_signal_stack(ptr::addr_of_mut!((*this).signal_stack));
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardC1Ev"
-    )]
     pub unsafe fn stack_guard_ctor_complete(this: *mut StackGuard) {
         stack_guard_ctor(this);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardC2Ev"
-    )]
     pub unsafe fn stack_guard_ctor_base(this: *mut StackGuard) {
         stack_guard_ctor(this);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardD1Ev"
-    )]
     pub unsafe fn stack_guard_dtor_complete(this: *mut StackGuard) {
         stack_guard_dtor(this);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardD2Ev"
-    )]
     pub unsafe fn stack_guard_dtor_base(this: *mut StackGuard) {
         stack_guard_dtor(this);
     }
@@ -104,11 +84,6 @@ mod runtime_stack_overflow_impl {
         libc::pthread_attr_destroy(&mut attr);
         if ok { Some(stackaddr as usize) } else { None }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean21is_within_stack_guardEPv"
-    )]
     pub unsafe fn is_within_stack_guard(addr: *mut c_void) -> bool {
         let Some(stackaddr) = stack_low_address() else {
             return false;
@@ -129,12 +104,7 @@ mod runtime_stack_overflow_impl {
             libc::sigaction(signum, &action, ptr::null_mut());
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean25initialize_stack_overflowEv"
-    )]
-    pub extern "C" fn initialize_stack_overflow() {
+    pub fn initialize_stack_overflow() {
         unsafe {
             let guard = Box::into_raw(Box::new(StackGuard {
                 signal_stack: mem::zeroed(),
@@ -153,12 +123,7 @@ mod runtime_stack_overflow_impl {
             }
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23finalize_stack_overflowEv"
-    )]
-    pub extern "C" fn finalize_stack_overflow() {
+    pub fn finalize_stack_overflow() {
         let guard = MAIN_STACK_GUARD.swap(ptr::null_mut(), Ordering::Relaxed);
         if !guard.is_null() {
             unsafe {
@@ -193,7 +158,7 @@ mod runtime_stack_overflow_impl {
     }
 
     #[repr(C)]
-    struct ExceptionPointers {
+    strufnointers {
         exception_record: *mut ExceptionRecord,
         context_record: *mut c_void,
     }
@@ -219,52 +184,23 @@ mod runtime_stack_overflow_impl {
         }
         EXCEPTION_CONTINUE_SEARCH
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardC1Ev"
-    )]
     pub unsafe fn stack_guard_ctor_complete(_: *mut StackGuard) {
         let mut size = 0x5000;
         SetThreadStackGuarantee(&mut size);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardC2Ev"
-    )]
     pub unsafe fn stack_guard_ctor_base(this: *mut StackGuard) {
         stack_guard_ctor_complete(this);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardD1Ev"
-    )]
     pub unsafe fn stack_guard_dtor_complete(_: *mut StackGuard) {}
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean11stack_guardD2Ev"
-    )]
     pub unsafe fn stack_guard_dtor_base(_: *mut StackGuard) {}
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean25initialize_stack_overflowEv"
-    )]
-    pub extern "C" fn initialize_stack_overflow() {
+    pub fn initialize_stack_overflow() {
         unsafe {
             AddVectoredExceptionHandler(0, Some(stack_overflow_handler));
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23finalize_stack_overflowEv"
-    )]
-    pub extern "C" fn finalize_stack_overflow() {}
+    pub fn finalize_stack_overflow() {}
 }
 
 #[cfg(all(feature = "std", windows))]
 pub use runtime_stack_overflow_impl::*;
+fnfn

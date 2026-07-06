@@ -10,17 +10,17 @@ use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
-type Size = usize;
+type Size = usize; // duplicate in undefined at line 13 (🔁)
 
 extern "C" {
-    pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
+    pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject; // duplicate in undefined at line 16 (🔁)
     fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
     fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-    fn lean_dec_ref_cold(obj: *mut LeanObject);
-    fn lean_mark_persistent(obj: *mut LeanObject);
+    fn lean_dec_ref_cold(obj: *mut LeanObject); // duplicate in undefined at line 19 (🔁)
+    fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 20 (🔁)
     fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
-    fn lean_alloc_object(size: Size) -> *mut LeanObject;
+    fn lean_alloc_object(size: Size) -> *mut LeanObject; // duplicate in undefined at line 23 (🔁)
     fn lean_mk_io_error_invalid_argument_file(
         name: *mut LeanObject,
         errnum: u32,
@@ -90,6 +90,7 @@ extern "C" {
 
 #[repr(C)]
 pub struct LeanObject {
+    // duplicate in undefined at line 92 (🔁)
     rc: i32,
     cs_size: u16,
     other: u8,
@@ -98,15 +99,17 @@ pub struct LeanObject {
 
 #[repr(C)]
 struct LeanCtorObject {
+    // duplicate in undefined at line 100 (🔁)
     header: LeanObject,
     data: [*mut LeanObject; 0],
 }
 
-type LeanExternalFinalizeProc = unsafe fn(*mut c_void);
-type LeanExternalForeachProc = unsafe fn(*mut c_void, *mut LeanObject);
+type LeanExternalFinalizeProc = unsafe fn(*mut c_void); // duplicate in undefined at line 105 (🔁)
+type LeanExternalForeachProc = unsafe fn(*mut c_void, *mut LeanObject); // duplicate in undefined at line 106 (🔁)
 
 #[repr(C)]
 pub struct LeanExternalClass {
+    // duplicate in undefined at line 109 (🔁)
     finalize: LeanExternalFinalizeProc,
     foreach: LeanExternalForeachProc,
 }
@@ -120,6 +123,7 @@ struct LeanListCell {
 
 #[repr(C)]
 struct LeanArrayObject {
+    // duplicate in undefined at line 122 (🔁)
     header: LeanObject,
     size: Size,
     capacity: Size,
@@ -128,6 +132,7 @@ struct LeanArrayObject {
 
 #[repr(C)]
 struct LeanStringObject {
+    // duplicate in undefined at line 130 (🔁)
     header: LeanObject,
     size: Size,
     capacity: Size,
@@ -137,6 +142,7 @@ struct LeanStringObject {
 
 #[repr(C)]
 struct LeanClosureObject {
+    // duplicate in undefined at line 139 (🔁)
     header: LeanObject,
     fun: *mut c_void,
     arity: u16,
@@ -146,6 +152,7 @@ struct LeanClosureObject {
 
 #[repr(C)]
 struct LeanScalarArray {
+    // duplicate in undefined at line 148 (🔁)
     header: LeanObject,
     size: Size,
     capacity: Size,
@@ -154,12 +161,14 @@ struct LeanScalarArray {
 
 #[repr(C)]
 struct LeanPromiseObject {
+    // duplicate in undefined at line 156 (🔁)
     header: LeanObject,
     result: *mut LeanObject,
 }
 
 #[repr(C)]
 struct LeanTaskImp {
+    // duplicate in undefined at line 162 (🔁)
     m_closure: *mut LeanObject,
     m_head_dep: *mut LeanTaskObject,
     m_next_dep: *mut LeanTaskObject,
@@ -171,6 +180,7 @@ struct LeanTaskImp {
 
 #[repr(C)]
 struct LeanTaskObject {
+    // duplicate in undefined at line 173 (🔁)
     header: LeanObject,
     value: AtomicPtr<LeanObject>,
     imp: *mut c_void,
@@ -232,14 +242,17 @@ static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
     std::sync::Mutex::new(None);
 
 pub unsafe fn lean_unbox(obj: *mut LeanObject) -> Size {
+    // duplicate in undefined at line 234 (🔁)
     (obj as Size) >> 1
 }
 
 pub unsafe fn lean_is_scalar(obj: *mut LeanObject) -> bool {
+    // duplicate in undefined at line 238 (🔁)
     (obj as Size) & 1 == 1
 }
 
 pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
+    // duplicate in undefined at line 242 (🔁)
     if lean_is_scalar(obj) {
         lean_unbox(obj) as u8
     } else {
@@ -248,10 +261,12 @@ pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
 }
 
 pub unsafe fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
+    // duplicate in undefined at line 250 (🔁)
     lean_ptr_tag(obj)
 }
 
 pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
+    // duplicate in undefined at line 254 (🔁)
     if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
     {
         runtime_object_rc_impl::quar_report_uaf(obj, "inc");
@@ -265,10 +280,12 @@ pub(crate) unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
 }
 
 pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {
+    // duplicate in undefined at line 267 (🔁)
     lean_inc_ref_n(obj, 1);
 }
 
 unsafe fn lean_dec_ref(obj: *mut LeanObject) {
+    // duplicate in undefined at line 271 (🔁)
     if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
     {
         runtime_object_rc_impl::quar_report_uaf(obj, "dec");
@@ -281,40 +298,48 @@ unsafe fn lean_dec_ref(obj: *mut LeanObject) {
 }
 
 pub unsafe fn lean_inc(obj: *mut LeanObject) {
+    // duplicate in undefined at line 283 (🔁)
     if !lean_is_scalar(obj) {
         lean_inc_ref(obj);
     }
 }
 
 pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
+    // duplicate in undefined at line 289 (🔁)
     if !lean_is_scalar(obj) {
         lean_inc_ref_n(obj, n);
     }
 }
 
 pub unsafe fn lean_dec(obj: *mut LeanObject) {
+    // duplicate in undefined at line 295 (🔁)
     if !lean_is_scalar(obj) {
         lean_dec_ref(obj);
     }
 }
 
 unsafe fn lean_ctor_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+    // duplicate in undefined at line 301 (🔁)
     (obj.add(1) as *mut *mut LeanObject).add(idx).read()
 }
 
 unsafe fn lean_ctor_get_uint8(obj: *mut LeanObject, offset: usize) -> u8 {
+    // duplicate in undefined at line 305 (🔁)
     (obj.add(1) as *mut u8).add(offset).read()
 }
 
 unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: usize) -> u16 {
+    // duplicate in undefined at line 309 (🔁)
     (obj.add(1) as *mut u8).add(offset).cast::<u16>().read()
 }
 
 unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
+    // duplicate in undefined at line 313 (🔁)
     (obj.add(1) as *mut u8).add(offset).write(value);
 }
 
 unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) {
+    // duplicate in undefined at line 317 (🔁)
     (obj.add(1) as *mut u8)
         .add(offset)
         .cast::<u16>()
@@ -322,10 +347,12 @@ unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) 
 }
 
 unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
+    // duplicate in undefined at line 324 (🔁)
     (obj.add(1) as *mut u8).add(offset).cast::<u64>().read()
 }
 
 unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
+    // duplicate in undefined at line 328 (🔁)
     (obj.add(1) as *mut u8)
         .add(offset)
         .cast::<u64>()
@@ -337,7 +364,7 @@ pub unsafe fn lean_runtime_alloc_ctor(
     num_objs: c_uint,
     scalar_size: c_uint,
 ) -> *mut LeanObject {
-    const LEAN_MAX_CTOR_TAG: c_uint = 243;
+    const LEAN_MAX_CTOR_TAG: c_uint = 243; // duplicate in undefined at line 340 (🔁)
     const LEAN_MAX_CTOR_FIELDS: c_uint = 256;
     const LEAN_MAX_CTOR_SCALARS_SIZE: c_uint = 1024;
 
@@ -373,12 +400,14 @@ pub unsafe fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: 
 }
 
 pub unsafe fn lean_box_uint64(v: u64) -> *mut LeanObject {
+    // duplicate in undefined at line 375 (🔁)
     let r = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<u64>() as c_uint);
     lean_ctor_set_uint64(r, 0, v);
     r
 }
 
 pub unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 {
+    // duplicate in undefined at line 381 (🔁)
     lean_ctor_get_uint64(o, 0)
 }
 
@@ -388,12 +417,13 @@ unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
 }
 
 unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
+    // duplicate in undefined at line 390 (🔁)
     let array = obj as *const LeanArrayObject;
     (*array).size
 }
 
 pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
-    const LEAN_ARRAY_TAG: u8 = 246;
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 396 (🔁)
     let byte_size = core::mem::size_of::<LeanArrayObject>()
         .checked_add(
             core::mem::size_of::<*mut LeanObject>()
@@ -420,7 +450,7 @@ pub(crate) unsafe fn lean_alloc_sarray(
     size: Size,
     capacity: Size,
 ) -> *mut LeanObject {
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 423 (🔁)
     let byte_size = core::mem::size_of::<LeanScalarArray>()
         .checked_add(
             (elem_size as usize)
@@ -448,11 +478,12 @@ pub(crate) fn lean_alloc_sarray_would_overflow(elem_size: c_uint, capacity: Size
 }
 
 pub(crate) unsafe fn lean_alloc_string(
+    // duplicate in undefined at line 450 (🔁)
     size: usize,
     capacity: usize,
     len: usize,
 ) -> *mut LeanObject {
-    const LEAN_STRING_TAG: u8 = 249;
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 455 (🔁)
     let byte_size = core::mem::size_of::<LeanStringObject>()
         .checked_add(capacity)
         .expect("string allocation overflow");
@@ -483,14 +514,17 @@ unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
 }
 
 pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
+    // duplicate in undefined at line 485 (🔁)
     lean_ptr_tag(obj) == 0
 }
 
 pub unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
+    // duplicate in undefined at line 489 (🔁)
     lean_ptr_tag(obj) == 1
 }
 
 pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
+    // duplicate in undefined at line 493 (🔁)
     debug_assert!(lean_io_result_is_ok(obj));
     lean_ctor_get(obj, 0)
 }
@@ -509,6 +543,7 @@ pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject
 }
 
 pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
+    // duplicate in undefined at line 511 (🔁)
     let err = lean_io_result_get_error(r);
     lean_inc(err);
     let msg = lean_io_error_to_string(err);
@@ -517,11 +552,6 @@ pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
     lean_dec(msg);
     lean_dec(err);
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"
-)]
 pub unsafe fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
     lean_inc(str);
     let details = lean_mk_string(c"string contains NUL bytes".as_ptr());
@@ -791,7 +821,6 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
     }
 }
 
-
 unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)
 }
@@ -801,6 +830,7 @@ pub unsafe fn lean_string_cstr(obj: *mut LeanObject) -> *const c_char {
 }
 
 pub unsafe fn lean_box(value: Size) -> *mut LeanObject {
+    // duplicate in undefined at line 803 (🔁)
     ((value << 1) | 1) as *mut LeanObject
 }
 
@@ -901,6 +931,7 @@ pub unsafe fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u
 
 #[repr(C)]
 struct LeanExternalObject {
+    // duplicate in undefined at line 903 (🔁)
     header: LeanObject,
     class: *mut LeanExternalClass,
     data: *mut c_void,
@@ -935,7 +966,7 @@ pub unsafe fn lean_runtime_alloc_external(
     class: *mut LeanExternalClass,
     data: *mut c_void,
 ) -> *mut LeanObject {
-    const LEAN_EXTERNAL_TAG: u8 = 254;
+    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in undefined at line 938 (🔁)
     let obj = runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
         LeanExternalObject,
     >()) as *mut LeanExternalObject;
@@ -955,7 +986,7 @@ pub unsafe fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_voi
     (*(obj as *mut LeanExternalObject)).data
 }
 
-pub extern "C" fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
+pub fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
     std::thread::available_parallelism()
         .map(|count| count.get() as u32)
         .unwrap_or(1)
@@ -993,7 +1024,7 @@ pub unsafe fn lean_runtime_get_lean_num_threads() -> c_uint {
         .unwrap_or(1)
 }
 
-pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
+pub fn lean_io_mk_world() -> *mut LeanObject {
     unsafe { lean_box(0) }
 }
 
@@ -1072,7 +1103,7 @@ fn is_safe_ascii_byte(byte: u8) -> bool {
     )
 }
 
-pub extern "C" fn lean_util_is_safe_ascii_char(byte: c_char) -> bool {
+pub fn lean_util_is_safe_ascii_char(byte: c_char) -> bool {
     is_safe_ascii_byte(byte as u8)
 }
 
@@ -1098,7 +1129,7 @@ pub unsafe fn lean_util_is_safe_ascii_n(text: *const c_char, size: Size) -> bool
     true
 }
 
-pub extern "C" fn lean_util_log2(mut value: c_uint) -> c_uint {
+pub fn lean_util_log2(mut value: c_uint) -> c_uint {
     let mut result = 0;
     if value & 0xFFFF0000 != 0 {
         value >>= 16;
@@ -1122,7 +1153,7 @@ pub extern "C" fn lean_util_log2(mut value: c_uint) -> c_uint {
     result
 }
 
-pub extern "C" fn lean_util_lbool_name(value: i32) -> *const c_char {
+pub fn lean_util_lbool_name(value: i32) -> *const c_char {
     match value {
         -1 => c"l_false".as_ptr(),
         1 => c"l_true".as_ptr(),
@@ -1130,7 +1161,7 @@ pub extern "C" fn lean_util_lbool_name(value: i32) -> *const c_char {
     }
 }
 
-pub extern "C" fn lean_util_mk_list_range(from: c_uint, to: c_uint) -> *mut c_void {
+pub fn lean_util_mk_list_range(from: c_uint, to: c_uint) -> *mut c_void {
     let mut list: *mut LeanListCell = ptr::null_mut();
     let mut i = to;
     while i > from {
@@ -1243,7 +1274,6 @@ unsafe fn initialize_kernel_module_body() {
     initialize_level();
     initialize_expr();
     initialize_declaration();
-    #[cfg(feature = "export-runtime-ffi")]
     initialize_type_checker();
     initialize_local_ctx();
     initialize_inductive();
@@ -1256,24 +1286,13 @@ unsafe fn finalize_kernel_module_body() {
     finalize_quot();
     finalize_inductive();
     finalize_local_ctx();
-    #[cfg(feature = "export-runtime-ffi")]
     finalize_type_checker();
     finalize_declaration();
     finalize_expr();
     finalize_level();
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20initialize_inductiveEv"
-)]
-pub extern "C" fn initialize_inductive() {}
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18finalize_inductiveEv"
-)]
-pub extern "C" fn finalize_inductive() {}
+pub fn initialize_inductive() {}
+pub fn finalize_inductive() {}
 
 unsafe fn initialize_library_core_module_body() {
     initialize_formatter();
@@ -1312,96 +1331,87 @@ unsafe fn finalize_constructions_module_body() {
 
 // initialize_ascii / finalize_ascii are no-ops: the original C++ ascii.h had them as empty
 // inline functions. The actual ASCII utility functions are ported to Rust above.
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16initialize_asciiEv"
-)]
-pub extern "C" fn initialize_ascii() {}
+pub fn initialize_ascii() {}
+pub fn finalize_ascii() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean14finalize_asciiEv"
-)]
-pub extern "C" fn finalize_ascii() {}
-
-pub extern "C" fn lean_initialize_runtime_module() {
+pub fn lean_initialize_runtime_module() {
     unsafe { initialize_runtime_module_body() }
 }
 
-pub extern "C" fn initialize_runtime_module() {
+pub fn initialize_runtime_module() {
     unsafe { initialize_runtime_module_body() }
 }
 
-pub extern "C" fn finalize_runtime_module() {
+pub fn finalize_runtime_module() {
     unsafe { finalize_runtime_module_body() }
 }
 
-pub extern "C" fn initialize_util_module() {
+pub fn initialize_util_module() {
     unsafe { initialize_util_module_body() }
 }
 
-pub extern "C" fn finalize_util_module() {
+pub fn finalize_util_module() {
     unsafe { finalize_util_module_body() }
 }
 
-pub extern "C" fn initialize_kernel_module() {
+pub fn initialize_kernel_module() {
     unsafe { initialize_kernel_module_body() }
 }
 
-pub extern "C" fn finalize_kernel_module() {
+pub fn finalize_kernel_module() {
     unsafe { finalize_kernel_module_body() }
 }
 
-pub extern "C" fn initialize_library_core_module() {
+pub fn initialize_library_core_module() {
     unsafe { initialize_library_core_module_body() }
 }
 
-pub extern "C" fn finalize_library_core_module() {
+pub fn finalize_library_core_module() {
     unsafe { finalize_library_core_module_body() }
 }
 
-pub extern "C" fn initialize_library_module() {
+pub fn initialize_library_module() {
     unsafe { initialize_library_module_body() }
 }
 
-pub extern "C" fn finalize_library_module() {
+pub fn finalize_library_module() {
     unsafe { finalize_library_module_body() }
 }
 
-pub extern "C" fn initialize_constructions_module() {
+pub fn initialize_constructions_module() {
     unsafe { initialize_constructions_module_body() }
 }
 
-pub extern "C" fn finalize_constructions_module() {
+pub fn finalize_constructions_module() {
     unsafe { finalize_constructions_module_body() }
 }
 
-pub extern "C" fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
+pub fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
     unsafe {
         initialize_runtime_module_body();
         lean_io_result_mk_ok(lean_box(0))
     }
 }
 
-pub extern "C" fn init_default_print_fn() {
+pub fn init_default_print_fn() {
     // No-op: lean_expr_dbg_to_string (the ToString Expr instance) is now implemented
     // in Rust (library_print.rs), so the C++ formatter.h print function pointer
     // no longer needs to be set.
 }
 
-pub extern "C" fn run_thread_finalizers() {
+pub fn run_thread_finalizers() {
     unsafe { run_thread_finalizers_internal() }
 }
 
-pub extern "C" fn run_post_thread_finalizers() {
+pub fn run_post_thread_finalizers() {
     unsafe { run_post_thread_finalizers_internal() }
 }
 
-pub extern "C" fn delete_thread_finalizer_manager() {
+pub fn delete_thread_finalizer_manager() {
     unsafe { delete_thread_finalizer_manager_internal() }
 }
 
-pub extern "C" fn lean_initialize() {
+pub fn lean_initialize() {
     unsafe {
         save_stack_info(true);
         initialize_util_module();
@@ -1416,12 +1426,7 @@ pub extern "C" fn lean_initialize() {
         initialize_constructions_module();
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18initialize_optionsEv"
-)]
-pub extern "C" fn initialize_options() {
+pub fn initialize_options() {
     unsafe {
         VERBOSE_OPT = mk_name("verbose");
         MAX_MEMORY_OPT = mk_name("max_memory");
@@ -1431,12 +1436,7 @@ pub extern "C" fn initialize_options() {
         lean_mark_persistent(TIMEOUT_OPT.obj);
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16finalize_optionsEv"
-)]
-pub extern "C" fn finalize_options() {
+pub fn finalize_options() {
     unsafe {
         if !VERBOSE_OPT.obj.is_null() {
             lean_dec(VERBOSE_OPT.obj);
@@ -1452,11 +1452,6 @@ pub extern "C" fn finalize_options() {
         }
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean31mk_constructions_name_generatorEv"
-)]
 pub unsafe fn mk_constructions_name_generator(
     result: *mut LeanNameGenerator,
 ) -> *mut LeanNameGenerator {
@@ -1467,24 +1462,14 @@ pub unsafe fn mk_constructions_name_generator(
     });
     result
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean29initialize_constructions_utilEv"
-)]
-pub extern "C" fn initialize_constructions_util() {
+pub fn initialize_constructions_util() {
     unsafe {
         CONSTRUCTIONS_FRESH = mk_name("_cnstr_fresh");
         lean_mark_persistent(CONSTRUCTIONS_FRESH.obj);
         lean_register_name_generator_prefix(CONSTRUCTIONS_FRESH.obj);
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean27finalize_constructions_utilEv"
-)]
-pub extern "C" fn finalize_constructions_util() {
+pub fn finalize_constructions_util() {
     unsafe {
         if !CONSTRUCTIONS_FRESH.obj.is_null() {
             lean_dec(CONSTRUCTIONS_FRESH.obj);
@@ -1492,11 +1477,6 @@ pub extern "C" fn finalize_constructions_util() {
         }
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20get_init_fn_name_forERKNS_16elab_environmentERKNS_4nameE"
-)]
 pub unsafe fn get_init_fn_name_for(
     result: *mut LeanOptionalName,
     env: *const LeanName,
@@ -1524,7 +1504,7 @@ pub unsafe fn get_init_fn_name_for(
     result
 }
 
-pub extern "C" fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
+pub fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
     let guard = NAME_GENERATOR_STATE.lock().unwrap();
     guard.as_ref().map_or(ptr::null_mut(), |state| {
         unsafe {
@@ -1551,12 +1531,7 @@ pub unsafe fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
     };
     name_uses_registered_prefix(state, n)
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean25initialize_name_generatorEv"
-)]
-pub extern "C" fn initialize_name_generator() {
+pub fn initialize_name_generator() {
     unsafe {
         let c_str = std::ffi::CString::new("_uniq").expect("static string has no NULs");
         let string = lean_mk_string(c_str.as_ptr());
@@ -1570,30 +1545,15 @@ pub extern "C" fn initialize_name_generator() {
         *guard = Some(state);
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean15initialize_nameEv"
-)]
-pub extern "C" fn initialize_name() {
+pub fn initialize_name() {
     INTERNAL_UNIQUE_NAME_ID.store(0, Ordering::Relaxed);
 }
+pub fn finalize_name() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean13finalize_nameEv"
-)]
-pub extern "C" fn finalize_name() {}
-
-pub extern "C" fn lean_name_next_internal_unique_id() -> c_uint {
+pub fn lean_name_next_internal_unique_id() -> c_uint {
     INTERNAL_UNIQUE_NAME_ID.fetch_add(1, Ordering::Relaxed)
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean23finalize_name_generatorEv"
-)]
-pub extern "C" fn finalize_name_generator() {
+pub fn finalize_name_generator() {
     let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
     if let Some(state) = guard.take() {
         for prefix in state.prefixes {
@@ -1601,35 +1561,15 @@ pub extern "C" fn finalize_name_generator() {
         }
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20get_verbose_opt_nameEv"
-)]
-pub extern "C" fn get_verbose_opt_name() -> *const LeanName {
+pub fn get_verbose_opt_name() -> *const LeanName {
     core::ptr::addr_of!(VERBOSE_OPT)
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean23get_max_memory_opt_nameEv"
-)]
-pub extern "C" fn get_max_memory_opt_name() -> *const LeanName {
+pub fn get_max_memory_opt_name() -> *const LeanName {
     core::ptr::addr_of!(MAX_MEMORY_OPT)
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20get_timeout_opt_nameEv"
-)]
-pub extern "C" fn get_timeout_opt_name() -> *const LeanName {
+pub fn get_timeout_opt_name() -> *const LeanName {
     core::ptr::addr_of!(TIMEOUT_OPT)
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean11get_verboseERKNS_7optionsE"
-)]
 pub unsafe fn get_verbose(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     let name = (*get_verbose_opt_name()).obj;
@@ -1645,11 +1585,6 @@ pub unsafe fn options_ctor_c1(this: *mut LeanOptions) {
 pub unsafe fn options_ctor_c2(this: *mut LeanOptions) {
     options_ctor_c1(this);
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZNK4lean7options8get_boolERKNS_4nameEb"
-)]
 pub unsafe fn options_get_bool(
     this: *const LeanOptions,
     name: *const LeanName,
@@ -1661,11 +1596,6 @@ pub unsafe fn options_get_bool(
     lean_inc(name);
     lean_options_get_bool(opts, name, default_value)
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZNK4lean7options6updateERKNS_4nameEb"
-)]
 pub unsafe fn options_update(
     this: *const LeanOptions,
     name: *const LeanName,
@@ -1679,40 +1609,20 @@ pub unsafe fn options_update(
         obj: lean_options_update_bool(opts, name, value),
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean12get_profilerERKNS_7optionsE"
-)]
 pub unsafe fn get_profiler(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     lean_inc(opts);
     lean_get_profiler(opts) != 0
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean23get_profiling_thresholdERKNS_7optionsE"
-)]
 pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
     let opts = (*opts).obj;
     lean_inc(opts);
     lean_get_profiler_threshold(opts)
 }
+pub fn initialize_profiling() {}
+pub fn finalize_profiling() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean20initialize_profilingEv"
-)]
-pub extern "C" fn initialize_profiling() {}
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean18finalize_profilingEv"
-)]
-pub extern "C" fn finalize_profiling() {}
-
-pub extern "C" fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
     true as u8
 }
 
@@ -1735,7 +1645,7 @@ pub unsafe fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut Lean
     opts
 }
 
-pub extern "C" fn lean_finalize() {
+pub fn lean_finalize() {
     run_thread_finalizers();
     run_post_thread_finalizers();
     delete_thread_finalizer_manager();
@@ -1745,25 +1655,25 @@ pub unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject 
     lean_box(core::mem::size_of::<*const u8>() * 8)
 }
 
-pub extern "C" fn lean_system_platform_windows(_: *mut LeanObject) -> u8 {
+pub fn lean_system_platform_windows(_: *mut LeanObject) -> u8 {
     cfg!(target_os = "windows") as u8
 }
 
-pub extern "C" fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
+pub fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
     cfg!(target_os = "macos") as u8
 }
 
-pub extern "C" fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
+pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
     cfg!(target_os = "emscripten") as u8
 }
 
 static INITIALIZING: core::sync::atomic::AtomicBool = core::sync::atomic::AtomicBool::new(true);
 
-pub extern "C" fn lean_io_mark_end_initialization() {
+pub fn lean_io_mark_end_initialization() {
     INITIALIZING.store(false, Ordering::Relaxed);
 }
 
-pub extern "C" fn lean_io_initializing() -> u8 {
+pub fn lean_io_initializing() -> u8 {
     INITIALIZING.load(Ordering::Relaxed) as u8
 }
 
@@ -1771,19 +1681,19 @@ pub unsafe fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_GITHASH"), "\0").as_ptr() as *const c_char)
 }
 
-pub extern "C" fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_HAS_LLVM"))
 }
 
-pub extern "C" fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_HAS_ADDRESS_SANITIZER"))
 }
 
-pub extern "C" fn lean_internal_is_multi_thread(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_is_multi_thread(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_MULTI_THREAD"))
 }
 
-pub extern "C" fn lean_internal_is_debug(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_is_debug(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_DEBUG"))
 }
 
@@ -1829,7 +1739,7 @@ pub unsafe fn lean_get_internal_linker_flags(_: *mut LeanObject) -> *mut LeanObj
     )
 }
 
-type LeanMapForeachFn = extern "C" fn(*mut LeanObject, *mut LeanObject, *mut c_void);
+type LeanMapForeachFn = fn(*mut LeanObject, *mut LeanObject, *mut c_void);
 
 unsafe fn lean_map_foreach_rbmap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     if lean_is_scalar(m) {
@@ -1908,7 +1818,7 @@ pub unsafe fn lean_smap_foreach(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *
 }
 
 pub unsafe fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObject {
-    extern "C" fn print_entry(k: *mut LeanObject, v: *mut LeanObject, _: *mut c_void) {
+    fn print_entry(k: *mut LeanObject, v: *mut LeanObject, _: *mut c_void) {
         // The playground test uses boxed natural numbers.
         let key = unsafe { lean_unbox(k) };
         let value = unsafe { lean_unbox(v) };
@@ -2052,6 +1962,7 @@ pub unsafe fn lean_runtime_mk_cnstr(
 }
 
 pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
+    // duplicate in undefined at line 2054 (🔁)
     let mut fields = [value];
     lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
 }
@@ -2091,11 +2002,11 @@ pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {
     (*string).len
 }
 
-pub extern "C" fn lean_runtime_is_utf8_next(byte: c_uchar) -> bool {
+pub fn lean_runtime_is_utf8_next(byte: c_uchar) -> bool {
     byte & 0xC0 == 0x80
 }
 
-pub extern "C" fn lean_runtime_get_utf8_size(byte: c_uchar) -> c_uint {
+pub fn lean_runtime_get_utf8_size(byte: c_uchar) -> c_uint {
     utf8_size(byte) as c_uint
 }
 

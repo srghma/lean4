@@ -32,7 +32,7 @@ mod runtime_io_task_impl {
         ) -> *mut LeanObject;
     }
 
-    unsafe fn lean_closure_set(c: *mut LeanObject, idx: usize, value: *mut LeanObject) {
+    unsafe fn lean_closure_set(c: *mut LeanObject, idx: usize, value: *mut LeanObject) { // duplicate in undefined at line 35 (🔁)
         (*(c as *mut LeanClosureObject))
             .data
             .as_mut_ptr()

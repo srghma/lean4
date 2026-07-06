@@ -7,17 +7,7 @@ The LocalContext data constructors and operations are Lean definitions exported
 from src/Lean/LocalContext.lean; typed C++ callers are inline in local_ctx.h.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod kernel_local_ctx_impl {
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean20initialize_local_ctxEv"
-    )]
-    pub extern "C" fn initialize_local_ctx() {}
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18finalize_local_ctxEv"
-    )]
-    pub extern "C" fn finalize_local_ctx() {}
+    pub fn initialize_local_ctx() {}
+    pub fn finalize_local_ctx() {}
 }

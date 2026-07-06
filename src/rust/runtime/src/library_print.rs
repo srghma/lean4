@@ -13,20 +13,9 @@ init_default_print_fn is also a no-op: the C++ formatter.h print function
 pointer is no longer needed because lean_expr_dbg_to_string is implemented
 entirely in Rust.
 */
+pub fn initialize_print() {}
+pub fn finalize_print() {}
 
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean16initialize_printEv"
-)]
-pub extern "C" fn initialize_print() {}
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean14finalize_printEv"
-)]
-pub extern "C" fn finalize_print() {}
-
-#[cfg(feature = "export-runtime-ffi")]
 mod library_print_impl {
     use super::*;
 
@@ -35,7 +24,7 @@ mod library_print_impl {
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Lean.Expr): mkFVar — takes owned FVarId (= Name at ABI), returns owned Expr.
         fn lean_expr_mk_fvar(n: *mut LeanObject) -> *mut LeanObject;
-        // Rust #[no_mangle] in kernel_instantiate.rs: both args borrowed, returns owned.
+    fn[no_mangle] in kernel_instantiate.rs: both args borrowed, returns owned.
         fn lean_expr_instantiate1(a: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Init.Data.Repr): takes owned Nat, returns owned String.
         fn l_Nat_reprFast(n: *mut LeanObject) -> *mut LeanObject;

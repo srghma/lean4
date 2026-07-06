@@ -3,7 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod library_ir_interpreter_impl {
     use super::*;
     use core::ffi::{c_char, c_void};
@@ -57,7 +56,7 @@ mod library_ir_interpreter_impl {
         ) -> bool;
 
         // apply_n
-        fn lean_apply_n(f: *mut LeanObject, n: u32, args: *mut *mut LeanObject) -> *mut LeanObject;
+        fn lean_apply_n(f: *mut LeanObject, n: u32, args: *mut *mut LeanObject) -> *mut LeanObject; // duplicate in undefined at line 60 (🔁)
 
         // curry (call native function pointer with n boxed args)
         fn lean_curry(
@@ -89,13 +88,13 @@ mod library_ir_interpreter_impl {
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-        pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject;
+        pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject; // duplicate in undefined at line 92 (🔁)
 
         // IO helpers
-        fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool;
-        fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject;
-        fn lean_io_result_show_error(obj: *mut LeanObject);
-        fn lean_io_result_mk_ok(val: *mut LeanObject) -> *mut LeanObject;
+        fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool; // duplicate in undefined at line 95 (🔁)
+        fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject; // duplicate in undefined at line 96 (🔁)
+        fn lean_io_result_show_error(obj: *mut LeanObject); // duplicate in undefined at line 97 (🔁)
+        fn lean_io_result_mk_ok(val: *mut LeanObject) -> *mut LeanObject; // duplicate in undefined at line 98 (🔁)
         fn lean_io_result_mk_error(err: *mut LeanObject) -> *mut LeanObject;
 
         // get_init_fn_name_for (already in lib.rs but may be called as extern)
@@ -105,7 +104,7 @@ mod library_ir_interpreter_impl {
         ) -> *mut LeanObject;
 
         // alloc/free for closures/ctors (from runtime_apply_impl)
-        fn lean_free_object(o: *mut LeanObject);
+        fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 108 (🔁)
     }
 
     // ---------------------------------------------------------------------------
@@ -153,6 +152,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize {
+        // duplicate in undefined at line 155 (🔁)
         let byte_offset = idx * core::mem::size_of::<*mut LeanObject>();
         (obj.add(1) as *const u8)
             .add(byte_offset)
@@ -162,6 +162,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_get_float(obj: *mut LeanObject, byte_offset: usize) -> f64 {
+        // duplicate in undefined at line 164 (🔁)
         (obj.add(1) as *const u8)
             .add(byte_offset)
             .cast::<f64>()
@@ -170,6 +171,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, byte_offset: usize) -> f32 {
+        // duplicate in undefined at line 172 (🔁)
         (obj.add(1) as *const u8)
             .add(byte_offset)
             .cast::<f32>()
@@ -207,6 +209,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_set_usize(obj: *mut LeanObject, idx: usize, v: usize) {
+        // duplicate in undefined at line 209 (🔁)
         let byte_offset = idx * core::mem::size_of::<*mut LeanObject>();
         (obj.add(1) as *mut u8)
             .add(byte_offset)
@@ -216,6 +219,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_set_float(obj: *mut LeanObject, byte_offset: usize, v: f64) {
+        // duplicate in undefined at line 218 (🔁)
         (obj.add(1) as *mut u8)
             .add(byte_offset)
             .cast::<f64>()
@@ -224,6 +228,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, byte_offset: usize, v: f32) {
+        // duplicate in undefined at line 226 (🔁)
         (obj.add(1) as *mut u8)
             .add(byte_offset)
             .cast::<f32>()
@@ -232,6 +237,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) {
+        // duplicate in undefined at line 234 (🔁)
         let fld = lean_ctor_get_obj(obj, idx);
         lean_dec(fld);
         lean_ctor_set_obj(obj, idx, lean_box(0));
@@ -239,16 +245,19 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> usize {
+        // duplicate in undefined at line 241 (🔁)
         (*obj).other as usize
     }
 
     #[inline(always)]
     unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
+        // duplicate in undefined at line 246 (🔁)
         lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32)
     }
 
     #[inline(always)]
     unsafe fn lean_alloc_closure(
+        // duplicate in undefined at line 251 (🔁)
         fun: *mut core::ffi::c_void,
         arity: u32,
         num_fixed: u32,
@@ -258,6 +267,7 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+        // duplicate in undefined at line 260 (🔁)
         // closure args are after the LeanClosureObject header (16 bytes: header=8, fun=ptr, arity=u16, num_fixed=u16, padding)
         const LEAN_CLOSURE_OBJECT_SIZE: usize = core::mem::size_of::<LeanClosureObject>();
         (cls as *mut u8)
@@ -269,16 +279,19 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
+        // duplicate in undefined at line 271 (🔁)
         lean_box(v as usize)
     }
 
     #[inline(always)]
     unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+        // duplicate in undefined at line 276 (🔁)
         lean_unbox(o) as u32
     }
 
     #[inline(always)]
     unsafe fn lean_box_float(v: f64) -> *mut LeanObject {
+        // duplicate in undefined at line 281 (🔁)
         let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as u32);
         ptr::write_unaligned(
             (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
@@ -289,11 +302,13 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 {
+        // duplicate in undefined at line 291 (🔁)
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
     }
 
     #[inline(always)]
     unsafe fn lean_box_float32(v: f32) -> *mut LeanObject {
+        // duplicate in undefined at line 296 (🔁)
         let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as u32);
         ptr::write_unaligned(
             (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
@@ -304,11 +319,13 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_unbox_float32(o: *mut LeanObject) -> f32 {
+        // duplicate in undefined at line 306 (🔁)
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f32)
     }
 
     #[inline(always)]
     unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
+        // duplicate in undefined at line 311 (🔁)
         (*(obj as *const LeanArrayObject)).size
     }
 
@@ -341,11 +358,13 @@ mod library_ir_interpreter_impl {
 
     #[inline(always)]
     unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
+        // duplicate in undefined at line 343 (🔁)
         !lean_is_scalar(obj) && (*obj).rc == 1
     }
 
     #[inline(always)]
     unsafe fn lean_del_object(obj: *mut LeanObject) {
+        // duplicate in undefined at line 348 (🔁)
         if !lean_is_scalar(obj) {
             lean_free_object(obj);
         }

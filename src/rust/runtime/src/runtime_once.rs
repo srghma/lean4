@@ -5,34 +5,37 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[repr(C)]
 pub struct LeanOnceCell {
+    // duplicate in undefined at line 7 (🔁)
     state: AtomicI32,
     lock: AtomicI32,
 }
 
-type ObjInitFn = unsafe fn() -> *mut LeanObject;
-type U8InitFn = unsafe fn() -> u8;
-type U16InitFn = unsafe fn() -> u16;
-type U32InitFn = unsafe fn() -> u32;
-type U64InitFn = unsafe fn() -> u64;
-type UsizeInitFn = unsafe fn() -> usize;
-type F32InitFn = unsafe fn() -> f32;
-type F64InitFn = unsafe fn() -> f64;
+type ObjInitFn = unsafe fn() -> *mut LeanObject; // duplicate in undefined at line 12 (🔁)
+type U8InitFn = unsafe fn() -> u8; // duplicate in undefined at line 13 (🔁)
+type U16InitFn = unsafe fn() -> u16; // duplicate in undefined at line 14 (🔁)
+type U32InitFn = unsafe fn() -> u32; // duplicate in undefined at line 15 (🔁)
+type U64InitFn = unsafe fn() -> u64; // duplicate in undefined at line 16 (🔁)
+type UsizeInitFn = unsafe fn() -> usize; // duplicate in undefined at line 17 (🔁)
+type F32InitFn = unsafe fn() -> f32; // duplicate in undefined at line 18 (🔁)
+type F64InitFn = unsafe fn() -> f64; // duplicate in undefined at line 19 (🔁)
 
 fn lock_once_cell(lock: &AtomicI32) {
+    // duplicate in undefined at line 21 (🔁)
     while lock
         .compare_exchange(0, 1, Ordering::Acquire, Ordering::Relaxed)
         .is_err()
     {
-        #[cfg(feature = "std")]
         std::thread::yield_now();
     }
 }
 
 fn unlock_once_cell(lock: &AtomicI32) {
+    // duplicate in undefined at line 31 (🔁)
     lock.store(0, Ordering::Release);
 }
 
 unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsafe fn() -> T) -> T {
+    // duplicate in undefined at line 35 (🔁)
     let tok = &*tok;
     lock_once_cell(&tok.lock);
     if tok.state.load(Ordering::Acquire) != 1 {
@@ -45,6 +48,7 @@ unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsafe fn
 }
 
 pub unsafe fn lean_obj_once_cold(
+    // duplicate in undefined at line 47 (🔁)
     loc: *mut *mut LeanObject,
     tok: *mut LeanOnceCell,
     init: ObjInitFn,

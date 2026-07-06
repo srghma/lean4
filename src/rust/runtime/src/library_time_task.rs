@@ -13,7 +13,6 @@ Exports:
   _ZN4lean18finalize_time_taskEv    (clears cumulative times map)
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod library_time_task_impl {
     use super::*;
     use std::collections::BTreeMap;
@@ -199,10 +198,10 @@ mod library_time_task_impl {
     }
 
     #[export_name = "_ZN4lean20initialize_time_taskEv"]
-    pub extern "C" fn initialize_time_task() {}
+    pub fn initialize_time_task() {}
 
     #[export_name = "_ZN4lean18finalize_time_taskEv"]
-    pub extern "C" fn finalize_time_task() {
+    pub fn finalize_time_task() {
         if let Ok(mut cum) = CUM_TIMES.lock() {
             cum.clear();
         }

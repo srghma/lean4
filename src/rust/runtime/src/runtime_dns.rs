@@ -259,15 +259,11 @@ pub use runtime_dns_impl::*;
 mod runtime_dns_impl {
     use super::*;
 
-    pub extern "C" fn lean_uv_dns_get_info(
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-        _: u8,
-    ) -> *mut LeanObject {
+    pub fn lean_uv_dns_get_info(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }

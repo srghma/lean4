@@ -33,6 +33,7 @@ unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
 }
 
 unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
+    // duplicate in undefined at line 35 (🔁)
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
@@ -42,6 +43,7 @@ unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
 }
 
 unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
+    // duplicate in undefined at line 44 (🔁)
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
@@ -60,7 +62,7 @@ unsafe fn lean_mk_float_exp_pair(
     pair
 }
 
-pub extern "C" fn lean_float_to_string(value: f64) -> *mut LeanObject {
+pub fn lean_float_to_string(value: f64) -> *mut LeanObject {
     if value.is_nan() {
         float_to_string("NaN".to_owned())
     } else {
@@ -78,24 +80,24 @@ pub unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
     }
 }
 
-pub extern "C" fn lean_float_isnan(value: f64) -> u8 {
+pub fn lean_float_isnan(value: f64) -> u8 {
     value.is_nan() as u8
 }
 
-pub extern "C" fn lean_float_isfinite(value: f64) -> u8 {
+pub fn lean_float_isfinite(value: f64) -> u8 {
     value.is_finite() as u8
 }
 
-pub extern "C" fn lean_float_isinf(value: f64) -> u8 {
+pub fn lean_float_isinf(value: f64) -> u8 {
     value.is_infinite() as u8
 }
 
-pub extern "C" fn lean_float_of_bits(bits: u64) -> f64 {
+pub fn lean_float_of_bits(bits: u64) -> f64 {
     let value = f64::from_bits(bits);
     if value.is_nan() { f64::NAN } else { value }
 }
 
-pub extern "C" fn lean_float_to_bits(mut value: f64) -> u64 {
+pub fn lean_float_to_bits(mut value: f64) -> u64 {
     if value.is_nan() {
         value = f64::NAN;
     }
@@ -113,7 +115,7 @@ pub unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject {
     lean_mk_float_exp_pair(lean_box_float(significand), exp_obj)
 }
 
-pub extern "C" fn lean_float32_to_string(value: f32) -> *mut LeanObject {
+pub fn lean_float32_to_string(value: f32) -> *mut LeanObject {
     if value.is_nan() {
         float_to_string("NaN".to_owned())
     } else {
@@ -131,24 +133,24 @@ pub unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
     }
 }
 
-pub extern "C" fn lean_float32_isnan(value: f32) -> u8 {
+pub fn lean_float32_isnan(value: f32) -> u8 {
     value.is_nan() as u8
 }
 
-pub extern "C" fn lean_float32_isfinite(value: f32) -> u8 {
+pub fn lean_float32_isfinite(value: f32) -> u8 {
     value.is_finite() as u8
 }
 
-pub extern "C" fn lean_float32_isinf(value: f32) -> u8 {
+pub fn lean_float32_isinf(value: f32) -> u8 {
     value.is_infinite() as u8
 }
 
-pub extern "C" fn lean_float32_of_bits(bits: u32) -> f32 {
+pub fn lean_float32_of_bits(bits: u32) -> f32 {
     let value = f32::from_bits(bits);
     if value.is_nan() { f32::NAN } else { value }
 }
 
-pub extern "C" fn lean_float32_to_bits(mut value: f32) -> u32 {
+pub fn lean_float32_to_bits(mut value: f32) -> u32 {
     if value.is_nan() {
         value = f32::NAN;
     }

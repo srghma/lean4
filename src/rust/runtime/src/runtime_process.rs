@@ -13,7 +13,6 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 // lean_runtime_ctor_set, lean_io_result_mk_ok, lean_io_result_mk_error,
 // lean_mk_string, lean_decode_io_error, lean_mk_io_user_error, etc.
 
-#[cfg(feature = "std")]
 mod runtime_process_impl {
     use super::*;
     use core::ffi::c_int;
@@ -44,6 +43,7 @@ mod runtime_process_impl {
 
     // lean_ctor_get_uint32 is not in lib.rs – define locally
     unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, byte_offset: usize) -> u32 {
+        // duplicate in undefined at line 46 (🔁)
         (obj.add(1) as *mut u8)
             .add(byte_offset)
             .cast::<u32>()
@@ -51,6 +51,7 @@ mod runtime_process_impl {
     }
 
     unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, byte_offset: usize, v: u32) {
+        // duplicate in undefined at line 53 (🔁)
         (obj.add(1) as *mut u8)
             .add(byte_offset)
             .cast::<u32>()
@@ -59,11 +60,13 @@ mod runtime_process_impl {
 
     // lean_ctor_set (set object field) is not in lib.rs – define locally
     unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+        // duplicate in undefined at line 61 (🔁)
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
     // Lean constructor allocation forwarding to lean_runtime_alloc_ctor
     unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
+        // duplicate in undefined at line 66 (🔁)
         lean_runtime_alloc_ctor(tag as c_uint, num_objs as c_uint, scalar_size as c_uint)
     }
 
@@ -527,19 +530,9 @@ mod runtime_process_impl {
     }
 
     // ─── initialize / finalize ────────────────────────────────────────────────
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18initialize_processEv"
-    )]
-    pub extern "C" fn initialize_process() {}
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16finalize_processEv"
-    )]
-    pub extern "C" fn finalize_process() {}
+    pub fn initialize_process() {}
+    pub fn finalize_process() {}
 }
 
-#[cfg(feature = "std")]
 pub use runtime_process_impl::*;
+fn

@@ -36,7 +36,6 @@ Level kind tags:
   (see kernel_level.rs)
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod kernel_expr_eq_fn_impl {
     use super::runtime_alloc_impl::add_heartbeats;
     use super::runtime_object_name_impl::lean_name_eq;

@@ -743,115 +743,115 @@ pub use runtime_system_impl::*;
 mod runtime_system_impl {
     use super::*;
 
-    pub extern "C" fn lean_uv_get_process_title() -> *mut LeanObject {
+    pub fn lean_uv_get_process_title() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_set_process_title(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_set_process_title(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_uptime() -> *mut LeanObject {
+    pub fn lean_uv_uptime() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_getpid() -> *mut LeanObject {
+    pub fn lean_uv_os_getpid() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_getppid() -> *mut LeanObject {
+    pub fn lean_uv_os_getppid() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_cpu_info() -> *mut LeanObject {
+    pub fn lean_uv_cpu_info() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_cwd() -> *mut LeanObject {
+    pub fn lean_uv_cwd() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_chdir(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_chdir(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_homedir() -> *mut LeanObject {
+    pub fn lean_uv_os_homedir() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_tmpdir() -> *mut LeanObject {
+    pub fn lean_uv_os_tmpdir() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_get_passwd() -> *mut LeanObject {
+    pub fn lean_uv_os_get_passwd() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_get_group(_: u64) -> *mut LeanObject {
+    pub fn lean_uv_os_get_group(_: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_environ() -> *mut LeanObject {
+    pub fn lean_uv_os_environ() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_getenv(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_os_getenv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_setenv(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_os_setenv(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_unsetenv(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_os_unsetenv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_gethostname() -> *mut LeanObject {
+    pub fn lean_uv_os_gethostname() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_getpriority(_: u64) -> *mut LeanObject {
+    pub fn lean_uv_os_getpriority(_: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_setpriority(_: u64, _: i64) -> *mut LeanObject {
+    pub fn lean_uv_os_setpriority(_: u64, _: i64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_os_uname() -> *mut LeanObject {
+    pub fn lean_uv_os_uname() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_hrtime() -> *mut LeanObject {
+    pub fn lean_uv_hrtime() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_random(_: u64) -> *mut LeanObject {
+    pub fn lean_uv_random(_: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_getrusage() -> *mut LeanObject {
+    pub fn lean_uv_getrusage() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_exepath() -> *mut LeanObject {
+    pub fn lean_uv_exepath() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_get_free_memory() -> *mut LeanObject {
+    pub fn lean_uv_get_free_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_get_total_memory() -> *mut LeanObject {
+    pub fn lean_uv_get_total_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_get_constrained_memory() -> *mut LeanObject {
+    pub fn lean_uv_get_constrained_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_get_available_memory() -> *mut LeanObject {
+    pub fn lean_uv_get_available_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }

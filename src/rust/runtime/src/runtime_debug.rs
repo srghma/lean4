@@ -3,7 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "std")]
 mod runtime_debug_impl {
     use super::*;
     use std::collections::HashSet;
@@ -33,53 +32,23 @@ mod runtime_debug_impl {
         let _ = io::stderr().write_all(text.as_bytes());
         let _ = io::stderr().flush();
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16initialize_debugEv"
-    )]
-    pub extern "C" fn initialize_debug() {
+    pub fn initialize_debug() {
         // Debug tags are initialized lazily.
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14finalize_debugEv"
-    )]
-    pub extern "C" fn finalize_debug() {
+    pub fn finalize_debug() {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().clear();
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14has_violationsEv"
-    )]
-    pub extern "C" fn has_violations() -> bool {
+    pub fn has_violations() -> bool {
         HAS_VIOLATIONS.load(Ordering::Relaxed)
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean17enable_assertionsEb"
-    )]
-    pub extern "C" fn enable_assertions(enabled: bool) {
+    pub fn enable_assertions(enabled: bool) {
         ASSERTIONS_ENABLED.store(enabled, Ordering::Relaxed);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean18assertions_enabledEv"
-    )]
-    pub extern "C" fn assertions_enabled() -> bool {
+    pub fn assertions_enabled() -> bool {
         ASSERTIONS_ENABLED.load(Ordering::Relaxed)
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean26notify_assertion_violationEPKciS1_"
-    )]
     pub unsafe fn notify_assertion_violation(
         file_name: *const c_char,
         line: c_int,
@@ -90,11 +59,6 @@ mod runtime_debug_impl {
         write_stderr(&format!("Line: {line}\n"));
         write_stderr(&format!("{}\n", cstr_to_string(condition)));
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean12enable_debugEPKc"
-    )]
     pub unsafe fn enable_debug(tag: *const c_char) {
         debug_tags().lock().unwrap().insert(cstr_to_string(tag));
     }
@@ -103,21 +67,11 @@ mod runtime_debug_impl {
         enable_debug(lean_string_cstr(tag));
         lean_box(0)
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean13disable_debugEPKc"
-    )]
     pub unsafe fn disable_debug(tag: *const c_char) {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().remove(&cstr_to_string(tag));
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16is_debug_enabledEPKc"
-    )]
     pub unsafe fn is_debug_enabled(tag: *const c_char) -> bool {
         if let Some(tags) = ENABLED_DEBUG_TAGS.get() {
             tags.lock().unwrap().contains(&cstr_to_string(tag))
@@ -125,28 +79,13 @@ mod runtime_debug_impl {
             false
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean19enable_debug_dialogEb"
-    )]
-    pub extern "C" fn enable_debug_dialog(enabled: bool) {
+    pub fn enable_debug_dialog(enabled: bool) {
         DEBUG_DIALOG.store(enabled, Ordering::Relaxed);
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15debuggable_exitEv"
-    )]
-    pub extern "C" fn debuggable_exit() -> ! {
+    pub fn debuggable_exit() -> ! {
         process::abort();
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean15invoke_debuggerEv"
-    )]
-    pub extern "C" fn invoke_debugger() {
+    pub fn invoke_debugger() {
         HAS_VIOLATIONS.store(true, Ordering::Relaxed);
         if !DEBUG_DIALOG.load(Ordering::Relaxed) {
             debuggable_exit();
@@ -175,7 +114,6 @@ mod runtime_debug_impl {
     }
 }
 
-#[cfg(feature = "std")]
 pub use runtime_debug_impl::*;
 
 unsafe fn io_eprintln_checked(msg: *mut LeanObject) {

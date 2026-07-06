@@ -3,14 +3,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-type SourceOrigin = "leanh" | "leanh_extra";
-
 type DeclKind = "fn" | "struct" | "enum" | "type" | "static" | "const" | "mod";
 
 type Decl = {
   name: string;
   kind: DeclKind;
-  origin: SourceOrigin;
   file: string;
   line: number;
   text: string;
@@ -26,14 +23,15 @@ type RuntimeDef = {
 };
 
 const ROOT = path.resolve(path.join(import.meta.dir, ".."));
-const SOURCE_FILES: Array<{ origin: SourceOrigin; file: string }> = [
-  { origin: "leanh", file: path.join(ROOT, "src/rust/leanh/src/lib.rs") },
-  { origin: "leanh_extra", file: path.join(ROOT, "src/rust/runtime/src/leanh_extra.rs") },
+const SOURCE_FILES: Array<{ label: string; file: string }> = [
+  { label: "leanh/src/lib.rs", file: path.join(ROOT, "src/rust/leanh/src/lib.rs") },
+  { label: "leanh/src/datatypes.rs", file: path.join(ROOT, "src/rust/leanh/src/datatypes.rs") },
+  { label: "leanh/src/not_in_emit_rust.rs", file: path.join(ROOT, "src/rust/leanh/src/not_in_emit_rust.rs") },
+  { label: "leanh/src/in_emit_rust.rs", file: path.join(ROOT, "src/rust/leanh/src/in_emit_rust.rs") },
+  { label: "leanh/src/arity.rs", file: path.join(ROOT, "src/rust/leanh/src/arity.rs") },
 ];
 const SEARCH_ROOTS = [
-  path.join(ROOT, "src/rust/runtime/src/kernel"),
-  path.join(ROOT, "src/rust/runtime/src/library"),
-  path.join(ROOT, "src/rust/runtime/src/runtime"),
+  path.join(ROOT, "src/rust/runtime/src/"),
 ];
 const OUT_FILE = path.join(ROOT, "srghmascripts/rust_cpp_audit/leanh_runtime_duplicates.md");
 const DUP_EMOJI = "🔁";
@@ -147,7 +145,7 @@ function relativeFile(file: string): string {
   return path.relative(ROOT, file).replaceAll(path.sep, "/");
 }
 
-function extractDecls(text: string, file: string, origin: SourceOrigin): Decl[] {
+function extractDecls(text: string, file: string): Decl[] {
   const stripped = stripCommentsKeepLines(text);
   const lines = stripped.split("\n");
   const originalLines = text.split("\n");
@@ -161,7 +159,6 @@ function extractDecls(text: string, file: string, origin: SourceOrigin): Decl[] 
       decls.push({
         name: match[1]!,
         kind,
-        origin,
         file,
         line: i + 1,
         text: originalLines[i]!.trim(),
@@ -205,7 +202,7 @@ async function main() {
   const sourceDecls: Decl[] = [];
   for (const source of SOURCE_FILES) {
     const text = await fs.readFile(source.file, "utf8");
-    sourceDecls.push(...extractDecls(text, source.file, source.origin));
+    sourceDecls.push(...extractDecls(text, source.file));
   }
 
   const sourceNames = new Set(sourceDecls.map((decl) => decl.name));
@@ -222,7 +219,7 @@ async function main() {
     const files = await walkFiles(root);
     for (const file of files) {
       const text = await fs.readFile(file, "utf8");
-      const decls = extractDecls(text, file, "leanh");
+      const decls = extractDecls(text, file);
       for (const decl of decls) {
         if (!sourceNames.has(decl.name)) continue;
         const runtimeDef: RuntimeDef = {
@@ -269,8 +266,8 @@ async function main() {
   lines.push("");
 
   for (const source of SOURCE_FILES) {
-    const decls = sourceDecls.filter((decl) => decl.origin === source.origin);
-    lines.push(`## ${relativeFile(source.file)}`);
+    const decls = sourceDecls.filter((decl) => decl.file === source.file);
+    lines.push(`## ${source.label}`);
     lines.push("");
     for (const decl of decls) {
       const matches = runtimeDefsByName.get(decl.name) ?? [];
@@ -302,10 +299,10 @@ async function main() {
   lines.push(`## Not duplicated`);
   lines.push("");
   for (const decl of unduplicatedDecls.sort((a, b) => {
-    if (a.origin !== b.origin) return a.origin.localeCompare(b.origin);
+    if (a.file !== b.file) return a.file.localeCompare(b.file);
     return a.name.localeCompare(b.name);
   })) {
-    lines.push(`- \`${decl.name}\` (${decl.origin}:${decl.kind})`);
+    lines.push(`- \`${decl.name}\` (${relativeFile(decl.file)}:${decl.kind})`);
   }
 
   await fs.mkdir(path.dirname(OUT_FILE), { recursive: true });

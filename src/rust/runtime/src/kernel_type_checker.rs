@@ -6,7 +6,6 @@ Rust port of src/kernel/type_checker.cpp (1560 lines).
 All C++ `throw X` → `return Err(KernelError::X)`.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 #[allow(
     dead_code,
     non_snake_case,
@@ -20,7 +19,7 @@ mod kernel_type_checker_impl {
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
 
-    type Size = usize;
+    type Size = usize; // duplicate in undefined at line 23 (🔁)
 
     // ---------------------------------------------------------------------------
     // Lean runtime C API bindings (extern "C" stubs expected from lean/lean.h)
@@ -32,7 +31,7 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     extern "C" {
-        fn lean_mark_persistent(o: *mut LeanObject);
+        fn lean_mark_persistent(o: *mut LeanObject); // duplicate in undefined at line 35 (🔁)
 
         // Names
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
@@ -234,7 +233,7 @@ mod kernel_type_checker_impl {
         fn lean_quot_reduce_rec(
             env: *const LeanObject,
             e: *mut LeanObject,
-            whnf: extern "C" fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
+            whnf: fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
             ctx: *mut LeanObject,
         ) -> *mut LeanObject;
 
@@ -291,21 +290,25 @@ mod kernel_type_checker_impl {
 
     #[inline(always)]
     unsafe fn lean_is_scalar(o: *const LeanObject) -> bool {
+        // duplicate in undefined at line 293 (🔁)
         super::lean_is_scalar(o as *mut _)
     }
 
     #[inline(always)]
     unsafe fn lean_ptr_tag(o: *const LeanObject) -> u32 {
+        // duplicate in undefined at line 298 (🔁)
         super::lean_ptr_tag(o as *mut _) as u32
     }
 
     #[inline(always)]
     unsafe fn lean_ctor_get(o: *const LeanObject, i: u32) -> *mut LeanObject {
+        // duplicate in undefined at line 303 (🔁)
         (o.add(1) as *const *mut LeanObject).add(i as usize).read()
     }
 
     #[inline(always)]
     unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_sz: u32) -> *mut LeanObject {
+        // duplicate in undefined at line 308 (🔁)
         lean_runtime_alloc_ctor(tag, num_objs, scalar_sz)
     }
 
@@ -321,6 +324,7 @@ mod kernel_type_checker_impl {
 
     #[inline(always)]
     unsafe fn lean_ctor_set(o: *mut LeanObject, i: u32, v: *mut LeanObject) {
+        // duplicate in undefined at line 323 (🔁)
         lean_runtime_ctor_set(o, i, v)
     }
 
@@ -350,6 +354,7 @@ mod kernel_type_checker_impl {
 
     #[inline(always)]
     unsafe fn lean_unbox(o: *const LeanObject) -> usize {
+        // duplicate in undefined at line 352 (🔁)
         super::lean_unbox(o as *mut _)
     }
 
@@ -360,6 +365,7 @@ mod kernel_type_checker_impl {
 
     #[inline(always)]
     unsafe fn lean_mk_string(s: *const u8, n: usize) -> *mut LeanObject {
+        // duplicate in undefined at line 362 (🔁)
         lean_mk_string_from_bytes(s.cast(), n)
     }
 
@@ -645,10 +651,11 @@ mod kernel_type_checker_impl {
     // Small Nat: tagged scalar, value = lean_unbox(ptr), max = LEAN_MAX_SMALL_NAT.
     // Big Nat:   heap-allocated mpz object.
     // ---------------------------------------------------------------------------
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1;
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in undefined at line 648 (🔁)
 
     #[inline(always)]
     unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
+        // duplicate in undefined at line 651 (🔁)
         if n <= LEAN_MAX_SMALL_NAT {
             super::lean_box(n)
         } else {
@@ -8573,7 +8580,7 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     #[export_name = "_ZN4lean23initialize_type_checkerEv"]
-    pub extern "C" fn initialize_type_checker() {
+    pub fn initialize_type_checker() {
         unsafe {
             let fresh_name = build_lean_name(&["_kernel_fresh"]);
             lean_mark_persistent(fresh_name);
@@ -8637,7 +8644,7 @@ mod kernel_type_checker_impl {
     }
 
     #[export_name = "_ZN4lean21finalize_type_checkerEv"]
-    pub extern "C" fn finalize_type_checker() {
+    pub fn finalize_type_checker() {
         // All globals were marked persistent; the runtime will free them.
         // Reset pointers to null for cleanliness.
         let ptrs: &[&AtomicPtr<LeanObject>] = &[
@@ -8682,12 +8689,12 @@ mod kernel_type_checker_impl {
     }
 
     #[export_name = "_ZN4lean22initialize_environmentEv"]
-    pub extern "C" fn initialize_environment() {
+    pub fn initialize_environment() {
         // No per-environment globals needed; all state is per-instance.
     }
 
     #[export_name = "_ZN4lean20finalize_environmentEv"]
-    pub extern "C" fn finalize_environment() {}
+    pub fn finalize_environment() {}
 
     // The ReductionStatus type needs to be accessible from the TypeChecker impl.
     // Rust doesn't allow nested enums in impls cleanly, so we define it at module level:
@@ -8699,5 +8706,4 @@ mod kernel_type_checker_impl {
         DefDiff,
     }
 } // end kernel_type_checker_impl
-#[cfg(feature = "export-runtime-ffi")]
 pub use kernel_type_checker_impl::*;

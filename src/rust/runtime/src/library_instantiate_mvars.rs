@@ -7,7 +7,6 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
   lean_instantiate_expr_mvars  — expr-MVar instantiation
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod library_instantiate_mvars_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::*;
@@ -227,11 +226,11 @@ mod library_instantiate_mvars_impl {
         lean_level_mk_imax(lhs, rhs)
     }
 
-    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in undefined at line 230 (🔁)
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject { // duplicate in undefined at line 234 (🔁)
         lean_runtime_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
@@ -240,7 +239,7 @@ mod library_instantiate_mvars_impl {
     }
 
     // rc > 0 means single-threaded object (not atomic refcount).
-    unsafe fn lean_is_st(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_st(o: *mut LeanObject) -> bool { // duplicate in undefined at line 243 (🔁)
         (*o).rc > 0
     }
 

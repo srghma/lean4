@@ -3,7 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(feature = "std")]
 mod runtime_mutex_impl {
     use super::*;
     use std::sync::{Condvar, Mutex};
@@ -340,12 +339,7 @@ mod runtime_mutex_impl {
         external_data::<BaseSharedMutex>(mtx).unlock_read();
         lean_box(0)
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean16initialize_mutexEv"
-    )]
-    pub extern "C" fn initialize_mutex() {
+    pub fn initialize_mutex() {
         unsafe {
             BASEMUTEX_EXTERNAL_CLASS =
                 lean_register_external_class(Some(basemutex_finalizer), Some(noop_foreach));
@@ -357,13 +351,8 @@ mod runtime_mutex_impl {
                 lean_register_external_class(Some(basesharedmutex_finalizer), Some(noop_foreach));
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean14finalize_mutexEv"
-    )]
-    pub extern "C" fn finalize_mutex() {}
+    pub fn finalize_mutex() {}
 }
 
-#[cfg(feature = "std")]
 pub use runtime_mutex_impl::*;
+fn

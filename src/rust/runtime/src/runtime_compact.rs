@@ -60,7 +60,6 @@ const _: () = {
 unsafe impl Send for OleanCompactedRegion {}
 unsafe impl Sync for OleanCompactedRegion {}
 
-#[cfg(feature = "export-runtime-ffi")]
 mod runtime_compact_impl {
     use super::*;
 

@@ -13,21 +13,21 @@ pub(crate) mod runtime_object_rc_impl {
     use core::ptr;
     use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
 
-    const LEAN_MAX_CTOR_TAG: u8 = 243;
-    const LEAN_PROMISE_TAG: u8 = 244;
-    const LEAN_CLOSURE_TAG: u8 = 245;
-    const LEAN_ARRAY_TAG: u8 = 246;
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-    const LEAN_STRING_TAG: u8 = 249;
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_THUNK_TAG: u8 = 251;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_REF_TAG: u8 = 253;
-    const LEAN_EXTERNAL_TAG: u8 = 254;
+    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in undefined at line 16 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 17 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 18 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 19 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 20 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 21 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 22 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in undefined at line 23 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 24 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 25 (🔁)
+    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in undefined at line 26 (🔁)
     const LEAN_MAX_SMALL_OBJECT_SIZE: usize = 4096;
 
     #[repr(C)]
-    struct LeanArrayObject {
+    struct LeanArrayObject { // duplicate in undefined at line 30 (🔁)
         header: LeanObject,
         size: usize,
         capacity: usize,
@@ -35,7 +35,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanStringObject {
+    struct LeanStringObject { // duplicate in undefined at line 38 (🔁)
         header: LeanObject,
         size: usize,
         capacity: usize,
@@ -44,7 +44,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanClosureObject {
+    struct LeanClosureObject { // duplicate in undefined at line 47 (🔁)
         header: LeanObject,
         fun: *mut c_void,
         arity: u16,
@@ -53,7 +53,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanScalarArray {
+    struct LeanScalarArray { // duplicate in undefined at line 56 (🔁)
         header: LeanObject,
         size: usize,
         capacity: usize,
@@ -61,55 +61,55 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanThunkObject {
+    struct LeanThunkObject { // duplicate in undefined at line 64 (🔁)
         header: LeanObject,
         m_value: AtomicPtr<LeanObject>,
         m_closure: AtomicPtr<LeanObject>,
     }
 
     #[repr(C)]
-    struct LeanRefObject {
+    struct LeanRefObject { // duplicate in undefined at line 71 (🔁)
         header: LeanObject,
         m_value: *mut LeanObject,
     }
 
     #[repr(C)]
-    struct LeanTaskObject {
+    struct LeanTaskObject { // duplicate in undefined at line 77 (🔁)
         header: LeanObject,
         m_value: AtomicPtr<LeanObject>,
         m_imp: *mut c_void,
     }
 
     #[repr(C)]
-    struct LeanPromiseObject {
+    struct LeanPromiseObject { // duplicate in undefined at line 84 (🔁)
         header: LeanObject,
         m_result: *mut LeanTaskObject,
     }
 
     #[repr(C)]
-    struct LeanExternalClass {
+    struct LeanExternalClass { // duplicate in undefined at line 90 (🔁)
         m_finalize: unsafe fn(*mut c_void),
         m_foreach: unsafe fn(*mut c_void, *mut LeanObject),
     }
 
     #[repr(C)]
-    struct LeanExternalObject {
+    struct LeanExternalObject { // duplicate in undefined at line 96 (🔁)
         header: LeanObject,
         m_class: *mut LeanExternalClass,
         m_data: *mut c_void,
     }
 
     #[repr(C)]
-    struct LeanMpzStruct {
+    struct LeanMpzStruct { // duplicate in undefined at line 103 (🔁)
         _mp_alloc: i32,
         _mp_size: i32,
         _mp_d: *mut u64,
     }
 
-    type MpzT = [LeanMpzStruct; 1];
+    type MpzT = [LeanMpzStruct; 1]; // duplicate in undefined at line 109 (🔁)
 
     #[repr(C)]
-    struct LeanMpzObject {
+    struct LeanMpzObject { // duplicate in undefined at line 112 (🔁)
         header: LeanObject,
         m_value: MpzT,
     }
@@ -142,11 +142,11 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     thread_local! {
-        static G_TO_FREE: Cell<*mut LeanObject> = Cell::new(ptr::null_mut());
+        static G_TO_FREE: Cell<*mut LeanObject> = Cell::new(ptr::null_mut()); // duplicate in undefined at line 145 (🔁)
     }
 
     #[inline(always)]
-    unsafe fn lean_is_st(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_st(o: *mut LeanObject) -> bool { // duplicate in undefined at line 149 (🔁)
         (*o).rc > 0
     }
 
@@ -244,7 +244,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_dealloc(o: *mut LeanObject, sz: usize) {
+    unsafe fn lean_dealloc(o: *mut LeanObject, sz: usize) { // duplicate in undefined at line 247 (🔁)
         if UAF_DETECT {
             quar_free(o);
             return;
@@ -264,60 +264,60 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject {
+    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in undefined at line 267 (🔁)
         (*(o as *mut LeanArrayObject)).data.as_mut_ptr()
     }
 
     #[inline(always)]
-    unsafe fn lean_array_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_array_size(o: *mut LeanObject) -> usize { // duplicate in undefined at line 272 (🔁)
         (*(o as *const LeanArrayObject)).size
     }
 
     #[inline(always)]
-    unsafe fn lean_array_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_array_byte_size(o: *mut LeanObject) -> usize { // duplicate in undefined at line 277 (🔁)
         core::mem::size_of::<LeanArrayObject>()
             + core::mem::size_of::<*mut LeanObject>() * (*(o as *const LeanArrayObject)).capacity
     }
 
     #[inline(always)]
-    unsafe fn lean_sarray_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_sarray_byte_size(o: *mut LeanObject) -> usize { // duplicate in undefined at line 283 (🔁)
         core::mem::size_of::<LeanScalarArray>()
             + (*o).other as usize * (*(o as *const LeanScalarArray)).capacity
     }
 
     #[inline(always)]
-    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize { // duplicate in undefined at line 289 (🔁)
         core::mem::size_of::<LeanStringObject>() + (*(o as *const LeanStringObject)).capacity
     }
 
     #[inline(always)]
-    unsafe fn lean_closure_arg_cptr(o: *mut LeanObject) -> *mut *mut LeanObject {
+    unsafe fn lean_closure_arg_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in undefined at line 294 (🔁)
         (*(o as *mut LeanClosureObject)).data.as_mut_ptr()
     }
 
     #[inline(always)]
-    unsafe fn lean_closure_num_fixed(o: *mut LeanObject) -> usize {
+    unsafe fn lean_closure_num_fixed(o: *mut LeanObject) -> usize { // duplicate in undefined at line 299 (🔁)
         (*(o as *const LeanClosureObject)).num_fixed as usize
     }
 
     #[inline(always)]
-    unsafe fn lean_closure_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_closure_byte_size(o: *mut LeanObject) -> usize { // duplicate in undefined at line 304 (🔁)
         core::mem::size_of::<LeanClosureObject>()
             + core::mem::size_of::<*mut LeanObject>() * lean_closure_num_fixed(o)
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_num_objs(o: *mut LeanObject) -> usize {
+    unsafe fn lean_ctor_num_objs(o: *mut LeanObject) -> usize { // duplicate in undefined at line 310 (🔁)
         (*o).other as usize
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_obj_cptr(o: *mut LeanObject) -> *mut *mut LeanObject {
+    unsafe fn lean_ctor_obj_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in undefined at line 315 (🔁)
         (o as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut *mut LeanObject
     }
 
     #[inline(always)]
-    unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
+    unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject { // duplicate in undefined at line 320 (🔁)
         debug_assert!(arity > 0);
         debug_assert!(num_fixed < arity);
         let byte_size = core::mem::size_of::<LeanClosureObject>()
@@ -342,7 +342,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject { // duplicate in undefined at line 345 (🔁)
         let sz = ((sz + 7) / 8) * 8;
         #[cfg(lean_small_allocator)]
         {
@@ -370,7 +370,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) {
+    pub(crate) unsafe fn lean_free_small_object(o: *mut LeanObject) { // duplicate in undefined at line 373 (🔁)
         #[cfg(not(lean_small_allocator))]
         if UAF_DETECT {
             quar_free(o);
@@ -394,7 +394,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    pub(crate) unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
+    pub(crate) unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject { // duplicate in undefined at line 397 (🔁)
         let sz1 = ((sz + 7) / 8) * 8;
         let r = lean_alloc_small_object(sz1);
         if sz1 > sz {
@@ -405,7 +405,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn get_next(o: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn get_next(o: *mut LeanObject) -> *mut LeanObject { // duplicate in undefined at line 408 (🔁)
         #[cfg(target_pointer_width = "64")]
         {
             let mut header: usize = 0;
@@ -420,7 +420,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn set_next(o: *mut LeanObject, next: *mut LeanObject) {
+    unsafe fn set_next(o: *mut LeanObject, next: *mut LeanObject) { // duplicate in undefined at line 423 (🔁)
         #[cfg(target_pointer_width = "64")]
         {
             let mut hi: u16 = 0;
@@ -435,20 +435,20 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn push_back(todo: &mut *mut LeanObject, v: *mut LeanObject) {
+    unsafe fn push_back(todo: &mut *mut LeanObject, v: *mut LeanObject) { // duplicate in undefined at line 438 (🔁)
         set_next(v, *todo);
         *todo = v;
     }
 
     #[inline(always)]
-    unsafe fn pop_back(todo: &mut *mut LeanObject) -> *mut LeanObject {
+    unsafe fn pop_back(todo: &mut *mut LeanObject) -> *mut LeanObject { // duplicate in undefined at line 444 (🔁)
         let r = *todo;
         *todo = get_next(r);
         r
     }
 
     #[inline(always)]
-    unsafe fn dec_for_del(o: *mut LeanObject, todo: &mut *mut LeanObject) {
+    unsafe fn dec_for_del(o: *mut LeanObject, todo: &mut *mut LeanObject) { // duplicate in undefined at line 451 (🔁)
         if lean_is_scalar(o) {
             return;
         }
@@ -467,7 +467,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut LeanObject) {
+    unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut LeanObject) { // duplicate in undefined at line 470 (🔁)
         match tag {
             LEAN_CLOSURE_TAG => {
                 let it = lean_closure_arg_cptr(o);
@@ -531,7 +531,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_del_core(o: *mut LeanObject, todo: &mut *mut LeanObject) {
+    unsafe fn lean_del_core(o: *mut LeanObject, todo: &mut *mut LeanObject) { // duplicate in undefined at line 534 (🔁)
         let tag = lean_ptr_tag(o);
         if tag <= LEAN_MAX_CTOR_TAG {
             let it = lean_ctor_obj_cptr(o);
@@ -544,7 +544,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    pub unsafe fn lean_alloc_object(sz: usize) -> *mut LeanObject {
+    pub unsafe fn lean_alloc_object(sz: usize) -> *mut LeanObject { // duplicate in undefined at line 547 (🔁)
         #[cfg(lean_lazy_rc)]
         {
             G_TO_FREE.with(|cell| {
@@ -593,7 +593,7 @@ pub(crate) mod runtime_object_rc_impl {
         lean_alloc_ctor_memory(sz)
     }
 
-    pub unsafe fn lean_free_object(o: *mut LeanObject) {
+    pub unsafe fn lean_free_object(o: *mut LeanObject) { // duplicate in undefined at line 596 (🔁)
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_dealloc(o, lean_array_byte_size(o)),
             LEAN_SCALAR_ARRAY_TAG => lean_dealloc(o, lean_sarray_byte_size(o)),
@@ -608,7 +608,7 @@ pub(crate) mod runtime_object_rc_impl {
         }
     }
 
-    pub unsafe fn lean_dec_ref_cold(mut o: *mut LeanObject) {
+    pub unsafe fn lean_dec_ref_cold(mut o: *mut LeanObject) { // duplicate in undefined at line 611 (🔁)
         if lean_is_scalar(o) {
             return;
         }
@@ -648,7 +648,7 @@ pub(crate) mod runtime_object_rc_impl {
     #[inline(always)]
     unsafe fn lsan_ignore(_o: *mut LeanObject) {}
 
-    pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
+    pub unsafe fn lean_mark_persistent(o: *mut LeanObject) { // duplicate in undefined at line 651 (🔁)
         let mut todo = vec![o];
         while let Some(cur) = todo.pop() {
             if !lean_is_scalar(cur) && lean_has_rc(cur) {

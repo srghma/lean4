@@ -166,11 +166,6 @@ mod runtime_tcp_impl {
 
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean27initialize_libuv_tcp_socketEv"
-    )]
     pub unsafe fn initialize_libuv_tcp_socket() {
         unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
             let tcp_socket = obj.cast::<LeanUvTcpSocketObject>();
@@ -906,60 +901,60 @@ pub use runtime_tcp_impl::*;
 mod runtime_tcp_impl {
     use super::*;
 
-    pub extern "C" fn initialize_libuv_tcp_socket() {}
+    pub fn initialize_libuv_tcp_socket() {}
 
-    pub extern "C" fn lean_uv_tcp_new() -> *mut LeanObject {
+    pub fn lean_uv_tcp_new() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_tcp_connect(
+    pub fn lean_uv_tcp_connect(
         _: *mut LeanObject,
-        _: *mut LeanObject,
+        fnbject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
+    pub fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub extern "C" fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
+    }fn
+    pub fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
+    }fn
 }
 
-#[cfg(all(feature = "std", target_family = "wasm"))]
+#[cfg(alfnstd", target_family = "wasm"))]
 pub use runtime_tcp_impl::*;

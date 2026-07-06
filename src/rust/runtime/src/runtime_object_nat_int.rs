@@ -19,10 +19,10 @@ pub(crate) mod runtime_object_nat_int_impl {
         _mp_size: c_int,
         _mp_d: *mut u64,
     }
-    pub(crate) type MpzT = [MpzStruct; 1];
+    pub(crate) type MpzT = [MpzStruct; 1]; // duplicate in undefined at line 22 (🔁)
 
     #[repr(C)]
-    struct LeanMpzObject {
+    struct LeanMpzObject { // duplicate in undefined at line 25 (🔁)
         header: LeanObject,
         value: MpzT,
     }
@@ -68,8 +68,8 @@ pub(crate) mod runtime_object_nat_int_impl {
         fn __gmpz_gcd(rop: *mut MpzT, op1: *const MpzT, op2: *const MpzT);
     }
 
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1;
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 71 (🔁)
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in undefined at line 72 (🔁)
     const LEAN_MAX_SMALL_INT: i32 = i32::MAX;
     const LEAN_MIN_SMALL_INT: i32 = i32::MIN;
 
@@ -231,7 +231,7 @@ pub(crate) mod runtime_object_nat_int_impl {
         alloc_mpz(lean_mpz_val(o))
     }
 
-    pub unsafe fn lean_cstr_to_nat(n: *const c_char) -> *mut LeanObject {
+    pub unsafe fn lean_cstr_to_nat(n: *const c_char) -> *mut LeanObject { // duplicate in undefined at line 234 (🔁)
         let mut m = uninit_mpzt();
         __gmpz_init_set_str(&mut m, n, 10);
         mpz_to_nat(&mut m)

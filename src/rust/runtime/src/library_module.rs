@@ -7,7 +7,6 @@ Port of src/library/module.cpp:
   lean_compacted_region_save — implemented in runtime_compact_writer.rs
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod library_module_impl {
     use super::*;
     use core::ffi::{CStr, c_char, c_int, c_void};
@@ -32,16 +31,16 @@ mod library_module_impl {
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
 
     // Object tag constants matching lean.h
-    const LEAN_MAX_CTOR_TAG: u8 = 243;
-    const LEAN_CLOSURE_TAG: u8 = 245;
-    const LEAN_ARRAY_TAG: u8 = 246;
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-    const LEAN_STRING_TAG: u8 = 249;
-    const LEAN_MPZ_TAG: u8 = 250;
-    const LEAN_THUNK_TAG: u8 = 251;
-    const LEAN_TASK_TAG: u8 = 252;
-    const LEAN_REF_TAG: u8 = 253;
-    const LEAN_PROMISE_TAG: u8 = 244;
+    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in undefined at line 35 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 36 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 37 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 38 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 39 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 40 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in undefined at line 41 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 42 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 43 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 44 (🔁)
 
     // Size of fixed Lean object types (LP64):
     //   lean_thunk_object  = { header(8), value(8), closure(8) } = 24

@@ -8,43 +8,50 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_apply_impl {
     use super::*;
 
-    const LEAN_CLOSURE_TAG: u8 = 245;
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 11 (🔁)
 
     extern "C" {
-        fn lean_free_object(obj: *mut LeanObject);
+        fn lean_free_object(obj: *mut LeanObject); // duplicate in undefined at line 14 (🔁)
     }
 
     #[inline]
     unsafe fn closure_fun(f: *mut LeanObject) -> *mut c_void {
+        // duplicate in undefined at line 18 (🔁)
         (*(f as *mut LeanClosureObject)).fun
     }
 
     #[inline]
     unsafe fn closure_arity(f: *mut LeanObject) -> u32 {
+        // duplicate in undefined at line 23 (🔁)
         (*(f as *mut LeanClosureObject)).arity as u32
     }
 
     #[inline]
     unsafe fn closure_num_fixed(f: *mut LeanObject) -> u32 {
+        // duplicate in undefined at line 28 (🔁)
         (*(f as *mut LeanClosureObject)).num_fixed as u32
     }
 
     #[inline]
     unsafe fn closure_arg_cptr(f: *mut LeanObject) -> *mut *mut LeanObject {
+        // duplicate in undefined at line 33 (🔁)
         (*(f as *mut LeanClosureObject)).data.as_mut_ptr()
     }
 
     #[inline]
     unsafe fn fx(f: *mut LeanObject, i: u32) -> *mut LeanObject {
+        // duplicate in undefined at line 38 (🔁)
         *closure_arg_cptr(f).add(i as usize)
     }
 
     #[inline]
     unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
+        // duplicate in undefined at line 43 (🔁)
         (*obj).rc == 1
     }
 
     pub(crate) unsafe fn lean_alloc_closure(
+        // duplicate in undefined at line 47 (🔁)
         fun: *mut c_void,
         arity: u32,
         num_fixed: u32,
@@ -70,6 +77,7 @@ mod runtime_apply_impl {
     }
 
     unsafe fn fix_args(
+        // duplicate in undefined at line 72 (🔁)
         f: *mut LeanObject,
         n: u32,
         as_ptr: *const *mut LeanObject,
@@ -445,6 +453,7 @@ mod runtime_apply_impl {
     }
 
     unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject {
+        // duplicate in undefined at line 447 (🔁)
         let arity = closure_arity(f);
         let fixed = closure_num_fixed(f);
         let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
@@ -474,6 +483,7 @@ mod runtime_apply_impl {
     }
 
     unsafe fn apply_generic(
+        // duplicate in undefined at line 476 (🔁)
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -637,6 +647,7 @@ mod runtime_apply_impl {
     );
 
     pub unsafe fn lean_apply_m(
+        // duplicate in undefined at line 639 (🔁)
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -646,6 +657,7 @@ mod runtime_apply_impl {
     }
 
     pub unsafe fn lean_apply_n(
+        // duplicate in undefined at line 648 (🔁)
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -827,13 +839,9 @@ mod runtime_apply_impl {
             _ => lean_apply_m(f, n, as_ptr),
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean5curryEPvjPP11lean_object"
-    )]
     #[allow(dead_code)]
     pub unsafe fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObject {
+        // duplicate in undefined at line 836 (🔁)
         curry_raw(fun, n, as_ptr)
     }
 }

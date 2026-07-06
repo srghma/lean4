@@ -29,7 +29,6 @@ Scalar field layout:
   Let      (4 obj fields): uint8 nondep after data u64
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod kernel_instantiate_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;

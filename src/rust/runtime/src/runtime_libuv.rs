@@ -44,6 +44,7 @@ mod runtime_libuv_impl {
     }
 
     pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+        // duplicate in undefined at line 46 (🔁)
         uv_setup_args(argc, argv)
     }
 
@@ -59,9 +60,10 @@ pub use runtime_libuv_impl::*;
 mod runtime_libuv_impl {
     use super::*;
 
-    pub extern "C" fn initialize_libuv() {}
+    pub fn initialize_libuv() {}
 
     pub unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+        // duplicate in undefined at line 64 (🔁)
         argv
     }
 

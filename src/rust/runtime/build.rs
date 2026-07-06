@@ -69,10 +69,10 @@ fn main() {
     if std::env::var("LEAN_RUST_HAS_LLVM").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_has_llvm");
     }
-    println!("cargo:rustc-check-cfg=cfg(lean_lazy_rc)");
-    if std::env::var("LEAN_RUST_LAZY_RC").as_deref() == Ok("1") {
-        println!("cargo:rustc-cfg=lean_lazy_rc");
-    }
+    // println!("cargo:rustc-check-cfg=cfg(lean_lazy_rc)");
+    // if std::env::var("LEAN_RUST_LAZY_RC").as_deref() == Ok("1") {
+    //     println!("cargo:rustc-cfg=lean_lazy_rc");
+    // }
 }
 
 fn derive_version_string_from_cmake() -> String {

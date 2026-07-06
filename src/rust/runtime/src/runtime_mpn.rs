@@ -230,11 +230,6 @@ fn mpn_div_impl(
         div_unnormalize(&u, v.len(), shift, rem);
     }
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean11mpn_compareEPKjmS1_m"
-)]
 pub unsafe fn mpn_compare(
     a: *const MpnDigit,
     lnga: usize,
@@ -243,11 +238,6 @@ pub unsafe fn mpn_compare(
 ) -> c_int {
     mpn_compare_impl(digit_slice(a, lnga), digit_slice(b, lngb))
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean7mpn_addEPKjmS1_mPjmPm"
-)]
 pub unsafe fn mpn_add(
     a: *const MpnDigit,
     lnga: usize,
@@ -262,11 +252,6 @@ pub unsafe fn mpn_add(
     let size = mpn_add_impl(&lhs, &rhs, digit_slice_mut(c, lngc_alloc));
     *plngc = size;
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean7mpn_subEPKjmS1_mPjS2_"
-)]
 pub unsafe fn mpn_sub(
     a: *const MpnDigit,
     lnga: usize,
@@ -280,11 +265,6 @@ pub unsafe fn mpn_sub(
     let rhs = digit_slice(b, lngb).to_vec();
     *pborrow = mpn_sub_impl(&lhs, &rhs, digit_slice_mut(c, len));
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean7mpn_mulEPKjmS1_mPj"
-)]
 pub unsafe fn mpn_mul(
     a: *const MpnDigit,
     lnga: usize,
@@ -296,11 +276,6 @@ pub unsafe fn mpn_mul(
     let rhs = digit_slice(b, lngb).to_vec();
     mpn_mul_impl(&lhs, &rhs, digit_slice_mut(c, lnga + lngb));
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean7mpn_divEPKjmS1_mPjS2_"
-)]
 pub unsafe fn mpn_div(
     numer: *const MpnDigit,
     lnum: usize,
@@ -317,11 +292,6 @@ pub unsafe fn mpn_div(
         digit_slice_mut(rem, lden),
     );
 }
-
-#[cfg_attr(
-    feature = "export-runtime-ffi",
-    export_name = "_ZN4lean13mpn_to_stringEPKjmPcm"
-)]
 pub unsafe fn mpn_to_string(
     a: *const MpnDigit,
     lng: usize,

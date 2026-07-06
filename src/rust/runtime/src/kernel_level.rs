@@ -8,7 +8,6 @@ Port of the exported raw level operations previously backed by kernel/level.cpp:
 The C++ value-type facade now lives inline in kernel/level.h.
 */
 
-#[cfg(feature = "export-runtime-ffi")]
 mod kernel_level_impl {
     use super::runtime_object_name_impl::lean_name_eq;
     use super::runtime_object_panic_impl::lean_internal_panic;
@@ -77,8 +76,8 @@ mod kernel_level_impl {
     }
 
     #[export_name = "_ZN4lean16initialize_levelEv"]
-    pub extern "C" fn initialize_level() {}
+    pub fn initialize_level() {}
 
     #[export_name = "_ZN4lean14finalize_levelEv"]
-    pub extern "C" fn finalize_level() {}
+    pub fn finalize_level() {}
 }

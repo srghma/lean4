@@ -20,16 +20,16 @@ mod runtime_object_array_impl {
         _mp_d: *mut u64,
     }
 
-    type MpzT = [MpzStruct; 1];
+    type MpzT = [MpzStruct; 1]; // duplicate in undefined at line 23 (🔁)
 
     #[repr(C)]
-    struct LeanMpzObject {
+    struct LeanMpzObject { // duplicate in undefined at line 26 (🔁)
         header: LeanObject,
         value: MpzT,
     }
 
     #[repr(C)]
-    struct LeanThunkObject {
+    struct LeanThunkObject { // duplicate in undefined at line 32 (🔁)
         header: LeanObject,
         value: core::sync::atomic::AtomicPtr<LeanObject>,
         closure: core::sync::atomic::AtomicPtr<LeanObject>,
@@ -38,7 +38,7 @@ mod runtime_object_array_impl {
     extern "C" {
         fn __gmpz_size(op: *const MpzT) -> usize;
         fn __gmpz_getlimbn(op: *const MpzT, n: usize) -> c_ulong;
-        fn lean_free_object(o: *mut LeanObject);
+        fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 41 (🔁)
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
@@ -46,7 +46,7 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool {
+    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in undefined at line 49 (🔁)
         (*o).rc == 1
     }
 
@@ -56,7 +56,7 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject {
+    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in undefined at line 59 (🔁)
         (*(o as *mut LeanArrayObject)).data.as_mut_ptr()
     }
 
@@ -86,7 +86,7 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 {
+    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 { // duplicate in undefined at line 89 (🔁)
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
     }
 

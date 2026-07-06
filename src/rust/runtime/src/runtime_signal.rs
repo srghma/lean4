@@ -58,11 +58,6 @@ mod runtime_signal_impl {
     unsafe fn close_free_handle(handle: *mut UvHandle) {
         libc::free(handle.cast());
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean25lean_uv_signal_finalizerEPv"
-    )]
     pub unsafe fn lean_uv_signal_finalizer(ptr: *mut c_void) {
         let signal = ptr.cast::<LeanUvSignalObject>();
 
@@ -87,20 +82,10 @@ mod runtime_signal_impl {
             lean_apply_1(f, (*signal).promise);
         }
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean23initialize_libuv_signalEv"
-    )]
     pub unsafe fn initialize_libuv_signal() {
         UV_SIGNAL_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_signal_finalizer), Some(signal_foreach));
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean19handle_signal_eventEP11uv_signal_si"
-    )]
     pub unsafe fn handle_signal_event(handle: *mut UvSignal, signum: c_int) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let signal = signal_from_obj(obj);
@@ -361,22 +346,23 @@ pub use runtime_signal_impl::*;
 mod runtime_signal_impl {
     use super::*;
 
-    pub extern "C" fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {
+    pub fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_signal_next(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_signal_next(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_signal_stop(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_signal_stop(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    pub extern "C" fn lean_uv_signal_cancel(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_signal_cancel(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 pub use runtime_signal_impl::*;
+fnfnfn

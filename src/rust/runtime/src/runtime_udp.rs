@@ -145,11 +145,6 @@ mod runtime_udp_impl {
 
         event_loop_unlock(addr_of_mut!(_ZN4lean9global_evE));
     }
-
-    #[cfg_attr(
-        feature = "export-runtime-ffi",
-        export_name = "_ZN4lean27initialize_libuv_udp_socketEv"
-    )]
     pub unsafe fn initialize_libuv_udp_socket() {
         unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
             let udp_socket = obj.cast::<LeanUvUdpSocketObject>();
@@ -764,52 +759,49 @@ pub use runtime_udp_impl::*;
 mod runtime_udp_impl {
     use super::*;
 
-    pub extern "C" fn initialize_libuv_udp_socket() {}
+    pub fn initialize_libuv_udp_socket() {}
 
-    pub extern "C" fn lean_uv_udp_new() -> *mut LeanObject {
+    pub fn lean_uv_udp_new() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_connect(
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub fn lean_uv_udp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_send(
+    pub fn lean_uv_udp_send(
         _: *mut LeanObject,
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
+    pub fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
+    pub fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject {
+    pub fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject {
+    pub fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
+    pub fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_set_membership(
+    pub fn lean_uv_udp_set_membership(
         _: *mut LeanObject,
         _: *mut LeanObject,
         _: *mut LeanObject,
@@ -817,13 +809,13 @@ mod runtime_udp_impl {
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_set_multicast_interface(
+    pub fn lean_uv_udp_set_multicast_interface(
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    pub extern "C" fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
+    pub fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 }
