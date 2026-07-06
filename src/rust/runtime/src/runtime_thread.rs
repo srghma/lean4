@@ -237,8 +237,8 @@ mod runtime_thread_impl {
     }
 
     #[cfg(lean_multi_thread)]
-    pub unsafe fn lean_run_main(
-        // duplicate in undefined at line 302 (🔁)
+    pub unsafe fn lean_run_main( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 402 (🔁)
+
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -270,8 +270,8 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    pub unsafe fn lean_run_main(
-        // duplicate in undefined at line 334 (🔁)
+    pub unsafe fn lean_run_main( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 402 (🔁)
+
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,

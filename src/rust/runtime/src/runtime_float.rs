@@ -21,8 +21,8 @@ unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
     lean_box(value as u32 as usize)
 }
 
-pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
-    // duplicate in undefined at line 35 (🔁)
+pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 114 (🔁)
+
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
@@ -31,8 +31,8 @@ pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     obj
 }
 
-pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
-    // duplicate in undefined at line 44 (🔁)
+pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 128 (🔁)
+
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
     ptr::write_unaligned(
         (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,

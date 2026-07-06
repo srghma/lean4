@@ -9,17 +9,17 @@ mod runtime_sharecommon_impl {
     use std::collections::{HashMap, HashSet};
     use std::hash::{BuildHasherDefault, Hasher};
 
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 12 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 13 (🔁)
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 14 (🔁)
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 15 (🔁)
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 16 (🔁)
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 17 (🔁)
-    const LEAN_THUNK_TAG: u8 = 251; // duplicate in undefined at line 18 (🔁)
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 19 (🔁)
-    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 20 (🔁)
-    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in undefined at line 21 (🔁)
-    const LEAN_RESERVED_TAG: u8 = 255; // duplicate in undefined at line 22 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in src/rust/leanh/src/datatypes.rs at line 162 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
+    const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in src/rust/leanh/src/datatypes.rs at line 165 (🔁)
+    const LEAN_RESERVED_TAG: u8 = 255; // duplicate in src/rust/leanh/src/datatypes.rs at line 166 (🔁)
 
     unsafe extern "C" {
         fn lean_object_data_byte_size(o: *mut LeanObject) -> usize;

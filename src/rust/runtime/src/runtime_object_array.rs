@@ -11,20 +11,20 @@ mod runtime_object_array_impl {
     use core::ffi::{c_int, c_ulong};
 
     #[repr(C)]
-    struct LeanMpzObject { // duplicate in undefined at line 26 (🔁)
+    struct LeanMpzObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 149 (🔁)
         header: LeanObject,
         value: MpzT,
     }
 
     #[repr(C)]
-    struct LeanThunkObject { // duplicate in undefined at line 32 (🔁)
+    struct LeanThunkObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 90 (🔁)
         header: LeanObject,
         value: core::sync::atomic::AtomicPtr<LeanObject>,
         closure: core::sync::atomic::AtomicPtr<LeanObject>,
     }
 
     unsafe extern "C" {
-        fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 41 (🔁)
+        fn lean_free_object(o: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
@@ -32,7 +32,7 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in undefined at line 49 (🔁)
+    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
         (*o).rc == 1
     }
 
@@ -42,7 +42,7 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in undefined at line 59 (🔁)
+    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 46 (🔁)
         (*(o as *mut LeanArrayObject)).data.as_mut_ptr()
     }
 
@@ -72,7 +72,7 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 { // duplicate in undefined at line 89 (🔁)
+    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 591 (🔁)
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
     }
 

@@ -28,16 +28,16 @@ mod library_module_impl {
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
 
     // Object tag constants matching lean.h
-    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in undefined at line 35 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 36 (🔁)
-    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 37 (🔁)
-    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 38 (🔁)
-    const LEAN_STRING_TAG: u8 = 249; // duplicate in undefined at line 39 (🔁)
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 40 (🔁)
-    const LEAN_THUNK_TAG: u8 = 251; // duplicate in undefined at line 41 (🔁)
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 42 (🔁)
-    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 43 (🔁)
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 44 (🔁)
+    const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in src/rust/leanh/src/datatypes.rs at line 154 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
+    const LEAN_ARRAY_TAG: u8 = 246; // duplicate in src/rust/leanh/src/datatypes.rs at line 157 (🔁)
+    const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in src/rust/leanh/src/datatypes.rs at line 159 (🔁)
+    const LEAN_STRING_TAG: u8 = 249; // duplicate in src/rust/leanh/src/datatypes.rs at line 160 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
+    const LEAN_THUNK_TAG: u8 = 251; // duplicate in src/rust/leanh/src/datatypes.rs at line 162 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
 
     // Size of fixed Lean object types (LP64):
     //   lean_thunk_object  = { header(8), value(8), closure(8) } = 24

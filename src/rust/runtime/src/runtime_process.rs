@@ -42,16 +42,16 @@ mod runtime_process_impl {
     }
 
     // lean_ctor_get_uint32 is not in lib.rs – define locally
-    unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, byte_offset: usize) -> u32 {
-        // duplicate in undefined at line 46 (🔁)
+    unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, byte_offset: usize) -> u32 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 81 (🔁)
+
         (obj.add(1) as *mut u8)
             .add(byte_offset)
             .cast::<u32>()
             .read_unaligned()
     }
 
-    unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, byte_offset: usize, v: u32) {
-        // duplicate in undefined at line 53 (🔁)
+    unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, byte_offset: usize, v: u32) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 150 (🔁)
+
         (obj.add(1) as *mut u8)
             .add(byte_offset)
             .cast::<u32>()
@@ -59,14 +59,14 @@ mod runtime_process_impl {
     }
 
     // lean_ctor_set (set object field) is not in lib.rs – define locally
-    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
-        // duplicate in undefined at line 61 (🔁)
+    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
+
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
     // Lean constructor allocation forwarding to lean_runtime_alloc_ctor
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
-        // duplicate in undefined at line 66 (🔁)
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
+
         lean_runtime_alloc_ctor(tag as c_uint, num_objs as c_uint, scalar_size as c_uint)
     }
 

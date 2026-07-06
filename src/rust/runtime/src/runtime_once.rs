@@ -4,23 +4,23 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 #[repr(C)]
-pub struct LeanOnceCell {
-    // duplicate in undefined at line 7 (🔁)
+pub struct LeanOnceCell { // duplicate in src/rust/leanh/src/datatypes.rs at line 103 (🔁)
+
     state: AtomicI32,
     lock: AtomicI32,
 }
 
-type ObjInitFn = unsafe fn() -> *mut LeanObject; // duplicate in undefined at line 12 (🔁)
-type U8InitFn = unsafe fn() -> u8; // duplicate in undefined at line 13 (🔁)
-type U16InitFn = unsafe fn() -> u16; // duplicate in undefined at line 14 (🔁)
-type U32InitFn = unsafe fn() -> u32; // duplicate in undefined at line 15 (🔁)
-type U64InitFn = unsafe fn() -> u64; // duplicate in undefined at line 16 (🔁)
-type UsizeInitFn = unsafe fn() -> usize; // duplicate in undefined at line 17 (🔁)
-type F32InitFn = unsafe fn() -> f32; // duplicate in undefined at line 18 (🔁)
-type F64InitFn = unsafe fn() -> f64; // duplicate in undefined at line 19 (🔁)
+type ObjInitFn = unsafe fn() -> *mut LeanObject; // duplicate in src/rust/leanh/src/datatypes.rs at line 32 (🔁)
+type U8InitFn = unsafe fn() -> u8; // duplicate in src/rust/leanh/src/datatypes.rs at line 33 (🔁)
+type U16InitFn = unsafe fn() -> u16; // duplicate in src/rust/leanh/src/datatypes.rs at line 34 (🔁)
+type U32InitFn = unsafe fn() -> u32; // duplicate in src/rust/leanh/src/datatypes.rs at line 35 (🔁)
+type U64InitFn = unsafe fn() -> u64; // duplicate in src/rust/leanh/src/datatypes.rs at line 36 (🔁)
+type UsizeInitFn = unsafe fn() -> usize; // duplicate in src/rust/leanh/src/datatypes.rs at line 37 (🔁)
+type F32InitFn = unsafe fn() -> f32; // duplicate in src/rust/leanh/src/datatypes.rs at line 38 (🔁)
+type F64InitFn = unsafe fn() -> f64; // duplicate in src/rust/leanh/src/datatypes.rs at line 39 (🔁)
 
-fn lock_once_cell(lock: &AtomicI32) {
-    // duplicate in undefined at line 21 (🔁)
+fn lock_once_cell(lock: &AtomicI32) { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 244 (🔁)
+
     while lock
         .compare_exchange(0, 1, Ordering::Acquire, Ordering::Relaxed)
         .is_err()
@@ -29,13 +29,13 @@ fn lock_once_cell(lock: &AtomicI32) {
     }
 }
 
-fn unlock_once_cell(lock: &AtomicI32) {
-    // duplicate in undefined at line 31 (🔁)
+fn unlock_once_cell(lock: &AtomicI32) { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 288 (🔁)
+
     lock.store(0, Ordering::Release);
 }
 
-unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsafe fn() -> T) -> T {
-    // duplicate in undefined at line 35 (🔁)
+unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsafe fn() -> T) -> T { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 294 (🔁)
+
     let tok = &*tok;
     lock_once_cell(&tok.lock);
     if tok.state.load(Ordering::Acquire) != 1 {
@@ -47,8 +47,8 @@ unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsafe fn
     result
 }
 
-pub unsafe fn lean_obj_once_cold(
-    // duplicate in undefined at line 47 (🔁)
+pub unsafe fn lean_obj_once_cold( // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 509 (🔁)
+
     loc: *mut *mut LeanObject,
     tok: *mut LeanOnceCell,
     init: ObjInitFn,

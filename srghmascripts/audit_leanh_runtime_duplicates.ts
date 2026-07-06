@@ -8,6 +8,7 @@ type DeclKind = "fn" | "struct" | "enum" | "type" | "static" | "const" | "mod";
 type Decl = {
   name: string;
   kind: DeclKind;
+  source: string;
   file: string;
   line: number;
   text: string;
@@ -159,6 +160,7 @@ function extractDecls(text: string, file: string): Decl[] {
       decls.push({
         name: match[1]!,
         kind,
+        source: file,
         file,
         line: i + 1,
         text: originalLines[i]!.trim(),
@@ -172,6 +174,13 @@ function extractDecls(text: string, file: string): Decl[] {
 
 function declLink(file: string, line: number): string {
   return `[${relativeFile(file)}:${line}](${file}#L${line})`;
+}
+
+function assertNonEmpty(value: string | undefined, message: string): string {
+  if (typeof value !== "string" || value.length === 0) {
+    throw new Error(message);
+  }
+  return value;
 }
 
 async function annotateRuntimeFile(file: string, hitsByLine: Map<number, RuntimeDef[]>): Promise<boolean> {
@@ -222,13 +231,17 @@ async function main() {
       const decls = extractDecls(text, file);
       for (const decl of decls) {
         if (!sourceNames.has(decl.name)) continue;
+        const sourceDecl = (sourceDeclsByName.get(decl.name) ?? [])[0];
+        if (!sourceDecl) {
+          throw new Error(`Missing source declaration for ${decl.name} matched in ${decl.file}:${decl.line}`);
+        }
         const runtimeDef: RuntimeDef = {
           name: decl.name,
           kind: decl.kind,
           file,
           line: decl.line,
           text: decl.text,
-          comment: `duplicate in ${decl.origin} at line ${decl.line} (${DUP_EMOJI})`,
+          comment: `duplicate in ${relativeFile(sourceDecl.file)} at line ${sourceDecl.line} (${DUP_EMOJI})`,
         };
         runtimeDefs.push(runtimeDef);
         const list = runtimeDefsByName.get(runtimeDef.name) ?? [];
@@ -287,7 +300,7 @@ async function main() {
   lines.push("");
   for (const name of duplicatedNames) {
     const sourceList = (sourceDeclsByName.get(name) ?? [])
-      .map((decl) => `${decl.origin}:${decl.kind}`)
+      .map((decl) => `${relativeFile(decl.file)}:${decl.line}:${decl.kind}`)
       .join(", ");
     const matchList = (runtimeDefsByName.get(name) ?? [])
       .map((hit) => `${declLink(hit.file, hit.line)} (${hit.kind})`)

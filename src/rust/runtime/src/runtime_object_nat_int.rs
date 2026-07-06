@@ -10,7 +10,7 @@ pub(crate) mod runtime_object_nat_int_impl {
     use core::ffi::{c_char, c_int, c_long, c_ulong};
 
     #[repr(C)]
-    struct LeanMpzObject { // duplicate in undefined at line 25 (🔁)
+    struct LeanMpzObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 149 (🔁)
         header: LeanObject,
         value: MpzT,
     }
@@ -19,8 +19,8 @@ pub(crate) mod runtime_object_nat_int_impl {
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 
-    const LEAN_MPZ_TAG: u8 = 250; // duplicate in undefined at line 71 (🔁)
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in undefined at line 72 (🔁)
+    const LEAN_MPZ_TAG: u8 = 250; // duplicate in src/rust/leanh/src/datatypes.rs at line 161 (🔁)
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in src/rust/leanh/src/datatypes.rs at line 11 (🔁)
     const LEAN_MAX_SMALL_INT: i32 = i32::MAX;
     const LEAN_MIN_SMALL_INT: i32 = i32::MIN;
 
@@ -174,7 +174,7 @@ pub(crate) mod runtime_object_nat_int_impl {
         alloc_mpz(lean_mpz_val(o))
     }
 
-    pub unsafe fn lean_cstr_to_nat(n: *const c_char) -> *mut LeanObject { // duplicate in undefined at line 234 (🔁)
+    pub unsafe fn lean_cstr_to_nat(n: *const c_char) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 47 (🔁)
         let mut m = uninit_mpzt();
         __gmpz_init_set_str(&mut m, n, 10);
         mpz_to_nat(&mut m)

@@ -23,7 +23,7 @@ mod library_util_impl {
 
     unsafe extern "C" {
         fn lean_expr_mk_const(name: *mut LeanObject, lvls: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 27 (🔁)
+        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
     }
 
     static INITIALIZED: AtomicBool = AtomicBool::new(false);

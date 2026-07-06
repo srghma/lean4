@@ -8,50 +8,50 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_apply_impl {
     use crate::*;
 
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 11 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
 
     unsafe extern "C" {
-        fn lean_free_object(obj: *mut LeanObject); // duplicate in undefined at line 14 (🔁)
+        fn lean_free_object(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
     }
 
     #[inline]
-    unsafe fn closure_fun(f: *mut LeanObject) -> *mut c_void {
-        // duplicate in undefined at line 18 (🔁)
+    unsafe fn closure_fun(f: *mut LeanObject) -> *mut c_void { // duplicate in src/rust/leanh/src/arity.rs at line 9 (🔁)
+
         (*(f as *mut LeanClosureObject)).fun
     }
 
     #[inline]
-    unsafe fn closure_arity(f: *mut LeanObject) -> u32 {
-        // duplicate in undefined at line 23 (🔁)
+    unsafe fn closure_arity(f: *mut LeanObject) -> u32 { // duplicate in src/rust/leanh/src/arity.rs at line 15 (🔁)
+
         (*(f as *mut LeanClosureObject)).arity as u32
     }
 
     #[inline]
-    unsafe fn closure_num_fixed(f: *mut LeanObject) -> u32 {
-        // duplicate in undefined at line 28 (🔁)
+    unsafe fn closure_num_fixed(f: *mut LeanObject) -> u32 { // duplicate in src/rust/leanh/src/arity.rs at line 21 (🔁)
+
         (*(f as *mut LeanClosureObject)).num_fixed as u32
     }
 
     #[inline]
-    unsafe fn closure_arg_cptr(f: *mut LeanObject) -> *mut *mut LeanObject {
-        // duplicate in undefined at line 33 (🔁)
+    unsafe fn closure_arg_cptr(f: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in src/rust/leanh/src/arity.rs at line 27 (🔁)
+
         (*(f as *mut LeanClosureObject)).data.as_mut_ptr()
     }
 
     #[inline]
-    unsafe fn fx(f: *mut LeanObject, i: u32) -> *mut LeanObject {
-        // duplicate in undefined at line 38 (🔁)
+    unsafe fn fx(f: *mut LeanObject, i: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/arity.rs at line 33 (🔁)
+
         *closure_arg_cptr(f).add(i as usize)
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
-        // duplicate in undefined at line 43 (🔁)
+    unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
+
         (*obj).rc == 1
     }
 
-    pub(crate) unsafe fn lean_alloc_closure(
-        // duplicate in undefined at line 47 (🔁)
+    pub(crate) unsafe fn lean_alloc_closure( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 264 (🔁)
+
         fun: *mut c_void,
         arity: u32,
         num_fixed: u32,
@@ -76,8 +76,8 @@ mod runtime_apply_impl {
         obj as *mut LeanObject
     }
 
-    unsafe fn fix_args(
-        // duplicate in undefined at line 72 (🔁)
+    unsafe fn fix_args( // duplicate in src/rust/leanh/src/arity.rs at line 198 (🔁)
+
         f: *mut LeanObject,
         n: u32,
         as_ptr: *const *mut LeanObject,
@@ -452,8 +452,8 @@ mod runtime_apply_impl {
         }
     }
 
-    unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject {
-        // duplicate in undefined at line 447 (🔁)
+    unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject { // duplicate in src/rust/leanh/src/arity.rs at line 261 (🔁)
+
         let arity = closure_arity(f);
         let fixed = closure_num_fixed(f);
         let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
@@ -482,8 +482,8 @@ mod runtime_apply_impl {
         }
     }
 
-    unsafe fn apply_generic(
-        // duplicate in undefined at line 476 (🔁)
+    unsafe fn apply_generic( // duplicate in src/rust/leanh/src/arity.rs at line 290 (🔁)
+
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -646,8 +646,8 @@ mod runtime_apply_impl {
         a16
     );
 
-    pub unsafe fn lean_apply_m(
-        // duplicate in undefined at line 639 (🔁)
+    pub unsafe fn lean_apply_m( // duplicate in src/rust/leanh/src/arity.rs at line 453 (🔁)
+
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -656,8 +656,8 @@ mod runtime_apply_impl {
         apply_generic(f, n, as_ptr)
     }
 
-    pub unsafe fn lean_apply_n(
-        // duplicate in undefined at line 648 (🔁)
+    pub unsafe fn lean_apply_n( // duplicate in src/rust/leanh/src/arity.rs at line 462 (🔁)
+
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -840,8 +840,8 @@ mod runtime_apply_impl {
         }
     }
     #[allow(dead_code)]
-    pub unsafe fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObject {
-        // duplicate in undefined at line 836 (🔁)
+    pub unsafe fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObject { // duplicate in src/rust/leanh/src/arity.rs at line 226 (🔁)
+
         curry_raw(fun, n, as_ptr)
     }
 }

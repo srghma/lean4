@@ -19,7 +19,7 @@ mod kernel_type_checker_impl {
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
 
-    type Size = usize; // duplicate in undefined at line 23 (🔁)
+    type Size = usize; // duplicate in src/rust/leanh/src/datatypes.rs at line 9 (🔁)
 
     // ---------------------------------------------------------------------------
     // Lean runtime C API bindings (extern "C" stubs expected from lean/lean.h)
@@ -31,7 +31,7 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     unsafe extern "C" {
-        fn lean_mark_persistent(o: *mut LeanObject); // duplicate in undefined at line 35 (🔁)
+        fn lean_mark_persistent(o: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
 
         // Names
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
@@ -289,26 +289,26 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     #[inline(always)]
-    unsafe fn lean_is_scalar(o: *const LeanObject) -> bool {
-        // duplicate in undefined at line 293 (🔁)
+    unsafe fn lean_is_scalar(o: *const LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 259 (🔁)
+
         super::lean_is_scalar(o as *mut _)
     }
 
     #[inline(always)]
-    unsafe fn lean_ptr_tag(o: *const LeanObject) -> u32 {
-        // duplicate in undefined at line 298 (🔁)
+    unsafe fn lean_ptr_tag(o: *const LeanObject) -> u32 { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 161 (🔁)
+
         super::lean_ptr_tag(o as *mut _) as u32
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get(o: *const LeanObject, i: u32) -> *mut LeanObject {
-        // duplicate in undefined at line 303 (🔁)
+    unsafe fn lean_ctor_get(o: *const LeanObject, i: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 58 (🔁)
+
         (o.add(1) as *const *mut LeanObject).add(i as usize).read()
     }
 
     #[inline(always)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_sz: u32) -> *mut LeanObject {
-        // duplicate in undefined at line 308 (🔁)
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_sz: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
+
         lean_runtime_alloc_ctor(tag, num_objs, scalar_sz)
     }
 
@@ -323,8 +323,8 @@ mod kernel_type_checker_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_set(o: *mut LeanObject, i: u32, v: *mut LeanObject) {
-        // duplicate in undefined at line 323 (🔁)
+    unsafe fn lean_ctor_set(o: *mut LeanObject, i: u32, v: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
+
         lean_runtime_ctor_set(o, i, v)
     }
 
@@ -353,8 +353,8 @@ mod kernel_type_checker_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_unbox(o: *const LeanObject) -> usize {
-        // duplicate in undefined at line 352 (🔁)
+    unsafe fn lean_unbox(o: *const LeanObject) -> usize { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 460 (🔁)
+
         super::lean_unbox(o as *mut _)
     }
 
@@ -364,8 +364,8 @@ mod kernel_type_checker_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_mk_string(s: *const u8, n: usize) -> *mut LeanObject {
-        // duplicate in undefined at line 362 (🔁)
+    unsafe fn lean_mk_string(s: *const u8, n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
+
         lean_mk_string_from_bytes(s.cast(), n)
     }
 
@@ -651,11 +651,11 @@ mod kernel_type_checker_impl {
     // Small Nat: tagged scalar, value = lean_unbox(ptr), max = LEAN_MAX_SMALL_NAT.
     // Big Nat:   heap-allocated mpz object.
     // ---------------------------------------------------------------------------
-    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in undefined at line 648 (🔁)
+    const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // duplicate in src/rust/leanh/src/datatypes.rs at line 11 (🔁)
 
     #[inline(always)]
-    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
-        // duplicate in undefined at line 651 (🔁)
+    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
+
         if n <= LEAN_MAX_SMALL_NAT {
             super::lean_box(n)
         } else {

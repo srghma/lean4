@@ -30,9 +30,9 @@ pub(crate) mod runtime_object_task_impl {
 
     const LEAN_MAX_PRIO: u32 = 8;
     const LEAN_SYNC_PRIO: u32 = u32::MAX;
-    const LEAN_TASK_TAG: u8 = 252; // duplicate in undefined at line 33 (🔁)
-    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 34 (🔁)
-    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 35 (🔁)
+    const LEAN_TASK_TAG: u8 = 252; // duplicate in src/rust/leanh/src/datatypes.rs at line 163 (🔁)
+    const LEAN_PROMISE_TAG: u8 = 244; // duplicate in src/rust/leanh/src/datatypes.rs at line 155 (🔁)
+    const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in src/rust/leanh/src/datatypes.rs at line 156 (🔁)
 
     // ─── Helper: send raw pointer across threads ──────────────────────────────
 
@@ -63,7 +63,7 @@ pub(crate) mod runtime_object_task_impl {
     // ─── Internal structure of a running task ─────────────────────────────────
 
     #[repr(C)]
-    struct LeanTaskImp { // duplicate in undefined at line 66 (🔁)
+    struct LeanTaskImp { // duplicate in src/rust/leanh/src/datatypes.rs at line 122 (🔁)
         m_closure: *mut LeanObject,
         m_head_dep: *mut LeanTaskObject,
         m_next_dep: *mut LeanTaskObject,
@@ -803,7 +803,7 @@ pub(crate) mod runtime_object_task_impl {
         let _ = num_workers;
     }
 
-    pub fn lean_init_task_manager() {
+    pub fn lean_init_task_manager() { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 225 (🔁)
         lean_init_task_manager_using(unsafe { lean_runtime_get_lean_num_threads() });
     }
 

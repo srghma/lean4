@@ -10,14 +10,14 @@ mod runtime_io_ref_impl {
 
     unsafe extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
-        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 13 (🔁)
+        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
     }
 
-    const LEAN_REF_TAG: u8 = 253; // duplicate in undefined at line 16 (🔁)
+    const LEAN_REF_TAG: u8 = 253; // duplicate in src/rust/leanh/src/datatypes.rs at line 164 (🔁)
 
     #[repr(C)]
-    struct LeanRefObject {
-        // duplicate in undefined at line 19 (🔁)
+    struct LeanRefObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
+
         header: LeanObject,
         value: *mut LeanObject,
     }

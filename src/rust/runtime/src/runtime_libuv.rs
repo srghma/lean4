@@ -39,8 +39,8 @@ mod runtime_libuv_impl {
         });
     }
 
-    pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
-        // duplicate in undefined at line 46 (🔁)
+    pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 411 (🔁)
+
         uv_setup_args(argc, argv)
     }
 

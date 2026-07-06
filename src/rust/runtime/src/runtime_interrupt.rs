@@ -20,8 +20,8 @@ mod runtime_interrupt_impl {
     }
 
     #[repr(C)]
-    struct LeanRefObject {
-        // duplicate in undefined at line 22 (🔁)
+    struct LeanRefObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
+
         header: LeanObject,
         value: *mut LeanObject,
     }
