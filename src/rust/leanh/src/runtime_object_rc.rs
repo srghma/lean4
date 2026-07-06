@@ -13,7 +13,7 @@ use crate::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
         LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
         LEAN_THUNK_TAG, LeanExternalObject, LeanMpzObject, LeanObject, LeanPromiseObject,
-        LeanRefObject, LeanTaskObject, LeanThunkObject, MpzT,
+        LeanRefObject, LeanTaskObject, LeanThunkObject,
     },
     in_emit_rust::{lean_alloc_closure, lean_dec},
     not_in_emit_rust::{
@@ -53,7 +53,7 @@ unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut LeanO
             lean_dealloc(o, lean_string_byte_size(o));
         }
         LEAN_MPZ_TAG => {
-            let mpz = &mut (*(o as *mut LeanMpzObject)).m_value as *mut MpzT;
+            let mpz = core::ptr::addr_of_mut!((*(o as *mut LeanMpzObject)).m_value);
             gmp_mpfr_sys::gmp::mpz_clear(mpz);
             lean_free_small_object(o);
         }
@@ -124,7 +124,7 @@ pub unsafe fn lean_free_object(o: *mut LeanObject) {
         LEAN_STRING_TAG => lean_dealloc(o, lean_string_byte_size(o)),
         LEAN_CLOSURE_TAG => lean_dealloc(o, lean_closure_byte_size(o)),
         LEAN_MPZ_TAG => {
-            let mpz = &mut (*(o as *mut LeanMpzObject)).m_value as *mut MpzT;
+            let mpz = core::ptr::addr_of_mut!((*(o as *mut LeanMpzObject)).m_value);
             gmp_mpfr_sys::gmp::mpz_clear(mpz);
             lean_free_small_object(o);
         }

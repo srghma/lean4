@@ -2,6 +2,7 @@ use core::ffi::c_void;
 use core::ptr;
 use core::sync::atomic::{AtomicI32, AtomicPtr};
 use std::cell::Cell;
+use gmp_mpfr_sys::gmp::mpz_t;
 
 // This module is the Rust equivalent of upstream `lean.h` for ABI layouts and
 // helpers hardcoded by EmitRust. Do not import runtime modules here; runtime
@@ -137,18 +138,9 @@ pub struct LeanExternalObject {
 }
 
 #[repr(C)]
-pub struct LeanMpzStruct {
-    pub mp_alloc: i32,
-    pub mp_size: i32,
-    pub mp_d: *mut u64,
-}
-
-pub type MpzT = [LeanMpzStruct; 1];
-
-#[repr(C)]
 pub struct LeanMpzObject {
     pub m_header: LeanObject,
-    pub m_value: MpzT,
+    pub m_value: mpz_t,
 }
 
 pub const LEAN_MAX_CTOR_TAG: u8 = 243;

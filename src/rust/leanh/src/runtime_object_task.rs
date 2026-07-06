@@ -537,7 +537,10 @@ pub unsafe fn lean_runtime_deactivate_promise(promise: *mut LeanPromiseObject) {
     if let Some(tm) = get_task_manager() {
         let none = unsafe { mk_option_none() };
         tm.resolve((*promise).m_result as *mut LeanTaskObject, none);
-        unsafe { lean_dec_ref((*promise).m_result) };
+        unsafe {
+            let task = (*promise).m_result;
+            lean_dec_ref(core::ptr::addr_of_mut!((*task).m_header));
+        }
     }
     unsafe { lean_free_small_object(promise as *mut LeanObject) };
 }

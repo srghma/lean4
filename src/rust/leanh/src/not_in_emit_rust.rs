@@ -486,8 +486,7 @@ pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut L
                 lean_dealloc(o, lean_string_byte_size(o));
             }
             LEAN_MPZ_TAG => {
-                let mpz =
-                    &mut (*(o as *mut LeanMpzObject)).m_value as *mut gmp_mpfr_sys::gmp::mpz_t;
+                let mpz = core::ptr::addr_of_mut!((*(o as *mut LeanMpzObject)).m_value);
                 gmp_mpfr_sys::gmp::mpz_clear(mpz);
                 lean_free_small_object(o);
             }
