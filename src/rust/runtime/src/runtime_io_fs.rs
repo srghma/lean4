@@ -122,7 +122,7 @@ mod runtime_io_fs_impl {
             0
         } else if mode & libc::S_IFMT == libc::S_IFREG {
             1
-        } else if cfg!(not(target_os = "windows")) && mode & libc::S_IFMT == libc::S_IFLNK {
+        } else if mode & libc::S_IFMT == libc::S_IFLNK {
             2
         } else {
             3
@@ -181,9 +181,6 @@ mod runtime_io_fs_impl {
             Ok(s) => s,
             Err(e) => return e,
         };
-        #[cfg(target_os = "windows")]
-        let ret = libc::mkdir(str_);
-        #[cfg(not(target_os = "windows"))]
         let ret = libc::mkdir(str_, 0o777);
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
@@ -213,14 +210,6 @@ mod runtime_io_fs_impl {
             Ok(s) => s,
             Err(e) => return e,
         };
-        #[cfg(target_os = "windows")]
-        let ok = {
-            use windows_sys::Win32::Storage::FileSystem::{
-                MoveFileExA, MOVEFILE_REPLACE_EXISTING,
-            };
-            MoveFileExA(from_str.cast(), to_str.cast(), MOVEFILE_REPLACE_EXISTING) != 0
-        };
-        #[cfg(not(target_os = "windows"))]
         let ok = libc::rename(from_str, to_str) == 0;
 
         if ok {
@@ -243,16 +232,6 @@ mod runtime_io_fs_impl {
             Ok(s) => s,
             Err(e) => return e,
         };
-        #[cfg(target_os = "windows")]
-        let ret = {
-            use windows_sys::Win32::Storage::FileSystem::CreateHardLinkA;
-            if CreateHardLinkA(link_str.cast(), orig_str.cast(), core::ptr::null()) != 0 {
-                0
-            } else {
-                -1
-            }
-        };
-        #[cfg(not(target_os = "windows"))]
         let ret = libc::link(orig_str, link_str);
 
         if ret == 0 {
@@ -267,9 +246,6 @@ mod runtime_io_fs_impl {
             Ok(s) => s,
             Err(e) => return e,
         };
-        #[cfg(target_os = "windows")]
-        let ret = libc::remove(fname);
-        #[cfg(not(target_os = "windows"))]
         let ret = libc::unlink(fname);
 
         if ret == 0 {
@@ -288,29 +264,6 @@ mod runtime_io_fs_impl {
             }
         };
 
-        #[cfg(target_os = "windows")]
-        let result = {
-            use std::path::Path;
-
-            match CStr::from_ptr(fname)
-                .to_str()
-                .ok()
-                .and_then(|path| std::fs::canonicalize(Path::new(path)).ok())
-            {
-                Some(path) => {
-                    let mut path = path.to_string_lossy().into_owned();
-                    if path.len() >= 2 && path.as_bytes()[1] == b':' {
-                        let drive = path[..1].to_ascii_lowercase();
-                        path.replace_range(..1, &drive);
-                    }
-                    let path = CString::new(path).unwrap();
-                    lean_io_result_mk_ok(lean_mk_string(path.as_ptr()))
-                }
-                None => mk_file_not_found_error(filename),
-            }
-        };
-
-        #[cfg(not(target_os = "windows"))]
         let result = {
             let mut buffer = [0u8; libc::PATH_MAX as usize];
             let resolved = libc::realpath(fname, buffer.as_mut_ptr().cast());
@@ -380,9 +333,6 @@ mod runtime_io_fs_impl {
             Err(e) => return e,
         };
         let mut st = core::mem::MaybeUninit::<libc::stat>::uninit();
-        #[cfg(target_os = "windows")]
-        let ret = libc::stat(fname, st.as_mut_ptr());
-        #[cfg(not(target_os = "windows"))]
         let ret = libc::lstat(fname, st.as_mut_ptr());
         if ret == 0 {
             metadata_core(&st.assume_init())
@@ -458,7 +408,6 @@ mod runtime_io_fs_impl {
         let mut remain = nbytes;
         let mut dst = lean_sarray_cptr(res).cast_mut();
 
-        #[cfg(not(target_os = "windows"))]
         {
             let random_path = c"/dev/urandom";
             let fd = libc::open(random_path.as_ptr(), libc::O_RDONLY | libc::O_CLOEXEC);
@@ -493,29 +442,6 @@ mod runtime_io_fs_impl {
             libc::close(fd);
         }
 
-        #[cfg(target_os = "windows")]
-        {
-            use windows_sys::Win32::Security::Cryptography::{
-                BCryptGenRandom, BCRYPT_USE_SYSTEM_PREFERRED_RNG,
-            };
-
-            while remain > 0 {
-                let read_size = remain.min(u32::MAX as usize);
-                let status = BCryptGenRandom(
-                    core::ptr::null_mut(),
-                    dst,
-                    read_size as u32,
-                    BCRYPT_USE_SYSTEM_PREFERRED_RNG,
-                );
-                if status < 0 {
-                    lean_dec(res);
-                    return io_error_from_str(c"BCryptGenRandom failed".as_ptr());
-                }
-                remain -= read_size;
-                dst = dst.add(read_size);
-            }
-        }
-
         lean_sarray_set_size(res, nbytes);
         lean_io_result_mk_ok(res)
     }
@@ -531,23 +457,6 @@ mod runtime_io_fs_impl {
     }
 
     pub unsafe fn lean_io_app_path() -> *mut LeanObject {
-        #[cfg(target_os = "windows")]
-        {
-            use windows_sys::Win32::System::LibraryLoader::{
-                GetModuleFileNameA, GetModuleHandleA,
-            };
-            let mut path = [0u8; 32768usize]; // MAX_PATH
-            let h = GetModuleHandleA(core::ptr::null());
-            let n = GetModuleFileNameA(h, path.as_mut_ptr().cast(), path.len() as u32);
-            if n == 0 {
-                return io_error_from_str(c"failed to locate application".as_ptr());
-            }
-            // lowercase drive letter
-            if n >= 2 && path[1] == b':' {
-                path[0] = path[0].to_ascii_lowercase();
-            }
-            lean_io_result_mk_ok(lean_mk_string(path.as_ptr().cast()))
-        }
         #[cfg(target_os = "macos")]
         {
             let mut buf1 = [0u8; libc::PATH_MAX as usize];
@@ -564,7 +473,7 @@ mod runtime_io_fs_impl {
             }
             lean_io_result_mk_ok(lean_mk_string(buf2.as_ptr().cast()))
         }
-        #[cfg(not(any(target_os = "windows", target_os = "macos")))]
+        #[cfg(not(target_os = "macos"))]
         {
             // Linux and other Unix-like systems
             let mut dest = [0u8; libc::PATH_MAX as usize];

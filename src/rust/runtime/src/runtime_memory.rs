@@ -37,26 +37,6 @@ mod runtime_memory_impl {
         }
     }
 
-    #[cfg(windows)]
-    unsafe fn get_peak_rss() -> usize {
-        use windows_sys::Win32::System::ProcessStatus::{
-            GetProcessMemoryInfo, PROCESS_MEMORY_COUNTERS,
-        };
-        use windows_sys::Win32::System::Threading::GetCurrentProcess;
-        let mut info = std::mem::zeroed::<PROCESS_MEMORY_COUNTERS>();
-        info.cb = std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32;
-        if GetProcessMemoryInfo(
-            GetCurrentProcess(),
-            &mut info,
-            std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32,
-        ) != 0
-        {
-            info.PeakWorkingSetSize as usize
-        } else {
-            0
-        }
-    }
-
     #[cfg(all(unix, not(target_os = "macos")))]
     unsafe fn get_current_rss() -> usize {
         if let Ok(content) = std::fs::read_to_string("/proc/self/statm") {
@@ -89,26 +69,6 @@ mod runtime_memory_impl {
         ) == 0
         {
             info.resident_size as usize
-        } else {
-            0
-        }
-    }
-
-    #[cfg(windows)]
-    unsafe fn get_current_rss() -> usize {
-        use windows_sys::Win32::System::ProcessStatus::{
-            GetProcessMemoryInfo, PROCESS_MEMORY_COUNTERS,
-        };
-        use windows_sys::Win32::System::Threading::GetCurrentProcess;
-        let mut info = std::mem::zeroed::<PROCESS_MEMORY_COUNTERS>();
-        info.cb = std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32;
-        if GetProcessMemoryInfo(
-            GetCurrentProcess(),
-            &mut info,
-            std::mem::size_of::<PROCESS_MEMORY_COUNTERS>() as u32,
-        ) != 0
-        {
-            info.WorkingSetSize as usize
         } else {
             0
         }

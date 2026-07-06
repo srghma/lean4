@@ -158,9 +158,9 @@ mod runtime_thread_impl {
     fn lthread_entry(p: *mut c_void) -> *mut c_void {
         unsafe {
             // Install per-thread alternate signal stack (same as C++ `stack_guard guard`)
-            #[cfg(any(unix, windows))]
+            #[cfg(unix)]
             let mut _guard = MaybeUninit::<super::StackGuard>::uninit();
-            #[cfg(any(unix, windows))]
+            #[cfg(unix)]
             super::stack_guard_ctor_complete(_guard.as_mut_ptr());
 
             lean_initialize_thread();
@@ -168,7 +168,7 @@ mod runtime_thread_impl {
             (*f)();
             lean_finalize_thread();
 
-            #[cfg(any(unix, windows))]
+            #[cfg(unix)]
             super::stack_guard_dtor_complete(_guard.as_mut_ptr());
         }
         core::ptr::null_mut()

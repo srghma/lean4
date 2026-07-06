@@ -461,7 +461,6 @@ mod library_module_impl {
         let olean_fn = CStr::from_ptr(fname_ptr).to_string_lossy();
 
         // Open the file.
-        #[cfg(not(target_os = "windows"))]
         let fd = {
             let fd = libc::open(fname_ptr, libc::O_RDONLY);
             if fd < 0 {
@@ -543,7 +542,6 @@ mod library_module_impl {
         let mut buffer: *mut u8 = core::ptr::null_mut();
         let mut is_mmap = false;
 
-        #[cfg(not(target_os = "windows"))]
         {
             // Try mmap at base_addr (MAP_PRIVATE | MAP_FIXED_NOREPLACE on Linux).
             let mmap_flags = {

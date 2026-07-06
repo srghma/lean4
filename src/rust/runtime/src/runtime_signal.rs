@@ -131,7 +131,6 @@ mod runtime_signal_impl {
     pub unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: u8) -> *mut LeanObject {
         let mut signum = signum_obj as c_int;
 
-        #[cfg(not(target_os = "windows"))]
         match signum {
             1 => signum = libc::SIGHUP,
             2 => signum = libc::SIGINT,
@@ -155,17 +154,6 @@ mod runtime_signal_impl {
             27 => signum = libc::SIGPROF,
             29 => signum = libc::SIGIO,
             31 => signum = libc::SIGSYS,
-            _ => signum = 0,
-        }
-
-        #[cfg(target_os = "windows")]
-        match signum {
-            1 => signum = libc::SIGHUP,
-            2 => signum = libc::SIGINT,
-            3 => signum = libc::SIGQUIT,
-            6 => signum = libc::SIGABRT,
-            15 => signum = libc::SIGTERM,
-            28 => signum = libc::SIGWINCH,
             _ => signum = 0,
         }
 

@@ -560,19 +560,7 @@ pub unsafe fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
 
 pub unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    #[cfg(target_os = "windows")]
-    {
-        use windows_sys::Win32::System::Console::GetConsoleMode;
-
-        let fd = libc::_fileno(fp);
-        let handle = libc::_get_osfhandle(fd) as isize;
-        let mut mode = 0u32;
-        GetConsoleMode(handle, &mut mode) as u8
-    }
-    #[cfg(not(target_os = "windows"))]
-    {
-        libc::isatty(libc::fileno(fp)) as u8
-    }
+    libc::isatty(libc::fileno(fp)) as u8
 }
 
 pub unsafe fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
@@ -581,14 +569,7 @@ pub unsafe fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
 }
 
 unsafe fn lean_runtime_errno() -> c_int {
-    #[cfg(target_os = "windows")]
-    {
-        *libc::_errno()
-    }
-    #[cfg(not(target_os = "windows"))]
-    {
-        *libc::__errno_location()
-    }
+    *libc::__errno_location()
 }
 
 pub unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
@@ -617,27 +598,13 @@ pub unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject 
 
 pub unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    #[cfg(target_os = "windows")]
-    {
-        if libc::_chsize_s(libc::_fileno(fp), libc::_ftelli64(fp)) == 0 {
-            lean_io_result_mk_ok(lean_box(0))
-        } else {
-            lean_io_result_mk_error(lean_decode_io_error(
-                lean_runtime_errno(),
-                core::ptr::null_mut(),
-            ))
-        }
-    }
-    #[cfg(not(target_os = "windows"))]
-    {
-        if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
-            lean_io_result_mk_ok(lean_box(0))
-        } else {
-            lean_io_result_mk_error(lean_decode_io_error(
-                lean_runtime_errno(),
-                core::ptr::null_mut(),
-            ))
-        }
+    if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
+        lean_io_result_mk_ok(lean_box(0))
+    } else {
+        lean_io_result_mk_error(lean_decode_io_error(
+            lean_runtime_errno(),
+            core::ptr::null_mut(),
+        ))
     }
 }
 
@@ -744,17 +711,7 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
         return mk_embedded_nul_error(filename);
     }
 
-    let mut flags: libc::c_int = 0;
-    #[cfg(target_os = "windows")]
-    {
-        const O_BINARY: libc::c_int = 0x8000;
-        const O_NOINHERIT: libc::c_int = 0x0080;
-        flags |= O_BINARY | O_NOINHERIT;
-    }
-    #[cfg(not(target_os = "windows"))]
-    {
-        flags |= libc::O_CLOEXEC;
-    }
+    let mut flags: libc::c_int = libc::O_CLOEXEC;
 
     flags |= match mode {
         0 => libc::O_RDONLY,
@@ -1609,7 +1566,7 @@ pub unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject 
 }
 
 pub fn lean_system_platform_windows(_: *mut LeanObject) -> u8 {
-    cfg!(target_os = "windows") as u8
+    0
 }
 
 pub fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {

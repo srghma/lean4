@@ -92,10 +92,7 @@ mod runtime_compact_impl {
         if region != 0 {
             let r = Box::from_raw(region as *mut OleanCompactedRegion);
             if r.m_is_mmap {
-                #[cfg(not(target_os = "windows"))]
-                {
-                    libc::munmap(r.m_ptr as *mut libc::c_void, r.m_alloc_size);
-                }
+                libc::munmap(r.m_ptr as *mut libc::c_void, r.m_alloc_size);
             } else if !r.m_ptr.is_null() {
                 libc::free(r.m_ptr as *mut libc::c_void);
             }

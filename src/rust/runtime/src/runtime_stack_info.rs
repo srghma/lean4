@@ -42,16 +42,6 @@ mod runtime_stack_info_impl {
             lthread_get_thread_stack_size()
         }
     }
-
-    #[cfg(windows)]
-    unsafe fn get_stack_size(main: bool) -> usize {
-        if main {
-            const LEAN_WIN_STACK_SIZE: usize = 104857600;
-            LEAN_WIN_STACK_SIZE
-        } else {
-            lthread_get_thread_stack_size()
-        }
-    }
     pub unsafe fn get_stack_size_export(main: bool) -> usize {
         get_stack_size(main)
     }

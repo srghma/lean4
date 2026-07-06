@@ -14,9 +14,6 @@ use libloading::os::unix::{Library as UnixLibrary, RTLD_GLOBAL, RTLD_LAZY};
 #[cfg(unix)]
 use std::os::unix::ffi::OsStrExt;
 
-#[cfg(windows)]
-use std::path::Path;
-
 static mut DYNLIB_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut DYNLIB_SYMBOL_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 
@@ -34,13 +31,6 @@ impl DynLibHandle {
             let lib = UnixLibrary::open(Some(os_path), RTLD_LAZY | RTLD_GLOBAL)
                 .map(Into::into)
                 .map_err(|e| e.to_string())?;
-            Ok(Self { lib })
-        }
-
-        #[cfg(windows)]
-        {
-            let path = path_cstr.to_string_lossy().into_owned();
-            let lib = unsafe { Library::new(Path::new(&path)) }.map_err(|e| e.to_string())?;
             Ok(Self { lib })
         }
     }

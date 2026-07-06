@@ -1139,49 +1139,7 @@ mod library_ir_interpreter_impl {
             };
             *symbol
         }
-        #[cfg(windows)]
-        {
-            use winapi::um::libloaderapi::GetProcAddress;
-            use winapi::um::processthreadsapi::GetCurrentProcess;
-            use winapi::um::psapi::EnumProcessModules;
-            let process = GetCurrentProcess();
-            let mut hmods: Vec<winapi::shared::minwindef::HMODULE> =
-                vec![std::ptr::null_mut(); 128];
-            let mut bytes_needed: u32 = 0;
-            if EnumProcessModules(
-                process,
-                hmods.as_mut_ptr(),
-                (hmods.len() * core::mem::size_of::<winapi::shared::minwindef::HMODULE>()) as u32,
-                &mut bytes_needed,
-            ) == 0
-            {
-                return ptr::null_mut();
-            }
-            let num_mods =
-                bytes_needed as usize / core::mem::size_of::<winapi::shared::minwindef::HMODULE>();
-            if num_mods > hmods.len() {
-                hmods.resize(num_mods, std::ptr::null_mut());
-                if EnumProcessModules(
-                    process,
-                    hmods.as_mut_ptr(),
-                    (hmods.len() * core::mem::size_of::<winapi::shared::minwindef::HMODULE>())
-                        as u32,
-                    &mut bytes_needed,
-                ) == 0
-                {
-                    return ptr::null_mut();
-                }
-            }
-            hmods.truncate(num_mods);
-            for hmod in hmods {
-                let addr = GetProcAddress(hmod, sym);
-                if !addr.is_null() {
-                    return addr as *mut core::ffi::c_void;
-                }
-            }
-            ptr::null_mut()
-        }
-        #[cfg(not(any(unix, windows)))]
+        #[cfg(not(unix))]
         {
             ptr::null_mut()
         }
