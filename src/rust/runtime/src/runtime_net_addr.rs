@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 mod runtime_net_addr_impl {
     use crate::*;
     use core::mem::MaybeUninit;
@@ -345,5 +345,5 @@ mod runtime_net_addr_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 pub use runtime_net_addr_impl::*;

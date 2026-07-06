@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 mod runtime_tcp_impl {
     use crate::*;
     use crate::runtime_event_loop::GLOBAL_EV;
@@ -951,79 +951,5 @@ mod runtime_tcp_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_tcp_impl::*;
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-mod runtime_tcp_impl {
-    use crate::*;
-
-    pub fn initialize_libuv_tcp_socket() {}
-
-    pub fn lean_uv_tcp_new() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-}
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
+#[cfg(feature = "std")]
 pub use runtime_tcp_impl::*;

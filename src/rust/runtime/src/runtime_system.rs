@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 mod runtime_system_impl {
     use crate::*;
     use crate::runtime_event_loop::GLOBAL_EV;
@@ -613,125 +613,5 @@ mod runtime_system_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_system_impl::*;
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-mod runtime_system_impl {
-    use crate::*;
-
-    pub fn lean_uv_get_process_title() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_set_process_title(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_uptime() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_getpid() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_getppid() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_cpu_info() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_cwd() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_chdir(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_homedir() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_tmpdir() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_get_passwd() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_get_group(_: u64) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_environ() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_getenv(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_setenv(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_unsetenv(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_gethostname() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_getpriority(_: u64) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_setpriority(_: u64, _: i64) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_os_uname() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_hrtime() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_random(_: u64) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_getrusage() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_exepath() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_get_free_memory() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_get_total_memory() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_get_constrained_memory() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_get_available_memory() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-}
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
+#[cfg(feature = "std")]
 pub use runtime_system_impl::*;

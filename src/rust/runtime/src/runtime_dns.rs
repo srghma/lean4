@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 mod runtime_dns_impl {
     use crate::*;
     use crate::runtime_event_loop::GLOBAL_EV;
@@ -278,21 +278,5 @@ mod runtime_dns_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_dns_impl::*;
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-mod runtime_dns_impl {
-    use crate::*;
-
-    pub fn lean_uv_dns_get_info(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-
-    pub fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-}
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
+#[cfg(feature = "std")]
 pub use runtime_dns_impl::*;

@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 mod runtime_udp_impl {
     use crate::*;
     use crate::runtime_event_loop::GLOBAL_EV;
@@ -814,73 +814,5 @@ mod runtime_udp_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_udp_impl::*;
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-mod runtime_udp_impl {
-    use crate::*;
-
-    pub fn initialize_libuv_udp_socket() {}
-
-    pub fn lean_uv_udp_new() -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_connect(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_send(
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-    ) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_set_broadcast(_: *mut LeanObject, _: u8) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_set_multicast_loop(_: *mut LeanObject, _: u8) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_set_multicast_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_set_membership(
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-        _: u8,
-    ) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_set_multicast_interface(
-        _: *mut LeanObject,
-        _: *mut LeanObject,
-    ) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-    pub fn lean_uv_udp_set_ttl(_: *mut LeanObject, _: u32) -> *mut LeanObject {
-        panic!("Please build a version of Lean4 with libuv to invoke this.");
-    }
-}
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
+#[cfg(feature = "std")]
 pub use runtime_udp_impl::*;

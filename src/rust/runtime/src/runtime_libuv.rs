@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
+#[cfg(feature = "std")]
 mod runtime_libuv_impl {
     use crate::*;
     use crate::runtime_event_loop::{event_loop_run_loop, EventLoop, GLOBAL_EV};
@@ -56,24 +56,5 @@ mod runtime_libuv_impl {
     }
 }
 
-#[cfg(all(feature = "std", not(target_family = "wasm")))]
-pub use runtime_libuv_impl::*;
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
-mod runtime_libuv_impl {
-    use crate::*;
-
-    pub fn initialize_libuv() {}
-
-    pub unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
-        // duplicate in undefined at line 64 (🔁)
-        argv
-    }
-
-    pub unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
-        lean_box(0)
-    }
-}
-
-#[cfg(all(feature = "std", target_family = "wasm"))]
+#[cfg(feature = "std")]
 pub use runtime_libuv_impl::*;
