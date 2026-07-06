@@ -4,14 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_signal_impl {
+    use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use crate::runtime_event_loop::GLOBAL_EV;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
-        uv_close as uv_close_sys, uv_signal_init as uv_signal_init_sys,
-        uv_signal_start as uv_signal_start_sys, uv_signal_start_oneshot as uv_signal_start_oneshot_sys,
-        uv_signal_stop as uv_signal_stop_sys, uv_loop_t,
+        uv_close, uv_loop_t, uv_signal_init, uv_signal_start, uv_signal_start_oneshot,
+        uv_signal_stop,
     };
 
     const SIGNAL_STATE_INITIAL: c_int = 0;
@@ -19,51 +18,7 @@ mod runtime_signal_impl {
     const SIGNAL_STATE_FINISHED: c_int = 2;
     const LEAN_TASK_STATE_FINISHED: u8 = 2;
 
-    #[repr(C, align(8))]
-    pub struct UvSignal {
-        handle: UvHandle,
-        rest: [u8; 56],
-    }
-
-    #[repr(C)]
-    struct LeanUvSignalObject {
-        uv_signal: *mut UvSignal,
-        promise: *mut LeanObject,
-        signum: c_int,
-        repeating: bool,
-        state: c_int,
-    }
-
     static mut UV_SIGNAL_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
-
-    unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
-        uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)));
-    }
-
-    unsafe fn uv_signal_init(loop_: *mut uv_loop_t, handle: *mut UvSignal) -> c_int {
-        uv_signal_init_sys(loop_.cast(), handle.cast())
-    }
-
-    unsafe fn uv_signal_start(
-        handle: *mut UvSignal,
-        cb: Option<unsafe fn(*mut UvSignal, c_int)>,
-        signum: c_int,
-    ) -> c_int {
-        uv_signal_start_sys(handle.cast(), cb.map(|cb| core::mem::transmute(cb)), signum)
-    }
-
-    unsafe fn uv_signal_start_oneshot(
-        handle: *mut UvSignal,
-        cb: Option<unsafe fn(*mut UvSignal, c_int)>,
-        signum: c_int,
-    ) -> c_int {
-        uv_signal_start_oneshot_sys(handle.cast(), cb.map(|cb| core::mem::transmute(cb)), signum)
-    }
-
-    unsafe fn uv_signal_stop(handle: *mut UvSignal) -> c_int {
-        uv_signal_stop_sys(handle.cast())
-    }
-
     unsafe fn signal_from_obj(obj: *mut LeanObject) -> *mut LeanUvSignalObject {
         lean_runtime_get_external_data(obj).cast()
     }
@@ -73,7 +28,7 @@ mod runtime_signal_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe fn close_free_handle(handle: *mut UvHandle) {
+    unsafe fn close_free_handle(handle: *mut uv_handle_t) {
         libc::free(handle.cast());
     }
     pub unsafe fn lean_uv_signal_finalizer(ptr: *mut c_void) {
@@ -85,7 +40,7 @@ mod runtime_signal_impl {
 
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
         uv_close(
-            (*signal).uv_signal.cast::<UvHandle>(),
+            (*signal).uv_signal.cast::<uv_handle_t>(),
             Some(close_free_handle),
         );
         event_loop_unlock(addr_of_mut!(GLOBAL_EV));
@@ -104,7 +59,7 @@ mod runtime_signal_impl {
         UV_SIGNAL_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_signal_finalizer), Some(signal_foreach));
     }
-    pub unsafe fn handle_signal_event(handle: *mut UvSignal, signum: c_int) {
+    pub unsafe fn handle_signal_event(handle: *mut uv_signal_t, signum: c_int) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let signal = signal_from_obj(obj);
 
@@ -168,7 +123,7 @@ mod runtime_signal_impl {
         (*signal).state = SIGNAL_STATE_INITIAL;
         (*signal).promise = null_mut();
 
-        let uv_signal = libc::malloc(core::mem::size_of::<UvSignal>()).cast::<UvSignal>();
+        let uv_signal = libc::malloc(core::mem::size_of::<uv_signal_t>()).cast::<uv_signal_t>();
         if uv_signal.is_null() {
             libc::free(signal.cast());
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -338,10 +293,10 @@ mod runtime_signal_impl {
     }
 
     const _: () = {
-        assert!(core::mem::size_of::<UvHandle>() == 96);
-        assert!(core::mem::align_of::<UvHandle>() == 8);
-        assert!(core::mem::size_of::<UvSignal>() == 152);
-        assert!(core::mem::align_of::<UvSignal>() == 8);
+        assert!(core::mem::size_of::<uv_handle_t>() == 96);
+        assert!(core::mem::align_of::<uv_handle_t>() == 8);
+        assert!(core::mem::size_of::<uv_signal_t>() == 152);
+        assert!(core::mem::align_of::<uv_signal_t>() == 8);
     };
 }
 

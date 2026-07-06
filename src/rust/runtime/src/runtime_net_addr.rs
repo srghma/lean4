@@ -9,9 +9,9 @@ mod runtime_net_addr_impl {
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, null_mut};
     use libuv_sys2::{
-        uv_free_interface_addresses as uv_free_interface_addresses_sys,
-        uv_inet_ntop as uv_inet_ntop_sys, uv_inet_pton as uv_inet_pton_sys,
-        uv_interface_addresses as uv_interface_addresses_sys,
+        uv_free_interface_addresses,
+        uv_inet_ntop, uv_inet_pton,
+        uv_interface_addresses,
     };
 
     const INET_ADDRSTRLEN: usize = 16;
@@ -21,40 +21,6 @@ mod runtime_net_addr_impl {
     pub union InAddrStorage {
         pub ipv4: libc::in_addr,
         pub ipv6: libc::in6_addr,
-    }
-
-    #[repr(C)]
-    union UvInterfaceSockaddr {
-        address4: libc::sockaddr_in,
-        address6: libc::sockaddr_in6,
-    }
-
-    #[repr(C)]
-    struct UvInterfaceAddress {
-        name: *mut c_char,
-        phys_addr: [c_char; 6],
-        is_internal: c_int,
-        address: UvInterfaceSockaddr,
-        netmask: UvInterfaceSockaddr,
-    }
-
-    unsafe fn uv_inet_pton(af: c_int, src: *const c_char, dst: *mut c_void) -> c_int {
-        uv_inet_pton_sys(af, src, dst)
-    }
-
-    unsafe fn uv_inet_ntop(af: c_int, src: *const c_void, dst: *mut c_char, size: usize) -> c_int {
-        uv_inet_ntop_sys(af, src, dst, size)
-    }
-
-    unsafe fn uv_interface_addresses(
-        addresses: *mut *mut UvInterfaceAddress,
-        count: *mut c_int,
-    ) -> c_int {
-        uv_interface_addresses_sys(addresses.cast(), count)
-    }
-
-    unsafe fn uv_free_interface_addresses(addresses: *mut UvInterfaceAddress, count: c_int) {
-        uv_free_interface_addresses_sys(addresses.cast(), count)
     }
 
     unsafe extern "C" {

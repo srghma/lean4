@@ -4,63 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_dns_impl {
+    use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
-    use libuv_sys2::{
-        uv_freeaddrinfo as uv_freeaddrinfo_sys, uv_getaddrinfo as uv_getaddrinfo_sys,
-        uv_getnameinfo as uv_getnameinfo_sys,
-    };
-
-    #[repr(C, align(8))]
-    struct UvGetAddrInfo {
-        _storage: [u8; 160],
-    }
-
-    #[repr(C, align(8))]
-    struct UvGetNameInfo {
-        _storage: [u8; 1320],
-    }
-
-    unsafe fn uv_getaddrinfo(
-        loop_: *mut c_void,
-        req: *mut UvGetAddrInfo,
-        cb: Option<unsafe fn(*mut UvGetAddrInfo, c_int, *mut libc::addrinfo)>,
-        node: *const c_char,
-        service: *const c_char,
-        hints: *const libc::addrinfo,
-    ) -> c_int {
-        uv_getaddrinfo_sys(
-            loop_,
-            req.cast(),
-            cb.map(|cb| core::mem::transmute(cb)),
-            node,
-            service,
-            hints,
-        )
-    }
-
-    unsafe fn uv_freeaddrinfo(ai: *mut libc::addrinfo) {
-        uv_freeaddrinfo_sys(ai)
-    }
-
-    unsafe fn uv_getnameinfo(
-        loop_: *mut c_void,
-        req: *mut UvGetNameInfo,
-        cb: Option<unsafe fn(*mut UvGetNameInfo, c_int, *const c_char, *const c_char)>,
-        addr: *const libc::sockaddr,
-        flags: c_int,
-    ) -> c_int {
-        uv_getnameinfo_sys(
-            loop_,
-            req.cast(),
-            cb.map(|cb| core::mem::transmute(cb)),
-            addr,
-            flags,
-        )
-    }
+    use libuv_sys2::{uv_freeaddrinfo, uv_getaddrinfo, uv_getnameinfo};
 
     unsafe extern "C" {
         fn lean_in6_addr_to_ipv6_addr(ipv6_addr: *const libc::in6_addr) -> *mut LeanObject;
@@ -130,14 +79,14 @@ mod runtime_dns_impl {
             ));
         }
 
-        let resolver = libc::malloc(core::mem::size_of::<UvGetAddrInfo>()).cast::<UvGetAddrInfo>();
+        let resolver = libc::malloc(core::mem::size_of::<uv_getaddrinfo_t>()).cast::<uv_getaddrinfo_t>();
         if resolver.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
         let promise = lean_io_promise_new();
         lean_mark_mt(promise);
-        let resolver_handle = resolver.cast::<UvHandle>();
+        let resolver_handle = resolver.cast::<uv_handle_t>();
         (*resolver_handle).data = promise.cast();
 
         let mut hints = MaybeUninit::<libc::addrinfo>::zeroed().assume_init();
@@ -151,8 +100,8 @@ mod runtime_dns_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
         lean_inc(promise);
 
-        unsafe fn getaddrinfo_cb(req: *mut UvGetAddrInfo, status: c_int, res: *mut libc::addrinfo) {
-            let handle = req.cast::<UvHandle>();
+        unsafe fn getaddrinfo_cb(req: *mut uv_getaddrinfo_t, status: c_int, res: *mut libc::addrinfo) {
+            let handle = req.cast::<uv_handle_t>();
             let promise = (*handle).data.cast::<LeanObject>();
 
             if status != 0 {
@@ -216,14 +165,14 @@ mod runtime_dns_impl {
     }
 
     pub unsafe fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject {
-        let req = libc::malloc(core::mem::size_of::<UvGetNameInfo>()).cast::<UvGetNameInfo>();
+        let req = libc::malloc(core::mem::size_of::<uv_getnameinfo_t>()).cast::<uv_getnameinfo_t>();
         if req.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
         let promise = lean_io_promise_new();
         lean_mark_mt(promise);
-        let req_handle = req.cast::<UvHandle>();
+        let req_handle = req.cast::<uv_handle_t>();
         (*req_handle).data = promise.cast();
 
         let mut addr_ptr = MaybeUninit::<libc::sockaddr_storage>::zeroed().assume_init();
@@ -233,12 +182,12 @@ mod runtime_dns_impl {
         lean_inc(promise);
 
         unsafe fn getnameinfo_cb(
-            req: *mut UvGetNameInfo,
+            req: *mut uv_getnameinfo_t,
             status: c_int,
             hostname: *const c_char,
             service: *const c_char,
         ) {
-            let handle = req.cast::<UvHandle>();
+            let handle = req.cast::<uv_handle_t>();
             let promise = (*handle).data.cast::<LeanObject>();
 
             if status != 0 {

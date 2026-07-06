@@ -9,40 +9,14 @@ mod runtime_timer_impl {
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
-        uv_close as uv_close_sys, uv_loop_t, uv_timer_init as uv_timer_init_sys,
-        uv_timer_start as uv_timer_start_sys, uv_timer_stop as uv_timer_stop_sys,
+        uv_close, uv_loop_t, uv_timer_init,
+        uv_timer_start, uv_timer_stop,
     };
 
     const TIMER_STATE_INITIAL: c_int = 0;
     const TIMER_STATE_RUNNING: c_int = 1;
     const TIMER_STATE_FINISHED: c_int = 2;
     const LEAN_TASK_STATE_FINISHED: u8 = 2;
-
-    unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
-        uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)));
-    }
-
-    unsafe fn uv_timer_init(loop_: *mut uv_loop_t, handle: *mut UvTimer) -> c_int {
-        uv_timer_init_sys(loop_.cast(), handle.cast())
-    }
-
-    unsafe fn uv_timer_start(
-        handle: *mut UvTimer,
-        cb: Option<unsafe fn(*mut UvTimer)>,
-        timeout: u64,
-        repeat: u64,
-    ) -> c_int {
-        uv_timer_start_sys(
-            handle.cast(),
-            cb.map(|cb| core::mem::transmute(cb)),
-            timeout,
-            repeat,
-        )
-    }
-
-    unsafe fn uv_timer_stop(handle: *mut UvTimer) -> c_int {
-        uv_timer_stop_sys(handle.cast())
-    }
 
     unsafe fn timer_from_obj(obj: *mut LeanObject) -> *mut LeanUvTimerObject {
         lean_runtime_get_external_data(obj).cast()
@@ -53,10 +27,7 @@ mod runtime_timer_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe fn close_free_handle(handle: *mut UvHandle) {
-        libc::free(handle.cast());
-    }
-    pub unsafe fn handle_timer_event(handle: *mut UvTimer) {
+    pub unsafe fn handle_timer_event(handle: *mut uv_timer_t) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);
 
@@ -92,7 +63,7 @@ mod runtime_timer_impl {
         (*timer).state = TIMER_STATE_INITIAL;
         (*timer).promise = null_mut();
 
-        let uv_timer = libc::malloc(core::mem::size_of::<UvTimer>()).cast::<UvTimer>();
+        let uv_timer = libc::malloc(core::mem::size_of::<uv_timer_t>()).cast::<uv_timer_t>();
         if uv_timer.is_null() {
             libc::free(timer.cast());
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -287,10 +258,10 @@ mod runtime_timer_impl {
     }
 
     const _: () = {
-        assert!(core::mem::size_of::<UvHandle>() == 96);
-        assert!(core::mem::align_of::<UvHandle>() == 8);
-        assert!(core::mem::size_of::<UvTimer>() == 152);
-        assert!(core::mem::align_of::<UvTimer>() == 8);
+        assert!(core::mem::size_of::<uv_handle_t>() == 96);
+        assert!(core::mem::align_of::<uv_handle_t>() == 8);
+        assert!(core::mem::size_of::<uv_timer_t>() == 152);
+        assert!(core::mem::align_of::<uv_timer_t>() == 8);
     };
 }
 

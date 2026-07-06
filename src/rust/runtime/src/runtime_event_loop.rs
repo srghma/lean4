@@ -10,83 +10,14 @@ mod runtime_event_loop_impl {
     use core::ptr::null_mut;
     use core::sync::atomic::{AtomicI32, Ordering};
     use libuv_sys2::{
-        uv_async_init as uv_async_init_sys, uv_async_send as uv_async_send_sys,
-        uv_cond_init as uv_cond_init_sys, uv_cond_signal as uv_cond_signal_sys,
-        uv_cond_wait as uv_cond_wait_sys, uv_default_loop as uv_default_loop_sys,
-        uv_loop_alive as uv_loop_alive_sys, uv_loop_configure as uv_loop_configure_sys,
-        uv_loop_t, uv_mutex_init_recursive as uv_mutex_init_recursive_sys,
-        uv_mutex_lock as uv_mutex_lock_sys, uv_mutex_trylock as uv_mutex_trylock_sys,
-        uv_mutex_unlock as uv_mutex_unlock_sys, uv_run as uv_run_sys, uv_stop as uv_stop_sys,
-        uv_strerror,
+        uv_async_init, uv_async_send, uv_cond_init, uv_cond_signal, uv_cond_wait, uv_default_loop,
+        uv_loop_alive, uv_loop_configure, uv_loop_t, uv_mutex_init_recursive, uv_mutex_lock,
+        uv_mutex_trylock, uv_mutex_unlock, uv_run, uv_stop, uv_strerror,
     };
 
     const UV_LOOP_BLOCK_SIGNAL: c_uint = 0;
     const UV_METRICS_IDLE_TIME: c_uint = 1;
     const UV_RUN_ONCE: c_uint = 1;
-
-    unsafe fn uv_default_loop() -> *mut uv_loop_t {
-        uv_default_loop_sys().cast()
-    }
-
-    unsafe fn uv_mutex_init_recursive(mutex: *mut UvMutex) -> c_int {
-        uv_mutex_init_recursive_sys(mutex.cast())
-    }
-
-    unsafe fn uv_cond_init(cond: *mut UvCond) -> c_int {
-        uv_cond_init_sys(cond.cast())
-    }
-
-    unsafe fn uv_async_init(
-        loop_: *mut uv_loop_t,
-        async_: *mut UvAsync,
-        cb: Option<unsafe fn(*mut UvAsync)>,
-    ) -> c_int {
-        uv_async_init_sys(
-            loop_.cast(),
-            async_.cast(),
-            cb.map(|cb| core::mem::transmute(cb)),
-        )
-    }
-
-    unsafe fn uv_mutex_trylock(mutex: *mut UvMutex) -> c_int {
-        uv_mutex_trylock_sys(mutex.cast())
-    }
-
-    unsafe fn uv_mutex_lock(mutex: *mut UvMutex) {
-        uv_mutex_lock_sys(mutex.cast())
-    }
-
-    unsafe fn uv_mutex_unlock(mutex: *mut UvMutex) {
-        uv_mutex_unlock_sys(mutex.cast())
-    }
-
-    unsafe fn uv_cond_signal(cond: *mut UvCond) {
-        uv_cond_signal_sys(cond.cast())
-    }
-
-    unsafe fn uv_cond_wait(cond: *mut UvCond, mutex: *mut UvMutex) {
-        uv_cond_wait_sys(cond.cast(), mutex.cast())
-    }
-
-    unsafe fn uv_async_send(async_: *mut UvAsync) -> c_int {
-        uv_async_send_sys(async_.cast())
-    }
-
-    unsafe fn uv_run(loop_: *mut uv_loop_t, mode: c_uint) -> c_int {
-        uv_run_sys(loop_.cast(), mode)
-    }
-
-    unsafe fn uv_stop(loop_: *mut uv_loop_t) {
-        uv_stop_sys(loop_.cast())
-    }
-
-    unsafe fn uv_loop_alive(loop_: *mut uv_loop_t) -> c_int {
-        uv_loop_alive_sys(loop_.cast())
-    }
-
-    unsafe fn uv_loop_configure(loop_: *mut uv_loop_t, option: c_uint, arg: c_int) -> c_int {
-        uv_loop_configure_sys(loop_.cast(), option, arg)
-    }
 
     unsafe extern "C" {
         fn lean_internal_panic(msg: *const c_char) -> !;
@@ -104,7 +35,7 @@ mod runtime_event_loop_impl {
         }
     }
 
-    unsafe fn async_callback(handle: *mut UvAsync) {
+    unsafe fn async_callback(handle: *mut uv_async_t) {
         uv_stop((*handle).prefix.loop_);
     }
     pub unsafe fn event_loop_init(event_loop: *mut EventLoop) {
@@ -126,16 +57,6 @@ mod runtime_event_loop_impl {
             b"Failed to initialize async\0",
         );
         (*event_loop).n_waiters.store(0, Ordering::Relaxed);
-    }
-    pub unsafe fn event_loop_interrupt(event_loop: *mut EventLoop) {
-        let result = uv_async_send(ptr::addr_of_mut!((*event_loop).async_));
-        debug_assert_eq!(result, 0);
-    }
-    pub unsafe fn event_loop_unlock(event_loop: *mut EventLoop) {
-        if (*event_loop).n_waiters.load(Ordering::SeqCst) == 0 {
-            uv_cond_signal(ptr::addr_of_mut!((*event_loop).cond_var));
-        }
-        uv_mutex_unlock(ptr::addr_of_mut!((*event_loop).mutex));
     }
     pub unsafe fn event_loop_run_loop(event_loop: *mut EventLoop) {
         while uv_loop_alive((*event_loop).loop_) != 0 {
@@ -186,7 +107,8 @@ mod runtime_event_loop_impl {
         }
 
         if block {
-            let result = uv_loop_configure((*event_loop).loop_, UV_LOOP_BLOCK_SIGNAL, libc::SIGPROF);
+            let result =
+                uv_loop_configure((*event_loop).loop_, UV_LOOP_BLOCK_SIGNAL, libc::SIGPROF);
             if result != 0 {
                 event_loop_unlock(event_loop);
                 return lean_io_result_mk_error(lean_decode_uv_error(result, null_mut()));
@@ -206,12 +128,12 @@ mod runtime_event_loop_impl {
     }
 
     const _: () = {
-        assert!(core::mem::size_of::<UvMutex>() == 40);
-        assert!(core::mem::align_of::<UvMutex>() == 8);
-        assert!(core::mem::size_of::<UvCond>() == 48);
-        assert!(core::mem::align_of::<UvCond>() == 8);
-        assert!(core::mem::size_of::<UvAsync>() == 128);
-        assert!(core::mem::align_of::<UvAsync>() == 8);
+        assert!(core::mem::size_of::<uv_mutex_t>() == 40);
+        assert!(core::mem::align_of::<uv_mutex_t>() == 8);
+        assert!(core::mem::size_of::<uv_cond_t>() == 48);
+        assert!(core::mem::align_of::<uv_cond_t>() == 8);
+        assert!(core::mem::size_of::<uv_async_t>() == 128);
+        assert!(core::mem::align_of::<uv_async_t>() == 8);
         assert!(core::mem::size_of::<EventLoop>() == 232);
         assert!(core::mem::align_of::<EventLoop>() == 8);
     };

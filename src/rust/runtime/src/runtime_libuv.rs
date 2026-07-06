@@ -14,15 +14,7 @@ mod runtime_libuv_impl {
     use core::ptr;
     use std::thread;
 
-    use libuv_sys2::{uv_setup_args as uv_setup_args_sys, uv_version as uv_version_sys};
-
-    unsafe fn uv_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
-        uv_setup_args_sys(argc, argv)
-    }
-
-    unsafe fn uv_version() -> c_uint {
-        uv_version_sys()
-    }
+    use libuv_sys2::{uv_setup_args, uv_version};
 
     pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 411 (🔁)

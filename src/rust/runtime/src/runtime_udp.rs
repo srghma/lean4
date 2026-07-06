@@ -4,22 +4,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_udp_impl {
+    use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
-        uv_buf_init as uv_buf_init_sys, uv_close as uv_close_sys, uv_udp_bind as uv_udp_bind_sys,
-        uv_udp_connect as uv_udp_connect_sys, uv_udp_getpeername as uv_udp_getpeername_sys,
-        uv_udp_getsockname as uv_udp_getsockname_sys, uv_udp_init as uv_udp_init_sys,
-        uv_udp_recv_start as uv_udp_recv_start_sys, uv_udp_recv_stop as uv_udp_recv_stop_sys,
-        uv_udp_send as uv_udp_send_sys, uv_udp_set_broadcast as uv_udp_set_broadcast_sys,
-        uv_udp_set_membership as uv_udp_set_membership_sys,
-        uv_udp_set_multicast_interface as uv_udp_set_multicast_interface_sys,
-        uv_udp_set_multicast_loop as uv_udp_set_multicast_loop_sys,
-        uv_udp_set_multicast_ttl as uv_udp_set_multicast_ttl_sys,
-        uv_udp_set_ttl as uv_udp_set_ttl_sys,
+        uv_buf_init, uv_close, uv_handle_t, uv_udp_bind, uv_udp_connect, uv_udp_getpeername,
+        uv_udp_getsockname, uv_udp_init, uv_udp_recv_start, uv_udp_recv_stop, uv_udp_send,
+        uv_udp_send_t, uv_udp_set_broadcast, uv_udp_set_membership, uv_udp_set_multicast_interface,
+        uv_udp_set_multicast_loop, uv_udp_set_multicast_ttl, uv_udp_set_ttl,
     };
 
     #[repr(C)]
@@ -35,115 +29,6 @@ mod runtime_udp_impl {
         data: *mut LeanObject,
         socket: *mut LeanObject,
         bufs: *mut uv_buf_t,
-    }
-
-    #[repr(C)]
-    #[derive(Copy, Clone)]
-    struct uv_buf_t {
-        base: *mut c_char,
-        len: usize,
-    }
-
-    #[repr(C, align(8))]
-    struct uv_udp_send_t {
-        _storage: [u8; 320],
-    }
-
-    unsafe fn uv_udp_init(loop_: *mut c_void, handle: *mut c_void) -> c_int {
-        uv_udp_init_sys(loop_.cast(), handle.cast())
-    }
-
-    unsafe fn uv_udp_bind(handle: *mut c_void, addr: *const libc::sockaddr, flags: c_uint) -> c_int {
-        uv_udp_bind_sys(handle.cast(), addr, flags)
-    }
-
-    unsafe fn uv_udp_connect(handle: *mut c_void, addr: *const libc::sockaddr) -> c_int {
-        uv_udp_connect_sys(handle.cast(), addr)
-    }
-
-    unsafe fn uv_udp_send(
-        req: *mut uv_udp_send_t,
-        handle: *mut c_void,
-        bufs: *const uv_buf_t,
-        nbufs: c_uint,
-        addr: *const libc::sockaddr,
-        cb: Option<unsafe fn(*mut uv_udp_send_t, c_int)>,
-    ) -> c_int {
-        uv_udp_send_sys(req.cast(), handle.cast(), bufs.cast(), nbufs, addr, cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_udp_recv_start(
-        handle: *mut c_void,
-        alloc_cb: Option<unsafe fn(*mut c_void, usize, *mut uv_buf_t)>,
-        recv_cb: Option<
-            unsafe fn(*mut c_void, isize, *const uv_buf_t, *const libc::sockaddr, c_uint),
-        >,
-    ) -> c_int {
-        uv_udp_recv_start_sys(
-            handle.cast(),
-            alloc_cb.map(|cb| core::mem::transmute(cb)),
-            recv_cb.map(|cb| core::mem::transmute(cb)),
-        )
-    }
-
-    unsafe fn uv_udp_recv_stop(handle: *mut c_void) -> c_int {
-        uv_udp_recv_stop_sys(handle.cast())
-    }
-
-    unsafe fn uv_udp_getpeername(
-        handle: *const c_void,
-        name: *mut libc::sockaddr,
-        namelen: *mut c_int,
-    ) -> c_int {
-        uv_udp_getpeername_sys(handle.cast(), name, namelen)
-    }
-
-    unsafe fn uv_udp_getsockname(
-        handle: *const c_void,
-        name: *mut libc::sockaddr,
-        namelen: *mut c_int,
-    ) -> c_int {
-        uv_udp_getsockname_sys(handle.cast(), name, namelen)
-    }
-
-    unsafe fn uv_udp_set_broadcast(handle: *mut c_void, on: c_int) -> c_int {
-        uv_udp_set_broadcast_sys(handle.cast(), on)
-    }
-
-    unsafe fn uv_udp_set_multicast_loop(handle: *mut c_void, on: c_int) -> c_int {
-        uv_udp_set_multicast_loop_sys(handle.cast(), on)
-    }
-
-    unsafe fn uv_udp_set_multicast_ttl(handle: *mut c_void, ttl: c_int) -> c_int {
-        uv_udp_set_multicast_ttl_sys(handle.cast(), ttl)
-    }
-
-    unsafe fn uv_udp_set_membership(
-        handle: *mut c_void,
-        multicast_addr: *const c_char,
-        interface_addr: *const c_char,
-        membership: c_int,
-    ) -> c_int {
-        uv_udp_set_membership_sys(handle.cast(), multicast_addr, interface_addr, membership)
-    }
-
-    unsafe fn uv_udp_set_multicast_interface(
-        handle: *mut c_void,
-        interface_addr: *const c_char,
-    ) -> c_int {
-        uv_udp_set_multicast_interface_sys(handle.cast(), interface_addr)
-    }
-
-    unsafe fn uv_udp_set_ttl(handle: *mut c_void, ttl: c_int) -> c_int {
-        uv_udp_set_ttl_sys(handle.cast(), ttl)
-    }
-
-    unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
-        uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t {
-        core::mem::transmute(uv_buf_init_sys(base, len))
     }
 
     unsafe extern "C" {
@@ -192,18 +77,18 @@ mod runtime_udp_impl {
         assert!((*udp_socket).m_promise_read.is_null());
         assert!((*udp_socket).m_byte_array.is_null());
 
-        let handle = (*udp_socket).m_uv_udp.cast::<UvHandle>();
+        let handle = (*udp_socket).m_uv_udp.cast::<uv_handle_t>();
         (*handle).data = ptr;
 
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
-        unsafe fn close_cb(handle: *mut UvHandle) {
+        unsafe fn close_cb(handle: *mut uv_handle_t) {
             let udp_socket = (*handle).data.cast::<LeanUvUdpSocketObject>();
             libc::free((*udp_socket).m_uv_udp);
             libc::free(udp_socket.cast());
         }
 
-        uv_close((*udp_socket).m_uv_udp.cast::<UvHandle>(), Some(close_cb));
+        uv_close((*udp_socket).m_uv_udp.cast::<uv_handle_t>(), Some(close_cb));
 
         event_loop_unlock(addr_of_mut!(GLOBAL_EV));
     }
@@ -258,7 +143,7 @@ mod runtime_udp_impl {
         lean_mark_mt(obj);
 
         (*udp_socket).m_uv_udp = uv_udp;
-        let handle = (*udp_socket).m_uv_udp.cast::<UvHandle>();
+        let handle = (*udp_socket).m_uv_udp.cast::<uv_handle_t>();
         (*handle).data = obj.cast();
 
         lean_io_result_mk_ok(obj)
@@ -353,7 +238,7 @@ mod runtime_udp_impl {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
-        let send_handle = send_uv.cast::<UvHandle>();
+        let send_handle = send_uv.cast::<uv_handle_t>();
         (*send_handle).data = libc::malloc(core::mem::size_of::<UdpSendData>());
         if (*send_handle).data.is_null() {
             lean_dec(data_array);
@@ -394,7 +279,7 @@ mod runtime_udp_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn send_cb(req: *mut uv_udp_send_t, status: c_int) {
-            let req_handle = req.cast::<UvHandle>();
+            let req_handle = req.cast::<uv_handle_t>();
             let tup = (*req_handle).data.cast::<UdpSendData>();
             lean_promise_resolve_with_code(status, (*tup).promise);
 
@@ -458,7 +343,7 @@ mod runtime_udp_impl {
         lean_inc(socket);
 
         unsafe fn alloc_cb(handle: *mut c_void, _suggested_size: usize, buf: *mut uv_buf_t) {
-            let handle_ptr = handle.cast::<UvHandle>();
+            let handle_ptr = handle.cast::<uv_handle_t>();
             let udp_socket = lean_to_uv_udp_socket((*handle_ptr).data.cast());
             (*buf).base = lean_sarray_cptr((*udp_socket).m_byte_array)
                 .cast_mut()
@@ -475,7 +360,7 @@ mod runtime_udp_impl {
         ) {
             uv_udp_recv_stop(handle);
 
-            let handle_ptr = handle.cast::<UvHandle>();
+            let handle_ptr = handle.cast::<uv_handle_t>();
             let udp_socket = lean_to_uv_udp_socket((*handle_ptr).data.cast());
             let promise = (*udp_socket).m_promise_read;
             let byte_array = (*udp_socket).m_byte_array;
@@ -562,7 +447,7 @@ mod runtime_udp_impl {
         ) {
             uv_udp_recv_stop(handle);
 
-            let handle_ptr = handle.cast::<UvHandle>();
+            let handle_ptr = handle.cast::<uv_handle_t>();
             let udp_socket = lean_to_uv_udp_socket((*handle_ptr).data.cast());
             let promise = (*udp_socket).m_promise_read;
 

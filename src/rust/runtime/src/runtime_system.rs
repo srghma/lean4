@@ -492,7 +492,7 @@ mod runtime_system_impl {
         (*req).byte_array = byte_array;
 
         (*req).req.storage = [0; 144];
-        let req_data_ptr = addr_of_mut!((*req).req).cast::<UvHandle>();
+        let req_data_ptr = addr_of_mut!((*req).req).cast::<uv_handle_t>();
         (*req_data_ptr).data = req.cast();
 
         lean_inc(promise);
@@ -505,7 +505,7 @@ mod runtime_system_impl {
             _buf: *mut c_void,
             buflen: usize,
         ) {
-            let handle = uv_req.cast::<UvHandle>();
+            let handle = uv_req.cast::<uv_handle_t>();
             let req = (*handle).data.cast::<RandomReq>();
 
             if status < 0 {

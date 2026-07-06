@@ -4,19 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_tcp_impl {
+    use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
-        uv_accept as uv_accept_sys, uv_buf_init as uv_buf_init_sys, uv_close as uv_close_sys,
-        uv_listen as uv_listen_sys, uv_read_start as uv_read_start_sys,
-        uv_read_stop as uv_read_stop_sys, uv_shutdown as uv_shutdown_sys,
-        uv_tcp_bind as uv_tcp_bind_sys, uv_tcp_connect as uv_tcp_connect_sys,
-        uv_tcp_getpeername as uv_tcp_getpeername_sys, uv_tcp_getsockname as uv_tcp_getsockname_sys,
-        uv_tcp_init as uv_tcp_init_sys, uv_tcp_keepalive as uv_tcp_keepalive_sys,
-        uv_tcp_nodelay as uv_tcp_nodelay_sys, uv_write as uv_write_sys,
+        uv_accept, uv_buf_init, uv_close, uv_listen, uv_read_start, uv_read_stop, uv_shutdown,
+        uv_tcp_bind, uv_tcp_connect, uv_tcp_getpeername, uv_tcp_getsockname, uv_tcp_init,
+        uv_tcp_keepalive, uv_tcp_nodelay, uv_write,
     };
 
     #[repr(C)]
@@ -41,123 +37,6 @@ mod runtime_tcp_impl {
         data: *mut LeanObject,
         socket: *mut LeanObject,
         bufs: *mut uv_buf_t,
-    }
-
-    #[repr(C)]
-    #[derive(Copy, Clone)]
-    struct uv_buf_t {
-        base: *mut c_char,
-        len: usize,
-    }
-
-    #[repr(C, align(8))]
-    struct uv_connect_t {
-        _storage: [u8; 96],
-    }
-
-    #[repr(C, align(8))]
-    struct uv_write_t {
-        _storage: [u8; 192],
-    }
-
-    #[repr(C, align(8))]
-    struct uv_shutdown_t {
-        _storage: [u8; 80],
-    }
-
-    unsafe fn uv_tcp_init(loop_: *mut c_void, handle: *mut c_void) -> c_int {
-        uv_tcp_init_sys(loop_.cast(), handle.cast())
-    }
-
-    unsafe fn uv_tcp_connect(
-        req: *mut uv_connect_t,
-        handle: *mut c_void,
-        addr: *const libc::sockaddr,
-        cb: Option<unsafe fn(*mut uv_connect_t, c_int)>,
-    ) -> c_int {
-        uv_tcp_connect_sys(req.cast(), handle.cast(), addr, cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_write(
-        req: *mut uv_write_t,
-        handle: *mut c_void,
-        bufs: *const uv_buf_t,
-        nbufs: c_uint,
-        cb: Option<unsafe fn(*mut uv_write_t, c_int)>,
-    ) -> c_int {
-        uv_write_sys(req.cast(), handle.cast(), bufs.cast(), nbufs, cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_read_start(
-        stream: *mut c_void,
-        alloc_cb: Option<unsafe fn(*mut c_void, usize, *mut uv_buf_t)>,
-        read_cb: Option<unsafe fn(*mut c_void, isize, *const uv_buf_t)>,
-    ) -> c_int {
-        uv_read_start_sys(
-            stream.cast(),
-            alloc_cb.map(|cb| core::mem::transmute(cb)),
-            read_cb.map(|cb| core::mem::transmute(cb)),
-        )
-    }
-
-    unsafe fn uv_read_stop(stream: *mut c_void) -> c_int {
-        uv_read_stop_sys(stream.cast())
-    }
-
-    unsafe fn uv_tcp_bind(handle: *mut c_void, addr: *const libc::sockaddr, flags: c_uint) -> c_int {
-        uv_tcp_bind_sys(handle.cast(), addr, flags)
-    }
-
-    unsafe fn uv_listen(
-        stream: *mut c_void,
-        backlog: c_int,
-        cb: Option<unsafe fn(*mut c_void, c_int)>,
-    ) -> c_int {
-        uv_listen_sys(stream.cast(), backlog, cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_accept(server: *mut c_void, client: *mut c_void) -> c_int {
-        uv_accept_sys(server.cast(), client.cast())
-    }
-
-    unsafe fn uv_shutdown(
-        req: *mut uv_shutdown_t,
-        handle: *mut c_void,
-        cb: Option<unsafe fn(*mut uv_shutdown_t, c_int)>,
-    ) -> c_int {
-        uv_shutdown_sys(req.cast(), handle.cast(), cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_tcp_getpeername(
-        handle: *const c_void,
-        name: *mut libc::sockaddr,
-        namelen: *mut c_int,
-    ) -> c_int {
-        uv_tcp_getpeername_sys(handle.cast(), name, namelen)
-    }
-
-    unsafe fn uv_tcp_getsockname(
-        handle: *const c_void,
-        name: *mut libc::sockaddr,
-        namelen: *mut c_int,
-    ) -> c_int {
-        uv_tcp_getsockname_sys(handle.cast(), name, namelen)
-    }
-
-    unsafe fn uv_tcp_nodelay(handle: *mut c_void, enable: c_int) -> c_int {
-        uv_tcp_nodelay_sys(handle.cast(), enable)
-    }
-
-    unsafe fn uv_tcp_keepalive(handle: *mut c_void, enable: c_int, delay: c_uint) -> c_int {
-        uv_tcp_keepalive_sys(handle.cast(), enable, delay)
-    }
-
-    unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
-        uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)))
-    }
-
-    unsafe fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t {
-        core::mem::transmute(uv_buf_init_sys(base, len))
     }
 
     unsafe extern "C" {
@@ -208,18 +87,18 @@ mod runtime_tcp_impl {
         assert!((*tcp_socket).m_promise_read.is_null());
         assert!((*tcp_socket).m_byte_array.is_null());
 
-        let handle = (*tcp_socket).m_uv_tcp.cast::<UvHandle>();
+        let handle = (*tcp_socket).m_uv_tcp.cast::<uv_handle_t>();
         (*handle).data = ptr;
 
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
-        unsafe fn close_cb(handle: *mut UvHandle) {
+        unsafe fn close_cb(handle: *mut uv_handle_t) {
             let tcp_socket = (*handle).data.cast::<LeanUvTcpSocketObject>();
             libc::free((*tcp_socket).m_uv_tcp);
             libc::free(tcp_socket.cast());
         }
 
-        uv_close((*tcp_socket).m_uv_tcp.cast::<UvHandle>(), Some(close_cb));
+        uv_close((*tcp_socket).m_uv_tcp.cast::<uv_handle_t>(), Some(close_cb));
 
         event_loop_unlock(addr_of_mut!(GLOBAL_EV));
     }
@@ -287,7 +166,7 @@ mod runtime_tcp_impl {
         let obj = lean_uv_tcp_socket_new(tcp_socket);
         lean_mark_mt(obj);
 
-        let handle = (*tcp_socket).m_uv_tcp.cast::<UvHandle>();
+        let handle = (*tcp_socket).m_uv_tcp.cast::<uv_handle_t>();
         (*handle).data = obj.cast();
 
         lean_io_result_mk_ok(obj)
@@ -319,7 +198,7 @@ mod runtime_tcp_impl {
         (*connect_data).promise = promise;
         (*connect_data).socket = socket;
 
-        let req_handle = uv_connect.cast::<UvHandle>();
+        let req_handle = uv_connect.cast::<uv_handle_t>();
         (*req_handle).data = connect_data.cast();
 
         lean_inc(socket);
@@ -328,7 +207,7 @@ mod runtime_tcp_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn connect_cb(req: *mut uv_connect_t, status: c_int) {
-            let req_handle = req.cast::<UvHandle>();
+            let req_handle = req.cast::<uv_handle_t>();
             let tup = (*req_handle).data.cast::<TcpConnectData>();
             lean_promise_resolve_with_code(status, (*tup).promise);
 
@@ -353,7 +232,7 @@ mod runtime_tcp_impl {
             lean_dec(promise);
             lean_dec(socket);
 
-            let req_handle = uv_connect.cast::<UvHandle>();
+            let req_handle = uv_connect.cast::<uv_handle_t>();
             libc::free((*req_handle).data);
             libc::free(uv_connect.cast());
 
@@ -403,7 +282,7 @@ mod runtime_tcp_impl {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
 
-        let write_handle = write_uv.cast::<UvHandle>();
+        let write_handle = write_uv.cast::<uv_handle_t>();
         (*write_handle).data = libc::malloc(core::mem::size_of::<TcpSendData>());
         if (*write_handle).data.is_null() {
             lean_dec(data_array);
@@ -427,7 +306,7 @@ mod runtime_tcp_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn write_cb(req: *mut uv_write_t, status: c_int) {
-            let req_handle = req.cast::<UvHandle>();
+            let req_handle = req.cast::<uv_handle_t>();
             let tup = (*req_handle).data.cast::<TcpSendData>();
 
             lean_promise_resolve_with_code(status, (*tup).promise);
@@ -488,7 +367,7 @@ mod runtime_tcp_impl {
         lean_inc(promise);
 
         unsafe fn alloc_cb(handle: *mut c_void, _suggested_size: usize, buf: *mut uv_buf_t) {
-            let handle_ptr = handle.cast::<UvHandle>();
+            let handle_ptr = handle.cast::<uv_handle_t>();
             let tcp_socket = lean_to_uv_tcp_socket((*handle_ptr).data.cast());
             (*buf).base = lean_sarray_cptr((*tcp_socket).m_byte_array)
                 .cast_mut()
@@ -499,7 +378,7 @@ mod runtime_tcp_impl {
         unsafe fn read_cb(stream: *mut c_void, nread: isize, _buf: *const uv_buf_t) {
             uv_read_stop(stream);
 
-            let handle_ptr = stream.cast::<UvHandle>();
+            let handle_ptr = stream.cast::<uv_handle_t>();
             let tcp_socket = lean_to_uv_tcp_socket((*handle_ptr).data.cast());
             let promise = (*tcp_socket).m_promise_read;
             let byte_array = (*tcp_socket).m_byte_array;
@@ -572,7 +451,7 @@ mod runtime_tcp_impl {
         unsafe fn read_cb(stream: *mut c_void, nread: isize, _buf: *const uv_buf_t) {
             uv_read_stop(stream);
 
-            let handle_ptr = stream.cast::<UvHandle>();
+            let handle_ptr = stream.cast::<uv_handle_t>();
             let tcp_socket = lean_to_uv_tcp_socket((*handle_ptr).data.cast());
             let promise = (*tcp_socket).m_promise_read;
 
@@ -668,7 +547,7 @@ mod runtime_tcp_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         unsafe fn listen_cb(stream: *mut c_void, status: c_int) {
-            let stream_handle = stream.cast::<UvHandle>();
+            let stream_handle = stream.cast::<uv_handle_t>();
             let tcp_socket = lean_to_uv_tcp_socket((*stream_handle).data.cast());
 
             if (*tcp_socket).m_promise_accept.is_null() {
@@ -834,7 +713,7 @@ mod runtime_tcp_impl {
             event_loop_unlock(addr_of_mut!(GLOBAL_EV));
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
-        let shutdown_req_handle = shutdown_req.cast::<UvHandle>();
+        let shutdown_req_handle = shutdown_req.cast::<uv_handle_t>();
         (*shutdown_req_handle).data = socket.cast();
 
         let promise = lean_io_promise_new();
@@ -844,7 +723,7 @@ mod runtime_tcp_impl {
         lean_inc(socket);
 
         unsafe fn shutdown_cb(req: *mut uv_shutdown_t, status: c_int) {
-            let req_handle = req.cast::<UvHandle>();
+            let req_handle = req.cast::<uv_handle_t>();
             let tcp_socket = lean_to_uv_tcp_socket((*req_handle).data.cast::<LeanObject>());
 
             if status < 0 {
