@@ -11,6 +11,7 @@ pub(crate) mod runtime_object_rc_impl {
     use core::ffi::c_void;
     use core::ptr;
     use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
+    use libmimalloc_sys as mi;
 
     const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in undefined at line 16 (🔁)
     const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 17 (🔁)
@@ -114,10 +115,6 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     extern "C" {
-        fn mi_malloc(sz: usize) -> *mut c_void;
-        fn mi_malloc_small(sz: usize) -> *mut c_void;
-        fn mi_free(ptr: *mut c_void);
-        fn mi_free_size(ptr: *mut c_void, sz: usize);
         #[cfg(lean_has_address_sanitizer)]
         fn __lsan_ignore_object(ptr: *mut c_void);
         fn __gmpz_clear(x: *mut MpzT);
@@ -167,7 +164,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
     #[inline(always)]
     unsafe fn quar_phys_free(p: usize) {
-        mi_free(p as *mut c_void);
+        mi::mi_free(p as *mut c_void);
     }
     #[cold]
     pub(crate) unsafe fn quar_report_uaf(o: *mut LeanObject, op: &str) {
@@ -229,7 +226,7 @@ pub(crate) mod runtime_object_rc_impl {
             quar_free(o);
             return;
         }
-        mi_free_size(o as *mut c_void, sz);
+        mi::mi_free_size(o as *mut c_void, sz);
     }
 
     #[inline(always)]
@@ -310,7 +307,7 @@ pub(crate) mod runtime_object_rc_impl {
     #[inline(always)]
     pub(crate) unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject { // duplicate in undefined at line 345 (🔁)
         let sz = ((sz + 7) / 8) * 8;
-        let mem = mi_malloc_small(sz);
+        let mem = mi::mi_malloc_small(sz);
         if mem.is_null() {
             lean_internal_panic_out_of_memory();
         }
@@ -325,7 +322,7 @@ pub(crate) mod runtime_object_rc_impl {
             quar_free(o);
             return;
         }
-        mi_free(o as *mut c_void);
+        mi::mi_free_small(o as *mut c_void);
     }
 
     #[inline(always)]
@@ -480,7 +477,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     pub unsafe fn lean_alloc_object(sz: usize) -> *mut LeanObject { // duplicate in undefined at line 547 (🔁)
-        let r = mi_malloc(sz);
+        let r = mi::mi_malloc(sz);
         if r.is_null() {
             lean_internal_panic_out_of_memory();
         }
