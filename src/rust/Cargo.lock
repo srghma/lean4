@@ -310,6 +310,7 @@ dependencies = [
  "libuv-sys2",
  "llvm-sys",
  "mach2",
+ "windows-sys",
 ]
 
 [[package]]

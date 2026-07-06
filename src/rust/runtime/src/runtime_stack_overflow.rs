@@ -141,43 +141,23 @@ pub use runtime_stack_overflow_impl::*;
 mod runtime_stack_overflow_impl {
     use crate::*;
     use std::process;
+    use windows_sys::Win32::Foundation::EXCEPTION_STACK_OVERFLOW;
+    use windows_sys::Win32::System::Diagnostics::Debug::{
+        AddVectoredExceptionHandler, EXCEPTION_POINTERS,
+    };
+    use windows_sys::Win32::System::Threading::SetThreadStackGuarantee;
 
     #[repr(C)]
     pub struct StackGuard {
         _private: [u8; 0],
     }
 
-    #[repr(C)]
-    struct ExceptionRecord {
-        exception_code: u32,
-        exception_flags: u32,
-        exception_record: *mut ExceptionRecord,
-        exception_address: *mut c_void,
-        number_parameters: usize,
-        exception_information: [usize; 15],
-    }
-
-    #[repr(C)]
-    struct ExceptionPointers {
-        exception_record: *mut ExceptionRecord,
-        context_record: *mut c_void,
-    }
-
-    unsafe extern "system" {
-        fn SetThreadStackGuarantee(stack_size_in_bytes: *mut u32) -> i32;
-        fn AddVectoredExceptionHandler(
-            first: u32,
-            handler: Option<unsafe extern "system" fn(*mut ExceptionPointers) -> i32>,
-        ) -> *mut c_void;
-    }
-
     const EXCEPTION_CONTINUE_SEARCH: i32 = 0;
-    const EXCEPTION_STACK_OVERFLOW: u32 = 0xC00000FD;
 
-    unsafe extern "system" fn stack_overflow_handler(info: *mut ExceptionPointers) -> i32 {
+    unsafe extern "system" fn stack_overflow_handler(info: *mut EXCEPTION_POINTERS) -> i32 {
         if !info.is_null()
-            && !(*info).exception_record.is_null()
-            && (*(*info).exception_record).exception_code == EXCEPTION_STACK_OVERFLOW
+            && !(*info).ExceptionRecord.is_null()
+            && (*(*info).ExceptionRecord).ExceptionCode == EXCEPTION_STACK_OVERFLOW
         {
             eprintln!("\nStack overflow detected. Aborting.");
             process::abort();

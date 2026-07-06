@@ -5,12 +5,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_io_fs_impl {
     use crate::*;
+    use crate::runtime_io_stream::io_wrap_handle;
     use core::ffi::c_char;
     use std::ffi::{CStr, CString};
 
     unsafe extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-        fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject;
         fn lean_mk_io_error_no_file_or_directory(
             fname: *mut LeanObject,
             errnum: u32,
@@ -215,15 +215,10 @@ mod runtime_io_fs_impl {
         };
         #[cfg(target_os = "windows")]
         let ok = {
-            unsafe extern "system" {
-                fn MoveFileExA(
-                    existing_file_name: *const c_char,
-                    new_file_name: *const c_char,
-                    flags: u32,
-                ) -> core::ffi::c_int;
-            }
-            const MOVEFILE_REPLACE_EXISTING: u32 = 0x1;
-            MoveFileExA(from_str, to_str, MOVEFILE_REPLACE_EXISTING) != 0
+            use windows_sys::Win32::Storage::FileSystem::{
+                MoveFileExA, MOVEFILE_REPLACE_EXISTING,
+            };
+            MoveFileExA(from_str.cast(), to_str.cast(), MOVEFILE_REPLACE_EXISTING) != 0
         };
         #[cfg(not(target_os = "windows"))]
         let ok = libc::rename(from_str, to_str) == 0;
@@ -250,14 +245,8 @@ mod runtime_io_fs_impl {
         };
         #[cfg(target_os = "windows")]
         let ret = {
-            unsafe extern "system" {
-                fn CreateHardLinkA(
-                    file_name: *const c_char,
-                    existing_file_name: *const c_char,
-                    security_attributes: *mut core::ffi::c_void,
-                ) -> core::ffi::c_int;
-            }
-            if CreateHardLinkA(link_str, orig_str, core::ptr::null_mut()) != 0 {
+            use windows_sys::Win32::Storage::FileSystem::CreateHardLinkA;
+            if CreateHardLinkA(link_str.cast(), orig_str.cast(), core::ptr::null()) != 0 {
                 0
             } else {
                 -1
@@ -509,15 +498,9 @@ mod runtime_io_fs_impl {
 
         #[cfg(target_os = "windows")]
         {
-            unsafe extern "system" {
-                fn BCryptGenRandom(
-                    algorithm: *mut core::ffi::c_void,
-                    buffer: *mut u8,
-                    count: u32,
-                    flags: u32,
-                ) -> i32;
-            }
-            const BCRYPT_USE_SYSTEM_PREFERRED_RNG: u32 = 0x00000002;
+            use windows_sys::Win32::Security::Cryptography::{
+                BCryptGenRandom, BCRYPT_USE_SYSTEM_PREFERRED_RNG,
+            };
 
             while remain > 0 {
                 let read_size = remain.min(u32::MAX as usize);
@@ -553,15 +536,9 @@ mod runtime_io_fs_impl {
     pub unsafe fn lean_io_app_path() -> *mut LeanObject {
         #[cfg(target_os = "windows")]
         {
-            use core::ffi::c_void;
-            unsafe extern "C" {
-                fn GetModuleHandleA(module_name: *const c_char) -> *mut c_void;
-                fn GetModuleFileNameA(
-                    h_module: *mut c_void,
-                    lp_filename: *mut c_char,
-                    n_size: u32,
-                ) -> u32;
-            }
+            use windows_sys::Win32::System::LibraryLoader::{
+                GetModuleFileNameA, GetModuleHandleA,
+            };
             let mut path = [0u8; 32768usize]; // MAX_PATH
             let h = GetModuleHandleA(core::ptr::null());
             let n = GetModuleFileNameA(h, path.as_mut_ptr().cast(), path.len() as u32);
@@ -576,13 +553,10 @@ mod runtime_io_fs_impl {
         }
         #[cfg(target_os = "macos")]
         {
-            unsafe extern "C" {
-                fn _NSGetExecutablePath(buf: *mut c_char, bufsize: *mut u32) -> core::ffi::c_int;
-            }
             let mut buf1 = [0u8; libc::PATH_MAX as usize];
             let mut buf2 = [0u8; libc::PATH_MAX as usize];
             let mut bufsize = libc::PATH_MAX as u32;
-            if _NSGetExecutablePath(buf1.as_mut_ptr().cast(), &mut bufsize) != 0 {
+            if libc::_NSGetExecutablePath(buf1.as_mut_ptr().cast(), &mut bufsize) != 0 {
                 return io_error_from_str(c"failed to locate application".as_ptr());
             }
             let resolved = libc::realpath(buf1.as_ptr().cast(), buf2.as_mut_ptr().cast());

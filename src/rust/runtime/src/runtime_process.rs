@@ -15,6 +15,7 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 
 mod runtime_process_impl {
     use crate::*;
+    use crate::runtime_io_stream::io_wrap_handle;
     use core::ffi::c_int;
     use core::ptr::null_mut;
 
@@ -22,7 +23,6 @@ mod runtime_process_impl {
 
     unsafe extern "C" {
         fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
-        fn io_wrap_handle(f: *mut libc::FILE) -> *mut LeanObject;
     }
 
     // lean_box_uint32 is a static inline in lean.h; implement it directly in Rust

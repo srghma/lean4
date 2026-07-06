@@ -8,6 +8,8 @@ mod library_ir_interpreter_impl {
     use core::ffi::{c_char, c_void};
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, AtomicUsize, Ordering};
+    #[cfg(unix)]
+    use libloading::os::unix::Library as UnixLibrary;
     use std::collections::HashMap;
     use std::hash::{BuildHasher, Hash, Hasher};
     use std::sync::{Mutex, MutexGuard, OnceLock};
@@ -1129,7 +1131,13 @@ mod library_ir_interpreter_impl {
     unsafe fn lookup_symbol_in_cur_exe(sym: *const c_char) -> *mut core::ffi::c_void {
         #[cfg(unix)]
         {
-            libc::dlsym(libc::RTLD_DEFAULT, sym)
+            let lib = UnixLibrary::this();
+            let Ok(symbol) =
+                (unsafe { lib.get::<*mut core::ffi::c_void>(CStr::from_ptr(sym)) })
+            else {
+                return ptr::null_mut();
+            };
+            *symbol
         }
         #[cfg(windows)]
         {

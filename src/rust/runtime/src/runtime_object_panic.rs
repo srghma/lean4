@@ -7,6 +7,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_panic_impl {
     use crate::*;
+    #[cfg(any(target_os = "linux", target_os = "macos"))]
+    use libloading::os::unix::Library as UnixLibrary;
     use std::io::Write;
 
     static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
@@ -36,16 +38,12 @@ mod runtime_object_panic_impl {
         type DemangleBacktraceLine = unsafe fn(*mut LeanObject) -> *mut LeanObject;
 
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
-            let proc = libc::dlsym(
-                libc::RTLD_DEFAULT,
-                c_char_ptr(b"lean_demangle_bt_line_cstr\0"),
-            );
-            if proc.is_null() {
+            let lib = UnixLibrary::this();
+            let Ok(demangle) = (unsafe { lib.get::<DemangleBacktraceLine>(c"lean_demangle_bt_line_cstr") }) else {
                 return None;
-            }
-            let demangle: DemangleBacktraceLine = core::mem::transmute(proc);
+            };
             let line = lean_mk_string(symbol);
-            let result = demangle(line);
+            let result = unsafe { (*demangle)(line) };
             let result_str = lean_string_cstr(result);
             let demangled = if !result_str.is_null() && *result_str != 0 {
                 Some(cstr_lossy(result_str))

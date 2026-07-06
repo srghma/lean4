@@ -123,3 +123,6 @@ mod runtime_io_stream_impl {
     }
     pub fn finalize_io() {}
 }
+
+#[allow(unused_imports)]
+pub(crate) use runtime_io_stream_impl::io_wrap_handle;

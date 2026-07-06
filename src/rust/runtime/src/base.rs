@@ -694,11 +694,9 @@ pub unsafe fn lean_io_prim_handle_write(
 pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let mut result = Vec::<u8>::new();
-    #[cfg(windows)]
     unsafe {
-        libc::_lock_file(fp);
         loop {
-            let c = libc::_fgetc_nolock(fp);
+            let c = libc::fgetc(fp);
             if c == libc::EOF {
                 break;
             }
@@ -707,22 +705,6 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObjec
                 break;
             }
         }
-        libc::_unlock_file(fp);
-    }
-    #[cfg(not(windows))]
-    unsafe {
-        libc::flockfile(fp);
-        loop {
-            let c = libc::getc_unlocked(fp);
-            if c == libc::EOF {
-                break;
-            }
-            result.push(c as u8);
-            if c == b'\n' as i32 {
-                break;
-            }
-        }
-        libc::funlockfile(fp);
     }
 
     if libc::ferror(fp) != 0 {

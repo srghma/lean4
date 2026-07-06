@@ -12,6 +12,8 @@ pub(crate) mod runtime_object_rc_impl {
     use core::ptr;
     use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
     use libmimalloc_sys as mi;
+    #[cfg(all(lean_has_address_sanitizer, unix))]
+    use libloading::os::unix::Library as UnixLibrary;
 
     const LEAN_MAX_CTOR_TAG: u8 = 243; // duplicate in undefined at line 16 (🔁)
     const LEAN_PROMISE_TAG: u8 = 244; // duplicate in undefined at line 17 (🔁)
@@ -105,9 +107,18 @@ pub(crate) mod runtime_object_rc_impl {
         m_value: MpzT,
     }
 
+    #[cfg(all(lean_has_address_sanitizer, unix))]
+    unsafe fn ignore_lsan_object(ptr: *mut c_void) {
+        let lib = UnixLibrary::this();
+        if let Ok(ignore) = unsafe { lib.get::<unsafe fn(*mut c_void)>(c"__lsan_ignore_object") } {
+            unsafe { (*ignore)(ptr) };
+        }
+    }
+
+    #[cfg(not(all(lean_has_address_sanitizer, unix)))]
+    unsafe fn ignore_lsan_object(_: *mut c_void) {}
+
     unsafe extern "C" {
-        #[cfg(lean_has_address_sanitizer)]
-        fn __lsan_ignore_object(ptr: *mut c_void);
         fn lean_internal_panic(msg: *const i8) -> !;
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_task_get(task: *mut LeanObject) -> *mut LeanObject;
@@ -513,7 +524,7 @@ pub(crate) mod runtime_object_rc_impl {
     #[cfg(lean_has_address_sanitizer)]
     #[inline(always)]
     unsafe fn lsan_ignore(o: *mut LeanObject) {
-        __lsan_ignore_object(o as *mut c_void);
+        ignore_lsan_object(o as *mut c_void);
     }
 
     #[cfg(not(lean_has_address_sanitizer))]
