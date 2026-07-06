@@ -21,7 +21,7 @@ mod library_ir_interpreter_impl {
         // IR declaration lookup
         fn lean_ir_find_env_decl(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
         fn lean_ir_find_env_decl_boxed(env: *mut LeanObject, n: *mut LeanObject)
-            -> *mut LeanObject;
+        -> *mut LeanObject;
 
         // Numeric coercions
         fn lean_float_of_nat(a: *mut LeanObject) -> f64;
@@ -60,7 +60,6 @@ mod library_ir_interpreter_impl {
         fn lean_apply_n(f: *mut LeanObject, n: u32, args: *mut *mut LeanObject) -> *mut LeanObject;
 
         // curry (call native function pointer with n boxed args)
-        #[link_name = "_ZN4lean5curryEPvjPP11lean_object"]
         fn lean_curry(
             fun: *mut core::ffi::c_void,
             n: u32,
@@ -71,7 +70,6 @@ mod library_ir_interpreter_impl {
         fn lean_ir_format_fn_body_head(b: *mut LeanObject) -> *mut LeanObject;
 
         // check_system
-        #[link_name = "_ZN4lean12check_systemEPKcb"]
         fn lean_check_system(component_name: *const c_char, do_check_interrupted: bool);
 
         // time task
@@ -83,13 +81,11 @@ mod library_ir_interpreter_impl {
         fn lean_runtime_time_task_end(enabled: u8);
 
         // scope_trace_env (C++ RAII for trace opts)
-        #[link_name = "_ZN4lean15scope_trace_envC1ERKNS_16elab_environmentERKNS_7optionsE"]
         fn lean_scope_trace_env_ctor(
             this: *mut ScopeTraceEnv,
             env: *const *mut LeanObject,
             opts: *const *mut LeanObject,
         );
-        #[link_name = "_ZN4lean15scope_trace_envD1Ev"]
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
@@ -1101,7 +1097,7 @@ mod library_ir_interpreter_impl {
             IrType::UInt64 => IrValue::from_num(lean_unbox_uint64(o)),
             IrType::USize => IrValue::from_num(lean_unbox_size_t(o) as u64),
             IrType::Struct | IrType::Union => {
-                return Err("unbox_t: not implemented yet".to_string())
+                return Err("unbox_t: not implemented yet".to_string());
             }
             _ => unreachable!("unbox_t called with non-scalar type"),
         })
@@ -1843,11 +1839,7 @@ mod library_ir_interpreter_impl {
                 let boxed_mangled_cstr = lean_string_cstr(boxed_mangled_obj);
                 if let Some(p_boxed) = {
                     let p = lookup_symbol_in_cur_exe(boxed_mangled_cstr);
-                    if p.is_null() {
-                        None
-                    } else {
-                        Some(p)
-                    }
+                    if p.is_null() { None } else { Some(p) }
                 } {
                     native.m_addr = p_boxed;
                     native.m_boxed = true;
@@ -2340,15 +2332,15 @@ mod library_ir_interpreter_impl {
         with_interpreter_obj(env, opts, fn_name, |interp| interp.stub_m(args))
     }
 
-    unsafe extern "C" fn stub_1_aux(x1: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn stub_1_aux(x1: *mut LeanObject) -> *mut LeanObject {
         let mut args = [x1];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_2_aux(x1: *mut LeanObject, x2: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn stub_2_aux(x1: *mut LeanObject, x2: *mut LeanObject) -> *mut LeanObject {
         let mut args = [x1, x2];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_3_aux(
+    unsafe fn stub_3_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2356,7 +2348,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_4_aux(
+    unsafe fn stub_4_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2365,7 +2357,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_5_aux(
+    unsafe fn stub_5_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2375,7 +2367,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_6_aux(
+    unsafe fn stub_6_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2386,7 +2378,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_7_aux(
+    unsafe fn stub_7_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2398,7 +2390,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_8_aux(
+    unsafe fn stub_8_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2411,7 +2403,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_9_aux(
+    unsafe fn stub_9_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2425,7 +2417,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_10_aux(
+    unsafe fn stub_10_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2440,7 +2432,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_11_aux(
+    unsafe fn stub_11_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2456,7 +2448,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_12_aux(
+    unsafe fn stub_12_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2473,7 +2465,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_13_aux(
+    unsafe fn stub_13_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2491,7 +2483,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_14_aux(
+    unsafe fn stub_14_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2510,7 +2502,7 @@ mod library_ir_interpreter_impl {
         let mut args = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_15_aux(
+    unsafe fn stub_15_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2532,7 +2524,7 @@ mod library_ir_interpreter_impl {
         ];
         stub_m_aux_impl(args.as_mut_ptr())
     }
-    unsafe extern "C" fn stub_16_aux(
+    unsafe fn stub_16_aux(
         x1: *mut LeanObject,
         x2: *mut LeanObject,
         x3: *mut LeanObject,
@@ -2556,7 +2548,7 @@ mod library_ir_interpreter_impl {
         stub_m_aux_impl(args.as_mut_ptr())
     }
     // stub_m_aux with varargs via pointer
-    unsafe extern "C" fn stub_m_aux(args: *mut *mut LeanObject) -> *mut LeanObject {
+    unsafe fn stub_m_aux(args: *mut *mut LeanObject) -> *mut LeanObject {
         stub_m_aux_impl(args)
     }
 
@@ -2589,11 +2581,11 @@ mod library_ir_interpreter_impl {
 
     /// initialize_ir_interpreter — called from lib.rs initialize_library_module_body
     #[no_mangle]
-    pub unsafe extern "C" fn initialize_ir_interpreter() {}
+    pub unsafe fn initialize_ir_interpreter() {}
 
     /// finalize_ir_interpreter — called from lib.rs
     #[no_mangle]
-    pub unsafe extern "C" fn finalize_ir_interpreter() {
+    pub unsafe fn finalize_ir_interpreter() {
         // Drop the global caches. OnceLock doesn't support resetting, so just clear contents.
         {
             let _lock = native_symbol_cache_lock();
@@ -2620,7 +2612,7 @@ mod library_ir_interpreter_impl {
 
     /// lean_eval_main (env : Environment) (opts : Options) (args : List String) : BaseIO UInt32
     #[no_mangle]
-    pub unsafe extern "C" fn lean_eval_main(
+    pub unsafe fn lean_eval_main(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         args: *mut LeanObject,
@@ -2645,7 +2637,7 @@ mod library_ir_interpreter_impl {
 
     /// lean_eval_const (env : Environment) (opts : Options) (c : Name) : Except String _
     #[no_mangle]
-    pub unsafe extern "C" fn lean_eval_const(
+    pub unsafe fn lean_eval_const(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         c: *mut LeanObject,
@@ -2671,7 +2663,7 @@ mod library_ir_interpreter_impl {
     /// back into a C++ exception to preserve the old `ir::run_boxed_kernel`
     /// contract.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_eval_const_at_kernel_env(
+    pub unsafe fn lean_eval_const_at_kernel_env(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         c: *mut LeanObject,
@@ -2699,7 +2691,7 @@ mod library_ir_interpreter_impl {
 
     /// lean_run_init (env opts decl init_decl io) : IO Unit
     #[no_mangle]
-    pub unsafe extern "C" fn lean_run_init(
+    pub unsafe fn lean_run_init(
         env: *mut LeanObject,
         opts: *mut LeanObject,
         decl: *mut LeanObject,
@@ -2722,13 +2714,13 @@ mod library_ir_interpreter_impl {
     /// On Unix, uses dlsym(RTLD_DEFAULT, ...) directly.
     /// On Windows, uses EnumProcessModules/GetProcAddress.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_run_mod_init_core(sym: *mut LeanObject) -> *mut LeanObject {
         let sym_cstr = lean_string_cstr(sym);
         let init = lookup_symbol_in_cur_exe(sym_cstr);
         if init.is_null() {
             lean_io_result_mk_ok(lean_box(0)) // Bool.false: symbol not found
         } else {
-            let init_fn: unsafe extern "C" fn(u8) -> *mut LeanObject = core::mem::transmute(init);
+            let init_fn: unsafe fn(u8) -> *mut LeanObject = core::mem::transmute(init);
             let builtin: u8 = 0;
             let r = init_fn(builtin);
             if lean_io_result_is_ok(r) {

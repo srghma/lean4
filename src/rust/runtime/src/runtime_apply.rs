@@ -112,24 +112,20 @@ mod runtime_apply_impl {
         }
         match n {
             0 => core::hint::unreachable_unchecked(),
-            1 => call!(unsafe extern "C" fn(*mut LeanObject) -> *mut LeanObject, 0),
+            1 => call!(unsafe fn(*mut LeanObject) -> *mut LeanObject, 0),
             2 => call!(
-                unsafe extern "C" fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
+                unsafe fn(*mut LeanObject, *mut LeanObject) -> *mut LeanObject,
                 0,
                 1
             ),
             3 => call!(
-                unsafe extern "C" fn(
-                    *mut LeanObject,
-                    *mut LeanObject,
-                    *mut LeanObject,
-                ) -> *mut LeanObject,
+                unsafe fn(*mut LeanObject, *mut LeanObject, *mut LeanObject) -> *mut LeanObject,
                 0,
                 1,
                 2
             ),
             4 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -141,7 +137,7 @@ mod runtime_apply_impl {
                 3
             ),
             5 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -155,7 +151,7 @@ mod runtime_apply_impl {
                 4
             ),
             6 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -171,7 +167,7 @@ mod runtime_apply_impl {
                 5
             ),
             7 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -189,7 +185,7 @@ mod runtime_apply_impl {
                 6
             ),
             8 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -209,7 +205,7 @@ mod runtime_apply_impl {
                 7
             ),
             9 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -231,7 +227,7 @@ mod runtime_apply_impl {
                 8
             ),
             10 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -255,7 +251,7 @@ mod runtime_apply_impl {
                 9
             ),
             11 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -281,7 +277,7 @@ mod runtime_apply_impl {
                 10
             ),
             12 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -309,7 +305,7 @@ mod runtime_apply_impl {
                 11
             ),
             13 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -339,7 +335,7 @@ mod runtime_apply_impl {
                 12
             ),
             14 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -371,7 +367,7 @@ mod runtime_apply_impl {
                 13
             ),
             15 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -405,7 +401,7 @@ mod runtime_apply_impl {
                 14
             ),
             16 => call!(
-                unsafe extern "C" fn(
+                unsafe fn(
                     *mut LeanObject,
                     *mut LeanObject,
                     *mut LeanObject,
@@ -441,7 +437,7 @@ mod runtime_apply_impl {
                 15
             ),
             _ => {
-                let f: unsafe extern "C" fn(*mut *mut LeanObject) -> *mut LeanObject =
+                let f: unsafe fn(*mut *mut LeanObject) -> *mut LeanObject =
                     core::mem::transmute(fun);
                 f(as_ptr)
             }
@@ -517,8 +513,7 @@ mod runtime_apply_impl {
 
     macro_rules! export_apply {
         ($name:ident, $n:expr, $($arg:ident),+) => {
-            #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-            pub unsafe extern "C" fn $name(f: *mut LeanObject, $($arg: *mut LeanObject),+) -> *mut LeanObject {
+            pub unsafe fn $name(f: *mut LeanObject, $($arg: *mut LeanObject),+) -> *mut LeanObject {
                 let mut args = [$($arg),+];
                 apply_generic(f, $n, args.as_mut_ptr())
             }
@@ -641,8 +636,7 @@ mod runtime_apply_impl {
         a16
     );
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_apply_m(
+    pub unsafe fn lean_apply_m(
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -651,8 +645,7 @@ mod runtime_apply_impl {
         apply_generic(f, n, as_ptr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_apply_n(
+    pub unsafe fn lean_apply_n(
         f: *mut LeanObject,
         n: u32,
         as_ptr: *mut *mut LeanObject,
@@ -840,11 +833,7 @@ mod runtime_apply_impl {
         export_name = "_ZN4lean5curryEPvjPP11lean_object"
     )]
     #[allow(dead_code)]
-    pub unsafe extern "C" fn curry(
-        fun: *mut c_void,
-        n: u32,
-        as_ptr: *mut *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObject {
         curry_raw(fun, n, as_ptr)
     }
 }

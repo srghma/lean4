@@ -108,13 +108,11 @@ mod runtime_object_array_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_copy_sarray(a: *mut LeanObject, cap: usize) -> *mut LeanObject {
+    pub unsafe fn lean_copy_sarray(a: *mut LeanObject, cap: usize) -> *mut LeanObject {
         copy_sarray_with_capacity(a, cap)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sarray_ensure_capacity(
+    pub unsafe fn lean_sarray_ensure_capacity(
         a: *mut LeanObject,
         min_cap: usize,
         exact: bool,
@@ -134,13 +132,11 @@ mod runtime_object_array_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_copy_byte_array(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_copy_byte_array(a: *mut LeanObject) -> *mut LeanObject {
         copy_sarray_with_capacity(a, lean_sarray_capacity(a))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject {
         let sz = lean_array_size(a);
         let r = lean_alloc_sarray(1, sz, sz);
         let src = lean_array_cptr(a);
@@ -152,8 +148,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_byte_array_data(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_byte_array_data(a: *mut LeanObject) -> *mut LeanObject {
         let sz = lean_sarray_size(a);
         let r = lean_alloc_array(sz, sz);
         let src = lean_sarray_cptr(a);
@@ -165,8 +160,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_byte_array_push(a: *mut LeanObject, b: u8) -> *mut LeanObject {
+    pub unsafe fn lean_byte_array_push(a: *mut LeanObject, b: u8) -> *mut LeanObject {
         let r = lean_sarray_ensure_exclusive(lean_sarray_ensure_capacity(
             a,
             lean_sarray_size(a) + 1,
@@ -178,8 +172,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_byte_array_copy_slice(
+    pub unsafe fn lean_byte_array_copy_slice(
         src: *mut LeanObject,
         o_src_off: *mut LeanObject,
         dest: *mut LeanObject,
@@ -210,18 +203,15 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_byte_array_hash(a: *mut LeanObject) -> u64 {
+    pub unsafe fn lean_byte_array_hash(a: *mut LeanObject) -> u64 {
         lean_runtime_hash_str(lean_sarray_size(a), lean_sarray_cptr(a), 11)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_copy_float_array(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_copy_float_array(a: *mut LeanObject) -> *mut LeanObject {
         copy_sarray_with_capacity(a, lean_sarray_capacity(a))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_float_array_mk(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_float_array_mk(a: *mut LeanObject) -> *mut LeanObject {
         let sz = lean_array_size(a);
         let r = lean_alloc_sarray(core::mem::size_of::<f64>() as c_uint, sz, sz);
         let src = lean_array_cptr(a);
@@ -233,8 +223,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_float_array_data(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_float_array_data(a: *mut LeanObject) -> *mut LeanObject {
         let sz = lean_sarray_size(a);
         let r = lean_alloc_array(sz, sz);
         let src = lean_sarray_cptr(a) as *const f64;
@@ -246,8 +235,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_float_array_push(a: *mut LeanObject, d: f64) -> *mut LeanObject {
+    pub unsafe fn lean_float_array_push(a: *mut LeanObject, d: f64) -> *mut LeanObject {
         let r = lean_sarray_ensure_exclusive(lean_sarray_ensure_capacity(
             a,
             lean_sarray_size(a) + 1,
@@ -259,11 +247,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_mk_array(
-        n: *mut LeanObject,
-        v: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_mk_array(n: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
         let sz = nat_to_size_t(n);
         let r = lean_alloc_array(sz, sz);
         let dst = lean_array_cptr(r);
@@ -278,8 +262,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
         let mut sz = 0usize;
         let mut it = lst;
         while !lean_is_scalar(it) {
@@ -299,8 +282,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
         let mut i = lean_array_size(a);
         let mut r = lean_box(0);
         while i > 0 {
@@ -316,19 +298,14 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_array_get_panic(def_val: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_array_get_panic(def_val: *mut LeanObject) -> *mut LeanObject {
         lean_panic_fn(
             def_val,
             lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()),
         )
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_array_set_panic(
-        a: *mut LeanObject,
-        v: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_array_set_panic(a: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
         lean_dec(v);
         lean_panic_fn(
             a,
@@ -336,8 +313,7 @@ mod runtime_object_array_impl {
         )
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_thunk_get_core(t: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_thunk_get_core(t: *mut LeanObject) -> *mut LeanObject {
         let thunk = t as *mut LeanThunkObject;
         let c = (*thunk).closure.swap(ptr::null_mut(), Ordering::AcqRel);
         if !c.is_null() {
@@ -355,11 +331,7 @@ mod runtime_object_array_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_copy_expand_array(
-        a: *mut LeanObject,
-        expand: bool,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_copy_expand_array(a: *mut LeanObject, expand: bool) -> *mut LeanObject {
         let sz = lean_array_size(a);
         let mut cap = lean_array_capacity(a);
         debug_assert!(cap >= sz);
@@ -387,20 +359,15 @@ mod runtime_object_array_impl {
         r
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     #[inline(never)]
-    pub unsafe extern "C" fn lean_copy_expand_array_nonlinear(
+    pub unsafe fn lean_copy_expand_array_nonlinear(
         a: *mut LeanObject,
         expand: bool,
     ) -> *mut LeanObject {
         lean_copy_expand_array(a, expand)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_array_push(
-        a: *mut LeanObject,
-        v: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_array_push(a: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
         let r = if lean_is_exclusive(a) {
             if lean_array_capacity(a) > lean_array_size(a) {
                 a

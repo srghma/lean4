@@ -64,22 +64,21 @@ mod runtime_io_stream_impl {
         static CURRENT_STDERR: ThreadStream = const { ThreadStream::new() };
     }
 
-    unsafe extern "C" fn io_handle_finalizer(handle: *mut c_void) {
+    unsafe fn io_handle_finalizer(handle: *mut c_void) {
         libc::fclose(handle.cast());
     }
 
-    unsafe extern "C" fn io_handle_foreach(_: *mut c_void, _: *mut LeanObject) {}
+    unsafe fn io_handle_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
     #[cfg_attr(
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean14io_wrap_handleEP8_IO_FILE"
     )]
-    pub unsafe extern "C" fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
+    pub unsafe fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
         lean_runtime_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_stdin() -> *mut LeanObject {
+    pub unsafe fn lean_get_stdin() -> *mut LeanObject {
         CURRENT_STDIN.with(|stream| {
             let value = stream.get(STREAM_STDIN);
             lean_inc(value);
@@ -87,8 +86,7 @@ mod runtime_io_stream_impl {
         })
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_stdout() -> *mut LeanObject {
+    pub unsafe fn lean_get_stdout() -> *mut LeanObject {
         CURRENT_STDOUT.with(|stream| {
             let value = stream.get(STREAM_STDOUT);
             lean_inc(value);
@@ -96,8 +94,7 @@ mod runtime_io_stream_impl {
         })
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_stderr() -> *mut LeanObject {
+    pub unsafe fn lean_get_stderr() -> *mut LeanObject {
         CURRENT_STDERR.with(|stream| {
             let value = stream.get(STREAM_STDERR);
             lean_inc(value);
@@ -105,18 +102,15 @@ mod runtime_io_stream_impl {
         })
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_set_stdin(handle: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_get_set_stdin(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDIN.with(|stream| stream.set(STREAM_STDIN, handle))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_set_stdout(handle: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_get_set_stdout(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDOUT.with(|stream| stream.set(STREAM_STDOUT, handle))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_get_set_stderr(handle: *mut LeanObject) -> *mut LeanObject {
         CURRENT_STDERR.with(|stream| stream.set(STREAM_STDERR, handle))
     }
 
@@ -124,7 +118,7 @@ mod runtime_io_stream_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean13initialize_ioEv"
     )]
-    pub unsafe extern "C" fn initialize_io() {
+    pub unsafe fn initialize_io() {
         IO_HANDLE_EXTERNAL_CLASS =
             lean_register_external_class(Some(io_handle_finalizer), Some(io_handle_foreach));
 

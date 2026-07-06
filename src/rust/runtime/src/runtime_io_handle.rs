@@ -11,11 +11,7 @@ mod runtime_io_handle_impl {
     }
 
     #[cfg(not(target_os = "windows"))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_prim_handle_lock(
-        h: *mut LeanObject,
-        exclusive: u8,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_prim_handle_lock(h: *mut LeanObject, exclusive: u8) -> *mut LeanObject {
         let fp = io_get_handle(h);
         let op = if exclusive != 0 {
             libc::LOCK_EX
@@ -33,8 +29,7 @@ mod runtime_io_handle_impl {
     }
 
     #[cfg(not(target_os = "windows"))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_prim_handle_try_lock(
+    pub unsafe fn lean_io_prim_handle_try_lock(
         h: *mut LeanObject,
         exclusive: u8,
     ) -> *mut LeanObject {
@@ -57,8 +52,7 @@ mod runtime_io_handle_impl {
     }
 
     #[cfg(not(target_os = "windows"))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_prim_handle_unlock(h: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_prim_handle_unlock(h: *mut LeanObject) -> *mut LeanObject {
         let fp = io_get_handle(h);
         if libc::flock(libc::fileno(fp), libc::LOCK_UN) == 0 {
             lean_io_result_mk_ok(lean_box(0))
@@ -137,8 +131,7 @@ mod runtime_io_handle_impl {
             lean_io_result_mk_error(lean_mk_io_user_error(msg))
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_io_prim_handle_lock(
+        pub unsafe fn lean_io_prim_handle_lock(
             h: *mut LeanObject,
             exclusive: u8,
         ) -> *mut LeanObject {
@@ -169,8 +162,7 @@ mod runtime_io_handle_impl {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_io_prim_handle_try_lock(
+        pub unsafe fn lean_io_prim_handle_try_lock(
             h: *mut LeanObject,
             exclusive: u8,
         ) -> *mut LeanObject {
@@ -202,8 +194,7 @@ mod runtime_io_handle_impl {
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_io_prim_handle_unlock(h: *mut LeanObject) -> *mut LeanObject {
+        pub unsafe fn lean_io_prim_handle_unlock(h: *mut LeanObject) -> *mut LeanObject {
             let mut overlapped = Overlapped {
                 internal: 0,
                 internal_high: 0,

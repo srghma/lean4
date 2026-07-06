@@ -85,7 +85,7 @@ mod library_util_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean23initialize_library_utilEv"
     )]
-    pub unsafe extern "C" fn lean_initialize_library_util() {
+    pub unsafe fn lean_initialize_library_util() {
         if INITIALIZED
             .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
             .is_ok()
@@ -98,14 +98,14 @@ mod library_util_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean21finalize_library_utilEv"
     )]
-    pub unsafe extern "C" fn lean_finalize_library_util() {
+    pub unsafe fn lean_finalize_library_util() {
         if INITIALIZED.load(Ordering::Acquire) {
             finalize_library_util_impl();
         }
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_mk_bool_true() -> *mut LeanObject {
+    pub unsafe fn lean_mk_bool_true() -> *mut LeanObject {
         ensure_initialized();
         let result = BOOL_TRUE.load(Ordering::Acquire);
         lean_inc(result);
@@ -113,7 +113,7 @@ mod library_util_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_mk_bool_false() -> *mut LeanObject {
+    pub unsafe fn lean_mk_bool_false() -> *mut LeanObject {
         ensure_initialized();
         let result = BOOL_FALSE.load(Ordering::Acquire);
         lean_inc(result);

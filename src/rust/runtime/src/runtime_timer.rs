@@ -31,11 +31,11 @@ mod runtime_timer_impl {
     static mut UV_TIMER_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
 
     extern "C" {
-        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
+        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>);
         fn uv_timer_init(loop_: *mut UvLoop, handle: *mut UvTimer) -> c_int;
         fn uv_timer_start(
             handle: *mut UvTimer,
-            cb: Option<unsafe extern "C" fn(*mut UvTimer)>,
+            cb: Option<unsafe fn(*mut UvTimer)>,
             timeout: u64,
             repeat: u64,
         ) -> c_int;
@@ -51,7 +51,7 @@ mod runtime_timer_impl {
         lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
     }
 
-    unsafe extern "C" fn close_free_handle(handle: *mut UvHandle) {
+    unsafe fn close_free_handle(handle: *mut UvHandle) {
         libc::free(handle.cast());
     }
 
@@ -59,7 +59,7 @@ mod runtime_timer_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean23lean_uv_timer_finalizerEPv"
     )]
-    pub unsafe extern "C" fn lean_uv_timer_finalizer(ptr: *mut c_void) {
+    pub unsafe fn lean_uv_timer_finalizer(ptr: *mut c_void) {
         let timer = ptr.cast::<LeanUvTimerObject>();
 
         if !(*timer).promise.is_null() {
@@ -76,7 +76,7 @@ mod runtime_timer_impl {
         libc::free(timer.cast());
     }
 
-    unsafe extern "C" fn timer_foreach(obj: *mut c_void, f: *mut LeanObject) {
+    unsafe fn timer_foreach(obj: *mut c_void, f: *mut LeanObject) {
         let timer = obj.cast::<LeanUvTimerObject>();
         if !(*timer).promise.is_null() {
             lean_inc(f);
@@ -88,7 +88,7 @@ mod runtime_timer_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean22initialize_libuv_timerEv"
     )]
-    pub unsafe extern "C" fn initialize_libuv_timer() {
+    pub unsafe fn initialize_libuv_timer() {
         UV_TIMER_EXTERNAL_CLASS =
             lean_register_external_class(Some(lean_uv_timer_finalizer), Some(timer_foreach));
     }
@@ -97,7 +97,7 @@ mod runtime_timer_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean18handle_timer_eventEP10uv_timer_s"
     )]
-    pub unsafe extern "C" fn handle_timer_event(handle: *mut UvTimer) {
+    pub unsafe fn handle_timer_event(handle: *mut UvTimer) {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);
 
@@ -121,8 +121,7 @@ mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
+    pub unsafe fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
         let timer =
             libc::malloc(core::mem::size_of::<LeanUvTimerObject>()).cast::<LeanUvTimerObject>();
         if timer.is_null() {
@@ -194,8 +193,7 @@ mod runtime_timer_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_timer_next(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -249,8 +247,7 @@ mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_timer_reset(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -282,8 +279,7 @@ mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_timer_stop(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -307,8 +303,7 @@ mod runtime_timer_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_timer_cancel(obj: *mut LeanObject) -> *mut LeanObject {
         let timer = timer_from_obj(obj);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));

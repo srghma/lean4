@@ -13,10 +13,8 @@ mod runtime_interrupt_impl {
         fn lean_throw_interrupted() -> !;
         fn throw_heartbeat_exception() -> !;
 
-        #[link_name = "_ZN4lean12check_memoryEPKc"]
         fn check_memory(component_name: *const c_char);
 
-        #[link_name = "_ZN4lean11check_stackEPKc"]
         fn check_stack(component_name: *const c_char);
     }
 
@@ -80,7 +78,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15check_heartbeatEv"
     )]
-    pub unsafe extern "C" fn check_heartbeat() {
+    pub unsafe fn check_heartbeat() {
         inc_heartbeat();
         let max = G_MAX_HEARTBEAT.with(|cell| cell.get());
         let current = G_HEARTBEAT.with(|cell| cell.get());
@@ -93,7 +91,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean17check_interruptedEv"
     )]
-    pub unsafe extern "C" fn check_interrupted() {
+    pub unsafe fn check_interrupted() {
         let tk = G_CANCEL_TK.with(|cell| cell.get());
         if !tk.is_null() {
             if cancel_tk_is_set(tk) && !lean_uncaught_exceptions() {
@@ -111,10 +109,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean12check_systemEPKcb"
     )]
-    pub unsafe extern "C" fn check_system(
-        component_name: *const c_char,
-        do_check_interrupted: bool,
-    ) {
+    pub unsafe fn check_system(component_name: *const c_char, do_check_interrupted: bool) {
         check_stack(component_name);
         check_memory(component_name);
         if do_check_interrupted {
@@ -123,8 +118,7 @@ mod runtime_interrupt_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean9sleep_forEjj")]
-    pub unsafe extern "C" fn sleep_for(ms: u32, mut step_ms: u32) {
+    pub unsafe fn sleep_for(ms: u32, mut step_ms: u32) {
         if step_ms == 0 {
             step_ms = 1;
         }
@@ -140,7 +134,6 @@ mod runtime_interrupt_impl {
     }
 
     // FFI wrappers for Lean code
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_internal_get_default_max_heartbeat() -> *mut LeanObject {
         #[cfg(feature = "default-max-heartbeat")]
         const DEFAULT: usize = 200000; // standard Lean default
@@ -150,7 +143,6 @@ mod runtime_interrupt_impl {
         unsafe { lean_box(DEFAULT) }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_internal_set_max_heartbeat(max: usize) -> *mut LeanObject {
         set_max_heartbeat(max);
         unsafe { lean_box(0) }
@@ -187,7 +179,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_heartbeatC1Em"
     )]
-    pub unsafe extern "C" fn scope_heartbeat_ctor_complete(this: *mut ScopeHeartbeat, curr: usize) {
+    pub unsafe fn scope_heartbeat_ctor_complete(this: *mut ScopeHeartbeat, curr: usize) {
         ScopeHeartbeat::ctor(this, curr);
     }
 
@@ -195,7 +187,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_heartbeatC2Em"
     )]
-    pub unsafe extern "C" fn scope_heartbeat_ctor_base(this: *mut ScopeHeartbeat, curr: usize) {
+    pub unsafe fn scope_heartbeat_ctor_base(this: *mut ScopeHeartbeat, curr: usize) {
         ScopeHeartbeat::ctor(this, curr);
     }
 
@@ -203,7 +195,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_heartbeatD1Ev"
     )]
-    pub unsafe extern "C" fn scope_heartbeat_dtor_complete(this: *mut ScopeHeartbeat) {
+    pub unsafe fn scope_heartbeat_dtor_complete(this: *mut ScopeHeartbeat) {
         ScopeHeartbeat::dtor(this);
     }
 
@@ -211,7 +203,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_heartbeatD2Ev"
     )]
-    pub unsafe extern "C" fn scope_heartbeat_dtor_base(this: *mut ScopeHeartbeat) {
+    pub unsafe fn scope_heartbeat_dtor_base(this: *mut ScopeHeartbeat) {
         ScopeHeartbeat::dtor(this);
     }
 
@@ -235,10 +227,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean19scope_max_heartbeatC1Em"
     )]
-    pub unsafe extern "C" fn scope_max_heartbeat_ctor_complete(
-        this: *mut ScopeMaxHeartbeat,
-        max: usize,
-    ) {
+    pub unsafe fn scope_max_heartbeat_ctor_complete(this: *mut ScopeMaxHeartbeat, max: usize) {
         ScopeMaxHeartbeat::ctor(this, max);
     }
 
@@ -246,10 +235,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean19scope_max_heartbeatC2Em"
     )]
-    pub unsafe extern "C" fn scope_max_heartbeat_ctor_base(
-        this: *mut ScopeMaxHeartbeat,
-        max: usize,
-    ) {
+    pub unsafe fn scope_max_heartbeat_ctor_base(this: *mut ScopeMaxHeartbeat, max: usize) {
         ScopeMaxHeartbeat::ctor(this, max);
     }
 
@@ -257,7 +243,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean19scope_max_heartbeatD1Ev"
     )]
-    pub unsafe extern "C" fn scope_max_heartbeat_dtor_complete(this: *mut ScopeMaxHeartbeat) {
+    pub unsafe fn scope_max_heartbeat_dtor_complete(this: *mut ScopeMaxHeartbeat) {
         ScopeMaxHeartbeat::dtor(this);
     }
 
@@ -265,7 +251,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean19scope_max_heartbeatD2Ev"
     )]
-    pub unsafe extern "C" fn scope_max_heartbeat_dtor_base(this: *mut ScopeMaxHeartbeat) {
+    pub unsafe fn scope_max_heartbeat_dtor_base(this: *mut ScopeMaxHeartbeat) {
         ScopeMaxHeartbeat::dtor(this);
     }
 
@@ -289,10 +275,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_cancel_tkC1EP11lean_object"
     )]
-    pub unsafe extern "C" fn scope_cancel_tk_ctor_complete(
-        this: *mut ScopeCancelTk,
-        tk: *mut LeanObject,
-    ) {
+    pub unsafe fn scope_cancel_tk_ctor_complete(this: *mut ScopeCancelTk, tk: *mut LeanObject) {
         ScopeCancelTk::ctor(this, tk);
     }
 
@@ -300,10 +283,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_cancel_tkC2EP11lean_object"
     )]
-    pub unsafe extern "C" fn scope_cancel_tk_ctor_base(
-        this: *mut ScopeCancelTk,
-        tk: *mut LeanObject,
-    ) {
+    pub unsafe fn scope_cancel_tk_ctor_base(this: *mut ScopeCancelTk, tk: *mut LeanObject) {
         ScopeCancelTk::ctor(this, tk);
     }
 
@@ -311,7 +291,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_cancel_tkD1Ev"
     )]
-    pub unsafe extern "C" fn scope_cancel_tk_dtor_complete(this: *mut ScopeCancelTk) {
+    pub unsafe fn scope_cancel_tk_dtor_complete(this: *mut ScopeCancelTk) {
         ScopeCancelTk::dtor(this);
     }
 
@@ -319,7 +299,7 @@ mod runtime_interrupt_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15scope_cancel_tkD2Ev"
     )]
-    pub unsafe extern "C" fn scope_cancel_tk_dtor_base(this: *mut ScopeCancelTk) {
+    pub unsafe fn scope_cancel_tk_dtor_base(this: *mut ScopeCancelTk) {
         ScopeCancelTk::dtor(this);
     }
 

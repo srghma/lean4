@@ -65,10 +65,7 @@ unsafe fn mk_option_decl(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean20register_trace_classERKNS_4nameES2_"
 )]
-pub unsafe extern "C" fn lean_cxx_register_trace_class(
-    n: *const LeanName,
-    decl_name: *const LeanName,
-) {
+pub unsafe fn lean_cxx_register_trace_class(n: *const LeanName, decl_name: *const LeanName) {
     let trace_name = mk_name("trace");
     let opt_name = append_name(trace_name.obj, (*n).obj);
     let decl_name = (*decl_name).obj;
@@ -86,13 +83,13 @@ pub unsafe extern "C" fn lean_cxx_register_trace_class(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean16initialize_traceEv"
 )]
-pub unsafe extern "C" fn lean_cxx_initialize_trace() {}
+pub unsafe fn lean_cxx_initialize_trace() {}
 
 #[cfg_attr(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean14finalize_traceEv"
 )]
-pub unsafe extern "C" fn lean_cxx_finalize_trace() {}
+pub unsafe fn lean_cxx_finalize_trace() {}
 
 // is_trace_class_enabled — delegates to Lean-exported function.
 // n is `name const&` which in x86-64 ABI is lean::name const* = pointer to {lean_object*}.
@@ -101,7 +98,7 @@ pub unsafe extern "C" fn lean_cxx_finalize_trace() {}
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean22is_trace_class_enabledERKNS_4nameE"
 )]
-pub unsafe extern "C" fn lean_cxx_is_trace_class_enabled(n: *const *mut LeanObject) -> bool {
+pub unsafe fn lean_cxx_is_trace_class_enabled(n: *const *mut LeanObject) -> bool {
     let opts_holder = G_OPTS.get();
     if opts_holder.is_null() {
         return false;
@@ -125,7 +122,7 @@ pub struct ScopeTraceEnv {
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean15scope_trace_envC1ERKNS_16elab_environmentERKNS_7optionsE"
 )]
-pub unsafe extern "C" fn lean_cxx_scope_trace_env_ctor_c1(
+pub unsafe fn lean_cxx_scope_trace_env_ctor_c1(
     this: *mut ScopeTraceEnv,
     _env: *const *mut LeanObject,
     opts: *const *mut LeanObject,
@@ -140,7 +137,7 @@ pub unsafe extern "C" fn lean_cxx_scope_trace_env_ctor_c1(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean15scope_trace_envC2ERKNS_16elab_environmentERKNS_7optionsE"
 )]
-pub unsafe extern "C" fn lean_cxx_scope_trace_env_ctor_c2(
+pub unsafe fn lean_cxx_scope_trace_env_ctor_c2(
     this: *mut ScopeTraceEnv,
     _env: *const *mut LeanObject,
     opts: *const *mut LeanObject,
@@ -153,7 +150,7 @@ pub unsafe extern "C" fn lean_cxx_scope_trace_env_ctor_c2(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean15scope_trace_envD1Ev"
 )]
-pub unsafe extern "C" fn lean_cxx_scope_trace_env_dtor_c1(this: *mut ScopeTraceEnv) {
+pub unsafe fn lean_cxx_scope_trace_env_dtor_c1(this: *mut ScopeTraceEnv) {
     let old = (*this).m_old_opts;
     G_OPTS.set(old);
 }
@@ -163,6 +160,6 @@ pub unsafe extern "C" fn lean_cxx_scope_trace_env_dtor_c1(this: *mut ScopeTraceE
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean15scope_trace_envD2Ev"
 )]
-pub unsafe extern "C" fn lean_cxx_scope_trace_env_dtor_c2(this: *mut ScopeTraceEnv) {
+pub unsafe fn lean_cxx_scope_trace_env_dtor_c2(this: *mut ScopeTraceEnv) {
     lean_cxx_scope_trace_env_dtor_c1(this);
 }

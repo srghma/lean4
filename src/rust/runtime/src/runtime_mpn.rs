@@ -235,7 +235,7 @@ fn mpn_div_impl(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean11mpn_compareEPKjmS1_m"
 )]
-pub unsafe extern "C" fn mpn_compare(
+pub unsafe fn mpn_compare(
     a: *const MpnDigit,
     lnga: usize,
     b: *const MpnDigit,
@@ -248,7 +248,7 @@ pub unsafe extern "C" fn mpn_compare(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean7mpn_addEPKjmS1_mPjmPm"
 )]
-pub unsafe extern "C" fn mpn_add(
+pub unsafe fn mpn_add(
     a: *const MpnDigit,
     lnga: usize,
     b: *const MpnDigit,
@@ -267,7 +267,7 @@ pub unsafe extern "C" fn mpn_add(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean7mpn_subEPKjmS1_mPjS2_"
 )]
-pub unsafe extern "C" fn mpn_sub(
+pub unsafe fn mpn_sub(
     a: *const MpnDigit,
     lnga: usize,
     b: *const MpnDigit,
@@ -285,7 +285,7 @@ pub unsafe extern "C" fn mpn_sub(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean7mpn_mulEPKjmS1_mPj"
 )]
-pub unsafe extern "C" fn mpn_mul(
+pub unsafe fn mpn_mul(
     a: *const MpnDigit,
     lnga: usize,
     b: *const MpnDigit,
@@ -301,7 +301,7 @@ pub unsafe extern "C" fn mpn_mul(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean7mpn_divEPKjmS1_mPjS2_"
 )]
-pub unsafe extern "C" fn mpn_div(
+pub unsafe fn mpn_div(
     numer: *const MpnDigit,
     lnum: usize,
     denom: *const MpnDigit,
@@ -322,7 +322,7 @@ pub unsafe extern "C" fn mpn_div(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean13mpn_to_stringEPKjmPcm"
 )]
-pub unsafe extern "C" fn mpn_to_string(
+pub unsafe fn mpn_to_string(
     a: *const MpnDigit,
     lng: usize,
     buf: *mut c_char,

@@ -56,7 +56,7 @@ mod runtime_event_loop_impl {
         fn uv_async_init(
             loop_: *mut UvLoop,
             async_: *mut UvAsync,
-            cb: Option<unsafe extern "C" fn(*mut UvAsync)>,
+            cb: Option<unsafe fn(*mut UvAsync)>,
         ) -> c_int;
         fn uv_mutex_trylock(mutex: *mut UvMutex) -> c_int;
         fn uv_mutex_lock(mutex: *mut UvMutex);
@@ -69,11 +69,9 @@ mod runtime_event_loop_impl {
         fn uv_loop_alive(loop_: *mut UvLoop) -> c_int;
         fn uv_loop_configure(loop_: *mut UvLoop, option: c_uint, ...) -> c_int;
         fn uv_strerror(err: c_int) -> *const c_char;
-        #[link_name = "lean_internal_panic"]
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub static mut _ZN4lean9global_evE: EventLoop = EventLoop {
         loop_: null_mut(),
         mutex: UvMutex { storage: [0; 40] },
@@ -100,7 +98,7 @@ mod runtime_event_loop_impl {
         }
     }
 
-    unsafe extern "C" fn async_callback(handle: *mut UvAsync) {
+    unsafe fn async_callback(handle: *mut UvAsync) {
         uv_stop((*handle).prefix.loop_);
     }
 
@@ -108,7 +106,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15event_loop_initEPNS_12event_loop_tE"
     )]
-    pub unsafe extern "C" fn event_loop_init(event_loop: *mut EventLoop) {
+    pub unsafe fn event_loop_init(event_loop: *mut EventLoop) {
         (*event_loop).loop_ = uv_default_loop();
         check_uv(
             uv_mutex_init_recursive(ptr::addr_of_mut!((*event_loop).mutex)),
@@ -133,7 +131,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean20event_loop_interruptEPNS_12event_loop_tE"
     )]
-    pub unsafe extern "C" fn event_loop_interrupt(event_loop: *mut EventLoop) {
+    pub unsafe fn event_loop_interrupt(event_loop: *mut EventLoop) {
         let result = uv_async_send(ptr::addr_of_mut!((*event_loop).async_));
         debug_assert_eq!(result, 0);
     }
@@ -142,7 +140,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15event_loop_lockEPNS_12event_loop_tE"
     )]
-    pub unsafe extern "C" fn event_loop_lock(event_loop: *mut EventLoop) {
+    pub unsafe fn event_loop_lock(event_loop: *mut EventLoop) {
         if uv_mutex_trylock(ptr::addr_of_mut!((*event_loop).mutex)) != 0 {
             (*event_loop).n_waiters.fetch_add(1, Ordering::SeqCst);
             event_loop_interrupt(event_loop);
@@ -155,7 +153,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean17event_loop_unlockEPNS_12event_loop_tE"
     )]
-    pub unsafe extern "C" fn event_loop_unlock(event_loop: *mut EventLoop) {
+    pub unsafe fn event_loop_unlock(event_loop: *mut EventLoop) {
         if (*event_loop).n_waiters.load(Ordering::SeqCst) == 0 {
             uv_cond_signal(ptr::addr_of_mut!((*event_loop).cond_var));
         }
@@ -166,7 +164,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean19event_loop_run_loopEPNS_12event_loop_tE"
     )]
-    pub unsafe extern "C" fn event_loop_run_loop(event_loop: *mut EventLoop) {
+    pub unsafe fn event_loop_run_loop(event_loop: *mut EventLoop) {
         while uv_loop_alive((*event_loop).loop_) != 0 {
             uv_mutex_lock(ptr::addr_of_mut!((*event_loop).mutex));
 
@@ -186,7 +184,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean21initialize_libuv_loopEv"
     )]
-    pub unsafe extern "C" fn initialize_libuv_loop() {
+    pub unsafe fn initialize_libuv_loop() {
         event_loop_init(ptr::addr_of_mut!(_ZN4lean9global_evE));
     }
 
@@ -194,10 +192,7 @@ mod runtime_event_loop_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean30lean_promise_resolve_with_codeEiP11lean_object"
     )]
-    pub unsafe extern "C" fn lean_promise_resolve_with_code(
-        status: c_int,
-        promise: *mut LeanObject,
-    ) {
+    pub unsafe fn lean_promise_resolve_with_code(status: c_int, promise: *mut LeanObject) {
         let result = if status == 0 {
             lean_runtime_alloc_ctor(1, 1, 0)
         } else {
@@ -212,10 +207,7 @@ mod runtime_event_loop_impl {
         lean_promise_resolve(result, promise);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_event_loop_configure(
-        options: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_uv_event_loop_configure(options: *mut LeanObject) -> *mut LeanObject {
         let accum = lean_ctor_get_uint8(options, 0) != 0;
         let block = lean_ctor_get_uint8(options, 1) != 0;
         let event_loop = ptr::addr_of_mut!(_ZN4lean9global_evE);
@@ -243,8 +235,7 @@ mod runtime_event_loop_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_event_loop_alive() -> u8 {
+    pub unsafe fn lean_uv_event_loop_alive() -> u8 {
         let event_loop = ptr::addr_of_mut!(_ZN4lean9global_evE);
         event_loop_lock(event_loop);
         let is_alive = uv_loop_alive((*event_loop).loop_) != 0;

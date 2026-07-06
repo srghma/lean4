@@ -10,7 +10,7 @@ Port of src/library/module.cpp:
 #[cfg(feature = "export-runtime-ffi")]
 mod library_module_impl {
     use super::*;
-    use core::ffi::{c_char, c_int, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_void};
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):
     //   marker[5]        {'o','l','e','a','n'}
@@ -77,11 +77,7 @@ mod library_module_impl {
     #[inline]
     fn align_up_ptr(d: usize) -> usize {
         let rem = d % PTR_SIZE;
-        if rem != 0 {
-            d + PTR_SIZE - rem
-        } else {
-            d
-        }
+        if rem != 0 { d + PTR_SIZE - rem } else { d }
     }
 
     /// Info about a dependency region needed for cross-region pointer fixup.
@@ -173,7 +169,7 @@ mod library_module_impl {
         struct State {
             libs: Vec<LibInfo>,
         }
-        unsafe extern "C" fn callback(
+        unsafe fn callback(
             info: *mut libc::dl_phdr_info,
             _size: libc::size_t,
             data: *mut c_void,
@@ -466,7 +462,7 @@ mod library_module_impl {
     /// Returns `IO (α × CompactedRegion)` where the second element is a boxed `USize`
     /// holding the raw `*OleanCompactedRegion` pointer.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_read(
+    pub unsafe fn lean_compacted_region_read(
         ofname: *mut LeanObject,
         odep_regions: *mut LeanObject,
         _io: *mut LeanObject,

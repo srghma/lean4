@@ -425,7 +425,7 @@ mod library_print_impl {
     const DV_BOOL: u8 = 1; // ofBool   (v : Bool)
     const DV_NAME: u8 = 2; // ofName   (v : Name)
     const DV_NAT: u8 = 3; // ofNat    (v : Nat)
-                          // ofInt=4, ofSyntax=5 — printed as fallback
+    // ofInt=4, ofSyntax=5 — printed as fallback
 
     // Print escaped string content (without surrounding quotes), mirroring escaped() in C++.
     unsafe fn fmt_escaped(s: *mut LeanObject, out: &mut String) {
@@ -455,7 +455,7 @@ mod library_print_impl {
             let pair = lean_ctor_get(list, 0);
             let key = lean_ctor_get(pair, 0); // Name
             let dv = lean_ctor_get(pair, 1); // DataValue
-                                             // Print "key:"
+            // Print "key:"
             fmt_name(key, out);
             out.push(':');
             // Print value
@@ -600,7 +600,7 @@ mod library_print_impl {
     // lean_expr_dbg_to_string: ToString Expr instance (@[extern "lean_expr_dbg_to_string"]).
     // Argument is borrowed (@&); return is owned.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_dbg_to_string(e: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_dbg_to_string(e: *mut LeanObject) -> *mut LeanObject {
         let mut out = String::new();
         fmt_expr(e, &mut out);
         let cstr = std::ffi::CString::new(out)

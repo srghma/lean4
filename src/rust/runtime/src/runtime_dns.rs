@@ -23,7 +23,7 @@ mod runtime_dns_impl {
         fn uv_getaddrinfo(
             loop_: *mut c_void,
             req: *mut UvGetAddrInfo,
-            cb: Option<unsafe extern "C" fn(*mut UvGetAddrInfo, c_int, *mut libc::addrinfo)>,
+            cb: Option<unsafe fn(*mut UvGetAddrInfo, c_int, *mut libc::addrinfo)>,
             node: *const c_char,
             service: *const c_char,
             hints: *const libc::addrinfo,
@@ -32,27 +32,20 @@ mod runtime_dns_impl {
         fn uv_getnameinfo(
             loop_: *mut c_void,
             req: *mut UvGetNameInfo,
-            cb: Option<
-                unsafe extern "C" fn(*mut UvGetNameInfo, c_int, *const c_char, *const c_char),
-            >,
+            cb: Option<unsafe fn(*mut UvGetNameInfo, c_int, *const c_char, *const c_char)>,
             addr: *const libc::sockaddr,
             flags: c_int,
         ) -> c_int;
 
-        #[link_name = "_ZN4lean26lean_in6_addr_to_ipv6_addrEPK8in6_addr"]
         fn lean_in6_addr_to_ipv6_addr(ipv6_addr: *const libc::in6_addr) -> *mut LeanObject;
-        #[link_name = "_ZN4lean25lean_in_addr_to_ipv4_addrEPK7in_addr"]
         fn lean_in_addr_to_ipv4_addr(ipv4_addr: *const libc::in_addr) -> *mut LeanObject;
-        #[link_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"]
         fn lean_socket_address_to_sockaddr_storage(
             ip_addr: *mut LeanObject,
             out: *mut libc::sockaddr_storage,
         );
-        #[link_name = "_ZN4lean31lean_in_addr_storage_to_ip_addrEsPNS_15in_addr_storageE"]
         fn lean_in_addr_storage_to_ip_addr(family: i16, out: *mut InAddrStorage)
-            -> *mut LeanObject;
+        -> *mut LeanObject;
 
-        #[link_name = "_ZN4lean30lean_promise_resolve_with_codeEiP11lean_object"]
         fn lean_promise_resolve_with_code(code: c_int, promise: *mut LeanObject);
     }
 
@@ -89,8 +82,7 @@ mod runtime_dns_impl {
         result
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_dns_get_info(
+    pub unsafe fn lean_uv_dns_get_info(
         name: *mut LeanObject,
         service: *mut LeanObject,
         family: u8,
@@ -133,11 +125,7 @@ mod runtime_dns_impl {
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
         lean_inc(promise);
 
-        unsafe extern "C" fn getaddrinfo_cb(
-            req: *mut UvGetAddrInfo,
-            status: c_int,
-            res: *mut libc::addrinfo,
-        ) {
+        unsafe fn getaddrinfo_cb(req: *mut UvGetAddrInfo, status: c_int, res: *mut libc::addrinfo) {
             let handle = req.cast::<UvHandle>();
             let promise = (*handle).data.cast::<LeanObject>();
 
@@ -201,8 +189,7 @@ mod runtime_dns_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_dns_get_name(addr: *mut LeanObject) -> *mut LeanObject {
         let req = libc::malloc(core::mem::size_of::<UvGetNameInfo>()).cast::<UvGetNameInfo>();
         if req.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -219,7 +206,7 @@ mod runtime_dns_impl {
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
         lean_inc(promise);
 
-        unsafe extern "C" fn getnameinfo_cb(
+        unsafe fn getnameinfo_cb(
             req: *mut UvGetNameInfo,
             status: c_int,
             hostname: *const c_char,
@@ -272,7 +259,6 @@ pub use runtime_dns_impl::*;
 mod runtime_dns_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_dns_get_info(
         _: *mut LeanObject,
         _: *mut LeanObject,
@@ -281,7 +267,6 @@ mod runtime_dns_impl {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_dns_get_name(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }

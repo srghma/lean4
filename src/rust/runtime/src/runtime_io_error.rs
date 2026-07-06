@@ -46,7 +46,7 @@ mod runtime_io_error_impl {
             details: *mut LeanObject,
         ) -> *mut LeanObject;
         fn lean_mk_io_error_no_such_thing(errnum: u32, details: *mut LeanObject)
-            -> *mut LeanObject;
+        -> *mut LeanObject;
         fn lean_mk_io_error_no_such_thing_file(
             name: *mut LeanObject,
             errnum: u32,
@@ -67,7 +67,7 @@ mod runtime_io_error_impl {
             details: *mut LeanObject,
         ) -> *mut LeanObject;
         fn lean_mk_io_error_resource_busy(errnum: u32, details: *mut LeanObject)
-            -> *mut LeanObject;
+        -> *mut LeanObject;
         fn lean_mk_io_error_resource_exhausted(
             errnum: u32,
             details: *mut LeanObject,
@@ -100,8 +100,8 @@ mod runtime_io_error_impl {
         fname: *mut LeanObject,
         errnum: c_int,
         details: *mut LeanObject,
-        plain: unsafe extern "C" fn(u32, *mut LeanObject) -> *mut LeanObject,
-        file: unsafe extern "C" fn(*mut LeanObject, u32, *mut LeanObject) -> *mut LeanObject,
+        plain: unsafe fn(u32, *mut LeanObject) -> *mut LeanObject,
+        file: unsafe fn(*mut LeanObject, u32, *mut LeanObject) -> *mut LeanObject,
     ) -> *mut LeanObject {
         if fname.is_null() {
             plain(errnum as u32, details)
@@ -111,11 +111,7 @@ mod runtime_io_error_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_decode_io_error(
-        errnum: c_int,
-        fname: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject {
         let details = mk_details(errnum);
         match errnum {
             libc::EINTR => {
@@ -288,11 +284,7 @@ mod runtime_io_error_impl {
         lean_mk_string(uv_strerror(errnum))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_decode_uv_error(
-        errnum: c_int,
-        fname: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject {
         let details = mk_uv_details(errnum);
         match errnum {
             UV_EINTR => {

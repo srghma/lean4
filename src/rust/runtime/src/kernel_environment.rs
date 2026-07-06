@@ -27,7 +27,7 @@ mod kernel_environment_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_add_decl(
+    pub unsafe fn lean_add_decl(
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
@@ -50,7 +50,7 @@ mod kernel_environment_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_add_decl_without_checking(
+    pub unsafe fn lean_add_decl_without_checking(
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {

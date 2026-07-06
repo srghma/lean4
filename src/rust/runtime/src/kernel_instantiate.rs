@@ -486,7 +486,7 @@ mod kernel_instantiate_impl {
     // C++ compatibility entry point for `lean::instantiate(a, start, n, subst)`.
     // `subst` points to `n` borrowed Expr object pointers.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate_at(
+    pub unsafe fn lean_expr_instantiate_at(
         a: *mut LeanObject,
         start: usize,
         n: usize,
@@ -498,7 +498,7 @@ mod kernel_instantiate_impl {
     // C++ compatibility entry point for `lean::instantiate_rev(a, n, subst)`.
     // `subst` points to `n` borrowed Expr object pointers.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate_rev_ptr(
+    pub unsafe fn lean_expr_instantiate_rev_ptr(
         a: *mut LeanObject,
         n: usize,
         subst: *const *mut LeanObject,
@@ -520,7 +520,7 @@ mod kernel_instantiate_impl {
 
     // C++ compatibility entry point for `lean::cheap_beta_reduce`.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_cheap_beta_reduce(e: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_cheap_beta_reduce(e: *mut LeanObject) -> *mut LeanObject {
         if lean_obj_tag(e) != EXPR_APP {
             lean_inc(e);
             return e;
@@ -839,7 +839,7 @@ mod kernel_instantiate_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate_lparams(
+    pub unsafe fn lean_expr_instantiate_lparams(
         e: *mut LeanObject,
         params: *mut LeanObject,
         levels: *mut LeanObject,
@@ -848,7 +848,7 @@ mod kernel_instantiate_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_instantiate_type_lparams(
+    pub unsafe fn lean_instantiate_type_lparams(
         info: *mut LeanObject,
         levels: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -865,7 +865,7 @@ mod kernel_instantiate_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_instantiate_value_lparams(
+    pub unsafe fn lean_instantiate_value_lparams(
         info: *mut LeanObject,
         levels: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -887,7 +887,7 @@ mod kernel_instantiate_impl {
     // lean_expr_instantiate1 (a e : @& Expr) : Expr
     // Instantiates BVar(0) with e and lowers all remaining loose BVars by 1.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate1(
+    pub unsafe fn lean_expr_instantiate1(
         a: *mut LeanObject,
         e: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -905,7 +905,7 @@ mod kernel_instantiate_impl {
     // lean_expr_instantiate (a : @& Expr) (subst : @& Array Expr) : Expr
     // Instantiates BVar(i) with subst[i] for all i < subst.size.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate(
+    pub unsafe fn lean_expr_instantiate(
         a: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -917,7 +917,7 @@ mod kernel_instantiate_impl {
     // lean_expr_instantiate_range (a : @& Expr) (begin end : @& Nat) (subst : @& Array Expr) : Expr
     // Instantiates using subst[begin..end].
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate_range(
+    pub unsafe fn lean_expr_instantiate_range(
         a: *mut LeanObject,
         begin: *mut LeanObject,
         end: *mut LeanObject,
@@ -940,7 +940,7 @@ mod kernel_instantiate_impl {
     // lean_expr_instantiate_rev (a : @& Expr) (subst : @& Array Expr) : Expr
     // Like instantiate but uses reversed indexing: BVar(i) → subst[n-1-i].
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate_rev(
+    pub unsafe fn lean_expr_instantiate_rev(
         a: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -952,7 +952,7 @@ mod kernel_instantiate_impl {
     // lean_expr_instantiate_rev_range (a : @& Expr) (begin end : @& Nat) (subst : @& Array Expr) : Expr
     // Like instantiate_rev but uses subst[begin..end].
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_instantiate_rev_range(
+    pub unsafe fn lean_expr_instantiate_rev_range(
         a: *mut LeanObject,
         begin: *mut LeanObject,
         end: *mut LeanObject,

@@ -133,7 +133,7 @@ mod runtime_system_impl {
             buf: *mut c_void,
             buflen: usize,
             flags: c_uint,
-            cb: Option<unsafe extern "C" fn(*mut UvRandom, c_int, *mut c_void, usize)>,
+            cb: Option<unsafe fn(*mut UvRandom, c_int, *mut c_void, usize)>,
         ) -> c_int;
         fn uv_getrusage(usage: *mut UvRusage) -> c_int;
         fn uv_exepath(buffer: *mut c_char, size: *mut usize) -> c_int;
@@ -176,8 +176,7 @@ mod runtime_system_impl {
         (t.tv_sec as u64) * 1000 + (t.tv_usec as u64) / 1000
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_get_process_title() -> *mut LeanObject {
+    pub unsafe fn lean_uv_get_process_title() -> *mut LeanObject {
         let mut title = [0 as c_char; 512];
         let result = uv_get_process_title(title.as_mut_ptr(), title.len());
 
@@ -189,8 +188,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_title)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_set_process_title(title: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_set_process_title(title: *mut LeanObject) -> *mut LeanObject {
         let title_str = lean_string_cstr(title);
         let len = libc::strlen(title_str);
         if len != lean_string_size(title) - 1 {
@@ -210,8 +208,7 @@ mod runtime_system_impl {
         fn fflush(stream: *mut c_void) -> c_int;
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_uptime() -> *mut LeanObject {
+    pub unsafe fn lean_uv_uptime() -> *mut LeanObject {
         printf(c"lean_uv_uptime entry\n".as_ptr());
         fflush(null_mut());
         let mut uptime = 0.0;
@@ -238,20 +235,17 @@ mod runtime_system_impl {
         res
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_getpid() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_getpid() -> *mut LeanObject {
         let pid = uv_os_getpid();
         lean_io_result_mk_ok(lean_box_uint64(pid as u64))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_getppid() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_getppid() -> *mut LeanObject {
         let ppid = uv_os_getppid();
         lean_io_result_mk_ok(lean_box_uint64(ppid as u64))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_cpu_info() -> *mut LeanObject {
+    pub unsafe fn lean_uv_cpu_info() -> *mut LeanObject {
         let mut cpu_infos = null_mut();
         let mut count = 0;
         let result = uv_cpu_info(&mut cpu_infos, &mut count);
@@ -290,8 +284,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_cpu_infos)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_cwd() -> *mut LeanObject {
+    pub unsafe fn lean_uv_cwd() -> *mut LeanObject {
         let mut buffer = [0 as c_char; PATH_MAX];
         let mut size = buffer.len();
         let result = uv_cwd(buffer.as_mut_ptr(), &mut size);
@@ -304,8 +297,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_cwd)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_chdir(path: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_chdir(path: *mut LeanObject) -> *mut LeanObject {
         let path_str = lean_string_cstr(path);
         let len = libc::strlen(path_str);
         if len != lean_string_size(path) - 1 {
@@ -322,8 +314,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_homedir() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_homedir() -> *mut LeanObject {
         let mut buffer = [0 as c_char; PATH_MAX];
         let mut size = buffer.len();
         let result = uv_os_homedir(buffer.as_mut_ptr(), &mut size);
@@ -336,8 +327,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_homedir)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_tmpdir() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_tmpdir() -> *mut LeanObject {
         let mut buffer = [0 as c_char; PATH_MAX];
         let mut size = buffer.len();
         let result = uv_os_tmpdir(buffer.as_mut_ptr(), &mut size);
@@ -350,8 +340,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_tmpdir)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_get_passwd() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_get_passwd() -> *mut LeanObject {
         let mut passwd = MaybeUninit::<UvPasswd>::uninit();
         let result = uv_os_get_passwd(passwd.as_mut_ptr());
 
@@ -394,8 +383,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(passwd_info)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_get_group(gid: u64) -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_get_group(gid: u64) -> *mut LeanObject {
         let mut group = MaybeUninit::<UvGroup>::uninit();
         let result = uv_os_get_group(group.as_mut_ptr(), gid);
 
@@ -440,8 +428,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(option_some(group_info))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_environ() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_environ() -> *mut LeanObject {
         let mut env = null_mut();
         let mut count = 0;
         let result = uv_os_environ(&mut env, &mut count);
@@ -471,8 +458,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(env_array)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_getenv(name: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_getenv(name: *mut LeanObject) -> *mut LeanObject {
         let name_str = lean_string_cstr(name);
         let len = libc::strlen(name_str);
         if len != lean_string_size(name) - 1 {
@@ -515,8 +501,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(some_value)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_setenv(
+    pub unsafe fn lean_uv_os_setenv(
         name: *mut LeanObject,
         value: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -538,8 +523,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_unsetenv(name: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_unsetenv(name: *mut LeanObject) -> *mut LeanObject {
         let name_str = lean_string_cstr(name);
         if libc::strlen(name_str) != lean_string_size(name) - 1 {
             return mk_embedded_nul_error(name);
@@ -554,8 +538,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_gethostname() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_gethostname() -> *mut LeanObject {
         let mut hostname = [0 as c_char; 256];
         let mut size = hostname.len();
 
@@ -569,8 +552,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_hostname)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_getpriority(pid: u64) -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_getpriority(pid: u64) -> *mut LeanObject {
         let mut priority = 0;
         let result = uv_os_getpriority(pid as u32, &mut priority);
 
@@ -581,8 +563,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box_uint64(priority as u64))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_setpriority(pid: u64, priority: i64) -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_setpriority(pid: u64, priority: i64) -> *mut LeanObject {
         let result = uv_os_setpriority(pid as u32, priority as c_int);
 
         if result < 0 {
@@ -592,8 +573,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_os_uname() -> *mut LeanObject {
+    pub unsafe fn lean_uv_os_uname() -> *mut LeanObject {
         let mut uname_info = MaybeUninit::<UvUtsname>::uninit();
         let result = uv_os_uname(uname_info.as_mut_ptr());
 
@@ -616,14 +596,12 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(uname)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_hrtime() -> *mut LeanObject {
+    pub unsafe fn lean_uv_hrtime() -> *mut LeanObject {
         let time = uv_hrtime();
         lean_io_result_mk_ok(lean_box_uint64(time))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_random(size: u64) -> *mut LeanObject {
+    pub unsafe fn lean_uv_random(size: u64) -> *mut LeanObject {
         let req = libc::malloc(core::mem::size_of::<RandomReq>()).cast::<RandomReq>();
         if req.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
@@ -644,7 +622,7 @@ mod runtime_system_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn random_cb(
+        unsafe fn random_cb(
             uv_req: *mut UvRandom,
             status: c_int,
             _buf: *mut c_void,
@@ -694,8 +672,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_getrusage() -> *mut LeanObject {
+    pub unsafe fn lean_uv_getrusage() -> *mut LeanObject {
         let mut usage = MaybeUninit::<UvRusage>::uninit();
         let result = uv_getrusage(usage.as_mut_ptr());
 
@@ -725,8 +702,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(r)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_exepath() -> *mut LeanObject {
+    pub unsafe fn lean_uv_exepath() -> *mut LeanObject {
         let mut buffer = [0 as c_char; PATH_MAX];
         let mut size = buffer.len();
         let result = uv_exepath(buffer.as_mut_ptr(), &mut size);
@@ -739,26 +715,22 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(path)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_get_free_memory() -> *mut LeanObject {
+    pub unsafe fn lean_uv_get_free_memory() -> *mut LeanObject {
         let mem = uv_get_free_memory();
         lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_get_total_memory() -> *mut LeanObject {
+    pub unsafe fn lean_uv_get_total_memory() -> *mut LeanObject {
         let mem = uv_get_total_memory();
         lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_get_constrained_memory() -> *mut LeanObject {
+    pub unsafe fn lean_uv_get_constrained_memory() -> *mut LeanObject {
         let mem = uv_get_constrained_memory();
         lean_io_result_mk_ok(lean_box_uint64(mem))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_get_available_memory() -> *mut LeanObject {
+    pub unsafe fn lean_uv_get_available_memory() -> *mut LeanObject {
         let mem = uv_get_available_memory();
         lean_io_result_mk_ok(lean_box_uint64(mem))
     }
@@ -771,142 +743,114 @@ pub use runtime_system_impl::*;
 mod runtime_system_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_get_process_title() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_set_process_title(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_uptime() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_getpid() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_getppid() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_cpu_info() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_cwd() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_chdir(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_homedir() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_tmpdir() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_get_passwd() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_get_group(_: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_environ() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_getenv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_setenv(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_unsetenv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_gethostname() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_getpriority(_: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_setpriority(_: u64, _: i64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_os_uname() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_hrtime() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_random(_: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_getrusage() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_exepath() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_get_free_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_get_total_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_get_constrained_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_get_available_memory() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }

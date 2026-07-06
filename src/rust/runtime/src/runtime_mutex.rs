@@ -221,23 +221,23 @@ mod runtime_mutex_impl {
     static mut BASERECMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
     static mut BASESHAREDMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 
-    unsafe extern "C" fn basemutex_finalizer(data: *mut c_void) {
+    unsafe fn basemutex_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<BaseMutex>()));
     }
 
-    unsafe extern "C" fn condvar_finalizer(data: *mut c_void) {
+    unsafe fn condvar_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<RuntimeCondvar>()));
     }
 
-    unsafe extern "C" fn baserecmutex_finalizer(data: *mut c_void) {
+    unsafe fn baserecmutex_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<BaseRecMutex>()));
     }
 
-    unsafe extern "C" fn basesharedmutex_finalizer(data: *mut c_void) {
+    unsafe fn basesharedmutex_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data.cast::<BaseSharedMutex>()));
     }
 
-    unsafe extern "C" fn noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
+    unsafe fn noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
     unsafe fn external_data<T>(obj: *mut LeanObject) -> &'static T {
         &*lean_runtime_get_external_data(obj).cast::<T>()
@@ -247,35 +247,29 @@ mod runtime_mutex_impl {
         lean_runtime_alloc_external(class, Box::into_raw(Box::new(value)).cast())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basemutex_new() -> *mut LeanObject {
+    pub unsafe fn lean_io_basemutex_new() -> *mut LeanObject {
         alloc_external(BASEMUTEX_EXTERNAL_CLASS, BaseMutex::new())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basemutex_lock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_basemutex_lock(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseMutex>(mtx).lock();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basemutex_try_lock(mtx: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_basemutex_try_lock(mtx: *mut LeanObject) -> u8 {
         external_data::<BaseMutex>(mtx).try_lock() as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basemutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_basemutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseMutex>(mtx).unlock();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_condvar_new() -> *mut LeanObject {
+    pub unsafe fn lean_io_condvar_new() -> *mut LeanObject {
         alloc_external(CONDVAR_EXTERNAL_CLASS, RuntimeCondvar::new())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_condvar_wait(
+    pub unsafe fn lean_io_condvar_wait(
         condvar: *mut LeanObject,
         mtx: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -283,89 +277,66 @@ mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_condvar_notify_one(
-        condvar: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_condvar_notify_one(condvar: *mut LeanObject) -> *mut LeanObject {
         external_data::<RuntimeCondvar>(condvar)
             .condvar
             .notify_one();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_condvar_notify_all(
-        condvar: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_condvar_notify_all(condvar: *mut LeanObject) -> *mut LeanObject {
         external_data::<RuntimeCondvar>(condvar)
             .condvar
             .notify_all();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_baserecmutex_new() -> *mut LeanObject {
+    pub unsafe fn lean_io_baserecmutex_new() -> *mut LeanObject {
         alloc_external(BASERECMUTEX_EXTERNAL_CLASS, BaseRecMutex::new())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_baserecmutex_lock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_baserecmutex_lock(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseRecMutex>(mtx).lock();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_baserecmutex_try_lock(mtx: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_baserecmutex_try_lock(mtx: *mut LeanObject) -> u8 {
         external_data::<BaseRecMutex>(mtx).try_lock() as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_baserecmutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_baserecmutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseRecMutex>(mtx).unlock();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_new() -> *mut LeanObject {
+    pub unsafe fn lean_io_basesharedmutex_new() -> *mut LeanObject {
         alloc_external(BASESHAREDMUTEX_EXTERNAL_CLASS, BaseSharedMutex::new())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_write(
-        mtx: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_basesharedmutex_write(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).write();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_try_write(mtx: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_basesharedmutex_try_write(mtx: *mut LeanObject) -> u8 {
         external_data::<BaseSharedMutex>(mtx).try_write() as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_unlock_write(
-        mtx: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_basesharedmutex_unlock_write(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).unlock_write();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_read(mtx: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_basesharedmutex_read(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).read();
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_try_read(mtx: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_basesharedmutex_try_read(mtx: *mut LeanObject) -> u8 {
         external_data::<BaseSharedMutex>(mtx).try_read() as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_basesharedmutex_unlock_read(
-        mtx: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_basesharedmutex_unlock_read(mtx: *mut LeanObject) -> *mut LeanObject {
         external_data::<BaseSharedMutex>(mtx).unlock_read();
         lean_box(0)
     }

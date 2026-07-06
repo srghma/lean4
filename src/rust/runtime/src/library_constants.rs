@@ -125,7 +125,6 @@ unsafe fn library_constant(index: usize) -> *const LeanName {
 
 macro_rules! library_constant_getter {
     ($name:ident, $symbol:literal, $index:literal) => {
-        #[cfg_attr(feature = "export-runtime-ffi", export_name = $symbol)]
         pub extern "C" fn $name() -> *const LeanName {
             unsafe { library_constant($index) }
         }

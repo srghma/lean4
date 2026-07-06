@@ -49,7 +49,7 @@ mod kernel_level_impl {
     // bit  33      = hasParam
     // bits [63:40] = depth (24-bit, max 16777215 = 0x00FFFFFF)
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_mk_data(
+    pub unsafe fn lean_level_mk_data(
         h: u64,
         depth: *mut LeanObject,
         has_mvar: u8,
@@ -67,12 +67,12 @@ mod kernel_level_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 

@@ -10,7 +10,6 @@ mod runtime_io_fs_impl {
 
     extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-        #[link_name = "_ZN4lean14io_wrap_handleEP8_IO_FILE"]
         fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject;
         fn lean_mk_io_error_no_file_or_directory(
             fname: *mut LeanObject,
@@ -165,8 +164,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_chmod(filename: *mut LeanObject, mode: u32) -> *mut LeanObject {
+    pub unsafe fn lean_chmod(filename: *mut LeanObject, mode: u32) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
             Ok(s) => s,
             Err(e) => return e,
@@ -178,8 +176,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_create_dir(p: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_create_dir(p: *mut LeanObject) -> *mut LeanObject {
         let str_ = match check_no_nuls(p) {
             Ok(s) => s,
             Err(e) => return e,
@@ -195,8 +192,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_remove_dir(p: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_remove_dir(p: *mut LeanObject) -> *mut LeanObject {
         let str_ = match check_no_nuls(p) {
             Ok(s) => s,
             Err(e) => return e,
@@ -208,11 +204,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_rename(
-        from: *mut LeanObject,
-        to: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_rename(from: *mut LeanObject, to: *mut LeanObject) -> *mut LeanObject {
         let from_str = match check_no_nuls(from) {
             Ok(s) => s,
             Err(e) => return e,
@@ -244,8 +236,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_hard_link(
+    pub unsafe fn lean_io_hard_link(
         orig: *mut LeanObject,
         link: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -282,8 +273,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_remove_file(filename: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_remove_file(filename: *mut LeanObject) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
             Ok(s) => s,
             Err(e) => return e,
@@ -300,8 +290,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_realpath(filename: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_realpath(filename: *mut LeanObject) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
             Ok(s) => s,
             Err(e) => {
@@ -347,8 +336,7 @@ mod runtime_io_fs_impl {
         result
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_read_dir(dirname: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_read_dir(dirname: *mut LeanObject) -> *mut LeanObject {
         let dirname_ptr = match check_no_nuls(dirname) {
             Ok(s) => s,
             Err(e) => return e,
@@ -384,8 +372,7 @@ mod runtime_io_fs_impl {
         lean_io_result_mk_ok(arr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_metadata(filename: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_metadata(filename: *mut LeanObject) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
             Ok(s) => s,
             Err(e) => return e,
@@ -398,10 +385,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_symlink_metadata(
-        filename: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_symlink_metadata(filename: *mut LeanObject) -> *mut LeanObject {
         let fname = match check_no_nuls(filename) {
             Ok(s) => s,
             Err(e) => return e,
@@ -418,8 +402,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_create_tempdir(_w: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_create_tempdir(_w: *mut LeanObject) -> *mut LeanObject {
         let template = match tmpdir_template() {
             Some(template) => template,
             None => {
@@ -441,8 +424,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_create_tempfile(_w: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_create_tempfile(_w: *mut LeanObject) -> *mut LeanObject {
         let template = match tmpdir_template() {
             Some(template) => template,
             None => {
@@ -472,8 +454,7 @@ mod runtime_io_fs_impl {
         lean_io_result_mk_ok(pair)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_get_random_bytes(nbytes: usize) -> *mut LeanObject {
+    pub unsafe fn lean_io_get_random_bytes(nbytes: usize) -> *mut LeanObject {
         if nbytes == 0 {
             return lean_io_result_mk_ok(lean_alloc_sarray(1, 0, 0));
         }
@@ -559,8 +540,7 @@ mod runtime_io_fs_impl {
         lean_io_result_mk_ok(res)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_current_dir() -> *mut LeanObject {
+    pub unsafe fn lean_io_current_dir() -> *mut LeanObject {
         let mut buffer = [0u8; libc::PATH_MAX as usize];
         let cwd = libc::getcwd(buffer.as_mut_ptr().cast::<c_char>(), buffer.len());
         if !cwd.is_null() {
@@ -570,8 +550,7 @@ mod runtime_io_fs_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_app_path() -> *mut LeanObject {
+    pub unsafe fn lean_io_app_path() -> *mut LeanObject {
         #[cfg(target_os = "windows")]
         {
             use core::ffi::c_void;

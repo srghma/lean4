@@ -39,7 +39,7 @@ mod runtime_object_panic_impl {
             fn free(ptr: *mut c_void);
         }
 
-        type DemangleBacktraceLine = unsafe extern "C" fn(*mut LeanObject) -> *mut LeanObject;
+        type DemangleBacktraceLine = unsafe fn(*mut LeanObject) -> *mut LeanObject;
 
         unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
             let proc = libc::dlsym(
@@ -159,58 +159,48 @@ mod runtime_object_panic_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_panic(msg: *const c_char) -> ! {
+    pub unsafe fn lean_internal_panic(msg: *const c_char) -> ! {
         let line = cstr_lossy(msg);
         let _ = writeln!(std::io::stderr(), "INTERNAL PANIC: {line}");
         abort_on_panic();
         std::process::exit(1);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_panic_out_of_memory() -> ! {
+    pub unsafe fn lean_internal_panic_out_of_memory() -> ! {
         lean_internal_panic(c_char_ptr(b"out of memory\0"))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_panic_unreachable() -> ! {
+    pub unsafe fn lean_internal_panic_unreachable() -> ! {
         lean_internal_panic(c_char_ptr(b"unreachable code has been reached\0"))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_panic_rc_overflow() -> ! {
+    pub unsafe fn lean_internal_panic_rc_overflow() -> ! {
         lean_internal_panic(c_char_ptr(b"reference counter overflowed\0"))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_panic_overflow() -> ! {
+    pub unsafe fn lean_internal_panic_overflow() -> ! {
         lean_internal_panic(c_char_ptr(b"integer overflow in runtime computation\0"))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_set_exit_on_panic(flag: bool) {
         G_EXIT_ON_PANIC.store(flag, Ordering::Relaxed);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_set_exit_on_panic(exit: u8) -> *mut LeanObject {
+    pub unsafe fn lean_internal_set_exit_on_panic(exit: u8) -> *mut LeanObject {
         G_EXIT_ON_PANIC.store(exit != 0, Ordering::Relaxed);
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_set_panic_messages(flag: bool) {
         G_PANIC_MESSAGES.store(flag, Ordering::Relaxed);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_panic(msg: *const c_char, force_stderr: bool) {
+    pub unsafe fn lean_panic(msg: *const c_char, force_stderr: bool) {
         let line = cstr_lossy(msg);
         lean_panic_impl(line.as_bytes(), force_stderr);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_panic_fn(
+    pub unsafe fn lean_panic_fn(
         default_val: *mut LeanObject,
         msg: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -221,8 +211,7 @@ mod runtime_object_panic_impl {
         default_val
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_panic_fn_borrowed(
+    pub unsafe fn lean_panic_fn_borrowed(
         default_val: *mut LeanObject,
         msg: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -230,13 +219,11 @@ mod runtime_object_panic_impl {
         lean_panic_fn(default_val, msg)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sorry(_: u8) -> *mut LeanObject {
+    pub unsafe fn lean_sorry(_: u8) -> *mut LeanObject {
         lean_internal_panic(c_char_ptr(b"executed 'sorry'\0"))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_dbg_stack_trace(fn_obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_dbg_stack_trace(fn_obj: *mut LeanObject) -> *mut LeanObject {
         backtrace_impl::print_backtrace(false);
         lean_apply_1(fn_obj, lean_box(0))
     }

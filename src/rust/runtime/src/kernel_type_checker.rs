@@ -47,7 +47,6 @@ mod kernel_type_checker_impl {
         fn lean_level_mk_imax(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_param(n: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_mvar(n: *mut LeanObject) -> *mut LeanObject;
-        #[link_name = "lean_level_eq"]
         fn lean_level_eq_raw(a: *mut LeanObject, b: *mut LeanObject) -> u8;
         // lean_level_get_succ / lean_level_get_param_name are inline C++; implemented as Rust shims below
         // lean_level_get_max_lhs / get_max_rhs / get_imax_lhs / get_imax_rhs: implemented as Rust shims below
@@ -94,7 +93,6 @@ mod kernel_type_checker_impl {
         // `@[export lean_expr_hash] def hashEx : Expr → UInt64` — returns UInt64 and CONSUMES
         // its argument. Always call through the `expr_hash` borrowing wrapper, never directly.
         fn lean_expr_hash(e: *const LeanObject) -> u64;
-        #[link_name = "lean_expr_eqv"]
         fn lean_expr_eqv_raw(a: *mut LeanObject, b: *mut LeanObject) -> u8;
         // lean_expr_has_loose_bvars: implemented as Rust shim below
         fn lean_expr_has_fvar(e: *const LeanObject) -> bool;
@@ -114,13 +112,11 @@ mod kernel_type_checker_impl {
         // `instantiate`/`instantiate_rev`/`abstract` take an `Array Expr`; the kernel needs the
         // raw-pointer variants. `instantiate1` substitutes a single `Expr`. All borrow their args.
         fn lean_expr_instantiate1(e: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject;
-        #[link_name = "lean_expr_instantiate_rev_ptr"]
         fn lean_expr_instantiate_rev(
             e: *mut LeanObject,
             n: u32,
             vs: *const *mut LeanObject,
         ) -> *mut LeanObject;
-        #[link_name = "lean_expr_abstract_ptr"]
         fn lean_expr_abstract(
             e: *mut LeanObject,
             n: u32,
@@ -193,10 +189,8 @@ mod kernel_type_checker_impl {
 
         // InductiveVal
         // lean_inductive_val_get_nparams / lean_inductive_val_get_nindices / lean_inductive_val_get_ncnstrs / lean_inductive_val_get_cnstrs are inline C++; implemented as Rust shims below
-        #[link_name = "lean_inductive_val_is_rec"]
         fn lean_inductive_val_is_rec_raw(v: *mut LeanObject) -> u8;
         fn lean_inductive_val_is_k(v: *const LeanObject) -> bool;
-        #[link_name = "lean_inductive_val_is_reflexive"]
         fn lean_inductive_val_is_reflexive_raw(v: *mut LeanObject) -> u8;
 
         // ConstructorVal
@@ -218,9 +212,9 @@ mod kernel_type_checker_impl {
         // lean_local_ctx_find_local_decl / lean_local_decl_get_type are inline C++; implemented as Rust shims below
         // lean_local_ctx_find is the underlying real Lean export used by the shim
         fn lean_local_ctx_find(lctx: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject; // Option LocalDecl
-                                                                                                 // lean_local_decl_get_value / lean_local_decl_has_value / lean_local_decl_get_user_name:
-                                                                                                 // implemented as Rust shims below.
-                                                                                                 // lean_local_ctx_mk_pi / lean_local_ctx_mk_lambda: implemented as Rust shims below.
+        // lean_local_decl_get_value / lean_local_decl_has_value / lean_local_decl_get_user_name:
+        // implemented as Rust shims below.
+        // lean_local_ctx_mk_pi / lean_local_ctx_mk_lambda: implemented as Rust shims below.
 
         // EquivManager — uses *mut c_void (opaque pointer to Rust struct)
         fn lean_equiv_manager_new() -> *mut c_void;
@@ -377,75 +371,75 @@ mod kernel_type_checker_impl {
 
     // Names: lean_name_eq_raw returns 0 (not equal) or 1 (equal)
     #[no_mangle]
-    pub unsafe extern "C" fn lean_name_eq_raw(a: *const LeanObject, b: *const LeanObject) -> u8 {
+    pub unsafe fn lean_name_eq_raw(a: *const LeanObject, b: *const LeanObject) -> u8 {
         super::lean_name_eq_export(a as *mut _, b as *mut _)
     }
 
     // Levels
     // Level::Succ (tag 1): field[0] = pred level
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_get_succ(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_level_get_succ(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 0)
     }
 
     // Level::Param (tag 4): field[0] = name
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_get_param_name(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_level_get_param_name(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 0)
     }
 
     // Expressions
     // Expr::App (tag 5): field[0]=fn, field[1]=arg
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_app(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_app(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_APP
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_app_fn(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_app_fn(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_app_arg(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_app_arg(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 1)
     }
 
     // Expr::Const (tag 4): field[0]=name, field[1]=List Level
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_const(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_const(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_CONST
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_const_name(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_const_name(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
 
     // Expr::Proj (tag 11): field[0]=sname, field[1]=idx, field[2]=expr
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_proj_sname(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_proj_sname(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_proj_idx(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_proj_idx(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 1)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_proj_expr(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_proj_expr(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 2)
     }
 
     // Nat scalars: small Nat values are stored as tagged scalars (lean_box(n))
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_is_small(n: *const LeanObject) -> bool {
+    pub unsafe fn lean_nat_is_small(n: *const LeanObject) -> bool {
         lean_is_scalar(n)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_get_small_value(n: *const LeanObject) -> u32 {
+    pub unsafe fn lean_nat_get_small_value(n: *const LeanObject) -> u32 {
         lean_unbox(n) as u32
     }
 
@@ -454,44 +448,40 @@ mod kernel_type_checker_impl {
     const CONST_INFO_INDUCTIVE_TAG: u32 = 5;
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_is_inductive(info: *const LeanObject) -> bool {
+    pub unsafe fn lean_constant_info_is_inductive(info: *const LeanObject) -> bool {
         !lean_is_scalar(info) && lean_ptr_tag(info) == CONST_INFO_INDUCTIVE_TAG
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_to_inductive_val(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constant_info_to_inductive_val(info: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(info, 0)
     }
 
     // InductiveVal: field[0]=ConstantVal, field[1]=nparams(Nat), field[2]=nindices(Nat),
     //               field[3]=all(List Name), field[4]=cnstrs(List Name), field[5]=nnested(Nat)
     #[no_mangle]
-    pub unsafe extern "C" fn lean_inductive_val_get_nparams(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_inductive_val_get_nparams(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 1)) as u32
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_inductive_val_get_nindices(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_inductive_val_get_nindices(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 2)) as u32
     }
 
     // InductiveVal.cnstrs is the List Name at field[4]
     #[no_mangle]
-    pub unsafe extern "C" fn lean_inductive_val_get_cnstrs(
-        v: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_inductive_val_get_cnstrs(v: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(v, 4)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_inductive_val_get_all(v: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_inductive_val_get_all(v: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(v, 3)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_inductive_val_get_nnested(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_inductive_val_get_nnested(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 5)) as u32
     }
 
@@ -506,7 +496,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_inductive_val_get_ncnstrs(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_inductive_val_get_ncnstrs(v: *const LeanObject) -> u32 {
         lean_list_length(lean_ctor_get(v, 4))
     }
 
@@ -514,20 +504,20 @@ mod kernel_type_checker_impl {
     //   field[0]=index(Nat), field[1]=name(Name), field[2]=userName(Name), field[3]=type(Expr)
     //   ldecl also has field[4]=value(Expr)
     #[no_mangle]
-    pub unsafe extern "C" fn lean_local_decl_get_type(d: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_local_decl_get_type(d: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(d, 3)
     }
 
     // lean_local_ctx_find returns Option LocalDecl (None = scalar, Some(d) = tag-1 ctor with field[0]=d)
     // This shim extracts the FVarId from an FVar expr, calls lean_local_ctx_find, and unwraps the Option.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_local_ctx_find_local_decl(
+    pub unsafe fn lean_local_ctx_find_local_decl(
         lctx: *const LeanObject,
         fvar_expr: *const LeanObject,
     ) -> *mut LeanObject {
         let fvar_id = lean_ctor_get(fvar_expr, 0); // Expr::FVar field[0] = FVarId (= Name, FVarId is a single-field struct erased in ABI)
-                                                   // lean_local_ctx_find consumes both args (C++ passes them via to_obj_arg()); our lctx/fvar_id
-                                                   // are borrowed, so inc each first — otherwise every fvar lookup over-decrements the lctx.
+        // lean_local_ctx_find consumes both args (C++ passes them via to_obj_arg()); our lctx/fvar_id
+        // are borrowed, so inc each first — otherwise every fvar lookup over-decrements the lctx.
         lean_inc(lctx as *mut _);
         lean_inc(fvar_id);
         let opt = lean_local_ctx_find(lctx as *mut _, fvar_id); // Option LocalDecl
@@ -547,42 +537,42 @@ mod kernel_type_checker_impl {
 
     // List.nil = scalar, List.cons: field[0]=head, field[1]=tail
     #[no_mangle]
-    pub unsafe extern "C" fn lean_list_head(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_list_head(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 0)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_list_tail(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_list_tail(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 1)
     }
 
     // Expr::Const (tag 4): field[0]=name, field[1]=List Level
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_const_levels(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_const_levels(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 1)
     }
 
     // Expr::Pi (tag 7)
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_pi(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_pi(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_PI
     }
 
     // Lambda/Pi: field[0]=name, field[1]=domain, field[2]=body
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_binding_domain(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_binding_domain(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 1)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_binding_body(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_binding_body(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 2)
     }
 
     // Expr.Data u64 is stored after the header+object-fields.
     // Bits [63:44] = bvarRange. has_loose_bvars iff bvarRange > 0.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_has_loose_bvars(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_has_loose_bvars(e: *const LeanObject) -> bool {
         if lean_is_scalar(e) {
             return false;
         }
@@ -596,7 +586,7 @@ mod kernel_type_checker_impl {
 
     // Count arguments in an App chain: App(App(f,a1),a2) has 2 args.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_app_num_args(e: *const LeanObject) -> u32 {
+    pub unsafe fn lean_expr_get_app_num_args(e: *const LeanObject) -> u32 {
         let mut count = 0u32;
         let mut cur = e;
         while !lean_is_scalar(cur) && lean_ptr_tag(cur) == EXPR_APP {
@@ -610,7 +600,7 @@ mod kernel_type_checker_impl {
     const LITERAL_NAT_TAG: u32 = 0;
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_nat_lit(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_nat_lit(e: *const LeanObject) -> bool {
         !lean_is_scalar(e)
             && lean_ptr_tag(e) == EXPR_LIT
             && !lean_is_scalar(lean_ctor_get(e, 0))
@@ -619,26 +609,26 @@ mod kernel_type_checker_impl {
 
     // Get Nat from Expr::Lit(Literal::Nat(n))
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_lit_nat(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_lit_nat(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(lean_ctor_get(e, 0), 0)
     }
 
     // Get String from Expr::Lit(Literal::String(s)).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_lit_str(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_lit_str(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(lean_ctor_get(e, 0), 0)
     }
 
     // Create Expr::Lit(Literal::Nat(n)). Consumes n.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_mk_lit_nat(n: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_mk_lit_nat(n: *mut LeanObject) -> *mut LeanObject {
         let lit = lean_alloc_ctor(LITERAL_NAT_TAG, 1, 0);
         lean_ctor_set(lit, 0, n);
         lean_expr_mk_lit(lit)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_nat_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject {
         debug_assert!(lean_expr_is_nat_lit(e));
         let n = lean_expr_get_lit_nat(e);
         if lean_nat_is_zero(n) {
@@ -667,7 +657,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_mk_obj(n: u64) -> *mut LeanObject {
+    pub unsafe fn lean_nat_mk_obj(n: u64) -> *mut LeanObject {
         if n <= LEAN_MAX_SMALL_NAT as u64 {
             super::lean_box(n as usize)
         } else {
@@ -676,10 +666,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_add(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             lean_usize_to_nat(lean_unbox(a as *const _).wrapping_add(lean_unbox(b as *const _)))
         } else {
@@ -688,10 +675,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_sub(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let n1 = lean_unbox(a as *const _);
             let n2 = lean_unbox(b as *const _);
@@ -702,10 +686,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_mul(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let n1 = lean_unbox(a as *const _);
             if n1 == 0 {
@@ -724,10 +705,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_div(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let n1 = lean_unbox(a as *const _);
             let n2 = lean_unbox(b as *const _);
@@ -738,10 +716,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_mod(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let n1 = lean_unbox(a as *const _);
             let n2 = lean_unbox(b as *const _);
@@ -753,10 +728,7 @@ mod kernel_type_checker_impl {
 
     // For land/lor, tagged-scalar bitwise ops preserve the tag bit (bit 0 = 1 & 1 = 1 / 1 | 1 = 1).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_land(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_land(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             (a as usize & b as usize) as *mut LeanObject
         } else {
@@ -765,10 +737,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_lor(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_lor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             (a as usize | b as usize) as *mut LeanObject
         } else {
@@ -778,10 +747,7 @@ mod kernel_type_checker_impl {
 
     // lean_nat_xor (= lean_nat_lxor in lean.h): tag bit cancels on XOR so must unbox/rebox.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_xor(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_xor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             super::lean_box(lean_unbox(a as *const _) ^ lean_unbox(b as *const _))
         } else {
@@ -790,10 +756,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_shiftr(
-        a: *mut LeanObject,
-        b: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_nat_shiftr(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let s1 = lean_unbox(a as *const _);
             let s2 = lean_unbox(b as *const _);
@@ -825,9 +788,7 @@ mod kernel_type_checker_impl {
         // *_val unsafe flags (Lean @[export], consume arg).
         fn lean_axiom_val_is_unsafe(v: *mut LeanObject) -> u8;
         fn lean_opaque_val_is_unsafe(v: *mut LeanObject) -> u8;
-        #[link_name = "lean_inductive_val_is_unsafe"]
         fn lean_inductive_val_is_unsafe_raw(v: *mut LeanObject) -> u8;
-        #[link_name = "lean_constructor_val_is_unsafe"]
         fn lean_constructor_val_is_unsafe_raw(v: *mut LeanObject) -> u8;
         // ReducibilityHints height (Lean @[export], consumes arg).
         fn lean_reducibility_hints_get_height(h: *mut LeanObject) -> u32;
@@ -850,7 +811,6 @@ mod kernel_type_checker_impl {
         // Environment quot-init marker (Lean @[export], consumes env).
         fn lean_environment_mark_quot_init(env: *mut LeanObject) -> *mut LeanObject;
         // Real Lean LocalContext builders (return new LocalContext; consume owned args).
-        #[link_name = "lean_local_ctx_mk_local_decl"]
         fn lean_real_lctx_mk_local_decl(
             lctx: *mut LeanObject,
             fvar_id: *mut LeanObject,
@@ -858,7 +818,6 @@ mod kernel_type_checker_impl {
             ty: *mut LeanObject,
             bi: u8,
         ) -> *mut LeanObject;
-        #[link_name = "lean_local_ctx_mk_let_decl"]
         fn lean_real_lctx_mk_let_decl(
             lctx: *mut LeanObject,
             fvar_id: *mut LeanObject,
@@ -896,26 +855,26 @@ mod kernel_type_checker_impl {
     // --- Name ---
     // Name.anonymous is the boxed scalar 0.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_name_anonymous() -> *mut LeanObject {
+    pub unsafe fn lean_name_anonymous() -> *mut LeanObject {
         super::lean_box(0)
     }
 
     // --- List ---
     // List.nil is the boxed scalar 0; List.cons (tag 1) has field[0]=head, field[1]=tail.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_list_is_nil(l: *const LeanObject) -> bool {
+    pub unsafe fn lean_list_is_nil(l: *const LeanObject) -> bool {
         lean_is_scalar(l)
     }
 
     // List.nil ignores its (erased) element-type argument.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_mk_list_nil(_ty: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_mk_list_nil(_ty: *mut LeanObject) -> *mut LeanObject {
         super::lean_box(0)
     }
 
     // List.cons ignores its erased element-type argument and consumes head/tail.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_mk_list_cons(
+    pub unsafe fn lean_mk_list_cons(
         _ty: *mut LeanObject,
         h: *mut LeanObject,
         t: *mut LeanObject,
@@ -928,60 +887,60 @@ mod kernel_type_checker_impl {
 
     // --- Levels (Max tag 2 / IMax tag 3): field[0]=lhs, field[1]=rhs ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_get_max_lhs(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_level_get_max_lhs(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 0)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_get_max_rhs(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_level_get_max_rhs(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 1)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_get_imax_lhs(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_level_get_imax_lhs(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 0)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_level_get_imax_rhs(l: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_level_get_imax_rhs(l: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(l, 1)
     }
 
     // --- Expr kind / pointer identity ---
     // expr_kind(e) = cnstr_tag(e); Expr is never a scalar.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_kind(e: *const LeanObject) -> u32 {
+    pub unsafe fn lean_expr_kind(e: *const LeanObject) -> u32 {
         lean_ptr_tag(e)
     }
 
     // is_eqp = pointer equality.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_eqp(a: *const LeanObject, b: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_eqp(a: *const LeanObject, b: *const LeanObject) -> bool {
         a == b
     }
 
     // --- Expr predicates ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_fvar(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_fvar(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_FVAR
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_sort(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_sort(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_SORT
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_lambda(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_lambda(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_LAMBDA
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_let(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_let(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_LET
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_proj(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_proj(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_PROJ
     }
 
     // Expr::Lit (tag 9): field[0]=Literal. Literal::String has tag 1.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_is_string_lit(e: *const LeanObject) -> bool {
+    pub unsafe fn lean_expr_is_string_lit(e: *const LeanObject) -> bool {
         !lean_is_scalar(e)
             && lean_ptr_tag(e) == EXPR_LIT
             && !lean_is_scalar(lean_ctor_get(e, 0))
@@ -989,7 +948,7 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_string_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_string_lit_to_constructor(e: *mut LeanObject) -> *mut LeanObject {
         debug_assert!(lean_expr_is_string_lit(e));
         let s = lean_expr_get_lit_str(e);
         let bytes = core::slice::from_raw_parts(
@@ -1013,45 +972,45 @@ mod kernel_type_checker_impl {
     // --- Expr field accessors (borrowed) ---
     // Expr::FVar (tag 1): field[0]=FVarId
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_fvar_id(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_fvar_id(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
     // Expr::Sort (tag 3): field[0]=Level
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_sort_level(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_sort_level(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
     // Expr::MData (tag 10): field[0]=kvmap, field[1]=expr
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_mdata_expr(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_mdata_expr(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 1)
     }
     // Lambda/Pi: field[0]=name
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_binding_name(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_binding_name(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
     // Expr::Let (tag 8): field[0]=name, field[1]=type, field[2]=value, field[3]=body
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_let_name(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_let_name(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 0)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_let_type(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_let_type(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 1)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_let_value(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_let_value(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 2)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_let_body(e: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_expr_get_let_body(e: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(e, 3)
     }
 
     // binding_info: delegates to the real lean_expr_binder_info (which consumes its arg).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_get_binding_info(e: *const LeanObject) -> u8 {
+    pub unsafe fn lean_expr_get_binding_info(e: *const LeanObject) -> u8 {
         lean_inc(e as *mut _);
         lean_expr_binder_info(e as *mut _)
     }
@@ -1119,14 +1078,14 @@ mod kernel_type_checker_impl {
 
     // Prop = Sort 0.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_mk_prop() -> *mut LeanObject {
+    pub unsafe fn lean_expr_mk_prop() -> *mut LeanObject {
         let zero = lean_level_mk_zero();
         lean_expr_mk_sort(zero)
     }
 
     // --- Nat comparisons / helpers ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
+    pub unsafe fn lean_nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
         if lean_is_scalar(a) && lean_is_scalar(b) {
             lean_unbox(a) == lean_unbox(b)
         } else {
@@ -1134,11 +1093,11 @@ mod kernel_type_checker_impl {
         }
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    pub unsafe fn lean_nat_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
         lean_nat_eq(a as *const _, b as *const _)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_ble(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    pub unsafe fn lean_nat_ble(a: *mut LeanObject, b: *mut LeanObject) -> bool {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             lean_unbox(a as *const _) <= lean_unbox(b as *const _)
         } else {
@@ -1146,19 +1105,19 @@ mod kernel_type_checker_impl {
         }
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_is_zero(n: *const LeanObject) -> bool {
+    pub unsafe fn lean_nat_is_zero(n: *const LeanObject) -> bool {
         // Big Nat is never zero; small Nat zero is boxed scalar 0.
         lean_is_scalar(n) && lean_unbox(n) == 0
     }
     // Nat predecessor (saturating): n - 1.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_nat_dec(n: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_nat_dec(n: *mut LeanObject) -> *mut LeanObject {
         lean_nat_sub(n, super::lean_box(1))
     }
 
     // --- Environment ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_environment_is_quot_initialized(env: *const LeanObject) -> bool {
+    pub unsafe fn lean_environment_is_quot_initialized(env: *const LeanObject) -> bool {
         lean_inc(env as *mut _);
         lean_environment_quot_init(env as *mut _) != 0
     }
@@ -1175,66 +1134,56 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_get_name(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constant_info_get_name(info: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(ci_constant_val(info), 0)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_get_lparams(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constant_info_get_lparams(info: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(ci_constant_val(info), 1)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_get_type(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constant_info_get_type(info: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(ci_constant_val(info), 2)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_get_num_lparams(info: *const LeanObject) -> u32 {
+    pub unsafe fn lean_constant_info_get_num_lparams(info: *const LeanObject) -> u32 {
         lean_list_length(lean_ctor_get(ci_constant_val(info), 1))
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_is_definition(info: *const LeanObject) -> bool {
+    pub unsafe fn lean_constant_info_is_definition(info: *const LeanObject) -> bool {
         !lean_is_scalar(info) && lean_ptr_tag(info) == CI_DEFINITION
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_is_constructor(info: *const LeanObject) -> bool {
+    pub unsafe fn lean_constant_info_is_constructor(info: *const LeanObject) -> bool {
         !lean_is_scalar(info) && lean_ptr_tag(info) == CI_CONSTRUCTOR
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_is_recursor(info: *const LeanObject) -> bool {
+    pub unsafe fn lean_constant_info_is_recursor(info: *const LeanObject) -> bool {
         !lean_is_scalar(info) && lean_ptr_tag(info) == CI_RECURSOR
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_to_definition_val(
+    pub unsafe fn lean_constant_info_to_definition_val(info: *const LeanObject) -> *mut LeanObject {
+        ci_to_val(info)
+    }
+    #[no_mangle]
+    pub unsafe fn lean_constant_info_to_constructor_val(
         info: *const LeanObject,
     ) -> *mut LeanObject {
         ci_to_val(info)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_to_constructor_val(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
-        ci_to_val(info)
-    }
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_to_recursor_val(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constant_info_to_recursor_val(info: *const LeanObject) -> *mut LeanObject {
         ci_to_val(info)
     }
     // has_value: theorem or definition.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_has_value(info: *const LeanObject) -> bool {
+    pub unsafe fn lean_constant_info_has_value(info: *const LeanObject) -> bool {
         let k = lean_ptr_tag(info);
         k == CI_THEOREM || k == CI_DEFINITION
     }
     // get_safety: the argument is a definition_val (call site passes to_definition_val result).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_get_safety(defval: *const LeanObject) -> u8 {
+    pub unsafe fn lean_constant_info_get_safety(defval: *const LeanObject) -> u8 {
         lean_inc(defval as *mut _);
         lean_definition_val_get_safety(defval as *mut _)
     }
@@ -1265,7 +1214,7 @@ mod kernel_type_checker_impl {
 
     // is_unsafe: mirrors constant_info::is_unsafe() switch on kind.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_is_unsafe(info: *const LeanObject) -> bool {
+    pub unsafe fn lean_constant_info_is_unsafe(info: *const LeanObject) -> bool {
         let val = ci_to_val(info);
         match lean_ptr_tag(info) {
             CI_AXIOM => {
@@ -1293,9 +1242,7 @@ mod kernel_type_checker_impl {
     }
     // get_hints: definitions carry reducibility hints at val.field[2]; otherwise the opaque hint (boxed 0).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constant_info_get_hints(
-        info: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constant_info_get_hints(info: *const LeanObject) -> *mut LeanObject {
         if lean_ptr_tag(info) == CI_DEFINITION {
             lean_ctor_get(ci_to_val(info), 2)
         } else {
@@ -1305,47 +1252,45 @@ mod kernel_type_checker_impl {
 
     // --- ConstructorVal: field[0]=cv, field[1]=induct, field[2]=cidx, field[3]=nparams, field[4]=nfields ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constructor_val_get_induct(
-        v: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_constructor_val_get_induct(v: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(v, 1)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constructor_val_get_cidx(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_constructor_val_get_cidx(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 2)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constructor_val_get_nparams(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_constructor_val_get_nparams(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 3)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_constructor_val_get_nfields(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_constructor_val_get_nfields(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 4)) as u32
     }
 
     // --- RecursorVal: field[0]=cv,1=all,2=nparams,3=nindices,4=nmotives,5=nminors,6=rules ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_nparams(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_recursor_val_get_nparams(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 2)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_nindices(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_recursor_val_get_nindices(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 3)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_nmotives(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_recursor_val_get_nmotives(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 4)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_nminors(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_recursor_val_get_nminors(v: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(v, 5)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_rules(v: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_recursor_val_get_rules(v: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(v, 6)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_major_idx(v: *const LeanObject) -> u32 {
+    pub unsafe fn lean_recursor_val_get_major_idx(v: *const LeanObject) -> u32 {
         let nparams = lean_unbox(lean_ctor_get(v, 2)) as u32;
         let nindices = lean_unbox(lean_ctor_get(v, 3)) as u32;
         let nmotives = lean_unbox(lean_ctor_get(v, 4)) as u32;
@@ -1353,20 +1298,18 @@ mod kernel_type_checker_impl {
         nparams + nmotives + nminors + nindices
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_is_k(v: *const LeanObject) -> bool {
+    pub unsafe fn lean_recursor_val_is_k(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
         lean_recursor_k(v as *mut _) != 0
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_is_unsafe(v: *const LeanObject) -> bool {
+    pub unsafe fn lean_recursor_val_is_unsafe(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
         lean_recursor_is_unsafe(v as *mut _) != 0
     }
     // get_major_induct: walk the constant_val.type telescope and return the head const's name (borrowed).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_val_get_major_induct(
-        v: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_recursor_val_get_major_induct(v: *const LeanObject) -> *mut LeanObject {
         let n = lean_recursor_val_get_major_idx(v);
         // constant_val.type = field[2] of constant_val (= field[0] of recursor_val)
         let mut t = lean_ctor_get(lean_ctor_get(v, 0), 2);
@@ -1386,27 +1329,25 @@ mod kernel_type_checker_impl {
 
     // --- RecursorRule: field[0]=cnstr, field[1]=nfields, field[2]=rhs ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_rule_get_cnstr(r: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_recursor_rule_get_cnstr(r: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(r, 0)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_rule_get_nfields(r: *const LeanObject) -> u32 {
+    pub unsafe fn lean_recursor_rule_get_nfields(r: *const LeanObject) -> u32 {
         lean_unbox(lean_ctor_get(r, 1)) as u32
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_recursor_rule_get_rhs(r: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_recursor_rule_get_rhs(r: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(r, 2)
     }
 
     // --- LocalDecl: cdecl (tag 0) / ldecl (tag 1); ldecl field[4]=value ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_local_decl_has_value(d: *const LeanObject) -> bool {
+    pub unsafe fn lean_local_decl_has_value(d: *const LeanObject) -> bool {
         !lean_is_scalar(d) && lean_ptr_tag(d) != 0
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_local_decl_get_user_name(
-        d: *const LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_local_decl_get_user_name(d: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(d, 2)
     }
     unsafe fn lean_local_decl_get_info(d: *const LeanObject) -> u8 {
@@ -1415,7 +1356,7 @@ mod kernel_type_checker_impl {
     }
     // get_value returns the borrowed value expr; only valid when has_value (ldecl).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_local_decl_get_value(d: *const LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_local_decl_get_value(d: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(d, 4)
     }
 
@@ -1435,15 +1376,12 @@ mod kernel_type_checker_impl {
         lean_reducibility_hints_get_height(h as *mut _)
     }
     #[no_mangle]
-    pub unsafe extern "C" fn lean_hints_is_regular(h: *const LeanObject) -> bool {
+    pub unsafe fn lean_hints_is_regular(h: *const LeanObject) -> bool {
         hints_kind(h) == REDUCIBILITY_HINTS_REGULAR_TAG
     }
     // Mirrors C++ compare(reducibility_hints): <0 unfold h1, ==0 unfold both, >0 unfold h2.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_hints_compare(
-        h1: *const LeanObject,
-        h2: *const LeanObject,
-    ) -> i32 {
+    pub unsafe fn lean_hints_compare(h1: *const LeanObject, h2: *const LeanObject) -> i32 {
         const OPAQUE: u32 = 0;
         const ABBREVIATION: u32 = 1;
         const REGULAR: u32 = 2;
@@ -1479,7 +1417,7 @@ mod kernel_type_checker_impl {
     // --- Native reduction: wrap lean_eval_const_at_kernel_env (mirrors ir::run_boxed_kernel) ---
     // Borrows env/opts/fname; returns the unwrapped result value (Except payload).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_ir_run_boxed_kernel(
+    pub unsafe fn lean_ir_run_boxed_kernel(
         env: *const LeanObject,
         opts: *mut LeanObject,
         name: *mut LeanObject,
@@ -1495,7 +1433,7 @@ mod kernel_type_checker_impl {
 
     // --- Empty options (mirrors C++ options() default constructor) ---
     #[no_mangle]
-    pub unsafe extern "C" fn lean_mk_empty_options() -> *mut LeanObject {
+    pub unsafe fn lean_mk_empty_options() -> *mut LeanObject {
         lean_options_get_empty(super::lean_box(0))
     }
 
@@ -1685,11 +1623,7 @@ mod kernel_type_checker_impl {
 
     impl LBool {
         fn from_bool(b: bool) -> Self {
-            if b {
-                LBool::True
-            } else {
-                LBool::False
-            }
+            if b { LBool::True } else { LBool::False }
         }
     }
 
@@ -2651,7 +2585,11 @@ mod kernel_type_checker_impl {
     /// Build `List.cons Char` or `List.nil Char`, matching inductive.cpp globals.
     unsafe fn init_list_char_global(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
         let level_zero = lean_level_mk_zero();
-        let levels = lean_mk_list_cons(ptr::null_mut(), level_zero, lean_mk_list_nil(ptr::null_mut()));
+        let levels = lean_mk_list_cons(
+            ptr::null_mut(),
+            level_zero,
+            lean_mk_list_nil(ptr::null_mut()),
+        );
         let name = build_lean_name(parts);
         let list_const = lean_expr_mk_const(name, levels);
         let char_name = build_lean_name(&["Char"]);
@@ -2990,8 +2928,9 @@ mod kernel_type_checker_impl {
                     if safety == DEF_SAFETY_PARTIAL && self.definition_safety == DEF_SAFETY_SAFE {
                         // `name` is borrowed from `e` (independent of `info`); read it before dropping info.
                         let msg_str = format!(
-                        "invalid declaration, safe declaration must not contain partial declaration '{}'",
-                        lean_name_to_string(name));
+                            "invalid declaration, safe declaration must not contain partial declaration '{}'",
+                            lean_name_to_string(name)
+                        );
                         lean_dec(info);
                         let msg = lean_mk_string(msg_str.as_ptr(), msg_str.len());
                         return Err(KernelError::Other { msg });
@@ -5146,7 +5085,7 @@ mod kernel_type_checker_impl {
         }
         let v = get_nat_val(arg); // borrowed; do NOT dec
         let one = lean_nat_mk_obj(1); // scalar box(1)
-                                      // lean_nat_add BORROWS both args, returns an owned result.
+        // lean_nat_add BORROWS both args, returns an owned result.
         let result = lean_nat_add(v, one);
         Some(lean_expr_mk_lit_nat(result))
     }
@@ -5263,10 +5202,12 @@ mod kernel_type_checker_impl {
         expected: usize,
         got: usize,
     ) -> *mut LeanObject {
-        let s =
-            format!(
-        "incorrect number of universe levels parameters for '{}', #{} expected, #{} provided",
-        lean_name_to_string(name), expected, got);
+        let s = format!(
+            "incorrect number of universe levels parameters for '{}', #{} expected, #{} provided",
+            lean_name_to_string(name),
+            expected,
+            got
+        );
         lean_mk_string(s.as_ptr(), s.len())
     }
 
@@ -5737,7 +5678,7 @@ mod kernel_type_checker_impl {
 
     /// `lean_kernel_is_def_eq(env, lctx, a, b) -> Except KernelException Bool`
     #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_is_def_eq(
+    pub unsafe fn lean_kernel_is_def_eq(
         env: *mut LeanObject,
         lctx: *mut LeanObject,
         a: *mut LeanObject,
@@ -5759,7 +5700,7 @@ mod kernel_type_checker_impl {
 
     /// `lean_kernel_whnf(env, lctx, a) -> Except KernelException Expr`
     #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_whnf(
+    pub unsafe fn lean_kernel_whnf(
         env: *mut LeanObject,
         lctx: *mut LeanObject,
         a: *mut LeanObject,
@@ -5779,7 +5720,7 @@ mod kernel_type_checker_impl {
 
     /// `lean_kernel_check(env, lctx, a) -> Except KernelException Expr`
     #[no_mangle]
-    pub unsafe extern "C" fn lean_kernel_check(
+    pub unsafe fn lean_kernel_check(
         env: *mut LeanObject,
         lctx: *mut LeanObject,
         a: *mut LeanObject,
@@ -6563,7 +6504,6 @@ mod kernel_type_checker_impl {
         fn lean_is_unsafe_inductive_decl(d: *mut LeanObject) -> u8;
         // Name ops (obj_arg → owned).
         fn lean_name_append_index_after(n: *mut LeanObject, i: *mut LeanObject) -> *mut LeanObject;
-        #[link_name = "l_Lean_Name_replacePrefix"]
         fn lean_name_replace_prefix(
             n: *mut LeanObject,
             pre: *mut LeanObject,
@@ -6573,12 +6513,12 @@ mod kernel_type_checker_impl {
         fn lean_for_each_expr_with_callback(
             e: *mut LeanObject,
             ctx: *mut c_void,
-            cb: unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> u8,
+            cb: unsafe fn(*mut c_void, *mut LeanObject, u32) -> u8,
         );
         fn lean_replace_expr_with_callback(
             e: *mut LeanObject,
             ctx: *mut c_void,
-            cb: unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject,
+            cb: unsafe fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject,
             use_cache: u8,
         ) -> *mut LeanObject;
     }
@@ -6710,9 +6650,8 @@ mod kernel_type_checker_impl {
     }
 
     extern "C" {
-        #[link_name = "lean_name_append_after"]
         fn lean_name_append_after_extern(n: *mut LeanObject, s: *mut LeanObject)
-            -> *mut LeanObject;
+        -> *mut LeanObject;
     }
 
     /// Does `e` contain a subterm `Expr.const c` with `c` ∈ `names`?  (`find` + `is_ind_occ`).
@@ -6720,7 +6659,7 @@ mod kernel_type_checker_impl {
         names: &'a [*mut LeanObject],
         found: bool,
     }
-    unsafe extern "C" fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
+    unsafe fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
         let c = &mut *(ctx as *mut FindConstCtx);
         if c.found {
             return 0;
@@ -7115,10 +7054,10 @@ mod kernel_type_checker_impl {
                 if expr_contains_const(lean_expr_get_binding_domain(t), &self.ind_names) {
                     lean_dec(t);
                     return Err(kernel_exc_string(format!(
-                    "arg #{} of '{}' has a non positive occurrence of the datatypes being declared",
-                    arg_idx + 1,
-                    lean_name_to_string(cnstr_name)
-                )));
+                        "arg #{} of '{}' has a non positive occurrence of the datatypes being declared",
+                        arg_idx + 1,
+                        lean_name_to_string(cnstr_name)
+                    )));
                 }
                 let local = self.mk_local_decl_for(t);
                 let body = self.inst_body(t, local);
@@ -7132,10 +7071,10 @@ mod kernel_type_checker_impl {
             } else {
                 lean_dec(t);
                 return Err(kernel_exc_string(format!(
-                "arg #{} of '{}' contains a non valid occurrence of the datatypes being declared",
-                arg_idx + 1,
-                lean_name_to_string(cnstr_name)
-            )));
+                    "arg #{} of '{}' contains a non valid occurrence of the datatypes being declared",
+                    arg_idx + 1,
+                    lean_name_to_string(cnstr_name)
+                )));
             }
             lean_dec(t);
             Ok(())
@@ -7170,10 +7109,10 @@ mod kernel_type_checker_impl {
                             if !self.tc.is_def_eq(dom, self.param_types[i])? {
                                 lean_dec(t);
                                 return Err(kernel_exc_string(format!(
-                                "arg #{} of '{}' does not match inductive datatypes parameters'",
-                                i + 1,
-                                lean_name_to_string(n)
-                            )));
+                                    "arg #{} of '{}' does not match inductive datatypes parameters'",
+                                    i + 1,
+                                    lean_name_to_string(n)
+                                )));
                             }
                             let nt = self.inst_body(t, self.params[i]);
                             lean_dec(t);
@@ -7187,10 +7126,10 @@ mod kernel_type_checker_impl {
                             if !(geq || level_is_zero(self.result_level)) {
                                 lean_dec(t);
                                 return Err(kernel_exc_string(format!(
-                                "universe level of type_of(arg #{}) of '{}' is too big for the corresponding inductive datatype",
-                                i + 1,
-                                lean_name_to_string(n)
-                            )));
+                                    "universe level of type_of(arg #{}) of '{}' is too big for the corresponding inductive datatype",
+                                    i + 1,
+                                    lean_name_to_string(n)
+                                )));
                             }
                             if !self.is_unsafe {
                                 let dom2 = lean_expr_get_binding_domain(t);
@@ -7960,7 +7899,7 @@ mod kernel_type_checker_impl {
                 decl_params: &'a [*mut LeanObject],
                 actual_params: &'a [*mut LeanObject],
             }
-            unsafe extern "C" fn restore_cb(
+            unsafe fn restore_cb(
                 ctx: *mut c_void,
                 t: *mut LeanObject,
                 _offset: u32,
@@ -8131,9 +8070,9 @@ mod kernel_type_checker_impl {
             }
             if loose_bvars {
                 let msg = format!(
-                "invalid nested inductive datatype '{}', nested inductive datatypes parameters cannot contain local variables.",
-                lean_name_to_string(lean_expr_get_const_name(head))
-            );
+                    "invalid nested inductive datatype '{}', nested inductive datatypes parameters cannot contain local variables.",
+                    lean_name_to_string(lean_expr_get_const_name(head))
+                );
                 lean_dec(info);
                 return Err(kernel_exc_string(msg));
             }
@@ -8243,11 +8182,7 @@ mod kernel_type_checker_impl {
                 params_len: usize,
                 error: Option<KernelError>,
             }
-            unsafe extern "C" fn cb(
-                ctx: *mut c_void,
-                e: *mut LeanObject,
-                _offset: u32,
-            ) -> *mut LeanObject {
+            unsafe fn cb(ctx: *mut c_void, e: *mut LeanObject, _offset: u32) -> *mut LeanObject {
                 let c = &mut *(ctx as *mut ReplaceCtx);
                 if c.error.is_some() {
                     return lean_box(0);
@@ -8313,8 +8248,8 @@ mod kernel_type_checker_impl {
             let nparams = lean_unbox(lean_ctor_get(self.decl, 1));
             if self.new_types.is_empty() {
                 return Err(kernel_exc(
-                "invalid empty (mutual) inductive datatype declaration, it must contain at least one inductive type.",
-            ));
+                    "invalid empty (mutual) inductive datatype declaration, it must contain at least one inductive type.",
+                ));
             }
             let first_ty = lean_ctor_get(self.new_types[0], 1);
             let mut params = Vec::new();
@@ -8599,7 +8534,7 @@ mod kernel_type_checker_impl {
     /// uses `add_mutual_impl`; quot uses `add_quot_impl`; inductive is gated while the port is
     /// incomplete.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_rust_add_decl(
+    pub unsafe fn lean_rust_add_decl(
         env: *mut LeanObject,
         decl: *mut LeanObject,
         check: u8,

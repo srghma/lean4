@@ -258,13 +258,11 @@ mod library_llvm_impl {
         );
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_init_llvm() -> *mut LeanObject {
+    pub unsafe fn lean_init_llvm() -> *mut LeanObject {
         initialize_Lean_Compiler_IR_EmitLLVM(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_emit_llvm(
+    pub unsafe fn lean_emit_llvm(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -287,13 +285,11 @@ mod library_llvm_impl {
         llvm_unavailable()
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_llvm_initialize_target_info() -> *mut LeanObject {
+    pub unsafe fn lean_llvm_initialize_target_info() -> *mut LeanObject {
         llvm_initialize_target_info_impl()
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_llvm_create_context() -> usize {
+    pub unsafe fn lean_llvm_create_context() -> usize {
         llvm_create_context_impl()
     }
 
@@ -1613,15 +1609,12 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_create_module(
-        p0: *mut LeanObject,
-        p1: *mut LeanObject,
-    ) -> usize {
+    pub unsafe fn lean_llvm_create_module(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_create_module_impl(lean_unbox(p0), p1)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_write_bitcode_to_file(
+    pub unsafe fn lean_llvm_write_bitcode_to_file(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1630,7 +1623,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_module_to_string(
+    pub unsafe fn lean_llvm_module_to_string(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1638,7 +1631,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_add_function(
+    pub unsafe fn lean_llvm_add_function(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1648,7 +1641,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_named_function(
+    pub unsafe fn lean_llvm_get_named_function(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1657,7 +1650,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_add_global(
+    pub unsafe fn lean_llvm_add_global(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1667,7 +1660,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_named_global(
+    pub unsafe fn lean_llvm_get_named_global(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1676,7 +1669,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_global_string(
+    pub unsafe fn lean_llvm_build_global_string(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1686,15 +1679,12 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_undef(
-        p0: *mut LeanObject,
-        p1: *mut LeanObject,
-    ) -> usize {
+    pub unsafe fn lean_llvm_get_undef(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_get_undef_impl(lean_unbox(p0), lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_set_initializer(
+    pub unsafe fn lean_llvm_set_initializer(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1703,7 +1693,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_function_type(
+    pub unsafe fn lean_llvm_function_type(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1713,7 +1703,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_opaque_pointer_type_in_context(
+    pub unsafe fn lean_llvm_opaque_pointer_type_in_context(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> usize {
@@ -1721,38 +1711,32 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_int_type_in_context(
-        p0: *mut LeanObject,
-        p1: *mut LeanObject,
-    ) -> usize {
+    pub unsafe fn lean_llvm_int_type_in_context(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_int_type_in_context_impl(lean_unbox(p0), lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_float_type_in_context(p0: *mut LeanObject) -> usize {
+    pub unsafe fn lean_llvm_float_type_in_context(p0: *mut LeanObject) -> usize {
         llvm_float_type_in_context_impl(lean_unbox(p0))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_void_type_in_context(p0: *mut LeanObject) -> usize {
+    pub unsafe fn lean_llvm_void_type_in_context(p0: *mut LeanObject) -> usize {
         llvm_void_type_in_context_impl(lean_unbox(p0))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_double_type_in_context(p0: *mut LeanObject) -> usize {
+    pub unsafe fn lean_llvm_double_type_in_context(p0: *mut LeanObject) -> usize {
         llvm_double_type_in_context_impl(lean_unbox(p0))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_pointer_type(
-        p0: *mut LeanObject,
-        p1: *mut LeanObject,
-    ) -> usize {
+    pub unsafe fn lean_llvm_pointer_type(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_pointer_type_impl(lean_unbox(p0), lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_array_type(
+    pub unsafe fn lean_llvm_array_type(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1761,12 +1745,12 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_create_builder_in_context(p0: *mut LeanObject) -> usize {
+    pub unsafe fn lean_llvm_create_builder_in_context(p0: *mut LeanObject) -> usize {
         llvm_create_builder_in_context_impl(lean_unbox(p0))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_append_basic_block_in_context(
+    pub unsafe fn lean_llvm_append_basic_block_in_context(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1775,7 +1759,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_position_builder_at_end(
+    pub unsafe fn lean_llvm_position_builder_at_end(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -1784,7 +1768,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_clear_insertion_position(
+    pub unsafe fn lean_llvm_clear_insertion_position(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -1792,25 +1776,25 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_call2(
+    pub unsafe fn lean_llvm_build_call2(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
         p4: *mut LeanObject,
-        p5: *mut LeanObject
+        p5: *mut LeanObject,
     ) -> usize {
         let args = llvm_value_array(p4);
         llvm_build_call2_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), args, p5)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_cond_br(
+    pub unsafe fn lean_llvm_build_cond_br(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> usize {
         llvm_build_cond_br_impl(
             lean_unbox(p1),
@@ -1821,133 +1805,130 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_br(
+    pub unsafe fn lean_llvm_build_br(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> usize {
         llvm_build_br_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_store(
+    pub unsafe fn lean_llvm_build_store(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
-        p3: *mut LeanObject
+        p3: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_build_store_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_load2(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject,
-        p4: *mut LeanObject
-    ) -> usize {
-        llvm_build_load2_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_alloca(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject
-    ) -> usize {
-        llvm_build_alloca_impl(lean_unbox(p1), lean_unbox(p2), p3)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_ret(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject
-    ) -> usize {
-        llvm_build_ret_impl(lean_unbox(p1), lean_unbox(p2))
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_ret_void(p0: *mut LeanObject) -> usize {
-        llvm_build_ret_void_impl(lean_unbox(p0))
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_unreachable(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
-        llvm_build_unreachable_impl(lean_unbox(p1))
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_inbounds_gep2(
+    pub unsafe fn lean_llvm_build_load2(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
         p4: *mut LeanObject,
-        p5: *mut LeanObject
+    ) -> usize {
+        llvm_build_load2_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_alloca(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+    ) -> usize {
+        llvm_build_alloca_impl(lean_unbox(p1), lean_unbox(p2), p3)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_ret(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+    ) -> usize {
+        llvm_build_ret_impl(lean_unbox(p1), lean_unbox(p2))
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_ret_void(p0: *mut LeanObject) -> usize {
+        llvm_build_ret_void_impl(lean_unbox(p0))
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_unreachable(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
+        llvm_build_unreachable_impl(lean_unbox(p1))
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_inbounds_gep2(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+        p4: *mut LeanObject,
+        p5: *mut LeanObject,
     ) -> usize {
         let indices = llvm_value_array(p4);
         llvm_build_inbounds_gep2_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), indices, p5)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_gep2(
+    pub unsafe fn lean_llvm_build_gep2(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
         p4: *mut LeanObject,
-        p5: *mut LeanObject
+        p5: *mut LeanObject,
     ) -> usize {
         let indices = llvm_value_array(p4);
         llvm_build_gep2_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), indices, p5)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_sext(
+    pub unsafe fn lean_llvm_build_sext(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> usize {
         llvm_build_sext_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_zext(
+    pub unsafe fn lean_llvm_build_zext(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> usize {
         llvm_build_zext_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_sext_or_trunc(
+    pub unsafe fn lean_llvm_build_sext_or_trunc(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> usize {
         llvm_build_sext_or_trunc_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_switch(
+    pub unsafe fn lean_llvm_build_switch(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> usize {
         llvm_build_switch_impl(
             lean_unbox(p1),
@@ -1958,67 +1939,67 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_ptr_to_int(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject,
-        p4: *mut LeanObject
-    ) -> usize {
-        llvm_build_ptr_to_int_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_mul(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject,
-        p4: *mut LeanObject
-    ) -> usize {
-        llvm_build_mul_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_add(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject,
-        p4: *mut LeanObject
-    ) -> usize {
-        llvm_build_add_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_sub(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject,
-        p4: *mut LeanObject
-    ) -> usize {
-        llvm_build_sub_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_not(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject,
-        p2: *mut LeanObject,
-        p3: *mut LeanObject
-    ) -> usize {
-        llvm_build_not_impl(lean_unbox(p1), lean_unbox(p2), p3)
-    }
-
-    #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_build_icmp(
+    pub unsafe fn lean_llvm_build_ptr_to_int(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
         p4: *mut LeanObject,
-        p5: *mut LeanObject
+    ) -> usize {
+        llvm_build_ptr_to_int_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_mul(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+        p4: *mut LeanObject,
+    ) -> usize {
+        llvm_build_mul_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_add(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+        p4: *mut LeanObject,
+    ) -> usize {
+        llvm_build_add_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_sub(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+        p4: *mut LeanObject,
+    ) -> usize {
+        llvm_build_sub_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3), p4)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_not(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+    ) -> usize {
+        llvm_build_not_impl(lean_unbox(p1), lean_unbox(p2), p3)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_llvm_build_icmp(
+        _p0: *mut LeanObject,
+        p1: *mut LeanObject,
+        p2: *mut LeanObject,
+        p3: *mut LeanObject,
+        p4: *mut LeanObject,
+        p5: *mut LeanObject,
     ) -> usize {
         llvm_build_icmp_impl(
             lean_unbox(p1),
@@ -2030,41 +2011,35 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_add_case(
+    pub unsafe fn lean_llvm_add_case(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
-        _p3: *mut LeanObject
+        _p3: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_add_case_impl(lean_unbox(p0), lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_basic_block_parent(
+    pub unsafe fn lean_llvm_get_basic_block_parent(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> usize {
         llvm_get_basic_block_parent_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_insert_block(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_get_insert_block(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_get_insert_block_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_type_of(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_type_of(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_type_of_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_print_module_to_string(
+    pub unsafe fn lean_llvm_print_module_to_string(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -2072,7 +2047,7 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_print_module_to_file(
+    pub unsafe fn lean_llvm_print_module_to_file(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
@@ -2081,271 +2056,244 @@ mod library_llvm_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_const_int(
+    pub unsafe fn lean_llvm_const_int(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
-        p3: *mut LeanObject
+        p3: *mut LeanObject,
     ) -> usize {
         llvm_const_int_impl(lean_unbox(p1), lean_unbox(p2) as u64, lean_unbox(p3) as u8)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_const_array(
+    pub unsafe fn lean_llvm_const_array(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> usize {
         let vals = llvm_value_array(p2);
         llvm_const_array_impl(lean_unbox(p1), vals)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_const_string(
-        p0: *mut LeanObject,
-        p1: *mut LeanObject,
-    ) -> usize {
+    pub unsafe fn lean_llvm_const_string(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_const_string_impl(lean_unbox(p0), p1)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_const_pointer_null(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_const_pointer_null(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_const_pointer_null_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn llvm_get_param(
+    pub unsafe fn llvm_get_param(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> usize {
         llvm_get_param_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn llvm_count_params(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> u64 {
+    pub unsafe fn llvm_count_params(_p0: *mut LeanObject, p1: *mut LeanObject) -> u64 {
         llvm_count_params_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_set_tail_call(
+    pub unsafe fn lean_llvm_set_tail_call(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_set_tail_call_impl(lean_unbox(p1), lean_unbox(p2) as u8)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_parse_bitcode(
-        p0: *mut LeanObject,
-        p1: *mut LeanObject,
-    ) -> usize {
+    pub unsafe fn lean_llvm_parse_bitcode(p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_parse_bitcode_impl(lean_unbox(p0), lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_link_modules(
+    pub unsafe fn lean_llvm_link_modules(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_link_modules_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_create_target_machine(
+    pub unsafe fn lean_llvm_create_target_machine(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> usize {
         llvm_create_target_machine_impl(lean_unbox(p1), p2, p3, p4)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_target_from_triple(
+    pub unsafe fn lean_llvm_get_target_from_triple(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> usize {
         llvm_get_target_from_triple_impl(p1)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_default_target_triple() -> *mut LeanObject {
+    pub unsafe fn lean_llvm_get_default_target_triple() -> *mut LeanObject {
         llvm_get_default_target_triple_impl()
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_target_machine_emit_to_file(
+    pub unsafe fn lean_llvm_target_machine_emit_to_file(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
         p3: *mut LeanObject,
-        p4: *mut LeanObject
+        p4: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_target_machine_emit_to_file_impl(lean_unbox(p1), lean_unbox(p2), p3, lean_unbox(p4))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_dispose_target_machine(
+    pub unsafe fn lean_llvm_dispose_target_machine(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_dispose_target_machine_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_dispose_module(
+    pub unsafe fn lean_llvm_dispose_module(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_dispose_module_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_set_visibility(
+    pub unsafe fn lean_llvm_set_visibility(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_set_visibility_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_set_dll_storage_class(
+    pub unsafe fn lean_llvm_set_dll_storage_class(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_set_dll_storage_class_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_add_attribute_at_index(
+    pub unsafe fn lean_llvm_add_attribute_at_index(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,
-        p3: *mut LeanObject
+        p3: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_add_attribute_at_index_impl(lean_unbox(p1), lean_unbox(p2), lean_unbox(p3))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_first_global(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_get_first_global(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_get_first_global_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_next_global(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_get_next_global(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_get_next_global_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_first_function(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_get_first_function(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_get_first_function_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_next_function(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> usize {
+    pub unsafe fn lean_llvm_get_next_function(_p0: *mut LeanObject, p1: *mut LeanObject) -> usize {
         llvm_get_next_function_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_set_linkage(
+    pub unsafe fn lean_llvm_set_linkage(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_set_linkage_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_value_name2(
+    pub unsafe fn lean_llvm_get_value_name2(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_get_value_name2_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn llvm_is_declaration(
+    pub unsafe fn llvm_is_declaration(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_is_declaration_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_verify_module(
+    pub unsafe fn lean_llvm_verify_module(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_verify_module_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_count_basic_blocks(
-        _p0: *mut LeanObject,
-        p1: *mut LeanObject
-    ) -> u64 {
+    pub unsafe fn lean_llvm_count_basic_blocks(_p0: *mut LeanObject, p1: *mut LeanObject) -> u64 {
         llvm_count_basic_blocks_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_entry_basic_block(
+    pub unsafe fn lean_llvm_get_entry_basic_block(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> usize {
         llvm_get_entry_basic_block_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_get_first_instruction(
+    pub unsafe fn lean_llvm_get_first_instruction(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_get_first_instruction_impl(lean_unbox(p1))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_position_builder_before(
+    pub unsafe fn lean_llvm_position_builder_before(
         _p0: *mut LeanObject,
         p1: *mut LeanObject,
-        p2: *mut LeanObject
+        p2: *mut LeanObject,
     ) -> *mut LeanObject {
         llvm_position_builder_before_impl(lean_unbox(p1), lean_unbox(p2))
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_create_memory_buffer_with_contents_of_file(
+    pub unsafe fn lean_llvm_create_memory_buffer_with_contents_of_file(
         _p0: *mut LeanObject,
-        p1: *mut LeanObject
+        p1: *mut LeanObject,
     ) -> usize {
         llvm_create_memory_buffer_with_contents_of_file_impl(p1)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_llvm_create_string_attribute(
+    pub unsafe fn lean_llvm_create_string_attribute(
         p0: *mut LeanObject,
         p1: *mut LeanObject,
         p2: *mut LeanObject,

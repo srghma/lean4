@@ -299,7 +299,7 @@ mod kernel_abstract_impl {
 
     // lean_expr_abstract (e : @& Expr) (xs : @& Array Expr) : Expr
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_abstract(
+    pub unsafe fn lean_expr_abstract(
         e: *mut LeanObject,
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -310,7 +310,7 @@ mod kernel_abstract_impl {
     // lean_expr_abstract_range (e : @& Expr) (n : @& Nat) (xs : @& Array Expr) : Expr
     // Uses at most min(n, xs.size) entries.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_abstract_range(
+    pub unsafe fn lean_expr_abstract_range(
         e: *mut LeanObject,
         n: *mut LeanObject,
         subst: *mut LeanObject,
@@ -325,7 +325,7 @@ mod kernel_abstract_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_abstract_ptr(
+    pub unsafe fn lean_expr_abstract_ptr(
         e: *mut LeanObject,
         n: usize,
         subst: *const *mut LeanObject,

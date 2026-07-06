@@ -79,7 +79,7 @@ mod library_elab_environment_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_elab_add_decl(
+    pub unsafe fn lean_elab_add_decl(
         env: *mut LeanObject,
         max_heartbeat: usize,
         decl: *mut LeanObject,
@@ -102,7 +102,7 @@ mod library_elab_environment_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_elab_add_decl_without_checking(
+    pub unsafe fn lean_elab_add_decl_without_checking(
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -113,7 +113,7 @@ mod library_elab_environment_impl {
     // using the Rust TypeChecker with elab→kernel env conversion.
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
+    pub unsafe fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
         1024
     }
 }

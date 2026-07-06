@@ -4,14 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 #![cfg_attr(not(feature = "std"), no_std)]
-#![allow(
-    dead_code,
-    non_upper_case_globals,
-)]
+#![allow(dead_code, non_upper_case_globals)]
 
-use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
-#[cfg(not(feature = "std"))]
-use core::panic::PanicInfo;
+use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
@@ -35,11 +30,10 @@ extern "C" {
     fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
-    #[link_name = "_ZN4lean20lean_promise_resolveEP11lean_objectS1_"]
     fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
     fn lean_io_promise_new() -> *mut LeanObject;
     fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject)
-        -> *mut LeanObject;
+    -> *mut LeanObject;
     fn lean_mark_mt(obj: *mut LeanObject);
     fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
@@ -57,57 +51,35 @@ extern "C" {
     fn lean_get_profiler(opts: *mut LeanObject) -> u8;
     fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
 
-    #[link_name = "_ZN4lean16initialize_allocEv"]
     fn initialize_alloc();
-    #[link_name = "_ZN4lean14finalize_allocEv"]
     fn finalize_alloc();
     // initialize_object / finalize_object now provided inline (no-op / lean_finalize_external_classes)
-    #[link_name = "_ZN4lean13initialize_ioEv"]
     fn initialize_io();
-    #[link_name = "_ZN4lean11finalize_ioEv"]
     fn finalize_io();
-    #[link_name = "_ZN4lean17initialize_threadEv"]
     fn initialize_thread();
-    #[link_name = "_ZN4lean15finalize_threadEv"]
     fn finalize_thread();
-    // #[link_name = "_ZN4lean16initialize_asciiEv"]
     // fn initialize_ascii_impl();
-    // #[link_name = "_ZN4lean14finalize_asciiEv"]
     // fn finalize_ascii_impl();
 
     // initialize_print / finalize_print now provided by library_print.rs (no-ops)
     // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
     // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no-ops)
-    #[link_name = "_ZN4lean23initialize_library_utilEv"]
     fn initialize_library_util();
-    #[link_name = "_ZN4lean21finalize_library_utilEv"]
     fn finalize_library_util();
-    #[link_name = "_ZN4lean20initialize_time_taskEv"]
     fn initialize_time_task();
-    #[link_name = "_ZN4lean18finalize_time_taskEv"]
     fn finalize_time_task();
     fn initialize_ir_interpreter();
     fn finalize_ir_interpreter();
-    #[link_name = "_ZN4lean16initialize_levelEv"]
     fn initialize_level();
-    #[link_name = "_ZN4lean14finalize_levelEv"]
     fn finalize_level();
-    #[link_name = "_ZN4lean15initialize_exprEv"]
     fn initialize_expr();
-    #[link_name = "_ZN4lean13finalize_exprEv"]
     fn finalize_expr();
-    #[link_name = "_ZN4lean22initialize_declarationEv"]
     fn initialize_declaration();
-    #[link_name = "_ZN4lean20finalize_declarationEv"]
     fn finalize_declaration();
     // initialize_type_checker / finalize_type_checker now provided by kernel_type_checker.rs
-    #[link_name = "_ZN4lean20initialize_local_ctxEv"]
     fn initialize_local_ctx();
-    #[link_name = "_ZN4lean18finalize_local_ctxEv"]
     fn finalize_local_ctx();
-    #[link_name = "_ZN4lean15initialize_quotEv"]
     fn initialize_quot();
-    #[link_name = "_ZN4lean13finalize_quotEv"]
     fn finalize_quot();
     // initialize_trace / finalize_trace now provided by kernel_trace.rs
     // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
@@ -130,8 +102,8 @@ struct LeanCtorObject {
     data: [*mut LeanObject; 0],
 }
 
-type LeanExternalFinalizeProc = unsafe extern "C" fn(*mut c_void);
-type LeanExternalForeachProc = unsafe extern "C" fn(*mut c_void, *mut LeanObject);
+type LeanExternalFinalizeProc = unsafe fn(*mut c_void);
+type LeanExternalForeachProc = unsafe fn(*mut c_void, *mut LeanObject);
 
 #[repr(C)]
 pub struct LeanExternalClass {
@@ -360,8 +332,7 @@ unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) 
         .write(value);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_alloc_ctor(
+pub unsafe fn lean_runtime_alloc_ctor(
     tag: c_uint,
     num_objs: c_uint,
     scalar_size: c_uint,
@@ -393,12 +364,7 @@ pub unsafe extern "C" fn lean_runtime_alloc_ctor(
     obj as *mut LeanObject
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_ctor_set(
-    obj: *mut LeanObject,
-    index: c_uint,
-    value: *mut LeanObject,
-) {
+pub unsafe fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: *mut LeanObject) {
     debug_assert!(index < (*obj).other as c_uint);
     let fields = (obj as *mut LeanCtorObject)
         .cast::<u8>()
@@ -516,30 +482,25 @@ unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
     (*sarray).capacity
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
+pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
     lean_ptr_tag(obj) == 0
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
+pub unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
     lean_ptr_tag(obj) == 1
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_ok(obj));
     lean_ctor_get(obj, 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_error(obj));
     lean_ctor_get(obj, 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_ok(obj));
     let v = lean_ctor_get(obj, 0);
     lean_inc(v);
@@ -547,8 +508,7 @@ pub unsafe extern "C" fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut
     v
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_show_error(r: *mut LeanObject) {
+pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
     let err = lean_io_result_get_error(r);
     lean_inc(err);
     let msg = lean_io_error_to_string(err);
@@ -562,7 +522,7 @@ pub unsafe extern "C" fn lean_io_result_show_error(r: *mut LeanObject) {
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean21mk_embedded_nul_errorEP11lean_object"
 )]
-pub unsafe extern "C" fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut LeanObject {
     lean_inc(str);
     let details = lean_mk_string(c"string contains NUL bytes".as_ptr());
     lean_io_result_mk_error(lean_mk_io_error_invalid_argument_file(
@@ -572,8 +532,7 @@ pub unsafe extern "C" fn mk_embedded_nul_error(str: *mut LeanObject) -> *mut Lea
     ))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
+pub unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     #[cfg(target_os = "windows")]
     {
@@ -590,8 +549,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
+pub unsafe fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     (libc::feof(fp) != 0) as u8
 }
@@ -607,8 +565,7 @@ unsafe fn lean_runtime_errno() -> c_int {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::fflush(fp) == 0 {
         lean_io_result_mk_ok(lean_box(0))
@@ -620,8 +577,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut L
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
         lean_io_result_mk_ok(lean_box(0))
@@ -633,8 +589,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut 
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     #[cfg(target_os = "windows")]
     {
@@ -660,11 +615,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mu
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_read(
-    h: *mut LeanObject,
-    nbytes: Size,
-) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_read(h: *mut LeanObject, nbytes: Size) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if lean_alloc_sarray_would_overflow(1, nbytes) {
         return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
@@ -697,8 +648,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_read(
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_write(
+pub unsafe fn lean_io_prim_handle_write(
     h: *mut LeanObject,
     buf: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -715,8 +665,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_write(
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let mut result = Vec::<u8>::new();
     #[cfg(windows)]
@@ -774,8 +723,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mu
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_put_str(
+pub unsafe fn lean_io_prim_handle_put_str(
     h: *mut LeanObject,
     s: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -792,11 +740,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_put_str(
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_prim_handle_mk(
-    filename: *mut LeanObject,
-    mode: u8,
-) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mut LeanObject {
     let fname = lean_string_cstr(filename);
     if libc::strlen(fname) != lean_string_size(filename) - 1 {
         return mk_embedded_nul_error(filename);
@@ -847,8 +791,7 @@ pub unsafe extern "C" fn lean_io_prim_handle_mk(
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_windows_get_next_transition(
+pub unsafe fn lean_windows_get_next_transition(
     timezone_str: *mut LeanObject,
     tm_obj: u64,
     default_time: u8,
@@ -1108,8 +1051,7 @@ pub unsafe extern "C" fn lean_windows_get_next_transition(
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_windows_local_timezone_id_at(tm_obj: u64) -> *mut LeanObject {
+pub unsafe fn lean_get_windows_local_timezone_id_at(tm_obj: u64) -> *mut LeanObject {
     #[cfg(target_os = "windows")]
     {
         type UErrorCode = c_int;
@@ -1228,11 +1170,7 @@ pub unsafe fn lean_box(value: Size) -> *mut LeanObject {
 }
 
 fn env_flag(value: &str) -> u8 {
-    if value.as_bytes() == b"1" {
-        1
-    } else {
-        0
-    }
+    if value.as_bytes() == b"1" { 1 } else { 0 }
 }
 
 unsafe fn mk_name(text: &str) -> LeanName {
@@ -1322,8 +1260,7 @@ include!("library_llvm.rs");
 include!("kernel_num.rs");
 include!("kernel_trace.rs");
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "lean_name_eq")]
-pub unsafe extern "C" fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
+pub unsafe fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
     runtime_object_name_impl::lean_name_eq(n1, n2)
 }
 
@@ -1336,12 +1273,11 @@ struct LeanExternalObject {
 
 static EXTERNAL_CLASSES: std::sync::Mutex<Vec<usize>> = std::sync::Mutex::new(Vec::new());
 
-unsafe extern "C" fn lean_external_noop_finalize(_: *mut c_void) {}
+unsafe fn lean_external_noop_finalize(_: *mut c_void) {}
 
-unsafe extern "C" fn lean_external_noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
+unsafe fn lean_external_noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_register_external_class(
+pub unsafe fn lean_register_external_class(
     finalize: Option<LeanExternalFinalizeProc>,
     foreach: Option<LeanExternalForeachProc>,
 ) -> *mut LeanExternalClass {
@@ -1353,16 +1289,14 @@ pub unsafe extern "C" fn lean_register_external_class(
     class
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_finalize_external_classes() {
+pub unsafe fn lean_finalize_external_classes() {
     let mut classes = EXTERNAL_CLASSES.lock().unwrap();
     for class in classes.drain(..) {
         drop(Box::from_raw(class as *mut LeanExternalClass));
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_alloc_external(
+pub unsafe fn lean_runtime_alloc_external(
     class: *mut LeanExternalClass,
     data: *mut c_void,
 ) -> *mut LeanObject {
@@ -1382,20 +1316,17 @@ pub unsafe extern "C" fn lean_runtime_alloc_external(
     obj as *mut LeanObject
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_void {
+pub unsafe fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_void {
     (*(obj as *mut LeanExternalObject)).data
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
     std::thread::available_parallelism()
         .map(|count| count.get() as u32)
         .unwrap_or(1)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
     if !lean_is_scalar(opt) {
         let value = lean_ctor_get(opt, 0);
         lean_inc(value);
@@ -1413,8 +1344,7 @@ pub unsafe extern "C" fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut 
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_get_lean_num_threads() -> c_uint {
+pub unsafe fn lean_runtime_get_lean_num_threads() -> c_uint {
     #[cfg(not(target_os = "emscripten"))]
     {
         let name = b"LEAN_NUM_THREADS\0";
@@ -1428,16 +1358,11 @@ pub unsafe extern "C" fn lean_runtime_get_lean_num_threads() -> c_uint {
         .unwrap_or(1)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_mk_world() -> *mut LeanObject {
     unsafe { lean_box(0) }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_allocprof(
-    msg: *mut LeanObject,
-    fn_obj: *mut LeanObject,
-) -> *mut LeanObject {
+pub unsafe fn lean_io_allocprof(msg: *mut LeanObject, fn_obj: *mut LeanObject) -> *mut LeanObject {
     let label = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
     let result = lean_apply_1(fn_obj, lean_box(0));
     let output = std::ffi::CString::new(format!(
@@ -1512,13 +1437,11 @@ fn is_safe_ascii_byte(byte: u8) -> bool {
     )
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_util_is_safe_ascii_char(byte: c_char) -> bool {
     is_safe_ascii_byte(byte as u8)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_util_is_safe_ascii(mut text: *const c_char) -> bool {
+pub unsafe fn lean_util_is_safe_ascii(mut text: *const c_char) -> bool {
     if text.is_null() {
         return true;
     }
@@ -1531,8 +1454,7 @@ pub unsafe extern "C" fn lean_util_is_safe_ascii(mut text: *const c_char) -> boo
     true
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_util_is_safe_ascii_n(text: *const c_char, size: Size) -> bool {
+pub unsafe fn lean_util_is_safe_ascii_n(text: *const c_char, size: Size) -> bool {
     for offset in 0..size {
         if !is_safe_ascii_byte(*text.add(offset) as u8) {
             return false;
@@ -1541,7 +1463,6 @@ pub unsafe extern "C" fn lean_util_is_safe_ascii_n(text: *const c_char, size: Si
     true
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_util_log2(mut value: c_uint) -> c_uint {
     let mut result = 0;
     if value & 0xFFFF0000 != 0 {
@@ -1566,7 +1487,6 @@ pub extern "C" fn lean_util_log2(mut value: c_uint) -> c_uint {
     result
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_util_lbool_name(value: i32) -> *const c_char {
     match value {
         -1 => c"l_false".as_ptr(),
@@ -1575,7 +1495,6 @@ pub extern "C" fn lean_util_lbool_name(value: i32) -> *const c_char {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_util_mk_list_range(from: c_uint, to: c_uint) -> *mut c_void {
     let mut list: *mut LeanListCell = ptr::null_mut();
     let mut i = to;
@@ -1770,72 +1689,58 @@ pub extern "C" fn initialize_ascii() {}
 )]
 pub extern "C" fn finalize_ascii() {}
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_initialize_runtime_module() {
     unsafe { initialize_runtime_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn initialize_runtime_module() {
     unsafe { initialize_runtime_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn finalize_runtime_module() {
     unsafe { finalize_runtime_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn initialize_util_module() {
     unsafe { initialize_util_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn finalize_util_module() {
     unsafe { finalize_util_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn initialize_kernel_module() {
     unsafe { initialize_kernel_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn finalize_kernel_module() {
     unsafe { finalize_kernel_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn initialize_library_core_module() {
     unsafe { initialize_library_core_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn finalize_library_core_module() {
     unsafe { finalize_library_core_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn initialize_library_module() {
     unsafe { initialize_library_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn finalize_library_module() {
     unsafe { finalize_library_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn initialize_constructions_module() {
     unsafe { initialize_constructions_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn finalize_constructions_module() {
     unsafe { finalize_constructions_module_body() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
     unsafe {
         initialize_runtime_module_body();
@@ -1843,29 +1748,24 @@ pub extern "C" fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn init_default_print_fn() {
     // No-op: lean_expr_dbg_to_string (the ToString Expr instance) is now implemented
     // in Rust (library_print.rs), so the C++ formatter.h print function pointer
     // no longer needs to be set.
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn run_thread_finalizers() {
     unsafe { run_thread_finalizers_internal() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn run_post_thread_finalizers() {
     unsafe { run_post_thread_finalizers_internal() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn delete_thread_finalizer_manager() {
     unsafe { delete_thread_finalizer_manager_internal() }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_initialize() {
     unsafe {
         save_stack_info(true);
@@ -1922,7 +1822,7 @@ pub extern "C" fn finalize_options() {
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean31mk_constructions_name_generatorEv"
 )]
-pub unsafe extern "C" fn mk_constructions_name_generator(
+pub unsafe fn mk_constructions_name_generator(
     result: *mut LeanNameGenerator,
 ) -> *mut LeanNameGenerator {
     lean_inc(CONSTRUCTIONS_FRESH.obj);
@@ -1962,7 +1862,7 @@ pub extern "C" fn finalize_constructions_util() {
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean20get_init_fn_name_forERKNS_16elab_environmentERKNS_4nameE"
 )]
-pub unsafe extern "C" fn get_init_fn_name_for(
+pub unsafe fn get_init_fn_name_for(
     result: *mut LeanOptionalName,
     env: *const LeanName,
     name: *const LeanName,
@@ -1989,7 +1889,6 @@ pub unsafe extern "C" fn get_init_fn_name_for(
     result
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
     let guard = NAME_GENERATOR_STATE.lock().unwrap();
     guard.as_ref().map_or(ptr::null_mut(), |state| {
@@ -2000,8 +1899,7 @@ pub extern "C" fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
     })
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_register_name_generator_prefix(n: *mut LeanObject) {
+pub unsafe fn lean_register_name_generator_prefix(n: *mut LeanObject) {
     let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
     let state = guard
         .as_mut()
@@ -2011,8 +1909,7 @@ pub unsafe extern "C" fn lean_register_name_generator_prefix(n: *mut LeanObject)
     state.prefixes.push(n);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
+pub unsafe fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
     let guard = NAME_GENERATOR_STATE.lock().unwrap();
     let Some(state) = guard.as_ref() else {
         return false;
@@ -2053,7 +1950,6 @@ pub extern "C" fn initialize_name() {
 )]
 pub extern "C" fn finalize_name() {}
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_name_next_internal_unique_id() -> c_uint {
     INTERNAL_UNIQUE_NAME_ID.fetch_add(1, Ordering::Relaxed)
 }
@@ -2099,7 +1995,7 @@ pub extern "C" fn get_timeout_opt_name() -> *const LeanName {
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean11get_verboseERKNS_7optionsE"
 )]
-pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
+pub unsafe fn get_verbose(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     let name = (*get_verbose_opt_name()).obj;
     lean_inc(opts);
@@ -2107,13 +2003,11 @@ pub unsafe extern "C" fn get_verbose(opts: *const LeanOptions) -> bool {
     lean_options_get_bool(opts, name, true)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC1Ev")]
-pub unsafe extern "C" fn options_ctor_c1(this: *mut LeanOptions) {
+pub unsafe fn options_ctor_c1(this: *mut LeanOptions) {
     (*this).obj = lean_options_get_empty(lean_box(0));
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7optionsC2Ev")]
-pub unsafe extern "C" fn options_ctor_c2(this: *mut LeanOptions) {
+pub unsafe fn options_ctor_c2(this: *mut LeanOptions) {
     options_ctor_c1(this);
 }
 
@@ -2121,7 +2015,7 @@ pub unsafe extern "C" fn options_ctor_c2(this: *mut LeanOptions) {
     feature = "export-runtime-ffi",
     export_name = "_ZNK4lean7options8get_boolERKNS_4nameEb"
 )]
-pub unsafe extern "C" fn options_get_bool(
+pub unsafe fn options_get_bool(
     this: *const LeanOptions,
     name: *const LeanName,
     default_value: bool,
@@ -2137,7 +2031,7 @@ pub unsafe extern "C" fn options_get_bool(
     feature = "export-runtime-ffi",
     export_name = "_ZNK4lean7options6updateERKNS_4nameEb"
 )]
-pub unsafe extern "C" fn options_update(
+pub unsafe fn options_update(
     this: *const LeanOptions,
     name: *const LeanName,
     value: bool,
@@ -2155,7 +2049,7 @@ pub unsafe extern "C" fn options_update(
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean12get_profilerERKNS_7optionsE"
 )]
-pub unsafe extern "C" fn get_profiler(opts: *const LeanOptions) -> bool {
+pub unsafe fn get_profiler(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     lean_inc(opts);
     lean_get_profiler(opts) != 0
@@ -2165,7 +2059,7 @@ pub unsafe extern "C" fn get_profiler(opts: *const LeanOptions) -> bool {
     feature = "export-runtime-ffi",
     export_name = "_ZN4lean23get_profiling_thresholdERKNS_7optionsE"
 )]
-pub unsafe extern "C" fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
+pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
     let opts = (*opts).obj;
     lean_inc(opts);
     lean_get_profiler_threshold(opts)
@@ -2183,13 +2077,11 @@ pub extern "C" fn initialize_profiling() {}
 )]
 pub extern "C" fn finalize_profiling() {}
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
     true as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut LeanObject {
     let mut opts = lean_options_get_empty(lean_box(0));
     if env_flag(env!("LEAN_RUST_IS_STAGE0")) != 0 {
         let updates = [
@@ -2208,87 +2100,71 @@ pub unsafe extern "C" fn lean_internal_get_default_options(_: *mut LeanObject) -
     opts
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_finalize() {
     run_thread_finalizers();
     run_post_thread_finalizers();
     delete_thread_finalizer_manager();
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(core::mem::size_of::<*const u8>() * 8)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_system_platform_windows(_: *mut LeanObject) -> u8 {
     cfg!(target_os = "windows") as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
     cfg!(target_os = "macos") as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
     cfg!(target_os = "emscripten") as u8
 }
 
 static INITIALIZING: core::sync::atomic::AtomicBool = core::sync::atomic::AtomicBool::new(true);
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_mark_end_initialization() {
     INITIALIZING.store(false, Ordering::Relaxed);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_io_initializing() -> u8 {
     INITIALIZING.load(Ordering::Relaxed) as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_GITHASH"), "\0").as_ptr() as *const c_char)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_HAS_LLVM"))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_HAS_ADDRESS_SANITIZER"))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_is_multi_thread(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_MULTI_THREAD"))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_internal_is_debug(_: *mut LeanObject) -> u8 {
     env_flag(env!("LEAN_RUST_DEBUG"))
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_internal_get_build_type(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_internal_get_build_type(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_BUILD_TYPE"), "\0").as_ptr() as *const c_char)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_leanc_extra_flags(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_get_leanc_extra_flags(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_LEANC_EXTRA_CC_FLAGS"), "\0").as_ptr() as *const c_char)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_leanc_internal_flags(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_get_leanc_internal_flags(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_LEANC_INTERNAL_FLAGS"), "\0").as_ptr() as *const c_char)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_linker_flags(link_static: u8) -> *mut LeanObject {
+pub unsafe fn lean_get_linker_flags(link_static: u8) -> *mut LeanObject {
     if link_static != 0 {
         lean_mk_string(
             concat!(
@@ -2312,8 +2188,7 @@ pub unsafe extern "C" fn lean_get_linker_flags(link_static: u8) -> *mut LeanObje
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_internal_linker_flags(_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_get_internal_linker_flags(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(
         concat!(env!("LEAN_RUST_LEANC_INTERNAL_LINKER_FLAGS"), "\0").as_ptr() as *const c_char,
     )
@@ -2381,44 +2256,23 @@ unsafe fn lean_map_foreach_smap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *
     lean_map_foreach_node(lean_ctor_get(m, 1), cb, ctx);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_rbmap_foreach(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+pub unsafe fn lean_rbmap_foreach(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     lean_map_foreach_rbmap(m, cb, ctx);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_phashmap_foreach(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+pub unsafe fn lean_phashmap_foreach(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     lean_map_foreach_node(lean_ctor_get(m, 0), cb, ctx);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_hashmap_foreach(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+pub unsafe fn lean_hashmap_foreach(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     lean_map_foreach_hashmap(m, cb, ctx);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_smap_foreach(
-    m: *mut LeanObject,
-    cb: LeanMapForeachFn,
-    ctx: *mut c_void,
-) {
+pub unsafe fn lean_smap_foreach(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
     lean_map_foreach_smap(m, cb, ctx);
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObject {
     extern "C" fn print_entry(k: *mut LeanObject, v: *mut LeanObject, _: *mut c_void) {
         // The playground test uses boxed natural numbers.
         let key = unsafe { lean_unbox(k) };
@@ -2432,11 +2286,7 @@ pub unsafe extern "C" fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut Lean
     lean_box(0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_timeit(
-    msg: *mut LeanObject,
-    fn_obj: *mut LeanObject,
-) -> *mut LeanObject {
+pub unsafe fn lean_io_timeit(msg: *mut LeanObject, fn_obj: *mut LeanObject) -> *mut LeanObject {
     use std::ffi::CStr;
     use std::io::{self, Write};
     use std::time::Instant;
@@ -2455,20 +2305,17 @@ pub unsafe extern "C" fn lean_io_timeit(
     result
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_get_num_heartbeats() -> *mut LeanObject {
+pub unsafe fn lean_io_get_num_heartbeats() -> *mut LeanObject {
     lean_uint64_to_nat_rust(lean_get_num_heartbeats())
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_set_heartbeats(count: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_set_heartbeats(count: *mut LeanObject) -> *mut LeanObject {
     lean_set_heartbeats(lean_uint64_of_nat_rust(count));
     lean_dec(count);
     lean_box(0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_mono_ms_now() -> *mut LeanObject {
+pub unsafe fn lean_io_mono_ms_now() -> *mut LeanObject {
     use std::sync::OnceLock;
     use std::time::Instant;
 
@@ -2477,8 +2324,7 @@ pub unsafe extern "C" fn lean_io_mono_ms_now() -> *mut LeanObject {
     lean_uint64_to_nat_rust(start.elapsed().as_millis() as u64)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_mono_nanos_now() -> *mut LeanObject {
+pub unsafe fn lean_io_mono_nanos_now() -> *mut LeanObject {
     use std::sync::OnceLock;
     use std::time::Instant;
 
@@ -2487,8 +2333,7 @@ pub unsafe extern "C" fn lean_io_mono_nanos_now() -> *mut LeanObject {
     lean_uint64_to_nat_rust(start.elapsed().as_nanos() as u64)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_get_current_time() -> *mut LeanObject {
+pub unsafe fn lean_get_current_time() -> *mut LeanObject {
     use std::time::{SystemTime, UNIX_EPOCH};
 
     let now = SystemTime::now()
@@ -2501,8 +2346,7 @@ pub unsafe extern "C" fn lean_get_current_time() -> *mut LeanObject {
     lean_io_result_mk_ok(timestamp)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject {
     use std::ffi::{CStr, CString};
 
     let name_ptr = lean_string_cstr(env_var);
@@ -2524,8 +2368,7 @@ pub unsafe extern "C" fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanOb
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_byteslice_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_byteslice_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
     if ptr::eq(a, b) {
         return 1;
     }
@@ -2559,8 +2402,7 @@ pub unsafe extern "C" fn lean_byteslice_beq(a: *mut LeanObject, b: *mut LeanObje
     1
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_mk_cnstr(
+pub unsafe fn lean_runtime_mk_cnstr(
     tag: c_uint,
     num_objs: c_uint,
     objs: *mut *mut LeanObject,
@@ -2574,14 +2416,12 @@ pub unsafe extern "C" fn lean_runtime_mk_cnstr(
     obj
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
     let mut fields = [value];
     lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
     let mut fields = [error];
     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 }
@@ -2616,18 +2456,15 @@ pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {
     (*string).len
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_runtime_is_utf8_next(byte: c_uchar) -> bool {
     byte & 0xC0 == 0x80
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_runtime_get_utf8_size(byte: c_uchar) -> c_uint {
     utf8_size(byte) as c_uint
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_utf8_strlen(mut text: *const c_char) -> Size {
+pub unsafe fn lean_utf8_strlen(mut text: *const c_char) -> Size {
     let mut length = 0;
     while *text != 0 {
         let size = utf8_size(*text as c_uchar);
@@ -2637,8 +2474,7 @@ pub unsafe extern "C" fn lean_utf8_strlen(mut text: *const c_char) -> Size {
     length
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_utf8_n_strlen(text: *const c_char, byte_size: Size) -> Size {
+pub unsafe fn lean_utf8_n_strlen(text: *const c_char, byte_size: Size) -> Size {
     let mut length = 0;
     let mut offset = 0;
     while offset < byte_size {
@@ -2649,8 +2485,7 @@ pub unsafe extern "C" fn lean_utf8_n_strlen(text: *const c_char, byte_size: Size
     length
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_utf8_char_pos(
+pub unsafe fn lean_runtime_utf8_char_pos(
     mut text: *const c_char,
     mut char_idx: Size,
     out_pos: *mut Size,
@@ -2669,8 +2504,7 @@ pub unsafe extern "C" fn lean_runtime_utf8_char_pos(
     false
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_get_utf8_last_char(mut text: *const c_char) -> *const c_char {
+pub unsafe fn lean_runtime_get_utf8_last_char(mut text: *const c_char) -> *const c_char {
     let mut last = text;
     while *text != 0 {
         last = text;
@@ -2679,11 +2513,7 @@ pub unsafe extern "C" fn lean_runtime_get_utf8_last_char(mut text: *const c_char
     last
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_utf8_to_unicode(
-    begin: *const c_uchar,
-    end: *const c_uchar,
-) -> c_uint {
+pub unsafe fn lean_runtime_utf8_to_unicode(begin: *const c_uchar, end: *const c_uchar) -> c_uint {
     if begin == end {
         return 0;
     }
@@ -2715,11 +2545,7 @@ pub unsafe extern "C" fn lean_runtime_utf8_to_unicode(
     result | (((byte >> shift) & high_mask) << num_bits)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_get_utf8_first_byte_size(
-    byte: c_uchar,
-    out_size: *mut c_uint,
-) -> bool {
+pub unsafe fn lean_runtime_get_utf8_first_byte_size(byte: c_uchar, out_size: *mut c_uint) -> bool {
     let size = if byte & 0x80 == 0 {
         1
     } else if byte & 0xe0 == 0xc0 {
@@ -2735,12 +2561,7 @@ pub unsafe extern "C" fn lean_runtime_get_utf8_first_byte_size(
     true
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_next_utf8(
-    text: *const c_char,
-    size: Size,
-    pos: *mut Size,
-) -> c_uint {
+pub unsafe fn lean_runtime_next_utf8(text: *const c_char, size: Size, pos: *mut Size) -> c_uint {
     let i = *pos;
     let byte = *text.add(i) as c_uchar as c_uint;
     if byte & 0x80 == 0 {
@@ -2782,8 +2603,7 @@ pub unsafe extern "C" fn lean_runtime_next_utf8(
     byte
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_validate_utf8_one(
+pub unsafe fn lean_runtime_validate_utf8_one(
     text: *const c_uchar,
     size: Size,
     pos: *mut Size,
@@ -2849,8 +2669,7 @@ pub unsafe extern "C" fn lean_runtime_validate_utf8_one(
     false
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_validate_utf8(
+pub unsafe fn lean_runtime_validate_utf8(
     text: *const c_uchar,
     size: Size,
     pos: *mut Size,
@@ -2865,11 +2684,7 @@ pub unsafe extern "C" fn lean_runtime_validate_utf8(
     true
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_push_unicode_scalar(
-    dst: *mut c_char,
-    code: c_uint,
-) -> c_uint {
+pub unsafe fn lean_runtime_push_unicode_scalar(dst: *mut c_char, code: c_uint) -> c_uint {
     const TAG_CONT: c_uint = 0b10000000;
     const TAG_TWO_B: c_uint = 0b11000000;
     const TAG_THREE_B: c_uint = 0b11100000;
@@ -2915,8 +2730,7 @@ pub unsafe extern "C" fn lean_runtime_push_unicode_scalar(
     len as c_uint
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_runtime_hash_str(len: Size, text: *const c_uchar, seed: u64) -> u64 {
+pub unsafe fn lean_runtime_hash_str(len: Size, text: *const c_uchar, seed: u64) -> u64 {
     const M: u64 = 0xc6a4a7935bd1e995;
     const R: u32 = 47;
 

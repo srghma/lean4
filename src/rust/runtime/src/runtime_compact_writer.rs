@@ -9,7 +9,7 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 #[cfg(feature = "export-runtime-ffi")]
 mod runtime_compact_writer_impl {
     use super::*;
-    use core::ffi::{c_char, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_void};
     use core::sync::atomic::{AtomicPtr, Ordering};
     use std::collections::HashMap;
     use std::io::Write as IoWrite;
@@ -89,11 +89,7 @@ mod runtime_compact_writer_impl {
     #[inline]
     fn align_up_ptr(sz: usize) -> usize {
         let rem = sz % PTR_SIZE;
-        if rem != 0 {
-            sz + PTR_SIZE - rem
-        } else {
-            sz
-        }
+        if rem != 0 { sz + PTR_SIZE - rem } else { sz }
     }
 
     /// Read the cached hash stored in a Lean Name object.
@@ -131,7 +127,7 @@ mod runtime_compact_writer_impl {
         struct State {
             libs: Vec<LibInfo>,
         }
-        unsafe extern "C" fn callback(
+        unsafe fn callback(
             info: *mut libc::dl_phdr_info,
             _size: libc::size_t,
             data: *mut c_void,
@@ -701,11 +697,11 @@ mod runtime_compact_writer_impl {
 
     static COMPACTOR_CLASS: std::sync::OnceLock<usize> = std::sync::OnceLock::new();
 
-    unsafe extern "C" fn compactor_finalizer(data: *mut c_void) {
+    unsafe fn compactor_finalizer(data: *mut c_void) {
         drop(Box::from_raw(data as *mut ObjectCompactor));
     }
 
-    unsafe extern "C" fn compactor_foreach(_data: *mut c_void, _o: *mut LeanObject) {}
+    unsafe fn compactor_foreach(_data: *mut c_void, _o: *mut LeanObject) {}
 
     fn get_compactor_class() -> *mut LeanExternalClass {
         *COMPACTOR_CLASS.get_or_init(|| unsafe {
@@ -822,7 +818,7 @@ mod runtime_compact_writer_impl {
     ///       (data : @& α) (depRegions : @& Array CompactedRegion)
     ///       (prev : Option Compactor) (allowClosures := false) : IO Compactor
     #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_save(
+    pub unsafe fn lean_compacted_region_save(
         ofname: *mut LeanObject,
         mod_: *mut LeanObject,
         odata: *mut LeanObject,

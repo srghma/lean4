@@ -21,7 +21,7 @@ extern "system" {
     fn GetProcAddress(handle: *mut c_void, name: *const c_char) -> *mut c_void;
 }
 
-unsafe extern "C" fn dynlib_finalizer(handle: *mut c_void) {
+unsafe fn dynlib_finalizer(handle: *mut c_void) {
     #[cfg(unix)]
     {
         dlclose(handle);
@@ -32,8 +32,8 @@ unsafe extern "C" fn dynlib_finalizer(handle: *mut c_void) {
     }
 }
 
-unsafe extern "C" fn noop_external_finalizer(_: *mut c_void) {}
-unsafe extern "C" fn noop_external_foreach(_: *mut c_void, _: *mut LeanObject) {}
+unsafe fn noop_external_finalizer(_: *mut c_void) {}
+unsafe fn noop_external_foreach(_: *mut c_void, _: *mut LeanObject) {}
 
 unsafe fn dynlib_error(prefix: &str, detail: *const c_char) -> *mut LeanObject {
     let detail = if detail.is_null() {
@@ -61,8 +61,7 @@ pub extern "C" fn initialize_dynlib() {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject {
     #[cfg(unix)]
     {
         const RTLD_LAZY: i32 = 1;
@@ -87,11 +86,7 @@ pub unsafe extern "C" fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObj
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dynlib_get(
-    dynlib: *mut LeanObject,
-    name: *mut LeanObject,
-) -> *mut LeanObject {
+pub unsafe fn lean_dynlib_get(dynlib: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject {
     #[cfg(unix)]
     let symbol = {
         dlerror();
@@ -121,12 +116,11 @@ pub unsafe extern "C" fn lean_dynlib_get(
     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_dynlib_symbol_run_as_init(
+pub unsafe fn lean_dynlib_symbol_run_as_init(
     _: *mut LeanObject,
     symbol: *mut LeanObject,
 ) -> *mut LeanObject {
     let symbol = lean_runtime_get_external_data(symbol);
-    let initialize: unsafe extern "C" fn(u8) -> *mut LeanObject = core::mem::transmute(symbol);
+    let initialize: unsafe fn(u8) -> *mut LeanObject = core::mem::transmute(symbol);
     initialize(1)
 }

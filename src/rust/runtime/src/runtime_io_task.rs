@@ -40,64 +40,48 @@ mod runtime_io_task_impl {
             .write(value);
     }
 
-    unsafe extern "C" fn lean_io_as_task_fn(
-        act: *mut LeanObject,
-        _world: *mut LeanObject,
-    ) -> *mut LeanObject {
+    unsafe fn lean_io_as_task_fn(act: *mut LeanObject, _world: *mut LeanObject) -> *mut LeanObject {
         lean_apply_1(act, lean_io_mk_world())
     }
 
-    unsafe extern "C" fn lean_io_bind_task_fn(
-        f: *mut LeanObject,
-        a: *mut LeanObject,
-    ) -> *mut LeanObject {
+    unsafe fn lean_io_bind_task_fn(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject {
         lean_apply_2(f, a, lean_io_mk_world())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_check_canceled() -> u8 {
+    pub unsafe fn lean_io_check_canceled() -> u8 {
         lean_io_check_canceled_core() as u8
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_cancel(t: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_cancel(t: *mut LeanObject) -> *mut LeanObject {
         lean_io_cancel_core(t);
         lean_box(0)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_get_task_state(t: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_get_task_state(t: *mut LeanObject) -> u8 {
         lean_io_get_task_state_core(t)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_wait(t: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_wait(t: *mut LeanObject) -> *mut LeanObject {
         let value = lean_task_get(t);
         lean_inc(value);
         lean_dec(t);
         value
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_wait_any(task_list: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_wait_any(task_list: *mut LeanObject) -> *mut LeanObject {
         let task = lean_io_wait_any_core(task_list);
         let value = lean_task_get(task);
         lean_inc(value);
         value
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_as_task(
-        act: *mut LeanObject,
-        prio: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_as_task(act: *mut LeanObject, prio: *mut LeanObject) -> *mut LeanObject {
         let c = lean_alloc_closure(lean_io_as_task_fn as *mut c_void, 2, 1);
         lean_closure_set(c, 0, act);
         lean_task_spawn_core(c, lean_unbox(prio) as core::ffi::c_uint, true)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_map_task(
+    pub unsafe fn lean_io_map_task(
         f: *mut LeanObject,
         t: *mut LeanObject,
         prio: *mut LeanObject,
@@ -108,8 +92,7 @@ mod runtime_io_task_impl {
         lean_task_map_core(c, t, lean_unbox(prio) as core::ffi::c_uint, sync != 0, true)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_bind_task(
+    pub unsafe fn lean_io_bind_task(
         t: *mut LeanObject,
         f: *mut LeanObject,
         prio: *mut LeanObject,

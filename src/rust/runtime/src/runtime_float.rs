@@ -6,13 +6,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 extern "C" {
     fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
     fn lean_int_big_nonneg(value: *mut LeanObject) -> bool;
-    #[link_name = "scalbn"]
     fn c_scalbn(value: f64, scale: c_int) -> f64;
-    #[link_name = "scalbnf"]
     fn c_scalbnf(value: f32, scale: c_int) -> f32;
-    #[link_name = "frexp"]
     fn c_frexp(value: f64, exp: *mut c_int) -> f64;
-    #[link_name = "frexpf"]
     fn c_frexpf(value: f32, exp: *mut c_int) -> f32;
 }
 
@@ -64,7 +60,6 @@ unsafe fn lean_mk_float_exp_pair(
     pair
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float_to_string(value: f64) -> *mut LeanObject {
     if value.is_nan() {
         float_to_string("NaN".to_owned())
@@ -73,8 +68,7 @@ pub extern "C" fn lean_float_to_string(value: f64) -> *mut LeanObject {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
+pub unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
     if lean_is_scalar(scale) {
         c_scalbn(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
@@ -84,32 +78,23 @@ pub unsafe extern "C" fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float_isnan(value: f64) -> u8 {
     value.is_nan() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float_isfinite(value: f64) -> u8 {
     value.is_finite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float_isinf(value: f64) -> u8 {
     value.is_infinite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float_of_bits(bits: u64) -> f64 {
     let value = f64::from_bits(bits);
-    if value.is_nan() {
-        f64::NAN
-    } else {
-        value
-    }
+    if value.is_nan() { f64::NAN } else { value }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float_to_bits(mut value: f64) -> u64 {
     if value.is_nan() {
         value = f64::NAN;
@@ -117,8 +102,7 @@ pub extern "C" fn lean_float_to_bits(mut value: f64) -> u64 {
     value.to_bits()
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float_frexp(value: f64) -> *mut LeanObject {
+pub unsafe fn lean_float_frexp(value: f64) -> *mut LeanObject {
     let mut exp = 0;
     let significand = c_frexp(value, &mut exp);
     let exp_obj = if value.is_finite() {
@@ -129,7 +113,6 @@ pub unsafe extern "C" fn lean_float_frexp(value: f64) -> *mut LeanObject {
     lean_mk_float_exp_pair(lean_box_float(significand), exp_obj)
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float32_to_string(value: f32) -> *mut LeanObject {
     if value.is_nan() {
         float_to_string("NaN".to_owned())
@@ -138,8 +121,7 @@ pub extern "C" fn lean_float32_to_string(value: f32) -> *mut LeanObject {
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
+pub unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
     if lean_is_scalar(scale) {
         c_scalbnf(value, lean_scalar_to_int(scale))
     } else if value == 0.0 || !lean_int_big_nonneg(scale) {
@@ -149,32 +131,23 @@ pub unsafe extern "C" fn lean_float32_scaleb(value: f32, scale: *mut LeanObject)
     }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float32_isnan(value: f32) -> u8 {
     value.is_nan() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float32_isfinite(value: f32) -> u8 {
     value.is_finite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float32_isinf(value: f32) -> u8 {
     value.is_infinite() as u8
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float32_of_bits(bits: u32) -> f32 {
     let value = f32::from_bits(bits);
-    if value.is_nan() {
-        f32::NAN
-    } else {
-        value
-    }
+    if value.is_nan() { f32::NAN } else { value }
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
 pub extern "C" fn lean_float32_to_bits(mut value: f32) -> u32 {
     if value.is_nan() {
         value = f32::NAN;
@@ -182,8 +155,7 @@ pub extern "C" fn lean_float32_to_bits(mut value: f32) -> u32 {
     value.to_bits()
 }
 
-#[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-pub unsafe extern "C" fn lean_float32_frexp(value: f32) -> *mut LeanObject {
+pub unsafe fn lean_float32_frexp(value: f32) -> *mut LeanObject {
     let mut exp = 0;
     let significand = c_frexpf(value, &mut exp);
     let exp_obj = if value.is_finite() {

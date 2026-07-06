@@ -80,7 +80,7 @@ mod runtime_memory_impl {
     #[cfg(target_os = "macos")]
     unsafe fn get_current_rss() -> usize {
         use mach2::task_info::{
-            task_info, task_info_t, MACH_TASK_BASIC_INFO, MACH_TASK_BASIC_INFO_COUNT,
+            MACH_TASK_BASIC_INFO, MACH_TASK_BASIC_INFO_COUNT, task_info, task_info_t,
         };
         use mach2::traps::mach_task_self;
         let mut info = std::mem::zeroed::<mach2::task_info::mach_task_basic_info>();
@@ -118,7 +118,6 @@ mod runtime_memory_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_internal_get_default_max_memory() -> *mut LeanObject {
         #[cfg(feature = "default-max-memory")]
         const DEFAULT: usize = 0; // or compile config
@@ -136,7 +135,6 @@ mod runtime_memory_impl {
         G_MAX_MEMORY.store(max, Ordering::SeqCst);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_internal_set_max_memory(max: usize) -> *mut LeanObject {
         set_max_memory(max);
         unsafe { lean_box(0) }
@@ -155,7 +153,7 @@ mod runtime_memory_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean12check_memoryEPKc"
     )]
-    pub unsafe extern "C" fn check_memory(component_name: *const c_char) {
+    pub unsafe fn check_memory(component_name: *const c_char) {
         let max = G_MAX_MEMORY.load(Ordering::SeqCst);
         if max == 0 {
             return;
@@ -183,7 +181,7 @@ mod runtime_memory_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean20get_allocated_memoryEv"
     )]
-    pub unsafe extern "C" fn get_allocated_memory() -> usize {
+    pub unsafe fn get_allocated_memory() -> usize {
         get_current_rss()
     }
 

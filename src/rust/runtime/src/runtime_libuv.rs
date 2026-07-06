@@ -14,19 +14,12 @@ mod runtime_libuv_impl {
     }
 
     extern "C" {
-        #[link_name = "_ZN4lean22initialize_libuv_timerEv"]
         fn initialize_libuv_timer();
-        #[link_name = "_ZN4lean27initialize_libuv_tcp_socketEv"]
         fn initialize_libuv_tcp_socket();
-        #[link_name = "_ZN4lean27initialize_libuv_udp_socketEv"]
         fn initialize_libuv_udp_socket();
-        #[link_name = "_ZN4lean23initialize_libuv_signalEv"]
         fn initialize_libuv_signal();
-        #[link_name = "_ZN4lean21initialize_libuv_loopEv"]
         fn initialize_libuv_loop();
-        #[link_name = "_ZN4lean19event_loop_run_loopEPNS_12event_loop_tE"]
         fn event_loop_run_loop(event_loop: *mut EventLoop);
-        #[link_name = "_ZN4lean9global_evE"]
         static mut GLOBAL_EV: EventLoop;
 
         fn lean_initialize_thread();
@@ -35,8 +28,7 @@ mod runtime_libuv_impl {
         fn uv_version() -> c_uint;
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn initialize_libuv() {
+    pub unsafe fn initialize_libuv() {
         initialize_libuv_timer();
         initialize_libuv_tcp_socket();
         initialize_libuv_udp_socket();
@@ -51,16 +43,11 @@ mod runtime_libuv_impl {
         });
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_setup_args(
-        argc: c_int,
-        argv: *mut *mut c_char,
-    ) -> *mut *mut c_char {
+    pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         uv_setup_args(argc, argv)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
         lean_box(uv_version() as usize)
     }
 }
@@ -72,16 +59,13 @@ pub use runtime_libuv_impl::*;
 mod runtime_libuv_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn initialize_libuv() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+    pub unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         argv
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_libuv_version(_: *mut LeanObject) -> *mut LeanObject {
         lean_box(0)
     }
 }

@@ -56,8 +56,7 @@ mod kernel_replace_fn_impl {
         ) -> *mut LeanObject;
     }
 
-    type ReplaceCallback =
-        unsafe extern "C" fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject;
+    type ReplaceCallback = unsafe fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject;
 
     struct ReplaceCallbackFn {
         ctx: *mut c_void,
@@ -391,15 +390,12 @@ mod kernel_replace_fn_impl {
     // lean_replace_expr (f : Expr → Option Expr) (e : Expr) : Expr
     // Both f and e are borrowed (b_obj_arg); returns owned result.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_replace_expr(
-        f: *mut LeanObject,
-        e: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_replace_expr(f: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject {
         ReplaceFn::new(f).apply(e)
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_replace_expr_with_callback(
+    pub unsafe fn lean_replace_expr_with_callback(
         e: *mut LeanObject,
         ctx: *mut c_void,
         callback: ReplaceCallback,

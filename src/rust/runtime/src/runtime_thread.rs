@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_thread_impl {
-    use super::{lean_box, LeanObject};
+    use super::{LeanObject, lean_box};
     use core::cell::Cell;
     use core::ffi::c_void;
 
-    type ThreadFinalizer = unsafe extern "C" fn(*mut c_void);
+    type ThreadFinalizer = unsafe fn(*mut c_void);
     type FinalizerList = Vec<(ThreadFinalizer, *mut c_void)>;
 
     thread_local! {
@@ -88,12 +88,10 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_initialize_thread() {}
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_finalize_thread() {
+    pub unsafe fn lean_finalize_thread() {
         run_thread_finalizers_internal();
         run_post_thread_finalizers_internal();
     }
@@ -110,7 +108,7 @@ mod runtime_thread_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean25register_thread_finalizerEPFvPvES0_"
     )]
-    pub unsafe extern "C" fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
+    pub unsafe fn register_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_FINALIZERS, f, data);
     }
 
@@ -118,7 +116,7 @@ mod runtime_thread_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean30register_post_thread_finalizerEPFvPvES0_"
     )]
-    pub unsafe extern "C" fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
+    pub unsafe fn register_post_thread_finalizer(f: ThreadFinalizer, data: *mut c_void) {
         register_finalizer(&G_POST_FINALIZERS, f, data);
     }
 
@@ -126,7 +124,7 @@ mod runtime_thread_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean21run_thread_finalizersEv"
     )]
-    pub unsafe extern "C" fn run_thread_finalizers_export() {
+    pub unsafe fn run_thread_finalizers_export() {
         run_thread_finalizers_internal();
     }
 
@@ -134,7 +132,7 @@ mod runtime_thread_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean26run_post_thread_finalizersEv"
     )]
-    pub unsafe extern "C" fn run_post_thread_finalizers_export() {
+    pub unsafe fn run_post_thread_finalizers_export() {
         run_post_thread_finalizers_internal();
     }
 
@@ -142,7 +140,7 @@ mod runtime_thread_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean31delete_thread_finalizer_managerEv"
     )]
-    pub unsafe extern "C" fn delete_thread_finalizer_manager_export() {
+    pub unsafe fn delete_thread_finalizer_manager_export() {
         delete_thread_finalizer_manager_internal();
     }
 
@@ -171,9 +169,7 @@ mod runtime_thread_impl {
     };
 
     extern "C" {
-        #[link_name = "_ZN4lean17get_max_heartbeatEv"]
         fn get_max_heartbeat() -> usize;
-        #[link_name = "_ZN4lean17set_max_heartbeatEm"]
         fn set_max_heartbeat(max: usize);
 
         // lean_initialize_thread on small-allocator builds comes from C++ thread.cpp;
@@ -202,8 +198,7 @@ mod runtime_thread_impl {
         G_THREAD_STACK_SIZE.store(sz + LEAN_STACK_BUFFER_SPACE, Ordering::Relaxed);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject {
+    pub unsafe fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject {
         set_thread_stack_size_internal(sz);
         lean_box(0)
     }
@@ -293,7 +288,7 @@ mod runtime_thread_impl {
         }
     }
 
-    type MainFn = unsafe extern "C" fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
+    type MainFn = unsafe fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
 
     struct SendPtr<T>(*mut T);
     unsafe impl<T> Send for SendPtr<T> {}
@@ -304,8 +299,7 @@ mod runtime_thread_impl {
     }
 
     #[cfg(lean_multi_thread)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_run_main(
+    pub unsafe fn lean_run_main(
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -337,8 +331,7 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_run_main(
+    pub unsafe fn lean_run_main(
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -348,11 +341,9 @@ mod runtime_thread_impl {
 
     // The C++ thread-local reset registry is currently unused in the tree.
     // Keep the hooks as no-ops so we can retire src/runtime/thread.cpp.
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn register_thread_local_reset_fn(_fn: *mut c_void) {}
+    pub unsafe fn register_thread_local_reset_fn(_fn: *mut c_void) {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn reset_thread_local() {}
+    pub unsafe fn reset_thread_local() {}
 }
 
 pub(crate) use runtime_thread_impl::{

@@ -41,7 +41,6 @@ mod runtime_net_addr_impl {
             count: *mut c_int,
         ) -> c_int;
         fn uv_free_interface_addresses(addresses: *mut UvInterfaceAddress, count: c_int);
-        #[link_name = "lean_internal_panic"]
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 
@@ -69,10 +68,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean25lean_ipv4_addr_to_in_addrEP11lean_objectP7in_addr"
     )]
-    pub unsafe extern "C" fn lean_ipv4_addr_to_in_addr(
-        ipv4_addr: *mut LeanObject,
-        out: *mut libc::in_addr,
-    ) {
+    pub unsafe fn lean_ipv4_addr_to_in_addr(ipv4_addr: *mut LeanObject, out: *mut libc::in_addr) {
         let mut host_addr = 0u32;
         for index in 0..4 {
             let octet = lean_unbox(lean_array_get(ipv4_addr, index)) as u32;
@@ -85,10 +81,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean26lean_ipv6_addr_to_in6_addrEP11lean_objectP8in6_addr"
     )]
-    pub unsafe extern "C" fn lean_ipv6_addr_to_in6_addr(
-        ipv6_addr: *mut LeanObject,
-        out: *mut libc::in6_addr,
-    ) {
+    pub unsafe fn lean_ipv6_addr_to_in6_addr(ipv6_addr: *mut LeanObject, out: *mut libc::in6_addr) {
         for index in 0..8 {
             let segment = lean_unbox(lean_array_get(ipv6_addr, index)) as u16;
             let bytes = segment.to_be_bytes();
@@ -101,7 +94,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean31lean_ip_addr_to_in_addr_storageEP11lean_objectPiPNS_15in_addr_storageE"
     )]
-    pub unsafe extern "C" fn lean_ip_addr_to_in_addr_storage(
+    pub unsafe fn lean_ip_addr_to_in_addr_storage(
         ip_addr: *mut LeanObject,
         ip_type: *mut c_int,
         out: *mut InAddrStorage,
@@ -120,7 +113,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean17lean_ip_addr_ntopEP11lean_objectPcm"
     )]
-    pub unsafe extern "C" fn lean_ip_addr_ntop(
+    pub unsafe fn lean_ip_addr_ntop(
         ip_addr: *mut LeanObject,
         buffer: *mut c_char,
         buffer_size: usize,
@@ -140,7 +133,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"
     )]
-    pub unsafe extern "C" fn lean_socket_address_to_sockaddr_storage(
+    pub unsafe fn lean_socket_address_to_sockaddr_storage(
         ip_addr: *mut LeanObject,
         out: *mut libc::sockaddr_storage,
     ) {
@@ -166,9 +159,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean25lean_in_addr_to_ipv4_addrEPK7in_addr"
     )]
-    pub unsafe extern "C" fn lean_in_addr_to_ipv4_addr(
-        ipv4_addr: *const libc::in_addr,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_in_addr_to_ipv4_addr(ipv4_addr: *const libc::in_addr) -> *mut LeanObject {
         let result = lean_alloc_array(0, 4);
         let host_addr = u32::from_be((*ipv4_addr).s_addr);
         let mut array = result;
@@ -184,9 +175,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean26lean_in6_addr_to_ipv6_addrEPK8in6_addr"
     )]
-    pub unsafe extern "C" fn lean_in6_addr_to_ipv6_addr(
-        ipv6_addr: *const libc::in6_addr,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_in6_addr_to_ipv6_addr(ipv6_addr: *const libc::in6_addr) -> *mut LeanObject {
         let result = lean_alloc_array(0, 8);
         let mut array = result;
         for index in 0..8 {
@@ -205,7 +194,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean26lean_phys_addr_to_mac_addrEPc"
     )]
-    pub unsafe extern "C" fn lean_phys_addr_to_mac_addr(phys_addr: *mut c_char) -> *mut LeanObject {
+    pub unsafe fn lean_phys_addr_to_mac_addr(phys_addr: *mut c_char) -> *mut LeanObject {
         let result = lean_alloc_array(0, 6);
         let mut array = result;
         for index in 0..6 {
@@ -219,10 +208,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean21lean_mk_socketaddressEP11lean_objectt"
     )]
-    pub unsafe extern "C" fn lean_mk_socketaddress(
-        ip_addr: *mut LeanObject,
-        port: u16,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_mk_socketaddress(ip_addr: *mut LeanObject, port: u16) -> *mut LeanObject {
         let socket_addr = lean_runtime_alloc_ctor(0, 1, 2);
         lean_runtime_ctor_set(socket_addr, 0, ip_addr);
         lean_ctor_set_uint16(socket_addr, core::mem::size_of::<*mut LeanObject>(), port);
@@ -233,7 +219,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean31lean_in_addr_storage_to_ip_addrEsPNS_15in_addr_storageE"
     )]
-    pub unsafe extern "C" fn lean_in_addr_storage_to_ip_addr(
+    pub unsafe fn lean_in_addr_storage_to_ip_addr(
         family: i16,
         ip_addr: *mut InAddrStorage,
     ) -> *mut LeanObject {
@@ -262,7 +248,7 @@ mod runtime_net_addr_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean30lean_sockaddr_to_socketaddressEPK8sockaddr"
     )]
-    pub unsafe extern "C" fn lean_sockaddr_to_socketaddress(
+    pub unsafe fn lean_sockaddr_to_socketaddress(
         sockaddr: *const libc::sockaddr,
     ) -> *mut LeanObject {
         let (part, tag) = if (*sockaddr).sa_family as c_int == libc::AF_INET {
@@ -284,8 +270,7 @@ mod runtime_net_addr_impl {
         ctor
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_pton_v4(str_obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_pton_v4(str_obj: *mut LeanObject) -> *mut LeanObject {
         let str_ptr = lean_string_cstr(str_obj);
         if CStr::from_ptr(str_ptr).to_bytes().len() != lean_string_size(str_obj) - 1 {
             return option_none();
@@ -299,8 +284,7 @@ mod runtime_net_addr_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_ntop_v4(ipv4_addr: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_ntop_v4(ipv4_addr: *mut LeanObject) -> *mut LeanObject {
         let mut internal = MaybeUninit::<libc::in_addr>::uninit();
         lean_ipv4_addr_to_in_addr(ipv4_addr, internal.as_mut_ptr());
         let mut dst = [0 as c_char; INET_ADDRSTRLEN];
@@ -313,8 +297,7 @@ mod runtime_net_addr_impl {
         lean_mk_string(dst.as_ptr())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_pton_v6(str_obj: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_pton_v6(str_obj: *mut LeanObject) -> *mut LeanObject {
         let str_ptr = lean_string_cstr(str_obj);
         if CStr::from_ptr(str_ptr).to_bytes().len() != lean_string_size(str_obj) - 1 {
             return option_none();
@@ -328,8 +311,7 @@ mod runtime_net_addr_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_ntop_v6(ipv6_addr: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_ntop_v6(ipv6_addr: *mut LeanObject) -> *mut LeanObject {
         let mut internal = MaybeUninit::<libc::in6_addr>::uninit();
         lean_ipv6_addr_to_in6_addr(ipv6_addr, internal.as_mut_ptr());
         let mut dst = [0 as c_char; INET6_ADDRSTRLEN];
@@ -342,8 +324,7 @@ mod runtime_net_addr_impl {
         lean_mk_string(dst.as_ptr())
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_interface_addresses() -> *mut LeanObject {
+    pub unsafe fn lean_uv_interface_addresses() -> *mut LeanObject {
         let mut info = null_mut();
         let mut count = 0;
 

@@ -10,7 +10,6 @@ mod runtime_stack_info_impl {
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024; // 128 Kb
 
     extern "C" {
-        #[link_name = "_ZN4lean7lthread21get_thread_stack_sizeEv"]
         fn lthread_get_thread_stack_size() -> usize;
 
         fn throw_get_stack_size_failed() -> !;
@@ -73,7 +72,7 @@ mod runtime_stack_info_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean14get_stack_sizeEb"
     )]
-    pub unsafe extern "C" fn get_stack_size_export(main: bool) -> usize {
+    pub unsafe fn get_stack_size_export(main: bool) -> usize {
         get_stack_size(main)
     }
 
@@ -81,7 +80,7 @@ mod runtime_stack_info_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean15save_stack_infoEb"
     )]
-    pub unsafe extern "C" fn save_stack_info_export(main: bool) {
+    pub unsafe fn save_stack_info_export(main: bool) {
         let size = get_stack_size(main);
         let base = get_stack_pointer();
 
@@ -98,8 +97,7 @@ mod runtime_stack_info_impl {
         G_STACK_THRESHOLD.with(|cell| cell.set(threshold));
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn save_stack_info(main: bool) {
+    pub unsafe fn save_stack_info(main: bool) {
         save_stack_info_export(main);
     }
 
@@ -107,7 +105,7 @@ mod runtime_stack_info_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean19get_used_stack_sizeEv"
     )]
-    pub unsafe extern "C" fn get_used_stack_size_export() -> usize {
+    pub unsafe fn get_used_stack_size_export() -> usize {
         let curr = get_stack_pointer();
         let base = G_STACK_BASE.with(|cell| cell.get());
         base.saturating_sub(curr)
@@ -117,7 +115,7 @@ mod runtime_stack_info_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean24get_available_stack_sizeEv"
     )]
-    pub unsafe extern "C" fn get_available_stack_size_export() -> usize {
+    pub unsafe fn get_available_stack_size_export() -> usize {
         let used = get_used_stack_size_export();
         let size = G_STACK_SIZE.with(|cell| cell.get());
         size.saturating_sub(used)
@@ -127,7 +125,7 @@ mod runtime_stack_info_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11check_stackEPKc"
     )]
-    pub unsafe extern "C" fn check_stack_export(component_name: *const c_char) {
+    pub unsafe fn check_stack_export(component_name: *const c_char) {
         let init = G_STACK_INFO_INIT.with(|cell| cell.get());
         if !init {
             save_stack_info_export(false);

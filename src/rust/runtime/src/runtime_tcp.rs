@@ -61,32 +61,32 @@ mod runtime_tcp_impl {
             req: *mut uv_connect_t,
             handle: *mut c_void,
             addr: *const libc::sockaddr,
-            cb: Option<unsafe extern "C" fn(*mut uv_connect_t, c_int)>,
+            cb: Option<unsafe fn(*mut uv_connect_t, c_int)>,
         ) -> c_int;
         fn uv_write(
             req: *mut uv_write_t,
             handle: *mut c_void,
             bufs: *const uv_buf_t,
             nbufs: c_uint,
-            cb: Option<unsafe extern "C" fn(*mut uv_write_t, c_int)>,
+            cb: Option<unsafe fn(*mut uv_write_t, c_int)>,
         ) -> c_int;
         fn uv_read_start(
             stream: *mut c_void,
-            alloc_cb: Option<unsafe extern "C" fn(*mut c_void, usize, *mut uv_buf_t)>,
-            read_cb: Option<unsafe extern "C" fn(*mut c_void, isize, *const uv_buf_t)>,
+            alloc_cb: Option<unsafe fn(*mut c_void, usize, *mut uv_buf_t)>,
+            read_cb: Option<unsafe fn(*mut c_void, isize, *const uv_buf_t)>,
         ) -> c_int;
         fn uv_read_stop(stream: *mut c_void) -> c_int;
         fn uv_tcp_bind(handle: *mut c_void, addr: *const libc::sockaddr, flags: c_uint) -> c_int;
         fn uv_listen(
             stream: *mut c_void,
             backlog: c_int,
-            cb: Option<unsafe extern "C" fn(*mut c_void, c_int)>,
+            cb: Option<unsafe fn(*mut c_void, c_int)>,
         ) -> c_int;
         fn uv_accept(server: *mut c_void, client: *mut c_void) -> c_int;
         fn uv_shutdown(
             req: *mut uv_shutdown_t,
             handle: *mut c_void,
-            cb: Option<unsafe extern "C" fn(*mut uv_shutdown_t, c_int)>,
+            cb: Option<unsafe fn(*mut uv_shutdown_t, c_int)>,
         ) -> c_int;
         fn uv_tcp_getpeername(
             handle: *const c_void,
@@ -101,17 +101,14 @@ mod runtime_tcp_impl {
         fn uv_tcp_nodelay(handle: *mut c_void, enable: c_int) -> c_int;
         fn uv_tcp_keepalive(handle: *mut c_void, enable: c_int, delay: c_uint) -> c_int;
 
-        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe extern "C" fn(*mut UvHandle)>);
+        fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>);
         fn uv_buf_init(base: *mut c_char, len: c_uint) -> uv_buf_t;
 
-        #[link_name = "_ZN4lean39lean_socket_address_to_sockaddr_storageEP11lean_objectP16sockaddr_storage"]
         fn lean_socket_address_to_sockaddr_storage(
             ip_addr: *mut LeanObject,
             out: *mut libc::sockaddr_storage,
         );
-        #[link_name = "_ZN4lean30lean_sockaddr_to_socketaddressEPK8sockaddr"]
         fn lean_sockaddr_to_socketaddress(addr: *const libc::sockaddr) -> *mut LeanObject;
-        #[link_name = "_ZN4lean30lean_promise_resolve_with_codeEiP11lean_object"]
         fn lean_promise_resolve_with_code(code: c_int, promise: *mut LeanObject);
     }
 
@@ -147,7 +144,7 @@ mod runtime_tcp_impl {
         result
     }
 
-    unsafe extern "C" fn lean_uv_tcp_socket_finalizer(ptr: *mut c_void) {
+    unsafe fn lean_uv_tcp_socket_finalizer(ptr: *mut c_void) {
         let tcp_socket = ptr.cast::<LeanUvTcpSocketObject>();
         assert!((*tcp_socket).m_promise_shutdown.is_null());
         assert!((*tcp_socket).m_promise_accept.is_null());
@@ -159,7 +156,7 @@ mod runtime_tcp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn close_cb(handle: *mut UvHandle) {
+        unsafe fn close_cb(handle: *mut UvHandle) {
             let tcp_socket = (*handle).data.cast::<LeanUvTcpSocketObject>();
             libc::free((*tcp_socket).m_uv_tcp);
             libc::free(tcp_socket.cast());
@@ -174,8 +171,8 @@ mod runtime_tcp_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean27initialize_libuv_tcp_socketEv"
     )]
-    pub unsafe extern "C" fn initialize_libuv_tcp_socket() {
-        unsafe extern "C" fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
+    pub unsafe fn initialize_libuv_tcp_socket() {
+        unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
             let tcp_socket = obj.cast::<LeanUvTcpSocketObject>();
             if !(*tcp_socket).m_promise_accept.is_null() {
                 lean_inc(f);
@@ -204,8 +201,7 @@ mod runtime_tcp_impl {
     const UV_ENOBUFS: isize = -105;
     const UV_EAGAIN: c_int = -11;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_new() -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_new() -> *mut LeanObject {
         let tcp_socket = libc::malloc(core::mem::size_of::<LeanUvTcpSocketObject>())
             .cast::<LeanUvTcpSocketObject>();
         if tcp_socket.is_null() {
@@ -245,8 +241,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(obj)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_connect(
+    pub unsafe fn lean_uv_tcp_connect(
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -280,7 +275,7 @@ mod runtime_tcp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn connect_cb(req: *mut uv_connect_t, status: c_int) {
+        unsafe fn connect_cb(req: *mut uv_connect_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
             let tup = (*req_handle).data.cast::<TcpConnectData>();
             lean_promise_resolve_with_code(status, (*tup).promise);
@@ -316,8 +311,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_send(
+    pub unsafe fn lean_uv_tcp_send(
         socket: *mut LeanObject,
         data_array: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -380,7 +374,7 @@ mod runtime_tcp_impl {
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn write_cb(req: *mut uv_write_t, status: c_int) {
+        unsafe fn write_cb(req: *mut uv_write_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
             let tup = (*req_handle).data.cast::<TcpSendData>();
 
@@ -420,11 +414,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_recv(
-        socket: *mut LeanObject,
-        buffer_size: u64,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_recv(socket: *mut LeanObject, buffer_size: u64) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -445,11 +435,7 @@ mod runtime_tcp_impl {
         lean_inc(socket);
         lean_inc(promise);
 
-        unsafe extern "C" fn alloc_cb(
-            handle: *mut c_void,
-            _suggested_size: usize,
-            buf: *mut uv_buf_t,
-        ) {
+        unsafe fn alloc_cb(handle: *mut c_void, _suggested_size: usize, buf: *mut uv_buf_t) {
             let handle_ptr = handle.cast::<UvHandle>();
             let tcp_socket = lean_to_uv_tcp_socket((*handle_ptr).data.cast());
             (*buf).base = lean_sarray_cptr((*tcp_socket).m_byte_array)
@@ -458,7 +444,7 @@ mod runtime_tcp_impl {
             (*buf).len = lean_sarray_capacity((*tcp_socket).m_byte_array);
         }
 
-        unsafe extern "C" fn read_cb(stream: *mut c_void, nread: isize, _buf: *const uv_buf_t) {
+        unsafe fn read_cb(stream: *mut c_void, nread: isize, _buf: *const uv_buf_t) {
             uv_read_stop(stream);
 
             let handle_ptr = stream.cast::<UvHandle>();
@@ -508,8 +494,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_wait_readable(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -527,16 +512,12 @@ mod runtime_tcp_impl {
         lean_inc(socket);
         lean_inc(promise);
 
-        unsafe extern "C" fn alloc_cb(
-            _handle: *mut c_void,
-            _suggested_size: usize,
-            buf: *mut uv_buf_t,
-        ) {
+        unsafe fn alloc_cb(_handle: *mut c_void, _suggested_size: usize, buf: *mut uv_buf_t) {
             (*buf).base = null_mut();
             (*buf).len = 0;
         }
 
-        unsafe extern "C" fn read_cb(stream: *mut c_void, nread: isize, _buf: *const uv_buf_t) {
+        unsafe fn read_cb(stream: *mut c_void, nread: isize, _buf: *const uv_buf_t) {
             uv_read_stop(stream);
 
             let handle_ptr = stream.cast::<UvHandle>();
@@ -581,8 +562,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_cancel_recv(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -610,8 +590,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_bind(
+    pub unsafe fn lean_uv_tcp_bind(
         socket: *mut LeanObject,
         addr: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -631,16 +610,12 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_listen(
-        socket: *mut LeanObject,
-        backlog: i32,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_listen(socket: *mut LeanObject, backlog: i32) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
 
-        unsafe extern "C" fn listen_cb(stream: *mut c_void, status: c_int) {
+        unsafe fn listen_cb(stream: *mut c_void, status: c_int) {
             let stream_handle = stream.cast::<UvHandle>();
             let tcp_socket = lean_to_uv_tcp_socket((*stream_handle).data.cast());
 
@@ -689,8 +664,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -731,8 +705,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_try_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -764,8 +737,7 @@ mod runtime_tcp_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_cancel_accept(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -791,8 +763,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_shutdown(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -820,7 +791,7 @@ mod runtime_tcp_impl {
         lean_inc(promise);
         lean_inc(socket);
 
-        unsafe extern "C" fn shutdown_cb(req: *mut uv_shutdown_t, status: c_int) {
+        unsafe fn shutdown_cb(req: *mut uv_shutdown_t, status: c_int) {
             let req_handle = req.cast::<UvHandle>();
             let tcp_socket = lean_to_uv_tcp_socket((*req_handle).data.cast::<LeanObject>());
 
@@ -853,8 +824,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(promise)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_getpeername(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -875,8 +845,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_addr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_getsockname(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
         let mut addr_storage = MaybeUninit::<libc::sockaddr_storage>::uninit();
         let mut addr_len = core::mem::size_of::<libc::sockaddr_storage>() as c_int;
@@ -897,8 +866,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_addr)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_uv_tcp_nodelay(socket: *mut LeanObject) -> *mut LeanObject {
         let tcp_socket = lean_to_uv_tcp_socket(socket);
 
         event_loop_lock(addr_of_mut!(_ZN4lean9global_evE));
@@ -912,8 +880,7 @@ mod runtime_tcp_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_uv_tcp_keepalive(
+    pub unsafe fn lean_uv_tcp_keepalive(
         socket: *mut LeanObject,
         enable: i32,
         delay: u32,
@@ -939,73 +906,56 @@ pub use runtime_tcp_impl::*;
 mod runtime_tcp_impl {
     use super::*;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn initialize_libuv_tcp_socket() {}
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_new() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_connect(
         _: *mut LeanObject,
         _: *mut LeanObject,
     ) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_send(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_recv(_: *mut LeanObject, _: u64) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_wait_readable(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_cancel_recv(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_bind(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_listen(_: *mut LeanObject, _: i32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_try_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_cancel_accept(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_shutdown(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_getpeername(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_getsockname(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_nodelay(_: *mut LeanObject) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_uv_tcp_keepalive(_: *mut LeanObject, _: i32, _: u32) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");
     }

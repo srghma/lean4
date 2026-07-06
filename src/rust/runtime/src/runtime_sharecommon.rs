@@ -87,8 +87,7 @@ mod runtime_sharecommon_impl {
     type ShareCache = HashMap<usize, usize, LeanHashBuilder>;
     type ShareSet = HashSet<ShareConsNode, LeanHashBuilder>;
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_sharecommon_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8 {
         if o1 == o2 {
             return 1;
         }
@@ -115,16 +114,11 @@ mod runtime_sharecommon_impl {
                 return 1;
             }
             let res = libc::memcmp(body1.cast(), body2.cast(), len);
-            if res == 0 {
-                1
-            } else {
-                0
-            }
+            if res == 0 { 1 } else { 0 }
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_hash(o: *mut LeanObject) -> u64 {
+    pub unsafe fn lean_sharecommon_hash(o: *mut LeanObject) -> u64 {
         let sz = lean_object_data_byte_size(o);
         let header_sz = core::mem::size_of::<LeanObject>();
         let tag = lean_ptr_tag(o);
@@ -385,8 +379,7 @@ mod runtime_sharecommon_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_state_sharecommon(
+    pub unsafe fn lean_state_sharecommon(
         tc: *mut LeanObject,
         s: *mut LeanObject,
         a: *mut LeanObject,
@@ -557,14 +550,12 @@ mod runtime_sharecommon_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_quick(a: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_sharecommon_quick(a: *mut LeanObject) -> *mut LeanObject {
         let mut quick = RustShareCommonQuick::new(false);
         quick.visit(a)
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_quick_with_check_set(
+    pub unsafe fn lean_sharecommon_quick_with_check_set(
         a: *mut LeanObject,
         check_set: bool,
     ) -> *mut LeanObject {
@@ -578,7 +569,6 @@ mod runtime_sharecommon_impl {
         saved: Vec<*mut LeanObject>,
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_sharecommon_persistent_create(check_set: bool) -> *mut c_void {
         let state = Box::new(RustShareCommonPersistent {
             quick: RustShareCommonQuick::new(check_set),
@@ -587,8 +577,7 @@ mod runtime_sharecommon_impl {
         Box::into_raw(state).cast()
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_persistent_free(state: *mut c_void) {
+    pub unsafe fn lean_sharecommon_persistent_free(state: *mut c_void) {
         if !state.is_null() {
             let state = Box::from_raw(state.cast::<RustShareCommonPersistent>());
             for &obj in &state.saved {
@@ -597,17 +586,12 @@ mod runtime_sharecommon_impl {
         }
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_persistent_set_check_set(
-        state: *mut c_void,
-        check_set: bool,
-    ) {
+    pub unsafe fn lean_sharecommon_persistent_set_check_set(state: *mut c_void, check_set: bool) {
         let state = &mut *state.cast::<RustShareCommonPersistent>();
         state.quick.set_check_set(check_set);
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_sharecommon_persistent_run(
+    pub unsafe fn lean_sharecommon_persistent_run(
         state: *mut c_void,
         e: *mut LeanObject,
     ) -> *mut LeanObject {

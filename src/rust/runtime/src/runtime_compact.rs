@@ -66,7 +66,7 @@ mod runtime_compact_impl {
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
     #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
+    pub unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
         if region == 0 {
             return 0;
         }
@@ -76,7 +76,7 @@ mod runtime_compact_impl {
 
     // lean_compacted_region_size(region : USize) : USize
     #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_size(region: usize) -> usize {
+    pub unsafe fn lean_compacted_region_size(region: usize) -> usize {
         if region == 0 {
             return 0;
         }
@@ -86,7 +86,7 @@ mod runtime_compact_impl {
 
     // lean_compacted_region_free(region : USize) : IO Unit
     #[no_mangle]
-    pub unsafe extern "C" fn lean_compacted_region_free(
+    pub unsafe fn lean_compacted_region_free(
         region: usize,
         _io: *mut LeanObject,
     ) -> *mut LeanObject {

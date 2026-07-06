@@ -55,7 +55,7 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardC1Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_ctor_complete(this: *mut StackGuard) {
+    pub unsafe fn stack_guard_ctor_complete(this: *mut StackGuard) {
         stack_guard_ctor(this);
     }
 
@@ -63,7 +63,7 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardC2Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_ctor_base(this: *mut StackGuard) {
+    pub unsafe fn stack_guard_ctor_base(this: *mut StackGuard) {
         stack_guard_ctor(this);
     }
 
@@ -71,7 +71,7 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardD1Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_dtor_complete(this: *mut StackGuard) {
+    pub unsafe fn stack_guard_dtor_complete(this: *mut StackGuard) {
         stack_guard_dtor(this);
     }
 
@@ -79,7 +79,7 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardD2Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_dtor_base(this: *mut StackGuard) {
+    pub unsafe fn stack_guard_dtor_base(this: *mut StackGuard) {
         stack_guard_dtor(this);
     }
 
@@ -102,18 +102,14 @@ mod runtime_stack_overflow_impl {
         let ok = libc::pthread_getattr_np(libc::pthread_self(), &mut attr) == 0
             && libc::pthread_attr_getstack(&attr, &mut stackaddr, &mut stacksize) == 0;
         libc::pthread_attr_destroy(&mut attr);
-        if ok {
-            Some(stackaddr as usize)
-        } else {
-            None
-        }
+        if ok { Some(stackaddr as usize) } else { None }
     }
 
     #[cfg_attr(
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean21is_within_stack_guardEPv"
     )]
-    pub unsafe extern "C" fn is_within_stack_guard(addr: *mut c_void) -> bool {
+    pub unsafe fn is_within_stack_guard(addr: *mut c_void) -> bool {
         let Some(stackaddr) = stack_low_address() else {
             return false;
         };
@@ -122,12 +118,7 @@ mod runtime_stack_overflow_impl {
         stackaddr.wrapping_sub(guardsize) <= addr && addr < stackaddr
     }
 
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn segv_handler(
-        signum: c_int,
-        info: *mut libc::siginfo_t,
-        _: *mut c_void,
-    ) {
+    pub unsafe fn segv_handler(signum: c_int, info: *mut libc::siginfo_t, _: *mut c_void) {
         if !info.is_null() && is_within_stack_guard((*info).si_addr()) {
             let msg = b"\nStack overflow detected. Aborting.\n";
             libc::write(libc::STDERR_FILENO, msg.as_ptr().cast(), msg.len());
@@ -233,7 +224,7 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardC1Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_ctor_complete(_: *mut StackGuard) {
+    pub unsafe fn stack_guard_ctor_complete(_: *mut StackGuard) {
         let mut size = 0x5000;
         SetThreadStackGuarantee(&mut size);
     }
@@ -242,7 +233,7 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardC2Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_ctor_base(this: *mut StackGuard) {
+    pub unsafe fn stack_guard_ctor_base(this: *mut StackGuard) {
         stack_guard_ctor_complete(this);
     }
 
@@ -250,13 +241,13 @@ mod runtime_stack_overflow_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardD1Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_dtor_complete(_: *mut StackGuard) {}
+    pub unsafe fn stack_guard_dtor_complete(_: *mut StackGuard) {}
 
     #[cfg_attr(
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean11stack_guardD2Ev"
     )]
-    pub unsafe extern "C" fn stack_guard_dtor_base(_: *mut StackGuard) {}
+    pub unsafe fn stack_guard_dtor_base(_: *mut StackGuard) {}
 
     #[cfg_attr(
         feature = "export-runtime-ffi",

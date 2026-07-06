@@ -109,7 +109,7 @@ mod kernel_expr_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_mk_data(
+    pub unsafe fn lean_expr_mk_data(
         hash: u64,
         bvar_range: *mut LeanObject,
         mut approx_depth: u32,
@@ -139,7 +139,7 @@ mod kernel_expr_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
+    pub unsafe fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
         let mut depth = ((f_data >> 32) & 0xFF).max((a_data >> 32) & 0xFF) + 1;
         if depth > 255 {
             depth = 255;
@@ -194,19 +194,12 @@ mod kernel_expr_impl {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_has_loose_bvar(
-        e: *mut LeanObject,
-        i: *mut LeanObject,
-    ) -> u8 {
+    pub unsafe fn lean_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> u8 {
         if !lean_is_scalar(i) {
             return 0; // index too large, can't be present
         }
         let idx = lean_unbox(i) as u32;
-        if has_loose_bvar_impl(e, idx, 0) {
-            1
-        } else {
-            0
-        }
+        if has_loose_bvar_impl(e, idx, 0) { 1 } else { 0 }
     }
 
     // ── shift_loose_bvars (shared impl for lower and lift) ──────────────────
@@ -354,7 +347,7 @@ mod kernel_expr_impl {
     // lower_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), subtract d.
     // Precondition: s >= d (asserted in C++, guarded here).
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_lower_loose_bvars(
+    pub unsafe fn lean_expr_lower_loose_bvars(
         e: *mut LeanObject,
         s: *mut LeanObject,
         d: *mut LeanObject,
@@ -374,7 +367,7 @@ mod kernel_expr_impl {
 
     // lift_loose_bvars(e, s, d): for all loose BVars with idx in [s, ∞), add d.
     #[no_mangle]
-    pub unsafe extern "C" fn lean_expr_lift_loose_bvars(
+    pub unsafe fn lean_expr_lift_loose_bvars(
         e: *mut LeanObject,
         s: *mut LeanObject,
         d: *mut LeanObject,

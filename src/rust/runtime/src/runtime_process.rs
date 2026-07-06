@@ -23,7 +23,6 @@ mod runtime_process_impl {
 
     extern "C" {
         fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
-        #[link_name = "_ZN4lean14io_wrap_handleEP8_IO_FILE"]
         fn io_wrap_handle(f: *mut libc::FILE) -> *mut LeanObject;
     }
 
@@ -146,8 +145,7 @@ mod runtime_process_impl {
     // ─── lean_io_process_get_current_dir ─────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_get_current_dir() -> *mut LeanObject {
+    pub unsafe fn lean_io_process_get_current_dir() -> *mut LeanObject {
         let mut buf = [0u8; libc::PATH_MAX as usize];
         let ret = libc::getcwd(buf.as_mut_ptr().cast(), buf.len());
         if !ret.is_null() {
@@ -162,10 +160,7 @@ mod runtime_process_impl {
     // ─── lean_io_process_set_current_dir ─────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_set_current_dir(
-        path: *mut LeanObject,
-    ) -> *mut LeanObject {
+    pub unsafe fn lean_io_process_set_current_dir(path: *mut LeanObject) -> *mut LeanObject {
         if libc::chdir(lean_string_cstr(path)) == 0 {
             io_result_ok(lean_box(0))
         } else {
@@ -176,16 +171,14 @@ mod runtime_process_impl {
     // ─── lean_io_process_get_pid ──────────────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_get_pid() -> u32 {
+    pub unsafe fn lean_io_process_get_pid() -> u32 {
         libc::getpid() as u32
     }
 
     // ─── lean_io_get_tid ──────────────────────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_get_tid() -> u64 {
+    pub unsafe fn lean_io_get_tid() -> u64 {
         #[cfg(target_os = "macos")]
         {
             let mut tid: u64 = 0;
@@ -206,8 +199,7 @@ mod runtime_process_impl {
     // ─── lean_io_process_child_wait ───────────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_child_wait(
+    pub unsafe fn lean_io_process_child_wait(
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -228,8 +220,7 @@ mod runtime_process_impl {
     // ─── lean_io_process_child_try_wait ──────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_child_try_wait(
+    pub unsafe fn lean_io_process_child_try_wait(
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -253,8 +244,7 @@ mod runtime_process_impl {
     // ─── lean_io_process_child_kill ───────────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_child_kill(
+    pub unsafe fn lean_io_process_child_kill(
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -275,8 +265,7 @@ mod runtime_process_impl {
     // ─── lean_io_process_child_pid ────────────────────────────────────────────
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_child_pid(
+    pub unsafe fn lean_io_process_child_pid(
         _world: *mut LeanObject,
         child: *mut LeanObject,
     ) -> u32 {
@@ -290,8 +279,7 @@ mod runtime_process_impl {
     // The new child (child2) omits the setsid flag: scalar_size = sizeof(u32) only.
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_child_take_stdin(
+    pub unsafe fn lean_io_process_child_take_stdin(
         _world: *mut LeanObject,
         lchild: *mut LeanObject,
     ) -> *mut LeanObject {
@@ -502,8 +490,7 @@ mod runtime_process_impl {
     //   scalar[5*PTR_SIZE + 1]: do_setsid   (u8)
 
     #[cfg(unix)]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_io_process_spawn(args_: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_process_spawn(args_: *mut LeanObject) -> *mut LeanObject {
         let stdio_cfg = lean_ctor_get(args_, 0);
         // stdio_cfg has 0 object fields; scalars start at base+sizeof(header)
         let stdin_mode = StdioMode::from_u8(lean_ctor_get_uint8(stdio_cfg, 0));

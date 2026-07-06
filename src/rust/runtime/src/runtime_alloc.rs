@@ -57,7 +57,7 @@ mod runtime_alloc_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean14set_heartbeatsEm"
     )]
-    pub unsafe extern "C" fn set_heartbeats(count: u64) {
+    pub unsafe fn set_heartbeats(count: u64) {
         G_HEARTBEAT.with(|cell| cell.set(count));
     }
 
@@ -66,13 +66,12 @@ mod runtime_alloc_impl {
         feature = "export-runtime-ffi",
         export_name = "_ZN4lean14add_heartbeatsEm"
     )]
-    pub unsafe extern "C" fn add_heartbeats(count: u64) {
+    pub unsafe fn add_heartbeats(count: u64) {
         G_HEARTBEAT.with(|cell| cell.set(cell.get().wrapping_add(count)));
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-    pub unsafe extern "C" fn lean_inc_heartbeat() {
+    pub unsafe fn lean_inc_heartbeat() {
         add_heartbeats(1);
     }
 
@@ -86,13 +85,11 @@ mod runtime_alloc_impl {
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_get_num_heartbeats() -> u64 {
         get_num_heartbeats()
     }
 
     #[cfg(not(lean_small_allocator))]
-    #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
     pub extern "C" fn lean_set_heartbeats(count: u64) {
         unsafe {
             set_heartbeats(count);
@@ -110,7 +107,7 @@ mod runtime_alloc_impl {
             fn lean_internal_panic_out_of_memory() -> !;
         }
 
-        type ThreadFinalizer = unsafe extern "C" fn(*mut c_void);
+        type ThreadFinalizer = unsafe fn(*mut c_void);
 
         #[repr(C)]
         struct PageHeader {
@@ -399,7 +396,7 @@ mod runtime_alloc_impl {
             page
         }
 
-        unsafe extern "C" fn finalize_heap(data: *mut c_void) {
+        unsafe fn finalize_heap(data: *mut c_void) {
             let heap = data.cast::<Heap>();
             Heap::export_objs(heap);
             Heap::import_objs(heap);
@@ -438,7 +435,7 @@ mod runtime_alloc_impl {
             feature = "export-runtime-ffi",
             export_name = "_ZN4lean16init_thread_heapEv"
         )]
-        pub unsafe extern "C" fn init_thread_heap() {
+        pub unsafe fn init_thread_heap() {
             init_heap(false);
         }
 
@@ -467,8 +464,7 @@ mod runtime_alloc_impl {
             result
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_alloc_small(sz: u32, slot_idx: u32) -> *mut c_void {
+        pub unsafe fn lean_alloc_small(sz: u32, slot_idx: u32) -> *mut c_void {
             let heap = get_heap();
             debug_assert!(!heap.is_null());
             (*heap).heartbeat = (*heap).heartbeat.wrapping_add(1);
@@ -498,8 +494,7 @@ mod runtime_alloc_impl {
             lean_alloc_small(sz as u32, slot_idx as u32)
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean5allocEm")]
-        pub unsafe extern "C" fn alloc_export(sz: usize) -> *mut c_void {
+        pub unsafe fn alloc_export(sz: usize) -> *mut c_void {
             alloc(sz)
         }
 
@@ -537,18 +532,15 @@ mod runtime_alloc_impl {
             dealloc_small_core(obj.cast::<u8>());
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", export_name = "_ZN4lean7deallocEPvm")]
-        pub unsafe extern "C" fn dealloc_export(obj: *mut c_void, sz: usize) {
+        pub unsafe fn dealloc_export(obj: *mut c_void, sz: usize) {
             dealloc(obj, sz);
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_free_small(obj: *mut c_void) {
+        pub unsafe fn lean_free_small(obj: *mut c_void) {
             dealloc_small_core(obj.cast::<u8>());
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_small_mem_size(obj: *mut c_void) -> u32 {
+        pub unsafe fn lean_small_mem_size(obj: *mut c_void) -> u32 {
             let page = get_page_of(obj.cast::<u8>());
             (*page).header.obj_size
         }
@@ -557,7 +549,7 @@ mod runtime_alloc_impl {
             feature = "export-runtime-ffi",
             export_name = "_ZN4lean16initialize_allocEv"
         )]
-        pub unsafe extern "C" fn initialize_alloc() {
+        pub unsafe fn initialize_alloc() {
             init_heap(true);
         }
 
@@ -571,7 +563,7 @@ mod runtime_alloc_impl {
             feature = "export-runtime-ffi",
             export_name = "_ZN4lean14set_heartbeatsEm"
         )]
-        pub unsafe extern "C" fn set_heartbeats(count: u64) {
+        pub unsafe fn set_heartbeats(count: u64) {
             let heap = get_heap();
             if !heap.is_null() {
                 (*heap).heartbeat = count;
@@ -582,15 +574,14 @@ mod runtime_alloc_impl {
             feature = "export-runtime-ffi",
             export_name = "_ZN4lean14add_heartbeatsEm"
         )]
-        pub unsafe extern "C" fn add_heartbeats(count: u64) {
+        pub unsafe fn add_heartbeats(count: u64) {
             let heap = get_heap();
             if !heap.is_null() {
                 (*heap).heartbeat = (*heap).heartbeat.wrapping_add(count);
             }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_inc_heartbeat() {
+        pub unsafe fn lean_inc_heartbeat() {
             add_heartbeats(1);
         }
 
@@ -598,22 +589,16 @@ mod runtime_alloc_impl {
             feature = "export-runtime-ffi",
             export_name = "_ZN4lean18get_num_heartbeatsEv"
         )]
-        pub unsafe extern "C" fn get_num_heartbeats() -> u64 {
+        pub unsafe fn get_num_heartbeats() -> u64 {
             let heap = get_heap();
-            if heap.is_null() {
-                0
-            } else {
-                (*heap).heartbeat
-            }
+            if heap.is_null() { 0 } else { (*heap).heartbeat }
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_get_num_heartbeats() -> u64 {
+        pub unsafe fn lean_get_num_heartbeats() -> u64 {
             get_num_heartbeats()
         }
 
-        #[cfg_attr(feature = "export-runtime-ffi", no_mangle)]
-        pub unsafe extern "C" fn lean_set_heartbeats(count: u64) {
+        pub unsafe fn lean_set_heartbeats(count: u64) {
             set_heartbeats(count);
         }
     }
