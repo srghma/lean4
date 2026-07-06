@@ -5,10 +5,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_interrupt_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_char;
     use core::ptr;
-    use std::cell::Cell;
     use leanh::LeanRefObject;
+    use std::cell::Cell;
 
     unsafe extern "C" {
         fn lean_uncaught_exceptions() -> bool;
@@ -25,21 +26,10 @@ mod runtime_interrupt_impl {
     }
 
     thread_local! {
-        static G_MAX_HEARTBEAT: Cell<usize> = Cell::new(0);
-        static G_HEARTBEAT: Cell<usize> = Cell::new(0);
         static G_CANCEL_TK: Cell<*mut LeanObject> = Cell::new(core::ptr::null_mut());
     }
     pub fn inc_heartbeat() {
         G_HEARTBEAT.with(|cell| cell.set(cell.get().wrapping_add(1)));
-    }
-    pub fn reset_heartbeat() {
-        G_HEARTBEAT.with(|cell| cell.set(0));
-    }
-    pub fn set_max_heartbeat(max: usize) {
-        G_MAX_HEARTBEAT.with(|cell| cell.set(max));
-    }
-    pub fn get_max_heartbeat() -> usize {
-        G_MAX_HEARTBEAT.with(|cell| cell.get())
     }
     pub fn set_max_heartbeat_thousands(max: u32) {
         G_MAX_HEARTBEAT.with(|cell| cell.set((max as usize).wrapping_mul(1000)));

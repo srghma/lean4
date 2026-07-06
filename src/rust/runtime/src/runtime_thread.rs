@@ -9,15 +9,6 @@ mod runtime_thread_impl {
     use core::cell::Cell;
     use core::ffi::c_void;
 
-    type ThreadFinalizer = unsafe fn(*mut c_void);
-    type FinalizerList = Vec<(ThreadFinalizer, *mut c_void)>;
-
-    thread_local! {
-        static G_FINALIZING: Cell<bool> = const { Cell::new(false) };
-        static G_FINALIZERS: Cell<*mut FinalizerList> = const { Cell::new(core::ptr::null_mut()) };
-        static G_POST_FINALIZERS: Cell<*mut FinalizerList> = const { Cell::new(core::ptr::null_mut()) };
-    }
-
     unsafe fn register_finalizer(
         slot: &'static std::thread::LocalKey<Cell<*mut FinalizerList>>,
         f: ThreadFinalizer,
@@ -33,40 +24,6 @@ mod runtime_thread_impl {
                 (*ptr).push((f, data));
             }
         });
-    }
-
-    unsafe fn run_finalizer_list(ptr: *mut FinalizerList) {
-        if ptr.is_null() {
-            return;
-        }
-        G_FINALIZING.with(|cell| cell.set(true));
-        let list = &mut *ptr;
-        let mut i = list.len();
-        while i > 0 {
-            i -= 1;
-            let (f, data) = list[i];
-            f(data);
-        }
-        list.clear();
-        drop(Box::from_raw(ptr));
-    }
-
-    pub(crate) unsafe fn run_thread_finalizers_internal() {
-        let ptr = G_FINALIZERS.with(|cell| {
-            let ptr = cell.get();
-            cell.set(core::ptr::null_mut());
-            ptr
-        });
-        run_finalizer_list(ptr);
-    }
-
-    pub(crate) unsafe fn run_post_thread_finalizers_internal() {
-        let ptr = G_POST_FINALIZERS.with(|cell| {
-            let ptr = cell.get();
-            cell.set(core::ptr::null_mut());
-            ptr
-        });
-        run_finalizer_list(ptr);
     }
 
     pub(crate) unsafe fn delete_thread_finalizer_manager_internal() {
@@ -88,12 +45,6 @@ mod runtime_thread_impl {
         }
     }
 
-    pub fn lean_initialize_thread() {}
-
-    pub unsafe fn lean_finalize_thread() {
-        run_thread_finalizers_internal();
-        run_post_thread_finalizers_internal();
-    }
     pub fn in_thread_finalization() -> bool {
         G_FINALIZING.with(|cell| cell.get())
     }
@@ -112,7 +63,7 @@ mod runtime_thread_impl {
     pub unsafe fn delete_thread_finalizer_manager_export() {
         delete_thread_finalizer_manager_internal();
     }
-    pub fn initialize_thread() {}
+    // pub fn initialize_thread() {}
     pub fn finalize_thread() {}
 
     // -------------------------------------------------------------------------
@@ -129,14 +80,6 @@ mod runtime_thread_impl {
 
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024;
 
-    const LEAN_DEFAULT_THREAD_STACK_SIZE: usize = 1024 * 1024 * 1024; // 1 GB
-
-    static G_THREAD_STACK_SIZE: AtomicUsize = AtomicUsize::new(LEAN_DEFAULT_THREAD_STACK_SIZE);
-
-    fn get_thread_stack_size() -> usize {
-        G_THREAD_STACK_SIZE.load(Ordering::Relaxed)
-    }
-
     fn set_thread_stack_size_internal(sz: usize) {
         G_THREAD_STACK_SIZE.store(sz + LEAN_STACK_BUFFER_SPACE, Ordering::Relaxed);
     }
@@ -144,9 +87,6 @@ mod runtime_thread_impl {
     pub unsafe fn lean_internal_set_thread_stack_size(sz: usize) -> *mut LeanObject {
         set_thread_stack_size_internal(sz);
         lean_box(0)
-    }
-    pub fn lthread_get_thread_stack_size() -> usize {
-        get_thread_stack_size()
     }
 
     type ThreadClosure = Box<dyn FnOnce() + Send + 'static>;
@@ -237,8 +177,8 @@ mod runtime_thread_impl {
     }
 
     #[cfg(lean_multi_thread)]
-    pub unsafe fn lean_run_main( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 402 (🔁)
-
+    pub unsafe fn lean_run_main(
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 402 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -270,8 +210,8 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    pub unsafe fn lean_run_main( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 402 (🔁)
-
+    pub unsafe fn lean_run_main(
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 402 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -290,4 +230,6 @@ pub(crate) use runtime_thread_impl::{
     delete_thread_finalizer_manager_internal, run_post_thread_finalizers_internal,
     run_thread_finalizers_internal,
 };
-pub use runtime_thread_impl::{lean_finalize_thread, lean_initialize_thread, lthread_get_thread_stack_size};
+pub use runtime_thread_impl::{
+    lean_finalize_thread, lean_initialize_thread, lthread_get_thread_stack_size,
+};

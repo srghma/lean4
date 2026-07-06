@@ -24,22 +24,8 @@ mod runtime_libuv_impl {
         uv_version_sys()
     }
 
-    pub unsafe fn initialize_libuv() {
-        initialize_libuv_timer();
-        initialize_libuv_tcp_socket();
-        initialize_libuv_udp_socket();
-        initialize_libuv_signal();
-        initialize_libuv_loop();
-
-        let event_loop_addr = ptr::addr_of_mut!(GLOBAL_EV) as usize;
-        thread::spawn(move || unsafe {
-            lean_initialize_thread();
-            event_loop_run_loop(event_loop_addr as *mut EventLoop);
-            lean_finalize_thread();
-        });
-    }
-
-    pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 411 (🔁)
+    pub unsafe fn lean_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 411 (🔁)
 
         uv_setup_args(argc, argv)
     }

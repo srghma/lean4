@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_debug_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::HashSet;
     use std::ffi::CStr;
     use std::io::{self, Read, Write};

@@ -62,6 +62,7 @@ unsafe impl Sync for OleanCompactedRegion {}
 
 mod runtime_compact_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
     #[no_mangle]

@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod library_llvm_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
         fn initialize_Lean_Compiler_IR_EmitLLVM(builtin: u8) -> *mut LeanObject;

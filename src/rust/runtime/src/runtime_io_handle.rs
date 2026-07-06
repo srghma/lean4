@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_io_handle_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe fn io_get_handle(hfile: *mut LeanObject) -> *mut libc::FILE {
         (*(hfile as *mut LeanExternalObject)).data.cast()

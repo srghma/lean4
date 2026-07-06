@@ -7,6 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 pub(crate) mod runtime_object_nat_int_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_char, c_int, c_long, c_ulong};
     use leanh::{LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG, LeanMpzObject};
 

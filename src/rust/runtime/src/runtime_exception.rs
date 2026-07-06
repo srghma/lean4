@@ -6,34 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_exception_impl {
     use core::ffi::c_char;
 
-    const LAKE_CONFIG_MANUAL_SECTION: &str =
-        "find/?domain=Verso.Genre.Manual.section&name=lake-config-toml";
 
-    unsafe fn cstr_to_string(value: *const c_char) -> String {
-        if value.is_null() {
-            return String::new();
-        }
-        std::ffi::CStr::from_ptr(value)
-            .to_string_lossy()
-            .into_owned()
-    }
-
-    fn abort_with_message(msg: &str) -> ! {
-        eprintln!("{msg}");
-        std::process::abort();
-    }
-
-    pub fn throw_get_stack_size_failed() -> ! {
-        abort_with_message("failed to retrieve thread stack size")
-    }
-
-    pub unsafe fn throw_stack_space_exception(component_name: *const c_char) -> ! {
-        let component_name = cstr_to_string(component_name);
-        abort_with_message(&format!(
-            "deep recursion was detected at '{component_name}' (potential solution: increase elaboration stack size using the `lean --tstack` flag). This flag can be set in the `weakLeanArgs` field of the Lake configuration. Further details are available in the Lean reference manual at {}{LAKE_CONFIG_MANUAL_SECTION}",
-            env!("LEAN_RUST_MANUAL_ROOT")
-        ))
-    }
 
     pub fn throw_heartbeat_exception() -> ! {
         abort_with_message("(deterministic) timeout")

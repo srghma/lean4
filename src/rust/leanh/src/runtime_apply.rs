@@ -1,9 +1,11 @@
 use core::ffi::c_void;
 
-use crate::{
-    LeanClosureObject, LeanObject, lean_alloc_closure, lean_dec, lean_dec_ref, lean_free_object,
-    lean_inc, lean_is_exclusive, lean_is_scalar_bool,
+use crate::datatypes::{LeanClosureObject, LeanObject};
+use crate::in_emit_rust::{
+    lean_alloc_closure, lean_dec, lean_dec_ref, lean_inc, lean_is_exclusive,
 };
+use crate::not_in_emit_rust::lean_is_scalar_bool;
+use crate::runtime_object_rc::lean_free_object;
 
 #[inline]
 fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void {

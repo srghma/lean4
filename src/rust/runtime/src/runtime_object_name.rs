@@ -8,6 +8,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_name_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     // Reads the cached hash u64 stored after the 2 lean_object* fields.
     // Layout (64-bit): [LeanObject header (8)] [field0 ptr (8)] [field1 ptr (8)] [hash u64 (8)]

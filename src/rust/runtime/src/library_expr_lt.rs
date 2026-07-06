@@ -55,6 +55,7 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 mod library_expr_lt_impl {
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;

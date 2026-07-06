@@ -8,6 +8,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_string_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_char;
     use core::mem::size_of;
     use leanh::LEAN_MAX_SMALL_NAT;
@@ -25,7 +26,8 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 206 (🔁)
+    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize {
+        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 206 (🔁)
         size_of::<LeanStringObject>() + lean_string_capacity(o)
     }
 
@@ -40,17 +42,20 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
+    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
         (*o).rc == 1
     }
 
     #[inline]
-    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
+    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
         (o.add(1) as *mut *mut LeanObject).add(i).write(v);
     }
 
     #[inline]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
+    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
+        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
         lean_runtime_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
@@ -60,12 +65,14 @@ mod runtime_object_string_impl {
 
     // On 64-bit, UInt32 fits in a Lean scalar.
     #[inline]
-    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 21 (🔁)
+    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 21 (🔁)
         lean_box(v as usize)
     }
 
     #[inline]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
+    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
         lean_unbox(o) as u32
     }
 
@@ -75,7 +82,8 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
+    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
+        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
         if n <= LEAN_MAX_SMALL_NAT {
             lean_box(n)
         } else {
@@ -104,11 +112,6 @@ mod runtime_object_string_impl {
     }
 
     // ── string buffer helpers ───────────────────────────────────────────────────
-
-    #[inline]
-    unsafe fn w_string_cstr(o: *mut LeanObject) -> *mut c_char {
-        (o as *mut u8).add(size_of::<LeanStringObject>()) as *mut c_char
-    }
 
     #[inline]
     fn mk_capacity(sz: usize) -> usize {
@@ -169,64 +172,9 @@ mod runtime_object_string_impl {
         (c & 0x80) == 0 || (c & 0xe0) == 0xc0 || (c & 0xf0) == 0xe0 || (c & 0xf8) == 0xf0
     }
 
-    // ── lossy UTF-8 recovery ─────────────────────────────────────────────────────
-
-    unsafe fn lean_mk_string_lossy_recover(
-        s: *const c_char,
-        sz: usize,
-        pos: usize,
-        i: usize,
-    ) -> *mut LeanObject {
-        let s = s as *const u8;
-        let mut out: Vec<u8> = Vec::from(core::slice::from_raw_parts(s, pos));
-        let mut char_count = i;
-        let mut start = pos;
-        let mut p = pos;
-        while p < sz {
-            let mut next = p;
-            if lean_runtime_validate_utf8_one(s, sz, &mut next) {
-                char_count += 1;
-                p = next;
-            } else {
-                out.extend_from_slice(core::slice::from_raw_parts(s.add(start), p - start));
-                out.extend_from_slice(b"\xef\xbf\xbd"); // U+FFFD
-                p += 1;
-                while p < sz && (*s.add(p) & 0xc0) == 0x80 {
-                    p += 1;
-                }
-                start = p;
-                char_count += 1; // count the replacement char
-            }
-        }
-        out.extend_from_slice(core::slice::from_raw_parts(s.add(start), sz - start));
-        lean_mk_string_unchecked(out.as_ptr() as *const c_char, out.len(), char_count)
-    }
-
     // ════════════════════════════════════════════════════════════════════════════
     // String constructors
     // ════════════════════════════════════════════════════════════════════════════
-
-    pub unsafe fn lean_mk_string_unchecked( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 365 (🔁)
-        s: *const c_char,
-        sz: usize,
-        len: usize,
-    ) -> *mut LeanObject {
-        let rsz = sz + 1;
-        let r = lean_alloc_string(rsz, rsz, len);
-        core::ptr::copy_nonoverlapping(s, w_string_cstr(r), sz);
-        *w_string_cstr(r).add(sz) = 0;
-        r
-    }
-
-    pub unsafe fn lean_mk_string_from_bytes(s: *const c_char, sz: usize) -> *mut LeanObject {
-        let mut pos: usize = 0;
-        let mut i: usize = 0;
-        if lean_runtime_validate_utf8(s as *const u8, sz, &mut pos, &mut i) {
-            lean_mk_string_unchecked(s, pos, i)
-        } else {
-            lean_mk_string_lossy_recover(s, sz, pos, i)
-        }
-    }
 
     pub unsafe fn lean_mk_string_from_bytes_unchecked(
         s: *const c_char,
@@ -235,7 +183,8 @@ mod runtime_object_string_impl {
         lean_mk_string_unchecked(s, sz, lean_utf8_n_strlen(s, sz))
     }
 
-    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
+    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
         let mut p = s;
         while *p != 0 {
             p = p.add(1);
@@ -712,7 +661,8 @@ mod runtime_object_string_impl {
         lean_mk_string_unchecked(buf.as_ptr() as *const c_char, buf.len(), len)
     }
 
-    pub unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 233 (🔁)
+    pub unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject {
+        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 233 (🔁)
         let sz = lean_string_size(s) - 1;
         let bytes = core::slice::from_raw_parts(lean_string_cstr(s) as *const u8, sz);
         let mut cps: Vec<u32> = Vec::new();

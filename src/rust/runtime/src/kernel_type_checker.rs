@@ -14,6 +14,7 @@ All C++ `throw X` → `return Err(KernelError::X)`.
 )]
 mod kernel_type_checker_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_char, c_void};
     use std::collections::{HashMap, HashSet};
     use std::ptr;

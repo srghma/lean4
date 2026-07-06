@@ -15,6 +15,7 @@ Exports:
 
 mod library_time_task_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::BTreeMap;
     use std::ffi::CStr;
     use std::io::Write;

@@ -10,6 +10,7 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
 mod library_instantiate_mvars_impl {
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::HashMap;
 
     unsafe extern "C" {

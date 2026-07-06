@@ -1,27 +1,30 @@
+use core::ffi::c_void;
 use core::ptr;
 use core::sync::atomic::{AtomicI32, Ordering};
+use libmimalloc_sys as mi;
 use std::alloc::{Layout, alloc, dealloc, handle_alloc_error};
 
-use crate::{
+use crate::datatypes::{
     LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
-    LEAN_OBJECT_SIZE_DELTA, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG,
-    LEAN_TASK_TAG, LEAN_THUNK_TAG, LeanArrayObject, LeanClosureObject, LeanExternalObject,
-    LeanMpzObject, LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray,
-    LeanStringObject, LeanTaskObject, LeanThunkObject, ObjInitFn, lean_is_scalar,
-    lean_mark_persistent,
+    LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
+    LEAN_THUNK_TAG, LeanArrayObject, LeanClosureObject, LeanExternalObject, LeanMpzObject,
+    LeanObject, LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
+    LeanTaskObject, LeanThunkObject, ObjInitFn, Size,
 };
+
+use crate::in_emit_rust::{lean_is_scalar, lean_unbox};
+use crate::runtime_object_panic::lean_internal_panic_out_of_memory;
+use crate::runtime_object_rc::{lean_alloc_object, lean_mark_persistent};
+use crate::runtime_object_task::{lean_runtime_deactivate_promise, lean_runtime_deactivate_task};
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 4 more EmitRust functions.
 #[inline]
-pub unsafe fn get_next(obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn get_next(o: *mut LeanObject) -> *mut LeanObject {
     unsafe {
-        #[cfg(target_pointer_width = "64")]
-        {
-            let mut header = 0usize;
-            ptr::copy_nonoverlapping(obj as *const u8, &mut header as *mut usize as *mut u8, 8);
-            header &= !(0xffff_usize << 48);
-            header as *mut LeanObject
-        }
+        let mut header: usize = 0;
+        ptr::copy_nonoverlapping(o as *const u8, &mut header as *mut usize as *mut u8, 8);
+        header &= !(0xffff_usize << 48);
+        header as *mut LeanObject
     }
 }
 
@@ -50,7 +53,8 @@ pub unsafe fn lean_array_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject {
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 4 more EmitRust functions.
 #[inline]
 pub unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
-    unsafe { (*(obj as *const LeanArrayObject<0>)).m_size }
+    let array = obj as *const LeanArrayObject<0>;
+    (*array).m_size
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_closure_set`, `lean_ctor_release`, and 5 more EmitRust functions.
@@ -89,26 +93,29 @@ pub unsafe fn lean_global_alloc(size: usize) -> *mut u8 {
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_ctor`, `lean_box_float`, `lean_box_float32`, `lean_box_uint32`, and 3 more EmitRust functions.
 #[inline]
-pub unsafe fn lean_alloc_small_object(size: usize) -> *mut LeanObject {
+pub unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
     unsafe {
-        let size = lean_align(size, LEAN_OBJECT_SIZE_DELTA);
-        let obj = lean_global_alloc(size) as *mut LeanObject;
-        (*obj).cs_size = size as u16;
-        obj
+        let sz = sz.div_ceil(8) * 8;
+        let mem = mi::mi_malloc_small(sz);
+        if mem.is_null() {
+            lean_internal_panic_out_of_memory();
+        }
+        let o = mem as *mut LeanObject;
+        (*o).cs_size = sz as u16;
+        o
     }
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_ctor`, `lean_box_float`, `lean_box_float32`, `lean_box_uint32`, and 3 more EmitRust functions.
 #[inline]
-pub unsafe fn lean_alloc_ctor_memory(size: usize) -> *mut LeanObject {
-    unsafe {
-        let aligned = lean_align(size, LEAN_OBJECT_SIZE_DELTA);
-        let obj = lean_alloc_small_object(aligned);
-        if aligned > size {
-            (obj as *mut u8).add(size).write_bytes(0, aligned - size);
-        }
-        obj
+pub unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
+    let sz1 = ((sz + 7) / 8) * 8;
+    let r = unsafe { lean_alloc_small_object(sz1) };
+    if sz1 > sz {
+        let end = unsafe { (r as *mut u8).add(sz1) as *mut usize };
+        unsafe { end.sub(1).write(0) };
     }
+    r
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
@@ -121,19 +128,114 @@ pub unsafe fn lean_global_dealloc(mem: *mut u8, size: usize) {
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_dealloc(obj: *mut LeanObject, size: usize) {
+// ===================== over-free / use-after-free detector (DEBUG) =====================
+// Poison `(*o).rc = i32::MIN` at the PHYSICAL-free choke points and park the block in a
+// bounded quarantine; a later inc/dec of a parked block (checked in lib.rs) is a UAF. The
+// free-site backtrace is captured into a large ring so the report names the over-decrement.
+pub(crate) const UAF_DETECT: bool = false;
+pub(crate) const LEAN_UAF_POISON_RC: i32 = i32::MIN;
+const QSET_SIZE: usize = 1 << 21;
+const QSET_MASK: usize = QSET_SIZE - 1;
+const QRING_SIZE: usize = 1 << 18;
+static QSET: [core::sync::atomic::AtomicUsize; QSET_SIZE] =
+    [const { core::sync::atomic::AtomicUsize::new(0) }; QSET_SIZE];
+static QRING: [core::sync::atomic::AtomicUsize; QRING_SIZE] =
+    [const { core::sync::atomic::AtomicUsize::new(0) }; QRING_SIZE];
+static QHEAD: core::sync::atomic::AtomicUsize = core::sync::atomic::AtomicUsize::new(0);
+const FB_N: usize = 1 << 19;
+const FB_D: usize = 24;
+static mut FB_PTR: [usize; FB_N] = [0; FB_N];
+static mut FB_BT: [[*mut c_void; FB_D]; FB_N] = [[ptr::null_mut(); FB_D]; FB_N];
+static FB_HEAD: core::sync::atomic::AtomicUsize = core::sync::atomic::AtomicUsize::new(0);
+#[inline(always)]
+fn qhash(p: usize) -> usize {
+    (p >> 4) & QSET_MASK
+}
+#[inline(always)]
+unsafe fn quar_phys_free(p: usize) {
     unsafe {
-        lean_global_dealloc(obj as *mut u8, size);
+        mi::mi_free(p as *mut c_void);
+    }
+}
+#[cold]
+pub(crate) unsafe fn quar_report_uaf(o: *mut LeanObject, op: &str) {
+    unsafe {
+        eprintln!(
+            "\n=== USE-AFTER-FREE DETECTED ({} of a freed/quarantined object) ===",
+            op
+        );
+        eprintln!("obj={:p} tag={} other={}", o, lean_ptr_tag(o), (*o).other);
+        let w = o as *const u64;
+        eprintln!(
+            "words: [0]={:#018x} [1]={:#018x} [2]={:#018x} [3]={:#018x}",
+            *w,
+            *w.add(1),
+            *w.add(2),
+            *w.add(3)
+        );
+        let p = o as usize;
+        for i in 0..FB_N {
+            if *core::ptr::addr_of!(FB_PTR[i]) == p {
+                eprintln!(">>> FREE-SITE (over-decrement) backtrace:");
+                libc::backtrace_symbols_fd(
+                    core::ptr::addr_of!(FB_BT[i]) as *const *mut c_void,
+                    FB_D as i32,
+                    2,
+                );
+                break;
+            }
+        }
+        eprintln!("--- current backtrace ---");
+        let mut bt = [ptr::null_mut::<c_void>(); 32];
+        let n = libc::backtrace(bt.as_mut_ptr(), 32);
+        libc::backtrace_symbols_fd(bt.as_ptr(), n, 2);
+        std::process::abort();
+    }
+}
+#[used]
+static KEEP_QUAR_REPORT_UAF: unsafe fn(*mut LeanObject, &str) = quar_report_uaf;
+unsafe fn quar_free(o: *mut LeanObject) {
+    unsafe {
+        let p = o as usize;
+        let i = FB_HEAD.fetch_add(1, Ordering::Relaxed) % FB_N;
+        let row = core::ptr::addr_of_mut!(FB_BT[i]) as *mut *mut c_void;
+        for k in 0..FB_D {
+            *row.add(k) = ptr::null_mut();
+        }
+        libc::backtrace(row, FB_D as i32);
+        *core::ptr::addr_of_mut!(FB_PTR[i]) = p;
+        let h = qhash(p);
+        QSET[h].store(p, Ordering::Relaxed);
+        (*o).rc = LEAN_UAF_POISON_RC;
+        let idx = QHEAD.fetch_add(1, Ordering::Relaxed) & (QRING_SIZE - 1);
+        let old = QRING[idx].swap(p, Ordering::Relaxed);
+        if old != 0 {
+            let oh = qhash(old);
+            let _ = QSET[oh].compare_exchange(old, 0, Ordering::Relaxed, Ordering::Relaxed);
+            quar_phys_free(old);
+        }
+    }
+}
+
+#[inline(always)]
+pub unsafe fn lean_dealloc(o: *mut LeanObject, sz: usize) {
+    unsafe {
+        if UAF_DETECT {
+            quar_free(o);
+            return;
+        }
+        mi::mi_free_size(o as *mut c_void, sz);
     }
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
 #[inline]
-pub unsafe fn lean_free_small_object(obj: *mut LeanObject) {
-    unsafe {
-        lean_global_dealloc(obj as *mut u8, (*obj).cs_size as usize);
+pub unsafe fn lean_free_small_object(o: *mut LeanObject) {
+    if UAF_DETECT {
+        unsafe { quar_free(o) };
+        return;
     }
+    unsafe { mi::mi_free_small(o as *mut c_void) };
 }
 
 // NOT IN EmitRust; here because it is used in `lean_dec_ref_known`, `lean_inc`, `lean_inc_n`, `lean_inc_ref`, and 2 more EmitRust functions.
@@ -143,23 +245,27 @@ pub unsafe fn lean_is_st(obj: *mut LeanObject) -> bool {
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_mpz_clear(obj: *mut LeanObject) {
-    unsafe {
-        let mpz = &mut (*(obj as *mut LeanMpzObject)).m_value[0];
-        if !mpz.mp_d.is_null() {
-            libc::free(mpz.mp_d.cast());
-            mpz.mp_alloc = 0;
-            mpz.mp_size = 0;
-            mpz.mp_d = ptr::null_mut();
-        }
-    }
-}
+// #[inline]
+// pub unsafe fn lean_mpz_clear(obj: *mut LeanObject) {
+//     unsafe {
+//         let mpz = &mut (*(obj as *mut LeanMpzObject)).m_value[0];
+//         if !mpz.mp_d.is_null() {
+//             libc::free(mpz.mp_d.cast());
+//             mpz.mp_alloc = 0;
+//             mpz.mp_size = 0;
+//             mpz.mp_d = ptr::null_mut();
+//         }
+//     }
+// }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 37 more EmitRust functions.
 #[inline]
 pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
-    unsafe { (*obj).tag }
+    if lean_is_scalar_bool(obj) {
+        lean_unbox(obj) as u8
+    } else {
+        (*obj).tag
+    }
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 28 more EmitRust functions.
@@ -210,24 +316,6 @@ pub unsafe fn lean_string_byte_size(obj: *mut LeanObject) -> usize {
     }
 }
 
-// NOT IN EmitRust; here because it is used in `lean_dec_ref_known`, `lean_del_object`.
-#[inline]
-pub unsafe fn lean_free_object(obj: *mut LeanObject) {
-    unsafe {
-        match lean_ptr_tag(obj) {
-            LEAN_ARRAY_TAG => lean_dealloc(obj, lean_array_byte_size(obj)),
-            LEAN_SCALAR_ARRAY_TAG => lean_dealloc(obj, lean_sarray_byte_size(obj)),
-            LEAN_STRING_TAG => lean_dealloc(obj, lean_string_byte_size(obj)),
-            LEAN_CLOSURE_TAG => lean_dealloc(obj, lean_closure_byte_size(obj)),
-            LEAN_MPZ_TAG => {
-                lean_mpz_clear(obj);
-                lean_free_small_object(obj);
-            }
-            _ => lean_free_small_object(obj),
-        }
-    }
-}
-
 // NOT IN EmitRust; here because it is used in `lean_mk_string`, `lean_mk_string_unchecked`.
 #[inline]
 pub unsafe fn lean_string_data(obj: *mut LeanObject) -> *mut u8 {
@@ -264,13 +352,10 @@ pub unsafe fn pop_back(todo: &mut *mut LeanObject) -> *mut LeanObject {
 #[inline]
 pub unsafe fn set_next(obj: *mut LeanObject, next: *mut LeanObject) {
     unsafe {
-        #[cfg(target_pointer_width = "64")]
-        {
-            let mut hi = 0u16;
-            ptr::copy_nonoverlapping((obj as *const u8).add(6), &mut hi as *mut u16 as *mut u8, 2);
-            let header = ((hi as usize) << 48) | (next as usize);
-            ptr::copy_nonoverlapping(&header as *const usize as *const u8, obj as *mut u8, 8);
-        }
+        let mut hi = 0u16;
+        ptr::copy_nonoverlapping((obj as *const u8).add(6), &mut hi as *mut u16 as *mut u8, 2);
+        let header = ((hi as usize) << 48) | (next as usize);
+        ptr::copy_nonoverlapping(&header as *const usize as *const u8, obj as *mut u8, 8);
     }
 }
 
@@ -323,8 +408,8 @@ pub unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_size: u32) -> *mut
 }
 
 #[inline]
-pub unsafe fn lean_box(n: usize) -> *mut LeanObject {
-    ((n << 1) | 1) as *mut LeanObject
+pub unsafe fn lean_box(value: Size) -> *mut LeanObject {
+    ((value << 1) | 1) as *mut LeanObject
 }
 
 // NOT IN EmitRust; here because it is used in `lean_cstr_to_nat`, `lean_unsigned_to_nat`.
@@ -348,91 +433,99 @@ pub fn lean_is_scalar_bool(obj: *mut LeanObject) -> bool {
     lean_is_scalar(obj) != 0 // same as `== 1`
 }
 
+#[inline(always)]
+pub unsafe fn lean_has_rc(o: *mut LeanObject) -> bool {
+    unsafe { (*o).rc != 0 }
+}
+
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 4 more EmitRust functions.
 #[inline]
-pub unsafe fn dec_for_del(obj: *mut LeanObject, todo: &mut *mut LeanObject) {
+pub unsafe fn dec_for_del(o: *mut LeanObject, todo: &mut *mut LeanObject) {
     unsafe {
-        if lean_is_scalar_bool(obj) {
+        if lean_is_scalar_bool(o) {
             return;
         }
-        if (*obj).rc > 1 {
-            (*obj).rc -= 1;
-        } else if (*obj).rc == 1 {
-            push_back(todo, obj);
-        } else if (*obj).rc != 0 {
-            let rc = core::ptr::addr_of_mut!((*obj).rc).cast::<AtomicI32>();
-            if (*rc).fetch_add(1, Ordering::AcqRel) == -1 {
-                push_back(todo, obj);
-            }
+        if (*o).rc > 1 {
+            (*o).rc -= 1;
+        } else if (*o).rc == 1 {
+            push_back(todo, o);
+        } else if (*o).rc == 0 {
+            return;
+        } else if {
+            let rc = core::ptr::addr_of_mut!((*o).rc).cast::<AtomicI32>();
+            (*rc).fetch_add(1, Ordering::AcqRel) == -1
+        } {
+            push_back(todo, o);
         }
     }
 }
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 4 more EmitRust functions.
 #[inline]
-pub unsafe fn lean_del_core_other(obj: *mut LeanObject, tag: u8, todo: &mut *mut LeanObject) {
+pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut LeanObject) {
     unsafe {
         match tag {
             LEAN_CLOSURE_TAG => {
-                let args = lean_closure_arg_cptr(obj);
-                for i in 0..lean_closure_num_fixed(obj) {
-                    dec_for_del(*args.add(i), todo);
+                let it = lean_closure_arg_cptr(o);
+                for i in 0..lean_closure_num_fixed(o) {
+                    dec_for_del(*it.add(i), todo);
                 }
-                lean_dealloc(obj, lean_closure_byte_size(obj));
+                lean_dealloc(o, lean_closure_byte_size(o));
             }
             LEAN_ARRAY_TAG => {
-                let data = lean_array_cptr(obj);
-                for i in 0..lean_array_size(obj) {
-                    dec_for_del(*data.add(i), todo);
+                let it = lean_array_cptr(o);
+                for i in 0..lean_array_size(o) {
+                    dec_for_del(*it.add(i), todo);
                 }
-                lean_dealloc(obj, lean_array_byte_size(obj));
+                lean_dealloc(o, lean_array_byte_size(o));
             }
-            LEAN_SCALAR_ARRAY_TAG => lean_dealloc(obj, lean_sarray_byte_size(obj)),
-            LEAN_STRING_TAG => lean_dealloc(obj, lean_string_byte_size(obj)),
+            LEAN_SCALAR_ARRAY_TAG => {
+                lean_dealloc(o, lean_sarray_byte_size(o));
+            }
+            LEAN_STRING_TAG => {
+                lean_dealloc(o, lean_string_byte_size(o));
+            }
+            LEAN_MPZ_TAG => {
+                let mpz =
+                    &mut (*(o as *mut LeanMpzObject)).m_value as *mut gmp_mpfr_sys::gmp::mpz_t;
+                gmp_mpfr_sys::gmp::mpz_clear(mpz);
+                lean_free_small_object(o);
+            }
             LEAN_THUNK_TAG => {
-                let thunk = obj as *mut LeanThunkObject;
-                let closure = (*thunk).m_closure.load(Ordering::Acquire);
-                if !closure.is_null() {
-                    dec_for_del(closure, todo);
+                let t = o as *mut LeanThunkObject;
+                let c = (*t).m_closure.load(Ordering::Acquire);
+                if !c.is_null() {
+                    dec_for_del(c, todo);
                 }
-                let value = (*thunk).m_value.load(Ordering::Acquire);
-                if !value.is_null() {
-                    dec_for_del(value, todo);
+                let v = (*t).m_value.load(Ordering::Acquire);
+                if !v.is_null() {
+                    dec_for_del(v, todo);
                 }
-                lean_free_small_object(obj);
+                lean_free_small_object(o);
             }
             LEAN_REF_TAG => {
-                let r = obj as *mut LeanRefObject;
+                let r = o as *mut LeanRefObject;
                 if !(*r).m_value.is_null() {
                     dec_for_del((*r).m_value, todo);
                 }
-                lean_free_small_object(obj);
-            }
-            LEAN_PROMISE_TAG => {
-                let promise = obj as *mut LeanPromiseObject;
-                if !(*promise).m_result.is_null() {
-                    dec_for_del((*promise).m_result as *mut LeanObject, todo);
-                }
-                lean_free_small_object(obj);
+                lean_free_small_object(o);
             }
             LEAN_TASK_TAG => {
-                let task = obj as *mut LeanTaskObject;
-                let value = (*task).m_value.load(Ordering::Acquire);
-                if !value.is_null() {
-                    dec_for_del(value, todo);
-                }
-                lean_free_small_object(obj);
+                lean_runtime_deactivate_task(o as *mut LeanTaskObject);
+            }
+            LEAN_PROMISE_TAG => {
+                lean_runtime_deactivate_promise(o as *mut LeanPromiseObject);
             }
             LEAN_EXTERNAL_TAG => {
-                let external = obj as *mut LeanExternalObject;
-                ((*(*external).m_class).m_finalize)((*external).m_data);
-                lean_free_small_object(obj);
+                let e = o as *mut LeanExternalObject;
+                ((*(*e).m_class).m_finalize)((*e).m_data);
+                lean_free_small_object(o);
             }
-            LEAN_MPZ_TAG => {
-                lean_mpz_clear(obj);
-                lean_free_small_object(obj);
+            _ => {
+                crate::runtime_object_panic::lean_internal_panic(
+                    c"lean_del_core: unknown object tag".as_ptr(),
+                );
             }
-            _ => panic!("lean_del_core: unknown object tag {tag}"),
         }
     }
 }
@@ -454,16 +547,6 @@ pub unsafe fn lean_del_core(obj: *mut LeanObject, todo: &mut *mut LeanObject) {
     }
 }
 
-// NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_mk_string`, `lean_mk_string_unchecked`.
-#[inline]
-pub unsafe fn lean_alloc_object(size: usize) -> *mut LeanObject {
-    unsafe {
-        let obj = lean_global_alloc(size) as *mut LeanObject;
-        (*obj).cs_size = 0;
-        obj
-    }
-}
-
 // NOT IN EmitRust; here because it is used in `lean_mk_string`, `lean_mk_string_unchecked`.
 #[inline]
 pub unsafe fn lean_alloc_string(byte_size: usize, capacity: usize, len: usize) -> *mut LeanObject {
@@ -478,29 +561,6 @@ pub unsafe fn lean_alloc_string(byte_size: usize, capacity: usize, len: usize) -
         (*obj).m_capacity = capacity;
         (*obj).m_length = len;
         obj as *mut LeanObject
-    }
-}
-
-// NOT IN EmitRust; here because it is used in `lean_apply_m`, `lean_ctor_release`, `lean_dec`, `lean_dec_ref`, and 1 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_dec_ref_cold(mut obj: *mut LeanObject) {
-    unsafe {
-        if lean_is_scalar_bool(obj) {
-            return;
-        }
-        if (*obj).rc == 1 || {
-            let rc = core::ptr::addr_of_mut!((*obj).rc).cast::<AtomicI32>();
-            (*rc).fetch_add(1, Ordering::AcqRel) == -1
-        } {
-            let mut todo = ptr::null_mut();
-            loop {
-                lean_del_core(obj, &mut todo);
-                if todo.is_null() {
-                    return;
-                }
-                obj = pop_back(&mut todo);
-            }
-        }
     }
 }
 

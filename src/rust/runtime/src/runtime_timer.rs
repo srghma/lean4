@@ -4,35 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_timer_impl {
-    use crate::*;
     use crate::runtime_event_loop::GLOBAL_EV;
+    use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
-        uv_close as uv_close_sys, uv_timer_init as uv_timer_init_sys,
-        uv_timer_start as uv_timer_start_sys, uv_timer_stop as uv_timer_stop_sys, uv_loop_t,
+        uv_close as uv_close_sys, uv_loop_t, uv_timer_init as uv_timer_init_sys,
+        uv_timer_start as uv_timer_start_sys, uv_timer_stop as uv_timer_stop_sys,
     };
 
     const TIMER_STATE_INITIAL: c_int = 0;
     const TIMER_STATE_RUNNING: c_int = 1;
     const TIMER_STATE_FINISHED: c_int = 2;
     const LEAN_TASK_STATE_FINISHED: u8 = 2;
-
-    #[repr(C, align(8))]
-    pub struct UvTimer {
-        handle: UvHandle,
-        rest: [u8; 56],
-    }
-
-    #[repr(C)]
-    struct LeanUvTimerObject {
-        uv_timer: *mut UvTimer,
-        promise: *mut LeanObject,
-        timeout: u64,
-        repeating: bool,
-        state: c_int,
-    }
-
-    static mut UV_TIMER_EXTERNAL_CLASS: *mut LeanExternalClass = null_mut();
 
     unsafe fn uv_close(handle: *mut UvHandle, close_cb: Option<unsafe fn(*mut UvHandle)>) {
         uv_close_sys(handle.cast(), close_cb.map(|cb| core::mem::transmute(cb)));
@@ -48,7 +32,12 @@ mod runtime_timer_impl {
         timeout: u64,
         repeat: u64,
     ) -> c_int {
-        uv_timer_start_sys(handle.cast(), cb.map(|cb| core::mem::transmute(cb)), timeout, repeat)
+        uv_timer_start_sys(
+            handle.cast(),
+            cb.map(|cb| core::mem::transmute(cb)),
+            timeout,
+            repeat,
+        )
     }
 
     unsafe fn uv_timer_stop(handle: *mut UvTimer) -> c_int {
@@ -66,34 +55,6 @@ mod runtime_timer_impl {
 
     unsafe fn close_free_handle(handle: *mut UvHandle) {
         libc::free(handle.cast());
-    }
-    pub unsafe fn lean_uv_timer_finalizer(ptr: *mut c_void) {
-        let timer = ptr.cast::<LeanUvTimerObject>();
-
-        if !(*timer).promise.is_null() {
-            lean_dec((*timer).promise);
-        }
-
-        event_loop_lock(addr_of_mut!(GLOBAL_EV));
-        uv_close(
-            (*timer).uv_timer.cast::<UvHandle>(),
-            Some(close_free_handle),
-        );
-        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
-
-        libc::free(timer.cast());
-    }
-
-    unsafe fn timer_foreach(obj: *mut c_void, f: *mut LeanObject) {
-        let timer = obj.cast::<LeanUvTimerObject>();
-        if !(*timer).promise.is_null() {
-            lean_inc(f);
-            lean_apply_1(f, (*timer).promise);
-        }
-    }
-    pub unsafe fn initialize_libuv_timer() {
-        UV_TIMER_EXTERNAL_CLASS =
-            lean_register_external_class(Some(lean_uv_timer_finalizer), Some(timer_foreach));
     }
     pub unsafe fn handle_timer_event(handle: *mut UvTimer) {
         let obj = (*handle).handle.data.cast::<LeanObject>();

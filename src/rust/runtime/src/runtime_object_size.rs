@@ -7,6 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_size_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use leanh::{LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG};
 
     #[inline]

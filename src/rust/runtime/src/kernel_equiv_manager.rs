@@ -25,6 +25,7 @@ Literal tags: 0 = natVal, 1 = strVal
 
 mod kernel_equiv_manager_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_void;
     use std::collections::HashMap;
 

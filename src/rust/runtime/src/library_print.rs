@@ -18,6 +18,7 @@ pub fn finalize_print() {}
 
 mod library_print_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
         // Lean-compiled (Init.Prelude): Name.str p s — consumes both.

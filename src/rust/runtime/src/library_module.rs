@@ -9,6 +9,7 @@ Port of src/library/module.cpp:
 
 mod library_module_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use leanh::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,

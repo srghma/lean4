@@ -6,6 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_io_ref_impl {
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use leanh::LEAN_REF_TAG;
     use core::sync::atomic::{AtomicPtr, Ordering};
 

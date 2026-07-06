@@ -23,6 +23,7 @@ Field layout (from expr.h):
 
 mod kernel_replace_fn_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_void;
     use std::collections::HashMap;
 

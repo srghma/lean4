@@ -120,13 +120,13 @@ pub struct LeanPromiseObject {
 
 #[repr(C)]
 pub struct LeanTaskImp {
-    m_closure: *mut LeanObject,
-    m_head_dep: *mut LeanTaskObject,
-    m_next_dep: *mut LeanTaskObject,
-    m_prio: u32,
-    m_canceled: bool,
-    m_keep_alive: bool,
-    m_deleted: bool,
+    pub m_closure: *mut LeanObject,
+    pub m_head_dep: *mut LeanTaskObject,
+    pub m_next_dep: *mut LeanTaskObject,
+    pub m_prio: u32,
+    pub m_canceled: bool,
+    pub m_keep_alive: bool,
+    pub m_deleted: bool,
 }
 
 #[repr(C)]
@@ -147,7 +147,7 @@ pub type MpzT = [LeanMpzStruct; 1];
 
 #[repr(C)]
 pub struct LeanMpzObject {
-    m_header: LeanObject,
+    pub m_header: LeanObject,
     pub m_value: MpzT,
 }
 

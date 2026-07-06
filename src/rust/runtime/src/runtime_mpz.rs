@@ -13,6 +13,7 @@
 
 mod gmp_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_int, c_long, c_ulong};
 
     // mpz_sgn is a GMP macro; implement it directly from the struct fields.

@@ -41,6 +41,7 @@ mod kernel_expr_eq_fn_impl {
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::HashSet;
 
     unsafe extern "C" {

@@ -15,6 +15,7 @@ The old C++ util.cpp implementation is removed.
 
 mod library_util_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_char;
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, Ordering};

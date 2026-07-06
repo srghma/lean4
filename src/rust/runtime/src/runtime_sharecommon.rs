@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_sharecommon_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use leanh::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG,
         LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_RESERVED_TAG, LEAN_SCALAR_ARRAY_TAG,

@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod kernel_environment_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
         // Unified Rust dispatch (kernel_type_checker.rs): axiom/def/theorem/opaque are checked

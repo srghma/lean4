@@ -8,6 +8,7 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 
 mod runtime_compact_writer_impl {
     use crate::*;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use leanh::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,
         LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
