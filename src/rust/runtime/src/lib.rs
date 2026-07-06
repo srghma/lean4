@@ -14,10 +14,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
     // unused_imports
 )]
 
+pub mod kernel;
+// pub mod leanh_extra;
+pub mod library;
 pub mod runtime;
-// pub mod kernel;
-pub mod leanh_extra;
-// pub mod library;
 
 // pub mod r#gen {
 //     pub mod Init {}

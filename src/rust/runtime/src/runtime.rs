@@ -1,8 +1,7 @@
 mod alloc;
-mod apply;
-// mod compact;
-// mod compact_writer;
-// mod runtime_core;
+mod compact;
+mod compact_writer;
+// mod core;
 // mod debug;
 // mod dns;
 // mod event_loop;
