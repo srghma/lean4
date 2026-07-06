@@ -58,15 +58,15 @@ fn main() {
     )
     .unwrap_or_else(|_| panic!("unable to write {}", version_rs.display()));
     println!("cargo:rustc-check-cfg=cfg(lean_multi_thread)");
-    if std::env::var("LEAN_RUST_MULTI_THREAD").as_deref() == Ok("1") {
+    if std::env::var("LEAN_RUST_MULTI_THREAD").as_deref() == Ok("1") { // by default ON
         println!("cargo:rustc-cfg=lean_multi_thread");
     }
     println!("cargo:rustc-check-cfg=cfg(lean_has_address_sanitizer)");
-    if std::env::var("LEAN_RUST_HAS_ADDRESS_SANITIZER").as_deref() == Ok("1") {
+    if std::env::var("LEAN_RUST_HAS_ADDRESS_SANITIZER").as_deref() == Ok("1") { // by default OFF
         println!("cargo:rustc-cfg=lean_has_address_sanitizer");
     }
     println!("cargo:rustc-check-cfg=cfg(lean_has_llvm)");
-    if std::env::var("LEAN_RUST_HAS_LLVM").as_deref() == Ok("1") {
+    if std::env::var("LEAN_RUST_HAS_LLVM").as_deref() == Ok("1") { // by default OFF
         println!("cargo:rustc-cfg=lean_has_llvm");
     }
 }
