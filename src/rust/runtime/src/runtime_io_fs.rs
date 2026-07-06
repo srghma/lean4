@@ -4,21 +4,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_fs_impl {
+    use crate::base::{
+        LeanObject, c_char, lean_alloc_array, lean_alloc_sarray, lean_alloc_sarray_would_overflow,
+        lean_array_push, lean_box, lean_ctor_set_uint8, lean_ctor_set_uint64, lean_dec,
+        lean_decode_io_error, lean_inc, lean_int64_to_int_rust, lean_io_result_mk_error,
+        lean_io_result_mk_ok, lean_mk_io_user_error, lean_mk_string, lean_runtime_alloc_ctor,
+        lean_runtime_ctor_set, lean_runtime_errno, lean_sarray_cptr, lean_sarray_set_size,
+        lean_string_cstr, lean_string_size,
+    };
+    use crate::runtime_io_error::lean_mk_io_error_no_file_or_directory;
     use crate::runtime_io_stream::io_wrap_handle;
-    use crate::*;
-    use core::ffi::c_char;
     use std::ffi::{CStr, CString};
     use std::os::unix::ffi::OsStrExt;
     use std::os::unix::fs::MetadataExt;
-
-    unsafe extern "C" {
-        fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-        fn lean_mk_io_error_no_file_or_directory(
-            fname: *mut LeanObject,
-            errnum: u32,
-            details: *mut LeanObject,
-        ) -> *mut LeanObject;
-    }
 
     unsafe fn check_no_nuls(s: *mut LeanObject) -> Result<*const c_char, *mut LeanObject> {
         let cstr = super::lean_string_cstr(s);

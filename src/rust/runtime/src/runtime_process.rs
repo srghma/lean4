@@ -14,16 +14,16 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 // lean_mk_string, lean_decode_io_error, lean_mk_io_user_error, etc.
 
 mod runtime_process_impl {
+    use crate::base::{
+        LeanObject, Size, c_char, c_uint, lean_array_get, lean_array_size, lean_box, lean_ctor_get,
+        lean_ctor_get_uint8, lean_ctor_set_uint8, lean_dec, lean_decode_io_error, lean_inc,
+        lean_io_result_mk_error, lean_io_result_mk_ok, lean_is_scalar, lean_mk_io_user_error,
+        lean_mk_string, lean_mk_string_from_bytes, lean_obj_tag, lean_runtime_alloc_ctor,
+        lean_runtime_ctor_set, lean_string_cstr,
+    };
     use crate::runtime_io_stream::io_wrap_handle;
-    use crate::*;
     use core::ffi::c_int;
     use core::ptr::null_mut;
-
-    // ─── additional externals needed for this module ──────────────────────────
-
-    unsafe extern "C" {
-        fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
-    }
 
     // lean_box_uint32 is a static inline in lean.h; implement it directly in Rust
     // On 64-bit systems (our target), UInt32 is boxed as a tagged scalar: lean_box(v)

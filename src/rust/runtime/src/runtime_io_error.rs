@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_error_impl {
-    use crate::*;
+    use crate::base::{LeanObject, c_char, c_int, lean_inc, lean_mk_string};
     use libuv_sys2::uv_strerror;
 
     unsafe extern "C" {

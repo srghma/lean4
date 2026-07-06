@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_memory_impl {
-    use crate::*;
+    use crate::base::{LeanObject, lean_box};
+    use crate::runtime_exception::throw_memory_exception;
     use core::ffi::c_char;
     use std::cell::Cell;
     use std::sync::atomic::{AtomicUsize, Ordering};

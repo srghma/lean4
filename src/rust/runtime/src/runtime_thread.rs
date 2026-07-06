@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_thread_impl {
-    use crate::{lean_box, LeanObject};
+    use crate::base::{LeanObject, lean_box};
+    use crate::runtime_interrupt::{get_max_heartbeat, set_max_heartbeat};
     use core::cell::Cell;
     use core::ffi::c_void;
 
@@ -126,11 +127,6 @@ mod runtime_thread_impl {
         pthread_create, pthread_detach, pthread_join, pthread_t,
     };
 
-    unsafe extern "C" {
-        fn get_max_heartbeat() -> usize;
-        fn set_max_heartbeat(max: usize);
-    }
-
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024;
 
     const LEAN_DEFAULT_THREAD_STACK_SIZE: usize = 1024 * 1024 * 1024; // 1 GB
@@ -241,7 +237,8 @@ mod runtime_thread_impl {
     }
 
     #[cfg(lean_multi_thread)]
-    pub unsafe fn lean_run_main( // duplicate in undefined at line 302 (🔁)
+    pub unsafe fn lean_run_main(
+        // duplicate in undefined at line 302 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -273,7 +270,8 @@ mod runtime_thread_impl {
     }
 
     #[cfg(not(lean_multi_thread))]
-    pub unsafe fn lean_run_main( // duplicate in undefined at line 334 (🔁)
+    pub unsafe fn lean_run_main(
+        // duplicate in undefined at line 334 (🔁)
         main_fn: MainFn,
         argc: c_int,
         argv: *mut *mut c_char,
@@ -292,3 +290,4 @@ pub(crate) use runtime_thread_impl::{
     delete_thread_finalizer_manager_internal, run_post_thread_finalizers_internal,
     run_thread_finalizers_internal,
 };
+pub use runtime_thread_impl::{lean_finalize_thread, lean_initialize_thread, lthread_get_thread_stack_size};

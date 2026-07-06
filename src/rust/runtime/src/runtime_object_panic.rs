@@ -6,17 +6,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Port of the panic, sorry, and stack trace helpers from src/runtime/object.cpp.
 
 mod runtime_object_panic_impl {
-    use crate::*;
+    use crate::base::{
+        AtomicBool, CStr, LeanObject, Ordering, c_char, c_int, c_void, lean_dec, lean_io_eprintln,
+        lean_mk_string, lean_mk_string_from_bytes, lean_string_cstr, ptr,
+    };
     #[cfg(unix)]
     use libloading::os::unix::Library as UnixLibrary;
     use std::io::Write;
 
     static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
     static G_PANIC_MESSAGES: AtomicBool = AtomicBool::new(true);
-
-    unsafe extern "C" {
-        fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
-    }
 
     #[inline]
     fn c_char_ptr(bytes: &'static [u8]) -> *const c_char {

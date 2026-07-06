@@ -4,18 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_stack_info_impl {
+    use crate::{
+        runtime_exception::{throw_get_stack_size_failed, throw_stack_space_exception},
+        runtime_thread::lthread_get_thread_stack_size,
+    };
     use core::ffi::c_char;
     use std::cell::Cell;
 
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024; // 128 Kb
-
-    unsafe extern "C" {
-        fn lthread_get_thread_stack_size() -> usize;
-
-        fn throw_get_stack_size_failed() -> !;
-
-        fn throw_stack_space_exception(component_name: *const c_char) -> !;
-    }
 
     thread_local! {
         static G_STACK_INFO_INIT: Cell<bool> = Cell::new(false);

@@ -4,23 +4,17 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_libuv_impl {
-    use crate::*;
-    use crate::runtime_event_loop::{event_loop_run_loop, EventLoop, GLOBAL_EV};
+    use crate::base::{LeanObject, c_char, c_int, c_uint, lean_box};
+    use crate::runtime_event_loop::{EventLoop, GLOBAL_EV, event_loop_run_loop};
+    use crate::runtime_signal::initialize_libuv_signal;
+    use crate::runtime_tcp::initialize_libuv_tcp_socket;
+    use crate::runtime_thread::{lean_finalize_thread, lean_initialize_thread};
+    use crate::runtime_timer::initialize_libuv_timer;
+    use crate::runtime_udp::initialize_libuv_udp_socket;
     use core::ptr;
     use std::thread;
 
     use libuv_sys2::{uv_setup_args as uv_setup_args_sys, uv_version as uv_version_sys};
-
-    unsafe extern "C" {
-        fn initialize_libuv_timer();
-        fn initialize_libuv_tcp_socket();
-        fn initialize_libuv_udp_socket();
-        fn initialize_libuv_signal();
-        fn initialize_libuv_loop();
-
-        fn lean_initialize_thread();
-        fn lean_finalize_thread();
-    }
 
     unsafe fn uv_setup_args(argc: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
         uv_setup_args_sys(argc, argv)
