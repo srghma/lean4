@@ -8,7 +8,7 @@ Port of src/library/module.cpp:
 */
 
 mod library_module_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_void};
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):

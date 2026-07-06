@@ -84,9 +84,28 @@ mod runtime_thread;
 mod runtime_timer;
 mod runtime_udp;
 
+pub use base::*;
+pub(crate) use runtime_alloc::runtime_alloc_impl;
+pub(crate) use runtime_apply::runtime_apply_impl;
+pub(crate) use runtime_object_array::runtime_object_array_impl;
+pub(crate) use runtime_object_name::runtime_object_name_impl;
+pub(crate) use runtime_object_nat_int::runtime_object_nat_int_impl;
+pub(crate) use runtime_object_panic::runtime_object_panic_impl;
+pub(crate) use runtime_object_rc::runtime_object_rc_impl;
+pub(crate) use runtime_object_size::runtime_object_size_impl;
+pub(crate) use runtime_object_string::runtime_object_string_impl;
+pub(crate) use runtime_object_task::runtime_object_task_impl;
+pub(crate) use runtime_interrupt::runtime_interrupt_impl;
+pub(crate) use runtime_float::{lean_box_float, lean_box_float32};
+pub(crate) use runtime_object_rc::runtime_object_rc_impl::{
+    LeanArrayObject, LeanClosureObject, LeanExternalClass, LeanExternalObject, LeanMpzObject,
+    LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject, LeanTaskObject,
+    LeanThunkObject,
+};
+
 #[allow(unused_imports)]
-pub(crate) use gmp_mpfr_sys::gmp::{
-    __mpz_struct as MpzStruct, mpz_t as MpzT, mpz_add as __gmpz_add,
+pub use gmp_mpfr_sys::gmp::{
+    mpz_t as MpzStruct, mpz_t as MpzT, mpz_add as __gmpz_add,
     mpz_add_ui as __gmpz_add_ui, mpz_and as __gmpz_and, mpz_clear as __gmpz_clear,
     mpz_cmp as __gmpz_cmp, mpz_cmp_si as __gmpz_cmp_si, mpz_cmp_ui as __gmpz_cmp_ui,
     mpz_divexact as __gmpz_divexact, mpz_fdiv_q_2exp as __gmpz_fdiv_q_2exp,

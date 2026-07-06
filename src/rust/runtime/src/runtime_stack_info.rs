@@ -9,7 +9,7 @@ mod runtime_stack_info_impl {
 
     const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024; // 128 Kb
 
-    extern "C" {
+    unsafe extern "C" {
         fn lthread_get_thread_stack_size() -> usize;
 
         fn throw_get_stack_size_failed() -> !;
@@ -44,7 +44,7 @@ mod runtime_stack_info_impl {
     }
 
     #[cfg(target_os = "emscripten")]
-    extern "C" {
+    unsafe extern "C" {
         fn emscripten_stack_get_end() -> usize;
         fn emscripten_stack_get_base() -> usize;
     }

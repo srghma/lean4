@@ -61,7 +61,7 @@ unsafe impl Send for OleanCompactedRegion {}
 unsafe impl Sync for OleanCompactedRegion {}
 
 mod runtime_compact_impl {
-    use super::*;
+    use crate::*;
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
     #[no_mangle]

@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_tcp_impl {
-    use super::*;
+    use crate::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -159,7 +159,7 @@ mod runtime_tcp_impl {
         core::mem::transmute(uv_buf_init_sys(base, len))
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_socket_address_to_sockaddr_storage(
             ip_addr: *mut LeanObject,
             out: *mut libc::sockaddr_storage,
@@ -955,7 +955,7 @@ pub use runtime_tcp_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 mod runtime_tcp_impl {
-    use super::*;
+    use crate::*;
 
     pub fn initialize_libuv_tcp_socket() {}
 

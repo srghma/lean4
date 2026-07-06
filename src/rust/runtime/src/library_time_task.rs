@@ -14,7 +14,7 @@ Exports:
 */
 
 mod library_time_task_impl {
-    use super::*;
+    use crate::*;
     use std::collections::BTreeMap;
     use std::ffi::CStr;
     use std::io::Write;

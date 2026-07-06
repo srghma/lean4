@@ -30,12 +30,12 @@ Scalar field layout:
 */
 
 mod kernel_instantiate_impl {
-    use super::runtime_object_name_impl::lean_name_eq;
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
+    use crate::runtime_object_name_impl::lean_name_eq;
+    use crate::runtime_object_panic_impl::lean_internal_panic;
+    use crate::*;
     use std::collections::HashMap;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;

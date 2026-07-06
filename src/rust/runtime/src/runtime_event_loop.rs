@@ -5,7 +5,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_event_loop_impl {
-    use super::*;
+    use crate::*;
+    use core::ptr;
     use core::ptr::null_mut;
     use core::sync::atomic::{AtomicI32, Ordering};
     use libuv_sys2::{
@@ -122,7 +123,7 @@ mod runtime_event_loop_impl {
         uv_loop_configure_sys(loop_.cast(), option, arg)
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 

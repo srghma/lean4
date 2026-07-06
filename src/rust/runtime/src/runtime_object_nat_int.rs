@@ -10,7 +10,7 @@ compile_error!("runtime_object_nat_int.rs requires lean_use_gmp cfg flag");
 
 #[cfg(lean_use_gmp)]
 pub(crate) mod runtime_object_nat_int_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::{c_char, c_int, c_long, c_ulong};
 
     #[repr(C)]
@@ -19,7 +19,7 @@ pub(crate) mod runtime_object_nat_int_impl {
         value: MpzT,
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 

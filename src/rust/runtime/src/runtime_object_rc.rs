@@ -7,7 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // src/runtime/object.cpp.
 
 pub(crate) mod runtime_object_rc_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_void;
     use core::ptr;
     use core::sync::atomic::{AtomicI32, AtomicPtr, Ordering};
@@ -27,7 +27,7 @@ pub(crate) mod runtime_object_rc_impl {
     const LEAN_MAX_SMALL_OBJECT_SIZE: usize = 4096;
 
     #[repr(C)]
-    struct LeanArrayObject { // duplicate in undefined at line 30 (🔁)
+    pub struct LeanArrayObject { // duplicate in undefined at line 30 (🔁)
         header: LeanObject,
         size: usize,
         capacity: usize,
@@ -35,7 +35,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanStringObject { // duplicate in undefined at line 38 (🔁)
+    pub struct LeanStringObject { // duplicate in undefined at line 38 (🔁)
         header: LeanObject,
         size: usize,
         capacity: usize,
@@ -44,7 +44,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanClosureObject { // duplicate in undefined at line 47 (🔁)
+    pub struct LeanClosureObject { // duplicate in undefined at line 47 (🔁)
         header: LeanObject,
         fun: *mut c_void,
         arity: u16,
@@ -53,7 +53,7 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanScalarArray { // duplicate in undefined at line 56 (🔁)
+    pub struct LeanScalarArray { // duplicate in undefined at line 56 (🔁)
         header: LeanObject,
         size: usize,
         capacity: usize,
@@ -61,51 +61,51 @@ pub(crate) mod runtime_object_rc_impl {
     }
 
     #[repr(C)]
-    struct LeanThunkObject { // duplicate in undefined at line 64 (🔁)
+    pub struct LeanThunkObject { // duplicate in undefined at line 64 (🔁)
         header: LeanObject,
         m_value: AtomicPtr<LeanObject>,
         m_closure: AtomicPtr<LeanObject>,
     }
 
     #[repr(C)]
-    struct LeanRefObject { // duplicate in undefined at line 71 (🔁)
+    pub struct LeanRefObject { // duplicate in undefined at line 71 (🔁)
         header: LeanObject,
         m_value: *mut LeanObject,
     }
 
     #[repr(C)]
-    struct LeanTaskObject { // duplicate in undefined at line 77 (🔁)
+    pub struct LeanTaskObject { // duplicate in undefined at line 77 (🔁)
         header: LeanObject,
         m_value: AtomicPtr<LeanObject>,
         m_imp: *mut c_void,
     }
 
     #[repr(C)]
-    struct LeanPromiseObject { // duplicate in undefined at line 84 (🔁)
+    pub struct LeanPromiseObject { // duplicate in undefined at line 84 (🔁)
         header: LeanObject,
         m_result: *mut LeanTaskObject,
     }
 
     #[repr(C)]
-    struct LeanExternalClass { // duplicate in undefined at line 90 (🔁)
+    pub struct LeanExternalClass { // duplicate in undefined at line 90 (🔁)
         m_finalize: unsafe fn(*mut c_void),
         m_foreach: unsafe fn(*mut c_void, *mut LeanObject),
     }
 
     #[repr(C)]
-    struct LeanExternalObject { // duplicate in undefined at line 96 (🔁)
+    pub struct LeanExternalObject { // duplicate in undefined at line 96 (🔁)
         header: LeanObject,
         m_class: *mut LeanExternalClass,
         m_data: *mut c_void,
     }
 
     #[repr(C)]
-    struct LeanMpzObject { // duplicate in undefined at line 112 (🔁)
+    pub struct LeanMpzObject { // duplicate in undefined at line 112 (🔁)
         header: LeanObject,
         m_value: MpzT,
     }
 
-    extern "C" {
+    unsafe extern "C" {
         #[cfg(lean_has_address_sanitizer)]
         fn __lsan_ignore_object(ptr: *mut c_void);
         fn lean_internal_panic(msg: *const i8) -> !;
@@ -144,7 +144,7 @@ pub(crate) mod runtime_object_rc_impl {
     static mut FB_PTR: [usize; FB_N] = [0; FB_N];
     static mut FB_BT: [[*mut c_void; FB_D]; FB_N] = [[ptr::null_mut(); FB_D]; FB_N];
     static FB_HEAD: core::sync::atomic::AtomicUsize = core::sync::atomic::AtomicUsize::new(0);
-    extern "C" {
+    unsafe extern "C" {
         fn backtrace(buf: *mut *mut c_void, size: i32) -> i32;
         fn backtrace_symbols_fd(buf: *const *mut c_void, size: i32, fd: i32);
     }

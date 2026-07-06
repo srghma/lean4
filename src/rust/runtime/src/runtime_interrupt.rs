@@ -4,11 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_interrupt_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_char;
+    use core::ptr;
     use std::cell::Cell;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_uncaught_exceptions() -> bool;
         fn lean_throw_interrupted() -> !;
         fn throw_heartbeat_exception() -> !;
@@ -47,7 +48,7 @@ mod runtime_interrupt_impl {
         G_MAX_HEARTBEAT.with(|cell| cell.get())
     }
     pub fn set_max_heartbeat_thousands(max: u32) {
-        fnAT.with(|cell| cell.set((max as usize).wrapping_mul(1000)));
+        G_MAX_HEARTBEAT.with(|cell| cell.set((max as usize).wrapping_mul(1000)));
     }
     pub unsafe fn check_heartbeat() {
         inc_heartbeat();
@@ -55,7 +56,7 @@ mod runtime_interrupt_impl {
         let current = G_HEARTBEAT.with(|cell| cell.get());
         if max > 0 && current > max {
             throw_heartbeat_exception();
-        fn
+        }
     }
     pub unsafe fn check_interrupted() {
         let tk = G_CANCEL_TK.with(|cell| cell.get());
@@ -63,7 +64,7 @@ mod runtime_interrupt_impl {
             if cancel_tk_is_set(tk) && !lean_uncaught_exceptions() {
                 lean_throw_interrupted();
             }
-        fn
+        }
     }
 
     unsafe fn cancel_tk_is_set(tk: *mut LeanObject) -> bool {
@@ -71,7 +72,7 @@ mod runtime_interrupt_impl {
         lean_unbox((*lean_to_ref(set_ref)).value) != 0
     }
     pub unsafe fn check_system(component_name: *const c_char, do_check_interrupted: bool) {
-        fnomponent_name);
+        check_stack(component_name);
         check_memory(component_name);
         if do_check_interrupted {
             check_interrupted();
@@ -96,8 +97,6 @@ mod runtime_interrupt_impl {
 
     // FFI wrappers for Lean code
     pub fn lean_internal_get_default_max_heartbeat() -> *mut LeanObject {
-        const DEFAULT: usize = 200000; // standard Lean default
-        #[cfg(not(feature = "default-max-heartbeat"))]
         const DEFAULT: usize = 0;
 
         unsafe { lean_box(DEFAULT) }
@@ -135,7 +134,7 @@ mod runtime_interrupt_impl {
         }
     }
     pub unsafe fn scope_heartbeat_ctor_complete(this: *mut ScopeHeartbeat, curr: usize) {
-        fnt::ctor(this, curr);
+        ScopeHeartbeat::ctor(this, curr);
     }
     pub unsafe fn scope_heartbeat_ctor_base(this: *mut ScopeHeartbeat, curr: usize) {
         ScopeHeartbeat::ctor(this, curr);
@@ -143,7 +142,7 @@ mod runtime_interrupt_impl {
     pub unsafe fn scope_heartbeat_dtor_complete(this: *mut ScopeHeartbeat) {
         ScopeHeartbeat::dtor(this);
     }
-    pub fnpe_heartbeat_dtor_base(this: *mut ScopeHeartbeat) {
+    pub unsafe fn scope_heartbeat_dtor_base(this: *mut ScopeHeartbeat) {
         ScopeHeartbeat::dtor(this);
     }
 

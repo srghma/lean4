@@ -19,10 +19,10 @@ default-max-memory = []
 # gen-tools = []
 
 [dependencies]
-leanh = { path = "../leanh" }
+# leanh = { path = "../leanh" }
 libc = "0.2"
 libloading = "0.9"
-libmimalloc-sys = "0.1"
+libmimalloc-sys = { version = "0.1", features = ["extended"] }
 gmp-mpfr-sys = { version = "1.7", default-features = false }
 libuv-sys2 = "1.52.2"
 

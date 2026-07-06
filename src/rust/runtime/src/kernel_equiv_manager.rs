@@ -24,17 +24,17 @@ Literal tags: 0 = natVal, 1 = strVal
 */
 
 mod kernel_equiv_manager_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_void;
     use std::collections::HashMap;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
         fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
     }
 
-    use super::runtime_object_name_impl::lean_name_eq;
+    use crate::runtime_object_name_impl::lean_name_eq;
 
     const EXPR_BVAR: u8 = 0;
     const EXPR_FVAR: u8 = 1;

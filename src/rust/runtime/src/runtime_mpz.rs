@@ -16,6 +16,7 @@ compile_error!("runtime_mpz.rs requires lean_use_gmp cfg flag (build with USE_GM
 
 #[cfg(lean_use_gmp)]
 mod gmp_impl {
+    use crate::*;
     use core::ffi::{c_int, c_long, c_ulong};
 
     // mpz_sgn is a GMP macro; implement it directly from the struct fields.

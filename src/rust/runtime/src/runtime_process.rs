@@ -14,13 +14,13 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 // lean_mk_string, lean_decode_io_error, lean_mk_io_user_error, etc.
 
 mod runtime_process_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_int;
     use core::ptr::null_mut;
 
     // ─── additional externals needed for this module ──────────────────────────
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
         fn io_wrap_handle(f: *mut libc::FILE) -> *mut LeanObject;
     }
@@ -360,14 +360,14 @@ mod runtime_process_impl {
                 #[cfg(target_os = "macos")]
                 {
                     // On macOS, environ is a global pointer
-                    extern "C" {
+                    unsafe extern "C" {
                         static mut environ: *mut *mut libc::c_char;
                     }
                     environ = null_mut();
                 }
                 #[cfg(not(target_os = "macos"))]
                 {
-                    extern "C" {
+                    unsafe extern "C" {
                         fn clearenv() -> c_int;
                     }
                     clearenv();
@@ -535,4 +535,3 @@ mod runtime_process_impl {
 }
 
 pub use runtime_process_impl::*;
-fn

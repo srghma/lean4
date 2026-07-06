@@ -6,86 +6,86 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #![cfg_attr(not(feature = "std"), no_std)]
 #![allow(dead_code, non_upper_case_globals)]
 
-use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-use core::ptr;
-use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
+pub use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+pub use core::ptr;
+pub use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
 
-type Size = usize; // duplicate in undefined at line 13 (🔁)
+pub(crate) type Size = usize; // duplicate in undefined at line 13 (🔁)
 
-extern "C" {
+unsafe extern "C" {
     pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject; // duplicate in undefined at line 16 (🔁)
-    fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
-    fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-    fn lean_dec_ref_cold(obj: *mut LeanObject); // duplicate in undefined at line 19 (🔁)
-    fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 20 (🔁)
-    fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-    fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
-    fn lean_alloc_object(size: Size) -> *mut LeanObject; // duplicate in undefined at line 23 (🔁)
-    fn lean_mk_io_error_invalid_argument_file(
+    pub fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
+    pub fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_dec_ref_cold(obj: *mut LeanObject); // duplicate in undefined at line 19 (🔁)
+    pub fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 20 (🔁)
+    pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_mk_io_error_invalid_argument(errnum: u32, details: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_alloc_object(size: Size) -> *mut LeanObject; // duplicate in undefined at line 23 (🔁)
+    pub fn lean_mk_io_error_invalid_argument_file(
         name: *mut LeanObject,
         errnum: u32,
         details: *mut LeanObject,
     ) -> *mut LeanObject;
-    fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
-    fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
-    fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
-    fn lean_io_promise_new() -> *mut LeanObject;
-    fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject)
+    pub fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
+    pub fn lean_io_promise_new() -> *mut LeanObject;
+    pub fn lean_io_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject)
     -> *mut LeanObject;
-    fn lean_mark_mt(obj: *mut LeanObject);
-    fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
-    fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
-    fn lean_options_get_bool(
+    pub fn lean_mark_mt(obj: *mut LeanObject);
+    pub fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_options_get_bool(
         opts: *mut LeanObject,
         name: *mut LeanObject,
         default_value: bool,
     ) -> bool;
-    fn lean_options_update_bool(
+    pub fn lean_options_update_bool(
         opts: *mut LeanObject,
         name: *mut LeanObject,
         value: bool,
     ) -> *mut LeanObject;
-    fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
-    fn lean_get_profiler(opts: *mut LeanObject) -> u8;
-    fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
+    pub fn lean_get_init_fn_name_for(env: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
+    pub fn lean_get_profiler(opts: *mut LeanObject) -> u8;
+    pub fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
 
-    fn initialize_alloc();
-    fn finalize_alloc();
+    pub fn initialize_alloc();
+    pub fn finalize_alloc();
     // initialize_object / finalize_object now provided inline (no-op / lean_finalize_external_classes)
-    fn initialize_io();
-    fn finalize_io();
-    fn initialize_thread();
-    fn finalize_thread();
+    pub fn initialize_io();
+    pub fn finalize_io();
+    pub fn initialize_thread();
+    pub fn finalize_thread();
     // fn initialize_ascii_impl();
     // fn finalize_ascii_impl();
 
     // initialize_print / finalize_print now provided by library_print.rs (no-ops)
     // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
     // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no-ops)
-    fn initialize_library_util();
-    fn finalize_library_util();
-    fn initialize_time_task();
-    fn finalize_time_task();
-    fn initialize_ir_interpreter();
-    fn finalize_ir_interpreter();
-    fn initialize_level();
-    fn finalize_level();
-    fn initialize_expr();
-    fn finalize_expr();
-    fn initialize_declaration();
-    fn finalize_declaration();
+    pub fn initialize_library_util();
+    pub fn finalize_library_util();
+    pub fn initialize_time_task();
+    pub fn finalize_time_task();
+    pub fn initialize_ir_interpreter();
+    pub fn finalize_ir_interpreter();
+    pub fn initialize_level();
+    pub fn finalize_level();
+    pub fn initialize_expr();
+    pub fn finalize_expr();
+    pub fn initialize_declaration();
+    pub fn finalize_declaration();
     // initialize_type_checker / finalize_type_checker now provided by kernel_type_checker.rs
-    fn initialize_local_ctx();
-    fn finalize_local_ctx();
-    fn initialize_quot();
-    fn finalize_quot();
+    pub fn initialize_local_ctx();
+    pub fn finalize_local_ctx();
+    pub fn initialize_quot();
+    pub fn finalize_quot();
     // initialize_trace / finalize_trace now provided by kernel_trace.rs
     // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
-    fn initialize_Init(builtin: u8) -> *mut LeanObject;
-    fn initialize_Std(builtin: u8) -> *mut LeanObject;
-    fn initialize_Lean(builtin: u8) -> *mut LeanObject;
+    pub fn initialize_Init(builtin: u8) -> *mut LeanObject;
+    pub fn initialize_Std(builtin: u8) -> *mut LeanObject;
+    pub fn initialize_Lean(builtin: u8) -> *mut LeanObject;
 }
 
 #[repr(C)]
@@ -284,7 +284,7 @@ pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {
     lean_inc_ref_n(obj, 1);
 }
 
-unsafe fn lean_dec_ref(obj: *mut LeanObject) {
+pub(crate) unsafe fn lean_dec_ref(obj: *mut LeanObject) {
     // duplicate in undefined at line 271 (🔁)
     if runtime_object_rc_impl::UAF_DETECT && (*obj).rc == runtime_object_rc_impl::LEAN_UAF_POISON_RC
     {
@@ -318,27 +318,27 @@ pub unsafe fn lean_dec(obj: *mut LeanObject) {
     }
 }
 
-unsafe fn lean_ctor_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_ctor_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
     // duplicate in undefined at line 301 (🔁)
     (obj.add(1) as *mut *mut LeanObject).add(idx).read()
 }
 
-unsafe fn lean_ctor_get_uint8(obj: *mut LeanObject, offset: usize) -> u8 {
+pub(crate) unsafe fn lean_ctor_get_uint8(obj: *mut LeanObject, offset: usize) -> u8 {
     // duplicate in undefined at line 305 (🔁)
     (obj.add(1) as *mut u8).add(offset).read()
 }
 
-unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: usize) -> u16 {
+pub(crate) unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: usize) -> u16 {
     // duplicate in undefined at line 309 (🔁)
     (obj.add(1) as *mut u8).add(offset).cast::<u16>().read()
 }
 
-unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
+pub(crate) unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
     // duplicate in undefined at line 313 (🔁)
     (obj.add(1) as *mut u8).add(offset).write(value);
 }
 
-unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) {
+pub(crate) unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) {
     // duplicate in undefined at line 317 (🔁)
     (obj.add(1) as *mut u8)
         .add(offset)
@@ -346,12 +346,12 @@ unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) 
         .write(value);
 }
 
-unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
+pub(crate) unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
     // duplicate in undefined at line 324 (🔁)
     (obj.add(1) as *mut u8).add(offset).cast::<u64>().read()
 }
 
-unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
+pub(crate) unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u64) {
     // duplicate in undefined at line 328 (🔁)
     (obj.add(1) as *mut u8)
         .add(offset)
@@ -407,12 +407,12 @@ pub unsafe fn lean_unbox_uint64(o: *mut LeanObject) -> u64 {
     lean_ctor_get_uint64(o, 0)
 }
 
-unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
     let array_data_ptr = (obj as *const u8).add(24) as *const *mut LeanObject;
     array_data_ptr.add(idx).read()
 }
 
-unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_array_size(obj: *mut LeanObject) -> usize {
     // duplicate in undefined at line 390 (🔁)
     let array = obj as *const LeanArrayObject;
     (*array).size
@@ -437,7 +437,7 @@ pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut Lean
     obj as *mut LeanObject
 }
 
-unsafe fn lean_mk_empty_array() -> *mut LeanObject {
+pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
@@ -494,17 +494,17 @@ pub(crate) unsafe fn lean_alloc_string(
     obj as *mut LeanObject
 }
 
-unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
+pub(crate) unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
     let sarray = obj as *mut LeanScalarArray;
     (*sarray).size = size;
 }
 
-unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size {
+pub(crate) unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size {
     let sarray = obj as *const LeanScalarArray;
     (*sarray).size
 }
 
-unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
+pub(crate) unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
     let sarray = obj as *const LeanScalarArray;
     (*sarray).capacity
 }
@@ -696,7 +696,7 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObjec
     let mut result = Vec::<u8>::new();
     #[cfg(windows)]
     unsafe {
-        extern "C" {
+        unsafe extern "C" {
             fn _lock_file(fp: *mut libc::FILE);
             fn _unlock_file(fp: *mut libc::FILE);
             fn _fgetc_nolock(fp: *mut libc::FILE) -> libc::c_int;
@@ -716,7 +716,7 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObjec
     }
     #[cfg(not(windows))]
     unsafe {
-        extern "C" {
+        unsafe extern "C" {
             fn flockfile(fp: *mut libc::FILE);
             fn funlockfile(fp: *mut libc::FILE);
             fn getc_unlocked(fp: *mut libc::FILE) -> libc::c_int;
@@ -793,7 +793,7 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
         _ => libc::O_RDONLY,
     };
 
-    extern "C" {
+    unsafe extern "C" {
         fn open(path: *const libc::c_char, oflag: libc::c_int, mode: libc::mode_t) -> libc::c_int;
     }
     let fd = open(fname, flags, 0o666);
@@ -817,7 +817,7 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
     }
 }
 
-unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
+pub(crate) unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
     (obj as *const u8).add(24)
 }
 
@@ -834,14 +834,14 @@ fn env_flag(value: &str) -> u8 {
     if value.as_bytes() == b"1" { 1 } else { 0 }
 }
 
-unsafe fn mk_name(text: &str) -> LeanName {
+pub(crate) unsafe fn mk_name(text: &str) -> LeanName {
     let c_text = std::ffi::CString::new(text).expect("option names never contain NUL");
     let raw_text = lean_mk_string(c_text.as_ptr());
     let raw_name = lean_name_mk_string(lean_box(0), raw_text);
     LeanName { obj: raw_name }
 }
 
-unsafe fn mk_name_path(components: &[&str]) -> LeanName {
+pub(crate) unsafe fn mk_name_path(components: &[&str]) -> LeanName {
     let mut name = mk_name(components[0]);
     for component in &components[1..] {
         let c_text = std::ffi::CString::new(*component).expect("option names never contain NUL");
@@ -1200,12 +1200,12 @@ unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanOb
     name_uses_registered_prefix(state, name_prefix(n))
 }
 
-extern "C" {
-    fn write(fd: i32, buf: *const u8, count: usize) -> isize;
-    fn abort() -> !;
+unsafe extern "C" {
+    pub fn write(fd: i32, buf: *const u8, count: usize) -> isize;
+    pub fn abort() -> !;
 }
 
-unsafe fn consume_io_result(result: *mut LeanObject) {
+pub(crate) unsafe fn consume_io_result(result: *mut LeanObject) {
     if lean_io_result_is_ok(result) {
         lean_dec(result);
     } else {
@@ -1810,7 +1810,7 @@ pub unsafe fn lean_smap_foreach(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: *
 }
 
 pub unsafe fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObject {
-    fn print_entry(k: *mut LeanObject, v: *mut LeanObject, _: *mut c_void) {
+    pub fn print_entry(k: *mut LeanObject, v: *mut LeanObject, _: *mut c_void) {
         // The playground test uses boxed natural numbers.
         let key = unsafe { lean_unbox(k) };
         let value = unsafe { lean_unbox(v) };

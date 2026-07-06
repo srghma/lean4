@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_timer_impl {
-    use super::*;
+    use crate::*;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
         uv_close as uv_close_sys, uv_timer_init as uv_timer_init_sys,

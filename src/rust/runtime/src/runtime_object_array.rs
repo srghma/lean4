@@ -7,7 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // src/runtime/object.cpp.
 
 mod runtime_object_array_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::{c_int, c_ulong};
 
     #[cfg(not(lean_use_gmp))]
@@ -26,7 +26,7 @@ mod runtime_object_array_impl {
         closure: core::sync::atomic::AtomicPtr<LeanObject>,
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 41 (🔁)
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;

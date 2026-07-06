@@ -18,7 +18,7 @@ Field layout (from expr.h):
 */
 
 mod kernel_for_each_fn_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_void;
     use std::collections::HashSet;
 

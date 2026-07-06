@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod library_ir_interpreter_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::{c_char, c_void};
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, AtomicUsize, Ordering};
@@ -16,7 +16,7 @@ mod library_ir_interpreter_impl {
     // FFI declarations
     // ---------------------------------------------------------------------------
 
-    extern "C" {
+    unsafe extern "C" {
         // IR declaration lookup
         fn lean_ir_find_env_decl(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
         fn lean_ir_find_env_decl_boxed(env: *mut LeanObject, n: *mut LeanObject)

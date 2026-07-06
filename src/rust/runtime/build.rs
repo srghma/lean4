@@ -69,6 +69,8 @@ fn main() {
     if std::env::var("LEAN_RUST_HAS_LLVM").as_deref() == Ok("1") {
         println!("cargo:rustc-cfg=lean_has_llvm");
     }
+    println!("cargo:rustc-check-cfg=cfg(lean_use_gmp)");
+    println!("cargo:rustc-cfg=lean_use_gmp");
 }
 
 fn derive_version_string_from_cmake() -> String {

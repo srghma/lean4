@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_ref_impl {
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
+    use crate::runtime_object_panic_impl::lean_internal_panic;
+    use crate::*;
     use core::sync::atomic::{AtomicPtr, Ordering};
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
         fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 13 (🔁)
     }
@@ -51,7 +51,7 @@ mod runtime_io_ref_impl {
     }
 
     pub unsafe fn lean_st_mk_ref(a: *mut LeanObject) -> *mut LeanObject {
-        let o = super::runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
+        let o = crate::runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
             LeanRefObject,
         >()) as *mut LeanRefObject;
         lean_set_st_header(o as *mut LeanObject, LEAN_REF_TAG, 0);

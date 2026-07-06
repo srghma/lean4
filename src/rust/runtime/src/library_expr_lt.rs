@@ -53,10 +53,10 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 */
 
 mod library_expr_lt_impl {
-    use super::runtime_object_name_impl::lean_name_eq;
-    use super::*;
+    use crate::runtime_object_name_impl::lean_name_eq;
+    use crate::*;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8;
         fn lean_nat_big_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool;

@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_debug_impl {
-    use super::*;
+    use crate::*;
     use std::collections::HashSet;
     use std::ffi::CStr;
     use std::io::{self, Read, Write};

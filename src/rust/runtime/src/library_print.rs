@@ -17,14 +17,14 @@ pub fn initialize_print() {}
 pub fn finalize_print() {}
 
 mod library_print_impl {
-    use super::*;
+    use crate::*;
 
-    extern "C" {
+    unsafe extern "C" {
         // Lean-compiled (Init.Prelude): Name.str p s — consumes both.
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Lean.Expr): mkFVar — takes owned FVarId (= Name at ABI), returns owned Expr.
         fn lean_expr_mk_fvar(n: *mut LeanObject) -> *mut LeanObject;
-    fn[no_mangle] in kernel_instantiate.rs: both args borrowed, returns owned.
+        // lean_expr_instantiate1 is provided by kernel_instantiate.rs.
         fn lean_expr_instantiate1(a: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Init.Data.Repr): takes owned Nat, returns owned String.
         fn l_Nat_reprFast(n: *mut LeanObject) -> *mut LeanObject;

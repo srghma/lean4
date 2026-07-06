@@ -302,7 +302,7 @@ pub fn initialize_constants() {
         for (index, path) in LIBRARY_CONSTANT_PATHS.iter().enumerate() {
             let value = mk_name_path(path);
             lean_mark_persistent(value.obj);
-    fnRY_CONSTANTS[index] = value;
+            LIBRARY_CONSTANTS[index] = value;
         }
     }
 }
@@ -316,4 +316,4 @@ pub fn finalize_constants() {
             }
         }
     }
-}fn
+}

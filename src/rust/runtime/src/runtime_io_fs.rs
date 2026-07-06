@@ -4,11 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_fs_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_char;
     use std::ffi::{CStr, CString};
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
         fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject;
         fn lean_mk_io_error_no_file_or_directory(
@@ -215,7 +215,7 @@ mod runtime_io_fs_impl {
         };
         #[cfg(target_os = "windows")]
         let ok = {
-            extern "system" {
+            unsafe extern "system" {
                 fn MoveFileExA(
                     existing_file_name: *const c_char,
                     new_file_name: *const c_char,
@@ -250,7 +250,7 @@ mod runtime_io_fs_impl {
         };
         #[cfg(target_os = "windows")]
         let ret = {
-            extern "system" {
+            unsafe extern "system" {
                 fn CreateHardLinkA(
                     file_name: *const c_char,
                     existing_file_name: *const c_char,
@@ -509,7 +509,7 @@ mod runtime_io_fs_impl {
 
         #[cfg(target_os = "windows")]
         {
-            extern "system" {
+            unsafe extern "system" {
                 fn BCryptGenRandom(
                     algorithm: *mut core::ffi::c_void,
                     buffer: *mut u8,
@@ -554,7 +554,7 @@ mod runtime_io_fs_impl {
         #[cfg(target_os = "windows")]
         {
             use core::ffi::c_void;
-            extern "C" {
+            unsafe extern "C" {
                 fn GetModuleHandleA(module_name: *const c_char) -> *mut c_void;
                 fn GetModuleFileNameA(
                     h_module: *mut c_void,
@@ -576,7 +576,7 @@ mod runtime_io_fs_impl {
         }
         #[cfg(target_os = "macos")]
         {
-            extern "C" {
+            unsafe extern "C" {
                 fn _NSGetExecutablePath(buf: *mut c_char, bufsize: *mut u32) -> core::ffi::c_int;
             }
             let mut buf1 = [0u8; libc::PATH_MAX as usize];

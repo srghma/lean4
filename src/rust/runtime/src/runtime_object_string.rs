@@ -7,11 +7,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Include from lib.rs: include!("runtime_object_string.rs");
 
 mod runtime_object_string_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_char;
     use core::mem::size_of;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_free_object(o: *mut LeanObject); // duplicate in undefined at line 15 (🔁)
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
     }
@@ -80,7 +80,7 @@ mod runtime_object_string_impl {
         if n <= LEAN_MAX_SMALL_NAT {
             lean_box(n)
         } else {
-            super::runtime_object_nat_int_impl::lean_big_usize_to_nat(n)
+            crate::runtime_object_nat_int_impl::lean_big_usize_to_nat(n)
         }
     }
 
@@ -89,7 +89,7 @@ mod runtime_object_string_impl {
         if lean_is_scalar(a1) && lean_is_scalar(a2) {
             lean_usize_to_nat(lean_unbox(a1).wrapping_add(lean_unbox(a2)))
         } else {
-            super::runtime_object_nat_int_impl::lean_nat_big_add(a1, a2)
+            crate::runtime_object_nat_int_impl::lean_nat_big_add(a1, a2)
         }
     }
 
@@ -100,7 +100,7 @@ mod runtime_object_string_impl {
             let n2 = lean_unbox(a2);
             lean_box(if n1 < n2 { 0 } else { n1 - n2 })
         } else {
-            super::runtime_object_nat_int_impl::lean_nat_big_sub(a1, a2)
+            crate::runtime_object_nat_int_impl::lean_nat_big_sub(a1, a2)
         }
     }
 

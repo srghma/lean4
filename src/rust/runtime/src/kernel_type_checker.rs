@@ -13,7 +13,7 @@ All C++ `throw X` → `return Err(KernelError::X)`.
     clippy::missing_safety_doc
 )]
 mod kernel_type_checker_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::{c_char, c_void};
     use std::collections::{HashMap, HashSet};
     use std::ptr;
@@ -30,7 +30,7 @@ mod kernel_type_checker_impl {
     // check_interrupted_flag are Rust functions from super::* — not declared here.
     // ---------------------------------------------------------------------------
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_mark_persistent(o: *mut LeanObject); // duplicate in undefined at line 35 (🔁)
 
         // Names
@@ -782,7 +782,7 @@ mod kernel_type_checker_impl {
     // These are genuine exported symbols (Lean @[export] or C++ LEAN_EXPORT), as
     // opposed to the inline C++ accessors which we re-implement as shims.
     // ===========================================================================
-    extern "C" {
+    unsafe extern "C" {
         // Expr binder info (Lean @[export], consumes its owned arg, returns u8).
         fn lean_expr_binder_info(e: *mut LeanObject) -> u8;
         // Environment quot-initialized flag (Lean @[export], consumes arg).
@@ -5679,7 +5679,7 @@ mod kernel_type_checker_impl {
     // call this Rust declaration dispatch.
 
     // lean_kernel_* receive elab envs; need to extract kernel env first.
-    extern "C" {
+    unsafe extern "C" {
         fn lean_elab_environment_to_kernel_env(env: *mut LeanObject) -> *mut LeanObject;
     }
 
@@ -5765,7 +5765,7 @@ mod kernel_type_checker_impl {
     // directly as a `ConstantInfo` for the field accessors and for `add`.
     // ---------------------------------------------------------------------------
 
-    extern "C" {
+    unsafe extern "C" {
         // LocalContext.mkEmpty : Unit → LocalContext (returns an owned empty local ctx).
         fn lean_mk_empty_local_ctx(u: *mut LeanObject) -> *mut LeanObject;
         // Kernel.Environment.add (env cinfo) : Environment — pure insert (no dup check);
@@ -6463,7 +6463,7 @@ mod kernel_type_checker_impl {
     // `lean_mk_*_val` builders CONSUME their object args, like C++ `obj_arg`).
     // ===========================================================================
 
-    extern "C" {
+    unsafe extern "C" {
         // @[export] builders from Lean's Declaration (declaration.cpp wraps these). All object args
         // are CONSUMED; trailing u8 args are plain scalars.
         fn lean_mk_inductive_val(
@@ -6656,7 +6656,7 @@ mod kernel_type_checker_impl {
         lean_name_append_after_extern(n, s)
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_name_append_after_extern(n: *mut LeanObject, s: *mut LeanObject)
         -> *mut LeanObject;
     }
@@ -6707,7 +6707,7 @@ mod kernel_type_checker_impl {
         r
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_expr_consume_type_annotations(e: *mut LeanObject) -> *mut LeanObject;
     }
 

@@ -7,7 +7,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Include from lib.rs: include!("runtime_object_name.rs");
 
 mod runtime_object_name_impl {
-    use super::*;
+    use crate::*;
 
     // Reads the cached hash u64 stored after the 2 lean_object* fields.
     // Layout (64-bit): [LeanObject header (8)] [field0 ptr (8)] [field1 ptr (8)] [hash u64 (8)]
@@ -28,7 +28,7 @@ mod runtime_object_name_impl {
         if lean_is_scalar(a1) && lean_is_scalar(a2) {
             a1 == a2
         } else {
-            super::runtime_object_nat_int_impl::lean_nat_big_eq(a1, a2)
+            crate::runtime_object_nat_int_impl::lean_nat_big_eq(a1, a2)
         }
     }
 

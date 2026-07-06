@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_alloc_impl {
-    use super::*;
+    use crate::*;
     use core::cell::Cell;
 
     thread_local! {
@@ -43,6 +43,6 @@ mod runtime_alloc_impl {
 }
 
 pub(crate) use runtime_alloc_impl::{
-    add_heartbeats, finalize_alloc, get_num_heartbeats, initialize_alloc, lean_get_num_heartbeats,
-    lean_inc_heartbeat, lean_set_heartbeats, set_heartbeats,
+    add_heartbeats, get_num_heartbeats, lean_get_num_heartbeats, lean_inc_heartbeat,
+    lean_set_heartbeats, set_heartbeats,
 };

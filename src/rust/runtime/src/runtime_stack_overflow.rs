@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", unix))]
 mod runtime_stack_overflow_impl {
-    use super::*;
+    use crate::*;
     use std::mem;
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
@@ -139,7 +139,7 @@ pub use runtime_stack_overflow_impl::*;
 
 #[cfg(all(feature = "std", windows))]
 mod runtime_stack_overflow_impl {
-    use super::*;
+    use crate::*;
     use std::process;
 
     #[repr(C)]
@@ -158,12 +158,12 @@ mod runtime_stack_overflow_impl {
     }
 
     #[repr(C)]
-    strufnointers {
+    struct ExceptionPointers {
         exception_record: *mut ExceptionRecord,
         context_record: *mut c_void,
     }
 
-    extern "system" {
+    unsafe extern "system" {
         fn SetThreadStackGuarantee(stack_size_in_bytes: *mut u32) -> i32;
         fn AddVectoredExceptionHandler(
             first: u32,
@@ -203,4 +203,3 @@ mod runtime_stack_overflow_impl {
 
 #[cfg(all(feature = "std", windows))]
 pub use runtime_stack_overflow_impl::*;
-fnfn

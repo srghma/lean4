@@ -37,13 +37,13 @@ Level kind tags:
 */
 
 mod kernel_expr_eq_fn_impl {
-    use super::runtime_alloc_impl::add_heartbeats;
-    use super::runtime_object_name_impl::lean_name_eq;
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
+    use crate::runtime_alloc_impl::add_heartbeats;
+    use crate::runtime_object_name_impl::lean_name_eq;
+    use crate::runtime_object_panic_impl::lean_internal_panic;
+    use crate::*;
     use std::collections::HashSet;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
         fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;

@@ -5,14 +5,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_system_impl {
-    use super::*;
+    use crate::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, addr_of_mut, null_mut};
     use libuv_sys2::{
         uv_chdir, uv_cpu_info, uv_cpu_info_t as UvCpuInfo, uv_cwd, uv_exepath, uv_free_cpu_info,
         uv_get_available_memory, uv_get_constrained_memory, uv_get_free_memory,
-        uv_get_process_title, uv_get_total_memory, uv_getrusage, uv_gethostname, uv_getpid,
-        uv_getppid, uv_getpriority, uv_group_t as UvGroup, uv_hrtime, uv_os_environ,
+        uv_get_process_title, uv_get_total_memory, uv_getrusage, uv_group_t as UvGroup, uv_hrtime,
+        uv_os_environ,
         uv_os_free_environ, uv_os_free_group, uv_os_free_passwd, uv_os_get_group, uv_os_get_passwd,
         uv_os_getenv, uv_os_gethostname, uv_os_getpid, uv_os_getppid, uv_os_getpriority,
         uv_os_homedir, uv_os_setenv, uv_os_setpriority, uv_os_tmpdir, uv_os_uname, uv_os_unsetenv,
@@ -93,7 +93,7 @@ mod runtime_system_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn printf(format: *const c_char, ...) -> c_int;
         fn fflush(stream: *mut c_void) -> c_int;
     }
@@ -631,7 +631,7 @@ pub use runtime_system_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 mod runtime_system_impl {
-    use super::*;
+    use crate::*;
 
     pub fn lean_uv_get_process_title() -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");

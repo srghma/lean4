@@ -10,4 +10,3 @@ mod kernel_quot_impl {
     pub fn initialize_quot() {}
     pub fn finalize_quot() {}
 }
-fn

@@ -7,7 +7,7 @@ static mut DYNLIB_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut DYNLIB_SYMBOL_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 
 #[cfg(unix)]
-extern "C" {
+unsafe extern "C" {
     fn dlopen(path: *const c_char, flags: i32) -> *mut c_void;
     fn dlclose(handle: *mut c_void) -> i32;
     fn dlsym(handle: *mut c_void, name: *const c_char) -> *mut c_void;
@@ -15,7 +15,7 @@ extern "C" {
 }
 
 #[cfg(windows)]
-extern "system" {
+unsafe extern "system" {
     fn LoadLibraryA(path: *const c_char) -> *mut c_void;
     fn FreeLibrary(handle: *mut c_void) -> i32;
     fn GetProcAddress(handle: *mut c_void, name: *const c_char) -> *mut c_void;

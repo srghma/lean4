@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Port of the object size helpers from src/runtime/object.cpp.
 
 mod runtime_object_size_impl {
-    use super::*;
+    use crate::*;
 
     const LEAN_ARRAY_TAG: u8 = 246; // duplicate in undefined at line 11 (🔁)
     const LEAN_SCALAR_ARRAY_TAG: u8 = 248; // duplicate in undefined at line 12 (🔁)

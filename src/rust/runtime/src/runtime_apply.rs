@@ -6,11 +6,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Port of src/runtime/apply.cpp.
 
 mod runtime_apply_impl {
-    use super::*;
+    use crate::*;
 
     const LEAN_CLOSURE_TAG: u8 = 245; // duplicate in undefined at line 11 (🔁)
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_free_object(obj: *mut LeanObject); // duplicate in undefined at line 14 (🔁)
     }
 

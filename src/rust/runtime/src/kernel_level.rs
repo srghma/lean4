@@ -9,9 +9,9 @@ The C++ value-type facade now lives inline in kernel/level.h.
 */
 
 mod kernel_level_impl {
-    use super::runtime_object_name_impl::lean_name_eq;
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
+    use crate::runtime_object_name_impl::lean_name_eq;
+    use crate::runtime_object_panic_impl::lean_internal_panic;
+    use crate::*;
 
     // Structural equality on lean Level objects (mirrors C++ operator==).
     // Level tags:

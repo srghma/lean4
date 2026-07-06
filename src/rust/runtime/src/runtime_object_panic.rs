@@ -6,13 +6,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 // Port of the panic, sorry, and stack trace helpers from src/runtime/object.cpp.
 
 mod runtime_object_panic_impl {
-    use super::*;
+    use crate::*;
     use std::io::Write;
 
     static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
     static G_PANIC_MESSAGES: AtomicBool = AtomicBool::new(true);
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     }
 
@@ -33,7 +33,7 @@ mod runtime_object_panic_impl {
     mod backtrace_impl {
         use super::*;
 
-        extern "C" {
+        unsafe extern "C" {
             fn backtrace(buffer: *mut *mut c_void, size: c_int) -> c_int;
             fn backtrace_symbols(buffer: *const *mut c_void, size: c_int) -> *mut *mut c_char;
             fn free(ptr: *mut c_void);

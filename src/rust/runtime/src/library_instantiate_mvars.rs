@@ -8,11 +8,11 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
 */
 
 mod library_instantiate_mvars_impl {
-    use super::runtime_object_name_impl::lean_name_eq;
-    use super::*;
+    use crate::runtime_object_name_impl::lean_name_eq;
+    use crate::*;
     use std::collections::HashMap;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_get_lmvar_assignment(
             mctx: *mut LeanObject,
             mid: *mut LeanObject,
@@ -1009,7 +1009,7 @@ mod library_instantiate_mvars_impl {
     }
 
     struct ScopeGenNode {
-        gen: u64,
+        r#gen: u64,
         tail: Option<usize>,
     }
 
@@ -1032,7 +1032,7 @@ mod library_instantiate_mvars_impl {
         fn new() -> Self {
             Self {
                 cache: HashMap::new(),
-                gens: vec![ScopeGenNode { gen: 0, tail: None }],
+                gens: vec![ScopeGenNode { r#gen: 0, tail: None }],
                 current_gen: 0,
                 gen_counter: 0,
                 scope: 0,
@@ -1047,7 +1047,7 @@ mod library_instantiate_mvars_impl {
             self.scope += 1;
             self.gen_counter += 1;
             self.gens.push(ScopeGenNode {
-                gen: self.gen_counter,
+                r#gen: self.gen_counter,
                 tail: Some(self.current_gen),
             });
             self.current_gen = self.gens.len() - 1;
@@ -1097,7 +1097,7 @@ mod library_instantiate_mvars_impl {
                 }
 
                 let mut current = Self::node_at_level(gens, current_gen, scope, top.scope_level);
-                if gens[top.scope_gen].gen == gens[current].gen {
+                if gens[top.scope_gen].r#gen == gens[current].r#gen {
                     return;
                 }
 
@@ -1109,7 +1109,7 @@ mod library_instantiate_mvars_impl {
                         .tail
                         .expect("scope cache rewind tail underflow");
                     level -= 1;
-                    if gens[entry].gen == gens[current].gen {
+                    if gens[entry].r#gen == gens[current].r#gen {
                         top.scope_level = level;
                         top.scope_gen = entry;
                         return;

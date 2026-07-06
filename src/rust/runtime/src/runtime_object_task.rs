@@ -17,9 +17,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 //   lean_get_or_block
 
 pub(crate) mod runtime_object_task_impl {
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
-    use super::*;
+    use crate::runtime_object_panic_impl::lean_internal_panic;
+    use crate::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
+    use crate::*;
     use core::sync::atomic::Ordering;
     use std::collections::VecDeque;
     use std::mem::MaybeUninit;
@@ -769,7 +769,7 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Worker thread spawning ───────────────────────────────────────────────
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_initialize_thread();
         fn lean_finalize_thread();
         fn lean_panic(msg: *const core::ffi::c_char, force_stderr: bool);

@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_task_impl {
-    use super::*;
+    use crate::*;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_io_check_canceled_core() -> bool;
         fn lean_io_cancel_core(t: *mut LeanObject);
         fn lean_io_get_task_state_core(t: *mut LeanObject) -> u8;

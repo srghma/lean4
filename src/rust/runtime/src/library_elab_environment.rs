@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod library_elab_environment_impl {
-    use super::*;
+    use crate::*;
 
-    extern "C" {
+    unsafe extern "C" {
         // Lean-implemented: extract kernel env from elab env (both owned)
         fn lean_elab_environment_to_kernel_env(env: *mut LeanObject) -> *mut LeanObject;
         // Lean-implemented: create new elab env with updated kernel env (all owned)

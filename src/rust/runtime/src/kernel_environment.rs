@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod kernel_environment_impl {
-    use super::*;
+    use crate::*;
 
-    extern "C" {
+    unsafe extern "C" {
         // Unified Rust dispatch (kernel_type_checker.rs): axiom/def/theorem/opaque are checked
         // and added in Rust; quot/mutual/inductive still delegate to the C++ bridges internally.
         fn lean_rust_add_decl(

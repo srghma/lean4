@@ -5,7 +5,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_libuv_impl {
-    use super::*;
+    use crate::*;
+    use core::ptr;
     use std::thread;
 
     #[repr(C)]
@@ -15,7 +16,7 @@ mod runtime_libuv_impl {
 
     use libuv_sys2::{uv_setup_args as uv_setup_args_sys, uv_version as uv_version_sys};
 
-    extern "C" {
+    unsafe extern "C" {
         fn initialize_libuv_timer();
         fn initialize_libuv_tcp_socket();
         fn initialize_libuv_udp_socket();
@@ -66,7 +67,7 @@ pub use runtime_libuv_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 mod runtime_libuv_impl {
-    use super::*;
+    use crate::*;
 
     pub fn initialize_libuv() {}
 

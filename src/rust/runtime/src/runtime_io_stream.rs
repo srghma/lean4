@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_stream_impl {
-    use super::*;
+    use crate::*;
     use core::cell::Cell;
 
     static mut IO_HANDLE_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
@@ -12,7 +12,7 @@ mod runtime_io_stream_impl {
     static mut STREAM_STDOUT: *mut LeanObject = ptr::null_mut();
     static mut STREAM_STDERR: *mut LeanObject = ptr::null_mut();
 
-    extern "C" {
+    unsafe extern "C" {
         static mut stdin: *mut libc::FILE;
         static mut stdout: *mut libc::FILE;
         static mut stderr: *mut libc::FILE;

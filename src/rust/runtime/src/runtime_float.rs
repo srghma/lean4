@@ -3,7 +3,7 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-extern "C" {
+unsafe extern "C" {
     fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
     fn lean_int_big_nonneg(value: *mut LeanObject) -> bool;
     fn c_scalbn(value: f64, scale: c_int) -> f64;
@@ -32,7 +32,7 @@ unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
     lean_box(value as u32 as usize)
 }
 
-unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     // duplicate in undefined at line 35 (🔁)
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
     ptr::write_unaligned(
@@ -42,7 +42,7 @@ unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
     obj
 }
 
-unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
+pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
     // duplicate in undefined at line 44 (🔁)
     let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
     ptr::write_unaligned(

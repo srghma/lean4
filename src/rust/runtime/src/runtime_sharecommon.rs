@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_sharecommon_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_void;
     use std::collections::{HashMap, HashSet};
     use std::hash::{BuildHasherDefault, Hasher};
@@ -21,7 +21,7 @@ mod runtime_sharecommon_impl {
     const LEAN_EXTERNAL_TAG: u8 = 254; // duplicate in undefined at line 21 (🔁)
     const LEAN_RESERVED_TAG: u8 = 255; // duplicate in undefined at line 22 (🔁)
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_object_data_byte_size(o: *mut LeanObject) -> usize;
         fn lean_mpz_hash(o: *mut LeanObject) -> u32;
         fn lean_mpz_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8;
@@ -332,7 +332,7 @@ mod runtime_sharecommon_impl {
             // Wait, we can just define `lean_alloc_mpz_from_mpz` in object.cpp, or let's check:
             // "MPZ" constructor allocates a new MPZ by copying. Since we added lean_mpz_eq/hash, let's also add lean_alloc_mpz_from_mpz to object.cpp.
             // Let's do that!
-            extern "C" {
+            unsafe extern "C" {
                 fn lean_alloc_mpz_from_mpz(o: *mut LeanObject) -> *mut LeanObject;
             }
             let new_a = lean_alloc_mpz_from_mpz(a);
@@ -357,7 +357,7 @@ mod runtime_sharecommon_impl {
             let tag = lean_ptr_tag(a) as u32;
             // object size: how to get it?
             // In object.h: unsigned lean_object_byte_size(lean_object * o);
-            extern "C" {
+            unsafe extern "C" {
                 fn lean_object_byte_size(o: *mut LeanObject) -> usize;
             }
             let sz = lean_object_byte_size(a);
@@ -514,7 +514,7 @@ mod runtime_sharecommon_impl {
             }
             let num_objs = (*a).other as usize;
             let tag = lean_ptr_tag(a) as u32;
-            extern "C" {
+            unsafe extern "C" {
                 fn lean_object_byte_size(o: *mut LeanObject) -> usize;
             }
             let sz = lean_object_byte_size(a);

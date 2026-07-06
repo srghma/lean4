@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_signal_impl {
-    use super::*;
+    use crate::*;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
         uv_close as uv_close_sys, uv_signal_init as uv_signal_init_sys,
@@ -361,7 +361,7 @@ pub use runtime_signal_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 mod runtime_signal_impl {
-    use super::*;
+    use crate::*;
 
     pub fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");

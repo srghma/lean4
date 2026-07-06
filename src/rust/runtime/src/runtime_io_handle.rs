@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_handle_impl {
-    use super::*;
+    use crate::*;
 
     unsafe fn io_get_handle(hfile: *mut LeanObject) -> *mut libc::FILE {
         (*(hfile as *mut LeanExternalObject)).data.cast()
@@ -66,7 +66,7 @@ mod runtime_io_handle_impl {
 
     #[cfg(target_os = "windows")]
     mod windows {
-        use super::*;
+        use crate::*;
 
         type Bool = i32;
         type Dword = u32;
@@ -81,7 +81,7 @@ mod runtime_io_handle_impl {
             event: Handle,
         }
 
-        extern "system" {
+        unsafe extern "system" {
             fn LockFileEx(
                 file: Handle,
                 flags: Dword,

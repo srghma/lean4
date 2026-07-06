@@ -7,7 +7,7 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 */
 
 mod runtime_compact_writer_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::{CStr, c_char, c_void};
     use core::sync::atomic::{AtomicPtr, Ordering};
     use std::collections::HashMap;
@@ -668,7 +668,7 @@ mod runtime_compact_writer_impl {
     // OLEAN header builder
     // -------------------------------------------------------------------------
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_short_version_string() -> *const c_char;
     }
 

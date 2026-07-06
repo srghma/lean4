@@ -11,4 +11,3 @@ mod kernel_declaration_impl {
     pub fn initialize_declaration() {}
     pub fn finalize_declaration() {}
 }
-fn

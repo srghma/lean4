@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_mutex_impl {
-    use super::*;
+    use crate::*;
     use std::sync::{Condvar, Mutex};
     use std::thread::ThreadId;
 
@@ -355,4 +355,3 @@ mod runtime_mutex_impl {
 }
 
 pub use runtime_mutex_impl::*;
-fn

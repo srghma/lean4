@@ -8,6 +8,12 @@ This file handles: register_trace_class, initialize_trace, finalize_trace,
 is_trace_class_enabled, scope_trace_env
 */
 
+use crate::base::{
+    consume_io_result, lean_box, lean_ctor_get, lean_ctor_set_uint8, lean_is_scalar,
+    lean_mk_string, lean_name_eq_export, lean_name_mk_string, lean_obj_tag,
+    lean_runtime_alloc_ctor, lean_runtime_mk_cnstr, mk_name, LeanName, LeanObject,
+};
+use core::ptr;
 use std::cell::Cell;
 
 // Thread-local replacement for LEAN_THREAD_PTR(const options, g_opts).
@@ -17,7 +23,7 @@ thread_local! {
     static G_OPTS: Cell<*const *mut LeanObject> = Cell::new(std::ptr::null());
 }
 
-extern "C" {
+unsafe extern "C" {
     fn lean_is_trace_class_enabled(opts: *mut LeanObject, cls: *mut LeanObject) -> bool;
     fn lean_register_option(name: *mut LeanObject, decl: *mut LeanObject) -> *mut LeanObject;
     fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;

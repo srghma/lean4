@@ -26,8 +26,8 @@ Scalar field layout (after object pointer fields):
 */
 
 mod kernel_expr_impl {
-    use super::runtime_object_panic_impl::lean_internal_panic;
-    use super::*;
+    use crate::runtime_object_panic_impl::lean_internal_panic;
+    use crate::*;
 
     const EXPR_BVAR: u8 = 0;
     const EXPR_APP: u8 = 5;
@@ -37,7 +37,7 @@ mod kernel_expr_impl {
     const EXPR_MDATA: u8 = 10;
     const EXPR_PROJ: u8 = 11;
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(

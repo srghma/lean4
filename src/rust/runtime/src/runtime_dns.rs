@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_dns_impl {
-    use super::*;
+    use crate::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -61,7 +61,7 @@ mod runtime_dns_impl {
         )
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_in6_addr_to_ipv6_addr(ipv6_addr: *const libc::in6_addr) -> *mut LeanObject;
         fn lean_in_addr_to_ipv4_addr(ipv4_addr: *const libc::in_addr) -> *mut LeanObject;
         fn lean_socket_address_to_sockaddr_storage(
@@ -282,7 +282,7 @@ pub use runtime_dns_impl::*;
 
 #[cfg(all(feature = "std", target_family = "wasm"))]
 mod runtime_dns_impl {
-    use super::*;
+    use crate::*;
 
     pub fn lean_uv_dns_get_info(_: *mut LeanObject, _: *mut LeanObject, _: u8) -> *mut LeanObject {
         panic!("Please build a version of Lean4 with libuv to invoke this.");

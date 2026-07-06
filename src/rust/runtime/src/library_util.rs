@@ -14,14 +14,14 @@ The old C++ util.cpp implementation is removed.
 */
 
 mod library_util_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_char;
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, Ordering};
 
     include!(concat!(env!("OUT_DIR"), "/lean_version.rs"));
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_expr_mk_const(name: *mut LeanObject, lvls: *mut LeanObject) -> *mut LeanObject;
         fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in undefined at line 27 (🔁)
     }

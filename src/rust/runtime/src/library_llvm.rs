@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod library_llvm_impl {
-    use super::*;
+    use crate::*;
 
-    extern "C" {
+    unsafe extern "C" {
         fn initialize_Lean_Compiler_IR_EmitLLVM(builtin: u8) -> *mut LeanObject;
         fn lean_ir_emit_llvm(
             env: *mut LeanObject,
@@ -16,7 +16,7 @@ mod library_llvm_impl {
     }
 
     #[cfg(lean_has_llvm)]
-    extern "C" {
+    unsafe extern "C" {
         fn LLVMGetFirstTarget() -> usize;
         fn LLVMGetNextTarget(target: usize) -> usize;
         fn LLVMGetTargetName(target: usize) -> *const core::ffi::c_char;

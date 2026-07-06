@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 #[cfg(all(feature = "std", not(target_family = "wasm")))]
 mod runtime_net_addr_impl {
-    use super::*;
+    use crate::*;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, null_mut};
     use libuv_sys2::{
@@ -57,7 +57,7 @@ mod runtime_net_addr_impl {
         uv_free_interface_addresses_sys(addresses.cast(), count)
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn lean_internal_panic(msg: *const c_char) -> !;
     }
 

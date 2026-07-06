@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_memory_impl {
-    use super::*;
+    use crate::*;
     use core::ffi::c_char;
     use std::cell::Cell;
     use std::sync::atomic::{AtomicUsize, Ordering};
@@ -17,7 +17,7 @@ mod runtime_memory_impl {
         static G_COUNTER: Cell<usize> = Cell::new(0);
     }
 
-    extern "C" {
+    unsafe extern "C" {
         fn throw_memory_exception(component_name: *const c_char) -> !;
     }
 
@@ -119,8 +119,6 @@ mod runtime_memory_impl {
     }
 
     pub fn lean_internal_get_default_max_memory() -> *mut LeanObject {
-        const DEFAULT: usize = 0; // or compile config
-        #[cfg(not(feature = "default-max-memory"))]
         const DEFAULT: usize = 0;
 
         unsafe { lean_box(DEFAULT) }
@@ -130,11 +128,11 @@ mod runtime_memory_impl {
     }
 
     pub fn lean_internal_set_max_memory(max: usize) -> *mut LeanObject {
-        fny(max);
+        set_max_memory(max);
         unsafe { lean_box(0) }
     }
     pub fn set_max_memory_megabyte(max: u32) {
-        fnas usize).wrapping_mul(1024).wrapping_mul(1024);
+        let m = (max as usize).wrapping_mul(1024).wrapping_mul(1024);
         set_max_memory(m);
     }
     pub unsafe fn check_memory(component_name: *const c_char) {
@@ -143,7 +141,7 @@ mod runtime_memory_impl {
             return;
         }
         let counter = G_COUNTER.with(|cell| {
-        fn cell.get() + 1;
+            let val = cell.get() + 1;
             cell.set(val);
             val
         });
