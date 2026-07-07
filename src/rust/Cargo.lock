@@ -153,6 +153,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "leanh_datatypes"
+version = "0.1.0"
+dependencies = [
+ "gmp-mpfr-sys",
+]
+
+[[package]]
 name = "libc"
 version = "0.2.186"
 source = "registry+https://github.com/rust-lang/crates.io-index"

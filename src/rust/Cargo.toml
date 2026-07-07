@@ -3,6 +3,7 @@
 
 [workspace]
 members = [
+  "leanh_l1",
   "leanh",
   "runtime",
   # "gen_init_ffi",
