@@ -79,10 +79,6 @@ pub unsafe fn lean_cxx_register_trace_class(n: *const LeanName, decl_name: *cons
     consume_io_result(lean_register_option(opt_name, decl));
 }
 
-// initialize_trace / finalize_trace — empty no-ops
-pub unsafe fn lean_cxx_initialize_trace() {}
-pub unsafe fn lean_cxx_finalize_trace() {}
-
 // is_trace_class_enabled — delegates to Lean-exported function.
 // n is `name const&` which in x86-64 ABI is lean::name const* = pointer to {lean_object*}.
 // We dereference to get the inner lean_object* and call lean_inc (mimicking to_obj_arg()).

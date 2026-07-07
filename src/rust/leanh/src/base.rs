@@ -3,10 +3,16 @@ use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 use crate::{
     datatypes::{
         LEAN_EXTERNAL_TAG, LeanExternalClass, LeanExternalFinalizeProc, LeanExternalForeachProc,
-        LeanExternalObject, LeanObject, Size,
+        LeanExternalObject, LeanObject, LeanStringObject, Size,
     },
     not_in_emit_rust::lean_alloc_small_object,
 };
+
+pub(crate) unsafe fn lean_string_size(obj: *mut LeanObject) -> usize {
+    let string = obj as *const LeanStringObject<0>;
+    (*string).m_size
+}
+
 pub unsafe fn lean_runtime_validate_utf8_one(
     text: *const c_uchar,
     size: Size,

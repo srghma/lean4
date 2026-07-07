@@ -384,10 +384,4 @@ mod kernel_expr_impl {
         }
         shift_loose_bvars(e, 0, s_val, d_val, true)
     }
-
-    #[export_name = "_ZN4lean15initialize_exprEv"]
-    pub fn initialize_expr() {}
-
-    #[export_name = "_ZN4lean13finalize_exprEv"]
-    pub fn finalize_expr() {}
 }

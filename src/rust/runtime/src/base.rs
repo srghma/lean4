@@ -84,10 +84,6 @@ unsafe extern "C" {
     pub fn finalize_ir_interpreter();
     pub fn initialize_level();
     pub fn finalize_level();
-    pub fn initialize_expr();
-    pub fn finalize_expr();
-    pub fn initialize_declaration();
-    pub fn finalize_declaration();
     // initialize_type_checker / finalize_type_checker now provided by kernel_type_checker.rs
     pub fn initialize_local_ctx();
     pub fn finalize_local_ctx();
@@ -107,13 +103,6 @@ struct LeanListCell {
     tail: *mut LeanListCell,
 }
 
-
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct LeanName {
-    obj: *mut LeanObject,
-}
-
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct LeanOptions {
@@ -131,30 +120,6 @@ pub struct LeanOptionalName {
     some: bool,
     value: LeanName,
 }
-
-static mut VERBOSE_OPT: LeanName = LeanName {
-    obj: ptr::null_mut(),
-};
-static mut MAX_MEMORY_OPT: LeanName = LeanName {
-    obj: ptr::null_mut(),
-};
-static mut TIMEOUT_OPT: LeanName = LeanName {
-    obj: ptr::null_mut(),
-};
-static mut CONSTRUCTIONS_FRESH: LeanName = LeanName {
-    obj: ptr::null_mut(),
-};
-static INTERNAL_UNIQUE_NAME_ID: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
-
-struct NameGeneratorState {
-    tmp_prefix: *mut LeanObject,
-    prefixes: Vec<*mut LeanObject>,
-}
-
-unsafe impl Send for NameGeneratorState {}
-
-static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
-    std::sync::Mutex::new(None);
 
 pub unsafe fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: *mut LeanObject) {
     debug_assert!(index < (*obj).m_header.other as c_uint);
@@ -435,13 +400,6 @@ pub(crate) unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
 
 fn env_flag(value: &str) -> u8 {
     if value.as_bytes() == b"1" { 1 } else { 0 }
-}
-
-pub(crate) unsafe fn mk_name(text: &str) -> LeanName {
-    let c_text = std::ffi::CString::new(text).expect("option names never contain NUL");
-    let raw_text = lean_mk_string(c_text.as_ptr());
-    let raw_name = lean_name_mk_string(lean_box(0), raw_text);
-    LeanName { obj: raw_name }
 }
 
 pub(crate) unsafe fn mk_name_path(components: &[&str]) -> LeanName {
@@ -740,14 +698,6 @@ unsafe fn name_prefix(obj: *mut LeanObject) -> *mut LeanObject {
     lean_ctor_get(obj, 0)
 }
 
-unsafe fn name_contains_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
-    state
-        .prefixes
-        .iter()
-        .copied()
-        .any(|p| runtime_object_name_impl::lean_name_eq(p, n) != 0)
-}
-
 unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
     if name_is_anonymous(n) {
         return false;
@@ -757,25 +707,6 @@ unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanOb
     }
     name_uses_registered_prefix(state, name_prefix(n))
 }
-
-pub(crate) unsafe fn consume_io_result(result: *mut LeanObject) {
-    if lean_io_result_is_ok(result) {
-        lean_dec(result);
-    } else {
-        let err = lean_io_result_get_error(result);
-        lean_inc(err);
-        lean_dec(result);
-        let msg = lean_io_error_to_string(err);
-        let text = core::ffi::CStr::from_ptr(lean_string_cstr(msg));
-
-        let prefix = b"IO Error in lean_initialize: ";
-        libc::write(2, prefix.as_ptr().cast(), prefix.len());
-        let bytes = text.to_bytes();
-        libc::write(2, bytes.as_ptr().cast(), bytes.len());
-        libc::write(2, b"\n".as_ptr().cast(), 1);
-    }
-}
-
 unsafe fn finalize_runtime_module_body() {
     finalize_stack_overflow();
     finalize_process();
@@ -795,19 +726,7 @@ unsafe fn finalize_util_module_body() {
     finalize_runtime_module_body();
 }
 
-unsafe fn initialize_kernel_module_body() {
-    initialize_level();
-    initialize_expr();
-    initialize_declaration();
-    initialize_type_checker();
-    initialize_local_ctx();
-    initialize_inductive();
-    initialize_quot();
-    lean_cxx_initialize_trace();
-}
-
 unsafe fn finalize_kernel_module_body() {
-    lean_cxx_finalize_trace();
     finalize_quot();
     finalize_inductive();
     finalize_local_ctx();
@@ -846,10 +765,6 @@ unsafe fn finalize_library_module_body() {
     lean_cxx_finalize_num();
 }
 
-unsafe fn initialize_constructions_module_body() {
-    initialize_constructions_util();
-}
-
 unsafe fn finalize_constructions_module_body() {
     finalize_constructions_util();
 }
@@ -871,32 +786,16 @@ pub fn finalize_util_module() {
     unsafe { finalize_util_module_body() }
 }
 
-pub fn initialize_kernel_module() {
-    unsafe { initialize_kernel_module_body() }
-}
-
 pub fn finalize_kernel_module() {
     unsafe { finalize_kernel_module_body() }
-}
-
-pub fn initialize_library_core_module() {
-    unsafe { initialize_library_core_module_body() }
 }
 
 pub fn finalize_library_core_module() {
     unsafe { finalize_library_core_module_body() }
 }
 
-pub fn initialize_library_module() {
-    unsafe { initialize_library_module_body() }
-}
-
 pub fn finalize_library_module() {
     unsafe { finalize_library_module_body() }
-}
-
-pub fn initialize_constructions_module() {
-    unsafe { initialize_constructions_module_body() }
 }
 
 pub fn finalize_constructions_module() {
@@ -910,12 +809,6 @@ pub fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
     }
 }
 
-pub fn init_default_print_fn() {
-    // No-op: lean_expr_dbg_to_string (the ToString Expr instance) is now implemented
-    // in Rust (library_print.rs), so the C++ formatter.h print function pointer
-    // no longer needs to be set.
-}
-
 pub fn run_thread_finalizers() {
     unsafe { run_thread_finalizers_internal() }
 }
@@ -926,16 +819,6 @@ pub fn run_post_thread_finalizers() {
 
 pub fn delete_thread_finalizer_manager() {
     unsafe { delete_thread_finalizer_manager_internal() }
-}
-pub fn initialize_options() {
-    unsafe {
-        VERBOSE_OPT = mk_name("verbose");
-        MAX_MEMORY_OPT = mk_name("max_memory");
-        TIMEOUT_OPT = mk_name("timeout");
-        lean_mark_persistent(VERBOSE_OPT.obj);
-        lean_mark_persistent(MAX_MEMORY_OPT.obj);
-        lean_mark_persistent(TIMEOUT_OPT.obj);
-    }
 }
 pub fn finalize_options() {
     unsafe {
@@ -962,13 +845,6 @@ pub unsafe fn mk_constructions_name_generator(
         next_idx: 0,
     });
     result
-}
-pub fn initialize_constructions_util() {
-    unsafe {
-        CONSTRUCTIONS_FRESH = mk_name("_cnstr_fresh");
-        lean_mark_persistent(CONSTRUCTIONS_FRESH.obj);
-        lean_register_name_generator_prefix(CONSTRUCTIONS_FRESH.obj);
-    }
 }
 pub fn finalize_constructions_util() {
     unsafe {
@@ -1015,16 +891,6 @@ pub fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
     })
 }
 
-pub unsafe fn lean_register_name_generator_prefix(n: *mut LeanObject) {
-    let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
-    let state = guard
-        .as_mut()
-        .expect("name generator registry is not initialized");
-    assert!(!name_contains_registered_prefix(state, n));
-    lean_inc(n);
-    state.prefixes.push(n);
-}
-
 pub unsafe fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
     let guard = NAME_GENERATOR_STATE.lock().unwrap();
     let Some(state) = guard.as_ref() else {
@@ -1032,25 +898,6 @@ pub unsafe fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
     };
     name_uses_registered_prefix(state, n)
 }
-pub fn initialize_name_generator() {
-    unsafe {
-        let c_str = std::ffi::CString::new("_uniq").expect("static string has no NULs");
-        let string = lean_mk_string(c_str.as_ptr());
-        let tmp = lean_name_mk_string(lean_box(0), string);
-        lean_mark_persistent(tmp);
-        let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
-        let state = NameGeneratorState {
-            tmp_prefix: tmp,
-            prefixes: vec![tmp],
-        };
-        *guard = Some(state);
-    }
-}
-pub fn initialize_name() {
-    INTERNAL_UNIQUE_NAME_ID.store(0, Ordering::Relaxed);
-}
-pub fn finalize_name() {}
-
 pub fn lean_name_next_internal_unique_id() -> c_uint {
     INTERNAL_UNIQUE_NAME_ID.fetch_add(1, Ordering::Relaxed)
 }
@@ -1493,11 +1340,6 @@ unsafe fn lean_uint64_of_nat_rust(value: *mut LeanObject) -> u64 {
     } else {
         runtime_object_nat_int_impl::lean_uint64_of_big_nat(value)
     }
-}
-
-pub(crate) unsafe fn lean_string_size(obj: *mut LeanObject) -> usize {
-    let string = obj as *const LeanStringObject<0>;
-    (*string).m_size
 }
 
 pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {

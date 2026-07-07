@@ -75,10 +75,4 @@ mod kernel_level_impl {
     pub unsafe fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
-
-    #[export_name = "_ZN4lean16initialize_levelEv"]
-    pub fn initialize_level() {}
-
-    #[export_name = "_ZN4lean14finalize_levelEv"]
-    pub fn finalize_level() {}
 }
