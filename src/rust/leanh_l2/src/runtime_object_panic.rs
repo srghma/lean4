@@ -5,7 +5,7 @@ use libloading::os::unix::Library as UnixLibrary;
 use std::io::Write;
 use std::sync::OnceLock;
 
-pub unsafe fn lean_io_eprintln(mut v_s_9609_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_eprintln(mut v_s_9609_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/System/IO.lean:1298
     // use gen_init::gen::Init::System::IO::{lean_io_eprintln};
     todo!("asdfasd")
 }
@@ -14,49 +14,6 @@ use crate::datatypes::LeanObject;
 use crate::in_emit_rust::{lean_dec, lean_mk_string};
 use crate::runtime_object_string::lean_mk_string_from_bytes;
 
-#[inline]
-pub unsafe fn cstr_lossy(msg: *const c_char) -> String {
-    unsafe {
-        if msg.is_null() {
-            String::new()
-        } else {
-            CStr::from_ptr(msg).to_string_lossy().into_owned()
-        }
-    }
-}
-
-#[inline]
-fn c_char_ptr(bytes: &'static [u8]) -> *const c_char {
-    bytes.as_ptr().cast()
-}
-
-#[inline]
-fn abort_on_panic() {
-    if should_abort_on_panic() {
-        std::process::abort();
-    }
-}
-
-#[inline]
-fn should_abort_on_panic() -> bool {
-    static SHOULD_ABORT_ON_PANIC: OnceLock<bool> = OnceLock::new();
-    *SHOULD_ABORT_ON_PANIC.get_or_init(|| std::env::var_os("LEAN_ABORT_ON_PANIC").is_some())
-}
-
-#[inline]
-pub unsafe fn lean_internal_panic(msg: *const c_char) -> ! {
-    unsafe {
-        let line = cstr_lossy(msg);
-        let _ = writeln!(std::io::stderr(), "INTERNAL PANIC: {line}");
-        abort_on_panic();
-        std::process::exit(1);
-    }
-}
-
-#[inline]
-pub unsafe fn lean_internal_panic_out_of_memory() -> ! {
-    unsafe { lean_internal_panic(c_char_ptr(b"out of memory\0")) }
-}
 
 static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
 static G_PANIC_MESSAGES: AtomicBool = AtomicBool::new(true);
@@ -83,7 +40,7 @@ pub unsafe fn lean_string_cstr(obj: *mut LeanObject) -> *const c_char {
 
 unsafe fn demangle_backtrace_line(symbol: *const c_char) -> Option<String> {
     let lib = UnixLibrary::this();
-    let Ok(demangle) = (unsafe { lib.get::<DemangleBacktraceLine>(c"lean_demangle_bt_line_cstr") })
+    let Ok(demangle) = (unsafe { lib.get::<DemangleBacktraceLine>(c"lean_demangle_bt_line_cstr") }) // [lean-audit] Rust should import from Lean ([export]): Function is referenced via dynamic string lookup (dynamic) (🔍) | Lean: src/Lean/Compiler/NameDemangling.lean:335
     else {
         return None;
     };

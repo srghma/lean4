@@ -22,7 +22,7 @@ pub unsafe fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
 }
 
 // use crate::Init::System::IO::lean_stream_of_handle;
-pub unsafe fn lean_stream_of_handle(mut v_h_10248_: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_stream_of_handle(mut v_h_10248_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/System/IO.lean:1682
     todo!("asdfasdf")
 }
 pub unsafe fn initialize_io() {

@@ -13,10 +13,20 @@ import {
 } from "./exported_imported_lean_rust_fns/lib";
 import { makePathExcluder } from "./exported_imported_lean_rust_fns/glob";
 import {
+    discoverRustWorkspacePackages,
+    collectCppUsages,
+    type CppUsage,
+    renderExternMarkdown,
+    renderExportMarkdown,
+    renderSummaryMarkdown,
+    type ExternReportItem,
+    type ExportReportItem,
+    type MarkdownReportBlock,
+} from "./exported_imported_lean_rust_fns/md_report";
+import {
     appendRuntimeAnnotations,
     collectRuntimeAnnotation,
     formatRuntimeAnnotation,
-    isRuntimeRustPath,
 } from "./exported_imported_lean_rust_fns/runtime_annotations";
 import { validateAndProcessOptions, printHelp } from "./exported_imported_lean_rust_fns/parse_args";
 
@@ -260,7 +270,9 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
         externConfig,
         exportConfig,
         genLeanImportsRsStubs,
-        appendCommentToRustRuntime,
+        appendCommentToLeanImportsFromRust,
+        appendCommentToRustShouldImportFromLean,
+        writeMarkdown,
     } = config;
 
     // Handle Help Request
@@ -312,6 +324,20 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     const orderedLeanFilesData = topoSortLeanFiles(allLeanFilesData)
         .filter(file => modulesWithOccurrences.has(file.moduleName));
 
+    const exportSymbols = new Set<string>();
+    for (const fileData of orderedLeanFilesData) {
+        for (const occ of fileData.occurrences) {
+            if (occ.type === "export") {
+                exportSymbols.add(occ.symbolName);
+            }
+        }
+    }
+
+    const originMasterDir = path.join(rootDir, "origin-master-src");
+    const cppUsageBySymbol = fs.existsSync(originMasterDir)
+        ? await collectCppUsages(originMasterDir, exportSymbols)
+        : new Map<string, CppUsage[]>();
+
     // Collect all Rust files
     const rustFilePaths: string[] = [];
     const rustPathExcluder = makePathExcluder(rustDir, rootDir, IGNORED_PATH_GLOBS);
@@ -342,16 +368,38 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
         console.log(c.dim(`Processed ${leanFilesData.length} Lean files with symbols (${allLeanFilesData.length} total Lean files) and indexed ${rustFilePaths.length} Rust files.`));
     }
 
+    const getRustPackageRank = (filePath: string): number => {
+        const rel = path.relative(rustDir, filePath).replaceAll(path.sep, "/");
+        const firstSegment = rel.split("/")[0] ?? "";
+        const match = firstSegment.match(/^leanh_l(\d+)$/);
+        if (match) return Number(match[1]);
+        if (firstSegment === "runtime") return 1000;
+        if (firstSegment === "leanh") return 2000;
+        return 3000;
+    };
+
+    const compareRustSearchResults = (a: RustSearchResult, b: RustSearchResult) => {
+        const packageRankDiff = getRustPackageRank(a.filePath) - getRustPackageRank(b.filePath);
+        if (packageRankDiff !== 0) return packageRankDiff;
+
+        const aIsConcreteDefinition = a.isDefinition && a.hasBody;
+        const bIsConcreteDefinition = b.isDefinition && b.hasBody;
+        if (aIsConcreteDefinition !== bIsConcreteDefinition) return aIsConcreteDefinition ? -1 : 1;
+
+        const aIsDefinition = a.isDefinition;
+        const bIsDefinition = b.isDefinition;
+        if (aIsDefinition !== bIsDefinition) return aIsDefinition ? -1 : 1;
+
+        const lineDiff = a.lineNum - b.lineNum;
+        if (lineDiff !== 0) return lineDiff;
+
+        return a.filePath.localeCompare(b.filePath) || a.snippet.localeCompare(b.snippet);
+    };
+
     const getBestRustMatch = (symbol: string): RustSearchResult | null => {
         const matches = rustIndex.get(symbol);
         if (!matches || matches.length === 0) return null;
-        return [...matches].sort((a, b) => {
-            if (a.isDefinition && a.hasBody && !(b.isDefinition && b.hasBody)) return -1;
-            if (!(a.isDefinition && a.hasBody) && b.isDefinition && b.hasBody) return 1;
-            if (a.isDefinition && !b.isDefinition) return -1;
-            if (!a.isDefinition && b.isDefinition) return 1;
-            return 0;
-        })[0];
+        return [...matches].sort(compareRustSearchResults)[0];
     };
 
     const stats = {
@@ -360,13 +408,14 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     };
 
     // Section 1: Lean imports from Rust [extern] (Lean <- Rust)
-    const externOutputBlocks: { relativePath: string; lines: string[] }[] = [];
+    const externOutputBlocks: MarkdownReportBlock<ExternReportItem>[] = [];
 
     for (const fileData of orderedLeanFilesData) {
         const externs = fileData.occurrences.filter(o => o.type === "extern");
         if (externs.length === 0) continue;
 
         const printedLines: string[] = [];
+        const markdownItems: ExternReportItem[] = [];
 
         for (const occ of externs) {
             stats.extern.total++;
@@ -391,7 +440,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
 
             if (match) {
                 const relRust = path.relative(rootDir, match.filePath);
-                if (appendCommentToRustRuntime && isRuntimeRustPath(match.filePath, rootDir)) {
+                if (appendCommentToLeanImportsFromRust) {
                     collectRuntimeAnnotation(
                         runtimeAnnotations,
                         match.filePath,
@@ -411,35 +460,68 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
                 } else {
                     printedLines.push(`${linePrefix} <- ${c.path(relRust)}:${match.lineNum} (${match.snippet}) 🔍 (Referenced in Rust)`);
                 }
+                markdownItems.push({
+                    lineNum: occ.lineNum,
+                    symbolName: occ.symbolName,
+                    leanName: occ.leanName,
+                    status: isOk ? "ok" : isEmpty ? "empty" : "reference",
+                    rustPath: relRust,
+                    rustLineNum: match.lineNum,
+                    rustSnippet: match.snippet,
+                });
             } else {
                 printedLines.push(`${linePrefix} <- ❌ (Rust does not define this function)`);
+                markdownItems.push({
+                    lineNum: occ.lineNum,
+                    symbolName: occ.symbolName,
+                    leanName: occ.leanName,
+                    status: "missing",
+                    rustPath: null,
+                    rustLineNum: null,
+                    rustSnippet: null,
+                });
             }
         }
 
         if (printedLines.length > 0) {
-            externOutputBlocks.push({ relativePath: fileData.relativePath, lines: printedLines });
+            externOutputBlocks.push({ relativePath: fileData.relativePath, items: markdownItems, lines: printedLines });
         }
     }
 
     // Section 2: Rust imports from Lean [export] (Lean -> Rust)
-    const exportOutputBlocks: { relativePath: string; lines: string[] }[] = [];
+    const exportOutputBlocks: MarkdownReportBlock<ExportReportItem>[] = [];
 
     for (const fileData of orderedLeanFilesData) {
         const exports = fileData.occurrences.filter(o => o.type === "export");
         if (exports.length === 0) continue;
 
         const printedLines: string[] = [];
+        const markdownItems: ExportReportItem[] = [];
 
         for (const occ of exports) {
             stats.export.total++;
             const match = getBestRustMatch(occ.symbolName);
             const correctUsePath = getCorrectRustUsePath(fileData.relativePath, occ.symbolName);
+            const cppUsages = cppUsageBySymbol.get(occ.symbolName) ?? [];
 
             if (!match) {
                 stats.export.missing++;
                 if (exportConfig.missing) {
-                    printedLines.push(`  ${c.line(occ.lineNum)} @[export ${c.symbol(occ.symbolName)}] ${c.name(occ.leanName)} -> ❌ (Not found in Rust, should be \`use ${correctUsePath};\`)`);
+                    const cppUsageText = cppUsages.length > 0 ? cppUsages.map((usage) => `${usage.relativePath}:${usage.lineNum}`).join(", ") : "none";
+                    printedLines.push(`  ${c.line(occ.lineNum)} @[export ${c.symbol(occ.symbolName)}] ${c.name(occ.leanName)} -> ❌ (Not found in Rust, should be \`use ${correctUsePath};\`) | C++ usage: ${cppUsageText}`);
                 }
+                markdownItems.push({
+                    lineNum: occ.lineNum,
+                    symbolName: occ.symbolName,
+                    leanName: occ.leanName,
+                    status: "missing",
+                    rustPath: null,
+                    rustLineNum: null,
+                    rustSnippet: null,
+                    currentImport: null,
+                    correctUsePath,
+                    cppUsages,
+                });
                 continue;
             }
 
@@ -447,7 +529,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
             const relRust = path.relative(rootDir, match.filePath);
             const linePrefix = `  ${c.line(occ.lineNum)} @[export ${c.symbol(occ.symbolName)}] ${c.name(occ.leanName)} -> ${c.path(relRust)}:${match.lineNum}`;
 
-            if (appendCommentToRustRuntime && isRuntimeRustPath(match.filePath, rootDir)) {
+            if (appendCommentToRustShouldImportFromLean) {
                 const annotationStatus =
                     classification.status === "correct" ? "export_correct" :
                     classification.status === "wrong_import" ? "export_wrong" :
@@ -482,24 +564,42 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
             if (classification.status === "dynamic_lookup" && !exportConfig.dynamicLookup) continue;
 
             if (classification.status === "correct") {
-                printedLines.push(`${linePrefix} (${classification.snippet}) ✅`);
+                const cppUsageText = cppUsages.length > 0 ? cppUsages.map((usage) => `${usage.relativePath}:${usage.lineNum}`).join(", ") : "none";
+                printedLines.push(`${linePrefix} (${classification.snippet}) ✅ | C++ usage: ${cppUsageText}`);
             } else if (classification.status === "wrong_import") {
-                printedLines.push(`${linePrefix} -> ⚠️ (Wrong import: \`${classification.snippet}\`, should be \`use ${correctUsePath};\`)`);
+                const cppUsageText = cppUsages.length > 0 ? cppUsages.map((usage) => `${usage.relativePath}:${usage.lineNum}`).join(", ") : "none";
+                printedLines.push(`${linePrefix} -> ⚠️ (Wrong import: \`${classification.snippet}\`, should be \`use ${correctUsePath};\`) | C++ usage: ${cppUsageText}`);
             } else if (classification.status === "defined_in_rust") {
-                printedLines.push(`${linePrefix} -> 🛠️ (Defined in Rust: \`${classification.snippet}\`, should be \`use ${correctUsePath};\`)`);
+                const cppUsageText = cppUsages.length > 0 ? cppUsages.map((usage) => `${usage.relativePath}:${usage.lineNum}`).join(", ") : "none";
+                printedLines.push(`${linePrefix} -> 🛠️ (Defined in Rust: \`${classification.snippet}\`, should be \`use ${correctUsePath};\`) | C++ usage: ${cppUsageText}`);
             } else if (classification.status === "extern_c") {
-                printedLines.push(`${linePrefix} -> 🔌 (FFI Declaration: \`${classification.snippet}\`) ✅`);
+                const cppUsageText = cppUsages.length > 0 ? cppUsages.map((usage) => `${usage.relativePath}:${usage.lineNum}`).join(", ") : "none";
+                printedLines.push(`${linePrefix} -> 🔌 (FFI Declaration: \`${classification.snippet}\`) ✅ | C++ usage: ${cppUsageText}`);
             } else if (classification.status === "dynamic_lookup") {
-                printedLines.push(`${linePrefix} -> 🔍 (Dynamic string lookup: \`${classification.snippet}\`) ✅`);
+                const cppUsageText = cppUsages.length > 0 ? cppUsages.map((usage) => `${usage.relativePath}:${usage.lineNum}`).join(", ") : "none";
+                printedLines.push(`${linePrefix} -> 🔍 (Dynamic string lookup: \`${classification.snippet}\`) ✅ | C++ usage: ${cppUsageText}`);
             }
+
+            markdownItems.push({
+                lineNum: occ.lineNum,
+                symbolName: occ.symbolName,
+                leanName: occ.leanName,
+                status: classification.status,
+                rustPath: relRust,
+                rustLineNum: match.lineNum,
+                rustSnippet: match.snippet,
+                currentImport: classification.currentImport ?? null,
+                correctUsePath,
+                cppUsages,
+            });
         }
 
         if (printedLines.length > 0) {
-            exportOutputBlocks.push({ relativePath: fileData.relativePath, lines: printedLines });
+            exportOutputBlocks.push({ relativePath: fileData.relativePath, items: markdownItems, lines: printedLines });
         }
     }
 
-    if (appendCommentToRustRuntime) {
+    if (appendCommentToLeanImportsFromRust || appendCommentToRustShouldImportFromLean) {
         await appendRuntimeAnnotations(runtimeAnnotations);
         if (showDetails) {
             const touchedFiles = [...runtimeAnnotations.keys()].length;
@@ -578,7 +678,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
     // Verification 3: If filters are wide-open, populated output block lines must match totals
     const isExternUnfiltered = externConfig.rustOk && externConfig.rustEmpty && externConfig.rustMissing;
     if (isExternUnfiltered) {
-        const totalExternLines = externOutputBlocks.reduce((acc, b) => acc + b.lines.length, 0);
+        const totalExternLines = externOutputBlocks.reduce((acc, b) => acc + b.items.length, 0);
         if (stats.extern.total !== totalExternLines) {
             validationErrors.push(`Extern total (${stats.extern.total}) does not match lines in detail output blocks (${totalExternLines}) under unfiltered mode.`);
         }
@@ -586,7 +686,7 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
 
     const isExportUnfiltered = exportConfig.importCorrect && exportConfig.importWrong && exportConfig.definedInRust && exportConfig.externC && exportConfig.dynamicLookup && exportConfig.missing;
     if (isExportUnfiltered) {
-        const totalExportLines = exportOutputBlocks.reduce((acc, b) => acc + b.lines.length, 0);
+        const totalExportLines = exportOutputBlocks.reduce((acc, b) => acc + b.items.length, 0);
         if (stats.export.total !== totalExportLines) {
             validationErrors.push(`Export total (${stats.export.total}) does not match lines in detail output blocks (${totalExportLines}) under unfiltered mode.`);
         }
@@ -598,6 +698,38 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
             console.error(c.warning(`  - ${err}`));
         }
         process.exit(1);
+    }
+
+    if (writeMarkdown) {
+        const workspacePackages = discoverRustWorkspacePackages(rustDir);
+        const externMarkdown = renderExternMarkdown({
+            rootDir,
+            leanDir,
+            rustDir,
+            workspacePackages,
+            externBlocks: externOutputBlocks,
+        });
+        const exportMarkdown = renderExportMarkdown({
+            rootDir,
+            leanDir,
+            rustDir,
+            workspacePackages,
+            exportBlocks: exportOutputBlocks,
+        });
+        const summaryMarkdown = renderSummaryMarkdown({ stats });
+
+        const externMarkdownPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--lean_imports_from_rust.md");
+        const exportMarkdownPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--rust_should_import_from_lean.md");
+        const summaryMarkdownPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--summary.md");
+
+        await Promise.all([
+            fs.promises.writeFile(externMarkdownPath, `${externMarkdown}\n`, "utf8"),
+            fs.promises.writeFile(exportMarkdownPath, `${exportMarkdown}\n`, "utf8"),
+            fs.promises.writeFile(summaryMarkdownPath, `${summaryMarkdown}\n`, "utf8"),
+        ]);
+        if (showDetails) {
+            console.log(c.dim(`Wrote markdown reports to ${externMarkdownPath}, ${exportMarkdownPath}, and ${summaryMarkdownPath}`));
+        }
     }
 
     // --- STUB GENERATION FOR LEAN IMPORTS ---

@@ -1,8 +1,7 @@
 use core::ffi::c_void;
-use core::ptr;
 use core::sync::atomic::{AtomicI32, AtomicPtr};
 use gmp_mpfr_sys::gmp::mpz_t;
-use std::cell::Cell;
+use std::ffi::c_uint;
 
 // This module is the Rust equivalent of upstream `lean.h` for ABI layouts and
 // helpers hardcoded by EmitRust. Do not import runtime modules here; runtime
@@ -157,3 +156,6 @@ pub const LEAN_REF_TAG: u8 = 253;
 pub const LEAN_EXTERNAL_TAG: u8 = 254;
 pub const LEAN_RESERVED_TAG: u8 = 255;
 pub const LEAN_OBJECT_SIZE_DELTA: usize = 8;
+
+pub const LEAN_MAX_CTOR_FIELDS: c_uint = 256;
+pub const LEAN_MAX_CTOR_SCALARS_SIZE: c_uint = 1024;

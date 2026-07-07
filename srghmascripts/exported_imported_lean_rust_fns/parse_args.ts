@@ -28,7 +28,11 @@ const options = {
     "gen-lean-imports-rs-stubs": { type: "boolean" },
 
     // Annotation Option
-    "append-comment-to-rust-runtime": { type: "boolean" },
+    "append-comment-to-lean-imports-from-rust": { type: "boolean" },
+    "append-comment-to-rust-should-import-from-lean": { type: "boolean" },
+
+    // Markdown report toggle
+    "no-write-md": { type: "boolean" },
 } as const;
 
 /**
@@ -41,7 +45,11 @@ Usage: ./srghmascripts/exported_imported_lean_rust_fns.ts [options]
 Options:
   -h, --help                               Show this help message
   --gen-lean-imports-rs-stubs            Generate Rust stub files in lean_imports_rs for extern Lean imports
-  --append-comment-to-rust-runtime       Append audit comments to matching src/rust/runtime/**/*.rs lines
+  --append-comment-to-lean-imports-from-rust
+                                        Append audit comments for the "lean imports from rust" group
+  --append-comment-to-rust-should-import-from-lean
+                                        Append audit comments for the "rust should import from lean" group
+  --no-write-md                          Do not write srghmascripts/exported_imported_lean_rust_fns--exluding-success.md
 
   Summary Visibility:
     --hide-summary                         Do not print the summary block
@@ -85,8 +93,10 @@ export function validateAndProcessOptions(args: string[]) {
             showDetails: false,
             externConfig: { rustOk: false, rustEmpty: false, rustMissing: false },
             exportConfig: { importCorrect: false, importWrong: false, definedInRust: false, externC: false, dynamicLookup: false, missing: false },
-            genLeanImportsRsStubs: false,
-            appendCommentToRustRuntime: false,
+        genLeanImportsRsStubs: false,
+        appendCommentToLeanImportsFromRust: false,
+        appendCommentToRustShouldImportFromLean: false,
+        writeMarkdown: false,
         };
     }
 
@@ -151,6 +161,8 @@ export function validateAndProcessOptions(args: string[]) {
         externConfig,
         exportConfig,
         genLeanImportsRsStubs: !!values["gen-lean-imports-rs-stubs"],
-        appendCommentToRustRuntime: !!values["append-comment-to-rust-runtime"],
+        appendCommentToLeanImportsFromRust: !!values["append-comment-to-lean-imports-from-rust"],
+        appendCommentToRustShouldImportFromLean: !!values["append-comment-to-rust-should-import-from-lean"],
+        writeMarkdown: !values["no-write-md"],
     };
 }

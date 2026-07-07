@@ -238,6 +238,7 @@ mod runtime_object_array_impl {
     }
 
     pub unsafe fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
+        // TODO: should use List.toArrayImpl / lean_list_to_array
         let mut sz = 0usize;
         let mut it = lst;
         while !lean_is_scalar(it) {
@@ -258,6 +259,7 @@ mod runtime_object_array_impl {
     }
 
     pub unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
+        // TODO: should use toListImpl / lean_array_to_list_impl
         let mut i = lean_array_size(a);
         let mut r = lean_box(0);
         while i > 0 {

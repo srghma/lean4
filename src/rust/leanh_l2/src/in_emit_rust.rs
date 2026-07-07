@@ -3,20 +3,20 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use core::ffi::{CStr, c_char, c_int, c_uint, c_void};
+use core::ffi::{c_char, c_int, c_uint, c_void, CStr};
 use core::ptr;
 use core::sync::atomic::{AtomicI32, Ordering};
 
 use crate::datatypes::{
-    F32InitFn, F64InitFn, LEAN_CLOSURE_TAG, LEAN_MAX_CTOR_TAG, LeanClosureObject, LeanCtorObject,
-    LeanObject, LeanOnceCell, ObjInitFn, Size, U8InitFn, U16InitFn, U32InitFn, U64InitFn,
-    UsizeInitFn,
+    F32InitFn, F64InitFn, LeanClosureObject, LeanCtorObject, LeanObject, LeanOnceCell, ObjInitFn,
+    Size, U16InitFn, U32InitFn, U64InitFn, U8InitFn, UsizeInitFn, LEAN_CLOSURE_TAG,
+    LEAN_MAX_CTOR_TAG,
 };
 use crate::not_in_emit_rust::{
-    LEAN_UAF_POISON_RC, UAF_DETECT, lean_alloc_ctor, lean_alloc_ctor_memory, lean_box,
-    lean_closure_arg_cptr, lean_closure_num_fixed, lean_ctor_num_objs, lean_ctor_obj_cptr,
-    lean_ctor_scalar_cptr, lean_is_ref, lean_is_scalar_bool, lean_obj_once_cold, lean_ptr_tag,
-    lean_usize_to_nat, quar_report_uaf, run_once,
+    lean_alloc_ctor, lean_alloc_ctor_memory, lean_box, lean_closure_arg_cptr,
+    lean_closure_num_fixed, lean_ctor_num_objs, lean_ctor_obj_cptr, lean_ctor_scalar_cptr,
+    lean_is_ref, lean_is_scalar_bool, lean_obj_once_cold, lean_ptr_tag, lean_usize_to_nat,
+    quar_report_uaf, run_once, LEAN_UAF_POISON_RC, UAF_DETECT,
 };
 use crate::runtime_io_stream::initialize_io;
 use crate::runtime_libuv::initialize_libuv;
@@ -115,20 +115,6 @@ pub unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: u32, value: *mut LeanObje
     unsafe {
         debug_assert!((idx as usize) < lean_ctor_num_objs(obj));
         *lean_ctor_obj_cptr(obj).add(idx as usize) = value;
-    }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_float(obj: *mut LeanObject, offset: usize, value: f64) {
-    unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *mut f64) = value }
-}
-
-#[inline]
-pub unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
-    unsafe {
-        let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<f64>() as u32);
-        lean_ctor_set_float(obj, 0, value);
-        obj
     }
 }
 
@@ -310,6 +296,7 @@ static mut TIMEOUT_OPT: LeanName = LeanName {
 };
 
 pub unsafe fn lean_name_mk_string(
+    // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/Prelude.lean:4729
     mut _v_p_9004_: *mut LeanObject,
     mut _v_s_9005_: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -496,11 +483,6 @@ pub unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
 }
 
 #[inline]
-pub fn lean_is_scalar(obj: *mut LeanObject) -> u8 {
-    ((obj as Size & 1) == 1) as u8
-}
-
-#[inline]
 pub unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
     unsafe {
         debug_assert!(arity > 0);
@@ -673,11 +655,6 @@ pub unsafe fn lean_uint8_once(loc: *mut u8, tok: *mut LeanOnceCell, init: U8Init
 }
 
 #[inline]
-pub unsafe fn lean_unbox(obj: *mut LeanObject) -> usize {
-    (obj as Size) >> 1
-}
-
-#[inline]
 pub unsafe fn lean_small_nat(obj: *mut LeanObject) -> usize {
     unsafe {
         if lean_is_scalar_bool(obj) {
@@ -802,6 +779,7 @@ pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject 
 
 // src/rust/gen_init/src/gen/Init/System/IOError.rs
 pub unsafe fn lean_io_error_to_string(mut _v_x_1214_: *mut LeanObject) -> *mut LeanObject {
+    // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/System/IOError.lean:271
     todo!("asdfasd")
 }
 

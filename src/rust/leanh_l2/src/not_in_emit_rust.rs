@@ -91,33 +91,6 @@ pub unsafe fn lean_global_alloc(size: usize) -> *mut u8 {
     }
 }
 
-// NOT IN EmitRust; here because it is used in `lean_alloc_ctor`, `lean_box_float`, `lean_box_float32`, `lean_box_uint32`, and 3 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_alloc_small_object(sz: usize) -> *mut LeanObject {
-    unsafe {
-        let sz = sz.div_ceil(8) * 8;
-        let mem = mi::mi_malloc_small(sz);
-        if mem.is_null() {
-            lean_internal_panic_out_of_memory();
-        }
-        let o = mem as *mut LeanObject;
-        (*o).cs_size = sz as u16;
-        o
-    }
-}
-
-// NOT IN EmitRust; here because it is used in `lean_alloc_ctor`, `lean_box_float`, `lean_box_float32`, `lean_box_uint32`, and 3 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_alloc_ctor_memory(sz: usize) -> *mut LeanObject {
-    let sz1 = ((sz + 7) / 8) * 8;
-    let r = unsafe { lean_alloc_small_object(sz1) };
-    if sz1 > sz {
-        let end = unsafe { (r as *mut u8).add(sz1) as *mut usize };
-        unsafe { end.sub(1).write(0) };
-    }
-    r
-}
-
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
 #[inline]
 pub unsafe fn lean_global_dealloc(mem: *mut u8, size: usize) {
@@ -258,31 +231,12 @@ pub unsafe fn lean_is_st(obj: *mut LeanObject) -> bool {
 //     }
 // }
 
-// NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 37 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_ptr_tag(obj: *mut LeanObject) -> u8 {
-    if lean_is_scalar_bool(obj) {
-        lean_unbox(obj) as u8
-    } else {
-        (*obj).tag
-    }
-}
-
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 28 more EmitRust functions.
 #[inline]
 pub unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> usize {
     unsafe {
         debug_assert!(lean_ptr_tag(obj) <= LEAN_MAX_CTOR_TAG);
         (*obj).other as usize
-    }
-}
-
-// NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 32 more EmitRust functions.
-#[inline]
-pub unsafe fn lean_ctor_obj_cptr(obj: *mut LeanObject) -> *mut *mut LeanObject {
-    unsafe {
-        debug_assert!(lean_ptr_tag(obj) <= LEAN_MAX_CTOR_TAG);
-        (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut *mut LeanObject
     }
 }
 
@@ -390,28 +344,6 @@ pub unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsaf
     }
 }
 
-#[inline]
-pub unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_size: u32) -> *mut LeanObject {
-    unsafe {
-        debug_assert!(tag <= LEAN_MAX_CTOR_TAG as u32);
-        debug_assert!(num_objs < 256);
-        debug_assert!(scalar_size < 1024);
-        let byte_size = core::mem::size_of::<LeanObject>()
-            + core::mem::size_of::<*mut LeanObject>() * num_objs as usize
-            + scalar_size as usize;
-        let obj = lean_alloc_ctor_memory(byte_size);
-        (*obj).rc = 1;
-        (*obj).other = num_objs as u8;
-        (*obj).tag = tag as u8;
-        obj
-    }
-}
-
-#[inline]
-pub unsafe fn lean_box(value: Size) -> *mut LeanObject {
-    ((value << 1) | 1) as *mut LeanObject
-}
-
 // NOT IN EmitRust; here because it is used in `lean_cstr_to_nat`, `lean_unsigned_to_nat`.
 #[inline]
 pub unsafe fn lean_usize_to_nat(value: usize) -> *mut LeanObject {
@@ -422,15 +354,6 @@ pub unsafe fn lean_usize_to_nat(value: usize) -> *mut LeanObject {
             panic!("big Nat is not supported in leanh.rs")
         }
     }
-}
-
-// Private implementation helpers for the hardcoded EmitRust surface.
-// NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 14 more EmitRust functions.
-#[inline]
-pub fn lean_is_scalar_bool(obj: *mut LeanObject) -> bool {
-    // same as
-    // (obj as Size) & 1 == 1
-    lean_is_scalar(obj) != 0 // same as `== 1`
 }
 
 #[inline(always)]
