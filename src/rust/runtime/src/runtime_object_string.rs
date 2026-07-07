@@ -54,11 +54,6 @@ mod runtime_object_string_impl {
     }
 
     // On 64-bit, UInt32 fits in a Lean scalar.
-    #[inline]
-    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 21 (🔁)
-        lean_box(v as usize)
-    }
 
     #[inline]
     unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {

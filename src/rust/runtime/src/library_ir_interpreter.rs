@@ -266,12 +266,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 21 (🔁)
-
-        lean_box(v as usize)
-    }
-
-    #[inline(always)]
     unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
 
         lean_unbox(o) as u32
