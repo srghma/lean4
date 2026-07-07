@@ -289,12 +289,6 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     #[inline(always)]
-    unsafe fn lean_ptr_tag(o: *const LeanObject) -> u32 { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 161 (🔁)
-
-        super::lean_ptr_tag(o as *mut _) as u32
-    }
-
-    #[inline(always)]
     unsafe fn lean_ctor_get(o: *const LeanObject, i: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 58 (🔁)
 
         (o.add(1) as *const *mut LeanObject).add(i as usize).read()

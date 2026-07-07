@@ -8,16 +8,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 pub(crate) mod runtime_object_rc_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_void;
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::ptr;
     use core::sync::atomic::{AtomicI32, Ordering};
     use leanh::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
-        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
-        LEAN_THUNK_TAG, LeanArrayObject, LeanClosureObject, LeanExternalClass, LeanExternalObject,
-        LeanMpzObject, LeanObject, LeanPromiseObject, LeanRefObject, LeanScalarArray,
-        LeanStringObject, LeanTaskObject, LeanThunkObject, MpzT,
+        LeanArrayObject, LeanClosureObject, LeanExternalClass, LeanExternalObject, LeanMpzObject,
+        LeanObject, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
+        LeanTaskObject, LeanThunkObject, MpzT, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG,
+        LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
+        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
     };
     #[cfg(all(lean_has_address_sanitizer, unix))]
     use libloading::os::unix::Library as UnixLibrary;
@@ -33,9 +33,5 @@ pub(crate) mod runtime_object_rc_impl {
         fn lean_task_get(task: *mut LeanObject) -> *mut LeanObject;
         fn lean_runtime_deactivate_task(task: *mut LeanTaskObject);
         fn lean_runtime_deactivate_promise(promise: *mut LeanPromiseObject);
-    }
-
-    pub unsafe fn lean_alloc_ctor_memory_export(sz: usize) -> *mut LeanObject {
-        lean_alloc_ctor_memory(sz)
     }
 }

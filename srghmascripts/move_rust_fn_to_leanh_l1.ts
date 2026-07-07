@@ -47,7 +47,9 @@ async function listRustFiles(root: string): Promise<string[]> {
 function findFunctionBlock(text: string, fnName: string): FnOccurrence[] {
   const lines = text.split(/\r?\n/);
   const occurrences: FnOccurrence[] = [];
-  const fnRegex = new RegExp(String.raw`^\s*(?:pub\s+(?:\(crate\)\s+)?)?(?:unsafe\s+)?(?:extern\s+"[A-Za-z0-9_-]+"\s+)?fn\s+${fnName}\b`);
+  const fnRegex = new RegExp(
+    String.raw`^\s*(?:pub(?:\s*\([^)]+\))?\s+)?(?:unsafe\s+)?(?:extern\s+"[A-Za-z0-9_-]+"\s+)?fn\s+${fnName}\b`,
+  );
 
   for (let i = 0; i < lines.length; i++) {
     if (!fnRegex.test(lines[i])) continue;
