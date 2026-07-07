@@ -156,6 +156,5 @@ pub const LEAN_REF_TAG: u8 = 253;
 pub const LEAN_EXTERNAL_TAG: u8 = 254;
 pub const LEAN_RESERVED_TAG: u8 = 255;
 pub const LEAN_OBJECT_SIZE_DELTA: usize = 8;
-
-pub const LEAN_MAX_CTOR_FIELDS: c_uint = 256;
-pub const LEAN_MAX_CTOR_SCALARS_SIZE: c_uint = 1024;
+pub const LEAN_MAX_CTOR_FIELDS: u32 = 256;
+pub const LEAN_MAX_CTOR_SCALARS_SIZE: u32 = 1024;

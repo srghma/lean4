@@ -13,6 +13,7 @@ pub mod datatypes;
 pub mod lean_alloc_ctor;
 pub mod lean_box;
 pub mod lean_box_float;
+pub mod lean_box_float32;
 pub mod lean_ctor_set_float;
 pub mod lean_is_scalar;
 pub mod lean_unbox;

@@ -231,14 +231,6 @@ mod library_instantiate_mvars_impl {
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
-        lean_runtime_alloc_ctor(
-            tag as core::ffi::c_uint,
-            num_objs as core::ffi::c_uint,
-            scalar_size as core::ffi::c_uint,
-        )
-    }
-
     // rc > 0 means single-threaded object (not atomic refcount).
     unsafe fn lean_is_st(o: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 141 (🔁)
         (*o).rc > 0

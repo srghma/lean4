@@ -289,12 +289,6 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     #[inline(always)]
-    unsafe fn lean_is_scalar(o: *const LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 259 (🔁)
-
-        super::lean_is_scalar(o as *mut _)
-    }
-
-    #[inline(always)]
     unsafe fn lean_ptr_tag(o: *const LeanObject) -> u32 { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 161 (🔁)
 
         super::lean_ptr_tag(o as *mut _) as u32
@@ -304,12 +298,6 @@ mod kernel_type_checker_impl {
     unsafe fn lean_ctor_get(o: *const LeanObject, i: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 58 (🔁)
 
         (o.add(1) as *const *mut LeanObject).add(i as usize).read()
-    }
-
-    #[inline(always)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_sz: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
-
-        lean_runtime_alloc_ctor(tag, num_objs, scalar_sz)
     }
 
     #[inline(always)]
@@ -350,12 +338,6 @@ mod kernel_type_checker_impl {
     unsafe fn expr_has_expr_mvar(e: *const LeanObject) -> bool {
         lean_inc(e as *mut LeanObject);
         lean_expr_has_expr_mvar(e)
-    }
-
-    #[inline(always)]
-    unsafe fn lean_unbox(o: *const LeanObject) -> usize { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 460 (🔁)
-
-        super::lean_unbox(o as *mut _)
     }
 
     #[inline(always)]

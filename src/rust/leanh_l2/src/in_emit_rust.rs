@@ -124,15 +124,6 @@ pub unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, offset: usize, value: 
 }
 
 #[inline]
-pub unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
-    unsafe {
-        let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<f32>() as u32);
-        lean_ctor_set_float32(obj, 0, value);
-        obj
-    }
-}
-
-#[inline]
 pub unsafe fn lean_ctor_set_tag(obj: *mut LeanObject, new_tag: u8) {
     unsafe {
         debug_assert!(new_tag <= LEAN_MAX_CTOR_TAG);
@@ -159,33 +150,6 @@ pub unsafe fn lean_ctor_set_uint64(obj: *mut LeanObject, offset: usize, value: u
         .add(offset)
         .cast::<u64>()
         .write(value);
-}
-
-pub unsafe fn lean_runtime_alloc_ctor(
-    tag: c_uint,
-    num_objs: c_uint,
-    scalar_size: c_uint,
-) -> *mut LeanObject {
-    const LEAN_MAX_CTOR_FIELDS: c_uint = 256;
-    const LEAN_MAX_CTOR_SCALARS_SIZE: c_uint = 1024;
-
-    debug_assert!(tag as u8 <= LEAN_MAX_CTOR_TAG);
-    debug_assert!(num_objs < LEAN_MAX_CTOR_FIELDS);
-    debug_assert!(scalar_size < LEAN_MAX_CTOR_SCALARS_SIZE);
-
-    let byte_size = core::mem::size_of::<LeanCtorObject<0>>()
-        .checked_add(
-            core::mem::size_of::<*mut LeanObject>()
-                .checked_mul(num_objs as Size)
-                .expect("constructor allocation overflow"),
-        )
-        .and_then(|size| size.checked_add(scalar_size as Size))
-        .expect("constructor allocation overflow");
-    let obj = lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject<0>;
-    (*obj).m_header.rc = 1;
-    (*obj).m_header.other = num_objs as u8;
-    (*obj).m_header.tag = tag as u8;
-    obj as *mut LeanObject
 }
 
 #[inline]

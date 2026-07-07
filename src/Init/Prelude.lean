@@ -113,7 +113,7 @@ inductive Bool : Type where
 export Bool (false true)
 
 /-- Compute whether `x` is a tagged pointer or not. -/
-@[extern "lean_is_scalar"]
+@[extern "lean_is_scalar"] -- TODO: why EmitRust generates a fn lean_is_scalar { return leanh::lean_is_scalar } ?
 unsafe axiom isScalarObj {α : Type u} (x : α) : Bool
 
 /--

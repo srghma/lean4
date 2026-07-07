@@ -68,11 +68,6 @@ mod runtime_process_impl {
     }
 
     // Lean constructor allocation forwarding to lean_runtime_alloc_ctor
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
-        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
-
-        lean_runtime_alloc_ctor(tag as c_uint, num_objs as c_uint, scalar_size as c_uint)
-    }
 
     // Option helpers
     unsafe fn mk_option_none() -> *mut LeanObject {

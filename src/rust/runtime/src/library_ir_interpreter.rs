@@ -221,15 +221,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_set_float(obj: *mut LeanObject, byte_offset: usize, v: f64) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 109 (🔁)
-
-        (obj.add(1) as *mut u8)
-            .add(byte_offset)
-            .cast::<f64>()
-            .write_unaligned(v);
-    }
-
-    #[inline(always)]
     unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, byte_offset: usize, v: f32) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 123 (🔁)
 
         (obj.add(1) as *mut u8)
@@ -250,12 +241,6 @@ mod library_ir_interpreter_impl {
     unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 167 (🔁)
 
         (*obj).other as usize
-    }
-
-    #[inline(always)]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
-
-        lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32)
     }
 
     #[inline(always)]
@@ -293,31 +278,9 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_box_float(v: f64) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 114 (🔁)
-
-        let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f64>() as u32);
-        ptr::write_unaligned(
-            (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
-            v,
-        );
-        obj
-    }
-
-    #[inline(always)]
     unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 591 (🔁)
 
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
-    }
-
-    #[inline(always)]
-    unsafe fn lean_box_float32(v: f32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 128 (🔁)
-
-        let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<f32>() as u32);
-        ptr::write_unaligned(
-            (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
-            v,
-        );
-        obj
     }
 
     #[inline(always)]

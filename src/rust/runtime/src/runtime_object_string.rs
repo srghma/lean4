@@ -53,16 +53,6 @@ mod runtime_object_string_impl {
         (o.add(1) as *mut *mut LeanObject).add(i).write(v);
     }
 
-    #[inline]
-    unsafe fn lean_alloc_ctor(tag: u32, num_objs: usize, scalar_sz: usize) -> *mut LeanObject {
-        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 309 (🔁)
-        lean_runtime_alloc_ctor(
-            tag as core::ffi::c_uint,
-            num_objs as core::ffi::c_uint,
-            scalar_sz as core::ffi::c_uint,
-        )
-    }
-
     // On 64-bit, UInt32 fits in a Lean scalar.
     #[inline]
     unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
