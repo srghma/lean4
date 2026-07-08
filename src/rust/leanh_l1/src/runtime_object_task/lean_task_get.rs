@@ -1,8 +1,8 @@
 use crate::datatypes::{LeanObject, LeanTaskImp, LeanTaskObject};
 use crate::runtime_object_panic::lean_panic::lean_panic;
-use crate::runtime_object_task::p1_get_task_manager::{LEAN_MAX_PRIO, TaskManager};
 use crate::runtime_object_task::p3_resolve::{LEAN_SYNC_PRIO, spawn_worker};
 use crate::runtime_object_task::scoped_current_task::current_task;
+use crate::runtime_object_task::task_manager::{LEAN_MAX_PRIO, TaskManager};
 use std::sync::Arc;
 use std::sync::atomic::Ordering;
 

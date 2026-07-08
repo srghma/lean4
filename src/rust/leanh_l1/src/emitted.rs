@@ -87,9 +87,12 @@ pub mod lean_ctor_set_uint32;
 pub mod lean_ctor_set_uint8;
 pub mod lean_dec_ref_known;
 pub mod lean_del_object;
+pub mod lean_finalize_task_manager;
 pub mod lean_float32_once;
 pub mod lean_float_once;
 pub mod lean_inc_n;
+pub mod lean_init_task_manager;
+pub mod lean_io_mark_end_initialization;
 pub mod lean_io_result_get_value;
 pub mod lean_io_result_is_error;
 pub mod lean_io_result_is_ok;
@@ -109,5 +112,3 @@ pub mod lean_unbox_uint64;
 pub mod lean_unbox_usize;
 pub mod lean_unsigned_to_nat;
 pub mod lean_usize_once;
-pub mod lean_io_mark_end_initialization;
-

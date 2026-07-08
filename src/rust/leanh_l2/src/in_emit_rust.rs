@@ -30,9 +30,6 @@ use crate::runtime_process::initialize_process;
 use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
-#[inline]
-pub unsafe fn lean_init_task_manager() {}
-
 unsafe fn initialize_runtime_module_body() {
     // initialize_alloc();
     // initialize_debug();

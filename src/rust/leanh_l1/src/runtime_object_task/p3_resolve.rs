@@ -8,11 +8,9 @@ use crate::r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr;
 use crate::runtime_apply::lean_apply_1;
 use crate::runtime_interrupt::reset_heartbeat;
 use crate::runtime_object_rc::lean_mark_mt::lean_mark_mt;
-use crate::runtime_object_task::p1_get_task_manager::{
-    LEAN_MAX_PRIO, TaskManager, TaskManagerInner,
-};
 use crate::runtime_object_task::p2_deactivate_task_obj::with_mutex_unlocked;
 use crate::runtime_object_task::scoped_current_task::ScopedCurrentTask;
+use crate::runtime_object_task::task_manager::{LEAN_MAX_PRIO, TaskManager, TaskManagerInner};
 use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::p1::{
     StackGuard, stack_guard_ctor_complete, stack_guard_dtor_complete,

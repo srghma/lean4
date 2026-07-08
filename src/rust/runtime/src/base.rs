@@ -517,17 +517,6 @@ pub unsafe fn lean_option_get_or_block(opt: *mut LeanObject) -> *mut LeanObject 
     }
 }
 
-pub unsafe fn lean_runtime_get_lean_num_threads() -> c_uint {
-    let name = b"LEAN_NUM_THREADS\0";
-    let value = libc::getenv(name.as_ptr().cast());
-    if !value.is_null() {
-        return libc::atoi(value) as c_uint;
-    }
-    std::thread::available_parallelism()
-        .map(|count| count.get() as c_uint)
-        .unwrap_or(1)
-}
-
 pub fn lean_io_mk_world() -> *mut LeanObject {
     unsafe { lean_box(0) }
 }

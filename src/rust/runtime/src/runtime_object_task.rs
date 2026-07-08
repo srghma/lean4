@@ -138,26 +138,46 @@ pub(crate) mod runtime_object_task_impl {
         o as *mut LeanObject
     }
 
-    impl TaskManager {
-        fn new(max_std_workers: usize) -> Arc<Self> {
-            Arc::new(TaskManager {
-                inner: Mutex::new(TaskManagerInner {
-                    queues: core::array::from_fn(|_| VecDeque::new()),
-                    queues_size: 0,
-                    max_prio: 0,
-                    max_std_workers,
-                    std_workers: Vec::new(),
-                    total_std_workers: 0,
-                    idle_std_workers: 0,
-                    num_dedicated_workers: 0,
-                    shutting_down: false,
-                }),
-                queue_cv: Condvar::new(),
-                task_finished_cv: Condvar::new(),
-                dedicated_finished_cv: Condvar::new(),
-            })
-        }
+    pub fn new_task_manager(max_std_workers: usize) -> Arc<TaskManager> {
+        Arc::new(TaskManager {
+            inner: Mutex::new(TaskManagerInner {
+                queues: core::array::from_fn(|_| VecDeque::new()),
+                queues_size: 0,
+                max_prio: 0,
+                max_std_workers,
+                std_workers: Vec::new(),
+                total_std_workers: 0,
+                idle_std_workers: 0,
+                num_dedicated_workers: 0,
+                shutting_down: false,
+            }),
+            queue_cv: Condvar::new(),
+            task_finished_cv: Condvar::new(),
+            dedicated_finished_cv: Condvar::new(),
+        })
+    }
 
+    pub fn initiate_shutdown(tm: &TaskManager) {
+        let std_workers = {
+            let mut guard = tm.inner.lock().unwrap();
+            if guard.shutting_down {
+                return;
+            }
+            guard.shutting_down = true;
+            std::mem::take(&mut guard.std_workers)
+        };
+        tm.queue_cv.notify_all();
+        for worker in std_workers {
+            worker.join().expect("lean worker thread panicked");
+        }
+        let guard = tm.inner.lock().unwrap();
+        let _guard = tm
+            .dedicated_finished_cv
+            .wait_while(guard, |g| g.num_dedicated_workers > 0)
+            .unwrap();
+    }
+
+    impl TaskManager {
         fn enqueue(self: &Arc<Self>, t: *mut LeanTaskObject) {
             let mut guard = self.inner.lock().unwrap();
             self.enqueue_core(&mut guard, t);
@@ -232,25 +252,6 @@ pub(crate) mod runtime_object_task_impl {
             self.inner.lock().unwrap().shutting_down
         }
 
-        fn initiate_shutdown(&self) {
-            let std_workers = {
-                let mut guard = self.inner.lock().unwrap();
-                if guard.shutting_down {
-                    return;
-                }
-                guard.shutting_down = true;
-                std::mem::take(&mut guard.std_workers)
-            };
-            self.queue_cv.notify_all();
-            for worker in std_workers {
-                worker.join().expect("lean worker thread panicked");
-            }
-            let guard = self.inner.lock().unwrap();
-            let _guard = self
-                .dedicated_finished_cv
-                .wait_while(guard, |g| g.num_dedicated_workers > 0)
-                .unwrap();
-        }
     }
 
     impl Drop for TaskManager {
@@ -262,12 +263,6 @@ pub(crate) mod runtime_object_task_impl {
         }
     }
 
-    // ─── Global task manager ──────────────────────────────────────────────────
-
-    fn set_task_manager(tm: Option<Arc<TaskManager>>) {
-        *task_manager_cell().lock().unwrap() = tm;
-    }
-
     unsafe extern "C" {
         fn lean_initialize_thread();
         fn lean_finalize_thread();
@@ -275,26 +270,14 @@ pub(crate) mod runtime_object_task_impl {
 
     // ─── Init / finalize task manager ────────────────────────────────────────
 
-    pub fn lean_init_task_manager_using(num_workers: u32) {
+    pub fn lean_init_task_manager_using(num_workers: usize) {
         debug_assert!(get_task_manager().is_none());
         #[cfg(lean_multi_thread)]
         if num_workers > 0 {
-            set_task_manager(Some(TaskManager::new(num_workers as usize)));
+            set_task_manager(Some(new_task_manager(num_workers)));
         }
         #[cfg(not(lean_multi_thread))]
         let _ = num_workers;
-    }
-
-    pub fn lean_init_task_manager() {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 225 (🔁)
-        lean_init_task_manager_using(unsafe { lean_runtime_get_lean_num_threads() });
-    }
-
-    pub fn lean_finalize_task_manager() {
-        if let Some(tm) = get_task_manager() {
-            tm.initiate_shutdown();
-        }
-        set_task_manager(None);
     }
 
     // ─── Task spawn ───────────────────────────────────────────────────────────

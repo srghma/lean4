@@ -29,6 +29,7 @@ pub mod lean_mk_string_lossy_recover;
 pub mod lean_ptr_tag;
 pub mod lean_runtime_deactivate_promise;
 pub mod lean_runtime_deactivate_task;
+pub mod lean_runtime_get_lean_num_threads;
 pub mod lean_runtime_validate_utf8;
 pub mod lean_runtime_validate_utf8_one;
 pub mod lean_sarray_byte_size;
