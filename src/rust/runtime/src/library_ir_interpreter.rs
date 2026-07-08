@@ -161,16 +161,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_float(obj: *mut LeanObject, byte_offset: usize) -> f64 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 66 (🔁)
-
-        (obj.add(1) as *const u8)
-            .add(byte_offset)
-            .cast::<f64>()
-            .read_unaligned()
-    }
-
-    #[inline(always)]
     unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, byte_offset: usize) -> f32 {
         // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 71 (🔁)
 

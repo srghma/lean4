@@ -283,16 +283,6 @@ mod kernel_type_checker_impl {
         ) -> *mut LeanObject;
     }
 
-    // ---------------------------------------------------------------------------
-    // Local shims: adapt super::* Rust fns to signatures used in this module
-    // ---------------------------------------------------------------------------
-
-    #[inline(always)]
-    unsafe fn lean_ctor_get(o: *const LeanObject, i: u32) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 58 (🔁)
-
-        (o.add(1) as *const *mut LeanObject).add(i as usize).read()
-    }
-
     #[inline(always)]
     unsafe fn lean_level_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
         lean_level_eq_raw(a as *mut _, b as *mut _) != 0

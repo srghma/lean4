@@ -31,19 +31,6 @@ use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
 #[inline]
-pub unsafe fn lean_ctor_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
-    unsafe {
-        debug_assert!((idx as usize) < lean_ctor_num_objs(obj));
-        (obj.add(1) as *mut *mut LeanObject).add(idx).read()
-    }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_get_float(obj: *mut LeanObject, offset: usize) -> f64 {
-    unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *const f64) }
-}
-
-#[inline]
 pub unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, offset: usize) -> f32 {
     unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *const f32) }
 }
