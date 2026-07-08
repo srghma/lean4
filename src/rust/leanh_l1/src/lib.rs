@@ -92,3 +92,4 @@ pub mod runtime_object_panic;
 //     lean_sarray_byte_size, lean_string_byte_size, lean_string_data, lean_usize_to_nat,
 //     lock_once_cell, pop_back, push_back, run_once, set_next, unlock_once_cell,
 // };
+pub mod lean_is_exclusive;

@@ -297,12 +297,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
-
-        !lean_is_scalar(obj) && (*obj).rc == 1
-    }
-
-    #[inline(always)]
     unsafe fn lean_del_object(obj: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 318 (🔁)
 
         if !lean_is_scalar(obj) {

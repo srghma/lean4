@@ -24,7 +24,7 @@ type Occurrence = FnOccurrence & {
 };
 
 function usage(): never {
-  console.error("Usage: move_rust_fn_to_leanh_l1.ts [--write] <function_name>");
+  console.error("Usage: move_rust_fn_to_leanh_l1.ts <function_name>");
   process.exit(1);
 }
 
@@ -32,8 +32,109 @@ function isRustFile(file: string): boolean {
   return file.endsWith(".rs") || file.endsWith(".rs_");
 }
 
+function stripRustComments(text: string): string {
+  let out = "";
+  let i = 0;
+  while (i < text.length) {
+    const ch = text[i];
+    const next = text[i + 1];
+
+    if (ch === "/" && next === "/") {
+      i += 2;
+      while (i < text.length && text[i] !== "\n") i++;
+      continue;
+    }
+
+    if (ch === "/" && next === "*") {
+      i += 2;
+      let depth = 1;
+      while (i < text.length && depth > 0) {
+        if (text[i] === "/" && text[i + 1] === "*") {
+          depth++;
+          i += 2;
+          continue;
+        }
+        if (text[i] === "*" && text[i + 1] === "/") {
+          depth--;
+          i += 2;
+          continue;
+        }
+        i++;
+      }
+      continue;
+    }
+
+    if (ch === "r") {
+      let hashCount = 0;
+      let j = i + 1;
+      while (text[j] === "#") {
+        hashCount++;
+        j++;
+      }
+      if (text[j] === '"') {
+        let k = j + 1;
+        while (k < text.length) {
+          if (text[k] === '"' && text.slice(k + 1, k + 1 + hashCount) === "#".repeat(hashCount)) {
+            out += text.slice(i, k + 1 + hashCount);
+            i = k + 1 + hashCount;
+            break;
+          }
+          k++;
+        }
+        if (k >= text.length) {
+          out += text.slice(i);
+          i = text.length;
+        }
+        continue;
+      }
+    }
+
+    if (ch === '"') {
+      out += ch;
+      i++;
+      while (i < text.length) {
+        out += text[i];
+        if (text[i] === "\\" && i + 1 < text.length) {
+          out += text[i + 1];
+          i += 2;
+          continue;
+        }
+        if (text[i] === '"') {
+          i++;
+          break;
+        }
+        i++;
+      }
+      continue;
+    }
+
+    if (ch === "'") {
+      out += ch;
+      i++;
+      while (i < text.length) {
+        out += text[i];
+        if (text[i] === "\\" && i + 1 < text.length) {
+          out += text[i + 1];
+          i += 2;
+          continue;
+        }
+        if (text[i] === "'") {
+          i++;
+          break;
+        }
+        i++;
+      }
+      continue;
+    }
+
+    out += ch;
+    i++;
+  }
+  return out;
+}
+
 function normalizeBlock(text: string): string {
-  return text.replace(/\s+/g, " ").trim();
+  return stripRustComments(text).replace(/\s+/g, " ").trim();
 }
 
 function isPreambleLine(line: string): boolean {
@@ -172,11 +273,7 @@ async function findOccurrences(root: string, fnName: string, kind: OccurrenceKin
 async function printOccurrences(label: string, occs: FnOccurrence[]) {
   const prefix = occs.length === 0 ? `${red}${label}: 0${reset}` : `\n${label}: ${occs.length}`;
   console.log(prefix);
-  for (const occ of occs) {
-    console.log(`- ${path.relative(lean4Root, occ.file)}:${occ.startLine}-${occ.endLine}`);
-    console.log(occ.text);
-    console.log();
-  }
+  for (const occ of occs) console.log(`- ${path.relative(lean4Root, occ.file)}:${occ.startLine}-${occ.endLine}`);
 }
 
 function removeBlock(text: string, occ: FnOccurrence): string {
@@ -224,21 +321,8 @@ function groupDistinctBodies(occs: FnOccurrence[]): BodyGroup[] {
   return [...groups.values()];
 }
 
-function printBodyGroups(groups: BodyGroup[]) {
-  console.log(`\nDistinct bodies: ${groups.length}`);
-  groups.forEach((group, idx) => {
-    console.log(`- body #${idx + 1}: ${group.sources.length} occurrence(s)`);
-    for (const src of group.sources) {
-      console.log(`  - ${src.file}:${src.startLine}-${src.endLine}`);
-    }
-    console.log(group.text);
-    console.log();
-  });
-}
-
 async function main() {
   const args = process.argv.slice(2);
-  const write = args.includes("--write");
   const fnName = args.filter((arg) => arg !== "--write")[0];
   if (!fnName) usage();
 
@@ -249,8 +333,6 @@ async function main() {
   await printOccurrences("Current tree bodies", currentBodyOccs);
   await printOccurrences("Current tree decls", currentDeclOccs);
   await printOccurrences("Original tree", originalOccs);
-
-  if (!write) return;
 
   if (currentBodyOccs.length === 0 && currentDeclOccs.length === 0) {
     console.error(`${red}warning:${reset} no current-tree implementation found for ${fnName} in ${workRoot}`);
@@ -265,7 +347,13 @@ async function main() {
   const referenceNorm = normalizeBlock(sourceOccs[0].text);
   const sameShapeOccs = [...originalOccs, ...currentBodyOccs].filter((occ) => normalizeBlock(occ.text) === referenceNorm);
   const distinctBodies = groupDistinctBodies([...originalOccs, ...currentBodyOccs]);
-  printBodyGroups(distinctBodies);
+  console.log(`\nDistinct bodies: ${distinctBodies.length}`);
+  for (const [idx, group] of distinctBodies.entries()) {
+    console.log(`- body #${idx + 1}: ${group.sources.length} occurrence(s)`);
+    for (const src of group.sources) {
+      console.log(`  - ${src.file}:${src.startLine}-${src.endLine}`);
+    }
+  }
 
   const targetPath = path.join(targetDir, `${fnName}.rs_`);
   await fs.mkdir(path.dirname(targetPath), { recursive: true });
@@ -289,6 +377,23 @@ async function main() {
     "",
   ].join("\n");
   await fs.writeFile(targetPath, appended, "utf8");
+
+  const finalPath = path.join(targetDir, `${fnName}.rs`);
+  const finalExists = await fs.stat(finalPath).then((s) => s.isFile()).catch(() => false);
+  if (!finalExists) {
+    await fs.rename(targetPath, finalPath);
+  }
+
+  const libPath = path.join(targetDir, "lib.rs");
+  const libText = await fs.readFile(libPath, "utf8");
+  const modLine = `pub mod ${fnName};`;
+  if (!new RegExp(String.raw`^\s*pub\s+mod\s+${fnName};\s*$`, "m").test(libText)) {
+    const lines = libText.split(/\r?\n/);
+    let insertAt = lines.length;
+    while (insertAt > 0 && /^\s*$/.test(lines[insertAt - 1])) insertAt--;
+    lines.splice(insertAt, 0, modLine);
+    await fs.writeFile(libPath, lines.join("\n") + "\n", "utf8");
+  }
 
   for (const occ of currentBodyOccs) {
     if (path.resolve(occ.file).startsWith(path.resolve(targetDir))) continue;

@@ -21,11 +21,6 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
-        (*o).rc == 1
-    }
-
-    #[inline]
     unsafe fn lean_array_capacity(o: *mut LeanObject) -> usize {
         (*(o as *const LeanArrayObject)).capacity
     }

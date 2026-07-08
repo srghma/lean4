@@ -42,12 +42,6 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_is_exclusive(o: *mut LeanObject) -> bool {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 250 (🔁)
-        (*o).rc == 1
-    }
-
-    #[inline]
     unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) {
         // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
         (o.add(1) as *mut *mut LeanObject).add(i).write(v);

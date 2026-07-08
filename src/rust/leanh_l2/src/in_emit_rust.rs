@@ -398,15 +398,6 @@ pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
-    // if ::std::intrinsics::likely(lean_is_st(obj)) {
-    unsafe { (*obj).rc == 1 }
-    // } else {
-    //     false
-    // }
-}
-
-#[inline]
 pub unsafe fn lean_dec_ref(obj: *mut LeanObject) {
     if UAF_DETECT && (*obj).rc == LEAN_UAF_POISON_RC {
         quar_report_uaf(obj, "dec");
