@@ -22,6 +22,7 @@ pub mod lean_ctor_set_uint64;
 pub mod lean_ctor_set_usize;
 pub mod lean_is_scalar;
 pub mod lean_unbox;
+pub mod runtime_apply;
 pub mod runtime_object_panic;
 // pub mod base;
 // pub mod in_emit_rust;
