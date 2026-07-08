@@ -2,30 +2,33 @@ use core::ffi::c_void;
 
 use crate::{
     datatypes::{LeanClosureObject, LeanObject},
-    lean_alloc_closure::lean_alloc_closure,
-    lean_dec::lean_dec,
-    lean_dec_ref::lean_dec_ref,
+    emitted::lean_alloc_closure::lean_alloc_closure,
+    emitted::lean_dec::lean_dec,
+    emitted::lean_dec_ref::lean_dec_ref,
+    emitted::lean_inc::lean_inc,
+    emitted::lean_is_exclusive::lean_is_exclusive,
+    emitted::lean_is_scalar::lean_is_scalar_bool,
     lean_free_object::lean_free_object,
-    lean_inc::lean_inc,
-    lean_is_exclusive::lean_is_exclusive,
-    lean_is_scalar::lean_is_scalar_bool,
     r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr,
 };
 
 #[inline]
-fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void { // TODO: extract
+fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void {
+    // TODO: extract
     let clo = f as *mut LeanClosureObject<0>;
     unsafe { (*clo).m_fun }
 }
 
 #[inline]
-fn closure_arity(f: *mut LeanObject) -> u32 { // TODO: extract
+fn closure_arity(f: *mut LeanObject) -> u32 {
+    // TODO: extract
     let clo = f as *mut LeanClosureObject<0>;
     unsafe { (*clo).m_arity as u32 }
 }
 
 #[inline]
-fn closure_num_fixed(f: *mut LeanObject) -> u32 { // TODO: extract
+fn closure_num_fixed(f: *mut LeanObject) -> u32 {
+    // TODO: extract
     let clo = f as *mut LeanClosureObject<0>;
     unsafe { (*clo).m_num_fixed as u32 }
 }

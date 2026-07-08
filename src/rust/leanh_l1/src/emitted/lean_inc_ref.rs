@@ -1,4 +1,4 @@
-use crate::{datatypes::LeanObject, lean_inc_ref_n::lean_inc_ref_n};
+use crate::{datatypes::LeanObject, emitted::lean_inc_ref_n::lean_inc_ref_n};
 
 #[inline]
 pub unsafe fn lean_inc_ref(obj: *mut LeanObject) {

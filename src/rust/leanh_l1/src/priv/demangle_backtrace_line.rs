@@ -2,8 +2,8 @@ use core::ffi::c_char;
 use libloading::os::unix::Library as UnixLibrary;
 
 use crate::datatypes::LeanObject;
-use crate::lean_dec::lean_dec;
-use crate::lean_mk_string::lean_mk_string;
+use crate::emitted::lean_dec::lean_dec;
+use crate::emitted::lean_mk_string::lean_mk_string;
 use crate::r#priv::lean_string_cstr::lean_string_cstr;
 use crate::runtime_object_panic::lean_internal_panic_out_of_memory::cstr_lossy;
 

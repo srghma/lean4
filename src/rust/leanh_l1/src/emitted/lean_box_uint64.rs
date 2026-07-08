@@ -1,8 +1,8 @@
 use std::ffi::c_uint;
 
 use crate::{
-    datatypes::LeanObject, lean_alloc_ctor::lean_alloc_ctor,
-    lean_ctor_set_uint64::lean_ctor_set_uint64,
+    datatypes::LeanObject, emitted::lean_alloc_ctor::lean_alloc_ctor,
+    emitted::lean_ctor_set_uint64::lean_ctor_set_uint64,
 };
 
 #[inline]

@@ -1,7 +1,7 @@
 use crate::{
     datatypes::LeanObject,
-    lean_is_scalar::lean_is_scalar_bool,
-    lean_unbox::lean_unbox,
+    emitted::lean_is_scalar::lean_is_scalar_bool,
+    emitted::lean_unbox::lean_unbox,
 };
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`,

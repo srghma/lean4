@@ -2,7 +2,7 @@ use std::ffi::c_char;
 
 use crate::{
     datatypes::LeanObject,
-    lean_mk_string_unchecked::lean_mk_string_unchecked,
+    emitted::lean_mk_string_unchecked::lean_mk_string_unchecked,
     r#priv::{
         lean_mk_string_lossy_recover::lean_mk_string_lossy_recover,
         lean_runtime_validate_utf8::lean_runtime_validate_utf8,

@@ -1,6 +1,6 @@
 use crate::datatypes::{LeanTaskImp, LeanTaskObject};
-use crate::lean_dec::lean_dec;
-use crate::lean_dec_ref::lean_dec_ref;
+use crate::emitted::lean_dec::lean_dec;
+use crate::emitted::lean_dec_ref::lean_dec_ref;
 use crate::r#priv::free_task::free_task;
 use crate::runtime_object_task::p1_get_task_manager::{TaskManager, TaskManagerInner};
 use std::sync::atomic::Ordering;

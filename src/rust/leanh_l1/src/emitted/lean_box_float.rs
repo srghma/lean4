@@ -1,6 +1,6 @@
 use std::ptr;
 
-use crate::{datatypes::LeanObject, lean_alloc_ctor::lean_alloc_ctor};
+use crate::{datatypes::LeanObject, emitted::lean_alloc_ctor::lean_alloc_ctor};
 
 #[inline]
 pub unsafe fn lean_box_float(value: f64) -> *mut LeanObject {

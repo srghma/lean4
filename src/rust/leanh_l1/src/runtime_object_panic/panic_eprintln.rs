@@ -1,6 +1,6 @@
 use crate::datatypes::LeanObject;
-use crate::lean_box::lean_box;
-use crate::lean_dec::lean_dec;
+use crate::emitted::lean_box::lean_box;
+use crate::emitted::lean_dec::lean_dec;
 use crate::r#priv::lean_mk_string_from_bytes::lean_mk_string_from_bytes;
 use crate::r#priv::lean_string_cstr::lean_string_cstr;
 use crate::r#priv::lean_string_size::lean_string_size;

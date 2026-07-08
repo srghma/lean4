@@ -4,7 +4,7 @@ use std::sync::atomic::Ordering;
 
 use crate::{
     datatypes::LeanTaskObject,
-    lean_dec::lean_dec,
+    emitted::lean_dec::lean_dec,
     r#priv::free_task::free_task,
     runtime_object_task::{
         p1_get_task_manager::get_task_manager, p2_deactivate_task_obj::deactivate_task_obj,

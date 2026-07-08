@@ -1,7 +1,7 @@
 use std::ffi::c_char;
 
 use crate::{
-    datatypes::LeanObject, lean_mk_string_unchecked::lean_mk_string_unchecked,
+    datatypes::LeanObject, emitted::lean_mk_string_unchecked::lean_mk_string_unchecked,
     r#priv::lean_runtime_validate_utf8_one::lean_runtime_validate_utf8_one,
 };
 

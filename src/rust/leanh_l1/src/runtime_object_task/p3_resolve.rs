@@ -1,7 +1,7 @@
 use crate::datatypes::{LeanObject, LeanTaskImp, LeanTaskObject};
-use crate::lean_box::lean_box;
-use crate::lean_dec::lean_dec;
-use crate::lean_dec_ref::lean_dec_ref;
+use crate::emitted::lean_box::lean_box;
+use crate::emitted::lean_dec::lean_dec;
+use crate::emitted::lean_dec_ref::lean_dec_ref;
 use crate::r#priv::free_task::free_task;
 use crate::r#priv::free_task_imp::free_task_imp;
 use crate::r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr;

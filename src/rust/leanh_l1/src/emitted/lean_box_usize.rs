@@ -1,6 +1,6 @@
 use crate::{
-    datatypes::LeanObject, lean_alloc_ctor::lean_alloc_ctor,
-    lean_ctor_set_usize::lean_ctor_set_usize,
+    datatypes::LeanObject, emitted::lean_alloc_ctor::lean_alloc_ctor,
+    emitted::lean_ctor_set_usize::lean_ctor_set_usize,
 };
 
 // NOT IN EmitRust; here because it is used in `lean_box_float`, `lean_box_float32`, `lean_box_uint32`, `lean_box_uint64`, and 18 more EmitRust functions.

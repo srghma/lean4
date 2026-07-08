@@ -1,7 +1,7 @@
 #[cfg(lean_multi_thread)]
 use std::{ffi::c_void, sync::atomic::Ordering};
 
-use crate::lean_box::lean_box;
+use crate::emitted::lean_box::lean_box;
 #[cfg(lean_multi_thread)]
 use crate::{
     datatypes::{
@@ -10,9 +10,9 @@ use crate::{
         LEAN_THUNK_TAG, LeanExternalObject, LeanObject, LeanPromiseObject, LeanRefObject,
         LeanThunkObject,
     },
-    lean_alloc_closure::lean_alloc_closure,
-    lean_dec::lean_dec,
-    lean_is_scalar::lean_is_scalar_bool,
+    emitted::lean_alloc_closure::lean_alloc_closure,
+    emitted::lean_dec::lean_dec,
+    emitted::lean_is_scalar::lean_is_scalar_bool,
     r#priv::{
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
         lean_closure_arg_cptr::lean_closure_arg_cptr,

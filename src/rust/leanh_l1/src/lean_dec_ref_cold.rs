@@ -7,7 +7,7 @@ use std::{
 
 use crate::{
     datatypes::LeanObject,
-    lean_is_scalar::lean_is_scalar_bool,
+    emitted::lean_is_scalar::lean_is_scalar_bool,
     r#priv::{lean_del_core::lean_del_core, pop_back::pop_back},
 };
 

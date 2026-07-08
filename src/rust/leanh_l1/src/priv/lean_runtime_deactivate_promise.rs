@@ -1,6 +1,6 @@
 use crate::{
     datatypes::{LeanObject, LeanPromiseObject},
-    lean_dec_ref::lean_dec_ref,
+    emitted::lean_dec_ref::lean_dec_ref,
     r#priv::{lean_free_small_object::lean_free_small_object, mk_option_none::mk_option_none},
     runtime_object_task::{p1_get_task_manager::get_task_manager, p3_resolve::resolve},
 };
