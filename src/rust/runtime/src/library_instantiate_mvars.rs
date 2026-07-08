@@ -227,10 +227,6 @@ mod library_instantiate_mvars_impl {
         lean_level_mk_imax(lhs, rhs)
     }
 
-    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
-        (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
-    }
-
     unsafe fn has_level_mvar(l: *mut LeanObject) -> bool {
         if lean_is_scalar(l) {
             false

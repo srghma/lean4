@@ -40,22 +40,6 @@ mod runtime_process_impl {
     unsafe fn io_result_err_errno(errnum: c_int) -> *mut LeanObject {
         lean_io_result_mk_error(lean_decode_io_error(errnum, null_mut()))
     }
-
-    unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, byte_offset: usize, v: u32) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 150 (🔁)
-
-        (obj.add(1) as *mut u8)
-            .add(byte_offset)
-            .cast::<u32>()
-            .write_unaligned(v);
-    }
-
-    // lean_ctor_set (set object field) is not in lib.rs – define locally
-    unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: usize, val: *mut LeanObject) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
-
-        (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
-    }
     unsafe fn mk_option_some(v: *mut LeanObject) -> *mut LeanObject {
         let r = lean_alloc_ctor(1, 1, 0);
         lean_runtime_ctor_set(r, 0, v);

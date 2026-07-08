@@ -30,45 +30,6 @@ use crate::runtime_process::initialize_process;
 use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
-#[inline]
-pub unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: u32, value: *mut LeanObject) {
-    unsafe {
-        debug_assert!((idx as usize) < lean_ctor_num_objs(obj));
-        *lean_ctor_obj_cptr(obj).add(idx as usize) = value;
-    }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, offset: usize, value: f32) {
-    unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *mut f32) = value }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_tag(obj: *mut LeanObject, new_tag: u8) {
-    unsafe {
-        debug_assert!(new_tag <= LEAN_MAX_CTOR_TAG);
-        (*obj).tag = new_tag;
-    }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_uint16(obj: *mut LeanObject, offset: usize, value: u16) {
-    (obj.add(1) as *mut u8)
-        .add(offset)
-        .cast::<u16>()
-        .write(value);
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u32) {
-    unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *mut u32) = value }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
-    (obj.add(1) as *mut u8).add(offset).write(value);
-}
-
 // #[inline]
 // pub unsafe fn lean_finalize_task_manager() {}
 
@@ -317,47 +278,6 @@ pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) {
-    unsafe {
-        debug_assert!(idx < lean_ctor_num_objs(obj));
-        let slot = lean_ctor_obj_cptr(obj).add(idx);
-        lean_dec(*slot);
-        *slot = lean_box(0);
-    }
-}
-
-#[inline]
-pub unsafe fn lean_del_object(obj: *mut LeanObject) {
-    unsafe {
-        if !lean_is_scalar_bool(obj) {
-            lean_free_object(obj);
-        }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_dec_ref_known(obj: *mut LeanObject, objs: usize) {
-    unsafe {
-        debug_assert!(lean_is_ref(obj));
-        if lean_is_exclusive(obj) {
-            for i in 0..objs {
-                lean_dec(lean_ctor_get(obj, i));
-            }
-            lean_del_object(obj);
-        } else {
-            lean_dec_ref(obj);
-        }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
-    if !lean_is_scalar_bool(obj) {
-        unsafe { lean_inc_ref_n(obj, n) };
-    }
-}
-
-#[inline]
 pub unsafe fn lean_obj_once(
     loc: *mut *mut LeanObject,
     tok: *mut LeanOnceCell,
@@ -384,50 +304,6 @@ pub unsafe fn lean_run_main(
 #[inline]
 pub unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
     argv
-}
-
-#[inline]
-pub unsafe fn lean_uint16_once(loc: *mut u16, tok: *mut LeanOnceCell, init: U16InitFn) -> u16 {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_uint32_once(loc: *mut u32, tok: *mut LeanOnceCell, init: U32InitFn) -> u32 {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_uint64_once(loc: *mut u64, tok: *mut LeanOnceCell, init: U64InitFn) -> u64 {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_uint8_once(loc: *mut u8, tok: *mut LeanOnceCell, init: U8InitFn) -> u8 {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
-    }
 }
 
 #[inline]
@@ -569,62 +445,5 @@ pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
         eprintln!("uncaught exception: {}", text.to_string_lossy());
         lean_dec(msg);
         lean_dec(err);
-    }
-}
-
-#[inline]
-pub unsafe fn lean_unbox_float(obj: *mut LeanObject) -> f64 {
-    unsafe { lean_ctor_get_float(obj, 0) }
-}
-
-#[inline]
-pub unsafe fn lean_unbox_float32(obj: *mut LeanObject) -> f32 {
-    unsafe { lean_ctor_get_float32(obj, 0) }
-}
-
-#[inline]
-pub unsafe fn lean_unbox_uint32(obj: *mut LeanObject) -> u32 {
-    unsafe {
-        let mut value = 0u32;
-        ptr::copy_nonoverlapping(
-            lean_ctor_scalar_cptr(obj, 0),
-            &mut value as *mut u32 as *mut u8,
-            core::mem::size_of::<u32>(),
-        );
-        value
-    }
-}
-
-#[inline]
-pub unsafe fn lean_unbox_uint64(obj: *mut LeanObject) -> u64 {
-    unsafe { lean_ctor_get_uint64(obj, 0) }
-}
-
-#[inline]
-pub unsafe fn lean_unbox_usize(obj: *mut LeanObject) -> usize {
-    unsafe {
-        let mut value = 0usize;
-        ptr::copy_nonoverlapping(
-            lean_ctor_scalar_cptr(obj, 0),
-            &mut value as *mut usize as *mut u8,
-            core::mem::size_of::<usize>(),
-        );
-        value
-    }
-}
-
-#[inline]
-pub unsafe fn lean_unsigned_to_nat(value: u32) -> *mut LeanObject {
-    unsafe { lean_usize_to_nat(value as usize) }
-}
-
-#[inline]
-pub unsafe fn lean_usize_once(loc: *mut usize, tok: *mut LeanOnceCell, init: UsizeInitFn) -> usize {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
     }
 }

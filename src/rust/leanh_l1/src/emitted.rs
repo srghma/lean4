@@ -78,11 +78,24 @@ pub mod lean_ctor_get_uint32;
 pub mod lean_ctor_get_uint64;
 pub mod lean_ctor_get_uint8;
 pub mod lean_ctor_get_usize;
-
-
-
-
-
-
-
-
+pub mod lean_ctor_release;
+pub mod lean_ctor_set;
+pub mod lean_ctor_set_float32;
+pub mod lean_ctor_set_tag;
+pub mod lean_ctor_set_uint16;
+pub mod lean_ctor_set_uint32;
+pub mod lean_ctor_set_uint8;
+pub mod lean_dec_ref_known;
+pub mod lean_del_object;
+pub mod lean_inc_n;
+pub mod lean_uint16_once;
+pub mod lean_uint32_once;
+pub mod lean_uint64_once;
+pub mod lean_uint8_once;
+pub mod lean_unbox_float;
+pub mod lean_unbox_float32;
+pub mod lean_unbox_uint32;
+pub mod lean_unbox_uint64;
+pub mod lean_unbox_usize;
+pub mod lean_unsigned_to_nat;
+pub mod lean_usize_once;

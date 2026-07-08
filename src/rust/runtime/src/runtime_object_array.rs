@@ -49,11 +49,6 @@ mod runtime_object_array_impl {
         }
     }
 
-    #[inline]
-    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 591 (🔁)
-        ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
-    }
-
     unsafe fn copy_sarray_with_capacity(a: *mut LeanObject, cap: usize) -> *mut LeanObject {
         let esz = lean_sarray_elem_size(a);
         let sz = lean_sarray_size(a);

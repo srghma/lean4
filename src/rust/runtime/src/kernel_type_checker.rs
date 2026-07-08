@@ -293,12 +293,6 @@ mod kernel_type_checker_impl {
         lean_expr_eqv_raw(a as *mut _, b as *mut _) != 0
     }
 
-    #[inline(always)]
-    unsafe fn lean_ctor_set(o: *mut LeanObject, i: u32, v: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
-
-        lean_runtime_ctor_set(o, i, v)
-    }
-
     /// Borrowing wrapper around `lean_expr_hash`. The exported `lean_expr_hash`
     /// (`@[export] def hashEx : Expr → UInt64`) takes its `Expr` argument by value and
     /// therefore **consumes** (decrements) it. All call sites here only hold borrowed

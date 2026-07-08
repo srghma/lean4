@@ -35,20 +35,6 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_ctor_set(o: *mut LeanObject, i: usize, v: *mut LeanObject) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 101 (🔁)
-        (o.add(1) as *mut *mut LeanObject).add(i).write(v);
-    }
-
-    // On 64-bit, UInt32 fits in a Lean scalar.
-
-    #[inline]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
-        lean_unbox(o) as u32
-    }
-
-    #[inline]
     fn lean_char_default_value() -> u32 {
         b'A' as u32
     }

@@ -179,46 +179,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, byte_offset: usize, v: f32) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 123 (🔁)
-
-        (obj.add(1) as *mut u8)
-            .add(byte_offset)
-            .cast::<f32>()
-            .write_unaligned(v);
-    }
-
-    #[inline(always)]
-    unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 308 (🔁)
-
-        let fld = lean_ctor_get_obj(obj, idx);
-        lean_dec(fld);
-        lean_ctor_set_obj(obj, idx, lean_box(0));
-    }
-
-    #[inline(always)]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
-
-        lean_unbox(o) as u32
-    }
-
-    #[inline(always)]
-    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 591 (🔁)
-
-        ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
-    }
-
-    #[inline(always)]
-    unsafe fn lean_unbox_float32(o: *mut LeanObject) -> f32 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 596 (🔁)
-
-        ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f32)
-    }
-
-    #[inline(always)]
     unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
         (obj as *const u8)
             .add(24)
@@ -242,15 +202,6 @@ mod library_ir_interpreter_impl {
             lean_unbox(a)
         } else {
             lean_usize_of_big_nat(a)
-        }
-    }
-
-    #[inline(always)]
-    unsafe fn lean_del_object(obj: *mut LeanObject) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 318 (🔁)
-
-        if !lean_is_scalar(obj) {
-            lean_free_object(obj);
         }
     }
 
