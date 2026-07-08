@@ -1,6 +1,6 @@
 use crate::{
     datatypes::LeanObject,
-    lean_dec_ref_cold::lean_dec_ref_cold,
+    r#priv::lean_dec_ref_cold::lean_dec_ref_cold,
     r#priv::quar::{LEAN_UAF_POISON_RC, UAF_DETECT, quar_report_uaf},
 };
 

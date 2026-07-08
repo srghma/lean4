@@ -8,8 +8,8 @@ use crate::{
     emitted::lean_inc::lean_inc,
     emitted::lean_is_exclusive::lean_is_exclusive,
     emitted::lean_is_scalar::lean_is_scalar_bool,
-    lean_free_object::lean_free_object,
     r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr,
+    r#priv::lean_free_object::lean_free_object,
 };
 
 #[inline]

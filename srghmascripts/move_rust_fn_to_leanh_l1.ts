@@ -9,8 +9,10 @@ const workRoot = path.join(lean4Root, "src/rust");
 const red = "\x1b[31m";
 const reset = "\x1b[0m";
 
-const corePublicFunctions = new Set([
+const emittedFunctions = new Set([
   "lean_alloc_closure",
+  "lean_alloc_ctor",
+  "lean_box",
   "lean_box_float",
   "lean_box_float32",
   "lean_box_uint32",
@@ -39,6 +41,7 @@ const corePublicFunctions = new Set([
   "lean_dec",
   "lean_dec_ref",
   "lean_dec_ref_known",
+  "lean_del_object",
   "lean_float_once",
   "lean_float32_once",
   "lean_inc",
@@ -63,7 +66,6 @@ const corePublicFunctions = new Set([
   "lean_obj_tag",
   "lean_run_main",
   "lean_setup_args",
-  "lean_small_nat",
   "lean_uint8_dec_eq",
   "lean_uint8_dec_le",
   "lean_uint8_dec_lt",
@@ -99,6 +101,8 @@ const corePublicFunctions = new Set([
   "lean_unbox_usize",
   "lean_unsigned_to_nat",
   "lean_usize_once",
+  "lean_finalize_task_manager",
+  "lean_internal_panic_unreachable",
 ]);
 
 type FnOccurrence = {
@@ -125,11 +129,11 @@ function usage(): never {
 }
 
 function getDestination(fnName: string): Destination {
-  const isCore = corePublicFunctions.has(fnName);
-  return isCore
+  const isEmitted = emittedFunctions.has(fnName);
+  return isEmitted
     ? {
-        targetDir: path.join(workRoot, "leanh_l1/src"),
-        moduleFile: path.join(workRoot, "leanh_l1/src/lib.rs"),
+        targetDir: path.join(workRoot, "leanh_l1/src/emitted"),
+        moduleFile: path.join(workRoot, "leanh_l1/src/emitted.rs"),
       }
     : {
         targetDir: path.join(workRoot, "leanh_l1/src/priv"),
