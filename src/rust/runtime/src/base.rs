@@ -19,16 +19,7 @@ use leanh::{
 unsafe extern "C" {
     pub fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_mk_io_error_invalid_argument(
-        errnum: u32,
-        details: *mut LeanObject,
-    ) -> *mut LeanObject;
     pub fn lean_alloc_object(size: Size) -> *mut LeanObject; // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 459 (🔁)
-    pub fn lean_mk_io_error_invalid_argument_file(
-        name: *mut LeanObject,
-        errnum: u32,
-        details: *mut LeanObject,
-    ) -> *mut LeanObject;
     pub fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;

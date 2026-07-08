@@ -40,11 +40,6 @@ mod runtime_process_impl {
     unsafe fn io_result_err_errno(errnum: c_int) -> *mut LeanObject {
         lean_io_result_mk_error(lean_decode_io_error(errnum, null_mut()))
     }
-    unsafe fn mk_option_some(v: *mut LeanObject) -> *mut LeanObject {
-        let r = lean_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(r, 0, v);
-        r
-    }
 
     // ─── layout constants for IO.Process.Child ───────────────────────────────
     // The child struct:

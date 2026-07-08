@@ -1,15 +1,41 @@
 use std::ffi::c_int;
 
 use leanh_l1::{
-    datatypes::{LeanObject, Size},
+    datatypes::LeanObject,
     emitted::{lean_inc::lean_inc, lean_mk_string::lean_mk_string},
+};
+
+use crate::todo_import_from_lean::{
+    lean_mk_io_error_already_exists::lean_mk_io_error_already_exists,
+    lean_mk_io_error_already_exists_file::lean_mk_io_error_already_exists_file,
+    lean_mk_io_error_hardware_fault::lean_mk_io_error_hardware_fault,
+    lean_mk_io_error_illegal_operation::lean_mk_io_error_illegal_operation,
+    lean_mk_io_error_inappropriate_type::lean_mk_io_error_inappropriate_type,
+    lean_mk_io_error_inappropriate_type_file::lean_mk_io_error_inappropriate_type_file,
+    lean_mk_io_error_interrupted::lean_mk_io_error_interrupted,
+    lean_mk_io_error_invalid_argument::lean_mk_io_error_invalid_argument,
+    lean_mk_io_error_invalid_argument_file::lean_mk_io_error_invalid_argument_file,
+    lean_mk_io_error_no_file_or_directory::lean_mk_io_error_no_file_or_directory,
+    lean_mk_io_error_no_such_thing::lean_mk_io_error_no_such_thing,
+    lean_mk_io_error_no_such_thing_file::lean_mk_io_error_no_such_thing_file,
+    lean_mk_io_error_other_error::lean_mk_io_error_other_error,
+    lean_mk_io_error_permission_denied::lean_mk_io_error_permission_denied,
+    lean_mk_io_error_permission_denied_file::lean_mk_io_error_permission_denied_file,
+    lean_mk_io_error_protocol_error::lean_mk_io_error_protocol_error,
+    lean_mk_io_error_resource_busy::lean_mk_io_error_resource_busy,
+    lean_mk_io_error_resource_exhausted::lean_mk_io_error_resource_exhausted,
+    lean_mk_io_error_resource_exhausted_file::lean_mk_io_error_resource_exhausted_file,
+    lean_mk_io_error_resource_vanished::lean_mk_io_error_resource_vanished,
+    lean_mk_io_error_time_expired::lean_mk_io_error_time_expired,
+    lean_mk_io_error_unsatisfied_constraints::lean_mk_io_error_unsatisfied_constraints,
+    lean_mk_io_error_unsupported_operation::lean_mk_io_error_unsupported_operation,
 };
 
 unsafe fn mk_details(errnum: c_int) -> *mut LeanObject {
     lean_mk_string(libc::strerror(errnum))
 }
 
-unsafe fn with_optional_file(
+pub(crate) unsafe fn with_optional_file(
     fname: *mut LeanObject,
     errnum: c_int,
     details: *mut LeanObject,

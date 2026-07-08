@@ -64,15 +64,6 @@ pub(crate) mod runtime_object_task_impl {
         c
     }
 
-    // ─── Option helpers ───────────────────────────────────────────────────────
-
-    #[inline(always)]
-    unsafe fn mk_option_some(v: *mut LeanObject) -> *mut LeanObject {
-        let r = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(r, 0, v);
-        r
-    }
-
     // ─── Task header helpers ──────────────────────────────────────────────────
 
     // Set the header for a multi-thread (rc = -1) task object.
