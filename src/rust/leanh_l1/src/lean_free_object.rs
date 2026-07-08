@@ -1,5 +1,4 @@
 use crate::{
-    common1::lean_ptr_tag,
     datatypes::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_MPZ_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG,
         LeanMpzObject, LeanObject,
@@ -7,6 +6,7 @@ use crate::{
     r#priv::{
         lean_array_byte_size::lean_array_byte_size, lean_closure_byte_size::lean_closure_byte_size,
         lean_dealloc::lean_dealloc, lean_free_small_object::lean_free_small_object,
+        lean_ptr_tag::lean_ptr_tag,
         lean_sarray_byte_size::lean_sarray_byte_size, lean_string_byte_size::lean_string_byte_size,
     },
 };

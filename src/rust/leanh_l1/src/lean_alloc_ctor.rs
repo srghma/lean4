@@ -1,9 +1,9 @@
 use crate::{
-    common1::lean_alloc_ctor_memory,
     datatypes::{
         LEAN_MAX_CTOR_FIELDS, LEAN_MAX_CTOR_SCALARS_SIZE, LEAN_MAX_CTOR_TAG, LeanCtorObject,
         LeanObject,
     },
+    r#priv::lean_alloc_ctor_memory::lean_alloc_ctor_memory,
 };
 
 #[inline]

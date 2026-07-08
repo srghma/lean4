@@ -53,7 +53,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 #[cfg(not(target_pointer_width = "64"))]
 compile_error!("Lean Rust support crates require 64-bit pointer width");
 
-pub mod common1;
 pub mod datatypes;
 pub mod lean_alloc_closure;
 pub mod lean_alloc_ctor;
@@ -110,5 +109,4 @@ pub mod runtime_stack_overflow;
 pub mod runtime_thread;
 pub mod lean_mk_string_unchecked;
 pub mod lean_mk_string;
-
 

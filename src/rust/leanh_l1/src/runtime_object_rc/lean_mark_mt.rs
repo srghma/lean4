@@ -4,7 +4,6 @@ use std::{ffi::c_void, sync::atomic::Ordering};
 use crate::lean_box::lean_box;
 #[cfg(lean_multi_thread)]
 use crate::{
-    common1::{lean_ctor_obj_cptr, lean_ptr_tag},
     datatypes::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
         LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
@@ -18,7 +17,8 @@ use crate::{
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
         lean_closure_arg_cptr::lean_closure_arg_cptr,
         lean_closure_num_fixed::lean_closure_num_fixed, lean_ctor_num_objs::lean_ctor_num_objs,
-        lean_is_st::lean_is_st,
+        lean_ctor_obj_cptr::lean_ctor_obj_cptr, lean_is_st::lean_is_st,
+        lean_ptr_tag::lean_ptr_tag,
     },
     runtime_object_panic::lean_internal_panic_out_of_memory::lean_internal_panic,
     runtime_object_task::lean_task_get::lean_task_get,

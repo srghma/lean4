@@ -1,7 +1,7 @@
 use libmimalloc_sys as mi;
 use std::{ffi::c_void, ptr, sync::atomic::Ordering};
 
-use crate::{common1::lean_ptr_tag, datatypes::LeanObject};
+use crate::{datatypes::LeanObject, r#priv::lean_ptr_tag::lean_ptr_tag};
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 5 more EmitRust functions.
 // ===================== over-free / use-after-free detector (DEBUG) =====================
