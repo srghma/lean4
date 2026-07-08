@@ -103,3 +103,5 @@ pub mod lean_unbox_uint64;
 pub mod lean_unbox_usize;
 pub mod lean_unsigned_to_nat;
 pub mod lean_usize_once;
+pub mod lean_obj_tag;
+

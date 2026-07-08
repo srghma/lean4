@@ -356,17 +356,6 @@ define_uint_family!(
 );
 
 #[inline]
-pub unsafe fn lean_obj_tag(obj: *mut LeanObject) -> u8 {
-    // unsafe {
-    //     if lean_is_scalar_bool(obj) {
-    //         lean_unbox(obj) as u8
-    //     } else {
-    lean_ptr_tag(obj)
-    //     }
-    // }
-}
-
-#[inline]
 pub unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
     unsafe { lean_ptr_tag(obj) == 1 }
 }
