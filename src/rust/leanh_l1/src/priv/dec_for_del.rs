@@ -16,12 +16,11 @@ pub unsafe fn dec_for_del(o: *mut LeanObject, todo: &mut *mut LeanObject) {
         } else if (*o).rc == 1 {
             push_back(todo, o);
         } else if (*o).rc == 0 {
-            return;
-        } else if {
+        } else {
             let rc = core::ptr::addr_of_mut!((*o).rc).cast::<AtomicI32>();
-            (*rc).fetch_add(1, Ordering::AcqRel) == -1
-        } {
-            push_back(todo, o);
+            if (*rc).fetch_add(1, Ordering::AcqRel) == -1 {
+                push_back(todo, o);
+            }
         }
     }
 }

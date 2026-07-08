@@ -15,16 +15,16 @@ macro_rules! with_mutex_unlocked {
             core::ptr::drop_in_place(p);
             let _result = $body;
             let new_guard = $mutex.lock().unwrap();
-            core::ptr::write(p, core::mem::transmute(new_guard));
+            core::ptr::write(p, new_guard);
             _result
         }
     }};
 }
 
 pub(crate) use with_mutex_unlocked;
-fn deactivate_task_core(
-    slf: &Arc<TaskManager>,
-    guard: &mut MutexGuard<'_, TaskManagerInner>,
+fn deactivate_task_core<'a>(
+    slf: &'a Arc<TaskManager>,
+    guard: &mut MutexGuard<'a, TaskManagerInner>,
     t: *mut LeanTaskObject,
 ) {
     let imp = unsafe { (*t).m_imp as *mut LeanTaskImp };
@@ -50,7 +50,7 @@ fn deactivate_task_core(
     });
 }
 
-pub fn deactivate_task_obj(slf: &Arc<TaskManager>, t: *mut LeanTaskObject) {
+pub unsafe fn deactivate_task_obj(slf: &Arc<TaskManager>, t: *mut LeanTaskObject) {
     let mut guard = slf.inner.lock().unwrap();
     let v = unsafe { (*t).m_value.load(Ordering::Acquire) };
     if !v.is_null() {

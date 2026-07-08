@@ -212,7 +212,7 @@ unsafe fn fix_args(f: *mut LeanObject, n: u32, as_ptr: *const *mut LeanObject) -
     } else {
         for i in 0..fixed as usize {
             let v = unsafe { *source.add(i) };
-            lean_inc(v);
+            unsafe { lean_inc(v) };
             unsafe { *target.add(i) = v };
         }
         unsafe { lean_dec_ref(f) };
@@ -276,7 +276,7 @@ unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut L
     } else {
         for (i, slot) in args.iter_mut().enumerate().take(fixed as usize) {
             let v = fx(f, i as u32);
-            lean_inc(v);
+            unsafe { lean_inc(v) };
             *slot = v;
         }
         for (slot, &a) in args.iter_mut().skip(fixed as usize).zip(new_args.iter()) {

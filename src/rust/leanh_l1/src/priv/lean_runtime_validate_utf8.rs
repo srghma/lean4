@@ -10,11 +10,13 @@ pub unsafe fn lean_runtime_validate_utf8(
     pos: *mut Size,
     chars: *mut Size,
 ) -> bool {
-    while *pos < size {
+    loop {
+        if *pos >= size {
+            return true;
+        }
         if !lean_runtime_validate_utf8_one(text, size, pos) {
             return false;
         }
         *chars += 1;
     }
-    true
 }

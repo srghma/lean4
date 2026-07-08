@@ -21,12 +21,11 @@ pub unsafe fn print_backtrace(force_stderr: bool) {
     for i in 0..nptrs as usize {
         let symbol = *symbols.add(i);
         if !symbol.is_null() {
-            if std::env::var_os("LEAN_BACKTRACE_RAW").is_none() {
-                if let Some(line) = demangle_backtrace_line(symbol) {
+            if std::env::var_os("LEAN_BACKTRACE_RAW").is_none()
+                && let Some(line) = demangle_backtrace_line(symbol) {
                     panic_eprintln(line.as_bytes(), force_stderr);
                     continue;
                 }
-            }
             let line = cstr_lossy(symbol);
             panic_eprintln(line.as_bytes(), force_stderr);
         }

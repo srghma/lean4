@@ -12,7 +12,7 @@ use crate::{
 };
 pub unsafe fn lean_runtime_deactivate_task(t: *mut LeanTaskObject) {
     if let Some(tm) = get_task_manager() {
-        deactivate_task_obj(&tm, t);
+        unsafe { deactivate_task_obj(&tm, t) };
     } else {
         let v = unsafe { (*t).m_value.load(Ordering::Acquire) };
         debug_assert!(!v.is_null());

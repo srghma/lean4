@@ -1,5 +1,5 @@
 use crate::{
-    datatypes::{LeanObject, LeanPromiseObject, LeanTaskObject},
+    datatypes::{LeanObject, LeanPromiseObject},
     lean_dec_ref::lean_dec_ref,
     r#priv::{lean_free_small_object::lean_free_small_object, mk_option_none::mk_option_none},
     runtime_object_task::{p1_get_task_manager::get_task_manager, p3_resolve::resolve},
@@ -8,10 +8,9 @@ use crate::{
 pub unsafe fn lean_runtime_deactivate_promise(promise: *mut LeanPromiseObject) {
     if let Some(tm) = get_task_manager() {
         let none = unsafe { mk_option_none() };
-        resolve(&tm, (*promise).m_result as *mut LeanTaskObject, none);
+        unsafe { resolve(&tm, (*promise).m_result, none) };
         unsafe {
             let task = (*promise).m_result;
-            // lean_dec_ref((*promise).m_result); // why no longer works
             lean_dec_ref(core::ptr::addr_of_mut!((*task).m_header));
         }
     }

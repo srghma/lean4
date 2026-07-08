@@ -3,8 +3,8 @@ use crate::{
 };
 
 #[inline]
-pub fn lean_inc(obj: *mut LeanObject) {
+pub unsafe fn lean_inc(obj: *mut LeanObject) {
     if !lean_is_scalar_bool(obj) {
-        lean_inc_ref(obj);
+        unsafe { lean_inc_ref(obj) };
     }
 }

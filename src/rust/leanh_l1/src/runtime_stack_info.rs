@@ -8,10 +8,10 @@ use crate::{
 #[cfg(unix)]
 
 thread_local! {
-    static G_STACK_INFO_INIT: Cell<bool> = Cell::new(false);
-    static G_STACK_SIZE: Cell<usize> = Cell::new(0);
-    static G_STACK_BASE: Cell<usize> = Cell::new(0);
-    static G_STACK_THRESHOLD: Cell<usize> = Cell::new(0);
+    static G_STACK_INFO_INIT: Cell<bool> = const { Cell::new(false) };
+    static G_STACK_SIZE: Cell<usize> = const { Cell::new(0) };
+    static G_STACK_BASE: Cell<usize> = const { Cell::new(0) };
+    static G_STACK_THRESHOLD: Cell<usize> = const { Cell::new(0) };
 }
 unsafe fn get_stack_size(main: bool) -> usize {
     if main {

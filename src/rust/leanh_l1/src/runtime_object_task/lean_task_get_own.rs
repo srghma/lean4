@@ -4,7 +4,7 @@ use crate::{
 };
 pub unsafe fn lean_task_get_own(t: *mut LeanObject) -> *mut LeanObject {
     let v = lean_task_get(t);
-    lean_inc(v);
+    unsafe { lean_inc(v) };
     lean_dec_ref(t);
     v
 }

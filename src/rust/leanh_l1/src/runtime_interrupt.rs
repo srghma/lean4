@@ -1,8 +1,8 @@
 use std::cell::Cell;
 
 thread_local! {
-    static G_MAX_HEARTBEAT: Cell<usize> = Cell::new(0);
-    static G_HEARTBEAT: Cell<usize> = Cell::new(0);
+    static G_MAX_HEARTBEAT: Cell<usize> = const { Cell::new(0) };
+    static G_HEARTBEAT: Cell<usize> = const { Cell::new(0) };
 }
 
 pub fn reset_heartbeat() {

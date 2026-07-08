@@ -67,9 +67,9 @@ unsafe fn add_dep_raw(slf: &Arc<TaskManager>, t1: *mut LeanTaskObject, t2: *mut 
     (*t1_imp).m_head_dep = t2;
 }
 
-fn run_task_locked(
-    slf: &Arc<TaskManager>,
-    guard: &mut MutexGuard<'_, TaskManagerInner>,
+fn run_task_locked<'a>(
+    slf: &'a Arc<TaskManager>,
+    guard: &mut MutexGuard<'a, TaskManagerInner>,
     t: *mut LeanTaskObject,
 ) {
     let imp = unsafe { (*t).m_imp as *mut LeanTaskImp };
@@ -200,9 +200,9 @@ pub fn spawn_worker(slf: &Arc<TaskManager>, guard: &mut MutexGuard<'_, TaskManag
     guard.std_workers.push(handle);
 }
 
-fn enqueue_core(
-    slf: &Arc<TaskManager>,
-    guard: &mut MutexGuard<'_, TaskManagerInner>,
+fn enqueue_core<'a>(
+    slf: &'a Arc<TaskManager>,
+    guard: &mut MutexGuard<'a, TaskManagerInner>,
     t: *mut LeanTaskObject,
 ) {
     let prio = unsafe { (*((*t).m_imp as *mut LeanTaskImp)).m_prio };
@@ -229,9 +229,9 @@ fn enqueue_core(
     }
 }
 
-fn handle_finished(
-    slf: &Arc<TaskManager>,
-    guard: &mut MutexGuard<'_, TaskManagerInner>,
+fn handle_finished<'a>(
+    slf: &'a Arc<TaskManager>,
+    guard: &mut MutexGuard<'a, TaskManagerInner>,
     _t: *mut LeanTaskObject,
     imp: *mut LeanTaskImp,
 ) {
@@ -262,9 +262,9 @@ fn handle_finished(
     }
 }
 
-fn resolve_core(
-    slf: &Arc<TaskManager>,
-    guard: &mut MutexGuard<'_, TaskManagerInner>,
+fn resolve_core<'a>(
+    slf: &'a Arc<TaskManager>,
+    guard: &mut MutexGuard<'a, TaskManagerInner>,
     t: *mut LeanTaskObject,
     v: *mut LeanObject,
 ) {
@@ -286,7 +286,7 @@ fn resolve_core(
     slf.task_finished_cv.notify_all();
 }
 
-pub fn resolve(slf: &Arc<TaskManager>, t: *mut LeanTaskObject, v: *mut LeanObject) {
+pub unsafe fn resolve(slf: &Arc<TaskManager>, t: *mut LeanTaskObject, v: *mut LeanObject) {
     if !unsafe { (*t).m_value.load(Ordering::Acquire).is_null() } {
         unsafe {
             lean_dec(v);
