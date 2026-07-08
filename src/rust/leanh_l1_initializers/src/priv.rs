@@ -1,1 +1,15 @@
-// pub mod dec_for_del;
+pub mod lean_alloc_sarray;
+pub mod lean_alloc_sarray_would_overflow;
+pub mod lean_io_prim_handle_flush;
+pub mod lean_io_prim_handle_get_line;
+pub mod lean_io_prim_handle_is_tty;
+pub mod lean_io_prim_handle_put_str;
+pub mod lean_io_prim_handle_read;
+pub mod lean_io_prim_handle_write;
+pub mod lean_io_result_mk_error;
+pub mod lean_runtime_errno;
+pub mod lean_runtime_get_external_data;
+pub mod lean_sarray_cptr;
+pub mod lean_sarray_set_size;
+pub mod lean_sarray_size;
+pub mod lean_string_size;

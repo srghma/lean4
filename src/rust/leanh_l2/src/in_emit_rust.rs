@@ -30,23 +30,6 @@ use crate::runtime_process::initialize_process;
 use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
-unsafe fn initialize_runtime_module_body() {
-    // initialize_alloc();
-    // initialize_debug();
-    // initialize_object was a no-op (object.cpp deleted)
-    initialize_io();
-    // initialize_thread();
-    initialize_mutex();
-    initialize_process();
-    initialize_stack_overflow();
-    initialize_libuv();
-}
-
-#[inline]
-pub unsafe fn lean_initialize_runtime_module() {
-    unsafe { initialize_runtime_module_body() }
-}
-
 unsafe fn initialize_util_module_body() {
     initialize_runtime_module_body();
     // initialize_ascii();
@@ -217,24 +200,6 @@ unsafe fn initialize_constructions_module_body() {
 
 pub fn initialize_constructions_module() {
     unsafe { initialize_constructions_module_body() }
-}
-
-#[inline]
-pub fn lean_initialize() {
-    // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 231 (🔁)
-    unsafe {
-        save_stack_info(true);
-        initialize_util_module();
-        let builtin = true;
-        consume_io_result(initialize_Init(builtin));
-        consume_io_result(initialize_Std(builtin));
-        consume_io_result(initialize_Lean(builtin));
-        initialize_kernel_module();
-        init_default_print_fn();
-        initialize_library_core_module();
-        initialize_library_module();
-        initialize_constructions_module();
-    }
 }
 
 pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {

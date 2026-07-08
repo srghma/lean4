@@ -89,7 +89,6 @@ mod library_ir_interpreter_impl {
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-        fn lean_io_result_mk_error(err: *mut LeanObject) -> *mut LeanObject;
 
         // get_init_fn_name_for (already in lib.rs but may be called as extern)
         fn lean_get_init_fn_name_for(

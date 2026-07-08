@@ -31,7 +31,6 @@ unsafe extern "C" {
     ) -> *mut LeanObject;
     pub fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
     pub fn lean_io_promise_new() -> *mut LeanObject;
@@ -152,46 +151,6 @@ pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
-pub(crate) unsafe fn lean_alloc_sarray(
-    elem_size: c_uint,
-    size: Size,
-    capacity: Size,
-) -> *mut LeanObject {
-    let byte_size = core::mem::size_of::<LeanScalarArray<0>>()
-        .checked_add(
-            (elem_size as usize)
-                .checked_mul(capacity)
-                .expect("sarray allocation overflow"),
-        )
-        .expect("sarray allocation overflow");
-    let obj = lean_alloc_object(byte_size) as *mut LeanScalarArray<0>;
-    (*obj).m_header.rc = 1;
-    (*obj).m_header.cs_size = 0;
-    (*obj).m_header.other = elem_size as u8;
-    (*obj).m_header.tag = LEAN_SCALAR_ARRAY_TAG;
-    (*obj).m_size = size;
-    (*obj).m_capacity = capacity;
-    obj as *mut LeanObject
-}
-
-pub(crate) fn lean_alloc_sarray_would_overflow(elem_size: c_uint, capacity: Size) -> bool {
-    match (elem_size as usize).checked_mul(capacity) {
-        None => true,
-        Some(bytes) => core::mem::size_of::<LeanScalarArray<0>>()
-            .checked_add(bytes)
-            .is_none(),
-    }
-}
-pub(crate) unsafe fn lean_sarray_set_size(obj: *mut LeanObject, size: Size) {
-    let sarray = obj as *mut LeanScalarArray<0>;
-    (*sarray).m_size = size;
-}
-
-pub(crate) unsafe fn lean_sarray_size(obj: *mut LeanObject) -> Size {
-    let sarray = obj as *const LeanScalarArray<0>;
-    (*sarray).m_size
-}
-
 pub(crate) unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
     let sarray = obj as *const LeanScalarArray<0>;
     (*sarray).m_capacity
@@ -205,30 +164,9 @@ pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject
     v
 }
 
-pub unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    libc::isatty(libc::fileno(fp)) as u8
-}
-
 pub unsafe fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     (libc::feof(fp) != 0) as u8
-}
-
-unsafe fn lean_runtime_errno() -> c_int {
-    *libc::__errno_location()
-}
-
-pub unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    if libc::fflush(fp) == 0 {
-        lean_io_result_mk_ok(lean_box(0))
-    } else {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
-            core::ptr::null_mut(),
-        ))
-    }
 }
 
 pub unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject {
@@ -246,103 +184,6 @@ pub unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject 
 pub unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
-        lean_io_result_mk_ok(lean_box(0))
-    } else {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
-            core::ptr::null_mut(),
-        ))
-    }
-}
-
-pub unsafe fn lean_io_prim_handle_read(h: *mut LeanObject, nbytes: Size) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    if lean_alloc_sarray_would_overflow(1, nbytes) {
-        return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));
-    }
-
-    let res = lean_alloc_sarray(1, 0, nbytes);
-    if nbytes == 0 {
-        return lean_io_result_mk_ok(res);
-    }
-
-    let n = libc::fread(
-        lean_sarray_cptr(res) as *mut core::ffi::c_void,
-        1,
-        nbytes,
-        fp,
-    );
-    if n > 0 {
-        lean_sarray_set_size(res, n);
-        lean_io_result_mk_ok(res)
-    } else if libc::feof(fp) != 0 {
-        libc::clearerr(fp);
-        lean_sarray_set_size(res, n);
-        lean_io_result_mk_ok(res)
-    } else {
-        lean_dec(res);
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
-            core::ptr::null_mut(),
-        ))
-    }
-}
-
-pub unsafe fn lean_io_prim_handle_write(
-    h: *mut LeanObject,
-    buf: *mut LeanObject,
-) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    let n = lean_sarray_size(buf);
-    let m = libc::fwrite(lean_sarray_cptr(buf).cast(), 1, n, fp);
-    if m == n {
-        lean_io_result_mk_ok(lean_box(0))
-    } else {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
-            core::ptr::null_mut(),
-        ))
-    }
-}
-
-pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    let mut result = Vec::<u8>::new();
-    unsafe {
-        loop {
-            let c = libc::fgetc(fp);
-            if c == libc::EOF {
-                break;
-            }
-            result.push(c as u8);
-            if c == b'\n' as i32 {
-                break;
-            }
-        }
-    }
-
-    if libc::ferror(fp) != 0 {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
-            core::ptr::null_mut(),
-        ))
-    } else {
-        if libc::feof(fp) != 0 {
-            libc::clearerr(fp);
-        }
-        let s = lean_mk_string_from_bytes(result.as_ptr() as *const c_char, result.len());
-        lean_io_result_mk_ok(s)
-    }
-}
-
-pub unsafe fn lean_io_prim_handle_put_str(
-    h: *mut LeanObject,
-    s: *mut LeanObject,
-) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
-    let n = lean_string_size(s) - 1;
-    let m = libc::fwrite(lean_string_cstr(s).cast::<core::ffi::c_void>(), 1, n, fp);
-    if m == n {
         lean_io_result_mk_ok(lean_box(0))
     } else {
         lean_io_result_mk_error(lean_decode_io_error(
@@ -388,10 +229,6 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
     } else {
         lean_io_result_mk_ok(runtime_io_stream_impl::io_wrap_handle(fp))
     }
-}
-
-pub(crate) unsafe fn lean_sarray_cptr(obj: *mut LeanObject) -> *const u8 {
-    (obj as *const u8).add(24)
 }
 
 fn env_flag(value: &str) -> u8 {
@@ -487,10 +324,6 @@ pub unsafe fn lean_finalize_external_classes() {
     for class in classes.drain(..) {
         drop(Box::from_raw(class as *mut LeanExternalClass));
     }
-}
-
-pub unsafe fn lean_runtime_get_external_data(obj: *mut LeanObject) -> *mut c_void {
-    (*(obj as *mut LeanExternalObject)).m_data
 }
 
 pub fn lean_internal_get_hardware_concurrency(_: *mut LeanObject) -> u32 {
@@ -1286,11 +1119,6 @@ pub unsafe fn lean_runtime_mk_cnstr(
         lean_runtime_ctor_set(obj, index as c_uint, val);
     }
     obj
-}
-
-pub unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
-    let mut fields = [error];
-    lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 }
 
 pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {

@@ -5,3 +5,5 @@ compile_error!("Lean Rust support crates require 64-bit pointer width");
 
 pub mod emitted;
 pub mod r#priv;
+pub mod todo_import_from_lean;
+pub mod runtime_io_error;

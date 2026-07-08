@@ -21,10 +21,6 @@ pub unsafe fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
     lean_runtime_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
 }
 
-// use crate::Init::System::IO::lean_stream_of_handle;
-pub unsafe fn lean_stream_of_handle(mut v_h_10248_: *mut LeanObject) -> *mut LeanObject { // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/System/IO.lean:1682
-    todo!("asdfasdf")
-}
 pub unsafe fn initialize_io() {
     IO_HANDLE_EXTERNAL_CLASS =
         lean_register_external_class(Some(io_handle_finalizer), Some(io_handle_foreach));

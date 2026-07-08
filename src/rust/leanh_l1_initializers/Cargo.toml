@@ -1,10 +1,11 @@
 [package]
-name = "leanh_l1"
+name = "leanh_l1_initializers"
 version = "0.1.0"
 edition = "2024"
 publish = false
 
 [dependencies]
+leanh_l1 = { path = "../leanh_l1" }
 # llvm-sys = "191"
 # libc-stdhandle = "0.1"
 libc = "0.2"

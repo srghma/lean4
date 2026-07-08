@@ -263,11 +263,6 @@ pub(crate) mod runtime_object_task_impl {
         }
     }
 
-    unsafe extern "C" {
-        fn lean_initialize_thread();
-        fn lean_finalize_thread();
-    }
-
     // ─── Init / finalize task manager ────────────────────────────────────────
 
     pub fn lean_init_task_manager_using(num_workers: usize) {
