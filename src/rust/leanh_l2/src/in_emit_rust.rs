@@ -407,30 +407,6 @@ pub unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
 }
 
 #[inline]
-pub unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -> *mut LeanObject {
-    unsafe {
-        debug_assert!(arity > 0);
-        debug_assert!(num_fixed < arity);
-        let byte_size = core::mem::size_of::<LeanClosureObject<0>>()
-            .checked_add(
-                core::mem::size_of::<*mut LeanObject>()
-                    .checked_mul(num_fixed as usize)
-                    .expect("closure allocation mul overflow"),
-            )
-            .expect("closure allocation add overflow");
-        let obj = lean_alloc_object(byte_size) as *mut LeanClosureObject<0>;
-        (*obj).m_header.rc = 1;
-        (*obj).m_header.cs_size = 0;
-        (*obj).m_header.other = 0;
-        (*obj).m_header.tag = LEAN_CLOSURE_TAG;
-        (*obj).m_fun = fun;
-        (*obj).m_arity = arity as u16;
-        (*obj).m_num_fixed = num_fixed as u16;
-        obj as *mut LeanObject
-    }
-}
-
-#[inline]
 pub unsafe fn lean_dec_ref(obj: *mut LeanObject) {
     if UAF_DETECT && (*obj).rc == LEAN_UAF_POISON_RC {
         quar_report_uaf(obj, "dec");

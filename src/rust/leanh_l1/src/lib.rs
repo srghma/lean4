@@ -10,6 +10,7 @@ compile_error!("Lean Rust support crates require 64-bit pointer width");
 
 pub mod common1;
 pub mod datatypes;
+pub mod lean_alloc_closure;
 pub mod lean_alloc_ctor;
 pub mod lean_box;
 pub mod lean_box_float;
@@ -22,6 +23,7 @@ pub mod lean_ctor_set_uint64;
 pub mod lean_ctor_set_usize;
 pub mod lean_is_scalar;
 pub mod lean_unbox;
+pub mod r#priv;
 pub mod runtime_apply;
 pub mod runtime_object_panic;
 // pub mod base;

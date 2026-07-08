@@ -234,16 +234,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_alloc_closure( // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 264 (🔁)
-
-        fun: *mut core::ffi::c_void,
-        arity: u32,
-        num_fixed: u32,
-    ) -> *mut LeanObject {
-        runtime_apply_impl::lean_alloc_closure(fun, arity, num_fixed)
-    }
-
-    #[inline(always)]
     unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 39 (🔁)
 
         // closure args are after the LeanClosureObject header (16 bytes: header=8, fun=ptr, arity=u16, num_fixed=u16, padding)

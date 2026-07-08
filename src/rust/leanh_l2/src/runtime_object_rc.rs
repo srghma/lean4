@@ -107,16 +107,6 @@ unsafe fn lean_del_core(o: *mut LeanObject, todo: &mut *mut LeanObject) {
         lean_del_core_other(o, tag, todo);
     }
 }
-
-pub unsafe fn lean_alloc_object(sz: usize) -> *mut LeanObject {
-    let r = mi::mi_malloc(sz);
-    if r.is_null() {
-        lean_internal_panic_out_of_memory();
-    }
-    let o = r as *mut LeanObject;
-    (*o).cs_size = 0;
-    o
-}
 pub unsafe fn lean_free_object(o: *mut LeanObject) {
     match lean_ptr_tag(o) {
         LEAN_ARRAY_TAG => lean_dealloc(o, lean_array_byte_size(o)),

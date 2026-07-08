@@ -17,6 +17,12 @@ type FnOccurrence = {
   text: string;
 };
 
+type OccurrenceKind = "body" | "decl";
+
+type Occurrence = FnOccurrence & {
+  kind: OccurrenceKind;
+};
+
 function usage(): never {
   console.error("Usage: move_rust_fn_to_leanh_l1.ts [--write] <function_name>");
   process.exit(1);
@@ -50,7 +56,7 @@ async function listRustFiles(root: string): Promise<string[]> {
   return out;
 }
 
-function findFunctionBlock(text: string, fnName: string): FnOccurrence[] {
+function findFunctionBodies(text: string, fnName: string): FnOccurrence[] {
   const lines = text.split(/\r?\n/);
   const occurrences: FnOccurrence[] = [];
   const fnRegex = new RegExp(
@@ -60,11 +66,27 @@ function findFunctionBlock(text: string, fnName: string): FnOccurrence[] {
   for (let i = 0; i < lines.length; i++) {
     if (!fnRegex.test(lines[i])) continue;
 
+    let sawOpen = false;
+    let sawSemicolon = false;
+    for (let j = i; j < lines.length; j++) {
+      for (const ch of lines[j]) {
+        if (ch === "{") {
+          sawOpen = true;
+          break;
+        }
+        if (ch === ";") {
+          sawSemicolon = true;
+          break;
+        }
+      }
+      if (sawOpen || sawSemicolon) break;
+    }
+    if (!sawOpen || sawSemicolon) continue;
+
     let start = i;
     while (start > 0 && isPreambleLine(lines[start - 1])) start--;
 
     let braceDepth = 0;
-    let sawOpen = false;
     let end = i;
     for (let j = i; j < lines.length; j++) {
       const line = lines[j];
@@ -91,13 +113,55 @@ function findFunctionBlock(text: string, fnName: string): FnOccurrence[] {
   return occurrences;
 }
 
-async function findOccurrences(root: string, fnName: string): Promise<FnOccurrence[]> {
+function findExternDeclarations(text: string, fnName: string): FnOccurrence[] {
+  const lines = text.split(/\r?\n/);
+  const occurrences: FnOccurrence[] = [];
+  const fnRegex = new RegExp(
+    String.raw`^\s*(?:pub(?:\s*\([^)]+\))?\s+)?(?:unsafe\s+)?(?:extern\s+"[A-Za-z0-9_-]+"\s+)?fn\s+${fnName}\b`,
+  );
+
+  for (let i = 0; i < lines.length; i++) {
+    if (!fnRegex.test(lines[i])) continue;
+
+    let sawOpen = false;
+    let semicolonLine = -1;
+    for (let j = i; j < lines.length; j++) {
+      for (const ch of lines[j]) {
+        if (ch === "{") {
+          sawOpen = true;
+          break;
+        }
+        if (ch === ";") {
+          semicolonLine = j;
+          break;
+        }
+      }
+      if (sawOpen || semicolonLine !== -1) break;
+    }
+    if (sawOpen || semicolonLine === -1) continue;
+
+    let start = i;
+    while (start > 0 && isPreambleLine(lines[start - 1])) start--;
+
+    occurrences.push({
+      file: "",
+      startLine: start + 1,
+      endLine: semicolonLine + 1,
+      text: lines.slice(start, semicolonLine + 1).join("\n"),
+    });
+  }
+
+  return occurrences;
+}
+
+async function findOccurrences(root: string, fnName: string, kind: OccurrenceKind): Promise<FnOccurrence[]> {
   const files = await listRustFiles(root);
   const result: FnOccurrence[] = [];
   for (const file of files) {
     if (path.resolve(file).startsWith(path.resolve(targetDir))) continue;
     const text = await fs.readFile(file, "utf8");
-    for (const occ of findFunctionBlock(text, fnName)) {
+    const occs = kind === "body" ? findFunctionBodies(text, fnName) : findExternDeclarations(text, fnName);
+    for (const occ of occs) {
       occ.file = file;
       result.push(occ);
     }
@@ -178,15 +242,17 @@ async function main() {
   const fnName = args.filter((arg) => arg !== "--write")[0];
   if (!fnName) usage();
 
-  const currentOccs = await findOccurrences(workRoot, fnName);
-  const originalOccs = await findOccurrences(sourceRoot, fnName);
+  const currentBodyOccs = await findOccurrences(workRoot, fnName, "body");
+  const currentDeclOccs = await findOccurrences(workRoot, fnName, "decl");
+  const originalOccs = await findOccurrences(sourceRoot, fnName, "body");
 
-  await printOccurrences("Current tree", currentOccs);
+  await printOccurrences("Current tree bodies", currentBodyOccs);
+  await printOccurrences("Current tree decls", currentDeclOccs);
   await printOccurrences("Original tree", originalOccs);
 
   if (!write) return;
 
-  if (currentOccs.length === 0) {
+  if (currentBodyOccs.length === 0 && currentDeclOccs.length === 0) {
     console.error(`${red}warning:${reset} no current-tree implementation found for ${fnName} in ${workRoot}`);
     return;
   }
@@ -195,10 +261,10 @@ async function main() {
     console.error(`${red}warning:${reset} no original implementation found for ${fnName} in ${sourceRoot}`);
   }
 
-  const sourceOccs = originalOccs.length > 0 ? originalOccs : currentOccs;
+  const sourceOccs = originalOccs.length > 0 ? originalOccs : currentBodyOccs;
   const referenceNorm = normalizeBlock(sourceOccs[0].text);
-  const sameShapeOccs = [...originalOccs, ...currentOccs].filter((occ) => normalizeBlock(occ.text) === referenceNorm);
-  const distinctBodies = groupDistinctBodies([...originalOccs, ...currentOccs]);
+  const sameShapeOccs = [...originalOccs, ...currentBodyOccs].filter((occ) => normalizeBlock(occ.text) === referenceNorm);
+  const distinctBodies = groupDistinctBodies([...originalOccs, ...currentBodyOccs]);
   printBodyGroups(distinctBodies);
 
   const targetPath = path.join(targetDir, `${fnName}.rs_`);
@@ -224,7 +290,14 @@ async function main() {
   ].join("\n");
   await fs.writeFile(targetPath, appended, "utf8");
 
-  for (const occ of currentOccs) {
+  for (const occ of currentBodyOccs) {
+    if (path.resolve(occ.file).startsWith(path.resolve(targetDir))) continue;
+    const text = await fs.readFile(occ.file, "utf8");
+    const updated = removeBlock(text, occ);
+    await fs.writeFile(occ.file, updated, "utf8");
+  }
+
+  for (const occ of currentDeclOccs) {
     if (path.resolve(occ.file).startsWith(path.resolve(targetDir))) continue;
     const text = await fs.readFile(occ.file, "utf8");
     const updated = removeBlock(text, occ);
@@ -232,7 +305,7 @@ async function main() {
   }
 
   console.log(
-    `\nWrote ${fnName} into ${path.relative(lean4Root, targetPath)} and removed current-tree copies outside leanh_l1.`,
+    `\nWrote ${fnName} into ${path.relative(lean4Root, targetPath)} and removed current-tree bodies/declarations outside leanh_l1.`,
   );
 }
 
