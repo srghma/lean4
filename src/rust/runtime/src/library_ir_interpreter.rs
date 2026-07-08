@@ -229,19 +229,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 39 (🔁)
-
-        // closure args are after the LeanClosureObject header (16 bytes: header=8, fun=ptr, arity=u16, num_fixed=u16, padding)
-        const LEAN_CLOSURE_OBJECT_SIZE: usize = core::mem::size_of::<LeanClosureObject>();
-        (cls as *mut u8)
-            .add(LEAN_CLOSURE_OBJECT_SIZE)
-            .cast::<*mut LeanObject>()
-            .add(idx)
-            .write(val);
-    }
-
-    #[inline(always)]
     unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
         // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
 

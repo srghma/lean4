@@ -31,14 +31,6 @@ use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
 #[inline]
-pub unsafe fn lean_closure_set(obj: *mut LeanObject, idx: u32, value: *mut LeanObject) {
-    unsafe {
-        debug_assert!((idx as usize) < lean_closure_num_fixed(obj));
-        *lean_closure_arg_cptr(obj).add(idx as usize) = value;
-    }
-}
-
-#[inline]
 pub unsafe fn lean_cstr_to_nat(text: *const c_char) -> *mut LeanObject {
     unsafe {
         let s = std::ffi::CStr::from_ptr(text).to_str().unwrap();
