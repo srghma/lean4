@@ -58,6 +58,7 @@ pub mod emitted;
 pub mod r#priv;
 pub mod runtime_apply;
 pub mod runtime_object_panic;
+pub mod todo_import_from_lean;
 // pub mod base;
 // pub mod in_emit_rust;
 // pub mod kernel_type_checker;

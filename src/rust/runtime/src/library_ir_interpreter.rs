@@ -91,12 +91,6 @@ mod library_ir_interpreter_impl {
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-
-        // IO helpers
-        fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 570 (🔁)
-        fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 575 (🔁)
-        fn lean_io_result_show_error(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 583 (🔁)
-        fn lean_io_result_mk_ok(val: *mut LeanObject) -> *mut LeanObject; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 241 (🔁)
         fn lean_io_result_mk_error(err: *mut LeanObject) -> *mut LeanObject;
 
         // get_init_fn_name_for (already in lib.rs but may be called as extern)

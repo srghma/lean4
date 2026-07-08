@@ -244,15 +244,6 @@ pub fn lean_initialize() {
 pub unsafe fn lean_io_mark_end_initialization() {}
 
 #[inline]
-pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
-    unsafe {
-        let obj = lean_alloc_ctor(0, 1, 0);
-        lean_ctor_set(obj, 0, value);
-        obj
-    }
-}
-
-#[inline]
 pub unsafe fn lean_run_main(
     main_fn: unsafe fn(c_int, *mut *mut c_char) -> *mut LeanObject,
     argc: c_int,
@@ -355,44 +346,7 @@ define_uint_family!(
     lean_uint64_dec_le
 );
 
-#[inline]
-pub unsafe fn lean_io_result_is_error(obj: *mut LeanObject) -> bool {
-    unsafe { lean_ptr_tag(obj) == 1 }
-}
-
-#[inline]
-pub unsafe fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool {
-    unsafe { lean_ptr_tag(obj) == 0 }
-}
-
-#[inline]
-pub unsafe fn lean_io_result_get_value(obj: *mut LeanObject) -> *mut LeanObject {
-    unsafe {
-        debug_assert!(lean_io_result_is_ok(obj));
-        lean_ctor_get(obj, 0)
-    }
-}
-
 pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_error(obj));
     lean_ctor_get(obj, 0)
-}
-
-// src/rust/gen_init/src/gen/Init/System/IOError.rs
-pub unsafe fn lean_io_error_to_string(mut _v_x_1214_: *mut LeanObject) -> *mut LeanObject {
-    // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/System/IOError.lean:271
-    todo!("asdfasd")
-}
-
-#[inline]
-pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
-    unsafe {
-        let err = lean_io_result_get_error(r);
-        lean_inc(err);
-        let msg = lean_io_error_to_string(err);
-        let text = CStr::from_ptr(lean_string_cstr(msg));
-        eprintln!("uncaught exception: {}", text.to_string_lossy());
-        lean_dec(msg);
-        lean_dec(err);
-    }
 }

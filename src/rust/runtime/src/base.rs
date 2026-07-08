@@ -1306,13 +1306,6 @@ pub unsafe fn lean_runtime_mk_cnstr(
     obj
 }
 
-pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
-    // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 241 (🔁)
-
-    let mut fields = [value];
-    lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
-}
-
 pub unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
     let mut fields = [error];
     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
