@@ -41,16 +41,6 @@ mod runtime_process_impl {
         lean_io_result_mk_error(lean_decode_io_error(errnum, null_mut()))
     }
 
-    // lean_ctor_get_uint32 is not in lib.rs – define locally
-    unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, byte_offset: usize) -> u32 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 81 (🔁)
-
-        (obj.add(1) as *mut u8)
-            .add(byte_offset)
-            .cast::<u32>()
-            .read_unaligned()
-    }
-
     unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, byte_offset: usize, v: u32) {
         // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 150 (🔁)
 

@@ -31,36 +31,6 @@ use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
 #[inline]
-pub unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, offset: usize) -> f32 {
-    unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *const f32) }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_get_uint16(obj: *mut LeanObject, offset: usize) -> u16 {
-    (obj.add(1) as *mut u8).add(offset).cast::<u16>().read()
-}
-
-#[inline]
-pub unsafe fn lean_ctor_get_uint32(obj: *mut LeanObject, offset: usize) -> u32 {
-    unsafe { *((lean_ctor_obj_cptr(obj).cast::<u8>().add(offset)) as *const u32) }
-}
-
-#[inline]
-pub unsafe fn lean_ctor_get_uint64(obj: *mut LeanObject, offset: usize) -> u64 {
-    (obj.add(1) as *mut u8).add(offset).cast::<u64>().read()
-}
-
-#[inline]
-pub unsafe fn lean_ctor_get_uint8(obj: *mut LeanObject, offset: usize) -> u8 {
-    (obj.add(1) as *mut u8).add(offset).read()
-}
-
-#[inline]
-pub unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize {
-    unsafe { *((lean_ctor_obj_cptr(obj).add(idx)) as *const usize) }
-}
-
-#[inline]
 pub unsafe fn lean_ctor_set(obj: *mut LeanObject, idx: u32, value: *mut LeanObject) {
     unsafe {
         debug_assert!((idx as usize) < lean_ctor_num_objs(obj));

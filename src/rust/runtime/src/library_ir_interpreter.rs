@@ -150,27 +150,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 96 (🔁)
-
-        let byte_offset = idx * core::mem::size_of::<*mut LeanObject>();
-        (obj.add(1) as *const u8)
-            .add(byte_offset)
-            .cast::<usize>()
-            .read_unaligned()
-    }
-
-    #[inline(always)]
-    unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, byte_offset: usize) -> f32 {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 71 (🔁)
-
-        (obj.add(1) as *const u8)
-            .add(byte_offset)
-            .cast::<f32>()
-            .read_unaligned()
-    }
-
-    #[inline(always)]
     unsafe fn lean_ctor_set_u8(obj: *mut LeanObject, byte_offset: usize, v: u8) {
         (obj.add(1) as *mut u8).add(byte_offset).write(v);
     }

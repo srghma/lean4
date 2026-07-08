@@ -72,5 +72,17 @@ pub mod lean_closure_set;
 pub mod lean_cstr_to_nat;
 pub mod lean_ctor_get;
 pub mod lean_ctor_get_float;
+pub mod lean_ctor_get_float32;
+pub mod lean_ctor_get_uint16;
+pub mod lean_ctor_get_uint32;
+pub mod lean_ctor_get_uint64;
+pub mod lean_ctor_get_uint8;
+pub mod lean_ctor_get_usize;
+
+
+
+
+
+
 
 
