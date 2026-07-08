@@ -95,18 +95,6 @@ pub unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsaf
     }
 }
 
-// NOT IN EmitRust; here because it is used in `lean_cstr_to_nat`, `lean_unsigned_to_nat`.
-#[inline]
-pub unsafe fn lean_usize_to_nat(value: usize) -> *mut LeanObject {
-    unsafe {
-        if value <= (usize::MAX >> 1) {
-            lean_box(value)
-        } else {
-            panic!("big Nat is not supported in leanh.rs")
-        }
-    }
-}
-
 #[inline(always)]
 pub unsafe fn lean_has_rc(o: *mut LeanObject) -> bool {
     unsafe { (*o).rc != 0 }

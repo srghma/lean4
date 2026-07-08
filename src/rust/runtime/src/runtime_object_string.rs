@@ -54,16 +54,6 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
-        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
-        if n <= LEAN_MAX_SMALL_NAT {
-            lean_box(n)
-        } else {
-            crate::runtime_object_nat_int_impl::lean_big_usize_to_nat(n)
-        }
-    }
-
-    #[inline]
     unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a1) && lean_is_scalar(a2) {
             lean_usize_to_nat(lean_unbox(a1).wrapping_add(lean_unbox(a2)))

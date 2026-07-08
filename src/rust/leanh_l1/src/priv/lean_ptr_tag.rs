@@ -1,6 +1,5 @@
 use crate::{
-    datatypes::LeanObject,
-    emitted::lean_is_scalar::lean_is_scalar_bool,
+    datatypes::LeanObject, emitted::lean_is_scalar::lean_is_scalar_bool,
     emitted::lean_unbox::lean_unbox,
 };
 

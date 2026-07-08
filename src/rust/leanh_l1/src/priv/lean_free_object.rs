@@ -6,8 +6,8 @@ use crate::{
     r#priv::{
         lean_array_byte_size::lean_array_byte_size, lean_closure_byte_size::lean_closure_byte_size,
         lean_dealloc::lean_dealloc, lean_free_small_object::lean_free_small_object,
-        lean_ptr_tag::lean_ptr_tag,
-        lean_sarray_byte_size::lean_sarray_byte_size, lean_string_byte_size::lean_string_byte_size,
+        lean_ptr_tag::lean_ptr_tag, lean_sarray_byte_size::lean_sarray_byte_size,
+        lean_string_byte_size::lean_string_byte_size,
     },
 };
 

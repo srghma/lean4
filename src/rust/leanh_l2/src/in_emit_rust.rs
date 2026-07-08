@@ -31,17 +31,6 @@ use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
 #[inline]
-pub unsafe fn lean_cstr_to_nat(text: *const c_char) -> *mut LeanObject {
-    unsafe {
-        let s = std::ffi::CStr::from_ptr(text).to_str().unwrap();
-        let value = s
-            .parse::<usize>()
-            .expect("big Nat is not supported in leanh.rs");
-        lean_usize_to_nat(value)
-    }
-}
-
-#[inline]
 pub unsafe fn lean_ctor_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
     unsafe {
         debug_assert!((idx as usize) < lean_ctor_num_objs(obj));

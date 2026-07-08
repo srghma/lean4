@@ -615,21 +615,6 @@ mod kernel_type_checker_impl {
         lean_expr_mk_app(succ, pred_lit)
     }
 
-    // ---------------------------------------------------------------------------
-    // Nat arithmetic shims — inline-equivalent dispatch (small vs. big nat)
-    // Small Nat: tagged scalar, value = lean_unbox(ptr), max = LEAN_MAX_SMALL_NAT.
-    // Big Nat:   heap-allocated mpz object.
-    // ---------------------------------------------------------------------------
-    #[inline(always)]
-    unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 332 (🔁)
-
-        if n <= LEAN_MAX_SMALL_NAT {
-            super::lean_box(n)
-        } else {
-            runtime_object_nat_int_impl::lean_big_usize_to_nat(n)
-        }
-    }
-
     #[no_mangle]
     pub unsafe fn lean_nat_mk_obj(n: u64) -> *mut LeanObject {
         if n <= LEAN_MAX_SMALL_NAT as u64 {

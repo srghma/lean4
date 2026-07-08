@@ -69,4 +69,4 @@ pub mod lean_unbox;
 // pub mod lean_unsigned_to_nat;
 // pub mod lean_usize_once;
 pub mod lean_closure_set;
-
+pub mod lean_cstr_to_nat;

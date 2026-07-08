@@ -81,6 +81,8 @@ pub mod runtime_object_panic;
 // pub mod runtime_timer;
 pub mod runtime_exception;
 pub mod runtime_interrupt;
+pub mod runtime_mpz;
+pub mod runtime_object_nat_int;
 pub mod runtime_object_rc;
 pub mod runtime_object_task;
 pub mod runtime_stack_info;
