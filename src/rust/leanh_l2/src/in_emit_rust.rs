@@ -31,19 +31,6 @@ use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
 #[inline]
-pub unsafe fn lean_box_usize(value: usize) -> *mut LeanObject {
-    unsafe {
-        let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<usize>() as u32);
-        ptr::copy_nonoverlapping(
-            &value as *const usize as *const u8,
-            lean_ctor_scalar_cptr(obj, 0),
-            core::mem::size_of::<usize>(),
-        );
-        obj
-    }
-}
-
-#[inline]
 pub unsafe fn lean_closure_set(obj: *mut LeanObject, idx: u32, value: *mut LeanObject) {
     unsafe {
         debug_assert!((idx as usize) < lean_closure_num_fixed(obj));
@@ -142,11 +129,6 @@ pub unsafe fn lean_ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u
 #[inline]
 pub unsafe fn lean_ctor_set_uint8(obj: *mut LeanObject, offset: usize, value: u8) {
     (obj.add(1) as *mut u8).add(offset).write(value);
-}
-
-#[inline]
-pub unsafe fn lean_ctor_set_usize(obj: *mut LeanObject, idx: usize, value: usize) {
-    unsafe { *((lean_ctor_obj_cptr(obj).add(idx)) as *mut usize) = value }
 }
 
 // #[inline]

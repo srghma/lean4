@@ -4,9 +4,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const lean4Root = "/home/srghma/projects/lean4";
-const sourceRoot = "/home/srghma/projects/lean4-rust/src/rust";
+const sourceRoot = "/home/srghma/projects/lean4-rust/src/rust/lean_runtime/src";
 const workRoot = path.join(lean4Root, "src/rust");
 const targetDir = path.join(workRoot, "leanh_l1/src");
+const red = "\x1b[31m";
+const reset = "\x1b[0m";
 
 type FnOccurrence = {
   file: string;
@@ -26,6 +28,10 @@ function isRustFile(file: string): boolean {
 
 function normalizeBlock(text: string): string {
   return text.replace(/\s+/g, " ").trim();
+}
+
+function isPreambleLine(line: string): boolean {
+  return /^\s*$/.test(line) || /^\s*#\!?\[/.test(line) || /^\s*\/{2}/.test(line) || /^\s*\/\*/.test(line) || /^\s*\*/.test(line);
 }
 
 async function listRustFiles(root: string): Promise<string[]> {
@@ -55,8 +61,7 @@ function findFunctionBlock(text: string, fnName: string): FnOccurrence[] {
     if (!fnRegex.test(lines[i])) continue;
 
     let start = i;
-    while (start > 0 && /^\s*#\!?\[/.test(lines[start - 1])) start--;
-    while (start > 0 && /^\s*$/.test(lines[start - 1])) start--;
+    while (start > 0 && isPreambleLine(lines[start - 1])) start--;
 
     let braceDepth = 0;
     let sawOpen = false;
@@ -101,7 +106,8 @@ async function findOccurrences(root: string, fnName: string): Promise<FnOccurren
 }
 
 async function printOccurrences(label: string, occs: FnOccurrence[]) {
-  console.log(`\n${label}: ${occs.length}`);
+  const prefix = occs.length === 0 ? `${red}${label}: 0${reset}` : `\n${label}: ${occs.length}`;
+  console.log(prefix);
   for (const occ of occs) {
     console.log(`- ${path.relative(lean4Root, occ.file)}:${occ.startLine}-${occ.endLine}`);
     console.log(occ.text);
@@ -180,11 +186,17 @@ async function main() {
 
   if (!write) return;
 
-  if (originalOccs.length === 0) {
-    throw new Error(`No original implementation found for ${fnName} in ${sourceRoot}`);
+  if (currentOccs.length === 0) {
+    console.error(`${red}warning:${reset} no current-tree implementation found for ${fnName} in ${workRoot}`);
+    return;
   }
 
-  const referenceNorm = normalizeBlock(originalOccs[0].text);
+  if (originalOccs.length === 0) {
+    console.error(`${red}warning:${reset} no original implementation found for ${fnName} in ${sourceRoot}`);
+  }
+
+  const sourceOccs = originalOccs.length > 0 ? originalOccs : currentOccs;
+  const referenceNorm = normalizeBlock(sourceOccs[0].text);
   const sameShapeOccs = [...originalOccs, ...currentOccs].filter((occ) => normalizeBlock(occ.text) === referenceNorm);
   const distinctBodies = groupDistinctBodies([...originalOccs, ...currentOccs]);
   printBodyGroups(distinctBodies);

@@ -9,12 +9,12 @@ Port of src/library/module.cpp:
 
 mod library_module_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use core::ffi::{CStr, c_char, c_int, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{c_char, c_int, c_void, CStr};
     use leanh::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,
-        LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
-        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
+        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
+        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
+        LEAN_THUNK_TAG,
     };
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):
@@ -67,7 +67,11 @@ mod library_module_impl {
     #[inline]
     fn align_up_ptr(d: usize) -> usize {
         let rem = d % PTR_SIZE;
-        if rem != 0 { d + PTR_SIZE - rem } else { d }
+        if rem != 0 {
+            d + PTR_SIZE - rem
+        } else {
+            d
+        }
     }
 
     /// Info about a dependency region needed for cross-region pointer fixup.
@@ -104,14 +108,6 @@ mod library_module_impl {
         // Sort by m_base_addr for binary search in fix_object_ptr.
         result.sort_by_key(|d| d.m_base_addr);
         result
-    }
-
-    /// Box a `usize` value as a Lean `USize` (= `CompactedRegion`) object.
-    /// Matches C++ `box_size_t(v)` = `alloc_cnstr(0, 0, sizeof(usize))` + set scalar.
-    unsafe fn lean_box_usize_val(v: usize) -> *mut LeanObject {
-        let r = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<usize>() as core::ffi::c_uint);
-        lean_ctor_set_uint64(r, 0, v as u64);
-        r
     }
 
     /// Unbox a Lean `USize` to get the raw `usize`.
