@@ -3,7 +3,7 @@ use std::ptr;
 
 #[repr(C)]
 pub struct StackGuard {
-    signal_stack: libc::stack_t,
+    pub signal_stack: libc::stack_t,
 }
 
 unsafe fn install_signal_stack(signal_stack: *mut libc::stack_t) {
@@ -16,7 +16,7 @@ unsafe fn install_signal_stack(signal_stack: *mut libc::stack_t) {
     libc::sigaltstack(signal_stack, ptr::null_mut());
 }
 
-unsafe fn stack_guard_ctor(this: *mut StackGuard) {
+pub unsafe fn stack_guard_ctor(this: *mut StackGuard) {
     ptr::write(
         this,
         StackGuard {

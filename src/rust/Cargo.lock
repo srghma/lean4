@@ -131,6 +131,7 @@ dependencies = [
  "gmp-mpfr-sys",
  "leanh_l1",
  "libc",
+ "libc-stdhandle",
  "libloading 0.9.0",
  "libmimalloc-sys",
  "libuv-sys2",
@@ -141,6 +142,16 @@ name = "libc"
 version = "0.2.186"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68ab91017fe16c622486840e4c83c9a37afeff978bd239b5293d61ece587de66"
+
+[[package]]
+name = "libc-stdhandle"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6dac2473dc28934c5e0b82250dab231c9d3b94160d91fe9ff483323b05797551"
+dependencies = [
+ "cc",
+ "libc",
+]
 
 [[package]]
 name = "libloading"

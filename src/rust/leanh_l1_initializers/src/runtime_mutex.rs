@@ -1,10 +1,11 @@
-use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+use core::ffi::c_void;
 use std::ptr;
 use std::sync::{Condvar, Mutex};
 use std::thread::ThreadId;
 
-use crate::base::lean_register_external_class;
-use crate::datatypes::{LeanExternalClass, LeanObject};
+use leanh_l1::datatypes::LeanExternalClass;
+
+use crate::r#priv::lean_register_external_class::lean_register_external_class;
 
 static mut BASEMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut CONDVAR_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
@@ -234,17 +235,14 @@ unsafe fn basesharedmutex_finalizer(data: *mut c_void) {
     drop(Box::from_raw(data.cast::<BaseSharedMutex>()));
 }
 
-unsafe fn noop_foreach(_: *mut c_void, _: *mut LeanObject) {}
 pub fn initialize_mutex() {
     unsafe {
-        BASEMUTEX_EXTERNAL_CLASS =
-            lean_register_external_class(Some(basemutex_finalizer), Some(noop_foreach));
-        CONDVAR_EXTERNAL_CLASS =
-            lean_register_external_class(Some(condvar_finalizer), Some(noop_foreach));
+        BASEMUTEX_EXTERNAL_CLASS = lean_register_external_class(Some(basemutex_finalizer), None);
+        CONDVAR_EXTERNAL_CLASS = lean_register_external_class(Some(condvar_finalizer), None);
         BASERECMUTEX_EXTERNAL_CLASS =
-            lean_register_external_class(Some(baserecmutex_finalizer), Some(noop_foreach));
+            lean_register_external_class(Some(baserecmutex_finalizer), None);
         BASESHAREDMUTEX_EXTERNAL_CLASS =
-            lean_register_external_class(Some(basesharedmutex_finalizer), Some(noop_foreach));
+            lean_register_external_class(Some(basesharedmutex_finalizer), None);
     }
 }
 

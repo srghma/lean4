@@ -7,6 +7,8 @@ pub mod lean_io_prim_handle_put_str;
 pub mod lean_io_prim_handle_read;
 pub mod lean_io_prim_handle_write;
 pub mod lean_io_result_mk_error;
+pub mod lean_register_external_class;
+pub mod lean_runtime_alloc_external;
 pub mod lean_runtime_errno;
 pub mod lean_runtime_get_external_data;
 pub mod lean_sarray_cptr;

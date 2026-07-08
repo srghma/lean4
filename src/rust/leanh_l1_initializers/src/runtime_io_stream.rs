@@ -2,9 +2,18 @@ use core::ffi::c_void;
 use core::ptr;
 use libc_stdhandle::{stderr as libc_stderr, stdin as libc_stdin, stdout as libc_stdout};
 
-use crate::base::{lean_register_external_class, lean_runtime_alloc_external};
-use crate::datatypes::{LeanExternalClass, LeanObject};
-use crate::runtime_object_rc::lean_mark_persistent;
+use leanh_l1::{
+    datatypes::{LeanExternalClass, LeanObject},
+    emitted::lean_mark_persistent::lean_mark_persistent,
+};
+
+use crate::{
+    r#priv::{
+        lean_register_external_class::lean_register_external_class,
+        lean_runtime_alloc_external::lean_runtime_alloc_external,
+    },
+    todo_import_from_lean::lean_stream_of_handle::lean_stream_of_handle,
+};
 
 static mut IO_HANDLE_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut STREAM_STDIN: *mut LeanObject = ptr::null_mut();
@@ -15,15 +24,12 @@ unsafe fn io_handle_finalizer(handle: *mut c_void) {
     libc::fclose(handle.cast());
 }
 
-unsafe fn io_handle_foreach(_: *mut c_void, _: *mut LeanObject) {}
-
 pub unsafe fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
     lean_runtime_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
 }
 
 pub unsafe fn initialize_io() {
-    IO_HANDLE_EXTERNAL_CLASS =
-        lean_register_external_class(Some(io_handle_finalizer), Some(io_handle_foreach));
+    IO_HANDLE_EXTERNAL_CLASS = lean_register_external_class(Some(io_handle_finalizer), None);
 
     STREAM_STDOUT = lean_stream_of_handle(io_wrap_handle(libc_stdout()));
     lean_mark_persistent(STREAM_STDOUT);

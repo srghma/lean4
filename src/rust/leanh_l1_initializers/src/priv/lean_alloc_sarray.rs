@@ -1,7 +1,7 @@
 use std::ffi::c_uint;
 
 use leanh_l1::{
-    datatypes::{LEAN_SCALAR_ARRAY_TAG, LeanObject, LeanScalarArray, Size},
+    datatypes::{LeanObject, LeanScalarArray, Size, LEAN_SCALAR_ARRAY_TAG},
     r#priv::lean_alloc_object::lean_alloc_object,
 };
 

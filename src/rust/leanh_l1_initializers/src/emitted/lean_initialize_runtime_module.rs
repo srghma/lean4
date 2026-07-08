@@ -1,4 +1,9 @@
 use leanh_l1::datatypes::{LeanObject, Size};
+
+use crate::{
+    runtime_io_stream::initialize_io, runtime_mutex::initialize_mutex,
+    runtime_stack_overflow::initialize_stack_overflow::initialize_stack_overflow,
+};
 pub unsafe fn lean_initialize_runtime_module() {
     // initialize_alloc();
     // initialize_debug();
@@ -6,7 +11,7 @@ pub unsafe fn lean_initialize_runtime_module() {
     initialize_io();
     // initialize_thread();
     initialize_mutex();
-    initialize_process();
+    // initialize_process();
     initialize_stack_overflow();
     initialize_libuv();
 }
