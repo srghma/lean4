@@ -31,7 +31,6 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     unsafe extern "C" {
-        fn lean_mark_persistent(o: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
 
         // Names
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;

@@ -1,10 +1,10 @@
 use crate::{
-    datatypes::{LEAN_REF_TAG, LeanObject},
+    datatypes::LeanObject,
     emitted::{
         lean_ctor_get::lean_ctor_get, lean_dec::lean_dec, lean_dec_ref::lean_dec_ref,
         lean_del_object::lean_del_object, lean_is_exclusive::lean_is_exclusive,
     },
-    r#priv::lean_ptr_tag::lean_ptr_tag,
+    r#priv::lean_is_ref::lean_is_ref,
 };
 
 // Mirrors origin-master-src/include/lean/lean.h:691-700 (`lean_dec_ref_known`).

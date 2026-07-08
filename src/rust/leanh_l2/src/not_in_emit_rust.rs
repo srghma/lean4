@@ -45,12 +45,6 @@ pub unsafe fn lean_global_dealloc(mem: *mut u8, size: usize) {
     }
 }
 
-// NOT IN EmitRust; here because it is used in `lean_dec_ref_known`.
-#[inline]
-pub unsafe fn lean_is_ref(obj: *mut LeanObject) -> bool {
-    unsafe { lean_ptr_tag(obj) == LEAN_REF_TAG }
-}
-
 // NOT IN EmitRust; here because it is used in `lean_mk_string`, `lean_mk_string_unchecked`.
 #[inline]
 pub unsafe fn lean_string_data(obj: *mut LeanObject) -> *mut u8 {
@@ -93,11 +87,6 @@ pub unsafe fn run_once<T: Copy>(loc: *mut T, tok: *mut LeanOnceCell, init: unsaf
         unlock_once_cell(&tok.lock);
         result
     }
-}
-
-#[inline(always)]
-pub unsafe fn lean_has_rc(o: *mut LeanObject) -> bool {
-    unsafe { (*o).rc != 0 }
 }
 
 // NOT IN EmitRust; here because it is used in `lean_obj_once`.

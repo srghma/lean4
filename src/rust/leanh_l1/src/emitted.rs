@@ -88,6 +88,7 @@ pub mod lean_ctor_set_uint8;
 pub mod lean_dec_ref_known;
 pub mod lean_del_object;
 pub mod lean_inc_n;
+pub mod lean_mark_persistent;
 pub mod lean_uint16_once;
 pub mod lean_uint32_once;
 pub mod lean_uint64_once;

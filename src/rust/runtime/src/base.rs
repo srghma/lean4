@@ -18,7 +18,6 @@ use leanh::{
 
 unsafe extern "C" {
     pub fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
     pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_mk_io_error_invalid_argument(
         errnum: u32,

@@ -12,7 +12,6 @@ mod runtime_io_ref_impl {
 
     unsafe extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
-        fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
     }
 
     #[repr(C)]

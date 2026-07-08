@@ -1,15 +1,16 @@
-use crate::datatypes::{LeanObject, Size};
+use core::sync::atomic::Ordering;
 
-// appended by move_rust_fn_to_leanh_l1.ts from src/rust/leanh_l2/src/in_emit_rust.rs:450-460
+use crate::{
+    datatypes::{LeanOnceCell, UsizeInitFn},
+    runtime_once::lean_usize_once_cold,
+};
 
+// Mirrors origin-master-src/include/lean/lean.h:3327-3331 (`lean_usize_once`).
 #[inline]
 pub unsafe fn lean_usize_once(loc: *mut usize, tok: *mut LeanOnceCell, init: UsizeInitFn) -> usize {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
+    if (*tok).state.load(Ordering::Acquire) == 1 {
+        *loc
+    } else {
+        lean_usize_once_cold(loc, tok, init)
     }
 }
-

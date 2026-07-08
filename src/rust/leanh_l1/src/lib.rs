@@ -85,6 +85,7 @@ pub mod runtime_mpz;
 pub mod runtime_object_nat_int;
 pub mod runtime_object_rc;
 pub mod runtime_object_task;
+pub mod runtime_once;
 pub mod runtime_stack_info;
 pub mod runtime_stack_overflow;
 pub mod runtime_thread;
