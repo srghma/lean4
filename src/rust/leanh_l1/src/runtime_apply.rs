@@ -7,7 +7,7 @@ use crate::{
     emitted::lean_dec_ref::lean_dec_ref,
     emitted::lean_inc::lean_inc,
     emitted::lean_is_exclusive::lean_is_exclusive,
-    emitted::lean_is_scalar::lean_is_scalar_bool,
+    emitted::lean_is_scalar::lean_is_scalar,
     r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr,
     r#priv::lean_free_object::lean_free_object,
 };
@@ -296,7 +296,7 @@ unsafe fn apply_generic(
     n: u32,
     as_ptr: *mut *mut LeanObject,
 ) -> *mut LeanObject {
-    if lean_is_scalar_bool(f) {
+    if lean_is_scalar(f) {
         for i in 0..n as usize {
             unsafe { lean_dec(as_ptr.add(i).read()) };
         }

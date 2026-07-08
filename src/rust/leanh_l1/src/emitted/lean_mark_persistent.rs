@@ -9,7 +9,7 @@ use crate::{
     },
     emitted::{
         lean_alloc_closure::lean_alloc_closure, lean_box::lean_box, lean_dec::lean_dec,
-        lean_is_scalar::lean_is_scalar_bool,
+        lean_is_scalar::lean_is_scalar,
     },
     r#priv::{
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
@@ -31,7 +31,7 @@ pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
     // TODO: export
     let mut todo = vec![o];
     while let Some(cur) = todo.pop() {
-        if !lean_is_scalar_bool(cur) && lean_has_rc(cur) {
+        if !lean_is_scalar(cur) && lean_has_rc(cur) {
             (*cur).rc = 0;
             lsan_ignore(cur);
             let tag = lean_ptr_tag(cur);

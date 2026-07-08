@@ -12,7 +12,7 @@ use crate::{
     },
     emitted::lean_alloc_closure::lean_alloc_closure,
     emitted::lean_dec::lean_dec,
-    emitted::lean_is_scalar::lean_is_scalar_bool,
+    emitted::lean_is_scalar::lean_is_scalar,
     r#priv::{
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
         lean_closure_arg_cptr::lean_closure_arg_cptr,
@@ -34,13 +34,13 @@ pub unsafe fn lean_mark_mt(_o: *mut LeanObject) {}
 
 #[cfg(lean_multi_thread)]
 pub unsafe fn lean_mark_mt(o: *mut LeanObject) {
-    if lean_is_scalar_bool(o) || !lean_is_st(o) {
+    if lean_is_scalar(o) || !lean_is_st(o) {
         return;
     }
 
     let mut todo = vec![o];
     while let Some(cur) = todo.pop() {
-        if !lean_is_scalar_bool(cur) && lean_is_st(cur) {
+        if !lean_is_scalar(cur) && lean_is_st(cur) {
             (*cur).rc = -(*cur).rc;
             let tag = lean_ptr_tag(cur);
             if tag <= LEAN_MAX_CTOR_TAG {

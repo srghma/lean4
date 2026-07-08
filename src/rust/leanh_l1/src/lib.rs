@@ -43,7 +43,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 //     lean_closure_num_fixed, lean_ctor_num_objs, lean_ctor_obj_cptr, lean_ctor_scalar_cptr,
 //     lean_dealloc, lean_dec_ref_cold, lean_del_core, lean_del_core_other, lean_free_object,
 //     lean_free_small_object, lean_global_alloc, lean_global_dealloc, lean_is_ref,
-//     lean_is_scalar_bool, lean_is_st, lean_mpz_clear, lean_obj_once_cold, lean_ptr_tag,
+//     lean_is_scalar, lean_is_st, lean_mpz_clear, lean_obj_once_cold, lean_ptr_tag,
 //     lean_sarray_byte_size, lean_string_byte_size, lean_string_data, lean_usize_to_nat,
 //     lock_once_cell, pop_back, push_back, run_once, set_next, unlock_once_cell,
 // };

@@ -78,21 +78,21 @@ mod runtime_io_task_impl {
         f: *mut LeanObject,
         t: *mut LeanObject,
         prio: *mut LeanObject,
-        sync: u8,
+        sync: bool,
     ) -> *mut LeanObject {
         let c = lean_alloc_closure(lean_io_bind_task_fn as *mut c_void, 2, 1);
         lean_closure_set(c, 0, f);
-        lean_task_map_core(c, t, lean_unbox(prio) as core::ffi::c_uint, sync != 0, true)
+        lean_task_map_core(c, t, lean_unbox(prio) as core::ffi::c_uint, sync, true)
     }
 
     pub unsafe fn lean_io_bind_task(
         t: *mut LeanObject,
         f: *mut LeanObject,
         prio: *mut LeanObject,
-        sync: u8,
+        sync: bool,
     ) -> *mut LeanObject {
         let c = lean_alloc_closure(lean_io_bind_task_fn as *mut c_void, 2, 1);
         lean_closure_set(c, 0, f);
-        lean_task_bind_core(t, c, lean_unbox(prio) as core::ffi::c_uint, sync != 0, true)
+        lean_task_bind_core(t, c, lean_unbox(prio) as core::ffi::c_uint, sync, true)
     }
 }

@@ -94,6 +94,6 @@ pub(crate) unsafe fn lean_dynlib_symbol_run_as_init(
     symbol: *mut LeanObject,
 ) -> *mut LeanObject {
     let symbol = lean_runtime_get_external_data(symbol);
-    let initialize: unsafe fn(u8) -> *mut LeanObject = core::mem::transmute(symbol);
-    initialize(1)
+    let initialize: unsafe fn(bool) -> *mut LeanObject = core::mem::transmute(symbol);
+    initialize(true)
 }

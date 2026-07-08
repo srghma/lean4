@@ -2,7 +2,7 @@ use runtime::leanh_extra::*;
 // Generated stub file for Lean FFI imports
 // Source: src/Std/Internal/UV/Signal.lean
 
-pub fn lean_uv_signal_mk(_: u32, _: u8) -> *mut LeanObject {
+pub fn lean_uv_signal_mk(_: u32, _: bool) -> *mut LeanObject {
     todo!("Stub for lean_uv_signal_mk");
 }
 

@@ -21,18 +21,14 @@ pub fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObjec
 pub fn lean_io_map_task(
     _: *mut LeanObject,
     _: *mut LeanObject,
-    _: *mut LeanObject,
-    _: u8,
-) -> *mut LeanObject {
+    _: *mut LeanObject, _: bool) -> *mut LeanObject {
     todo!("Stub for lean_io_map_task");
 }
 
 pub fn lean_io_bind_task(
     _: *mut LeanObject,
     _: *mut LeanObject,
-    _: *mut LeanObject,
-    _: u8,
-) -> *mut LeanObject {
+    _: *mut LeanObject, _: bool) -> *mut LeanObject {
     todo!("Stub for lean_io_bind_task");
 }
 
@@ -104,11 +100,11 @@ pub fn lean_io_prim_handle_mk(_: *mut LeanObject, _: u8) -> *mut LeanObject {
     todo!("Stub for lean_io_prim_handle_mk");
 }
 
-pub fn lean_io_prim_handle_lock(_: *mut LeanObject, _: u8) -> *mut LeanObject {
+pub fn lean_io_prim_handle_lock(_: *mut LeanObject, _: bool) -> *mut LeanObject {
     todo!("Stub for lean_io_prim_handle_lock");
 }
 
-pub fn lean_io_prim_handle_try_lock(_: *mut LeanObject, _: u8) -> *mut LeanObject {
+pub fn lean_io_prim_handle_try_lock(_: *mut LeanObject, _: bool) -> *mut LeanObject {
     todo!("Stub for lean_io_prim_handle_try_lock");
 }
 

@@ -28,8 +28,6 @@ mod library_ir_interpreter_impl {
         // Numeric coercions
         fn lean_float_of_nat(a: *mut LeanObject) -> f64;
         fn lean_float32_of_nat(a: *mut LeanObject) -> f32;
-        fn lean_usize_of_big_nat(a: *mut LeanObject) -> usize;
-        fn lean_uint64_of_big_nat(a: *mut LeanObject) -> u64;
 
         // Symbol name helpers
         fn lean_get_symbol_stem(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
@@ -182,28 +180,9 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_uint64_of_nat(a: *mut LeanObject) -> u64 {
-        if lean_is_scalar(a) {
-            lean_unbox(a) as u64
-        } else {
-            lean_uint64_of_big_nat(a)
-        }
-    }
-
-    #[inline(always)]
-    unsafe fn lean_usize_of_nat(a: *mut LeanObject) -> usize {
-        if lean_is_scalar(a) {
-            lean_unbox(a)
-        } else {
-            lean_usize_of_big_nat(a)
-        }
-    }
-
-    #[inline(always)]
     unsafe fn lean_io_mk_world() -> *mut LeanObject {
         lean_box(0)
     }
-
     unsafe fn lean_io_result_mk_error_str(msg: &str) -> *mut LeanObject {
         let c_msg = std::ffi::CString::new(msg).unwrap_or_default();
         let s = lean_mk_string(c_msg.as_ptr());
@@ -2531,8 +2510,8 @@ mod library_ir_interpreter_impl {
         if init.is_null() {
             lean_io_result_mk_ok(lean_box(0)) // Bool.false: symbol not found
         } else {
-            let init_fn: unsafe fn(u8) -> *mut LeanObject = core::mem::transmute(init);
-            let builtin: u8 = 0;
+            let init_fn: unsafe fn(bool) -> *mut LeanObject = core::mem::transmute(init);
+            let builtin = false;
             let r = init_fn(builtin);
             if lean_io_result_is_ok(r) {
                 lean_dec_ref(r);

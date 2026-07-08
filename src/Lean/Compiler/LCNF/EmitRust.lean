@@ -1236,7 +1236,7 @@ def emitInitFn (phases : IRPhases) (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_{mkModuleInitializationPrefix phases}initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    s!"pub unsafe fn {← getModInitFn (phases := phases)}(builtin: u8) -> {leanObjectPtrTy} \{",
+    s!"pub unsafe fn {← getModInitFn (phases := phases)}(builtin: bool) -> {leanObjectPtrTy} \{",
     s!"let mut res: {leanObjectPtrTy} = core::ptr::null_mut();",
     s!"if {initialized} \{ return {leanh "lean_io_result_mk_ok"}({leanh "lean_box"}(0)); }",
     s!"{initialized} = true;"
@@ -1255,7 +1255,7 @@ def emitLegacyInitFn (impInitFns : List String) : EmitM Unit := do
   let initialized := s!"_G_initialized"
   emitLns [
     s!"static mut {initialized}: bool = false;",
-    s!"pub unsafe fn {← getModInitFn (phases := .all)}(builtin: u8) -> {leanObjectPtrTy} \{",
+    s!"pub unsafe fn {← getModInitFn (phases := .all)}(builtin: bool) -> {leanObjectPtrTy} \{",
     s!"let mut res: {leanObjectPtrTy} = core::ptr::null_mut();",
     s!"if {initialized} \{ return {leanh "lean_io_result_mk_ok"}({leanh "lean_box"}(0)); }",
     s!"{initialized} = true;"
@@ -1329,16 +1329,15 @@ where
     ]
 
     emitLns [
-      "unsafe fn lean_rust_main(argc: core::ffi::c_int, mut argv: *mut *mut core::ffi::c_char) -> core::ffi::c_int {",
-      s!"  argv = {leanh "lean_setup_args"}(argc, argv);",
+      "unsafe fn lean_rust_main(argc: core::ffi::c_int, argv: *mut *mut core::ffi::c_char) -> core::ffi::c_int {",
       if usesLeanAPI then s!"  {leanh "lean_initialize"}();" else s!"  {leanh "lean_initialize_runtime_module"}();",
-      s!"  let res = {← getModInitFn (phases := if env.header.isModule then .runtime else .all)}(1 /* builtin */);",
+      s!"  let res = {← getModInitFn (phases := if env.header.isModule then .runtime else .all)}(true /* builtin */);",
       s!"  {leanh "lean_io_mark_end_initialization"}();",
       "  let mut ret_val = 1;",
       s!"  if {leanh "lean_io_result_is_ok"}(res) \{",
       s!"    {leanh "lean_dec"}(res);",
       s!"    {leanh "lean_init_task_manager"}();",
-      s!"    let main_res = {leanh "lean_run_main"}(run_main, argc, argv);",
+      "    let main_res = run_main(argc, argv);",
       s!"    {leanh "lean_finalize_task_manager"}();",
       s!"    if {leanh "lean_io_result_is_ok"}(main_res) \{",
       if hasExitCode then

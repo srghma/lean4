@@ -34,8 +34,8 @@ mod runtime_object_panic_impl {
         G_EXIT_ON_PANIC.store(flag, Ordering::Relaxed);
     }
 
-    pub unsafe fn lean_internal_set_exit_on_panic(exit: u8) -> *mut LeanObject {
-        G_EXIT_ON_PANIC.store(exit != 0, Ordering::Relaxed);
+    pub unsafe fn lean_internal_set_exit_on_panic(exit: bool) -> *mut LeanObject {
+        G_EXIT_ON_PANIC.store(exit, Ordering::Relaxed);
         lean_box(0)
     }
 

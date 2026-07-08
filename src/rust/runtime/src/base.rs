@@ -87,9 +87,9 @@ unsafe extern "C" {
     pub fn finalize_quot();
     // initialize_trace / finalize_trace now provided by kernel_trace.rs
     // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
-    pub fn initialize_Init(builtin: u8) -> *mut LeanObject;
-    pub fn initialize_Std(builtin: u8) -> *mut LeanObject;
-    pub fn initialize_Lean(builtin: u8) -> *mut LeanObject;
+    pub fn initialize_Init(builtin: bool) -> *mut LeanObject;
+    pub fn initialize_Std(builtin: bool) -> *mut LeanObject;
+    pub fn initialize_Lean(builtin: bool) -> *mut LeanObject;
 }
 
 #[repr(C)]
@@ -787,7 +787,7 @@ pub fn finalize_constructions_module() {
     unsafe { finalize_constructions_module_body() }
 }
 
-pub fn lean_initialize_runtime_for_plugin(_: u8) -> *mut LeanObject {
+pub fn lean_initialize_runtime_for_plugin(_: bool) -> *mut LeanObject {
     unsafe {
         initialize_runtime_module_body();
         lean_io_result_mk_ok(lean_box(0))
@@ -1036,8 +1036,8 @@ pub unsafe fn lean_get_leanc_internal_flags(_: *mut LeanObject) -> *mut LeanObje
     lean_mk_string(concat!(env!("LEAN_RUST_LEANC_INTERNAL_FLAGS"), "\0").as_ptr() as *const c_char)
 }
 
-pub unsafe fn lean_get_linker_flags(link_static: u8) -> *mut LeanObject {
-    if link_static != 0 {
+pub unsafe fn lean_get_linker_flags(link_static: bool) -> *mut LeanObject {
+    if link_static {
         lean_mk_string(
             concat!(
                 env!("LEAN_RUST_LEANC_STATIC_LINKER_FLAGS"),
@@ -1291,26 +1291,6 @@ pub unsafe fn lean_runtime_mk_cnstr(
 pub unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
     let mut fields = [error];
     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
-}
-
-unsafe fn lean_uint64_to_nat_rust(value: u64) -> *mut LeanObject {
-    if value <= usize::MAX as u64 >> 1 {
-        lean_box(value as usize)
-    } else {
-        runtime_object_nat_int_impl::lean_big_uint64_to_nat(value)
-    }
-}
-
-unsafe fn lean_int64_to_int_rust(value: i64) -> *mut LeanObject {
-    runtime_object_nat_int_impl::lean_big_int64_to_int(value)
-}
-
-unsafe fn lean_uint64_of_nat_rust(value: *mut LeanObject) -> u64 {
-    if lean_is_scalar(value) {
-        lean_unbox(value) as u64
-    } else {
-        runtime_object_nat_int_impl::lean_uint64_of_big_nat(value)
-    }
 }
 
 pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {

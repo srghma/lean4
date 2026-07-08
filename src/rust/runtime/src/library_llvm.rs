@@ -8,7 +8,7 @@ mod library_llvm_impl {
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
-        fn initialize_Lean_Compiler_IR_EmitLLVM(builtin: u8) -> *mut LeanObject;
+        fn initialize_Lean_Compiler_IR_EmitLLVM(builtin: bool) -> *mut LeanObject;
         fn lean_ir_emit_llvm(
             env: *mut LeanObject,
             mod_name: *mut LeanObject,
@@ -36,7 +36,7 @@ mod library_llvm_impl {
     }
 
     pub unsafe fn lean_init_llvm() -> *mut LeanObject {
-        initialize_Lean_Compiler_IR_EmitLLVM(0)
+        initialize_Lean_Compiler_IR_EmitLLVM(false)
     }
 
     pub unsafe fn lean_emit_llvm(
@@ -613,13 +613,13 @@ mod library_llvm_impl {
     }
 
     #[cfg(lean_has_llvm)]
-    unsafe fn llvm_set_tail_call_impl(fnval: usize, is_tail: u8) -> *mut LeanObject {
+    unsafe fn llvm_set_tail_call_impl(fnval: usize, is_tail: bool) -> *mut LeanObject {
         LLVMSetTailCall(fnval, is_tail);
         lean_box(0)
     }
 
     #[cfg(not(lean_has_llvm))]
-    unsafe fn llvm_set_tail_call_impl(_fnval: usize, _is_tail: u8) -> *mut LeanObject {
+    unsafe fn llvm_set_tail_call_impl(_fnval: usize, _is_tail: bool) -> *mut LeanObject {
         llvm_unavailable()
     }
 
@@ -1882,7 +1882,7 @@ mod library_llvm_impl {
         p1: *mut LeanObject,
         p2: *mut LeanObject,
     ) -> *mut LeanObject {
-        llvm_set_tail_call_impl(lean_unbox(p1), lean_unbox(p2) as u8)
+        llvm_set_tail_call_impl(lean_unbox(p1), lean_unbox(p2) != 0)
     }
 
     #[no_mangle]

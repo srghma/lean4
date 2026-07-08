@@ -164,15 +164,15 @@ pub fn initialize_library_module() {
     unsafe { initialize_library_module_body() }
 }
 
-pub unsafe fn initialize_Init(builtin: u8) -> *mut LeanObject {
+pub unsafe fn initialize_Init(builtin: bool) -> *mut LeanObject {
     todo!("src/rust/gen_init/src/gen/Init.rs")
 }
 
-pub unsafe fn initialize_Std(builtin: u8) -> *mut LeanObject {
+pub unsafe fn initialize_Std(builtin: bool) -> *mut LeanObject {
     todo!("src/rust/gen_std/src/gen/Std.rs")
 }
 
-pub unsafe fn initialize_Lean(builtin: u8) -> *mut LeanObject {
+pub unsafe fn initialize_Lean(builtin: bool) -> *mut LeanObject {
     todo!("src/rust/gen_lean_part_5/src/gen/Lean.rs")
 }
 
@@ -225,7 +225,7 @@ pub fn lean_initialize() {
     unsafe {
         save_stack_info(true);
         initialize_util_module();
-        let builtin = 1u8;
+        let builtin = true;
         consume_io_result(initialize_Init(builtin));
         consume_io_result(initialize_Std(builtin));
         consume_io_result(initialize_Lean(builtin));
@@ -236,109 +236,6 @@ pub fn lean_initialize() {
         initialize_constructions_module();
     }
 }
-
-#[inline]
-pub unsafe fn lean_run_main(
-    main_fn: unsafe fn(c_int, *mut *mut c_char) -> *mut LeanObject,
-    argc: c_int,
-    argv: *mut *mut c_char,
-) -> *mut LeanObject {
-    unsafe { main_fn(argc, argv) }
-}
-
-#[inline]
-pub unsafe fn lean_setup_args(_: c_int, argv: *mut *mut c_char) -> *mut *mut c_char {
-    argv
-}
-
-#[inline]
-pub unsafe fn lean_small_nat(obj: *mut LeanObject) -> usize {
-    unsafe {
-        if lean_is_scalar_bool(obj) {
-            lean_unbox(obj)
-        } else {
-            panic!("big Nat is not supported in leanh.rs")
-        }
-    }
-}
-
-macro_rules! define_uint_family {
-    ($ty:ty, $of_nat:ident, $of_nat_mk:ident, $to_nat:ident, $dec_eq:ident, $dec_lt:ident, $dec_le:ident) => {
-        #[inline]
-        pub unsafe fn $of_nat(obj: *mut LeanObject) -> $ty {
-            unsafe { lean_small_nat(obj) as $ty }
-        }
-
-        #[inline]
-        pub unsafe fn $of_nat_mk(obj: *mut LeanObject) -> $ty {
-            unsafe {
-                let result = $of_nat(obj);
-                lean_dec(obj);
-                result
-            }
-        }
-
-        #[inline]
-        pub unsafe fn $to_nat(value: $ty) -> *mut LeanObject {
-            unsafe { lean_usize_to_nat(value as usize) }
-        }
-
-        #[inline]
-        pub unsafe fn $dec_eq(a: $ty, b: $ty) -> u8 {
-            (a == b) as u8
-        }
-
-        #[inline]
-        pub unsafe fn $dec_lt(a: $ty, b: $ty) -> u8 {
-            (a < b) as u8
-        }
-
-        #[inline]
-        pub unsafe fn $dec_le(a: $ty, b: $ty) -> u8 {
-            (a <= b) as u8
-        }
-    };
-}
-
-define_uint_family!(
-    u8,
-    lean_uint8_of_nat,
-    lean_uint8_of_nat_mk,
-    lean_uint8_to_nat,
-    lean_uint8_dec_eq,
-    lean_uint8_dec_lt,
-    lean_uint8_dec_le
-);
-
-define_uint_family!(
-    u16,
-    lean_uint16_of_nat,
-    lean_uint16_of_nat_mk,
-    lean_uint16_to_nat,
-    lean_uint16_dec_eq,
-    lean_uint16_dec_lt,
-    lean_uint16_dec_le
-);
-
-define_uint_family!(
-    u32,
-    lean_uint32_of_nat,
-    lean_uint32_of_nat_mk,
-    lean_uint32_to_nat,
-    lean_uint32_dec_eq,
-    lean_uint32_dec_lt,
-    lean_uint32_dec_le
-);
-
-define_uint_family!(
-    u64,
-    lean_uint64_of_nat,
-    lean_uint64_of_nat_mk,
-    lean_uint64_to_nat,
-    lean_uint64_dec_eq,
-    lean_uint64_dec_lt,
-    lean_uint64_dec_le
-);
 
 pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_error(obj));

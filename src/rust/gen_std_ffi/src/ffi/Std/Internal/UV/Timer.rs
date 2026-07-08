@@ -2,7 +2,7 @@ use runtime::leanh_extra::*;
 // Generated stub file for Lean FFI imports
 // Source: src/Std/Internal/UV/Timer.lean
 
-pub fn lean_uv_timer_mk(_: u64, _: u8) -> *mut LeanObject {
+pub fn lean_uv_timer_mk(_: u64, _: bool) -> *mut LeanObject {
     todo!("Stub for lean_uv_timer_mk");
 }
 

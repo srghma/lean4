@@ -11,9 +11,12 @@ mod runtime_io_handle_impl {
         (*(hfile as *mut LeanExternalObject)).data.cast()
     }
 
-    pub unsafe fn lean_io_prim_handle_lock(h: *mut LeanObject, exclusive: u8) -> *mut LeanObject {
+    pub unsafe fn lean_io_prim_handle_lock(
+        h: *mut LeanObject,
+        exclusive: bool,
+    ) -> *mut LeanObject {
         let fp = io_get_handle(h);
-        let op = if exclusive != 0 {
+        let op = if exclusive {
             libc::LOCK_EX
         } else {
             libc::LOCK_SH
@@ -30,10 +33,10 @@ mod runtime_io_handle_impl {
 
     pub unsafe fn lean_io_prim_handle_try_lock(
         h: *mut LeanObject,
-        exclusive: u8,
+        exclusive: bool,
     ) -> *mut LeanObject {
         let fp = io_get_handle(h);
-        let op = if exclusive != 0 {
+        let op = if exclusive {
             libc::LOCK_EX
         } else {
             libc::LOCK_SH

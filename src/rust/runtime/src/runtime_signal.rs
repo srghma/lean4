@@ -83,7 +83,7 @@ mod runtime_signal_impl {
         }
     }
 
-    pub unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: u8) -> *mut LeanObject {
+    pub unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: bool) -> *mut LeanObject {
         let mut signum = signum_obj as c_int;
 
         match signum {
@@ -119,7 +119,7 @@ mod runtime_signal_impl {
         }
 
         (*signal).signum = signum;
-        (*signal).repeating = repeating != 0;
+        (*signal).repeating = repeating;
         (*signal).state = SIGNAL_STATE_INITIAL;
         (*signal).promise = null_mut();
 

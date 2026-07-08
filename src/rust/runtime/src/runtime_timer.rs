@@ -51,7 +51,7 @@ mod runtime_timer_impl {
         }
     }
 
-    pub unsafe fn lean_uv_timer_mk(timeout: u64, repeating: u8) -> *mut LeanObject {
+    pub unsafe fn lean_uv_timer_mk(timeout: u64, repeating: bool) -> *mut LeanObject {
         let timer =
             libc::malloc(core::mem::size_of::<LeanUvTimerObject>()).cast::<LeanUvTimerObject>();
         if timer.is_null() {
@@ -59,7 +59,7 @@ mod runtime_timer_impl {
         }
 
         (*timer).timeout = timeout;
-        (*timer).repeating = repeating != 0;
+        (*timer).repeating = repeating;
         (*timer).state = TIMER_STATE_INITIAL;
         (*timer).promise = null_mut();
 

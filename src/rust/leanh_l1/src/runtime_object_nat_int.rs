@@ -18,7 +18,7 @@ use gmp_mpfr_sys::gmp::{
 use crate::datatypes::{LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG, LeanMpzObject, LeanObject};
 use crate::emitted::{
     lean_box::lean_box, lean_dec::lean_dec, lean_inc::lean_inc,
-    lean_is_scalar::lean_is_scalar_bool as lean_is_scalar, lean_unbox::lean_unbox,
+    lean_is_scalar::lean_is_scalar as lean_is_scalar, lean_unbox::lean_unbox,
 };
 use crate::r#priv::lean_alloc_small_object::lean_alloc_small_object;
 use crate::runtime_mpz::{

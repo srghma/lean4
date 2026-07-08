@@ -1340,7 +1340,7 @@ def callModInitFn (builder : LLVM.Builder llvmctx)
     (input world : LLVM.Value llvmctx) (retName : String) : M llvmctx (LLVM.Value llvmctx) := do
   let fnName := mkModuleInitializationFunctionName modName pkg?
   let retty ← LLVM.voidPtrType llvmctx
-  let argtys := #[ (← LLVM.i8Type llvmctx), (← LLVM.voidPtrType llvmctx)]
+  let argtys := #[ (← LLVM.i1Type llvmctx), (← LLVM.voidPtrType llvmctx)]
   let fn ← getOrCreateFunctionPrototype (← getLLVMModule) retty fnName argtys
   let fnty ← LLVM.functionType retty argtys
   LLVM.buildCall2 builder fnty fn #[input, world] retName
@@ -1349,7 +1349,7 @@ def emitInitFn (mod : LLVM.Module llvmctx) (builder : LLVM.Builder llvmctx) : M 
   let env ← getEnv
   let modName ← getModName
   let pkg? := env.getModulePackage?
-  let initFnTy ← LLVM.functionType (← LLVM.voidPtrType llvmctx) #[ (← LLVM.i8Type llvmctx), (← LLVM.voidPtrType llvmctx)] (isVarArg := false)
+  let initFnTy ← LLVM.functionType (← LLVM.voidPtrType llvmctx) #[ (← LLVM.i1Type llvmctx), (← LLVM.voidPtrType llvmctx)] (isVarArg := false)
   let initFn ← LLVM.getOrAddFunction mod (mkModuleInitializationFunctionName modName pkg?) initFnTy
   LLVM.setDLLStorageClass initFn LLVM.DLLStorageClass.export  -- LEAN_EXPORT
   let entryBB ← LLVM.appendBasicBlockInContext llvmctx initFn "entry"
@@ -1520,7 +1520,7 @@ def emitMainFn (mod : LLVM.Module llvmctx) (builder : LLVM.Builder llvmctx) : M 
   callLeanSetPanicMessages builder (← LLVM.constFalse llvmctx)
   let world ← callLeanIOMkWorld builder
   let resv ← callModInitFn builder (← getModName) env.getModulePackage?
-    (← constInt8 1) world ((← getModName).toString ++ "_init_out")
+    (← LLVM.constTrue llvmctx) world ((← getModName).toString ++ "_init_out")
   let _ ← LLVM.buildStore builder resv res
 
   callLeanSetPanicMessages builder (← LLVM.constTrue llvmctx)

@@ -7,13 +7,13 @@ use std::{
 
 use crate::{
     datatypes::LeanObject,
-    emitted::lean_is_scalar::lean_is_scalar_bool,
+    emitted::lean_is_scalar::lean_is_scalar,
     r#priv::{lean_del_core::lean_del_core, pop_back::pop_back},
 };
 
 // NOT IN EmitRust; here because it is used in `lean_apply_m`, `lean_ctor_release`, `lean_dec`, `lean_dec_ref`, and 1 more EmitRust functions.
 pub unsafe fn lean_dec_ref_cold(mut o: *mut LeanObject) {
-    if lean_is_scalar_bool(o) {
+    if lean_is_scalar(o) {
         return;
     }
     if (*o).rc == 1 || {

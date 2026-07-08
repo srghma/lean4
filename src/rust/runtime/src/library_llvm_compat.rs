@@ -355,8 +355,8 @@ use llvm_sys::{analysis, bit_reader, core, target, target_machine};
     }
 
     #[inline]
-    pub unsafe fn LLVMSetTailCall(fnval: usize, is_tail: u8) {
-        core::LLVMSetTailCall(fnval as _, is_tail)
+    pub unsafe fn LLVMSetTailCall(fnval: usize, is_tail: bool) {
+        core::LLVMSetTailCall(fnval as _, is_tail as _)
     }
 
     #[inline]
