@@ -271,7 +271,6 @@ pub(crate) mod runtime_object_task_impl {
     unsafe extern "C" {
         fn lean_initialize_thread();
         fn lean_finalize_thread();
-        fn lean_panic(msg: *const core::ffi::c_char, force_stderr: bool);
     }
 
     // ─── Init / finalize task manager ────────────────────────────────────────
@@ -413,29 +412,6 @@ pub(crate) mod runtime_object_task_impl {
         } else {
             lean_apply_1(f, lean_task_get_own(x))
         }
-    }
-
-    // ─── Task get ─────────────────────────────────────────────────────────────
-
-    pub unsafe fn lean_task_get(t: *mut LeanObject) -> *mut LeanObject {
-        let task = t as *mut LeanTaskObject;
-        let v = (*task).value.load(Ordering::Acquire);
-        if !v.is_null() {
-            return v;
-        }
-        if let Some(tm) = get_task_manager() {
-            tm.wait_for(task);
-        }
-        let v2 = (*task).value.load(Ordering::Acquire);
-        debug_assert!(!v2.is_null());
-        v2
-    }
-
-    unsafe fn lean_task_get_own(t: *mut LeanObject) -> *mut LeanObject {
-        let v = lean_task_get(t);
-        lean_inc(v);
-        lean_dec_ref(t);
-        v
     }
 
     // ─── IO task helpers ──────────────────────────────────────────────────────

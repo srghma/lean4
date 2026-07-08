@@ -14,7 +14,6 @@ mod runtime_object_string_impl {
     use leanh::LEAN_MAX_SMALL_NAT;
 
     unsafe extern "C" {
-        fn lean_free_object(o: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
     }
 
@@ -23,12 +22,6 @@ mod runtime_object_string_impl {
     #[inline]
     unsafe fn lean_string_capacity(o: *mut LeanObject) -> usize {
         (*(o as *const LeanStringObject)).capacity
-    }
-
-    #[inline]
-    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize {
-        // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 206 (🔁)
-        size_of::<LeanStringObject>() + lean_string_capacity(o)
     }
 
     #[inline]
@@ -160,16 +153,6 @@ mod runtime_object_string_impl {
         sz: usize,
     ) -> *mut LeanObject {
         lean_mk_string_unchecked(s, sz, lean_utf8_n_strlen(s, sz))
-    }
-
-    pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
-        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
-        let mut p = s;
-        while *p != 0 {
-            p = p.add(1);
-        }
-        let sz = p.offset_from(s) as usize;
-        lean_mk_string_from_bytes(s, sz)
     }
 
     pub unsafe fn lean_mk_ascii_string_unchecked(s: *const c_char) -> *mut LeanObject {

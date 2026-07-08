@@ -2,36 +2,37 @@ use core::ffi::c_void;
 
 use crate::{
     datatypes::{LeanClosureObject, LeanObject},
+    lean_alloc_closure::lean_alloc_closure,
+    lean_dec::lean_dec,
+    lean_dec_ref::lean_dec_ref,
+    lean_free_object::lean_free_object,
+    lean_inc::lean_inc,
+    lean_is_exclusive::lean_is_exclusive,
     lean_is_scalar::lean_is_scalar_bool,
+    r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr,
 };
 
 #[inline]
-fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void {
+fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void { // TODO: extract
     let clo = f as *mut LeanClosureObject<0>;
     unsafe { (*clo).m_fun }
 }
 
 #[inline]
-fn closure_arity(f: *mut LeanObject) -> u32 {
+fn closure_arity(f: *mut LeanObject) -> u32 { // TODO: extract
     let clo = f as *mut LeanClosureObject<0>;
     unsafe { (*clo).m_arity as u32 }
 }
 
 #[inline]
-fn closure_num_fixed(f: *mut LeanObject) -> u32 {
+fn closure_num_fixed(f: *mut LeanObject) -> u32 { // TODO: extract
     let clo = f as *mut LeanClosureObject<0>;
     unsafe { (*clo).m_num_fixed as u32 }
 }
 
 #[inline]
-fn closure_arg_cptr(f: *mut LeanObject) -> *mut *mut LeanObject {
-    let clo = f as *mut LeanClosureObject<0>;
-    unsafe { (*clo).m_objs.as_mut_ptr() }
-}
-
-#[inline]
 fn fx(f: *mut LeanObject, i: u32) -> *mut LeanObject {
-    let p = closure_arg_cptr(f);
+    let p = unsafe { lean_closure_arg_cptr(f) };
     unsafe { *p.add(i as usize) }
 }
 
@@ -202,8 +203,8 @@ unsafe fn fix_args(f: *mut LeanObject, n: u32, as_ptr: *const *mut LeanObject) -
     debug_assert!(new_fixed < arity);
 
     let r = unsafe { lean_alloc_closure(closure_fun(f), arity, new_fixed) };
-    let source = closure_arg_cptr(f);
-    let target = closure_arg_cptr(r);
+    let source = unsafe { lean_closure_arg_cptr(f) };
+    let target = unsafe { lean_closure_arg_cptr(r) };
 
     if unsafe { lean_is_exclusive(f) } {
         unsafe { core::ptr::copy(source, target, fixed as usize) };

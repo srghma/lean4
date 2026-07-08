@@ -16,23 +16,10 @@ mod runtime_object_size_impl {
     }
 
     #[inline]
-    unsafe fn lean_array_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 36 (🔁)
-        let array = o as *const LeanArrayObject;
-        core::mem::size_of::<LeanArrayObject>()
-            + core::mem::size_of::<*mut LeanObject>() * (*array).capacity
-    }
-
-    #[inline]
     unsafe fn lean_array_data_byte_size(o: *mut LeanObject) -> usize {
         let array = o as *const LeanArrayObject;
         core::mem::size_of::<LeanArrayObject>()
             + core::mem::size_of::<*mut LeanObject>() * (*array).size
-    }
-
-    #[inline]
-    unsafe fn lean_sarray_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 197 (🔁)
-        let array = o as *const LeanScalarArray;
-        core::mem::size_of::<LeanScalarArray>() + (*o).other as usize * (*array).capacity
     }
 
     #[inline]
@@ -42,22 +29,9 @@ mod runtime_object_size_impl {
     }
 
     #[inline]
-    unsafe fn lean_string_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 206 (🔁)
-        let string = o as *const LeanStringObject;
-        core::mem::size_of::<LeanStringObject>() + (*string).capacity
-    }
-
-    #[inline]
     unsafe fn lean_string_data_byte_size(o: *mut LeanObject) -> usize {
         let string = o as *const LeanStringObject;
         core::mem::size_of::<LeanStringObject>() + (*string).size
-    }
-
-    #[inline]
-    unsafe fn lean_closure_byte_size(o: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 70 (🔁)
-        let closure = o as *const LeanClosureObject;
-        core::mem::size_of::<LeanClosureObject>()
-            + core::mem::size_of::<*mut LeanObject>() * (*closure).num_fixed as usize
     }
 
     pub unsafe fn lean_object_byte_size(o: *mut LeanObject) -> usize {

@@ -275,7 +275,6 @@ mod kernel_type_checker_impl {
             lctx: *mut LeanObject,
             proj: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_mk_string_from_bytes(s: *const c_char, n: Size) -> *mut LeanObject;
         fn lean_mk_quot_val(
             name: *mut LeanObject,
             lparams: *mut LeanObject,
@@ -337,12 +336,6 @@ mod kernel_type_checker_impl {
     #[inline(always)]
     unsafe fn lean_name_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
         super::lean_name_eq_export(a as *mut _, b as *mut _) != 0
-    }
-
-    #[inline(always)]
-    unsafe fn lean_mk_string(s: *const u8, n: usize) -> *mut LeanObject { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
-
-        lean_mk_string_from_bytes(s.cast(), n)
     }
 
     // ---------------------------------------------------------------------------

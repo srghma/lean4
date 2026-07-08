@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_thread_impl {
-    use crate::base::{LeanObject, lean_box};
+    use crate::base::{lean_box, LeanObject};
     use crate::runtime_interrupt::{get_max_heartbeat, set_max_heartbeat};
     use core::cell::Cell;
     use core::ffi::c_void;
@@ -77,8 +77,6 @@ mod runtime_thread_impl {
         pthread_attr_destroy, pthread_attr_init, pthread_attr_setstacksize, pthread_attr_t,
         pthread_create, pthread_detach, pthread_join, pthread_t,
     };
-
-    const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024;
 
     fn set_thread_stack_size_internal(sz: usize) {
         G_THREAD_STACK_SIZE.store(sz + LEAN_STACK_BUFFER_SPACE, Ordering::Relaxed);

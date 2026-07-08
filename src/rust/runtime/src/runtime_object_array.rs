@@ -13,7 +13,6 @@ mod runtime_object_array_impl {
     use leanh::{LeanMpzObject, LeanThunkObject};
 
     unsafe extern "C" {
-        fn lean_free_object(o: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
@@ -23,11 +22,6 @@ mod runtime_object_array_impl {
     #[inline]
     unsafe fn lean_array_capacity(o: *mut LeanObject) -> usize {
         (*(o as *const LeanArrayObject)).capacity
-    }
-
-    #[inline]
-    unsafe fn lean_array_cptr(o: *mut LeanObject) -> *mut *mut LeanObject { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 46 (🔁)
-        (*(o as *mut LeanArrayObject)).data.as_mut_ptr()
     }
 
     #[inline]

@@ -27,11 +27,4 @@ pub(crate) mod runtime_object_rc_impl {
 
     #[cfg(not(all(lean_has_address_sanitizer, unix)))]
     unsafe fn ignore_lsan_object(_: *mut c_void) {}
-
-    unsafe extern "C" {
-        fn lean_internal_panic(msg: *const i8) -> !;
-        fn lean_task_get(task: *mut LeanObject) -> *mut LeanObject;
-        fn lean_runtime_deactivate_task(task: *mut LeanTaskObject);
-        fn lean_runtime_deactivate_promise(promise: *mut LeanPromiseObject);
-    }
 }

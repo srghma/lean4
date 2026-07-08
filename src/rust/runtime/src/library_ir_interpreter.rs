@@ -91,7 +91,6 @@ mod library_ir_interpreter_impl {
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
 
         fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-        pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
 
         // IO helpers
         fn lean_io_result_is_ok(obj: *mut LeanObject) -> bool; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 570 (🔁)
@@ -105,9 +104,6 @@ mod library_ir_interpreter_impl {
             env: *mut LeanObject,
             name: *mut LeanObject,
         ) -> *mut LeanObject;
-
-        // alloc/free for closures/ctors (from runtime_apply_impl)
-        fn lean_free_object(o: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 215 (🔁)
     }
 
     // ---------------------------------------------------------------------------
@@ -154,7 +150,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 96 (🔁)
+    unsafe fn lean_ctor_get_usize(obj: *mut LeanObject, idx: usize) -> usize {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 96 (🔁)
 
         let byte_offset = idx * core::mem::size_of::<*mut LeanObject>();
         (obj.add(1) as *const u8)
@@ -164,7 +161,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_float(obj: *mut LeanObject, byte_offset: usize) -> f64 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 66 (🔁)
+    unsafe fn lean_ctor_get_float(obj: *mut LeanObject, byte_offset: usize) -> f64 {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 66 (🔁)
 
         (obj.add(1) as *const u8)
             .add(byte_offset)
@@ -173,7 +171,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, byte_offset: usize) -> f32 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 71 (🔁)
+    unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, byte_offset: usize) -> f32 {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 71 (🔁)
 
         (obj.add(1) as *const u8)
             .add(byte_offset)
@@ -211,7 +210,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, byte_offset: usize, v: f32) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 123 (🔁)
+    unsafe fn lean_ctor_set_float32(obj: *mut LeanObject, byte_offset: usize, v: f32) {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 123 (🔁)
 
         (obj.add(1) as *mut u8)
             .add(byte_offset)
@@ -220,7 +220,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 308 (🔁)
+    unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 308 (🔁)
 
         let fld = lean_ctor_get_obj(obj, idx);
         lean_dec(fld);
@@ -228,13 +229,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_num_objs(obj: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 167 (🔁)
-
-        (*obj).other as usize
-    }
-
-    #[inline(always)]
-    unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 39 (🔁)
+    unsafe fn lean_closure_set(cls: *mut LeanObject, idx: usize, val: *mut LeanObject) {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 39 (🔁)
 
         // closure args are after the LeanClosureObject header (16 bytes: header=8, fun=ptr, arity=u16, num_fixed=u16, padding)
         const LEAN_CLOSURE_OBJECT_SIZE: usize = core::mem::size_of::<LeanClosureObject>();
@@ -246,27 +242,24 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
+    unsafe fn lean_unbox_uint32(o: *mut LeanObject) -> u32 {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 601 (🔁)
 
         lean_unbox(o) as u32
     }
 
     #[inline(always)]
-    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 591 (🔁)
+    unsafe fn lean_unbox_float(o: *mut LeanObject) -> f64 {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 591 (🔁)
 
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f64)
     }
 
     #[inline(always)]
-    unsafe fn lean_unbox_float32(o: *mut LeanObject) -> f32 { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 596 (🔁)
+    unsafe fn lean_unbox_float32(o: *mut LeanObject) -> f32 {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 596 (🔁)
 
         ptr::read_unaligned((o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const f32)
-    }
-
-    #[inline(always)]
-    unsafe fn lean_array_size(obj: *mut LeanObject) -> usize { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 52 (🔁)
-
-        (*(obj as *const LeanArrayObject)).size
     }
 
     #[inline(always)]
@@ -297,7 +290,8 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_del_object(obj: *mut LeanObject) { // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 318 (🔁)
+    unsafe fn lean_del_object(obj: *mut LeanObject) {
+        // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 318 (🔁)
 
         if !lean_is_scalar(obj) {
             lean_free_object(obj);
@@ -1064,8 +1058,7 @@ mod library_ir_interpreter_impl {
         #[cfg(unix)]
         {
             let lib = UnixLibrary::this();
-            let Ok(symbol) =
-                (unsafe { lib.get::<*mut core::ffi::c_void>(CStr::from_ptr(sym)) })
+            let Ok(symbol) = (unsafe { lib.get::<*mut core::ffi::c_void>(CStr::from_ptr(sym)) })
             else {
                 return ptr::null_mut();
             };

@@ -1,6 +1,9 @@
-use crate::runtime_thread::lthread_get_thread_stack_size;
-use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 use std::cell::Cell;
+
+use crate::{
+    runtime_exception::throw_get_stack_size_failed,
+    runtime_thread::{p2::lthread_get_thread_stack_size, p3::LEAN_STACK_BUFFER_SPACE},
+};
 
 #[cfg(unix)]
 
@@ -10,13 +13,10 @@ thread_local! {
     static G_STACK_BASE: Cell<usize> = Cell::new(0);
     static G_STACK_THRESHOLD: Cell<usize> = Cell::new(0);
 }
-
 unsafe fn get_stack_size(main: bool) -> usize {
     if main {
         let mut limit = std::mem::zeroed::<libc::rlimit>();
         if libc::getrlimit(libc::RLIMIT_STACK, &mut limit) != 0 {
-            use crate::runtime_exception::throw_get_stack_size_failed;
-
             throw_get_stack_size_failed();
         }
         limit.rlim_cur as usize
@@ -31,8 +31,7 @@ fn get_stack_pointer() -> usize {
     &dummy as *const u8 as usize
 }
 
-const LEAN_STACK_BUFFER_SPACE: usize = 128 * 1024; // 128 Kb
-pub unsafe fn save_stack_info_export(main: bool) {
+pub unsafe fn save_stack_info(main: bool) {
     let size = get_stack_size(main);
     let base = get_stack_pointer();
 
@@ -47,8 +46,4 @@ pub unsafe fn save_stack_info_export(main: bool) {
     G_STACK_SIZE.with(|cell| cell.set(size));
     G_STACK_BASE.with(|cell| cell.set(base));
     G_STACK_THRESHOLD.with(|cell| cell.set(threshold));
-}
-
-pub unsafe fn save_stack_info(main: bool) {
-    save_stack_info_export(main);
 }

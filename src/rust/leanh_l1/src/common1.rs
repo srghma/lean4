@@ -7,7 +7,7 @@ use crate::{
     datatypes::{LEAN_MAX_CTOR_TAG, LeanObject},
     lean_is_scalar::lean_is_scalar_bool,
     lean_unbox::lean_unbox,
-    runtime_object_panic::lean_internal_panic_out_of_memory,
+    runtime_object_panic::lean_internal_panic_out_of_memory::lean_internal_panic_out_of_memory,
 };
 use libmimalloc_sys as mi;
 

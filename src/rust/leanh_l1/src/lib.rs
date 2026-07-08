@@ -3,51 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-#![allow(non_upper_case_globals, unsafe_op_in_unsafe_fn)]
-
-#[cfg(not(target_pointer_width = "64"))]
-compile_error!("Lean Rust support crates require 64-bit pointer width");
-
-pub mod common1;
-pub mod datatypes;
-pub mod lean_alloc_closure;
-pub mod lean_alloc_ctor;
-pub mod lean_box;
-pub mod lean_box_float;
-pub mod lean_box_float32;
-pub mod lean_box_uint32;
-pub mod lean_box_uint64;
-pub mod lean_box_usize;
-pub mod lean_ctor_set_float;
-pub mod lean_ctor_set_uint64;
-pub mod lean_ctor_set_usize;
-pub mod lean_is_scalar;
-pub mod lean_unbox;
-pub mod r#priv;
-pub mod runtime_apply;
-pub mod runtime_object_panic;
-// pub mod base;
-// pub mod in_emit_rust;
-// pub mod kernel_type_checker;
-// pub mod not_in_emit_rust;
-// pub mod runtime_apply;
-// pub mod runtime_event_loop;
-// pub mod runtime_exception;
-// pub mod runtime_interrupt;
-// pub mod runtime_io_stream;
-// pub mod runtime_libuv;
-// pub mod runtime_mutex;
-// pub mod runtime_object_name;
-// pub mod runtime_object_panic;
-// pub mod runtime_object_rc;
-// pub mod runtime_object_string;
-// pub mod runtime_object_task;
-// pub mod runtime_process;
-// pub mod runtime_stack_info;
-// pub mod runtime_stack_overflow;
-// pub mod runtime_thread;
-// pub mod runtime_timer;
-
 // pub use arity::lean_apply_m;
 // pub use datatypes::{
 //     F32InitFn, F64InitFn, LEAN_ARRAY_TAG, LEAN_CLOSURE_MAX_ARGS, LEAN_CLOSURE_TAG,
@@ -92,4 +47,68 @@ pub mod runtime_object_panic;
 //     lean_sarray_byte_size, lean_string_byte_size, lean_string_data, lean_usize_to_nat,
 //     lock_once_cell, pop_back, push_back, run_once, set_next, unlock_once_cell,
 // };
+
+#![allow(non_upper_case_globals, unsafe_op_in_unsafe_fn)]
+
+#[cfg(not(target_pointer_width = "64"))]
+compile_error!("Lean Rust support crates require 64-bit pointer width");
+
+pub mod common1;
+pub mod datatypes;
+pub mod lean_alloc_closure;
+pub mod lean_alloc_ctor;
+pub mod lean_box;
+pub mod lean_box_float;
+pub mod lean_box_float32;
+pub mod lean_box_uint32;
+pub mod lean_box_uint64;
+pub mod lean_box_usize;
+pub mod lean_ctor_set_float;
+pub mod lean_ctor_set_uint64;
+pub mod lean_ctor_set_usize;
+pub mod lean_is_scalar;
+pub mod lean_unbox;
+pub mod r#priv;
+pub mod runtime_apply;
+pub mod runtime_object_panic;
+// pub mod base;
+// pub mod in_emit_rust;
+// pub mod kernel_type_checker;
+// pub mod not_in_emit_rust;
+// pub mod runtime_apply;
+// pub mod runtime_event_loop;
+// pub mod runtime_exception;
+// pub mod runtime_interrupt;
+// pub mod runtime_io_stream;
+// pub mod runtime_libuv;
+// pub mod runtime_mutex;
+// pub mod runtime_object_name;
+// pub mod runtime_object_panic;
+// pub mod runtime_object_rc;
+// pub mod runtime_object_string;
+// pub mod runtime_object_task;
+// pub mod runtime_process;
+// pub mod runtime_stack_info;
+// pub mod runtime_stack_overflow;
+// pub mod runtime_thread;
+// pub mod runtime_timer;
+pub mod lean_dec;
+pub mod lean_dec_ref;
+pub mod lean_dec_ref_cold;
+pub mod lean_del_core;
+pub mod lean_free_object;
+pub mod lean_inc;
+pub mod lean_inc_ref;
+pub mod lean_inc_ref_n;
 pub mod lean_is_exclusive;
+pub mod runtime_exception;
+pub mod runtime_interrupt;
+pub mod runtime_object_rc;
+pub mod runtime_object_task;
+pub mod runtime_stack_info;
+pub mod runtime_stack_overflow;
+pub mod runtime_thread;
+pub mod lean_mk_string_unchecked;
+pub mod lean_mk_string;
+
+

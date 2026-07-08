@@ -45,6 +45,7 @@ name = "leanh_l1"
 version = "0.1.0"
 dependencies = [
  "gmp-mpfr-sys",
+ "libc",
  "libloading",
  "libmimalloc-sys",
 ]

@@ -157,25 +157,6 @@ pub unsafe fn lean_float_once(loc: *mut f64, tok: *mut LeanOnceCell, init: F64In
 }
 
 #[inline]
-pub unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
-    if UAF_DETECT && (*obj).rc == LEAN_UAF_POISON_RC {
-        quar_report_uaf(obj, "inc");
-    }
-    if (*obj).rc > 0 {
-        (*obj).rc += n as i32;
-    } else if (*obj).rc != 0 {
-        let rc = (&raw mut (*obj).rc).cast::<AtomicI32>();
-        (*rc).fetch_sub(n as i32, Ordering::Relaxed);
-    }
-}
-
-#[inline]
-#[allow(clippy::not_unsafe_ptr_arg_deref)]
-pub fn lean_inc_ref(obj: *mut LeanObject) {
-    unsafe { lean_inc_ref_n(obj, 1) };
-}
-
-#[inline]
 pub unsafe fn lean_init_task_manager() {}
 
 unsafe fn initialize_runtime_module_body() {
@@ -398,27 +379,6 @@ pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_dec_ref(obj: *mut LeanObject) {
-    if UAF_DETECT && (*obj).rc == LEAN_UAF_POISON_RC {
-        quar_report_uaf(obj, "dec");
-    }
-    if (*obj).rc > 1 {
-        (*obj).rc -= 1;
-    } else if (*obj).rc != 0 {
-        lean_dec_ref_cold(obj);
-    }
-}
-
-#[inline]
-pub unsafe fn lean_dec(obj: *mut LeanObject) {
-    unsafe {
-        if !lean_is_scalar_bool(obj) {
-            lean_dec_ref(obj);
-        }
-    }
-}
-
-#[inline]
 pub unsafe fn lean_ctor_release(obj: *mut LeanObject, idx: usize) {
     unsafe {
         debug_assert!(idx < lean_ctor_num_objs(obj));
@@ -453,22 +413,9 @@ pub unsafe fn lean_dec_ref_known(obj: *mut LeanObject, objs: usize) {
 }
 
 #[inline]
-pub fn lean_inc(obj: *mut LeanObject) {
-    if !lean_is_scalar_bool(obj) {
-        lean_inc_ref(obj);
-    }
-}
-
-#[inline]
 pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
     if !lean_is_scalar_bool(obj) {
         unsafe { lean_inc_ref_n(obj, n) };
-    }
-}
-pub unsafe fn lean_mk_string(s: *const c_char) -> *mut LeanObject {
-    unsafe {
-        let len = libc::strlen(s);
-        lean_mk_string_unchecked(s, len, len)
     }
 }
 

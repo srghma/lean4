@@ -66,13 +66,6 @@ mod runtime_process_impl {
 
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
-
-    // Lean constructor allocation forwarding to lean_runtime_alloc_ctor
-
-    // Option helpers
-    unsafe fn mk_option_none() -> *mut LeanObject {
-        lean_box(0)
-    }
     unsafe fn mk_option_some(v: *mut LeanObject) -> *mut LeanObject {
         let r = lean_alloc_ctor(1, 1, 0);
         lean_runtime_ctor_set(r, 0, v);

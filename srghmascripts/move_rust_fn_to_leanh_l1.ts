@@ -6,9 +6,100 @@ import path from "node:path";
 const lean4Root = "/home/srghma/projects/lean4";
 const sourceRoot = "/home/srghma/projects/lean4-rust/src/rust/lean_runtime/src";
 const workRoot = path.join(lean4Root, "src/rust");
-const targetDir = path.join(workRoot, "leanh_l1/src");
 const red = "\x1b[31m";
 const reset = "\x1b[0m";
+
+const corePublicFunctions = new Set([
+  "lean_alloc_closure",
+  "lean_box_float",
+  "lean_box_float32",
+  "lean_box_uint32",
+  "lean_box_uint64",
+  "lean_box_usize",
+  "lean_closure_set",
+  "lean_cstr_to_nat",
+  "lean_ctor_get",
+  "lean_ctor_get_float",
+  "lean_ctor_get_float32",
+  "lean_ctor_get_uint8",
+  "lean_ctor_get_uint16",
+  "lean_ctor_get_uint32",
+  "lean_ctor_get_uint64",
+  "lean_ctor_get_usize",
+  "lean_ctor_release",
+  "lean_ctor_set",
+  "lean_ctor_set_float",
+  "lean_ctor_set_float32",
+  "lean_ctor_set_tag",
+  "lean_ctor_set_uint8",
+  "lean_ctor_set_uint16",
+  "lean_ctor_set_uint32",
+  "lean_ctor_set_uint64",
+  "lean_ctor_set_usize",
+  "lean_dec",
+  "lean_dec_ref",
+  "lean_dec_ref_known",
+  "lean_float_once",
+  "lean_float32_once",
+  "lean_inc",
+  "lean_inc_n",
+  "lean_inc_ref",
+  "lean_inc_ref_n",
+  "lean_init_task_manager",
+  "lean_initialize",
+  "lean_initialize_runtime_module",
+  "lean_io_mark_end_initialization",
+  "lean_io_result_get_value",
+  "lean_io_result_is_error",
+  "lean_io_result_is_ok",
+  "lean_io_result_mk_ok",
+  "lean_io_result_show_error",
+  "lean_is_exclusive",
+  "lean_is_scalar",
+  "lean_mark_persistent",
+  "lean_mk_string",
+  "lean_mk_string_unchecked",
+  "lean_obj_once",
+  "lean_obj_tag",
+  "lean_run_main",
+  "lean_setup_args",
+  "lean_small_nat",
+  "lean_uint8_dec_eq",
+  "lean_uint8_dec_le",
+  "lean_uint8_dec_lt",
+  "lean_uint8_of_nat_mk",
+  "lean_uint8_once",
+  "lean_uint8_to_nat",
+  "lean_uint16_dec_eq",
+  "lean_uint16_dec_le",
+  "lean_uint16_dec_lt",
+  "lean_uint16_of_nat",
+  "lean_uint16_of_nat_mk",
+  "lean_uint16_once",
+  "lean_uint16_to_nat",
+  "lean_uint32_dec_eq",
+  "lean_uint32_dec_le",
+  "lean_uint32_dec_lt",
+  "lean_uint32_of_nat",
+  "lean_uint32_of_nat_mk",
+  "lean_uint32_once",
+  "lean_uint32_to_nat",
+  "lean_uint64_dec_eq",
+  "lean_uint64_dec_le",
+  "lean_uint64_dec_lt",
+  "lean_uint64_of_nat",
+  "lean_uint64_of_nat_mk",
+  "lean_uint64_once",
+  "lean_uint64_to_nat",
+  "lean_unbox",
+  "lean_unbox_float",
+  "lean_unbox_float32",
+  "lean_unbox_uint32",
+  "lean_unbox_uint64",
+  "lean_unbox_usize",
+  "lean_unsigned_to_nat",
+  "lean_usize_once",
+]);
 
 type FnOccurrence = {
   file: string;
@@ -23,9 +114,31 @@ type Occurrence = FnOccurrence & {
   kind: OccurrenceKind;
 };
 
+type Destination = {
+  targetDir: string;
+  moduleFile: string;
+};
+
 function usage(): never {
   console.error("Usage: move_rust_fn_to_leanh_l1.ts <function_name>");
   process.exit(1);
+}
+
+function getDestination(fnName: string): Destination {
+  const isCore = corePublicFunctions.has(fnName);
+  return isCore
+    ? {
+        targetDir: path.join(workRoot, "leanh_l1/src"),
+        moduleFile: path.join(workRoot, "leanh_l1/src/lib.rs"),
+      }
+    : {
+        targetDir: path.join(workRoot, "leanh_l1/src/priv"),
+        moduleFile: path.join(workRoot, "leanh_l1/src/priv.rs"),
+    };
+}
+
+function isFfiPath(file: string): boolean {
+  return file.includes(`${path.sep}src${path.sep}ffi${path.sep}`);
 }
 
 function isRustFile(file: string): boolean {
@@ -167,12 +280,21 @@ function findFunctionBodies(text: string, fnName: string): FnOccurrence[] {
   for (let i = 0; i < lines.length; i++) {
     if (!fnRegex.test(lines[i])) continue;
 
+    let start = i;
+    while (start > 0 && isPreambleLine(lines[start - 1])) start--;
+
     let sawOpen = false;
     let sawSemicolon = false;
+    let openLine = -1;
+    let openCol = -1;
     for (let j = i; j < lines.length; j++) {
-      for (const ch of lines[j]) {
+      const line = lines[j];
+      for (let k = 0; k < line.length; k++) {
+        const ch = line[k];
         if (ch === "{") {
           sawOpen = true;
+          openLine = j;
+          openCol = k;
           break;
         }
         if (ch === ";") {
@@ -184,24 +306,23 @@ function findFunctionBodies(text: string, fnName: string): FnOccurrence[] {
     }
     if (!sawOpen || sawSemicolon) continue;
 
-    let start = i;
-    while (start > 0 && isPreambleLine(lines[start - 1])) start--;
-
     let braceDepth = 0;
-    let end = i;
-    for (let j = i; j < lines.length; j++) {
+    let end = openLine;
+    for (let j = openLine; j < lines.length; j++) {
       const line = lines[j];
-      for (const ch of line) {
+      const startCol = j === openLine ? openCol : 0;
+      for (let k = startCol; k < line.length; k++) {
+        const ch = line[k];
         if (ch === "{") {
           braceDepth++;
-          sawOpen = true;
         } else if (ch === "}") {
           braceDepth--;
         }
       }
       end = j;
-      if (sawOpen && braceDepth === 0) break;
+      if (braceDepth === 0) break;
     }
+    if (braceDepth !== 0) continue;
 
     occurrences.push({
       file: "",
@@ -255,11 +376,18 @@ function findExternDeclarations(text: string, fnName: string): FnOccurrence[] {
   return occurrences;
 }
 
-async function findOccurrences(root: string, fnName: string, kind: OccurrenceKind): Promise<FnOccurrence[]> {
+async function findOccurrences(
+  root: string,
+  fnName: string,
+  kind: OccurrenceKind,
+  ignoreDir: string,
+): Promise<FnOccurrence[]> {
   const files = await listRustFiles(root);
   const result: FnOccurrence[] = [];
   for (const file of files) {
-    if (path.resolve(file).startsWith(path.resolve(targetDir))) continue;
+    if (path.resolve(file).startsWith(path.resolve(ignoreDir))) continue;
+    if (kind === "body" && isFfiPath(file)) continue;
+    if (kind === "decl" && isFfiPath(file)) continue;
     const text = await fs.readFile(file, "utf8");
     const occs = kind === "body" ? findFunctionBodies(text, fnName) : findExternDeclarations(text, fnName);
     for (const occ of occs) {
@@ -326,9 +454,11 @@ async function main() {
   const fnName = args.filter((arg) => arg !== "--write")[0];
   if (!fnName) usage();
 
-  const currentBodyOccs = await findOccurrences(workRoot, fnName, "body");
-  const currentDeclOccs = await findOccurrences(workRoot, fnName, "decl");
-  const originalOccs = await findOccurrences(sourceRoot, fnName, "body");
+  const destination = getDestination(fnName);
+
+  const currentBodyOccs = await findOccurrences(workRoot, fnName, "body", destination.targetDir);
+  const currentDeclOccs = await findOccurrences(workRoot, fnName, "decl", destination.targetDir);
+  const originalOccs = await findOccurrences(sourceRoot, fnName, "body", destination.targetDir);
 
   await printOccurrences("Current tree bodies", currentBodyOccs);
   await printOccurrences("Current tree decls", currentDeclOccs);
@@ -347,7 +477,8 @@ async function main() {
   const referenceNorm = normalizeBlock(sourceOccs[0].text);
   const sameShapeOccs = [...originalOccs, ...currentBodyOccs].filter((occ) => normalizeBlock(occ.text) === referenceNorm);
   const distinctBodies = groupDistinctBodies([...originalOccs, ...currentBodyOccs]);
-  console.log(`\nDistinct bodies: ${distinctBodies.length}`);
+  console.log(`\nDestination: ${path.relative(lean4Root, destination.targetDir)}`);
+  console.log(`Distinct bodies: ${distinctBodies.length}`);
   for (const [idx, group] of distinctBodies.entries()) {
     console.log(`- body #${idx + 1}: ${group.sources.length} occurrence(s)`);
     for (const src of group.sources) {
@@ -355,7 +486,7 @@ async function main() {
     }
   }
 
-  const targetPath = path.join(targetDir, `${fnName}.rs_`);
+  const targetPath = path.join(destination.targetDir, `${fnName}.rs_`);
   await fs.mkdir(path.dirname(targetPath), { recursive: true });
 
   const targetExists = await fs.stat(targetPath).then((s) => s.isFile()).catch(() => false);
@@ -378,32 +509,33 @@ async function main() {
   ].join("\n");
   await fs.writeFile(targetPath, appended, "utf8");
 
-  const finalPath = path.join(targetDir, `${fnName}.rs`);
+  const finalPath = path.join(destination.targetDir, `${fnName}.rs`);
   const finalExists = await fs.stat(finalPath).then((s) => s.isFile()).catch(() => false);
   if (!finalExists) {
     await fs.rename(targetPath, finalPath);
   }
 
-  const libPath = path.join(targetDir, "lib.rs");
-  const libText = await fs.readFile(libPath, "utf8");
+  const libText = await fs.readFile(destination.moduleFile, "utf8");
   const modLine = `pub mod ${fnName};`;
   if (!new RegExp(String.raw`^\s*pub\s+mod\s+${fnName};\s*$`, "m").test(libText)) {
     const lines = libText.split(/\r?\n/);
     let insertAt = lines.length;
     while (insertAt > 0 && /^\s*$/.test(lines[insertAt - 1])) insertAt--;
     lines.splice(insertAt, 0, modLine);
-    await fs.writeFile(libPath, lines.join("\n") + "\n", "utf8");
+    await fs.writeFile(destination.moduleFile, lines.join("\n") + "\n", "utf8");
   }
 
   for (const occ of currentBodyOccs) {
-    if (path.resolve(occ.file).startsWith(path.resolve(targetDir))) continue;
+    if (path.resolve(occ.file).startsWith(path.resolve(destination.targetDir))) continue;
+    if (isFfiPath(occ.file)) continue;
     const text = await fs.readFile(occ.file, "utf8");
     const updated = removeBlock(text, occ);
     await fs.writeFile(occ.file, updated, "utf8");
   }
 
   for (const occ of currentDeclOccs) {
-    if (path.resolve(occ.file).startsWith(path.resolve(targetDir))) continue;
+    if (path.resolve(occ.file).startsWith(path.resolve(destination.targetDir))) continue;
+    if (isFfiPath(occ.file)) continue;
     const text = await fs.readFile(occ.file, "utf8");
     const updated = removeBlock(text, occ);
     await fs.writeFile(occ.file, updated, "utf8");

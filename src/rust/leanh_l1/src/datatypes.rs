@@ -1,7 +1,6 @@
 use core::ffi::c_void;
 use core::sync::atomic::{AtomicI32, AtomicPtr};
 use gmp_mpfr_sys::gmp::mpz_t;
-use std::ffi::c_uint;
 
 // This module is the Rust equivalent of upstream `lean.h` for ABI layouts and
 // helpers hardcoded by EmitRust. Do not import runtime modules here; runtime
@@ -71,6 +70,7 @@ pub struct LeanClosureObject<const N: usize> {
     pub m_fun: *mut c_void,
     pub m_arity: u16,
     pub m_num_fixed: u16,
+    // 4 bytes of padding on 64-bit; zero-size array marks start of data
     pub m_objs: [*mut LeanObject; N],
 }
 

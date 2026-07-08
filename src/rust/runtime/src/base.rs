@@ -17,10 +17,7 @@ use leanh::{
 };
 
 unsafe extern "C" {
-    pub fn lean_mk_string(text: *const c_char) -> *mut LeanObject; // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 379 (🔁)
-    pub fn lean_mk_string_from_bytes(text: *const c_char, size: Size) -> *mut LeanObject;
     pub fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_dec_ref_cold(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 486 (🔁)
     pub fn lean_mark_persistent(obj: *mut LeanObject); // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 356 (🔁)
     pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_mk_io_error_invalid_argument(

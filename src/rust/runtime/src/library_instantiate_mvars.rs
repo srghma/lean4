@@ -231,11 +231,6 @@ mod library_instantiate_mvars_impl {
         (obj.add(1) as *mut *mut LeanObject).add(idx).write(val);
     }
 
-    // rc > 0 means single-threaded object (not atomic refcount).
-    unsafe fn lean_is_st(o: *mut LeanObject) -> bool { // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 141 (🔁)
-        (*o).rc > 0
-    }
-
     unsafe fn has_level_mvar(l: *mut LeanObject) -> bool {
         if lean_is_scalar(l) {
             false
