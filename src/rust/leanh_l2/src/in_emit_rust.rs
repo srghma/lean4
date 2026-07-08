@@ -30,31 +30,6 @@ use crate::runtime_process::initialize_process;
 use crate::runtime_stack_info::save_stack_info;
 use crate::runtime_stack_overflow::initialize_stack_overflow;
 
-// #[inline]
-// pub unsafe fn lean_finalize_task_manager() {}
-
-#[inline]
-pub unsafe fn lean_float32_once(loc: *mut f32, tok: *mut LeanOnceCell, init: F32InitFn) -> f32 {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
-    }
-}
-
-#[inline]
-pub unsafe fn lean_float_once(loc: *mut f64, tok: *mut LeanOnceCell, init: F64InitFn) -> f64 {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            run_once(loc, tok, init)
-        }
-    }
-}
-
 #[inline]
 pub unsafe fn lean_init_task_manager() {}
 
@@ -274,21 +249,6 @@ pub unsafe fn lean_io_result_mk_ok(value: *mut LeanObject) -> *mut LeanObject {
         let obj = lean_alloc_ctor(0, 1, 0);
         lean_ctor_set(obj, 0, value);
         obj
-    }
-}
-
-#[inline]
-pub unsafe fn lean_obj_once(
-    loc: *mut *mut LeanObject,
-    tok: *mut LeanOnceCell,
-    init: ObjInitFn,
-) -> *mut LeanObject {
-    unsafe {
-        if (*tok).state.load(Ordering::Acquire) == 1 {
-            *loc
-        } else {
-            lean_obj_once_cold(loc, tok, init)
-        }
     }
 }
 

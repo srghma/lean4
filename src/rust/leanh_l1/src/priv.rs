@@ -22,6 +22,7 @@ pub mod lean_del_core_other;
 pub mod lean_free_object;
 pub mod lean_free_small_object;
 pub mod lean_has_rc;
+pub mod lean_is_ref;
 pub mod lean_is_st;
 pub mod lean_mk_string_from_bytes;
 pub mod lean_mk_string_lossy_recover;
@@ -42,5 +43,3 @@ pub mod print_backtrace;
 pub mod push_back;
 pub mod quar;
 pub mod set_next;
-pub mod lean_is_ref;
-
