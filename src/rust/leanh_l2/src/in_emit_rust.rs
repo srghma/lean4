@@ -241,9 +241,6 @@ pub fn lean_initialize() {
 }
 
 #[inline]
-pub unsafe fn lean_io_mark_end_initialization() {}
-
-#[inline]
 pub unsafe fn lean_run_main(
     main_fn: unsafe fn(c_int, *mut *mut c_char) -> *mut LeanObject,
     argc: c_int,

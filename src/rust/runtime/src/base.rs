@@ -1011,13 +1011,6 @@ pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
     0
 }
 
-static INITIALIZING: core::sync::atomic::AtomicBool = core::sync::atomic::AtomicBool::new(true);
-
-pub fn lean_io_mark_end_initialization() {
-    // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 238 (🔁)
-    INITIALIZING.store(false, Ordering::Relaxed);
-}
-
 pub fn lean_io_initializing() -> u8 {
     INITIALIZING.load(Ordering::Relaxed) as u8
 }
