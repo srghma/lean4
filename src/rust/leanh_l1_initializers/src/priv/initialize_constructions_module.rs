@@ -9,15 +9,10 @@ use std::ptr;
 
 use crate::{
     kernel_type_checker::lean_name_eq::lean_name_eq,
+    r#priv::initialize_name_generator::{NAME_GENERATOR_STATE, NameGeneratorState},
     todo_import_from_lean::lean_name_mk_string::lean_name_mk_string,
 };
 
-struct NameGeneratorState {
-    tmp_prefix: *mut LeanObject,
-    prefixes: Vec<*mut LeanObject>,
-}
-
-unsafe impl Send for NameGeneratorState {}
 unsafe fn name_contains_registered_prefix(
     state: &NameGeneratorState,
     n: *const LeanObject,
@@ -28,9 +23,6 @@ unsafe fn name_contains_registered_prefix(
 static mut CONSTRUCTIONS_FRESH: LeanName = LeanName {
     obj: ptr::null_mut(),
 };
-
-static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
-    std::sync::Mutex::new(None);
 
 pub unsafe fn lean_register_name_generator_prefix(n: *mut LeanObject) {
     let mut guard = NAME_GENERATOR_STATE.lock().unwrap();

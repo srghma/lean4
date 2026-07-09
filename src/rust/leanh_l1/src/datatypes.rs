@@ -39,8 +39,8 @@ pub type F64InitFn = unsafe fn() -> f64;
 
 #[repr(C)]
 pub struct LeanExternalClass {
-    pub m_finalize: LeanExternalFinalizeProc,
-    pub m_foreach: LeanExternalForeachProc,
+    pub m_finalize: LeanExternalFinalizeProc, // TODO: make Option
+    pub m_foreach: LeanExternalForeachProc,   // TODO: make Option
 }
 
 #[repr(C)]

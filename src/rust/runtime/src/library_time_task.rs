@@ -15,7 +15,7 @@ Exports:
 
 mod library_time_task_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use std::collections::BTreeMap;
     use std::ffi::CStr;
     use std::io::Write;
@@ -198,10 +198,6 @@ mod library_time_task_impl {
         }
     }
 
-    #[export_name = "_ZN4lean20initialize_time_taskEv"]
-    pub fn initialize_time_task() {}
-
-    #[export_name = "_ZN4lean18finalize_time_taskEv"]
     pub fn finalize_time_task() {
         if let Ok(mut cum) = CUM_TIMES.lock() {
             cum.clear();

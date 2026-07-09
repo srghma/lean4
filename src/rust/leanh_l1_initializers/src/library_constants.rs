@@ -2,7 +2,7 @@ use std::ptr;
 
 use leanh_l1::emitted::lean_mark_persistent::lean_mark_persistent;
 
-use crate::r#priv::initialize_constructions_module::LeanName;
+use crate::r#priv::{initialize_constructions_module::LeanName, mk_name_path::mk_name_path};
 
 const LIBRARY_CONSTANT_PATHS: &[&[&str]] = &[
     &["absurd"],

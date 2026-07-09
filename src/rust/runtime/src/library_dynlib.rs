@@ -14,12 +14,6 @@ use libloading::os::unix::{Library as UnixLibrary, RTLD_GLOBAL, RTLD_LAZY};
 #[cfg(unix)]
 use std::os::unix::ffi::OsStrExt;
 
-static mut DYNLIB_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
-static mut DYNLIB_SYMBOL_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
-
-struct DynLibHandle {
-    lib: Library,
-}
 
 impl DynLibHandle {
     unsafe fn open(path: *mut LeanObject) -> Result<Self, String> {
@@ -45,21 +39,11 @@ impl DynLibHandle {
     }
 }
 
-unsafe fn dynlib_finalizer(handle: *mut c_void) {
-    drop(Box::from_raw(handle as *mut DynLibHandle));
-}
 
 fn dynlib_error(prefix: &str, detail: String) -> *mut LeanObject {
     let message = std::ffi::CString::new(format!("{prefix}{detail}"))
         .expect("dynamic loader error has no NUL");
     lean_io_result_mk_error(lean_mk_io_user_error(lean_mk_string(message.as_ptr())))
-}
-
-pub fn initialize_dynlib() {
-    unsafe {
-        DYNLIB_EXTERNAL_CLASS = lean_register_external_class(Some(dynlib_finalizer), None);
-        DYNLIB_SYMBOL_EXTERNAL_CLASS = lean_register_external_class(None, None);
-    }
 }
 
 #[inline]

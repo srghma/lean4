@@ -65,7 +65,6 @@ unsafe extern "C" {
     pub fn finalize_library_util();
     pub fn initialize_time_task();
     pub fn finalize_time_task();
-    pub fn initialize_ir_interpreter();
     pub fn finalize_ir_interpreter();
     pub fn initialize_level();
     pub fn finalize_level();
@@ -221,17 +220,6 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
 
 fn env_flag(value: &str) -> u8 {
     if value.as_bytes() == b"1" { 1 } else { 0 }
-}
-
-pub(crate) unsafe fn mk_name_path(components: &[&str]) -> LeanName {
-    let mut name = mk_name(components[0]);
-    for component in &components[1..] {
-        let c_text = std::ffi::CString::new(*component).expect("option names never contain NUL");
-        let raw_text = lean_mk_string(c_text.as_ptr());
-        let raw_name = lean_name_mk_string(name.obj, raw_text);
-        name = LeanName { obj: raw_name };
-    }
-    name
 }
 
 include!("library_constants.rs");

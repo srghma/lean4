@@ -2363,10 +2363,6 @@ mod library_ir_interpreter_impl {
     // Public exported functions
     // ---------------------------------------------------------------------------
 
-    /// initialize_ir_interpreter — called from lib.rs initialize_library_module_body
-    #[no_mangle]
-    pub unsafe fn initialize_ir_interpreter() {}
-
     /// finalize_ir_interpreter — called from lib.rs
     #[no_mangle]
     pub unsafe fn finalize_ir_interpreter() {
