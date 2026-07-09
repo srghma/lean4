@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_tcp_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -14,16 +14,6 @@ mod runtime_tcp_impl {
         uv_tcp_bind, uv_tcp_connect, uv_tcp_getpeername, uv_tcp_getsockname, uv_tcp_init,
         uv_tcp_keepalive, uv_tcp_nodelay, uv_write,
     };
-
-    #[repr(C)]
-    pub struct LeanUvTcpSocketObject {
-        pub m_uv_tcp: *mut c_void, // uv_tcp_t*
-        pub m_promise_accept: *mut LeanObject,
-        pub m_promise_read: *mut LeanObject,
-        pub m_promise_shutdown: *mut LeanObject,
-        pub m_client: *mut LeanObject,
-        pub m_byte_array: *mut LeanObject,
-    }
 
     #[repr(C)]
     struct TcpConnectData {
@@ -47,8 +37,6 @@ mod runtime_tcp_impl {
         fn lean_sockaddr_to_socketaddress(addr: *const libc::sockaddr) -> *mut LeanObject;
         fn lean_promise_resolve_with_code(code: c_int, promise: *mut LeanObject);
     }
-
-    static mut g_uv_tcp_socket_external_class: *mut LeanExternalClass = null_mut();
 
     unsafe fn lean_uv_tcp_socket_new(s: *mut LeanUvTcpSocketObject) -> *mut LeanObject {
         lean_runtime_alloc_external(g_uv_tcp_socket_external_class, s.cast())
@@ -78,53 +66,6 @@ mod runtime_tcp_impl {
         let result = lean_runtime_alloc_ctor(1, 1, 0);
         lean_runtime_ctor_set(result, 0, value);
         result
-    }
-
-    unsafe fn lean_uv_tcp_socket_finalizer(ptr: *mut c_void) {
-        let tcp_socket = ptr.cast::<LeanUvTcpSocketObject>();
-        assert!((*tcp_socket).m_promise_shutdown.is_null());
-        assert!((*tcp_socket).m_promise_accept.is_null());
-        assert!((*tcp_socket).m_promise_read.is_null());
-        assert!((*tcp_socket).m_byte_array.is_null());
-
-        let handle = (*tcp_socket).m_uv_tcp.cast::<uv_handle_t>();
-        (*handle).data = ptr;
-
-        event_loop_lock(addr_of_mut!(GLOBAL_EV));
-
-        unsafe fn close_cb(handle: *mut uv_handle_t) {
-            let tcp_socket = (*handle).data.cast::<LeanUvTcpSocketObject>();
-            libc::free((*tcp_socket).m_uv_tcp);
-            libc::free(tcp_socket.cast());
-        }
-
-        uv_close((*tcp_socket).m_uv_tcp.cast::<uv_handle_t>(), Some(close_cb));
-
-        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
-    }
-    pub unsafe fn initialize_libuv_tcp_socket() {
-        unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
-            let tcp_socket = obj.cast::<LeanUvTcpSocketObject>();
-            if !(*tcp_socket).m_promise_accept.is_null() {
-                lean_inc(f);
-                lean_apply_1(f, (*tcp_socket).m_promise_accept);
-            }
-            if !(*tcp_socket).m_promise_shutdown.is_null() {
-                lean_inc(f);
-                lean_apply_1(f, (*tcp_socket).m_promise_shutdown);
-            }
-            if !(*tcp_socket).m_promise_read.is_null() {
-                lean_inc(f);
-                lean_apply_1(f, (*tcp_socket).m_promise_read);
-            }
-            if !(*tcp_socket).m_byte_array.is_null() {
-                lean_inc(f);
-                lean_apply_1(f, (*tcp_socket).m_byte_array);
-            }
-        }
-
-        g_uv_tcp_socket_external_class =
-            lean_register_external_class(Some(lean_uv_tcp_socket_finalizer), Some(foreach_cb));
     }
 
     const UV_EALREADY: c_int = -3003;

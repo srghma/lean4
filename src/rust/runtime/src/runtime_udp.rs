@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_udp_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -15,13 +15,6 @@ mod runtime_udp_impl {
         uv_udp_send_t, uv_udp_set_broadcast, uv_udp_set_membership, uv_udp_set_multicast_interface,
         uv_udp_set_multicast_loop, uv_udp_set_multicast_ttl, uv_udp_set_ttl,
     };
-
-    #[repr(C)]
-    pub struct LeanUvUdpSocketObject {
-        pub m_uv_udp: *mut c_void, // uv_udp_t*
-        pub m_promise_read: *mut LeanObject,
-        pub m_byte_array: *mut LeanObject,
-    }
 
     #[repr(C)]
     struct UdpSendData {
@@ -39,8 +32,6 @@ mod runtime_udp_impl {
         fn lean_sockaddr_to_socketaddress(addr: *const libc::sockaddr) -> *mut LeanObject;
         fn lean_promise_resolve_with_code(code: c_int, promise: *mut LeanObject);
     }
-
-    static mut g_uv_udp_socket_external_class: *mut LeanExternalClass = null_mut();
 
     unsafe fn lean_uv_udp_socket_new(s: *mut LeanUvUdpSocketObject) -> *mut LeanObject {
         lean_runtime_alloc_external(g_uv_udp_socket_external_class, s.cast())
@@ -70,43 +61,6 @@ mod runtime_udp_impl {
         let result = lean_runtime_alloc_ctor(1, 1, 0);
         lean_runtime_ctor_set(result, 0, value);
         result
-    }
-
-    unsafe fn lean_uv_udp_socket_finalizer(ptr: *mut c_void) {
-        let udp_socket = ptr.cast::<LeanUvUdpSocketObject>();
-        assert!((*udp_socket).m_promise_read.is_null());
-        assert!((*udp_socket).m_byte_array.is_null());
-
-        let handle = (*udp_socket).m_uv_udp.cast::<uv_handle_t>();
-        (*handle).data = ptr;
-
-        event_loop_lock(addr_of_mut!(GLOBAL_EV));
-
-        unsafe fn close_cb(handle: *mut uv_handle_t) {
-            let udp_socket = (*handle).data.cast::<LeanUvUdpSocketObject>();
-            libc::free((*udp_socket).m_uv_udp);
-            libc::free(udp_socket.cast());
-        }
-
-        uv_close((*udp_socket).m_uv_udp.cast::<uv_handle_t>(), Some(close_cb));
-
-        event_loop_unlock(addr_of_mut!(GLOBAL_EV));
-    }
-    pub unsafe fn initialize_libuv_udp_socket() {
-        unsafe fn foreach_cb(obj: *mut c_void, f: *mut LeanObject) {
-            let udp_socket = obj.cast::<LeanUvUdpSocketObject>();
-            if !(*udp_socket).m_promise_read.is_null() {
-                lean_inc(f);
-                lean_apply_1(f, (*udp_socket).m_promise_read);
-            }
-            if !(*udp_socket).m_byte_array.is_null() {
-                lean_inc(f);
-                lean_apply_1(f, (*udp_socket).m_byte_array);
-            }
-        }
-
-        g_uv_udp_socket_external_class =
-            lean_register_external_class(Some(lean_uv_udp_socket_finalizer), Some(foreach_cb));
     }
 
     const UV_UDP_REUSEADDR: c_uint = 4;
