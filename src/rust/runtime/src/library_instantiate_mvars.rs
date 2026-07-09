@@ -48,8 +48,6 @@ mod library_instantiate_mvars_impl {
         ) -> *mut LeanObject;
         fn lean_expr_instantiate(e: *mut LeanObject, subst: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_sort(l: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_const(n: *mut LeanObject, us: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(
             n: *mut LeanObject,
             d: *mut LeanObject,

@@ -23,7 +23,6 @@ mod library_util_impl {
     include!(concat!(env!("OUT_DIR"), "/lean_version.rs"));
 
     unsafe extern "C" {
-        fn lean_expr_mk_const(name: *mut LeanObject, lvls: *mut LeanObject) -> *mut LeanObject;
     }
 
     static INITIALIZED: AtomicBool = AtomicBool::new(false);

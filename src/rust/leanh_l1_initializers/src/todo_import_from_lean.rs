@@ -1,3 +1,6 @@
+pub mod lean_expr_mk_app;
+pub mod lean_expr_mk_const;
+pub mod lean_level_mk_zero;
 pub mod lean_mk_io_error_already_exists;
 pub mod lean_mk_io_error_already_exists_file;
 pub mod lean_mk_io_error_hardware_fault;

@@ -28,7 +28,6 @@ mod kernel_replace_fn_impl {
     use std::collections::HashMap;
 
     unsafe extern "C" {
-        fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(
             n: *mut LeanObject,
             d: *mut LeanObject,

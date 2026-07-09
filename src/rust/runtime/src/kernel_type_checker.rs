@@ -32,11 +32,6 @@ mod kernel_type_checker_impl {
 
     unsafe extern "C" {
         fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
-        // lean_name_anonymous: implemented as Rust shim below (Name.anonymous = boxed scalar 0)
-        // lean_name_eq_raw is inline C++; implemented as Rust shim below
-
-        // Levels
-        fn lean_level_mk_zero() -> *mut LeanObject;
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_max(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_imax(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject;
@@ -55,8 +50,6 @@ mod kernel_type_checker_impl {
         fn lean_expr_mk_fvar(id: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_mvar(id: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_sort(l: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_const(n: *mut LeanObject, ls: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(
             n: *mut LeanObject,
             d: *mut LeanObject,
@@ -786,37 +779,11 @@ mod kernel_type_checker_impl {
     const QUOT_KIND_LIFT: u8 = 2;
     const QUOT_KIND_IND: u8 = 3;
 
-    // --- Name ---
-    // Name.anonymous is the boxed scalar 0.
-    #[no_mangle]
-    pub unsafe fn lean_name_anonymous() -> *mut LeanObject {
-        super::lean_box(0)
-    }
-
     // --- List ---
     // List.nil is the boxed scalar 0; List.cons (tag 1) has field[0]=head, field[1]=tail.
     #[no_mangle]
     pub unsafe fn lean_list_is_nil(l: *const LeanObject) -> bool {
         lean_is_scalar(l)
-    }
-
-    // List.nil ignores its (erased) element-type argument.
-    #[no_mangle]
-    pub unsafe fn lean_mk_list_nil(_ty: *mut LeanObject) -> *mut LeanObject {
-        super::lean_box(0)
-    }
-
-    // List.cons ignores its erased element-type argument and consumes head/tail.
-    #[no_mangle]
-    pub unsafe fn lean_mk_list_cons(
-        _ty: *mut LeanObject,
-        h: *mut LeanObject,
-        t: *mut LeanObject,
-    ) -> *mut LeanObject {
-        let r = lean_alloc_ctor(1, 2, 0);
-        lean_ctor_set(r, 0, h);
-        lean_ctor_set(r, 1, t);
-        r
     }
 
     // --- Levels (Max tag 2 / IMax tag 3): field[0]=lhs, field[1]=rhs ---
@@ -2418,56 +2385,6 @@ mod kernel_type_checker_impl {
         }
     }
 
-    // ---------------------------------------------------------------------------
-    // Global constants (AtomicPtr, initialized once)
-    // ---------------------------------------------------------------------------
-
-    macro_rules! global_const {
-        ($name:ident) => {
-            static $name: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
-        };
-    }
-
-    global_const!(G_KERNEL_FRESH);
-    global_const!(G_BOOL_TRUE);
-    global_const!(G_EXPR_BOOL_TRUE); // `Expr.const Bool.true []`
-    global_const!(G_EXPR_BOOL_FALSE); // `Expr.const Bool.false []`
-    global_const!(G_EAGER_REDUCE);
-    global_const!(G_DONT_CARE);
-    global_const!(G_NAT_ZERO);
-    global_const!(G_NAT_SUCC);
-    global_const!(G_NAT_ADD);
-    global_const!(G_NAT_SUB);
-    global_const!(G_NAT_MUL);
-    global_const!(G_NAT_POW);
-    global_const!(G_NAT_GCD);
-    global_const!(G_NAT_DIV);
-    global_const!(G_NAT_MOD);
-    global_const!(G_NAT_BEQ);
-    global_const!(G_NAT_BLE);
-    global_const!(G_NAT_LAND);
-    global_const!(G_NAT_LOR);
-    global_const!(G_NAT_XOR);
-    global_const!(G_NAT_SHIFTLEFT);
-    global_const!(G_NAT_SHIFTRIGHT);
-    global_const!(G_STRING_MK);
-    global_const!(G_LEAN_REDUCE_BOOL);
-    global_const!(G_LEAN_REDUCE_NAT);
-    // Bare `Name`s (not `Expr.const`) for quotient-eliminator head matching in `quot_reduce_rec`.
-    global_const!(G_QUOT_LIFT_NAME);
-    global_const!(G_QUOT_IND_NAME);
-    global_const!(G_QUOT_MK_NAME);
-    global_const!(G_NESTED_NAME);
-    global_const!(G_NESTED_FRESH);
-    global_const!(G_IND_FRESH);
-    global_const!(G_LIST_CONS_CHAR);
-    global_const!(G_LIST_NIL_CHAR);
-    global_const!(G_CHAR_OF_NAT);
-
-    unsafe fn load_global(g: &AtomicPtr<LeanObject>) -> *mut LeanObject {
-        g.load(Ordering::Acquire)
-    }
-
     /// Look up a constant, returning an owned bare `ConstantInfo`, or a boxed scalar
     /// (testable with `lean_is_scalar`) when the constant is absent.
     ///
@@ -2489,51 +2406,6 @@ mod kernel_type_checker_impl {
         }
     }
 
-    /// Build a persistent const expression and store in a global.
-    unsafe fn init_global_const(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
-        let name = build_lean_name(parts);
-        lean_mark_persistent(name);
-        let levels = lean_mk_list_nil(ptr::null_mut()); // empty list
-        let expr = lean_expr_mk_const(name, levels);
-        lean_mark_persistent(expr);
-        g.store(expr, Ordering::Release);
-    }
-
-    /// Build a persistent bare `Name` and store it in a global (for name matching, not as an Expr).
-    unsafe fn init_global_name(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
-        let name = build_lean_name(parts);
-        lean_mark_persistent(name);
-        g.store(name, Ordering::Release);
-    }
-
-    /// Build `List.cons Char` or `List.nil Char`, matching inductive.cpp globals.
-    unsafe fn init_list_char_global(g: &AtomicPtr<LeanObject>, parts: &[&str]) {
-        let level_zero = lean_level_mk_zero();
-        let levels = lean_mk_list_cons(
-            ptr::null_mut(),
-            level_zero,
-            lean_mk_list_nil(ptr::null_mut()),
-        );
-        let name = build_lean_name(parts);
-        let list_const = lean_expr_mk_const(name, levels);
-        let char_name = build_lean_name(&["Char"]);
-        let char_type = lean_expr_mk_const(char_name, lean_mk_list_nil(ptr::null_mut()));
-        let expr = lean_expr_mk_app(list_const, char_type);
-        lean_mark_persistent(expr);
-        g.store(expr, Ordering::Release);
-    }
-
-    /// Build a Lean name from dot-separated parts.
-    unsafe fn build_lean_name(parts: &[&str]) -> *mut LeanObject {
-        let mut cur = lean_name_anonymous();
-        for &part in parts {
-            let s = lean_mk_string(part.as_ptr(), part.len());
-            // lean_name_mk_string consumes both `cur` and `s` (obj_arg). Do NOT dec
-            // them afterwards — ownership is transferred into the new name.
-            cur = lean_name_mk_string(cur, s);
-        }
-        cur
-    }
 
     // ---------------------------------------------------------------------------
     // System check

@@ -40,7 +40,6 @@ mod kernel_expr_impl {
 
     unsafe extern "C" {
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(
             n: *mut LeanObject,
             d: *mut LeanObject,
