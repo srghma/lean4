@@ -15,15 +15,12 @@ The old C++ util.cpp implementation is removed.
 
 mod library_util_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_char;
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::ptr;
     use core::sync::atomic::{AtomicBool, AtomicPtr, Ordering};
 
     include!(concat!(env!("OUT_DIR"), "/lean_version.rs"));
-
-    unsafe extern "C" {
-    }
 
     static INITIALIZED: AtomicBool = AtomicBool::new(false);
     static BOOL_TRUE: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
@@ -79,12 +76,7 @@ mod library_util_impl {
         }
     }
     pub unsafe fn lean_initialize_library_util() {
-        if INITIALIZED
-            .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
-            .is_ok()
-        {
-            initialize_library_util_impl();
-        }
+        ensure_initialized();
     }
     pub unsafe fn lean_finalize_library_util() {
         if INITIALIZED.load(Ordering::Acquire) {

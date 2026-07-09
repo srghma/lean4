@@ -1,0 +1,211 @@
+/*
+Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+*/
+
+pub struct LibraryConstant {
+    slot: &'static AtomicPtr<LeanObject>,
+    path: &'static [&'static str],
+}
+
+impl LibraryConstant {
+    #[inline]
+    pub unsafe fn obj(self) -> *mut LeanObject {
+        let cached = self.slot.load(Ordering::Acquire);
+        if !cached.is_null() {
+            return cached;
+        }
+
+        let name = mk_name_path(self.path);
+        lean_mark_persistent(name.obj);
+        let obj = name.obj;
+
+        match self
+            .slot
+            .compare_exchange(ptr::null_mut(), obj, Ordering::AcqRel, Ordering::Acquire)
+        {
+            Ok(_) => obj,
+            Err(existing) => {
+                lean_dec(obj);
+                existing
+            }
+        }
+    }
+}
+
+macro_rules! library_constant_const {
+    ($slot:ident, $name:ident, [$($component:expr),+ $(,)?]) => {
+        static $slot: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
+        pub const $name: LibraryConstant = LibraryConstant {
+            slot: &$slot,
+            path: &[$($component),+],
+        };
+    };
+}
+
+library_constant_const!(ABSURD_NAME_SLOT, ABSURD_NAME, ["absurd"]);
+library_constant_const!(AND_NAME_SLOT, AND_NAME, ["And"]);
+library_constant_const!(AND_LEFT_NAME_SLOT, AND_LEFT_NAME, ["And", "left"]);
+library_constant_const!(AND_RIGHT_NAME_SLOT, AND_RIGHT_NAME, ["And", "right"]);
+library_constant_const!(AND_INTRO_NAME_SLOT, AND_INTRO_NAME, ["And", "intro"]);
+library_constant_const!(AND_REC_NAME_SLOT, AND_REC_NAME, ["And", "rec"]);
+library_constant_const!(
+    AND_CASES_ON_NAME_SLOT,
+    AND_CASES_ON_NAME,
+    ["And", "casesOn"]
+);
+library_constant_const!(ARRAY_NAME_SLOT, ARRAY_NAME, ["Array"]);
+library_constant_const!(ARRAY_SZ_NAME_SLOT, ARRAY_SZ_NAME, ["Array", "sz"]);
+library_constant_const!(
+    ARRAY_TO_LIST_NAME_SLOT,
+    ARRAY_TO_LIST_NAME,
+    ["Array", "toList"]
+);
+library_constant_const!(AUTO_PARAM_NAME_SLOT, AUTO_PARAM_NAME, ["autoParam"]);
+library_constant_const!(BIT0_NAME_SLOT, BIT0_NAME, ["bit0"]);
+library_constant_const!(BIT1_NAME_SLOT, BIT1_NAME, ["bit1"]);
+library_constant_const!(
+    HAS_OF_NAT_OF_NAT_NAME_SLOT,
+    HAS_OF_NAT_OF_NAT_NAME,
+    ["HasOfNat", "ofNat"]
+);
+library_constant_const!(BYTE_ARRAY_NAME_SLOT, BYTE_ARRAY_NAME, ["ByteArray"]);
+library_constant_const!(
+    BYTE_ARRAY_DATA_NAME_SLOT,
+    BYTE_ARRAY_DATA_NAME,
+    ["ByteArray", "data"]
+);
+library_constant_const!(BOOL_NAME_SLOT, BOOL_NAME, ["Bool"]);
+library_constant_const!(BOOL_FALSE_NAME_SLOT, BOOL_FALSE_NAME, ["Bool", "false"]);
+library_constant_const!(BOOL_TRUE_NAME_SLOT, BOOL_TRUE_NAME, ["Bool", "true"]);
+library_constant_const!(
+    BOOL_CASES_ON_NAME_SLOT,
+    BOOL_CASES_ON_NAME,
+    ["Bool", "casesOn"]
+);
+library_constant_const!(CAST_NAME_SLOT, CAST_NAME, ["cast"]);
+library_constant_const!(CHAR_NAME_SLOT, CHAR_NAME, ["Char"]);
+library_constant_const!(CONGR_ARG_NAME_SLOT, CONGR_ARG_NAME, ["congrArg"]);
+library_constant_const!(DECIDABLE_NAME_SLOT, DECIDABLE_NAME, ["Decidable"]);
+library_constant_const!(
+    DECIDABLE_IS_TRUE_NAME_SLOT,
+    DECIDABLE_IS_TRUE_NAME,
+    ["Decidable", "isTrue"]
+);
+library_constant_const!(
+    DECIDABLE_IS_FALSE_NAME_SLOT,
+    DECIDABLE_IS_FALSE_NAME,
+    ["Decidable", "isFalse"]
+);
+library_constant_const!(
+    DECIDABLE_DECIDE_NAME_SLOT,
+    DECIDABLE_DECIDE_NAME,
+    ["Decidable", "decide"]
+);
+library_constant_const!(EMPTY_NAME_SLOT, EMPTY_NAME, ["Empty"]);
+library_constant_const!(EMPTY_REC_NAME_SLOT, EMPTY_REC_NAME, ["Empty", "rec"]);
+library_constant_const!(
+    EMPTY_CASES_ON_NAME_SLOT,
+    EMPTY_CASES_ON_NAME,
+    ["Empty", "casesOn"]
+);
+library_constant_const!(EXISTS_NAME_SLOT, EXISTS_NAME, ["Exists"]);
+library_constant_const!(EQ_NAME_SLOT, EQ_NAME, ["Eq"]);
+library_constant_const!(EQ_CASES_ON_NAME_SLOT, EQ_CASES_ON_NAME, ["Eq", "casesOn"]);
+library_constant_const!(EQ_REC_ON_NAME_SLOT, EQ_REC_ON_NAME, ["Eq", "recOn"]);
+library_constant_const!(EQ_REC_NAME_SLOT, EQ_REC_NAME, ["Eq", "rec"]);
+library_constant_const!(EQ_NDREC_NAME_SLOT, EQ_NDREC_NAME, ["Eq", "ndrec"]);
+library_constant_const!(EQ_REFL_NAME_SLOT, EQ_REFL_NAME, ["Eq", "refl"]);
+library_constant_const!(EQ_SUBST_NAME_SLOT, EQ_SUBST_NAME, ["Eq", "subst"]);
+library_constant_const!(EQ_SYMM_NAME_SLOT, EQ_SYMM_NAME, ["Eq", "symm"]);
+library_constant_const!(EQ_TRANS_NAME_SLOT, EQ_TRANS_NAME, ["Eq", "trans"]);
+library_constant_const!(FLOAT_NAME_SLOT, FLOAT_NAME, ["Float"]);
+library_constant_const!(FLOAT32_NAME_SLOT, FLOAT32_NAME, ["Float32"]);
+library_constant_const!(FLOAT_ARRAY_NAME_SLOT, FLOAT_ARRAY_NAME, ["FloatArray"]);
+library_constant_const!(
+    FLOAT_ARRAY_DATA_NAME_SLOT,
+    FLOAT_ARRAY_DATA_NAME,
+    ["FloatArray", "data"]
+);
+library_constant_const!(FALSE_NAME_SLOT, FALSE_NAME, ["False"]);
+library_constant_const!(FALSE_REC_NAME_SLOT, FALSE_REC_NAME, ["False", "rec"]);
+library_constant_const!(
+    FALSE_CASES_ON_NAME_SLOT,
+    FALSE_CASES_ON_NAME,
+    ["False", "casesOn"]
+);
+library_constant_const!(HAS_ADD_ADD_NAME_SLOT, HAS_ADD_ADD_NAME, ["HasAdd", "add"]);
+library_constant_const!(HAS_NEG_NEG_NAME_SLOT, HAS_NEG_NEG_NAME, ["HasNeg", "neg"]);
+library_constant_const!(HAS_ONE_ONE_NAME_SLOT, HAS_ONE_ONE_NAME, ["HasOne", "one"]);
+library_constant_const!(
+    HAS_ZERO_ZERO_NAME_SLOT,
+    HAS_ZERO_ZERO_NAME,
+    ["HasZero", "zero"]
+);
+library_constant_const!(HEQ_NAME_SLOT, HEQ_NAME, ["HEq"]);
+library_constant_const!(HEQ_REFL_NAME_SLOT, HEQ_REFL_NAME, ["HEq", "refl"]);
+library_constant_const!(IFF_NAME_SLOT, IFF_NAME, ["Iff"]);
+library_constant_const!(IFF_REFL_NAME_SLOT, IFF_REFL_NAME, ["Iff", "refl"]);
+library_constant_const!(INT_NAME_SLOT, INT_NAME, ["Int"]);
+library_constant_const!(INT_NAT_ABS_NAME_SLOT, INT_NAT_ABS_NAME, ["Int", "natAbs"]);
+library_constant_const!(INT_DEC_LT_NAME_SLOT, INT_DEC_LT_NAME, ["Int", "decLt"]);
+library_constant_const!(INT_OF_NAT_NAME_SLOT, INT_OF_NAT_NAME, ["Int", "ofNat"]);
+library_constant_const!(INLINE_NAME_SLOT, INLINE_NAME, ["inline"]);
+library_constant_const!(IO_NAME_SLOT, IO_NAME, ["IO"]);
+library_constant_const!(ITE_NAME_SLOT, ITE_NAME, ["ite"]);
+library_constant_const!(LC_PROOF_NAME_SLOT, LC_PROOF_NAME, ["lcProof"]);
+library_constant_const!(
+    LC_UNREACHABLE_NAME_SLOT,
+    LC_UNREACHABLE_NAME,
+    ["lcUnreachable"]
+);
+library_constant_const!(LIST_NAME_SLOT, LIST_NAME, ["List"]);
+library_constant_const!(MUT_QUOT_NAME_SLOT, MUT_QUOT_NAME, ["MutQuot"]);
+library_constant_const!(NAT_NAME_SLOT, NAT_NAME, ["Nat"]);
+library_constant_const!(NAT_SUCC_NAME_SLOT, NAT_SUCC_NAME, ["Nat", "succ"]);
+library_constant_const!(NAT_ZERO_NAME_SLOT, NAT_ZERO_NAME, ["Nat", "zero"]);
+library_constant_const!(
+    NAT_HAS_ZERO_NAME_SLOT,
+    NAT_HAS_ZERO_NAME,
+    ["Nat", "HasZero"]
+);
+library_constant_const!(NAT_HAS_ONE_NAME_SLOT, NAT_HAS_ONE_NAME, ["Nat", "HasOne"]);
+library_constant_const!(NAT_HAS_ADD_NAME_SLOT, NAT_HAS_ADD_NAME, ["Nat", "HasAdd"]);
+library_constant_const!(NAT_ADD_NAME_SLOT, NAT_ADD_NAME, ["Nat", "add"]);
+library_constant_const!(NAT_DEC_EQ_NAME_SLOT, NAT_DEC_EQ_NAME, ["Nat", "decEq"]);
+library_constant_const!(NAT_SUB_NAME_SLOT, NAT_SUB_NAME, ["Nat", "sub"]);
+library_constant_const!(NE_NAME_SLOT, NE_NAME, ["ne"]);
+library_constant_const!(NOT_NAME_SLOT, NOT_NAME, ["Not"]);
+library_constant_const!(OPT_PARAM_NAME_SLOT, OPT_PARAM_NAME, ["optParam"]);
+library_constant_const!(OR_NAME_SLOT, OR_NAME, ["Or"]);
+library_constant_const!(PANIC_NAME_SLOT, PANIC_NAME, ["panic"]);
+library_constant_const!(PUNIT_NAME_SLOT, PUNIT_NAME, ["PUnit"]);
+library_constant_const!(PUNIT_UNIT_NAME_SLOT, PUNIT_UNIT_NAME, ["PUnit", "unit"]);
+library_constant_const!(PPROD_NAME_SLOT, PPROD_NAME, ["PProd"]);
+library_constant_const!(PPROD_MK_NAME_SLOT, PPROD_MK_NAME, ["PProd", "mk"]);
+library_constant_const!(PPROD_FST_NAME_SLOT, PPROD_FST_NAME, ["PProd", "fst"]);
+library_constant_const!(PPROD_SND_NAME_SLOT, PPROD_SND_NAME, ["PProd", "snd"]);
+library_constant_const!(PROPEXT_NAME_SLOT, PROPEXT_NAME, ["propext"]);
+library_constant_const!(QUOT_MK_NAME_SLOT, QUOT_MK_NAME, ["Quot", "mk"]);
+library_constant_const!(QUOT_LIFT_NAME_SLOT, QUOT_LIFT_NAME, ["Quot", "lift"]);
+library_constant_const!(SORRY_AX_NAME_SLOT, SORRY_AX_NAME, ["sorryAx"]);
+library_constant_const!(STRING_NAME_SLOT, STRING_NAME, ["String"]);
+library_constant_const!(STRING_DATA_NAME_SLOT, STRING_DATA_NAME, ["String", "data"]);
+library_constant_const!(
+    SUBSINGLETON_ELIM_NAME_SLOT,
+    SUBSINGLETON_ELIM_NAME,
+    ["Subsingleton", "elim"]
+);
+library_constant_const!(TASK_NAME_SLOT, TASK_NAME, ["Task"]);
+library_constant_const!(THUNK_NAME_SLOT, THUNK_NAME, ["Thunk"]);
+library_constant_const!(THUNK_MK_NAME_SLOT, THUNK_MK_NAME, ["Thunk", "mk"]);
+library_constant_const!(THUNK_GET_NAME_SLOT, THUNK_GET_NAME, ["Thunk", "get"]);
+library_constant_const!(TRUE_NAME_SLOT, TRUE_NAME, ["True"]);
+library_constant_const!(TRUE_INTRO_NAME_SLOT, TRUE_INTRO_NAME, ["True", "intro"]);
+library_constant_const!(UNIT_NAME_SLOT, UNIT_NAME, ["Unit"]);
+library_constant_const!(UNIT_UNIT_NAME_SLOT, UNIT_UNIT_NAME, ["Unit", "unit"]);
+library_constant_const!(UINT8_NAME_SLOT, UINT8_NAME, ["UInt8"]);
+library_constant_const!(UINT16_NAME_SLOT, UINT16_NAME, ["UInt16"]);
+library_constant_const!(UINT32_NAME_SLOT, UINT32_NAME, ["UInt32"]);
+library_constant_const!(UINT64_NAME_SLOT, UINT64_NAME, ["UInt64"]);
+library_constant_const!(USIZE_NAME_SLOT, USIZE_NAME, ["USize"]);

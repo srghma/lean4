@@ -45,7 +45,7 @@ pub unsafe fn lean_register_name_generator_prefix(n: *mut LeanObject) {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct LeanName {
-    obj: *mut LeanObject,
+    pub obj: *mut LeanObject,
 }
 
 pub(crate) unsafe fn mk_name(text: &str) -> LeanName {

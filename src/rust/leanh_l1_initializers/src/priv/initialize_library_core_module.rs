@@ -1,6 +1,7 @@
-use leanh_l1::datatypes::{LeanExternalObject, LeanObject, Size};
-use std::ffi::c_void;
+use crate::library_constants::initialize_constants;
 
 pub fn initialize_library_core_module() {
-    unsafe { initialize_library_core_module_body() }
+    // initialize_formatter();
+    initialize_constants();
+    // initialize_profiling();
 }

@@ -69,8 +69,6 @@ unsafe extern "C" {
     pub fn finalize_ir_interpreter();
     pub fn initialize_level();
     pub fn finalize_level();
-    // initialize_type_checker / finalize_type_checker now provided by kernel_type_checker.rs
-    pub fn initialize_local_ctx();
     pub fn finalize_local_ctx();
     pub fn initialize_quot();
     pub fn finalize_quot();
@@ -543,27 +541,11 @@ unsafe fn finalize_kernel_module_body() {
     finalize_expr();
     finalize_level();
 }
-pub fn initialize_inductive() {}
-pub fn finalize_inductive() {}
-
-unsafe fn initialize_library_core_module_body() {
-    initialize_formatter();
-    initialize_constants();
-    initialize_profiling();
-}
 
 unsafe fn finalize_library_core_module_body() {
     finalize_profiling();
     finalize_constants();
     finalize_formatter();
-}
-
-unsafe fn initialize_library_module_body() {
-    lean_cxx_initialize_num();
-    initialize_library_util();
-    initialize_time_task();
-    initialize_dynlib();
-    initialize_ir_interpreter();
 }
 
 unsafe fn finalize_library_module_body() {
@@ -775,8 +757,6 @@ pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
     lean_inc(opts);
     lean_get_profiler_threshold(opts)
 }
-pub fn initialize_profiling() {}
-pub fn finalize_profiling() {}
 
 pub fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
     true as u8
