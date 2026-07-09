@@ -157,6 +157,6 @@ pub unsafe fn lean_decode_io_error(errnum: c_int, fname: *mut LeanObject) -> *mu
         | libc::ERANGE
         | libc::ESPIPE
         | libc::EXDEV => lean_mk_io_error_unsupported_operation(errnum as u32, details),
-        libc::EFAULT | _ => lean_mk_io_error_other_error(errnum as u32, details),
+        _ => lean_mk_io_error_other_error(errnum as u32, details),
     }
 }

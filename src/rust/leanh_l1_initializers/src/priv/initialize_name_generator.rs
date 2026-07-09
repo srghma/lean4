@@ -9,7 +9,7 @@ use leanh_l1::{
 use crate::todo_import_from_lean::lean_name_mk_string::lean_name_mk_string;
 
 pub struct NameGeneratorState {
-    tmp_prefix: *mut LeanObject,
+    pub tmp_prefix: *mut LeanObject,
     pub prefixes: Vec<*mut LeanObject>,
 }
 

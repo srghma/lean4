@@ -112,6 +112,6 @@ pub unsafe fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mu
         | UV_ENOTSUP | UV_ERANGE | UV_ESPIPE | UV_EXDEV => {
             lean_mk_io_error_unsupported_operation(errnum as u32, details)
         }
-        UV_EFAULT | _ => lean_mk_io_error_other_error(errnum as u32, details),
+        _ => lean_mk_io_error_other_error(errnum as u32, details),
     }
 }

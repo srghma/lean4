@@ -12,20 +12,20 @@ static mut CONDVAR_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut BASERECMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 static mut BASESHAREDMUTEX_EXTERNAL_CLASS: *mut LeanExternalClass = ptr::null_mut();
 
-struct BaseMutex {
-    locked: Mutex<bool>,
-    changed: Condvar,
+pub struct BaseMutex {
+    pub locked: Mutex<bool>,
+    pub changed: Condvar,
 }
 
 impl BaseMutex {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             locked: Mutex::new(false),
             changed: Condvar::new(),
         }
     }
 
-    fn lock(&self) {
+    pub fn lock(&self) {
         let mut locked = self.locked.lock().unwrap();
         while *locked {
             locked = self.changed.wait(locked).unwrap();
@@ -33,7 +33,7 @@ impl BaseMutex {
         *locked = true;
     }
 
-    fn try_lock(&self) -> bool {
+    pub fn try_lock(&self) -> bool {
         let mut locked = self.locked.lock().unwrap();
         if *locked {
             false
@@ -43,25 +43,25 @@ impl BaseMutex {
         }
     }
 
-    fn unlock(&self) {
+    pub fn unlock(&self) {
         let mut locked = self.locked.lock().unwrap();
         *locked = false;
         self.changed.notify_one();
     }
 }
 
-struct RuntimeCondvar {
-    condvar: Condvar,
+pub struct RuntimeCondvar {
+    pub condvar: Condvar,
 }
 
 impl RuntimeCondvar {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             condvar: Condvar::new(),
         }
     }
 
-    fn wait(&self, mutex: &BaseMutex) {
+    pub fn wait(&self, mutex: &BaseMutex) {
         let mut locked = mutex.locked.lock().unwrap();
         *locked = false;
         mutex.changed.notify_one();
@@ -73,18 +73,18 @@ impl RuntimeCondvar {
     }
 }
 
-struct RecState {
-    owner: Option<ThreadId>,
-    depth: usize,
+pub struct RecState {
+    pub owner: Option<ThreadId>,
+    pub depth: usize,
 }
 
-struct BaseRecMutex {
-    state: Mutex<RecState>,
-    changed: Condvar,
+pub struct BaseRecMutex {
+    pub state: Mutex<RecState>,
+    pub changed: Condvar,
 }
 
 impl BaseRecMutex {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             state: Mutex::new(RecState {
                 owner: None,
@@ -94,7 +94,7 @@ impl BaseRecMutex {
         }
     }
 
-    fn lock(&self) {
+    pub fn lock(&self) {
         let current = std::thread::current().id();
         let mut state = self.state.lock().unwrap();
         loop {
@@ -115,7 +115,7 @@ impl BaseRecMutex {
         }
     }
 
-    fn try_lock(&self) -> bool {
+    pub fn try_lock(&self) -> bool {
         let current = std::thread::current().id();
         let mut state = self.state.lock().unwrap();
         match state.owner {
@@ -132,7 +132,7 @@ impl BaseRecMutex {
         }
     }
 
-    fn unlock(&self) {
+    pub fn unlock(&self) {
         let current = std::thread::current().id();
         let mut state = self.state.lock().unwrap();
         if state.owner == Some(current) {
@@ -145,18 +145,18 @@ impl BaseRecMutex {
     }
 }
 
-struct SharedState {
-    readers: usize,
-    writer: bool,
+pub struct SharedState {
+    pub readers: usize,
+    pub writer: bool,
 }
 
-struct BaseSharedMutex {
-    state: Mutex<SharedState>,
-    changed: Condvar,
+pub struct BaseSharedMutex {
+    pub state: Mutex<SharedState>,
+    pub changed: Condvar,
 }
 
 impl BaseSharedMutex {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             state: Mutex::new(SharedState {
                 readers: 0,
@@ -166,7 +166,7 @@ impl BaseSharedMutex {
         }
     }
 
-    fn write(&self) {
+    pub fn write(&self) {
         let mut state = self.state.lock().unwrap();
         while state.writer || state.readers != 0 {
             state = self.changed.wait(state).unwrap();
@@ -174,7 +174,7 @@ impl BaseSharedMutex {
         state.writer = true;
     }
 
-    fn try_write(&self) -> bool {
+    pub fn try_write(&self) -> bool {
         let mut state = self.state.lock().unwrap();
         if state.writer || state.readers != 0 {
             false
@@ -184,13 +184,13 @@ impl BaseSharedMutex {
         }
     }
 
-    fn unlock_write(&self) {
+    pub fn unlock_write(&self) {
         let mut state = self.state.lock().unwrap();
         state.writer = false;
         self.changed.notify_all();
     }
 
-    fn read(&self) {
+    pub fn read(&self) {
         let mut state = self.state.lock().unwrap();
         while state.writer {
             state = self.changed.wait(state).unwrap();
@@ -198,7 +198,7 @@ impl BaseSharedMutex {
         state.readers += 1;
     }
 
-    fn try_read(&self) -> bool {
+    pub fn try_read(&self) -> bool {
         let mut state = self.state.lock().unwrap();
         if state.writer {
             false
@@ -208,7 +208,7 @@ impl BaseSharedMutex {
         }
     }
 
-    fn unlock_read(&self) {
+    pub fn unlock_read(&self) {
         let mut state = self.state.lock().unwrap();
         if state.readers > 0 {
             state.readers -= 1;
@@ -216,6 +216,30 @@ impl BaseSharedMutex {
                 self.changed.notify_all();
             }
         }
+    }
+}
+
+impl Default for BaseMutex {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Default for RuntimeCondvar {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Default for BaseRecMutex {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Default for BaseSharedMutex {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
@@ -245,5 +269,3 @@ pub fn initialize_mutex() {
             lean_register_external_class(Some(basesharedmutex_finalizer), None);
     }
 }
-
-pub fn finalize_mutex() {}
