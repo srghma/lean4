@@ -22,31 +22,7 @@ mod library_util_impl {
 
     include!(concat!(env!("OUT_DIR"), "/lean_version.rs"));
 
-    static INITIALIZED: AtomicBool = AtomicBool::new(false);
-    static BOOL_TRUE: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
-    static BOOL_FALSE: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
-    static UTIL_FRESH: AtomicPtr<LeanObject> = AtomicPtr::new(ptr::null_mut());
-
     static SHORT_VERSION_STRING: &[u8] = LEAN_VERSION_STRING_CSTR;
-
-    unsafe fn initialize_library_util_impl() {
-        let bool_false_name = *get_bool_false_name();
-        let bool_true_name = *get_bool_true_name();
-
-        let false_expr = lean_expr_mk_const(bool_false_name.obj, lean_box(0));
-        let true_expr = lean_expr_mk_const(bool_true_name.obj, lean_box(0));
-
-        lean_mark_persistent(false_expr);
-        lean_mark_persistent(true_expr);
-
-        BOOL_FALSE.store(false_expr, Ordering::Release);
-        BOOL_TRUE.store(true_expr, Ordering::Release);
-
-        let util_fresh = mk_name("_util_fresh");
-        lean_mark_persistent(util_fresh.obj);
-        UTIL_FRESH.store(util_fresh.obj, Ordering::Release);
-        lean_register_name_generator_prefix(util_fresh.obj);
-    }
 
     unsafe fn finalize_library_util_impl() {
         let bool_false = BOOL_FALSE.swap(ptr::null_mut(), Ordering::AcqRel);
@@ -67,17 +43,6 @@ mod library_util_impl {
         INITIALIZED.store(false, Ordering::Release);
     }
 
-    unsafe fn ensure_initialized() {
-        if INITIALIZED
-            .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
-            .is_ok()
-        {
-            initialize_library_util_impl();
-        }
-    }
-    pub unsafe fn lean_initialize_library_util() {
-        ensure_initialized();
-    }
     pub unsafe fn lean_finalize_library_util() {
         if INITIALIZED.load(Ordering::Acquire) {
             finalize_library_util_impl();

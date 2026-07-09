@@ -1,6 +1,8 @@
 use leanh_l1::datatypes::{LeanExternalObject, LeanObject, Size};
 use std::ffi::c_void;
 
+use crate::library_util::lean_initialize_library_util::lean_initialize_library_util;
+
 pub fn initialize_library_module() {
     // lean_cxx_initialize_num();
     lean_initialize_library_util();
