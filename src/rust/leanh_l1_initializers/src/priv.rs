@@ -1,3 +1,9 @@
+pub mod consume_io_result;
+pub mod initialize_constructions_module;
+pub mod initialize_kernel_module;
+pub mod initialize_library_core_module;
+pub mod initialize_library_module;
+pub mod initialize_util_module;
 pub mod lean_alloc_sarray;
 pub mod lean_alloc_sarray_would_overflow;
 pub mod lean_io_prim_handle_flush;
@@ -6,6 +12,7 @@ pub mod lean_io_prim_handle_is_tty;
 pub mod lean_io_prim_handle_put_str;
 pub mod lean_io_prim_handle_read;
 pub mod lean_io_prim_handle_write;
+pub mod lean_io_result_get_error;
 pub mod lean_io_result_mk_error;
 pub mod lean_register_external_class;
 pub mod lean_runtime_alloc_external;

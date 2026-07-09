@@ -22,4 +22,5 @@ pub mod lean_mk_io_error_resource_vanished;
 pub mod lean_mk_io_error_time_expired;
 pub mod lean_mk_io_error_unsatisfied_constraints;
 pub mod lean_mk_io_error_unsupported_operation;
+pub mod lean_name_mk_string;
 pub mod lean_stream_of_handle;

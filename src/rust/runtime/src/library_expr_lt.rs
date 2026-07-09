@@ -63,7 +63,6 @@ mod library_expr_lt_impl {
         fn lean_nat_big_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool;
         fn lean_nat_big_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool;
         fn lean_string_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
-        fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
         // Borrowed — does not consume arguments.
         // Mirrors C++ name::operator< which uses cmp_core (lexicographic, root-to-leaf, NOT hash-based).
         fn l_Lean_Name_lt(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;

@@ -31,8 +31,8 @@ fn get_stack_pointer() -> usize {
     &dummy as *const u8 as usize
 }
 
-pub unsafe fn save_stack_info(main: bool) {
-    let size = get_stack_size(main);
+pub fn save_stack_info(main: bool) {
+    let size = unsafe { get_stack_size(main) };
     let base = get_stack_pointer();
 
     let mut threshold = base

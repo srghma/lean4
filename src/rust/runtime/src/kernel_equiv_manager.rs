@@ -32,7 +32,6 @@ mod kernel_equiv_manager_impl {
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
-        fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
     }
 
     use crate::runtime_object_name_impl::lean_name_eq;

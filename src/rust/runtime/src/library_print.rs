@@ -21,8 +21,6 @@ mod library_print_impl {
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
-        // Lean-compiled (Init.Prelude): Name.str p s — consumes both.
-        fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         // Lean-compiled (Lean.Expr): mkFVar — takes owned FVarId (= Name at ABI), returns owned Expr.
         fn lean_expr_mk_fvar(n: *mut LeanObject) -> *mut LeanObject;
         // lean_expr_instantiate1 is provided by kernel_instantiate.rs.

@@ -47,7 +47,6 @@ mod kernel_expr_eq_fn_impl {
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
-        fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
         // Consumes both arguments (obj_arg semantics); call lean_inc before passing borrowed refs.
         fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     }

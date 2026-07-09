@@ -32,6 +32,7 @@ function getDestination(sourceOcc: FnOccurrence): Destination {
   if (
     normalized === path.resolve(path.join(runtimeRoot, "base.rs")) ||
     normalized === path.resolve(path.join(leanhL2Root, "base.rs")) ||
+    normalized === path.resolve(path.join(leanhL2Root, "in_emit_rust.rs")) ||
     path.basename(normalized) === "lib.rs"
   ) {
     return {
@@ -57,7 +58,7 @@ function getDestination(sourceOcc: FnOccurrence): Destination {
 
   throw new Error(
     `unsupported source location for destination routing: ${path.relative(lean4Root, sourceOcc.file)}\n` +
-      `expected runtime/src/base.rs, leanh_l2/src/base.rs, lean4-rust/.../lib.rs, or a kernel_*/library_*/runtime_* module`,
+      `expected runtime/src/base.rs, leanh_l2/src/base.rs, leanh_l2/src/in_emit_rust.rs, lean4-rust/.../lib.rs, or a kernel_*/library_*/runtime_* module`,
   );
 }
 

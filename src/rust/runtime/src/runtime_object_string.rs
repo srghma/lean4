@@ -223,16 +223,6 @@ mod runtime_object_string_impl {
         r
     }
 
-    // ════════════════════════════════════════════════════════════════════════════
-    // String comparisons
-    // ════════════════════════════════════════════════════════════════════════════
-
-    pub unsafe fn lean_string_eq_cold(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
-        let sz = lean_string_size(s1);
-        core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz)
-            == core::slice::from_raw_parts(lean_string_cstr(s2) as *const u8, sz)
-    }
-
     pub unsafe fn lean_sarray_eq_cold(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
         let len = lean_sarray_elem_size(a1) * lean_sarray_size(a1);
         core::slice::from_raw_parts(lean_sarray_cptr(a1), len)

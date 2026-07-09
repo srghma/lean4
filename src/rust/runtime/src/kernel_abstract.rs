@@ -30,7 +30,6 @@ mod kernel_abstract_impl {
     use std::collections::HashMap;
 
     unsafe extern "C" {
-        fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_app(f: *mut LeanObject, a: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lambda(

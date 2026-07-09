@@ -40,9 +40,6 @@ mod library_ir_interpreter_impl {
         ) -> *mut LeanObject;
         fn lean_get_export_name_for(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
 
-        // Name equality and hash
-        fn lean_name_eq(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
-
         // Sorry dep check
         fn lean_decl_get_sorry_dep(env: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
 
@@ -87,8 +84,6 @@ mod library_ir_interpreter_impl {
             opts: *const *mut LeanObject,
         );
         fn lean_scope_trace_env_dtor(this: *mut ScopeTraceEnv);
-
-        fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
 
         // get_init_fn_name_for (already in lib.rs but may be called as extern)
         fn lean_get_init_fn_name_for(

@@ -31,9 +31,6 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     unsafe extern "C" {
-
-        // Names
-        fn lean_name_mk_string(prefix: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject;
         fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
         // lean_name_anonymous: implemented as Rust shim below (Name.anonymous = boxed scalar 0)
         // lean_name_eq_raw is inline C++; implemented as Rust shim below
@@ -314,11 +311,6 @@ mod kernel_type_checker_impl {
     unsafe fn expr_has_expr_mvar(e: *const LeanObject) -> bool {
         lean_inc(e as *mut LeanObject);
         lean_expr_has_expr_mvar(e)
-    }
-
-    #[inline(always)]
-    unsafe fn lean_name_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
-        super::lean_name_eq_export(a as *mut _, b as *mut _) != 0
     }
 
     // ---------------------------------------------------------------------------
@@ -1023,16 +1015,6 @@ mod kernel_type_checker_impl {
     pub unsafe fn lean_expr_mk_prop() -> *mut LeanObject {
         let zero = lean_level_mk_zero();
         lean_expr_mk_sort(zero)
-    }
-
-    // --- Nat comparisons / helpers ---
-    #[no_mangle]
-    pub unsafe fn lean_nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
-        if lean_is_scalar(a) && lean_is_scalar(b) {
-            lean_unbox(a) == lean_unbox(b)
-        } else {
-            runtime_object_nat_int_impl::lean_nat_big_eq(a as *mut _, b as *mut _)
-        }
     }
     #[no_mangle]
     pub unsafe fn lean_nat_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool {

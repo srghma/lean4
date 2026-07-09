@@ -38,12 +38,6 @@ unsafe fn initialize_util_module_body() {
     initialize_options();
 }
 
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct LeanName {
-    obj: *mut LeanObject,
-}
-
 static mut VERBOSE_OPT: LeanName = LeanName {
     obj: ptr::null_mut(),
 };
@@ -53,21 +47,6 @@ static mut MAX_MEMORY_OPT: LeanName = LeanName {
 static mut TIMEOUT_OPT: LeanName = LeanName {
     obj: ptr::null_mut(),
 };
-
-pub unsafe fn lean_name_mk_string(
-    // [lean-audit] Rust should import from Lean ([export]): Function is found in rust code, but is defined in rust (defined) (🛠️) | Lean: src/Init/Prelude.lean:4729
-    mut _v_p_9004_: *mut LeanObject,
-    mut _v_s_9005_: *mut LeanObject,
-) -> *mut LeanObject {
-    todo!("src/rust/gen_init/src/gen/Init/Prelude.rs")
-}
-
-pub(crate) unsafe fn mk_name(text: &str) -> LeanName {
-    let c_text = std::ffi::CString::new(text).expect("option names never contain NUL");
-    let raw_text = lean_mk_string(c_text.as_ptr());
-    let raw_name = lean_name_mk_string(lean_box(0), raw_text);
-    LeanName { obj: raw_name }
-}
 
 pub fn initialize_options() {
     unsafe {
@@ -79,16 +58,6 @@ pub fn initialize_options() {
         lean_mark_persistent(TIMEOUT_OPT.obj);
     }
 }
-
-struct NameGeneratorState {
-    tmp_prefix: *mut LeanObject,
-    prefixes: Vec<*mut LeanObject>,
-}
-
-unsafe impl Send for NameGeneratorState {}
-
-static NAME_GENERATOR_STATE: std::sync::Mutex<Option<NameGeneratorState>> =
-    std::sync::Mutex::new(None);
 
 pub fn initialize_name_generator() {
     unsafe {
@@ -109,100 +78,4 @@ static INTERNAL_UNIQUE_NAME_ID: std::sync::atomic::AtomicU32 = std::sync::atomic
 pub fn initialize_name() {
     INTERNAL_UNIQUE_NAME_ID.store(0, Ordering::Relaxed);
 }
-pub fn finalize_name() {}
-pub fn initialize_util_module() {
-    unsafe { initialize_util_module_body() }
-}
-
-pub(crate) unsafe fn consume_io_result(result: *mut LeanObject) {
-    if lean_io_result_is_ok(result) {
-        lean_dec(result);
-    } else {
-        let err = lean_io_result_get_error(result);
-        lean_inc(err);
-        lean_dec(result);
-        let msg = lean_io_error_to_string(err);
-        let text = core::ffi::CStr::from_ptr(lean_string_cstr(msg));
-
-        let prefix = b"IO Error in lean_initialize: ";
-        libc::write(2, prefix.as_ptr().cast(), prefix.len());
-        let bytes = text.to_bytes();
-        libc::write(2, bytes.as_ptr().cast(), bytes.len());
-        libc::write(2, b"\n".as_ptr().cast(), 1);
-    }
-}
-
-pub fn initialize_kernel_module() {
-    initialize_type_checker();
-    initialize_local_ctx();
-    initialize_inductive();
-    initialize_quot();
-}
-
-pub fn initialize_library_core_module() {
-    unsafe { initialize_library_core_module_body() }
-}
-
-pub fn initialize_library_module() {
-    unsafe { initialize_library_module_body() }
-}
-
-pub unsafe fn initialize_Init(builtin: bool) -> *mut LeanObject {
-    todo!("src/rust/gen_init/src/gen/Init.rs")
-}
-
-pub unsafe fn initialize_Std(builtin: bool) -> *mut LeanObject {
-    todo!("src/rust/gen_std/src/gen/Std.rs")
-}
-
-pub unsafe fn initialize_Lean(builtin: bool) -> *mut LeanObject {
-    todo!("src/rust/gen_lean_part_5/src/gen/Lean.rs")
-}
-
-pub fn init_default_print_fn() {
-    // No-op: lean_expr_dbg_to_string (the ToString Expr instance) is now implemented
-    // in Rust (library_print.rs), so the C++ formatter.h print function pointer
-    // no longer needs to be set.
-}
-
-static mut CONSTRUCTIONS_FRESH: LeanName = LeanName {
-    obj: ptr::null_mut(),
-};
-
-unsafe fn name_contains_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
-    state
-        .prefixes
-        .iter()
-        .copied()
-        .any(|p| lean_name_eq(p, n) != 0)
-}
-
-pub unsafe fn lean_register_name_generator_prefix(n: *mut LeanObject) {
-    let mut guard = NAME_GENERATOR_STATE.lock().unwrap();
-    let state = guard
-        .as_mut()
-        .expect("name generator registry is not initialized");
-    assert!(!name_contains_registered_prefix(state, n));
-    lean_inc(n);
-    state.prefixes.push(n);
-}
-pub fn initialize_constructions_util() {
-    unsafe {
-        CONSTRUCTIONS_FRESH = mk_name("_cnstr_fresh");
-        lean_mark_persistent(CONSTRUCTIONS_FRESH.obj);
-        lean_register_name_generator_prefix(CONSTRUCTIONS_FRESH.obj);
-    }
-}
-
-unsafe fn initialize_constructions_module_body() {
-    initialize_constructions_util();
-}
-
-pub fn initialize_constructions_module() {
-    unsafe { initialize_constructions_module_body() }
-}
-
-pub unsafe fn lean_io_result_get_error(obj: *mut LeanObject) -> *mut LeanObject {
-    debug_assert!(lean_io_result_is_error(obj));
-    lean_ctor_get(obj, 0)
-}
+// pub fn finalize_name() {}
