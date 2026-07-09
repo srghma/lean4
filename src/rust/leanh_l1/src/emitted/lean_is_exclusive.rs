@@ -1,7 +1,7 @@
 use crate::datatypes::LeanObject;
 
 #[inline]
-pub unsafe fn lean_is_exclusive(obj: *mut LeanObject) -> bool {
+pub unsafe fn lean_is_exclusive(obj: *const LeanObject) -> bool {
     // This was a mistake
     // !lean_is_scalar(obj) && (*obj).rc == 1
 

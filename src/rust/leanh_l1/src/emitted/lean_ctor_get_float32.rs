@@ -5,7 +5,7 @@ use crate::{
 
 // Mirrors origin-master-src/include/lean/lean.h:754-757 (`lean_ctor_get_float32`).
 #[inline]
-pub unsafe fn lean_ctor_get_float32(obj: *mut LeanObject, offset: u32) -> f32 {
+pub unsafe fn lean_ctor_get_float32(obj: *const LeanObject, offset: u32) -> f32 {
     debug_assert!(
         (offset as usize) >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>()
     );

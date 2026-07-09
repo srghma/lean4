@@ -123,7 +123,7 @@ unsafe fn io_eprintln_checked(msg: *mut LeanObject) {
     lean_dec(result);
 }
 
-unsafe fn lean_is_shared_obj(obj: *mut LeanObject) -> bool {
+unsafe fn lean_is_shared_obj(obj: *const LeanObject) -> bool {
     !lean_is_scalar(obj) && (*obj).rc > 1
 }
 

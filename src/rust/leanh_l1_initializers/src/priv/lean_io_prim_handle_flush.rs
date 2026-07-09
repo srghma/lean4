@@ -13,7 +13,7 @@ use crate::{
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };
 
-pub unsafe fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_flush(h: *const LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::fflush(fp) == 0 {
         lean_io_result_mk_ok(lean_box(0))

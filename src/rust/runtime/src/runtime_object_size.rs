@@ -11,30 +11,30 @@ mod runtime_object_size_impl {
     use leanh::{LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG};
 
     #[inline]
-    unsafe fn lean_small_object_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_small_object_size(o: *const LeanObject) -> usize {
         (*o).cs_size as usize
     }
 
     #[inline]
-    unsafe fn lean_array_data_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_array_data_byte_size(o: *const LeanObject) -> usize {
         let array = o as *const LeanArrayObject;
         core::mem::size_of::<LeanArrayObject>()
             + core::mem::size_of::<*mut LeanObject>() * (*array).size
     }
 
     #[inline]
-    unsafe fn lean_sarray_data_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_sarray_data_byte_size(o: *const LeanObject) -> usize {
         let array = o as *const LeanScalarArray;
         core::mem::size_of::<LeanScalarArray>() + (*o).other as usize * (*array).size
     }
 
     #[inline]
-    unsafe fn lean_string_data_byte_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_string_data_byte_size(o: *const LeanObject) -> usize {
         let string = o as *const LeanStringObject;
         core::mem::size_of::<LeanStringObject>() + (*string).size
     }
 
-    pub unsafe fn lean_object_byte_size(o: *mut LeanObject) -> usize {
+    pub unsafe fn lean_object_byte_size(o: *const LeanObject) -> usize {
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_array_byte_size(o),
             LEAN_SCALAR_ARRAY_TAG => lean_sarray_byte_size(o),
@@ -50,7 +50,7 @@ mod runtime_object_size_impl {
         }
     }
 
-    pub unsafe fn lean_object_data_byte_size(o: *mut LeanObject) -> usize {
+    pub unsafe fn lean_object_data_byte_size(o: *const LeanObject) -> usize {
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_array_data_byte_size(o),
             LEAN_SCALAR_ARRAY_TAG => lean_sarray_data_byte_size(o),

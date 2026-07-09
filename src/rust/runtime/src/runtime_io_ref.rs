@@ -7,16 +7,16 @@ mod runtime_io_ref_impl {
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use leanh::LEAN_REF_TAG;
     use core::sync::atomic::{AtomicPtr, Ordering};
+    use leanh::LEAN_REF_TAG;
 
     unsafe extern "C" {
         fn lean_mark_mt(obj: *mut LeanObject);
     }
 
     #[repr(C)]
-    struct LeanRefObject { // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
-
+    struct LeanRefObject {
+        // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
         header: LeanObject,
         value: *mut LeanObject,
     }
@@ -139,7 +139,7 @@ mod runtime_io_ref_impl {
         }
     }
 
-    pub unsafe fn lean_st_ref_ptr_eq(ref1: *mut LeanObject, ref2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_st_ref_ptr_eq(ref1: *const LeanObject, ref2: *const LeanObject) -> u8 {
         (lean_to_ref(ref1) == lean_to_ref(ref2)) as u8
     }
 

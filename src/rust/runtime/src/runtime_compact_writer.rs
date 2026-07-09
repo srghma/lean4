@@ -9,13 +9,13 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 mod runtime_compact_writer_impl {
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use leanh::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG,
-        LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
-        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
-    };
     use core::ffi::{CStr, c_char, c_void};
     use core::sync::atomic::{AtomicPtr, Ordering};
+    use leanh::{
+        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
+        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
+        LEAN_THUNK_TAG,
+    };
     use std::collections::HashMap;
     use std::io::Write as IoWrite;
 
@@ -71,7 +71,7 @@ mod runtime_compact_writer_impl {
 
     /// Read the cached hash stored in a Lean Name object.
     /// Layout: header(8) + parent_ptr(8) + component_ptr(8) + hash(u64,8) = 32 bytes.
-    unsafe fn lean_name_hash_val(n: *mut LeanObject) -> u64 {
+    unsafe fn lean_name_hash_val(n: *const LeanObject) -> u64 {
         if lean_is_scalar(n) {
             0 // anonymous name
         } else {
@@ -267,7 +267,7 @@ mod runtime_compact_writer_impl {
         }
 
         /// Copy o into buf and set its non-heap header. Returns start offset.
-        unsafe fn copy_object(&mut self, o: *mut LeanObject) -> usize {
+        unsafe fn copy_object(&mut self, o: *const LeanObject) -> usize {
             let sz = runtime_object_size_impl::lean_object_byte_size(o);
             let offset = self.alloc(sz);
             core::ptr::copy_nonoverlapping(o as *const u8, self.buf.as_mut_ptr().add(offset), sz);
@@ -296,7 +296,7 @@ mod runtime_compact_writer_impl {
 
         /// Convert src pointer to stored (base_addr-relative) address.
         /// Returns None and pushes o onto todo if not yet processed.
-        unsafe fn to_offset(&mut self, o: *mut LeanObject) -> Option<usize> {
+        unsafe fn to_offset(&mut self, o: *const LeanObject) -> Option<usize> {
             if lean_is_scalar(o) {
                 return Some(o as usize);
             }
@@ -316,13 +316,13 @@ mod runtime_compact_writer_impl {
                     }
                 }
             }
-            self.todo.push(o);
+            self.todo.push(o as *mut LeanObject);
             None
         }
 
         // ----- insert_* methods -----
 
-        unsafe fn insert_constructor(&mut self, o: *mut LeanObject) -> bool {
+        unsafe fn insert_constructor(&mut self, o: *const LeanObject) -> bool {
             let num_objs = (*o).other as usize;
             self.tmp.resize(num_objs, 0);
             let mut missing = false;
@@ -347,7 +347,7 @@ mod runtime_compact_writer_impl {
             true
         }
 
-        unsafe fn insert_array(&mut self, o: *mut LeanObject) -> bool {
+        unsafe fn insert_array(&mut self, o: *const LeanObject) -> bool {
             let n = lean_array_size(o);
             self.tmp.resize(n, 0);
             let mut missing = false;
@@ -375,7 +375,7 @@ mod runtime_compact_writer_impl {
             true
         }
 
-        unsafe fn insert_sarray(&mut self, o: *mut LeanObject) {
+        unsafe fn insert_sarray(&mut self, o: *const LeanObject) {
             let elem_sz = (*o).other as usize;
             let n = (*(o as *const LeanScalarArray)).size;
             let obj_sz = core::mem::size_of::<LeanScalarArray>() + elem_sz * n;
@@ -388,7 +388,7 @@ mod runtime_compact_writer_impl {
             self.save_max_sharing(o as usize, new_off, obj_sz);
         }
 
-        unsafe fn insert_string(&mut self, o: *mut LeanObject) {
+        unsafe fn insert_string(&mut self, o: *const LeanObject) {
             let s = o as *const LeanStringObject;
             let size = (*s).size;
             let len = (*s).len;
@@ -416,7 +416,7 @@ mod runtime_compact_writer_impl {
             }
         }
 
-        unsafe fn insert_ref(&mut self, o: *mut LeanObject) -> bool {
+        unsafe fn insert_ref(&mut self, o: *const LeanObject) -> bool {
             let v = (o as *const u8)
                 .add(LEAN_VALUE_OFFSET)
                 .cast::<*mut LeanObject>()
@@ -448,7 +448,7 @@ mod runtime_compact_writer_impl {
             }
         }
 
-        unsafe fn insert_promise(&mut self, o: *mut LeanObject) -> bool {
+        unsafe fn insert_promise(&mut self, o: *const LeanObject) -> bool {
             let m_result = (o as *const u8)
                 .add(LEAN_VALUE_OFFSET)
                 .cast::<*mut LeanObject>()

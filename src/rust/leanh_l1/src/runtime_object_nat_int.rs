@@ -17,8 +17,8 @@ use gmp_mpfr_sys::gmp::{
 
 use crate::datatypes::{LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG, LeanMpzObject, LeanObject};
 use crate::emitted::{
-    lean_box::lean_box, lean_dec::lean_dec, lean_inc::lean_inc,
-    lean_is_scalar::lean_is_scalar as lean_is_scalar, lean_unbox::lean_unbox,
+    lean_box::lean_box, lean_dec::lean_dec, lean_inc::lean_inc, lean_is_scalar::lean_is_scalar,
+    lean_unbox::lean_unbox,
 };
 use crate::r#priv::lean_alloc_small_object::lean_alloc_small_object;
 use crate::runtime_mpz::{
@@ -30,7 +30,7 @@ const LEAN_MAX_SMALL_INT: i32 = i32::MAX;
 const LEAN_MIN_SMALL_INT: i32 = i32::MIN;
 
 #[inline]
-pub(crate) unsafe fn lean_mpz_val(o: *mut LeanObject) -> *const mpz_t {
+pub(crate) unsafe fn lean_mpz_val(o: *const LeanObject) -> *const mpz_t {
     (o as *const u8).add(core::mem::size_of::<LeanObject>()) as *const mpz_t
 }
 
@@ -91,7 +91,7 @@ unsafe fn mpz_to_int_core(m: *mut mpz_t) -> *mut LeanObject {
 }
 
 #[inline]
-unsafe fn scalar_to_int(a: *mut LeanObject) -> i32 {
+unsafe fn scalar_to_int(a: *const LeanObject) -> i32 {
     lean_unbox(a) as u32 as i32
 }
 
@@ -117,19 +117,19 @@ pub unsafe fn lean_alloc_mpz(v: *const mpz_t) -> *mut LeanObject {
     alloc_mpz(v)
 }
 
-pub unsafe fn lean_extract_mpz_value(o: *mut LeanObject, v: *mut mpz_t) {
+pub unsafe fn lean_extract_mpz_value(o: *const LeanObject, v: *mut mpz_t) {
     mpz_set(v, lean_mpz_val(o));
 }
 
-pub unsafe fn lean_mpz_hash(o: *mut LeanObject) -> u32 {
+pub unsafe fn lean_mpz_hash(o: *const LeanObject) -> u32 {
     mpz_get_si(lean_mpz_val(o)) as i32 as u32
 }
 
-pub unsafe fn lean_mpz_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8 {
+pub unsafe fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> u8 {
     (mpz_cmp(lean_mpz_val(o1), lean_mpz_val(o2)) == 0) as u8
 }
 
-pub unsafe fn lean_alloc_mpz_from_mpz(o: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_alloc_mpz_from_mpz(o: *const LeanObject) -> *mut LeanObject {
     alloc_mpz(lean_mpz_val(o))
 }
 
@@ -270,14 +270,14 @@ pub unsafe fn lean_nat_big_mod(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut
     }
 }
 
-pub unsafe fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+pub unsafe fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool {
     if lean_is_scalar(a1) || lean_is_scalar(a2) {
         return false;
     }
     mpz_cmp(lean_mpz_val(a1), lean_mpz_val(a2)) == 0
 }
 
-pub unsafe fn lean_nat_big_le(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+pub unsafe fn lean_nat_big_le(a1: *const LeanObject, a2: *const LeanObject) -> bool {
     if lean_is_scalar(a1) {
         return true;
     } else if lean_is_scalar(a2) {
@@ -286,7 +286,7 @@ pub unsafe fn lean_nat_big_le(a1: *mut LeanObject, a2: *mut LeanObject) -> bool 
     mpz_cmp(lean_mpz_val(a1), lean_mpz_val(a2)) <= 0
 }
 
-pub unsafe fn lean_nat_big_lt(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+pub unsafe fn lean_nat_big_lt(a1: *const LeanObject, a2: *const LeanObject) -> bool {
     if lean_is_scalar(a1) {
         return true;
     } else if lean_is_scalar(a2) {
@@ -718,14 +718,14 @@ pub unsafe fn lean_int_big_emod(a1: *mut LeanObject, a2: *mut LeanObject) -> *mu
     }
 }
 
-pub unsafe fn lean_int_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+pub unsafe fn lean_int_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool {
     if lean_is_scalar(a1) || lean_is_scalar(a2) {
         return false;
     }
     mpz_cmp(lean_mpz_val(a1), lean_mpz_val(a2)) == 0
 }
 
-pub unsafe fn lean_int_big_le(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+pub unsafe fn lean_int_big_le(a1: *const LeanObject, a2: *const LeanObject) -> bool {
     if lean_is_scalar(a1) {
         mpz_cmp_si(lean_mpz_val(a2), scalar_to_int(a1) as c_long) >= 0
     } else if lean_is_scalar(a2) {
@@ -735,7 +735,7 @@ pub unsafe fn lean_int_big_le(a1: *mut LeanObject, a2: *mut LeanObject) -> bool 
     }
 }
 
-pub unsafe fn lean_int_big_lt(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+pub unsafe fn lean_int_big_lt(a1: *const LeanObject, a2: *const LeanObject) -> bool {
     if lean_is_scalar(a1) {
         mpz_cmp_si(lean_mpz_val(a2), scalar_to_int(a1) as c_long) > 0
     } else if lean_is_scalar(a2) {
@@ -745,7 +745,7 @@ pub unsafe fn lean_int_big_lt(a1: *mut LeanObject, a2: *mut LeanObject) -> bool 
     }
 }
 
-pub unsafe fn lean_int_big_nonneg(a: *mut LeanObject) -> bool {
+pub unsafe fn lean_int_big_nonneg(a: *const LeanObject) -> bool {
     mpz_sgn(lean_mpz_val(a)) >= 0
 }
 
@@ -779,19 +779,19 @@ unsafe fn mod64(m: *const mpz_t) -> u64 {
     lo | (hi << 32)
 }
 
-pub unsafe fn lean_uint8_of_big_nat(a: *mut LeanObject) -> u8 {
+pub unsafe fn lean_uint8_of_big_nat(a: *const LeanObject) -> u8 {
     fdiv_r_2exp_ui(lean_mpz_val(a), 8) as u8
 }
 
-pub unsafe fn lean_uint16_of_big_nat(a: *mut LeanObject) -> u16 {
+pub unsafe fn lean_uint16_of_big_nat(a: *const LeanObject) -> u16 {
     fdiv_r_2exp_ui(lean_mpz_val(a), 16) as u16
 }
 
-pub unsafe fn lean_uint32_of_big_nat(a: *mut LeanObject) -> u32 {
+pub unsafe fn lean_uint32_of_big_nat(a: *const LeanObject) -> u32 {
     fdiv_r_2exp_ui(lean_mpz_val(a), 32) as u32
 }
 
-pub unsafe fn lean_uint64_of_big_nat(a: *mut LeanObject) -> u64 {
+pub unsafe fn lean_uint64_of_big_nat(a: *const LeanObject) -> u64 {
     mod64(lean_mpz_val(a))
 }
 
@@ -799,29 +799,29 @@ pub unsafe fn lean_uint64_mix_hash(a1: u64, a2: u64) -> u64 {
     mix_hash_u64(a1, a2)
 }
 
-pub unsafe fn lean_usize_of_big_nat(a: *mut LeanObject) -> usize {
+pub unsafe fn lean_usize_of_big_nat(a: *const LeanObject) -> usize {
     mpz_get_size_t(lean_mpz_val(a))
 }
 
 // ── IntX ────────────────────────────────────────────────────────────────
 
-pub unsafe fn lean_int8_of_big_int(a: *mut LeanObject) -> i8 {
+pub unsafe fn lean_int8_of_big_int(a: *const LeanObject) -> i8 {
     fdiv_r_2exp_ui(lean_mpz_val(a), 8) as u8 as i8
 }
 
-pub unsafe fn lean_int16_of_big_int(a: *mut LeanObject) -> i16 {
+pub unsafe fn lean_int16_of_big_int(a: *const LeanObject) -> i16 {
     fdiv_r_2exp_ui(lean_mpz_val(a), 16) as u16 as i16
 }
 
-pub unsafe fn lean_int32_of_big_int(a: *mut LeanObject) -> i32 {
+pub unsafe fn lean_int32_of_big_int(a: *const LeanObject) -> i32 {
     fdiv_r_2exp_ui(lean_mpz_val(a), 32) as u32 as i32
 }
 
-pub unsafe fn lean_int64_of_big_int(a: *mut LeanObject) -> i64 {
+pub unsafe fn lean_int64_of_big_int(a: *const LeanObject) -> i64 {
     mod64(lean_mpz_val(a)) as i64
 }
 
-pub unsafe fn lean_isize_of_big_int(a: *mut LeanObject) -> isize {
+pub unsafe fn lean_isize_of_big_int(a: *const LeanObject) -> isize {
     if core::mem::size_of::<isize>() == 8 {
         mod64(lean_mpz_val(a)) as i64 as isize
     } else {

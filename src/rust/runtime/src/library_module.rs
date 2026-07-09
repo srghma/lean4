@@ -9,8 +9,8 @@ Port of src/library/module.cpp:
 
 mod library_module_impl {
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
-    use core::ffi::{c_char, c_int, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{CStr, c_char, c_int, c_void};
     use leanh::{
         LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
         LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
@@ -67,11 +67,7 @@ mod library_module_impl {
     #[inline]
     fn align_up_ptr(d: usize) -> usize {
         let rem = d % PTR_SIZE;
-        if rem != 0 {
-            d + PTR_SIZE - rem
-        } else {
-            d
-        }
+        if rem != 0 { d + PTR_SIZE - rem } else { d }
     }
 
     /// Info about a dependency region needed for cross-region pointer fixup.
@@ -89,7 +85,7 @@ mod library_module_impl {
 
     /// Extract dep-region info from the Lean `Array CompactedRegion` argument.
     /// Each array element is `lean_box_usize(region_ptr)`.
-    unsafe fn extract_dep_regions(arr: *mut LeanObject) -> Vec<DepRegionInfo> {
+    unsafe fn extract_dep_regions(arr: *const LeanObject) -> Vec<DepRegionInfo> {
         let n = lean_array_size(arr);
         let mut result = Vec::with_capacity(n);
         for i in 0..n {
@@ -112,7 +108,7 @@ mod library_module_impl {
 
     /// Unbox a Lean `USize` to get the raw `usize`.
     /// Matches C++ `lean_unbox_usize(o)` = `cnstr_get_usize(o, 0)`.
-    unsafe fn lean_unbox_usize_val(o: *mut LeanObject) -> usize {
+    unsafe fn lean_unbox_usize_val(o: *const LeanObject) -> usize {
         lean_ctor_get_uint64(o, 0) as usize
     }
 

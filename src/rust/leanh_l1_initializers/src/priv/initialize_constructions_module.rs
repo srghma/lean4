@@ -1,13 +1,16 @@
 use leanh_l1::{
-    datatypes::{LeanExternalObject, LeanObject, Size},
+    datatypes::LeanObject,
     emitted::{
         lean_box::lean_box, lean_inc::lean_inc, lean_mark_persistent::lean_mark_persistent,
         lean_mk_string::lean_mk_string,
     },
 };
-use std::{ffi::c_void, ptr};
+use std::ptr;
 
-use crate::todo_import_from_lean::lean_name_mk_string::lean_name_mk_string;
+use crate::{
+    kernel_type_checker::lean_name_eq::lean_name_eq,
+    todo_import_from_lean::lean_name_mk_string::lean_name_mk_string,
+};
 
 struct NameGeneratorState {
     tmp_prefix: *mut LeanObject,
@@ -15,12 +18,11 @@ struct NameGeneratorState {
 }
 
 unsafe impl Send for NameGeneratorState {}
-unsafe fn name_contains_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
-    state
-        .prefixes
-        .iter()
-        .copied()
-        .any(|p| lean_name_eq(p, n) != 0)
+unsafe fn name_contains_registered_prefix(
+    state: &NameGeneratorState,
+    n: *const LeanObject,
+) -> bool {
+    state.prefixes.iter().copied().any(|p| lean_name_eq(p, n))
 }
 
 static mut CONSTRUCTIONS_FRESH: LeanName = LeanName {

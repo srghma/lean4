@@ -22,7 +22,7 @@ mod kernel_level_impl {
     //   3 = imax  — 2 obj fields: lhs, rhs
     //   4 = param — 1 obj field: Name
     //   5 = mvar  — 1 obj field: LevelMVarId (a Name)
-    unsafe fn level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> bool {
+    unsafe fn level_eq(l1: *const LeanObject, l2: *const LeanObject) -> bool {
         if l1 == l2 {
             return true;
         }
@@ -67,12 +67,12 @@ mod kernel_level_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_level_eqv(l1: *const LeanObject, l2: *const LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 
     #[no_mangle]
-    pub unsafe fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_level_eq(l1: *const LeanObject, l2: *const LeanObject) -> u8 {
         level_eq(l1, l2) as u8
     }
 }

@@ -4,6 +4,6 @@
 
 use runtime::leanh_extra::*;
 
-pub unsafe fn lean_sarray_size(array: *mut LeanObject) -> usize {
-    unsafe { (*(array as *mut LeanScalarArray<0>)).m_size }
+pub unsafe fn lean_sarray_size(array: *const LeanObject) -> usize {
+    unsafe { (*(array as *const LeanScalarArray<0>)).m_size }
 }

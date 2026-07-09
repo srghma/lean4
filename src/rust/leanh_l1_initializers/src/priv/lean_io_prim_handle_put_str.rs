@@ -14,8 +14,8 @@ use crate::{
 };
 
 pub unsafe fn lean_io_prim_handle_put_str(
-    h: *mut LeanObject,
-    s: *mut LeanObject,
+    h: *const LeanObject,
+    s: *const LeanObject,
 ) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let n = lean_string_size(s) - 1;

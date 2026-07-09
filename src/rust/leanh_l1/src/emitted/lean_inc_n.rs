@@ -5,7 +5,7 @@ use crate::{
 
 // Mirrors origin-master-src/include/lean/lean.h:582 (`lean_inc_n`).
 #[inline]
-pub unsafe fn lean_inc_n(obj: *mut LeanObject, n: usize) {
+pub unsafe fn lean_inc_n(obj: *const LeanObject, n: usize) {
     if !lean_is_scalar(obj) {
         lean_inc_ref_n(obj, n);
     }

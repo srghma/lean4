@@ -115,7 +115,7 @@ pub(crate) mod runtime_object_task_impl {
         (*o).value = AtomicPtr::new(core::ptr::null_mut());
         (*o).imp = alloc_task_imp(closure, prio, keep_alive) as *mut c_void;
         if keep_alive {
-            lean_inc_ref(o as *mut LeanObject);
+            lean_inc_ref(o as *const LeanObject);
         }
         o
     }
@@ -242,7 +242,6 @@ pub(crate) mod runtime_object_task_impl {
         fn shutting_down(&self) -> bool {
             self.inner.lock().unwrap().shutting_down
         }
-
     }
 
     impl Drop for TaskManager {
@@ -412,7 +411,7 @@ pub(crate) mod runtime_object_task_impl {
         }
     }
 
-    pub unsafe fn lean_io_get_task_state_core(t: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_get_task_state_core(t: *const LeanObject) -> u8 {
         let task = t as *mut LeanTaskObject;
         if (*task).imp.is_null() {
             return 2; // finished

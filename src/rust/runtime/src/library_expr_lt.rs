@@ -60,9 +60,9 @@ mod library_expr_lt_impl {
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8;
-        fn lean_nat_big_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool;
-        fn lean_nat_big_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool;
-        fn lean_string_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> bool;
+        fn lean_nat_big_lt(a: *const LeanObject, b: *const LeanObject) -> bool;
+        fn lean_nat_big_eq(a: *const LeanObject, b: *const LeanObject) -> bool;
+        fn lean_string_lt(s1: *const LeanObject, s2: *const LeanObject) -> bool;
         // Borrowed — does not consume arguments.
         // Mirrors C++ name::operator< which uses cmp_core (lexicographic, root-to-leaf, NOT hash-based).
         fn l_Lean_Name_lt(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
@@ -84,13 +84,13 @@ mod library_expr_lt_impl {
     const EXPR_PROJ: u8 = 11;
 
     #[inline(always)]
-    unsafe fn expr_hash(e: *mut LeanObject) -> u32 {
+    unsafe fn expr_hash(e: *const LeanObject) -> u32 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
     }
 
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, 4 * core::mem::size_of::<*mut LeanObject>() + 8)
     }
 
@@ -103,14 +103,14 @@ mod library_expr_lt_impl {
     const LEVEL_MVAR: u8 = 5;
 
     #[inline(always)]
-    unsafe fn level_data(l: *mut LeanObject) -> u64 {
+    unsafe fn level_data(l: *const LeanObject) -> u64 {
         debug_assert!(!lean_is_scalar(l));
         let num_objs = (*l).other as usize;
         lean_ctor_get_uint64(l, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
     #[inline(always)]
-    unsafe fn level_hash(l: *mut LeanObject) -> u32 {
+    unsafe fn level_hash(l: *const LeanObject) -> u32 {
         if lean_is_scalar(l) {
             return 0;
         }
@@ -121,7 +121,7 @@ mod library_expr_lt_impl {
     const LEVEL_DATA_DEPTH_SHIFT: u32 = 40;
 
     #[inline(always)]
-    unsafe fn level_depth(l: *mut LeanObject) -> u32 {
+    unsafe fn level_depth(l: *const LeanObject) -> u32 {
         if lean_is_scalar(l) {
             return 0;
         }
@@ -130,7 +130,7 @@ mod library_expr_lt_impl {
 
     // Total order on Level objects. Mirrors C++ is_lt(level, level, use_hash).
     // Sub-field inequality checks use lean_level_eqv (structural), matching C++ level::operator!=.
-    unsafe fn level_lt(a: *mut LeanObject, b: *mut LeanObject, use_hash: bool) -> bool {
+    unsafe fn level_lt(a: *const LeanObject, b: *const LeanObject, use_hash: bool) -> bool {
         if a == b {
             return false;
         }
@@ -209,7 +209,7 @@ mod library_expr_lt_impl {
 
     // Borrowed Nat comparison; mirrors lean_nat_lt from lean.h.
     #[inline(always)]
-    unsafe fn nat_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe fn nat_lt(a: *const LeanObject, b: *const LeanObject) -> bool {
         if lean_is_scalar(a) && lean_is_scalar(b) {
             return (a as usize) < (b as usize);
         }
@@ -218,7 +218,7 @@ mod library_expr_lt_impl {
 
     // Borrowed Nat equality check.
     #[inline(always)]
-    unsafe fn nat_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe fn nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
         if a == b {
             return true;
         }
@@ -237,17 +237,17 @@ mod library_expr_lt_impl {
 
     // String equality (borrowed).
     #[inline(always)]
-    unsafe fn string_size(s: *mut LeanObject) -> usize {
+    unsafe fn string_size(s: *const LeanObject) -> usize {
         *((s as *const u8).add(8) as *const usize)
     }
 
     #[inline(always)]
-    unsafe fn str_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
+    unsafe fn str_eq(s1: *const LeanObject, s2: *const LeanObject) -> bool {
         s1 == s2 || (string_size(s1) == string_size(s2) && lean_string_eq_cold(s1, s2))
     }
 
     // Borrowed DataValue equality — avoids the consuming lean_data_value_beq.
-    unsafe fn data_value_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe fn data_value_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
         if a == b {
             return true;
         }
@@ -266,7 +266,7 @@ mod library_expr_lt_impl {
 
     // DataValue ordering. Mirrors C++ data_value::operator< from kvmap.h.
     // C++ uses name::operator< (lexicographic) for DV_NAME, so we use l_Lean_Name_lt.
-    unsafe fn data_value_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe fn data_value_lt(a: *const LeanObject, b: *const LeanObject) -> bool {
         if a == b {
             return false;
         }
@@ -291,7 +291,7 @@ mod library_expr_lt_impl {
 
     // Mirrors C++ list_ref<pair_ref<name,data_value>>::operator<  (lexicographic).
     // Borrowed: does not consume m1 or m2.
-    unsafe fn kvmap_lt(mut m1: *mut LeanObject, mut m2: *mut LeanObject) -> bool {
+    unsafe fn kvmap_lt(mut m1: *const LeanObject, mut m2: *const LeanObject) -> bool {
         loop {
             if m1 == m2 {
                 return false;
@@ -333,7 +333,7 @@ mod library_expr_lt_impl {
 
     // Literal.natVal = tag 0, field[0] = Nat
     // Literal.strVal = tag 1, field[0] = String
-    unsafe fn lit_lt(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe fn lit_lt(a: *const LeanObject, b: *const LeanObject) -> bool {
         if a == b {
             return false;
         }
@@ -357,7 +357,7 @@ mod library_expr_lt_impl {
     // Sub-field inequality checks mirror C++, which uses expr::operator!= (= is_equal =
     // expr_eq_fn<false> = lean_expr_eqv) for sub-exprs, level::operator!= (= lean_level_eqv)
     // for sub-levels, and name::operator!= (= lean_name_eq) for sub-names.
-    unsafe fn expr_lt(a: *mut LeanObject, b: *mut LeanObject, use_hash: bool) -> bool {
+    unsafe fn expr_lt(a: *const LeanObject, b: *const LeanObject, use_hash: bool) -> bool {
         if a == b {
             return false;
         }
@@ -489,12 +489,12 @@ mod library_expr_lt_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_quick_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_expr_quick_lt(a: *const LeanObject, b: *const LeanObject) -> u8 {
         expr_lt(a, b, true) as u8
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_expr_lt(a: *const LeanObject, b: *const LeanObject) -> u8 {
         expr_lt(a, b, false) as u8
     }
 }

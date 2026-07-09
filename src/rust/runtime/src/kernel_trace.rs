@@ -9,9 +9,9 @@ is_trace_class_enabled, scope_trace_env
 */
 
 use crate::base::{
-    consume_io_result, lean_box, lean_ctor_get, lean_ctor_set_uint8, lean_is_scalar,
-    lean_mk_string, lean_name_eq_export, lean_name_mk_string, lean_obj_tag,
-    lean_runtime_alloc_ctor, lean_runtime_mk_cnstr, mk_name, LeanName, LeanObject,
+    LeanName, LeanObject, consume_io_result, lean_box, lean_ctor_get, lean_ctor_set_uint8,
+    lean_is_scalar, lean_mk_string, lean_name_eq_export, lean_name_mk_string, lean_obj_tag,
+    lean_runtime_alloc_ctor, lean_runtime_mk_cnstr, mk_name,
 };
 use core::ptr;
 use std::cell::Cell;
@@ -32,7 +32,7 @@ unsafe extern "C" {
 const NAME_STRING_TAG: u8 = 1;
 const NAME_NUMERAL_TAG: u8 = 2;
 
-unsafe fn append_name(prefix: *mut LeanObject, suffix: *mut LeanObject) -> *mut LeanObject {
+unsafe fn append_name(prefix: *mut LeanObject, suffix: *const LeanObject) -> *mut LeanObject {
     if lean_is_scalar(suffix) {
         return prefix;
     }

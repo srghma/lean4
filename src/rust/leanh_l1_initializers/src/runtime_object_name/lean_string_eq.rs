@@ -6,6 +6,6 @@ use crate::{
 };
 
 #[inline]
-pub(crate) unsafe fn lean_string_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_string_eq(s1: *const LeanObject, s2: *const LeanObject) -> bool {
     s1 == s2 || (lean_string_size(s1) == lean_string_size(s2) && lean_string_eq_cold(s1, s2))
 }

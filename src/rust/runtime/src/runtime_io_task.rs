@@ -50,7 +50,7 @@ mod runtime_io_task_impl {
         lean_box(0)
     }
 
-    pub unsafe fn lean_io_get_task_state(t: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_io_get_task_state(t: *const LeanObject) -> u8 {
         lean_io_get_task_state_core(t)
     }
 

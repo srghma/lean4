@@ -13,23 +13,23 @@ use crate::{
 };
 
 #[inline]
-fn closure_fun(f: *mut LeanObject) -> *mut core::ffi::c_void {
+fn closure_fun(f: *const LeanObject) -> *mut core::ffi::c_void {
     // TODO: extract
-    let clo = f as *mut LeanClosureObject<0>;
+    let clo = f as *const LeanClosureObject<0>;
     unsafe { (*clo).m_fun }
 }
 
 #[inline]
-fn closure_arity(f: *mut LeanObject) -> u32 {
+fn closure_arity(f: *const LeanObject) -> u32 {
     // TODO: extract
-    let clo = f as *mut LeanClosureObject<0>;
+    let clo = f as *const LeanClosureObject<0>;
     unsafe { (*clo).m_arity as u32 }
 }
 
 #[inline]
-fn closure_num_fixed(f: *mut LeanObject) -> u32 {
+fn closure_num_fixed(f: *const LeanObject) -> u32 {
     // TODO: extract
-    let clo = f as *mut LeanClosureObject<0>;
+    let clo = f as *const LeanClosureObject<0>;
     unsafe { (*clo).m_num_fixed as u32 }
 }
 
@@ -251,9 +251,7 @@ fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObj
         13 => call!(CurryFn13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         14 => call!(CurryFn14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
         15 => call!(CurryFn15, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
-        16 => call!(
-            CurryFn16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-        ),
+        16 => call!(CurryFn16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
         _ => {
             let f: unsafe fn(*mut *mut LeanObject) -> *mut LeanObject =
                 unsafe { core::mem::transmute(fun) };

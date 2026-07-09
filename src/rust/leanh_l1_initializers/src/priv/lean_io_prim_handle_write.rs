@@ -13,8 +13,8 @@ use crate::{
 };
 
 pub unsafe fn lean_io_prim_handle_write(
-    h: *mut LeanObject,
-    buf: *mut LeanObject,
+    h: *const LeanObject,
+    buf: *const LeanObject,
 ) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let n = lean_sarray_size(buf);

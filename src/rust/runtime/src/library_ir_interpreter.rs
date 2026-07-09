@@ -120,7 +120,7 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_u32(obj: *mut LeanObject, byte_offset: usize) -> u32 {
+    unsafe fn lean_ctor_get_u32(obj: *const LeanObject, byte_offset: usize) -> u32 {
         (obj.add(1) as *const u8)
             .add(byte_offset)
             .cast::<u32>()
@@ -128,7 +128,7 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_ctor_get_u64(obj: *mut LeanObject, byte_offset: usize) -> u64 {
+    unsafe fn lean_ctor_get_u64(obj: *const LeanObject, byte_offset: usize) -> u64 {
         (obj.add(1) as *const u8)
             .add(byte_offset)
             .cast::<u64>()
@@ -297,7 +297,7 @@ mod library_ir_interpreter_impl {
         }
     }
 
-    unsafe fn lean_name_hash(n: *mut LeanObject) -> u64 {
+    unsafe fn lean_name_hash(n: *const LeanObject) -> u64 {
         if lean_is_scalar(n) {
             1723u64
         } else {
@@ -485,7 +485,7 @@ mod library_ir_interpreter_impl {
     // Bool field accessor (after obj pointer fields)
     // ---------------------------------------------------------------------------
 
-    unsafe fn get_bool_field(o: *mut LeanObject, num_obj_fields: usize) -> bool {
+    unsafe fn get_bool_field(o: *const LeanObject, num_obj_fields: usize) -> bool {
         lean_ctor_get_u8(o, core::mem::size_of::<*mut LeanObject>() * num_obj_fields) != 0
     }
 
@@ -494,7 +494,7 @@ mod library_ir_interpreter_impl {
     // ---------------------------------------------------------------------------
 
     // arg
-    unsafe fn arg_is_irrelevant(a: *mut LeanObject) -> bool {
+    unsafe fn arg_is_irrelevant(a: *const LeanObject) -> bool {
         lean_is_scalar(a)
     }
     unsafe fn arg_var_id(a: *mut LeanObject) -> *mut LeanObject {
@@ -502,12 +502,12 @@ mod library_ir_interpreter_impl {
     }
 
     // var_id: just a name (small value = variable index)
-    unsafe fn var_get_small_value(v: *mut LeanObject) -> usize {
+    unsafe fn var_get_small_value(v: *const LeanObject) -> usize {
         lean_unbox(v)
     }
 
     // nat get_small_value: assumes it fits in usize
-    unsafe fn nat_get_small_value(n: *mut LeanObject) -> usize {
+    unsafe fn nat_get_small_value(n: *const LeanObject) -> usize {
         lean_usize_of_nat(n)
     }
 
@@ -523,16 +523,16 @@ mod library_ir_interpreter_impl {
     }
 
     // ctor_info
-    unsafe fn ctor_info_tag_val(c: *mut LeanObject) -> usize {
+    unsafe fn ctor_info_tag_val(c: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(c, 1))
     }
-    unsafe fn ctor_info_size(c: *mut LeanObject) -> usize {
+    unsafe fn ctor_info_size(c: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(c, 2))
     }
-    unsafe fn ctor_info_usize(c: *mut LeanObject) -> usize {
+    unsafe fn ctor_info_usize(c: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(c, 3))
     }
-    unsafe fn ctor_info_ssize(c: *mut LeanObject) -> usize {
+    unsafe fn ctor_info_ssize(c: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(c, 4))
     }
 
@@ -543,7 +543,7 @@ mod library_ir_interpreter_impl {
     unsafe fn expr_ctor_args(e: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(e, 1)
     }
-    unsafe fn expr_reset_num_objs(e: *mut LeanObject) -> usize {
+    unsafe fn expr_reset_num_objs(e: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(e, 0))
     }
     unsafe fn expr_reset_obj(e: *mut LeanObject) -> *mut LeanObject {
@@ -558,25 +558,25 @@ mod library_ir_interpreter_impl {
     unsafe fn expr_reuse_args(e: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(e, 2)
     }
-    unsafe fn expr_reuse_update_header(e: *mut LeanObject) -> bool {
+    unsafe fn expr_reuse_update_header(e: *const LeanObject) -> bool {
         get_bool_field(e, 3)
     }
-    unsafe fn expr_proj_idx(e: *mut LeanObject) -> usize {
+    unsafe fn expr_proj_idx(e: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(e, 0))
     }
     unsafe fn expr_proj_obj(e: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(e, 1)
     }
-    unsafe fn expr_uproj_idx(e: *mut LeanObject) -> usize {
+    unsafe fn expr_uproj_idx(e: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(e, 0))
     }
     unsafe fn expr_uproj_obj(e: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(e, 1)
     }
-    unsafe fn expr_sproj_idx(e: *mut LeanObject) -> usize {
+    unsafe fn expr_sproj_idx(e: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(e, 0))
     }
-    unsafe fn expr_sproj_offset(e: *mut LeanObject) -> usize {
+    unsafe fn expr_sproj_offset(e: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(e, 1))
     }
     unsafe fn expr_sproj_obj(e: *mut LeanObject) -> *mut LeanObject {
@@ -626,7 +626,7 @@ mod library_ir_interpreter_impl {
     unsafe fn param_type(p: *mut LeanObject) -> Result<IrType, String> {
         cnstr_get_ir_type(p, 1)
     }
-    unsafe fn param_borrow(p: *mut LeanObject) -> bool {
+    unsafe fn param_borrow(p: *const LeanObject) -> bool {
         get_bool_field(p, 2)
     }
 
@@ -669,7 +669,7 @@ mod library_ir_interpreter_impl {
     unsafe fn fn_body_set_var(b: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(b, 0)
     }
-    unsafe fn fn_body_set_idx(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_set_idx(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 1))
     }
     unsafe fn fn_body_set_arg(b: *mut LeanObject) -> *mut LeanObject {
@@ -681,7 +681,7 @@ mod library_ir_interpreter_impl {
     unsafe fn fn_body_set_tag_var(b: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(b, 0)
     }
-    unsafe fn fn_body_set_tag_cidx(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_set_tag_cidx(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 1))
     }
     unsafe fn fn_body_set_tag_cont(b: *mut LeanObject) -> *mut LeanObject {
@@ -690,7 +690,7 @@ mod library_ir_interpreter_impl {
     unsafe fn fn_body_uset_target(b: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(b, 0)
     }
-    unsafe fn fn_body_uset_idx(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_uset_idx(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 1))
     }
     unsafe fn fn_body_uset_source(b: *mut LeanObject) -> *mut LeanObject {
@@ -702,10 +702,10 @@ mod library_ir_interpreter_impl {
     unsafe fn fn_body_sset_target(b: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(b, 0)
     }
-    unsafe fn fn_body_sset_idx(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_sset_idx(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 1))
     }
-    unsafe fn fn_body_sset_offset(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_sset_offset(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 2))
     }
     unsafe fn fn_body_sset_source(b: *mut LeanObject) -> *mut LeanObject {
@@ -720,7 +720,7 @@ mod library_ir_interpreter_impl {
     unsafe fn fn_body_inc_var(b: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(b, 0)
     }
-    unsafe fn fn_body_inc_val(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_inc_val(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 1))
     }
     unsafe fn fn_body_inc_cont(b: *mut LeanObject) -> *mut LeanObject {
@@ -729,7 +729,7 @@ mod library_ir_interpreter_impl {
     unsafe fn fn_body_dec_var(b: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(b, 0)
     }
-    unsafe fn fn_body_dec_val(b: *mut LeanObject) -> usize {
+    unsafe fn fn_body_dec_val(b: *const LeanObject) -> usize {
         nat_get_small_value(lean_ctor_get_obj(b, 1))
     }
     unsafe fn fn_body_dec_cont(b: *mut LeanObject) -> *mut LeanObject {
@@ -770,7 +770,7 @@ mod library_ir_interpreter_impl {
     unsafe fn decl_type_field(d: *mut LeanObject) -> Result<IrType, String> {
         cnstr_get_ir_type(d, 2)
     }
-    unsafe fn decl_params_size(d: *mut LeanObject) -> usize {
+    unsafe fn decl_params_size(d: *const LeanObject) -> usize {
         lean_array_size(decl_params(d))
     }
     unsafe fn decl_params_get(d: *mut LeanObject, i: usize) -> *mut LeanObject {
@@ -789,7 +789,7 @@ mod library_ir_interpreter_impl {
     }
 
     // array field accessors
-    unsafe fn array_size(arr: *mut LeanObject) -> usize {
+    unsafe fn array_size(arr: *const LeanObject) -> usize {
         lean_array_size(arr)
     }
     unsafe fn array_get(arr: *mut LeanObject, i: usize) -> *mut LeanObject {
@@ -904,7 +904,7 @@ mod library_ir_interpreter_impl {
         obj
     }
 
-    unsafe fn lean_unbox_size_t(o: *mut LeanObject) -> usize {
+    unsafe fn lean_unbox_size_t(o: *const LeanObject) -> usize {
         lean_ctor_get_usize(o, 0)
     }
 

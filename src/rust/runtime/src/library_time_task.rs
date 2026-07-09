@@ -60,7 +60,7 @@ mod library_time_task_impl {
 
     // Build a dot-separated display string from a Lean Name (anonymous → None).
     // Name tag 1 = str component (field 1 = lean string), tag 2 = num component (field 1 = lean nat).
-    unsafe fn lean_name_to_display_string(n: *mut LeanObject) -> Option<String> {
+    unsafe fn lean_name_to_display_string(n: *const LeanObject) -> Option<String> {
         if lean_is_scalar(n) {
             return None;
         }

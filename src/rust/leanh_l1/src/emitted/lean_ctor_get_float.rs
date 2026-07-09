@@ -4,7 +4,7 @@ use crate::{
 };
 
 #[inline]
-pub unsafe fn lean_ctor_get_float(obj: *mut LeanObject, offset: u32) -> f64 {
+pub unsafe fn lean_ctor_get_float(obj: *const LeanObject, offset: u32) -> f64 {
     debug_assert!(
         (offset as usize) >= lean_ctor_num_objs(obj) * core::mem::size_of::<*mut LeanObject>()
     );

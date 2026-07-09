@@ -94,7 +94,7 @@ fn run_task_locked<'a>(
         if !result.is_null() {
             let imp2 = (*t).m_imp as *mut LeanTaskImp;
             if (*imp2).m_keep_alive {
-                lean_dec_ref(t as *mut LeanObject);
+                lean_dec_ref(t as *const LeanObject);
             }
         }
         result
@@ -133,9 +133,7 @@ fn spawn_dedicated_worker(
     let tm = Arc::clone(slf);
     let t_send = SendPtr(t);
     spawn_lean_worker(move || {
-        unsafe {
-            save_stack_info(false);
-        }
+        save_stack_info(false);
         let mut guard = tm.inner.lock().unwrap();
         run_task_locked(&tm, &mut guard, t_send.get());
         guard.num_dedicated_workers -= 1;
@@ -166,9 +164,7 @@ pub fn spawn_worker(slf: &Arc<TaskManager>, guard: &mut MutexGuard<'_, TaskManag
     guard.total_std_workers += 1;
     let tm = Arc::clone(slf);
     let handle = spawn_lean_worker(move || {
-        unsafe {
-            save_stack_info(false);
-        }
+        save_stack_info(false);
         let mut guard = tm.inner.lock().unwrap();
         guard.idle_std_workers += 1;
         loop {

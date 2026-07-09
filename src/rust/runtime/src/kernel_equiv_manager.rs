@@ -25,13 +25,13 @@ Literal tags: 0 = natVal, 1 = strVal
 
 mod kernel_equiv_manager_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_void;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::HashMap;
 
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
+        fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool;
     }
 
     use crate::runtime_object_name_impl::lean_name_eq;
@@ -122,7 +122,7 @@ mod kernel_equiv_manager_impl {
 
         // Compare two Nat objects (borrowed).
         #[inline(always)]
-        unsafe fn nat_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+        unsafe fn nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
             if a == b {
                 return true;
             }
@@ -134,7 +134,7 @@ mod kernel_equiv_manager_impl {
 
         // Compare two String objects (borrowed).
         #[inline(always)]
-        unsafe fn str_eq(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
+        unsafe fn str_eq(s1: *const LeanObject, s2: *const LeanObject) -> bool {
             if s1 == s2 {
                 return true;
             }
@@ -145,7 +145,7 @@ mod kernel_equiv_manager_impl {
 
         // Compare two Literal objects (tag 0 = natVal, tag 1 = strVal).
         #[inline]
-        unsafe fn lit_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+        unsafe fn lit_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
             if a == b {
                 return true;
             }
@@ -161,7 +161,7 @@ mod kernel_equiv_manager_impl {
         }
 
         // Compare two Level list objects (List Level, nil = lean_box(0)).
-        unsafe fn levels_eq(mut ls1: *mut LeanObject, mut ls2: *mut LeanObject) -> bool {
+        unsafe fn levels_eq(mut ls1: *const LeanObject, mut ls2: *const LeanObject) -> bool {
             loop {
                 if ls1 == ls2 {
                     return true;
@@ -184,7 +184,7 @@ mod kernel_equiv_manager_impl {
 
         // Read the expression hash from the data u64 (bits 31:0).
         #[inline(always)]
-        unsafe fn expr_hash(e: *mut LeanObject) -> u32 {
+        unsafe fn expr_hash(e: *const LeanObject) -> u32 {
             let num_objs = (*e).other as usize;
             lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
         }

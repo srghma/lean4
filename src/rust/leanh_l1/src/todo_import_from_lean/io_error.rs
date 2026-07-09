@@ -84,13 +84,13 @@ fn format_other(gist: &str, code: u32, details: Option<&str>) -> String {
     }
 }
 
-unsafe fn lean_string_to_rust(obj: *mut LeanObject) -> String {
+unsafe fn lean_string_to_rust(obj: *const LeanObject) -> String {
     CStr::from_ptr(lean_string_cstr(obj))
         .to_string_lossy()
         .into_owned()
 }
 
-unsafe fn lean_option_string_to_rust(obj: *mut LeanObject) -> Option<String> {
+unsafe fn lean_option_string_to_rust(obj: *const LeanObject) -> Option<String> {
     if lean_obj_tag(obj) == 0 {
         None
     } else {

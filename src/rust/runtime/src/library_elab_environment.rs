@@ -113,7 +113,7 @@ mod library_elab_environment_impl {
     // using the Rust TypeChecker with elab→kernel env conversion.
 
     #[no_mangle]
-    pub unsafe fn lean_internal_get_believer_trust_level(_io: *mut LeanObject) -> u32 {
+    pub unsafe fn lean_internal_get_believer_trust_level(_io: *const LeanObject) -> u32 {
         1024
     }
 }

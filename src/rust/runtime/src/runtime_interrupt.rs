@@ -5,8 +5,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_interrupt_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_char;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr;
     use leanh::LeanRefObject;
     use std::cell::Cell;
@@ -51,7 +51,7 @@ mod runtime_interrupt_impl {
         }
     }
 
-    unsafe fn cancel_tk_is_set(tk: *mut LeanObject) -> bool {
+    unsafe fn cancel_tk_is_set(tk: *const LeanObject) -> bool {
         let set_ref = lean_ctor_get(tk, 1);
         lean_unbox((*lean_to_ref(set_ref)).m_value) != 0
     }

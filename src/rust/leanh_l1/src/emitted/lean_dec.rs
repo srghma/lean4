@@ -4,7 +4,7 @@ use crate::{
 };
 
 #[inline]
-pub unsafe fn lean_dec(obj: *mut LeanObject) {
+pub unsafe fn lean_dec(obj: *const LeanObject) {
     unsafe {
         if !lean_is_scalar(obj) {
             lean_dec_ref(obj);

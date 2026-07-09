@@ -20,12 +20,12 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_array_capacity(o: *mut LeanObject) -> usize {
+    unsafe fn lean_array_capacity(o: *const LeanObject) -> usize {
         (*(o as *const LeanArrayObject)).capacity
     }
 
     #[inline]
-    unsafe fn lean_sarray_elem_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_sarray_elem_size(o: *const LeanObject) -> usize {
         (*o).other as usize
     }
 
@@ -162,7 +162,7 @@ mod runtime_object_array_impl {
         r
     }
 
-    pub unsafe fn lean_byte_array_hash(a: *mut LeanObject) -> u64 {
+    pub unsafe fn lean_byte_array_hash(a: *const LeanObject) -> u64 {
         lean_runtime_hash_str(lean_sarray_size(a), lean_sarray_cptr(a), 11)
     }
 

@@ -25,7 +25,7 @@ mod library_instantiate_mvars_impl {
         ) -> *mut LeanObject;
         fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
         fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject)
-            -> *mut LeanObject;
+        -> *mut LeanObject;
         fn lean_get_delayed_mvar_assignment(
             mctx: *mut LeanObject,
             mid: *mut LeanObject,
@@ -98,19 +98,19 @@ mod library_instantiate_mvars_impl {
     const EXPR_MDATA_TAG: u8 = 10;
     const EXPR_PROJ_TAG: u8 = 11;
 
-    unsafe fn is_zero_level(l: *mut LeanObject) -> bool {
+    unsafe fn is_zero_level(l: *const LeanObject) -> bool {
         // Level.zero = lean_box(0) = the tagged scalar 0.
         lean_is_scalar(l) && lean_unbox(l) == 0
     }
 
-    unsafe fn is_one_level(l: *mut LeanObject) -> bool {
+    unsafe fn is_one_level(l: *const LeanObject) -> bool {
         !lean_is_scalar(l)
             && lean_obj_tag(l) == LEVEL_SUCC_TAG
             && is_zero_level(lean_ctor_get(l, 0))
     }
 
     // A level is "explicit" iff it is a chain of succs ending at zero (no params/mvars/max/imax).
-    unsafe fn is_explicit_level(l: *mut LeanObject) -> bool {
+    unsafe fn is_explicit_level(l: *const LeanObject) -> bool {
         if lean_is_scalar(l) {
             return true; // zero
         }
@@ -122,7 +122,7 @@ mod library_instantiate_mvars_impl {
     }
 
     // Read the packed Level.Data u64 from a level ctor object.
-    unsafe fn get_level_data(l: *mut LeanObject) -> u64 {
+    unsafe fn get_level_data(l: *const LeanObject) -> u64 {
         if lean_is_scalar(l) {
             return 0; // zero: depth = 0
         }
@@ -130,12 +130,12 @@ mod library_instantiate_mvars_impl {
         lean_ctor_get_uint64(l, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
-    unsafe fn get_level_depth(l: *mut LeanObject) -> u32 {
+    unsafe fn get_level_depth(l: *const LeanObject) -> u32 {
         (get_level_data(l) >> LEVEL_DATA_DEPTH_SHIFT) as u32
     }
 
     // True iff the level is syntactically guaranteed to be > 0 (e.g., succ of anything).
-    unsafe fn is_not_zero_level(l: *mut LeanObject) -> bool {
+    unsafe fn is_not_zero_level(l: *const LeanObject) -> bool {
         if lean_is_scalar(l) {
             return false;
         }
@@ -151,10 +151,7 @@ mod library_instantiate_mvars_impl {
 
     // Simplified mk_max that mirrors the C++ mk_max() simplifications.
     // Consumes ownership of both lhs and rhs; returns a new owned result.
-    unsafe fn mk_max_simplified(
-        lhs: *mut LeanObject,
-        rhs: *mut LeanObject,
-    ) -> *mut LeanObject {
+    unsafe fn mk_max_simplified(lhs: *mut LeanObject, rhs: *mut LeanObject) -> *mut LeanObject {
         // Both explicit (succ chains): return the deeper (= numerically larger) one.
         if is_explicit_level(lhs) && is_explicit_level(rhs) {
             if get_level_depth(lhs) >= get_level_depth(rhs) {
@@ -201,10 +198,7 @@ mod library_instantiate_mvars_impl {
 
     // Simplified mk_imax that mirrors the C++ mk_imax() simplifications.
     // Consumes ownership of both lhs and rhs; returns a new owned result.
-    unsafe fn mk_imax_simplified(
-        lhs: *mut LeanObject,
-        rhs: *mut LeanObject,
-    ) -> *mut LeanObject {
+    unsafe fn mk_imax_simplified(lhs: *mut LeanObject, rhs: *mut LeanObject) -> *mut LeanObject {
         // imax(u, v) where v is not zero = max(u, v).
         if is_not_zero_level(rhs) {
             return mk_max_simplified(lhs, rhs);
@@ -227,7 +221,7 @@ mod library_instantiate_mvars_impl {
         lean_level_mk_imax(lhs, rhs)
     }
 
-    unsafe fn has_level_mvar(l: *mut LeanObject) -> bool {
+    unsafe fn has_level_mvar(l: *const LeanObject) -> bool {
         if lean_is_scalar(l) {
             false
         } else {
@@ -237,7 +231,7 @@ mod library_instantiate_mvars_impl {
         }
     }
 
-    unsafe fn is_shared_object(o: *mut LeanObject) -> bool {
+    unsafe fn is_shared_object(o: *const LeanObject) -> bool {
         !lean_is_scalar(o) && lean_is_st(o) && (*o).rc > 1
     }
 
@@ -313,10 +307,10 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn get_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn get_assignment(&mut self, mid: *const LeanObject) -> Option<*mut LeanObject> {
             lean_inc_ref(self.mctx);
             lean_inc(mid);
-            let opt = lean_get_lmvar_assignment(self.mctx, mid);
+            let opt = lean_get_lmvar_assignment(self.mctx, mid as *mut LeanObject);
             if lean_is_scalar(opt) {
                 None
             } else {
@@ -416,12 +410,12 @@ mod library_instantiate_mvars_impl {
         mk_pair(mctx, level)
     }
 
-    unsafe fn expr_data(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_data(e: *const LeanObject) -> u64 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
-    unsafe fn has_fvar(e: *mut LeanObject) -> bool {
+    unsafe fn has_fvar(e: *const LeanObject) -> bool {
         if lean_is_scalar(e) {
             false
         } else {
@@ -429,7 +423,7 @@ mod library_instantiate_mvars_impl {
         }
     }
 
-    unsafe fn has_expr_mvar(e: *mut LeanObject) -> bool {
+    unsafe fn has_expr_mvar(e: *const LeanObject) -> bool {
         if lean_is_scalar(e) {
             false
         } else {
@@ -437,7 +431,7 @@ mod library_instantiate_mvars_impl {
         }
     }
 
-    unsafe fn has_level_mvar_expr(e: *mut LeanObject) -> bool {
+    unsafe fn has_level_mvar_expr(e: *const LeanObject) -> bool {
         if lean_is_scalar(e) {
             false
         } else {
@@ -445,16 +439,16 @@ mod library_instantiate_mvars_impl {
         }
     }
 
-    unsafe fn expr_needs_instantiation(e: *mut LeanObject) -> bool {
+    unsafe fn expr_needs_instantiation(e: *const LeanObject) -> bool {
         has_expr_mvar(e) || has_level_mvar_expr(e)
     }
 
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint8(e, num_objs * 8 + 8)
     }
 
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, 4 * 8 + 8)
     }
 
@@ -482,7 +476,7 @@ mod library_instantiate_mvars_impl {
         e
     }
 
-    unsafe fn app_num_args(mut e: *mut LeanObject) -> usize {
+    unsafe fn app_num_args(mut e: *const LeanObject) -> usize {
         let mut n = 0;
         while !lean_is_scalar(e) && lean_obj_tag(e) == EXPR_APP_TAG {
             n += 1;
@@ -632,7 +626,7 @@ mod library_instantiate_mvars_impl {
         result
     }
 
-    unsafe fn name_vec_contains(names: &[*mut LeanObject], name: *mut LeanObject) -> bool {
+    unsafe fn name_vec_contains(names: &[*mut LeanObject], name: *const LeanObject) -> bool {
         names.iter().any(|&entry| lean_name_eq(entry, name) != 0)
     }
 
@@ -645,7 +639,7 @@ mod library_instantiate_mvars_impl {
 
     unsafe fn name_state_find(
         states: &[(*mut LeanObject, u8)],
-        name: *mut LeanObject,
+        name: *const LeanObject,
     ) -> Option<usize> {
         states
             .iter()
@@ -710,11 +704,11 @@ mod library_instantiate_mvars_impl {
             result
         }
 
-        unsafe fn get_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn get_assignment(&mut self, mid: *const LeanObject) -> Option<*mut LeanObject> {
             let mctx = self.level_inst.mctx;
             lean_inc_ref(mctx);
             lean_inc(mid);
-            let opt = lean_get_mvar_assignment(mctx, mid);
+            let opt = lean_get_mvar_assignment(mctx, mid as *mut LeanObject);
             if lean_is_scalar(opt) {
                 None
             } else {
@@ -1016,7 +1010,10 @@ mod library_instantiate_mvars_impl {
         fn new() -> Self {
             Self {
                 cache: HashMap::new(),
-                gens: vec![ScopeGenNode { r#gen: 0, tail: None }],
+                gens: vec![ScopeGenNode {
+                    r#gen: 0,
+                    tail: None,
+                }],
                 current_gen: 0,
                 gen_counter: 0,
                 scope: 0,
@@ -1208,7 +1205,7 @@ mod library_instantiate_mvars_impl {
             self.fvar_subst.is_empty()
         }
 
-        unsafe fn find_fvar_subst(&self, fid: *mut LeanObject) -> Option<usize> {
+        unsafe fn find_fvar_subst(&self, fid: *const LeanObject) -> Option<usize> {
             self.fvar_subst
                 .iter()
                 .position(|(key, _)| lean_name_eq(*key, fid) != 0)
@@ -1239,8 +1236,8 @@ mod library_instantiate_mvars_impl {
             name_state_clear(&mut self.resolvable_pending_cache);
         }
 
-        unsafe fn get_assignment(&mut self, mid: *mut LeanObject) -> Option<*mut LeanObject> {
-            let value = self.get_mvar_assignment_raw(mid)?;
+        unsafe fn get_assignment(&mut self, mid: *const LeanObject) -> Option<*mut LeanObject> {
+            let value = self.get_mvar_assignment_raw(mid as *mut LeanObject)?;
             if self.in_outer_mode() {
                 if name_vec_contains(&self.already_normalized, mid) {
                     return Some(value);
@@ -1261,26 +1258,34 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn is_resolvable_pending(&mut self, pending: *mut LeanObject) -> bool {
+        unsafe fn is_resolvable_pending(&mut self, pending: *const LeanObject) -> bool {
             if let Some(state) = name_state_get(&self.resolvable_pending_cache, pending) {
                 return state == 1;
             }
-            name_state_set(&mut self.resolvable_pending_cache, pending, 0);
-            let Some(a) = self.get_mvar_assignment_raw(pending) else {
-                name_state_set(&mut self.resolvable_pending_cache, pending, 2);
+            name_state_set(
+                &mut self.resolvable_pending_cache,
+                pending as *mut LeanObject,
+                0,
+            );
+            let Some(a) = self.get_mvar_assignment_raw(pending as *mut LeanObject) else {
+                name_state_set(
+                    &mut self.resolvable_pending_cache,
+                    pending as *mut LeanObject,
+                    2,
+                );
                 return false;
             };
             let ok = self.is_resolvable_expr(a);
             name_state_set(
                 &mut self.resolvable_pending_cache,
-                pending,
+                pending as *mut LeanObject,
                 if ok { 1 } else { 2 },
             );
             lean_dec(a);
             ok
         }
 
-        unsafe fn is_resolvable_expr(&mut self, e: *mut LeanObject) -> bool {
+        unsafe fn is_resolvable_expr(&mut self, e: *const LeanObject) -> bool {
             if !has_expr_mvar(e) {
                 return true;
             }
@@ -1297,7 +1302,7 @@ mod library_instantiate_mvars_impl {
             r
         }
 
-        unsafe fn is_resolvable_expr_core(&mut self, e: *mut LeanObject) -> bool {
+        unsafe fn is_resolvable_expr_core(&mut self, e: *const LeanObject) -> bool {
             match lean_obj_tag(e) {
                 EXPR_MVAR_TAG => false,
                 EXPR_APP_TAG => {
@@ -1357,7 +1362,7 @@ mod library_instantiate_mvars_impl {
             }
         }
 
-        unsafe fn lookup_fvar(&mut self, fid: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn lookup_fvar(&mut self, fid: *const LeanObject) -> Option<*mut LeanObject> {
             if let Some(pos) = self.find_fvar_subst(fid) {
                 let entry = &self.fvar_subst[pos].1;
                 self.result_scope = self.result_scope.max(entry.scope);

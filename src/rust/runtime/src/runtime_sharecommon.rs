@@ -5,19 +5,19 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_sharecommon_impl {
     use crate::*;
+    use core::ffi::c_void;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use leanh::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG,
-        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_RESERVED_TAG, LEAN_SCALAR_ARRAY_TAG,
-        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
+        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG,
+        LEAN_REF_TAG, LEAN_RESERVED_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
+        LEAN_THUNK_TAG,
     };
-    use core::ffi::c_void;
     use std::collections::{HashMap, HashSet};
     use std::hash::{BuildHasherDefault, Hasher};
     unsafe extern "C" {
-        fn lean_object_data_byte_size(o: *mut LeanObject) -> usize;
-        fn lean_mpz_hash(o: *mut LeanObject) -> u32;
-        fn lean_mpz_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8;
+        fn lean_object_data_byte_size(o: *const LeanObject) -> usize;
+        fn lean_mpz_hash(o: *const LeanObject) -> u32;
+        fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> u8;
         fn lean_runtime_hash_str(len: usize, str: *const u8, init_value: u64) -> u64;
         fn lean_apply_2(
             f: *mut LeanObject,
@@ -111,7 +111,7 @@ mod runtime_sharecommon_impl {
         }
     }
 
-    pub unsafe fn lean_sharecommon_hash(o: *mut LeanObject) -> u64 {
+    pub unsafe fn lean_sharecommon_hash(o: *const LeanObject) -> u64 {
         let sz = lean_object_data_byte_size(o);
         let header_sz = core::mem::size_of::<LeanObject>();
         let tag = lean_ptr_tag(o);
@@ -218,9 +218,9 @@ mod runtime_sharecommon_impl {
     }
 
     impl ShareCommonFn {
-        unsafe fn push_child(&mut self, a: *mut LeanObject) -> bool {
+        unsafe fn push_child(&mut self, a: *const LeanObject) -> bool {
             if lean_is_scalar(a) {
-                self.children.push(a);
+                self.children.push(a as *mut LeanObject);
                 return true;
             }
             let tag = lean_ptr_tag(a);
@@ -234,11 +234,11 @@ mod runtime_sharecommon_impl {
                 || tag == LEAN_CLOSURE_TAG
                 || tag == LEAN_PROMISE_TAG
             {
-                self.children.push(a);
+                self.children.push(a as *mut LeanObject);
                 return true;
             }
 
-            let o = self.state.map_find(a);
+            let o = self.state.map_find(a as *mut LeanObject);
             if o != lean_box(0) {
                 let r = lean_ctor_get(o, 0);
                 self.children.push(r);
@@ -246,7 +246,7 @@ mod runtime_sharecommon_impl {
                 return true;
             }
 
-            self.todo.push(a);
+            self.todo.push(a as *mut LeanObject);
             false
         }
 

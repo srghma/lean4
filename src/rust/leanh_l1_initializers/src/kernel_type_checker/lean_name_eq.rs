@@ -4,12 +4,13 @@ use leanh_l1::{
     r#priv::lean_ptr_tag::lean_ptr_tag,
 };
 
-use crate::{kernel_type_checker::lean_nat_eq::lean_nat_eq, runtime_object_name::{
-    lean_name_hash_ptr::lean_name_hash_ptr, lean_string_eq::lean_string_eq,
-}};
+use crate::{
+    kernel_type_checker::lean_nat_eq::lean_nat_eq,
+    runtime_object_name::{lean_name_hash_ptr::lean_name_hash_ptr, lean_string_eq::lean_string_eq},
+};
 
 #[inline(always)]
-pub(crate) unsafe fn lean_name_eq(mut n1: *mut LeanObject, mut n2: *mut LeanObject) -> bool {
+pub(crate) unsafe fn lean_name_eq(mut n1: *const LeanObject, mut n2: *const LeanObject) -> bool {
     if n1 == n2 {
         return true;
     }

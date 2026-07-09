@@ -16,10 +16,10 @@ mod kernel_type_checker_impl {
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_char, c_void};
+    use leanh::{LEAN_MAX_SMALL_NAT, Size};
     use std::collections::{HashMap, HashSet};
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
-    use leanh::{LEAN_MAX_SMALL_NAT, Size};
 
     // ---------------------------------------------------------------------------
     // Lean runtime C API bindings (extern "C" stubs expected from lean/lean.h)
@@ -295,7 +295,7 @@ mod kernel_type_checker_impl {
     /// references, so we `lean_inc` before handing the reference over to be consumed.
     #[inline(always)]
     unsafe fn expr_hash(e: *const LeanObject) -> u64 {
-        lean_inc(e as *mut LeanObject);
+        lean_inc(e);
         lean_expr_hash(e)
     }
 
@@ -304,12 +304,12 @@ mod kernel_type_checker_impl {
     /// these take the `Expr` by value and **consume** it, so we `lean_inc` before calling.
     #[inline(always)]
     unsafe fn expr_has_fvar(e: *const LeanObject) -> bool {
-        lean_inc(e as *mut LeanObject);
+        lean_inc(e);
         lean_expr_has_fvar(e)
     }
     #[inline(always)]
     unsafe fn expr_has_expr_mvar(e: *const LeanObject) -> bool {
-        lean_inc(e as *mut LeanObject);
+        lean_inc(e);
         lean_expr_has_expr_mvar(e)
     }
 
@@ -956,12 +956,12 @@ mod kernel_type_checker_impl {
         bi != BINDER_INFO_IMPLICIT && bi != 2 && bi != 3
     }
 
-    unsafe fn expr_has_loose_bvar(e: *mut LeanObject, idx: u32) -> bool {
+    unsafe fn expr_has_loose_bvar(e: *const LeanObject, idx: u32) -> bool {
         lean_expr_has_loose_bvar(e, super::lean_box(idx as usize)) != 0
     }
 
     /// Port of C++ `has_loose_bvars_in_domain` from `kernel/expr.cpp`.
-    unsafe fn has_loose_bvars_in_domain(b: *mut LeanObject, vidx: u32, strict: bool) -> bool {
+    unsafe fn has_loose_bvars_in_domain(b: *const LeanObject, vidx: u32, strict: bool) -> bool {
         if lean_expr_is_pi(b) {
             let domain = lean_expr_get_binding_domain(b);
             if expr_has_loose_bvar(domain, vidx) {
@@ -1017,15 +1017,15 @@ mod kernel_type_checker_impl {
         lean_expr_mk_sort(zero)
     }
     #[no_mangle]
-    pub unsafe fn lean_nat_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-        lean_nat_eq(a as *const _, b as *const _)
+    pub unsafe fn lean_nat_beq(a: *const LeanObject, b: *const LeanObject) -> bool {
+        lean_nat_eq(a, b)
     }
     #[no_mangle]
-    pub unsafe fn lean_nat_ble(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            lean_unbox(a as *const _) <= lean_unbox(b as *const _)
+    pub unsafe fn lean_nat_ble(a: *const LeanObject, b: *const LeanObject) -> bool {
+        if lean_is_scalar(a) && lean_is_scalar(b) {
+            lean_unbox(a) <= lean_unbox(b)
         } else {
-            runtime_object_nat_int_impl::lean_nat_big_le(a, b)
+            runtime_object_nat_int_impl::lean_nat_big_le(a as *mut LeanObject, b as *mut LeanObject)
         }
     }
     #[no_mangle]
@@ -1580,7 +1580,7 @@ mod kernel_type_checker_impl {
             level_push_max_args(lean_level_get_max_lhs(l), buf);
             level_push_max_args(lean_level_get_max_rhs(l), buf);
         } else {
-            lean_inc(l as *mut LeanObject);
+            lean_inc(l);
             buf.push(l as *mut LeanObject);
         }
     }
@@ -1814,7 +1814,7 @@ mod kernel_type_checker_impl {
     /// offset-only version could not, so equal arg-multisets sorted to different sequences and
     /// `is_equivalent_level` wrongly reported them unequal). Uses `Name.cmp` (lexicographic), not a
     /// hash, matching the Lean source (hashes are unstable across shifted indices; see test 343).
-    unsafe fn norm_lt_aux(l1: *mut LeanObject, k1: u32, l2: *mut LeanObject, k2: u32) -> bool {
+    unsafe fn norm_lt_aux(l1: *const LeanObject, k1: u32, l2: *const LeanObject, k2: u32) -> bool {
         use core::cmp::Ordering;
         let kind1 = level_kind(l1);
         let kind2 = level_kind(l2);
@@ -2476,7 +2476,7 @@ mod kernel_type_checker_impl {
     /// callers hold only borrowed references and expect the unwrapped `ConstantInfo`, so we
     /// inc both inputs and strip the `Option.some` wrapper here.
     unsafe fn env_find(env: *const LeanObject, name: *mut LeanObject) -> *mut LeanObject {
-        lean_inc(env as *mut LeanObject);
+        lean_inc(env);
         lean_inc(name);
         let opt = lean_environment_find(env, name);
         if lean_is_scalar(opt) {
@@ -3825,7 +3825,10 @@ mod kernel_type_checker_impl {
         // unfold_definition
         // -----------------------------------------------------------------------
 
-        unsafe fn unfold_definition_core(&mut self, e: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn unfold_definition_core(
+            &mut self,
+            e: *const LeanObject,
+        ) -> Option<*mut LeanObject> {
             if !lean_expr_is_const(e) {
                 return None;
             }
@@ -3852,7 +3855,7 @@ mod kernel_type_checker_impl {
 
             let levels_obj = levels;
             // Check unfold cache
-            let key = ExprKey::new(e);
+            let key = ExprKey::new(e as *mut LeanObject);
             if let Some(v) = self.st.unfold.get(&key) {
                 lean_dec(info_opt);
                 let r = v.get();
@@ -3865,12 +3868,12 @@ mod kernel_type_checker_impl {
             if levels_len > 0 {
                 self.st
                     .unfold
-                    .insert(ExprKey::new(e), OwnedLean::new(result));
+                    .insert(ExprKey::new(e as *mut LeanObject), OwnedLean::new(result));
             }
             Some(result)
         }
 
-        unsafe fn unfold_definition(&mut self, e: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn unfold_definition(&mut self, e: *const LeanObject) -> Option<*mut LeanObject> {
             if lean_expr_is_app(e) {
                 // `lean_expr_get_app_fn` strips a single application layer; walk to the spine head.
                 let mut f0 = e;
@@ -3934,7 +3937,7 @@ mod kernel_type_checker_impl {
         /// 2-arg application whose head is not a `Nat` op (e.g. `String.ofByteArray (utf8Encode l) p`)
         /// must never have its arguments reduced — otherwise we needlessly force the `utf8Encode`
         /// (byte-encoding) reduction and blow up the kernel unfold count.
-        unsafe fn is_nat_bin_op(&self, f: *mut LeanObject) -> bool {
+        unsafe fn is_nat_bin_op(&self, f: *const LeanObject) -> bool {
             lean_expr_eqv(f, load_global(&G_NAT_ADD))
                 || lean_expr_eqv(f, load_global(&G_NAT_SUB))
                 || lean_expr_eqv(f, load_global(&G_NAT_MUL))
@@ -4035,7 +4038,7 @@ mod kernel_type_checker_impl {
             Ok(result)
         }
 
-        unsafe fn reduce_native(&self, e: *mut LeanObject) -> Option<*mut LeanObject> {
+        unsafe fn reduce_native(&self, e: *const LeanObject) -> Option<*mut LeanObject> {
             if !lean_expr_is_app(e) {
                 return None;
             }
@@ -4475,7 +4478,7 @@ mod kernel_type_checker_impl {
             Ok(r)
         }
 
-        unsafe fn failed_before(&self, t: *mut LeanObject, s: *mut LeanObject) -> bool {
+        unsafe fn failed_before(&self, t: *const LeanObject, s: *const LeanObject) -> bool {
             let ht = expr_hash(t);
             let hs = expr_hash(s);
             let key = if ht <= hs {
@@ -4972,7 +4975,7 @@ mod kernel_type_checker_impl {
         lean_expr_mk_const(name, nil)
     }
 
-    unsafe fn is_eager_reduce_expr(e: *mut LeanObject) -> bool {
+    unsafe fn is_eager_reduce_expr(e: *const LeanObject) -> bool {
         // eagerReduce fn arg  → is_const(get_app_fn(e)) && get_app_num_args == 2
         let eager = load_global(&G_EAGER_REDUCE);
         let nargs = lean_expr_get_app_num_args(e);
@@ -4986,7 +4989,7 @@ mod kernel_type_checker_impl {
         lean_name_eq(lean_expr_get_const_name(f), eager)
     }
 
-    unsafe fn is_nat_lit_ext(e: *mut LeanObject) -> bool {
+    unsafe fn is_nat_lit_ext(e: *const LeanObject) -> bool {
         let nat_zero = load_global(&G_NAT_ZERO);
         lean_expr_eqv(e, nat_zero) || lean_expr_is_nat_lit(e)
     }
@@ -5003,7 +5006,7 @@ mod kernel_type_checker_impl {
         }
     }
 
-    unsafe fn reduce_nat_succ(arg: *mut LeanObject) -> Option<*mut LeanObject> {
+    unsafe fn reduce_nat_succ(arg: *const LeanObject) -> Option<*mut LeanObject> {
         if !is_nat_lit_ext(arg) {
             return None;
         }
@@ -5026,7 +5029,7 @@ mod kernel_type_checker_impl {
         e
     }
 
-    unsafe fn is_nat_zero_expr(e: *mut LeanObject) -> bool {
+    unsafe fn is_nat_zero_expr(e: *const LeanObject) -> bool {
         let nat_zero = load_global(&G_NAT_ZERO);
         if lean_expr_eqv(e, nat_zero) {
             return true;
@@ -5038,7 +5041,7 @@ mod kernel_type_checker_impl {
         false
     }
 
-    unsafe fn nat_pred(e: *mut LeanObject) -> Option<*mut LeanObject> {
+    unsafe fn nat_pred(e: *const LeanObject) -> Option<*mut LeanObject> {
         if lean_expr_is_nat_lit(e) {
             let n = lean_expr_get_lit_nat(e);
             if lean_nat_is_zero(n) {
@@ -5082,7 +5085,7 @@ mod kernel_type_checker_impl {
         }
     }
 
-    unsafe fn list_length(l: *mut LeanObject) -> usize {
+    unsafe fn list_length(l: *const LeanObject) -> usize {
         let mut cur = l;
         let mut n = 0;
         while !lean_list_is_nil(cur) {
@@ -5093,8 +5096,8 @@ mod kernel_type_checker_impl {
     }
 
     /// Check if env has a non-recursive structure with this name.
-    unsafe fn is_non_rec_structure_name(env: *mut LeanObject, name: *mut LeanObject) -> bool {
-        let info_opt = env_find(env, name);
+    unsafe fn is_non_rec_structure_name(env: *const LeanObject, name: *const LeanObject) -> bool {
+        let info_opt = env_find(env, name as *mut LeanObject);
         if lean_is_scalar(info_opt) {
             return false;
         }
@@ -5530,7 +5533,7 @@ mod kernel_type_checker_impl {
         result
     }
 
-    unsafe fn is_constructor_app_impl(env: *mut LeanObject, e: *mut LeanObject) -> bool {
+    unsafe fn is_constructor_app_impl(env: *const LeanObject, e: *const LeanObject) -> bool {
         let f = app_head(e);
         if !lean_expr_is_const(f) {
             return false;
@@ -5547,7 +5550,7 @@ mod kernel_type_checker_impl {
 
     /// Spine head of an application: `lean_expr_get_app_fn` strips only one `App` layer, but the
     /// kernel's C++ `get_app_fn` returns the recursive head. Walk to it.
-    unsafe fn app_head(e: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn app_head(e: *const LeanObject) -> *mut LeanObject {
         let mut cur = e;
         while lean_expr_is_app(cur) {
             cur = lean_expr_get_app_fn(cur);
@@ -6471,13 +6474,13 @@ mod kernel_type_checker_impl {
 
     /// `is_constant(e)` — true iff `e` is an `Expr.const`.
     #[inline]
-    unsafe fn ind_is_constant(e: *mut LeanObject) -> bool {
+    unsafe fn ind_is_constant(e: *const LeanObject) -> bool {
         !lean_is_scalar(e) && lean_ptr_tag(e) == EXPR_CONST
     }
 
     /// Strip the application spine: returns `(fn, args)` with `args` in application order,
     /// all BORROWED (sub-references of `e`).
-    unsafe fn ind_get_app_args(e: *mut LeanObject) -> (*mut LeanObject, Vec<*mut LeanObject>) {
+    unsafe fn ind_get_app_args(e: *const LeanObject) -> (*mut LeanObject, Vec<*mut LeanObject>) {
         let mut args = Vec::new();
         let mut cur = e;
         while !lean_is_scalar(cur) && lean_ptr_tag(cur) == EXPR_APP {
@@ -6489,41 +6492,45 @@ mod kernel_type_checker_impl {
     }
 
     /// `mk_rec_name(I) = I.str "rec"`. BORROWS `i`, returns owned name.
-    unsafe fn mk_rec_name(i: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn mk_rec_name(i: *const LeanObject) -> *mut LeanObject {
         lean_inc(i);
         let s = lean_mk_string(b"rec".as_ptr(), 3);
-        lean_name_mk_string(i, s)
+        lean_name_mk_string(i as *mut LeanObject, s)
     }
 
     /// `name.append_after(i)` (`Name.appendIndexAfter`). BORROWS `n`, returns owned name.
-    unsafe fn name_append_index(n: *mut LeanObject, idx: usize) -> *mut LeanObject {
+    unsafe fn name_append_index(n: *const LeanObject, idx: usize) -> *mut LeanObject {
         lean_inc(n);
-        lean_name_append_index_after(n, nat_box(idx))
+        lean_name_append_index_after(n as *mut LeanObject, nat_box(idx))
     }
 
     /// `name.append_after(s)` (`Name.appendAfter` with a string). BORROWS `n`, returns owned name.
-    unsafe fn name_append_str(n: *mut LeanObject, s: &str) -> *mut LeanObject {
+    unsafe fn name_append_str(n: *const LeanObject, s: &str) -> *mut LeanObject {
         lean_inc(n);
         // Build the suffix Name (`Name.str anonymous s`) then append its single string component.
         let str_obj = lean_mk_string(s.as_ptr(), s.len());
         // `lean_name_append_after` takes the suffix as a Lean String, not a Name.
-        name_append_after_string(n, str_obj)
+        name_append_after_string(n as *mut LeanObject, str_obj)
     }
 
     /// `name.replace_prefix(pre, new)`. BORROWS all three, returns owned name.
     unsafe fn name_replace_prefix(
-        n: *mut LeanObject,
-        pre: *mut LeanObject,
-        new_pre: *mut LeanObject,
+        n: *const LeanObject,
+        pre: *const LeanObject,
+        new_pre: *const LeanObject,
     ) -> *mut LeanObject {
         lean_inc(n);
         lean_inc(pre);
         lean_inc(new_pre);
-        lean_name_replace_prefix(n, pre, new_pre)
+        lean_name_replace_prefix(
+            n as *mut LeanObject,
+            pre as *mut LeanObject,
+            new_pre as *mut LeanObject,
+        )
     }
 
     /// `n1 + n2` for Lean names. BORROWS both, returns owned.
-    unsafe fn name_append_name(n1: *mut LeanObject, n2: *mut LeanObject) -> *mut LeanObject {
+    unsafe fn name_append_name(n1: *const LeanObject, n2: *const LeanObject) -> *mut LeanObject {
         enum NamePart {
             Str(*mut LeanObject),
             Num(*mut LeanObject),
@@ -6541,7 +6548,7 @@ mod kernel_type_checker_impl {
             cur = lean_ctor_get(cur, 0);
         }
         lean_inc(n1);
-        let mut r = n1;
+        let mut r = n1 as *mut LeanObject;
         for part in parts.iter().rev() {
             match *part {
                 NamePart::Str(s) => {
@@ -6558,8 +6565,8 @@ mod kernel_type_checker_impl {
     }
 
     /// `lparams_to_levels(ps)` — map `List Name` to `List Level` of `Level.param`. BORROWS `ps`.
-    unsafe fn lparams_to_levels(ps: *mut LeanObject) -> *mut LeanObject {
-        let names = list_to_vec(ps);
+    unsafe fn lparams_to_levels(ps: *const LeanObject) -> *mut LeanObject {
+        let names = list_to_vec(ps as *mut LeanObject);
         let levels: Vec<*mut LeanObject> = names.iter().map(|&n| level_param_borrowed(n)).collect();
         let r = lean_list_from_borrowed(&levels);
         for l in levels {
@@ -6599,7 +6606,7 @@ mod kernel_type_checker_impl {
         }
         1
     }
-    unsafe fn expr_contains_const(e: *mut LeanObject, names: &[*mut LeanObject]) -> bool {
+    unsafe fn expr_contains_const(e: *const LeanObject, names: &[*mut LeanObject]) -> bool {
         let mut ctx = FindConstCtx {
             names,
             found: false,
@@ -6823,7 +6830,7 @@ mod kernel_type_checker_impl {
     }
 
     #[inline]
-    unsafe fn level_is_zero(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_zero(l: *const LeanObject) -> bool {
         level_kind(l) == LEVEL_ZERO
     }
 
@@ -6920,7 +6927,7 @@ mod kernel_type_checker_impl {
 
         /// `is_valid_ind_app(t, i)` — `t` is `I_i params indices` with no occurrence of a datatype
         /// being declared in the indices.
-        unsafe fn is_valid_ind_app_i(&self, t: *mut LeanObject, i: usize) -> bool {
+        unsafe fn is_valid_ind_app_i(&self, t: *const LeanObject, i: usize) -> bool {
             let (head, args) = ind_get_app_args(t);
             if !lean_expr_eqv(head, self.ind_cnsts[i])
                 || args.len() != self.nparams + self.nindices[i]
@@ -6940,7 +6947,7 @@ mod kernel_type_checker_impl {
             true
         }
 
-        unsafe fn is_valid_ind_app(&self, t: *mut LeanObject) -> Option<usize> {
+        unsafe fn is_valid_ind_app(&self, t: *const LeanObject) -> Option<usize> {
             (0..self.ind_types.len()).find(|&i| self.is_valid_ind_app_i(t, i))
         }
 

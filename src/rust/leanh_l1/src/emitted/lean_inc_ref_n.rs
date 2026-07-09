@@ -6,14 +6,14 @@ use crate::{
 };
 
 #[inline]
-pub unsafe fn lean_inc_ref_n(obj: *mut LeanObject, n: usize) {
+pub unsafe fn lean_inc_ref_n(obj: *const LeanObject, n: usize) {
     if UAF_DETECT && (*obj).rc == LEAN_UAF_POISON_RC {
-        quar_report_uaf(obj, "inc");
+        quar_report_uaf(obj as *mut LeanObject, "inc");
     }
     if (*obj).rc > 0 {
-        (*obj).rc += n as i32;
+        (*(obj as *mut LeanObject)).rc += n as i32;
     } else if (*obj).rc != 0 {
-        let rc = (&raw mut (*obj).rc).cast::<AtomicI32>();
+        let rc = (&raw mut (*(obj as *mut LeanObject)).rc).cast::<AtomicI32>();
         (*rc).fetch_sub(n as i32, Ordering::Relaxed);
     }
 }

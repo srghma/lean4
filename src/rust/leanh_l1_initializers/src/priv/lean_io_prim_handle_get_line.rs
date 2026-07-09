@@ -13,7 +13,7 @@ use crate::{
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };
 
-pub unsafe fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_get_line(h: *const LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     let mut result = Vec::<u8>::new();
     unsafe {

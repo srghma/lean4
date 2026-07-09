@@ -61,33 +61,33 @@ mod library_print_impl {
 
     // Expr.Data u64 is stored after all object pointer fields; bvarRange = bits[63:44].
     #[inline(always)]
-    unsafe fn expr_bvar_range(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_bvar_range(e: *const LeanObject) -> u64 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) >> 44
     }
 
     // BinderInfo byte for Lambda/Pi (3 obj fields + data u64 + 1 byte).
     #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, (*e).other as usize * 8 + 8)
     }
 
     // nondep flag for Let (4 obj fields + data u64 + 1 byte).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, 4 * 8 + 8)
     }
 
     // Pi with Default binder whose body has no loose BVars = arrow type (A → B).
     #[inline(always)]
-    unsafe fn is_arrow(e: *mut LeanObject) -> bool {
+    unsafe fn is_arrow(e: *const LeanObject) -> bool {
         lean_obj_tag(e) == EXPR_PI
             && expr_binder_info_raw(e) == BI_DEFAULT
             && expr_bvar_range(lean_ctor_get(e, 2)) == 0
     }
 
     // True iff the root component of name n is a numeral (mirrors is_numerical_name).
-    unsafe fn is_numerical_name(mut n: *mut LeanObject) -> bool {
+    unsafe fn is_numerical_name(mut n: *const LeanObject) -> bool {
         loop {
             if lean_is_scalar(n) {
                 return false; // Name.anonymous
@@ -103,19 +103,19 @@ mod library_print_impl {
     }
 
     // Print a Lean Nat (small scalar or GMP big integer).
-    unsafe fn fmt_nat(nat: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_nat(nat: *const LeanObject, out: &mut String) {
         if lean_is_scalar(nat) {
             out.push_str(&lean_unbox(nat).to_string());
         } else {
             lean_inc(nat); // l_Nat_reprFast takes owned Nat
-            let s = l_Nat_reprFast(nat);
+            let s = l_Nat_reprFast(nat as *mut LeanObject);
             out.push_str(&CStr::from_ptr(lean_string_cstr(s)).to_string_lossy());
             lean_dec(s);
         }
     }
 
     // Print a Name (anonymous → nothing printed).
-    unsafe fn fmt_name(n: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_name(n: *const LeanObject, out: &mut String) {
         if lean_is_scalar(n) {
             return; // Name.anonymous
         }
@@ -140,7 +140,7 @@ mod library_print_impl {
     }
 
     // Print a Name with fix_name transform: lone numeric root → "M".
-    unsafe fn fmt_fix_name(n: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_fix_name(n: *const LeanObject, out: &mut String) {
         if lean_is_scalar(n) {
             return; // Name.anonymous
         }
@@ -171,7 +171,7 @@ mod library_print_impl {
 
     // If l is succ^k(zero) for some k≥0, return Some(k); otherwise None.
     // Mirrors is_explicit + get_depth in the C++ level printer.
-    unsafe fn level_explicit_depth(mut l: *mut LeanObject) -> Option<usize> {
+    unsafe fn level_explicit_depth(mut l: *const LeanObject) -> Option<usize> {
         let mut depth = 0usize;
         loop {
             if lean_is_scalar(l) {
@@ -186,7 +186,7 @@ mod library_print_impl {
     }
 
     // print_child wraps l in parens unless it is explicit, param, or mvar.
-    unsafe fn fmt_level_child(l: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_level_child(l: *const LeanObject, out: &mut String) {
         let needs_parens = if lean_is_scalar(l) {
             false // Level.zero = explicit
         } else {
@@ -206,7 +206,7 @@ mod library_print_impl {
     }
 
     // Print a Level, mirroring print() + print_child() in level.cpp.
-    unsafe fn fmt_level(l: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_level(l: *const LeanObject, out: &mut String) {
         // Explicit level (succ^k zero) → print as decimal number.
         if let Some(depth) = level_explicit_depth(l) {
             out.push_str(&depth.to_string());
@@ -243,17 +243,17 @@ mod library_print_impl {
     }
 
     #[inline(always)]
-    unsafe fn level_is_zero(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_zero(l: *const LeanObject) -> bool {
         lean_is_scalar(l) // Level.zero = lean_box(0)
     }
 
     #[inline(always)]
-    unsafe fn level_is_succ(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_succ(l: *const LeanObject) -> bool {
         !lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC
     }
 
     // Print a Sort expression (Prop / Type / Type.{n} / Sort.{u}).
-    unsafe fn fmt_sort(e: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_sort(e: *const LeanObject, out: &mut String) {
         let l = lean_ctor_get(e, 0);
         if level_is_zero(l) {
             out.push_str("Prop");
@@ -272,7 +272,7 @@ mod library_print_impl {
     }
 
     // Print a List Level (nil = lean_box(0); cons: field[0]=head, field[1]=tail).
-    unsafe fn fmt_levels_list(mut ls: *mut LeanObject, out: &mut String) {
+    unsafe fn fmt_levels_list(mut ls: *const LeanObject, out: &mut String) {
         let mut first = true;
         while !lean_is_scalar(ls) {
             if !first {
@@ -285,7 +285,7 @@ mod library_print_impl {
     }
 
     // BVar/FVar/MVar/Sort/Const/Lit are atomic; Proj is atomic iff its inner expr is.
-    unsafe fn is_atomic_expr(e: *mut LeanObject) -> bool {
+    unsafe fn is_atomic_expr(e: *const LeanObject) -> bool {
         match lean_obj_tag(e) {
             EXPR_BVAR | EXPR_FVAR | EXPR_MVAR | EXPR_SORT | EXPR_CONST | EXPR_LIT => true,
             EXPR_PROJ => is_atomic_expr(lean_ctor_get(e, 2)),

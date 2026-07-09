@@ -8,8 +8,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_string_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_char;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::size_of;
     use leanh::LEAN_MAX_SMALL_NAT;
 
@@ -20,12 +20,12 @@ mod runtime_object_string_impl {
     // ── local inline helpers ─────────────────────────────────────────────────────
 
     #[inline]
-    unsafe fn lean_string_capacity(o: *mut LeanObject) -> usize {
+    unsafe fn lean_string_capacity(o: *const LeanObject) -> usize {
         (*(o as *const LeanStringObject)).capacity
     }
 
     #[inline]
-    unsafe fn lean_sarray_elem_size(o: *mut LeanObject) -> usize {
+    unsafe fn lean_sarray_elem_size(o: *const LeanObject) -> usize {
         (*o).other as usize
     }
 
@@ -157,7 +157,7 @@ mod runtime_object_string_impl {
         r
     }
 
-    pub unsafe fn lean_string_validate_utf8(a: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_string_validate_utf8(a: *const LeanObject) -> u8 {
         let mut pos: usize = 0;
         let mut i: usize = 0;
         lean_runtime_validate_utf8(lean_sarray_cptr(a), lean_sarray_size(a), &mut pos, &mut i) as u8
@@ -223,13 +223,13 @@ mod runtime_object_string_impl {
         r
     }
 
-    pub unsafe fn lean_sarray_eq_cold(a1: *mut LeanObject, a2: *mut LeanObject) -> bool {
+    pub unsafe fn lean_sarray_eq_cold(a1: *const LeanObject, a2: *const LeanObject) -> bool {
         let len = lean_sarray_elem_size(a1) * lean_sarray_size(a1);
         core::slice::from_raw_parts(lean_sarray_cptr(a1), len)
             == core::slice::from_raw_parts(lean_sarray_cptr(a2), len)
     }
 
-    pub unsafe fn lean_string_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
+    pub unsafe fn lean_string_lt(s1: *const LeanObject, s2: *const LeanObject) -> bool {
         let sz1 = lean_string_size(s1) - 1;
         let sz2 = lean_string_size(s2) - 1;
         let b1 = core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz1);
@@ -237,7 +237,7 @@ mod runtime_object_string_impl {
         b1 < b2
     }
 
-    pub unsafe fn lean_string_compare(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_string_compare(s1: *const LeanObject, s2: *const LeanObject) -> u8 {
         let sz1 = lean_string_size(s1) - 1;
         let sz2 = lean_string_size(s2) - 1;
         let b1 = core::slice::from_raw_parts(lean_string_cstr(s1) as *const u8, sz1);
@@ -253,7 +253,7 @@ mod runtime_object_string_impl {
     // UTF-8 get / next / prev / extract / set
     // ════════════════════════════════════════════════════════════════════════════
 
-    pub unsafe fn lean_string_utf8_get(s: *mut LeanObject, i0: *mut LeanObject) -> u32 {
+    pub unsafe fn lean_string_utf8_get(s: *const LeanObject, i0: *const LeanObject) -> u32 {
         if lean_is_scalar(i0) {
             let i = lean_unbox(i0);
             let str = lean_string_cstr(s) as *const u8;
@@ -302,8 +302,8 @@ mod runtime_object_string_impl {
     }
 
     pub unsafe fn lean_string_utf8_get_opt(
-        s: *mut LeanObject,
-        i0: *mut LeanObject,
+        s: *const LeanObject,
+        i0: *const LeanObject,
     ) -> *mut LeanObject {
         if lean_is_scalar(i0) {
             let i = lean_unbox(i0);
@@ -330,7 +330,7 @@ mod runtime_object_string_impl {
         lean_char_default_value()
     }
 
-    pub unsafe fn lean_string_utf8_get_bang(s: *mut LeanObject, i0: *mut LeanObject) -> u32 {
+    pub unsafe fn lean_string_utf8_get_bang(s: *const LeanObject, i0: *const LeanObject) -> u32 {
         if lean_is_scalar(i0) {
             let i = lean_unbox(i0);
             let str = lean_string_cstr(s) as *const u8;
@@ -385,7 +385,7 @@ mod runtime_object_string_impl {
         lean_box(i + 1)
     }
 
-    pub unsafe fn lean_string_is_valid_pos(s: *mut LeanObject, i0: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_string_is_valid_pos(s: *const LeanObject, i0: *const LeanObject) -> u8 {
         if !lean_is_scalar(i0) {
             return 0;
         }
@@ -514,7 +514,7 @@ mod runtime_object_string_impl {
     // String hash / memcmp / of_usize
     // ════════════════════════════════════════════════════════════════════════════
 
-    pub unsafe fn lean_string_hash(s: *mut LeanObject) -> u64 {
+    pub unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
         let sz = lean_string_size(s) - 1;
         let str = lean_string_cstr(s) as *const u8;
         lean_runtime_hash_str(sz, str, 11)
@@ -544,7 +544,7 @@ mod runtime_object_string_impl {
     // Slice helpers (lean_slice is a ctor with fields [string, start, end])
     // ════════════════════════════════════════════════════════════════════════════
 
-    pub unsafe fn lean_slice_hash(s: *mut LeanObject) -> u64 {
+    pub unsafe fn lean_slice_hash(s: *const LeanObject) -> u64 {
         let start = lean_unbox(lean_ctor_get(s, 1));
         let end_ = lean_unbox(lean_ctor_get(s, 2));
         let sz = if end_ > start { end_ - start } else { 0 };
@@ -552,7 +552,7 @@ mod runtime_object_string_impl {
         lean_runtime_hash_str(sz, base, 11)
     }
 
-    pub unsafe fn lean_slice_dec_lt(s1: *mut LeanObject, s2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_slice_dec_lt(s1: *const LeanObject, s2: *const LeanObject) -> u8 {
         let start1 = lean_unbox(lean_ctor_get(s1, 1));
         let end1 = lean_unbox(lean_ctor_get(s1, 2));
         let start2 = lean_unbox(lean_ctor_get(s2, 1));

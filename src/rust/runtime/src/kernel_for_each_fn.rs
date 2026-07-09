@@ -19,8 +19,8 @@ Field layout (from expr.h):
 
 mod kernel_for_each_fn_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::c_void;
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::HashSet;
 
     // Expression kind tag constants
@@ -59,7 +59,7 @@ mod kernel_for_each_fn_impl {
 
         // Returns true if the node was already visited (should be skipped).
         // Unshared nodes (rc == 1) are never cached — they can only be reached once.
-        unsafe fn visited(&mut self, e: *mut LeanObject, offset: u32) -> bool {
+        unsafe fn visited(&mut self, e: *const LeanObject, offset: u32) -> bool {
             if (*e).rc == 1 {
                 return false;
             }

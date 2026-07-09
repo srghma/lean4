@@ -5,7 +5,7 @@ use crate::{
 };
 
 #[inline]
-pub unsafe fn lean_small_nat(obj: *mut LeanObject) -> usize {
+pub unsafe fn lean_small_nat(obj: *const LeanObject) -> usize {
     unsafe {
         if lean_is_scalar_bool(obj) {
             lean_unbox(obj)
@@ -81,7 +81,7 @@ pub unsafe fn lean_small_nat(obj: *mut LeanObject) -> usize {
 macro_rules! define_uint_family {
     ($ty:ty, $of_nat:ident, $of_nat_mk:ident, $to_nat:ident, $dec_eq:ident, $dec_lt:ident, $dec_le:ident) => {
         #[inline]
-        pub unsafe fn $of_nat(obj: *mut LeanObject) -> $ty {
+        pub unsafe fn $of_nat(obj: *const LeanObject) -> $ty {
             unsafe { lean_small_nat(obj) as $ty }
         }
 

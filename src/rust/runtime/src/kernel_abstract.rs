@@ -70,41 +70,41 @@ mod kernel_abstract_impl {
 
     // Read the Expr.Data u64 stored right after the object pointer fields.
     #[inline(always)]
-    unsafe fn expr_data(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_data(e: *const LeanObject) -> u64 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
     #[inline(always)]
-    unsafe fn has_fvar(e: *mut LeanObject) -> bool {
+    unsafe fn has_fvar(e: *const LeanObject) -> bool {
         (expr_data(e) >> 40) & 1 == 1
     }
 
     #[inline(always)]
-    unsafe fn has_expr_mvar(e: *mut LeanObject) -> bool {
+    unsafe fn has_expr_mvar(e: *const LeanObject) -> bool {
         (expr_data(e) >> 41) & 1 == 1
     }
 
     #[inline(always)]
-    unsafe fn has_level_mvar(e: *mut LeanObject) -> bool {
+    unsafe fn has_level_mvar(e: *const LeanObject) -> bool {
         (expr_data(e) >> 42) & 1 == 1
     }
 
     #[inline(always)]
-    unsafe fn has_mvar(e: *mut LeanObject) -> bool {
+    unsafe fn has_mvar(e: *const LeanObject) -> bool {
         has_expr_mvar(e) || has_level_mvar(e)
     }
 
     // BinderInfo byte for Lambda/Pi.
     #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint8(e, num_objs * 8 + 8)
     }
 
     // nondep byte for Let.
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, 4 * 8 + 8)
     }
 

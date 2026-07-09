@@ -71,27 +71,27 @@ mod kernel_expr_impl {
     // Read the Expr.Data u64 scalar stored just after the object pointer fields.
     // Layout: header(8) | obj0(8) | ... | obj_{n-1}(8) | data(u64,8) | ...
     #[inline(always)]
-    unsafe fn expr_data(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_data(e: *const LeanObject) -> u64 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
     // bvarRange = bits [63:44] of Expr.Data
     #[inline(always)]
-    unsafe fn expr_bvar_range(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_bvar_range(e: *const LeanObject) -> u64 {
         expr_data(e) >> 44
     }
 
     // BinderInfo uint8 stored right after the data u64 in Lambda/Pi (3 obj fields).
     #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
         let num_objs = (*e).other as usize; // 3 for Lambda/Pi
         lean_ctor_get_uint8(e, num_objs * 8 + 8)
     }
 
     // nondep uint8 stored right after the data u64 in Let (4 obj fields).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, 4 * 8 + 8) // 4 obj fields * 8 bytes + 8 bytes data
     }
 
@@ -154,7 +154,7 @@ mod kernel_expr_impl {
 
     // Returns true if expression `e` (visited at De Bruijn `offset`) contains
     // a loose BVar with index exactly `i + offset`.
-    unsafe fn has_loose_bvar_impl(e: *mut LeanObject, i: u32, offset: u32) -> bool {
+    unsafe fn has_loose_bvar_impl(e: *const LeanObject, i: u32, offset: u32) -> bool {
         let n_i = match i.checked_add(offset) {
             Some(n) => n,
             None => return false, // overflow: index unreachable
@@ -194,7 +194,7 @@ mod kernel_expr_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_expr_has_loose_bvar(e: *const LeanObject, i: *const LeanObject) -> u8 {
         if !lean_is_scalar(i) {
             return 0; // index too large, can't be present
         }

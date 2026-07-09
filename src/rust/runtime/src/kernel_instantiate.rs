@@ -123,18 +123,18 @@ mod kernel_instantiate_impl {
 
     // bvarRange = bits [63:44] of the Expr.Data u64.
     #[inline(always)]
-    unsafe fn expr_bvar_range(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_bvar_range(e: *const LeanObject) -> u64 {
         expr_data(e) >> 44
     }
 
     #[inline(always)]
-    unsafe fn expr_data(e: *mut LeanObject) -> u64 {
+    unsafe fn expr_data(e: *const LeanObject) -> u64 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
     #[inline(always)]
-    unsafe fn expr_has_level_param(e: *mut LeanObject) -> bool {
+    unsafe fn expr_has_level_param(e: *const LeanObject) -> bool {
         (expr_data(e) & EXPR_DATA_HAS_LEVEL_PARAM_BIT) != 0
     }
 
@@ -152,7 +152,7 @@ mod kernel_instantiate_impl {
     }
 
     #[inline(always)]
-    unsafe fn level_data(l: *mut LeanObject) -> u64 {
+    unsafe fn level_data(l: *const LeanObject) -> u64 {
         if lean_is_scalar(l) {
             0
         } else {
@@ -162,31 +162,31 @@ mod kernel_instantiate_impl {
     }
 
     #[inline(always)]
-    unsafe fn level_depth(l: *mut LeanObject) -> u32 {
+    unsafe fn level_depth(l: *const LeanObject) -> u32 {
         (level_data(l) >> LEVEL_DATA_DEPTH_SHIFT) as u32
     }
 
     #[inline(always)]
-    unsafe fn level_has_param(l: *mut LeanObject) -> bool {
+    unsafe fn level_has_param(l: *const LeanObject) -> bool {
         (level_data(l) & LEVEL_DATA_HAS_PARAM_BIT) != 0
     }
 
-    unsafe fn level_is_zero(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_zero(l: *const LeanObject) -> bool {
         lean_is_scalar(l) && lean_unbox(l) == 0
     }
 
-    unsafe fn level_is_one(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_one(l: *const LeanObject) -> bool {
         !lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC && level_is_zero(lean_ctor_get(l, 0))
     }
 
-    unsafe fn level_is_explicit(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_explicit(l: *const LeanObject) -> bool {
         lean_is_scalar(l)
             || (!lean_is_scalar(l)
                 && lean_obj_tag(l) == LEVEL_SUCC
                 && level_is_explicit(lean_ctor_get(l, 0)))
     }
 
-    unsafe fn level_is_not_zero(l: *mut LeanObject) -> bool {
+    unsafe fn level_is_not_zero(l: *const LeanObject) -> bool {
         if lean_is_scalar(l) {
             return false;
         }
@@ -209,7 +209,7 @@ mod kernel_instantiate_impl {
         (l, offset)
     }
 
-    unsafe fn level_eq(lhs: *mut LeanObject, rhs: *mut LeanObject) -> bool {
+    unsafe fn level_eq(lhs: *const LeanObject, rhs: *const LeanObject) -> bool {
         lean_level_eq(lhs, rhs) != 0
     }
 
@@ -564,7 +564,7 @@ mod kernel_instantiate_impl {
         e
     }
 
-    unsafe fn list_len(mut xs: *mut LeanObject) -> usize {
+    unsafe fn list_len(mut xs: *const LeanObject) -> usize {
         let mut n = 0;
         while !lean_is_scalar(xs) {
             n += 1;
@@ -573,14 +573,14 @@ mod kernel_instantiate_impl {
         n
     }
 
-    unsafe fn list_is_nil(xs: *mut LeanObject) -> bool {
+    unsafe fn list_is_nil(xs: *const LeanObject) -> bool {
         lean_is_scalar(xs)
     }
 
     unsafe fn find_level_param(
-        name: *mut LeanObject,
-        mut params: *mut LeanObject,
-        mut levels: *mut LeanObject,
+        name: *const LeanObject,
+        mut params: *const LeanObject,
+        mut levels: *const LeanObject,
     ) -> Option<*mut LeanObject> {
         while !lean_is_scalar(params) && !lean_is_scalar(levels) {
             let param = lean_ctor_get(params, 0);
@@ -828,7 +828,7 @@ mod kernel_instantiate_impl {
     }
 
     #[inline(always)]
-    unsafe fn constant_info_has_value(info: *mut LeanObject) -> bool {
+    unsafe fn constant_info_has_value(info: *const LeanObject) -> bool {
         let tag = lean_obj_tag(info);
         tag == CONSTANT_INFO_DEFINITION || tag == CONSTANT_INFO_THEOREM
     }

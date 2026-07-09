@@ -46,7 +46,7 @@ mod kernel_expr_eq_fn_impl {
 
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_nat_big_eq(a1: *mut LeanObject, a2: *mut LeanObject) -> bool;
+        fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool;
         // Consumes both arguments (obj_arg semantics); call lean_inc before passing borrowed refs.
         fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
     }
@@ -69,34 +69,34 @@ mod kernel_expr_eq_fn_impl {
 
     // bits [31:0] of Expr.Data u64 = the expression hash.
     #[inline(always)]
-    unsafe fn expr_hash(e: *mut LeanObject) -> u32 {
+    unsafe fn expr_hash(e: *const LeanObject) -> u32 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
     }
 
     // BinderInfo byte for Lambda/Pi (stored after the data u64).
     #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint8(e, num_objs * 8 + 8)
     }
 
     // nondep byte for Let (4 obj fields).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
         lean_ctor_get_uint8(e, 4 * 8 + 8)
     }
 
     // lean_string_size: reads m_size from lean_string_object (at byte offset 8).
     #[inline(always)]
-    unsafe fn string_size(s: *mut LeanObject) -> usize {
+    unsafe fn string_size(s: *const LeanObject) -> usize {
         *((s as *const u8).add(8) as *const usize)
     }
 
     // Structural equality for KVMap = list_ref<pair_ref<name, data_value>>.
     // Mirrors C++ list_ref::operator== (ordered, element-wise comparison).
     // Borrowed references: does not consume m1 or m2.
-    unsafe fn kvmap_eq(mut m1: *mut LeanObject, mut m2: *mut LeanObject) -> bool {
+    unsafe fn kvmap_eq(mut m1: *const LeanObject, mut m2: *const LeanObject) -> bool {
         loop {
             if m1 == m2 {
                 return true;
@@ -165,7 +165,7 @@ mod kernel_expr_eq_fn_impl {
         // Returns true if (a, b) are already in the cache (proven equal or in progress).
         // Inserts (a, b) into the cache if not found, so future encounters return true.
         // Only caches shared objects (rc > 1).
-        unsafe fn check_cache(&mut self, a: *mut LeanObject, b: *mut LeanObject) -> bool {
+        unsafe fn check_cache(&mut self, a: *const LeanObject, b: *const LeanObject) -> bool {
             if (*a).rc <= 1 || (*b).rc <= 1 {
                 return false;
             }
@@ -186,7 +186,7 @@ mod kernel_expr_eq_fn_impl {
 
         // Compare two Nat objects (no ownership transfer).
         #[inline(always)]
-        unsafe fn nat_eq(&self, a: *mut LeanObject, b: *mut LeanObject) -> bool {
+        unsafe fn nat_eq(&self, a: *const LeanObject, b: *const LeanObject) -> bool {
             if a == b {
                 return true;
             }
@@ -198,13 +198,13 @@ mod kernel_expr_eq_fn_impl {
 
         // Compare two String objects (no ownership transfer).
         #[inline(always)]
-        unsafe fn str_eq(&self, s1: *mut LeanObject, s2: *mut LeanObject) -> bool {
+        unsafe fn str_eq(&self, s1: *const LeanObject, s2: *const LeanObject) -> bool {
             s1 == s2 || (string_size(s1) == string_size(s2) && lean_string_eq_cold(s1, s2))
         }
 
         // Compare two Literal objects (tag 0 = natVal, tag 1 = strVal).
         #[inline]
-        unsafe fn lit_eq(&self, a: *mut LeanObject, b: *mut LeanObject) -> bool {
+        unsafe fn lit_eq(&self, a: *const LeanObject, b: *const LeanObject) -> bool {
             if a == b {
                 return true;
             }
@@ -221,7 +221,7 @@ mod kernel_expr_eq_fn_impl {
         }
 
         // Compare two Level list objects (List Level, nil = lean_box(0), cons has tag 0).
-        unsafe fn levels_eq(&self, mut ls1: *mut LeanObject, mut ls2: *mut LeanObject) -> bool {
+        unsafe fn levels_eq(&self, mut ls1: *const LeanObject, mut ls2: *const LeanObject) -> bool {
             loop {
                 if ls1 == ls2 {
                     return true;
@@ -382,13 +382,13 @@ mod kernel_expr_eq_fn_impl {
 
     // lean_expr_eqv (a b : @& Expr) : Bool  — structural equality, ignoring binder names/info
     #[no_mangle]
-    pub unsafe fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_expr_eqv(a: *const LeanObject, b: *const LeanObject) -> u8 {
         ExprEqFn::new(false).apply(a, b, 0, true) as u8
     }
 
     // lean_expr_equal (a b : @& Expr) : Bool  — structural equality including binder names/info
     #[no_mangle]
-    pub unsafe fn lean_expr_equal(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_expr_equal(a: *const LeanObject, b: *const LeanObject) -> u8 {
         ExprEqFn::new(true).apply(a, b, 0, true) as u8
     }
 }

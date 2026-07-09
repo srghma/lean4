@@ -11,7 +11,7 @@ use crate::{
 };
 
 // Mirrors origin-master-src/runtime/io.cpp:61-67 (`lean_io_result_show_error`).
-pub unsafe fn lean_io_result_show_error(r: *mut LeanObject) {
+pub unsafe fn lean_io_result_show_error(r: *const LeanObject) {
     debug_assert!(lean_io_result_is_error(r));
     let err = lean_ctor_get(r, 0);
     lean_inc(err);

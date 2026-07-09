@@ -114,7 +114,7 @@ pub unsafe fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: 
     fields.add(index as Size).write(value);
 }
 
-pub(crate) unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
+pub(crate) unsafe fn lean_array_get(obj: *const LeanObject, idx: usize) -> *mut LeanObject {
     let array = obj as *const LeanArrayObject<0>;
     (*array).m_data.as_ptr().add(idx).read()
 }
@@ -141,7 +141,7 @@ pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
-pub(crate) unsafe fn lean_sarray_capacity(obj: *mut LeanObject) -> Size {
+pub(crate) unsafe fn lean_sarray_capacity(obj: *const LeanObject) -> Size {
     let sarray = obj as *const LeanScalarArray<0>;
     (*sarray).m_capacity
 }
@@ -154,12 +154,12 @@ pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject
     v
 }
 
-pub unsafe fn lean_io_prim_handle_is_eof(h: *mut LeanObject) -> u8 {
+pub unsafe fn lean_io_prim_handle_is_eof(h: *const LeanObject) -> u8 {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     (libc::feof(fp) != 0) as u8
 }
 
-pub unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_rewind(h: *const LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
         lean_io_result_mk_ok(lean_box(0))
@@ -171,7 +171,7 @@ pub unsafe fn lean_io_prim_handle_rewind(h: *mut LeanObject) -> *mut LeanObject 
     }
 }
 
-pub unsafe fn lean_io_prim_handle_truncate(h: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_truncate(h: *const LeanObject) -> *mut LeanObject {
     let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
     if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
         lean_io_result_mk_ok(lean_box(0))
@@ -305,7 +305,7 @@ include!("library_llvm.rs");
 include!("kernel_num.rs");
 include!("kernel_trace.rs");
 
-pub unsafe fn lean_name_eq_export(n1: *mut LeanObject, n2: *mut LeanObject) -> u8 {
+pub unsafe fn lean_name_eq_export(n1: *const LeanObject, n2: *const LeanObject) -> u8 {
     runtime_object_name_impl::lean_name_eq(n1, n2)
 }
 
@@ -497,16 +497,16 @@ pub fn lean_util_mk_list_range(from: c_uint, to: c_uint) -> *mut c_void {
     list.cast()
 }
 
-unsafe fn name_is_anonymous(obj: *mut LeanObject) -> bool {
+unsafe fn name_is_anonymous(obj: *const LeanObject) -> bool {
     lean_is_scalar(obj)
 }
 
-unsafe fn name_prefix(obj: *mut LeanObject) -> *mut LeanObject {
+unsafe fn name_prefix(obj: *const LeanObject) -> *mut LeanObject {
     debug_assert!(!lean_is_scalar(obj));
     lean_ctor_get(obj, 0)
 }
 
-unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *mut LeanObject) -> bool {
+unsafe fn name_uses_registered_prefix(state: &NameGeneratorState, n: *const LeanObject) -> bool {
     if name_is_anonymous(n) {
         return false;
     }
@@ -699,7 +699,7 @@ pub fn lean_name_generator_tmp_prefix() -> *mut LeanObject {
     })
 }
 
-pub unsafe fn lean_uses_name_generator_prefix(n: *mut LeanObject) -> bool {
+pub unsafe fn lean_uses_name_generator_prefix(n: *const LeanObject) -> bool {
     let guard = NAME_GENERATOR_STATE.lock().unwrap();
     let Some(state) = guard.as_ref() else {
         return false;
@@ -1063,7 +1063,7 @@ pub unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject {
     }
 }
 
-pub unsafe fn lean_byteslice_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_byteslice_beq(a: *const LeanObject, b: *const LeanObject) -> u8 {
     if ptr::eq(a, b) {
         return 1;
     }
@@ -1111,7 +1111,7 @@ pub unsafe fn lean_runtime_mk_cnstr(
     obj
 }
 
-pub(crate) unsafe fn lean_string_len(obj: *mut LeanObject) -> usize {
+pub(crate) unsafe fn lean_string_len(obj: *const LeanObject) -> usize {
     let string = obj as *const LeanStringObject<0>;
     (*string).m_length
 }

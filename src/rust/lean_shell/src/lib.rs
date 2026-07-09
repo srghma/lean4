@@ -5,9 +5,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use core::ffi::{c_char, c_int, c_uint};
 use runtime::{
-    lean_box, lean_dec, lean_finalize, lean_inc, lean_initialize, lean_io_error_to_string_rust,
-    lean_io_result_get_error, lean_io_result_get_value, lean_io_result_is_ok, lean_mk_string,
-    lean_runtime_mk_cnstr, lean_string_cstr, lean_unbox, LeanObject,
+    LeanObject, lean_box, lean_dec, lean_finalize, lean_inc, lean_initialize,
+    lean_io_error_to_string_rust, lean_io_result_get_error, lean_io_result_get_value,
+    lean_io_result_is_ok, lean_mk_string, lean_runtime_mk_cnstr, lean_string_cstr, lean_unbox,
 };
 use std::ffi::{CStr, CString};
 use std::io::{self, Write};
@@ -155,7 +155,7 @@ unsafe fn print_io_error(prefix: Option<&str>, err: *mut LeanObject) {
     lean_dec(msg);
 }
 
-unsafe fn handle_io_result(prefix: Option<&str>, result: *mut LeanObject) -> bool {
+unsafe fn handle_io_result(prefix: Option<&str>, result: *const LeanObject) -> bool {
     if lean_io_result_is_ok(result) {
         lean_dec(result);
         true
@@ -308,20 +308,20 @@ unsafe fn process_option(
     }
 }
 
-unsafe fn get_run(shell_opts: *mut LeanObject) -> bool {
+unsafe fn get_run(shell_opts: *const LeanObject) -> bool {
     lean_inc(shell_opts);
-    let run = lean_shell_options_get_run(shell_opts) != 0;
+    let run = lean_shell_options_get_run(shell_opts as *mut LeanObject) != 0;
     run
 }
 
-unsafe fn get_profiler(shell_opts: *mut LeanObject) -> bool {
+unsafe fn get_profiler(shell_opts: *const LeanObject) -> bool {
     lean_inc(shell_opts);
-    lean_shell_options_get_profiler(shell_opts) != 0
+    lean_shell_options_get_profiler(shell_opts as *mut LeanObject) != 0
 }
 
-unsafe fn get_num_threads(shell_opts: *mut LeanObject) -> c_uint {
+unsafe fn get_num_threads(shell_opts: *const LeanObject) -> c_uint {
     lean_inc(shell_opts);
-    lean_shell_options_get_num_threads(shell_opts)
+    lean_shell_options_get_num_threads(shell_opts as *mut LeanObject)
 }
 
 unsafe fn make_args_list(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject {
