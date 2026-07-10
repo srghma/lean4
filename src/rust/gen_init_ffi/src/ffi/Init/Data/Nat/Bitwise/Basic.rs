@@ -1,5 +1,5 @@
 use leanh::LeanObject;
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
+use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Nat/Bitwise/Basic.lean
 

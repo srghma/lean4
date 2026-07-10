@@ -17,13 +17,6 @@ mod runtime_object_string_impl {
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
     }
 
-    // ── local inline helpers ─────────────────────────────────────────────────────
-
-    #[inline]
-    unsafe fn lean_string_capacity(o: *const LeanObject) -> usize {
-        (*(o as *const LeanStringObject)).capacity
-    }
-
     #[inline]
     unsafe fn lean_sarray_elem_size(o: *const LeanObject) -> usize {
         (*o).other as usize
@@ -56,27 +49,6 @@ mod runtime_object_string_impl {
             lean_box(if n1 < n2 { 0 } else { n1 - n2 })
         } else {
             crate::runtime_object_nat_int_impl::lean_nat_big_sub(a1, a2)
-        }
-    }
-
-    // ── string buffer helpers ───────────────────────────────────────────────────
-
-    #[inline]
-    fn mk_capacity(sz: usize) -> usize {
-        sz * 2
-    }
-
-    unsafe fn string_ensure_capacity(o: *mut LeanObject, extra: usize) -> *mut LeanObject {
-        debug_assert!(lean_is_exclusive(o));
-        let sz = lean_string_size(o);
-        let cap = lean_string_capacity(o);
-        if sz + extra > cap {
-            let new_o = lean_alloc_string(sz, cap + sz + extra, lean_string_len(o));
-            core::ptr::copy_nonoverlapping(lean_string_cstr(o), w_string_cstr(new_o), sz);
-            lean_free_object(o);
-            new_o
-        } else {
-            o
         }
     }
 
@@ -180,7 +152,7 @@ mod runtime_object_string_impl {
 
     pub unsafe fn lean_string_push(s: *mut LeanObject, c: u32) -> *mut LeanObject {
         let sz = lean_string_size(s);
-        let len = lean_string_len(s);
+        let len = lean_string_length(s);
         let r;
         if !lean_is_exclusive(s) {
             r = lean_alloc_string(sz, mk_capacity(sz + 5), len);
@@ -196,32 +168,6 @@ mod runtime_object_string_impl {
         r
     }
 
-    pub unsafe fn lean_string_append(s1: *mut LeanObject, s2: *mut LeanObject) -> *mut LeanObject {
-        let sz1 = lean_string_size(s1);
-        let sz2 = lean_string_size(s2);
-        let len1 = lean_string_len(s1);
-        let len2 = lean_string_len(s2);
-        let new_len = len1 + len2;
-        let new_sz = sz1 + sz2 - 1;
-        let r;
-        if !lean_is_exclusive(s1) {
-            r = lean_alloc_string(new_sz, mk_capacity(new_sz), new_len);
-            core::ptr::copy_nonoverlapping(lean_string_cstr(s1), w_string_cstr(r), sz1 - 1);
-            lean_dec_ref(s1);
-        } else {
-            debug_assert!(s1 != s2);
-            r = string_ensure_capacity(s1, sz2 - 1);
-        }
-        core::ptr::copy_nonoverlapping(
-            lean_string_cstr(s2),
-            w_string_cstr(r).add(sz1 - 1),
-            sz2 - 1,
-        );
-        (*(r as *mut LeanStringObject)).size = new_sz;
-        (*(r as *mut LeanStringObject)).len = new_len;
-        *w_string_cstr(r).add(new_sz - 1) = 0;
-        r
-    }
 
     pub unsafe fn lean_sarray_eq_cold(a1: *const LeanObject, a2: *const LeanObject) -> bool {
         let len = lean_sarray_elem_size(a1) * lean_sarray_size(a1);
@@ -493,7 +439,7 @@ mod runtime_object_string_impl {
         let mut buf = [0i8; 4];
         let new_c_sz = lean_runtime_push_unicode_scalar(buf.as_mut_ptr(), c) as usize;
         let old_data = core::slice::from_raw_parts(lean_string_cstr(s) as *const u8, sz);
-        let len = lean_string_len(s);
+        let len = lean_string_length(s);
         lean_dec(s);
         let new_total = sz - old_c_sz + new_c_sz;
         let r = lean_alloc_string(new_total + 1, new_total + 1, len);

@@ -23,6 +23,7 @@ import {
     type ExportReportItem,
     type MarkdownReportBlock,
 } from "./exported_imported_lean_rust_fns/md_report";
+import { buildJsonReport } from "./exported_imported_lean_rust_fns/json_report";
 import {
     appendRuntimeAnnotations,
     collectRuntimeAnnotation,
@@ -721,14 +722,21 @@ const topoSortLeanFiles = (files: LeanFileInfo[]) => {
         const externMarkdownPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--lean_imports_from_rust.md");
         const exportMarkdownPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--rust_should_import_from_lean.md");
         const summaryMarkdownPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--summary.md");
+        const externJsonPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--lean_imports_from_rust.json");
+        const exportJsonPath = path.join(rootDir, "srghmascripts/exported_imported_lean_rust_fns--rust_should_import_from_lean.json");
+        const externJson = buildJsonReport("lean_imports_from_rust", stats, externOutputBlocks);
+        const exportJson = buildJsonReport("rust_should_import_from_lean", stats, exportOutputBlocks);
 
         await Promise.all([
             fs.promises.writeFile(externMarkdownPath, `${externMarkdown}\n`, "utf8"),
             fs.promises.writeFile(exportMarkdownPath, `${exportMarkdown}\n`, "utf8"),
             fs.promises.writeFile(summaryMarkdownPath, `${summaryMarkdown}\n`, "utf8"),
+            fs.promises.writeFile(externJsonPath, `${JSON.stringify(externJson, null, 2)}\n`, "utf8"),
+            fs.promises.writeFile(exportJsonPath, `${JSON.stringify(exportJson, null, 2)}\n`, "utf8"),
         ]);
         if (showDetails) {
             console.log(c.dim(`Wrote markdown reports to ${externMarkdownPath}, ${exportMarkdownPath}, and ${summaryMarkdownPath}`));
+            console.log(c.dim(`Wrote JSON reports to ${externJsonPath} and ${exportJsonPath}`));
         }
     }
 

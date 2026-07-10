@@ -306,7 +306,7 @@ mod runtime_sharecommon_impl {
 
         unsafe fn visit_string(&mut self, a: *mut LeanObject) {
             let sz = super::lean_string_size(a);
-            let len = super::lean_string_len(a);
+            let len = super::lean_string_length(a);
             let new_a = super::lean_alloc_string(sz, sz, len);
             let dest = lean_string_cstr(new_a).cast_mut();
             let src = lean_string_cstr(a);

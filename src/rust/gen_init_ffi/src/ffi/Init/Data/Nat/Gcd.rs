@@ -1,7 +1,9 @@
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Nat/Gcd.lean
 
-pub fn lean_nat_gcd(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_nat_gcd");
+pub fn lean_nat_gcd(
+    a: *mut leanh_l1::datatypes::LeanObject,
+    b: *mut leanh_l1::datatypes::LeanObject,
+) -> *mut leanh_l1::datatypes::LeanObject {
+    unsafe { leanh_l1::runtime_object_nat_int::lean_nat_gcd(a, b) }
 }

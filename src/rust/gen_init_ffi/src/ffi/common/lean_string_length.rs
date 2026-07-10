@@ -3,8 +3,9 @@
 // source: Init/Data/String/Length.rs:6-8
 // exact-text variant: yes
 
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
+use leanh_l1::datatypes::{LeanObject, LeanStringObject};
 
-pub unsafe fn lean_string_length(s: *mut LeanObject) -> *mut LeanObject {
-    unsafe { lean_box((*(s as *mut LeanStringObject<0>)).m_length) }
+pub unsafe fn lean_string_length(obj: *const LeanObject) -> usize {
+    let string = obj as *const LeanStringObject<0>;
+    unsafe { (*string).m_length }
 }

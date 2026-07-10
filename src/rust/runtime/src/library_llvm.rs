@@ -582,7 +582,7 @@ mod library_llvm_impl {
 
     #[cfg(lean_has_llvm)]
     unsafe fn llvm_const_string_impl(ctx: usize, s: *const LeanObject) -> usize {
-        LLVMConstStringInContext(ctx, lean_string_cstr(s), lean_string_len(s), 0)
+        LLVMConstStringInContext(ctx, lean_string_cstr(s), lean_string_length(s), 0)
     }
 
     #[cfg(not(lean_has_llvm))]
@@ -860,9 +860,9 @@ mod library_llvm_impl {
         LLVMCreateStringAttribute(
             ctx,
             lean_string_cstr(key),
-            lean_string_len(key),
+            lean_string_length(key),
             lean_string_cstr(value),
-            lean_string_len(value),
+            lean_string_length(value),
         )
     }
 

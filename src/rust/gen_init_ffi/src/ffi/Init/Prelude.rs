@@ -1,5 +1,5 @@
 use leanh::LeanObject;
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
+use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
 #[inline]
 pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {
     unsafe { leanh::lean_uint8_of_nat_mk(n) }

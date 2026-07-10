@@ -3,10 +3,12 @@
 // source: Init/Data/String/Bootstrap.rs:73-77
 // exact-text variant: yes
 
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
+use leanh_l1::{
+    datatypes::{LeanObject, LeanStringObject},
+    emitted::{lean_is_scalar::lean_is_scalar, lean_unbox::lean_unbox},
+};
 
-pub unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
-    let pos = unsafe { lean_unbox(pos) };
-    let size = unsafe { (*(s as *mut LeanStringObject<0>)).m_size.saturating_sub(1) };
-    (pos >= size) as u8
+pub unsafe fn lean_string_utf8_at_end_bool(s: *mut LeanObject, pos: *mut LeanObject) -> bool {
+    !lean_is_scalar(pos)
+        || lean_unbox(pos) >= (*(s as *mut LeanStringObject<0>)).m_size.saturating_sub(1)
 }

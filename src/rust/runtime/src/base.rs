@@ -1079,11 +1079,6 @@ pub unsafe fn lean_runtime_mk_cnstr(
     obj
 }
 
-pub(crate) unsafe fn lean_string_len(obj: *const LeanObject) -> usize {
-    let string = obj as *const LeanStringObject<0>;
-    (*string).m_length
-}
-
 pub fn lean_runtime_is_utf8_next(byte: c_uchar) -> bool {
     byte & 0xC0 == 0x80
 }

@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
+import { toRustModuleIdent } from "./rust_keywords";
 
 export const lean4Root = "/home/srghma/projects/lean4";
 export const sourceRoot = "/home/srghma/projects/lean4-rust/src/rust/lean_runtime/src";
@@ -377,12 +378,13 @@ export function groupDistinctBodies(occs: FnOccurrence[]): BodyGroup[] {
 export async function ensureModLine(moduleFile: string, modName: string) {
   const exists = await fs.stat(moduleFile).then((s) => s.isFile()).catch(() => false);
   const text = exists ? await fs.readFile(moduleFile, "utf8") : "";
-  if (new RegExp(String.raw`^\s*pub\s+mod\s+${modName};\s*$`, "m").test(text)) return;
+  const renderedModName = toRustModuleIdent(modName);
+  if (new RegExp(String.raw`^\s*pub\s+mod\s+${renderedModName};\s*$`, "m").test(text)) return;
 
   const lines = text === "" ? [] : text.split(/\r?\n/);
   let insertAt = lines.length;
   while (insertAt > 0 && /^\s*$/.test(lines[insertAt - 1])) insertAt--;
-  lines.splice(insertAt, 0, `pub mod ${modName};`);
+  lines.splice(insertAt, 0, `pub mod ${renderedModName};`);
   await fs.writeFile(moduleFile, `${lines.join("\n").replace(/\s*$/, "")}\n`, "utf8");
 }
 

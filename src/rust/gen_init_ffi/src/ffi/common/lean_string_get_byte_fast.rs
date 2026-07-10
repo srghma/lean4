@@ -3,7 +3,10 @@
 // source: Init/Data/String/PosRaw.rs:6-15
 // exact-text variant: yes
 
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
+use leanh_l1::{
+    datatypes::{LeanObject, LeanStringObject},
+    emitted::lean_unbox::lean_unbox,
+};
 
 pub unsafe fn lean_string_get_byte_fast(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
     let pos = unsafe { lean_unbox(pos) };

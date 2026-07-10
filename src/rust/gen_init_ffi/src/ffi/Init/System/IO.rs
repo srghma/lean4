@@ -1,4 +1,4 @@
-use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
+use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/System/IO.lean
 
@@ -21,14 +21,18 @@ pub fn lean_io_as_task(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObjec
 pub fn lean_io_map_task(
     _: *mut LeanObject,
     _: *mut LeanObject,
-    _: *mut LeanObject, _: bool) -> *mut LeanObject {
+    _: *mut LeanObject,
+    _: bool,
+) -> *mut LeanObject {
     todo!("Stub for lean_io_map_task");
 }
 
 pub fn lean_io_bind_task(
     _: *mut LeanObject,
     _: *mut LeanObject,
-    _: *mut LeanObject, _: bool) -> *mut LeanObject {
+    _: *mut LeanObject,
+    _: bool,
+) -> *mut LeanObject {
     todo!("Stub for lean_io_bind_task");
 }
 
@@ -112,12 +116,17 @@ pub fn lean_io_prim_handle_unlock(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_prim_handle_unlock");
 }
 
-pub fn lean_io_prim_handle_is_tty(_: *mut LeanObject) -> u8 {
-    todo!("Stub for lean_io_prim_handle_is_tty");
+pub unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
+    unsafe {
+        leanh_l1_initializers::r#priv::lean_io_prim_handle_is_tty::lean_io_prim_handle_is_tty(h)
+            as u8
+    }
 }
 
-pub fn lean_io_prim_handle_flush(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_io_prim_handle_flush");
+pub fn lean_io_prim_handle_flush(h: *mut LeanObject) -> *mut LeanObject {
+    unsafe {
+        leanh_l1_initializers::r#priv::lean_io_prim_handle_flush::lean_io_prim_handle_flush(h)
+    }
 }
 
 pub fn lean_io_prim_handle_rewind(_: *mut LeanObject) -> *mut LeanObject {
@@ -128,20 +137,30 @@ pub fn lean_io_prim_handle_truncate(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_prim_handle_truncate");
 }
 
-pub fn lean_io_prim_handle_read(_: *mut LeanObject, _: usize) -> *mut LeanObject {
-    todo!("Stub for lean_io_prim_handle_read");
+pub fn lean_io_prim_handle_read(h: *mut LeanObject, nbytes: usize) -> *mut LeanObject {
+    unsafe {
+        leanh_l1_initializers::r#priv::lean_io_prim_handle_read::lean_io_prim_handle_read(h, nbytes)
+    }
 }
 
-pub fn lean_io_prim_handle_write(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_io_prim_handle_write");
+pub fn lean_io_prim_handle_write(h: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject {
+    unsafe {
+        leanh_l1_initializers::r#priv::lean_io_prim_handle_write::lean_io_prim_handle_write(h, s)
+    }
 }
 
-pub fn lean_io_prim_handle_get_line(_: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_io_prim_handle_get_line");
+pub fn lean_io_prim_handle_get_line(h: *mut LeanObject) -> *mut LeanObject {
+    unsafe {
+        leanh_l1_initializers::r#priv::lean_io_prim_handle_get_line::lean_io_prim_handle_get_line(h)
+    }
 }
 
-pub fn lean_io_prim_handle_put_str(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObject {
-    todo!("Stub for lean_io_prim_handle_put_str");
+pub fn lean_io_prim_handle_put_str(h: *mut LeanObject, s: *mut LeanObject) -> *mut LeanObject {
+    unsafe {
+        leanh_l1_initializers::r#priv::lean_io_prim_handle_put_str::lean_io_prim_handle_put_str(
+            h, s,
+        )
+    }
 }
 
 pub fn lean_io_realpath(_: *mut LeanObject) -> *mut LeanObject {
