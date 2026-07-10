@@ -14,7 +14,7 @@ pub unsafe fn lean_sarray_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
     }
 }
 
-// moved lean_sarray_size to ffi/common/lean_sarray_size__01__6b901b56.rs
+// moved lean_sarray_size to ffi/common/lean_sarray_size.rs
 // original source: Init/Data/ByteArray/Basic.rs:17-19
 
 pub unsafe fn lean_byte_array_uget(array: *mut LeanObject, idx: usize) -> u8 {

@@ -27,7 +27,7 @@ pub unsafe fn lean_string_is_valid_pos(s: *mut LeanObject, pos: *mut LeanObject)
     (pos <= size) as u8
 }
 
-// moved lean_string_utf8_extract to ffi/common/lean_string_utf8_extract__01__6a944aaa.rs
+// moved lean_string_utf8_extract to ffi/common/lean_string_utf8_extract.rs
 // original source: Init/Data/String/Basic.rs:30-45
 
 pub unsafe fn lean_string_utf8_get_fast(s: *mut LeanObject, pos: *mut LeanObject) -> u32 {
@@ -48,7 +48,7 @@ pub unsafe fn lean_string_utf8_next_fast(
     unsafe { lean_box(lean_unbox(pos) + 1) }
 }
 
-// moved lean_string_utf8_get to ffi/common/lean_string_utf8_get__01__c0890e0e.rs
+// moved lean_string_utf8_get to ffi/common/lean_string_utf8_get.rs
 // original source: Init/Data/String/Basic.rs:51-53
 
 pub unsafe fn lean_string_utf8_get_opt(
@@ -62,12 +62,12 @@ pub unsafe fn lean_string_utf8_get_bang(s: *mut LeanObject, pos: *mut LeanObject
     unsafe { lean_string_utf8_get_fast(s, pos) }
 }
 
-// moved lean_string_utf8_next to ffi/common/lean_string_utf8_next__01__32c449db.rs
+// moved lean_string_utf8_next to ffi/common/lean_string_utf8_next.rs
 // original source: Init/Data/String/Basic.rs:65-67
 
 pub unsafe fn lean_string_utf8_prev(_: *mut LeanObject, pos: *mut LeanObject) -> *mut LeanObject {
     unsafe { lean_box(lean_unbox(pos).saturating_sub(1)) }
 }
 
-// moved lean_string_utf8_at_end to ffi/common/lean_string_utf8_at_end__01__d435a2c6.rs
+// moved lean_string_utf8_at_end to ffi/common/lean_string_utf8_at_end.rs
 // original source: Init/Data/String/Basic.rs:88-92

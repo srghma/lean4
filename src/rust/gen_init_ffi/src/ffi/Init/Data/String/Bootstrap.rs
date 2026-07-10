@@ -14,20 +14,20 @@ pub fn lean_string_offsetofpos(_: *mut LeanObject, _: *mut LeanObject) -> *mut L
     todo!("Stub for lean_string_offsetofpos");
 }
 
-// moved lean_string_utf8_extract to ffi/common/lean_string_utf8_extract__01__6a944aaa.rs
+// moved lean_string_utf8_extract to ffi/common/lean_string_utf8_extract.rs
 // original source: Init/Data/String/Bootstrap.rs:17-23
 
-// moved lean_string_length to ffi/common/lean_string_length__01__27df379c.rs
+// moved lean_string_length to ffi/common/lean_string_length.rs
 // original source: Init/Data/String/Bootstrap.rs:25-27
 
 pub fn lean_string_pushn(_: *mut LeanObject, _: u32, _: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_string_pushn");
 }
 
-// moved lean_string_append to ffi/common/lean_string_append__01__d872c21e.rs
+// moved lean_string_append to ffi/common/lean_string_append.rs
 // original source: Init/Data/String/Bootstrap.rs:33-35
 
-// moved lean_string_utf8_next to ffi/common/lean_string_utf8_next__01__32c449db.rs
+// moved lean_string_utf8_next to ffi/common/lean_string_utf8_next.rs
 // original source: Init/Data/String/Bootstrap.rs:30-32
 
 pub fn lean_string_isempty(_: *mut LeanObject) -> u8 {
@@ -54,14 +54,14 @@ pub fn lean_string_contains(_: *mut LeanObject, _: u32) -> u8 {
     todo!("Stub for lean_string_contains");
 }
 
-// moved lean_string_utf8_get to ffi/common/lean_string_utf8_get__01__c0890e0e.rs
+// moved lean_string_utf8_get to ffi/common/lean_string_utf8_get.rs
 // original source: Init/Data/String/Bootstrap.rs:58-60
 
 pub fn lean_string_capitalize(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_string_capitalize");
 }
 
-// moved lean_string_utf8_at_end to ffi/common/lean_string_utf8_at_end__01__d435a2c6.rs
+// moved lean_string_utf8_at_end to ffi/common/lean_string_utf8_at_end.rs
 // original source: Init/Data/String/Bootstrap.rs:71-75
 
 pub fn lean_string_nextwhile(
@@ -92,10 +92,10 @@ pub fn lean_string_dropright(_: *mut LeanObject, _: *mut LeanObject) -> *mut Lea
     todo!("Stub for lean_string_dropright");
 }
 
-// moved lean_string_get_byte_fast to ffi/common/lean_string_get_byte_fast__01__d48a1e40.rs
+// moved lean_string_get_byte_fast to ffi/common/lean_string_get_byte_fast.rs
 // original source: Init/Data/String/Bootstrap.rs:106-115
 
-// moved lean_string_mk to ffi/common/lean_string_mk__02__4297187c.rs
+// moved lean_string_mk to ffi/common/lean_string_mk.rs
 // original source: Init/Data/String/Bootstrap.rs:108-110
 
 pub fn lean_substring_tostring(_: *mut LeanObject) -> *mut LeanObject {

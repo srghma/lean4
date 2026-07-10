@@ -5,7 +5,7 @@ pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {
     unsafe { leanh::lean_uint8_of_nat_mk(n) }
 }
 
-// moved lean_uint8_to_nat to ffi/common/lean_uint8_to_nat__02__d5780543.rs
+// moved lean_uint8_to_nat to ffi/common/lean_uint8_to_nat.rs
 // original source: Init/Prelude.rs:9-11
 
 #[inline]
@@ -13,7 +13,7 @@ pub unsafe fn lean_uint16_of_nat_mk(n: *mut LeanObject) -> u16 {
     unsafe { leanh::lean_uint16_of_nat_mk(n) }
 }
 
-// moved lean_uint16_to_nat to ffi/common/lean_uint16_to_nat__01__2f1608ce.rs, lean_uint16_to_nat__02__f78ff2a0.rs
+// moved lean_uint16_to_nat to ffi/common/lean_uint16_to_nat.rs
 // original source: Init/Prelude.rs:19-21
 
 #[inline]
@@ -31,7 +31,7 @@ pub unsafe fn lean_uint64_of_nat_mk(n: *mut LeanObject) -> u64 {
     unsafe { leanh::lean_uint64_of_nat_mk(n) }
 }
 
-// moved lean_uint64_to_nat to ffi/common/lean_uint64_to_nat__01__e7ac830a.rs, lean_uint64_to_nat__02__79d33bb4.rs
+// moved lean_uint64_to_nat to ffi/common/lean_uint64_to_nat.rs
 // original source: Init/Prelude.rs:38-40
 
 #[inline]
@@ -39,7 +39,7 @@ pub unsafe fn lean_usize_of_nat_mk(n: *mut LeanObject) -> usize {
     unsafe { leanh::lean_usize_of_nat_mk(n) }
 }
 
-// moved lean_usize_to_nat to ffi/common/lean_usize_to_nat__01__5bddc13d.rs, lean_usize_to_nat__02__02764d04.rs
+// moved lean_usize_to_nat to ffi/common/lean_usize_to_nat.rs
 // original source: Init/Prelude.rs:46-48
 
 #[inline]
@@ -62,7 +62,7 @@ pub unsafe fn lean_byte_array_data(array: *mut LeanObject) -> *mut LeanObject {
     unsafe { leanh::lean_byte_array_data(array) }
 }
 
-// moved lean_string_to_utf8 to ffi/common/lean_string_to_utf8__02__a9d28cc5.rs
+// moved lean_string_to_utf8 to ffi/common/lean_string_to_utf8.rs
 // original source: Init/Prelude.rs:74-76
 
 #[inline]
@@ -155,7 +155,7 @@ pub unsafe fn lean_uint8_dec_le(a: u8, b: u8) -> u8 {
     unsafe { leanh::lean_uint8_dec_le(a, b) }
 }
 
-// moved lean_uint16_of_nat to ffi/common/lean_uint16_of_nat__02__da248986.rs
+// moved lean_uint16_of_nat to ffi/common/lean_uint16_of_nat.rs
 // original source: Init/Prelude.rs:168-170
 
 #[inline]
@@ -163,7 +163,7 @@ pub unsafe fn lean_uint16_dec_eq(a: u16, b: u16) -> u8 {
     unsafe { leanh::lean_uint16_dec_eq(a, b) }
 }
 
-// moved lean_uint32_of_nat to ffi/common/lean_uint32_of_nat__01__a2afd4e1.rs, lean_uint32_of_nat__02__438d38a2.rs
+// moved lean_uint32_of_nat to ffi/common/lean_uint32_of_nat.rs
 // original source: Init/Prelude.rs:176-178
 
 #[inline]
@@ -181,7 +181,7 @@ pub unsafe fn lean_uint32_dec_le(a: u32, b: u32) -> u8 {
     unsafe { leanh::lean_uint32_dec_le(a, b) }
 }
 
-// moved lean_uint64_of_nat to ffi/common/lean_uint64_of_nat__01__2f57f70f.rs, lean_uint64_of_nat__02__321057a3.rs
+// moved lean_uint64_of_nat to ffi/common/lean_uint64_of_nat.rs
 // original source: Init/Prelude.rs:195-197
 
 #[inline]
@@ -189,7 +189,7 @@ pub unsafe fn lean_uint64_dec_eq(a: u64, b: u64) -> u8 {
     unsafe { leanh::lean_uint64_dec_eq(a, b) }
 }
 
-// moved lean_usize_of_nat to ffi/common/lean_usize_of_nat__01__47af9c3b.rs, lean_usize_of_nat__02__bcd68a4e.rs, lean_usize_of_nat__03__47d65975.rs
+// moved lean_usize_of_nat to ffi/common/lean_usize_of_nat.rs
 // original source: Init/Prelude.rs:202-204
 
 #[inline]
@@ -258,7 +258,7 @@ pub unsafe fn lean_byte_array_size(array: *mut LeanObject) -> *mut LeanObject {
     unsafe { leanh::lean_byte_array_size(array) }
 }
 
-// moved lean_string_mk to ffi/common/lean_string_mk__02__4297187c.rs
+// moved lean_string_mk to ffi/common/lean_string_mk.rs
 // original source: Init/Prelude.rs:280-282
 
 #[inline]

@@ -289,7 +289,7 @@ pub fn lean_usize_shift_right(a: usize, b: usize) -> usize {
     a.wrapping_shr(b as u32)
 }
 
-// moved lean_usize_of_nat to ffi/common/lean_usize_of_nat__01__47af9c3b.rs, lean_usize_of_nat__02__bcd68a4e.rs, lean_usize_of_nat__03__47d65975.rs
+// moved lean_usize_of_nat to ffi/common/lean_usize_of_nat.rs
 // original source: Init/Data/UInt/Basic.rs:254-256
 
 pub fn lean_uint8_to_usize(value: u8) -> usize {

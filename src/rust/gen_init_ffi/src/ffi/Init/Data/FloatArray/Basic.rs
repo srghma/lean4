@@ -22,7 +22,7 @@ pub fn lean_float_array_size(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_float_array_size");
 }
 
-// moved lean_sarray_size to ffi/common/lean_sarray_size__01__6b901b56.rs
+// moved lean_sarray_size to ffi/common/lean_sarray_size.rs
 // original source: Init/Data/FloatArray/Basic.rs:25-27
 
 pub fn lean_float_array_uget(_: *mut LeanObject, _: usize) -> f64 {
