@@ -5,9 +5,9 @@
 members = [
   "leanh_l1",
   "leanh_l1_initializers",
+  "gen_init_ffi",
   # "leanh_l2",
   # "runtime",
-  # "gen_init_ffi",
   # "gen_init",
   # "gen_std_ffi",
   # "gen_std",

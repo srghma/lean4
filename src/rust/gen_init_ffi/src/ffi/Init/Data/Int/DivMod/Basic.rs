@@ -1,4 +1,4 @@
-use runtime::leanh_extra::*;
+use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Int/DivMod/Basic.lean
 

@@ -5,8 +5,9 @@ edition = "2024"
 publish = false
 
 [dependencies]
-leanh = { path = "../leanh" }
-runtime = { path = "../runtime" }
+leanh_l1 = { path = "../leanh_l1" }
+leanh_l1_initializers = { path = "../leanh_l1_initializers" }
+# runtime = { path = "../runtime" }
 
 [lints.clippy]
 missing_safety_doc = "allow"

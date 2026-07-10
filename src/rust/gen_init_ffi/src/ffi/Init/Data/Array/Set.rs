@@ -1,5 +1,5 @@
 use leanh::LeanObject;
-use runtime::leanh_extra as leanh;
+use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Array/Set.lean
 

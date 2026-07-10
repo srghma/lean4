@@ -2,7 +2,7 @@
 // source: Init/Data/String/Basic.rs:30-45
 // exact-text variant: no
 
-use runtime::leanh_extra::*;
+use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
 
 pub unsafe fn lean_string_utf8_extract(
     s: *mut LeanObject,

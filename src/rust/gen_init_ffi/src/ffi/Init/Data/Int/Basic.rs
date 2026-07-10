@@ -2,8 +2,7 @@
 // Source: src/Init/Data/Int/Basic.lean
 
 use leanh::LeanObject;
-use runtime::leanh_extra as leanh;
-
+use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
 pub unsafe fn lean_nat_to_int(value: *mut LeanObject) -> *mut LeanObject {
     unsafe { leanh::lean_nat_to_int(value) }
 }

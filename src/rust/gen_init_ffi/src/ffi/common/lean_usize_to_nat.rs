@@ -2,8 +2,7 @@
 // source: Init/Prelude.rs:48-51
 // exact-text variant: no
 
-use runtime::leanh_extra as leanh;
-use runtime::leanh_extra::*;
+use leanh_l1::datatypes::{LeanObject,LeanScalarArray,LeanStringObject};
 
 #[inline]
 pub unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
