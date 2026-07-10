@@ -12,3 +12,7 @@ pub unsafe fn lean_string_utf8_at_end_bool(s: *mut LeanObject, pos: *mut LeanObj
     !lean_is_scalar(pos)
         || lean_unbox(pos) >= (*(s as *mut LeanStringObject<0>)).m_size.saturating_sub(1)
 }
+
+pub unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
+    unsafe { lean_string_utf8_at_end_bool(s, pos) as u8 }
+}
