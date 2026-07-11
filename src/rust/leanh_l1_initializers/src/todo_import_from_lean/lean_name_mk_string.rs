@@ -1,11 +1,12 @@
 use core::ptr;
 
 use leanh_l1::{
-    datatypes::{LeanObject, LeanStringObject},
+    datatypes::LeanObject,
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_set::lean_ctor_set,
         lean_ctor_set_uint64::lean_ctor_set_uint64, lean_obj_tag::lean_obj_tag,
     },
+    r#priv::lean_string_cstr::lean_string_cstr,
     runtime_object_nat_int::lean_uint64_mix_hash,
 };
 
@@ -98,9 +99,9 @@ fn lean_runtime_hash_str(len: usize, text: *const u8, seed: u64) -> u64 {
 }
 
 unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
-    let s = s as *const LeanStringObject<0>;
+    let s = leanh_l1::r#priv::lean_to_string::lean_to_string(s);
     let byte_len = (*s).m_size.saturating_sub(1);
-    let text = ptr::addr_of!((*s).m_data).cast::<u8>();
+    let text = lean_string_cstr(s as *const LeanObject).cast::<u8>();
     lean_runtime_hash_str(byte_len, text, LEAN_STRING_HASH_SEED)
 }
 

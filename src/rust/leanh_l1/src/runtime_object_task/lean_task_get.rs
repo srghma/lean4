@@ -1,4 +1,5 @@
 use crate::datatypes::{LeanObject, LeanTaskImp, LeanTaskObject};
+use crate::r#priv::lean_to_task::lean_to_task;
 use crate::runtime_object_panic::lean_panic::lean_panic;
 use crate::runtime_object_task::p3_resolve::{LEAN_SYNC_PRIO, spawn_worker};
 use crate::runtime_object_task::scoped_current_task::current_task;
@@ -55,15 +56,15 @@ fn wait_for(slf: &Arc<TaskManager>, t: *mut LeanTaskObject) {
 }
 
 pub unsafe fn lean_task_get(t: *mut LeanObject) -> *mut LeanObject {
-    let task = t as *mut LeanTaskObject;
-    let v = (*task).m_value.load(Ordering::Acquire);
+    let task = lean_to_task(t);
+    let v = unsafe { (*task).m_value.load(Ordering::Acquire) };
     if !v.is_null() {
         return v;
     }
     if let Some(tm) = get_task_manager() {
-        wait_for(&tm, task);
+        wait_for(&tm, task as *mut LeanTaskObject);
     }
-    let v2 = (*task).m_value.load(Ordering::Acquire);
+    let v2 = unsafe { (*task).m_value.load(Ordering::Acquire) };
     debug_assert!(!v2.is_null());
     v2
 }

@@ -1,7 +1,7 @@
 // appended by move_rust_fn_to_leanh_l1.ts from src/rust/leanh_l2/src/not_in_emit_rust.rs:47-52
 
 use crate::{
-    datatypes::{LeanObject, LEAN_REF_TAG},
+    datatypes::{LEAN_REF_TAG, LeanObject},
     r#priv::lean_ptr_tag::lean_ptr_tag,
 };
 

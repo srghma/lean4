@@ -1,7 +1,7 @@
 use leanh_l1::emitted::lean_mk_string::lean_mk_string;
 
 use crate::{
-    r#priv::initialize_constructions_module::{mk_name, LeanName},
+    r#priv::initialize_constructions_module::{LeanName, mk_name},
     todo_import_from_lean::lean_name_mk_string::lean_name_mk_string,
 };
 

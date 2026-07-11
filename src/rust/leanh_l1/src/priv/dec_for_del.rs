@@ -1,8 +1,7 @@
 use std::sync::atomic::{AtomicI32, Ordering};
 
 use crate::{
-    datatypes::LeanObject, emitted::lean_is_scalar::lean_is_scalar,
-    r#priv::push_back::push_back,
+    datatypes::LeanObject, emitted::lean_is_scalar::lean_is_scalar, r#priv::push_back::push_back,
 };
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_ctor_release`, `lean_dec`, and 4 more EmitRust functions.

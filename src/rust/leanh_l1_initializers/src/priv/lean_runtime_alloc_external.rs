@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::{LeanExternalClass, LeanExternalObject, LeanObject, LEAN_EXTERNAL_TAG},
+    datatypes::{LEAN_EXTERNAL_TAG, LeanExternalClass, LeanExternalObject, LeanObject},
     r#priv::lean_alloc_small_object::lean_alloc_small_object,
 };
 use std::ffi::c_void;

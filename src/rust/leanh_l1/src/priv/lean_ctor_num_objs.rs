@@ -13,15 +13,15 @@
 // }
 
 use crate::{
-    datatypes::{LeanObject, LEAN_MAX_CTOR_TAG},
-    r#priv::lean_ptr_tag::lean_ptr_tag,
+    datatypes::LeanObject,
+    r#priv::{lean_is_ctor::lean_is_ctor, lean_to_ctor::lean_to_ctor},
 };
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_closure`, `lean_apply_m`, `lean_box_float`, `lean_box_float32`, and 28 more EmitRust functions.
 #[inline]
 pub unsafe fn lean_ctor_num_objs(obj: *const LeanObject) -> usize {
     unsafe {
-        debug_assert!(lean_ptr_tag(obj) <= LEAN_MAX_CTOR_TAG);
-        (*obj).other as usize
+        debug_assert!(lean_is_ctor(obj));
+        (*lean_to_ctor(obj)).m_header.other as usize
     }
 }

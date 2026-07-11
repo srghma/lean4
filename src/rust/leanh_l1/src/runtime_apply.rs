@@ -1,37 +1,14 @@
 use core::ffi::c_void;
 
 use crate::{
-    datatypes::{LeanClosureObject, LeanObject},
-    emitted::lean_alloc_closure::lean_alloc_closure,
-    emitted::lean_dec::lean_dec,
-    emitted::lean_dec_ref::lean_dec_ref,
-    emitted::lean_inc::lean_inc,
-    emitted::lean_is_exclusive::lean_is_exclusive,
-    emitted::lean_is_scalar::lean_is_scalar,
+    datatypes::LeanObject, emitted::lean_alloc_closure::lean_alloc_closure,
+    emitted::lean_dec::lean_dec, emitted::lean_dec_ref::lean_dec_ref, emitted::lean_inc::lean_inc,
+    emitted::lean_is_exclusive::lean_is_exclusive, emitted::lean_is_scalar::lean_is_scalar,
     r#priv::lean_closure_arg_cptr::lean_closure_arg_cptr,
+    r#priv::lean_closure_arity::lean_closure_arity, r#priv::lean_closure_fun::lean_closure_fun,
+    r#priv::lean_closure_num_fixed::lean_closure_num_fixed,
     r#priv::lean_free_object::lean_free_object,
 };
-
-#[inline]
-fn closure_fun(f: *const LeanObject) -> *mut core::ffi::c_void {
-    // TODO: extract
-    let clo = f as *const LeanClosureObject<0>;
-    unsafe { (*clo).m_fun }
-}
-
-#[inline]
-fn closure_arity(f: *const LeanObject) -> u32 {
-    // TODO: extract
-    let clo = f as *const LeanClosureObject<0>;
-    unsafe { (*clo).m_arity as u32 }
-}
-
-#[inline]
-fn closure_num_fixed(f: *const LeanObject) -> u32 {
-    // TODO: extract
-    let clo = f as *const LeanClosureObject<0>;
-    unsafe { (*clo).m_num_fixed as u32 }
-}
 
 #[inline]
 fn fx(f: *mut LeanObject, i: u32) -> *mut LeanObject {
@@ -200,12 +177,12 @@ type CurryFn16 = unsafe fn(
 ) -> *mut LeanObject;
 
 unsafe fn fix_args(f: *mut LeanObject, n: u32, as_ptr: *const *mut LeanObject) -> *mut LeanObject {
-    let arity = closure_arity(f);
-    let fixed = closure_num_fixed(f);
+    let arity = unsafe { lean_closure_arity(f) };
+    let fixed = unsafe { lean_closure_num_fixed(f) as u32 };
     let new_fixed = fixed + n;
     debug_assert!(new_fixed < arity);
 
-    let r = unsafe { lean_alloc_closure(closure_fun(f), arity, new_fixed) };
+    let r = unsafe { lean_alloc_closure(lean_closure_fun(f), arity, new_fixed) };
     let source = unsafe { lean_closure_arg_cptr(f) };
     let target = unsafe { lean_closure_arg_cptr(r) };
 
@@ -251,7 +228,9 @@ fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObj
         13 => call!(CurryFn13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
         14 => call!(CurryFn14, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13),
         15 => call!(CurryFn15, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
-        16 => call!(CurryFn16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
+        16 => call!(
+            CurryFn16, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+        ),
         _ => {
             let f: unsafe fn(*mut *mut LeanObject) -> *mut LeanObject =
                 unsafe { core::mem::transmute(fun) };
@@ -261,8 +240,8 @@ fn curry(fun: *mut c_void, n: u32, as_ptr: *mut *mut LeanObject) -> *mut LeanObj
 }
 
 unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut LeanObject {
-    let arity = closure_arity(f);
-    let fixed = closure_num_fixed(f);
+    let arity = unsafe { lean_closure_arity(f) };
+    let fixed = unsafe { lean_closure_num_fixed(f) as u32 };
     let mut args = vec![core::ptr::null_mut::<LeanObject>(); arity as usize];
     if unsafe { lean_is_exclusive(f) } {
         for (i, slot) in args.iter_mut().enumerate().take(fixed as usize) {
@@ -271,7 +250,7 @@ unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut L
         for (slot, &a) in args.iter_mut().skip(fixed as usize).zip(new_args.iter()) {
             *slot = a;
         }
-        let r = curry(closure_fun(f), arity, args.as_mut_ptr());
+        let r = curry(unsafe { lean_closure_fun(f) }, arity, args.as_mut_ptr());
         unsafe { lean_free_object(f) };
         r
     } else {
@@ -283,7 +262,7 @@ unsafe fn call_exact(f: *mut LeanObject, new_args: &[*mut LeanObject]) -> *mut L
         for (slot, &a) in args.iter_mut().skip(fixed as usize).zip(new_args.iter()) {
             *slot = a;
         }
-        let r = curry(closure_fun(f), arity, args.as_mut_ptr());
+        let r = curry(unsafe { lean_closure_fun(f) }, arity, args.as_mut_ptr());
         unsafe { lean_dec_ref(f) };
         r
     }
@@ -301,8 +280,8 @@ unsafe fn apply_generic(
         return f;
     }
 
-    let arity = closure_arity(f);
-    let fixed = closure_num_fixed(f);
+    let arity = unsafe { lean_closure_arity(f) };
+    let fixed = unsafe { lean_closure_num_fixed(f) as u32 };
     let new_args = unsafe { core::slice::from_raw_parts(as_ptr, n as usize) };
 
     if arity == fixed + n {
@@ -318,7 +297,7 @@ unsafe fn apply_generic(
         for (slot, &a) in args.iter_mut().skip(fixed as usize).zip(new_args.iter()) {
             *slot = a;
         }
-        let new_f = curry(closure_fun(f), arity, args.as_mut_ptr());
+        let new_f = curry(unsafe { lean_closure_fun(f) }, arity, args.as_mut_ptr());
         unsafe { lean_dec_ref(f) };
         let remain = n - (arity - fixed);
         unsafe { lean_apply_n(new_f, remain, as_ptr.add(take)) }

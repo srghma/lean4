@@ -1,6 +1,5 @@
-use leanh_l1::datatypes::{LeanObject, LeanStringObject};
+use leanh_l1::{datatypes::LeanObject, r#priv::lean_to_string::lean_to_string};
 
 pub unsafe fn lean_string_size(obj: *const LeanObject) -> usize {
-    let string = obj as *const LeanStringObject<0>;
-    (*string).m_size
+    (*lean_to_string(obj)).m_size
 }
