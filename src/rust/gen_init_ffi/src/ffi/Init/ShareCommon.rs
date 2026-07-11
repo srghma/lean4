@@ -2,7 +2,7 @@ use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/ShareCommon.lean
 
-pub fn lean_sharecommon_eq(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
+pub fn lean_sharecommon_eq(_: *mut LeanObject, _: *mut LeanObject) -> bool {
     todo!("Stub for lean_sharecommon_eq");
 }
 

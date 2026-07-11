@@ -30,7 +30,7 @@ pub fn lean_string_pushn(_: *mut LeanObject, _: u32, _: *mut LeanObject) -> *mut
 // moved lean_string_utf8_next to ffi/common/lean_string_utf8_next.rs
 // original source: Init/Data/String/Bootstrap.rs:30-32
 
-pub fn lean_string_isempty(_: *mut LeanObject) -> u8 {
+pub fn lean_string_isempty(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_string_isempty");
 }
 
@@ -42,15 +42,15 @@ pub fn lean_string_foldl(
     todo!("Stub for lean_string_foldl");
 }
 
-pub fn lean_string_isprefixof(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
+pub fn lean_string_isprefixof(_: *mut LeanObject, _: *mut LeanObject) -> bool {
     todo!("Stub for lean_string_isprefixof");
 }
 
-pub fn lean_string_any(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
+pub fn lean_string_any(_: *mut LeanObject, _: *mut LeanObject) -> bool {
     todo!("Stub for lean_string_any");
 }
 
-pub fn lean_string_contains(_: *mut LeanObject, _: u32) -> u8 {
+pub fn lean_string_contains(_: *mut LeanObject, _: u32) -> bool {
     todo!("Stub for lean_string_contains");
 }
 
@@ -122,15 +122,15 @@ pub fn lean_substring_extract(
     todo!("Stub for lean_substring_extract");
 }
 
-pub fn lean_substring_all(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
+pub fn lean_substring_all(_: *mut LeanObject, _: *mut LeanObject) -> bool {
     todo!("Stub for lean_substring_all");
 }
 
-pub fn lean_substring_beq(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
+pub fn lean_substring_beq(_: *mut LeanObject, _: *mut LeanObject) -> bool {
     todo!("Stub for lean_substring_beq");
 }
 
-pub fn lean_substring_isempty(_: *mut LeanObject) -> u8 {
+pub fn lean_substring_isempty(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_substring_isempty");
 }
 

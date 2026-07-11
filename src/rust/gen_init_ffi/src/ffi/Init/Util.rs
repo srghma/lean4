@@ -22,6 +22,6 @@ pub fn lean_ptr_addr(obj: *mut LeanObject) -> usize {
     obj as usize
 }
 
-pub fn lean_is_exclusive_obj(_: *mut LeanObject) -> u8 {
+pub fn lean_is_exclusive_obj(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_is_exclusive_obj");
 }

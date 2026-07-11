@@ -31,16 +31,16 @@ pub fn lean_float_to_bits(value: f64) -> u64 {
     value.to_bits()
 }
 
-pub fn lean_float_beq(a: f64, b: f64) -> u8 {
-    (a == b) as u8
+pub fn lean_float_beq(a: f64, b: f64) -> bool {
+    a == b
 }
 
-pub fn lean_float_decLt(a: f64, b: f64) -> u8 {
-    (a < b) as u8
+pub fn lean_float_decLt(a: f64, b: f64) -> bool {
+    a < b
 }
 
-pub fn lean_float_decLe(a: f64, b: f64) -> u8 {
-    (a <= b) as u8
+pub fn lean_float_decLe(a: f64, b: f64) -> bool {
+    a <= b
 }
 
 pub unsafe fn lean_float_to_string(value: f64) -> *mut LeanObject {
@@ -68,16 +68,16 @@ pub fn lean_float_to_usize(value: f64) -> usize {
     value as usize
 }
 
-pub fn lean_float_isnan(value: f64) -> u8 {
-    value.is_nan() as u8
+pub fn lean_float_isnan(value: f64) -> bool {
+    value.is_nan()
 }
 
-pub fn lean_float_isfinite(value: f64) -> u8 {
-    value.is_finite() as u8
+pub fn lean_float_isfinite(value: f64) -> bool {
+    value.is_finite()
 }
 
-pub fn lean_float_isinf(value: f64) -> u8 {
-    value.is_infinite() as u8
+pub fn lean_float_isinf(value: f64) -> bool {
+    value.is_infinite()
 }
 
 pub fn lean_float_frexp(_: f64) -> *mut LeanObject {

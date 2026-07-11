@@ -2,15 +2,15 @@ use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/ByteArray/Basic.lean
 
-pub unsafe fn lean_sarray_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_sarray_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
     let a_ref = unsafe { &*(a as *mut LeanScalarArray<0>) };
     let b_ref = unsafe { &*(b as *mut LeanScalarArray<0>) };
     if a_ref.m_size != b_ref.m_size {
         return 0;
     }
     unsafe {
-        (core::slice::from_raw_parts(a_ref.m_data.as_ptr(), a_ref.m_size)
-            == core::slice::from_raw_parts(b_ref.m_data.as_ptr(), b_ref.m_size)) as u8
+        core::slice::from_raw_parts(a_ref.m_data.as_ptr(), a_ref.m_size)
+            == core::slice::from_raw_parts(b_ref.m_data.as_ptr(), b_ref.m_size)
     }
 }
 

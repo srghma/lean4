@@ -66,7 +66,7 @@ pub fn lean_int8_abs(_: u8) -> u8 {
     todo!("Stub for lean_int8_abs");
 }
 
-pub fn lean_int8_dec_eq(_: u8, _: u8) -> u8 {
+pub fn lean_int8_dec_eq(_: u8, _: u8) -> bool {
     todo!("Stub for lean_int8_dec_eq");
 }
 
@@ -74,11 +74,11 @@ pub fn lean_bool_to_int8(_: u8) -> u8 {
     todo!("Stub for lean_bool_to_int8");
 }
 
-pub fn lean_int8_dec_lt(_: u8, _: u8) -> u8 {
+pub fn lean_int8_dec_lt(_: u8, _: u8) -> bool {
     todo!("Stub for lean_int8_dec_lt");
 }
 
-pub fn lean_int8_dec_le(_: u8, _: u8) -> u8 {
+pub fn lean_int8_dec_le(_: u8, _: u8) -> bool {
     todo!("Stub for lean_int8_dec_le");
 }
 
@@ -154,7 +154,7 @@ pub fn lean_int16_abs(_: u16) -> u16 {
     todo!("Stub for lean_int16_abs");
 }
 
-pub fn lean_int16_dec_eq(_: u16, _: u16) -> u8 {
+pub fn lean_int16_dec_eq(_: u16, _: u16) -> bool {
     todo!("Stub for lean_int16_dec_eq");
 }
 
@@ -162,11 +162,11 @@ pub fn lean_bool_to_int16(_: u8) -> u16 {
     todo!("Stub for lean_bool_to_int16");
 }
 
-pub fn lean_int16_dec_lt(_: u16, _: u16) -> u8 {
+pub fn lean_int16_dec_lt(_: u16, _: u16) -> bool {
     todo!("Stub for lean_int16_dec_lt");
 }
 
-pub fn lean_int16_dec_le(_: u16, _: u16) -> u8 {
+pub fn lean_int16_dec_le(_: u16, _: u16) -> bool {
     todo!("Stub for lean_int16_dec_le");
 }
 
@@ -250,7 +250,7 @@ pub fn lean_int32_abs(_: u32) -> u32 {
     todo!("Stub for lean_int32_abs");
 }
 
-pub fn lean_int32_dec_eq(_: u32, _: u32) -> u8 {
+pub fn lean_int32_dec_eq(_: u32, _: u32) -> bool {
     todo!("Stub for lean_int32_dec_eq");
 }
 
@@ -258,11 +258,11 @@ pub fn lean_bool_to_int32(_: u8) -> u32 {
     todo!("Stub for lean_bool_to_int32");
 }
 
-pub fn lean_int32_dec_lt(_: u32, _: u32) -> u8 {
+pub fn lean_int32_dec_lt(_: u32, _: u32) -> bool {
     todo!("Stub for lean_int32_dec_lt");
 }
 
-pub fn lean_int32_dec_le(_: u32, _: u32) -> u8 {
+pub fn lean_int32_dec_le(_: u32, _: u32) -> bool {
     todo!("Stub for lean_int32_dec_le");
 }
 
@@ -354,7 +354,7 @@ pub fn lean_int64_abs(_: u64) -> u64 {
     todo!("Stub for lean_int64_abs");
 }
 
-pub fn lean_int64_dec_eq(_: u64, _: u64) -> u8 {
+pub fn lean_int64_dec_eq(_: u64, _: u64) -> bool {
     todo!("Stub for lean_int64_dec_eq");
 }
 
@@ -362,11 +362,11 @@ pub fn lean_bool_to_int64(_: u8) -> u64 {
     todo!("Stub for lean_bool_to_int64");
 }
 
-pub fn lean_int64_dec_lt(_: u64, _: u64) -> u8 {
+pub fn lean_int64_dec_lt(_: u64, _: u64) -> bool {
     todo!("Stub for lean_int64_dec_lt");
 }
 
-pub fn lean_int64_dec_le(_: u64, _: u64) -> u8 {
+pub fn lean_int64_dec_le(_: u64, _: u64) -> bool {
     todo!("Stub for lean_int64_dec_le");
 }
 
@@ -466,7 +466,7 @@ pub fn lean_isize_abs(_: usize) -> usize {
     todo!("Stub for lean_isize_abs");
 }
 
-pub fn lean_isize_dec_eq(_: usize, _: usize) -> u8 {
+pub fn lean_isize_dec_eq(_: usize, _: usize) -> bool {
     todo!("Stub for lean_isize_dec_eq");
 }
 
@@ -474,10 +474,10 @@ pub fn lean_bool_to_isize(_: u8) -> usize {
     todo!("Stub for lean_bool_to_isize");
 }
 
-pub fn lean_isize_dec_lt(_: usize, _: usize) -> u8 {
+pub fn lean_isize_dec_lt(_: usize, _: usize) -> bool {
     todo!("Stub for lean_isize_dec_lt");
 }
 
-pub fn lean_isize_dec_le(_: usize, _: usize) -> u8 {
+pub fn lean_isize_dec_le(_: usize, _: usize) -> bool {
     todo!("Stub for lean_isize_dec_le");
 }

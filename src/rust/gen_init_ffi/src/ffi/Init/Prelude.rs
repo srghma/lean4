@@ -211,8 +211,8 @@ pub unsafe fn lean_byte_array_size(array: *mut LeanObject) -> *mut LeanObject {
 // original source: Init/Prelude.rs:280-282
 
 #[inline]
-pub unsafe fn lean_string_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
-    unsafe { leanh::lean_string_dec_eq(a, b) }
+pub unsafe fn lean_string_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe { leanh::lean_string_dec_eq(a, b) != 0 }
 }
 
 #[inline]
@@ -236,6 +236,6 @@ pub unsafe fn lean_string_hash(s: *mut LeanObject) -> u64 {
 }
 
 #[inline]
-pub unsafe fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
-    unsafe { leanh::lean_name_eq(a, b) }
+pub unsafe fn lean_name_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
+    unsafe { leanh::lean_name_eq(a, b) != 0 }
 }

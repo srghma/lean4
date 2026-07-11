@@ -105,12 +105,12 @@ pub fn lean_bool_to_uint16(value: u8) -> u16 {
     value as u16
 }
 
-pub fn lean_uint16_dec_lt(a: u16, b: u16) -> u8 {
-    (a < b) as u8
+pub fn lean_uint16_dec_lt(a: u16, b: u16) -> bool {
+    a < b
 }
 
-pub fn lean_uint16_dec_le(a: u16, b: u16) -> u8 {
-    (a <= b) as u8
+pub fn lean_uint16_dec_le(a: u16, b: u16) -> bool {
+    a <= b
 }
 
 pub fn lean_uint32_mul(a: u32, b: u32) -> u32 {
@@ -209,12 +209,12 @@ pub fn lean_bool_to_uint64(value: u8) -> u64 {
     value as u64
 }
 
-pub fn lean_uint64_dec_lt(a: u64, b: u64) -> u8 {
-    (a < b) as u8
+pub fn lean_uint64_dec_lt(a: u64, b: u64) -> bool {
+    a < b
 }
 
-pub fn lean_uint64_dec_le(a: u64, b: u64) -> u8 {
-    (a <= b) as u8
+pub fn lean_uint64_dec_le(a: u64, b: u64) -> bool {
+    a <= b
 }
 
 pub fn lean_usize_mul(a: usize, b: usize) -> usize {

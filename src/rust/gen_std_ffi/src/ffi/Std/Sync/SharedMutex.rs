@@ -10,7 +10,7 @@ pub fn lean_io_basesharedmutex_write(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_basesharedmutex_write");
 }
 
-pub fn lean_io_basesharedmutex_try_write(_: *mut LeanObject) -> u8 {
+pub fn lean_io_basesharedmutex_try_write(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_io_basesharedmutex_try_write");
 }
 
@@ -22,7 +22,7 @@ pub fn lean_io_basesharedmutex_read(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_basesharedmutex_read");
 }
 
-pub fn lean_io_basesharedmutex_try_read(_: *mut LeanObject) -> u8 {
+pub fn lean_io_basesharedmutex_try_read(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_io_basesharedmutex_try_read");
 }
 

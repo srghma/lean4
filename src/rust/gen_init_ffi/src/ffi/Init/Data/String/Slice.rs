@@ -6,6 +6,6 @@ pub fn lean_slice_hash(_: *mut LeanObject) -> u64 {
     todo!("Stub for lean_slice_hash");
 }
 
-pub fn lean_slice_dec_lt(_: *mut LeanObject, _: *mut LeanObject) -> u8 {
+pub fn lean_slice_dec_lt(_: *mut LeanObject, _: *mut LeanObject) -> bool {
     todo!("Stub for lean_slice_dec_lt");
 }

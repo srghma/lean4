@@ -30,15 +30,15 @@ pub fn lean_float32_to_bits(_: f32) -> u32 {
     todo!("Stub for lean_float32_to_bits");
 }
 
-pub fn lean_float32_beq(_: f32, _: f32) -> u8 {
+pub fn lean_float32_beq(_: f32, _: f32) -> bool {
     todo!("Stub for lean_float32_beq");
 }
 
-pub fn lean_float32_decLt(_: f32, _: f32) -> u8 {
+pub fn lean_float32_decLt(_: f32, _: f32) -> bool {
     todo!("Stub for lean_float32_decLt");
 }
 
-pub fn lean_float32_decLe(_: f32, _: f32) -> u8 {
+pub fn lean_float32_decLe(_: f32, _: f32) -> bool {
     todo!("Stub for lean_float32_decLe");
 }
 
@@ -66,15 +66,15 @@ pub fn lean_float32_to_usize(_: f32) -> usize {
     todo!("Stub for lean_float32_to_usize");
 }
 
-pub fn lean_float32_isnan(_: f32) -> u8 {
+pub fn lean_float32_isnan(_: f32) -> bool {
     todo!("Stub for lean_float32_isnan");
 }
 
-pub fn lean_float32_isfinite(_: f32) -> u8 {
+pub fn lean_float32_isfinite(_: f32) -> bool {
     todo!("Stub for lean_float32_isfinite");
 }
 
-pub fn lean_float32_isinf(_: f32) -> u8 {
+pub fn lean_float32_isinf(_: f32) -> bool {
     todo!("Stub for lean_float32_isinf");
 }
 

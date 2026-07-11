@@ -10,7 +10,7 @@ pub fn lean_io_allocprof(_: *mut LeanObject, _: *mut LeanObject) -> *mut LeanObj
     todo!("Stub for lean_io_allocprof");
 }
 
-pub fn lean_io_initializing() -> u8 {
+pub fn lean_io_initializing() -> bool {
     todo!("Stub for lean_io_initializing");
 }
 
@@ -48,7 +48,7 @@ pub fn lean_io_get_random_bytes(_: usize) -> *mut LeanObject {
     todo!("Stub for lean_io_get_random_bytes");
 }
 
-pub fn lean_io_check_canceled() -> u8 {
+pub fn lean_io_check_canceled() -> bool {
     todo!("Stub for lean_io_check_canceled");
 }
 
@@ -116,10 +116,9 @@ pub fn lean_io_prim_handle_unlock(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_prim_handle_unlock");
 }
 
-pub unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> u8 {
+pub unsafe fn lean_io_prim_handle_is_tty(h: *mut LeanObject) -> bool {
     unsafe {
         leanh_l1_initializers::r#priv::lean_io_prim_handle_is_tty::lean_io_prim_handle_is_tty(h)
-            as u8
     }
 }
 

@@ -46,10 +46,10 @@ pub fn lean_task_bind(
     todo!("Stub for lean_task_bind");
 }
 
-pub fn lean_strict_or(a: u8, b: u8) -> u8 {
-    ((a != 0) || (b != 0)) as u8
+pub fn lean_strict_or(a: bool, b: bool) -> bool {
+    a || b
 }
 
-pub fn lean_strict_and(a: u8, b: u8) -> u8 {
-    ((a != 0) && (b != 0)) as u8
+pub fn lean_strict_and(a: bool, b: bool) -> bool {
+    a && b
 }

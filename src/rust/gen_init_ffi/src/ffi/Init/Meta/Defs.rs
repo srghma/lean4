@@ -18,7 +18,7 @@ pub fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_get_githash");
 }
 
-pub fn lean_version_get_is_release(_: *mut LeanObject) -> u8 {
+pub fn lean_version_get_is_release(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_version_get_is_release");
 }
 
@@ -26,10 +26,10 @@ pub fn lean_version_get_special_desc(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_version_get_special_desc");
 }
 
-pub fn lean_internal_is_stage0(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_is_stage0(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_internal_is_stage0");
 }
 
-pub fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> bool {
     todo!("Stub for lean_internal_has_llvm_backend");
 }

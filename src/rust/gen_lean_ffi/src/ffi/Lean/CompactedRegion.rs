@@ -3,13 +3,13 @@
 
 // lean_compacted_region_is_memory_mapped(region : USize) : Bool
 #[inline]
-pub unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
+pub unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> bool {
     // [lean-audit] Lean imports from Rust ([extern]): Rust defined this function and function body is not empty (correct) (✅) | Lean: src/Lean/CompactedRegion.lean:21
     if region == 0 {
-        return 0;
+        return false;
     }
     let r = unsafe { &*(region as *const OleanCompactedRegion) };
-    r.m_is_mmap as u8
+    r.m_is_mmap
 }
 
 // lean_compacted_region_size(region : USize) : USize
