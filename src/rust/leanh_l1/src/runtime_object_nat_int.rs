@@ -125,8 +125,8 @@ pub unsafe fn lean_mpz_hash(o: *const LeanObject) -> u32 {
     mpz_get_si(lean_mpz_val(o)) as i32 as u32
 }
 
-pub unsafe fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> u8 {
-    (mpz_cmp(lean_mpz_val(o1), lean_mpz_val(o2)) == 0) as u8
+pub unsafe fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> bool {
+    mpz_cmp(lean_mpz_val(o1), lean_mpz_val(o2)) == 0
 }
 
 pub unsafe fn lean_alloc_mpz_from_mpz(o: *const LeanObject) -> *mut LeanObject {

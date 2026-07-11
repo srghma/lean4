@@ -1,10 +1,14 @@
-use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
+use leanh_l1::datatypes::{LeanObject, LeanStringObject};
 use leanh_l1::emitted::{lean_box::lean_box, lean_unbox::lean_unbox};
+use leanh_l1::r#priv::lean_runtime_validate_utf8::lean_runtime_validate_utf8;
+use leanh_l1_initializers::r#priv::lean_sarray_size::lean_sarray_size;
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/String/Basic.lean
 
-pub fn lean_string_validate_utf8(_: *mut LeanObject) -> u8 {
-    1
+pub fn lean_string_validate_utf8(a: *mut LeanObject) -> bool {
+    let mut pos: usize = 0;
+    let mut i: usize = 0;
+    lean_runtime_validate_utf8(lean_sarray_cptr(a), lean_sarray_size(a), &mut pos, &mut i)
 }
 
 pub unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject {

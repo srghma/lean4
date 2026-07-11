@@ -8,6 +8,7 @@ use crate::{
 
 #[inline]
 pub unsafe fn lean_usize_to_nat(n: usize) -> *mut LeanObject {
+    // TODO: use likely
     if n <= LEAN_MAX_SMALL_NAT {
         lean_box(n)
     } else {

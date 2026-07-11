@@ -59,12 +59,6 @@ mod runtime_object_string_impl {
         r
     }
 
-    pub unsafe fn lean_string_validate_utf8(a: *const LeanObject) -> u8 {
-        let mut pos: usize = 0;
-        let mut i: usize = 0;
-        lean_runtime_validate_utf8(lean_sarray_cptr(a), lean_sarray_size(a), &mut pos, &mut i) as u8
-    }
-
     // ════════════════════════════════════════════════════════════════════════════
     // String push / append
     // ════════════════════════════════════════════════════════════════════════════

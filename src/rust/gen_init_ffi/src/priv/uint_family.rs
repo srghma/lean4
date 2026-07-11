@@ -1,117 +1,49 @@
-use crate::{
+use leanh_l1::{
     datatypes::LeanObject,
-    emitted::{lean_dec::lean_dec, lean_is_scalar::lean_is_scalar_bool, lean_unbox::lean_unbox},
+    emitted::{lean_dec::lean_dec, lean_is_scalar::lean_is_scalar, lean_unbox::lean_unbox},
     r#priv::lean_usize_to_nat::lean_usize_to_nat,
+    runtime_object_nat_int::{
+        lean_uint8_of_big_nat, lean_uint16_of_big_nat, lean_uint32_of_big_nat,
+        lean_uint64_of_big_nat,
+    },
 };
 
-#[inline]
-pub unsafe fn lean_small_nat(obj: *const LeanObject) -> usize {
-    unsafe {
-        if lean_is_scalar_bool(obj) {
-            lean_unbox(obj)
-        } else {
-            panic!("big Nat is not supported in leanh.rs")
-
-            // LEAN_EXPORT uint8_t lean_uint8_of_big_nat(b_lean_obj_arg a);
-            // static inline uint8_t lean_uint8_of_nat(b_lean_obj_arg a) {
-            //     return lean_is_scalar(a) ? (uint8_t)(lean_unbox(a)) : lean_uint8_of_big_nat(a);
-            // }
-            //
-            // LEAN_EXPORT uint16_t lean_uint16_of_big_nat(b_lean_obj_arg a);
-            // static inline uint16_t lean_uint16_of_nat(b_lean_obj_arg a) {
-            //     return lean_is_scalar(a) ? (int16_t)(lean_unbox(a)) : lean_uint16_of_big_nat(a);
-            // }
-            //
-            // LEAN_EXPORT uint32_t lean_uint32_of_big_nat(b_lean_obj_arg a);
-            // static inline uint32_t lean_uint32_of_nat(b_lean_obj_arg a) {
-            //     return lean_is_scalar(a) ? (uint32_t)(lean_unbox(a)) : lean_uint32_of_big_nat(a);
-            // }
-            //
-            // LEAN_EXPORT uint64_t lean_uint64_of_big_nat(b_lean_obj_arg a);
-            // static inline uint64_t lean_uint64_of_nat(b_lean_obj_arg a) {
-            //     return lean_is_scalar(a) ? (uint64_t)(lean_unbox(a)) : lean_uint64_of_big_nat(a);
-            // }
-            //
-            // LEAN_EXPORT size_t lean_usize_of_big_nat(b_lean_obj_arg a);
-            // static inline size_t lean_usize_of_nat(b_lean_obj_arg a) {
-            //     return lean_is_scalar(a) ? lean_unbox(a) : lean_usize_of_big_nat(a);
-            // }
-        }
-    }
-}
-
-// unsafe fn lean_uint64_to_nat_rust(value: u64) -> *mut LeanObject {
-//     if value <= usize::MAX as u64 >> 1 {
-//         lean_box(value as usize)
-//     } else {
-//         runtime_object_nat_int_impl::lean_big_uint64_to_nat(value)
-//     }
-// }
-//
-// unsafe fn lean_int64_to_int_rust(value: i64) -> *mut LeanObject {
-//     runtime_object_nat_int_impl::lean_big_int64_to_int(value)
-// }
-//
-// unsafe fn lean_uint64_of_nat_rust(value: *mut LeanObject) -> u64 {
-//     if lean_is_scalar(value) {
-//         lean_unbox(value) as u64
-//     } else {
-//         runtime_object_nat_int_impl::lean_uint64_of_big_nat(value)
-//     }
-// }
-
-// #[inline(always)]
-// unsafe fn lean_uint64_of_nat(a: *mut LeanObject) -> u64 {
-//     if lean_is_scalar(a) {
-//         lean_unbox(a) as u64
-//     } else {
-//         lean_uint64_of_big_nat(a)
-//     }
-// }
-//
-// #[inline(always)]
-// unsafe fn lean_usize_of_nat(a: *mut LeanObject) -> usize {
-//     if lean_is_scalar(a) {
-//         lean_unbox(a)
-//     } else {
-//         lean_usize_of_big_nat(a)
-//     }
-// }
-
 macro_rules! define_uint_family {
-    ($ty:ty, $of_nat:ident, $of_nat_mk:ident, $to_nat:ident, $dec_eq:ident, $dec_lt:ident, $dec_le:ident) => {
+    ($ty:ty, $of_nat:ident, $of_nat_mk:ident, $to_nat:ident, $dec_eq:ident, $dec_lt:ident, $dec_le:ident, $of_big_nat:ident) => {
         #[inline]
-        pub unsafe fn $of_nat(obj: *const LeanObject) -> $ty {
-            unsafe { lean_small_nat(obj) as $ty }
-        }
-
-        #[inline]
-        pub unsafe fn $of_nat_mk(obj: *mut LeanObject) -> $ty {
-            unsafe {
-                let result = $of_nat(obj);
-                lean_dec(obj);
-                result
+        pub unsafe fn $of_nat(a: *const LeanObject) -> $ty {
+            if lean_is_scalar(a) {
+                lean_unbox(a) as $ty
+            } else {
+                $of_big_nat(a)
             }
         }
 
         #[inline]
-        pub unsafe fn $to_nat(value: $ty) -> *mut LeanObject {
-            unsafe { lean_usize_to_nat(value as usize) }
+        pub unsafe fn $of_nat_mk(a: *mut LeanObject) -> $ty {
+            let r = $of_nat(a);
+            lean_dec(a);
+            r
         }
 
         #[inline]
-        pub unsafe fn $dec_eq(a: $ty, b: $ty) -> u8 {
-            (a == b) as u8
+        pub unsafe fn $to_nat(a: $ty) -> *mut LeanObject {
+            lean_usize_to_nat(a as usize)
         }
 
         #[inline]
-        pub unsafe fn $dec_lt(a: $ty, b: $ty) -> u8 {
-            (a < b) as u8
+        pub unsafe fn $dec_eq(a1: $ty, a2: $ty) -> bool {
+            a1 == a2
         }
 
         #[inline]
-        pub unsafe fn $dec_le(a: $ty, b: $ty) -> u8 {
-            (a <= b) as u8
+        pub unsafe fn $dec_lt(a1: $ty, a2: $ty) -> bool {
+            a1 < a2
+        }
+
+        #[inline]
+        pub unsafe fn $dec_le(a1: $ty, a2: $ty) -> bool {
+            a1 <= a2
         }
     };
 }
@@ -123,7 +55,8 @@ define_uint_family!(
     lean_uint8_to_nat,
     lean_uint8_dec_eq,
     lean_uint8_dec_lt,
-    lean_uint8_dec_le
+    lean_uint8_dec_le,
+    lean_uint8_of_big_nat
 );
 
 define_uint_family!(
@@ -133,7 +66,8 @@ define_uint_family!(
     lean_uint16_to_nat,
     lean_uint16_dec_eq,
     lean_uint16_dec_lt,
-    lean_uint16_dec_le
+    lean_uint16_dec_le,
+    lean_uint16_of_big_nat
 );
 
 define_uint_family!(
@@ -143,7 +77,8 @@ define_uint_family!(
     lean_uint32_to_nat,
     lean_uint32_dec_eq,
     lean_uint32_dec_lt,
-    lean_uint32_dec_le
+    lean_uint32_dec_le,
+    lean_uint32_of_big_nat
 );
 
 define_uint_family!(
@@ -153,5 +88,6 @@ define_uint_family!(
     lean_uint64_to_nat,
     lean_uint64_dec_eq,
     lean_uint64_dec_lt,
-    lean_uint64_dec_le
+    lean_uint64_dec_le,
+    lean_uint64_of_big_nat
 );

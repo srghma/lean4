@@ -4,6 +4,7 @@ use crate::{
     datatypes::Size, r#priv::lean_runtime_validate_utf8_one::lean_runtime_validate_utf8_one,
 };
 
+// in cpp this is just validate_utf8
 pub unsafe fn lean_runtime_validate_utf8(
     text: *const c_uchar,
     size: Size,
