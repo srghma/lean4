@@ -7,7 +7,7 @@ use leanh_l1::{
         lean_ctor_set_uint64::lean_ctor_set_uint64, lean_obj_tag::lean_obj_tag,
     },
     r#priv::lean_string_cstr::lean_string_cstr,
-    runtime_object_nat_int::lean_uint64_mix_hash,
+    r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
 
 const LEAN_NAME_ANONYMOUS_TAG: u8 = 0;

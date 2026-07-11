@@ -1,7 +1,7 @@
 use std::ffi::c_char;
 
 use leanh_l1::{
-    datatypes::{LEAN_MAX_SMALL_NAT, LeanObject, LeanScalarArray, LeanStringObject},
+    datatypes::{LeanObject, LeanScalarArray, LeanStringObject},
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_box::lean_box, lean_ctor_get::lean_ctor_get,
         lean_ctor_set::lean_ctor_set, lean_dec::lean_dec, lean_inc::lean_inc,
@@ -10,10 +10,6 @@ use leanh_l1::{
     r#priv::{
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
         lean_usize_to_nat::lean_usize_to_nat,
-    },
-    runtime_object_nat_int::{
-        lean_nat_big_add, lean_nat_big_div, lean_nat_big_mod, lean_nat_big_mul, lean_nat_big_sub,
-        lean_nat_overflow_mul,
     },
     runtime_object_panic::lean_internal_panic_out_of_memory::{c_char_ptr, lean_internal_panic},
 };
@@ -121,93 +117,17 @@ pub unsafe fn lean_sorry(_: u8) -> ! {
     lean_internal_panic(c_char_ptr(b"executed 'sorry'\0"))
 }
 
-#[inline]
-pub unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(a1) && lean_is_scalar(a2) {
-        lean_usize_to_nat(lean_unbox(a1).wrapping_add(lean_unbox(a2)))
-    } else {
-        lean_nat_big_add(a1, a2)
-    }
-}
-
-#[inline]
-pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-        let n1 = lean_unbox(a as *const _);
-        if n1 == 0 {
-            return a;
-        }
-        let n2 = lean_unbox(b as *const _);
-        let r = n1.wrapping_mul(n2);
-        if r <= LEAN_MAX_SMALL_NAT && r / n1 == n2 {
-            lean_box(r)
-        } else {
-            lean_nat_overflow_mul(n1, n2)
-        }
-    } else {
-        lean_nat_big_mul(a, b)
-    }
-}
-
-#[inline]
-pub unsafe fn lean_nat_pow(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    // TODO reexport src/rust/leanh_l1/src/runtime_object_nat_int.rs|396 col 12-28| pub unsafe fn lean_nat_pow(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
-
-    unsafe { leanh::lean_nat_pow(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-    unsafe { leanh::lean_nat_dec_eq(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> bool {
-    unsafe { leanh::lean_nat_dec_le(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_nat_pred(a: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_nat_pred(a) }
-}
-
-#[inline]
-pub unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
-    unsafe { leanh::lean_nat_dec_lt(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-        let n1 = lean_unbox(a as *const _);
-        let n2 = lean_unbox(b as *const _);
-        lean_box(if n1 >= n2 { n1 - n2 } else { 0 })
-    } else {
-        lean_nat_big_sub(a, b)
-    }
-}
-
-#[inline]
-pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-        let n1 = lean_unbox(a as *const _);
-        let n2 = lean_unbox(b as *const _);
-        lean_box(if n2 == 0 { 0 } else { n1 / n2 })
-    } else {
-        lean_nat_big_div(a, b)
-    }
-}
-
-#[inline]
-pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-        let n1 = lean_unbox(a as *const _);
-        let n2 = lean_unbox(b as *const _);
-        lean_box(if n2 == 0 { n1 } else { n1 % n2 })
-    } else {
-        lean_nat_big_mod(a, b)
-    }
-}
+pub use leanh_l1::runtime_object_nat_int::lean_nat_add;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_dec_eq;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_dec_le;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_dec_lt;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_div;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_mod;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_mul;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_pow;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_pred;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_to_int;
+pub use leanh_l1::runtime_object_nat_int::lean_nat_sub;
 
 #[inline]
 pub unsafe fn lean_system_platform_nbits(unit: *mut LeanObject) -> *mut LeanObject {
@@ -308,10 +228,7 @@ pub unsafe fn lean_panic_fn_borrowed(
     unsafe { leanh::lean_panic_fn_borrowed(default_val, msg) }
 }
 
-#[inline]
-pub fn lean_uint64_mix_hash(a: u64, b: u64) -> u64 {
-    leanh::lean_uint64_mix_hash(a, b)
-}
+pub use leanh_l1::r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash;
 
 #[inline]
 pub unsafe fn lean_string_hash(s: *mut LeanObject) -> u64 {

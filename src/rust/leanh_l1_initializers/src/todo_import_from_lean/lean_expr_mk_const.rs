@@ -6,7 +6,7 @@ use leanh_l1::{
         lean_ctor_set_uint64::lean_ctor_set_uint64, lean_is_scalar::lean_is_scalar,
         lean_obj_tag::lean_obj_tag,
     },
-    runtime_object_nat_int::lean_uint64_mix_hash,
+    r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
 
 const EXPR_CONST_TAG: u32 = 4;

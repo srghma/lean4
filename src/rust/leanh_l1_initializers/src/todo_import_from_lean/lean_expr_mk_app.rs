@@ -4,7 +4,7 @@ use leanh_l1::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_get_uint64::lean_ctor_get_uint64,
         lean_ctor_set::lean_ctor_set, lean_ctor_set_uint64::lean_ctor_set_uint64,
     },
-    runtime_object_nat_int::lean_uint64_mix_hash,
+    r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
 
 const EXPR_APP_TAG: u32 = 5;
