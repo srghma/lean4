@@ -3,6 +3,9 @@
 // exact-text variant: no
 
 use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
+use leanh_l1::emitted::{
+    lean_mk_string_unchecked::lean_mk_string_unchecked, lean_unbox::lean_unbox,
+};
 
 pub unsafe fn lean_string_utf8_extract(
     s: *mut LeanObject,

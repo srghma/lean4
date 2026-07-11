@@ -8,7 +8,10 @@ use leanh_l1::{
 };
 use leanh_l1_initializers::r#priv::lean_string_size::lean_string_size;
 
-use crate::{lean_string_length, r#priv::lean_string_capacity::lean_string_capacity};
+use crate::{
+    ffi::common::lean_string_length::lean_string_length,
+    r#priv::lean_string_capacity::lean_string_capacity,
+};
 
 pub(crate) unsafe fn string_ensure_capacity(o: *mut LeanObject, extra: usize) -> *mut LeanObject {
     debug_assert!(lean_is_exclusive(o));

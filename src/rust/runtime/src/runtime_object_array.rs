@@ -30,11 +30,6 @@ mod runtime_object_array_impl {
     }
 
     #[inline]
-    unsafe fn lean_sarray_mut_cptr(o: *mut LeanObject) -> *mut u8 {
-        (o as *mut u8).add(core::mem::size_of::<LeanScalarArray>())
-    }
-
-    #[inline]
     unsafe fn nat_to_size_t(n: *mut LeanObject) -> usize {
         if lean_is_scalar(n) {
             lean_unbox(n)

@@ -350,4 +350,113 @@ pub unsafe fn lean_string_mk(chars: *mut LeanObject) -> *mut LeanObject {
 }
 ```
 
-I do commit 
+I do commit `gaa && gc -m 'lean_string_mk'`
+
+and continue with next small function
+
+Rules:
+- we dont want leanh
+- we dont want the glob imports `use xxx::*`
+- prepend rtk to every shell command . e.g. `rtk cargo check`
+- You should CUT OUT function implementation from runtime or leanh_l2 to gen_init_ffi AS IS!!! dont change. CUT OUT ONE BY ONE AS NEEDED.
+- if You are trying to implement `src/rust/gen_init_ffi/src/ffi/common/**/*.rs` or `~/projects/lean4/src/rust/gen_init_ffi/src/ffi/Init/**/*.rs` then just CUT OUT. ELSE - use `~/projects/lean4/srghmascripts/move_rust_fn_to_gen_init_ffi.ts fn1 fn2` tool so that functions that are exported not from `src/rust/gen_init_ffi/src/ffi/common/**/*.rs` or `~/projects/lean4/src/rust/gen_init_ffi/src/ffi/Init/**/*.rs` live in `priv` dir
+
+
+e.g. to implement next func `lean_string_to_utf8` I have called
+
+```sh
+
+ ~/projects/lean4/src/rust/gen_init_ffi  ↱ rust-rewrite ±  ~/projects/lean4/srghmascripts/move_rust_fn_to_gen_init_ffi.ts lean_alloc_sarray
+
+Forbidden bodies in leanh_l1 / leanh_l1_initializers: 1
+- src/rust/leanh_l1_initializers/src/priv/lean_alloc_sarray.rs:7-28
+Forbidden decls in leanh_l1 / leanh_l1_initializers: 0
+94 |   );
+95 |   if (forbiddenBodies.length === 0 && forbiddenDecls.length === 0) return;
+96 |
+97 |   await printOccurrences("Forbidden bodies in leanh_l1 / leanh_l1_initializers", forbiddenBodies);
+98 |   await printOccurrences("Forbidden decls in leanh_l1 / leanh_l1_initializers", forbiddenDecls);
+99 |   throw new Error(
+                 ^
+error: refusing to move lean_alloc_sarray: it already exists in leanh_l1 or leanh_l1_initializers, so it must not be moved into gen_init_ffi
+      at assertNotInForbiddenRoots (/home/srghma/projects/lean4/srghmascripts/move_rust_fn_to_gen_init_ffi.ts:99:13)
+      at async main (/home/srghma/projects/lean4/srghmascripts/move_rust_fn_to_gen_init_ffi.ts:135:11)
+
+
+$ ~/projects/lean4/srghmascripts/move_rust_fn_to_gen_init_ffi.ts lean_sarray_mut_cptr
+Current tree bodies: 2
+- src/rust/runtime/src/runtime_object_string.rs:24-28
+- src/rust/runtime/src/runtime_object_array.rs:31-35
+Current tree decls: 0
+
+Original tree: 2
+- ../lean4-rust/src/rust/lean_runtime/src/runtime_object_string.rs:35-39
+- ../lean4-rust/src/rust/lean_runtime/src/runtime_object_array.rs:67-71
+
+Destination: src/rust/gen_init_ffi/src/priv
+Distinct bodies: 2
+- body #1: 2 occurrence(s)
+  - ../lean4-rust/src/rust/lean_runtime/src/runtime_object_string.rs:35-39
+  - src/rust/runtime/src/runtime_object_string.rs:24-28
+- body #2: 2 occurrence(s)
+  - ../lean4-rust/src/rust/lean_runtime/src/runtime_object_array.rs:67-71
+  - src/rust/runtime/src/runtime_object_array.rs:31-35
+
+Wrote lean_sarray_mut_cptr into src/rust/gen_init_ffi/src/priv/lean_sarray_mut_cptr.rs and removed current-tree bodies/declarations outside src/rust/gen_init_ffi/src.
+```
+
+
+so I changed
+
+```
+pub(crate) unsafe fn lean_alloc_sarray(
+    elem_size: c_uint,
+    size: Size,
+    capacity: Size,
+) -> *mut LeanObject {
+```
+
+to pub
+
+then imported
+
+and very good that I used tool for `lean_sarray_mut_cptr` bc it identified that it was duplicated in `runtime`, so it cut out both occurences.
+
+I got
+
+```rs
+use leanh_l1::datatypes::{
+    LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject, Size,
+};
+use std::ffi::c_void;
+
+// appended by move_rust_fn_to_gen_init_ffi.ts from ../lean4-rust/src/rust/lean_runtime/src/runtime_object_string.rs:35-39 and from src/rust/runtime/src/runtime_object_string.rs:24-28
+
+#[inline]
+pub(crate) unsafe fn lean_sarray_mut_cptr(o: *mut LeanObject) -> *mut u8 {
+    (o as *mut u8).add(size_of::<LeanScalarArray>())
+}
+
+// appended by move_rust_fn_to_gen_init_ffi.ts from ../lean4-rust/src/rust/lean_runtime/src/runtime_object_array.rs:67-71 and from src/rust/runtime/src/runtime_object_array.rs:31-35
+
+#[inline]
+pub(crate) unsafe fn lean_sarray_mut_cptr(o: *mut LeanObject) -> *mut u8 {
+    (o as *mut u8).add(core::mem::size_of::<LeanScalarArray>())
+}
+```
+
+and fixed it to
+
+```rs
+use leanh_l1::datatypes::{LeanObject, LeanScalarArray};
+
+#[inline]
+pub(crate) unsafe fn lean_sarray_mut_cptr(o: *mut LeanObject) -> *mut u8 {
+    (o as *mut u8).add(core::mem::size_of::<LeanScalarArray<0>>())
+}
+```
+
+
+so I did the last ` ~/projects/lean4/src/rust/gen_init_ffi  ↱ rust-rewrite ±✚  rustfmt --edition=2024 --style-edition=2024 --unstable-features ./**/*.rs`
+
+and comitted

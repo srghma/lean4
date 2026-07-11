@@ -1,4 +1,5 @@
 use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
+use leanh_l1::emitted::{lean_box::lean_box, lean_unbox::lean_unbox};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/String/Basic.lean
 

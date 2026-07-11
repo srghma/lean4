@@ -23,11 +23,6 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_sarray_mut_cptr(o: *mut LeanObject) -> *mut u8 {
-        (o as *mut u8).add(size_of::<LeanScalarArray>())
-    }
-
-    #[inline]
     fn lean_char_default_value() -> u32 {
         b'A' as u32
     }
@@ -135,17 +130,6 @@ mod runtime_object_string_impl {
         lean_runtime_validate_utf8(lean_sarray_cptr(a), lean_sarray_size(a), &mut pos, &mut i) as u8
     }
 
-    pub unsafe fn lean_string_to_utf8(s: *mut LeanObject) -> *mut LeanObject {
-        let sz = lean_string_size(s) - 1;
-        let r = lean_alloc_sarray(1, sz, sz);
-        core::ptr::copy_nonoverlapping(
-            lean_string_cstr(s),
-            lean_sarray_mut_cptr(r) as *mut c_char,
-            sz,
-        );
-        r
-    }
-
     // ════════════════════════════════════════════════════════════════════════════
     // String push / append
     // ════════════════════════════════════════════════════════════════════════════
@@ -197,21 +181,6 @@ mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
     // UTF-8 get / next / prev / extract / set
     // ════════════════════════════════════════════════════════════════════════════
-
-    pub unsafe fn lean_string_utf8_get(s: *const LeanObject, i0: *const LeanObject) -> u32 {
-        if lean_is_scalar(i0) {
-            let i = lean_unbox(i0);
-            let str = lean_string_cstr(s) as *const u8;
-            let size = lean_string_size(s) - 1;
-            if i < size {
-                if let Some(cp) = string_utf8_get_core(str, size, i) {
-                    return cp;
-                }
-            }
-        }
-        lean_char_default_value()
-    }
-
     pub unsafe fn lean_string_utf8_get_fast_cold(
         str: *const c_char,
         i: usize,
