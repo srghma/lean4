@@ -3,13 +3,9 @@ use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
 // Generated stub file for Lean FFI imports
 // Source: src/Init/Data/Array/Basic.lean
 
-pub unsafe fn lean_array_size(array: *mut LeanObject) -> usize {
-    unsafe { leanh::lean_array_size(array) }
-}
+pub use leanh_l1::r#priv::lean_array_size::lean_array_size;
 
-pub unsafe fn lean_array_uget(array: *mut LeanObject, idx: usize) -> *mut LeanObject {
-    unsafe { leanh::lean_array_uget(array, idx) }
-}
+pub use cargo::lean_array_uget;
 
 pub unsafe fn lean_array_uget_borrowed(array: *mut LeanObject, idx: usize) -> *mut LeanObject {
     unsafe { leanh::lean_array_uget_borrowed(array, idx) }

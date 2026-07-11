@@ -1,5 +1,6 @@
 use core::ffi::c_char;
 use core::sync::atomic::{AtomicBool, Ordering};
+use std::sync::OnceLock;
 
 use crate::r#priv::print_backtrace::print_backtrace;
 use crate::runtime_object_panic::lean_internal_panic_out_of_memory::{abort_on_panic, cstr_lossy};
@@ -8,16 +9,19 @@ use crate::runtime_object_panic::panic_eprintln::panic_eprintln;
 pub static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
 pub static G_PANIC_MESSAGES: AtomicBool = AtomicBool::new(true);
 
-unsafe fn lean_panic_impl(msg: &[u8], force_stderr: bool) {
+static LEAN_BACKTRACE_DISABLED: OnceLock<bool> = OnceLock::new();
+pub fn lean_panic_impl(msg: &[u8], force_stderr: bool) {
     if G_PANIC_MESSAGES.load(Ordering::Relaxed) {
         panic_eprintln(msg, force_stderr);
 
-        let skip = std::env::var("LEAN_BACKTRACE")
-            .map(|value| value == "0")
-            .unwrap_or(false);
+        let skip = *LEAN_BACKTRACE_DISABLED.get_or_init(|| {
+            std::env::var("LEAN_BACKTRACE")
+                .map(|value| value == "0")
+                .unwrap_or(false)
+        });
         if !skip {
             panic_eprintln(b"backtrace:", force_stderr);
-            print_backtrace(force_stderr);
+            unsafe { print_backtrace(force_stderr) };
         }
     }
 

@@ -98,7 +98,7 @@ fn lean_hash_str(len: usize, text: *const u8, seed: u64) -> u64 {
     hash
 }
 
-unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
+pub unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
     let s = leanh_l1::r#priv::lean_to_string::lean_to_string(s);
     let byte_len = (*s).m_size.saturating_sub(1);
     let text = lean_string_cstr(s as *const LeanObject).cast::<u8>();

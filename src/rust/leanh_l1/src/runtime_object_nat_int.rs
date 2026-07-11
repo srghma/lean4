@@ -8,11 +8,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use core::ffi::{c_char, c_int, c_long, c_ulong};
 
 use gmp_mpfr_sys::gmp::{
-    mpz_add, mpz_add_ui, mpz_and, mpz_clear, mpz_cmp, mpz_cmp_si, mpz_divexact, mpz_fdiv_q_2exp,
-    mpz_fdiv_r_2exp, mpz_gcd, mpz_get_si, mpz_get_ui, mpz_init, mpz_init_set, mpz_init_set_si,
-    mpz_init_set_str, mpz_init_set_ui, mpz_ior, mpz_mul, mpz_mul_2exp, mpz_mul_si, mpz_mul_ui,
-    mpz_neg, mpz_pow_ui, mpz_set, mpz_sub, mpz_sub_ui, mpz_t, mpz_tdiv_q, mpz_tdiv_q_2exp,
-    mpz_tdiv_q_ui, mpz_tdiv_qr, mpz_tdiv_r, mpz_xor,
+    mpz_add, mpz_add_ui, mpz_and, mpz_clear, mpz_cmp, mpz_cmp_si, mpz_divexact, mpz_fdiv_r_2exp,
+    mpz_gcd, mpz_get_si, mpz_init, mpz_init_set, mpz_init_set_si, mpz_init_set_str,
+    mpz_init_set_ui, mpz_ior, mpz_mul, mpz_mul_2exp, mpz_mul_si, mpz_mul_ui, mpz_neg, mpz_pow_ui,
+    mpz_set, mpz_sub, mpz_sub_ui, mpz_t, mpz_tdiv_q, mpz_tdiv_q_2exp, mpz_tdiv_q_ui, mpz_tdiv_qr,
+    mpz_tdiv_r, mpz_xor,
 };
 
 use crate::datatypes::{LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG, LeanMpzObject, LeanObject};
@@ -25,7 +25,8 @@ use crate::r#priv::{
     lean_scalar_to_int64::lean_scalar_to_int64,
 };
 use crate::runtime_mpz::{
-    mpz_ctor_uint64, mpz_get_size_t, mpz_is_size_t, mpz_log2, mpz_sgn, uninit_mpzt,
+    fdiv_q_2exp_ui, fdiv_r_2exp_ui, mpz_ctor_uint64, mpz_get_size_t, mpz_is_size_t, mpz_log2,
+    mpz_sgn, uninit_mpzt,
 };
 use crate::runtime_object_panic::lean_internal_panic_out_of_memory::lean_internal_panic;
 
@@ -333,14 +334,12 @@ pub unsafe fn lean_nat_mod(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut Lea
 }
 
 #[inline]
-pub unsafe fn lean_nat_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool {
-    if core::ptr::eq(a1, a2) {
-        return true;
+pub unsafe fn lean_nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
+    if lean_is_scalar(a) && lean_is_scalar(b) {
+        lean_unbox(a) == lean_unbox(b)
+    } else {
+        lean_nat_big_eq(a as *mut _, b as *mut _)
     }
-    if lean_is_scalar(a1) || lean_is_scalar(a2) {
-        return false;
-    }
-    lean_nat_big_eq(a1, a2)
 }
 
 #[inline]
@@ -900,24 +899,6 @@ pub unsafe fn lean_int_big_nonneg(a: *const LeanObject) -> bool {
 }
 
 // ── UInt ────────────────────────────────────────────────────────────────
-
-unsafe fn fdiv_r_2exp_ui(m: *const mpz_t, bits: u64) -> u64 {
-    let mut tmp = uninit_mpzt();
-    mpz_init(&mut tmp);
-    mpz_fdiv_r_2exp(&mut tmp, m, bits);
-    let v = mpz_get_ui(&tmp) as u64;
-    mpz_clear(&mut tmp);
-    v
-}
-
-unsafe fn fdiv_q_2exp_ui(m: *const mpz_t, bits: u64) -> u64 {
-    let mut tmp = uninit_mpzt();
-    mpz_init(&mut tmp);
-    mpz_fdiv_q_2exp(&mut tmp, m, bits);
-    let v = mpz_get_ui(&tmp) as u64;
-    mpz_clear(&mut tmp);
-    v
-}
 
 unsafe fn mod64(m: *const mpz_t) -> u64 {
     let mut r = uninit_mpzt();

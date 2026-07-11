@@ -14,8 +14,8 @@ const EXPR_CONST_FIELDS: u32 = 2;
 const EXPR_CONST_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
 const EXPR_CONST_HASH_SEED: u64 = 5;
 const EXPR_LEVELS_HASH_SEED: u64 = 7;
-const NAME_HASH_OFFSET: u32 = (core::mem::size_of::<*mut LeanObject>() * 2) as u32;
-const EXPR_DATA_OFFSET: u32 = (core::mem::size_of::<*mut LeanObject>() * 2) as u32;
+const NAME_HASH_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
+pub const EXPR_DATA_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
 
 const LEVEL_ZERO_HASH: u64 = 2221;
 const LEVEL_DATA_HAS_MVAR_SHIFT: u32 = 32;
@@ -120,7 +120,7 @@ unsafe fn any_level_param(mut levels: *const LeanObject) -> bool {
 #[inline]
 unsafe fn name_hash(name: *const LeanObject) -> u64 {
     debug_assert!(!lean_is_scalar(name));
-    lean_ctor_get_uint64(name, NAME_HASH_OFFSET)
+    lean_ctor_get_uint64(name, NAME_HASH_OFFSET as u32)
 }
 
 pub unsafe fn lean_expr_mk_const(

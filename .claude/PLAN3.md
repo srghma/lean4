@@ -355,6 +355,7 @@ I do commit `gaa && gc -m 'lean_string_mk'`
 and continue with next small function
 
 Rules:
+- we dont use u8 anymore where bool should be, we use bool
 - we dont want leanh
 - we dont want the glob imports `use xxx::*`
 - prepend rtk to every shell command . e.g. `rtk cargo check`

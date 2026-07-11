@@ -19,7 +19,6 @@ use leanh::{
 unsafe extern "C" {
     pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_alloc_object(size: usize) -> *mut LeanObject; // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 459 (🔁)
-    pub fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
@@ -28,7 +27,6 @@ unsafe extern "C" {
         value: *mut LeanObject,
         promise: *mut LeanObject,
     ) -> *mut LeanObject;
-    pub fn lean_mark_mt(obj: *mut LeanObject);
     pub fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_options_get_bool(
@@ -101,11 +99,6 @@ pub struct LeanNameGenerator {
 pub struct LeanOptionalName {
     some: bool,
     value: LeanName,
-}
-
-pub(crate) unsafe fn lean_array_get(obj: *const LeanObject, idx: usize) -> *mut LeanObject {
-    let array = obj as *const LeanArrayObject<0>;
-    (*array).m_data.as_ptr().add(idx).read()
 }
 
 pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
@@ -258,10 +251,6 @@ include!("library_ir_interpreter.rs");
 include!("library_llvm.rs");
 include!("kernel_num.rs");
 include!("kernel_trace.rs");
-
-pub unsafe fn lean_name_eq_export(n1: *const LeanObject, n2: *const LeanObject) -> bool {
-    runtime_object_name_impl::lean_name_eq(n1, n2)
-}
 
 pub unsafe fn lean_finalize_external_classes() {
     let mut classes = EXTERNAL_CLASSES.lock().unwrap();

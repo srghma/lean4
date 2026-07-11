@@ -32,7 +32,7 @@ unsafe fn timer_foreach(obj: *mut c_void, f: *mut LeanObject) {
 }
 
 #[inline]
-unsafe extern "C" fn close_free_handle(handle: *mut uv_handle_t) {
+unsafe extern "C" fn lean_uv_timer_close_free_handle(handle: *mut uv_handle_t) {
     libc::free(handle.cast());
 }
 
@@ -46,7 +46,7 @@ pub unsafe fn lean_uv_timer_finalizer(ptr: *mut c_void) {
     event_loop_lock(addr_of_mut!(GLOBAL_EV));
     uv_close(
         (*timer).uv_timer.cast::<uv_handle_t>(),
-        Some(close_free_handle),
+        Some(lean_uv_timer_close_free_handle),
     );
     event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 

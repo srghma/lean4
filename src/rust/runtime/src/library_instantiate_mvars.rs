@@ -73,7 +73,6 @@ mod library_instantiate_mvars_impl {
             idx: *mut LeanObject,
             structure: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     }
 
     // Level data bit 32 = hasMVar.

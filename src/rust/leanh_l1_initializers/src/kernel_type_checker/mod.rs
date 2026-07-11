@@ -5,4 +5,3 @@ pub mod lean_mk_list_cons;
 pub mod lean_mk_list_nil;
 pub mod lean_name_anonymous;
 pub mod lean_name_eq;
-pub mod lean_nat_eq;

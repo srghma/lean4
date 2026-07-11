@@ -15,18 +15,12 @@ mod runtime_object_array_impl {
     unsafe extern "C" {
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
-        fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
         fn lean_hash_str(len: usize, text: *const u8, seed: u64) -> u64;
     }
 
     #[inline]
     unsafe fn lean_array_capacity(o: *const LeanObject) -> usize {
         (*(o as *const LeanArrayObject)).capacity
-    }
-
-    #[inline]
-    unsafe fn lean_sarray_elem_size(o: *const LeanObject) -> usize {
-        (*o).other as usize
     }
 
     #[inline]
@@ -54,52 +48,12 @@ mod runtime_object_array_impl {
         r
     }
 
-    unsafe fn lean_sarray_ensure_exclusive(a: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_exclusive(a) {
-            a
-        } else {
-            copy_sarray_with_capacity(a, lean_sarray_capacity(a))
-        }
-    }
-
     pub unsafe fn lean_copy_sarray(a: *mut LeanObject, cap: usize) -> *mut LeanObject {
         copy_sarray_with_capacity(a, cap)
     }
 
-    pub unsafe fn lean_sarray_ensure_capacity(
-        a: *mut LeanObject,
-        min_cap: usize,
-        exact: bool,
-    ) -> *mut LeanObject {
-        let cap = lean_sarray_capacity(a);
-        if min_cap <= cap {
-            a
-        } else {
-            let new_cap = if exact {
-                min_cap
-            } else {
-                min_cap
-                    .checked_mul(2)
-                    .unwrap_or_else(|| lean_internal_panic_out_of_memory())
-            };
-            copy_sarray_with_capacity(a, new_cap)
-        }
-    }
-
     pub unsafe fn lean_copy_byte_array(a: *mut LeanObject) -> *mut LeanObject {
         copy_sarray_with_capacity(a, lean_sarray_capacity(a))
-    }
-
-    pub unsafe fn lean_byte_array_push(a: *mut LeanObject, b: u8) -> *mut LeanObject {
-        let r = lean_sarray_ensure_exclusive(lean_sarray_ensure_capacity(
-            a,
-            lean_sarray_size(a) + 1,
-            false,
-        ));
-        let sz = &mut (*(r as *mut LeanScalarArray)).size;
-        *lean_sarray_mut_cptr(r).add(*sz) = b;
-        *sz += 1;
-        r
     }
 
     pub unsafe fn lean_byte_array_copy_slice(
@@ -192,13 +146,6 @@ mod runtime_object_array_impl {
         r
     }
 
-    pub unsafe fn lean_array_get_panic(def_val: *mut LeanObject) -> *mut LeanObject {
-        lean_panic_fn(
-            def_val,
-            lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()),
-        )
-    }
-
     pub unsafe fn lean_array_set_panic(a: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
         lean_dec(v);
         lean_panic_fn(
@@ -223,58 +170,5 @@ mod runtime_object_array_impl {
             }
             (*thunk).m_value.load(Ordering::Acquire)
         }
-    }
-
-    pub unsafe fn lean_copy_expand_array(a: *mut LeanObject, expand: bool) -> *mut LeanObject {
-        let sz = lean_array_size(a);
-        let mut cap = lean_array_capacity(a);
-        debug_assert!(cap >= sz);
-        if expand {
-            cap = cap
-                .checked_add(1)
-                .and_then(|v| v.checked_mul(2))
-                .unwrap_or_else(|| lean_internal_panic_out_of_memory());
-            debug_assert!(cap > sz);
-        }
-        let r = lean_alloc_array(sz, cap);
-        let src = lean_array_cptr(a);
-        let dst = lean_array_cptr(r);
-        if lean_is_exclusive(a) {
-            core::ptr::copy_nonoverlapping(src, dst, sz);
-            lean_free_object(a);
-        } else {
-            for i in 0..sz {
-                let value = *src.add(i);
-                *dst.add(i) = value;
-                lean_inc(value);
-            }
-            lean_dec(a);
-        }
-        r
-    }
-
-    #[inline(never)]
-    pub unsafe fn lean_copy_expand_array_nonlinear(
-        a: *mut LeanObject,
-        expand: bool,
-    ) -> *mut LeanObject {
-        lean_copy_expand_array(a, expand)
-    }
-
-    pub unsafe fn lean_array_push(a: *mut LeanObject, v: *mut LeanObject) -> *mut LeanObject {
-        let r = if lean_is_exclusive(a) {
-            if lean_array_capacity(a) > lean_array_size(a) {
-                a
-            } else {
-                lean_copy_expand_array(a, true)
-            }
-        } else {
-            lean_copy_expand_array_nonlinear(a, lean_array_capacity(a) < 2 * lean_array_size(a) + 1)
-        };
-        debug_assert!(lean_array_capacity(r) > lean_array_size(r));
-        let sz = &mut (*(r as *mut LeanArrayObject)).size;
-        *lean_array_cptr(r).add(*sz) = v;
-        *sz += 1;
-        r
     }
 }

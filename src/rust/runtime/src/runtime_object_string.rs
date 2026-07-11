@@ -9,18 +9,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_object_string_impl {
     use crate::*;
     use core::ffi::c_char;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::mem::size_of;
     use leanh::LEAN_MAX_SMALL_NAT;
-
-    unsafe extern "C" {
-        fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
-    }
-
-    #[inline]
-    unsafe fn lean_sarray_elem_size(o: *const LeanObject) -> usize {
-        (*o).other as usize
-    }
 
     #[inline]
     unsafe fn lean_nat_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
@@ -318,12 +309,6 @@ mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
     // String hash / memcmp / of_usize
     // ════════════════════════════════════════════════════════════════════════════
-
-    pub unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
-        let sz = lean_string_size(s) - 1;
-        let str = lean_string_cstr(s) as *const u8;
-        lean_hash_str(sz, str, 11)
-    }
 
     pub unsafe fn lean_string_memcmp(
         s1: *mut LeanObject,

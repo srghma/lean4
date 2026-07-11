@@ -10,10 +10,6 @@ mod runtime_io_ref_impl {
     use core::sync::atomic::{AtomicPtr, Ordering};
     use leanh::LEAN_REF_TAG;
 
-    unsafe extern "C" {
-        fn lean_mark_mt(obj: *mut LeanObject);
-    }
-
     #[repr(C)]
     struct LeanRefObject {
         // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)

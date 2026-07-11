@@ -30,7 +30,7 @@ unsafe fn signal_foreach(obj: *mut c_void, f: *mut LeanObject) {
     }
 }
 
-unsafe extern "C" fn close_free_handle(handle: *mut uv_handle_t) {
+unsafe extern "C" fn lean_uv_signal_close_free_handle(handle: *mut uv_handle_t) {
     libc::free(handle.cast());
 }
 
@@ -44,7 +44,7 @@ pub unsafe fn lean_uv_signal_finalizer(ptr: *mut c_void) {
     event_loop_lock(addr_of_mut!(GLOBAL_EV));
     uv_close(
         (*signal).uv_signal.cast::<uv_handle_t>(),
-        Some(close_free_handle),
+        Some(lean_uv_signal_close_free_handle),
     );
     event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 

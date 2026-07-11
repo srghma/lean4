@@ -12,9 +12,7 @@ pub fn lean_task_pure(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_task_pure");
 }
 
-pub fn lean_task_get_own(t: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh_l1_lean_task_get_own(t) }
-}
+pub use leanh_l1::runtime_object_task::lean_task_get_own::lean_task_get_own;
 
 pub unsafe fn lean_thunk_pure(value: *mut LeanObject) -> *mut LeanObject {
     unsafe { leanh::lean_thunk_pure(value) }

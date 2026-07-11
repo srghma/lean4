@@ -165,15 +165,6 @@ mod library_ir_interpreter_impl {
     }
 
     #[inline(always)]
-    unsafe fn lean_array_get(obj: *mut LeanObject, idx: usize) -> *mut LeanObject {
-        (obj as *const u8)
-            .add(24)
-            .cast::<*mut LeanObject>()
-            .add(idx)
-            .read()
-    }
-
-    #[inline(always)]
     unsafe fn lean_io_mk_world() -> *mut LeanObject {
         lean_box(0)
     }

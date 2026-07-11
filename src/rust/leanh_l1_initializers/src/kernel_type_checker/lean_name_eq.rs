@@ -2,15 +2,15 @@ use leanh_l1::{
     datatypes::LeanObject,
     emitted::{lean_ctor_get::lean_ctor_get, lean_is_scalar::lean_is_scalar},
     r#priv::lean_ptr_tag::lean_ptr_tag,
+    runtime_object_nat_int::lean_nat_eq,
 };
 
-use crate::{
-    kernel_type_checker::lean_nat_eq::lean_nat_eq,
-    runtime_object_name::{lean_name_hash_ptr::lean_name_hash_ptr, lean_string_eq::lean_string_eq},
+use crate::runtime_object_name::{
+    lean_name_hash_ptr::lean_name_hash_ptr, lean_string_eq::lean_string_eq,
 };
 
 #[inline(always)]
-pub(crate) unsafe fn lean_name_eq(mut n1: *const LeanObject, mut n2: *const LeanObject) -> bool {
+pub unsafe fn lean_name_eq(mut n1: *const LeanObject, mut n2: *const LeanObject) -> bool {
     if n1 == n2 {
         return true;
     }

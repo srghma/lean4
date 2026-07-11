@@ -20,14 +20,14 @@ use gmp_mpfr_sys::gmp::{
     mpz_divexact as gmp_mpz_divexact, mpz_fdiv_q_2exp, mpz_fdiv_r_2exp, mpz_fits_sint_p,
     mpz_fits_uint_p, mpz_gcd, mpz_get_si, mpz_get_ui, mpz_getlimbn, mpz_init, mpz_init_set,
     mpz_init_set_si, mpz_init_set_str, mpz_init_set_ui, mpz_ior, mpz_mul, mpz_mul_2exp, mpz_mul_si,
-    mpz_mul_ui, mpz_neg, mpz_pow_ui, mpz_set, mpz_size, mpz_sizeinbase, mpz_sub, mpz_sub_ui,
-    mpz_swap as gmp_mpz_swap, mpz_t, mpz_tdiv_q, mpz_tdiv_q_2exp, mpz_tdiv_q_ui, mpz_tdiv_qr,
-    mpz_tdiv_r, mpz_xor,
+    mpz_mul_ui, mpz_neg, mpz_pow_ui, mpz_set, mpz_size, mpz_sizeinbase, mpz_sub, mpz_sub_ui, mpz_t,
+    mpz_tdiv_q, mpz_tdiv_q_2exp, mpz_tdiv_q_ui, mpz_tdiv_qr, mpz_tdiv_r, mpz_xor,
 };
 
 // mpz_sgn is a GMP macro; implement it directly from the struct fields.
+// lean::mpz::sgn() const
 #[inline]
-pub(crate) unsafe fn mpz_sgn(op: *const mpz_t) -> c_int {
+pub unsafe fn mpz_sgn(op: *const mpz_t) -> c_int {
     let size = (*op).size;
     if size < 0 {
         -1
@@ -49,9 +49,7 @@ pub(crate) fn uninit_mpzt() -> mpz_t {
 }
 
 // lean::mpz::mpz()
-pub unsafe fn mpz_ctor_default(self_: *mut mpz_t) {
-    mpz_init(self_);
-}
+pub use gmp_mpfr_sys::gmp::mpz_init as mpz_ctor_default;
 
 // lean::mpz::mpz(char const*)
 pub unsafe fn mpz_ctor_str(self_: *mut mpz_t, s: *const core::ffi::c_char) {
@@ -122,14 +120,7 @@ pub unsafe fn mpz_set_raw(self_: *const mpz_t, r: *mut mpz_t) {
 }
 
 // lean::swap(mpz&, mpz&)
-pub unsafe fn mpz_swap(a: *mut mpz_t, b: *mut mpz_t) {
-    gmp_mpz_swap(a, b);
-}
-
-// lean::mpz::sgn() const
-pub unsafe fn mpz_sgn_export(self_: *const mpz_t) -> c_int {
-    mpz_sgn(self_)
-}
+pub use gmp_mpfr_sys::gmp::mpz_swap;
 
 // lean::mpz::is_int() const
 pub unsafe fn mpz_is_int(self_: *const mpz_t) -> bool {
@@ -265,7 +256,7 @@ pub unsafe fn div2k(a: *mut mpz_t, b: *const mpz_t, k: u32) {
 }
 
 // Helpers for mod/smod: floor division remainder for 2^bits (returns low 32 bits)
-unsafe fn fdiv_r_2exp_ui(self_: *const mpz_t, bits: u64) -> u64 {
+pub unsafe fn fdiv_r_2exp_ui(self_: *const mpz_t, bits: u64) -> u64 {
     let mut tmp = uninit_mpzt();
     mpz_init(&mut tmp);
     mpz_fdiv_r_2exp(&mut tmp, self_, bits);
@@ -273,7 +264,7 @@ unsafe fn fdiv_r_2exp_ui(self_: *const mpz_t, bits: u64) -> u64 {
     mpz_clear(&mut tmp);
     v
 }
-unsafe fn fdiv_q_2exp_ui(self_: *const mpz_t, bits: u64) -> u64 {
+pub unsafe fn fdiv_q_2exp_ui(self_: *const mpz_t, bits: u64) -> u64 {
     let mut tmp = uninit_mpzt();
     mpz_init(&mut tmp);
     mpz_fdiv_q_2exp(&mut tmp, self_, bits);

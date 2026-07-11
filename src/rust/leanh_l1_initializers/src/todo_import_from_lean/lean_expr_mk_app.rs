@@ -7,10 +7,11 @@ use leanh_l1::{
     r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
 
+use crate::todo_import_from_lean::lean_expr_mk_const::EXPR_DATA_OFFSET;
+
 const EXPR_APP_TAG: u32 = 5;
 const EXPR_APP_FIELDS: u32 = 2;
 const EXPR_APP_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
-const EXPR_DATA_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
 const EXPR_FLAGS_MASK: u64 = 0x0F_u64 << 40;
 const EXPR_DEPTH_SHIFT: u32 = 32;
 const EXPR_DEPTH_MASK: u64 = 0xFF;
