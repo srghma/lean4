@@ -4,11 +4,17 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {
   ensureModLine,
+  ensureFnVisibility,
   findOccurrencesInRoots,
+  findFunctionBodies,
+  groupDistinctBodies,
   lean4Root,
+  listRustFiles,
   moveRustFn,
   printOccurrences,
+  removeBlock,
   rustfmtFiles,
+  sourceRoot,
   usage,
   workRoot,
   type Destination,
@@ -25,6 +31,9 @@ type ExportJsonReport = {
 
 const genInitFfiRoot = path.join(workRoot, "gen_init_ffi/src");
 const genInitFfiLib = path.join(genInitFfiRoot, "lib.rs");
+const commonRoot = path.join(genInitFfiRoot, "ffi/common");
+const commonModuleFile = path.join(commonRoot, "mod.rs");
+const initRoot = path.join(genInitFfiRoot, "ffi/Init");
 const privRoot = path.join(genInitFfiRoot, "priv");
 const privModuleFile = path.join(genInitFfiRoot, "priv.rs");
 const todoRoot = path.join(genInitFfiRoot, "todo_import_from_lean");
@@ -60,7 +69,15 @@ async function loadTodoImportSymbols(): Promise<Set<string>> {
   return new Set(Object.keys(parsed.bySymbol ?? {}));
 }
 
-function destinationFor(fnName: string, todoSymbols: Set<string>): Destination {
+function destinationFor(fnName: string, todoSymbols: Set<string>, commonExists: boolean): Destination {
+  if (commonExists) {
+    return {
+      kind: "ffi_common",
+      targetDir: commonRoot,
+      moduleFile: commonModuleFile,
+      rootModuleFile: genInitFfiLib,
+    };
+  }
   const shouldGoToTodo = todoSymbols.has(fnName);
   if (shouldGoToTodo) {
     return {
@@ -77,6 +94,78 @@ function destinationFor(fnName: string, todoSymbols: Set<string>): Destination {
     rootModuleFile: genInitFfiLib,
     prelude: genericPrelude,
   };
+}
+
+async function findExistingInitBody(fnName: string): Promise<FnOccurrence | null> {
+  const files = await listRustFiles(initRoot);
+  const matches: FnOccurrence[] = [];
+  for (const file of files) {
+    const text = await fs.readFile(file, "utf8");
+    for (const occ of findFunctionBodies(text, fnName)) {
+      occ.file = file;
+      matches.push(occ);
+    }
+  }
+
+  if (matches.length === 0) return null;
+  if (matches.length > 1) {
+    await printOccurrences("Existing gen_init_ffi Init bodies", matches);
+    throw new Error(`expected at most one existing ffi/Init body for ${fnName}`);
+  }
+  return matches[0];
+}
+
+function renderDistinctBodies(distinctBodies: ReturnType<typeof groupDistinctBodies>, logScriptName: string): string {
+  return distinctBodies
+    .map((group) => {
+      const files = group.sources
+        .map((src) => `${src.file}:${src.startLine}-${src.endLine}`)
+        .filter((value, idx, arr) => arr.indexOf(value) === idx)
+        .join(" and from ");
+      return [
+        `// appended by ${logScriptName} from ${files}`,
+        ensureFnVisibility(group.text),
+      ].join("\n");
+    })
+    .join("\n\n");
+}
+
+async function replaceExistingInitBody(
+  fnName: string,
+  initOcc: FnOccurrence,
+  currentBodyOccs: FnOccurrence[],
+  originalOccs: FnOccurrence[],
+) {
+  await printOccurrences("Current tree bodies", currentBodyOccs);
+  await printOccurrences("Original tree", originalOccs);
+
+  const distinctBodies = groupDistinctBodies([...originalOccs, ...currentBodyOccs]);
+  console.log(`\nDestination: ${path.relative(lean4Root, initOcc.file)}`);
+  console.log(`Distinct bodies: ${distinctBodies.length}`);
+  for (const [idx, group] of distinctBodies.entries()) {
+    console.log(`- body #${idx + 1}: ${group.sources.length} occurrence(s)`);
+    for (const src of group.sources) {
+      console.log(`  - ${src.file}:${src.startLine}-${src.endLine}`);
+    }
+  }
+
+  const targetText = await fs.readFile(initOcc.file, "utf8");
+  const replacement = renderDistinctBodies(distinctBodies, "move_rust_fn_to_gen_init_ffi.ts");
+  const stripped = removeBlock(targetText, initOcc).replace(/\n$/, "");
+  const lines = stripped.split(/\r?\n/);
+  const insertAt = Math.max(0, initOcc.startLine - 1);
+  lines.splice(insertAt, 0, replacement, "");
+  await fs.writeFile(initOcc.file, `${lines.join("\n").replace(/\s*$/, "")}\n`, "utf8");
+
+  for (const occ of currentBodyOccs) {
+    const text = await fs.readFile(occ.file, "utf8");
+    await fs.writeFile(occ.file, removeBlock(text, occ), "utf8");
+  }
+
+  await rustfmtFiles([initOcc.file]);
+  console.log(
+    `\nReplaced ${fnName} inside ${path.relative(lean4Root, initOcc.file)} and removed current-tree bodies outside ${path.relative(lean4Root, genInitFfiRoot)}.`,
+  );
 }
 
 async function assertNotInForbiddenRoots(fnName: string) {
@@ -134,6 +223,12 @@ async function main() {
   for (const fnName of fnNames) {
     await assertNotInForbiddenRoots(fnName);
 
+    const commonExists = await fs
+      .stat(path.join(commonRoot, `${fnName}.rs`))
+      .then((s) => s.isFile())
+      .catch(() => false);
+    const initOcc = await findExistingInitBody(fnName);
+
     const currentBodies = await findOccurrencesInRoots(
       [runtimeRoot, leanhL2Root],
       fnName,
@@ -152,11 +247,17 @@ async function main() {
       continue;
     }
 
+    if (initOcc) {
+      const originalBodies = await findOccurrencesInRoots([sourceRoot], fnName, "body", genInitFfiRoot);
+      await replaceExistingInitBody(fnName, initOcc, currentBodies, originalBodies);
+      continue;
+    }
+
     await moveRustFn(fnName, {
       usage: "Usage: move_rust_fn_to_gen_init_ffi.ts <function_name> [function_name ...]",
       currentRoots: [runtimeRoot, leanhL2Root],
       ignoreDir: genInitFfiRoot,
-      getDestination: (_sourceOcc: FnOccurrence) => destinationFor(fnName, todoSymbols),
+      getDestination: (_sourceOcc: FnOccurrence) => destinationFor(fnName, todoSymbols, commonExists),
       logScriptName: "move_rust_fn_to_gen_init_ffi.ts",
       rustfmtTargets: (destination, targetPath) => {
         const targets = [destination.moduleFile, targetPath];

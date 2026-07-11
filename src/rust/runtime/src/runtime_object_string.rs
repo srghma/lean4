@@ -23,15 +23,6 @@ mod runtime_object_string_impl {
     }
 
     #[inline]
-    unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a1) && lean_is_scalar(a2) {
-            lean_usize_to_nat(lean_unbox(a1).wrapping_add(lean_unbox(a2)))
-        } else {
-            crate::runtime_object_nat_int_impl::lean_nat_big_add(a1, a2)
-        }
-    }
-
-    #[inline]
     unsafe fn lean_nat_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a1) && lean_is_scalar(a2) {
             let n1 = lean_unbox(a1);
@@ -199,35 +190,6 @@ mod runtime_object_string_impl {
             }
         }
         string_utf8_get_panic()
-    }
-
-    pub unsafe fn lean_string_utf8_next(
-        s: *mut LeanObject,
-        i0: *mut LeanObject,
-    ) -> *mut LeanObject {
-        if !lean_is_scalar(i0) {
-            return lean_nat_add(i0, lean_box(1));
-        }
-        let i = lean_unbox(i0);
-        let str = lean_string_cstr(s) as *const u8;
-        let size = lean_string_size(s) - 1;
-        if i >= size {
-            return lean_usize_to_nat(i + 1);
-        }
-        let c = *str.add(i);
-        if (c & 0x80) == 0 {
-            return lean_box(i + 1);
-        }
-        if (c & 0xe0) == 0xc0 {
-            return lean_box(i + 2);
-        }
-        if (c & 0xf0) == 0xe0 {
-            return lean_box(i + 3);
-        }
-        if (c & 0xf8) == 0xf0 {
-            return lean_box(i + 4);
-        }
-        lean_box(i + 1)
     }
 
     pub unsafe fn lean_string_utf8_next_fast_cold(i: usize, c: u8) -> *mut LeanObject {

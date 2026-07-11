@@ -1,4 +1,9 @@
-use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
+use leanh_l1::{
+    datatypes::{LeanObject, LeanScalarArray, LeanStringObject},
+    emitted::lean_unbox::lean_unbox,
+    r#priv::lean_usize_to_nat::lean_usize_to_nat,
+    runtime_object_nat_int::lean_nat_big_add,
+};
 
 #[inline]
 pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {
@@ -78,8 +83,12 @@ pub unsafe fn lean_sorry(synthetic: u8) -> *mut LeanObject {
 }
 
 #[inline]
-pub unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_nat_add(a, b) }
+pub unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+    if lean_is_scalar(a1) && lean_is_scalar(a2) {
+        lean_usize_to_nat(lean_unbox(a1).wrapping_add(lean_unbox(a2)))
+    } else {
+        lean_nat_big_add(a1, a2)
+    }
 }
 
 #[inline]

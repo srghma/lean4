@@ -593,15 +593,6 @@ mod kernel_type_checker_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_nat_add(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            lean_usize_to_nat(lean_unbox(a as *const _).wrapping_add(lean_unbox(b as *const _)))
-        } else {
-            runtime_object_nat_int_impl::lean_nat_big_add(a, b)
-        }
-    }
-
-    #[no_mangle]
     pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let n1 = lean_unbox(a as *const _);

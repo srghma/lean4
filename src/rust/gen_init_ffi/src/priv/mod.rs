@@ -8,4 +8,5 @@ pub mod lean_utf8_n_strlen;
 pub mod mk_capacity;
 pub mod string_ensure_capacity;
 pub mod string_utf8_get_core;
+pub mod uint_family;
 pub mod utf8_size;
