@@ -13,7 +13,7 @@ use leanh_l1::{
 };
 
 use crate::{
-    Init::Prelude::lean_is_scalar,
+    ffi::Init::Prelude::lean_is_scalar,
     r#priv::lean_runtime_push_unicode_scalar::lean_runtime_push_unicode_scalar,
 };
 

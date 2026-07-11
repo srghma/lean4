@@ -5,5 +5,3 @@ compile_error!("Lean Rust support crates require 64-bit pointer width");
 
 pub mod ffi;
 pub mod r#priv;
-
-pub use ffi::*;

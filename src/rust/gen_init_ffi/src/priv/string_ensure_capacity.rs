@@ -4,9 +4,11 @@ use leanh_l1::{
         lean_is_exclusive::lean_is_exclusive,
         lean_mk_string_unchecked::{lean_alloc_string, w_string_cstr},
     },
-    r#priv::{lean_free_object::lean_free_object, lean_string_cstr::lean_string_cstr},
+    r#priv::{
+        lean_free_object::lean_free_object, lean_string_cstr::lean_string_cstr,
+        lean_string_size::lean_string_size,
+    },
 };
-use leanh_l1_initializers::r#priv::lean_string_size::lean_string_size;
 
 use crate::{
     ffi::common::lean_string_length::lean_string_length,

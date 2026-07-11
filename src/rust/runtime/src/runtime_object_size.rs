@@ -15,25 +15,6 @@ mod runtime_object_size_impl {
         (*o).cs_size as usize
     }
 
-    #[inline]
-    unsafe fn lean_array_data_byte_size(o: *const LeanObject) -> usize {
-        let array = o as *const LeanArrayObject;
-        core::mem::size_of::<LeanArrayObject>()
-            + core::mem::size_of::<*mut LeanObject>() * (*array).size
-    }
-
-    #[inline]
-    unsafe fn lean_sarray_data_byte_size(o: *const LeanObject) -> usize {
-        let array = o as *const LeanScalarArray;
-        core::mem::size_of::<LeanScalarArray>() + (*o).other as usize * (*array).size
-    }
-
-    #[inline]
-    unsafe fn lean_string_data_byte_size(o: *const LeanObject) -> usize {
-        let string = o as *const LeanStringObject;
-        core::mem::size_of::<LeanStringObject>() + (*string).size
-    }
-
     pub unsafe fn lean_object_byte_size(o: *const LeanObject) -> usize {
         match lean_ptr_tag(o) {
             LEAN_ARRAY_TAG => lean_array_byte_size(o),

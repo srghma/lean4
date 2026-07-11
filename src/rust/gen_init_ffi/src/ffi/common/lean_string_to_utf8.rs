@@ -4,10 +4,11 @@
 
 use std::ffi::c_char;
 
-use leanh_l1::{datatypes::LeanObject, r#priv::lean_string_cstr::lean_string_cstr};
-use leanh_l1_initializers::r#priv::{
-    lean_alloc_sarray::lean_alloc_sarray, lean_string_size::lean_string_size,
+use leanh_l1::{
+    datatypes::LeanObject,
+    r#priv::{lean_string_cstr::lean_string_cstr, lean_string_size::lean_string_size},
 };
+use leanh_l1_initializers::r#priv::lean_alloc_sarray::lean_alloc_sarray;
 
 use crate::r#priv::lean_sarray_mut_cptr::lean_sarray_mut_cptr;
 

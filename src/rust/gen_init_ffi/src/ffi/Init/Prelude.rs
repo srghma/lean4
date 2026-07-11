@@ -1,48 +1,40 @@
 use leanh_l1::{
-    datatypes::{LeanObject, LeanScalarArray, LeanStringObject},
-    emitted::lean_unbox::lean_unbox,
+    datatypes::{LEAN_MAX_SMALL_NAT, LeanObject, LeanScalarArray, LeanStringObject},
+    emitted::{lean_box::lean_box, lean_unbox::lean_unbox},
     r#priv::lean_usize_to_nat::lean_usize_to_nat,
-    runtime_object_nat_int::lean_nat_big_add,
+    runtime_object_nat_int::{
+        lean_nat_big_add, lean_nat_big_div, lean_nat_big_mod, lean_nat_big_mul, lean_nat_big_sub,
+        lean_nat_overflow_mul,
+    },
 };
 
-#[inline]
-pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {
-    unsafe { leanh::lean_uint8_of_nat_mk(n) }
-}
+pub use crate::r#priv::uint_family::lean_uint8_dec_eq;
+pub use crate::r#priv::uint_family::lean_uint8_dec_le;
+pub use crate::r#priv::uint_family::lean_uint8_dec_lt;
+pub use crate::r#priv::uint_family::lean_uint8_of_nat;
+pub use crate::r#priv::uint_family::lean_uint8_of_nat_mk;
 
 // moved lean_uint8_to_nat to ffi/common/lean_uint8_to_nat.rs
 // original source: Init/Prelude.rs:9-11
 
-#[inline]
-pub unsafe fn lean_uint16_of_nat_mk(n: *mut LeanObject) -> u16 {
-    unsafe { leanh::lean_uint16_of_nat_mk(n) }
-}
+pub use crate::r#priv::uint_family::lean_uint16_dec_eq;
+pub use crate::r#priv::uint_family::lean_uint16_of_nat_mk;
 
 // moved lean_uint16_to_nat to ffi/common/lean_uint16_to_nat.rs
 // original source: Init/Prelude.rs:19-21
 
-#[inline]
-pub unsafe fn lean_uint32_of_nat_mk(n: *mut LeanObject) -> u32 {
-    unsafe { leanh::lean_uint32_of_nat_mk(n) }
-}
-
-#[inline]
-pub unsafe fn lean_uint32_to_nat(n: u32) -> *mut LeanObject {
-    unsafe { leanh::lean_uint32_to_nat(n) }
-}
-
-#[inline]
-pub unsafe fn lean_uint64_of_nat_mk(n: *mut LeanObject) -> u64 {
-    unsafe { leanh::lean_uint64_of_nat_mk(n) }
-}
+pub use crate::r#priv::uint_family::lean_uint32_dec_eq;
+pub use crate::r#priv::uint_family::lean_uint32_dec_le;
+pub use crate::r#priv::uint_family::lean_uint32_dec_lt;
+pub use crate::r#priv::uint_family::lean_uint32_of_nat_mk;
+pub use crate::r#priv::uint_family::lean_uint32_to_nat;
+pub use crate::r#priv::uint_family::lean_uint64_dec_eq;
+pub use crate::r#priv::uint_family::lean_uint64_of_nat_mk;
+pub use crate::r#priv::uint_family::lean_usize_dec_eq;
+pub use crate::r#priv::uint_family::lean_usize_of_nat_mk;
 
 // moved lean_uint64_to_nat to ffi/common/lean_uint64_to_nat.rs
 // original source: Init/Prelude.rs:38-40
-
-#[inline]
-pub unsafe fn lean_usize_of_nat_mk(n: *mut LeanObject) -> usize {
-    unsafe { leanh::lean_usize_of_nat_mk(n) }
-}
 
 // moved lean_usize_to_nat to ffi/common/lean_usize_to_nat.rs
 // original source: Init/Prelude.rs:46-48
@@ -93,7 +85,21 @@ pub unsafe fn lean_nat_add(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut Lea
 
 #[inline]
 pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_nat_mul(a, b) }
+    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
+        let n1 = lean_unbox(a as *const _);
+        if n1 == 0 {
+            return a;
+        }
+        let n2 = lean_unbox(b as *const _);
+        let r = n1.wrapping_mul(n2);
+        if r <= LEAN_MAX_SMALL_NAT && r / n1 == n2 {
+            lean_box(r)
+        } else {
+            lean_nat_overflow_mul(n1, n2)
+        }
+    } else {
+        lean_nat_big_mul(a, b)
+    }
 }
 
 #[inline]
@@ -123,17 +129,35 @@ pub unsafe fn lean_nat_dec_lt(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
 
 #[inline]
 pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_nat_sub(a, b) }
+    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
+        let n1 = lean_unbox(a as *const _);
+        let n2 = lean_unbox(b as *const _);
+        lean_box(if n1 >= n2 { n1 - n2 } else { 0 })
+    } else {
+        lean_nat_big_sub(a, b)
+    }
 }
 
 #[inline]
 pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_nat_div(a, b) }
+    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
+        let n1 = lean_unbox(a as *const _);
+        let n2 = lean_unbox(b as *const _);
+        lean_box(if n2 == 0 { 0 } else { n1 / n2 })
+    } else {
+        lean_nat_big_div(a, b)
+    }
 }
 
 #[inline]
 pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_nat_mod(a, b) }
+    if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
+        let n1 = lean_unbox(a as *const _);
+        let n2 = lean_unbox(b as *const _);
+        lean_box(if n2 == 0 { n1 } else { n1 % n2 })
+    } else {
+        lean_nat_big_mod(a, b)
+    }
 }
 
 #[inline]
@@ -141,67 +165,17 @@ pub unsafe fn lean_system_platform_nbits(unit: *mut LeanObject) -> *mut LeanObje
     unsafe { leanh::lean_system_platform_nbits(unit) }
 }
 
-#[inline]
-pub unsafe fn lean_uint8_of_nat(n: *mut LeanObject) -> u8 {
-    unsafe { leanh::lean_uint8_of_nat(n) }
-}
-
-#[inline]
-pub unsafe fn lean_uint8_dec_eq(a: u8, b: u8) -> u8 {
-    unsafe { leanh::lean_uint8_dec_eq(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_uint8_dec_lt(a: u8, b: u8) -> u8 {
-    unsafe { leanh::lean_uint8_dec_lt(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_uint8_dec_le(a: u8, b: u8) -> u8 {
-    unsafe { leanh::lean_uint8_dec_le(a, b) }
-}
-
 // moved lean_uint16_of_nat to ffi/common/lean_uint16_of_nat.rs
 // original source: Init/Prelude.rs:168-170
-
-#[inline]
-pub unsafe fn lean_uint16_dec_eq(a: u16, b: u16) -> u8 {
-    unsafe { leanh::lean_uint16_dec_eq(a, b) }
-}
 
 // moved lean_uint32_of_nat to ffi/common/lean_uint32_of_nat.rs
 // original source: Init/Prelude.rs:176-178
 
-#[inline]
-pub unsafe fn lean_uint32_dec_eq(a: u32, b: u32) -> u8 {
-    unsafe { leanh::lean_uint32_dec_eq(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_uint32_dec_lt(a: u32, b: u32) -> u8 {
-    unsafe { leanh::lean_uint32_dec_lt(a, b) }
-}
-
-#[inline]
-pub unsafe fn lean_uint32_dec_le(a: u32, b: u32) -> u8 {
-    unsafe { leanh::lean_uint32_dec_le(a, b) }
-}
-
 // moved lean_uint64_of_nat to ffi/common/lean_uint64_of_nat.rs
 // original source: Init/Prelude.rs:195-197
 
-#[inline]
-pub unsafe fn lean_uint64_dec_eq(a: u64, b: u64) -> u8 {
-    unsafe { leanh::lean_uint64_dec_eq(a, b) }
-}
-
 // moved lean_usize_of_nat to ffi/common/lean_usize_of_nat.rs
 // original source: Init/Prelude.rs:202-204
-
-#[inline]
-pub unsafe fn lean_usize_dec_eq(a: usize, b: usize) -> u8 {
-    unsafe { leanh::lean_usize_dec_eq(a, b) }
-}
 
 #[inline]
 pub unsafe fn lean_mk_empty_array_with_capacity(capacity: *mut LeanObject) -> *mut LeanObject {

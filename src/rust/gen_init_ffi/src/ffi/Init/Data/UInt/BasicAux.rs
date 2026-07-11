@@ -83,17 +83,12 @@ pub fn lean_uint32_to_uint64(value: u32) -> u64 {
 // original source: Init/Data/UInt/BasicAux.rs:82-84
 
 pub unsafe fn lean_usize_add(a: usize, b: usize) -> usize {
-    unsafe { leanh::lean_usize_add(a, b) }
+    a.wrapping_add(b)
 }
 
 pub unsafe fn lean_usize_sub(a: usize, b: usize) -> usize {
-    unsafe { leanh::lean_usize_sub(a, b) }
+    a.wrapping_sub(b)
 }
 
-pub unsafe fn lean_usize_dec_lt(a: usize, b: usize) -> u8 {
-    unsafe { leanh::lean_usize_dec_lt(a, b) }
-}
-
-pub unsafe fn lean_usize_dec_le(a: usize, b: usize) -> u8 {
-    unsafe { leanh::lean_usize_dec_le(a, b) }
-}
+pub use crate::r#priv::uint_family::lean_usize_dec_le;
+pub use crate::r#priv::uint_family::lean_usize_dec_lt;

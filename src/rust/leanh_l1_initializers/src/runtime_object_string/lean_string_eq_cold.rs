@@ -1,6 +1,7 @@
-use leanh_l1::{datatypes::LeanObject, r#priv::lean_string_cstr::lean_string_cstr};
-
-use crate::r#priv::lean_string_size::lean_string_size;
+use leanh_l1::{
+    datatypes::LeanObject,
+    r#priv::{lean_string_cstr::lean_string_cstr, lean_string_size::lean_string_size},
+};
 
 // ════════════════════════════════════════════════════════════════════════════
 // String comparisons

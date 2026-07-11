@@ -10,7 +10,7 @@ use leanh_l1::emitted::{
     lean_mk_string_unchecked::lean_mk_string_unchecked, lean_unbox::lean_unbox,
 };
 use leanh_l1::r#priv::lean_string_cstr::lean_string_cstr;
-use leanh_l1_initializers::r#priv::lean_string_size::lean_string_size;
+use leanh_l1::r#priv::lean_string_size::lean_string_size;
 
 use crate::r#priv::is_utf8_first_byte::is_utf8_first_byte;
 use crate::r#priv::lean_mk_string_from_bytes_unchecked::lean_mk_string_from_bytes_unchecked;

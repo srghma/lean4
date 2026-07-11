@@ -1,14 +1,13 @@
 use leanh_l1::{
     datatypes::LeanObject,
     emitted::{lean_box::lean_box, lean_io_result_mk_ok::lean_io_result_mk_ok},
-    r#priv::lean_string_cstr::lean_string_cstr,
+    r#priv::{lean_string_cstr::lean_string_cstr, lean_string_size::lean_string_size},
 };
 
 use crate::{
     r#priv::{
         lean_io_result_mk_error::lean_io_result_mk_error, lean_runtime_errno::lean_runtime_errno,
         lean_runtime_get_external_data::lean_runtime_get_external_data,
-        lean_string_size::lean_string_size,
     },
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };

@@ -5,12 +5,12 @@
 use crate::r#priv::{
     lean_char_default_value::lean_char_default_value, string_utf8_get_core::string_utf8_get_core,
 };
+use leanh_l1::r#priv::lean_string_size::lean_string_size;
 use leanh_l1::{
     datatypes::LeanObject,
     emitted::{lean_is_scalar::lean_is_scalar, lean_unbox::lean_unbox},
     r#priv::lean_string_cstr::lean_string_cstr,
 };
-use leanh_l1_initializers::r#priv::lean_string_size::lean_string_size;
 
 pub unsafe fn lean_string_utf8_get(s: *const LeanObject, i0: *const LeanObject) -> u32 {
     if lean_is_scalar(i0) {

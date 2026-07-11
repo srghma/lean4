@@ -4,7 +4,7 @@ use leanh_l1::{
     r#priv::lean_usize_to_nat::lean_usize_to_nat,
     runtime_object_nat_int::{
         lean_uint8_of_big_nat, lean_uint16_of_big_nat, lean_uint32_of_big_nat,
-        lean_uint64_of_big_nat,
+        lean_uint64_of_big_nat, lean_usize_of_big_nat,
     },
 };
 
@@ -90,4 +90,15 @@ define_uint_family!(
     lean_uint64_dec_lt,
     lean_uint64_dec_le,
     lean_uint64_of_big_nat
+);
+
+define_uint_family!(
+    usize,
+    lean_usize_of_nat,
+    lean_usize_of_nat_mk,
+    lean_usize_to_nat,
+    lean_usize_dec_eq,
+    lean_usize_dec_lt,
+    lean_usize_dec_le,
+    lean_usize_of_big_nat
 );

@@ -14,13 +14,13 @@ use leanh_l1::{
 
 use crate::{
     kernel_type_checker::{
-        lean_level_mk_zero::lean_level_mk_zero, lean_mk_list_cons::lean_mk_list_cons,
-        lean_mk_list_nil::lean_mk_list_nil, lean_name_anonymous::lean_name_anonymous,
+        lean_mk_list_cons::lean_mk_list_cons, lean_mk_list_nil::lean_mk_list_nil,
+        lean_name_anonymous::lean_name_anonymous,
     },
     r#priv::initialize_constructions_module::lean_register_name_generator_prefix,
     todo_import_from_lean::{
         lean_expr_mk_app::lean_expr_mk_app, lean_expr_mk_const::lean_expr_mk_const,
-        lean_name_mk_string::lean_name_mk_string,
+        lean_level_mk_zero::lean_level_mk_zero, lean_name_mk_string::lean_name_mk_string,
     },
 };
 

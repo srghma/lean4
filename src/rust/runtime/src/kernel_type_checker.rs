@@ -315,7 +315,7 @@ mod kernel_type_checker_impl {
     // Names: lean_name_eq_raw returns 0 (not equal) or 1 (equal)
     #[no_mangle]
     pub unsafe fn lean_name_eq_raw(a: *const LeanObject, b: *const LeanObject) -> u8 {
-        super::lean_name_eq_export(a as *mut _, b as *mut _)
+        lean_name_eq_export(a as *mut _, b as *mut _)
     }
 
     // Levels
@@ -586,61 +586,9 @@ mod kernel_type_checker_impl {
     #[no_mangle]
     pub unsafe fn lean_nat_mk_obj(n: u64) -> *mut LeanObject {
         if n <= LEAN_MAX_SMALL_NAT as u64 {
-            super::lean_box(n as usize)
+            lean_box(n as usize)
         } else {
-            runtime_object_nat_int_impl::lean_big_uint64_to_nat(n)
-        }
-    }
-
-    #[no_mangle]
-    pub unsafe fn lean_nat_sub(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            let n1 = lean_unbox(a as *const _);
-            let n2 = lean_unbox(b as *const _);
-            super::lean_box(if n1 >= n2 { n1 - n2 } else { 0 })
-        } else {
-            runtime_object_nat_int_impl::lean_nat_big_sub(a, b)
-        }
-    }
-
-    #[no_mangle]
-    pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            let n1 = lean_unbox(a as *const _);
-            if n1 == 0 {
-                return a;
-            }
-            let n2 = lean_unbox(b as *const _);
-            let r = n1.wrapping_mul(n2);
-            if r <= LEAN_MAX_SMALL_NAT && r / n1 == n2 {
-                super::lean_box(r)
-            } else {
-                runtime_object_nat_int_impl::lean_nat_overflow_mul(n1, n2)
-            }
-        } else {
-            runtime_object_nat_int_impl::lean_nat_big_mul(a, b)
-        }
-    }
-
-    #[no_mangle]
-    pub unsafe fn lean_nat_div(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            let n1 = lean_unbox(a as *const _);
-            let n2 = lean_unbox(b as *const _);
-            super::lean_box(if n2 == 0 { 0 } else { n1 / n2 })
-        } else {
-            runtime_object_nat_int_impl::lean_nat_big_div(a, b)
-        }
-    }
-
-    #[no_mangle]
-    pub unsafe fn lean_nat_mod(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            let n1 = lean_unbox(a as *const _);
-            let n2 = lean_unbox(b as *const _);
-            super::lean_box(if n2 == 0 { n1 } else { n1 % n2 })
-        } else {
-            runtime_object_nat_int_impl::lean_nat_big_mod(a, b)
+            lean_big_uint64_to_nat(n)
         }
     }
 
@@ -650,7 +598,7 @@ mod kernel_type_checker_impl {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             (a as usize & b as usize) as *mut LeanObject
         } else {
-            runtime_object_nat_int_impl::lean_nat_big_land(a, b)
+            lean_nat_big_land(a, b)
         }
     }
 
@@ -659,7 +607,7 @@ mod kernel_type_checker_impl {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             (a as usize | b as usize) as *mut LeanObject
         } else {
-            runtime_object_nat_int_impl::lean_nat_big_lor(a, b)
+            lean_nat_big_lor(a, b)
         }
     }
 
@@ -667,9 +615,9 @@ mod kernel_type_checker_impl {
     #[no_mangle]
     pub unsafe fn lean_nat_xor(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
-            super::lean_box(lean_unbox(a as *const _) ^ lean_unbox(b as *const _))
+            lean_box(lean_unbox(a as *const _) ^ lean_unbox(b as *const _))
         } else {
-            runtime_object_nat_int_impl::lean_nat_big_xor(a, b)
+            lean_nat_big_xor(a, b)
         }
     }
 
@@ -678,13 +626,13 @@ mod kernel_type_checker_impl {
         if lean_is_scalar(a as *const _) && lean_is_scalar(b as *const _) {
             let s1 = lean_unbox(a as *const _);
             let s2 = lean_unbox(b as *const _);
-            super::lean_box(if s2 < usize::BITS as usize {
+            lean_box(if s2 < usize::BITS as usize {
                 s1 >> s2
             } else {
                 0
             })
         } else {
-            runtime_object_nat_int_impl::lean_nat_big_shiftr(a, b)
+            lean_nat_big_shiftr(a, b)
         }
     }
 
@@ -915,7 +863,7 @@ mod kernel_type_checker_impl {
     }
 
     unsafe fn expr_has_loose_bvar(e: *const LeanObject, idx: u32) -> bool {
-        lean_expr_has_loose_bvar(e, super::lean_box(idx as usize)) != 0
+        lean_expr_has_loose_bvar(e, lean_box(idx as usize)) != 0
     }
 
     /// Port of C++ `has_loose_bvars_in_domain` from `kernel/expr.cpp`.
@@ -983,7 +931,7 @@ mod kernel_type_checker_impl {
         if lean_is_scalar(a) && lean_is_scalar(b) {
             lean_unbox(a) <= lean_unbox(b)
         } else {
-            runtime_object_nat_int_impl::lean_nat_big_le(a as *mut LeanObject, b as *mut LeanObject)
+            lean_nat_big_le(a as *mut LeanObject, b as *mut LeanObject)
         }
     }
     #[no_mangle]
@@ -994,7 +942,7 @@ mod kernel_type_checker_impl {
     // Nat predecessor (saturating): n - 1.
     #[no_mangle]
     pub unsafe fn lean_nat_dec(n: *mut LeanObject) -> *mut LeanObject {
-        lean_nat_sub(n, super::lean_box(1))
+        lean_nat_sub(n, lean_box(1))
     }
 
     // --- Environment ---
@@ -1128,7 +1076,7 @@ mod kernel_type_checker_impl {
         if lean_ptr_tag(info) == CI_DEFINITION {
             lean_ctor_get(ci_to_val(info), 2)
         } else {
-            super::lean_box(0)
+            lean_box(0)
         }
     }
 
@@ -1316,7 +1264,7 @@ mod kernel_type_checker_impl {
     // --- Empty options (mirrors C++ options() default constructor) ---
     #[no_mangle]
     pub unsafe fn lean_mk_empty_options() -> *mut LeanObject {
-        lean_options_get_empty(super::lean_box(0))
+        lean_options_get_empty(lean_box(0))
     }
 
     // --- LocalContext: build (fvar, new_lctx) pairs from the real Lean exports ---
@@ -1402,7 +1350,7 @@ mod kernel_type_checker_impl {
                     r = lean_expr_mk_let(user_name, ty, val, r, 0);
                 } else {
                     let new_r =
-                        lean_expr_lower_loose_bvars(r, super::lean_box(1), super::lean_box(1));
+                        lean_expr_lower_loose_bvars(r, lean_box(1), lean_box(1));
                     lean_dec(r);
                     r = new_r;
                 }
