@@ -5835,7 +5835,7 @@
           "status": "ok",
           "rustPath": "src/rust/leanh_l1_initializers/src/priv/lean_io_prim_handle_read.rs",
           "rustLineNum": 17,
-          "rustSnippet": "pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: Size) -> *mut LeanObject {"
+          "rustSnippet": "pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: usize) -> *mut LeanObject {"
         },
         {
           "lineNum": 854,
@@ -17685,7 +17685,7 @@
           "status": "ok",
           "rustPath": "src/rust/leanh_l1_initializers/src/priv/lean_io_prim_handle_read.rs",
           "rustLineNum": 17,
-          "rustSnippet": "pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: Size) -> *mut LeanObject {"
+          "rustSnippet": "pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: usize) -> *mut LeanObject {"
         }
       }
     ],

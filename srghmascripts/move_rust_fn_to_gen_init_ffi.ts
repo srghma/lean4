@@ -51,7 +51,7 @@ const exportJsonPath = path.join(
 
 const genericPrelude = [
   "use std::ffi::c_void;",
-  "use leanh_l1::datatypes::{LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject, Size};",
+  "use leanh_l1::datatypes::{LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject};",
   "",
 ].join("\n");
 

@@ -14,7 +14,6 @@
 
 ## leanh/src/datatypes.rs
 
-- [ ] `Size` (type) -> not found in runtime/src/{kernel,library,runtime}
 - [ ] `LEAN_CLOSURE_MAX_ARGS` (const) -> not found in runtime/src/{kernel,library,runtime}
 - [ ] `LEAN_MAX_SMALL_NAT` (const) -> not found in runtime/src/{kernel,library,runtime}
 - [ ] `LeanObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
@@ -364,7 +363,7 @@
 - `LeanThunkObject` (src/rust/leanh/src/datatypes.rs:struct)
 - `MpzT` (src/rust/leanh/src/datatypes.rs:type)
 - `ObjInitFn` (src/rust/leanh/src/datatypes.rs:type)
-- `Size` (src/rust/leanh/src/datatypes.rs:type)
+- `usize` (src/rust/leanh/src/datatypes.rs:type)
 - `U16InitFn` (src/rust/leanh/src/datatypes.rs:type)
 - `U32InitFn` (src/rust/leanh/src/datatypes.rs:type)
 - `U64InitFn` (src/rust/leanh/src/datatypes.rs:type)

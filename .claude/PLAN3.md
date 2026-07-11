@@ -147,7 +147,7 @@ it have cut out original from lean4-rust and created new file
 ```rs
 ==== FILE: src/rust/gen_init_ffi/src/priv/lean_runtime_push_unicode_scalar.rs ====
 use leanh_l1::datatypes::{
-    LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject, Size,
+    LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject,
 };
 use std::ffi::c_void;
 
@@ -411,8 +411,8 @@ so I changed
 ```
 pub(crate) unsafe fn lean_alloc_sarray(
     elem_size: c_uint,
-    size: Size,
-    capacity: Size,
+    size: usize,
+    capacity: usize,
 ) -> *mut LeanObject {
 ```
 
@@ -426,7 +426,7 @@ I got
 
 ```rs
 use leanh_l1::datatypes::{
-    LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject, Size,
+    LeanExternalObject, LeanObject, LeanScalarArray, LeanStringObject, usize,
 };
 use std::ffi::c_void;
 

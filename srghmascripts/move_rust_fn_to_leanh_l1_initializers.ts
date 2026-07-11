@@ -40,7 +40,7 @@ function getDestination(sourceOcc: FnOccurrence): Destination {
       targetDir: path.join(initRoot, "priv"),
       moduleFile: path.join(initRoot, "priv.rs"),
       prelude:
-        "use std::ffi::c_void;\nuse leanh_l1::datatypes::{LeanExternalObject, LeanObject, Size};\n",
+        "use std::ffi::c_void;\nuse leanh_l1::datatypes::{LeanExternalObject, LeanObject};\n",
     };
   }
 
@@ -52,7 +52,7 @@ function getDestination(sourceOcc: FnOccurrence): Destination {
       moduleFile: path.join(initRoot, `${moduleName}.rs`),
       rootModuleFile: path.join(initRoot, "lib.rs"),
       prelude:
-        "use std::ffi::c_void;\nuse leanh_l1::datatypes::{LeanExternalObject, LeanObject, Size};\n",
+        "use std::ffi::c_void;\nuse leanh_l1::datatypes::{LeanExternalObject, LeanObject};\n",
     };
   }
 
