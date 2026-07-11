@@ -8,6 +8,18 @@ use leanh_l1::{
     emitted::lean_unbox::lean_unbox,
 };
 
+// TODO: does it match
+//
+// static inline uint8_t lean_string_get_byte_fast(b_lean_obj_arg s, b_lean_obj_arg i) {
+//   char const * str = lean_string_cstr(s);
+//   size_t idx = lean_unbox(i);
+//   return str[idx];
+// }
+//
+// ??
+//
+// use lean_string_cstr
+
 pub unsafe fn lean_string_get_byte_fast(s: *mut LeanObject, pos: *mut LeanObject) -> u8 {
     let pos = unsafe { lean_unbox(pos) };
     unsafe {

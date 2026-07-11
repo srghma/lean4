@@ -460,3 +460,7 @@ pub(crate) unsafe fn lean_sarray_mut_cptr(o: *mut LeanObject) -> *mut u8 {
 so I did the last ` ~/projects/lean4/src/rust/gen_init_ffi  ↱ rust-rewrite ±✚  rustfmt --edition=2024 --style-edition=2024 --unstable-features ./**/*.rs`
 
 and comitted
+
+Continue like me.
+
+gen_init_ffi may have some functions already implemented. Especially in `src/rust/gen_init_ffi/src/ffi/Init`. These implementations are most probably dont match original implementation in `lean4-rust`, which is the truth and should be preffered to everything else.

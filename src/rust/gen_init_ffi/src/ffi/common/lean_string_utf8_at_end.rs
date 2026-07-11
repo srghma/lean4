@@ -11,4 +11,5 @@ use leanh_l1::{
 pub unsafe fn lean_string_utf8_at_end(s: *mut LeanObject, pos: *mut LeanObject) -> bool {
     !lean_is_scalar(pos)
         || lean_unbox(pos) >= (*(s as *mut LeanStringObject<0>)).m_size.saturating_sub(1)
+    // TODO: use lean_string_size
 }

@@ -342,24 +342,6 @@ pub unsafe fn lean_io_allocprof(msg: *mut LeanObject, fn_obj: *mut LeanObject) -
     result
 }
 
-fn utf8_size(byte: c_uchar) -> Size {
-    if byte & 0x80 == 0 {
-        1
-    } else if byte & 0xE0 == 0xC0 {
-        2
-    } else if byte & 0xF0 == 0xE0 {
-        3
-    } else if byte & 0xF8 == 0xF0 {
-        4
-    } else if byte & 0xFC == 0xF8 {
-        5
-    } else if byte & 0xFE == 0xFC {
-        6
-    } else {
-        1
-    }
-}
-
 fn is_safe_ascii_byte(byte: u8) -> bool {
     matches!(
         byte,
@@ -1093,17 +1075,6 @@ pub unsafe fn lean_utf8_strlen(mut text: *const c_char) -> Size {
         let size = utf8_size(*text as c_uchar);
         length += 1;
         text = text.add(size);
-    }
-    length
-}
-
-pub unsafe fn lean_utf8_n_strlen(text: *const c_char, byte_size: Size) -> Size {
-    let mut length = 0;
-    let mut offset = 0;
-    while offset < byte_size {
-        let size = utf8_size(*text.add(offset) as c_uchar);
-        length += 1;
-        offset += size;
     }
     length
 }

@@ -3,5 +3,5 @@ use std::ffi::c_char;
 use crate::datatypes::LeanObject;
 
 pub unsafe fn lean_string_cstr(obj: *const LeanObject) -> *const c_char {
-    (obj as *const u8).add(32) as *const c_char
+    (obj as *const u8).add(32) as *const c_char // TODO: dont use magic ints
 }

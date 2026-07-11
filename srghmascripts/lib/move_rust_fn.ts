@@ -392,7 +392,7 @@ export async function rustfmtFiles(files: string[]) {
   const unique = [...new Set(files.map((file) => path.resolve(file)))];
   if (unique.length === 0) return;
   await new Promise<void>((resolve) => {
-    const child = spawn("rustfmt", unique, {
+    const child = spawn("rustfmt", ["--edition=2024", "--style-edition=2024", ...unique], {
       cwd: lean4Root,
       stdio: "inherit",
     });

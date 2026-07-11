@@ -82,22 +82,6 @@ mod runtime_object_string_impl {
         None
     }
 
-    #[inline]
-    unsafe fn is_utf8_first_byte(c: u8) -> bool {
-        (c & 0x80) == 0 || (c & 0xe0) == 0xc0 || (c & 0xf0) == 0xe0 || (c & 0xf8) == 0xf0
-    }
-
-    // ════════════════════════════════════════════════════════════════════════════
-    // String constructors
-    // ════════════════════════════════════════════════════════════════════════════
-
-    pub unsafe fn lean_mk_string_from_bytes_unchecked(
-        s: *const c_char,
-        sz: usize,
-    ) -> *mut LeanObject {
-        lean_mk_string_unchecked(s, sz, lean_utf8_n_strlen(s, sz))
-    }
-
     pub unsafe fn lean_mk_ascii_string_unchecked(s: *const c_char) -> *mut LeanObject {
         let mut p = s;
         while *p != 0 {
