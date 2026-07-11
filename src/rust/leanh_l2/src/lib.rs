@@ -40,7 +40,7 @@ pub mod runtime_timer;
 //     LeanCtorObject, LeanExternalClass, LeanExternalFinalizeProc, LeanExternalForeachProc,
 //     LeanExternalObject, LeanMpzObject, LeanMpzStruct, LeanObject, LeanOnceCell, LeanPromiseObject,
 //     LeanRefObject, LeanScalarArray, LeanStringObject, LeanTaskImp, LeanTaskObject, LeanThunkObject,
-//     MpzT, ObjInitFn, Size, U8InitFn, U16InitFn, U32InitFn, U64InitFn, UsizeInitFn,
+//     MpzT, ObjInitFn, U8InitFn, U16InitFn, U32InitFn, U64InitFn, UsizeInitFn,
 // };
 // pub use in_emit_rust::{
 //     lean_alloc_closure, lean_box_float, lean_box_float32, lean_box_uint32, lean_box_uint64,

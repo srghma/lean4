@@ -7,7 +7,7 @@ use std::alloc::{alloc, dealloc, handle_alloc_error, Layout};
 use crate::datatypes::{
     LeanArrayObject, LeanClosureObject, LeanExternalObject, LeanMpzObject, LeanObject,
     LeanOnceCell, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-    LeanTaskObject, LeanThunkObject, ObjInitFn, Size, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG,
+    LeanTaskObject, LeanThunkObject, ObjInitFn, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG,
     LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG,
     LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
 };

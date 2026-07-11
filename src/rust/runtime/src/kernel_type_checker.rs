@@ -16,7 +16,7 @@ mod kernel_type_checker_impl {
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_char, c_void};
-    use leanh::{LEAN_MAX_SMALL_NAT, Size};
+    use leanh::{LEAN_MAX_SMALL_NAT};
     use std::collections::{HashMap, HashSet};
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};

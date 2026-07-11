@@ -1,11 +1,9 @@
 use std::ffi::{c_uchar, c_uint};
 
-use crate::datatypes::Size;
-
 pub unsafe fn lean_validate_utf8_one(
     text: *const c_uchar,
-    size: Size,
-    pos: *mut Size,
+    size: usize,
+    pos: *mut usize,
 ) -> bool {
     let i = *pos;
     let byte = *text.add(i) as c_uint;

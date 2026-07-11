@@ -27,7 +27,7 @@ implementations.
 /// Fields after offset 80 are Rust-only and are not accessed by C++ code.
 #[repr(C)]
 pub struct OleanCompactedRegion {
-    /// Size of the compacted data section (matches C++ `m_size` at offset 0).
+    /// usize of the compacted data section (matches C++ `m_size` at offset 0).
     pub m_size: usize,
     /// Saved base address from the olean header (matches C++ `m_base_addr` at offset 8).
     pub m_base_addr: usize,

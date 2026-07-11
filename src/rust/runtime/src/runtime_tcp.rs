@@ -296,7 +296,7 @@ mod runtime_tcp_impl {
             return lean_io_result_mk_error(lean_decode_uv_error(UV_EALREADY, null_mut()));
         }
 
-        let byte_array = lean_alloc_sarray(1, 0, buffer_size as Size);
+        let byte_array = lean_alloc_sarray(1, 0, buffer_size as usize);
         (*tcp_socket).m_byte_array = byte_array;
 
         let promise = lean_io_promise_new();
@@ -328,7 +328,7 @@ mod runtime_tcp_impl {
             (*tcp_socket).m_byte_array = null_mut();
 
             if nread >= 0 {
-                lean_sarray_set_size(byte_array, nread as Size);
+                lean_sarray_set_size(byte_array, nread as usize);
                 lean_promise_resolve(mk_except_ok(option_some(byte_array)), promise);
             } else if nread == UV_EOF {
                 lean_dec(byte_array);

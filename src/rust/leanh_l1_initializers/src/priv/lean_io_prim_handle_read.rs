@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::{LeanObject, Size},
+    datatypes::LeanObject,
     emitted::{lean_dec::lean_dec, lean_io_result_mk_ok::lean_io_result_mk_ok},
 };
 
@@ -14,7 +14,7 @@ use crate::{
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };
 
-pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: Size) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: usize) -> *mut LeanObject {
     let fp = lean_get_external_data(h).cast::<libc::FILE>();
     if lean_alloc_sarray_would_overflow(1, nbytes) {
         return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, core::ptr::null_mut()));

@@ -1,7 +1,6 @@
-use leanh_l1::datatypes::Size;
 use std::ffi::c_uchar;
 
-pub(crate) fn utf8_size(byte: c_uchar) -> Size {
+pub(crate) fn utf8_size(byte: c_uchar) -> usize {
     if byte & 0x80 == 0 {
         1
     } else if byte & 0xE0 == 0xC0 {

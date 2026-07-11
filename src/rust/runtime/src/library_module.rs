@@ -33,7 +33,7 @@ mod library_module_impl {
     // v3 format extra header: 8 bytes data_size right after the 88-byte header.
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
 
-    // Size of fixed Lean object types (LP64):
+    // usize of fixed Lean object types (LP64):
     //   lean_thunk_object  = { header(8), value(8), closure(8) } = 24
     //   lean_ref_object    = { header(8), value(8) }             = 16
     //   lean_task_object   = { header(8), value(8), imp(8) }     = 24

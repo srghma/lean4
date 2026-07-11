@@ -13,12 +13,12 @@ use leanh::{
     LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LeanArrayObject, LeanClosureObject, LeanCtorObject,
     LeanExternalClass, LeanExternalFinalizeProc, LeanExternalForeachProc, LeanExternalObject,
     LeanMpzObject, LeanObject, LeanPromiseObject, LeanScalarArray, LeanStringObject, LeanTaskImp,
-    LeanTaskObject, Size,
+    LeanTaskObject,
 };
 
 unsafe extern "C" {
     pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_alloc_object(size: Size) -> *mut LeanObject; // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 459 (🔁)
+    pub fn lean_alloc_object(size: usize) -> *mut LeanObject; // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 459 (🔁)
     pub fn lean_array_push(array: *mut LeanObject, value: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
     pub fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
@@ -112,7 +112,7 @@ pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
-pub(crate) unsafe fn lean_sarray_capacity(obj: *const LeanObject) -> Size {
+pub(crate) unsafe fn lean_sarray_capacity(obj: *const LeanObject) -> usize {
     let sarray = obj as *const LeanScalarArray<0>;
     (*sarray).m_capacity
 }
@@ -372,7 +372,7 @@ pub unsafe fn lean_util_is_safe_ascii(mut text: *const c_char) -> bool {
     true
 }
 
-pub unsafe fn lean_util_is_safe_ascii_n(text: *const c_char, size: Size) -> bool {
+pub unsafe fn lean_util_is_safe_ascii_n(text: *const c_char, size: usize) -> bool {
     for offset in 0..size {
         if !is_safe_ascii_byte(*text.add(offset) as u8) {
             return false;
@@ -1018,7 +1018,7 @@ pub unsafe fn lean_mk_cnstr(
     scalar_size: c_uint,
 ) -> *mut LeanObject {
     let obj = lean_alloc_ctor(tag, num_objs, scalar_size);
-    for index in 0..num_objs as Size {
+    for index in 0..num_objs as usize {
         let val = objs.add(index).read();
         lean_ctor_set(obj, index as c_uint, val);
     }
@@ -1033,7 +1033,7 @@ pub fn lean_get_utf8_size(byte: c_uchar) -> c_uint {
     utf8_size(byte) as c_uint
 }
 
-pub unsafe fn lean_utf8_strlen(mut text: *const c_char) -> Size {
+pub unsafe fn lean_utf8_strlen(mut text: *const c_char) -> usize {
     let mut length = 0;
     while *text != 0 {
         let size = utf8_size(*text as c_uchar);
@@ -1045,8 +1045,8 @@ pub unsafe fn lean_utf8_strlen(mut text: *const c_char) -> Size {
 
 pub unsafe fn lean_utf8_char_pos(
     mut text: *const c_char,
-    mut char_idx: Size,
-    out_pos: *mut Size,
+    mut char_idx: usize,
+    out_pos: *mut usize,
 ) -> bool {
     let mut pos = 0;
     while *text != 0 {
@@ -1119,7 +1119,7 @@ pub unsafe fn lean_get_utf8_first_byte_size(byte: c_uchar, out_size: *mut c_uint
     true
 }
 
-pub unsafe fn lean_next_utf8(text: *const c_char, size: Size, pos: *mut Size) -> c_uint {
+pub unsafe fn lean_next_utf8(text: *const c_char, size: usize, pos: *mut usize) -> c_uint {
     let i = *pos;
     let byte = *text.add(i) as c_uchar as c_uint;
     if byte & 0x80 == 0 {
@@ -1161,7 +1161,7 @@ pub unsafe fn lean_next_utf8(text: *const c_char, size: Size, pos: *mut Size) ->
     byte
 }
 
-pub unsafe fn lean_hash_str(len: Size, text: *const c_uchar, seed: u64) -> u64 {
+pub unsafe fn lean_hash_str(len: usize, text: *const c_uchar, seed: u64) -> u64 {
     const M: u64 = 0xc6a4a7935bd1e995;
     const R: u32 = 47;
 

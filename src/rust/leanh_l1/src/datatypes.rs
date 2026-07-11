@@ -5,7 +5,6 @@ use gmp_mpfr_sys::gmp::mpz_t;
 // This module is the Rust equivalent of upstream `lean.h` for ABI layouts and
 // helpers hardcoded by EmitRust. Do not import runtime modules here; runtime
 // modules may depend on `leanh`, but `leanh` must stay the top-level ABI layer.
-pub type Size = usize;
 pub const LEAN_CLOSURE_MAX_ARGS: u32 = 16; // not used in this file
 pub const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // not used in this file
 
@@ -47,8 +46,8 @@ pub struct LeanExternalClass {
 #[repr(C)]
 pub struct LeanArrayObject<const N: usize> {
     pub m_header: LeanObject,
-    pub m_size: Size,
-    pub m_capacity: Size,
+    pub m_size: usize,
+    pub m_capacity: usize,
     pub m_data: [*mut LeanObject; N],
 }
 
@@ -57,9 +56,9 @@ unsafe impl<const N: usize> Sync for LeanArrayObject<N> {}
 #[repr(C)]
 pub struct LeanStringObject<const N: usize> {
     pub m_header: LeanObject,
-    pub m_size: Size,
-    pub m_capacity: Size,
-    pub m_length: Size,
+    pub m_size: usize,
+    pub m_capacity: usize,
+    pub m_length: usize,
     pub m_data: [u8; N],
 }
 
@@ -80,8 +79,8 @@ unsafe impl<const N: usize> Sync for LeanClosureObject<N> {}
 #[repr(C)]
 pub struct LeanScalarArray<const N: usize> {
     pub m_header: LeanObject,
-    pub m_size: Size,
-    pub m_capacity: Size,
+    pub m_size: usize,
+    pub m_capacity: usize,
     pub m_data: [u8; N],
 }
 

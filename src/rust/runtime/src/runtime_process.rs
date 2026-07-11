@@ -15,7 +15,7 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 
 mod runtime_process_impl {
     use crate::base::{
-        LeanObject, Size, c_char, c_uint, lean_alloc_ctor, lean_array_get, lean_array_size,
+        LeanObject, c_char, c_uint, lean_alloc_ctor, lean_array_get, lean_array_size,
         lean_box, lean_ctor_get, lean_ctor_get_uint8, lean_ctor_set, lean_ctor_set_uint8, lean_dec,
         lean_decode_io_error, lean_inc, lean_io_result_mk_error, lean_io_result_mk_ok,
         lean_is_scalar, lean_mk_io_user_error, lean_mk_string, lean_mk_string_from_bytes,
