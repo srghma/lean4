@@ -54,7 +54,7 @@ pub unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
     while i > 0 {
         i -= 1;
         let v = *lean_array_cptr(a).add(i);
-        let cell = lean_runtime_alloc_ctor(1, 2, 0);
+        let cell = lean_alloc_ctor(1, 2, 0);
         lean_ctor_set(cell, 0, v);
         lean_inc(v);
         lean_ctor_set(cell, 1, r);

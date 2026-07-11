@@ -2,7 +2,7 @@ use std::sync::OnceLock;
 
 /// Returns the number of threads to be used by the Lean runtime.
 /// Memoized: The environment variable and CPU count are only checked once.
-pub fn lean_runtime_get_lean_num_threads() -> usize {
+pub fn lean_get_lean_num_threads() -> usize {
     // OnceLock ensures thread-safe, one-time initialization
     static NUM_THREADS: OnceLock<usize> = OnceLock::new();
 

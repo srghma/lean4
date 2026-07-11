@@ -7,7 +7,7 @@ use core::ffi::{c_char, c_int, c_uint};
 use runtime::{
     LeanObject, lean_box, lean_dec, lean_finalize, lean_inc, lean_initialize,
     lean_io_error_to_string_rust, lean_io_result_get_error, lean_io_result_get_value,
-    lean_io_result_is_ok, lean_mk_string, lean_runtime_mk_cnstr, lean_string_cstr, lean_unbox,
+    lean_io_result_is_ok, lean_mk_string, lean_mk_cnstr, lean_string_cstr, lean_unbox,
 };
 use std::ffi::{CStr, CString};
 use std::io::{self, Write};
@@ -137,7 +137,7 @@ unsafe fn make_opt_arg(value: Option<&CStr>) -> *mut LeanObject {
         Some(text) => {
             let string = lean_mk_string(text.as_ptr());
             let mut fields = [string];
-            lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
+            lean_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
         }
         None => lean_box(0),
     }
@@ -330,7 +330,7 @@ unsafe fn make_args_list(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject
     for raw in args.iter().rev() {
         let text = lean_mk_string(*raw);
         let mut fields = [text, list];
-        list = lean_runtime_mk_cnstr(1, 2, fields.as_mut_ptr(), 0);
+        list = lean_mk_cnstr(1, 2, fields.as_mut_ptr(), 0);
     }
     list
 }

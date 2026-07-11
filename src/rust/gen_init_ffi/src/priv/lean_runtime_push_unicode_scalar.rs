@@ -1,6 +1,6 @@
 use std::ffi::{c_char, c_uint};
 
-pub unsafe fn lean_runtime_push_unicode_scalar(dst: *mut c_char, code: c_uint) -> c_uint {
+pub unsafe fn lean_push_unicode_scalar(dst: *mut c_char, code: c_uint) -> c_uint {
     const TAG_CONT: c_uint = 0b10000000;
     const TAG_TWO_B: c_uint = 0b11000000;
     const TAG_THREE_B: c_uint = 0b11100000;

@@ -41,20 +41,20 @@ mod runtime_system_impl {
     }
 
     unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 
     unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 
     unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(0, 1, 0);
-        lean_runtime_ctor_set(result, 0, error);
+        let result = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(result, 0, error);
         result
     }
 
@@ -136,7 +136,7 @@ mod runtime_system_impl {
 
         for i in 0..count_usize {
             let cpu_info_ptr = &*cpu_infos.add(i);
-            let times = lean_runtime_alloc_ctor(0, 0, 40);
+            let times = lean_alloc_ctor(0, 0, 40);
             lean_ctor_set_uint64(times, 0, cpu_info_ptr.cpu_times.user);
             lean_ctor_set_uint64(times, 8, cpu_info_ptr.cpu_times.nice);
             lean_ctor_set_uint64(times, 16, cpu_info_ptr.cpu_times.sys);
@@ -145,9 +145,9 @@ mod runtime_system_impl {
 
             let model = lean_mk_string(cpu_info_ptr.model);
 
-            let cpu_info = lean_runtime_alloc_ctor(0, 2, 8);
-            lean_runtime_ctor_set(cpu_info, 0, model);
-            lean_runtime_ctor_set(cpu_info, 1, times);
+            let cpu_info = lean_alloc_ctor(0, 2, 8);
+            lean_ctor_set(cpu_info, 0, model);
+            lean_ctor_set(cpu_info, 1, times);
             lean_ctor_set_uint64(
                 cpu_info,
                 core::mem::size_of::<*mut c_void>() * 2,
@@ -248,12 +248,12 @@ mod runtime_system_impl {
             option_none()
         };
 
-        let passwd_info = lean_runtime_alloc_ctor(0, 5, 0);
-        lean_runtime_ctor_set(passwd_info, 0, username);
-        lean_runtime_ctor_set(passwd_info, 1, uid);
-        lean_runtime_ctor_set(passwd_info, 2, gid);
-        lean_runtime_ctor_set(passwd_info, 3, shell);
-        lean_runtime_ctor_set(passwd_info, 4, homedir);
+        let passwd_info = lean_alloc_ctor(0, 5, 0);
+        lean_ctor_set(passwd_info, 0, username);
+        lean_ctor_set(passwd_info, 1, uid);
+        lean_ctor_set(passwd_info, 2, gid);
+        lean_ctor_set(passwd_info, 3, shell);
+        lean_ctor_set(passwd_info, 4, homedir);
 
         uv_os_free_passwd(addr_of!(passwd).cast_mut());
 
@@ -291,9 +291,9 @@ mod runtime_system_impl {
             members = lean_array_push(members, member_name);
         }
 
-        let group_info = lean_runtime_alloc_ctor(0, 2, 8);
-        lean_runtime_ctor_set(group_info, 0, groupname);
-        lean_runtime_ctor_set(group_info, 1, members);
+        let group_info = lean_alloc_ctor(0, 2, 8);
+        lean_ctor_set(group_info, 0, groupname);
+        lean_ctor_set(group_info, 1, members);
         lean_ctor_set_uint64(
             group_info,
             core::mem::size_of::<*mut c_void>() * 2,
@@ -323,9 +323,9 @@ mod runtime_system_impl {
             let name = lean_mk_string((*item).name);
             let value = lean_mk_string((*item).value);
 
-            let pair = lean_runtime_alloc_ctor(0, 2, 0);
-            lean_runtime_ctor_set(pair, 0, name);
-            lean_runtime_ctor_set(pair, 1, value);
+            let pair = lean_alloc_ctor(0, 2, 0);
+            lean_ctor_set(pair, 0, name);
+            lean_ctor_set(pair, 1, value);
 
             env_array = lean_array_push(env_array, pair);
         }
@@ -464,11 +464,11 @@ mod runtime_system_impl {
         let version = lean_mk_string(uname_info.version.as_ptr());
         let machine = lean_mk_string(uname_info.machine.as_ptr());
 
-        let uname = lean_runtime_alloc_ctor(0, 4, 0);
-        lean_runtime_ctor_set(uname, 0, sysname);
-        lean_runtime_ctor_set(uname, 1, release);
-        lean_runtime_ctor_set(uname, 2, version);
-        lean_runtime_ctor_set(uname, 3, machine);
+        let uname = lean_alloc_ctor(0, 4, 0);
+        lean_ctor_set(uname, 0, sysname);
+        lean_ctor_set(uname, 1, release);
+        lean_ctor_set(uname, 2, version);
+        lean_ctor_set(uname, 3, machine);
 
         lean_io_result_mk_ok(uname)
     }
@@ -558,7 +558,7 @@ mod runtime_system_impl {
         }
 
         let usage = usage.assume_init();
-        let r = lean_runtime_alloc_ctor(0, 0, 128);
+        let r = lean_alloc_ctor(0, 0, 128);
         lean_ctor_set_uint64(r, 0, timeval_to_millis(usage.ru_utime));
         lean_ctor_set_uint64(r, 8, timeval_to_millis(usage.ru_stime));
         lean_ctor_set_uint64(r, 16, usage.ru_maxrss);

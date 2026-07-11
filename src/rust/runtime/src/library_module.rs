@@ -648,9 +648,9 @@ mod library_module_impl {
         let region_ptr = Box::into_raw(region) as usize;
 
         // Return `IO.ok (Prod.mk mod (box_usize region_ptr))`.
-        let pair = lean_runtime_alloc_ctor(0, 2, 0);
-        lean_runtime_ctor_set(pair, 0, mod_obj);
-        lean_runtime_ctor_set(pair, 1, lean_box_usize_val(region_ptr));
+        let pair = lean_alloc_ctor(0, 2, 0);
+        lean_ctor_set(pair, 0, mod_obj);
+        lean_ctor_set(pair, 1, lean_box_usize_val(region_ptr));
         lean_io_result_mk_ok(pair)
     }
 }

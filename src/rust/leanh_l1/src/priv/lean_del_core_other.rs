@@ -15,8 +15,8 @@ use crate::{
         lean_closure_byte_size::lean_closure_byte_size,
         lean_closure_num_fixed::lean_closure_num_fixed, lean_dealloc::lean_dealloc,
         lean_free_small_object::lean_free_small_object,
-        lean_runtime_deactivate_promise::lean_runtime_deactivate_promise,
-        lean_runtime_deactivate_task::lean_runtime_deactivate_task,
+        lean_deactivate_promise::lean_deactivate_promise,
+        lean_deactivate_task::lean_deactivate_task,
         lean_sarray_byte_size::lean_sarray_byte_size, lean_string_byte_size::lean_string_byte_size,
         lean_to_external::lean_to_external, lean_to_promise::lean_to_promise,
         lean_to_ref::lean_to_ref, lean_to_task::lean_to_task, lean_to_thunk::lean_to_thunk,
@@ -72,10 +72,10 @@ pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut L
             lean_free_small_object(o);
         }
         LEAN_TASK_TAG => {
-            lean_runtime_deactivate_task(lean_to_task(o) as *mut LeanTaskObject);
+            lean_deactivate_task(lean_to_task(o) as *mut LeanTaskObject);
         }
         LEAN_PROMISE_TAG => {
-            lean_runtime_deactivate_promise(lean_to_promise(o) as *mut LeanPromiseObject);
+            lean_deactivate_promise(lean_to_promise(o) as *mut LeanPromiseObject);
         }
         LEAN_EXTERNAL_TAG => {
             let external = lean_to_external(o);

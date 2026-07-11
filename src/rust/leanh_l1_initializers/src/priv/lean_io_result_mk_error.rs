@@ -9,7 +9,7 @@ use leanh_l1::{
 
 // pub unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
 //     let mut fields = [error];
-//     lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
+//     lean_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 // }
 pub unsafe fn lean_io_result_mk_error(error: *mut LeanObject) -> *mut LeanObject {
     let obj = lean_alloc_ctor(1, 1, 0);

@@ -39,22 +39,22 @@ mod runtime_tcp_impl {
     }
 
     unsafe fn lean_uv_tcp_socket_new(s: *mut LeanUvTcpSocketObject) -> *mut LeanObject {
-        lean_runtime_alloc_external(g_uv_tcp_socket_external_class, s.cast())
+        lean_alloc_external(g_uv_tcp_socket_external_class, s.cast())
     }
 
     unsafe fn lean_to_uv_tcp_socket(o: *mut LeanObject) -> *mut LeanUvTcpSocketObject {
-        lean_runtime_get_external_data(o).cast()
+        lean_get_external_data(o).cast()
     }
 
     unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 
     unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(0, 1, 0);
-        lean_runtime_ctor_set(result, 0, error);
+        let result = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(result, 0, error);
         result
     }
 
@@ -63,8 +63,8 @@ mod runtime_tcp_impl {
     }
 
     unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 

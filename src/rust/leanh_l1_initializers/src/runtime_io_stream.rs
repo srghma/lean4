@@ -10,7 +10,7 @@ use leanh_l1::{
 use crate::{
     r#priv::{
         lean_register_external_class::lean_register_external_class,
-        lean_runtime_alloc_external::lean_runtime_alloc_external,
+        lean_alloc_external::lean_alloc_external,
     },
     todo_import_from_lean::lean_stream_of_handle::lean_stream_of_handle,
 };
@@ -25,7 +25,7 @@ unsafe fn io_handle_finalizer(handle: *mut c_void) {
 }
 
 pub unsafe fn io_wrap_handle(hfile: *mut libc::FILE) -> *mut LeanObject {
-    lean_runtime_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
+    lean_alloc_external(IO_HANDLE_EXTERNAL_CLASS, hfile.cast())
 }
 
 pub unsafe fn initialize_io() {

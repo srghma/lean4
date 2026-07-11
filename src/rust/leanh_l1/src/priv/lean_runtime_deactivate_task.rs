@@ -10,7 +10,7 @@ use crate::{
         p1_get_task_manager::get_task_manager, p2_deactivate_task_obj::deactivate_task_obj,
     },
 };
-pub unsafe fn lean_runtime_deactivate_task(t: *mut LeanTaskObject) {
+pub unsafe fn lean_deactivate_task(t: *mut LeanTaskObject) {
     if let Some(tm) = get_task_manager() {
         unsafe { deactivate_task_obj(&tm, t) };
     } else {

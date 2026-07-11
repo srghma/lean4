@@ -5,7 +5,7 @@ use crate::{
     runtime_object_task::{p1_get_task_manager::get_task_manager, p3_resolve::resolve},
 };
 
-pub unsafe fn lean_runtime_deactivate_promise(promise: *mut LeanPromiseObject) {
+pub unsafe fn lean_deactivate_promise(promise: *mut LeanPromiseObject) {
     if let Some(tm) = get_task_manager() {
         let none = unsafe { mk_option_none() };
         unsafe { resolve(&tm, (*promise).m_result, none) };

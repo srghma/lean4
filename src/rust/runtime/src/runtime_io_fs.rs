@@ -8,8 +8,8 @@ mod runtime_io_fs_impl {
         LeanObject, c_char, lean_alloc_array, lean_alloc_sarray, lean_alloc_sarray_would_overflow,
         lean_array_push, lean_box, lean_ctor_set_uint8, lean_ctor_set_uint64, lean_dec,
         lean_decode_io_error, lean_inc, lean_int64_to_int_rust, lean_io_result_mk_error,
-        lean_io_result_mk_ok, lean_mk_io_user_error, lean_mk_string, lean_runtime_alloc_ctor,
-        lean_runtime_ctor_set, lean_runtime_errno, lean_sarray_cptr, lean_sarray_set_size,
+        lean_io_result_mk_ok, lean_mk_io_user_error, lean_mk_string, lean_alloc_ctor,
+        lean_ctor_set, lean_errno, lean_sarray_cptr, lean_sarray_set_size,
         lean_string_cstr, lean_string_size,
     };
     use crate::runtime_io_error::lean_mk_io_error_no_file_or_directory;
@@ -50,7 +50,7 @@ mod runtime_io_fs_impl {
     }
 
     unsafe fn ctor_set(obj: *mut LeanObject, index: u32, value: *mut LeanObject) {
-        lean_runtime_ctor_set(obj, index, value);
+        lean_ctor_set(obj, index, value);
     }
 
     unsafe fn ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u32) {
@@ -61,7 +61,7 @@ mod runtime_io_fs_impl {
     }
 
     unsafe fn system_time_to_obj(sec: i64, nsec: u32) -> *mut LeanObject {
-        let o = lean_runtime_alloc_ctor(0, 1, core::mem::size_of::<u32>() as u32);
+        let o = lean_alloc_ctor(0, 1, core::mem::size_of::<u32>() as u32);
         ctor_set(o, 0, super::lean_int64_to_int_rust(sec));
         ctor_set_uint32(o, core::mem::size_of::<*mut LeanObject>(), nsec);
         o
@@ -72,7 +72,7 @@ mod runtime_io_fs_impl {
         let atime_nsec = st.atime_nsec() as u32;
         let mtime_sec = st.mtime();
         let mtime_nsec = st.mtime_nsec() as u32;
-        let mdata = lean_runtime_alloc_ctor(
+        let mdata = lean_alloc_ctor(
             0,
             2,
             (2 * core::mem::size_of::<u64>() + core::mem::size_of::<u8>()) as u32,
@@ -143,7 +143,7 @@ mod runtime_io_fs_impl {
         if libc::chmod(fname, mode as libc::mode_t) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), filename))
         }
     }
 
@@ -156,7 +156,7 @@ mod runtime_io_fs_impl {
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), p))
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), p))
         }
     }
 
@@ -168,7 +168,7 @@ mod runtime_io_fs_impl {
         if libc::rmdir(str_) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), p))
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), p))
         }
     }
 
@@ -187,7 +187,7 @@ mod runtime_io_fs_impl {
             lean_io_result_mk_ok(lean_box(0))
         } else {
             let details = rename_error_detail(from_str, to_str);
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), details))
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), details))
         }
     }
 
@@ -208,7 +208,7 @@ mod runtime_io_fs_impl {
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), orig))
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), orig))
         }
     }
 
@@ -222,7 +222,7 @@ mod runtime_io_fs_impl {
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_runtime_errno(), filename))
+            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), filename))
         }
     }
 
@@ -257,7 +257,7 @@ mod runtime_io_fs_impl {
         let dir = libc::opendir(dirname_ptr);
         if dir.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_runtime_errno(),
+                super::lean_errno(),
                 dirname,
             ));
         }
@@ -274,7 +274,7 @@ mod runtime_io_fs_impl {
                 continue;
             }
 
-            let lentry = lean_runtime_alloc_ctor(0, 2, 0);
+            let lentry = lean_alloc_ctor(0, 2, 0);
             lean_inc(dirname);
             ctor_set(lentry, 0, dirname);
             ctor_set(lentry, 1, lean_mk_string(name));
@@ -333,7 +333,7 @@ mod runtime_io_fs_impl {
         let path = libc::mkdtemp(bytes.as_mut_ptr().cast());
         if path.is_null() {
             lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_runtime_errno(),
+                super::lean_errno(),
                 core::ptr::null_mut(),
             ))
         } else {
@@ -355,17 +355,17 @@ mod runtime_io_fs_impl {
         let fd = libc::mkstemp(bytes.as_mut_ptr().cast());
         if fd == -1 {
             return lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_runtime_errno(),
+                super::lean_errno(),
                 core::ptr::null_mut(),
             ));
         }
         let handle = libc::fdopen(fd, c"r+".as_ptr());
         if handle.is_null() {
-            let err = super::lean_runtime_errno();
+            let err = super::lean_errno();
             libc::close(fd);
             return lean_io_result_mk_error(lean_decode_io_error(err, core::ptr::null_mut()));
         }
-        let pair = lean_runtime_alloc_ctor(0, 2, 0);
+        let pair = lean_alloc_ctor(0, 2, 0);
         ctor_set(pair, 0, io_wrap_handle(handle));
         ctor_set(pair, 1, lean_mk_string(bytes.as_ptr().cast()));
         lean_io_result_mk_ok(pair)
@@ -393,7 +393,7 @@ mod runtime_io_fs_impl {
                 lean_dec(res);
                 let fname = lean_mk_string(random_path.as_ptr());
                 return lean_io_result_mk_error(lean_decode_io_error(
-                    super::lean_runtime_errno(),
+                    super::lean_errno(),
                     fname,
                 ));
             }
@@ -403,8 +403,8 @@ mod runtime_io_fs_impl {
 
                 let nread = libc::read(fd, dst.cast(), read_size);
                 if nread < 0 {
-                    if super::lean_runtime_errno() != libc::EINTR {
-                        let err = super::lean_runtime_errno();
+                    if super::lean_errno() != libc::EINTR {
+                        let err = super::lean_errno();
                         libc::close(fd);
                         lean_dec(res);
                         return lean_io_result_mk_error(lean_decode_io_error(

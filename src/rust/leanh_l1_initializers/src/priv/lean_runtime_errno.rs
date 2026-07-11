@@ -1,6 +1,6 @@
 use std::ffi::c_int;
 
-pub(crate) unsafe fn lean_runtime_errno() -> c_int {
+pub(crate) unsafe fn lean_errno() -> c_int {
     #[cfg(target_os = "windows")]
     {
         *libc::_errno()

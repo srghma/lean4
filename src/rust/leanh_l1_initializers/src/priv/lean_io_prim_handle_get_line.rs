@@ -7,14 +7,14 @@ use leanh_l1::{
 
 use crate::{
     r#priv::{
-        lean_io_result_mk_error::lean_io_result_mk_error, lean_runtime_errno::lean_runtime_errno,
-        lean_runtime_get_external_data::lean_runtime_get_external_data,
+        lean_io_result_mk_error::lean_io_result_mk_error, lean_errno::lean_errno,
+        lean_get_external_data::lean_get_external_data,
     },
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };
 
 pub unsafe fn lean_io_prim_handle_get_line(h: *const LeanObject) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let fp = lean_get_external_data(h).cast::<libc::FILE>();
     let mut result = Vec::<u8>::new();
     unsafe {
         loop {
@@ -31,7 +31,7 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *const LeanObject) -> *mut LeanObj
 
     if libc::ferror(fp) != 0 {
         lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
+            lean_errno(),
             core::ptr::null_mut(),
         ))
     } else {

@@ -11,7 +11,7 @@ is_trace_class_enabled, scope_trace_env
 use crate::base::{
     LeanName, LeanObject, consume_io_result, lean_box, lean_ctor_get, lean_ctor_set_uint8,
     lean_is_scalar, lean_mk_string, lean_name_eq_export, lean_name_mk_string, lean_obj_tag,
-    lean_runtime_alloc_ctor, lean_runtime_mk_cnstr, mk_name,
+    lean_alloc_ctor, lean_mk_cnstr, mk_name,
 };
 use core::ptr;
 use std::cell::Cell;
@@ -46,7 +46,7 @@ unsafe fn append_name(prefix: *mut LeanObject, suffix: *const LeanObject) -> *mu
 }
 
 unsafe fn mk_bool_data_value(value: bool) -> *mut LeanObject {
-    let obj = lean_runtime_alloc_ctor(1, 0, 1);
+    let obj = lean_alloc_ctor(1, 0, 1);
     lean_ctor_set_uint8(obj, 0, value as u8);
     obj
 }
@@ -64,7 +64,7 @@ unsafe fn mk_option_decl(
         lean_mk_string(description),
         lean_box(0),
     ];
-    lean_runtime_mk_cnstr(0, 5, fields.as_mut_ptr(), 0)
+    lean_mk_cnstr(0, 5, fields.as_mut_ptr(), 0)
 }
 pub unsafe fn lean_cxx_register_trace_class(n: *const LeanName, decl_name: *const LeanName) {
     let trace_name = mk_name("trace");

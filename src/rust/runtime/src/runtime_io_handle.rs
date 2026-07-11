@@ -25,7 +25,7 @@ mod runtime_io_handle_impl {
             lean_io_result_mk_ok(lean_box(0))
         } else {
             lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_runtime_errno(),
+                super::lean_errno(),
                 core::ptr::null_mut(),
             ))
         }
@@ -43,11 +43,11 @@ mod runtime_io_handle_impl {
         };
         if libc::flock(libc::fileno(fp), op | libc::LOCK_NB) == 0 {
             lean_io_result_mk_ok(lean_box(1))
-        } else if super::lean_runtime_errno() == libc::EWOULDBLOCK {
+        } else if super::lean_errno() == libc::EWOULDBLOCK {
             lean_io_result_mk_ok(lean_box(0))
         } else {
             lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_runtime_errno(),
+                super::lean_errno(),
                 core::ptr::null_mut(),
             ))
         }
@@ -59,7 +59,7 @@ mod runtime_io_handle_impl {
             lean_io_result_mk_ok(lean_box(0))
         } else {
             lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_runtime_errno(),
+                super::lean_errno(),
                 core::ptr::null_mut(),
             ))
         }

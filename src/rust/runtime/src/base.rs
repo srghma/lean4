@@ -126,29 +126,29 @@ pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject
 }
 
 pub unsafe fn lean_io_prim_handle_is_eof(h: *const LeanObject) -> u8 {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let fp = lean_get_external_data(h).cast::<libc::FILE>();
     (libc::feof(fp) != 0) as u8
 }
 
 pub unsafe fn lean_io_prim_handle_rewind(h: *const LeanObject) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let fp = lean_get_external_data(h).cast::<libc::FILE>();
     if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
         lean_io_result_mk_ok(lean_box(0))
     } else {
         lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
+            lean_errno(),
             core::ptr::null_mut(),
         ))
     }
 }
 
 pub unsafe fn lean_io_prim_handle_truncate(h: *const LeanObject) -> *mut LeanObject {
-    let fp = lean_runtime_get_external_data(h).cast::<libc::FILE>();
+    let fp = lean_get_external_data(h).cast::<libc::FILE>();
     if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
         lean_io_result_mk_ok(lean_box(0))
     } else {
         lean_io_result_mk_error(lean_decode_io_error(
-            lean_runtime_errno(),
+            lean_errno(),
             core::ptr::null_mut(),
         ))
     }
@@ -173,7 +173,7 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
 
     let fd = libc::open(fname, flags, 0o666);
     if fd == -1 {
-        return lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), filename));
+        return lean_io_result_mk_error(lean_decode_io_error(lean_errno(), filename));
     }
 
     let fp_mode: *const libc::c_char = match mode {
@@ -186,7 +186,7 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
 
     let fp = libc::fdopen(fd, fp_mode);
     if fp.is_null() {
-        lean_io_result_mk_error(lean_decode_io_error(lean_runtime_errno(), filename))
+        lean_io_result_mk_error(lean_decode_io_error(lean_errno(), filename))
     } else {
         lean_io_result_mk_ok(runtime_io_stream_impl::io_wrap_handle(fp))
     }
@@ -961,7 +961,7 @@ pub unsafe fn lean_get_current_time() -> *mut LeanObject {
     let secs = lean_int64_to_int_rust(now.as_secs() as i64);
     let nanos = lean_int64_to_int_rust(now.subsec_nanos() as i64);
     let mut fields = [secs, nanos];
-    let timestamp = lean_runtime_mk_cnstr(0, 2, fields.as_mut_ptr(), 0);
+    let timestamp = lean_mk_cnstr(0, 2, fields.as_mut_ptr(), 0);
     lean_io_result_mk_ok(timestamp)
 }
 
@@ -981,7 +981,7 @@ pub unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject {
         Ok(value) => {
             let cstr = CString::new(value).expect("environment values must not contain NUL bytes");
             let mut fields = [lean_mk_string(cstr.as_ptr())];
-            lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
+            lean_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
         }
         Err(_) => lean_box(0),
     }
@@ -1021,13 +1021,13 @@ pub unsafe fn lean_byteslice_beq(a: *const LeanObject, b: *const LeanObject) -> 
     1
 }
 
-pub unsafe fn lean_runtime_mk_cnstr(
+pub unsafe fn lean_mk_cnstr(
     tag: c_uint,
     num_objs: c_uint,
     objs: *mut *mut LeanObject,
     scalar_size: c_uint,
 ) -> *mut LeanObject {
-    let obj = lean_runtime_alloc_ctor(tag, num_objs, scalar_size);
+    let obj = lean_alloc_ctor(tag, num_objs, scalar_size);
     for index in 0..num_objs as Size {
         let val = objs.add(index).read();
         lean_ctor_set(obj, index as c_uint, val);
@@ -1035,11 +1035,11 @@ pub unsafe fn lean_runtime_mk_cnstr(
     obj
 }
 
-pub fn lean_runtime_is_utf8_next(byte: c_uchar) -> bool {
+pub fn lean_is_utf8_next(byte: c_uchar) -> bool {
     byte & 0xC0 == 0x80
 }
 
-pub fn lean_runtime_get_utf8_size(byte: c_uchar) -> c_uint {
+pub fn lean_get_utf8_size(byte: c_uchar) -> c_uint {
     utf8_size(byte) as c_uint
 }
 
@@ -1053,7 +1053,7 @@ pub unsafe fn lean_utf8_strlen(mut text: *const c_char) -> Size {
     length
 }
 
-pub unsafe fn lean_runtime_utf8_char_pos(
+pub unsafe fn lean_utf8_char_pos(
     mut text: *const c_char,
     mut char_idx: Size,
     out_pos: *mut Size,
@@ -1072,7 +1072,7 @@ pub unsafe fn lean_runtime_utf8_char_pos(
     false
 }
 
-pub unsafe fn lean_runtime_get_utf8_last_char(mut text: *const c_char) -> *const c_char {
+pub unsafe fn lean_get_utf8_last_char(mut text: *const c_char) -> *const c_char {
     let mut last = text;
     while *text != 0 {
         last = text;
@@ -1081,7 +1081,7 @@ pub unsafe fn lean_runtime_get_utf8_last_char(mut text: *const c_char) -> *const
     last
 }
 
-pub unsafe fn lean_runtime_utf8_to_unicode(begin: *const c_uchar, end: *const c_uchar) -> c_uint {
+pub unsafe fn lean_utf8_to_unicode(begin: *const c_uchar, end: *const c_uchar) -> c_uint {
     if begin == end {
         return 0;
     }
@@ -1113,7 +1113,7 @@ pub unsafe fn lean_runtime_utf8_to_unicode(begin: *const c_uchar, end: *const c_
     result | (((byte >> shift) & high_mask) << num_bits)
 }
 
-pub unsafe fn lean_runtime_get_utf8_first_byte_size(byte: c_uchar, out_size: *mut c_uint) -> bool {
+pub unsafe fn lean_get_utf8_first_byte_size(byte: c_uchar, out_size: *mut c_uint) -> bool {
     let size = if byte & 0x80 == 0 {
         1
     } else if byte & 0xe0 == 0xc0 {
@@ -1129,7 +1129,7 @@ pub unsafe fn lean_runtime_get_utf8_first_byte_size(byte: c_uchar, out_size: *mu
     true
 }
 
-pub unsafe fn lean_runtime_next_utf8(text: *const c_char, size: Size, pos: *mut Size) -> c_uint {
+pub unsafe fn lean_next_utf8(text: *const c_char, size: Size, pos: *mut Size) -> c_uint {
     let i = *pos;
     let byte = *text.add(i) as c_uchar as c_uint;
     if byte & 0x80 == 0 {
@@ -1171,7 +1171,7 @@ pub unsafe fn lean_runtime_next_utf8(text: *const c_char, size: Size, pos: *mut 
     byte
 }
 
-pub unsafe fn lean_runtime_hash_str(len: Size, text: *const c_uchar, seed: u64) -> u64 {
+pub unsafe fn lean_hash_str(len: Size, text: *const c_uchar, seed: u64) -> u64 {
     const M: u64 = 0xc6a4a7935bd1e995;
     const R: u32 = 47;
 

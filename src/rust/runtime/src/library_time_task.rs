@@ -7,8 +7,8 @@ Full Rust port of src/library/time_task.cpp.
 Exports:
   lean_display_cumulative_profiling_times() -> lean_object*  (BaseIO Unit)
   lean_profileit(category, opts, fn, decl) -> lean_object*
-  lean_runtime_time_task_begin(category_cstr, opts, name) -> u8  (1 if enabled)
-  lean_runtime_time_task_end(enabled: u8)
+  lean_time_task_begin(category_cstr, opts, name) -> u8  (1 if enabled)
+  lean_time_task_end(enabled: u8)
   _ZN4lean20initialize_time_taskEv  (no-op, state lives in Rust statics)
   _ZN4lean18finalize_time_taskEv    (clears cumulative times map)
 */
@@ -132,7 +132,7 @@ mod library_time_task_impl {
     /// C-callable API for runtime/interpreter callers.
     /// opts and name are borrowed (b_obj_arg). Returns 1 if profiling enabled.
     #[no_mangle]
-    pub unsafe fn lean_runtime_time_task_begin(
+    pub unsafe fn lean_time_task_begin(
         category_cstr: *const core::ffi::c_char,
         opts: *mut LeanObject,
         name: *mut LeanObject,
@@ -149,7 +149,7 @@ mod library_time_task_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_runtime_time_task_end(enabled: u8) {
+    pub unsafe fn lean_time_task_end(enabled: u8) {
         if enabled != 0 {
             end_impl();
         }

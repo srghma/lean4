@@ -19,7 +19,7 @@ mod runtime_timer_impl {
     const LEAN_TASK_STATE_FINISHED: u8 = 2;
 
     unsafe fn timer_from_obj(obj: *mut LeanObject) -> *mut LeanUvTimerObject {
-        lean_runtime_get_external_data(obj).cast()
+        lean_get_external_data(obj).cast()
     }
 
     unsafe fn timer_promise_is_finished(timer: *mut LeanUvTimerObject) -> bool {
@@ -81,7 +81,7 @@ mod runtime_timer_impl {
 
         (*timer).uv_timer = uv_timer;
 
-        let obj = lean_runtime_alloc_external(UV_TIMER_EXTERNAL_CLASS, timer.cast());
+        let obj = lean_alloc_external(UV_TIMER_EXTERNAL_CLASS, timer.cast());
         lean_mark_mt(obj);
         (*uv_timer).handle.data = obj.cast();
 

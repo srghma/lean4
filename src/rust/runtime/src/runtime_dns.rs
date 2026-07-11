@@ -52,8 +52,8 @@ mod runtime_dns_impl {
     }
 
     unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 
@@ -197,9 +197,9 @@ mod runtime_dns_impl {
                 return;
             }
 
-            let r = lean_runtime_alloc_ctor(0, 2, 0);
-            lean_runtime_ctor_set(r, 0, lean_mk_string(hostname));
-            lean_runtime_ctor_set(r, 1, lean_mk_string(service));
+            let r = lean_alloc_ctor(0, 2, 0);
+            lean_ctor_set(r, 0, lean_mk_string(hostname));
+            lean_ctor_set(r, 1, lean_mk_string(service));
 
             lean_promise_resolve(mk_except_ok(r), promise);
             lean_dec(promise);

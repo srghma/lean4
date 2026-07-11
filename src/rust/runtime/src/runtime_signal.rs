@@ -18,7 +18,7 @@ mod runtime_signal_impl {
     const LEAN_TASK_STATE_FINISHED: u8 = 2;
 
     unsafe fn signal_from_obj(obj: *mut LeanObject) -> *mut LeanUvSignalObject {
-        lean_runtime_get_external_data(obj).cast()
+        lean_get_external_data(obj).cast()
     }
 
     unsafe fn signal_promise_is_finished(signal: *mut LeanUvSignalObject) -> bool {
@@ -108,7 +108,7 @@ mod runtime_signal_impl {
 
         (*signal).uv_signal = uv_signal;
 
-        let obj = lean_runtime_alloc_external(UV_SIGNAL_EXTERNAL_CLASS, signal.cast());
+        let obj = lean_alloc_external(UV_SIGNAL_EXTERNAL_CLASS, signal.cast());
         lean_mark_mt(obj);
         (*uv_signal).handle.data = obj.cast();
 

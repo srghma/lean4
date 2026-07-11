@@ -4,7 +4,7 @@ use leanh_l1::{
 };
 use std::ffi::c_void;
 
-pub unsafe fn lean_runtime_alloc_external(
+pub unsafe fn lean_alloc_external(
     class: *mut LeanExternalClass,
     data: *mut c_void,
 ) -> *mut LeanObject {

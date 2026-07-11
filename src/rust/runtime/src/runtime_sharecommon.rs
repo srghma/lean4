@@ -18,7 +18,7 @@ mod runtime_sharecommon_impl {
         fn lean_object_data_byte_size(o: *const LeanObject) -> usize;
         fn lean_mpz_hash(o: *const LeanObject) -> u32;
         fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> u8;
-        fn lean_runtime_hash_str(len: usize, str: *const u8, init_value: u64) -> u64;
+        fn lean_hash_str(len: usize, str: *const u8, init_value: u64) -> u64;
         fn lean_apply_2(
             f: *mut LeanObject,
             a1: *mut LeanObject,
@@ -46,7 +46,7 @@ mod runtime_sharecommon_impl {
 
     #[inline]
     fn hash_str(len: usize, str: *const u8, init_value: u64) -> u64 {
-        unsafe { lean_runtime_hash_str(len, str, init_value) }
+        unsafe { lean_hash_str(len, str, init_value) }
     }
 
     #[derive(Default)]
@@ -174,15 +174,15 @@ mod runtime_sharecommon_impl {
         }
 
         unsafe fn pack(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-            let pair_state = lean_runtime_alloc_ctor(0, 2, 0);
-            lean_runtime_ctor_set(pair_state, 0, self.map);
-            lean_runtime_ctor_set(pair_state, 1, self.set);
+            let pair_state = lean_alloc_ctor(0, 2, 0);
+            lean_ctor_set(pair_state, 0, self.map);
+            lean_ctor_set(pair_state, 1, self.set);
             self.map = lean_box(0);
             self.set = lean_box(0);
 
-            let r = lean_runtime_alloc_ctor(0, 2, 0);
-            lean_runtime_ctor_set(r, 0, a);
-            lean_runtime_ctor_set(r, 1, pair_state);
+            let r = lean_alloc_ctor(0, 2, 0);
+            lean_ctor_set(r, 0, a);
+            lean_ctor_set(r, 1, pair_state);
             r
         }
 
@@ -357,11 +357,11 @@ mod runtime_sharecommon_impl {
             let scalar_offset = core::mem::size_of::<LeanObject>()
                 + num_objs * core::mem::size_of::<*mut LeanObject>();
             let scalar_sz = sz.saturating_sub(scalar_offset);
-            let new_a = lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
+            let new_a = lean_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
             for i in 0..num_objs {
                 let child = self.children[i];
                 lean_inc(child);
-                lean_runtime_ctor_set(new_a, i as u32, child);
+                lean_ctor_set(new_a, i as u32, child);
             }
             if scalar_sz > 0 {
                 let dest = (new_a as *mut u8).add(scalar_offset);
@@ -514,9 +514,9 @@ mod runtime_sharecommon_impl {
             let scalar_offset = core::mem::size_of::<LeanObject>()
                 + num_objs * core::mem::size_of::<*mut LeanObject>();
             let scalar_sz = sz.saturating_sub(scalar_offset);
-            let new_a = lean_runtime_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
+            let new_a = lean_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
             for i in 0..num_objs {
-                lean_runtime_ctor_set(new_a, i as u32, self.visit(lean_ctor_get(a, i)));
+                lean_ctor_set(new_a, i as u32, self.visit(lean_ctor_get(a, i)));
             }
             if scalar_sz > 0 {
                 let dest = (new_a as *mut u8).add(scalar_offset);

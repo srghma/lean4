@@ -8,11 +8,11 @@ mod runtime_mutex_impl {
     use std::thread::ThreadId;
 
     unsafe fn external_data<T>(obj: *mut LeanObject) -> &'static T {
-        &*lean_runtime_get_external_data(obj).cast::<T>()
+        &*lean_get_external_data(obj).cast::<T>()
     }
 
     unsafe fn alloc_external<T>(class: *mut LeanExternalClass, value: T) -> *mut LeanObject {
-        lean_runtime_alloc_external(class, Box::into_raw(Box::new(value)).cast())
+        lean_alloc_external(class, Box::into_raw(Box::new(value)).cast())
     }
 
     pub unsafe fn lean_io_basemutex_new() -> *mut LeanObject {

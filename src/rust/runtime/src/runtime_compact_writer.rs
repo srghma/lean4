@@ -787,7 +787,7 @@ mod runtime_compact_writer_impl {
                 allow_closures,
                 libs,
             ));
-            lean_runtime_alloc_external(
+            lean_alloc_external(
                 get_compactor_class(),
                 Box::into_raw(compactor) as *mut c_void,
             )
@@ -799,7 +799,7 @@ mod runtime_compact_writer_impl {
             inner
         };
 
-        let compactor = &mut *(lean_runtime_get_external_data(cs_obj) as *mut ObjectCompactor);
+        let compactor = &mut *(lean_get_external_data(cs_obj) as *mut ObjectCompactor);
 
         // ---- Build paths ----
         let olean_fn_cstr = lean_string_cstr(ofname);

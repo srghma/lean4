@@ -70,12 +70,12 @@ mod library_ir_interpreter_impl {
         fn lean_check_system(component_name: *const c_char, do_check_interrupted: bool);
 
         // time task
-        fn lean_runtime_time_task_begin(
+        fn lean_time_task_begin(
             category: *const c_char,
             opts: *mut LeanObject,
             name: *mut LeanObject,
         ) -> u8;
-        fn lean_runtime_time_task_end(enabled: u8);
+        fn lean_time_task_end(enabled: u8);
 
         // scope_trace_env (C++ RAII for trace opts)
         fn lean_scope_trace_env_ctor(
@@ -181,12 +181,12 @@ mod library_ir_interpreter_impl {
         let c_msg = std::ffi::CString::new(msg).unwrap_or_default();
         let s = lean_mk_string(c_msg.as_ptr());
         let mut fields = [s];
-        lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0) // IO.Error.userError
+        lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0) // IO.Error.userError
     }
 
     unsafe fn lean_io_result_mk_error_from_string_obj(msg: *mut LeanObject) -> *mut LeanObject {
         let mut fields = [msg];
-        let ioe = lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0); // IO.Error.userError s
+        let ioe = lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0); // IO.Error.userError s
         lean_io_result_mk_error(ioe)
     }
 
@@ -252,7 +252,7 @@ mod library_ir_interpreter_impl {
             opts: *mut LeanObject,
             name: *mut LeanObject,
         ) -> Self {
-            let enabled = lean_runtime_time_task_begin(category, opts, name);
+            let enabled = lean_time_task_begin(category, opts, name);
             TimeTaskGuard { enabled }
         }
     }
@@ -260,7 +260,7 @@ mod library_ir_interpreter_impl {
     impl Drop for TimeTaskGuard {
         fn drop(&mut self) {
             unsafe {
-                lean_runtime_time_task_end(self.enabled);
+                lean_time_task_end(self.enabled);
             }
         }
     }
@@ -899,7 +899,7 @@ mod library_ir_interpreter_impl {
     }
 
     unsafe fn lean_box_size_t(n: usize) -> *mut LeanObject {
-        let obj = lean_runtime_alloc_ctor(0, 0, core::mem::size_of::<usize>() as u32);
+        let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<usize>() as u32);
         lean_ctor_set_usize(obj, 0, n);
         obj
     }
@@ -1872,7 +1872,7 @@ mod library_ir_interpreter_impl {
                         let c_msg = std::ffi::CString::new(e).unwrap_or_default();
                         let s = lean_mk_string(c_msg.as_ptr());
                         let mut fields = [s];
-                        let ioe = lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
+                        let ioe = lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
                         lean_io_result_mk_error(ioe)
                     }
                 },
@@ -1880,7 +1880,7 @@ mod library_ir_interpreter_impl {
                     let c_msg = std::ffi::CString::new(e).unwrap_or_default();
                     let s = lean_mk_string(c_msg.as_ptr());
                     let mut fields = [s];
-                    let ioe = lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
+                    let ioe = lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
                     lean_io_result_mk_error(ioe)
                 }
             };
@@ -2406,7 +2406,7 @@ mod library_ir_interpreter_impl {
                 let c_msg = std::ffi::CString::new(e).unwrap_or_default();
                 let s = lean_mk_string(c_msg.as_ptr());
                 let mut fields = [s];
-                let ioe = lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
+                let ioe = lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0);
                 let r = lean_io_result_mk_error(ioe);
                 lean_io_result_show_error(r);
                 lean_dec(r);
@@ -2426,13 +2426,13 @@ mod library_ir_interpreter_impl {
         match run_boxed(env, opts, c, 0, ptr::null()) {
             Ok(r) => {
                 let mut fields = [r];
-                lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0) // Except.ok r
+                lean_mk_cnstr(1, 1, fields.as_mut_ptr(), 0) // Except.ok r
             }
             Err(e) => {
                 let c_msg = std::ffi::CString::new(e).unwrap_or_default();
                 let s = lean_mk_string(c_msg.as_ptr());
                 let mut fields = [s];
-                lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0) // Except.error msg
+                lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0) // Except.error msg
             }
         }
     }
@@ -2456,13 +2456,13 @@ mod library_ir_interpreter_impl {
         let result = match run_boxed(elab_env, opts, c, n, args) {
             Ok(r) => {
                 let mut fields = [r];
-                lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
+                lean_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
             }
             Err(e) => {
                 let c_msg = std::ffi::CString::new(e).unwrap_or_default();
                 let s = lean_mk_string(c_msg.as_ptr());
                 let mut fields = [s];
-                lean_runtime_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
+                lean_mk_cnstr(0, 1, fields.as_mut_ptr(), 0)
             }
         };
         lean_dec(elab_env);

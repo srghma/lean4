@@ -17,16 +17,16 @@ mod runtime_event_loop_impl {
 
     pub unsafe fn lean_promise_resolve_with_code(status: c_int, promise: *mut LeanObject) {
         let result = if status == 0 {
-            lean_runtime_alloc_ctor(1, 1, 0)
+            lean_alloc_ctor(1, 1, 0)
         } else {
-            lean_runtime_alloc_ctor(0, 1, 0)
+            lean_alloc_ctor(0, 1, 0)
         };
         let value = if status == 0 {
             lean_box(0)
         } else {
             lean_decode_uv_error(status, null_mut())
         };
-        lean_runtime_ctor_set(result, 0, value);
+        lean_ctor_set(result, 0, value);
         lean_promise_resolve(result, promise);
     }
 

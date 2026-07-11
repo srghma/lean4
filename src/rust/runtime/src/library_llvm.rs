@@ -87,8 +87,8 @@ mod library_llvm_impl {
 
     #[inline]
     unsafe fn llvm_option_some(value: usize) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, lean_box(value));
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, lean_box(value));
         result
     }
 

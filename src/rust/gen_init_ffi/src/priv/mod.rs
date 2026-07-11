@@ -6,7 +6,7 @@ pub mod lean_array_set_size;
 pub mod lean_char_default_value;
 pub mod lean_closure_data_byte_size;
 pub mod lean_mk_string_from_bytes_unchecked;
-pub mod lean_runtime_push_unicode_scalar;
+pub mod lean_push_unicode_scalar;
 pub mod lean_sarray_data_byte_size;
 pub mod lean_sarray_mut_cptr;
 pub mod lean_string_capacity;

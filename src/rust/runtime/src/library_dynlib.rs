@@ -53,7 +53,7 @@ pub(crate) unsafe fn lean_dynlib_load(path: *mut LeanObject) -> *mut LeanObject 
         Err(err) => return dynlib_error("error loading library, ", err),
     };
 
-    lean_io_result_mk_ok(lean_runtime_alloc_external(DYNLIB_EXTERNAL_CLASS, handle))
+    lean_io_result_mk_ok(lean_alloc_external(DYNLIB_EXTERNAL_CLASS, handle))
 }
 
 #[inline]
@@ -61,15 +61,15 @@ pub(crate) unsafe fn lean_dynlib_get(
     dynlib: *mut LeanObject,
     name: *mut LeanObject,
 ) -> *mut LeanObject {
-    let handle = lean_runtime_get_external_data(dynlib) as *mut DynLibHandle;
+    let handle = lean_get_external_data(dynlib) as *mut DynLibHandle;
     let symbol = match (*handle).get(name) {
         Ok(sym) => sym,
         Err(_) => return lean_box(0),
     };
 
-    let symbol = lean_runtime_alloc_external(DYNLIB_SYMBOL_EXTERNAL_CLASS, symbol);
+    let symbol = lean_alloc_external(DYNLIB_SYMBOL_EXTERNAL_CLASS, symbol);
     let mut fields = [symbol];
-    lean_runtime_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
+    lean_mk_cnstr(1, 1, fields.as_mut_ptr(), 0)
 }
 
 #[inline]
@@ -77,7 +77,7 @@ pub(crate) unsafe fn lean_dynlib_symbol_run_as_init(
     _: *mut LeanObject,
     symbol: *mut LeanObject,
 ) -> *mut LeanObject {
-    let symbol = lean_runtime_get_external_data(symbol);
+    let symbol = lean_get_external_data(symbol);
     let initialize: unsafe fn(bool) -> *mut LeanObject = core::mem::transmute(symbol);
     initialize(true)
 }

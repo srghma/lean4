@@ -74,7 +74,7 @@ mod runtime_object_string_impl {
         } else {
             r = string_ensure_capacity(s, 5);
         }
-        let consumed = lean_runtime_push_unicode_scalar(w_string_cstr(r).add(sz - 1), c) as usize;
+        let consumed = lean_push_unicode_scalar(w_string_cstr(r).add(sz - 1), c) as usize;
         (*(r as *mut LeanStringObject)).size = sz + consumed;
         (*(r as *mut LeanStringObject)).len += 1;
         *w_string_cstr(r).add(sz + consumed - 1) = 0;
@@ -305,7 +305,7 @@ mod runtime_object_string_impl {
             }
         };
         let mut buf = [0i8; 4];
-        let new_c_sz = lean_runtime_push_unicode_scalar(buf.as_mut_ptr(), c) as usize;
+        let new_c_sz = lean_push_unicode_scalar(buf.as_mut_ptr(), c) as usize;
         let old_data = core::slice::from_raw_parts(lean_string_cstr(s) as *const u8, sz);
         let len = lean_string_length(s);
         lean_dec(s);
@@ -331,7 +331,7 @@ mod runtime_object_string_impl {
     pub unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
         let sz = lean_string_size(s) - 1;
         let str = lean_string_cstr(s) as *const u8;
-        lean_runtime_hash_str(sz, str, 11)
+        lean_hash_str(sz, str, 11)
     }
 
     pub unsafe fn lean_string_memcmp(
@@ -363,7 +363,7 @@ mod runtime_object_string_impl {
         let end_ = lean_unbox(lean_ctor_get(s, 2));
         let sz = if end_ > start { end_ - start } else { 0 };
         let base = lean_string_cstr(lean_ctor_get(s, 0)).add(start) as *const u8;
-        lean_runtime_hash_str(sz, base, 11)
+        lean_hash_str(sz, base, 11)
     }
 
     pub unsafe fn lean_slice_dec_lt(s1: *const LeanObject, s2: *const LeanObject) -> u8 {

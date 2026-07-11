@@ -42,8 +42,8 @@ mod runtime_net_addr_impl {
     }
 
     unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
     pub unsafe fn lean_ipv4_addr_to_in_addr(ipv4_addr: *mut LeanObject, out: *mut libc::in_addr) {
@@ -147,8 +147,8 @@ mod runtime_net_addr_impl {
         array
     }
     pub unsafe fn lean_mk_socketaddress(ip_addr: *mut LeanObject, port: u16) -> *mut LeanObject {
-        let socket_addr = lean_runtime_alloc_ctor(0, 1, 2);
-        lean_runtime_ctor_set(socket_addr, 0, ip_addr);
+        let socket_addr = lean_alloc_ctor(0, 1, 2);
+        lean_ctor_set(socket_addr, 0, ip_addr);
         lean_ctor_set_uint16(socket_addr, core::mem::size_of::<*mut LeanObject>(), port);
         socket_addr
     }
@@ -164,7 +164,7 @@ mod runtime_net_addr_impl {
             lean_internal_panic(b"unsupported socket address family\0".as_ptr().cast());
         };
 
-        let ctor = lean_runtime_alloc_ctor(
+        let ctor = lean_alloc_ctor(
             if family as c_int == libc::AF_INET6 {
                 1
             } else {
@@ -173,7 +173,7 @@ mod runtime_net_addr_impl {
             1,
             0,
         );
-        lean_runtime_ctor_set(ctor, 0, part);
+        lean_ctor_set(ctor, 0, part);
         ctor
     }
     pub unsafe fn lean_sockaddr_to_socketaddress(
@@ -193,8 +193,8 @@ mod runtime_net_addr_impl {
             lean_internal_panic(b"unsupported socket address family\0".as_ptr().cast());
         };
 
-        let ctor = lean_runtime_alloc_ctor(tag, 1, 0);
-        lean_runtime_ctor_set(ctor, 0, part);
+        let ctor = lean_alloc_ctor(tag, 1, 0);
+        lean_ctor_set(ctor, 0, part);
         ctor
     }
 
@@ -280,9 +280,9 @@ mod runtime_net_addr_impl {
                 continue;
             };
 
-            let iface = lean_runtime_alloc_ctor(0, 4, 1);
-            lean_runtime_ctor_set(iface, 0, lean_mk_string((*interface).name));
-            lean_runtime_ctor_set(
+            let iface = lean_alloc_ctor(0, 4, 1);
+            lean_ctor_set(iface, 0, lean_mk_string((*interface).name));
+            lean_ctor_set(
                 iface,
                 1,
                 lean_phys_addr_to_mac_addr((*interface).phys_addr.as_mut_ptr()),
@@ -292,12 +292,12 @@ mod runtime_net_addr_impl {
                 core::mem::size_of::<*mut LeanObject>() * 4,
                 (*interface).is_internal as u8,
             );
-            lean_runtime_ctor_set(
+            lean_ctor_set(
                 iface,
                 2,
                 lean_in_addr_storage_to_ip_addr(family as i16, socket_address.cast_mut()),
             );
-            lean_runtime_ctor_set(
+            lean_ctor_set(
                 iface,
                 3,
                 lean_in_addr_storage_to_ip_addr(family as i16, netmask_address.cast_mut()),

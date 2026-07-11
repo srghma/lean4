@@ -15,7 +15,7 @@ use crate::datatypes::{
 use crate::in_emit_rust::{lean_is_scalar, lean_unbox};
 use crate::runtime_object_panic::lean_internal_panic_out_of_memory;
 use crate::runtime_object_rc::{lean_alloc_object, lean_mark_persistent};
-use crate::runtime_object_task::{lean_runtime_deactivate_promise, lean_runtime_deactivate_task};
+use crate::runtime_object_task::{lean_deactivate_promise, lean_deactivate_task};
 
 // NOT IN EmitRust; here because it is used in `lean_alloc_ctor`, `lean_box_float`, `lean_box_float32`, `lean_box_uint32`, and 3 more EmitRust functions.
 #[inline]

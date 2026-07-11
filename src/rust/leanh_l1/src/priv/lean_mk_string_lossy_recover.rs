@@ -2,7 +2,7 @@ use std::ffi::c_char;
 
 use crate::{
     datatypes::LeanObject, emitted::lean_mk_string_unchecked::lean_mk_string_unchecked,
-    r#priv::lean_runtime_validate_utf8_one::lean_runtime_validate_utf8_one,
+    r#priv::lean_validate_utf8_one::lean_validate_utf8_one,
 };
 
 // ── lossy UTF-8 recovery ─────────────────────────────────────────────────────
@@ -19,7 +19,7 @@ pub unsafe fn lean_mk_string_lossy_recover(
     let mut p = pos;
     while p < sz {
         let mut next = p;
-        if lean_runtime_validate_utf8_one(s, sz, &mut next) {
+        if lean_validate_utf8_one(s, sz, &mut next) {
             char_count += 1;
             p = next;
         } else {

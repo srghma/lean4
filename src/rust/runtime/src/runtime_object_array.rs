@@ -16,7 +16,7 @@ mod runtime_object_array_impl {
         fn lean_internal_panic_out_of_memory() -> !;
         fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
         fn lean_panic_fn(default_val: *mut LeanObject, msg: *mut LeanObject) -> *mut LeanObject;
-        fn lean_runtime_hash_str(len: usize, text: *const u8, seed: u64) -> u64;
+        fn lean_hash_str(len: usize, text: *const u8, seed: u64) -> u64;
     }
 
     #[inline]
@@ -158,7 +158,7 @@ mod runtime_object_array_impl {
     }
 
     pub unsafe fn lean_byte_array_hash(a: *const LeanObject) -> u64 {
-        lean_runtime_hash_str(lean_sarray_size(a), lean_sarray_cptr(a), 11)
+        lean_hash_str(lean_sarray_size(a), lean_sarray_cptr(a), 11)
     }
 
     pub unsafe fn lean_copy_float_array(a: *mut LeanObject) -> *mut LeanObject {

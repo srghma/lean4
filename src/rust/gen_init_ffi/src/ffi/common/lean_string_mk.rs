@@ -14,7 +14,7 @@ use leanh_l1::{
 
 use crate::{
     ffi::Init::Prelude::lean_is_scalar,
-    r#priv::lean_runtime_push_unicode_scalar::lean_runtime_push_unicode_scalar,
+    r#priv::lean_push_unicode_scalar::lean_push_unicode_scalar,
 };
 
 #[inline]
@@ -27,7 +27,7 @@ pub unsafe fn lean_string_mk(chars: *mut LeanObject) -> *mut LeanObject {
         let start = buf.len();
         buf.resize(start + 4, 0);
         let consumed =
-            lean_runtime_push_unicode_scalar(buf.as_mut_ptr().add(start) as *mut c_char, cp)
+            lean_push_unicode_scalar(buf.as_mut_ptr().add(start) as *mut c_char, cp)
                 as usize;
         buf.truncate(start + consumed);
         o = lean_ctor_get(o, 1);

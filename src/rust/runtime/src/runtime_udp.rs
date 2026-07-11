@@ -34,22 +34,22 @@ mod runtime_udp_impl {
     }
 
     unsafe fn lean_uv_udp_socket_new(s: *mut LeanUvUdpSocketObject) -> *mut LeanObject {
-        lean_runtime_alloc_external(g_uv_udp_socket_external_class, s.cast())
+        lean_alloc_external(g_uv_udp_socket_external_class, s.cast())
     }
 
     unsafe fn lean_to_uv_udp_socket(o: *mut LeanObject) -> *mut LeanUvUdpSocketObject {
-        lean_runtime_get_external_data(o).cast()
+        lean_get_external_data(o).cast()
     }
 
     unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 
     unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(0, 1, 0);
-        lean_runtime_ctor_set(result, 0, error);
+        let result = lean_alloc_ctor(0, 1, 0);
+        lean_ctor_set(result, 0, error);
         result
     }
 
@@ -58,8 +58,8 @@ mod runtime_udp_impl {
     }
 
     unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_runtime_alloc_ctor(1, 1, 0);
-        lean_runtime_ctor_set(result, 0, value);
+        let result = lean_alloc_ctor(1, 1, 0);
+        lean_ctor_set(result, 0, value);
         result
     }
 
@@ -331,9 +331,9 @@ mod runtime_udp_impl {
                     option_none()
                 };
 
-                let prod = lean_runtime_alloc_ctor(0, 2, 0);
-                lean_runtime_ctor_set(prod, 0, byte_array);
-                lean_runtime_ctor_set(prod, 1, addr_obj);
+                let prod = lean_alloc_ctor(0, 2, 0);
+                lean_ctor_set(prod, 0, byte_array);
+                lean_ctor_set(prod, 1, addr_obj);
 
                 lean_promise_resolve(mk_except_ok(prod), promise);
             } else if nread < 0 {

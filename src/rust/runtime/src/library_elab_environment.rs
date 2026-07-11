@@ -68,8 +68,8 @@ mod library_elab_environment_impl {
                 lean_elab_environment_update_base_after_kernel_add(elab_env, new_kernel_env, decl);
 
             // Wrap new_elab_env in Except.ok
-            let ok = lean_runtime_alloc_ctor(EXCEPT_OK_TAG as u32, 1, 0);
-            lean_runtime_ctor_set(ok, 0, new_elab_env);
+            let ok = lean_alloc_ctor(EXCEPT_OK_TAG as u32, 1, 0);
+            lean_ctor_set(ok, 0, new_elab_env);
             ok
         } else {
             // Error path: release the elab_env we held onto.

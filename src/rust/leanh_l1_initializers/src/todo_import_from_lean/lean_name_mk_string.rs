@@ -18,7 +18,7 @@ const LEAN_NAME_HASH_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2
 const LEAN_NAME_ANONYMOUS_HASH: u64 = 1723;
 const LEAN_STRING_HASH_SEED: u64 = 11;
 
-fn lean_runtime_hash_str(len: usize, text: *const u8, seed: u64) -> u64 {
+fn lean_hash_str(len: usize, text: *const u8, seed: u64) -> u64 {
     const M: u64 = 0xc6a4a7935bd1e995;
     const R: u32 = 47;
 
@@ -102,7 +102,7 @@ unsafe fn lean_string_hash(s: *const LeanObject) -> u64 {
     let s = leanh_l1::r#priv::lean_to_string::lean_to_string(s);
     let byte_len = (*s).m_size.saturating_sub(1);
     let text = lean_string_cstr(s as *const LeanObject).cast::<u8>();
-    lean_runtime_hash_str(byte_len, text, LEAN_STRING_HASH_SEED)
+    lean_hash_str(byte_len, text, LEAN_STRING_HASH_SEED)
 }
 
 // Mirrors emitted `l_Lean_Name_str___override` for

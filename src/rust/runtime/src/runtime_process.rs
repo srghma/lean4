@@ -9,8 +9,8 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 // NOTE: This file is include!()-ed from lib.rs so all helpers defined there
 // are in scope: lean_ctor_get, lean_ctor_get_uint8, lean_ctor_set_uint8,
 // lean_array_get, lean_array_size, lean_string_cstr, lean_box,
-// lean_is_scalar, lean_inc, lean_dec, lean_runtime_alloc_ctor,
-// lean_runtime_ctor_set, lean_io_result_mk_ok, lean_io_result_mk_error,
+// lean_is_scalar, lean_inc, lean_dec, lean_alloc_ctor,
+// lean_ctor_set, lean_io_result_mk_ok, lean_io_result_mk_error,
 // lean_mk_string, lean_decode_io_error, lean_mk_io_user_error, etc.
 
 mod runtime_process_impl {
@@ -18,8 +18,8 @@ mod runtime_process_impl {
         LeanObject, Size, c_char, c_uint, lean_array_get, lean_array_size, lean_box, lean_ctor_get,
         lean_ctor_get_uint8, lean_ctor_set_uint8, lean_dec, lean_decode_io_error, lean_inc,
         lean_io_result_mk_error, lean_io_result_mk_ok, lean_is_scalar, lean_mk_io_user_error,
-        lean_mk_string, lean_mk_string_from_bytes, lean_obj_tag, lean_runtime_alloc_ctor,
-        lean_runtime_ctor_set, lean_string_cstr,
+        lean_mk_string, lean_mk_string_from_bytes, lean_obj_tag, lean_alloc_ctor,
+        lean_ctor_set, lean_string_cstr,
     };
     use crate::runtime_io_stream::io_wrap_handle;
     use core::ffi::c_int;

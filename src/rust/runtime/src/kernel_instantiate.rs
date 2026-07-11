@@ -112,7 +112,7 @@ mod kernel_instantiate_impl {
     }
 
     unsafe fn alloc_ctor(tag: u32, num_objs: usize, scalar_size: usize) -> *mut LeanObject {
-        lean_runtime_alloc_ctor(
+        lean_alloc_ctor(
             tag as core::ffi::c_uint,
             num_objs as core::ffi::c_uint,
             scalar_size as core::ffi::c_uint,
