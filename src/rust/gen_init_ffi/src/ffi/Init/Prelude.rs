@@ -1,7 +1,8 @@
 use leanh_l1::{
     datatypes::{LEAN_MAX_SMALL_NAT, LeanObject, LeanScalarArray, LeanStringObject},
     emitted::{
-        lean_box::lean_box, lean_ctor_get::lean_ctor_get, lean_dec::lean_dec, lean_inc::lean_inc,
+        lean_alloc_ctor::lean_alloc_ctor, lean_box::lean_box, lean_ctor_get::lean_ctor_get,
+        lean_ctor_set::lean_ctor_set, lean_dec::lean_dec, lean_inc::lean_inc,
         lean_unbox::lean_unbox,
     },
     r#priv::{
