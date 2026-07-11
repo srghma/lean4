@@ -74,8 +74,8 @@ mod library_ir_interpreter_impl {
             category: *const c_char,
             opts: *mut LeanObject,
             name: *mut LeanObject,
-        ) -> u8;
-        fn lean_time_task_end(enabled: u8);
+        ) -> bool;
+        fn lean_time_task_end(enabled: bool);
 
         // scope_trace_env (C++ RAII for trace opts)
         fn lean_scope_trace_env_ctor(
@@ -243,7 +243,7 @@ mod library_ir_interpreter_impl {
     // ---------------------------------------------------------------------------
 
     struct TimeTaskGuard {
-        enabled: u8,
+        enabled: bool,
     }
 
     impl TimeTaskGuard {
@@ -282,7 +282,7 @@ mod library_ir_interpreter_impl {
 
     impl PartialEq for NameKey {
         fn eq(&self, other: &Self) -> bool {
-            unsafe { lean_name_eq(self.0, other.0) != 0 }
+            unsafe { lean_name_eq(self.0, other.0) }
         }
     }
 
@@ -1413,10 +1413,10 @@ mod library_ir_interpreter_impl {
                             let fn_name = expr_fap_fun(expr);
                             let cur_fn = self.get_frame_fn();
                             let fap_args = expr_fap_args(expr);
-                            if lean_name_eq(fn_name, cur_fn) != 0
+                            if lean_name_eq(fn_name, cur_fn)
                                 && fn_body_tag(cont) == FnBodyKind::Ret
                                 && !arg_is_irrelevant(fn_body_ret_arg(cont))
-                                && lean_name_eq(arg_var_id(fn_body_ret_arg(cont)), var) != 0
+                                && lean_name_eq(arg_var_id(fn_body_ret_arg(cont)), var)
                             {
                                 // tail recursion: copy arg values to param slots
                                 let n = array_size(fap_args);

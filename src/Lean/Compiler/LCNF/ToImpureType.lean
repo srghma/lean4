@@ -52,6 +52,8 @@ public def nameToImpureType (name : Name) : CoreM Expr := do
     impureTypeExt.insert name type
     return type
 where fillCache : CoreM Expr := do
+    if name == ``Bool then
+      return ImpureType.bool
     match name with
     | ``UInt8 => return ImpureType.uint8
     | ``UInt16 => return ImpureType.uint16
@@ -184,6 +186,9 @@ where fillCache := do
       | ImpureType.uint8 =>
         has1BScalar := true
         .pure <| .scalar 1 0 ImpureType.uint8
+      | ImpureType.bool =>
+        has1BScalar := true
+        .pure <| .scalar 1 0 ImpureType.bool
       | ImpureType.uint16 =>
         has2BScalar := true
         .pure <| .scalar 2 0 ImpureType.uint16

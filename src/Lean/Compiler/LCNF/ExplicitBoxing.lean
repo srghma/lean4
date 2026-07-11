@@ -129,7 +129,7 @@ and `x`'s type is not cheap to box (e.g., it is `UInt64), then return its value.
 def isExpensiveConstantValueBoxing (x : FVarId) (xType : Expr) :
     BoxM (Option (LetValue .impure)) :=
   match xType with
-  | uint8 | uint16 => return none
+  | bool | uint8 | uint16 => return none
   | _ => do
     let some val ← findLetValue? x | return none
     match val with

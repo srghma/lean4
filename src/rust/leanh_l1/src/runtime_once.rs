@@ -1,7 +1,7 @@
 use std::sync::atomic::{AtomicI32, Ordering};
 
 use crate::{
-    datatypes::{LeanObject, LeanOnceCell},
+    datatypes::{BoolInitFn, LeanObject, LeanOnceCell},
     emitted::lean_mark_persistent::lean_mark_persistent,
 };
 
@@ -56,6 +56,10 @@ pub unsafe fn lean_obj_once_cold(
 }
 
 pub unsafe fn lean_uint8_once_cold(loc: *mut u8, tok: *mut LeanOnceCell, init: U8InitFn) -> u8 {
+    run_once(loc, tok, init)
+}
+
+pub unsafe fn lean_bool_once_cold(loc: *mut bool, tok: *mut LeanOnceCell, init: BoolInitFn) -> bool {
     run_once(loc, tok, init)
 }
 

@@ -45,7 +45,7 @@ unsafe extern "C" {
         env: *mut LeanObject,
         name: *mut LeanObject,
     ) -> *mut LeanObject;
-    pub fn lean_get_profiler(opts: *mut LeanObject) -> u8;
+    pub fn lean_get_profiler(opts: *mut LeanObject) -> bool;
     pub fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
 
     pub fn initialize_alloc();
@@ -125,9 +125,9 @@ pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject
     v
 }
 
-pub unsafe fn lean_io_prim_handle_is_eof(h: *const LeanObject) -> u8 {
+pub unsafe fn lean_io_prim_handle_is_eof(h: *const LeanObject) -> bool {
     let fp = lean_get_external_data(h).cast::<libc::FILE>();
-    (libc::feof(fp) != 0) as u8
+    libc::feof(fp) != 0
 }
 
 pub unsafe fn lean_io_prim_handle_rewind(h: *const LeanObject) -> *mut LeanObject {
@@ -135,10 +135,7 @@ pub unsafe fn lean_io_prim_handle_rewind(h: *const LeanObject) -> *mut LeanObjec
     if libc::fseek(fp, 0, libc::SEEK_SET) == 0 {
         lean_io_result_mk_ok(lean_box(0))
     } else {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_errno(),
-            core::ptr::null_mut(),
-        ))
+        lean_io_result_mk_error(lean_decode_io_error(lean_errno(), core::ptr::null_mut()))
     }
 }
 
@@ -147,10 +144,7 @@ pub unsafe fn lean_io_prim_handle_truncate(h: *const LeanObject) -> *mut LeanObj
     if libc::ftruncate(libc::fileno(fp), libc::ftello(fp)) == 0 {
         lean_io_result_mk_ok(lean_box(0))
     } else {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_errno(),
-            core::ptr::null_mut(),
-        ))
+        lean_io_result_mk_error(lean_decode_io_error(lean_errno(), core::ptr::null_mut()))
     }
 }
 
@@ -192,8 +186,8 @@ pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mu
     }
 }
 
-fn env_flag(value: &str) -> u8 {
-    if value.as_bytes() == b"1" { 1 } else { 0 }
+fn env_flag(value: &str) -> bool {
+    value.as_bytes() == b"1"
 }
 
 include!("library_constants.rs");
@@ -265,7 +259,7 @@ include!("library_llvm.rs");
 include!("kernel_num.rs");
 include!("kernel_trace.rs");
 
-pub unsafe fn lean_name_eq_export(n1: *const LeanObject, n2: *const LeanObject) -> u8 {
+pub unsafe fn lean_name_eq_export(n1: *const LeanObject, n2: *const LeanObject) -> bool {
     runtime_object_name_impl::lean_name_eq(n1, n2)
 }
 
@@ -694,7 +688,7 @@ pub unsafe fn options_update(
 pub unsafe fn get_profiler(opts: *const LeanOptions) -> bool {
     let opts = (*opts).obj;
     lean_inc(opts);
-    lean_get_profiler(opts) != 0
+    lean_get_profiler(opts)
 }
 pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
     let opts = (*opts).obj;
@@ -702,8 +696,8 @@ pub unsafe fn get_profiling_threshold(opts: *const LeanOptions) -> f64 {
     lean_get_profiler_threshold(opts)
 }
 
-pub fn lean_internal_get_default_verbose(_: *mut LeanObject) -> u8 {
-    true as u8
+pub fn lean_internal_get_default_verbose(_: *mut LeanObject) -> bool {
+    true
 }
 
 pub unsafe fn lean_internal_get_default_options(_: *mut LeanObject) -> *mut LeanObject {
@@ -731,43 +725,39 @@ pub fn lean_finalize() {
     delete_thread_finalizer_manager();
 }
 
-pub unsafe fn lean_system_platform_nbits(_: *mut LeanObject) -> *mut LeanObject {
-    lean_box(core::mem::size_of::<*const u8>() * 8)
+pub fn lean_system_platform_windows(_: *mut LeanObject) -> bool {
+    false
 }
 
-pub fn lean_system_platform_windows(_: *mut LeanObject) -> u8 {
-    0
+pub fn lean_system_platform_osx(_: *mut LeanObject) -> bool {
+    cfg!(target_os = "macos")
 }
 
-pub fn lean_system_platform_osx(_: *mut LeanObject) -> u8 {
-    cfg!(target_os = "macos") as u8
+pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> bool {
+    false
 }
 
-pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> u8 {
-    0
-}
-
-pub fn lean_io_initializing() -> u8 {
-    INITIALIZING.load(Ordering::Relaxed) as u8
+pub fn lean_io_initializing() -> bool {
+    INITIALIZING.load(Ordering::Relaxed)
 }
 
 pub unsafe fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_GITHASH"), "\0").as_ptr() as *const c_char)
 }
 
-pub fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_has_llvm_backend(_: *mut LeanObject) -> bool {
     env_flag(env!("LEAN_RUST_HAS_LLVM"))
 }
 
-pub fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_has_address_sanitizer(_: *mut LeanObject) -> bool {
     env_flag(env!("LEAN_RUST_HAS_ADDRESS_SANITIZER"))
 }
 
-pub fn lean_internal_is_multi_thread(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_is_multi_thread(_: *mut LeanObject) -> bool {
     env_flag(env!("LEAN_RUST_MULTI_THREAD"))
 }
 
-pub fn lean_internal_is_debug(_: *mut LeanObject) -> u8 {
+pub fn lean_internal_is_debug(_: *mut LeanObject) -> bool {
     env_flag(env!("LEAN_RUST_DEBUG"))
 }
 
@@ -987,9 +977,9 @@ pub unsafe fn lean_io_getenv(env_var: *mut LeanObject) -> *mut LeanObject {
     }
 }
 
-pub unsafe fn lean_byteslice_beq(a: *const LeanObject, b: *const LeanObject) -> u8 {
+pub unsafe fn lean_byteslice_beq(a: *const LeanObject, b: *const LeanObject) -> bool {
     if ptr::eq(a, b) {
-        return 1;
+        return true;
     }
 
     let bytearray_a = lean_ctor_get(a, 0);
@@ -1004,21 +994,21 @@ pub unsafe fn lean_byteslice_beq(a: *const LeanObject, b: *const LeanObject) -> 
     let size_b = end_b - start_b;
 
     if size_a != size_b {
-        return 0;
+        return false;
     }
 
     if size_a == 0 {
-        return 1;
+        return true;
     }
 
     let ptr_a = lean_sarray_cptr(bytearray_a).add(start_a);
     let ptr_b = lean_sarray_cptr(bytearray_b).add(start_b);
     for offset in 0..size_a {
         if *ptr_a.add(offset) != *ptr_b.add(offset) {
-            return 0;
+            return false;
         }
     }
-    1
+    true
 }
 
 pub unsafe fn lean_mk_cnstr(

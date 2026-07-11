@@ -45,10 +45,10 @@ mod kernel_expr_eq_fn_impl {
     use std::collections::HashSet;
 
     unsafe extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
+        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
         fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool;
         // Consumes both arguments (obj_arg semantics); call lean_inc before passing borrowed refs.
-        fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> u8;
+        fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool;
     }
 
     const EXPR_BVAR: u8 = 0;
@@ -83,8 +83,8 @@ mod kernel_expr_eq_fn_impl {
 
     // nondep byte for Let (4 obj fields).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * 8 + 8)
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     // lean_string_size: reads m_size from lean_string_object (at byte offset 8).
@@ -117,7 +117,7 @@ mod kernel_expr_eq_fn_impl {
                 // pair: field[0]=name, field[1]=data_value
                 let name1 = lean_ctor_get(pair1, 0);
                 let name2 = lean_ctor_get(pair2, 0);
-                if lean_name_eq(name1, name2) == 0 {
+                if !lean_name_eq(name1, name2) {
                     return false;
                 }
 
@@ -126,7 +126,7 @@ mod kernel_expr_eq_fn_impl {
                 if dv1 != dv2 {
                     lean_inc(dv1);
                     lean_inc(dv2);
-                    if lean_data_value_beq(dv1, dv2) == 0 {
+                    if !lean_data_value_beq(dv1, dv2) {
                         return false;
                     }
                 }
@@ -234,7 +234,7 @@ mod kernel_expr_eq_fn_impl {
                 if s1 || s2 {
                     return false;
                 }
-                if lean_level_eqv(lean_ctor_get(ls1, 0), lean_ctor_get(ls2, 0)) == 0 {
+                if !lean_level_eqv(lean_ctor_get(ls1, 0), lean_ctor_get(ls2, 0)) {
                     return false;
                 }
                 ls1 = lean_ctor_get(ls1, 1);
@@ -272,10 +272,10 @@ mod kernel_expr_eq_fn_impl {
                     return self.lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
                 EXPR_MVAR | EXPR_FVAR => {
-                    return lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0;
+                    return lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
                 EXPR_SORT => {
-                    return lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0;
+                    return lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
                 _ => {}
             }
@@ -298,12 +298,12 @@ mod kernel_expr_eq_fn_impl {
                 EXPR_PROJ => {
                     // field[0] = sname (Name), field[1] = idx (Nat), field[2] = expr
                     self.apply(lean_ctor_get(a, 2), lean_ctor_get(b, 2), depth, false)
-                        && lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
+                        && lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                         && self.nat_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
                 EXPR_CONST => {
                     // field[0] = name, field[1] = List Level
-                    lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
+                    lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                         && self.levels_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
                 EXPR_APP => {
@@ -344,7 +344,7 @@ mod kernel_expr_eq_fn_impl {
                         return false;
                     }
                     if self.compare_binder_info {
-                        if lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) == 0 {
+                        if !lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) {
                             return false;
                         }
                         if expr_binder_info_raw(a) != expr_binder_info_raw(b) {
@@ -369,7 +369,7 @@ mod kernel_expr_eq_fn_impl {
                         return false;
                     }
                     if self.compare_binder_info {
-                        if lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) == 0 {
+                        if !lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) {
                             return false;
                         }
                     }
@@ -382,13 +382,13 @@ mod kernel_expr_eq_fn_impl {
 
     // lean_expr_eqv (a b : @& Expr) : Bool  — structural equality, ignoring binder names/info
     #[no_mangle]
-    pub unsafe fn lean_expr_eqv(a: *const LeanObject, b: *const LeanObject) -> u8 {
-        ExprEqFn::new(false).apply(a, b, 0, true) as u8
+    pub unsafe fn lean_expr_eqv(a: *const LeanObject, b: *const LeanObject) -> bool {
+        ExprEqFn::new(false).apply(a, b, 0, true)
     }
 
     // lean_expr_equal (a b : @& Expr) : Bool  — structural equality including binder names/info
     #[no_mangle]
-    pub unsafe fn lean_expr_equal(a: *const LeanObject, b: *const LeanObject) -> u8 {
-        ExprEqFn::new(true).apply(a, b, 0, true) as u8
+    pub unsafe fn lean_expr_equal(a: *const LeanObject, b: *const LeanObject) -> bool {
+        ExprEqFn::new(true).apply(a, b, 0, true)
     }
 }

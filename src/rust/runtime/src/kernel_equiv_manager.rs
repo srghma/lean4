@@ -30,7 +30,7 @@ mod kernel_equiv_manager_impl {
     use std::collections::HashMap;
 
     unsafe extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
+        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
         fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool;
     }
 
@@ -174,7 +174,7 @@ mod kernel_equiv_manager_impl {
                 if s1 || s2 {
                     return false;
                 }
-                if lean_level_eqv(lean_ctor_get(ls1, 0), lean_ctor_get(ls2, 0)) == 0 {
+                if !lean_level_eqv(lean_ctor_get(ls1, 0), lean_ctor_get(ls2, 0)) {
                     return false;
                 }
                 ls1 = lean_ctor_get(ls1, 1);
@@ -229,12 +229,10 @@ mod kernel_equiv_manager_impl {
             let result = match tag_a {
                 EXPR_BVAR => unreachable!(), // handled above
                 EXPR_CONST => {
-                    lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
+                    lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                         && Self::levels_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
-                EXPR_MVAR | EXPR_FVAR => {
-                    lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
-                }
+                EXPR_MVAR | EXPR_FVAR => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
                 EXPR_APP => {
                     self.is_equiv_core(lean_ctor_get(a, 0), lean_ctor_get(b, 0), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
@@ -243,7 +241,7 @@ mod kernel_equiv_manager_impl {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
                 }
-                EXPR_SORT => lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
+                EXPR_SORT => lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
                 EXPR_LIT => Self::lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
                 EXPR_MDATA => {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
@@ -282,16 +280,16 @@ mod kernel_equiv_manager_impl {
     }
 
     /// Check if two expressions are equivalent, with optional hash pre-filter.
-    /// Returns 1 if equivalent, 0 otherwise.
+    /// Returns `true` if equivalent.
     #[no_mangle]
     pub unsafe fn lean_equiv_manager_is_equiv(
         mgr: *mut c_void,
         a: *mut LeanObject,
         b: *mut LeanObject,
-        use_hash: u8,
-    ) -> u8 {
+        use_hash: bool,
+    ) -> bool {
         let m = &mut *(mgr as *mut EquivManager);
-        m.is_equiv_core(a, b, use_hash != 0) as u8
+        m.is_equiv_core(a, b, use_hash)
     }
 
     /// Record that e1 and e2 are equivalent (merges their union-find nodes).

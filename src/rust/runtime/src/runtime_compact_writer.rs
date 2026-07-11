@@ -770,11 +770,9 @@ mod runtime_compact_writer_impl {
         odata: *mut LeanObject,
         odep_regions: *mut LeanObject,
         oprev: *mut LeanObject,
-        allow_closures: u8,
+        allow_closures: bool,
         _io: *mut LeanObject,
     ) -> *mut LeanObject {
-        let allow_closures = allow_closures != 0;
-
         // ---- Extract or create the compactor ----
         let cs_obj = if lean_is_scalar(oprev) {
             let hash = lean_name_hash_val(mod_);

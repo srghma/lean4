@@ -22,7 +22,7 @@ mod library_elab_environment_impl {
         fn lean_rust_add_decl(
             env: *mut LeanObject,
             decl: *mut LeanObject,
-            check: u8,
+            check: bool,
         ) -> *mut LeanObject;
     }
 
@@ -35,7 +35,7 @@ mod library_elab_environment_impl {
     unsafe fn kernel_add_dispatch(
         kernel_env: *mut LeanObject,
         decl: *mut LeanObject,
-        check: u8,
+        check: bool,
     ) -> *mut LeanObject {
         lean_rust_add_decl(kernel_env, decl, check)
     }
@@ -46,7 +46,7 @@ mod library_elab_environment_impl {
     unsafe fn elab_add_decl_impl(
         elab_env: *mut LeanObject,
         decl: *mut LeanObject,
-        check: u8,
+        check: bool,
     ) -> *mut LeanObject {
         // Keep elab_env alive while we extract the kernel env.
         lean_inc_ref(elab_env);
@@ -93,7 +93,7 @@ mod library_elab_environment_impl {
         };
         let old_tk = scope_cancel_tk_push(cancel_tk);
 
-        let result = elab_add_decl_impl(env, decl, 1);
+        let result = elab_add_decl_impl(env, decl, true);
 
         scope_max_heartbeat_pop(old_max);
         scope_cancel_tk_pop(old_tk);
@@ -106,7 +106,7 @@ mod library_elab_environment_impl {
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {
-        elab_add_decl_impl(env, decl, 0)
+        elab_add_decl_impl(env, decl, false)
     }
 
     // lean_kernel_is_def_eq / lean_kernel_whnf / lean_kernel_check now in kernel_type_checker.rs

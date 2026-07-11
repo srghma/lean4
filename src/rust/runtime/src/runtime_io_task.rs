@@ -41,8 +41,8 @@ mod runtime_io_task_impl {
         lean_apply_2(f, a, lean_io_mk_world())
     }
 
-    pub unsafe fn lean_io_check_canceled() -> u8 {
-        lean_io_check_canceled_core() as u8
+    pub unsafe fn lean_io_check_canceled() -> bool {
+        lean_io_check_canceled_core()
     }
 
     pub unsafe fn lean_io_cancel(t: *mut LeanObject) -> *mut LeanObject {

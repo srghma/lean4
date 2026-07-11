@@ -37,9 +37,9 @@ mod kernel_for_each_fn_impl {
     const EXPR_MDATA: u8 = 10;
     const EXPR_PROJ: u8 = 11;
 
-    // Callback: ctx, expr_ptr, binder_offset → nonzero to recurse into children, zero to stop.
+    // Callback: ctx, expr_ptr, binder_offset → true to recurse into children, false to stop.
     // For BVar/Sort/Const (pure leaves), the return value is ignored.
-    type ForEachCallback = unsafe fn(*mut c_void, *mut LeanObject, u32) -> u8;
+    type ForEachCallback = unsafe fn(*mut c_void, *mut LeanObject, u32) -> bool;
 
     struct ForEachState {
         ctx: *mut c_void,
@@ -81,8 +81,8 @@ mod kernel_for_each_fn_impl {
                 return;
             }
 
-            // Call callback; if it returns 0, do not recurse into children.
-            if (self.callback)(self.ctx, e, offset) == 0 {
+            // Call callback; if it returns false, do not recurse into children.
+            if !(self.callback)(self.ctx, e, offset) {
                 return;
             }
 

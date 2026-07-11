@@ -385,6 +385,12 @@ def float32 : Expr := .const ``Float32 []
 def uint8 : Expr := .const ``UInt8 []
 
 /--
+`bool` is the Lean `Bool` type, treated as a dedicated 1-byte scalar in the impure IR.
+-/
+@[inline, expose, match_pattern]
+def bool : Expr := .const ``Bool []
+
+/--
 `uint16` is a 16-bit unsigned integer.
 -/
 @[inline, expose, match_pattern]
@@ -452,6 +458,7 @@ Whether the type is a scalar as opposed to a pointer (or a value disguised as a 
 def Lean.Expr.isScalar : Expr → Bool
   | ImpureType.float    => true
   | ImpureType.float32  => true
+  | ImpureType.bool     => true
   | ImpureType.uint8    => true
   | ImpureType.uint16   => true
   | ImpureType.uint32   => true
@@ -489,7 +496,8 @@ The boxed version of types.
 def Lean.Expr.boxed : Expr → Expr
   | ImpureType.object | ImpureType.float | ImpureType.float32 | ImpureType.uint64 =>
     ImpureType.object
-  | ImpureType.void | ImpureType.tagged | ImpureType.uint8 | ImpureType.uint16 => ImpureType.tagged
+  | ImpureType.void | ImpureType.tagged | ImpureType.bool | ImpureType.uint8 | ImpureType.uint16 =>
+    ImpureType.tagged
   | _ => ImpureType.tobject
 
 end ImpureType

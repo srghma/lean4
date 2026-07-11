@@ -561,12 +561,12 @@ mod library_llvm_impl {
     }
 
     #[cfg(lean_has_llvm)]
-    unsafe fn llvm_const_int_impl(ty: usize, val: u64, sext: u8) -> usize {
+    unsafe fn llvm_const_int_impl(ty: usize, val: u64, sext: bool) -> usize {
         LLVMConstInt(ty, val, sext)
     }
 
     #[cfg(not(lean_has_llvm))]
-    unsafe fn llvm_const_int_impl(_ty: usize, _val: u64, _sext: u8) -> usize {
+    unsafe fn llvm_const_int_impl(_ty: usize, _val: u64, _sext: bool) -> usize {
         llvm_unavailable()
     }
 
@@ -1173,10 +1173,10 @@ mod library_llvm_impl {
         _ctx: usize,
         return_ty: usize,
         arg_tys: *mut LeanObject,
-        is_var_arg: u8,
+        is_var_arg: bool,
     ) -> usize {
         let tys = llvm_type_array(arg_tys);
-        LLVMFunctionType(return_ty, tys.as_ptr(), tys.len(), is_var_arg)
+        LLVMFunctionType(return_ty, tys.as_ptr(), tys.len(), is_var_arg as _)
     }
 
     #[cfg(not(lean_has_llvm))]
@@ -1184,7 +1184,7 @@ mod library_llvm_impl {
         _ctx: usize,
         _return_ty: usize,
         _arg_tys: *mut LeanObject,
-        _is_var_arg: u8,
+        _is_var_arg: bool,
     ) -> usize {
         llvm_unavailable()
     }
@@ -1482,7 +1482,7 @@ mod library_llvm_impl {
         p0: *const LeanObject,
         p1: *const LeanObject,
         p2: *mut LeanObject,
-        p3: u8,
+        p3: bool,
     ) -> usize {
         llvm_function_type_impl(lean_unbox(p0), lean_unbox(p1), p2, p3)
     }
@@ -1856,7 +1856,7 @@ mod library_llvm_impl {
         p2: *mut LeanObject,
         p3: *mut LeanObject,
     ) -> usize {
-        llvm_const_int_impl(lean_unbox(p1), lean_unbox(p2) as u64, lean_unbox(p3) as u8)
+        llvm_const_int_impl(lean_unbox(p1), lean_unbox(p2) as u64, lean_unbox(p3) != 0)
     }
 
     #[no_mangle]

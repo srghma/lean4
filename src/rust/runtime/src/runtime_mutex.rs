@@ -24,8 +24,8 @@ mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    pub unsafe fn lean_io_basemutex_try_lock(mtx: *mut LeanObject) -> u8 {
-        external_data::<BaseMutex>(mtx).try_lock() as u8
+    pub unsafe fn lean_io_basemutex_try_lock(mtx: *mut LeanObject) -> bool {
+        external_data::<BaseMutex>(mtx).try_lock()
     }
 
     pub unsafe fn lean_io_basemutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
@@ -68,8 +68,8 @@ mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    pub unsafe fn lean_io_baserecmutex_try_lock(mtx: *mut LeanObject) -> u8 {
-        external_data::<BaseRecMutex>(mtx).try_lock() as u8
+    pub unsafe fn lean_io_baserecmutex_try_lock(mtx: *mut LeanObject) -> bool {
+        external_data::<BaseRecMutex>(mtx).try_lock()
     }
 
     pub unsafe fn lean_io_baserecmutex_unlock(mtx: *mut LeanObject) -> *mut LeanObject {
@@ -86,8 +86,8 @@ mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    pub unsafe fn lean_io_basesharedmutex_try_write(mtx: *mut LeanObject) -> u8 {
-        external_data::<BaseSharedMutex>(mtx).try_write() as u8
+    pub unsafe fn lean_io_basesharedmutex_try_write(mtx: *mut LeanObject) -> bool {
+        external_data::<BaseSharedMutex>(mtx).try_write()
     }
 
     pub unsafe fn lean_io_basesharedmutex_unlock_write(mtx: *mut LeanObject) -> *mut LeanObject {
@@ -100,8 +100,8 @@ mod runtime_mutex_impl {
         lean_box(0)
     }
 
-    pub unsafe fn lean_io_basesharedmutex_try_read(mtx: *mut LeanObject) -> u8 {
-        external_data::<BaseSharedMutex>(mtx).try_read() as u8
+    pub unsafe fn lean_io_basesharedmutex_try_read(mtx: *mut LeanObject) -> bool {
+        external_data::<BaseSharedMutex>(mtx).try_read()
     }
 
     pub unsafe fn lean_io_basesharedmutex_unlock_read(mtx: *mut LeanObject) -> *mut LeanObject {

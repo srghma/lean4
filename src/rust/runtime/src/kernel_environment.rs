@@ -13,7 +13,7 @@ mod kernel_environment_impl {
         fn lean_rust_add_decl(
             env: *mut LeanObject,
             decl: *mut LeanObject,
-            check: u8,
+            check: bool,
         ) -> *mut LeanObject;
     }
 
@@ -21,7 +21,7 @@ mod kernel_environment_impl {
     unsafe fn add_decl_dispatch(
         env: *mut LeanObject,
         decl: *mut LeanObject,
-        check: u8,
+        check: bool,
     ) -> *mut LeanObject {
         lean_rust_add_decl(env, decl, check)
     }
@@ -41,7 +41,7 @@ mod kernel_environment_impl {
         };
         let old_tk = scope_cancel_tk_push(cancel_tk);
 
-        let result = add_decl_dispatch(env, decl, 1);
+        let result = add_decl_dispatch(env, decl, true);
 
         scope_max_heartbeat_pop(old_max);
         scope_cancel_tk_pop(old_tk);
@@ -54,6 +54,6 @@ mod kernel_environment_impl {
         env: *mut LeanObject,
         decl: *mut LeanObject,
     ) -> *mut LeanObject {
-        add_decl_dispatch(env, decl, 0)
+        add_decl_dispatch(env, decl, false)
     }
 }

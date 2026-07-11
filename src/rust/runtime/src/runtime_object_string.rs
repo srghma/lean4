@@ -9,7 +9,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_object_string_impl {
     use crate::*;
     use core::ffi::c_char;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::size_of;
     use leanh::LEAN_MAX_SMALL_NAT;
 
@@ -190,20 +190,20 @@ mod runtime_object_string_impl {
         lean_box(i + 1)
     }
 
-    pub unsafe fn lean_string_is_valid_pos(s: *const LeanObject, i0: *const LeanObject) -> u8 {
+    pub unsafe fn lean_string_is_valid_pos(s: *const LeanObject, i0: *const LeanObject) -> bool {
         if !lean_is_scalar(i0) {
-            return 0;
+            return false;
         }
         let i = lean_unbox(i0);
         let sz = lean_string_size(s) - 1;
         if i > sz {
-            return 0;
+            return false;
         }
         if i == sz {
-            return 1;
+            return true;
         }
         let str = lean_string_cstr(s) as *const u8;
-        is_utf8_first_byte(*str.add(i)) as u8
+        is_utf8_first_byte(*str.add(i))
     }
 
     pub unsafe fn lean_string_utf8_extract(
@@ -331,13 +331,13 @@ mod runtime_object_string_impl {
         lstart: *mut LeanObject,
         rstart: *mut LeanObject,
         len: *mut LeanObject,
-    ) -> u8 {
+    ) -> bool {
         let lbase = lean_string_cstr(s1).add(lean_unbox(lstart));
         let rbase = lean_string_cstr(s2).add(lean_unbox(rstart));
         let l = lean_unbox(len);
         let b1 = core::slice::from_raw_parts(lbase as *const u8, l);
         let b2 = core::slice::from_raw_parts(rbase as *const u8, l);
-        (b1 == b2) as u8
+        b1 == b2
     }
 
     pub unsafe fn lean_string_of_usize(n: usize) -> *mut LeanObject {
@@ -357,7 +357,7 @@ mod runtime_object_string_impl {
         lean_hash_str(sz, base, 11)
     }
 
-    pub unsafe fn lean_slice_dec_lt(s1: *const LeanObject, s2: *const LeanObject) -> u8 {
+    pub unsafe fn lean_slice_dec_lt(s1: *const LeanObject, s2: *const LeanObject) -> bool {
         let start1 = lean_unbox(lean_ctor_get(s1, 1));
         let end1 = lean_unbox(lean_ctor_get(s1, 2));
         let start2 = lean_unbox(lean_ctor_get(s2, 1));
@@ -368,7 +368,7 @@ mod runtime_object_string_impl {
         let base2 = lean_string_cstr(lean_ctor_get(s2, 0)).add(start2) as *const u8;
         let b1 = core::slice::from_raw_parts(base1, sz1);
         let b2 = core::slice::from_raw_parts(base2, sz2);
-        (b1 < b2) as u8
+        b1 < b2
     }
 
     // ════════════════════════════════════════════════════════════════════════════

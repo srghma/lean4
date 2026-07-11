@@ -37,7 +37,7 @@ mod kernel_type_checker_impl {
         fn lean_level_mk_imax(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_param(n: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_mvar(n: *mut LeanObject) -> *mut LeanObject;
-        fn lean_level_eq_raw(a: *mut LeanObject, b: *mut LeanObject) -> u8;
+        fn lean_level_eq_raw(a: *mut LeanObject, b: *mut LeanObject) -> bool;
         // lean_level_get_succ / lean_level_get_param_name are inline C++; implemented as Rust shims below
         // lean_level_get_max_lhs / get_max_rhs / get_imax_lhs / get_imax_rhs: implemented as Rust shims below
         fn lean_level_hash(l: *const LeanObject) -> u32;
@@ -67,7 +67,7 @@ mod kernel_type_checker_impl {
             t: *mut LeanObject,
             v: *mut LeanObject,
             b: *mut LeanObject,
-            nondep: u8,
+            nondep: bool,
         ) -> *mut LeanObject;
         fn lean_expr_mk_lit(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_lit_str(s: *mut LeanObject) -> *mut LeanObject;
@@ -81,7 +81,7 @@ mod kernel_type_checker_impl {
         // `@[export lean_expr_hash] def hashEx : Expr → UInt64` — returns UInt64 and CONSUMES
         // its argument. Always call through the `expr_hash` borrowing wrapper, never directly.
         fn lean_expr_hash(e: *const LeanObject) -> u64;
-        fn lean_expr_eqv_raw(a: *mut LeanObject, b: *mut LeanObject) -> u8;
+        fn lean_expr_eqv_raw(a: *mut LeanObject, b: *mut LeanObject) -> bool;
         // lean_expr_has_loose_bvars: implemented as Rust shim below
         fn lean_expr_has_fvar(e: *const LeanObject) -> bool;
         fn lean_expr_has_mvar(e: *const LeanObject) -> bool;
@@ -110,7 +110,7 @@ mod kernel_type_checker_impl {
             n: u32,
             vs: *const *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> u8;
+        fn lean_expr_has_loose_bvar(e: *mut LeanObject, i: *mut LeanObject) -> bool;
         fn lean_expr_lower_loose_bvars(
             e: *mut LeanObject,
             s: *mut LeanObject,
@@ -176,9 +176,9 @@ mod kernel_type_checker_impl {
 
         // InductiveVal
         // lean_inductive_val_get_nparams / lean_inductive_val_get_nindices / lean_inductive_val_get_ncnstrs / lean_inductive_val_get_cnstrs are inline C++; implemented as Rust shims below
-        fn lean_inductive_val_is_rec_raw(v: *mut LeanObject) -> u8;
+        fn lean_inductive_val_is_rec_raw(v: *mut LeanObject) -> bool;
         fn lean_inductive_val_is_k(v: *const LeanObject) -> bool;
-        fn lean_inductive_val_is_reflexive_raw(v: *mut LeanObject) -> u8;
+        fn lean_inductive_val_is_reflexive_raw(v: *mut LeanObject) -> bool;
 
         // ConstructorVal
         // lean_constructor_val_get_induct / get_cidx / get_nparams / get_nfields:
@@ -273,12 +273,12 @@ mod kernel_type_checker_impl {
 
     #[inline(always)]
     unsafe fn lean_level_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
-        lean_level_eq_raw(a as *mut _, b as *mut _) != 0
+        lean_level_eq_raw(a as *mut _, b as *mut _)
     }
 
     #[inline(always)]
     unsafe fn lean_expr_eqv(a: *const LeanObject, b: *const LeanObject) -> bool {
-        lean_expr_eqv_raw(a as *mut _, b as *mut _) != 0
+        lean_expr_eqv_raw(a as *mut _, b as *mut _)
     }
 
     /// Borrowing wrapper around `lean_expr_hash`. The exported `lean_expr_hash`
@@ -313,7 +313,7 @@ mod kernel_type_checker_impl {
 
     // Names: lean_name_eq_raw returns 0 (not equal) or 1 (equal)
     #[no_mangle]
-    pub unsafe fn lean_name_eq_raw(a: *const LeanObject, b: *const LeanObject) -> u8 {
+    pub unsafe fn lean_name_eq_raw(a: *const LeanObject, b: *const LeanObject) -> bool {
         lean_name_eq_export(a as *mut _, b as *mut _)
     }
 
@@ -644,17 +644,17 @@ mod kernel_type_checker_impl {
         // Expr binder info (Lean @[export], consumes its owned arg, returns u8).
         fn lean_expr_binder_info(e: *mut LeanObject) -> u8;
         // Environment quot-initialized flag (Lean @[export], consumes arg).
-        fn lean_environment_quot_init(env: *mut LeanObject) -> u8;
+        fn lean_environment_quot_init(env: *mut LeanObject) -> bool;
         // RecursorVal flags (Lean @[export], consume arg).
-        fn lean_recursor_k(v: *mut LeanObject) -> u8;
-        fn lean_recursor_is_unsafe(v: *mut LeanObject) -> u8;
+        fn lean_recursor_k(v: *mut LeanObject) -> bool;
+        fn lean_recursor_is_unsafe(v: *mut LeanObject) -> bool;
         // DefinitionVal safety (Lean @[export], consumes arg). 0 = unsafe, 1 = safe, 2 = partial.
         fn lean_definition_val_get_safety(v: *mut LeanObject) -> u8;
         // *_val unsafe flags (Lean @[export], consume arg).
-        fn lean_axiom_val_is_unsafe(v: *mut LeanObject) -> u8;
-        fn lean_opaque_val_is_unsafe(v: *mut LeanObject) -> u8;
-        fn lean_inductive_val_is_unsafe_raw(v: *mut LeanObject) -> u8;
-        fn lean_constructor_val_is_unsafe_raw(v: *mut LeanObject) -> u8;
+        fn lean_axiom_val_is_unsafe(v: *mut LeanObject) -> bool;
+        fn lean_opaque_val_is_unsafe(v: *mut LeanObject) -> bool;
+        fn lean_inductive_val_is_unsafe_raw(v: *mut LeanObject) -> bool;
+        fn lean_constructor_val_is_unsafe_raw(v: *mut LeanObject) -> bool;
         // ReducibilityHints height (Lean @[export], consumes arg).
         fn lean_reducibility_hints_get_height(h: *mut LeanObject) -> u32;
         // Native kernel reduction (C++ LEAN_EXPORT). Borrows env/opts/fn; returns Except.
@@ -689,7 +689,7 @@ mod kernel_type_checker_impl {
             user_name: *mut LeanObject,
             ty: *mut LeanObject,
             value: *mut LeanObject,
-            nondep: u8,
+            nondep: bool,
         ) -> *mut LeanObject;
         fn lean_local_decl_binder_info(d: *mut LeanObject) -> u8;
     }
@@ -862,7 +862,7 @@ mod kernel_type_checker_impl {
     }
 
     unsafe fn expr_has_loose_bvar(e: *const LeanObject, idx: u32) -> bool {
-        lean_expr_has_loose_bvar(e, lean_box(idx as usize)) != 0
+        lean_expr_has_loose_bvar(e, lean_box(idx as usize))
     }
 
     /// Port of C++ `has_loose_bvars_in_domain` from `kernel/expr.cpp`.
@@ -948,7 +948,7 @@ mod kernel_type_checker_impl {
     #[no_mangle]
     pub unsafe fn lean_environment_is_quot_initialized(env: *const LeanObject) -> bool {
         lean_inc(env as *mut _);
-        lean_environment_quot_init(env as *mut _) != 0
+        lean_environment_quot_init(env as *mut _)
     }
 
     // --- ConstantInfo (info tag = kind; field[0] = inner val; val.field[0] = constant_val) ---
@@ -1020,25 +1020,25 @@ mod kernel_type_checker_impl {
     #[inline(always)]
     unsafe fn lean_inductive_val_is_rec(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
-        lean_inductive_val_is_rec_raw(v as *mut _) != 0
+        lean_inductive_val_is_rec_raw(v as *mut _)
     }
 
     #[inline(always)]
     unsafe fn lean_inductive_val_is_unsafe(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
-        lean_inductive_val_is_unsafe_raw(v as *mut _) != 0
+        lean_inductive_val_is_unsafe_raw(v as *mut _)
     }
 
     #[inline(always)]
     unsafe fn lean_inductive_val_is_reflexive(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
-        lean_inductive_val_is_reflexive_raw(v as *mut _) != 0
+        lean_inductive_val_is_reflexive_raw(v as *mut _)
     }
 
     #[inline(always)]
     unsafe fn lean_constructor_val_is_unsafe(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
-        lean_constructor_val_is_unsafe_raw(v as *mut _) != 0
+        lean_constructor_val_is_unsafe_raw(v as *mut _)
     }
 
     // is_unsafe: mirrors constant_info::is_unsafe() switch on kind.
@@ -1048,7 +1048,7 @@ mod kernel_type_checker_impl {
         match lean_ptr_tag(info) {
             CI_AXIOM => {
                 lean_inc(val);
-                lean_axiom_val_is_unsafe(val) != 0
+                lean_axiom_val_is_unsafe(val)
             }
             CI_DEFINITION => {
                 lean_inc(val);
@@ -1057,14 +1057,14 @@ mod kernel_type_checker_impl {
             CI_THEOREM => false,
             CI_OPAQUE => {
                 lean_inc(val);
-                lean_opaque_val_is_unsafe(val) != 0
+                lean_opaque_val_is_unsafe(val)
             }
             CI_QUOT => false,
             CI_INDUCTIVE => lean_inductive_val_is_unsafe(val),
             CI_CONSTRUCTOR => lean_constructor_val_is_unsafe(val),
             CI_RECURSOR => {
                 lean_inc(val);
-                lean_recursor_is_unsafe(val) != 0
+                lean_recursor_is_unsafe(val)
             }
             _ => false,
         }
@@ -1129,12 +1129,12 @@ mod kernel_type_checker_impl {
     #[no_mangle]
     pub unsafe fn lean_recursor_val_is_k(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
-        lean_recursor_k(v as *mut _) != 0
+        lean_recursor_k(v as *mut _)
     }
     #[no_mangle]
     pub unsafe fn lean_recursor_val_is_unsafe(v: *const LeanObject) -> bool {
         lean_inc(v as *mut _);
-        lean_recursor_is_unsafe(v as *mut _) != 0
+        lean_recursor_is_unsafe(v as *mut _)
     }
     // get_major_induct: walk the constant_val.type telescope and return the head const's name (borrowed).
     #[no_mangle]
@@ -1308,7 +1308,7 @@ mod kernel_type_checker_impl {
         lean_inc(user_name);
         lean_inc(ty);
         lean_inc(value);
-        let new_lctx = lean_real_lctx_mk_let_decl(lctx, fvar_id, user_name, ty, value, 0);
+        let new_lctx = lean_real_lctx_mk_let_decl(lctx, fvar_id, user_name, ty, value, false);
         lean_inc(fvar_id); // lean_expr_mk_fvar consumes its arg
         let fvar = lean_expr_mk_fvar(fvar_id);
         let pair = lean_alloc_ctor(0, 2, 0);
@@ -1346,10 +1346,9 @@ mod kernel_type_checker_impl {
                     let val = lean_expr_abstract(decl_val, i, fvars);
                     let user_name = lean_local_decl_get_user_name(decl);
                     lean_inc(user_name);
-                    r = lean_expr_mk_let(user_name, ty, val, r, 0);
+                    r = lean_expr_mk_let(user_name, ty, val, r, false);
                 } else {
-                    let new_r =
-                        lean_expr_lower_loose_bvars(r, lean_box(1), lean_box(1));
+                    let new_r = lean_expr_lower_loose_bvars(r, lean_box(1), lean_box(1));
                     lean_dec(r);
                     r = new_r;
                 }
@@ -2343,7 +2342,6 @@ mod kernel_type_checker_impl {
             info
         }
     }
-
 
     // ---------------------------------------------------------------------------
     // System check
@@ -5503,7 +5501,7 @@ mod kernel_type_checker_impl {
         fn lean_environment_add(env: *mut LeanObject, info: *mut LeanObject) -> *mut LeanObject;
         // Kernel diagnostics (Kernel.Environment / Diagnostics in Environment.lean). All take their
         // arguments OWNED (no `@&`); record_unfold/set_diag return owned results.
-        fn lean_kernel_diag_is_enabled(d: *mut LeanObject) -> u8;
+        fn lean_kernel_diag_is_enabled(d: *mut LeanObject) -> bool;
         fn lean_kernel_record_unfold(d: *mut LeanObject, name: *mut LeanObject) -> *mut LeanObject;
         fn lean_kernel_get_diag(env: *mut LeanObject) -> *mut LeanObject;
         fn lean_kernel_set_diag(env: *mut LeanObject, diag: *mut LeanObject) -> *mut LeanObject;
@@ -5521,7 +5519,7 @@ mod kernel_type_checker_impl {
         lean_inc(env);
         let d = lean_kernel_get_diag(env); // consumes the inc'd env, returns owned Diagnostics
         lean_inc(d);
-        let enabled = lean_kernel_diag_is_enabled(d) != 0; // consumes the inc'd copy
+        let enabled = lean_kernel_diag_is_enabled(d); // consumes the inc'd copy
         if enabled {
             d
         } else {
@@ -6205,9 +6203,9 @@ mod kernel_type_checker_impl {
             all: *mut LeanObject,
             cnstrs: *mut LeanObject,
             nnested: *mut LeanObject,
-            rec: u8,
-            is_unsafe: u8,
-            is_refl: u8,
+            rec: bool,
+            is_unsafe: bool,
+            is_refl: bool,
         ) -> *mut LeanObject;
         fn lean_mk_constructor_val(
             n: *mut LeanObject,
@@ -6217,7 +6215,7 @@ mod kernel_type_checker_impl {
             cidx: *mut LeanObject,
             nparams: *mut LeanObject,
             nfields: *mut LeanObject,
-            is_unsafe: u8,
+            is_unsafe: bool,
         ) -> *mut LeanObject;
         fn lean_mk_recursor_val(
             n: *mut LeanObject,
@@ -6229,16 +6227,16 @@ mod kernel_type_checker_impl {
             nmotives: *mut LeanObject,
             nminors: *mut LeanObject,
             rules: *mut LeanObject,
-            k: u8,
-            is_unsafe: u8,
+            k: bool,
+            is_unsafe: bool,
         ) -> *mut LeanObject;
         fn lean_mk_inductive_decl(
             lparams: *mut LeanObject,
             nparams: *mut LeanObject,
             types: *mut LeanObject,
-            is_unsafe: u8,
+            is_unsafe: bool,
         ) -> *mut LeanObject;
-        fn lean_is_unsafe_inductive_decl(d: *mut LeanObject) -> u8;
+        fn lean_is_unsafe_inductive_decl(d: *mut LeanObject) -> bool;
         // Name ops (obj_arg → owned).
         fn lean_name_append_index_after(n: *mut LeanObject, i: *mut LeanObject) -> *mut LeanObject;
         fn lean_name_replace_prefix(
@@ -6250,13 +6248,13 @@ mod kernel_type_checker_impl {
         fn lean_for_each_expr_with_callback(
             e: *mut LeanObject,
             ctx: *mut c_void,
-            cb: unsafe fn(*mut c_void, *mut LeanObject, u32) -> u8,
+            cb: unsafe fn(*mut c_void, *mut LeanObject, u32) -> bool,
         );
         fn lean_replace_expr_with_callback(
             e: *mut LeanObject,
             ctx: *mut c_void,
             cb: unsafe fn(*mut c_void, *mut LeanObject, u32) -> *mut LeanObject,
-            use_cache: u8,
+            use_cache: bool,
         ) -> *mut LeanObject;
     }
 
@@ -6400,21 +6398,21 @@ mod kernel_type_checker_impl {
         names: &'a [*mut LeanObject],
         found: bool,
     }
-    unsafe fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> u8 {
+    unsafe fn find_const_cb(ctx: *mut c_void, e: *mut LeanObject, _depth: u32) -> bool {
         let c = &mut *(ctx as *mut FindConstCtx);
         if c.found {
-            return 0;
+            return false;
         }
         if ind_is_constant(e) {
             let nm = lean_expr_get_const_name(e);
             for &n in c.names {
                 if lean_name_eq(nm, n) {
                     c.found = true;
-                    return 0;
+                    return false;
                 }
             }
         }
-        1
+        true
     }
     unsafe fn expr_contains_const(e: *const LeanObject, names: &[*mut LeanObject]) -> bool {
         let mut ctx = FindConstCtx {
@@ -6485,7 +6483,7 @@ mod kernel_type_checker_impl {
             let nparams = lean_unbox(nparams_nat); // small (kernel guarantees)
             let types = lean_ctor_get(decl, 2); // List InductiveType (borrowed)
             lean_inc(decl);
-            let is_unsafe = lean_is_unsafe_inductive_decl(decl) != 0;
+            let is_unsafe = lean_is_unsafe_inductive_decl(decl);
             let ind_types = list_to_vec(types);
             let ind_names: Vec<*mut LeanObject> =
                 ind_types.iter().map(|&it| lean_ctor_get(it, 0)).collect();
@@ -6724,9 +6722,9 @@ mod kernel_type_checker_impl {
                     all,
                     cnstr_list,
                     nat_box(self.nnested),
-                    rec as u8,
-                    self.is_unsafe as u8,
-                    reflexive as u8,
+                    rec,
+                    self.is_unsafe,
+                    reflexive,
                 );
                 let info = wrap_ci(CI_INDUCTIVE, v);
                 self.tc.add_core(info);
@@ -6930,7 +6928,7 @@ mod kernel_type_checker_impl {
                         nat_box(cidx),
                         nat_box(self.nparams),
                         nat_box(nfields),
-                        self.is_unsafe as u8,
+                        self.is_unsafe,
                     );
                     let info = wrap_ci(CI_CONSTRUCTOR, v);
                     self.tc.add_core(info);
@@ -7419,8 +7417,8 @@ mod kernel_type_checker_impl {
                     nat_box(nmotives),
                     nat_box(nminors),
                     rules,
-                    self.k_target as u8,
-                    self.is_unsafe as u8,
+                    self.k_target,
+                    self.is_unsafe,
                 );
                 let info = wrap_ci(CI_RECURSOR, v);
                 self.tc.add_core(info);
@@ -8180,8 +8178,8 @@ mod kernel_type_checker_impl {
                 nat_box(lean_recursor_val_get_nmotives(rec_val) as usize),
                 nat_box(lean_recursor_val_get_nminors(rec_val) as usize),
                 new_rules_list,
-                lean_recursor_val_is_k(rec_val) as u8,
-                lean_recursor_val_is_unsafe(rec_val) as u8,
+                lean_recursor_val_is_k(rec_val),
+                lean_recursor_val_is_unsafe(rec_val),
             );
             let info = wrap_ci(CI_RECURSOR, v);
             new_env = lean_environment_add(new_env, info);
@@ -8212,9 +8210,9 @@ mod kernel_type_checker_impl {
                 all_ind_names,
                 cnstrs,
                 nat_box(lean_inductive_val_get_nnested(ind_val) as usize),
-                lean_inductive_val_is_rec(ind_val) as u8,
-                lean_inductive_val_is_unsafe(ind_val) as u8,
-                lean_inductive_val_is_reflexive(ind_val) as u8,
+                lean_inductive_val_is_rec(ind_val),
+                lean_inductive_val_is_unsafe(ind_val),
+                lean_inductive_val_is_reflexive(ind_val),
             );
             new_env = lean_environment_add(new_env, wrap_ci(CI_INDUCTIVE, new_ind_val));
 
@@ -8238,7 +8236,7 @@ mod kernel_type_checker_impl {
                     nat_box(lean_constructor_val_get_cidx(cnstr_val) as usize),
                     nat_box(lean_constructor_val_get_nparams(cnstr_val) as usize),
                     nat_box(lean_constructor_val_get_nfields(cnstr_val) as usize),
-                    lean_constructor_val_is_unsafe(cnstr_val) as u8,
+                    lean_constructor_val_is_unsafe(cnstr_val),
                 );
                 new_env = lean_environment_add(new_env, wrap_ci(CI_CONSTRUCTOR, new_cnstr_val));
                 lean_dec(cnstr_info);
@@ -8278,14 +8276,14 @@ mod kernel_type_checker_impl {
     pub unsafe fn lean_rust_add_decl(
         env: *mut LeanObject,
         decl: *mut LeanObject,
-        check: u8,
+        check: bool,
     ) -> *mut LeanObject {
         match lean_ptr_tag(decl) {
-            0 | 1 | 2 | 3 => match add_decl_impl(env, decl, check != 0) {
+            0 | 1 | 2 | 3 => match add_decl_impl(env, decl, check) {
                 Ok(new_env) => mk_except_ok(new_env),
                 Err(e) => kernel_error_to_lean_except(e),
             },
-            5 => match add_mutual_impl(env, decl, check != 0) {
+            5 => match add_mutual_impl(env, decl, check) {
                 Ok(new_env) => mk_except_ok(new_env),
                 Err(e) => kernel_error_to_lean_except(e),
             },

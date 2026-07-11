@@ -17,7 +17,7 @@ mod runtime_sharecommon_impl {
     unsafe extern "C" {
         fn lean_object_data_byte_size(o: *const LeanObject) -> usize;
         fn lean_mpz_hash(o: *const LeanObject) -> u32;
-        fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> u8;
+        fn lean_mpz_eq(o1: *const LeanObject, o2: *const LeanObject) -> bool;
         fn lean_hash_str(len: usize, str: *const u8, init_value: u64) -> u64;
         fn lean_apply_2(
             f: *mut LeanObject,
@@ -80,21 +80,21 @@ mod runtime_sharecommon_impl {
     type ShareCache = HashMap<usize, usize, LeanHashBuilder>;
     type ShareSet = HashSet<ShareConsNode, LeanHashBuilder>;
 
-    pub unsafe fn lean_sharecommon_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> u8 {
+    pub unsafe fn lean_sharecommon_eq(o1: *mut LeanObject, o2: *mut LeanObject) -> bool {
         if o1 == o2 {
-            return 1;
+            return true;
         }
         let sz1 = lean_object_data_byte_size(o1);
         let sz2 = lean_object_data_byte_size(o2);
         if sz1 != sz2 {
-            return 0;
+            return false;
         }
         let tag = lean_ptr_tag(o1);
         if tag != lean_ptr_tag(o2) {
-            return 0;
+            return false;
         }
         if (*o1).other != (*o2).other {
-            return 0;
+            return false;
         }
         if tag == LEAN_MPZ_TAG {
             lean_mpz_eq(o1, o2)
@@ -104,10 +104,10 @@ mod runtime_sharecommon_impl {
             let body2 = (o2 as *const u8).add(header_sz);
             let len = sz1.saturating_sub(header_sz);
             if len == 0 {
-                return 1;
+                return true;
             }
             let res = libc::memcmp(body1.cast(), body2.cast(), len);
-            if res == 0 { 1 } else { 0 }
+            res == 0
         }
     }
 
@@ -132,7 +132,7 @@ mod runtime_sharecommon_impl {
     impl Eq for ShareConsNode {}
     impl PartialEq for ShareConsNode {
         fn eq(&self, other: &Self) -> bool {
-            unsafe { lean_sharecommon_eq(self.0, other.0) != 0 }
+            unsafe { lean_sharecommon_eq(self.0, other.0) }
         }
     }
     impl std::hash::Hash for ShareConsNode {

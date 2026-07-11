@@ -58,14 +58,14 @@ mod library_expr_lt_impl {
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
-        fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> u8;
+        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
+        fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> bool;
         fn lean_nat_big_lt(a: *const LeanObject, b: *const LeanObject) -> bool;
         fn lean_nat_big_eq(a: *const LeanObject, b: *const LeanObject) -> bool;
         fn lean_string_lt(s1: *const LeanObject, s2: *const LeanObject) -> bool;
         // Borrowed — does not consume arguments.
         // Mirrors C++ name::operator< which uses cmp_core (lexicographic, root-to-leaf, NOT hash-based).
-        fn l_Lean_Name_lt(n1: *mut LeanObject, n2: *mut LeanObject) -> u8;
+        fn l_Lean_Name_lt(n1: *mut LeanObject, n2: *mut LeanObject) -> bool;
     }
 
     // ── Expr field layout helpers ─────────────────────────────────────────────
@@ -90,8 +90,8 @@ mod library_expr_lt_impl {
     }
 
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * core::mem::size_of::<*mut LeanObject>() + 8)
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * core::mem::size_of::<*mut LeanObject>() + 8) != 0
     }
 
     // ── Level helpers ─────────────────────────────────────────────────────────
@@ -157,18 +157,16 @@ mod library_expr_lt_impl {
                 return false;
             }
         }
-        if lean_level_eqv(a, b) != 0 {
+        if lean_level_eqv(a, b) {
             return false;
         }
         match tag_a {
-            LEVEL_PARAM | LEVEL_MVAR => {
-                l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
-            }
+            LEVEL_PARAM | LEVEL_MVAR => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             LEVEL_MAX | LEVEL_IMAX => {
                 let lhs_a = lean_ctor_get(a, 0);
                 let lhs_b = lean_ctor_get(b, 0);
                 // C++ uses level_lhs(a) != level_lhs(b) which is level::operator!= (structural).
-                if lean_level_eqv(lhs_a, lhs_b) == 0 {
+                if !lean_level_eqv(lhs_a, lhs_b) {
                     return level_lt(lhs_a, lhs_b, use_hash);
                 }
                 level_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
@@ -197,7 +195,7 @@ mod library_expr_lt_impl {
             let head_a = lean_ctor_get(as_, 0);
             let head_b = lean_ctor_get(bs_, 0);
             // Use structural equality to match C++ car(as) == car(bs) (level::operator==).
-            if lean_level_eqv(head_a, head_b) == 0 {
+            if !lean_level_eqv(head_a, head_b) {
                 return level_lt(head_a, head_b, use_hash);
             }
             as_ = lean_ctor_get(as_, 1);
@@ -258,7 +256,7 @@ mod library_expr_lt_impl {
         match tag_a {
             DV_STRING => str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             DV_BOOL => lean_ctor_get_uint8(a, 0) == lean_ctor_get_uint8(b, 0),
-            DV_NAME => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
+            DV_NAME => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             DV_NAT => nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             _ => false,
         }
@@ -281,7 +279,7 @@ mod library_expr_lt_impl {
                 // false < true: a.bool == 0 && b.bool != 0
                 lean_ctor_get_uint8(a, 0) == 0 && lean_ctor_get_uint8(b, 0) != 0
             }
-            DV_NAME => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0,
+            DV_NAME => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             DV_NAT => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             _ => false,
         }
@@ -312,8 +310,8 @@ mod library_expr_lt_impl {
                 // pair: field[0]=name, field[1]=data_value
                 let name1 = lean_ctor_get(pair1, 0);
                 let name2 = lean_ctor_get(pair2, 0);
-                if lean_name_eq(name1, name2) == 0 {
-                    return l_Lean_Name_lt(name1, name2) != 0;
+                if !lean_name_eq(name1, name2) {
+                    return l_Lean_Name_lt(name1, name2);
                 }
                 // Names equal: compare data_values.
                 let dv1 = lean_ctor_get(pair1, 1);
@@ -381,7 +379,7 @@ mod library_expr_lt_impl {
 
         // Structural equality fast-exit: mirrors C++ "if (a == b) return false;" which calls
         // expr_eq_fn<false>. Needed because sub-field comparisons below use structural equality.
-        if lean_expr_eqv(a, b) != 0 {
+        if lean_expr_eqv(a, b) {
             return false;
         }
 
@@ -395,7 +393,7 @@ mod library_expr_lt_impl {
                 // C++: if (mdata_expr(a) != mdata_expr(b)) — structural expr inequality
                 let inner_a = lean_ctor_get(a, 1);
                 let inner_b = lean_ctor_get(b, 1);
-                if lean_expr_eqv(inner_a, inner_b) == 0 {
+                if !lean_expr_eqv(inner_a, inner_b) {
                     return expr_lt(inner_a, inner_b, use_hash);
                 }
                 kvmap_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
@@ -406,13 +404,13 @@ mod library_expr_lt_impl {
                 // C++: if (proj_expr(a) != proj_expr(b)) — structural expr inequality
                 let expr_a = lean_ctor_get(a, 2);
                 let expr_b = lean_ctor_get(b, 2);
-                if lean_expr_eqv(expr_a, expr_b) == 0 {
+                if !lean_expr_eqv(expr_a, expr_b) {
                     return expr_lt(expr_a, expr_b, use_hash);
                 }
                 let sname_a = lean_ctor_get(a, 0);
                 let sname_b = lean_ctor_get(b, 0);
-                if lean_name_eq(sname_a, sname_b) == 0 {
-                    return l_Lean_Name_lt(sname_a, sname_b) != 0;
+                if !lean_name_eq(sname_a, sname_b) {
+                    return l_Lean_Name_lt(sname_a, sname_b);
                 }
                 nat_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
             }
@@ -422,8 +420,8 @@ mod library_expr_lt_impl {
                 // C++: if (const_name(a) != const_name(b)) — structural name inequality
                 let name_a = lean_ctor_get(a, 0);
                 let name_b = lean_ctor_get(b, 0);
-                if lean_name_eq(name_a, name_b) == 0 {
-                    return l_Lean_Name_lt(name_a, name_b) != 0;
+                if !lean_name_eq(name_a, name_b) {
+                    return l_Lean_Name_lt(name_a, name_b);
                 }
                 levels_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
             }
@@ -433,7 +431,7 @@ mod library_expr_lt_impl {
                 // C++: if (app_fn(a) != app_fn(b)) — structural expr inequality
                 let fn_a = lean_ctor_get(a, 0);
                 let fn_b = lean_ctor_get(b, 0);
-                if lean_expr_eqv(fn_a, fn_b) == 0 {
+                if !lean_expr_eqv(fn_a, fn_b) {
                     return expr_lt(fn_a, fn_b, use_hash);
                 }
                 expr_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
@@ -444,7 +442,7 @@ mod library_expr_lt_impl {
                 // C++: if (binding_domain(a) != binding_domain(b)) — structural expr inequality
                 let dom_a = lean_ctor_get(a, 1);
                 let dom_b = lean_ctor_get(b, 1);
-                if lean_expr_eqv(dom_a, dom_b) == 0 {
+                if !lean_expr_eqv(dom_a, dom_b) {
                     return expr_lt(dom_a, dom_b, use_hash);
                 }
                 expr_lt(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
@@ -461,13 +459,13 @@ mod library_expr_lt_impl {
                 // C++: else if (let_type(a) != let_type(b)) — structural expr inequality
                 let type_a = lean_ctor_get(a, 1);
                 let type_b = lean_ctor_get(b, 1);
-                if lean_expr_eqv(type_a, type_b) == 0 {
+                if !lean_expr_eqv(type_a, type_b) {
                     return expr_lt(type_a, type_b, use_hash);
                 }
                 // C++: else if (let_value(a) != let_value(b)) — structural expr inequality
                 let val_a = lean_ctor_get(a, 2);
                 let val_b = lean_ctor_get(b, 2);
-                if lean_expr_eqv(val_a, val_b) == 0 {
+                if !lean_expr_eqv(val_a, val_b) {
                     return expr_lt(val_a, val_b, use_hash);
                 }
                 expr_lt(lean_ctor_get(a, 3), lean_ctor_get(b, 3), use_hash)
@@ -481,7 +479,7 @@ mod library_expr_lt_impl {
             EXPR_FVAR | EXPR_MVAR => {
                 // field[0] = Name (FVar name or MVar name); no lctx, so use name ordering.
                 // C++ uses fvar_name(a) < fvar_name(b) which is name::operator< (lexicographic).
-                l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)) != 0
+                l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
             }
 
             _ => false,
@@ -489,12 +487,12 @@ mod library_expr_lt_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_quick_lt(a: *const LeanObject, b: *const LeanObject) -> u8 {
-        expr_lt(a, b, true) as u8
+    pub unsafe fn lean_expr_quick_lt(a: *const LeanObject, b: *const LeanObject) -> bool {
+        expr_lt(a, b, true)
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_lt(a: *const LeanObject, b: *const LeanObject) -> u8 {
-        expr_lt(a, b, false) as u8
+    pub unsafe fn lean_expr_lt(a: *const LeanObject, b: *const LeanObject) -> bool {
+        expr_lt(a, b, false)
     }
 }

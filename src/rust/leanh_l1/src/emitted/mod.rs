@@ -8,6 +8,7 @@ pub mod lean_box_float32;
 pub mod lean_box_uint32;
 pub mod lean_box_uint64;
 pub mod lean_box_usize;
+pub mod lean_bool_once;
 pub mod lean_closure_set;
 pub mod lean_cstr_to_nat;
 pub mod lean_ctor_get;

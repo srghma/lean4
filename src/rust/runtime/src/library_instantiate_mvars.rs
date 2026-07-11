@@ -23,7 +23,7 @@ mod library_instantiate_mvars_impl {
             mid: *mut LeanObject,
             val: *mut LeanObject,
         ) -> *mut LeanObject;
-        fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
+        fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
         fn lean_get_mvar_assignment(mctx: *mut LeanObject, mid: *mut LeanObject)
         -> *mut LeanObject;
         fn lean_get_delayed_mvar_assignment(
@@ -65,7 +65,7 @@ mod library_instantiate_mvars_impl {
             t: *mut LeanObject,
             v: *mut LeanObject,
             b: *mut LeanObject,
-            nondep: u8,
+            nondep: bool,
         ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(m: *mut LeanObject, e: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_proj(
@@ -364,7 +364,7 @@ mod library_instantiate_mvars_impl {
                         assignment
                     } else {
                         let assignment_new = self.visit(assignment);
-                        if lean_level_eq(assignment, assignment_new) == 0 {
+                        if !lean_level_eq(assignment, assignment_new) {
                             lean_inc(assignment);
                             self.saved_assignments.push(assignment);
                             self.assign(mid, assignment_new);
@@ -446,8 +446,8 @@ mod library_instantiate_mvars_impl {
         lean_ctor_get_uint8(e, num_objs * 8 + 8)
     }
 
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * 8 + 8)
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     unsafe fn fvar_name(e: *mut LeanObject) -> *mut LeanObject {
@@ -625,7 +625,7 @@ mod library_instantiate_mvars_impl {
     }
 
     unsafe fn name_vec_contains(names: &[*mut LeanObject], name: *const LeanObject) -> bool {
-        names.iter().any(|&entry| lean_name_eq(entry, name) != 0)
+        names.iter().any(|&entry| lean_name_eq(entry, name))
     }
 
     unsafe fn name_vec_insert(names: &mut Vec<*mut LeanObject>, name: *mut LeanObject) {
@@ -641,7 +641,7 @@ mod library_instantiate_mvars_impl {
     ) -> Option<usize> {
         states
             .iter()
-            .position(|(entry, _)| lean_name_eq(*entry, name) != 0)
+            .position(|(entry, _)| lean_name_eq(*entry, name))
     }
 
     unsafe fn name_state_get(
@@ -1206,7 +1206,7 @@ mod library_instantiate_mvars_impl {
         unsafe fn find_fvar_subst(&self, fid: *const LeanObject) -> Option<usize> {
             self.fvar_subst
                 .iter()
-                .position(|(key, _)| lean_name_eq(*key, fid) != 0)
+                .position(|(key, _)| lean_name_eq(*key, fid))
         }
 
         unsafe fn get_mvar_assignment_raw(

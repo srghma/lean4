@@ -74,8 +74,8 @@ mod library_print_impl {
 
     // nondep flag for Let (4 obj fields + data u64 + 1 byte).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * 8 + 8)
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     // Pi with Default binder whose body has no loose BVars = arrow type (A → B).
@@ -391,7 +391,7 @@ mod library_print_impl {
         let val = lean_ctor_get(e, 2);
         let body = lean_ctor_get(e, 3);
 
-        out.push_str(if nondep != 0 { "have " } else { "let " });
+        out.push_str(if nondep { "have " } else { "let " });
 
         let fresh_name = cleanup_name_owned(name_field); // owned
         fmt_name(fresh_name, out);

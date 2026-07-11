@@ -57,7 +57,7 @@ mod kernel_expr_impl {
             t: *mut LeanObject,
             v: *mut LeanObject,
             b: *mut LeanObject,
-            nondep: u8,
+            nondep: bool,
         ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_proj(
@@ -90,8 +90,8 @@ mod kernel_expr_impl {
 
     // nondep uint8 stored right after the data u64 in Let (4 obj fields).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) // 4 obj fields * 8 bytes + 8 bytes data
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0 // 4 obj fields * 8 bytes + 8 bytes data
     }
 
     // ── hash / data-word builders ────────────────────────────────────────────
@@ -112,10 +112,10 @@ mod kernel_expr_impl {
         hash: u64,
         bvar_range: *mut LeanObject,
         mut approx_depth: u32,
-        has_fvar: u8,
-        has_expr_mvar: u8,
-        has_level_mvar: u8,
-        has_level_param: u8,
+        has_fvar: bool,
+        has_expr_mvar: bool,
+        has_level_mvar: bool,
+        has_level_param: bool,
     ) -> u64 {
         if approx_depth > 255 {
             approx_depth = 255;
@@ -193,12 +193,12 @@ mod kernel_expr_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_has_loose_bvar(e: *const LeanObject, i: *const LeanObject) -> u8 {
+    pub unsafe fn lean_expr_has_loose_bvar(e: *const LeanObject, i: *const LeanObject) -> bool {
         if !lean_is_scalar(i) {
-            return 0; // index too large, can't be present
+            return false; // index too large, can't be present
         }
         let idx = lean_unbox(i) as u32;
-        if has_loose_bvar_impl(e, idx, 0) { 1 } else { 0 }
+        has_loose_bvar_impl(e, idx, 0)
     }
 
     // ── shift_loose_bvars (shared impl for lower and lift) ──────────────────

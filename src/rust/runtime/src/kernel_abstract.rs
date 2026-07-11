@@ -48,7 +48,7 @@ mod kernel_abstract_impl {
             t: *mut LeanObject,
             v: *mut LeanObject,
             b: *mut LeanObject,
-            nondep: u8,
+            nondep: bool,
         ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_proj(
@@ -103,8 +103,8 @@ mod kernel_abstract_impl {
 
     // nondep byte for Let.
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * 8 + 8)
+    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     // Get pointer to start of array data without dereferencing.
@@ -164,7 +164,7 @@ mod kernel_abstract_impl {
                             || (tag == EXPR_MVAR && v_tag == EXPR_MVAR)
                         {
                             let v_name = lean_ctor_get(v, 0);
-                            if lean_name_eq(v_name, e_name) != 0 {
+                            if lean_name_eq(v_name, e_name) {
                                 // Match: replace with BVar(offset + n - i - 1)
                                 bvar_idx = offset as usize + self.n - i - 1;
                                 found = true;

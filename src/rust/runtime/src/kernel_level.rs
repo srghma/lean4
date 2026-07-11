@@ -37,7 +37,7 @@ mod kernel_level_impl {
                 level_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0))
                     && level_eq(lean_ctor_get(l1, 1), lean_ctor_get(l2, 1))
             }
-            4 | 5 => lean_name_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)) != 0,
+            4 | 5 => lean_name_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)),
             _ => false,
         }
     }
@@ -52,8 +52,8 @@ mod kernel_level_impl {
     pub unsafe fn lean_level_mk_data(
         h: u64,
         depth: *mut LeanObject,
-        has_mvar: u8,
-        has_param: u8,
+        has_mvar: bool,
+        has_param: bool,
     ) -> u64 {
         if !lean_is_scalar(depth) {
             lean_internal_panic(b"universe level depth is too big\0".as_ptr() as *const i8);
@@ -67,12 +67,12 @@ mod kernel_level_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_level_eqv(l1: *const LeanObject, l2: *const LeanObject) -> u8 {
-        level_eq(l1, l2) as u8
+    pub unsafe fn lean_level_eqv(l1: *const LeanObject, l2: *const LeanObject) -> bool {
+        level_eq(l1, l2)
     }
 
     #[no_mangle]
-    pub unsafe fn lean_level_eq(l1: *const LeanObject, l2: *const LeanObject) -> u8 {
-        level_eq(l1, l2) as u8
+    pub unsafe fn lean_level_eq(l1: *const LeanObject, l2: *const LeanObject) -> bool {
+        level_eq(l1, l2)
     }
 }

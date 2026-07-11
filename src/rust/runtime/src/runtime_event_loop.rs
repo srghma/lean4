@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_event_loop_impl {
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr;
     use core::ptr::null_mut;
     use core::sync::atomic::{AtomicI32, Ordering};
@@ -62,12 +62,12 @@ mod runtime_event_loop_impl {
         lean_box(0)
     }
 
-    pub unsafe fn lean_uv_event_loop_alive() -> u8 {
+    pub unsafe fn lean_uv_event_loop_alive() -> bool {
         let event_loop = ptr::addr_of_mut!(GLOBAL_EV);
         event_loop_lock(event_loop);
         let is_alive = uv_loop_alive((*event_loop).loop_) != 0;
         event_loop_unlock(event_loop);
-        is_alive as u8
+        is_alive
     }
 
     const _: () = {

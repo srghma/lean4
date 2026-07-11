@@ -71,16 +71,16 @@ pub unsafe fn lean_float_scaleb(value: f64, scale: *mut LeanObject) -> f64 {
     }
 }
 
-pub fn lean_float_isnan(value: f64) -> u8 {
-    value.is_nan() as u8
+pub fn lean_float_isnan(value: f64) -> bool {
+    value.is_nan()
 }
 
-pub fn lean_float_isfinite(value: f64) -> u8 {
-    value.is_finite() as u8
+pub fn lean_float_isfinite(value: f64) -> bool {
+    value.is_finite()
 }
 
-pub fn lean_float_isinf(value: f64) -> u8 {
-    value.is_infinite() as u8
+pub fn lean_float_isinf(value: f64) -> bool {
+    value.is_infinite()
 }
 
 pub fn lean_float_of_bits(bits: u64) -> f64 {
@@ -123,16 +123,16 @@ pub unsafe fn lean_float32_scaleb(value: f32, scale: *mut LeanObject) -> f32 {
     }
 }
 
-pub fn lean_float32_isnan(value: f32) -> u8 {
-    value.is_nan() as u8
+pub fn lean_float32_isnan(value: f32) -> bool {
+    value.is_nan()
 }
 
-pub fn lean_float32_isfinite(value: f32) -> u8 {
-    value.is_finite() as u8
+pub fn lean_float32_isfinite(value: f32) -> bool {
+    value.is_finite()
 }
 
-pub fn lean_float32_isinf(value: f32) -> u8 {
-    value.is_infinite() as u8
+pub fn lean_float32_isinf(value: f32) -> bool {
+    value.is_infinite()
 }
 
 pub fn lean_float32_of_bits(bits: u32) -> f32 {

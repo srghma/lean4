@@ -139,8 +139,8 @@ mod runtime_io_ref_impl {
         }
     }
 
-    pub unsafe fn lean_st_ref_ptr_eq(ref1: *const LeanObject, ref2: *const LeanObject) -> u8 {
-        (lean_to_ref(ref1) == lean_to_ref(ref2)) as u8
+    pub unsafe fn lean_st_ref_ptr_eq(ref1: *const LeanObject, ref2: *const LeanObject) -> bool {
+        lean_to_ref(ref1) == lean_to_ref(ref2)
     }
 
     pub fn lean_io_exit(code: u8) -> *mut LeanObject {

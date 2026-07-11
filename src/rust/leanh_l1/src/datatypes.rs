@@ -29,6 +29,7 @@ unsafe impl<const N: usize> Sync for LeanCtorObject<N> {}
 pub type LeanExternalFinalizeProc = unsafe fn(*mut c_void);
 pub type LeanExternalForeachProc = unsafe fn(*mut c_void, *mut LeanObject);
 pub type ObjInitFn = unsafe fn() -> *mut LeanObject;
+pub type BoolInitFn = unsafe fn() -> bool;
 pub type U8InitFn = unsafe fn() -> u8;
 pub type U16InitFn = unsafe fn() -> u16;
 pub type U32InitFn = unsafe fn() -> u32;

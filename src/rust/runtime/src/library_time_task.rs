@@ -7,15 +7,15 @@ Full Rust port of src/library/time_task.cpp.
 Exports:
   lean_display_cumulative_profiling_times() -> lean_object*  (BaseIO Unit)
   lean_profileit(category, opts, fn, decl) -> lean_object*
-  lean_time_task_begin(category_cstr, opts, name) -> u8  (1 if enabled)
-  lean_time_task_end(enabled: u8)
+  lean_time_task_begin(category_cstr, opts, name) -> bool  (true if enabled)
+  lean_time_task_end(enabled: bool)
   _ZN4lean20initialize_time_taskEv  (no-op, state lives in Rust statics)
   _ZN4lean18finalize_time_taskEv    (clears cumulative times map)
 */
 
 mod library_time_task_impl {
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::BTreeMap;
     use std::ffi::CStr;
     use std::io::Write;
@@ -136,7 +136,7 @@ mod library_time_task_impl {
         category_cstr: *const core::ffi::c_char,
         opts: *mut LeanObject,
         name: *mut LeanObject,
-    ) -> u8 {
+    ) -> bool {
         let lean_opts = LeanOptions { obj: opts };
         let enabled = get_profiler(&lean_opts);
         if enabled {
@@ -145,12 +145,12 @@ mod library_time_task_impl {
             let name_str = lean_name_to_display_string(name);
             begin_impl(category, name_str, threshold);
         }
-        enabled as u8
+        enabled
     }
 
     #[no_mangle]
-    pub unsafe fn lean_time_task_end(enabled: u8) {
-        if enabled != 0 {
+    pub unsafe fn lean_time_task_end(enabled: bool) {
+        if enabled {
             end_impl();
         }
     }

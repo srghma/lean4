@@ -66,12 +66,12 @@ mod runtime_compact_impl {
 
     // lean_compacted_region_is_memory_mapped(region : USize) : Bool
     #[no_mangle]
-    pub unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> u8 {
+    pub unsafe fn lean_compacted_region_is_memory_mapped(region: usize) -> bool {
         if region == 0 {
-            return 0;
+            return false;
         }
         let r = &*(region as *const OleanCompactedRegion);
-        r.m_is_mmap as u8
+        r.m_is_mmap
     }
 
     // lean_compacted_region_size(region : USize) : USize

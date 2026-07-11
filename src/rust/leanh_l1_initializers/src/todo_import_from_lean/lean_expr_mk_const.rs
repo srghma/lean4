@@ -26,10 +26,10 @@ unsafe fn lean_expr_mk_data(
     hash: u64,
     bvar_range: *mut LeanObject,
     mut approx_depth: u32,
-    has_fvar: u8,
-    has_expr_mvar: u8,
-    has_level_mvar: u8,
-    has_level_param: u8,
+    has_fvar: bool,
+    has_expr_mvar: bool,
+    has_level_mvar: bool,
+    has_level_param: bool,
 ) -> u64 {
     if approx_depth > 255 {
         approx_depth = 255;
@@ -68,20 +68,20 @@ unsafe fn level_hash(level: *const LeanObject) -> u64 {
 }
 
 #[inline]
-unsafe fn level_has_mvar(level: *const LeanObject) -> u8 {
+unsafe fn level_has_mvar(level: *const LeanObject) -> bool {
     if lean_is_scalar(level) {
-        0
+        false
     } else {
-        (((level_data(level) >> LEVEL_DATA_HAS_MVAR_SHIFT) & 1) != 0) as u8
+        ((level_data(level) >> LEVEL_DATA_HAS_MVAR_SHIFT) & 1) != 0
     }
 }
 
 #[inline]
-unsafe fn level_has_param(level: *const LeanObject) -> u8 {
+unsafe fn level_has_param(level: *const LeanObject) -> bool {
     if lean_is_scalar(level) {
-        0
+        false
     } else {
-        (((level_data(level) >> LEVEL_DATA_HAS_PARAM_SHIFT) & 1) != 0) as u8
+        ((level_data(level) >> LEVEL_DATA_HAS_PARAM_SHIFT) & 1) != 0
     }
 }
 
@@ -96,25 +96,25 @@ unsafe fn fold_levels_hash(mut levels: *const LeanObject) -> u64 {
 }
 
 #[inline]
-unsafe fn any_level_mvar(mut levels: *const LeanObject) -> u8 {
+unsafe fn any_level_mvar(mut levels: *const LeanObject) -> bool {
     while !lean_is_scalar(levels) {
-        if level_has_mvar(lean_ctor_get(levels, 0)) != 0 {
-            return 1;
+        if level_has_mvar(lean_ctor_get(levels, 0)) {
+            return true;
         }
         levels = lean_ctor_get(levels, 1);
     }
-    0
+    false
 }
 
 #[inline]
-unsafe fn any_level_param(mut levels: *const LeanObject) -> u8 {
+unsafe fn any_level_param(mut levels: *const LeanObject) -> bool {
     while !lean_is_scalar(levels) {
-        if level_has_param(lean_ctor_get(levels, 0)) != 0 {
-            return 1;
+        if level_has_param(lean_ctor_get(levels, 0)) {
+            return true;
         }
         levels = lean_ctor_get(levels, 1);
     }
-    0
+    false
 }
 
 #[inline]
@@ -135,8 +135,8 @@ pub unsafe fn lean_expr_mk_const(
         hash,
         lean_box(0),
         0,
-        0,
-        0,
+        false,
+        false,
         any_level_mvar(levels),
         any_level_param(levels),
     );

@@ -40,7 +40,7 @@ mod kernel_instantiate_impl {
         fn lean_level_mk_succ(l: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_max(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
         fn lean_level_mk_imax(l1: *mut LeanObject, l2: *mut LeanObject) -> *mut LeanObject;
-        fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> u8;
+        fn lean_level_eq(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
         fn lean_expr_lift_loose_bvars(
             e: *mut LeanObject,
             s: *mut LeanObject,
@@ -65,7 +65,7 @@ mod kernel_instantiate_impl {
             t: *mut LeanObject,
             v: *mut LeanObject,
             b: *mut LeanObject,
-            nondep: u8,
+            nondep: bool,
         ) -> *mut LeanObject;
         fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
         fn lean_expr_mk_proj(
@@ -145,8 +145,8 @@ mod kernel_instantiate_impl {
 
     // nondep byte for Let (4 obj fields, stored after data u64).
     #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, 4 * 8 + 8)
+    unsafe fn expr_let_nondep(e: *mut LeanObject) -> bool {
+        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     #[inline(always)]
@@ -208,7 +208,7 @@ mod kernel_instantiate_impl {
     }
 
     unsafe fn level_eq(lhs: *const LeanObject, rhs: *const LeanObject) -> bool {
-        lean_level_eq(lhs, rhs) != 0
+        lean_level_eq(lhs, rhs)
     }
 
     unsafe fn mk_max_simplified(lhs: *mut LeanObject, rhs: *mut LeanObject) -> *mut LeanObject {
@@ -582,7 +582,7 @@ mod kernel_instantiate_impl {
     ) -> Option<*mut LeanObject> {
         while !lean_is_scalar(params) && !lean_is_scalar(levels) {
             let param = lean_ctor_get(params, 0);
-            if lean_name_eq(param, name) != 0 {
+            if lean_name_eq(param, name) {
                 let level = lean_ctor_get(levels, 0);
                 lean_inc(level);
                 return Some(level);

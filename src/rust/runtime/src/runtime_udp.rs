@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_udp_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -515,7 +515,7 @@ mod runtime_udp_impl {
 
     pub unsafe fn lean_uv_udp_set_broadcast(
         socket: *mut LeanObject,
-        enable: u8,
+        enable: bool,
     ) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 
@@ -532,7 +532,7 @@ mod runtime_udp_impl {
 
     pub unsafe fn lean_uv_udp_set_multicast_loop(
         socket: *mut LeanObject,
-        enable: u8,
+        enable: bool,
     ) -> *mut LeanObject {
         let udp_socket = lean_to_uv_udp_socket(socket);
 

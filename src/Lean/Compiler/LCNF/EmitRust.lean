@@ -40,6 +40,7 @@ namespace ImpureType
 def Lean.Expr.toRustType : Expr → String
   | float => "f64"
   | float32 => "f32"
+  | bool => "bool"
   | uint8 => "u8"
   | uint16 => "u16"
   | uint32 => "u32"
@@ -74,6 +75,7 @@ def Lean.Expr.sprojOpName (t : Expr) : String :=
   match t with
   | float => "lean_ctor_get_float"
   | float32 => "lean_ctor_get_float32"
+  | bool => "lean_ctor_get_uint8"
   | uint8 => "lean_ctor_get_uint8"
   | uint16 => "lean_ctor_get_uint16"
   | uint32 => "lean_ctor_get_uint32"
@@ -84,6 +86,7 @@ def Lean.Expr.ssetOpName (t : Expr) : String :=
   match t with
   | float => "lean_ctor_set_float"
   | float32 => "lean_ctor_set_float32"
+  | bool => "lean_ctor_set_uint8"
   | uint8 => "lean_ctor_set_uint8"
   | uint16 => "lean_ctor_set_uint16"
   | uint32 => "lean_ctor_set_uint32"
@@ -94,6 +97,7 @@ def Lean.Expr.closedTermReadOpName (t : Expr) : String :=
   match t with
   | float => "lean_float_once"
   | float32 => "lean_float32_once"
+  | bool => "lean_bool_once"
   | uint8 => "lean_uint8_once"
   | uint16 => "lean_uint16_once"
   | uint32 => "lean_uint32_once"
@@ -110,6 +114,7 @@ def defaultInitializer (t : Expr) : String :=
   match t with
   | float => "0.0"
   | float32 => "0.0f32"
+  | bool => "false"
   | uint8 | uint16 | uint32 | uint64 | usize => "0"
   | _ => "core::ptr::null_mut()"
 
@@ -770,7 +775,10 @@ where
       emitCApp3 "lean_ctor_set" targetId i arg; emitLn ";"
 
   emitCtor (info : CtorInfo) (args : Array (Arg .impure)) : EmitM Unit := do
-    if info.size == 0 && info.usize == 0 && info.ssize == 0 then do
+    if decl.type == ImpureType.bool && info.size == 0 && info.usize == 0 && info.ssize == 0 then do
+      withEmitAssignment do
+        emit (if info.cidx == 0 then "false" else "true")
+    else if info.size == 0 && info.usize == 0 && info.ssize == 0 then do
       withEmitAssignment do emitCApp1 "lean_box" info.cidx
     else do
       withEmitAssignment do emitAllocCtor info
@@ -810,7 +818,12 @@ where
 
   emitSproj (n : Nat) (offset : Nat) (fvarId : FVarId) : EmitM Unit := do
     withEmitAssignment do
-      emitCApp2 decl.type.sprojOpName fvarId (offsetExpression n offset)
+      if decl.type == ImpureType.bool then
+        emit "("
+        emitCApp2 decl.type.sprojOpName fvarId (offsetExpression n offset)
+        emit " != 0)"
+      else
+        emitCApp2 decl.type.sprojOpName fvarId (offsetExpression n offset)
 
   emitLeanFunReference (ty : Expr) (f : Name) : EmitM Unit := do
     let env ← getEnv
@@ -829,11 +842,11 @@ where
     let some sig ← getImpureSignature? fn | unreachable!
     let ps := sig.params
     withEmitAssignment do
-      let castBoolResult := decl.type == ImpureType.uint8 && sig.type.isConstOf ``Bool
-      if castBoolResult then
-        emit "("
+      let castBoolResult := decl.type == ImpureType.bool && sig.type.isConstOf ``Bool
       match getExternAttrData? (← getEnv) fn |>.bind (getExternEntryFor · `c) with
       | some (.standard _ fn) =>
+        if castBoolResult then
+          emit "("
         let (_, args) :=
           ps.zip args
             |>.filter (fun (p, _) => !(p.type.isVoid || p.type.isErased))
@@ -844,8 +857,14 @@ where
           if i > 0 then emit ", "
           emit args[i]
         emit ")"
+        if castBoolResult then
+          emit " != 0)"
       | some (.inline _ pat) =>
+        if castBoolResult then
+          emit "("
         emit (expandExternPattern pat (← toStringArgs args))
+        if castBoolResult then
+          emit " != 0)"
       | some .opaque | none =>
         emitLeanFunReference decl.type fn
         if args.size > 0 then
@@ -855,8 +874,6 @@ where
               |>.unzip
           emit "("; emitArgs args; emit ")"
       | _ => throwError s!"failed to emit extern application '{fn}'"
-      if castBoolResult then
-        emit " as u8)"
 
   emitPap (fn : Name) (args : Array (Arg .impure)) : EmitM Unit := do
     let some sig ← getImpureSignature? fn | unreachable!
@@ -881,7 +898,7 @@ where
 
   emitBox (ty : Expr) (fvarId : FVarId) : EmitM Unit := do
     withEmitAssignment do
-      if ty == ImpureType.uint8 || ty == ImpureType.uint16 then do
+      if ty == ImpureType.bool || ty == ImpureType.uint8 || ty == ImpureType.uint16 then do
         emit (leanh ty.boxOpName); emit "(("; emit fvarId; emit ") as usize)"
       else
         emitCApp1 ty.boxOpName fvarId
@@ -889,8 +906,10 @@ where
   emitUnbox (fvarId : FVarId) : EmitM Unit := do
     withEmitAssignment do
       let ty := decl.type
-      if ty == ImpureType.uint8 || ty == ImpureType.uint16 then do
-        emit "("; emit (leanh ty.unboxOpName); emit "("; emit fvarId; emit ") as "; emit ty.toRustType; emit ")"
+      if ty == ImpureType.bool then do
+        emit "("; emit (leanh ty.unboxOpName); emit "("; emit fvarId; emit ") != 0)"
+      else if ty == ImpureType.uint8 || ty == ImpureType.uint16 then do
+        emit "("; emit (leanh ty.unboxOpName); emit("("); emit fvarId; emit ") as "; emit ty.toRustType; emit ")"
       else
         emitCApp1 ty.unboxOpName fvarId
 
@@ -1036,7 +1055,10 @@ where
     emitLn ";"
 
   emitSset (fvarId : FVarId) (i : Nat) (offset : Nat) (y : FVarId) (ty : Expr) : EmitM Unit := do
-    emitCApp3 ty.ssetOpName fvarId (offsetExpression i offset) y
+    if ty == ImpureType.bool then
+      emitCApp3 ty.ssetOpName fvarId (offsetExpression i offset) s!"({y} as u8)"
+    else
+      emitCApp3 ty.ssetOpName fvarId (offsetExpression i offset) y
     emitLn ";"
 
   isIf (cs : Cases .impure) : EmitM (Option (Nat × Code .impure × Code .impure)) := do
@@ -1218,7 +1240,9 @@ def emitDeclInit (decl : Decl .impure) (isBuiltin : Bool) : EmitM Unit := do
         emitCName initFn; emit "()"
       emit s!"{← toCName decl.name}"
       if decl.type.isScalar then
-        if decl.type == ImpureType.uint8 || decl.type == ImpureType.uint16 then
+        if decl.type == ImpureType.bool then
+          emitLn <| " = (" ++ leanh decl.type.unboxOpName ++ "(" ++ leanh "lean_io_result_get_value" ++ "(res)) != 0);"
+        else if decl.type == ImpureType.uint8 || decl.type == ImpureType.uint16 then
           emitLn <| " = (" ++ leanh decl.type.unboxOpName ++ "(" ++ leanh "lean_io_result_get_value" ++ "(res)) as " ++ decl.type.toRustType ++ ");"
         else
           emitLn <| " = " ++ leanh decl.type.unboxOpName ++ "(" ++ leanh "lean_io_result_get_value" ++ "(res));"
