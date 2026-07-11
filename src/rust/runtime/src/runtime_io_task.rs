@@ -5,33 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_io_task_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-
-    unsafe extern "C" {
-        fn lean_io_check_canceled_core() -> bool;
-        fn lean_io_cancel_core(t: *mut LeanObject);
-        fn lean_io_get_task_state_core(t: *mut LeanObject) -> u8;
-        fn lean_io_wait_any_core(task_list: *mut LeanObject) -> *mut LeanObject;
-        fn lean_task_spawn_core(
-            c: *mut LeanObject,
-            prio: core::ffi::c_uint,
-            keep_alive: bool,
-        ) -> *mut LeanObject;
-        fn lean_task_map_core(
-            f: *mut LeanObject,
-            t: *mut LeanObject,
-            prio: core::ffi::c_uint,
-            sync: bool,
-            keep_alive: bool,
-        ) -> *mut LeanObject;
-        fn lean_task_bind_core(
-            t: *mut LeanObject,
-            f: *mut LeanObject,
-            prio: core::ffi::c_uint,
-            sync: bool,
-            keep_alive: bool,
-        ) -> *mut LeanObject;
-    }
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 
     unsafe fn lean_io_as_task_fn(act: *mut LeanObject, _world: *mut LeanObject) -> *mut LeanObject {
         lean_apply_1(act, lean_io_mk_world())

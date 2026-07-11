@@ -35,9 +35,9 @@ const commonRoot = path.join(genInitFfiRoot, "ffi/common");
 const commonModuleFile = path.join(commonRoot, "mod.rs");
 const initRoot = path.join(genInitFfiRoot, "ffi/Init");
 const privRoot = path.join(genInitFfiRoot, "priv");
-const privModuleFile = path.join(genInitFfiRoot, "priv.rs");
+const privModuleFile = path.join(privRoot, "mod.rs");
 const todoRoot = path.join(genInitFfiRoot, "todo_import_from_lean");
-const todoModuleFile = path.join(genInitFfiRoot, "todo_import_from_lean.rs");
+const todoModuleFile = path.join(todoRoot, "mod.rs");
 
 const runtimeRoot = path.join(workRoot, "runtime/src");
 const leanhL2Root = path.join(workRoot, "leanh_l2/src");

@@ -38,7 +38,7 @@ function getDestination(sourceOcc: FnOccurrence): Destination {
     return {
       kind: "priv",
       targetDir: path.join(initRoot, "priv"),
-      moduleFile: path.join(initRoot, "priv.rs"),
+      moduleFile: path.join(initRoot, "priv/mod.rs"),
       prelude:
         "use std::ffi::c_void;\nuse leanh_l1::datatypes::{LeanExternalObject, LeanObject};\n",
     };
@@ -77,7 +77,7 @@ async function main() {
       generatedFallback: {
         roots: generatedRoots,
         targetDir: path.join(initRoot, "todo_import_from_lean"),
-        moduleFile: path.join(initRoot, "todo_import_from_lean.rs"),
+        moduleFile: path.join(initRoot, "todo_import_from_lean/mod.rs"),
       },
     });
   }

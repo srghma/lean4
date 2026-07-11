@@ -1,6 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject, r#priv::lean_sarray_capacity::lean_sarray_capacity,
-};
+use leanh_l1::{datatypes::LeanObject, r#priv::lean_sarray_capacity::lean_sarray_capacity};
 
 use crate::r#priv::lean_copy_sarray::lean_copy_sarray;
 

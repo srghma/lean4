@@ -20,9 +20,9 @@ pub unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -
     (*obj).m_header.rc = 1;
     (*obj).m_header.other = 0;
     (*obj).m_header.tag = LEAN_CLOSURE_TAG;
+    // (*obj).m_header.cs_size = 0;
     (*obj).m_fun = fun;
     (*obj).m_arity = arity as u16;
     (*obj).m_num_fixed = num_fixed as u16;
-    // (*obj).header.cs_size = 0;
     obj as *mut LeanObject
 }

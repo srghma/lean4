@@ -388,6 +388,12 @@ export async function ensureModLine(moduleFile: string, modName: string) {
   await fs.writeFile(moduleFile, `${lines.join("\n").replace(/\s*$/, "")}\n`, "utf8");
 }
 
+function moduleNameForRootModLine(moduleFile: string): string {
+  const base = path.basename(moduleFile, ".rs");
+  if (base !== "mod") return base;
+  return path.basename(path.dirname(moduleFile));
+}
+
 export async function rustfmtFiles(files: string[]) {
   const unique = [...new Set(files.map((file) => path.resolve(file)))];
   if (unique.length === 0) return;
@@ -448,7 +454,7 @@ async function appendBodiesToTarget(
 
   await ensureModLine(destination.moduleFile, fnName);
   if (destination.rootModuleFile) {
-    const moduleName = path.basename(destination.moduleFile, ".rs");
+    const moduleName = moduleNameForRootModLine(destination.moduleFile);
     await ensureModLine(destination.rootModuleFile, moduleName);
   }
 

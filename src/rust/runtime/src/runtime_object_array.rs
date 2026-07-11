@@ -12,12 +12,6 @@ mod runtime_object_array_impl {
     use core::ffi::{c_int, c_ulong};
     use leanh::{LeanMpzObject, LeanThunkObject};
 
-    unsafe extern "C" {
-        fn lean_internal_panic_out_of_memory() -> !;
-        fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
-        fn lean_hash_str(len: usize, text: *const u8, seed: u64) -> u64;
-    }
-
     #[inline]
     unsafe fn lean_array_capacity(o: *const LeanObject) -> usize {
         (*(o as *const LeanArrayObject)).capacity
@@ -152,23 +146,5 @@ mod runtime_object_array_impl {
             a,
             lean_mk_ascii_string_unchecked(c"Error: index out of bounds".as_ptr()),
         )
-    }
-
-    pub unsafe fn lean_thunk_get_core(t: *mut LeanObject) -> *mut LeanObject {
-        let thunk = t as *mut LeanThunkObject;
-        let c = (*thunk).m_closure.swap(ptr::null_mut(), Ordering::AcqRel);
-        if !c.is_null() {
-            let r = lean_apply_1(c, lean_box(0));
-            debug_assert!(!r.is_null());
-            debug_assert!((*thunk).m_value.load(Ordering::Acquire).is_null());
-            lean_mark_mt(r);
-            (*thunk).m_value.store(r, Ordering::Release);
-            r
-        } else {
-            while (*thunk).m_value.load(Ordering::Acquire).is_null() {
-                std::thread::yield_now();
-            }
-            (*thunk).m_value.load(Ordering::Acquire)
-        }
     }
 }

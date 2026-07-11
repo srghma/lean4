@@ -194,7 +194,7 @@ pub fn spawn_worker(slf: &Arc<TaskManager>, guard: &mut MutexGuard<'_, TaskManag
     guard.std_workers.push(handle);
 }
 
-fn enqueue_core<'a>(
+pub fn enqueue_core<'a>(
     slf: &'a Arc<TaskManager>,
     guard: &mut MutexGuard<'a, TaskManagerInner>,
     t: *mut LeanTaskObject,

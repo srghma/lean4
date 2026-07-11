@@ -109,11 +109,11 @@ function getDestinationForFn(fnName: string): Destination {
   return isEmitted
     ? {
         targetDir: path.join(workRoot, "leanh_l1/src/emitted"),
-        moduleFile: path.join(workRoot, "leanh_l1/src/emitted.rs"),
+        moduleFile: path.join(workRoot, "leanh_l1/src/emitted/mod.rs"),
       }
     : {
         targetDir: path.join(workRoot, "leanh_l1/src/priv"),
-        moduleFile: path.join(workRoot, "leanh_l1/src/priv.rs"),
+        moduleFile: path.join(workRoot, "leanh_l1/src/priv/mod.rs"),
     };
 }
 
