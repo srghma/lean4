@@ -216,44 +216,6 @@ mod runtime_object_array_impl {
         r
     }
 
-    pub unsafe fn lean_array_mk(lst: *mut LeanObject) -> *mut LeanObject {
-        // TODO: should use List.toArrayImpl / lean_list_to_array
-        let mut sz = 0usize;
-        let mut it = lst;
-        while !lean_is_scalar(it) {
-            sz += 1;
-            it = lean_ctor_get(it, 1);
-        }
-        let r = lean_alloc_array(sz, sz);
-        let mut it = lst;
-        let dst = lean_array_cptr(r);
-        for i in 0..sz {
-            let v = lean_ctor_get(it, 0);
-            *dst.add(i) = v;
-            lean_inc(v);
-            it = lean_ctor_get(it, 1);
-        }
-        lean_dec(lst);
-        r
-    }
-
-    pub unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
-        // TODO: should use toListImpl / lean_array_to_list_impl
-        let mut i = lean_array_size(a);
-        let mut r = lean_box(0);
-        while i > 0 {
-            i -= 1;
-            let v = *lean_array_cptr(a).add(i);
-            let cell = lean_runtime_alloc_ctor(1, 2, 0);
-            lean_runtime_ctor_set(cell, 0, v);
-            lean_inc(v);
-            lean_runtime_ctor_set(cell, 1, r);
-            r = cell;
-        }
-        lean_dec(a);
-        r
-    }
-
     pub unsafe fn lean_array_get_panic(def_val: *mut LeanObject) -> *mut LeanObject {
         lean_panic_fn(
             def_val,

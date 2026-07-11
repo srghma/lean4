@@ -103,35 +103,9 @@ pub struct LeanOptionalName {
     value: LeanName,
 }
 
-pub unsafe fn lean_runtime_ctor_set(obj: *mut LeanObject, index: c_uint, value: *mut LeanObject) {
-    debug_assert!(index < (*obj).m_header.other as c_uint);
-    let fields = (obj as *mut LeanCtorObject<0>)
-        .cast::<u8>()
-        .add(core::mem::size_of::<LeanCtorObject<0>>()) as *mut *mut LeanObject;
-    fields.add(index as Size).write(value);
-}
-
 pub(crate) unsafe fn lean_array_get(obj: *const LeanObject, idx: usize) -> *mut LeanObject {
     let array = obj as *const LeanArrayObject<0>;
     (*array).m_data.as_ptr().add(idx).read()
-}
-
-pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut LeanObject {
-    let byte_size = core::mem::size_of::<LeanArrayObject<0>>()
-        .checked_add(
-            core::mem::size_of::<*mut LeanObject>()
-                .checked_mul(capacity)
-                .expect("array allocation overflow"),
-        )
-        .expect("array allocation overflow");
-    let obj = lean_alloc_object(byte_size) as *mut LeanArrayObject<0>;
-    (*obj).m_header.rc = 1;
-    (*obj).m_header.cs_size = 0;
-    (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LEAN_ARRAY_TAG;
-    (*obj).m_size = size;
-    (*obj).m_capacity = capacity;
-    obj as *mut LeanObject
 }
 
 pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
@@ -1056,7 +1030,7 @@ pub unsafe fn lean_runtime_mk_cnstr(
     let obj = lean_runtime_alloc_ctor(tag, num_objs, scalar_size);
     for index in 0..num_objs as Size {
         let val = objs.add(index).read();
-        lean_runtime_ctor_set(obj, index as c_uint, val);
+        lean_ctor_set(obj, index as c_uint, val);
     }
     obj
 }

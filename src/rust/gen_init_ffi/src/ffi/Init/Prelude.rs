@@ -1,13 +1,20 @@
 use leanh_l1::{
     datatypes::{LEAN_MAX_SMALL_NAT, LeanObject, LeanScalarArray, LeanStringObject},
-    emitted::{lean_box::lean_box, lean_unbox::lean_unbox},
-    r#priv::lean_usize_to_nat::lean_usize_to_nat,
+    emitted::{
+        lean_box::lean_box, lean_ctor_get::lean_ctor_get, lean_dec::lean_dec, lean_inc::lean_inc,
+        lean_unbox::lean_unbox,
+    },
+    r#priv::{
+        lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
+        lean_usize_to_nat::lean_usize_to_nat,
+    },
     runtime_object_nat_int::{
         lean_nat_big_add, lean_nat_big_div, lean_nat_big_mod, lean_nat_big_mul, lean_nat_big_sub,
         lean_nat_overflow_mul,
     },
 };
 
+use crate::r#priv::lean_alloc_array::lean_alloc_array;
 pub use crate::r#priv::uint_family::lean_uint8_dec_eq;
 pub use crate::r#priv::uint_family::lean_uint8_dec_le;
 pub use crate::r#priv::uint_family::lean_uint8_dec_lt;
@@ -40,13 +47,43 @@ pub use crate::r#priv::uint_family::lean_usize_of_nat_mk;
 // original source: Init/Prelude.rs:46-48
 
 #[inline]
-pub unsafe fn lean_array_to_list(array: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_array_to_list(array) }
+pub unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
+    // TODO: should use toListImpl / lean_array_to_list_impl
+    let mut i = lean_array_size(a);
+    let mut r = lean_box(0);
+    while i > 0 {
+        i -= 1;
+        let v = *lean_array_cptr(a).add(i);
+        let cell = lean_runtime_alloc_ctor(1, 2, 0);
+        lean_ctor_set(cell, 0, v);
+        lean_inc(v);
+        lean_ctor_set(cell, 1, r);
+        r = cell;
+    }
+    lean_dec(a);
+    r
 }
 
 #[inline]
 pub unsafe fn lean_array_mk(list: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_array_mk(list) }
+    // TODO: should use List.toArrayImpl / lean_list_to_array
+    let mut sz = 0usize;
+    let mut it = list;
+    while !lean_is_scalar(it) {
+        sz += 1;
+        it = lean_ctor_get(it, 1);
+    }
+    let r = lean_alloc_array(sz, sz);
+    let mut it = list;
+    let dst = lean_array_cptr(r);
+    for i in 0..sz {
+        let v = lean_ctor_get(it, 0);
+        *dst.add(i) = v;
+        lean_inc(v);
+        it = lean_ctor_get(it, 1);
+    }
+    lean_dec(list);
+    r
 }
 
 #[inline]
