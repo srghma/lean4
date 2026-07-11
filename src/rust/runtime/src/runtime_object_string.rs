@@ -9,7 +9,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_object_string_impl {
     use crate::*;
     use core::ffi::c_char;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::mem::size_of;
     use leanh::LEAN_MAX_SMALL_NAT;
 
@@ -167,7 +167,6 @@ mod runtime_object_string_impl {
         *w_string_cstr(r).add(sz + consumed - 1) = 0;
         r
     }
-
 
     pub unsafe fn lean_sarray_eq_cold(a1: *const LeanObject, a2: *const LeanObject) -> bool {
         let len = lean_sarray_elem_size(a1) * lean_sarray_size(a1);
@@ -515,26 +514,6 @@ mod runtime_object_string_impl {
     // ════════════════════════════════════════════════════════════════════════════
     // String ↔ List Char
     // ════════════════════════════════════════════════════════════════════════════
-
-    pub unsafe fn lean_string_mk(cs: *mut LeanObject) -> *mut LeanObject {
-        let mut buf: Vec<u8> = Vec::new();
-        let mut o = cs;
-        let mut len: usize = 0;
-        while !lean_is_scalar(o) {
-            let cp = lean_unbox_uint32(lean_ctor_get(o, 0));
-            let start = buf.len();
-            buf.resize(start + 4, 0);
-            let consumed =
-                lean_runtime_push_unicode_scalar(buf.as_mut_ptr().add(start) as *mut c_char, cp)
-                    as usize;
-            buf.truncate(start + consumed);
-            o = lean_ctor_get(o, 1);
-            len += 1;
-        }
-        lean_dec(cs);
-        lean_mk_string_unchecked(buf.as_ptr() as *const c_char, buf.len(), len)
-    }
-
     pub unsafe fn lean_string_data(s: *mut LeanObject) -> *mut LeanObject {
         // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 233 (🔁)
         let sz = lean_string_size(s) - 1;

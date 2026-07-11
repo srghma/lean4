@@ -14,11 +14,19 @@ pub fn lean_uint8_mul(a: u8, b: u8) -> u8 {
 }
 
 pub fn lean_uint8_div(a: u8, b: u8) -> u8 {
-    if b == 0 { 0 } else { a / b }
+    if b == 0 {
+        0
+    } else {
+        a / b
+    }
 }
 
 pub fn lean_uint8_mod(a: u8, b: u8) -> u8 {
-    if b == 0 { a } else { a % b }
+    if b == 0 {
+        a
+    } else {
+        a % b
+    }
 }
 
 pub fn lean_uint8_land(a: u8, b: u8) -> u8 {
@@ -66,11 +74,19 @@ pub fn lean_uint16_mul(a: u16, b: u16) -> u16 {
 }
 
 pub fn lean_uint16_div(a: u16, b: u16) -> u16 {
-    if b == 0 { 0 } else { a / b }
+    if b == 0 {
+        0
+    } else {
+        a / b
+    }
 }
 
 pub fn lean_uint16_mod(a: u16, b: u16) -> u16 {
-    if b == 0 { a } else { a % b }
+    if b == 0 {
+        a
+    } else {
+        a % b
+    }
 }
 
 pub fn lean_uint16_land(a: u16, b: u16) -> u16 {
@@ -118,11 +134,19 @@ pub fn lean_uint32_mul(a: u32, b: u32) -> u32 {
 }
 
 pub fn lean_uint32_div(a: u32, b: u32) -> u32 {
-    if b == 0 { 0 } else { a / b }
+    if b == 0 {
+        0
+    } else {
+        a / b
+    }
 }
 
 pub fn lean_uint32_mod(a: u32, b: u32) -> u32 {
-    if b == 0 { a } else { a % b }
+    if b == 0 {
+        a
+    } else {
+        a % b
+    }
 }
 
 pub fn lean_uint32_land(a: u32, b: u32) -> u32 {
@@ -170,11 +194,19 @@ pub fn lean_uint64_mul(a: u64, b: u64) -> u64 {
 }
 
 pub fn lean_uint64_div(a: u64, b: u64) -> u64 {
-    if b == 0 { 0 } else { a / b }
+    if b == 0 {
+        0
+    } else {
+        a / b
+    }
 }
 
 pub fn lean_uint64_mod(a: u64, b: u64) -> u64 {
-    if b == 0 { a } else { a % b }
+    if b == 0 {
+        a
+    } else {
+        a % b
+    }
 }
 
 pub fn lean_uint64_land(a: u64, b: u64) -> u64 {
@@ -222,11 +254,19 @@ pub fn lean_usize_mul(a: usize, b: usize) -> usize {
 }
 
 pub fn lean_usize_div(a: usize, b: usize) -> usize {
-    if b == 0 { 0 } else { a / b }
+    if b == 0 {
+        0
+    } else {
+        a / b
+    }
 }
 
 pub fn lean_usize_mod(a: usize, b: usize) -> usize {
-    if b == 0 { a } else { a % b }
+    if b == 0 {
+        a
+    } else {
+        a % b
+    }
 }
 
 pub fn lean_usize_land(a: usize, b: usize) -> usize {

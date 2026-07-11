@@ -1,5 +1,5 @@
-use leanh::LeanObject;
 use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
+
 #[inline]
 pub unsafe fn lean_uint8_of_nat_mk(n: *mut LeanObject) -> u8 {
     unsafe { leanh::lean_uint8_of_nat_mk(n) }
@@ -70,10 +70,7 @@ pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut Le
     unsafe { leanh::lean_string_from_utf8_unchecked(bytes) }
 }
 
-#[inline]
-pub unsafe fn lean_is_scalar(obj: *mut LeanObject) -> u8 {
-    leanh::lean_is_scalar(obj)
-}
+pub use leanh_l1::emitted::lean_is_scalar::lean_is_scalar;
 
 #[inline]
 pub unsafe fn lean_sorry(synthetic: u8) -> *mut LeanObject {

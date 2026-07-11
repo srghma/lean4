@@ -10,7 +10,7 @@ use leanh_l1::emitted::lean_mk_string_unchecked::{lean_alloc_string, w_string_cs
 use leanh_l1::r#priv::lean_string_cstr::lean_string_cstr;
 use leanh_l1_initializers::r#priv::lean_string_size::lean_string_size;
 
-use crate::lean_string_length;
+use super::lean_string_length::lean_string_length;
 use crate::r#priv::mk_capacity::mk_capacity;
 use crate::r#priv::string_ensure_capacity::string_ensure_capacity;
 
