@@ -50,15 +50,6 @@ mod runtime_object_string_impl {
         lean_mk_string_from_bytes(lean_sarray_cptr(a) as *const c_char, lean_sarray_size(a))
     }
 
-    pub unsafe fn lean_string_from_utf8_unchecked(a: *mut LeanObject) -> *mut LeanObject {
-        let r = lean_mk_string_from_bytes_unchecked(
-            lean_sarray_cptr(a) as *const c_char,
-            lean_sarray_size(a),
-        );
-        lean_dec(a);
-        r
-    }
-
     // ════════════════════════════════════════════════════════════════════════════
     // String push / append
     // ════════════════════════════════════════════════════════════════════════════

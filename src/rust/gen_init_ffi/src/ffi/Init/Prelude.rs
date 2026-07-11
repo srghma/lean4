@@ -1,3 +1,5 @@
+use std::ffi::c_char;
+
 use leanh_l1::{
     datatypes::{LEAN_MAX_SMALL_NAT, LeanObject, LeanScalarArray, LeanStringObject},
     emitted::{
@@ -5,11 +7,19 @@ use leanh_l1::{
         lean_ctor_set::lean_ctor_set, lean_dec::lean_dec, lean_inc::lean_inc,
         lean_unbox::lean_unbox,
     },
-    r#priv::lean_usize_to_nat::lean_usize_to_nat,
+    r#priv::{
+        lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
+        lean_usize_to_nat::lean_usize_to_nat,
+    },
     runtime_object_nat_int::{
         lean_nat_big_add, lean_nat_big_div, lean_nat_big_mod, lean_nat_big_mul, lean_nat_big_sub,
         lean_nat_overflow_mul,
     },
+    runtime_object_panic::lean_internal_panic_out_of_memory::{c_char_ptr, lean_internal_panic},
+};
+use leanh_l1_initializers::r#priv::{
+    lean_alloc_sarray::lean_alloc_sarray, lean_sarray_cptr::lean_sarray_cptr,
+    lean_sarray_size::lean_sarray_size,
 };
 
 pub use crate::r#priv::uint_family::lean_uint8_dec_eq;
@@ -17,8 +27,17 @@ pub use crate::r#priv::uint_family::lean_uint8_dec_le;
 pub use crate::r#priv::uint_family::lean_uint8_dec_lt;
 pub use crate::r#priv::uint_family::lean_uint8_of_nat;
 pub use crate::r#priv::uint_family::lean_uint8_of_nat_mk;
-use crate::todo_import_from_lean::lean_array_to_list_impl::lean_array_to_list_impl;
-use crate::todo_import_from_lean::lean_list_to_array::lean_list_to_array;
+use crate::{
+    r#priv::lean_sarray_mut_cptr::lean_sarray_mut_cptr,
+    todo_import_from_lean::lean_array_to_list_impl::lean_array_to_list_impl,
+};
+use crate::{
+    r#priv::{
+        lean_alloc_array::lean_alloc_array,
+        lean_mk_string_from_bytes_unchecked::lean_mk_string_from_bytes_unchecked,
+    },
+    todo_import_from_lean::lean_list_to_array::lean_list_to_array,
+};
 
 // moved lean_uint8_to_nat to ffi/common/lean_uint8_to_nat.rs
 // original source: Init/Prelude.rs:9-11
@@ -47,22 +66,38 @@ pub use crate::r#priv::uint_family::lean_usize_of_nat_mk;
 
 #[inline]
 pub unsafe fn lean_array_to_list(a: *mut LeanObject) -> *mut LeanObject {
-    return lean_array_to_list_impl(/* lean_box(0), */a);
+    return lean_array_to_list_impl(/* lean_box(0), */ a);
 }
 
 #[inline]
 pub unsafe fn lean_array_mk(list: *mut LeanObject) -> *mut LeanObject {
-    return lean_list_to_array(/* lean_box(0), */list);
+    return lean_list_to_array(/* lean_box(0), */ list);
 }
 
 #[inline]
-pub unsafe fn lean_byte_array_mk(data: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_byte_array_mk(data) }
+pub unsafe fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject {
+    let sz = lean_array_size(a);
+    let r = lean_alloc_sarray(1, sz, sz);
+    let src = lean_array_cptr(a);
+    let dst = lean_sarray_mut_cptr(r);
+    for i in 0..sz {
+        *dst.add(i) = lean_unbox(*src.add(i)) as u8;
+    }
+    lean_dec(a);
+    r
 }
 
 #[inline]
-pub unsafe fn lean_byte_array_data(array: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_byte_array_data(array) }
+pub unsafe fn lean_byte_array_data(a: *mut LeanObject) -> *mut LeanObject {
+    let sz = lean_sarray_size(a);
+    let r = lean_alloc_array(sz, sz);
+    let src = lean_sarray_cptr(a);
+    let dst = lean_array_cptr(r);
+    for i in 0..sz {
+        *dst.add(i) = lean_box(*src.add(i) as usize);
+    }
+    lean_dec(a);
+    r
 }
 
 // moved lean_string_to_utf8 to ffi/common/lean_string_to_utf8.rs
@@ -70,14 +105,20 @@ pub unsafe fn lean_byte_array_data(array: *mut LeanObject) -> *mut LeanObject {
 
 #[inline]
 pub unsafe fn lean_string_from_utf8_unchecked(bytes: *mut LeanObject) -> *mut LeanObject {
-    unsafe { leanh::lean_string_from_utf8_unchecked(bytes) }
+    let r = lean_mk_string_from_bytes_unchecked(
+        lean_sarray_cptr(bytes) as *const c_char,
+        lean_sarray_size(bytes),
+    );
+    lean_dec(bytes);
+    r
 }
 
 pub use leanh_l1::emitted::lean_is_scalar::lean_is_scalar;
 
 #[inline]
-pub unsafe fn lean_sorry(synthetic: u8) -> *mut LeanObject {
-    unsafe { leanh::lean_sorry(synthetic) }
+// TODO: what is _ ? remove
+pub unsafe fn lean_sorry(_: u8) -> ! {
+    lean_internal_panic(c_char_ptr(b"executed 'sorry'\0"))
 }
 
 #[inline]
@@ -110,16 +151,18 @@ pub unsafe fn lean_nat_mul(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanO
 
 #[inline]
 pub unsafe fn lean_nat_pow(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject {
+    // TODO reexport src/rust/leanh_l1/src/runtime_object_nat_int.rs|396 col 12-28| pub unsafe fn lean_nat_pow(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
+
     unsafe { leanh::lean_nat_pow(a, b) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_nat_dec_eq(a: *mut LeanObject, b: *mut LeanObject) -> bool {
     unsafe { leanh::lean_nat_dec_eq(a, b) }
 }
 
 #[inline]
-pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> u8 {
+pub unsafe fn lean_nat_dec_le(a: *mut LeanObject, b: *mut LeanObject) -> bool {
     unsafe { leanh::lean_nat_dec_le(a, b) }
 }
 

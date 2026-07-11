@@ -90,30 +90,6 @@ mod runtime_object_array_impl {
         copy_sarray_with_capacity(a, lean_sarray_capacity(a))
     }
 
-    pub unsafe fn lean_byte_array_mk(a: *mut LeanObject) -> *mut LeanObject {
-        let sz = lean_array_size(a);
-        let r = lean_alloc_sarray(1, sz, sz);
-        let src = lean_array_cptr(a);
-        let dst = lean_sarray_mut_cptr(r);
-        for i in 0..sz {
-            *dst.add(i) = lean_unbox(*src.add(i)) as u8;
-        }
-        lean_dec(a);
-        r
-    }
-
-    pub unsafe fn lean_byte_array_data(a: *mut LeanObject) -> *mut LeanObject {
-        let sz = lean_sarray_size(a);
-        let r = lean_alloc_array(sz, sz);
-        let src = lean_sarray_cptr(a);
-        let dst = lean_array_cptr(r);
-        for i in 0..sz {
-            *dst.add(i) = lean_box(*src.add(i) as usize);
-        }
-        lean_dec(a);
-        r
-    }
-
     pub unsafe fn lean_byte_array_push(a: *mut LeanObject, b: u8) -> *mut LeanObject {
         let r = lean_sarray_ensure_exclusive(lean_sarray_ensure_capacity(
             a,

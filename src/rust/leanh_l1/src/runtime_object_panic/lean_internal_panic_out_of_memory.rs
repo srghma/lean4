@@ -14,7 +14,7 @@ pub unsafe fn cstr_lossy(msg: *const c_char) -> String {
 }
 
 #[inline]
-fn c_char_ptr(bytes: &'static [u8]) -> *const c_char {
+pub fn c_char_ptr(bytes: &'static [u8]) -> *const c_char {
     bytes.as_ptr().cast()
 }
 

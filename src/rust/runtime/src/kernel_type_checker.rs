@@ -136,7 +136,6 @@ mod kernel_type_checker_impl {
         // lean_nat_is_small / lean_nat_get_small_value are inline C++; implemented as Rust shims below
         // lean_nat_add / lean_nat_sub / lean_nat_mul / lean_nat_div / lean_nat_mod: implemented as Rust shims below
         fn lean_nat_gcd(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject;
-        fn lean_nat_pow(a: *mut LeanObject, b: *mut LeanObject, max_exp: u64) -> *mut LeanObject;
         // lean_nat_land / lean_nat_lor / lean_nat_xor: implemented as Rust shims below
         fn lean_nat_shiftl(a: *mut LeanObject, b: *mut LeanObject) -> *mut LeanObject;
         // lean_nat_shiftr: implemented as Rust shim below
