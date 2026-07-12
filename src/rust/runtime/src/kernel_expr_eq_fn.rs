@@ -39,21 +39,14 @@ Level kind tags:
 mod kernel_expr_eq_fn_impl {
     use crate::runtime_alloc_impl::add_heartbeats;
     use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA,
-        EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, expr_binder_info_raw, expr_let_nondep,
+        expr_binder_info_raw, expr_let_nondep, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR,
+        EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use std::collections::HashSet;
-
-    unsafe extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
-        fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool;
-        // Consumes both arguments (obj_arg semantics); call lean_inc before passing borrowed refs.
-        fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool;
-    }
 
     // Max recursion depth: get_available_stack_size() / 256 = 8*1024*1024 / 256 = 32768
     const MAX_STACK_DEPTH: usize = 8 * 1024 * 1024 / 256;
@@ -154,24 +147,6 @@ mod kernel_expr_eq_fn_impl {
             if depth > MAX_STACK_DEPTH {
                 lean_internal_panic(b"expression equality test\0".as_ptr() as *const i8);
             }
-        }
-
-        // Compare two Nat objects (no ownership transfer).
-        #[inline(always)]
-        unsafe fn nat_eq(&self, a: *const LeanObject, b: *const LeanObject) -> bool {
-            if a == b {
-                return true;
-            }
-            if lean_is_scalar(a) || lean_is_scalar(b) {
-                return false;
-            }
-            lean_nat_big_eq(a, b)
-        }
-
-        // Compare two String objects (no ownership transfer).
-        #[inline(always)]
-        unsafe fn str_eq(&self, s1: *const LeanObject, s2: *const LeanObject) -> bool {
-            s1 == s2 || (string_size(s1) == string_size(s2) && lean_string_eq_cold(s1, s2))
         }
 
         // Compare two Literal objects (tag 0 = natVal, tag 1 = strVal).

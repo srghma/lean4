@@ -30,13 +30,8 @@ mod kernel_equiv_manager_impl {
     };
     use crate::*;
     use core::ffi::c_void;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use std::collections::HashMap;
-
-    unsafe extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
-        fn lean_nat_big_eq(a1: *const LeanObject, a2: *const LeanObject) -> bool;
-    }
 
     use crate::runtime_object_name_impl::lean_name_eq;
 
@@ -109,29 +104,6 @@ mod kernel_equiv_manager_impl {
             self.expr_refs.push(e);
             self.to_node.insert(key, r);
             r
-        }
-
-        // Compare two Nat objects (borrowed).
-        #[inline(always)]
-        unsafe fn nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
-            if a == b {
-                return true;
-            }
-            if lean_is_scalar(a) || lean_is_scalar(b) {
-                return false;
-            } // one scalar, one not
-            lean_nat_big_eq(a, b)
-        }
-
-        // Compare two String objects (borrowed).
-        #[inline(always)]
-        unsafe fn str_eq(s1: *const LeanObject, s2: *const LeanObject) -> bool {
-            if s1 == s2 {
-                return true;
-            }
-            let size1 = *((s1 as *const u8).add(8) as *const usize);
-            let size2 = *((s2 as *const u8).add(8) as *const usize);
-            size1 == size2 && lean_string_eq_cold(s1, s2)
         }
 
         // Compare two Literal objects (tag 0 = natVal, tag 1 = strVal).

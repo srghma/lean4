@@ -23,6 +23,6 @@ pub unsafe fn lean_expr_mk_app(
     let expr = lean_alloc_ctor(EXPR_APP_TAG, EXPR_APP_FIELDS, EXPR_APP_SCALAR_SIZE);
     lean_ctor_set(expr, 0, fn_expr);
     lean_ctor_set(expr, 1, arg_expr);
-    lean_ctor_set_uint64(expr, EXPR_DATA_OFFSET as usize, data);
+    lean_ctor_set_uint64(expr, EXPR_DATA_OFFSET, data);
     expr
 }

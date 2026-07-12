@@ -64,17 +64,6 @@ mod library_expr_lt_impl {
     use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use leanh_l1_initializers::todo_import_from_lean::lean_expr_mk_const::level_hash;
 
-    unsafe extern "C" {
-        fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
-        fn lean_expr_eqv(a: *mut LeanObject, b: *mut LeanObject) -> bool;
-        fn lean_nat_big_lt(a: *const LeanObject, b: *const LeanObject) -> bool;
-        fn lean_nat_big_eq(a: *const LeanObject, b: *const LeanObject) -> bool;
-        fn lean_string_lt(s1: *const LeanObject, s2: *const LeanObject) -> bool;
-        // Borrowed — does not consume arguments.
-        // Mirrors C++ name::operator< which uses cmp_core (lexicographic, root-to-leaf, NOT hash-based).
-        fn l_Lean_Name_lt(n1: *mut LeanObject, n2: *mut LeanObject) -> bool;
-    }
-
     #[inline(always)]
     unsafe fn expr_hash(e: *const LeanObject) -> u32 {
         let num_objs = (*e).other as usize;
@@ -173,29 +162,6 @@ mod library_expr_lt_impl {
             return (a as usize) < (b as usize);
         }
         lean_nat_big_lt(a, b)
-    }
-
-    // Borrowed Nat equality check.
-    #[inline(always)]
-    unsafe fn nat_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
-        if a == b {
-            return true;
-        }
-        if lean_is_scalar(a) || lean_is_scalar(b) {
-            return false;
-        }
-        lean_nat_big_eq(a, b)
-    }
-
-    // String equality (borrowed).
-    #[inline(always)]
-    unsafe fn string_size(s: *const LeanObject) -> usize {
-        *((s as *const u8).add(8) as *const usize)
-    }
-
-    #[inline(always)]
-    unsafe fn str_eq(s1: *const LeanObject, s2: *const LeanObject) -> bool {
-        s1 == s2 || (string_size(s1) == string_size(s2) && lean_string_eq_cold(s1, s2))
     }
 
     // Borrowed DataValue equality — avoids the consuming lean_data_value_beq.

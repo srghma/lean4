@@ -194,7 +194,7 @@ pub fn spawn_worker(slf: &Arc<TaskManager>, guard: &mut MutexGuard<'_, TaskManag
     guard.std_workers.push(handle);
 }
 
-pub fn enqueue_core<'a>(
+pub unsafe fn enqueue_core<'a>(
     slf: &'a Arc<TaskManager>,
     guard: &mut MutexGuard<'a, TaskManagerInner>,
     t: *mut LeanTaskObject,
@@ -250,7 +250,9 @@ fn handle_finished<'a>(
                 free_task(it);
             }
         } else {
-            enqueue_core(slf, guard, it);
+            unsafe {
+                enqueue_core(slf, guard, it);
+            }
         }
         it = next;
     }

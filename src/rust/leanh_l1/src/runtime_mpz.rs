@@ -18,7 +18,7 @@ use core::ptr::NonNull;
 use gmp_mpfr_sys::gmp::{
     mpz_add, mpz_add_ui, mpz_and, mpz_clear, mpz_cmp as gmp_mpz_cmp, mpz_cmp_si, mpz_cmp_ui,
     mpz_divexact as gmp_mpz_divexact, mpz_fdiv_q_2exp, mpz_fdiv_r_2exp, mpz_fits_sint_p,
-    mpz_fits_uint_p, mpz_gcd, mpz_get_si, mpz_get_ui, mpz_getlimbn, mpz_init, mpz_init_set,
+    mpz_fits_uint_p, mpz_gcd, mpz_get_si, mpz_get_ui, mpz_getlimbn, mpz_init,
     mpz_init_set_si, mpz_init_set_str, mpz_init_set_ui, mpz_ior, mpz_mul, mpz_mul_2exp, mpz_mul_si,
     mpz_mul_ui, mpz_neg, mpz_pow_ui, mpz_set, mpz_size, mpz_sizeinbase, mpz_sub, mpz_sub_ui, mpz_t,
     mpz_tdiv_q, mpz_tdiv_q_2exp, mpz_tdiv_q_ui, mpz_tdiv_qr, mpz_tdiv_r, mpz_xor,
@@ -94,19 +94,19 @@ pub unsafe fn mpz_ctor_int64(self_: *mut mpz_t, v: i64) {
 }
 
 // lean::mpz::mpz(mpz const&)
-pub unsafe fn mpz_ctor_copy(self_: *mut mpz_t, other: *const mpz_t) {
-    mpz_init_set(self_, other);
-}
+// pub unsafe fn mpz_ctor_copy(self_: *mut mpz_t, other: *const mpz_t) {
+//     mpz_init_set(self_, other);
+// }
+
+// lean::mpz::mpz(__mpz_struct const*)  — construct from raw mpz_t pointer
+// pub unsafe fn mpz_ctor_mpzt(self_: *mut mpz_t, v: *const mpz_t) {
+//     mpz_init_set(self_, v);
+// }
 
 // lean::mpz::mpz(mpz&&)  — move constructor: init to 0, swap
 pub unsafe fn mpz_ctor_move(self_: *mut mpz_t, other: *mut mpz_t) {
     mpz_init(self_);
     mpz_swap(self_, other);
-}
-
-// lean::mpz::mpz(__mpz_struct const*)  — construct from raw mpz_t pointer
-pub unsafe fn mpz_ctor_mpzt(self_: *mut mpz_t, v: *const mpz_t) {
-    mpz_init_set(self_, v);
 }
 
 // lean::mpz::~mpz()

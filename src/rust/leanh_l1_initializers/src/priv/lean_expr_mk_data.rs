@@ -1,3 +1,4 @@
+use core::ffi::CStr;
 use leanh_l1::{
     datatypes::LeanObject,
     emitted::{lean_is_scalar::lean_is_scalar, lean_unbox::lean_unbox},
@@ -10,6 +11,7 @@ const EXPR_HAS_EXPR_MVAR_SHIFT: u32 = 41;
 const EXPR_HAS_LEVEL_MVAR_SHIFT: u32 = 42;
 const EXPR_HAS_LEVEL_PARAM_SHIFT: u32 = 43;
 pub const EXPR_BVAR_RANGE_SHIFT: u32 = 44;
+static TOO_MANY_BOUND_VARIABLES: &CStr = c"too many bound variables";
 
 pub unsafe fn lean_expr_mk_data(
     hash: u64,
@@ -24,11 +26,11 @@ pub unsafe fn lean_expr_mk_data(
         approx_depth = 255;
     }
     if !lean_is_scalar(bvar_range) {
-        lean_internal_panic(b"too many bound variables\0".as_ptr() as *const i8);
+        lean_internal_panic(TOO_MANY_BOUND_VARIABLES.as_ptr());
     }
     let range = lean_unbox(bvar_range) as usize;
     if range > 1_048_575 {
-        lean_internal_panic(b"too many bound variables\0".as_ptr() as *const i8);
+        lean_internal_panic(TOO_MANY_BOUND_VARIABLES.as_ptr());
     }
     let h = hash as u32 as u64;
     let r = range as u64;

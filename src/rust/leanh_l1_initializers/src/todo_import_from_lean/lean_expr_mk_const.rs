@@ -83,6 +83,6 @@ pub unsafe fn lean_expr_mk_const(
     let expr = lean_alloc_ctor(EXPR_CONST_TAG, EXPR_CONST_FIELDS, EXPR_CONST_SCALAR_SIZE);
     lean_ctor_set(expr, 0, name);
     lean_ctor_set(expr, 1, levels);
-    lean_ctor_set_uint64(expr, EXPR_DATA_OFFSET as usize, data);
+    lean_ctor_set_uint64(expr, EXPR_DATA_OFFSET, data);
     expr
 }
