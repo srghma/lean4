@@ -13,11 +13,6 @@ mod runtime_object_array_impl {
     use leanh::{LeanMpzObject, LeanThunkObject};
 
     #[inline]
-    unsafe fn lean_array_capacity(o: *const LeanObject) -> usize {
-        (*(o as *const LeanArrayObject)).capacity
-    }
-
-    #[inline]
     unsafe fn nat_to_size_t(n: *mut LeanObject) -> usize {
         if lean_is_scalar(n) {
             lean_unbox(n)

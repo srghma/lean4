@@ -54,14 +54,15 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 
 mod library_expr_lt_impl {
     use crate::runtime_expr_shared::{
-        DV_BOOL, DV_NAME, DV_NAT, DV_STRING, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR,
-        EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
-        LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR, LEVEL_PARAM, LEVEL_SUCC,
-        expr_data, expr_let_nondep,
+        expr_data, expr_let_nondep, DV_BOOL, DV_NAME, DV_NAT, DV_STRING, EXPR_APP, EXPR_BVAR,
+        EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI,
+        EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
+        LEVEL_PARAM, LEVEL_SUCC,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use leanh_l1_initializers::todo_import_from_lean::lean_expr_mk_const::level_hash;
 
     unsafe extern "C" {
         fn lean_level_eqv(l1: *mut LeanObject, l2: *mut LeanObject) -> bool;
@@ -78,14 +79,6 @@ mod library_expr_lt_impl {
     unsafe fn expr_hash(e: *const LeanObject) -> u32 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
-    }
-
-    #[inline(always)]
-    unsafe fn level_hash(l: *const LeanObject) -> u32 {
-        if lean_is_scalar(l) {
-            return 0;
-        }
-        level_data(l) as u32
     }
 
     #[inline(always)]
@@ -116,8 +109,8 @@ mod library_expr_lt_impl {
             return tag_a < tag_b;
         }
         if use_hash {
-            let ha = level_hash(a);
-            let hb = level_hash(b);
+            let ha = level_hash(a) as u32;
+            let hb = level_hash(b) as u32;
             if ha < hb {
                 return true;
             }

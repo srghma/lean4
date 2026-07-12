@@ -13,17 +13,6 @@ mod runtime_object_string_impl {
     use core::mem::size_of;
     use leanh::LEAN_MAX_SMALL_NAT;
 
-    #[inline]
-    unsafe fn lean_nat_sub(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a1) && lean_is_scalar(a2) {
-            let n1 = lean_unbox(a1);
-            let n2 = lean_unbox(a2);
-            lean_box(if n1 < n2 { 0 } else { n1 - n2 })
-        } else {
-            crate::runtime_object_nat_int_impl::lean_nat_big_sub(a1, a2)
-        }
-    }
-
     pub unsafe fn lean_mk_ascii_string_unchecked(s: *const c_char) -> *mut LeanObject {
         let mut p = s;
         while *p != 0 {

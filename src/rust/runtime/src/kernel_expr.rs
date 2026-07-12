@@ -108,14 +108,14 @@ mod kernel_expr_impl {
     }
 
     #[no_mangle]
-    pub unsafe fn lean_expr_mk_app_data(f_data: u64, a_data: u64) -> u64 {
-        let mut depth = ((f_data >> 32) & 0xFF).max((a_data >> 32) & 0xFF) + 1;
+    pub unsafe fn lean_expr_mk_app_data(fn_data: u64, arg_data: u64) -> u64 {
+        let mut depth = ((fn_data >> 32) & 0xFF).max((arg_data >> 32) & 0xFF) + 1;
         if depth > 255 {
             depth = 255;
         }
-        let range = expr_bvar_range_data(f_data).max(expr_bvar_range_data(a_data));
-        let h = lean_hash_mix(f_data, a_data) as u64;
-        let flags = (f_data | a_data) & (0x0Fu64 << 40);
+        let range = expr_bvar_range_data(fn_data).max(expr_bvar_range_data(arg_data));
+        let h = lean_hash_mix(fn_data, arg_data) as u64;
+        let flags = (fn_data | arg_data) & (0x0Fu64 << 40);
         flags | h | (depth << 32) | (range << EXPR_BVAR_RANGE_SHIFT)
     }
 

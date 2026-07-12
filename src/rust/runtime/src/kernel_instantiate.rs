@@ -31,15 +31,16 @@ Scalar field layout:
 
 mod kernel_instantiate_impl {
     use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_DATA_HAS_LEVEL_PARAM_BIT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA,
-        EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_DATA_HAS_PARAM_BIT,
-        LEVEL_IMAX, LEVEL_MAX, LEVEL_PARAM, LEVEL_SUCC, expr_binder_info_raw, expr_bvar_range,
-        expr_data, expr_let_nondep, level_data,
+        expr_binder_info_raw, expr_bvar_range, expr_data, expr_let_nondep, level_data, EXPR_APP,
+        EXPR_BVAR, EXPR_DATA_HAS_LEVEL_PARAM_BIT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_PI,
+        EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_PARAM,
+        LEVEL_SUCC,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use leanh_l1_initializers::todo_import_from_lean::lean_expr_mk_const::level_has_param;
     use std::collections::HashMap;
 
     unsafe extern "C" {
@@ -114,11 +115,6 @@ mod kernel_instantiate_impl {
     #[inline(always)]
     unsafe fn level_depth(l: *const LeanObject) -> u32 {
         (level_data(l) >> LEVEL_DATA_DEPTH_SHIFT) as u32
-    }
-
-    #[inline(always)]
-    unsafe fn level_has_param(l: *const LeanObject) -> bool {
-        (level_data(l) & LEVEL_DATA_HAS_PARAM_BIT) != 0
     }
 
     unsafe fn level_is_zero(l: *const LeanObject) -> bool {

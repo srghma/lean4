@@ -18,11 +18,6 @@ mod runtime_io_ref_impl {
         (*o).tag = tag;
     }
 
-    unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject {
-        debug_assert!((*o).tag == LEAN_REF_TAG);
-        o as *mut LeanRefObject
-    }
-
     fn lean_is_mt(o: *mut LeanObject) -> bool {
         unsafe { (*o).rc < 0 }
     }

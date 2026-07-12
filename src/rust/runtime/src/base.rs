@@ -45,11 +45,6 @@ pub(crate) unsafe fn lean_mk_empty_array() -> *mut LeanObject {
     lean_alloc_array(0, 0)
 }
 
-pub(crate) unsafe fn lean_sarray_capacity(obj: *const LeanObject) -> usize {
-    let sarray = obj as *const LeanScalarArray<0>;
-    (*sarray).m_capacity
-}
-
 pub unsafe fn lean_io_result_take_value(obj: *mut LeanObject) -> *mut LeanObject {
     debug_assert!(lean_io_result_is_ok(obj));
     let v = lean_ctor_get(obj, 0);

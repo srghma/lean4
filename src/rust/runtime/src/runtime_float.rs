@@ -3,15 +3,6 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-unsafe extern "C" {
-    fn lean_mk_ascii_string_unchecked(text: *const c_char) -> *mut LeanObject;
-    fn lean_int_big_nonneg(value: *const LeanObject) -> bool;
-}
-
-fn lean_scalar_to_int(value: *mut LeanObject) -> c_int {
-    unsafe { lean_unbox(value) as u32 as i32 }
-}
-
 fn float_to_string(text: String) -> *mut LeanObject {
     let cstr = std::ffi::CString::new(text).expect("float formatting produced embedded NUL");
     unsafe { lean_mk_ascii_string_unchecked(cstr.as_ptr()) }
@@ -19,28 +10,6 @@ fn float_to_string(text: String) -> *mut LeanObject {
 
 unsafe fn lean_box_int(value: c_int) -> *mut LeanObject {
     lean_box(value as u32 as usize)
-}
-
-pub(crate) unsafe fn lean_box_float(value: f64) -> *mut LeanObject {
-    // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 114 (🔁)
-
-    let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<f64>() as c_uint);
-    ptr::write_unaligned(
-        (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f64,
-        value,
-    );
-    obj
-}
-
-pub(crate) unsafe fn lean_box_float32(value: f32) -> *mut LeanObject {
-    // duplicate in src/rust/leanh/src/in_emit_rust.rs at line 128 (🔁)
-
-    let obj = lean_alloc_ctor(0, 0, core::mem::size_of::<f32>() as c_uint);
-    ptr::write_unaligned(
-        (obj as *mut u8).add(core::mem::size_of::<LeanObject>()) as *mut f32,
-        value,
-    );
-    obj
 }
 
 unsafe fn lean_mk_float_exp_pair(
@@ -85,7 +54,11 @@ pub fn lean_float_isinf(value: f64) -> bool {
 
 pub fn lean_float_of_bits(bits: u64) -> f64 {
     let value = f64::from_bits(bits);
-    if value.is_nan() { f64::NAN } else { value }
+    if value.is_nan() {
+        f64::NAN
+    } else {
+        value
+    }
 }
 
 pub fn lean_float_to_bits(mut value: f64) -> u64 {
@@ -137,7 +110,11 @@ pub fn lean_float32_isinf(value: f32) -> bool {
 
 pub fn lean_float32_of_bits(bits: u32) -> f32 {
     let value = f32::from_bits(bits);
-    if value.is_nan() { f32::NAN } else { value }
+    if value.is_nan() {
+        f32::NAN
+    } else {
+        value
+    }
 }
 
 pub fn lean_float32_to_bits(mut value: f32) -> u32 {

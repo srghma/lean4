@@ -71,18 +71,6 @@ pub(crate) mod runtime_object_task_impl {
         tm.inner.lock().unwrap().shutting_down
     }
 
-    // ─── Init / finalize task manager ────────────────────────────────────────
-
-    pub fn lean_init_task_manager_using(num_workers: usize) {
-        debug_assert!(get_task_manager().is_none());
-        #[cfg(lean_multi_thread)]
-        if num_workers > 0 {
-            set_task_manager(Some(new_task_manager(num_workers)));
-        }
-        #[cfg(not(lean_multi_thread))]
-        let _ = num_workers;
-    }
-
     // ─── IO task helpers ──────────────────────────────────────────────────────
 
     pub fn lean_io_check_canceled_core() -> bool {

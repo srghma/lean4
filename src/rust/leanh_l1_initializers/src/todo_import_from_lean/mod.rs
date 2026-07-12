@@ -2,6 +2,10 @@
 
 pub mod lean_expr_mk_app;
 pub mod lean_expr_mk_const;
+pub mod lean_level_depth;
+pub mod lean_level_has_mvar;
+pub mod lean_level_has_param;
+pub mod lean_level_hash;
 pub mod lean_level_mk_zero;
 pub mod lean_mk_io_error_already_exists;
 pub mod lean_mk_io_error_already_exists_file;
@@ -29,3 +33,4 @@ pub mod lean_mk_io_error_unsatisfied_constraints;
 pub mod lean_mk_io_error_unsupported_operation;
 pub mod lean_name_mk_string;
 pub mod lean_stream_of_handle;
+pub mod level_data;

@@ -5,7 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_debug_impl {
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use std::collections::HashSet;
     use std::ffi::CStr;
     use std::io::{self, Read, Write};
@@ -19,14 +19,6 @@ mod runtime_debug_impl {
 
     fn debug_tags() -> &'static Mutex<HashSet<String>> {
         ENABLED_DEBUG_TAGS.get_or_init(|| Mutex::new(HashSet::new()))
-    }
-
-    unsafe fn cstr_to_string(value: *const c_char) -> String {
-        if value.is_null() {
-            String::new()
-        } else {
-            CStr::from_ptr(value).to_string_lossy().into_owned()
-        }
     }
 
     fn write_stderr(text: &str) {
@@ -135,10 +127,7 @@ pub unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(usize::MAX >> 1)
 }
 
-pub unsafe fn lean_dbg_trace(
-    msg: *mut LeanObject,
-    action: *mut LeanObject,
-) -> *mut LeanObject {
+pub unsafe fn lean_dbg_trace(msg: *mut LeanObject, action: *mut LeanObject) -> *mut LeanObject {
     io_eprintln_checked(msg);
     lean_apply_1(action, lean_box(0))
 }

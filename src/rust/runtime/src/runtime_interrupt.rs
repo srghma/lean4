@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_interrupt_impl {
     use crate::*;
     use core::ffi::c_char;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::ptr;
     use leanh::LeanRefObject;
     use std::cell::Cell;
@@ -19,10 +19,6 @@ mod runtime_interrupt_impl {
         fn check_memory(component_name: *const c_char);
 
         fn check_stack(component_name: *const c_char);
-    }
-
-    unsafe fn lean_to_ref(o: *mut LeanObject) -> *mut LeanRefObject {
-        o as *mut LeanRefObject
     }
 
     thread_local! {

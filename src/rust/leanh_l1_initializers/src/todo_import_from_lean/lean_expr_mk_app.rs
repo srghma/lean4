@@ -30,7 +30,7 @@ unsafe fn lean_expr_mk_app_data(fn_data: u64, arg_data: u64) -> u64 {
     if depth > EXPR_DEPTH_MASK {
         depth = EXPR_DEPTH_MASK;
     }
-    let range = (fn_data >> EXPR_RANGE_SHIFT).max(arg_data >> EXPR_RANGE_SHIFT);
+    let range = expr_bvar_range_data(fn_data).max(expr_bvar_range_data(arg_data));
     let hash = lean_uint64_mix_hash(fn_data, arg_data) as u64;
     let flags = (fn_data | arg_data) & EXPR_FLAGS_MASK;
     flags | hash | (depth << EXPR_DEPTH_SHIFT) | (range << EXPR_RANGE_SHIFT)
