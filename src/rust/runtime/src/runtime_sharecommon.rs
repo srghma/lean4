@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 use crate::*;
-use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+use core::ffi::c_void;
 use leanh::{
     LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG,
     LEAN_REF_TAG, LEAN_RESERVED_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
@@ -87,63 +87,74 @@ struct ShareCommonState {
     set: *mut LeanObject,
 }
 
-impl ShareCommonState {
-    unsafe fn new(tc: *mut LeanObject, s: *mut LeanObject) -> Self {
-        let map_find = lean_ctor_get(tc, 1);
-        let map_insert = lean_ctor_get(tc, 2);
-        let set_find = lean_ctor_get(tc, 3);
-        let set_insert = lean_ctor_get(tc, 4);
-        let map = lean_ctor_get(s, 0);
-        lean_inc(map);
-        let set = lean_ctor_get(s, 1);
-        lean_inc(set);
-        lean_dec(s);
-        Self {
-            map_find,
-            map_insert,
-            set_find,
-            set_insert,
-            map,
-            set,
-        }
+unsafe fn sharecommon_state_new(tc: *mut LeanObject, s: *mut LeanObject) -> ShareCommonState {
+    let map_find = lean_ctor_get(tc, 1);
+    let map_insert = lean_ctor_get(tc, 2);
+    let set_find = lean_ctor_get(tc, 3);
+    let set_insert = lean_ctor_get(tc, 4);
+    let map = lean_ctor_get(s, 0);
+    lean_inc(map);
+    let set = lean_ctor_get(s, 1);
+    lean_inc(set);
+    lean_dec(s);
+    ShareCommonState {
+        map_find,
+        map_insert,
+        set_find,
+        set_insert,
+        map,
+        set,
     }
+}
 
-    unsafe fn pack(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-        let pair_state = lean_alloc_ctor(0, 2, 0);
-        lean_ctor_set(pair_state, 0, self.map);
-        lean_ctor_set(pair_state, 1, self.set);
-        self.map = lean_box(0);
-        self.set = lean_box(0);
+unsafe fn sharecommon_state_pack(
+    state: &mut ShareCommonState,
+    a: *mut LeanObject,
+) -> *mut LeanObject {
+    let pair_state = lean_alloc_ctor(0, 2, 0);
+    lean_ctor_set(pair_state, 0, state.map);
+    lean_ctor_set(pair_state, 1, state.set);
+    state.map = lean_box(0);
+    state.set = lean_box(0);
 
-        let r = lean_alloc_ctor(0, 2, 0);
-        lean_ctor_set(r, 0, a);
-        lean_ctor_set(r, 1, pair_state);
-        r
-    }
+    let r = lean_alloc_ctor(0, 2, 0);
+    lean_ctor_set(r, 0, a);
+    lean_ctor_set(r, 1, pair_state);
+    r
+}
 
-    unsafe fn map_find(&self, k: *mut LeanObject) -> *mut LeanObject {
-        lean_inc(self.map_find);
-        lean_inc(self.map);
-        lean_inc(k);
-        lean_apply_2(self.map_find, self.map, k)
-    }
+unsafe fn sharecommon_state_map_find(
+    state: &ShareCommonState,
+    k: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(state.map_find);
+    lean_inc(state.map);
+    lean_inc(k);
+    lean_apply_2(state.map_find, state.map, k)
+}
 
-    unsafe fn map_insert(&mut self, k: *mut LeanObject, v: *mut LeanObject) {
-        lean_inc(self.map_insert);
-        self.map = lean_apply_3(self.map_insert, self.map, k, v);
-    }
+unsafe fn sharecommon_state_map_insert(
+    state: &mut ShareCommonState,
+    k: *mut LeanObject,
+    v: *mut LeanObject,
+) {
+    lean_inc(state.map_insert);
+    state.map = lean_apply_3(state.map_insert, state.map, k, v);
+}
 
-    unsafe fn set_find(&self, o: *mut LeanObject) -> *mut LeanObject {
-        lean_inc(self.set_find);
-        lean_inc(self.set);
-        lean_inc(o);
-        lean_apply_2(self.set_find, self.set, o)
-    }
+unsafe fn sharecommon_state_set_find(
+    state: &ShareCommonState,
+    o: *mut LeanObject,
+) -> *mut LeanObject {
+    lean_inc(state.set_find);
+    lean_inc(state.set);
+    lean_inc(o);
+    lean_apply_2(state.set_find, state.set, o)
+}
 
-    unsafe fn set_insert(&mut self, o: *mut LeanObject) {
-        lean_inc(self.set_insert);
-        self.set = lean_apply_2(self.set_insert, self.set, o);
-    }
+unsafe fn sharecommon_state_set_insert(state: &mut ShareCommonState, o: *mut LeanObject) {
+    lean_inc(state.set_insert);
+    state.set = lean_apply_2(state.set_insert, state.set, o);
 }
 
 struct ShareCommonFn {
@@ -152,146 +163,143 @@ struct ShareCommonFn {
     todo: Vec<*mut LeanObject>,
 }
 
-impl ShareCommonFn {
-    unsafe fn push_child(&mut self, a: *const LeanObject) -> bool {
-        if lean_is_scalar(a) {
-            self.children.push(a as *mut LeanObject);
-            return true;
-        }
-        let tag = lean_ptr_tag(a);
-        if tag == LEAN_RESERVED_TAG {
-            panic!("unreachable");
-        }
-        if tag == LEAN_THUNK_TAG
-            || tag == LEAN_TASK_TAG
-            || tag == LEAN_REF_TAG
-            || tag == LEAN_EXTERNAL_TAG
-            || tag == LEAN_CLOSURE_TAG
-            || tag == LEAN_PROMISE_TAG
-        {
-            self.children.push(a as *mut LeanObject);
-            return true;
-        }
-
-        let o = self.state.map_find(a as *mut LeanObject);
-        if o != lean_box(0) {
-            let r = lean_ctor_get(o, 0);
-            self.children.push(r);
-            lean_dec(o);
-            return true;
-        }
-
-        self.todo.push(a as *mut LeanObject);
-        false
+unsafe fn sharecommon_fn_push_child(this: &mut ShareCommonFn, a: *const LeanObject) -> bool {
+    if lean_is_scalar(a) {
+        this.children.push(a as *mut LeanObject);
+        return true;
+    }
+    let tag = lean_ptr_tag(a);
+    if tag == LEAN_RESERVED_TAG {
+        panic!("unreachable");
+    }
+    if tag == LEAN_THUNK_TAG
+        || tag == LEAN_TASK_TAG
+        || tag == LEAN_REF_TAG
+        || tag == LEAN_EXTERNAL_TAG
+        || tag == LEAN_CLOSURE_TAG
+        || tag == LEAN_PROMISE_TAG
+    {
+        this.children.push(a as *mut LeanObject);
+        return true;
     }
 
-    unsafe fn save(&mut self, a: *mut LeanObject, mut new_a: *mut LeanObject) {
-        assert!(!self.todo.is_empty());
-        assert_eq!(self.todo.last().copied(), Some(a));
-        self.todo.pop();
-
-        let opt_new_r = self.state.set_find(new_a);
-        if opt_new_r != lean_box(0) {
-            lean_dec(new_a);
-            new_a = lean_ctor_get(opt_new_r, 0);
-            lean_inc(new_a);
-            lean_dec(opt_new_r);
-            lean_inc(a);
-            self.state.map_insert(a, new_a);
-        } else {
-            lean_inc(a);
-            lean_inc_n(new_a, 3);
-            self.state.set_insert(new_a);
-            self.state.map_insert(a, new_a);
-            self.state.map_insert(new_a, new_a);
-        }
+    let o = sharecommon_state_map_find(&this.state, a as *mut LeanObject);
+    if o != lean_box(0) {
+        let r = lean_ctor_get(o, 0);
+        this.children.push(r);
+        lean_dec(o);
+        return true;
     }
 
-    unsafe fn visit_array(&mut self, a: *mut LeanObject) {
-        self.children.clear();
-        let mut missing_children = false;
-        let sz = lean_array_size(a);
-        for i in 0..sz {
-            if !self.push_child(lean_array_get(a, i)) {
-                missing_children = true;
-            }
-        }
-        if missing_children {
-            return;
-        }
-        let new_a = lean_alloc_array(sz, sz);
-        let array_data_ptr = (new_a as *mut u8).add(24) as *mut *mut LeanObject;
-        for i in 0..sz {
-            let child = self.children[i];
-            lean_inc(child);
-            array_data_ptr.add(i).write(child);
-        }
-        self.save(a, new_a);
-    }
+    this.todo.push(a as *mut LeanObject);
+    false
+}
 
-    unsafe fn visit_sarray(&mut self, a: *mut LeanObject) {
-        let sz = lean_sarray_size(a);
-        let other = (*a).other;
-        let new_a = lean_alloc_sarray(other as u32, sz, sz);
-        let dest = lean_sarray_cptr(new_a).cast_mut();
-        let src = lean_sarray_cptr(a);
-        libc::memcpy(dest.cast(), src.cast(), (other as usize) * sz);
-        self.save(a, new_a);
-    }
+unsafe fn sharecommon_fn_save(
+    this: &mut ShareCommonFn,
+    a: *mut LeanObject,
+    mut new_a: *mut LeanObject,
+) {
+    assert!(!this.todo.is_empty());
+    assert_eq!(this.todo.last().copied(), Some(a));
+    this.todo.pop();
 
-    unsafe fn visit_string(&mut self, a: *mut LeanObject) {
-        let sz = lean_string_size(a);
-        let len = lean_string_length(a);
-        let new_a = lean_alloc_string(sz, sz, len);
-        let dest = lean_string_cstr(new_a).cast_mut();
-        let src = lean_string_cstr(a);
-        libc::memcpy(dest.cast(), src.cast(), sz);
-        self.save(a, new_a);
+    let opt_new_r = sharecommon_state_set_find(&this.state, new_a);
+    if opt_new_r != lean_box(0) {
+        lean_dec(new_a);
+        new_a = lean_ctor_get(opt_new_r, 0);
+        lean_inc(new_a);
+        lean_dec(opt_new_r);
+        lean_inc(a);
+        sharecommon_state_map_insert(&mut this.state, a, new_a);
+    } else {
+        lean_inc(a);
+        lean_inc_n(new_a, 3);
+        sharecommon_state_set_insert(&mut this.state, new_a);
+        sharecommon_state_map_insert(&mut this.state, a, new_a);
+        sharecommon_state_map_insert(&mut this.state, new_a, new_a);
     }
+}
 
-    unsafe fn visit_mpz(&mut self, a: *mut LeanObject) {
-        let new_a = lean_alloc_mpz_from_mpz(a);
-        self.save(a, new_a);
+unsafe fn sharecommon_fn_visit_array(this: &mut ShareCommonFn, a: *mut LeanObject) {
+    this.children.clear();
+    let mut missing_children = false;
+    let sz = lean_array_size(a);
+    for i in 0..sz {
+        if !sharecommon_fn_push_child(this, lean_array_get(a, i)) {
+            missing_children = true;
+        }
     }
+    if missing_children {
+        return;
+    }
+    let new_a = lean_alloc_array(sz, sz);
+    let array_data_ptr = (new_a as *mut u8).add(24) as *mut *mut LeanObject;
+    for i in 0..sz {
+        let child = this.children[i];
+        lean_inc(child);
+        array_data_ptr.add(i).write(child);
+    }
+    sharecommon_fn_save(this, a, new_a);
+}
 
-    unsafe fn visit_ctor(&mut self, a: *mut LeanObject) {
-        self.children.clear();
-        // How do we get the number of object fields?
-        // In lean.h: static inline unsigned lean_ctor_num_objs(lean_object * o) { return lean_ptr_other(o); }
-        // lean_ptr_other returns o->m_other. In our LeanObject, this is `other`.
-        let num_objs = (*a).other as usize;
-        let mut missing_child = false;
-        for i in 0..num_objs {
-            if !self.push_child(lean_ctor_get(a, i)) {
-                missing_child = true;
-            }
+unsafe fn sharecommon_fn_visit_sarray(this: &mut ShareCommonFn, a: *mut LeanObject) {
+    let sz = lean_sarray_size(a);
+    let other = (*a).other;
+    let new_a = lean_alloc_sarray(other as u32, sz, sz);
+    let dest = lean_sarray_cptr(new_a).cast_mut();
+    let src = lean_sarray_cptr(a);
+    libc::memcpy(dest.cast(), src.cast(), (other as usize) * sz);
+    sharecommon_fn_save(this, a, new_a);
+}
+
+unsafe fn sharecommon_fn_visit_string(this: &mut ShareCommonFn, a: *mut LeanObject) {
+    let sz = lean_string_size(a);
+    let len = lean_string_length(a);
+    let new_a = lean_alloc_string(sz, sz, len);
+    let dest = lean_string_cstr(new_a).cast_mut();
+    let src = lean_string_cstr(a);
+    libc::memcpy(dest.cast(), src.cast(), sz);
+    sharecommon_fn_save(this, a, new_a);
+}
+
+unsafe fn sharecommon_fn_visit_mpz(this: &mut ShareCommonFn, a: *mut LeanObject) {
+    let new_a = lean_alloc_mpz_from_mpz(a);
+    sharecommon_fn_save(this, a, new_a);
+}
+
+unsafe fn sharecommon_fn_visit_ctor(this: &mut ShareCommonFn, a: *mut LeanObject) {
+    this.children.clear();
+    let num_objs = (*a).other as usize;
+    let mut missing_child = false;
+    for i in 0..num_objs {
+        if !sharecommon_fn_push_child(this, lean_ctor_get(a, i)) {
+            missing_child = true;
         }
-        if missing_child {
-            return;
-        }
-        let tag = lean_ptr_tag(a) as u32;
-        // object size: how to get it?
-        // In object.h: unsigned lean_object_byte_size(lean_object * o);
-        unsafe extern "C" {
-            fn lean_object_byte_size(o: *mut LeanObject) -> usize;
-        }
-        let sz = lean_object_byte_size(a);
-        let scalar_offset =
-            core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();
-        let scalar_sz = sz.saturating_sub(scalar_offset);
-        let new_a = lean_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
-        for i in 0..num_objs {
-            let child = self.children[i];
-            lean_inc(child);
-            lean_ctor_set(new_a, i as u32, child);
-        }
-        if scalar_sz > 0 {
-            let dest = (new_a as *mut u8).add(scalar_offset);
-            let src = (a as *const u8).add(scalar_offset);
-            libc::memcpy(dest.cast(), src.cast(), scalar_sz);
-        }
-        self.save(a, new_a);
     }
+    if missing_child {
+        return;
+    }
+    let tag = lean_ptr_tag(a) as u32;
+    unsafe extern "C" {
+        fn lean_object_byte_size(o: *mut LeanObject) -> usize;
+    }
+    let sz = lean_object_byte_size(a);
+    let scalar_offset =
+        core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();
+    let scalar_sz = sz.saturating_sub(scalar_offset);
+    let new_a = lean_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
+    for i in 0..num_objs {
+        let child = this.children[i];
+        lean_inc(child);
+        lean_ctor_set(new_a, i as u32, child);
+    }
+    if scalar_sz > 0 {
+        let dest = (new_a as *mut u8).add(scalar_offset);
+        let src = (a as *const u8).add(scalar_offset);
+        libc::memcpy(dest.cast(), src.cast(), scalar_sz);
+    }
+    sharecommon_fn_save(this, a, new_a);
 }
 
 // Now, sharecommon_quick_fn state
@@ -301,121 +309,144 @@ pub struct RustShareCommonQuick {
     check_set: bool,
 }
 
-impl RustShareCommonQuick {
-    fn new(check_set: bool) -> Self {
-        Self {
-            cache: ShareCache::default(),
-            set: ShareSet::default(),
-            check_set,
+fn sharecommon_quick_new(check_set: bool) -> RustShareCommonQuick {
+    RustShareCommonQuick {
+        cache: ShareCache::default(),
+        set: ShareSet::default(),
+        check_set,
+    }
+}
+
+fn sharecommon_quick_set_check_set(this: &mut RustShareCommonQuick, check_set: bool) {
+    this.check_set = check_set;
+}
+
+unsafe fn sharecommon_quick_check_cache(
+    this: &mut RustShareCommonQuick,
+    a: *mut LeanObject,
+) -> *mut LeanObject {
+    if (*a).rc != 1 {
+        if let Some(&cached) = this.cache.get(&(a as usize)) {
+            let res = cached as *mut LeanObject;
+            lean_inc(res);
+            return res;
         }
-    }
-
-    fn set_check_set(&mut self, check_set: bool) {
-        self.check_set = check_set;
-    }
-
-    unsafe fn check_cache(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-        if (*a).rc != 1 {
-            if let Some(&cached) = self.cache.get(&(a as usize)) {
-                let res = cached as *mut LeanObject;
+        if this.check_set {
+            if let Some(node) = this.set.get(&ShareConsNode(a)) {
+                let res = node.0;
                 lean_inc(res);
                 return res;
             }
-            if self.check_set {
-                if let Some(node) = self.set.get(&ShareConsNode(a)) {
-                    let res = node.0;
-                    lean_inc(res);
-                    return res;
-                }
-            }
         }
-        std::ptr::null_mut()
     }
+    std::ptr::null_mut()
+}
 
-    unsafe fn save(&mut self, a: *mut LeanObject, new_a: *mut LeanObject) -> *mut LeanObject {
-        let node = ShareConsNode(new_a);
-        let result = if let Some(existing) = self.set.get(&node) {
-            let res = existing.0;
-            lean_dec(new_a);
-            lean_inc(res);
-            res
-        } else {
-            self.set.insert(node);
-            new_a
-        };
-        if (*a).rc != 1 {
-            self.cache.insert(a as usize, result as usize);
-        }
-        result
-    }
-
-    unsafe fn visit_terminal(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-        let node = ShareConsNode(a);
-        let res = if let Some(existing) = self.set.get(&node) {
-            existing.0
-        } else {
-            self.set.insert(node);
-            a
-        };
+unsafe fn sharecommon_quick_save(
+    this: &mut RustShareCommonQuick,
+    a: *mut LeanObject,
+    new_a: *mut LeanObject,
+) -> *mut LeanObject {
+    let node = ShareConsNode(new_a);
+    let result = if let Some(existing) = this.set.get(&node) {
+        let res = existing.0;
+        lean_dec(new_a);
         lean_inc(res);
         res
+    } else {
+        this.set.insert(node);
+        new_a
+    };
+    if (*a).rc != 1 {
+        this.cache.insert(a as usize, result as usize);
     }
+    result
+}
 
-    unsafe fn visit_array(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-        let r = self.check_cache(a);
-        if !r.is_null() {
-            return r;
-        }
-        let sz = lean_array_size(a);
-        let new_a = lean_alloc_array(sz, sz);
-        let array_data_ptr = (new_a as *mut u8).add(24) as *mut *mut LeanObject;
-        for i in 0..sz {
-            let child = self.visit(lean_array_get(a, i));
-            array_data_ptr.add(i).write(child);
-        }
-        self.save(a, new_a)
+unsafe fn sharecommon_quick_visit_terminal(
+    this: &mut RustShareCommonQuick,
+    a: *mut LeanObject,
+) -> *mut LeanObject {
+    let node = ShareConsNode(a);
+    let res = if let Some(existing) = this.set.get(&node) {
+        existing.0
+    } else {
+        this.set.insert(node);
+        a
+    };
+    lean_inc(res);
+    res
+}
+
+unsafe fn sharecommon_quick_visit_array(
+    this: &mut RustShareCommonQuick,
+    a: *mut LeanObject,
+) -> *mut LeanObject {
+    let r = sharecommon_quick_check_cache(this, a);
+    if !r.is_null() {
+        return r;
     }
-
-    unsafe fn visit_ctor(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-        let r = self.check_cache(a);
-        if !r.is_null() {
-            return r;
-        }
-        let num_objs = (*a).other as usize;
-        let tag = lean_ptr_tag(a) as u32;
-        unsafe extern "C" {
-            fn lean_object_byte_size(o: *mut LeanObject) -> usize;
-        }
-        let sz = lean_object_byte_size(a);
-        let scalar_offset =
-            core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();
-        let scalar_sz = sz.saturating_sub(scalar_offset);
-        let new_a = lean_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
-        for i in 0..num_objs {
-            lean_ctor_set(new_a, i as u32, self.visit(lean_ctor_get(a, i)));
-        }
-        if scalar_sz > 0 {
-            let dest = (new_a as *mut u8).add(scalar_offset);
-            let src = (a as *const u8).add(scalar_offset);
-            libc::memcpy(dest.cast(), src.cast(), scalar_sz);
-        }
-        self.save(a, new_a)
+    let sz = lean_array_size(a);
+    let new_a = lean_alloc_array(sz, sz);
+    let array_data_ptr = (new_a as *mut u8).add(24) as *mut *mut LeanObject;
+    for i in 0..sz {
+        let child = sharecommon_quick_visit(this, lean_array_get(a, i));
+        array_data_ptr.add(i).write(child);
     }
+    sharecommon_quick_save(this, a, new_a)
+}
 
-    unsafe fn visit(&mut self, a: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(a) {
-            return a;
+unsafe fn sharecommon_quick_visit_ctor(
+    this: &mut RustShareCommonQuick,
+    a: *mut LeanObject,
+) -> *mut LeanObject {
+    let r = sharecommon_quick_check_cache(this, a);
+    if !r.is_null() {
+        return r;
+    }
+    let num_objs = (*a).other as usize;
+    let tag = lean_ptr_tag(a) as u32;
+    unsafe extern "C" {
+        fn lean_object_byte_size(o: *mut LeanObject) -> usize;
+    }
+    let sz = lean_object_byte_size(a);
+    let scalar_offset =
+        core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();
+    let scalar_sz = sz.saturating_sub(scalar_offset);
+    let new_a = lean_alloc_ctor(tag, num_objs as u32, scalar_sz as u32);
+    for i in 0..num_objs {
+        lean_ctor_set(
+            new_a,
+            i as u32,
+            sharecommon_quick_visit(this, lean_ctor_get(a, i)),
+        );
+    }
+    if scalar_sz > 0 {
+        let dest = (new_a as *mut u8).add(scalar_offset);
+        let src = (a as *const u8).add(scalar_offset);
+        libc::memcpy(dest.cast(), src.cast(), scalar_sz);
+    }
+    sharecommon_quick_save(this, a, new_a)
+}
+
+unsafe fn sharecommon_quick_visit(
+    this: &mut RustShareCommonQuick,
+    a: *mut LeanObject,
+) -> *mut LeanObject {
+    if lean_is_scalar(a) {
+        return a;
+    }
+    match lean_ptr_tag(a) {
+        LEAN_CLOSURE_TAG | LEAN_THUNK_TAG | LEAN_TASK_TAG | LEAN_PROMISE_TAG | LEAN_REF_TAG
+        | LEAN_EXTERNAL_TAG | LEAN_RESERVED_TAG => {
+            lean_inc(a);
+            a
         }
-        match lean_ptr_tag(a) {
-            LEAN_CLOSURE_TAG | LEAN_THUNK_TAG | LEAN_TASK_TAG | LEAN_PROMISE_TAG | LEAN_REF_TAG
-            | LEAN_EXTERNAL_TAG | LEAN_RESERVED_TAG => {
-                lean_inc(a);
-                a
-            }
-            LEAN_MPZ_TAG | LEAN_SCALAR_ARRAY_TAG | LEAN_STRING_TAG => self.visit_terminal(a),
-            LEAN_ARRAY_TAG => self.visit_array(a),
-            _ => self.visit_ctor(a),
+        LEAN_MPZ_TAG | LEAN_SCALAR_ARRAY_TAG | LEAN_STRING_TAG => {
+            sharecommon_quick_visit_terminal(this, a)
         }
+        LEAN_ARRAY_TAG => sharecommon_quick_visit_array(this, a),
+        _ => sharecommon_quick_visit_ctor(this, a),
     }
 }
 
@@ -423,8 +454,8 @@ pub unsafe fn lean_sharecommon_quick_with_check_set(
     a: *mut LeanObject,
     check_set: bool,
 ) -> *mut LeanObject {
-    let mut quick = RustShareCommonQuick::new(check_set);
-    quick.visit(a)
+    let mut quick = sharecommon_quick_new(check_set);
+    sharecommon_quick_visit(&mut quick, a)
 }
 
 // FFI exports for sharecommon_persistent_fn
@@ -435,7 +466,7 @@ pub struct RustShareCommonPersistent {
 
 pub fn lean_sharecommon_persistent_create(check_set: bool) -> *mut c_void {
     let state = Box::new(RustShareCommonPersistent {
-        quick: RustShareCommonQuick::new(check_set),
+        quick: sharecommon_quick_new(check_set),
         saved: Vec::new(),
     });
     Box::into_raw(state).cast()
@@ -452,7 +483,7 @@ pub unsafe fn lean_sharecommon_persistent_free(state: *mut c_void) {
 
 pub unsafe fn lean_sharecommon_persistent_set_check_set(state: *mut c_void, check_set: bool) {
     let state = &mut *state.cast::<RustShareCommonPersistent>();
-    state.quick.set_check_set(check_set);
+    sharecommon_quick_set_check_set(&mut state.quick, check_set);
 }
 
 pub unsafe fn lean_sharecommon_persistent_run(
@@ -460,13 +491,13 @@ pub unsafe fn lean_sharecommon_persistent_run(
     e: *mut LeanObject,
 ) -> *mut LeanObject {
     let state = &mut *state.cast::<RustShareCommonPersistent>();
-    let r = state.quick.check_cache(e);
+    let r = sharecommon_quick_check_cache(&mut state.quick, e);
     if !r.is_null() {
         return r;
     }
     lean_inc(e);
     state.saved.push(e);
-    let r = state.quick.visit(e);
+    let r = sharecommon_quick_visit(&mut state.quick, e);
     lean_inc(r);
     state.saved.push(r);
     r
