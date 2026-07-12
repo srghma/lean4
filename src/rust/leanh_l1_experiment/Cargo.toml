@@ -5,15 +5,16 @@ edition = "2024"
 publish = false
 
 [dependencies]
-libc = "0.2"
-libloading = "0.9"
-gmp-mpfr-sys = { version = "1.7", default-features = false }
-# llvm-sys = "191"
-# libc-stdhandle = "0.1"
-# libm = "0.2"
-# libuv-sys2 = "1.52.2"
-# sysinfo = "0.39.5"
-# thread-id = "5"
+# Pure-Rust arbitrary-precision integers — replaces gmp-mpfr-sys / mpz_t
+num-bigint = "0.5"
+num-traits = "0.2"
+
+# Typed atomic wrapper for enum fields — replaces AtomicI32 with magic 0/1
+atomic_enum = "0.3"
+
+# Async runtime — Mutex/OnceCell/JoinHandle replacing std::sync equivalents
+# "sync" gives the async-aware primitives; "rt" gives JoinHandle
+tokio = { version = "1", features = ["sync", "rt"] }
 
 [lints.clippy]
 missing_safety_doc = "allow"

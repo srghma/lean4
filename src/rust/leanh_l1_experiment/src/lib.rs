@@ -9,3 +9,4 @@ Released under Apache 2.0 license as described in the file LICENSE.
 compile_error!("Lean Rust support crates require 64-bit pointer width");
 
 pub mod datatypes;
+pub mod emit_rust_output_example;
