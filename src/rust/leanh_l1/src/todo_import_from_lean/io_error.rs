@@ -1,33 +1,64 @@
 use std::ffi::{CStr, CString};
 
 use crate::{
-    datatypes::LeanObject,
+    datatypes::{LeanObject, LeanOptionTag},
     emitted::{
         lean_ctor_get::lean_ctor_get, lean_ctor_get_uint32::lean_ctor_get_uint32,
         lean_dec::lean_dec, lean_mk_string::lean_mk_string, lean_obj_tag::lean_obj_tag,
+        lean_option_tag::lean_option_tag,
     },
-    r#priv::{lean_string_cstr::lean_string_cstr, lean_usize_to_nat::lean_usize_to_nat},
+    r#priv::lean_string_cstr::lean_string_cstr,
 };
 
-pub const LEAN_IO_ERROR_TAG_ALREADY_EXISTS: u8 = 0;
-pub const LEAN_IO_ERROR_TAG_OTHER_ERROR: u8 = 1;
-pub const LEAN_IO_ERROR_TAG_RESOURCE_BUSY: u8 = 2;
-pub const LEAN_IO_ERROR_TAG_RESOURCE_VANISHED: u8 = 3;
-pub const LEAN_IO_ERROR_TAG_UNSUPPORTED_OPERATION: u8 = 4;
-pub const LEAN_IO_ERROR_TAG_HARDWARE_FAULT: u8 = 5;
-pub const LEAN_IO_ERROR_TAG_UNSATISFIED_CONSTRAINTS: u8 = 6;
-pub const LEAN_IO_ERROR_TAG_ILLEGAL_OPERATION: u8 = 7;
-pub const LEAN_IO_ERROR_TAG_PROTOCOL_ERROR: u8 = 8;
-pub const LEAN_IO_ERROR_TAG_TIME_EXPIRED: u8 = 9;
-pub const LEAN_IO_ERROR_TAG_INTERRUPTED: u8 = 10;
-pub const LEAN_IO_ERROR_TAG_NO_FILE_OR_DIRECTORY: u8 = 11;
-pub const LEAN_IO_ERROR_TAG_INVALID_ARGUMENT: u8 = 12;
-pub const LEAN_IO_ERROR_TAG_PERMISSION_DENIED: u8 = 13;
-pub const LEAN_IO_ERROR_TAG_RESOURCE_EXHAUSTED: u8 = 14;
-pub const LEAN_IO_ERROR_TAG_INAPPROPRIATE_TYPE: u8 = 15;
-pub const LEAN_IO_ERROR_TAG_NO_SUCH_THING: u8 = 16;
-pub const LEAN_IO_ERROR_TAG_UNEXPECTED_EOF: u8 = 17;
-pub const LEAN_IO_ERROR_TAG_USER_ERROR: u8 = 18;
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum LeanIoErrorTag {
+    AlreadyExists = 0,
+    OtherError = 1,
+    ResourceBusy = 2,
+    ResourceVanished = 3,
+    UnsupportedOperation = 4,
+    HardwareFault = 5,
+    UnsatisfiedConstraints = 6,
+    IllegalOperation = 7,
+    ProtocolError = 8,
+    TimeExpired = 9,
+    Interrupted = 10,
+    NoFileOrDirectory = 11,
+    InvalidArgument = 12,
+    PermissionDenied = 13,
+    ResourceExhausted = 14,
+    InappropriateType = 15,
+    NoSuchThing = 16,
+    UnexpectedEof = 17,
+    UserError = 18,
+}
+
+#[inline]
+pub unsafe fn lean_io_error_tag(err: *const LeanObject) -> LeanIoErrorTag {
+    match lean_obj_tag(err) {
+        0 => LeanIoErrorTag::AlreadyExists,
+        1 => LeanIoErrorTag::OtherError,
+        2 => LeanIoErrorTag::ResourceBusy,
+        3 => LeanIoErrorTag::ResourceVanished,
+        4 => LeanIoErrorTag::UnsupportedOperation,
+        5 => LeanIoErrorTag::HardwareFault,
+        6 => LeanIoErrorTag::UnsatisfiedConstraints,
+        7 => LeanIoErrorTag::IllegalOperation,
+        8 => LeanIoErrorTag::ProtocolError,
+        9 => LeanIoErrorTag::TimeExpired,
+        10 => LeanIoErrorTag::Interrupted,
+        11 => LeanIoErrorTag::NoFileOrDirectory,
+        12 => LeanIoErrorTag::InvalidArgument,
+        13 => LeanIoErrorTag::PermissionDenied,
+        14 => LeanIoErrorTag::ResourceExhausted,
+        15 => LeanIoErrorTag::InappropriateType,
+        16 => LeanIoErrorTag::NoSuchThing,
+        17 => LeanIoErrorTag::UnexpectedEof,
+        18 => LeanIoErrorTag::UserError,
+        n => panic!("invalid LeanIoErrorTag {n}"),
+    }
+}
 
 pub const LEAN_IO_ERROR_TEXT_ALREADY_EXISTS: &str = "already exists";
 pub const LEAN_IO_ERROR_TEXT_RESOURCE_BUSY: &str = "resource busy";
@@ -91,18 +122,17 @@ unsafe fn lean_string_to_rust(obj: *const LeanObject) -> String {
 }
 
 unsafe fn lean_option_string_to_rust(obj: *const LeanObject) -> Option<String> {
-    if lean_obj_tag(obj) == 0 {
-        None
-    } else {
-        Some(lean_string_to_rust(lean_ctor_get(obj, 0)))
+    match lean_option_tag(obj) {
+        LeanOptionTag::None => None,
+        LeanOptionTag::Some => Some(lean_string_to_rust(lean_ctor_get(obj, 0))),
     }
 }
 
 // Temporary local replacement for exported Lean function
 // `Init/System/IOError.lean:lean_io_error_to_string`.
 pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
-    let msg = match lean_obj_tag(err) {
-        LEAN_IO_ERROR_TAG_ALREADY_EXISTS => {
+    let msg = match lean_io_error_tag(err) {
+        LeanIoErrorTag::AlreadyExists => {
             let filename = lean_option_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -117,22 +147,22 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None => format_other(LEAN_IO_ERROR_TEXT_ALREADY_EXISTS, code, Some(&details)),
             }
         }
-        LEAN_IO_ERROR_TAG_OTHER_ERROR => {
+        LeanIoErrorTag::OtherError => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(&details, code, None)
         }
-        LEAN_IO_ERROR_TAG_RESOURCE_BUSY => {
+        LeanIoErrorTag::ResourceBusy => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(LEAN_IO_ERROR_TEXT_RESOURCE_BUSY, code, Some(&details))
         }
-        LEAN_IO_ERROR_TAG_RESOURCE_VANISHED => {
+        LeanIoErrorTag::ResourceVanished => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(LEAN_IO_ERROR_TEXT_RESOURCE_VANISHED, code, Some(&details))
         }
-        LEAN_IO_ERROR_TAG_UNSUPPORTED_OPERATION => {
+        LeanIoErrorTag::UnsupportedOperation => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(
@@ -141,30 +171,30 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 Some(&details),
             )
         }
-        LEAN_IO_ERROR_TAG_HARDWARE_FAULT => {
+        LeanIoErrorTag::HardwareFault => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             format_other(LEAN_IO_ERROR_TEXT_HARDWARE_FAULT, code, None)
         }
-        LEAN_IO_ERROR_TAG_UNSATISFIED_CONSTRAINTS => {
+        LeanIoErrorTag::UnsatisfiedConstraints => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             format_other(LEAN_IO_ERROR_TEXT_DIRECTORY_NOT_EMPTY, code, None)
         }
-        LEAN_IO_ERROR_TAG_ILLEGAL_OPERATION => {
+        LeanIoErrorTag::IllegalOperation => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(LEAN_IO_ERROR_TEXT_ILLEGAL_OPERATION, code, Some(&details))
         }
-        LEAN_IO_ERROR_TAG_PROTOCOL_ERROR => {
+        LeanIoErrorTag::ProtocolError => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(LEAN_IO_ERROR_TEXT_PROTOCOL_ERROR, code, Some(&details))
         }
-        LEAN_IO_ERROR_TAG_TIME_EXPIRED => {
+        LeanIoErrorTag::TimeExpired => {
             let code = lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>()) as u32);
             let details = lean_string_to_rust(lean_ctor_get(err, 0));
             format_other(LEAN_IO_ERROR_TEXT_TIME_EXPIRED, code, Some(&details))
         }
-        LEAN_IO_ERROR_TAG_INTERRUPTED => {
+        LeanIoErrorTag::Interrupted => {
             let filename = lean_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -176,7 +206,7 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 Some(&details),
             )
         }
-        LEAN_IO_ERROR_TAG_NO_FILE_OR_DIRECTORY => {
+        LeanIoErrorTag::NoFileOrDirectory => {
             let filename = lean_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -187,7 +217,7 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None,
             )
         }
-        LEAN_IO_ERROR_TAG_INVALID_ARGUMENT => {
+        LeanIoErrorTag::InvalidArgument => {
             let filename = lean_option_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -202,7 +232,7 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None => format_other(LEAN_IO_ERROR_TEXT_INVALID_ARGUMENT, code, Some(&details)),
             }
         }
-        LEAN_IO_ERROR_TAG_PERMISSION_DENIED => {
+        LeanIoErrorTag::PermissionDenied => {
             let filename = lean_option_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -212,7 +242,7 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None => format_other(&details, code, None),
             }
         }
-        LEAN_IO_ERROR_TAG_RESOURCE_EXHAUSTED => {
+        LeanIoErrorTag::ResourceExhausted => {
             let filename = lean_option_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -227,7 +257,7 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None => format_other(LEAN_IO_ERROR_TEXT_RESOURCE_EXHAUSTED, code, Some(&details)),
             }
         }
-        LEAN_IO_ERROR_TAG_INAPPROPRIATE_TYPE => {
+        LeanIoErrorTag::InappropriateType => {
             let filename = lean_option_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -242,7 +272,7 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None => format_other(LEAN_IO_ERROR_TEXT_INAPPROPRIATE_TYPE, code, Some(&details)),
             }
         }
-        LEAN_IO_ERROR_TAG_NO_SUCH_THING => {
+        LeanIoErrorTag::NoSuchThing => {
             let filename = lean_option_string_to_rust(lean_ctor_get(err, 0));
             let code =
                 lean_ctor_get_uint32(err, (core::mem::size_of::<*mut LeanObject>() * 2) as u32);
@@ -257,14 +287,8 @@ pub unsafe fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject {
                 None => format_other(LEAN_IO_ERROR_TEXT_NO_SUCH_THING, code, Some(&details)),
             }
         }
-        LEAN_IO_ERROR_TAG_UNEXPECTED_EOF => LEAN_IO_ERROR_TEXT_END_OF_FILE.to_owned(),
-        LEAN_IO_ERROR_TAG_USER_ERROR => lean_string_to_rust(lean_ctor_get(err, 0)),
-        _ => {
-            let tag = lean_usize_to_nat(lean_obj_tag(err) as usize);
-            let tag_text = lean_string_to_rust(tag);
-            lean_dec(tag);
-            format!("unknown IO.Error constructor {}", tag_text)
-        }
+        LeanIoErrorTag::UnexpectedEof => LEAN_IO_ERROR_TEXT_END_OF_FILE.to_owned(),
+        LeanIoErrorTag::UserError => lean_string_to_rust(lean_ctor_get(err, 0)),
     };
 
     lean_dec(err);

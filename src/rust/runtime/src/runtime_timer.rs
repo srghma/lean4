@@ -4,8 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_timer_impl {
+    use crate::datatypes::LeanTaskState;
     use crate::runtime_event_loop::GLOBAL_EV;
-    use crate::runtime_expr_shared::LEAN_TASK_STATE_FINISHED;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr::{addr_of_mut, null_mut};
@@ -21,7 +21,7 @@ mod runtime_timer_impl {
 
     unsafe fn timer_promise_is_finished(timer: *mut LeanUvTimerObject) -> bool {
         let promise = (*timer).promise.cast::<LeanPromiseObject>();
-        lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
+        lean_io_get_task_state_core((*promise).result) == LeanTaskState::Finished
     }
 
     pub unsafe fn handle_timer_event(handle: *mut uv_timer_t) {

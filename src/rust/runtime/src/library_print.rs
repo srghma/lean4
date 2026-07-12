@@ -18,11 +18,10 @@ pub fn finalize_print() {}
 
 mod library_print_impl {
     use crate::runtime_expr_shared::{
-        BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, DV_BOOL, DV_NAME, DV_NAT,
-        DV_STRING, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT,
-        EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
-        LEVEL_PARAM, LEVEL_SUCC, LeanBinderInfo, expr_binder_info_raw, expr_bvar_range,
-        expr_let_nondep,
+        DV_BOOL, DV_NAME, DV_NAT, DV_STRING, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR,
+        EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
+        LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR, LEVEL_PARAM, LEVEL_SUCC, LeanBinderInfo,
+        expr_binder_info_raw, expr_bvar_range, expr_let_nondep,
     };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -43,7 +42,7 @@ mod library_print_impl {
     #[inline(always)]
     unsafe fn is_arrow(e: *const LeanObject) -> bool {
         lean_obj_tag(e) == EXPR_PI
-            && expr_binder_info_raw(e) == BI_DEFAULT
+            && expr_binder_info_raw(e) == LeanBinderInfo::Default
             && expr_bvar_range(lean_ctor_get(e, 2)) == 0
     }
 
@@ -278,19 +277,19 @@ mod library_print_impl {
     #[inline(always)]
     unsafe fn fmt_binder_open(bi: LeanBinderInfo, out: &mut String) {
         match bi {
-            BI_IMPLICIT => out.push('{'),
-            BI_STRICT_IMPLICIT => out.push_str("{{"),
-            BI_INST_IMPLICIT => out.push('['),
-            _ => out.push('('), // BI_DEFAULT
+            LeanBinderInfo::Implicit => out.push('{'),
+            LeanBinderInfo::StrictImplicit => out.push_str("{{"),
+            LeanBinderInfo::InstImplicit => out.push('['),
+            _ => out.push('('), // LeanBinderInfo::Default
         }
     }
 
     #[inline(always)]
     unsafe fn fmt_binder_close(bi: LeanBinderInfo, out: &mut String) {
         match bi {
-            BI_IMPLICIT => out.push('}'),
-            BI_STRICT_IMPLICIT => out.push_str("}}"),
-            BI_INST_IMPLICIT => out.push(']'),
+            LeanBinderInfo::Implicit => out.push('}'),
+            LeanBinderInfo::StrictImplicit => out.push_str("}}"),
+            LeanBinderInfo::InstImplicit => out.push(']'),
             _ => out.push(')'),
         }
     }

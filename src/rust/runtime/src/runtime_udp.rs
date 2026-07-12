@@ -11,6 +11,8 @@ mod runtime_udp_impl {
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
+    use crate::datatypes::LeanOptionTag;
+    use crate::emitted::lean_option_tag::lean_option_tag;
     use leanh_l1_initializers::runtime_io_error::consts::UV_ENOBUFS;
     use libuv_sys2::{
         uv_buf_init, uv_close, uv_handle_t, uv_udp_bind, uv_udp_connect, uv_udp_getpeername,
@@ -192,7 +194,7 @@ mod runtime_udp_impl {
 
         let mut addr_ptr: *mut libc::sockaddr_storage = null_mut();
 
-        if lean_obj_tag(opt_addr) == 1 {
+        if matches!(lean_option_tag(opt_addr), LeanOptionTag::Some) {
             let addr = lean_ctor_get(opt_addr, 0);
             addr_ptr = libc::malloc(core::mem::size_of::<libc::sockaddr_storage>())
                 .cast::<libc::sockaddr_storage>();

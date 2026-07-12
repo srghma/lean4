@@ -21,6 +21,8 @@ mod runtime_process_impl {
         lean_is_scalar, lean_mk_io_user_error, lean_mk_string, lean_mk_string_from_bytes,
         lean_obj_tag, lean_string_cstr,
     };
+    use crate::datatypes::LeanOptionTag;
+    use crate::emitted::lean_option_tag::lean_option_tag;
     use crate::runtime_expr_shared::PTR_SIZE;
     use crate::runtime_io_stream::io_wrap_handle;
     use core::ffi::c_int;
@@ -322,11 +324,11 @@ mod runtime_process_impl {
                 // Pair: field 0 = key String, field 1 = Option String
                 let key = lean_ctor_get(entry, 0);
                 let val_opt = lean_ctor_get(entry, 1);
-                if lean_is_scalar(val_opt) || lean_obj_tag(val_opt) == 0 {
-                    // None (tag 0 as scalar box(0))
+                if lean_is_scalar(val_opt) || matches!(lean_option_tag(val_opt), LeanOptionTag::None)
+                {
                     libc::unsetenv(lean_string_cstr(key));
                 } else {
-                    // Some(val): tag 1, field 0 = the string
+                    // Some(val): field 0 = the string
                     let val = lean_ctor_get(val_opt, 0);
                     libc::setenv(lean_string_cstr(key), lean_string_cstr(val), 1);
                 }
@@ -360,8 +362,10 @@ mod runtime_process_impl {
             }
 
             // chdir if cwd is Some
-            // Option String: None = scalar box(0), Some(s) = non-scalar, tag 1
-            if !lean_is_scalar(cwd_opt) && lean_obj_tag(cwd_opt) == 1 {
+            // Option String: None = scalar box(0), Some(s) = non-scalar
+            if !lean_is_scalar(cwd_opt)
+                && matches!(lean_option_tag(cwd_opt), LeanOptionTag::Some)
+            {
                 let cwd_str = lean_ctor_get(cwd_opt, 0);
                 if libc::chdir(lean_string_cstr(cwd_str)) < 0 {
                     let msg = b"could not change directory\n\0";

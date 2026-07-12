@@ -14,7 +14,6 @@ All C++ `throw X` → `return Err(KernelError::X)`.
 )]
 mod kernel_type_checker_impl {
     use crate::runtime_expr_shared::{
-        BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, DEFINITION_SAFETY_UNSAFE,
         EXCEPT_ERROR_TAG, EXCEPT_OK_TAG, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA,
         EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX,
         LEVEL_MAX, LEVEL_MVAR, LEVEL_PARAM, LEVEL_SUCC, LeanBinderInfo, LeanDefinitionSafety,
@@ -732,7 +731,7 @@ mod kernel_type_checker_impl {
             let new_bi = if binder_info_is_explicit(old_bi)
                 && has_loose_bvars_in_domain(new_body, 0, strict)
             {
-                BI_IMPLICIT
+                LeanBinderInfo::Implicit
             } else {
                 old_bi
             };
@@ -887,7 +886,7 @@ mod kernel_type_checker_impl {
             }
             ConstantInfoKind::Definition => {
                 lean_inc(val);
-                lean_definition_val_get_safety(val) == DEFINITION_SAFETY_UNSAFE
+                lean_definition_val_get_safety(val) == LeanDefinitionSafety::Unsafe
             }
             ConstantInfoKind::Theorem => false,
             ConstantInfoKind::Opaque => {
@@ -5755,7 +5754,7 @@ mod kernel_type_checker_impl {
         let n = lean_name_anonymous();
         lean_inc(domain);
         lean_inc(body);
-        lean_expr_mk_forall(n, domain, body, BI_DEFAULT)
+        lean_expr_mk_forall(n, domain, body, LeanBinderInfo::Default)
     }
 
     unsafe fn local_decl(
@@ -5776,7 +5775,7 @@ mod kernel_type_checker_impl {
         body: *mut LeanObject,
     ) -> *mut LeanObject {
         let n = lean_string_name(name);
-        lean_expr_mk_forall(n, domain, body, BI_DEFAULT)
+        lean_expr_mk_forall(n, domain, body, LeanBinderInfo::Default)
     }
 
     unsafe fn wrap_quot_info(v: *mut LeanObject) -> *mut LeanObject {
@@ -5842,7 +5841,7 @@ mod kernel_type_checker_impl {
 
         let u = level_param_borrowed(lean_list_head(eq_lparams));
         let sort_u = sort_borrowed(u);
-        let alpha = local_decl(&mut tc, "α", sort_u, BI_IMPLICIT);
+        let alpha = local_decl(&mut tc, "α", sort_u, LeanBinderInfo::Implicit);
         let alpha_to_prop = arrow_borrowed(alpha, lean_expr_mk_prop());
         let alpha_to_alpha_to_prop = arrow_borrowed(alpha, alpha_to_prop);
         let expected_eq_type = tc.lctx_mk_pi(&[alpha], alpha_to_alpha_to_prop, false);
@@ -5878,8 +5877,8 @@ mod kernel_type_checker_impl {
         }
         let u2 = level_param_borrowed(lean_list_head(lean_constant_info_get_lparams(eq_refl_info)));
         let sort_u2 = sort_borrowed(u2);
-        let alpha2 = local_decl(&mut tc, "α", sort_u2, BI_IMPLICIT);
-        let a = local_decl(&mut tc, "a", alpha2, BI_DEFAULT);
+        let alpha2 = local_decl(&mut tc, "α", sort_u2, LeanBinderInfo::Implicit);
+        let a = local_decl(&mut tc, "a", alpha2, LeanBinderInfo::Default);
         let eq_const = const_borrowed(eq_name, &[u2]);
         let eq_refl_body = app_borrowed(eq_const, &[alpha2, a, a]);
         let expected_eq_refl_type = tc.lctx_mk_pi(&[alpha2, a], eq_refl_body, false);
@@ -5928,10 +5927,10 @@ mod kernel_type_checker_impl {
         let u_name = lean_string_name("u");
         let u = level_param_borrowed(u_name);
         let sort_u = sort_borrowed(u);
-        let alpha = local_decl(&mut tc, "α", sort_u, BI_IMPLICIT);
+        let alpha = local_decl(&mut tc, "α", sort_u, LeanBinderInfo::Implicit);
         let alpha_to_prop = arrow_borrowed(alpha, lean_expr_mk_prop());
         let r_ty = arrow_borrowed(alpha, alpha_to_prop);
-        let r = local_decl(&mut tc, "r", r_ty, BI_DEFAULT);
+        let r = local_decl(&mut tc, "r", r_ty, LeanBinderInfo::Default);
 
         let quot_ty = tc.lctx_mk_pi(&[alpha, r], sort_u, false);
         let quot_name = build_lean_name(&["Quot"]);
@@ -5939,7 +5938,7 @@ mod kernel_type_checker_impl {
 
         let quot_const = const_borrowed(quot_name, &[u]);
         let quot_r = app_borrowed(quot_const, &[alpha, r]);
-        let a = local_decl(&mut tc, "a", alpha, BI_DEFAULT);
+        let a = local_decl(&mut tc, "a", alpha, LeanBinderInfo::Default);
         let quot_mk_ty = tc.lctx_mk_pi(&[alpha, r, a], quot_r, false);
         let quot_mk_name = load_global(&G_QUOT_MK_NAME);
         new_env = add_quot_const(new_env, quot_mk_name, &[u_name], quot_mk_ty, QuotKind::Ctor);
@@ -5949,20 +5948,20 @@ mod kernel_type_checker_impl {
         let lctx2 = mk_empty_lctx();
         let mut tc = TypeChecker::new(new_env, lctx2, DEF_SAFETY_SAFE);
         lean_dec(lctx2);
-        let alpha2 = local_decl(&mut tc, "α", sort_u, BI_IMPLICIT);
+        let alpha2 = local_decl(&mut tc, "α", sort_u, LeanBinderInfo::Implicit);
         let alpha2_to_prop = arrow_borrowed(alpha2, lean_expr_mk_prop());
         let r2_ty = arrow_borrowed(alpha2, alpha2_to_prop);
-        let r2 = local_decl(&mut tc, "r", r2_ty, BI_IMPLICIT);
+        let r2 = local_decl(&mut tc, "r", r2_ty, LeanBinderInfo::Implicit);
         let quot_const2 = const_borrowed(quot_name, &[u]);
         let quot_r2 = app_borrowed(quot_const2, &[alpha2, r2]);
-        let a2 = local_decl(&mut tc, "a", alpha2, BI_DEFAULT);
+        let a2 = local_decl(&mut tc, "a", alpha2, LeanBinderInfo::Default);
         let v_name = lean_string_name("v");
         let v = level_param_borrowed(v_name);
         let sort_v = sort_borrowed(v);
-        let beta = local_decl(&mut tc, "β", sort_v, BI_IMPLICIT);
+        let beta = local_decl(&mut tc, "β", sort_v, LeanBinderInfo::Implicit);
         let alpha2_to_beta = arrow_borrowed(alpha2, beta);
-        let f = local_decl(&mut tc, "f", alpha2_to_beta, BI_DEFAULT);
-        let b = local_decl(&mut tc, "b", alpha2, BI_DEFAULT);
+        let f = local_decl(&mut tc, "f", alpha2_to_beta, LeanBinderInfo::Default);
+        let b = local_decl(&mut tc, "b", alpha2, LeanBinderInfo::Default);
         let r_a_b = app_borrowed(r2, &[a2, b]);
         let eq_const_v = const_borrowed(build_lean_name(&["Eq"]), &[v]);
         let f_a = app_borrowed(f, &[a2]);
@@ -5982,12 +5981,12 @@ mod kernel_type_checker_impl {
         );
 
         let quot_r2_to_prop = arrow_borrowed(quot_r2, lean_expr_mk_prop());
-        let beta2 = local_decl(&mut tc, "β", quot_r2_to_prop, BI_IMPLICIT);
+        let beta2 = local_decl(&mut tc, "β", quot_r2_to_prop, LeanBinderInfo::Implicit);
         let quot_mk_const = const_borrowed(quot_mk_name, &[u]);
         let quot_mk_a = app_borrowed(quot_mk_const, &[alpha2, r2, a2]);
         let beta_quot_mk_a = app_borrowed(beta2, &[quot_mk_a]);
         let all_quot = tc.lctx_mk_pi(&[a2], beta_quot_mk_a, false);
-        let q = local_decl(&mut tc, "q", quot_r2, BI_DEFAULT);
+        let q = local_decl(&mut tc, "q", quot_r2, LeanBinderInfo::Default);
         let beta_q = app_borrowed(beta2, &[q]);
         let ind_q_tail = tc.lctx_mk_pi(&[q], beta_q, false);
         let ind_mk_tail = pi_named("mk", all_quot, ind_q_tail);
@@ -6940,7 +6939,7 @@ mod kernel_type_checker_impl {
                 let base = self.ind_cnsts[d_idx];
                 lean_inc(base);
                 let major_ty = self.app2(base, &self.params.clone(), &indices);
-                let major = self.mk_local_decl_str("t", major_ty, BI_DEFAULT);
+                let major = self.mk_local_decl_str("t", major_ty, LeanBinderInfo::Default);
                 let mut c_ty = sort_borrowed(self.elim_level);
                 c_ty = self.mk_pi(&[major], c_ty);
                 c_ty = self.mk_pi(&indices, c_ty);
@@ -6952,7 +6951,7 @@ mod kernel_type_checker_impl {
                 } else {
                     lean_string_name("motive")
                 };
-                let c = self.mk_local_decl(c_name, c_ty, BI_DEFAULT);
+                let c = self.mk_local_decl(c_name, c_ty, LeanBinderInfo::Default);
                 lean_dec(c_name);
                 self.rec_infos.push(RecInfo {
                     c,
@@ -7044,7 +7043,7 @@ mod kernel_type_checker_impl {
                         let user_name = lean_local_decl_get_user_name(u_decl);
                         let ih_name = name_append_str(user_name, "_ih");
                         lean_dec(u_decl);
-                        let v_i = self.mk_local_decl(ih_name, v_i_ty, BI_DEFAULT);
+                        let v_i = self.mk_local_decl(ih_name, v_i_ty, LeanBinderInfo::Default);
                         lean_dec(ih_name);
                         v.push(v_i);
                     }
@@ -7052,7 +7051,7 @@ mod kernel_type_checker_impl {
                     let minor_ty = self.mk_pi(&b_u, inner);
                     let anon = lean_name_anonymous();
                     let minor_name = name_replace_prefix(cnstr_name, ind_type_name, anon);
-                    let minor = self.mk_local_decl(minor_name, minor_ty, BI_DEFAULT);
+                    let minor = self.mk_local_decl(minor_name, minor_ty, LeanBinderInfo::Default);
                     lean_dec(minor_name);
                     self.rec_infos[d_idx].minors.push(minor);
                 }

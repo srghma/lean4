@@ -1,5 +1,6 @@
 use leanh_l1::{
     datatypes::LeanObject,
+    todo_import_from_lean::io_error::LeanIoErrorTag,
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_set::lean_ctor_set,
         lean_ctor_set_uint32::lean_ctor_set_uint32,
@@ -16,7 +17,7 @@ const IO_ERROR_U32_OFFSET_TWO_OBJS: u32 = (core::mem::size_of::<*mut LeanObject>
 
 #[inline]
 pub(crate) unsafe fn mk_io_error_one_obj(
-    tag: u8,
+    tag: LeanIoErrorTag,
     os_code: u32,
     details: *mut LeanObject,
 ) -> *mut LeanObject {
@@ -28,7 +29,7 @@ pub(crate) unsafe fn mk_io_error_one_obj(
 
 #[inline]
 pub(crate) unsafe fn mk_io_error_two_objs(
-    tag: u8,
+    tag: LeanIoErrorTag,
     field0: *mut LeanObject,
     os_code: u32,
     details: *mut LeanObject,

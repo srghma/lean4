@@ -4,8 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_signal_impl {
+    use crate::datatypes::LeanTaskState;
     use crate::runtime_event_loop::GLOBAL_EV;
-    use crate::runtime_expr_shared::LEAN_TASK_STATE_FINISHED;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{
@@ -23,7 +23,7 @@ mod runtime_signal_impl {
 
     unsafe fn signal_promise_is_finished(signal: *mut LeanUvSignalObject) -> bool {
         let promise = (*signal).promise.cast::<LeanPromiseObject>();
-        lean_io_get_task_state_core((*promise).result) == LEAN_TASK_STATE_FINISHED
+        lean_io_get_task_state_core((*promise).result) == LeanTaskState::Finished
     }
 
     pub unsafe fn handle_signal_event(handle: *mut uv_signal_t, signum: c_int) {

@@ -33,7 +33,19 @@ pub enum LeanTaskState {
     Finished = 2,
 }
 
-pub const LEAN_TASK_STATE_FINISHED: LeanTaskState = LeanTaskState::Finished;
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum LeanIoResultTag {
+    Ok = 0,
+    Error = 1,
+}
+
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum LeanOptionTag {
+    None = 0,
+    Some = 1,
+}
 
 impl LeanObjectTag {
     #[inline]

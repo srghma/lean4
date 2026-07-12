@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 pub(crate) mod runtime_object_task_impl {
-    use crate::runtime_expr_shared::LeanTaskState;
+    use crate::datatypes::{LeanOptionTag, LeanTaskState};
+    use crate::emitted::lean_option_tag::lean_option_tag;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
     use crate::*;
@@ -165,7 +166,7 @@ pub(crate) mod runtime_object_task_impl {
     // ─── lean_get_or_block (IO.getOrBlock) ────────────────────────────────────
 
     pub unsafe fn lean_get_or_block(opt: *mut LeanObject) -> *mut LeanObject {
-        if lean_is_scalar(opt) || (*opt).tag == 0 {
+        if lean_is_scalar(opt) || matches!(lean_option_tag(opt), LeanOptionTag::None) {
             lean_dec(opt);
             lean_box(0)
         } else {

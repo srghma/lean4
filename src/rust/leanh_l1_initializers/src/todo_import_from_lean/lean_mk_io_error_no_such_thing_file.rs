@@ -1,6 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject, todo_import_from_lean::io_error::LEAN_IO_ERROR_TAG_NO_SUCH_THING,
-};
+use leanh_l1::{datatypes::LeanObject, todo_import_from_lean::io_error::LeanIoErrorTag};
 
 use crate::{
     runtime_object_task::mk_option_some::mk_option_some,
@@ -12,10 +10,5 @@ pub unsafe fn lean_mk_io_error_no_such_thing_file(
     os_code: u32,
     details: *mut LeanObject,
 ) -> *mut LeanObject {
-    mk_io_error_two_objs(
-        LEAN_IO_ERROR_TAG_NO_SUCH_THING,
-        mk_option_some(filename),
-        os_code,
-        details,
-    )
+    mk_io_error_two_objs(LeanIoErrorTag::NoSuchThing, mk_option_some(filename), os_code, details)
 }

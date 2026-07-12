@@ -86,11 +86,6 @@ pub enum LeanBinderInfo {
     InstImplicit = 3,
 }
 
-pub const BI_DEFAULT: LeanBinderInfo = LeanBinderInfo::Default;
-pub const BI_IMPLICIT: LeanBinderInfo = LeanBinderInfo::Implicit;
-pub const BI_STRICT_IMPLICIT: LeanBinderInfo = LeanBinderInfo::StrictImplicit;
-pub const BI_INST_IMPLICIT: LeanBinderInfo = LeanBinderInfo::InstImplicit;
-
 #[inline(always)]
 pub fn lean_binder_info_is_explicit(bi: LeanBinderInfo) -> bool {
     matches!(bi, LeanBinderInfo::Default)
@@ -132,7 +127,6 @@ pub enum LeanDefinitionSafety {
     Partial = 2,
 }
 
-pub const DEFINITION_SAFETY_UNSAFE: LeanDefinitionSafety = LeanDefinitionSafety::Unsafe;
 pub const UV_EALREADY: c_int = -3003;
 
 #[derive(Clone, Debug)]
