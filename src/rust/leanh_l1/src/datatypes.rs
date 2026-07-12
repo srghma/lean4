@@ -8,6 +8,73 @@ use gmp_mpfr_sys::gmp::mpz_t;
 pub const LEAN_CLOSURE_MAX_ARGS: u32 = 16; // not used in this file
 pub const LEAN_MAX_SMALL_NAT: usize = usize::MAX >> 1; // not used in this file
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum LeanObjectTag {
+    Ctor(u8),
+    Promise,
+    Closure,
+    Array,
+    StructArray,
+    ScalarArray,
+    String,
+    Mpz,
+    Thunk,
+    Task,
+    Ref,
+    External,
+    Reserved,
+}
+
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum LeanTaskState {
+    Waiting = 0,
+    Running = 1,
+    Finished = 2,
+}
+
+pub const LEAN_TASK_STATE_FINISHED: LeanTaskState = LeanTaskState::Finished;
+
+impl LeanObjectTag {
+    #[inline]
+    pub fn from_u8(tag: u8) -> Self {
+        match tag {
+            0..=LEAN_MAX_CTOR_TAG => LeanObjectTag::Ctor(tag),
+            244 => LeanObjectTag::Promise,
+            245 => LeanObjectTag::Closure,
+            246 => LeanObjectTag::Array,
+            247 => LeanObjectTag::StructArray,
+            248 => LeanObjectTag::ScalarArray,
+            249 => LeanObjectTag::String,
+            250 => LeanObjectTag::Mpz,
+            251 => LeanObjectTag::Thunk,
+            252 => LeanObjectTag::Task,
+            253 => LeanObjectTag::Ref,
+            254 => LeanObjectTag::External,
+            255 => LeanObjectTag::Reserved,
+        }
+    }
+
+    #[inline]
+    pub fn as_u8(self) -> u8 {
+        match self {
+            LeanObjectTag::Ctor(tag) => tag,
+            LeanObjectTag::Promise => 244,
+            LeanObjectTag::Closure => 245,
+            LeanObjectTag::Array => 246,
+            LeanObjectTag::StructArray => 247,
+            LeanObjectTag::ScalarArray => 248,
+            LeanObjectTag::String => 249,
+            LeanObjectTag::Mpz => 250,
+            LeanObjectTag::Thunk => 251,
+            LeanObjectTag::Task => 252,
+            LeanObjectTag::Ref => 253,
+            LeanObjectTag::External => 254,
+            LeanObjectTag::Reserved => 255,
+        }
+    }
+}
+
 #[repr(C)]
 pub struct LeanObject {
     pub rc: i32,

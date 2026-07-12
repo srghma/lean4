@@ -53,6 +53,7 @@ pub mod lean_is_scalar;
 pub mod lean_mark_persistent;
 pub mod lean_mk_string;
 pub mod lean_mk_string_unchecked;
+pub mod lean_object_tag;
 pub mod lean_obj_once;
 pub mod lean_obj_tag;
 pub mod lean_uint16_once;

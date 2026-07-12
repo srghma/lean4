@@ -31,15 +31,15 @@ Scalar field layout:
 
 mod kernel_instantiate_impl {
     use crate::runtime_expr_shared::{
-        expr_binder_info_raw, expr_bvar_range, expr_data, expr_let_nondep, level_data, EXPR_APP,
-        EXPR_BVAR, EXPR_DATA_HAS_LEVEL_PARAM_BIT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_PI,
-        EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_PARAM,
-        LEVEL_SUCC,
+        EXPR_APP, EXPR_BVAR, EXPR_DATA_HAS_LEVEL_PARAM_BIT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA,
+        EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_PARAM,
+        LEVEL_SUCC, LeanBinderInfo, expr_binder_info_raw, expr_bvar_range, expr_data,
+        expr_let_nondep, level_data,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use leanh_l1_initializers::todo_import_from_lean::lean_expr_mk_const::level_has_param;
     use std::collections::HashMap;
 
@@ -59,13 +59,13 @@ mod kernel_instantiate_impl {
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_forall(
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_let(
             n: *mut LeanObject,

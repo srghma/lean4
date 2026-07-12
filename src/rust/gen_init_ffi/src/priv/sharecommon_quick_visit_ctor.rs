@@ -1,10 +1,10 @@
 use leanh_l1::{
-    datatypes::LeanObject,
+    datatypes::{LeanObject, LeanObjectTag},
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_get::lean_ctor_get,
         lean_ctor_set::lean_ctor_set,
     },
-    r#priv::lean_ptr_tag::lean_ptr_tag,
+    emitted::lean_object_tag::lean_object_tag,
 };
 
 use crate::r#priv::{
@@ -25,7 +25,10 @@ pub(crate) unsafe fn sharecommon_quick_visit_ctor(
         return r;
     }
     let num_objs = (*a).other as usize;
-    let tag = lean_ptr_tag(a) as u32;
+    let tag = match lean_object_tag(a) {
+        LeanObjectTag::Ctor(tag) => tag as u32,
+        other => panic!("unexpected LeanObjectTag in sharecommon_quick_visit_ctor: {other:?}"),
+    };
     let sz = lean_object_byte_size(a);
     let scalar_offset =
         core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();

@@ -3,7 +3,9 @@ Copyright (c) 2026 Lean FRO, LLC. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 */
 
-use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+use crate::runtime_expr_shared::LeanTaskState;
+use crate::*;
+use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
 pub unsafe fn lean_io_check_canceled() -> bool {
     lean_io_check_canceled()
@@ -14,7 +16,7 @@ pub unsafe fn lean_io_cancel(t: *mut LeanObject) -> *mut LeanObject {
     lean_box(0)
 }
 
-pub unsafe fn lean_io_get_task_state(t: *const LeanObject) -> u8 {
+pub unsafe fn lean_io_get_task_state(t: *const LeanObject) -> LeanTaskState {
     lean_io_get_task_state_core(t)
 }
 

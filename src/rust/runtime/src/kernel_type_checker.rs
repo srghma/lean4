@@ -14,10 +14,11 @@ All C++ `throw X` → `return Err(KernelError::X)`.
 )]
 mod kernel_type_checker_impl {
     use crate::runtime_expr_shared::{
-        BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, EXCEPT_ERROR_TAG,
-        EXCEPT_OK_TAG, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT,
-        EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
-        LEVEL_PARAM, LEVEL_SUCC, expr_bvar_range_data,
+        BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, DEFINITION_SAFETY_UNSAFE,
+        EXCEPT_ERROR_TAG, EXCEPT_OK_TAG, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA,
+        EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX,
+        LEVEL_MAX, LEVEL_MVAR, LEVEL_PARAM, LEVEL_SUCC, LeanBinderInfo, LeanDefinitionSafety,
+        LeanExprKind, LeanLevelKind, expr_bvar_range_data,
     };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -37,10 +38,7 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     #[inline(always)]
-    unsafe fn lean_level_eq(
-        a: *const LeanObject,
-        b: *const LeanObject,
-    ) -> bool {
+    unsafe fn lean_level_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
         lean_level_eq_raw(a as *mut _, b as *mut _)
     }
 
@@ -147,13 +145,37 @@ mod kernel_type_checker_impl {
         lean_unbox(n) as u32
     }
 
-    // ConstantInfo: constant_info_kind enum {Axiom=0,Definition=1,Theorem=2,Opaque=3,Quot=4,Inductive=5,...}
-    // Each variant wraps its val at field[0]
-    const CONST_INFO_INDUCTIVE_TAG: u32 = 5;
+    #[repr(u32)]
+    #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+    enum ConstantInfoKind {
+        Axiom = 0,
+        Definition = 1,
+        Theorem = 2,
+        Opaque = 3,
+        Quot = 4,
+        Inductive = 5,
+        Constructor = 6,
+        Recursor = 7,
+    }
+
+    #[inline(always)]
+    unsafe fn constant_info_kind(info: *const LeanObject) -> ConstantInfoKind {
+        match lean_ptr_tag(info) as u32 {
+            0 => ConstantInfoKind::Axiom,
+            1 => ConstantInfoKind::Definition,
+            2 => ConstantInfoKind::Theorem,
+            3 => ConstantInfoKind::Opaque,
+            4 => ConstantInfoKind::Quot,
+            5 => ConstantInfoKind::Inductive,
+            6 => ConstantInfoKind::Constructor,
+            7 => ConstantInfoKind::Recursor,
+            n => panic!("invalid ConstantInfoKind tag {n}"),
+        }
+    }
 
     #[no_mangle]
     pub unsafe fn lean_constant_info_is_inductive(info: *const LeanObject) -> bool {
-        !lean_is_scalar(info) && lean_ptr_tag(info) == CONST_INFO_INDUCTIVE_TAG
+        !lean_is_scalar(info) && matches!(constant_info_kind(info), ConstantInfoKind::Inductive)
     }
 
     #[no_mangle]
@@ -403,15 +425,15 @@ mod kernel_type_checker_impl {
     // opposed to the inline C++ accessors which we re-implement as shims.
     // ===========================================================================
     unsafe extern "C" {
-        // Expr binder info (Lean @[export], consumes its owned arg, returns u8).
-        fn lean_expr_binder_info(e: *mut LeanObject) -> u8;
+        // Expr binder info (Lean @[export], consumes its owned arg).
+        fn lean_expr_binder_info(e: *mut LeanObject) -> LeanBinderInfo;
         // Environment quot-initialized flag (Lean @[export], consumes arg).
         fn lean_environment_quot_init(env: *mut LeanObject) -> bool;
         // RecursorVal flags (Lean @[export], consume arg).
         fn lean_recursor_k(v: *mut LeanObject) -> bool;
         fn lean_recursor_is_unsafe(v: *mut LeanObject) -> bool;
-        // DefinitionVal safety (Lean @[export], consumes arg). 0 = unsafe, 1 = safe, 2 = partial.
-        fn lean_definition_val_get_safety(v: *mut LeanObject) -> u8;
+        // DefinitionVal safety (Lean @[export], consumes arg).
+        fn lean_definition_val_get_safety(v: *mut LeanObject) -> LeanDefinitionSafety;
         // *_val unsafe flags (Lean @[export], consume arg).
         fn lean_axiom_val_is_unsafe(v: *mut LeanObject) -> bool;
         fn lean_opaque_val_is_unsafe(v: *mut LeanObject) -> bool;
@@ -443,7 +465,7 @@ mod kernel_type_checker_impl {
             fvar_id: *mut LeanObject,
             user_name: *mut LeanObject,
             ty: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_real_lctx_mk_let_decl(
             lctx: *mut LeanObject,
@@ -453,7 +475,7 @@ mod kernel_type_checker_impl {
             value: *mut LeanObject,
             nondep: bool,
         ) -> *mut LeanObject;
-        fn lean_local_decl_binder_info(d: *mut LeanObject) -> u8;
+        fn lean_local_decl_binder_info(d: *mut LeanObject) -> LeanBinderInfo;
     }
 
     // ===========================================================================
@@ -472,12 +494,49 @@ mod kernel_type_checker_impl {
     const CI_INDUCTIVE: u32 = 5;
     const CI_CONSTRUCTOR: u32 = 6;
     const CI_RECURSOR: u32 = 7;
-    const DEFINITION_SAFETY_UNSAFE: u8 = 0;
     const REDUCIBILITY_HINTS_REGULAR_TAG: u32 = 2;
     const QUOT_KIND_TYPE: u8 = 0;
     const QUOT_KIND_CTOR: u8 = 1;
     const QUOT_KIND_LIFT: u8 = 2;
     const QUOT_KIND_IND: u8 = 3;
+
+    #[repr(u8)]
+    #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+    enum QuotKind {
+        Type = 0,
+        Ctor = 1,
+        Lift = 2,
+        Ind = 3,
+    }
+
+    #[inline(always)]
+    fn quot_kind_from_tag(tag: u8) -> QuotKind {
+        match tag {
+            0 => QuotKind::Type,
+            1 => QuotKind::Ctor,
+            2 => QuotKind::Lift,
+            3 => QuotKind::Ind,
+            n => panic!("invalid QuotKind tag {n}"),
+        }
+    }
+
+    #[repr(u8)]
+    #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+    enum LocalDeclKind {
+        Default = 0,
+        ImplDetail = 1,
+        AuxDecl = 2,
+    }
+
+    #[inline(always)]
+    unsafe fn local_decl_kind(d: *const LeanObject) -> LocalDeclKind {
+        match lean_ctor_get_uint8(d, 5 * core::mem::size_of::<*mut LeanObject>() as u32 + 8) {
+            0 => LocalDeclKind::Default,
+            1 => LocalDeclKind::ImplDetail,
+            2 => LocalDeclKind::AuxDecl,
+            n => panic!("invalid LocalDeclKind tag {n}"),
+        }
+    }
 
     // --- List ---
     // List.nil is the boxed scalar 0; List.cons (tag 1) has field[0]=head, field[1]=tail.
@@ -507,8 +566,22 @@ mod kernel_type_checker_impl {
     // --- Expr kind / pointer identity ---
     // expr_kind(e) = cnstr_tag(e); Expr is never a scalar.
     #[no_mangle]
-    pub unsafe fn lean_expr_kind(e: *const LeanObject) -> u32 {
-        lean_ptr_tag(e)
+    pub unsafe fn lean_expr_kind(e: *const LeanObject) -> LeanExprKind {
+        match lean_ptr_tag(e) as u32 {
+            0 => LeanExprKind::BVar,
+            1 => LeanExprKind::FVar,
+            2 => LeanExprKind::MVar,
+            3 => LeanExprKind::Sort,
+            4 => LeanExprKind::Const,
+            5 => LeanExprKind::App,
+            6 => LeanExprKind::Lambda,
+            7 => LeanExprKind::Pi,
+            8 => LeanExprKind::Let,
+            9 => LeanExprKind::Lit,
+            10 => LeanExprKind::MData,
+            11 => LeanExprKind::Proj,
+            _ => LeanExprKind::BVar,
+        }
     }
 
     // is_eqp = pointer equality.
@@ -611,16 +684,14 @@ mod kernel_type_checker_impl {
 
     // binding_info: delegates to the real lean_expr_binder_info (which consumes its arg).
     #[no_mangle]
-    pub unsafe fn lean_expr_get_binding_info(e: *const LeanObject) -> u8 {
+    pub unsafe fn lean_expr_get_binding_info(e: *const LeanObject) -> LeanBinderInfo {
         lean_inc(e as *mut _);
         lean_expr_binder_info(e as *mut _)
     }
 
-    const BINDER_INFO_IMPLICIT: u8 = 1;
-
     #[inline(always)]
-    fn binder_info_is_explicit(bi: u8) -> bool {
-        bi != BINDER_INFO_IMPLICIT && bi != 2 && bi != 3
+    fn binder_info_is_explicit(bi: LeanBinderInfo) -> bool {
+        matches!(bi, LeanBinderInfo::Default)
     }
 
     unsafe fn expr_has_loose_bvar(e: *const LeanObject, idx: u32) -> bool {
@@ -661,7 +732,7 @@ mod kernel_type_checker_impl {
             let new_bi = if binder_info_is_explicit(old_bi)
                 && has_loose_bvars_in_domain(new_body, 0, strict)
             {
-                BINDER_INFO_IMPLICIT
+                BI_IMPLICIT
             } else {
                 old_bi
             };
@@ -742,15 +813,15 @@ mod kernel_type_checker_impl {
     }
     #[no_mangle]
     pub unsafe fn lean_constant_info_is_definition(info: *const LeanObject) -> bool {
-        !lean_is_scalar(info) && lean_ptr_tag(info) == CI_DEFINITION
+        !lean_is_scalar(info) && matches!(constant_info_kind(info), ConstantInfoKind::Definition)
     }
     #[no_mangle]
     pub unsafe fn lean_constant_info_is_constructor(info: *const LeanObject) -> bool {
-        !lean_is_scalar(info) && lean_ptr_tag(info) == CI_CONSTRUCTOR
+        !lean_is_scalar(info) && matches!(constant_info_kind(info), ConstantInfoKind::Constructor)
     }
     #[no_mangle]
     pub unsafe fn lean_constant_info_is_recursor(info: *const LeanObject) -> bool {
-        !lean_is_scalar(info) && lean_ptr_tag(info) == CI_RECURSOR
+        !lean_is_scalar(info) && matches!(constant_info_kind(info), ConstantInfoKind::Recursor)
     }
     #[no_mangle]
     pub unsafe fn lean_constant_info_to_definition_val(info: *const LeanObject) -> *mut LeanObject {
@@ -769,12 +840,14 @@ mod kernel_type_checker_impl {
     // has_value: theorem or definition.
     #[no_mangle]
     pub unsafe fn lean_constant_info_has_value(info: *const LeanObject) -> bool {
-        let k = lean_ptr_tag(info);
-        k == CI_THEOREM || k == CI_DEFINITION
+        matches!(
+            constant_info_kind(info),
+            ConstantInfoKind::Theorem | ConstantInfoKind::Definition
+        )
     }
     // get_safety: the argument is a definition_val (call site passes to_definition_val result).
     #[no_mangle]
-    pub unsafe fn lean_constant_info_get_safety(defval: *const LeanObject) -> u8 {
+    pub unsafe fn lean_constant_info_get_safety(defval: *const LeanObject) -> LeanDefinitionSafety {
         lean_inc(defval as *mut _);
         lean_definition_val_get_safety(defval as *mut _)
     }
@@ -807,38 +880,42 @@ mod kernel_type_checker_impl {
     #[no_mangle]
     pub unsafe fn lean_constant_info_is_unsafe(info: *const LeanObject) -> bool {
         let val = ci_to_val(info);
-        match lean_ptr_tag(info) {
-            CI_AXIOM => {
+        match constant_info_kind(info) {
+            ConstantInfoKind::Axiom => {
                 lean_inc(val);
                 lean_axiom_val_is_unsafe(val)
             }
-            CI_DEFINITION => {
+            ConstantInfoKind::Definition => {
                 lean_inc(val);
                 lean_definition_val_get_safety(val) == DEFINITION_SAFETY_UNSAFE
             }
-            CI_THEOREM => false,
-            CI_OPAQUE => {
+            ConstantInfoKind::Theorem => false,
+            ConstantInfoKind::Opaque => {
                 lean_inc(val);
                 lean_opaque_val_is_unsafe(val)
             }
-            CI_QUOT => false,
-            CI_INDUCTIVE => lean_inductive_val_is_unsafe(val),
-            CI_CONSTRUCTOR => lean_constructor_val_is_unsafe(val),
-            CI_RECURSOR => {
+            ConstantInfoKind::Quot => false,
+            ConstantInfoKind::Inductive => lean_inductive_val_is_unsafe(val),
+            ConstantInfoKind::Constructor => lean_constructor_val_is_unsafe(val),
+            ConstantInfoKind::Recursor => {
                 lean_inc(val);
                 lean_recursor_is_unsafe(val)
             }
-            _ => false,
         }
     }
     // get_hints: definitions carry reducibility hints at val.field[2]; otherwise the opaque hint (boxed 0).
     #[no_mangle]
     pub unsafe fn lean_constant_info_get_hints(info: *const LeanObject) -> *mut LeanObject {
-        if lean_ptr_tag(info) == CI_DEFINITION {
+        if matches!(constant_info_kind(info), ConstantInfoKind::Definition) {
             lean_ctor_get(ci_to_val(info), 2)
         } else {
             lean_box(0)
         }
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_quot_val_kind(v: *const LeanObject) -> QuotKind {
+        quot_kind_from_tag(lean_ptr_tag(lean_ctor_get(v, 3)) as u8)
     }
 
     // --- ConstructorVal: field[0]=cv, field[1]=induct, field[2]=cidx, field[3]=nparams, field[4]=nfields ---
@@ -941,7 +1018,7 @@ mod kernel_type_checker_impl {
     pub unsafe fn lean_local_decl_get_user_name(d: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(d, 2)
     }
-    unsafe fn lean_local_decl_get_info(d: *const LeanObject) -> u8 {
+    unsafe fn lean_local_decl_get_info(d: *const LeanObject) -> LeanBinderInfo {
         lean_inc(d as *mut _);
         lean_local_decl_binder_info(d as *mut _)
     }
@@ -949,6 +1026,20 @@ mod kernel_type_checker_impl {
     #[no_mangle]
     pub unsafe fn lean_local_decl_get_value(d: *const LeanObject) -> *mut LeanObject {
         lean_ctor_get(d, 4)
+    }
+
+    #[no_mangle]
+    pub unsafe fn lean_local_decl_get_kind(d: *const LeanObject) -> LocalDeclKind {
+        match lean_obj_tag(d) {
+            0 => local_decl_kind(d),
+            1 => match lean_ctor_get_uint8(d, 6 * core::mem::size_of::<*mut LeanObject>() as u32 + 8) {
+                0 => LocalDeclKind::Default,
+                1 => LocalDeclKind::ImplDetail,
+                2 => LocalDeclKind::AuxDecl,
+                n => panic!("invalid LocalDeclKind tag {n}"),
+            },
+            n => panic!("invalid LocalDecl ctor tag {n}"),
+        }
     }
 
     // --- reducibility_hints compare / is_regular ---
@@ -1041,7 +1132,7 @@ mod kernel_type_checker_impl {
         fvar_id: *mut LeanObject,
         user_name: *mut LeanObject,
         ty: *mut LeanObject,
-        bi: u8,
+        bi: LeanBinderInfo,
     ) -> *mut LeanObject {
         // The real export consumes lctx/fvar_id/user_name/ty; preserve the caller's refs.
         lean_inc(lctx);
@@ -1189,11 +1280,18 @@ mod kernel_type_checker_impl {
     // Level arithmetic helpers
     // ---------------------------------------------------------------------------
 
-    unsafe fn level_kind(l: *const LeanObject) -> u32 {
+    unsafe fn level_kind(l: *const LeanObject) -> LeanLevelKind {
         if lean_is_scalar(l) {
-            LEVEL_ZERO
+            LeanLevelKind::Zero
         } else {
-            lean_ptr_tag(l)
+            match lean_ptr_tag(l) as u32 {
+                1 => LeanLevelKind::Succ,
+                2 => LeanLevelKind::Max,
+                3 => LeanLevelKind::IMax,
+                4 => LeanLevelKind::Param,
+                5 => LeanLevelKind::MVar,
+                _ => LeanLevelKind::Zero,
+            }
         }
     }
 
@@ -1221,7 +1319,7 @@ mod kernel_type_checker_impl {
 
     /// Normalize a level (port of normalize(level) from level.h).
     unsafe fn normalize_level(l: *mut LeanObject) -> *mut LeanObject {
-        match level_kind(l) {
+        match level_kind(l) as u32 {
             LEVEL_ZERO | LEVEL_PARAM | LEVEL_MVAR => {
                 lean_inc(l);
                 l
@@ -1544,7 +1642,7 @@ mod kernel_type_checker_impl {
 
     /// Return true if l is definitely not zero for any universe assignment.
     unsafe fn is_not_zero_level(l: *const LeanObject) -> bool {
-        match level_kind(l) {
+        match level_kind(l) as u32 {
             LEVEL_ZERO => false,
             LEVEL_PARAM => false,
             LEVEL_MVAR => false,
@@ -1622,7 +1720,7 @@ mod kernel_type_checker_impl {
         l: *const LeanObject,
         lparams: *const LeanObject,
     ) -> Option<*mut LeanObject> {
-        match level_kind(l) {
+        match level_kind(l) as u32 {
             LEVEL_ZERO => None,
             LEVEL_PARAM => {
                 let name = lean_level_get_param_name(l);
@@ -2216,7 +2314,7 @@ mod kernel_type_checker_impl {
             &mut self,
             name: *mut LeanObject,
             ty: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject {
             // lean_local_ctx_mk_local_decl returns (fvar, new_lctx) as a pair
             let id = self.st.ngen.mk_fresh_name();
@@ -2913,7 +3011,7 @@ mod kernel_type_checker_impl {
             }
 
             let kind = lean_expr_kind(e);
-            let r: *mut LeanObject = match kind {
+            let r: *mut LeanObject = match kind as u32 {
                 EXPR_LIT => {
                     // lit_type returns Nat or String based on literal kind
                     lean_lit_type(e)
@@ -3201,7 +3299,7 @@ mod kernel_type_checker_impl {
 
             let kind = lean_expr_kind(e);
             // Fast path for non-reducing cases
-            match kind {
+            match kind as u32 {
                 EXPR_BVAR | EXPR_SORT | EXPR_MVAR | EXPR_PI | EXPR_CONST | EXPR_LAMBDA
                 | EXPR_LIT => {
                     lean_inc(e);
@@ -3616,7 +3714,7 @@ mod kernel_type_checker_impl {
         unsafe fn whnf(&mut self, e: *mut LeanObject) -> Result<*mut LeanObject, KernelError> {
             // Fast no-cache cases
             let kind = lean_expr_kind(e);
-            match kind {
+            match kind as u32 {
                 EXPR_BVAR | EXPR_SORT | EXPR_MVAR | EXPR_PI | EXPR_LIT => {
                     lean_inc(e);
                     return Ok(e);
@@ -5664,7 +5762,7 @@ mod kernel_type_checker_impl {
         tc: &mut TypeChecker,
         name: &str,
         ty: *mut LeanObject,
-        bi: u8,
+        bi: LeanBinderInfo,
     ) -> *mut LeanObject {
         let n = lean_string_name(name);
         let fvar = tc.lctx_mk_local_decl(n, ty, bi);
@@ -5692,11 +5790,11 @@ mod kernel_type_checker_impl {
         name: *mut LeanObject,
         lparams: &[*mut LeanObject],
         ty: *mut LeanObject,
-        kind: u8,
+        kind: QuotKind,
     ) -> *mut LeanObject {
         lean_inc(name);
         let ps = lean_list_from_borrowed(lparams);
-        let qv = lean_mk_quot_val(name, ps, ty, kind);
+        let qv = lean_mk_quot_val(name, ps, ty, kind as u8);
         let info = wrap_quot_info(qv);
         lean_environment_add(env, info)
     }
@@ -5837,14 +5935,14 @@ mod kernel_type_checker_impl {
 
         let quot_ty = tc.lctx_mk_pi(&[alpha, r], sort_u, false);
         let quot_name = build_lean_name(&["Quot"]);
-        let mut new_env = add_quot_const(env, quot_name, &[u_name], quot_ty, QUOT_KIND_TYPE);
+        let mut new_env = add_quot_const(env, quot_name, &[u_name], quot_ty, QuotKind::Type);
 
         let quot_const = const_borrowed(quot_name, &[u]);
         let quot_r = app_borrowed(quot_const, &[alpha, r]);
         let a = local_decl(&mut tc, "a", alpha, BI_DEFAULT);
         let quot_mk_ty = tc.lctx_mk_pi(&[alpha, r, a], quot_r, false);
         let quot_mk_name = load_global(&G_QUOT_MK_NAME);
-        new_env = add_quot_const(new_env, quot_mk_name, &[u_name], quot_mk_ty, QUOT_KIND_CTOR);
+        new_env = add_quot_const(new_env, quot_mk_name, &[u_name], quot_mk_ty, QuotKind::Ctor);
 
         drop(tc);
 
@@ -5880,7 +5978,7 @@ mod kernel_type_checker_impl {
             load_global(&G_QUOT_LIFT_NAME),
             &[u_name, v_name],
             lift_ty,
-            QUOT_KIND_LIFT,
+            QuotKind::Lift,
         );
 
         let quot_r2_to_prop = arrow_borrowed(quot_r2, lean_expr_mk_prop());
@@ -5899,7 +5997,7 @@ mod kernel_type_checker_impl {
             load_global(&G_QUOT_IND_NAME),
             &[u_name],
             ind_ty,
-            QUOT_KIND_IND,
+            QuotKind::Ind,
         );
 
         drop(tc);
@@ -6256,7 +6354,7 @@ mod kernel_type_checker_impl {
             &mut self,
             name_obj: *mut LeanObject,
             ty: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject {
             lean_inc(ty);
             let ty2 = lean_expr_consume_type_annotations(ty); // owned, stripped
@@ -6673,7 +6771,7 @@ mod kernel_type_checker_impl {
             &mut self,
             s: &str,
             ty: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject {
             let n = lean_string_name(s);
             let fvar = self.mk_local_decl(n, ty, bi);
@@ -7189,7 +7287,7 @@ mod kernel_type_checker_impl {
             ngen: &mut NameGenerator,
             name: *mut LeanObject,
             ty: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject {
             let id = ngen.mk_fresh_name();
             let pair = lean_local_ctx_mk_local_decl(self.lctx, id, name, ty, bi);

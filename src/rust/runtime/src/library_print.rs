@@ -21,7 +21,8 @@ mod library_print_impl {
         BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, DV_BOOL, DV_NAME, DV_NAT,
         DV_STRING, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT,
         EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
-        LEVEL_PARAM, LEVEL_SUCC, expr_binder_info_raw, expr_bvar_range, expr_let_nondep,
+        LEVEL_PARAM, LEVEL_SUCC, LeanBinderInfo, expr_binder_info_raw, expr_bvar_range,
+        expr_let_nondep,
     };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -275,7 +276,7 @@ mod library_print_impl {
     }
 
     #[inline(always)]
-    unsafe fn fmt_binder_open(bi: u8, out: &mut String) {
+    unsafe fn fmt_binder_open(bi: LeanBinderInfo, out: &mut String) {
         match bi {
             BI_IMPLICIT => out.push('{'),
             BI_STRICT_IMPLICIT => out.push_str("{{"),
@@ -285,7 +286,7 @@ mod library_print_impl {
     }
 
     #[inline(always)]
-    unsafe fn fmt_binder_close(bi: u8, out: &mut String) {
+    unsafe fn fmt_binder_close(bi: LeanBinderInfo, out: &mut String) {
         match bi {
             BI_IMPLICIT => out.push('}'),
             BI_STRICT_IMPLICIT => out.push_str("}}"),

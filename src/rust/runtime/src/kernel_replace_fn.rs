@@ -22,7 +22,7 @@ Field layout (from expr.h):
 */
 
 mod kernel_replace_fn_impl {
-    use crate::runtime_expr_shared::{expr_binder_info_raw, expr_let_nondep};
+    use crate::runtime_expr_shared::{LeanBinderInfo, expr_binder_info_raw, expr_let_nondep};
     use crate::*;
     use core::ffi::c_void;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -33,13 +33,13 @@ mod kernel_replace_fn_impl {
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_forall(
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_let(
             n: *mut LeanObject,

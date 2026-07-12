@@ -1,4 +1,4 @@
-use leanh_l1::datatypes::{LeanObject, LeanTaskImp};
+use leanh_l1::datatypes::{LeanObject, LeanTaskImp, LeanTaskState};
 use leanh_l1::emitted::lean_alloc_closure::lean_alloc_closure;
 use leanh_l1::emitted::lean_closure_set::lean_closure_set;
 use leanh_l1::emitted::lean_dec::lean_dec;
@@ -164,7 +164,7 @@ pub fn lean_io_cancel(_: *mut LeanObject) -> *mut LeanObject {
     todo!("Stub for lean_io_cancel");
 }
 
-pub fn lean_io_get_task_state(_: *mut LeanObject) -> u8 {
+pub fn lean_io_get_task_state(_: *mut LeanObject) -> LeanTaskState {
     todo!("Stub for lean_io_get_task_state");
 }
 

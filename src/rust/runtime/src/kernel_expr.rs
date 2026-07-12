@@ -27,13 +27,13 @@ Scalar field layout (after object pointer fields):
 
 mod kernel_expr_impl {
     use crate::runtime_expr_shared::{
-        expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data, expr_data, expr_let_nondep,
         EXPR_APP, EXPR_BVAR, EXPR_BVAR_RANGE_SHIFT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_PI,
-        EXPR_PROJ,
+        EXPR_PROJ, LeanBinderInfo, expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data,
+        expr_data, expr_let_nondep,
     };
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
     unsafe extern "C" {
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
@@ -41,13 +41,13 @@ mod kernel_expr_impl {
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_forall(
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_let(
             n: *mut LeanObject,

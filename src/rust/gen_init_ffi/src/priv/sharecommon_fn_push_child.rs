@@ -1,13 +1,10 @@
 use leanh_l1::{
-    datatypes::{
-        LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_RESERVED_TAG,
-        LEAN_TASK_TAG, LEAN_THUNK_TAG, LeanObject,
-    },
+    datatypes::{LeanObject, LeanObjectTag},
     emitted::{
         lean_box::lean_box, lean_ctor_get::lean_ctor_get, lean_dec::lean_dec,
         lean_is_scalar::lean_is_scalar,
     },
-    r#priv::lean_ptr_tag::lean_ptr_tag,
+    emitted::lean_object_tag::lean_object_tag,
 };
 
 use crate::r#priv::{
@@ -24,19 +21,19 @@ pub(crate) unsafe fn sharecommon_fn_push_child(
         this.children.push(a as *mut LeanObject);
         return true;
     }
-    let tag = lean_ptr_tag(a);
-    if tag == LEAN_RESERVED_TAG {
-        panic!("unreachable");
-    }
-    if tag == LEAN_THUNK_TAG
-        || tag == LEAN_TASK_TAG
-        || tag == LEAN_REF_TAG
-        || tag == LEAN_EXTERNAL_TAG
-        || tag == LEAN_CLOSURE_TAG
-        || tag == LEAN_PROMISE_TAG
-    {
-        this.children.push(a as *mut LeanObject);
-        return true;
+    match lean_object_tag(a) {
+        LeanObjectTag::Reserved => panic!("unreachable"),
+        LeanObjectTag::Thunk
+        | LeanObjectTag::Task
+        | LeanObjectTag::Ref
+        | LeanObjectTag::External
+        | LeanObjectTag::Closure
+        | LeanObjectTag::Promise => {
+            this.children.push(a as *mut LeanObject);
+            return true;
+        }
+        LeanObjectTag::Ctor(_) | LeanObjectTag::StructArray => {}
+        tag => panic!("unexpected LeanObjectTag in sharecommon_fn_push_child: {tag:?}"),
     }
 
     let o = sharecommon_state_map_find(&this.state, a as *mut LeanObject);

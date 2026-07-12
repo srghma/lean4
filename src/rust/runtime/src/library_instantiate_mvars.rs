@@ -15,7 +15,7 @@ mod library_instantiate_mvars_impl {
         EXPR_MVAR as EXPR_MVAR_TAG, EXPR_PI as EXPR_PI_TAG, EXPR_PROJ as EXPR_PROJ_TAG,
         EXPR_SORT as EXPR_SORT_TAG, LEVEL_DATA_DEPTH_SHIFT, LEVEL_DATA_HAS_MVAR,
         LEVEL_IMAX as LEVEL_IMAX_TAG, LEVEL_MAX as LEVEL_MAX_TAG, LEVEL_PARAM as LEVEL_PARAM_TAG,
-        LEVEL_SUCC as LEVEL_SUCC_TAG,
+        LEVEL_SUCC as LEVEL_SUCC_TAG, LeanBinderInfo,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
@@ -61,13 +61,13 @@ mod library_instantiate_mvars_impl {
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_forall(
             n: *mut LeanObject,
             d: *mut LeanObject,
             b: *mut LeanObject,
-            bi: u8,
+            bi: LeanBinderInfo,
         ) -> *mut LeanObject;
         fn lean_expr_mk_let(
             n: *mut LeanObject,
@@ -429,9 +429,15 @@ mod library_instantiate_mvars_impl {
         has_expr_mvar(e) || has_level_mvar_expr(e)
     }
 
-    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
+    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> LeanBinderInfo {
         let num_objs = (*e).other as usize;
-        lean_ctor_get_uint8(e, num_objs * 8 + 8)
+        match lean_ctor_get_uint8(e, num_objs * 8 + 8) {
+            0 => LeanBinderInfo::Default,
+            1 => LeanBinderInfo::Implicit,
+            2 => LeanBinderInfo::StrictImplicit,
+            3 => LeanBinderInfo::InstImplicit,
+            _ => LeanBinderInfo::Default,
+        }
     }
 
     unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {

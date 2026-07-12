@@ -4,10 +4,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 pub(crate) mod runtime_object_task_impl {
+    use crate::runtime_expr_shared::LeanTaskState;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::sync::atomic::Ordering;
     use leanh::LeanTaskImp;
     use std::collections::VecDeque;
@@ -55,16 +56,16 @@ pub(crate) mod runtime_object_task_impl {
         }
     }
 
-    fn get_task_state(tm: &Arc<TaskManager>, t: *mut LeanTaskObject) -> u8 {
+    fn get_task_state(tm: &Arc<TaskManager>, t: *mut LeanTaskObject) -> LeanTaskState {
         let _guard = tm.inner.lock().unwrap();
         let imp = unsafe { (*t).imp as *mut LeanTaskImp };
         if imp.is_null() {
-            return 2; // finished
+            return LeanTaskState::Finished;
         }
         if unsafe { (*imp).m_closure.is_null() } {
-            return 1; // running / promised
+            return LeanTaskState::Running;
         }
-        0 // waiting / queued
+        LeanTaskState::Waiting
     }
 
     // ─── IO task helpers ──────────────────────────────────────────────────────
@@ -79,15 +80,15 @@ pub(crate) mod runtime_object_task_impl {
         }
     }
 
-    pub unsafe fn lean_io_get_task_state_core(t: *const LeanObject) -> u8 {
+    pub unsafe fn lean_io_get_task_state_core(t: *const LeanObject) -> LeanTaskState {
         let task = t as *mut LeanTaskObject;
         if (*task).imp.is_null() {
-            return 2; // finished
+            return LeanTaskState::Finished;
         }
         if let Some(tm) = get_task_manager() {
             get_task_state(&tm, task)
         } else {
-            2
+            LeanTaskState::Finished
         }
     }
 
