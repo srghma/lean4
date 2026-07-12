@@ -1,4 +1,4 @@
-use leanh_l1::datatypes::{LeanObject, LeanScalarArray, LeanStringObject};
+use leanh_l1::datatypes::LeanObject;
 // Generated stub file for Lean FFI imports
 // Source: src/Init/System/IO.lean
 

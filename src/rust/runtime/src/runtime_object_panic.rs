@@ -42,7 +42,6 @@ mod runtime_object_panic_impl {
     pub fn lean_set_panic_messages(flag: bool) {
         G_PANIC_MESSAGES.store(flag, Ordering::Relaxed);
     }
-
     pub unsafe fn lean_dbg_stack_trace(fn_obj: *mut LeanObject) -> *mut LeanObject {
         backtrace_impl::print_backtrace(false);
         lean_apply_1(fn_obj, lean_box(0))
