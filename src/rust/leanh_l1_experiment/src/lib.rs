@@ -10,3 +10,4 @@ compile_error!("Lean Rust support crates require 64-bit pointer width");
 
 pub mod datatypes;
 pub mod emit_rust_output_example;
+pub mod emitted;
