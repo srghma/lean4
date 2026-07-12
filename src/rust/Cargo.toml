@@ -3,9 +3,10 @@
 
 [workspace]
 members = [
-  "leanh_l1",
-  "leanh_l1_initializers",
-  "gen_init_ffi",
+  "leanh_l1_experiment",
+  # "leanh_l1",
+  # "leanh_l1_initializers",
+  # "gen_init_ffi",
   # "leanh_l2",
   # "runtime",
   # "gen_init",

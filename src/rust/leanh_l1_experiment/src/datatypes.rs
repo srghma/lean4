@@ -69,67 +69,6 @@ impl LeanOptionTag {
     }
 }
 
-impl LeanObjectTag {
-    #[inline]
-    pub const fn from_u8(tag: u8) -> Self {
-        match tag {
-            0..=243 => LeanObjectTag::Ctor(tag),
-            244 => LeanObjectTag::Promise,
-            245 => LeanObjectTag::Closure,
-            246 => LeanObjectTag::Array,
-            247 => LeanObjectTag::StructArray,
-            248 => LeanObjectTag::ScalarArray,
-            249 => LeanObjectTag::String,
-            250 => LeanObjectTag::Mpz,
-            251 => LeanObjectTag::Thunk,
-            252 => LeanObjectTag::Task,
-            253 => LeanObjectTag::Ref,
-            254 => LeanObjectTag::External,
-            255 => LeanObjectTag::Reserved,
-        }
-    }
-
-    #[inline]
-    pub const fn as_u8(self) -> u8 {
-        match self {
-            LeanObjectTag::Ctor(tag) => tag,
-            LeanObjectTag::Promise => 244,
-            LeanObjectTag::Closure => 245,
-            LeanObjectTag::Array => 246,
-            LeanObjectTag::StructArray => 247,
-            LeanObjectTag::ScalarArray => 248,
-            LeanObjectTag::String => 249,
-            LeanObjectTag::Mpz => 250,
-            LeanObjectTag::Thunk => 251,
-            LeanObjectTag::Task => 252,
-            LeanObjectTag::Ref => 253,
-            LeanObjectTag::External => 254,
-            LeanObjectTag::Reserved => 255,
-        }
-    }
-}
-
-impl From<u8> for LeanObjectTag {
-    #[inline]
-    fn from(tag: u8) -> Self {
-        LeanObjectTag::from_u8(tag)
-    }
-}
-
-impl From<u32> for LeanObjectTag {
-    #[inline]
-    fn from(tag: u32) -> Self {
-        LeanObjectTag::from_u8(tag as u8)
-    }
-}
-
-impl From<i32> for LeanObjectTag {
-    #[inline]
-    fn from(tag: i32) -> Self {
-        LeanObjectTag::from_u8(tag as u8)
-    }
-}
-
 pub struct LeanObject {
     pub rc: i32,
     pub cs_size: u16,
