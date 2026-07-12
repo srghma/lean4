@@ -1,3 +1,8 @@
+use leanh_l1::{
+    datatypes::LeanObject,
+    emitted::lean_obj_tag::lean_obj_tag,
+};
+
 #[repr(u32)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum LeanExprTag {
@@ -34,4 +39,9 @@ impl LeanExprTag {
             n => panic!("invalid LeanExprTag {n}"),
         }
     }
+}
+
+#[inline]
+pub unsafe fn lean_expr_tag(expr: *const LeanObject) -> LeanExprTag {
+    LeanExprTag::from_u8(lean_obj_tag(expr))
 }

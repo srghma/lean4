@@ -1,9 +1,9 @@
 use leanh_l1::{
     datatypes::LeanObject,
-    emitted::{lean_ctor_get_uint64::lean_ctor_get_uint64, lean_obj_tag::lean_obj_tag},
+    emitted::lean_ctor_get_uint64::lean_ctor_get_uint64,
 };
 
-use crate::todo_import_from_lean::lean_expr_tag::LeanExprTag;
+use crate::todo_import_from_lean::lean_expr_tag::{lean_expr_tag, LeanExprTag};
 
 #[inline]
 pub unsafe fn expr_data(expr: *const LeanObject) -> u64 {
@@ -21,9 +21,4 @@ pub unsafe fn expr_data(expr: *const LeanObject) -> u64 {
         expr,
         (core::mem::size_of::<*mut LeanObject>() * num_fields) as u32,
     )
-}
-
-#[inline]
-unsafe fn lean_expr_tag(expr: *const LeanObject) -> LeanExprTag {
-    LeanExprTag::from_u8(lean_obj_tag(expr))
 }

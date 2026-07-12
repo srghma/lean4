@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::{LEAN_ARRAY_TAG, LeanArrayObject, LeanObject},
+    datatypes::{LeanArrayObject, LeanObject, LeanObjectTag},
     r#priv::lean_alloc_object::lean_alloc_object,
 };
 
@@ -15,7 +15,7 @@ pub(crate) unsafe fn lean_alloc_array(size: usize, capacity: usize) -> *mut Lean
     (*obj).m_header.rc = 1;
     (*obj).m_header.cs_size = 0;
     (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LEAN_ARRAY_TAG;
+    (*obj).m_header.tag = LeanObjectTag::Array.as_u8();
     (*obj).m_size = size;
     (*obj).m_capacity = capacity;
     obj as *mut LeanObject

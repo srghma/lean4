@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::{LEAN_TASK_TAG, LeanObject, LeanTaskImp, LeanTaskObject},
+    datatypes::{LeanObject, LeanObjectTag, LeanTaskImp, LeanTaskObject},
     emitted::{lean_dec_ref::lean_dec_ref, lean_inc::lean_inc, lean_is_scalar::lean_is_scalar},
     runtime_apply::lean_apply_1,
     runtime_object_rc::lean_mark_mt::lean_mark_mt,
@@ -22,7 +22,10 @@ pub unsafe fn task_bind_fn1(
     lean_dec_ref(x);
 
     let new_task_obj = lean_apply_1(f, v);
-    debug_assert!(!lean_is_scalar(new_task_obj) && (*new_task_obj).tag == LEAN_TASK_TAG);
+    debug_assert!(
+        !lean_is_scalar(new_task_obj)
+            && matches!(LeanObjectTag::from_u8((*new_task_obj).tag), LeanObjectTag::Task)
+    );
     let new_task = new_task_obj as *mut LeanTaskObject;
 
     if !(*new_task).m_value.load(Ordering::Acquire).is_null() {

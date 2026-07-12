@@ -31,7 +31,7 @@ impl LeanLevelTag {
 }
 
 #[inline]
-unsafe fn lean_level_tag(level: *const LeanObject) -> LeanLevelTag {
+pub unsafe fn lean_level_tag(level: *const LeanObject) -> LeanLevelTag {
     LeanLevelTag::from_u8(lean_obj_tag(level))
 }
 
