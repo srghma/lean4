@@ -2,6 +2,7 @@
 
 pub mod lean_alloc_closure;
 pub mod lean_alloc_ctor;
+pub mod lean_alloc_string;
 pub mod lean_bool_once;
 pub mod lean_box;
 pub mod lean_box_float;
@@ -66,3 +67,4 @@ pub mod lean_unbox_uint64;
 pub mod lean_unbox_usize;
 pub mod lean_unsigned_to_nat;
 pub mod lean_usize_once;
+pub mod w_string_cstr;

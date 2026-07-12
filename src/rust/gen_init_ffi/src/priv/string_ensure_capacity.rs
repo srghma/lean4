@@ -1,10 +1,5 @@
 use leanh_l1::{
-    datatypes::LeanObject,
-    emitted::{
-        lean_is_exclusive::lean_is_exclusive,
-        lean_mk_string_unchecked::{lean_alloc_string, w_string_cstr},
-    },
-    r#priv::{
+    datatypes::LeanObject, emitted::{lean_alloc_string::lean_alloc_string, lean_is_exclusive::lean_is_exclusive, w_string_cstr::w_string_cstr}, r#priv::{
         lean_free_object::lean_free_object, lean_string_capacity::lean_string_capacity,
         lean_string_cstr::lean_string_cstr, lean_string_size::lean_string_size,
     },

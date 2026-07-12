@@ -4,9 +4,10 @@
 // exact-text variant: yes
 
 use leanh_l1::datatypes::{LeanObject, LeanStringObject};
+use leanh_l1::emitted::lean_alloc_string::lean_alloc_string;
 use leanh_l1::emitted::lean_dec_ref::lean_dec_ref;
 use leanh_l1::emitted::lean_is_exclusive::lean_is_exclusive;
-use leanh_l1::emitted::lean_mk_string_unchecked::{lean_alloc_string, w_string_cstr};
+use leanh_l1::emitted::w_string_cstr::w_string_cstr;
 use leanh_l1::r#priv::lean_string_cstr::lean_string_cstr;
 use leanh_l1::r#priv::lean_string_size::lean_string_size;
 
