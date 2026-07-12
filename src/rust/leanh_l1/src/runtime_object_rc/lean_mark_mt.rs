@@ -12,8 +12,7 @@ use crate::{
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
         lean_closure_arg_cptr::lean_closure_arg_cptr,
         lean_closure_num_fixed::lean_closure_num_fixed, lean_ctor_num_objs::lean_ctor_num_objs,
-        lean_ctor_obj_cptr::lean_ctor_obj_cptr, lean_is_ctor::lean_is_ctor, lean_is_st::lean_is_st,
-        lean_ptr_tag::lean_ptr_tag, lean_to_external::lean_to_external,
+        lean_ctor_obj_cptr::lean_ctor_obj_cptr, lean_is_ctor::lean_is_ctor, lean_is_st::lean_is_st, lean_to_external::lean_to_external,
         lean_to_promise::lean_to_promise, lean_to_ref::lean_to_ref, lean_to_thunk::lean_to_thunk,
     },
     runtime_object_panic::lean_internal_panic_out_of_memory::lean_internal_panic,
@@ -39,7 +38,7 @@ pub unsafe fn lean_mark_mt(o: *mut LeanObject) {
     while let Some(cur) = todo.pop() {
         if !lean_is_scalar(cur) && lean_is_st(cur) {
             (*cur).rc = -(*cur).rc;
-            let tag = LeanObjectTag::from_u8(lean_ptr_tag(cur));
+            let tag = (*cur).tag();
             if lean_is_ctor(cur) {
                 let it = lean_ctor_obj_cptr(cur);
                 for i in 0..lean_ctor_num_objs(cur) {

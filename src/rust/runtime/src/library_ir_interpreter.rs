@@ -1319,7 +1319,7 @@ mod library_ir_interpreter_impl {
                     } else {
                         if expr_reuse_update_header(e) {
                             let new_tag = ctor_info_tag_val(expr_reuse_ctor(e));
-                            (*o).tag = new_tag as u8;
+                            (*o).set_tag(LeanObjectTag::from(new_tag));
                         }
                         let args = expr_reuse_args(e);
                         let n = array_size(args);
@@ -1520,7 +1520,7 @@ mod library_ir_interpreter_impl {
                     FnBodyKind::SetTag => {
                         let o = self.var_slot(fn_body_set_tag_var(b)).obj();
                         let tag = fn_body_set_tag_cidx(b);
-                        (*o).tag = tag as u8;
+                        (*o).set_tag(LeanObjectTag::from(tag));
                         b = fn_body_set_tag_cont(b);
                     }
                     FnBodyKind::USet => {
@@ -1573,7 +1573,7 @@ mod library_ir_interpreter_impl {
                         let tag: usize = if case_type.is_scalar() {
                             v.num() as usize
                         } else {
-                            match LeanObjectTag::from_u8(lean_obj_tag(v.obj())) {
+                            match lean_obj_tag(v.obj()) {
                                 LeanObjectTag::Ctor(tag) => tag as usize,
                                 tag => panic!("invalid case tag object {tag:?}"),
                             }

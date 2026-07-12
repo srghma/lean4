@@ -21,7 +21,7 @@ pub unsafe fn lean_alloc_sarray(
     (*obj).m_header.rc = 1;
     (*obj).m_header.cs_size = 0;
     (*obj).m_header.other = elem_size as u8;
-    (*obj).m_header.tag = LeanObjectTag::ScalarArray.as_u8();
+    (*obj).m_header.set_tag(LeanObjectTag::ScalarArray);
     (*obj).m_size = size;
     (*obj).m_capacity = capacity;
     obj as *mut LeanObject

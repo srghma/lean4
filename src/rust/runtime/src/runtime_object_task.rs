@@ -127,7 +127,7 @@ pub(crate) mod runtime_object_task_impl {
             as *mut LeanPromiseObject;
         (*o).header.rc = 1;
         (*o).header.other = 0;
-        (*o).header.tag = LeanObjectTag::Promise.as_u8();
+        (*o).header.set_tag(LeanObjectTag::Promise);
         (*o).header.cs_size = 0;
         (*o).result = t as *mut LeanObject;
 

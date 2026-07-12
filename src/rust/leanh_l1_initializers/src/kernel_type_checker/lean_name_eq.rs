@@ -32,7 +32,7 @@ pub unsafe fn lean_name_eq(mut n1: *const LeanObject, mut n2: *const LeanObject)
         if lean_ptr_tag(n1) != lean_ptr_tag(n2) {
             return false;
         }
-        if lean_ptr_tag(n1) == 1 {
+        if lean_ptr_tag(n1) == leanh_l1::datatypes::LeanObjectTag::Ctor(1) {
             // Name.str: field 1 is the string component
             if !lean_string_eq(lean_ctor_get(n1, 1), lean_ctor_get(n2, 1)) {
                 return false;

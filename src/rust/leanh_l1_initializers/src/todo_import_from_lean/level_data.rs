@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::LeanObject,
+    datatypes::{LeanObject, LeanObjectTag},
     emitted::{
         lean_ctor_get_uint64::lean_ctor_get_uint64, lean_is_scalar::lean_is_scalar,
         lean_obj_tag::lean_obj_tag,
@@ -32,7 +32,10 @@ impl LeanLevelTag {
 
 #[inline]
 pub unsafe fn lean_level_tag(level: *const LeanObject) -> LeanLevelTag {
-    LeanLevelTag::from_u8(lean_obj_tag(level))
+    match lean_obj_tag(level) {
+        LeanObjectTag::Ctor(tag) => LeanLevelTag::from_u8(tag),
+        tag => panic!("invalid LeanLevelTag {tag:?}"),
+    }
 }
 
 #[inline]

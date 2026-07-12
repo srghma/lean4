@@ -11,7 +11,7 @@ use crate::{
         lean_closure_arg_cptr::lean_closure_arg_cptr,
         lean_closure_num_fixed::lean_closure_num_fixed, lean_ctor_num_objs::lean_ctor_num_objs,
         lean_ctor_obj_cptr::lean_ctor_obj_cptr, lean_has_rc::lean_has_rc,
-        lean_is_ctor::lean_is_ctor, lean_ptr_tag::lean_ptr_tag, lean_to_external::lean_to_external,
+        lean_is_ctor::lean_is_ctor, lean_to_external::lean_to_external,
         lean_to_promise::lean_to_promise, lean_to_ref::lean_to_ref, lean_to_thunk::lean_to_thunk,
         lsan_ignore::lsan_ignore,
     },
@@ -31,7 +31,7 @@ pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
         if !lean_is_scalar(cur) && lean_has_rc(cur) {
             (*cur).rc = 0;
             lsan_ignore(cur);
-            let tag = LeanObjectTag::from_u8(lean_ptr_tag(cur));
+            let tag = (*cur).tag();
             if lean_is_ctor(cur) {
                 let it = lean_ctor_obj_cptr(cur);
                 for i in 0..lean_ctor_num_objs(cur) {

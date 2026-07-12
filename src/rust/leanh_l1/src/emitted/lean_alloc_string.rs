@@ -14,7 +14,7 @@ pub unsafe fn lean_alloc_string(size: usize, capacity: usize, len: usize) -> *mu
     (*obj).m_header.rc = 1;
     (*obj).m_header.cs_size = 0;
     (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LeanObjectTag::String.as_u8();
+    (*obj).m_header.set_tag(LeanObjectTag::String);
     (*obj).m_size = size;
     (*obj).m_capacity = capacity;
     (*obj).m_length = len;

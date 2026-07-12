@@ -64,7 +64,10 @@ impl LeanIoErrorTag {
 
 #[inline]
 pub unsafe fn lean_io_error_tag(err: *const LeanObject) -> LeanIoErrorTag {
-    LeanIoErrorTag::from_u8(lean_obj_tag(err))
+    match lean_obj_tag(err) {
+        crate::datatypes::LeanObjectTag::Ctor(tag) => LeanIoErrorTag::from_u8(tag),
+        tag => panic!("invalid LeanIoErrorTag {tag:?}"),
+    }
 }
 
 pub const LEAN_IO_ERROR_TEXT_ALREADY_EXISTS: &str = "already exists";

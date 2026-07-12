@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::LeanObject,
+    datatypes::{LeanObject, LeanObjectTag},
     emitted::lean_obj_tag::lean_obj_tag,
 };
 
@@ -43,5 +43,8 @@ impl LeanExprTag {
 
 #[inline]
 pub unsafe fn lean_expr_tag(expr: *const LeanObject) -> LeanExprTag {
-    LeanExprTag::from_u8(lean_obj_tag(expr))
+    match lean_obj_tag(expr) {
+        LeanObjectTag::Ctor(tag) => LeanExprTag::from_u8(tag),
+        tag => panic!("invalid LeanExprTag {tag:?}"),
+    }
 }

@@ -11,12 +11,7 @@ static mut OUT_PARAM_NAME___closed__0_once: LeanOnceCell = LeanOnceCell {
 };
 static mut OUT_PARAM_NAME___closed__0: *mut LeanObject = core::ptr::null_mut();
 static OUT_PARAM_NAME___closed__0_value: LeanStringObject<9> = LeanStringObject {
-    m_header: leanh_l1::datatypes::LeanObject {
-        rc: 0,
-        cs_size: 0,
-        other: 0,
-        tag: 249,
-    },
+    m_header: leanh_l1::datatypes::LeanObject::new(0, 0, 0, leanh_l1::datatypes::LeanObjectTag::String),
     m_size: 9,
     m_capacity: 9,
     m_length: 8,
@@ -29,12 +24,7 @@ static mut SEMI_OUT_PARAM_NAME___closed__0_once: LeanOnceCell = LeanOnceCell {
 };
 static mut SEMI_OUT_PARAM_NAME___closed__0: *mut LeanObject = core::ptr::null_mut();
 static SEMI_OUT_PARAM_NAME___closed__0_value: LeanStringObject<13> = LeanStringObject {
-    m_header: leanh_l1::datatypes::LeanObject {
-        rc: 0,
-        cs_size: 0,
-        other: 0,
-        tag: 249,
-    },
+    m_header: leanh_l1::datatypes::LeanObject::new(0, 0, 0, leanh_l1::datatypes::LeanObjectTag::String),
     m_size: 13,
     m_capacity: 13,
     m_length: 12,
@@ -47,12 +37,7 @@ static mut OPT_PARAM_NAME___closed__0_once: LeanOnceCell = LeanOnceCell {
 };
 static mut OPT_PARAM_NAME___closed__0: *mut LeanObject = core::ptr::null_mut();
 static OPT_PARAM_NAME___closed__0_value: LeanStringObject<9> = LeanStringObject {
-    m_header: leanh_l1::datatypes::LeanObject {
-        rc: 0,
-        cs_size: 0,
-        other: 0,
-        tag: 249,
-    },
+    m_header: leanh_l1::datatypes::LeanObject::new(0, 0, 0, leanh_l1::datatypes::LeanObjectTag::String),
     m_size: 9,
     m_capacity: 9,
     m_length: 8,
@@ -65,12 +50,7 @@ static mut AUTO_PARAM_NAME___closed__0_once: LeanOnceCell = LeanOnceCell {
 };
 static mut AUTO_PARAM_NAME___closed__0: *mut LeanObject = core::ptr::null_mut();
 static AUTO_PARAM_NAME___closed__0_value: LeanStringObject<10> = LeanStringObject {
-    m_header: leanh_l1::datatypes::LeanObject {
-        rc: 0,
-        cs_size: 0,
-        other: 0,
-        tag: 249,
-    },
+    m_header: leanh_l1::datatypes::LeanObject::new(0, 0, 0, leanh_l1::datatypes::LeanObjectTag::String),
     m_size: 10,
     m_capacity: 10,
     m_length: 9,

@@ -3,8 +3,8 @@ use leanh_l1::{
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_get::lean_ctor_get,
         lean_ctor_set::lean_ctor_set, lean_inc::lean_inc,
+        lean_object_tag::lean_object_tag,
     },
-    r#priv::lean_ptr_tag::lean_ptr_tag,
 };
 
 use crate::r#priv::{
@@ -26,7 +26,10 @@ pub(crate) unsafe fn sharecommon_fn_visit_ctor(this: &mut ShareCommonFn, a: *mut
     if missing_child {
         return;
     }
-    let tag = lean_ptr_tag(a) as u32;
+    let tag = match lean_object_tag(a) {
+        leanh_l1::datatypes::LeanObjectTag::Ctor(tag) => tag,
+        other => panic!("unexpected LeanObjectTag in sharecommon_fn_visit_ctor: {other:?}"),
+    };
     let sz = lean_object_byte_size(a);
     let scalar_offset =
         core::mem::size_of::<LeanObject>() + num_objs * core::mem::size_of::<*mut LeanObject>();

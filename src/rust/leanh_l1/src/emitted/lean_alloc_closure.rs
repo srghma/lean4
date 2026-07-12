@@ -19,7 +19,7 @@ pub unsafe fn lean_alloc_closure(fun: *mut c_void, arity: u32, num_fixed: u32) -
     let obj = lean_alloc_object(byte_size) as *mut LeanClosureObject<0>;
     (*obj).m_header.rc = 1;
     (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LeanObjectTag::Closure.as_u8();
+    (*obj).m_header.set_tag(LeanObjectTag::Closure);
     // (*obj).m_header.cs_size = 0;
     (*obj).m_fun = fun;
     (*obj).m_arity = arity as u16;

@@ -12,7 +12,7 @@ pub unsafe fn lean_alloc_external(
         as *mut LeanExternalObject;
     (*obj).m_header.rc = 1;
     (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LeanObjectTag::External.as_u8();
+    (*obj).m_header.set_tag(LeanObjectTag::External);
     (*obj).m_class = class;
     (*obj).m_data = data;
     obj as *mut LeanObject

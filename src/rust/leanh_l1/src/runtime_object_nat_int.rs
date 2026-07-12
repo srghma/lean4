@@ -50,7 +50,7 @@ pub unsafe fn lean_alloc_mpz(mpz: *const mpz_t) -> *mut LeanObject {
     let slot = lean_mpz_val_mut(obj);
     mpz_init_set(slot, mpz);
     (*obj).rc = 1;
-    (*obj).tag = LeanObjectTag::Mpz.as_u8();
+    (*obj).set_tag(LeanObjectTag::Mpz);
     (*obj).other = 0;
     (*obj).cs_size = saved_cs_size;
     obj

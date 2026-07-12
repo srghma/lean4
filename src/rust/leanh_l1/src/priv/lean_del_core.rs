@@ -1,9 +1,10 @@
 use crate::{
     datatypes::{LeanObject, LeanObjectTag},
+    emitted::lean_object_tag::lean_object_tag,
     r#priv::{
         dec_for_del::dec_for_del, lean_ctor_num_objs::lean_ctor_num_objs,
         lean_ctor_obj_cptr::lean_ctor_obj_cptr, lean_del_core_other::lean_del_core_other,
-        lean_free_small_object::lean_free_small_object, lean_ptr_tag::lean_ptr_tag,
+        lean_free_small_object::lean_free_small_object,
     },
 };
 
@@ -11,8 +12,8 @@ use crate::{
 #[inline]
 pub unsafe fn lean_del_core(obj: *mut LeanObject, todo: &mut *mut LeanObject) {
     unsafe {
-        let tag = lean_ptr_tag(obj);
-        if matches!(LeanObjectTag::from_u8(tag), LeanObjectTag::Ctor(_)) {
+        let tag = lean_object_tag(obj);
+        if matches!(tag, LeanObjectTag::Ctor(_)) {
             let fields = lean_ctor_obj_cptr(obj);
             for i in 0..lean_ctor_num_objs(obj) {
                 dec_for_del(*fields.add(i), todo);

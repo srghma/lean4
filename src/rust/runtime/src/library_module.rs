@@ -315,7 +315,7 @@ mod library_module_impl {
         let mut m_next = data_ptr.add(core::mem::size_of::<usize>()); // skip root offset
         while (m_next as usize) < m_end {
             let curr = m_next as *mut LeanObject;
-            let tag = LeanObjectTag::from_u8((*curr).tag);
+            let tag = (*curr).tag();
             let advance = match tag {
                 LeanObjectTag::Ctor(_) => {
                     // Constructor: fix each object-pointer field.

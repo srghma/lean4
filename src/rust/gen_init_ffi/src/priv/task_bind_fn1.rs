@@ -22,10 +22,7 @@ pub unsafe fn task_bind_fn1(
     lean_dec_ref(x);
 
     let new_task_obj = lean_apply_1(f, v);
-    debug_assert!(
-        !lean_is_scalar(new_task_obj)
-            && matches!(LeanObjectTag::from_u8((*new_task_obj).tag), LeanObjectTag::Task)
-    );
+    debug_assert!(!lean_is_scalar(new_task_obj) && matches!((*new_task_obj).tag(), LeanObjectTag::Task));
     let new_task = new_task_obj as *mut LeanTaskObject;
 
     if !(*new_task).m_value.load(Ordering::Acquire).is_null() {

@@ -4,7 +4,7 @@ use leanh_l1::datatypes::{LeanObject, LeanObjectTag};
 #[inline(always)]
 pub unsafe fn set_task_header_st(o: *mut LeanObject) {
     (*o).rc = 1;
-    (*o).tag = LeanObjectTag::Task.as_u8();
+    (*o).set_tag(LeanObjectTag::Task);
     (*o).other = 0;
     (*o).cs_size = 0;
 }

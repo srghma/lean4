@@ -5,11 +5,12 @@ use crate::{
 
 // Mirrors origin-master-src/include/lean/lean.h:708-711 (`lean_ctor_set_tag`).
 #[inline]
-pub unsafe fn lean_ctor_set_tag(obj: *mut LeanObject, new_tag: u8) {
+pub unsafe fn lean_ctor_set_tag<T: Into<LeanObjectTag>>(obj: *mut LeanObject, new_tag: T) {
     debug_assert!(lean_is_ctor(obj));
+    let new_tag = new_tag.into();
     debug_assert!(matches!(
-        LeanObjectTag::from_u8(new_tag),
+        new_tag,
         LeanObjectTag::Ctor(_)
     ));
-    (*obj).tag = new_tag;
+    (*obj).set_tag(new_tag);
 }

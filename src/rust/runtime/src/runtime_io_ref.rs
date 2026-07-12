@@ -6,16 +6,16 @@ Released under Apache 2.0 license as described in the file LICENSE.
 mod runtime_io_ref_impl {
     use crate::datatypes::LeanRefObject;
     use crate::runtime_object_panic_impl::lean_internal_panic;
-    use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
-    use core::sync::atomic::{AtomicPtr, Ordering};
-    use leanh::LEAN_REF_TAG;
+use crate::*;
+use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+use core::sync::atomic::{AtomicPtr, Ordering};
+use leanh::datatypes::LeanObjectTag;
 
-    unsafe fn lean_set_st_header(o: *mut LeanObject, tag: u8, other: u8) {
+    unsafe fn lean_set_st_header(o: *mut LeanObject, tag: LeanObjectTag, other: u8) {
         (*o).rc = 1;
         (*o).cs_size = 0;
         (*o).other = other;
-        (*o).tag = tag;
+        (*o).set_tag(tag);
     }
 
     fn lean_is_mt(o: *mut LeanObject) -> bool {
@@ -38,7 +38,7 @@ mod runtime_io_ref_impl {
         let o = crate::runtime_object_rc_impl::lean_alloc_small_object(core::mem::size_of::<
             LeanRefObject,
         >()) as *mut LeanRefObject;
-        lean_set_st_header(o as *mut LeanObject, LEAN_REF_TAG, 0);
+        lean_set_st_header(o as *mut LeanObject, LeanObjectTag::Ref, 0);
         (*o).value = a;
         o as *mut LeanObject
     }

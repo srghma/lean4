@@ -40,7 +40,7 @@ pub(crate) unsafe fn quar_report_uaf(o: *mut LeanObject, op: &str) {
             "\n=== USE-AFTER-FREE DETECTED ({} of a freed/quarantined object) ===",
             op
         );
-        eprintln!("obj={:p} tag={} other={}", o, lean_ptr_tag(o), (*o).other);
+        eprintln!("obj={:p} tag={:?} other={}", o, lean_ptr_tag(o), (*o).other);
         let w = o as *const u64;
         eprintln!(
             "words: [0]={:#018x} [1]={:#018x} [2]={:#018x} [3]={:#018x}",

@@ -15,7 +15,7 @@ mod runtime_object_size_impl {
     use leanh::datatypes::LeanObjectTag;
 
     pub unsafe fn lean_object_byte_size(o: *const LeanObject) -> usize {
-        match LeanObjectTag::from_u8(lean_ptr_tag(o)) {
+        match (*o).tag() {
             LeanObjectTag::Array => lean_array_byte_size(o),
             LeanObjectTag::ScalarArray => lean_sarray_byte_size(o),
             LeanObjectTag::String => lean_string_byte_size(o),

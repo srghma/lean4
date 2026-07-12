@@ -2,7 +2,7 @@ use core::ptr;
 use std::ffi::c_uchar;
 
 use leanh_l1::{
-    datatypes::LeanObject,
+    datatypes::{LeanObject, LeanObjectTag},
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_set::lean_ctor_set,
         lean_ctor_set_uint64::lean_ctor_set_uint64, lean_obj_tag::lean_obj_tag,
@@ -31,7 +31,10 @@ impl LeanNameTag {
 
 #[inline]
 unsafe fn lean_name_tag(obj: *const LeanObject) -> LeanNameTag {
-    LeanNameTag::from_u8(lean_obj_tag(obj))
+    match lean_obj_tag(obj) {
+        LeanObjectTag::Ctor(tag) => LeanNameTag::from_u8(tag),
+        tag => panic!("invalid LeanNameTag {tag:?}"),
+    }
 }
 
 pub const LEAN_NAME_NUM_OBJECT_FIELDS: u32 = 2;

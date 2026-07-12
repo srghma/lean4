@@ -4,10 +4,15 @@ use crate::{
 };
 
 #[inline]
-pub unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_size: u32) -> *mut LeanObject {
+pub unsafe fn lean_alloc_ctor<T: Into<crate::datatypes::LeanObjectTag>>(
+    tag: T,
+    num_objs: u32,
+    scalar_size: u32,
+) -> *mut LeanObject {
     unsafe {
+        let tag = tag.into();
         debug_assert!(matches!(
-            crate::datatypes::LeanObjectTag::from_u8(tag as u8),
+            tag,
             crate::datatypes::LeanObjectTag::Ctor(_)
         ));
         debug_assert!(num_objs < LEAN_MAX_CTOR_FIELDS);
@@ -18,7 +23,7 @@ pub unsafe fn lean_alloc_ctor(tag: u32, num_objs: u32, scalar_size: u32) -> *mut
         let obj = lean_alloc_ctor_memory(byte_size) as *mut LeanCtorObject<0>;
         (*obj).m_header.rc = 1;
         (*obj).m_header.other = num_objs as u8;
-        (*obj).m_header.tag = tag as u8;
+        (*obj).m_header.set_tag(tag);
         obj as *mut LeanObject
     }
 }

@@ -251,7 +251,7 @@ mod runtime_compact_writer_impl {
             let sz = runtime_object_size_impl::lean_object_byte_size(o);
             let offset = self.alloc(sz);
             core::ptr::copy_nonoverlapping(o as *const u8, self.buf.as_mut_ptr().add(offset), sz);
-            self.set_non_heap_header(offset, sz as u16, (*o).tag, (*o).other);
+            self.set_non_heap_header(offset, sz as u16, (*o).tag().as_u8(), (*o).other);
             offset
         }
 
@@ -539,33 +539,33 @@ mod runtime_compact_writer_impl {
                         self.todo.pop();
                         continue;
                     }
-                    let tag = (*curr).tag;
-                    let done = if tag <= LEAN_MAX_CTOR_TAG {
+                    let tag = (*curr).tag();
+                    let done = if matches!(tag, LeanObjectTag::Ctor(_)) {
                         self.insert_constructor(curr)
                     } else {
                         match tag {
-                            LEAN_CLOSURE_TAG => self.insert_closure(curr)?,
-                            LEAN_ARRAY_TAG => self.insert_array(curr),
-                            LEAN_SCALAR_ARRAY_TAG => {
+                            LeanObjectTag::Closure => self.insert_closure(curr)?,
+                            LeanObjectTag::Array => self.insert_array(curr),
+                            LeanObjectTag::ScalarArray => {
                                 self.insert_sarray(curr);
                                 true
                             }
-                            LEAN_STRING_TAG => {
+                            LeanObjectTag::String => {
                                 self.insert_string(curr);
                                 true
                             }
-                            LEAN_MPZ_TAG => {
+                            LeanObjectTag::Mpz => {
                                 self.insert_mpz(curr);
                                 true
                             }
-                            LEAN_THUNK_TAG => self.insert_thunk(curr),
-                            LEAN_TASK_TAG => self.insert_task(curr),
-                            LEAN_PROMISE_TAG => self.insert_promise(curr),
-                            LEAN_REF_TAG => self.insert_ref(curr),
-                            LEAN_EXTERNAL_TAG => {
+                            LeanObjectTag::Thunk => self.insert_thunk(curr),
+                            LeanObjectTag::Task => self.insert_task(curr),
+                            LeanObjectTag::Promise => self.insert_promise(curr),
+                            LeanObjectTag::Ref => self.insert_ref(curr),
+                            LeanObjectTag::External => {
                                 return Err("external objects cannot be compacted".to_owned());
                             }
-                            _ => return Err(format!("unexpected lean object tag: {}", tag)),
+                            _ => return Err(format!("unexpected lean object tag: {tag:?}")),
                         }
                     };
                     if done {

@@ -880,7 +880,10 @@ mod kernel_type_checker_impl {
 
     #[no_mangle]
     pub unsafe fn lean_quot_val_kind(v: *const LeanObject) -> QuotKind {
-        quot_kind_from_tag(lean_ptr_tag(lean_ctor_get(v, 3)) as u8)
+        match lean_ptr_tag(lean_ctor_get(v, 3)) {
+            crate::datatypes::LeanObjectTag::Ctor(tag) => quot_kind_from_tag(tag),
+            other => panic!("invalid QuotKind tag {other:?}"),
+        }
     }
 
     // --- ConstructorVal: field[0]=cv, field[1]=induct, field[2]=cidx, field[3]=nparams, field[4]=nfields ---

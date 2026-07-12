@@ -21,8 +21,12 @@ use crate::{
 };
 
 #[inline(always)]
-pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut LeanObject) {
-    match LeanObjectTag::from_u8(tag) {
+pub unsafe fn lean_del_core_other(
+    o: *mut LeanObject,
+    tag: LeanObjectTag,
+    todo: &mut *mut LeanObject,
+) {
+    match tag {
         LeanObjectTag::Closure => {
             let it = lean_closure_arg_cptr(o);
             for i in 0..lean_closure_num_fixed(o) {

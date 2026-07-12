@@ -71,7 +71,7 @@ impl LeanOptionTag {
 
 impl LeanObjectTag {
     #[inline]
-    pub fn from_u8(tag: u8) -> Self {
+    pub const fn from_u8(tag: u8) -> Self {
         match tag {
             0..=243 => LeanObjectTag::Ctor(tag),
             244 => LeanObjectTag::Promise,
@@ -90,7 +90,7 @@ impl LeanObjectTag {
     }
 
     #[inline]
-    pub fn as_u8(self) -> u8 {
+    pub const fn as_u8(self) -> u8 {
         match self {
             LeanObjectTag::Ctor(tag) => tag,
             LeanObjectTag::Promise => 244,
@@ -109,12 +109,57 @@ impl LeanObjectTag {
     }
 }
 
+impl From<u8> for LeanObjectTag {
+    #[inline]
+    fn from(tag: u8) -> Self {
+        LeanObjectTag::from_u8(tag)
+    }
+}
+
+impl From<u32> for LeanObjectTag {
+    #[inline]
+    fn from(tag: u32) -> Self {
+        LeanObjectTag::from_u8(tag as u8)
+    }
+}
+
+impl From<i32> for LeanObjectTag {
+    #[inline]
+    fn from(tag: i32) -> Self {
+        LeanObjectTag::from_u8(tag as u8)
+    }
+}
+
 #[repr(C)]
 pub struct LeanObject {
     pub rc: i32,
     pub cs_size: u16,
     pub other: u8,
-    pub tag: u8,
+    // Stored as a byte to preserve the Lean object ABI/layout.
+    // Use `tag()` / `set_tag()` for typed access.
+    tag: u8,
+}
+
+impl LeanObject {
+    #[inline]
+    pub const fn new(rc: i32, cs_size: u16, other: u8, tag: LeanObjectTag) -> Self {
+        Self {
+            rc,
+            cs_size,
+            other,
+            tag: tag.as_u8(),
+        }
+    }
+
+    #[inline]
+    pub fn tag(&self) -> LeanObjectTag {
+        LeanObjectTag::from_u8(self.tag)
+    }
+
+    #[inline]
+    pub fn set_tag(&mut self, tag: LeanObjectTag) {
+        self.tag = tag.as_u8();
+    }
 }
 
 #[repr(C)]
