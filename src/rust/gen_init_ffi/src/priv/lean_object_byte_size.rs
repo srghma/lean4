@@ -6,10 +6,8 @@ use leanh_l1::{
 };
 
 use crate::r#priv::{
-    lean_array_byte_size::lean_array_byte_size,
-    lean_closure_byte_size::lean_closure_byte_size,
-    lean_sarray_byte_size::lean_sarray_byte_size,
-    lean_string_byte_size::lean_string_byte_size,
+    lean_array_byte_size::lean_array_byte_size, lean_closure_byte_size::lean_closure_byte_size,
+    lean_sarray_byte_size::lean_sarray_byte_size, lean_string_byte_size::lean_string_byte_size,
 };
 
 pub unsafe fn lean_object_byte_size(o: *const LeanObject) -> usize {

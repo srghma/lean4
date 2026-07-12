@@ -7,14 +7,11 @@ use leanh_l1::{
     r#priv::lean_ptr_tag::lean_ptr_tag,
 };
 
-use crate::{
-    r#priv::{
-        lean_object_byte_size::lean_object_byte_size,
-        sharecommon_quick_check_cache::sharecommon_quick_check_cache,
-        sharecommon_quick_data::RustShareCommonQuick,
-        sharecommon_quick_save::sharecommon_quick_save,
-        sharecommon_quick_visit::sharecommon_quick_visit,
-    },
+use crate::r#priv::{
+    lean_object_byte_size::lean_object_byte_size,
+    sharecommon_quick_check_cache::sharecommon_quick_check_cache,
+    sharecommon_quick_data::RustShareCommonQuick, sharecommon_quick_save::sharecommon_quick_save,
+    sharecommon_quick_visit::sharecommon_quick_visit,
 };
 
 // appended by move_rust_fn_to_gen_init_ffi.ts from src/rust/runtime/src/runtime_sharecommon.rs:94-123

@@ -7,8 +7,7 @@ use leanh_l1::{
 };
 
 use crate::r#priv::{
-    sharecommon_data::ShareCommonFn,
-    sharecommon_state_map_insert::sharecommon_state_map_insert,
+    sharecommon_data::ShareCommonFn, sharecommon_state_map_insert::sharecommon_state_map_insert,
     sharecommon_state_set_find::sharecommon_state_set_find,
     sharecommon_state_set_insert::sharecommon_state_set_insert,
 };

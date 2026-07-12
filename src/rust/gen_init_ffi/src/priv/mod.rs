@@ -4,6 +4,7 @@ pub mod add_task_dep;
 pub mod alloc_running_task;
 pub mod alloc_task_imp;
 pub mod enqueue_task;
+pub mod io_eprintln;
 pub mod is_utf8_first_byte;
 pub mod lean_alloc_array;
 pub mod lean_array_byte_size;

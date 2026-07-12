@@ -1,7 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject,
-    r#priv::lean_to_string::lean_to_string,
-};
+use leanh_l1::{datatypes::LeanObject, r#priv::lean_to_string::lean_to_string};
 
 #[inline]
 pub unsafe fn lean_string_length(obj: *const LeanObject) -> usize {

@@ -1,17 +1,10 @@
-use leanh_l1::{
-    datatypes::LeanObject,
-    r#priv::lean_array_size::lean_array_size,
-};
+use leanh_l1::{datatypes::LeanObject, r#priv::lean_array_size::lean_array_size};
 
-use crate::{
-    r#priv::{
-        lean_array_get_core::lean_array_get_core,
-        lean_alloc_array::lean_alloc_array,
-        sharecommon_quick_check_cache::sharecommon_quick_check_cache,
-        sharecommon_quick_data::RustShareCommonQuick,
-        sharecommon_quick_save::sharecommon_quick_save,
-        sharecommon_quick_visit::sharecommon_quick_visit,
-    },
+use crate::r#priv::{
+    lean_alloc_array::lean_alloc_array, lean_array_get_core::lean_array_get_core,
+    sharecommon_quick_check_cache::sharecommon_quick_check_cache,
+    sharecommon_quick_data::RustShareCommonQuick, sharecommon_quick_save::sharecommon_quick_save,
+    sharecommon_quick_visit::sharecommon_quick_visit,
 };
 
 // appended by move_rust_fn_to_gen_init_ffi.ts from src/rust/runtime/src/runtime_sharecommon.rs:76-93

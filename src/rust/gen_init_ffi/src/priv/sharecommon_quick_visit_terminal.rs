@@ -1,7 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject,
-    emitted::lean_inc::lean_inc,
-};
+use leanh_l1::{datatypes::LeanObject, emitted::lean_inc::lean_inc};
 
 use crate::r#priv::sharecommon_quick_data::{RustShareCommonQuick, ShareConsNode};
 

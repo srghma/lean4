@@ -1,7 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject,
-    emitted::lean_inc::lean_inc,
-};
+use leanh_l1::{datatypes::LeanObject, emitted::lean_inc::lean_inc};
 
 use crate::r#priv::sharecommon_quick_data::{RustShareCommonQuick, ShareConsNode};
 
@@ -18,11 +15,12 @@ pub(crate) unsafe fn sharecommon_quick_check_cache(
             return res;
         }
         if this.check_set
-            && let Some(node) = this.set.get(&ShareConsNode(a)) {
-                let res = node.0;
-                lean_inc(res);
-                return res;
-            }
+            && let Some(node) = this.set.get(&ShareConsNode(a))
+        {
+            let res = node.0;
+            lean_inc(res);
+            return res;
+        }
     }
     std::ptr::null_mut()
 }

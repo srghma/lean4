@@ -1,14 +1,12 @@
 use leanh_l1::{
     datatypes::LeanObject,
     emitted::lean_alloc_string::lean_alloc_string,
-    r#priv::{
-        lean_string_cstr::lean_string_cstr,
-        lean_string_size::lean_string_size,
-    },
+    r#priv::{lean_string_cstr::lean_string_cstr, lean_string_size::lean_string_size},
 };
 
 use crate::r#priv::{
-    lean_string_length::lean_string_length, sharecommon_data::ShareCommonFn, sharecommon_fn_save::sharecommon_fn_save,
+    lean_string_length::lean_string_length, sharecommon_data::ShareCommonFn,
+    sharecommon_fn_save::sharecommon_fn_save,
 };
 
 // appended by move_rust_fn_to_gen_init_ffi.ts from src/rust/runtime/src/runtime_sharecommon.rs:75-84

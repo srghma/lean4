@@ -107,45 +107,10 @@ mod runtime_debug_impl {
     }
 }
 
-pub use runtime_debug_impl::*;
-
-unsafe fn io_eprintln_checked(msg: *mut LeanObject) {
-    let result = lean_io_eprintln(msg);
-    debug_assert!(lean_io_result_is_ok(result));
-    lean_dec(result);
-}
-
-unsafe fn lean_is_shared_obj(obj: *const LeanObject) -> bool {
-    !lean_is_scalar(obj) && (*obj).rc > 1
-}
-
 pub unsafe fn lean_closure_max_args(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(16)
 }
 
 pub unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(usize::MAX >> 1)
-}
-
-pub unsafe fn lean_dbg_trace(msg: *mut LeanObject, action: *mut LeanObject) -> *mut LeanObject {
-    io_eprintln_checked(msg);
-    lean_apply_1(action, lean_box(0))
-}
-
-pub unsafe fn lean_dbg_sleep(ms: u32, action: *mut LeanObject) -> *mut LeanObject {
-    std::thread::sleep(std::time::Duration::from_millis(ms as u64));
-    lean_apply_1(action, lean_box(0))
-}
-
-pub unsafe fn lean_dbg_trace_if_shared(
-    msg: *mut LeanObject,
-    value: *mut LeanObject,
-) -> *mut LeanObject {
-    if lean_is_shared_obj(value) {
-        let suffix = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
-        let text = std::ffi::CString::new(format!("shared RC {suffix}"))
-            .expect("debug trace message has embedded NUL");
-        io_eprintln_checked(lean_mk_string(text.as_ptr()));
-    }
-    value
 }

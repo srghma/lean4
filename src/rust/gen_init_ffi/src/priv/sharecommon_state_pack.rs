@@ -1,8 +1,6 @@
 use leanh_l1::{
     datatypes::LeanObject,
-    emitted::{
-        lean_alloc_ctor::lean_alloc_ctor, lean_box::lean_box, lean_ctor_set::lean_ctor_set,
-    },
+    emitted::{lean_alloc_ctor::lean_alloc_ctor, lean_box::lean_box, lean_ctor_set::lean_ctor_set},
 };
 
 use crate::r#priv::sharecommon_data::ShareCommonState;

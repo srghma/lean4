@@ -4,10 +4,7 @@ use leanh_l1_initializers::r#priv::{
     lean_sarray_size::lean_sarray_size,
 };
 
-use crate::r#priv::{
-    sharecommon_data::ShareCommonFn,
-    sharecommon_fn_save::sharecommon_fn_save,
-};
+use crate::r#priv::{sharecommon_data::ShareCommonFn, sharecommon_fn_save::sharecommon_fn_save};
 
 // appended by move_rust_fn_to_gen_init_ffi.ts from src/rust/runtime/src/runtime_sharecommon.rs:75-84
 

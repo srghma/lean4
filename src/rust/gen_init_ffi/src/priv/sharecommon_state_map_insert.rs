@@ -1,8 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject,
-    emitted::lean_inc::lean_inc,
-    runtime_apply::lean_apply_3,
-};
+use leanh_l1::{datatypes::LeanObject, emitted::lean_inc::lean_inc, runtime_apply::lean_apply_3};
 
 use crate::r#priv::sharecommon_data::ShareCommonState;
 

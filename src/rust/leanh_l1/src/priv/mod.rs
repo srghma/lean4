@@ -37,6 +37,7 @@ pub mod lean_is_external;
 pub mod lean_is_promise;
 pub mod lean_is_ref;
 pub mod lean_is_sarray;
+pub mod lean_is_shared;
 pub mod lean_is_st;
 pub mod lean_is_string;
 pub mod lean_is_task;

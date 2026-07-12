@@ -1,7 +1,4 @@
-use leanh_l1::{
-    datatypes::LeanObject,
-    r#priv::lean_to_sarray::lean_to_sarray,
-};
+use leanh_l1::{datatypes::LeanObject, r#priv::lean_to_sarray::lean_to_sarray};
 
 #[inline]
 pub unsafe fn lean_sarray_size(obj: *const LeanObject) -> usize {
